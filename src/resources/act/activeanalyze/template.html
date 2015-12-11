@@ -1,0 +1,15 @@
+<script type="text/template" id="activeAnalyzeList">
+	<% _.each(content,function(item){ %>
+		<tr>
+			<td></td>
+			<td title="<%=item.salesName%>"><%=item.salesName%></td>
+			<td><%=item.eaName%></td>
+			<td><%=item.openTime%></td>
+			<td><%=item.periodActualLaunchCount%></td>
+			<td><%=item.periodActivityCount%></td>
+
+			<td></td>
+		</tr>
+	<% }) %>
+</script>
+

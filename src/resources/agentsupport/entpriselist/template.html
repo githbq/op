@@ -1,0 +1,124 @@
+<script type="text/template" id="trTpl">
+    <% _.each( content, function( item ){ %>
+        <tr>
+            <td></td>
+            <td> <%=item.enterpriseName%> </td>
+            <td> <%=item.enterpriseAccount%> </td>
+            <td> <%=item.runStatusStr%> </td>
+            <td> <%=item.industryStr%> </td>
+            <td> <%=item.activityStr%> </td>
+            <td> <%=item.contactName%> , <%=item.contactPhone%> , <%=item.contactEmail%> , <%=item.contactIM%> </td>
+            <td> 
+                <a data-id="<%=item.id%>" class="detail">查看&nbsp;</a>
+                <a data-id="<%=item.id%>" class="trackrecord">&nbsp;跟踪记录&nbsp;</a>
+				<a data-permissions="F009001" data-id="<%=item.id%>" class="enterpriseAssign">&nbsp;分配</a>
+                <!--<a data-id="<%=item.id%>" class="renew">增购续费</a>-->
+            </td>
+            <td></td>
+        </tr>
+    <% } )%>
+</script>
+
+<script type="text/template" id="renewapply">
+<div class="m-renewapply u-renewdetail">
+    <p>
+        <label> <span>企业名称</span> <input type="text" ce-model="enterpriseName" disabled> </label>
+        <label> <span>企业账号</span> <input type="text" ce-model="enterpriseAccount" disabled> </label>
+    </p>
+    <p>
+        <label>
+            <span>地址</span>
+            <input type="text" class="address" ce-model="address" disabled>
+        </label>
+    </p>
+    <p>
+        <label>
+            <span>产品</span>
+            <input type="text" ce-model="productName" disabled>
+        </label>
+        <label>
+            <span>到期时间</span>
+            <input type="text" ce-model="endTimeStr" disabled>
+        </label>
+    </p>
+    <p>
+        <label>
+            <span>增购数量</span>
+            <input type="text" ce-model="buyCount">
+        </label>
+        <label>
+            <span>续费年限(年)</span>
+            <select ce-model="renewYearCount">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+        </label>
+    </p>
+    <p>
+        <label>
+            <span>上传合同</span>
+            <input type="file" class="contract">
+        </label>
+        <label>
+            <span>合同金额(￥)</span>
+            <input type="text" ce-model="amount">
+        </label>
+    </p>
+    <p>
+        <label>
+            <span>发票抬头</span>
+            <input type="text" ce-model="invoiceTitle">
+        </label>
+    </p>
+    <div class="detail-action">
+        <button class="getdiscount">获取折扣</button>
+        <input type="text" disabled ce-model="discount">
+        <button class="btn-blue submit">提交</button>
+    </div>
+</div>
+</script>
+
+<script type="text/template" id="enterpriseAssignTem">
+	<div class="m-assignEntInfo u-slider u-tablelist" id="entAssgin" data-enterprise=''>
+		<p>
+			<label>
+				销售姓名 &nbsp;&nbsp;
+				<input type="text" ce-model="name" class="search-name">
+			</label>
+			
+		</p>
+		<table class="enterprise-assign-Info">
+		  <thead>
+			<tr>
+			  <th style="width:170px;">销售人员</th>
+			  <th>操作</th>
+			</tr>
+		  </thead>
+		  <tbody>
+	
+		  </tbody>
+		</table>
+	</div>
+</script>
+
+<script type="text/template" id="trenterpriseAssign">
+	<% _.each( content, function( item , index ){%>
+		<tr data-id="<%=item.id%>">
+			<td><%=item.name%></td>
+			<td>
+				<a data-id="<%=item.id%>"  class="sale-bind-enterprise">绑定</a>
+			</td>
+		</tr>
+	<% }) %>
+</script>
+
+
+

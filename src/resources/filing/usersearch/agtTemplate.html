@@ -1,0 +1,23 @@
+<script type="text/template" id="trtpl">
+	<% _.each( content, function( item , index ){%>
+		<tr>
+			<td></td>
+			<td><%=item.name%></td>
+			<td><%=item.roles%></td>
+			<td><%=item.post%></td>
+			<td><%=item.mobile%></td>
+			<td><%=item.email%></td>
+			<td><%=item.camp%></td>
+			<td>
+				<%=item.auditStatusStr%>
+			</td>
+			<td>	
+				<a data-id="<%=item.id%>" class="user-detail">查看</a>
+				<% if( item.auditStatus == 'WAIT'){ %>
+				<a data-id="<%=item.id%>" data-permissions="F011001" class="user-approval">审核</a>
+				<% } %>
+			</td>
+			<td></td>
+		</tr>
+	<% }) %>
+</script>

@@ -1,0 +1,276 @@
+<div class="m-addenterprise">
+	<div class="enterprise-content">
+		<h3>免费企业注册</h3>
+		<h4>基本信息</h4>
+		<p>
+			<label for="">
+				<span>企业名称 <b>*</b></span>
+				<input type="text" ce-model="enterpriseName" class="required enterpriseName" disabled="disabled">
+			</label>
+			<label for="">
+				<span>区域</span>
+				<input type="text" class="regionName" disabled="disabled">
+			</label>
+		</p>
+		<p>
+			<label for="">
+				<span>企业账号 <b>*</b></span>
+				<input type="text" ce-model="enterpriseAccount" class="required" placeholder="不可更改!">
+				<span class="remind">企业账号应为字母开头6-20位由字母数字的组合</span>
+			</label>
+		</p>
+		<p>
+			<label for="">
+				<span>地址 <b>*</b></span>
+				<input type="text" ce-model="address" class="required address">
+			</label>
+			<label for="">
+				<span>行业 <b>*</b></span>
+				<select name="" class="e-industry required" ce-model="industry"></select>
+			</label>
+		</p>
+		<p>
+			<label for="">
+				<span>来源 <b>*</b></span>
+				<select name="" class="e-source required" ce-model="source"></select>
+			</label>
+			<label for="">
+				<span>团队类型 <b>*</b></span>
+				<select name="" class="e-group required" ce-model="groupType"></select>
+			</label>
+		</p>
+		<p>
+			<label for="">
+				<span>省份 <b>*</b></span>
+				<select name="" class="e-province required" ce-model="province"></select>
+			</label>
+			<label for="">
+				<span>城市 <b>*</b></span>
+				<input type="text" ce-model="city" class="required">
+			</label>
+		</p>
+		<p>
+			<label for="">
+				<span>了解渠道 <b>*</b></span>
+				<select name="" class="e-knowsource required" ce-model="knowSource"></select>
+			</label>
+			<label for="">
+				<span>注册动机 <b>*</b></span>
+				<select name="" class="e-motive required" ce-model="registerMotive"></select>
+			</label>
+		</p>
+		<p>
+			<label for="">
+				<span>公司规模 <b>*</b></span>
+				<select name="" class="companyscale required" ce-model="companyScale"></select>
+			</label>
+		</p>
+		<p>
+			<label for="">
+				<span>是否有销售团队 <b>*</b></span>
+				<select name="" id="" ce-model="isSaleTeam" class="required">
+					<option value="">请选择</option>
+					<option value="1">是</option>
+					<option value="0">否</option>
+				</select>
+			</label>
+			<label for="">
+				<span>销售团队规模 <b>*</b></span>
+				<select name="" class="saleteamscale required" ce-model="saleTeamScale"></select>
+			</label>
+		</p>
+		<p>
+			<label for="">
+				<span>是否首面签约</span>
+				<select name="" ce-model="isFirstmeetingSign">
+					<option value="">请选择</option>
+					<option value="1">是</option>
+					<option value="0">否</option>
+				</select>
+			</label>
+			<label for="">
+				<span>是否会销 <b>*</b></span>
+				<select name="" id="" ce-model="isWillPin" class="required">
+					<option value="">请选择</option>
+					<option value="1">是</option>
+					<option value="0">否</option>
+				</select>
+			</label>
+		</p>
+		<p>
+			<label for="">
+				<span>是否陌拜 <b>*</b></span>
+				<select name="" ce-model="isStrangerVisits" class="required">
+					<option value="">请选择</option>
+					<option value="1">是</option>
+					<option value="0">否</option>
+				</select>
+			</label>
+			<label for="">
+				<span>成交周期(天)<b>*</b></span>
+				<input type="text" ce-model="dealDays" class="required" placeholder="请填写数字" onchange="this.value=this.value.replace(/\D/g,'')">
+			</label>
+		</p>
+		<p>
+			<label for="">
+				<span>是否转介绍 <b>*</b></span>
+				<select name="" id="" ce-model="isReferral" class="required">
+					<option value="">请选择</option>
+					<option value="1">是</option>
+					<option value="0">否</option>
+				</select>
+			</label>
+		</p>
+		<h4>企业负责人</h4>
+		<p>
+			<label for="">
+				<span>企业负责人姓名 <b>*</b></span>
+				<input type="text" ce-model="keyContactName" class="required keyContactName">
+			</label>
+			<label for="">
+				<span>企业负责人电话 <b>*</b></span>
+				<input type="text" ce-model="keyContactPhone" class="required" onchange="this.value=this.value.replace(/\D/g,'')">
+			</label>
+		</p>
+		<p>
+			<label for="">
+				<span>企业负责人邮箱 <b>*</b></span>
+				<input type="text" ce-model="keyContactEmail" class="required">
+			</label>
+		</p>
+		<h4>纷享平台管理员</h4>
+		<p>
+			<label for="">
+				<span>平台管理员 <b>*</b></span>
+				<input type="text" ce-model="contactName" class="required">
+			</label>
+			<label for="">
+				<span>平台管理员手机 <b>*</b></span>
+				<input type="text" ce-model="contactPhone" class="required" maxlength="11" onchange="this.value=this.value.replace(/\D/g,'')">
+			</label>
+		</p>
+		<p>
+			<label for="">
+				<span>平台管理员邮箱 <b>*</b></span>
+				<input type="text" ce-model="contactEmail" class="required">
+			</label>
+			<label for="">
+				<span>平台管理员QQ</span>
+				<input type="text" ce-model="contactim">
+			</label>
+		</p>
+		<h4>产品信息</h4>
+		<p>
+			<label for="">
+				<span>销客终端总量(个)</span>
+				<input type="text" ce-model="accountTotalAmount" class=" deviceamount" onchange="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+			</label>
+			<label for="">
+				<span>营销版数量(个)</span>
+				<input type="text" ce-model="marketingAccountAmount" class=" marketingAccountAmount" onchange="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+			</label>
+		</p>
+		<p>
+			<label for="">
+				<span>空间总量(GB)<b>*</b></span>
+				<input type="text" ce-model="storageTotalSpace" class="required" onchange="this.value=this.value.replace(/[^\.\d]/g,'')">
+			</label>
+			<label for="">
+				<span>是否付费 </span>
+				<select name="" ce-model="isPaid" class="isPaid" disabled='disabled'>
+					<option value="0">否</option>
+					<option value="1">是</option>
+				</select>
+			</label>
+		</p>
+		<p class="state state-pay">
+			<label for="">
+				<span>合同照片<b>*</b></span>
+				<input type="file" accept="image/*"/ class="contract">（支持.png,.jpg,.gif格式）
+			</label>
+		</p>
+		<p class="state-pay">
+			<label for="">
+				<span>合同副本照片(可选)</span>
+				<input type="file" accept="image/*"/ class="contractCopy">（支持.png,.jpg,.gif格式）
+			</label>
+		</p>
+		<p class="state state-pay">
+			<label for="">
+				<span>合同金额(￥)<b>*</b></span>
+			<input type="text" ce-model="contractPrice" class="contractprice required" onchange="this.value=this.value.replace(/[^\.\d]/g,'')">(*包含名片费用)
+			</label>
+		</p>
+		<p class="state state-pay">
+			<label for="">
+				<span>发票抬头 <b>*</b></span>
+				<input type="text" ce-model="invoiceTitle" class="required">
+			</label>
+		</p>
+		<p>
+			<label for="">
+				<span>合同开始时间<b>*</b></span>
+				<input type="text" class="startTime" ce-model="startTime" onkeyup='this.value=""'>
+				<span>合同结束时间<b>*</b></span>
+				<input type="text" class="endTime" ce-model="endTime" onkeyup='this.value=""'>
+    		</label>
+		</p>
+		<p>
+			<label for="">
+				<span>是否使用名片 <b>*</b></span>
+				<select name="" ce-model="useBusinessCard" class="required useBusinessCard" >
+					<option value="0">否</option>
+					<option value="1">是</option>
+				</select>
+			</label>
+			<label for="" class="card-price" style="display:none;">
+				<span>名片金额</span>
+				<input type="text" ce-model="cardPrice" class="" disabled='disabled'>
+			</label>
+		</p>
+		<p>
+			<label for="">
+				<span>折扣 <b>*</b></span>
+				<input type="text" ce-model="discount" class="required" disabled='disabled'>
+			</label>
+		</p>
+		<p>
+			<label for="">
+				<span>营业执照照片</span>
+				<input name="imgfile" type="file" accept="image/*" class="businessLicense">（支持.png,.jpg,.gif格式）
+    		</label>
+		</p>
+		<div style="border:1px solid #ccc; padding:15px;">
+			<p>
+				<label for="">
+					<span>门头照片</span>
+					<input name="imgfile" type="file" accept="image/*" class="companyGate">（支持.png,.jpg,.gif格式）
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>门头照片关键字</span>
+					<input type="text" ce-model="companyGateKeyword" class="companyGateKeyword">
+				</label>
+				<label for="">
+					<span>门头照片备注</span>
+					<input type="text" ce-model="companyGateRemark" class="companyGateRemark">
+				</label>
+			</p>
+		</div>
+		<h4>备注</h4>
+		<p>
+			<label for="">
+				<textarea name="" ce-model="remark"></textarea>
+			</label>
+			
+		</p>
+	</div>
+	<div class="enterprise-action clearfix">
+		
+		<button class="action-add btn-blue">提交</button>
+		<button class="action-cancel">取消</button>
+	</div>
+</div>
+
+

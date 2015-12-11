@@ -1,0 +1,133 @@
+.m-slider{
+	position:fixed;
+	
+	display:none;
+	right:0;
+	bottom:0;
+	top:0;
+	
+	border:1px @lc1 solid;
+	background:@bc1;
+	min-width:400px;
+
+	.slider-header{
+		height:50px;
+		line-height:50px;
+		background:#f8f8f8;
+		border-bottom: 1px #EAEAEA solid;
+		padding:0 20px;
+		font-size:14px;
+		font-weight:bold;
+		p{
+			height:50px;
+		}
+		.header-close{
+			float:right;
+			padding:0 0 0 10px;
+			cursor:pointer;
+			color:@tc1;
+			font-weight:bold;
+			font-size:18px;
+		}
+	}
+
+	.slider-body{
+		padding:10px 20px;
+		position:absolute;
+		top:50px;
+		left:0;
+		bottom:0;
+		width:100%;
+		box-sizing:border-box;
+		overflow:auto;
+	}
+
+	.dtl {
+		margin-bottom: 40px;
+		section {
+			border-bottom: 1px solid @bc3;
+			margin-bottom: 10px;
+			h4 { font-weight: bold; line-height:  2em; }
+			p {
+				label {
+					display: inline-block;
+					padding: 14px 0;
+					&:last-child { margin-right: 0; }
+					margin-right: 15px;
+					span { margin-right: 15px; display: inline-block; width: 100px; }
+					.ipt-xl { width: 452px; }
+					.ipt-l { width: 150px; }
+					.ipt-m { width: 96px; }
+					.ipt-s { width: 80px; }
+					&.hw { width: 42%; }
+				}
+				.sp { padding: 0; }
+				textarea { width: 100%; }
+			}
+			&.accordian {
+				h4 {
+					cursor: pointer;
+					.arraw {
+						display: inline-block;
+						border-style: solid;
+						border-color: rgb(136, 136, 136, 1) rgb(255, 255, 255, 0) rgb(255, 255, 255, 0) rgb(255, 255, 255, 0);
+						border-width: 5px 4px;
+						margin-right: 5px;
+						margin-top: 3px;
+						vertical-align: middle;
+						width: 0;
+						height: 0;
+					}
+				}
+				.content { display: none; }
+				.tb {
+					.tb-bar {
+						padding-left: 5px;
+						border-top: 1px solid @lc1;
+						font-size: 12px;
+						line-height: 1.5em;
+						p {
+							label {
+								span {
+									width: auto;
+								}
+							}
+						}
+					}
+					table {
+						thead {
+							td { color: @tc3; }
+						}
+						td {
+							padding-left: 5px;
+							line-height: 2em;
+							em {
+								color: @ltc1;
+								text-decoration: underline;
+								cursor: pointer;
+							}
+						}
+					}
+					.pager {
+						margin: 10px 0;
+						text-align: right;
+						font-size: 12px;
+					}
+				}
+				.tr {
+					margin: 10px 0;
+					button { margin-left: 10px; }
+				}
+			}
+			&.accordian.collapse {
+				.arraw {
+					margin-top: 0;
+					border-color: rgb(255, 255, 255, 0) rgb(255, 255, 255, 0) rgb(255, 255, 255, 0) rgb(136, 136, 136, 1);
+				}
+			}
+		}
+		.tr { text-align: right; }
+		button.disable { opacity: 0.3; }
+	}
+}
+

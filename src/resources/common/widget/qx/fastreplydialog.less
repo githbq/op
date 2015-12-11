@@ -1,0 +1,96 @@
+.m-fastreplydialog{
+	.dialog-content{
+		font-size:12px;
+		max-height:310px;
+		overflow:auto;
+		section{
+			padding:8px;
+			border-bottom:1px @lc2 solid;
+			background:#fff;
+			.section-edit{
+				display:none;
+				input{
+					display:inline-block;
+					width:330px;
+					border:1px #eee solid;
+				}
+				.content-cancel{
+					float:right;
+					cursor:pointer;
+					&:hover{
+						color:@mc;
+					}
+				}
+				.content-save{
+					float:right;
+					cursor:pointer;
+					margin-right:10px;
+					&:hover{
+						color:@mc;
+					}
+				}
+			}
+			.section-show{
+				min-height:30px;
+				.content-edit{
+					visibility:hidden;
+					float:right;
+					cursor:pointer;
+					&:hover{
+						color:@mc;
+					}
+				}
+				.content-del{
+					visibility:hidden;
+					float:right;
+					cursor:pointer;
+					margin-right:10px;
+					&:hover{
+						color:@mc;
+					}	
+				}
+				.content-info{
+					width:330px;
+					display:inline-block;
+				}
+				&:hover{
+					.content-edit{
+						visibility:visible;
+					}
+					.content-del{
+						visibility:visible;
+					}
+				}
+			}
+			&.active{
+				.section-show{
+					display:none;
+				}
+				.section-edit{
+					display:block;
+				}
+			}
+		}
+	}
+	.dialog-add{
+		.add-title{
+			color:@tc1;
+			padding:4px 0;
+			font-size:12px;
+		}
+		textarea{
+			margin-top:4px;
+			margin-bottom:10px;
+			border-radius:2px;
+			border:1px @lc1 solid;
+			padding:6px;
+			width:400px;
+			height:100px;
+		}
+	}
+	.fastreply-btns{
+		border-top:1px #eee solid;
+		padding:12px 0;
+		text-align:right;
+	}
+}

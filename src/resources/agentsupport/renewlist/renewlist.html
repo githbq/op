@@ -1,0 +1,105 @@
+<div class="p-renewlist p-list" js="true">
+    <div class="u-tablelist m-renewlist">
+    	<div class="list-header">
+    		<h3>
+    			<span class="title">发出的审批</span>
+                <span class="toggle toggle-btn">
+                     <b data-state="wait" class="active">我的审批中<span class='state wait-approve'>0</span></b><b data-state="refuse" >我的被驳回<span class='state refuse-approve'>0</span></b><b data-state="end">我的已审批<span class='state end-approve'>0</span></b>
+                </span>
+    		</h3>
+    	</div>
+        <div class="list-bar">
+            <div class="list-bar-btns">
+                <button class="search">查询</button>
+            </div>
+            <div class="list-bar-input">
+                <label for="">
+                    申请类型
+                    <select class="applytype" ce-model="approvalType">
+                        <!-- -->
+                    </select>
+                </label>
+                <label for="">
+                    企业名称
+                    <input type="text" ce-model="enterpriseName">
+                </label>
+                <label for="">
+                    企业账号
+                    <input type="text" ce-model="enterpriseAccount">
+                </label>
+                <label for="">
+                    企业简称
+                    <input type="text" ce-model="enterpriseShortName">
+                </label>
+                <label for="">
+                    申请时间
+                    开始 <input type="text" ce-model="applyTimeStart" class="starttime" onkeyup='this.value=""'>
+                    结束 <input type="text" ce-model="applyTimeEnd" class="endtime" onkeyup='this.value=""'>
+                </label>
+                <label class="state state-end">
+                    结束时间
+                    开始 <input type="text" ce-model="endTimeStart" class="estime" onkeyup='this.value=""'>
+                    结束 <input type="text" ce-model="endTimeEne" class="eetime" onkeyup='this.value=""'>
+                </label>
+            </div>
+        </div>
+        <div class="list-content">
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>审批类型</th>
+                        <th>企业名称</th>
+                        <th>企业账号</th>
+                        <th>企业简称</th>
+                        <th>申请人名字</th>
+                        <th>申请时间</th>
+                        <th class="state state-wait">当前审批节点</th>
+                        <th class="state state-wait">当前审批人姓名</th>
+                        <th class="state state-end">结束时间</th>
+						<th class="state state-refuse">上一审批节点</th>
+						<!--<th class="state state-refuse" >上一审批人</th>-->
+						<th class="state state-refuse">上一审批意见</th>
+                        <th style="width:80px;"></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody ce-collection="list">
+                    <tr>
+                        <td></td>
+                        <td><%=item.approvalTypeName%></td>
+                        <td><%=item.enterpriseName%></td>
+                        <td><%=item.enterpriseAccount%></td>
+                        <td><%=item.enterpriseShortName%></td>
+                        <td><%=item.applicantName%></td>
+                        <td><%=item.applyTimeStr%></td>
+                        <td class="state state-wait"><%=item.currentTaskName%></td>
+                        <td class="state state-wait"><%=item.currentApproverName%></td>
+                        <td class="state state-end"></td>
+						<td class="state state-refuse"><%=item.lastTaskName%></td>
+						<!--<td class="state state-refuse"><%=item.lastAssigneeName%></td>-->
+						<td class="state state-refuse"><%=item.lastAssigneeOpinion%></td>
+                        <td>
+						
+							<%if(item.approvalTypeId == "bindingEnterpriseApproval"){%>
+								<a class="detail-bind" data-eid="<%=item.enterpriseId%>" data-id="<%=item.processInstanceId%>" 
+									data-type="<%=item.approvalTypeId%>" data-edit="<%=item.canEdit%>"  data-task="<%=item.applicantYn%>" data-cancel="<%=item.canCancel%>">
+									查看
+								</a>
+							<%}else {%>
+								<a class="detail" data-eid="<%=item.enterpriseId%>" data-id="<%=item.processInstanceId%>" 
+									data-type="<%=item.approvalTypeId%>" data-edit="<%=item.canEdit%>"  data-task="<%=item.applicantYn%>" data-cancel="<%=item.canCancel%>">
+									查看
+								</a>
+							<%}%>
+	
+                        </td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="list-pager">
+        </div>
+    </div>
+</div>

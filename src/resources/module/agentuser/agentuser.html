@@ -1,0 +1,87 @@
+<div class="m-userinfo">
+	<div class="userinfo-content">
+		<div class="Reaseon-info" style="display:none;">
+			<h4>驳回原因：</h4>
+			<P class="rejectReaseon" style="color:#ff0000; padding-left:15px;"></P>
+		</div>
+		<h4>基本信息</h4>
+
+		<p> <label><span>登录账号<b class="i-important">*</b> </span>  <input type="text" disabled ce-model="username" class="info-username"></label> </p>
+		<p> <label><span>角  色  <b class="i-important">*</b> </span> 
+			<select ce-model="role" class="roleselect"> 
+				<option value="0" selected="selected">销售用户</option>
+				<option value="1">增值用户</option> 
+				<option value="2" class="state superselect">代理商内部管理员</option> 
+			</select> </label> 
+		</p>
+		<p> <label><span>姓  名  <b class="i-important">*</b></span> <input type="text" ce-model="name"></label> </p>
+		<p> <label><span>身份证号<b class="i-important">*</b></span> <input type="text" ce-model="idcard"></label> </p>
+		<p> <label><span>入职日期<b class="i-important">*</b></span> <input type="text" class="intime"></label> </p>
+		<p> <label><span>职  位  <b class="i-important">*</b></span> <input type="text" ce-model="post"></label> </p>
+		<p> <label><span>训练营  </span> <input type="text" ce-model="camp"></label> </p>
+		<h4>联系信息</h4>
+		<p> <label><span>工作邮箱 <b class="i-important">*</b></span> <input type="text" ce-model="email"></label></p>
+		<p> <label><span>手    机 <b class="i-important">*</b></span> <input type="text" ce-model="mobile"></label></p>
+		<p> <label><span>办公电话</span> <input type="text" ce-model="phone"></label></p>
+		
+		<p class="state state-agenteditactive state-agenteditdeactive state-channel state-channeldetect state-detail state-editself"> 
+			<label>
+				<span>身份证正面照片</span> 
+				<a class="frontImga" href="" target="_blank"><img src="" id="frontImgInfo"></a>
+				<a class="frontImgnone">未上传</a>
+			</label>
+		</p>
+		<p class="state state-agentadd state-agenteditactive state-agenteditdeactive state-editself">
+			<label> 
+				<span>上传身份证正面照片 <b class="i-important">*</b></span> 
+				<input type="file" id="frontImg">
+			</label> 
+		</p>
+		<p class="state state-agenteditactive state-agenteditdeactive state-channel state-channeldetect state-detail state-editself"> 
+			<label>
+				<span>身份证反面照片</span> 
+				<a class="backImga" href="" target="_blank"><img src="" id="backImgInfo"></a>
+				<a class="backImgnone">未上传</a>
+			</label>
+		</p>
+		<p class="state state-agentadd state-agenteditactive state-agenteditdeactive state-editself">
+			<label> 
+				<span>上传身份证反面照片 <b class="i-important">*</b></span> 
+				<input type="file" id="backImg">
+			</label> 
+		</p>
+		<p class="state content-active" style="display:none;"> 
+			<label><span>启    用</span> <input type="checkbox" ce-model="active"></label>
+		</p>
+		<p class="state state-channel"> 
+			<label>
+				<span>备案企业数量限制</span> 
+				<input type="text" class="state-channel" ce-model="enterpriseFilingCount">
+			</label>
+		</p>
+
+	</div>
+	<div class="userinfo-action">
+
+		<div style="margin:5px;" class="state state-channeldetect">
+			<label for="">
+				<span>审批意见</span>
+			</label>
+				<textarea name=""  ce-model="rejectReaseon" style="width:382px;"></textarea>
+			
+        </div>
+		<!--<button class="user-reset">重置</button>-->
+		<!--新增-->
+		<button class="user-sure btn-blue state state-agentadd">提交</button>
+		<!--修改-->
+		<button class="user-editactive btn-blue state state-agenteditactive state-agenteditdeactive state-editself">确定修改</button>
+		<!--<button class="user-editdeactive btn-blue state state-agenteditdeactive state-editself">申请启用</button>-->
+		<!--渠道修改备案企业数量-->
+		<button class="user-change btn-blue state state-channel">修改</button>
+		
+		<button class="u-btn-blue state state-channeldetect detect-agree">审核通过</button>
+		<button class="u-btn-red state state-channeldetect detect-abort">驳回</button>
+		<button class="user-cancel">取消</button>
+	</div>
+</div>
+

@@ -1,0 +1,23 @@
+<div class="m-disagent">
+    <p class="title">
+        <span>代理商名称</span><input type="text" placeholder="查询" ce-model="keyword">
+    </p>
+    <table>
+        <thead>
+            <tr>
+                <th>代理商名称</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody ce-collection="list">
+            <tr data-name="<%=item.name%>">
+                <td>
+                    <%=item.name%>
+                </td>
+                <td>
+                    <a class="bindagent" data-id="<%=item.id%>">绑定</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

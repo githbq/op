@@ -1,0 +1,94 @@
+<script type="text/template" id="opentr">
+    <% _.each(content,function(item){ %>
+    	<tr>
+    		<td></td>
+    		<td><%=item.enterpriseName%></td>
+    		<td style="display:none;"><%=item.address%></td>
+    		<td><%=item.createTimeStr%></td>
+    		<td>
+                <a data-id="<%=item.id%>" data-status="<%=item.requestStatus%>" class="detail">查看</a>
+            </td>
+    		<td></td>
+    	</tr>
+    <% }) %>
+</script>
+
+<script type="text/template" id="opendetail">
+    <div class="m-opendetail u-slider">
+        <p>
+            <label for="">
+                <span>企业名称</span>
+                <input type="text" disabled ce-model="enterpriseName">
+            </label>
+            <label for="" class="state reqStatus">
+                <span>申请状态</span>
+                <input type="text" disabled ce-model="requestStatusStr">
+            </label>
+        </p>
+        <p>
+            <label for="">
+                <span>状态</span>
+                <input type="text" disabled ce-model="statusStr">
+            </label>
+            <label for="">
+                <span>是否启用</span>
+                <input type="text" disabled ce-model="activeStr">
+            </label>
+        </p>
+        <p style="display:none;">
+            <label for="">
+                <span>地址</span>
+                <input type="text" disabled ce-model="address">
+            </label>
+        </p>
+        <!--
+        <p>
+
+            <label for="">
+                <span>联系人</span>
+                <input type="text" disabled ce-model="contactName">
+            </label>
+            <label for="">
+                <span>联系人职务</span>
+                <input type="text" disabled ce-model="contactPost">
+            </label>
+        </p>
+        <p>
+            <label for="">
+                <span>联系电话</span>
+                <input type="text" disabled ce-model="contactPhone">
+            </label>
+            <label for="">
+                <span>联系邮件</span>
+                <input type="text" disabled ce-model="contactEmail">
+            </label>
+        </p>-->
+        <p style="display:none;">
+            <label for="">
+                <span>名片</span>
+                <img src="" class="card" disabled>
+            </label>
+        </p>
+        <p>
+            <label for="">
+                <span>备注</span>
+                <textarea name="" disabled ce-model="remark"></textarea>
+            </label>
+        </p>
+       <!--<p class="state action-req">
+            <label>
+                 <span>申请原因</span>
+                 <textarea name="" ce-model="reqRemark"></textarea>
+            </label> 
+        </p>-->
+        <p class="state action-req">
+            <button class="btn-blue action-reqbtn">申请备案</button>
+            <span class="tipinfo"></span>
+        </p>
+        <div class="slider-action">
+            <button class="open-return">返回</button>
+        </div>
+    </div>
+</script>
+
+

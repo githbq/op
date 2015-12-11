@@ -1,0 +1,55 @@
+.m-funnellist{
+	padding:20px;
+	h4{
+		padding-bottom:10px;
+		height:30px;
+		button{
+			float:right;
+		}
+	}
+
+	.funnel-action{
+		padding:20px 0;
+		button{
+			float:right;
+		}
+	}
+
+	table{
+		border:none;
+		th{
+			background:#eee;
+			border:1px #999 solid;
+		}
+		td,th{
+			border:1px #ccc solid;
+			text-align:center;
+			line-height:40px;
+		}
+		.info{
+			position:relative;
+			.infotip{
+				position:absolute;
+				z-index:1;
+				top:16px;
+				display:none;
+				padding:4px 6px;
+			}
+			&:hover{
+				.infotip{
+					display:block;
+					background:#eee;
+					border:1px #ccc solid;
+				}
+			}
+		}
+	}	
+
+	.list-pager{
+		padding-top:10px;
+		height:20px;
+		.m-pagination{
+			float:right;
+		}
+	}
+}

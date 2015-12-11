@@ -1,0 +1,143 @@
+<div class="m-addfiling u-slider">
+    <section>
+        <p>
+            <label for="">
+                <span>企业名称 <b class="icon-hide">*</b></span>
+                <input type="text" ce-model="enterpriseName" class="text-disabled filing-entname">
+            </label>
+        </p>
+        <p style="display: none;"><span class="dnem">您输入的企业名称已备案</span></p>
+        <p>
+            <label for="">
+                <span>地址 <b class="icon-hide">*</b></span>
+                <input type="text" ce-model="address" class="text-disabled filing-address">
+            </label>
+        </p>
+        <p>
+            <label for="">
+                <span>区域 <b class="icon-hide">*</b></span>
+                <input type="text" ce-model="region" class="text-disabled filing-region" onkeyup='this.value=""'>
+            </label>
+			<label for="" >
+                <span>法定代表人</span>
+                <input type="text" ce-model="agentPerson" class="state-person text-disabled" >
+            </label>
+        </p>
+		<p>
+			<label for="">
+				<span>行业 <b class="icon-hide">*</b></span>
+				<select name="" class="text-disabled e-industry required" ce-model="industry" ></select>
+			</label>
+			<label for="">
+				<span>来源 <b class="icon-hide">*</b></span>
+				<select name="" class="text-disabled e-source required" ce-model="source" ></select>
+			</label>
+		</p>
+        <p>
+            <label for="">
+                <span>联系人 <b class="icon-hide">*</b></span>
+                <input type="text" ce-model="contactName" class="text-disabled">
+            </label>
+            <label for="">
+                <span>联系人职位 <b class="icon-hide">*</b></span>
+                <input type="text" ce-model="contactPost" class="text-disabled">
+            </label>
+        </p>
+        <p>
+            <label for="">
+                <span>联系电话 <b class="icon-hide">*</b></span>
+                <input type="text" ce-model="contactPhone" class="text-disabled" onchange="this.value=this.value.replace(/\D/g,'')">
+            </label>
+            <label for="">
+                <span>联系人邮件</span>
+                <input type="text" ce-model="contactEmail" class="text-disabled">
+            </label>
+        </p>
+        <p class="state" data-state="add">
+            <label for="">
+                <span>上传名片</span>
+                <input type="file" class="text-disabled uploadcard" multiple="multiple">
+            </label>
+        </p>
+        <p class="state card" data-state="detail">
+            <label for="">
+                <span>名片</span>
+                <b class="emptyinfo">未上传名片</b>
+                <a class="imglink" target="_blank"><img src="" alt="" class="detail-card"></a>
+                <a class="imglink2" target="_blank"><img src="" alt="" class="detail-card2"></a>
+            </label>
+        </p>
+        <p>
+            <label for="">
+                <span>备注</span>
+                <textarea name="" id="" ce-model="remark" class="text-disabled"></textarea>
+            </label>
+        </p>
+    </section>
+    <section class="state" data-state="detail">
+        <h4>申请信息</h4>
+        <p>
+            <label for="">
+                <span>姓名</span>
+                <input type="text" ce-model="creatorName" class="text-disabled">
+            </label>
+            <label for="">
+                <span>登录名</span>
+                <input type="text" ce-model="creatorUserName" class="text-disabled">
+            </label>
+        </p>
+        <p>
+            <label for="">
+                <span>时间</span>
+                <input type="text" ce-model="createTimeStr" class="text-disabled">
+            </label>
+        </p>
+    </section>
+    <section class="state clearfix" data-state="detail" style="padding-bottom:10px;">
+        <h4 style="padding-bottom:10px;">状态</h4>
+        <select name="" class="firm-status operat-input" ce-model="firmStatus" style="display:none;" >
+                    
+        </select>
+        <select name="" class="disabled-status" value="0" disabled='disabled' >
+            <option value="0">不可编辑</option>
+        </select>
+    </section>
+	<section class="state-info" data-state="detail" data-id='' style="display:none;">
+        <h4>企业跟进信息</h4>
+        <p>
+            <label for="" class="state-check count-taggle" style="margin-top:10px;">
+                <span>公司人数 <b>*</b></span>
+                <input type="text" ce-model="clientNum" class="check-empty state-count operat-input" onchange="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+            </label>
+			<label for="" class="state-check count-taggle" style="margin-top:10px;">
+                <span>开通人数 <b>*</b></span>
+                <input type="text" ce-model="companyNum" class="check-empty open-count open-taggle operat-input" onchange="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+            </label>
+        </p>
+        <p>
+            <label for="" class="state-check phone-taggle" style="margin-top:10px;">
+                <span>法定代表人电话 <b>*</b></span>
+                <input type="text" ce-model="kpPhone" class="check-empty state-phone operat-input" onchange="this.value=this.value.replace(/\D/g,'')" maxlength="11" >
+            </label>
+			<label for="" class="state-check time-taggle" style="margin-top:10px;">
+                <span>拜访时间 <b>*</b></span>
+                <input type="text" ce-model="visiteTime" class="check-empty visite-time state-visite operat-input">
+            </label>
+        </p>
+    </section>
+    <div class="slider-action">
+		<p class="remark-info"></p>
+		<p>
+			<button class="filing-return" >返回</button>
+			<button class="filing-submit btn-blue state" data-state="add">提交</button>
+			<button class="filing-save btn-blue state operat-status" data-state="detail" style="float:right; margin-left: 5px;">保存</button>
+			<button class="filing-drop u-btn-red state operat-status" style="float:right; margin-left: 5px;line-height:22px;">放弃到公海</button>
+		</p>
+		<p style="float:right;"> 
+			<button class="free-reg btn-blue state operat-status" >免费开通</button>
+			<button class="buy-reg btn-blue state operat-status" >付费开通</button>
+			<button class="bind-link btn-blue state operat-status" data-entId= ''>关联自注册</button>
+		<P>
+    </div>
+</div>
+

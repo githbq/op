@@ -1,0 +1,70 @@
+<div class="m-servicelist u-slider">
+
+    <section class="info">
+        <h4>备案企业</h4>
+        <p ce-model="enterpriseName"></p>
+    </section>    
+    
+    <section class="u-tablelist">
+        <div class="list-header">
+          <div class="header-opts">
+            <button class="addLog">填写跟踪信息</button>
+          </div>
+          <h3>查询条件</h3>
+        </div>
+        <div class="list-bar">
+          <div class="list-bar-input">
+              <label for="">
+                  <span>类别</span>
+                  <select ce-model="type" class="type"></select>
+              </label>
+              <label for="">
+                  <span>创建时间</span><input type="text" class="stime">    到    <input type="text" class="etime">
+              </label>
+              <label class="vendorLabel">
+                  <span>优惠码</span>
+                  <input type="text" ce-model="vendorId">
+              </label>
+          </div>
+          <div class="list-bar-btns">
+              <button class="search btn-blue">查询</button>
+          </div>  
+        </div>
+        <div class="list-content">
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th style="width:60px;">类别</th>
+                        <th style="width:80px;">操作人</th>
+                        <th style="width:130px;">代理商</th>
+                        <th>内容</th>
+                        <th style="width:110px;">时间</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- -->
+                </tbody>
+            </table>
+        </div>
+        <div class="list-pager">
+          
+        </div>
+    </section>
+
+    <section class="serviceInfo">
+        <h4>填写跟踪信息</h4>
+        <p>
+            <label for="">
+                <span>内容</span>
+                <textarea ce-model="traceInfo"></textarea>
+            </label>
+        </p>
+        <p>
+            <button class="iback">返回</button>
+            <button class="isubmit btn-blue">提交</button>
+        </p>
+    </section>
+</div>
+

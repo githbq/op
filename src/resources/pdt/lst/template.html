@@ -1,0 +1,15 @@
+<script type="text/template" id="trPdtLst">
+    <% _.each(content,function( value ,index ){ %>
+    <tr>
+        <td></td>
+        <td><%=value.id%></td>
+        <td><%=value.name%></td>
+        <td><%=value.deviceMaxCount%></td>
+        <td><%=value.textMessageCount %></td>
+        <td><%=value.textMessageMethod%></td>
+        <td><%=value.storage%></td>
+        <td><%=value.freeStr%></td>
+        <td></td>
+    </tr>
+    <% }) %>
+</script>

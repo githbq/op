@@ -1,0 +1,194 @@
+<script type="text/template" id="trTpl">
+	<% _.each(content,function( item ){ %>
+		<tr data-status="<%=item.status%>">
+			<td></td>
+			<td><input type="checkbox" data-id="<%=item.id%>" class="open-input"></td>
+			<td><%=item.enterpriseName%></td>
+			<td><%=item.vendorName%></td>
+			<td><%=item.statusStr%></td>
+			<td><%=item.industryStr%></td>
+			<td><%=item.sourceStr%></td>
+			<td><%=item.serviceTime%>个月</td>
+			<td><%=item.address%></td>
+			<td><%=item.createTimeStr%></td>
+			<td><%=item.activeStr%></td>
+			<td>
+				<a data-id="<%=item.id%>" class="filing-detail">查看</a>
+				<a data-id="<%=item.id%>" data-name="<%=item.enterpriseName%>" class="filing-service">服务记录</a>
+				<a data-name="<%=item.enterpriseName%>" data-id="<%=item.id%>" class="filing-request">公开申请(<%=item.requestCount%>)</a>
+				<a data-id="<%=item.id%>" class="filing-check">审核</a>
+			</td>
+			<td></td>
+		</tr>
+	<% }) %>
+</script>
+
+<script type="text/template" id="filingInfo">
+	<div class="m-filingInfo u-slider">
+		<section>
+			<h4>基本信息</h4>
+			<p>
+				<label for="">
+					<span>企业名称</span>
+					<input type="text" disabled ce-model="enterpriseName">
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>状态</span>
+					<input type="text" disabled ce-model="statusStr">
+				</label>
+				<label for="">
+					<span>是否启用</span>
+					<input type="text" disabled ce-model="activeStr">
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>地址</span>
+					<input type="text" disabled ce-model="address">
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>行业</span>
+					<select name="" disabled class=" e-industry required" ce-model="industry" ></select>
+				</label>
+				<label for="">
+					<span>来源 </span>
+					<select name="" disabled class=" e-source required" ce-model="source" ></select>
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>联系人</span>
+					<input type="text" disabled ce-model="contactName">
+				</label>
+				<label for="">
+					<span>联系人职务</span>
+					<input type="text" disabled ce-model="contactPost">
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>联系电话</span>
+					<input type="text" disabled ce-model="contactPhone">
+				</label>
+				<label for="">
+					<span>联系邮件</span>
+					<input type="text" disabled ce-model="contactName">
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>名片</span>
+					<span class="img-info" style="margin:10px 20px; color:#0000ff;">未上传</span>
+					<a class="vc_link" target="_blank"> <img src="" alt="" class="visitcard">  </a>
+					<a class="vc2_link" target="_blank"> <img src="" alt="" class="visitcard2"> </a>
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>备注</span>
+					<textarea name="" id="" disabled ce-model="contactRemark"></textarea>
+				</label>
+			</p>
+		</section>
+		<section>
+			<h4 class="state-title">信息</h4>
+			<p>
+				<label for="">
+					<span>姓名</span>
+					<input type="text" disabled ce-model="creator_name">
+				</label>
+				<label for="">
+					<span>登录名</span>
+					<input type="text" disabled ce-model="creator_username">
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>时间</span>
+					<input type="text" disabled ce-model="createTimeStr">
+				</label>
+			</p>
+		</section>
+		<div class="slider-action">
+			<button class="back btn-blue">返回</button>
+			<button class="state action-deactive">停用</button>
+			<!--<button class="state action-deal">成交</button>-->
+			<button class="state action-public">公开</button>
+		</div>
+	</div>
+</script>
+
+<script type="text/template" id="rejectinfo">
+	<div class="m-rejectinfo">
+		<textarea placeholder="审核原因" ce-model="checkReason"></textarea>
+		<p>
+			<button class="u-btn-red reject-action">驳回</button>
+			<button class="u-btn-blue pass-action">通过</button>
+		</p>
+	</div>
+</script>
+
+<!--服务列表-->
+<script type="text/template" id="serviceList">
+	<div class="m-servicelist u-tablelist">
+	    <div class="list-bar">
+	      <div class="list-bar-input">
+	          <label for="">
+	              <span>类别</span>
+	              <select ce-model="type" class="type"></select>
+	          </label>
+	          <label for="">
+	              <span>创建时间</span><input type="text" class="stime">    到    <input type="text" class="etime">
+	          </label>
+	          <label for="">
+	              <span>优惠码</span>
+	              <input type="text" ce-model="vendorId">
+	          </label>
+	      </div>
+	      <div class="list-bar-btns">
+	          <button class="search">查询</button>
+	      </div>  
+	    </div>
+	    <div class="list-content">
+	        <table>
+	            <thead>
+	                <tr>
+	                    <th></th>
+	                    <th style="width:60px;">类别</th>
+	                    <th style="width:80px;">操作人</th>
+	                    <th style="width:130px;">代理商</th>
+	                    <th>内容</th>
+	                    <th style="width:110px;">时间</th>
+	                    <th style="width:60px;"></th>
+	                    <th></th>
+	                </tr>
+	            </thead>
+	            <tbody>
+	                <!-- -->
+	            </tbody>
+	        </table>
+	    </div>
+	    <div class="list-pager">
+	      
+	    </div>
+	</div>
+</script>
+
+<script type="text/template" id="serviceTr">
+	<% _.each( content, function( item , index ){%>
+		<tr>
+			<td></td>
+			<td><%=item.typeStr%></td>
+			<td><%=item.creator.name%></td>
+			<td><%=item.vendorName%></td>
+			<td><%=item.remark%></td>
+			<td><%=item.createTimeStr%></td>
+			<td><a data-id="<%=item.id%>">查看</a></td>
+			<td></td>
+		</tr>
+	<% }) %>
+</script>

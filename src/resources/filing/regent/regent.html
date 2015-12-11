@@ -1,0 +1,85 @@
+<div class="p-list" js="true">
+	<div class="m-regent u-tablelist">
+    	<div class="list-header">
+    		<h3>
+    			企业列表
+    		</h3>
+    	</div>
+    	<div class="list-bar">
+            <div class="list-bar-btns">
+                <button class="search">查询</button>
+            </div>
+    		<div class="list-bar-input">
+    			<label for="">
+    				<span>来源</span>
+    				<select name="" id="" class="sourceEnum" ce-model="source">
+    				</select>
+    			</label>
+				<label for="">
+					<span>企业账号</span>
+					<input type="text" ce-model="enterpriseAccount">
+				</label>
+				<label for="">
+					<span>企业名称</span>
+					<input type="text" ce-model="enterpriseName">
+				</label>
+				<label for="">
+					<span>省市</span>
+					<select name="" id="" class="provinceEnum" ce-model="province"></select>
+				</label>
+				<label for="">
+					<span>状态</span>
+					<select name="" id="" class="statusEnum" ce-model="status"></select>
+				</label>
+				<label for="">
+					<span>优惠码</span>
+					<input type="text" ce-model="vendorId">
+				</label>
+				<label for="">
+					<span>注册时间</span>
+					<input type="text" class="startTime">  到  <input type="text" class="endTime">
+				</label>
+    		</div>
+    	</div>
+    	<div class="list-content">
+    		<table>
+    			<thead>
+    				<tr>
+    					<th></th>
+    					<th>企业</th>
+    					<th style="width:110px;">账号</th>
+    					<th style="width:60px;">来源</th>
+    					<th style="width:80px;">状态</th>
+    					<th style="width:60px;">省市</th>
+    					<th style="width:160px;">注册时间</th>
+                        <th style="width:160px;">代理商</th>
+                        <th style="width:80px;"></th>
+    					<th></th>
+    				</tr>
+    			</thead>
+    			<tbody ce-collection="list">
+    				 <tr data-name="<%=item.name%>">
+                        <td></td>
+                        <td><%=item.name%></td>
+                        <td><%=item.account%></td>
+                        <td><%=item.sourceStr%></td>
+                        <td><%=item.statusStr%></td>
+                        <td><%=item.provinceStr%></td>
+                        <td><%=item.registerTimeStr%></td>
+                        <td><%=item.vendorName%></td>
+                        <td>
+                            <a data-id="<%=item.id%>" class="detail">详情</a>
+                            <% if( item.status == 4 ){%>
+                                <a data-account="<%=item.account%>" class="distribute">分配</a>
+                            <% } %>
+                        </td>
+                        <td></td>
+                    </tr>
+    			</tbody>
+    		</table>
+    	</div>
+    	<div class="list-pager">
+    		
+    	</div>
+    </div>
+</div>

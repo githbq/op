@@ -1,0 +1,82 @@
+// 弹层退出动画
+.amt-dialogout {
+    -webkit-animation: dialogout 0.2s ease;
+    -moz-animation:   dialogout 0.2s ease;
+	animation:   dialogout 0.2s ease;
+}
+@-webkit-keyframes dialogout {
+    from {
+		-webkit-transform: translateY(0);
+		-moz-transform: translateY(0);
+		transform: translateY(0);
+		opacity: 1;
+	}
+    to {
+		-webkit-transform: translateY(-150px);
+		-moz-transform: translateY(-150px);
+		transform: translateY(-150px);
+		opacity: 0;
+	}
+}
+
+// 右侧滑块动画进入
+.amt-sliderightin {
+    -webkit-animation: sliderightin 0.4s ease;
+    -moz-animation:    sliderightin 0.4s ease;
+}
+@-webkit-keyframes sliderightin {
+    from {
+		-webkit-transform: translate(500px, 0);
+		-moz-transform: translate(500px, 0);
+		transform: translate(500px, 0);
+		 opacity: 0;
+	}
+    to {
+		-webkit-transform: translate(0, 0);
+		-moz-transform: translate(0, 0);
+		transform: translate(0, 0);
+		opacity: 1;
+	}
+}
+// 右侧滑块动画淡出
+.amt-sliderightout {
+    -webkit-animation: sliderightout 0.3s;
+    -moz-animation: sliderightout 0.3s;
+	animation: sliderightout 0.3s;
+}
+@-webkit-keyframes sliderightout {
+    from {
+		-webkit-transform: translate(0, 0);
+		-moz-transform: translate(0, 0);
+		transform: translate(0, 0);
+		 opacity: 1;
+	}
+    to {
+		-webkit-transform: translate(500px, 0);
+		-moz-transform: translate(500px, 0);
+		transform: translate(500px, 0);
+		opacity: 0;
+	}
+}
+
+// toast
+
+.amt-toastin {
+    -webkit-animation: toastin 0.3s ease;
+    -moz-animation: toastin 0.3s ease;
+	animation: toastin 0.3s ease;
+}
+@-webkit-keyframes toastin {
+    from {
+		-webkit-transform: translate(-50%, -100%);
+		transform: translate(-50%, -100%);
+		opacity: 0;
+	}
+    to {
+		-webkit-transform: translate(-50%, 0);
+		transform: translate(-50%, 0);
+		opacity: 1;
+	}
+}
+
+

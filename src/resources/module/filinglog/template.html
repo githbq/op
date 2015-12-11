@@ -1,0 +1,14 @@
+<script type="text/template" id="trTpl">
+    <% _.each( content, function( item , index ){%>
+        <tr>
+            <td></td>
+            <td><%=item.typeStr%></td>
+            <td><%=item.creator.name%></td>
+            <td><%=item.vendorName%></td>
+            <td><%=item.remark%></td>
+            <td><%=item.createTimeStr%></td>
+            <td></td>
+        </tr>
+    <% }) %>
+</script>
+

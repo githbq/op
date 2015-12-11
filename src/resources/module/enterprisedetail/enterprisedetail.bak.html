@@ -1,0 +1,475 @@
+<div class="m-enterprisedetail">
+	<div class="dtl">
+		<section>
+			<h4>基本信息</h4>
+			<p>
+				<label><span>企业名称</span><input id="bName" class="g-ipt ipt-l ed" type="text"></label>
+				<label><span>企业账号</span><input id="bAccount" disabled="disabled" class="g-ipt ipt-l" type="text"></label>
+				<label><span>地　　址</span><input id="bAddress" class="g-ipt ipt-xl ed" type="text"></label>
+			</p>
+		</section>
+		<section>
+			<h4>标签属性</h4>
+			<p>
+				<label><span>行　　业</span><select id="tIndustry" class="sa-industry ed"></select></label><br />
+				<label class="hw"><span>来　　源</span><select id="tSource" class="sa-source ed"></select></label>
+				<label class="hw"><span>省　　市</span><select id="tProvince" class="sa-province ed"></select></label>
+				<label class="hw"><span>团队类型</span><select id="tGroupType" class="sa-group ed"></select></label>
+				<label class="hw"><span>了解渠道</span><select id="tChannel" class="sa-know ed"></select></label>
+				<label class="hw"><span>注册动机</span><select id="tIntention" class="sa-register ed"></select></label>
+				<label class="hw"><span>公司规模</span><select id="tCompanySize" class="sa-company ed"></select></label>
+				<label class="hw"><span>是否有销售团队</span><select id="tHasSales" class="ed" ce-model="saleTeam"><option value="false">否</option><option value="true">是</option></select></label>
+				<label class="hw"><span>销售团队规模</span><select id="tSalesSize" class="sa-sales ed"></select></label>
+				<label class="hw"><span>是否首面签约</span><select id="tFirstView" class="ed"><option value="false">否</option><option value="true">是</option></select></label>
+				<label class="hw"><span>是否会销</span><select id="tMettingSale" class="ed"><option value="false">否</option><option value="true">是</option></select></label>
+				<label class="hw"><span>是否陌拜</span><select id="tIsStranger" class="ed"><option value="false">否</option><option value="true">是</option></select></label>
+				<label class="hw"><span>城　　市</span><input id="tCity" type="text" ce-model="city" class="g-ipt ipt-m ed"></label>
+				<label class="hw"><span>是否快速签约(30天内)</span><select id="tIsFastSign" class="ed"><option value="false">否</option><option value="true">是</option></select></label>
+				<label class="hw"><span>成交周期(天)</span><input id="tDealDays" type="text" class="g-ipt ipt-m ed"></label>
+				<label class="hw"><span>是否高压锅</span><select id="tHighPressure" class="ed"><option value="false">否</option><option value="true">是</option></select></label>
+				<label class="hw"><span>高压周期(天)</span><input id="tHPDays" type="text" class="g-ipt ipt-m ed"></label>
+				<label class="hw"><span>是否转介绍</span><select id="tIsIntro" class="ed"><option value="false">否</option><option value="true">是</option></select></label>
+				<label class="hw"><span>是否付费</span><select id="tIsPayed" class="ed"><option value="false">否</option><option value="true">是</option></select></label>
+			</p>
+		</section>
+		<section>
+			<h4>企业负责人</h4>
+			<p>
+				<label><span>姓　　名</span><input id="kcName" type="text" class="g-ipt ipt-l ed"></label>
+				<label><span>电　　话</span><input id="kcMobile" type="text" class="g-ipt ipt-l ed"></label>
+				<label><span>电子邮箱</span><input id="kcEmail" type="text" class="g-ipt ipt-l ed"></label>
+			</p>
+		</section>
+		<section>
+			<h4>纷享平台管理员</h4>
+			<p>
+				<label><span>姓　　名</span><input id="cName" type="text" class="g-ipt ipt-l ed"></label>
+				<label><span>电　　话</span><input id="cMobile" type="text" class="g-ipt ipt-l ed"></label>
+				<label><span>电子邮箱</span><input id="cEmail" type="text" class="g-ipt ipt-l ed"></label>
+				<label><span>常用QQ</span><input id="cQQ" type="text" class="g-ipt ipt-l ed"></label>
+			</p>
+		</section>
+		<section>
+			<h4>备注</h4>
+			<p><textarea id="remark" rows="4" class="ed"></textarea></p>
+		</section>
+		<p class="tr f1 f2"><button id="btnSaveBasic" class="btn-blue off">保存</button></p>
+	</div>
+	<div class="dtl">
+		<section class="accordian collapse f1 f2 f3 f4" data-target="product">
+			<h4><span class="arraw"></span>产品信息</h4>
+			<div class="content">
+				<p>
+					<label><span>产品名称</span><input id="sProductName" disabled="disabled" class="g-ipt ipt-l" type="text"></label>
+					<label><span>产品状态</span><input id="sProductStatus" disabled="disabled" class="g-ipt ipt-l" type="text"></label>
+				</p>
+				<div id="tbProduct" class="tb">
+					<table>
+						<thead>
+						<tr>
+							<td>序号</td>
+							<td>产品名称</td>
+							<td></td>
+						</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+					<div class="pager"></div>
+				</div>
+			</div>
+		</section>
+		<section class="accordian collapse f1 f2 f3 f4" data-target="agent">
+			<h4><span class="arraw"></span>代理商信息</h4>
+			<div class="content">
+				<p>
+					<label><span>优惠码</span><input id="sAgentId" disabled="disabled" class="g-ipt ipt-l" type="text"></label>
+					<label><span>代理商名称</span><input id="sAgentName" disabled="disabled" class="g-ipt ipt-l" type="text"></label>
+				</p>
+				<div id="tbAgent" class="tb">
+					<div class="tb-bar">
+						<p>
+							<label><span>优惠码</span><input id="sbAgentId" type="text" class="g-ipt ipt-s" /></label>
+							<label><span>代理商名称</span><input id="sbAgentName" type="text" class="g-ipt ipt-s" /></label>
+							<button id="btnSBAgentSearch">查询</button>
+						</p>
+					</div>
+					<table>
+						<thead>
+						<tr>
+							<td>优惠码</td>
+							<td>代理商名称</td>
+							<td>省或直辖市</td>
+							<td></td>
+						</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+					<div class="pager"></div>
+				</div>
+			</div>
+		</section>
+		<section class="accordian collapse f1 f2 f3 f4" data-target="trial">
+			<h4><span class="arraw"></span>试用配置</h4>
+			<div class="content">
+				<p>
+					<label><span>试用截止时间</span><input id="sTrialTime" class="g-ipt ipt-l ed" type="text"></label>
+					<label><span>试用后终端数</span><input id="sTrialAmount" class="g-ipt ipt-l ed" type="text"></label>
+				</p>
+				<div id="tbTrial" class="tb">
+					<p class="tr"><button id="sBtnChangeTrial" class="btn-blue off">操作</button></p>
+				</div>
+			</div>
+		</section>
+		<section class="accordian collapse f1 f2 f3 f4" data-target="operations">
+			<h4><span class="arraw"></span>使用情况</h4>
+			<div class="content">
+				<p>
+					<label class="hw"><span>销客截止时间</span><input id="sdXKET" disabled="disabled" class="g-ipt ipt-m" type="text"></label>
+					<label class="hw"><span>首次缴费</span><input id="sdPayImd" disabled="disabled" class="g-ipt ipt-m" type="text"></label>
+					<label class="hw"><span>销客终端总量</span><input id="sdXKDC" disabled="disabled" class="g-ipt ipt-m" type="text"></label>
+					<label class="hw"><span>销客终端已用量</span><input id="sdXKDUC" disabled="disabled" class="g-ipt ipt-m" type="text"></label>
+					<label><span>百川截止时间</span><input id="sdBCET" disabled="disabled" class="g-ipt ipt-m" type="text"></label><br />
+					<label class="hw"><span>百川终端总量</span><input id="sdBCDC" disabled="disabled" class="g-ipt ipt-m" type="text"></label>
+					<label class="hw"><span>百川终端已用量</span><input id="sdBCDUC" disabled="disabled" class="g-ipt ipt-m" type="text"></label>
+					<label class="hw"><span>短信总量</span><input id="sdSmC" disabled="disabled" class="g-ipt ipt-m" type="text"></label>
+					<label class="hw"><span>短信已用量</span><input id="sdSmUC" disabled="disabled" class="g-ipt ipt-m" type="text"></label>
+					<label class="hw"><span>空间总量(GB)</span><input id="sdSC" disabled="disabled" class="g-ipt ipt-m" type="text"></label>
+					<label class="hw"><span>空间已用量(GB)</span><input id="sdSUC" disabled="disabled" class="g-ipt ipt-m" type="text"></label>
+				</p>
+				<div id="tbOperation" class="tb">
+					<p>
+						<label class="hw"><span>销客终端总量</span><input id="sXKDC" class="g-ipt ipt-m" type="text"></label>
+						<label class="hw"><span>销客时间延期至</span><input id="sXKET" class="g-ipt ipt-m" type="text"></label>
+						<label class="hw"><span>百川终端总量</span><input id="sBCDC" class="g-ipt ipt-m" type="text"></label>
+						<label class="hw"><span>百川时间延期至</span><input id="sBCET" class="g-ipt ipt-m" type="text"></label><br />
+						<label><span>短信充值</span><input id="sSms" class="g-ipt ipt-m" type="text"></label><br />
+						<label><span>存储扩容</span><input id="sStorage" class="g-ipt ipt-m" type="text"></label><br />
+						<label><span>终端扩容</span><input id="sDevice" class="g-ipt ipt-m" type="text"></label>
+					</p>
+					<p class="tr"><button class="btn-blue off" id="sBtnChangeStatistics">保存</button></p>
+					<table>
+						<thead>
+						<tr>
+							<td>序号</td>
+							<td>扩容时间</td>
+							<td>扩容数量</td>
+							<td>操作人</td>
+						</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+					<div class="pager"></div>
+				</div>
+			</div>
+		</section>
+		<section class="accordian collapse f1 f2 f3 f4" data-target="activeness">
+			<h4><span class="arraw"></span>活跃度</h4>
+			<div class="content">
+				<p>
+					<label><span>活跃度</span><input id="sActivity" disabled="disabled" class="g-ipt ipt-l" type="text"></label>
+				</p>
+			</div>
+		</section>
+		<section class="accordian collapse f1" data-target="">
+			<h4><span class="arraw"></span>开通/作废</h4>
+			<div class="content">
+				<p><textarea id="sActiveRemark" rows="4"></textarea></p>
+				<div class="tb">
+					<p class="tr"><button id="sBtnActive" class="btn-blue off">开通</button><button id="sBtnRemove" class="btn-blue off">作废</button></p>
+				</div>
+			</div>
+		</section>
+		<section class="accordian collapse f1 f2 f3 f4" data-target="modules">
+			<h4><span class="arraw"></span>产品模块</h4>
+			<div class="content">
+				<p><label><span>产品模块</span><input id="sdProductModule" disabled="disabled" class="g-ipt ipt-l" type="text"></label></p>
+				<div id="tbProductModule" class="tb">
+					<p><label><span>产品模块</span><select id="sProductModule" ></select></label></p>
+					<p class="tr"><button id="sBtnChangeModule" class="btn-blue off">修改产品模块</button></p>
+				</div>
+			</div>
+		</section>
+		<section class="accordian collapse f1 f2 f3 f4" data-target="functions">
+			<h4><span class="arraw"></span>功能限制</h4>
+			<div class="content">
+				<p>
+					<label class="hw"><span>导出签到次数</span><input id="sdELC" disabled="disabled" class="g-ipt ipt-m" type="text"></label>
+					<label class="hw"><span>导出签到已用次数</span><input id="sdELUC" disabled="disabled" class="g-ipt ipt-m" type="text"></label>
+					<label class="hw"><span>导出日志次数</span><input id="sdEFC" disabled="disabled" class="g-ipt ipt-m" type="text"></label>
+					<label class="hw"><span>导出日志已用次数</span><input id="sdEFUC" disabled="disabled" class="g-ipt ipt-m" type="text"></label>
+					<label class="hw"><span>导出指令次数</span><input id="sdECC" disabled="disabled" class="g-ipt ipt-m" type="text"></label>
+					<label class="hw"><span>导出指令已用次数</span><input id="sdECUC" disabled="disabled" class="g-ipt ipt-m" type="text"></label>
+					<label class="hw"><span>导出月度考勤次数</span><input id="sdEMWC" disabled="disabled" class="g-ipt ipt-m" type="text"></label>
+					<label class="hw"><span>导出月度考勤已用次数</span><input id="sdEMWUC" disabled="disabled" class="g-ipt ipt-m" type="text"></label>
+					<label class="hw"><span>导出审批汇总次数</span><input id="sdEAC" disabled="disabled" class="g-ipt ipt-m" type="text"></label>
+					<label class="hw"><span>导出审批汇总已用次数</span><input id="sdEAUC" disabled="disabled" class="g-ipt ipt-m" type="text"></label>
+					<label class="hw"><span>上传文件大小限制(M)</span><input id="sdUFS" disabled="disabled" class="g-ipt ipt-m" type="text"></label>
+					<label class="hw"><span>是否允许危险操作</span><input id="sdActionDanger" disabled="disabled" class="g-ipt ipt-m" type="text"></label>
+				</p>
+				<div id="tbFunctions" class="tb">
+					<p>
+						<label class="hw"><span>设置导出签到次数</span><input id="sELC" class="g-ipt ipt-m" type="text"></label>
+						<label class="hw"><span>设置导出日志次数</span><input id="sEFC" class="g-ipt ipt-m" type="text"></label>
+						<label class="hw"><span>设置导出指令次数</span><input id="sECC" class="g-ipt ipt-m" type="text"></label>
+						<label class="hw"><span>设置导出月度考勤次数</span><input id="sEMWC" class="g-ipt ipt-m" type="text"></label>
+						<label class="hw"><span>设置导出审批汇总次数</span><input id="sEAC" class="g-ipt ipt-m" type="text"></label>
+						<label class="hw"><span>设置上传文件大小限制(M)</span><select id="sUFS"><option value="20">20</option><option value="50">50</option><option value="100">100</option></select></label>
+						<label class="hw"><span>是否允许危险操作</span><select id="sActionDanger"><option value="0">否</option><option value="1">是</option></select></label>
+					</p>
+					<p class="tr"><button id="sBtnChangeFunctions" class="btn-blue off">保存</button></p>
+				</div>
+			</div>
+		</section>
+		<section class="accordian collapse f2" data-target="">
+			<h4><span class="arraw"></span>短信设置</h4>
+			<div class="content">
+				<p>
+					<label for="">
+						<span>企业简称</span>
+						<input type="text" disabled="" class="sms-name">
+					</label>
+					<label for="">
+						<span>短信尾号</span>
+						<input type="text" disabled="" class="sms-wh">
+					</label>
+				</p>
+				<p>
+					<label for="">
+						<span>企业简称</span>
+						<input type="text" class="sms-newname">
+					</label>
+				</p>
+				<p>
+					<button class="modifySmsName off">修改企业简称</button>
+					<button class="rebackSms off">收回短信尾号</button>
+					<button class="disSms off">分配短信尾号</button>
+				</p>
+			</div>
+		</section>
+		
+		<!--名片信息-->
+		<section class="accordian collapse">
+			<h4><span class="arraw"></span>名片信息</h4>
+			<div class="content">
+				<p>
+					<label for="">
+						<span>企业简称</span>
+						<input type="text" disabled="">
+					</label>
+					<label for="">
+						<span>名片使用类型</span>
+						<input type="text" disabled="">
+					</label>
+				</p>
+				<p>
+					<label for="">
+						<span>名片总数</span>
+						<input type="text" disabled="">
+					</label>
+					<label for="">
+						<span>已用名片数</span>
+						<input type="text" disabled="">
+					</label>
+				</p>
+				<p>
+					<label for="">
+						<span>名片数量</span>
+						<input type="text">
+						张
+					</label>
+					<label for="">
+						<span>购买期限</span>
+						<select>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="9">9</option>
+						</select>
+						年
+					</label>
+				</p>
+				<p style="padding-bottom:10px; text-align:right;">
+					<button>购买</button>
+					<button>赠送</button>
+				</p>
+			</div>
+		</section>
+
+		<!--名片购买信息-->
+		<section id="visitingcard" class="accordian collapse" data-target="visitingcard">
+			<h4><span class="arraw"></span>名片购买信息</h4>
+			<div class="content">
+				<div class="tb">
+					<div class="tb-bar">
+						<p>
+							<label>
+								<span>类别</span>
+								<select id="vcType">
+									<option value="">全部</option>
+									<option value="1">赠送</option>
+									<option value="2">购买充值</option>
+								</select>
+							</label>
+							<label>
+								时间
+								<input type="text" id="vcStartTime">
+								到
+								<input type="text" id="vcEndTime">
+							</label>
+							<button>查询</button>
+						</p>
+					</div>
+					<table>
+						<thead>
+							<tr>
+								<td>序号</td>
+								<td>操作时间</td>
+								<td>过期时间</td>
+								<td>总数</td>
+								<td>使用数</td>
+								<td>作废数</td>
+								<td>类别</td>
+							</tr>
+						</thead>
+						<tbody>
+							
+						</tbody>
+					</table>
+					<div class="pager"></div>
+				</div>
+			</div>
+		</section>
+		
+		<!--九次方信息-->
+		<section class="accordian collapse f1 f2 f3 f4" data-target="jcf">
+			<h4><span class="arraw"></span>九次方信息</h4>
+			<div class="content">
+				<p>
+					<label class="hw"><span>企业简称</span><input id="sdJCFCompanyName" disabled="disabled" class="g-ipt ipt-l" type="text"></label>
+					<label class="hw"><span>是否开通九次方</span><input id="sdJCFActive" disabled="disabled" class="g-ipt ipt-l" type="text"></label>
+					<label class="hw"><span>购买总次数</span><input id="sdJCFTotal" disabled="disabled" class="g-ipt ipt-l" type="text"></label>
+					<label class="hw"><span>消耗总次数</span><input id="sdJCFUsed" disabled="disabled" class="g-ipt ipt-l" type="text"></label>
+					<label class="hw"><span>剩余次数</span><input id="sdJCFLeft" disabled="disabled" class="g-ipt ipt-l" type="text"></label>
+				</p>
+				<div id="tbJCF" class="tb">
+					<p><label class="hw"><span>充值次数</span><input id="sJCFCount" class="g-ipt ipt-l" type="text"></label></p>
+					<p class="tr"><button class="btn-blue off" id="sBtnJCFBuy">购买</button><button id="sBtnJCFSync" class="btn-blue off">同步</button></p>
+				</div>
+			</div>
+		</section>
+
+		<!--九次方日志-->
+		<section class="accordian collapse f1 f2 f3 f4" data-target="jcflog">
+			<h4><span class="arraw"></span>九次方充值信息</h4>
+			<div class="content">
+				<div id="tbJCFLog" class="tb">
+					<div class="tb-bar">
+						<p>
+							<label><span>充值时间</span><input id="sbJCFCST" type="text" class="g-ipt ipt-s" /></label>
+							<label><span>到</span><input id="sbJCFCET" type="text" class="g-ipt ipt-s" /></label>
+							<button id="btnSBJCFLogSearch">查询</button>
+						</p>
+					</div>
+					<table>
+						<thead>
+						<tr>
+							<td>序号</td>
+							<td>操作时间</td>
+							<td>本次充值次数</td>
+							<td>九次方充值次数</td>
+							<td>九次方充值流水号</td>
+						</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+					<div class="pager"></div>
+				</div>
+			</div>
+		</section>
+		<section class="accordian collapse f1 f2 f3 f4" data-target="market">
+			<h4><span class="arraw"></span>营销刺激</h4>
+			<div class="content">
+				<p><label><span>状态</span><input id="sdMarketingStatus" disabled="disabled" class="g-ipt ipt-l" type="text"></label></p>
+				<div id="tbMarketing" class="tb">
+					<p class="tr"><button id="sBtnMarketingStop" class="btn-blue off">变更</button></p>
+				</div>
+			</div>
+		</section>
+		<section class="accordian collapse f1 f2 f3 f4" data-target="">
+			<h4><span class="arraw"></span>登录页个性化</h4>
+			<div class="content">
+				<p><label><span>个性化状态</span><input id="sdCustom" disabled="disabled" class="g-ipt ipt-l" type="text"></label></p>
+				<div id="tbCustom" class="tb">
+					<p class="tr"><button id="sBtnCustomChange" class="btn-blue off">变更</button></p>
+				</div>
+			</div>
+		</section>
+		<section class="accordian collapse f2" data-target="">
+			<h4><span class="arraw"></span>服务信息</h4>
+			<div class="content">
+				<p><label><span>开通时间</span><input id="sdActiveTime" disabled="disabled" class="g-ipt ipt-l" type="text"></label></p>
+			</div>
+		</section>
+		<section class="accordian collapse f1 f2 f3 f4" data-target="">
+			<h4><span class="arraw"></span>提交人信息</h4>
+			<div class="content">
+				<p>
+					<label class="hw"><span>提交人</span><input id="sdCreater" disabled="disabled" class="g-ipt ipt-m" type="text"></label>
+					<label class="hw"><span>提交时间</span><input id="sdCreateTime" disabled="disabled" class="g-ipt ipt-m" type="text"></label>
+					<label class="hw"><span>联系方式</span><input id="sdContact" disabled="disabled" class="g-ipt ipt-m" type="text"></label>
+					<label class="hw"><span>所属代理商</span><input id="sdAgentName" disabled="disabled" class="g-ipt ipt-m" type="text"></label>
+				</p>
+			</div>
+		</section>
+		<section class="accordian collapse f1 f2 f3 f4" data-target="">
+			<h4><span class="arraw"></span>修改人信息</h4>
+			<div class="content">
+				<p>
+					<label class="hw"><span>修改人</span><input id="sdUpdater" disabled="disabled" class="g-ipt ipt-m" type="text"></label>
+					<label class="hw"><span>修改时间</span><input id="sdUpdateTime" disabled="disabled" class="g-ipt ipt-m" type="text"></label>
+					<label class="hw"><span>联系方式</span><input id="sdUpdaterMobile" disabled="disabled" class="g-ipt ipt-m" type="text"></label>
+				</p>
+			</div>
+		</section>
+		<section class="accordian collapse f1 f2 f3 f4" data-target="log">
+			<h4><span class="arraw"></span>日志信息</h4>
+			<div class="content">
+				<div id="tbLog" class="tb">
+					<div class="tb-bar">
+						<p>
+							<label><span>类别</span><select id="sbLogType"></select></label>
+							<label><span>操作时间</span><input id="sbLogST" type="text" class="g-ipt ipt-s" /></label>
+							<label><span>到</span><input id="sbLogET" type="text" class="g-ipt ipt-s" /></label>
+							<button id="sBtnLogSearch">查询</button>
+						</p>
+					</div>
+					<table>
+						<thead>
+						<tr>
+							<td>序号</td>
+							<td>操作时间</td>
+							<td>操作人</td>
+							<td>类别</td>
+							<td>内容</td>
+						</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+					<div class="pager"></div>
+				</div>
+			</div>
+		</section>
+		<p class="tr">
+			<button id="btnResetAdminPassword" class="f2 off">重置管理员密码</button>
+			<button id="btnStopService" class="f2 off">停用</button>
+			<button id="btnStartService" class="f4 off">启用</button>
+		</p>
+	</div>
+</div>
+
+

@@ -1,0 +1,17 @@
+<script type="text/template" class="trTpl">
+    <% _.each(content,function(item){%>
+        <tr>
+            <td> </td>
+            <td><%=item.name%></td>
+            <td><%=item.account%></td>
+            <td><%=item.sourceStr%></td>
+            <td><%=item.statusStr%></td>
+            <td><%=item.provinceStr%></td>
+            <td><%=item.registerTimeStr%></td>
+            <td><%=item.vendorName%></td>
+            <td><a data-id="<%=item.id%>" class="detail">详情</a></td>
+            <td> </td>
+        </tr>
+    <%}) %>
+</script>
+

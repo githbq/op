@@ -1,0 +1,15 @@
+<script type="text/template" id="trCyc">
+    <% _.each(content,function( value ,index ){ %>
+    <tr>
+        <td></td>
+        <td><%=value.id%></td>
+        <td><%=value.enterprise.enterpriseName%></td>
+        <td><%=value.enterprise.enterpriseAccount%></td>
+        <td><%=value.employeeName%></td>
+        <td><%=value.amount%></td>
+        <td><%=value.displayFirstQueryTime%></td>
+        <td><%=value.displayLastQueryTime%></td>
+        <td></td>
+    </tr>
+    <% }) %>
+</script>

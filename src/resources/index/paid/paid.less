@@ -1,0 +1,61 @@
+.p-indexact-paid {
+    .m-act-paid {
+        .list-bar {
+            border-bottom: none;
+            .list-bar-btns {
+                width: 300px;
+                button {
+                    margin-right: 10px;
+                    &:last-child {
+                        margin-right: 0;
+                    }
+                    &.disable {
+                        opacity: 0.3;
+                    }
+                }
+            }
+            .list-bar-entry {
+                margin-right: 300px;
+                .act-lst-tr {
+                    width: 500px;
+                    height: 200px;
+                    margin-bottom: 20px;
+                }
+                .tips {
+                    margin-bottom: 20px;
+                    color: @ltc3;
+                }
+            }
+        }
+        .list-content {
+            background:#f8f8f8;
+            h3 {
+                padding-left:20px;
+                border-bottom: 1px solid #d9d9d9;
+                color: #888888;
+                font-size: 15px;
+                font-weight: bold;
+                height: 50px;
+                line-height: 50px;
+                margin-bottom: 10px;
+            }
+            p {
+                margin: 0 20px;
+                line-height: 2em;
+                &.btns {
+                    text-align: right;
+                    button {
+                        margin-left: 10px;
+                        &.invisiable { display: none; }
+                        &.disable {
+                            opacity: 0.3;
+                        }
+                    }
+                }
+                .hl {
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}

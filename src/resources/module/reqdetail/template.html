@@ -1,0 +1,12 @@
+<script type="text/template" id="list">
+    <% _.each( content, function(item){ %>
+        <tr>
+            <td><a data-id="<%=item.id%>" class="attachement"><%=item.attachmentName%><a></td>
+            <td><%=item.attachmentSizeStr%></td>
+            <td><%=item.remark%></td>
+            <td><%=item.createTimeStr%></td>
+        </tr>
+    <% }) %>
+</script>
+
+

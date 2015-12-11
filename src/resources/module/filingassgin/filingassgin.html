@@ -1,0 +1,39 @@
+<div class="m-assignEntInfo u-slider u-tablelist" id="agentId" data-agent='' js="true">
+	<p>
+		<label>
+			账户名 &nbsp;&nbsp;
+			<input type="text" ce-model="name" class="search-name">
+		</label>
+	</p>
+	<table class=" assign-ent-Info">
+	  <thead>
+		<tr>
+		  <th style="width:100px;">账户</th>
+		  <th>操作</th>
+		</tr>
+	  </thead>
+	  <tbody>
+
+	  </tbody>
+	</table>
+</div>
+<script type="text/template" id="trAssignEnt">
+	<% _.each( content, function( item , index ){%>
+		<tr data-id="<%=item.id%>">
+			<td><%=item.name%></td>
+			<td>
+				<a data-id="<%=item.id%>"  class="agent-bind-channel">绑定</a>
+			</td>
+		</tr>
+	<% }) %>
+</script>
+<script type="text/template" id="trCustomervalue">
+	<% _.each( content, function( item , index ){%>
+		<tr data-id="<%=item.id%>">
+			<td><%=item.name%></td>
+			<td>
+				<a data-id="<%=item.id%>"  class="customervalue-bind-channel">绑定</a>
+			</td>
+		</tr>
+	<% }) %>
+</script>

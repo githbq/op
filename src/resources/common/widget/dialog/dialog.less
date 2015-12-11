@@ -1,0 +1,41 @@
+.m-dialog-wrapper{
+	position:fixed;
+	z-index:2000;
+	top:0;
+	right:0;
+	bottom:0;
+	left:0;
+	overflow:auto;
+	background:rgba(0,0,0,0.8);
+	.m-dialog{
+		position:relative;
+		border:1px @lc1 solid;
+		background:@bc1;
+		margin-left:auto;
+		margin-right:auto;
+		min-width:400px;
+		min-height:300px;
+		overflow:auto;
+		border-radius:3px;
+		.dialog-header{
+			height:50px;
+			line-height:50px;
+			background:#f8f8f8;
+			border-bottom: 1px #EAEAEA solid;
+			padding:0 20px;
+			font-size:14px;
+			font-weight:bold;
+			.header-close{
+				float:right;
+				padding:0 0 0 10px;
+				cursor:pointer;
+				color:@tc1;
+				font-weight:bold;
+				font-size:18px;
+			}
+		}
+		.dialog-body{
+			padding:10px 20px;
+		}
+	}
+}

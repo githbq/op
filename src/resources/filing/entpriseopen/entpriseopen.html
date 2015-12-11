@@ -1,0 +1,57 @@
+<div class="p-list" js="true">
+	<div class="m-openlist u-tablelist">
+		<div class="list-header">
+			<h3>公开企业列表</h3>
+		</div>
+		<div class="list-bar">
+			<div class="list-bar-btns">
+				<button class="search u-btn-blue">查询</button>
+			</div>
+			<div class="list-bar-input">
+				<label for="">
+					<span>区域</span>
+					<input type="text" class="region" onkeyup='this.value=""'>
+					<button class="clear">清空</button>
+				</label>
+				<label>
+					<span>企业名称</span>
+					<input type="text" ce-model="enterpriseName">
+				</label>
+				<label for="">
+					<span>公开时间</span>
+					<input type="text" class="startTime" onkeyup='this.value=""'>  到  <input type="text" class="endTime" onkeyup='this.value=""'>
+				</label>
+			</div>
+		</div>
+		<div class="list-content">
+			<table>
+				<thead>
+					<tr>
+						<th></th>
+						<th>企业名称</th>
+						<th style="display:none;">地址</th>
+						<th>创建时间</th>
+						<th>地区</th>
+						<th>申请数</th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody ce-collection="list">
+					<tr>
+						<td></td>
+						<td><%=item.enterpriseName%></td>
+						<td style="display:none;"><%=item.address%></td>
+						<td><%=item.createTimeStr%></td>
+						<td><%=item.regionName%></td>
+						<td><%=item.requestCount%></td>
+						<td><a data-id="<%=item.id%>" class="detail">详情</a></td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="list-pager">
+		</div>
+	</div>
+</div>

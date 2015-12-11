@@ -1,0 +1,60 @@
+.m-select{
+	display:inline-block;
+	position:relative;
+	.select-content{
+		height:25px;
+		line-height: 25px;
+		min-width:60px;
+		border:1px #ccc solid;
+		border-radius:2px;
+		.content-text{
+			display:block;
+			height:25px;
+			margin-right:20px;
+			padding:0 10px;
+			cursor: pointer;
+		}
+		.content-bar{
+			display:inline-block;
+			cursor:pointer;
+			float:right;
+			width:20px;
+			height:25px;
+			border-left:1px #eee solid;
+			background: url('@{imagepath}/vector.png') no-repeat center 9px;
+			background-size: 16px;
+		}
+	}
+	.select-list{
+		display:none;
+		position:absolute;
+		bottom:28px;
+		border:1px #ccc solid;
+		border-radius:2px;
+		background:#fff;
+		padding:6px;
+		border-radius:2px;
+		section{
+			cursor:pointer;
+			white-space:nowrap;
+			padding:0 5px;
+			border-bottom:1px @lc2 solid;
+			&:hover{
+				background:@bc2;
+			}
+			&:last-child{
+				border-bottom:none;
+			}
+		}
+	}
+	&.active{
+		.select-list{
+			display:block;
+		}
+		.content-bar{
+			background-position: center -9px;
+		}
+	}
+}
+
+

@@ -1,0 +1,73 @@
+<div class="p-entprisefiling-lst p-list" js="true">
+    <div class="m-filinglist u-tablelist">
+    	<div class="list-header">
+            <div class="header-opts">
+                <button class="add-filing btn-blue">上报备案企业</button>
+            </div>
+            <h3>备案企业列表</h3>
+    	</div>
+    	<div class="list-bar">
+            <div class="list-bar-btns" style="width:200px;">
+                <!--<button class="export">导出Excel</button>-->
+                <button class="search">查询</button>
+            </div>
+    		<div class="list-bar-input">
+    			<label for="">
+    				<span>企业名称</span>
+    				<input type="text" ce-model="enterpriseFilingName">
+    			</label>
+    			<label for="">
+    				<span>申请时间</span>
+    				<input type="text" class="startTime">
+    				<span>到</span>
+    				<input type="text" class="endTime">
+    			</label>
+    			<label for="">
+    				<span>状态</span>
+    				<select name="" class="status" ce-model="status"></select>
+    			</label>
+                <label for="">
+                    <span>是否启用</span>
+                    <select name="" ce-model="active">
+                        <option value="">全部</option>
+                        <option value="1">已启用</option>
+                        <option value="0">已停用</option>
+                    </select>
+                </label>
+				<label for="">
+					<span>行业</span>
+					<select name="" class="industry-data e-industry" ce-model="industryList" ></select>
+				</label>
+				<label for="">
+					<span>来源 </span>
+					<select name="" class="source-data e-source " ce-model="sourceList" ></select>
+				</label>
+    		</div>
+    	</div>
+    	<div class="list-content">
+    		<table>
+    			<thead>
+    				<tr>
+    					<th></th>
+    					<th style="min-width:160px">企业</th>
+						<th style="width:100px;">跟进人</th>
+    					<th style="width:100px;">状态</th>
+						<th style="width:200px;">行业</th>
+						<th style="width:100px;">来源</th>
+    					<th style="width:100px;">服务时间</th>
+    					<th style="width:120px;">地址</th>
+    					<th style="width:140px;">申请时间</th>
+    					<th style="width:153px;">操作</th>
+    					<th></th>
+    				</tr>
+    			</thead>
+    			<tbody>
+    				<!-- -->
+    			</tbody>
+    		</table>
+    	</div>
+        <div class="list-pager">
+            
+        </div>
+    </div>
+</div>

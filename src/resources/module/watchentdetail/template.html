@@ -1,0 +1,79 @@
+<script type="text/template" id="trtpl">
+	<% _.each( content, function( item , index ){%>
+		<tr>
+			<td></td>
+			<td><%=item.name%></td>
+			<td><%=item.id%></td>
+			<td><%=item.cityStr%></td>
+			<td><%=item.statusStr%></td>
+			<td> <a data-id="<%=item.id%>" class="agent-edit off">编辑</a> <a data-id="<%=item.id%>" class="agent-detail">查看用户</a> </td>
+			<td></td>
+		</tr>
+	<% }) %>
+</script>
+
+<script type="text/template" id="callBackList">
+	<% _.each( content,  function( item ){ %>
+	<tr>
+		<td><%=item.employeeName%></td>
+		<td><%=item.adminStr%></td>
+		<td><%=item.employeeContact%></td>
+		<td><a data-ea="<%=item.ea%>" data-phone="<%=item.employeeContact%>" class="employee-detail">详情</a></td>
+	</tr>
+	<% }) %>
+</script>
+
+<!--风险详情列表-->
+<script type="text/template" id="riskInfoList">
+	<% _.each( content,  function( item ){ %>
+	<tr>
+		<td><%=item.date%></td>
+		<td>
+			<% if( item.rule1 != '0'){ %>
+				<div class="data-info" style="position:relative;">Y<span ><%=item.rule1Desc%></span></div>
+			<% } %>
+		</td>
+		<td>
+			<% if( item.rule2 != '0'){ %>
+				<div class="data-info" style="position:relative;">Y<span ><%=item.rule2Desc%></span></div>
+			<% } %>
+		</td>
+		<td>
+			<% if( item.rule3 != '0'){ %>
+				<div class="data-info" style="position:relative;">Y<span ><%=item.rule3Desc%></span></div>
+			<% } %>
+		</td>
+		<td>
+			<% if( item.rule4 != '0'){ %>
+				<div class="data-info" style="position:relative;">Y<span ><%=item.rule4Desc%></span></div>
+			<% } %>
+		</td>
+		<td>
+			<% if( item.rule5 != '0'){ %>
+				<div class="data-info" style="position:relative;">Y<span ><%=item.rule5Desc%></span></div>
+			<% } %>
+		</td>
+		<td>
+			<% if( item.warn1 != '0'){ %>
+				<div class="data-info" style="position:relative;">Y<span  ><%=item.warn1Desc%></span></div>
+			<% } %>
+		</td>
+		<td>
+			<% if( item.warn3 != '0'){ %>
+				<div class="data-info" style="position:relative;">Y<span  ><%=item.warn3Desc%></span></div>
+			<% } %>
+		</td>
+		<td>
+			<% if( item.warn4 != '0'){ %>
+				<div class="data-info" style="position:relative;">Y<span ><%=item.warn4Desc%></span></div>
+			<% } %>
+		</td>
+		<td>
+			<% if( item.warn5 != '0'){ %>
+				<div class="data-info" style="position:relative;">Y<span><%=item.warn5Desc%></span></div>
+			<% } %>
+		</td>
+	</tr>
+	<% }) %>
+</script>
+

@@ -1,0 +1,93 @@
+<div class="m-reqdetail u-slider">
+    <section>
+        <h4>申请信息</h4>
+        <p>
+            <label>
+                <span> 备案企业名称 </span>
+                <input type="text" ce-model="enterpriseFilingName" disabled>
+            </label>
+            <label>
+                <span> 申请状态 </span>
+                <input type="text" ce-model="requestStatusStr" disabled>
+            </label>
+        </p>
+        <p>
+            <label for="">
+                <span> 申请原因 </span>
+                <textarea ce-model="requestReason" disabled> </textarea>
+            </label>
+        </p>
+    </section>
+    <section class="state" data-state="end">
+        <h4>审核意见</h4>
+        <p>
+            <label>
+                <span>审核人</span>
+                <input type="text" ce-model="" disabled>
+            </label>
+            <label>
+                <span>审核时间</span>
+                <input type="text" ce-model="" disabled>
+            </label>
+        </p>
+        <p>
+            <label>
+                <span>审核意见</span>
+                <textarea disabled> </textarea>
+            </label>
+        </p>
+    </section>
+    <section class="state" data-state="begin">
+        <h4>附件上传</h4>
+        <p>
+            <label for="">
+                <span>说明</span>
+                <textarea name="" ce-model="uploadremark"></textarea>
+            </label>
+        </p>
+        <p>
+            <label for="">
+                <span>附件</span>
+                <span><input type="file" class="upload"></span>
+            </label>
+        </p>
+        <p>
+            <label for="">
+                <span></span>
+                <span><button class="uploadfile">上传</button></span>
+            </label>
+        </p>
+    </section>
+    <section>
+        <h4>附件查询</h4>
+        <p>
+            <label>
+                <span>附件名</span>
+                <input type="text" ce-model="search-name">
+            </label>
+        </p>
+        <p>
+            <label>
+                <span>上传时间</span>
+                <input type="text" class="startTime"> 到 <input type="text" class="endTime">
+            </label>
+            <button class="searchFujian btn-blue">查询</button>
+        </p>
+        <table>
+            <thead>
+                <tr>
+                    <th>名称</th>
+                    <th>文件大小</th>
+                    <th>说明</th>
+                    <th>上传时间</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- -->
+            </tbody>
+        </table>
+        <div class="list-pager"></div>
+    </section>
+</div>
+
+

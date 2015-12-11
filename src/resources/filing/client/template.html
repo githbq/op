@@ -1,0 +1,32 @@
+<div class="m-selectagent">
+	<section class="title">
+		<label for="">代理商名称 &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" ce-model="name"></label>
+		<button class="search">查询</button>
+	</section>
+	<section>
+		<table>
+			<thead>
+				<tr>
+					<th>代理商</th>
+					<th>地区</th>
+					<th>创建时间</th>
+					<th>创建人</th>
+				</tr>
+			</thead>
+			<tbody ce-collection="list">
+				<tr data-id="<%=item.agent.id%>" data-name="<%=item.agent.name%>" class="agentdetail">
+					<td><%=item.agent.name%></td>
+					<td><%=item.agent.region%></td>
+					<td><%=item.createTimeStr%></td>
+					<td><%=item.agent.createBy.userName%></td>
+				</tr>
+			</tbody>			
+		</table>
+	</section>
+</div>
+
+
+
+
+
+

@@ -1,0 +1,293 @@
+<script type="text/template" id="trTpl">
+    <% _.each( content, function( item ){ %>
+        <tr>
+            <td></td>
+            <td> <%=item.enterpriseName%> </td>
+            <td> <%=item.enterpriseAccount%> </td>
+            <td> <%=item.industryStr%> </td>
+			<td style="display:none;"> <%=item.filingStatusStr%> </td>
+            <td> <%=item.contactName%> , <%=item.contactPhone%> , <%=item.contactEmail%> , <%=item.contactIM%> </td>
+            <td> 
+                <a data-id="<%=item.enterpriseId%>" class="detail">查看</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a data-id="<%=item.enterpriseId%>" class="assgin" data-permissions="F009001">分配</a>
+                <!--<a data-id="<%=item.id%>" class="renew">增购续费</a>-->
+            </td>
+            <td></td>
+        </tr>
+    <% } )%>
+</script>
+<script type="text/template" id="customerLookTem">
+<div class="m-addenterprise">
+	<div class="enterprise-content">
+		<div class="info-box">
+			<h4>基本信息</h4>
+			<p>
+				<label for="">
+					<span>企业名称 </span>
+					<input type="text" ce-model="enterpriseName" class="required enterpriseName" disabled="disabled">
+				</label>
+				<label for="">
+					<span>企业账号 </span>
+					<input type="text" ce-model="enterpriseAccount" class="required" placeholder="不可更改!" disabled="disabled">
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>企业简称 </span>
+					<input type="text" ce-model="enterpriseShortName" class="required" placeholder="用于手机短消息签名" disabled="disabled">
+				</label>
+				<label for="">
+					<span>地址 </span>
+					<input type="text" ce-model="address" class="required address" disabled="disabled">
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>行业</span>
+					<select name="" class="e-industry required" ce-model="industry" disabled="disabled"></select>
+				</label>
+				<label for="">
+					<span>来源 </span>
+					<select name="" class="e-source required" ce-model="source" disabled="disabled"></select>
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>省市 </span>
+					<select name="" class="e-province required" ce-model="province" disabled="disabled"></select>
+				</label>
+				<label for="">
+					<span>团队类型</span>
+					<select name="" class="e-group required" ce-model="groupType" disabled="disabled"></select>
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>了解渠道 </span>
+					<select name="" class="e-knowsource required" ce-model="knowSource" disabled="disabled"></select>
+				</label>
+				<label for="">
+					<span>注册动机</span>
+					<select name="" class="e-motive required" ce-model="registerMotive" disabled="disabled"></select>
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>公司规模 </span>
+					<select name="" class="companyscale required" ce-model="companyScale" disabled="disabled"></select>
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>是否有销售团队 </span>
+					<select name="" id="" ce-model="isSaleTeam" class="required" disabled="disabled">
+						<option value="">请选择</option>
+						<option value="1">是</option>
+						<option value="0">否</option>
+					</select>
+				</label>
+				<label for="">
+					<span>销售团队规模 </span>
+					<select name="" class="saleteamscale required" ce-model="saleTeamScale" disabled="disabled"></select>
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>是否首面签约 </span>
+					<select name="" ce-model="isFirstmeetingSign" class="required" disabled="disabled">
+						<option value="">请选择</option>
+						<option value="1">是</option>
+						<option value="0">否</option>
+					</select>
+				</label>
+				<label for="">
+					<span>是否会销 </span>
+					<select name="" id="" ce-model="isWillPin" class="required" disabled="disabled">
+						<option value="">请选择</option>
+						<option value="1">是</option>
+						<option value="0">否</option>
+					</select>
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>是否陌拜 </span>
+					<select name="" ce-model="isStrangerVisits" class="required" disabled="disabled">
+						<option value="">请选择</option>
+						<option value="1">是</option>
+						<option value="0">否</option>
+					</select>
+				</label>
+				<label for="">
+					<span>城市 </span>
+					<input type="text" ce-model="city" class="required" disabled="disabled">
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>是否快速签约 </span>
+					<select name="" ce-model="isFastSign" class="required" disabled="disabled">
+						<option value="">请选择</option>
+						<option value="1">是</option>
+						<option value="0">否</option>
+					</select>
+				</label>
+				<label for="">
+					<span>成交周期(天) </span>
+					<input type="text" ce-model="dealDays" class="required" disabled="disabled">
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>是否高压锅 </span>
+					<select name="" id="" ce-model="isAutoClave" class="required" disabled="disabled">
+						<option value="">请选择</option>
+						<option value="1">是</option>
+						<option value="0">否</option>
+					</select>
+				</label>
+				<label for="">
+					<span>高压周期(天)</span>
+					<input type="text" ce-model="autoclaveDays" class="required" disabled="disabled">
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>是否转介绍 </span>
+					<select name="" id="" ce-model="isReferral" class="required" disabled="disabled">
+						<option value="">请选择</option>
+						<option value="1">是</option>
+						<option value="0">否</option>
+					</select>
+				</label>
+			</p>
+			<h4>企业负责人</h4>
+			<p>
+				<label for="">
+					<span>企业负责人姓名 </span>
+					<input type="text" ce-model="keyContactName" class="required keyContactName" disabled="disabled">
+				</label>
+				<label for="">
+					<span>企业负责人电话 </span>
+					<input type="text" ce-model="keyContactPhone" class="required" disabled="disabled">
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>企业负责人邮箱 </span>
+					<input type="text" ce-model="keyContactEmail" class="required" disabled="disabled">
+				</label>
+			</p>
+			<h4>纷享平台管理员</h4>
+			<p>
+				<label for="">
+					<span>平台管理员 </span>
+					<input type="text" ce-model="contactName" class="required" disabled="disabled">
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>平台管理员电话 </span>
+					<input type="text" ce-model="contactPhone" class="required" disabled="disabled">
+				</label>
+				<label for="">
+					<span>平台管理员邮箱 </span>
+					<input type="text" ce-model="contactEmail" class="required" disabled="disabled">
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>平台管理员QQ</span>
+					<input type="text" ce-model="contactim" disabled="disabled">
+				</label>
+			</p>
+			<h4>产品信息</h4>
+			<p style="display:none;">
+				<label for="">
+					<span>产品 </span>
+					<select name="" class="content-product " disabled="disabled" ce-model="productId">
+					</select>
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>销客终端总量(个)</span>
+					<input type="text" ce-model="accountTotalAmount" class="required deviceamount" disabled="disabled">
+				</label>
+				<label for="">
+					<span>短信总量(条)</span>
+					<input type="text" ce-model="smsTotalAmount" class="required" disabled="disabled">
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>空间总量(GB)</span>
+					<input type="text" ce-model="storageTotalSpace" class="required" disabled="disabled">
+				</label>
+			</p>
+			
+			<p class=" state-pay">
+				<label for="">
+					<span>年限</span>
+					<select ce-model="yearLimit" class="yearlimit" disabled="disabled">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+					</select>
+				</label>
+				<label for="">
+					<span>合同金额(￥)  </span>
+					<input type="text" ce-model="contractPrice" class="contractprice" disabled="disabled">
+				</label>
+			</p>
+			<p class=" state-pay">
+				<label for="">
+					<span>折扣 </span>
+					<input type="text" ce-model="discount" disabled="disabled">
+				</label>
+				<label for="">
+					<span>发票抬头 </span>
+					<input type="text" ce-model="invoiceTitle" disabled="disabled">
+				</label>
+			</p>
+			<!--<h4>备注</h4>
+			<p>
+				<label for="">
+					<textarea name="" ce-model="remark"></textarea>
+				</label>
+			</p>-->
+		</div>
+		
+	</div>
+	<div class="enterprise-action clearfix" style="display:none;">
+		<button class=" save-fn btn-blue">保存</button>
+	</div>
+</div>
+</script>
+
+<script type="text/template" id="assignEntInfo">
+	<div class="m-assignEntInfo u-slider u-tablelist" id="agentId" data-agent=''>
+		<table class=" assign-ent-Info">
+		  <thead>
+			<tr>
+			  <th style="width:170px;">渠道</th>
+			  <th>操作</th>
+			</tr>
+		  </thead>
+		  <tbody>
+	
+		  </tbody>
+		</table>
+	</div>
+</script>
+
+
+
+
+

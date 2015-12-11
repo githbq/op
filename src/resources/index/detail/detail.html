@@ -1,0 +1,134 @@
+<div class="p-list p-act-lst" js="true" cache="false">
+	<div class="m-list m-act-detail">
+		<div class="u-tablelist">
+			<div class="list-header">
+				<h3>
+				企业日活跃详情
+				<div class="header-opts">
+					<button id="btnQyrhyExel" class="btn-exel" style="margin-top:10px;">日活详情导出</button>
+				</div>
+				</h3>
+			</div>
+			<div class="list-bar">
+				<div class="list-bar-btns">
+					<button id="btnSearch" class="u-btn-blue">查询</button>
+				</div>
+				<div class="list-bar-input active-list">
+					
+					<label><span>企业账号</span>
+						<input id="enterpriseAccount" type="text" class="g-ipt ipt-m enterpriseAccount" />
+					</label>
+					<label><span>销售人员</span>
+						<input id="alCode" type="text" class="g-ipt ipt-m alName" />
+					</label>
+					<label class="sp">
+						<label>
+							<span>开通时间</span>
+							<input id="alCST" type="text" class="g-ipt ipt-l" onkeyup='this.value=""'/>
+						</label>
+						<label>
+							<span>-</span>
+							<input id="alCET" type="text" class="g-ipt ipt-l" onkeyup='this.value=""'/>
+						</label>
+					</label>
+					<label class="sp" >
+						<label>
+							<span>活跃日期</span>
+							<input id="alAST"  type="text" class="g-ipt ipt-l start-active" onkeyup='this.value=""'/>
+						</label>
+						<label>
+							<span>-</span>
+							<input id="alAET" type="text" class="g-ipt ipt-l end-active" onkeyup='this.value=""'/>
+						</label>
+					</label>
+					<br />
+					<!--
+					<p class="fn-list">
+						<button id="btnDownExel" class="btn-blue btn-exel">日活列表导出</button>
+					</p>
+					-->
+				</div>
+			</div>
+			<!--
+			<div class="list-content" style="text-align:right;">
+				<span id="downloaddayactive" style="margin-right:75px;display:none;"><a href="" target="_blank">下载日活列表</a></span>
+			</div>
+			-->
+			
+			<!--<div class="list-pager">
+				
+			</div>-->
+			<div class="list-exel">
+
+			</div>
+		</div>
+		<div class="list-content">
+			<div class="u-tablebox">
+				<table>
+					<thead>
+						<tr>
+							<th rowspan="2"  style="width:100px">销售员工</th>
+							<th rowspan="2"  style="width:120px">企业名称</th>
+							<th rowspan="2"  style="width:100px">开通时间</th>
+							<th rowspan="2"  style="width:100px">日期</th>
+							<th rowspan="2"  style="width:100px">最新开通数量</th>
+							<th rowspan="2"  style="width:100px">实际开通人数</th>
+							<th rowspan="2"  style="width:100px">登录人数</th>
+							<th rowspan="2"  style="width:100px">动作数</th>
+							<th rowspan="2"  style="width:100px">是否日活跃</th>
+							<th colspan="15" style="width:1200px">日期区间使用功能次数</th>
+						</tr>
+						<tr>
+							<th style="width:80px">分享</th>
+							<th style="width:80px">日志</th>
+							<th style="width:80px">话题</th>
+							<th style="width:80px">审批</th>
+							<th style="width:80px">赞</th>
+							<th style="width:80px">回复</th>
+							<th style="width:80px">外勤签到</th>
+							<th style="width:80px">指令</th>
+							<th style="width:80px">考勤签到</th>
+							<th style="width:80px">日程</th>
+							<th style="width:80px">回执</th>
+							<th style="width:80px">新增客户</th>
+							<th style="width:80px">新增联系人</th>
+							<th style="width:80px">新增关注客户</th>
+							<th style="width:80px">新增共享联系人</th>
+						</tr>
+					</thead>
+					<tbody ce-collection="list">
+						<tr>
+							<td><%=item.salesName%></td>
+							<td><%=item.eaName%></td>
+							<td><%=item.openTime%></td>
+							<td><%=item.day%></td>
+							<td><%=item.launchCount%></td>
+							<td><%=item.actualLaunchCount%></td>
+							<td><%=item.loginCount%></td>
+							<td><%=item.actionCount%></td>
+							<td><%=item.isActivity? 'Y':'N' %></td>
+							<td><%=item.shareCount%></td>
+							<td><%=item.planCount%></td>
+							<td><%=item.followTopicCount%></td>
+							<td><%=item.approveCount%></td>
+							<td><%=item.praiseCount%></td>
+							<td><%=item.replyCount%></td>
+							<td><%=item.waiqinqiandaoCount%></td>
+							<td><%=item.workCount%></td>
+							<td><%=item.kaoqinqiandaoCount%></td>
+							<td><%=item.scheduleCount%></td>
+							<td><%=item.receiptCount%></td>
+							<td><%=item.addCustomerCount%></td>
+							<td><%=item.addContactCount%></td>
+							<td><%=item.customerFollowCount%></td>
+							<td><%=item.shareContactCount%></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="act-pager">
+			
+		</div>
+	</div>
+</div>

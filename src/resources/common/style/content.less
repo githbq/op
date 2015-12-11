@@ -1,0 +1,151 @@
+/**
+ * 页面内容框架
+ *
+ */
+#header{
+	height:50px;
+	border-bottom:1px #cfcfcf solid;
+	background:#f5f5f7;
+	color:@tc1;
+
+	/*标题*/
+	h1{
+		display:block;
+		float:left;
+		line-height:50px;
+		font-size:20px;
+		font-weight:bold;
+		padding:0 20px;
+		img{
+			display:block;
+		}
+	}
+
+	/*登录人员*/
+	.header-person{
+		display:block;
+		float:right;
+		line-height:50px;
+		padding:0 30px 0 20px;
+		border-left:1px @lc2 solid;
+		position:relative;
+
+		img{
+			display:inline-block;
+			width:24px;
+			height:24px;
+			border-radius:12px;
+			background:@ltc1;
+		}
+		
+		span{
+			cursor: default;
+			display:inline-block;
+		}
+
+		.person-loginout{
+			display:none;
+			width:160px;
+			position:absolute;
+			top:50px;
+			right:0;
+			background:@bc1;
+			border:1px @lc1 solid;
+			text-indent:2em;
+			cursor:pointer;
+			z-index:10;
+			a{
+				display:block;
+				border-bottom:1px #f1f1f1 solid;
+				&:hover{
+					background:#efefef;
+				}
+				&:last-child{
+					border-bottom:none;
+				}
+			}
+		}
+		&:hover{
+			.person-loginout{
+				display:block;
+			}
+		}
+	}
+
+	/*菜单*/
+	nav{
+		line-height:50px;
+		font-size:@fs;
+		margin-left:220px;
+		margin-right:110px;
+		li{
+			&.active{
+				&>a{
+					color:@ltc1;
+					background:#f2f2f2;
+				}
+			}
+		}
+		a{
+			width:90px;
+			display:inline-block;
+			text-align:center;
+			&:link,
+			&:visited{
+				color:@tc1;
+			}
+			&:hover{
+				background:@bc6;
+				transition: background-color .3s linear;
+			}
+		}
+		/*
+		a.active{
+			color:@ltc1;
+			background:@bc2;
+			&:hover{
+				background:@bc6;
+				transition: background-color .3s linear;
+			}
+		}
+		*/
+		.nav-main {
+			li {
+				float: left;
+				position: relative;
+				&:hover {
+					.nav-sub {
+						display: block;
+					}
+				}
+			}
+		}
+		.nav-sub {
+			display: none;
+			position: absolute;
+			top: 50px;
+			left: 0;
+			z-index: 9;
+			background: #fff;
+			border:1px #e3e3e3 solid;
+			border-radius:4px;
+			li{
+				border-bottom:1px #eee solid;
+				&:last-child{
+					border-bottom:none;
+				}
+			}
+			a {
+				width: 160px;
+				&:hover {
+					background: @bc6;
+					transition: background-color .1s linear;
+				}
+			}
+		}
+	}
+}
+#con{
+	padding-top:20px;
+	padding-bottom:20px;
+}

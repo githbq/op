@@ -1,0 +1,48 @@
+<script type="text/template" class="trTpl">
+    <% _.each(content,function(item){%>
+        <tr>
+            <td> </td>
+            <td><%=item.name%></td>
+            <td><%=item.account%></td>
+            <td><%=item.sourceStr%></td>
+            <td><%=item.statusStr%></td>
+            <td><%=item.provinceStr%></td>
+            <td><%=item.registerTimeStr%></td>
+            <td>
+                <a data-id="<%=item.id%>" class="detail">详情</a>
+                <a data-id="<%=item.id%>" class="distribute">分配</a>
+            </td>
+            <td> </td>
+        </tr>
+    <%}) %>
+</script>
+
+<script type="text/template" class="fenpei">
+    <div class="m-disagent">
+        <p class="title">
+            <span>用户名称</span><input type="text" placeholder="查询" ce-model="keyword">
+        </p>
+        <table>
+            <thead>
+                <tr>
+                    <th>用户名称</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody ce-collection="list">
+                <tr data-name="<%=item.name%>">
+                    <td>
+                        <%=item.name%>
+                    </td>
+                    <td>
+                        <a class="bindperson" data-id="<%=item.id%>">绑定</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</script>
+
+
+
+

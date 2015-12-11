@@ -1,0 +1,80 @@
+<div class="p-list p-approvalwait" js="true" cache="false">
+	<div class="u-tablelist m-approvalwaitlist">
+		<div class="list-main">
+			<div class="list-header">
+				<h3>待审批代理商用户</h3>
+			</div>
+			<div class="list-bar">
+				<div class="list-bar-btns">
+					<button class="u-btn-blue btn-search">查询</button>
+				</div>	
+				<div class="list-bar-input">
+					<label>
+						<span>代理商名称</span>
+						<input type="text" ce-model="agentName">
+					</label>
+					<label>
+						<span>姓名</span>
+						<input type="text" ce-model="name">
+					</label>
+					<label for="">
+						<span>状态</span>
+						<select ce-model="status">
+							<option value="">全部</option>
+							<option value="1">已启用</option>
+							<option value="0">已停用</option>
+						</select>
+					</label>
+					<label for=""> <span>登录名</span> <input type="text" ce-model="loginName"></label>
+					<label for=""> <span>工作邮箱</span> <input type="text" ce-model="email"></label>
+					<label>
+						<span>登录时间</span>
+						<input type="text" class="list-starttime">
+						<span>到</span>
+						<input type="text" class="list-endtime">
+					</label>
+				</div>
+			</div>
+			<div class="list-content">
+				<table>
+					<thead>
+						<tr>
+							<th></th>
+							<th>姓名</th>
+							<th>登录账号</th>
+							<th>代理商名称</th>
+							<th>工作邮箱</th>
+							<th>状态</th>
+							<th>审核状态</th>
+							<th>登录时间</th>
+							<th>操作</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody ce-collection="list">
+						<tr>
+							<td></td>
+							<td><%=item.name%></td>
+							<td><%=item.username%></td>
+							<td><%=item.agent.name%></td>
+							<td><%=item.email%></td>
+							<td><%=item.statusStr%></td>
+							<td>
+								<%=item.auditStatusStr%>
+							</td>
+							<td><%=item.lastLoginTimeStr%></td>
+							<td>
+								<a data-id="<%=item.id%>" data-detect="<%=item.auditStatus%>" class="user-approval">审核</a>
+							</td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="list-pager">
+			
+		</div>
+	</div>
+</div>
+

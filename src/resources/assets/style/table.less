@@ -1,0 +1,220 @@
+.p-list {
+    margin: 0 30px;
+    background: #fff;
+    border:1px #DADADA solid;
+    border-radius:4px;
+    .f-shadow();
+}
+.u-tablelist{
+    .list-header {
+        background:#f6f6f6;
+        border-bottom: 1px solid #d9d9d9;
+        height:50px;
+        padding:0 30px;
+        h3 {
+            color: #888888;
+            font-size: 15px;
+            font-weight: bold;
+            height: 50px;
+            line-height: 50px;
+        }
+        .header-opts {
+            float:right;
+            padding-top:10px;
+            line-height:30px;
+        }
+       .header-title{
+            font-weight:normal;
+            padding: 0 10px;
+            font-size:14px;
+        }
+    }
+    .list-bar {
+        padding:15px 30px;
+        border-bottom: 1px solid #d9d9d9;
+        position: relative;
+        background: #f8f8f8;
+        .list-bar-btns {
+            min-width:100px;
+            float:right;
+            height:100%;
+
+            text-align: right;
+        }
+        .list-bar-input {
+            padding-right: 100px;
+            
+            input{
+                width:100px;
+            }
+
+            select{
+                height:27px;
+                width:100px;
+                border:1px #dedede solid;
+                border-radius:2px;
+            }
+
+            label {
+                display: inline-block;
+                &:last-child { margin-right: 0; }
+                margin-right: 15px;
+                margin-bottom:10px;
+                span { 
+                    margin-right: 10px; 
+                    display:inline-block;
+                }
+                .ipt-l { width: 180px; }
+                .ipt-m { width: 100px; }
+                .ipt-s { width: 80px; }
+            }
+            .sp { padding: 0; }
+        }
+    }
+    .list-content {
+        padding-bottom: 20px;
+    }
+    .list-pager {
+        border-radius: 3px;
+        line-height: 60px;
+        border-top:1px #DFDFDF solid;
+        padding: 0 20px;
+        text-align: right;
+    }
+    table {
+        border-top: none;
+        border-bottom: none;
+
+        /*单元表格定宽*/
+        table-layout: fixed;
+
+        th,td{
+            /*.ellipsis();*/
+            padding:0 6px;
+        }
+
+        tr {
+            height: 40px;
+            th{
+                font-weight:bold;
+                color:#666;
+                border-bottom:1px solid #eee;
+            }
+            td {
+                border-bottom: 1px solid #eee;
+                color:#666;
+                em {
+                    color: #2896f0;
+                    text-decoration: underline;
+                    cursor: pointer;
+                }
+            }
+        }
+        tbody {
+            td {
+                cursor: default;
+            }
+            tr {
+                &:nth-child(even){
+                    background: #fafafa;
+                }
+                &:hover {
+                    transition: background 0.2s linear;
+                    background: #f0f0f0;
+                }
+            }
+        }
+        th:first-child, th:last-child, td:first-child, td:last-child {
+            width: 20px;
+            border-bottom: none;
+        }
+        .info { text-align: center; }
+    }
+    .tips { 
+        margin:20px 0;
+        color:#ffa500; 
+    }
+}
+//带滚动条table
+.u-tablebox{
+	overflow: scroll;
+	width:98%;
+	margin:15px;
+	table{
+		border:none;
+		table-layout: fixed;
+		th{
+			background:#eee;
+			border:1px #999 solid;
+		}
+		td,th{
+			border:1px #ccc solid;
+			text-align:center;
+			line-height:40px;
+		}
+		.info{
+			position:relative;
+			.infotip{
+				position:absolute;
+				z-index:1;
+				top:16px;
+				display:none;
+				padding:4px 6px;
+			}
+			&:hover{
+				.infotip{
+					display:block;
+					background:#eee;
+					border:1px #ccc solid;
+				}
+			}
+		}
+	}	
+}
+
+/** 
+ * 
+ * slider 通用样式
+ */
+.u-slider{
+    h4{
+        font-weight:bold;
+    }
+    p{
+        padding:8px 0;
+    }
+    label{
+        span{
+            display: inline-block;
+            width: 85px;
+        }
+        padding-right:6px;
+    }
+    .slider-action{
+        padding-top:20px;
+        border-top:1px #ccc solid;
+    }
+    .state{
+        display:none;
+    }
+}
+.u-page{
+    .f-shadow();
+    margin:0 30px;
+    padding:0 20px 10px 20px;
+    background: #fff;
+    .page-header{
+        color: #888888;
+        font-size: 15px;
+        font-weight: bold;
+        height: 50px;
+        line-height: 50px;
+        border-bottom: 1px solid #d9d9d9;
+    }
+    .page-content{
+        padding:10px 0;
+        p{
+            padding:10px 0;
+        }
+    }
+}

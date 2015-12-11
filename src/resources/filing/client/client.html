@@ -1,0 +1,49 @@
+<div class="p-client p-list" js="true" cache="false">
+	<div class="u-tablelist m-clientlist">
+		<div class="list-main">
+			<div class="list-header">
+				<h3>客户企业</h3>
+			</div>
+			<div class="list-bar">
+				<button class="select">按代理商筛选</button>
+				
+				<span class="bar-filter" style="display:none">
+					以下是代理商名称为
+					<b class="filtername"></b>
+					的查询结果
+					<b class="filterclose">×</b>
+				</span>
+
+			</div>
+			<div class="list-content">
+				<table>
+					<thead>
+						<tr>
+							<th></th>
+							<th>企业名称</th>
+							<th>代理商</th>
+							<th>地址</th>
+							<th>负责人名字</th>
+							<th>负责人电话</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody ce-collection="list">
+						<tr>
+							<td></td>
+							<td><%=item.enterpriseName%></td>
+							<td><%=item.agentName%></td>
+							<td><%=item.address%></td>
+							<td><%=item.keyContactName%></td>
+							<td><%=item.keyContactPhone%></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="list-pager">
+		</div>
+	</div>
+</div>
+

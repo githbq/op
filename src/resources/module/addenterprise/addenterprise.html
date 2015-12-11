@@ -1,0 +1,148 @@
+<div class="m-addenterprise">
+	<div class="enterprise-content">
+		<h3>产品信息</h3>
+		<p>
+			<label for="">
+				<span>产品 <b>*</b></span>
+				<select name="" class="content-product" ce-model="productId" disabled="disabled"></select>
+			</label>
+		</p>
+		<p>
+			<label for="">
+				<span>销客终端总量(个) <b>*</b></span>
+				<input type="text" ce-model="accountTotalAmount">
+			</label>
+			<label for="">
+				<span>短信总量(条) <b>*</b></span>
+				<input type="text" ce-model="smsTotalAmount">
+			</label>
+		</p>
+		<p>
+			<label for="">
+				<span>空间总量(GB) <b>*</b></span>
+				<input type="text" ce-model="storageTotalSpace">
+			</label>
+		</p>
+		<h3>基本信息</h3>
+		<p>
+			<label for="">
+				<span>行业 <b>*</b></span>
+				<select name="" class="e-industry" ce-model="industry"></select>
+			</label>
+		</p>
+		<p>
+			<label for="">
+				<span>企业名称 <b>*</b></span>
+				<input type="text" ce-model="enterpriseName">
+			</label>
+		</p>
+		<p>
+			<label for="">
+				<span>销客截止时间 <b>*</b></span>
+				<input type="text" class="endTime">
+			</label>
+			<label for="">
+				<span>企业简称 <b>*</b></span>
+				<input type="text" ce-model="enterpriseShortName">
+			</label>
+		</p>
+		<p>
+			<label for="">
+				<span>企业账号 <b>*</b></span>
+				<input type="text" ce-model="enterpriseAccount">
+			</label>
+			<label for="">
+				<span>地址 <b>*</b></span>
+				<input type="text" ce-model="address">
+			</label>
+		</p>
+		<p>
+			<label for="">
+				<span>公司规模 <b>*</b></span>
+				<select name="" class="companyscale" ce-model="companyScale"></select>
+			</label>
+			<label for="">
+				<span>是否有销售团队 <b>*</b></span>
+				<select name="" id="" ce-model="isSaleTeam">
+					<option value="1">是</option>
+					<option value="0">否</option>
+				</select>
+			</label>
+		</p>
+		<p>
+			<label for="">
+				<span>销售团队规模 <b>*</b></span>
+				<select name="" class="saleteamscale" ce-model="saleTeamScale"></select>
+			</label>
+			<label for="">
+				<span>是否会销 <b>*</b></span>
+				<select name="" id="" ce-model="isWillPin">
+					<option value="1">是</option>
+					<option value="0">否</option>
+				</select>
+			</label>
+		</p>
+		<p>
+			<label for="">
+				<span>是否首面签约 <b>*</b></span>
+				<select name="" id="" ce-model="isFirstmeetingSign">
+					<option value="1">是</option>
+					<option value="0">否</option>
+				</select>
+			</label>
+			<label for="">
+				<span>是否陌拜 <b>*</b></span>
+				<select name="" id="" ce-model="isStrangerVisits">
+					<option value="1">是</option>
+					<option value="0">否</option>
+				</select>
+			</label>
+		</p>
+		<h3>企业负责人</h3>	
+		<p>
+			<label for="">
+				<span>姓名 <b>*</b></span>
+				<input type="text" ce-model="keyContactName">
+			</label>
+			<label for="">
+				<span>电话 <b>*</b></span>
+				<input type="text" ce-model="keyContactPhone">
+			</label>
+		</p>
+		<p>
+			<span>电子邮箱 <b>*</b></span>
+			<input type="text" ce-model="keyContactEmail">
+		</p>
+		<h3>纷享平台管理员</h3>
+		<p>
+			<label for="">
+				<span>姓名 <b>*</b></span>
+				<input type="text" ce-model="contactName">
+			</label>
+			<label for="">
+				<span>电话 <b>*</b></span>
+				<input type="text" ce-model="contactPhone">
+			</label>
+		</p>
+		<p>
+			<label for="">
+				<span>电子邮箱 <b>*</b></span>
+				<input type="text" ce-model="contactEmail">
+			</label>
+			<label for="">
+				<span>常用QQ</span>
+				<input type="text" ce-model="contactIM">	
+			</label>
+		</p>
+		<h3>备注</h3>
+		<textarea name="" id="" ce-model="remark"></textarea>
+	</div>
+	<div class="enterprise-action">
+		<button class="action-cancel">返回</button>
+
+		<button class="action-add btn-blue">提交</button>
+		<button class="action-reset">重置</button>
+	</div>
+</div>
+
+

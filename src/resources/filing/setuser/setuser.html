@@ -1,0 +1,63 @@
+<div class="p-setleader u-tablelist p-list" js="true" cache="false">
+	<div class="list-main">
+		<div class="list-header">
+			<div class="header-opts">
+				<button class="adduser" data-permissions="F011001">新增用户</button>
+			</div>
+			<h3>渠道用户列表</h3>
+		</div>
+		<div class="list-bar">
+			<div class="list-bar-btns">
+				<button class="btn-blue search">查询</button>
+			</div>
+			<div class="list-bar-input">
+				<label for="">
+					用户姓名&nbsp;&nbsp;<input type="text" ce-model="name">
+				</label>
+			</div>
+		</div>
+		<div class="list-content">
+			<table>
+				<thead>
+					<tr>
+						<th></th>
+						<th>姓名</th>
+						<th>登录名</th>
+						<th>邮箱地址</th>
+						<th>手机号码</th>
+						<th>工作电话</th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody ce-collection="list">
+					<tr>
+						<td></td>
+						<td><%=item.name%></td>
+						<td><%=item.username%></td>
+						<td><%=item.email%></td>
+						<td><%=item.mobile%></td>
+						<td><%=item.phone%></td>
+						<td>
+							<a data-permissions="F011001" class="edituser" data-id="<%=item.id%>">编辑</a>
+							<a data-permissions="F011001" class="settinghighter" data-id="<%=item.id%>">设置上级 </a>
+						<%if((item.auditStatus != "WAIT")){%>
+							<%if(item.active == "1"){%>
+							<a data-permissions="F011001" class="change-status" data-id="<%=item.id%>"  data-status="0">&nbsp;&nbsp;停用</a>
+							<%}else if(item.active == "0"){%>
+							<a data-permissions="F011001" class="change-status" data-id="<%=item.id%>" data-status="1">&nbsp;&nbsp;启用</a>
+							<%}%>
+						<%}%>
+						
+						</td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="list-pager">
+		
+	</div>
+</div>
+

@@ -1,0 +1,97 @@
+<div class="p-list p-ent-lst" js="true">
+	<div class="m-list m-ent-lst u-tablelist">
+	    <div class="list-main">
+	        <div class="list-header">
+	            <h3>企业列表</h3>
+	        </div>
+	        <div class="list-bar">
+	            <div class="list-bar-btns">
+	                <button id="btnSearch" class="btn-blue">查询</button>
+	            </div>
+	            <div class="list-bar-input">
+		            <label>
+		                <span>企业帐号</span>
+		                <input id="eiAccount" class="g-ipt ipt-m" type="text" ce-model="ea"/>
+		            </label>
+		            <label>
+		                <span>企业名称</span>
+		                <input id="eiName" class="g-ipt ipt-m"  type="text" ce-model="ename"/>
+		            </label>
+		            <label>
+		                <span>联系电话</span>
+		                <input id="eiMobile" class="g-ipt ipt-m"  type="text" ce-model="mobile"/>
+		            </label>
+		            <label>
+		                <span>城市</span>
+		                <input id="eiCity" class="g-ipt ipt-s"  type="text" ce-model="city"/>
+		            </label>
+		            <label>
+		                <span>优惠码</span>
+		                <input id="eiCode" class="g-ipt ipt-s" type="text" ce-model="agentId"/>
+		            </label>
+		            <label>
+		                <span>来源</span>
+		                <select id="eiSource" ce-model="source">
+		                    <option value="">全部</option>
+		                </select>
+		            </label>
+		            <label>
+		                <span>省市</span>
+		                <select id="eiProvince" ce-model="province">
+		                    <option value="">全部</option>
+		                </select>
+		            </label>
+		            <label>
+		                <span>产品状态</span>
+		                <select id="eiPStatus" ce-model="pstatus">
+		                    <option value="">全部</option>
+		                </select>
+		            </label>
+		            <label>
+		                <span>付费状态</span>
+		                <select id="eiFStatus" ce-model="fstatus">
+		                    <option value="">全部</option>
+		                    <option value="1">是</option>
+		                    <option value="0">否</option>
+		                </select>
+		            </label>
+		            <label>
+		                <span>行业</span>
+		                <select id="eiIndustry" ce-model="industry">
+		                    <option value="">全部</option>
+		                </select>
+		            </label>
+		            <label>
+		                <span>活跃度</span>
+		                <select id="eiActivity" ce-model="activity">
+		                    <option value="">全部</option>
+		                </select>
+		            </label>
+	            </div>
+	        </div>
+	        <div class="list-content">
+	            <table>
+	                <thead>
+	                <tr>
+	                    <th></th>
+	                    <th>序号</th>
+	                    <th>企业</th>
+	                    <th>帐号</th>
+	                    <th>代理商</th>
+	                    <th>产品名称</th>
+	                    <th>产品状态</th>
+	                    <th>付费</th>
+	                    <th>活跃度</th>
+	                    <th>创建人</th>
+	                    <th></th>
+	                    <th></th>
+	                </tr>
+	                </thead>
+	                <tbody></tbody>
+	            </table>
+	        </div>
+	    </div>
+	    <div class="list-pager">
+	    </div>
+	</div>
+</div>

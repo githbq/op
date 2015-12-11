@@ -1,0 +1,73 @@
+<div class="m-monitor">
+    <label for="" >
+        <span style="color: #2896f0;">电话回访导入</span>
+        <input type="file" id="filein" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" style="width:210px; margin:10px 0px;">
+    </label>
+    <p style="float:right">
+    	<button class="exportin">导入</button>
+    </p>
+</div>
+<script type="text/template" id="tabAssgin">
+<div class="m-assignEntInfo u-slider u-tablelist" id = 'enterpriseId' data-enterpriseId='' js="true">
+	<p>
+		<label>
+			拜访人员 &nbsp;&nbsp;
+			<input type="text" ce-model="name" class="search-name">
+		</label>
+	</p>
+	<table class=" assign-ent-Info">
+	  <thead>
+		<tr>
+		  <th style="width:100px;">账户</th>
+		  <th>操作</th>
+		</tr>
+	  </thead>
+	  <tbody>
+
+	  </tbody>
+	</table>
+</div>
+</script>
+<script type="text/template" id="trAssignEnt">
+	<% _.each( content, function( item , index ){%>
+		<tr data-id="<%=item.id%>">
+			<td><%=item.name%></td>
+			<td>
+				<a data-id="<%=item.id%>"  class="ent-bind-person">绑定</a>
+			</td>
+		</tr>
+	<% }) %>
+</script>
+<script type="text/template" id="employeeDetailInfo">
+<div class="m-userinfo">
+	<div class="userinfo-content">
+
+		<h4>基本信息</h4>
+
+		<p> <label><span>企业账号</span>  <input type="text" disabled =disabled ce-model="ea" class="ea"></label> </p>
+		
+		<p> <label><span>企业名称  </span> <input type="text" ce-model="enterpriseName" disabled =disabled></label> </p>
+		<p> <label><span>员工姓名</span> <input type="text" ce-model="employeeName" disabled =disabled></label> </p>
+		<p> <label><span>联系电话</span> <input type="text" ce-model="employeeContact" disabled =disabled></label> </p>
+		<p> <label><span>职    位 </span> <input type="text" ce-model="employeePost" disabled =disabled></label> </p>
+		<p> <label><span>是否是管理员  </span> <input type="text" ce-model="admin" disabled =disabled></label> </p>
+		<p> <label><span>开通时间 </span> <input type="text" ce-model="appStartTime" disabled =disabled></label></p>
+		<p> <label><span>城    市  </span> <input type="text" ce-model="city" disabled =disabled></label></p>
+		<p> <label><span>回访结果  </span> 
+			<select ce-model="status" class="status"> 
+				<option value="" >未回访</option>
+				<option value="1">存疑</option> 
+				<option value="2">未存疑</option> 
+			</select> </label> 
+		</p>
+		<p> <label><span>存疑原因  </span> <input type="text" ce-model="reason"></label></p>
+		<p> <label><span>回访详情  </span> <textarea class="callBackDetail"  ce-model="callBackDetail"></textarea></p>
+		<p> <label><span>回访录音存放位置   </span> <input type="text" ce-model="storagePath"></label></p>
+		<div class="userinfo-action">
+
+			<button class=" btn-blue save-info" data-id="">提交</button>
+		</div>
+	</div>
+	
+</div>
+</script>

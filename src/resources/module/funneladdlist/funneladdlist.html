@@ -1,0 +1,75 @@
+<div class="m-funnellist">
+    <h4>增值漏斗报表    <button class="export">导出报表</button> </h4>
+    <p class="funnel-action">
+        <label>
+            开始时间 &nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="text" class="starttime">&nbsp;&nbsp;
+        </label>
+        <label>
+            结束时间 &nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="end" class="endtime">&nbsp;&nbsp;
+        </label>
+        <button class="btn-blue funnel-search">查询</button>
+    </p>
+    <table>
+        <thead>
+            <tr>
+                <th rowspan="2">代理商名称</th>
+                <th rowspan="2">录入数量</th>
+                <th colspan="6">来源</th>
+                <th colspan="2">拜访(五星划分)</th>
+                <th rowspan="2">签约未收款</th>
+                <th rowspan="2">活跃数</th>
+                <th rowspan="2">已收款</th>
+            </tr>
+            <tr>
+                <th>总数</th>
+                <th>楼宇</th>
+                <th>会销</th>
+                <th>自注册</th>
+                <th>转介绍</th>
+                <th>其他</th>
+                <th>家数</th>
+                <th>员工数</th>
+            </tr>
+        </thead>
+        <tbody ce-collection="list">
+            <tr>
+                <td><%=item.agentName%></td>
+                <td><%=item.filingCount%></td>
+                <td><%=item.source_all%></td>
+                <td><%=item.source_building%></td>
+                <td><%=item.source_sale%></td>
+                <td><%=item.source_self_register%></td>
+                <td><%=item.source_referral%></td>
+                <td><%=item.source_else%></td>
+                <td class="info"><%=item.visit_n%> 
+                    <div class="infotip">
+                        <p><span>拜访1星</span><%=item.visit1_n%></p>
+                        <p><span>拜访2星</span><%=item.visit2_n%></p>
+                        <p><span>拜访3星</span><%=item.visit3_n%></p>
+                        <p><span>拜访4星</span><%=item.visit4_n%></p>
+                        <p><span>拜访5星</span><%=item.visit5_n%></p>
+                    </div>
+                </td>
+                <td class="info"><%=item.visit_am%>
+                    <div class="infotip">
+                        <p><span>拜访1星</span><%=item.visit1_am%></p>
+                        <p><span>拜访2星</span><%=item.visit2_am%></p>
+                        <p><span>拜访3星</span><%=item.visit3_am%></p>
+                        <p><span>拜访4星</span><%=item.visit4_am%></p>
+                        <p><span>拜访5星</span><%=item.visit5_am%></p>
+                    </div>
+                </td>
+                <td><%=item.finish_n%></td>
+                <td><%=item.active%></td>
+                <td><%=item.dealt_n%></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="list-pager">
+        
+    </div>
+</div>
+
+

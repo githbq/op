@@ -1,0 +1,246 @@
+.m-noticesendpic{
+	.f-shadow();
+	padding-left: 15px;
+	background: #fff;
+	.wrapper {
+		width: 560px;
+	}
+	h3{
+		line-height: 50px;
+		font-size:15px;
+		font-weight:bold;
+		border-bottom:1px @lc1 solid;
+		button {
+			float: right;
+			margin: 10px 0;
+            font-size: 13px;
+		}
+	}
+	.sendpic-content{
+		font-size: 12px;
+
+		section{
+
+            .block { padding-top: 20px; }
+
+			//标题input
+			.input-title{
+				width:500px;
+				float:right;
+			}
+
+			//摘要input
+			.input-zhaiyao{
+				width:500px;
+				float:right;
+			}
+
+            .range {
+                label {
+                    margin-left: 10px;
+                    input { margin-right: 5px; }
+                }
+            }
+            .range-tr {
+                padding-top: 5px;
+            }
+
+			//企业选择范围
+			#rangearea{
+				padding:4px 8px;
+				border-radius:2px;
+				border:1px @lc1 solid;
+                width: 100%;
+                box-sizing:border-box;
+			}
+
+            .pic { padding-bottom: 5px; }
+            .pic-des { color: @tc3; font-style: italic; line-height: 1.5em; }
+
+            .con { padding-bottom: 5px; }
+
+			border-bottom:1px @lc1 solid;
+
+			&:last-child{
+				border-bottom:none;
+			}
+
+			p{
+				&>span{
+					display:inline-block;
+				}
+			}
+			.section-title{
+				display:inline-block;
+				color:@tc1;
+				margin-right: 10px;
+			}
+			.sendpic-selectimg{
+				.sendpic-thumbwrapper{
+					position: relative;
+					display: inline-block;
+					width: 170px;
+					height: 90px;
+					background: @bc1;
+					border:2px @lc2 dashed;
+					color: #000;
+					line-height: 30px;
+					text-align: center;
+					cursor: pointer;
+	                vertical-align: middle;
+					img{
+						position:relative;
+						width:170px;
+						height:90px;
+						border:none;
+						z-index:1;
+					}
+					.sendpic-tip{
+						position:absolute;
+						padding:0;
+						display:inline-block;
+						width:170px;
+						height:90px;
+						top:0;
+						left:0;
+						text-align:center;
+						line-height:90px;
+						color:@tc2;
+						z-index:0;
+					}
+					.sendpic-thumb{
+						position:absolute;
+						padding:0;
+						display:inline-block;
+						width:170px;
+						height:90px;
+						top:0;
+						left:0;	
+						opacity:0;
+						cursor:pointer;
+						z-index:2;
+					}
+				}
+				.img-delete{
+					margin-left:10px;
+					display:none;
+				}
+			}
+            .sendpic-upload { margin-left: 30px; }
+			.sendpic-img{
+				width:80px;
+			}
+            .opts {
+                margin: 10px 0 20px 0;
+                button { margin-right: 10px; }
+            }
+			.textarea{
+				display:block;
+				width:560px;
+				min-height:200px;
+			}
+		}
+        .bot {
+            padding-bottom: 20px;
+            span, label { margin-top: 28px; }
+            label {
+                margin-left: 10px;
+                input { margin-right: 5px; }
+            }
+            .send-time {
+                margin-left: 10px;
+                width: 100px;
+            }
+            .btns {
+                float: right;
+                margin-top: 20px;
+                button { padding: 8px 25px;  }
+                button:last-child { margin-left: 20px; }
+            }
+        }
+        .content{
+        	.content-header{
+        		span{
+        			display:inline-block;
+        			height:26px;
+        			line-height:26px;
+        			width:80px;
+        			text-align:center;
+        			border:1px #ccc solid;
+        			cursor:pointer;
+        			border-radius:4px;
+        			margin-right:10px;
+        			&.active{
+        				background:@mc;
+        				color:#fff;
+        			}
+        		}
+        		margin-bottom:10px;
+        	}
+        	.content-body{
+        		section{
+        			display:none;
+        			&.active{
+        				display:block;
+        			}
+        		}
+        		.body-editor{
+        			.editor-select{
+        				padding:10px 0;
+        				button{
+        					margin-right:10px;
+        				}
+        			}
+        		}
+        		.body-tiaozhuan{
+                    padding: 20px 0;
+        			.g-select{
+        				width:110px;
+        				select{
+        					font-size:12px;
+        				}
+        			}
+        		}
+        	}
+        	.selectmodule{
+        		padding:6px 0;
+        		text-align:right;
+        		height:22px;
+        		line-height:22px;
+        		button{
+        			float:left;
+        			font-size:0.6rem;
+        		}
+        		label{
+        			padding-left:6px;
+        			input{
+        				margin-right:4px;
+        				position:relative;
+        				top:-1px;
+        			}
+        		}
+        	}
+        }
+	}
+}
+
+//预览窗口
+.m-previewdialog{
+	textarea{
+		width:360px;
+		border:1px @lc1 solid;
+		border-radius:4px;
+		padding:10px;
+	}
+	p{
+		padding:10px 0;
+	}
+	.content-title{
+		padding-right:10px;
+	}
+	.preview-btns{
+		text-align:right;
+		border-top:1px @lc1 solid;
+		padding:20px 0;
+	}
+}

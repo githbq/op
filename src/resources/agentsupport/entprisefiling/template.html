@@ -1,0 +1,44 @@
+<script type="text/template" id="filinglist">
+	<% _.each(content,function(item){ %>
+		<tr data-status="<%=item.status%>">
+			<td></td>
+			<td title="<%=item.enterpriseName%>"><%=item.enterpriseName%></td>
+			<td><%=item.creator.name%></td>
+			<td><%=item.statusStr%></td>
+			<td><%=item.industryStr%></td>
+			<td><%=item.sourceStr%></td>
+			<td><%=item.serviceTime%>个月</td>
+			<td><%=item.address%></td>
+			<td><%=item.createTimeStr%></td>
+			<td>
+				<a data-id="<%=item.id%>" class="filing-assgin">分配</a>&nbsp;&nbsp;
+				<a data-id="<%=item.id%>" class="filing-detail">查看</a>&nbsp;&nbsp;
+
+                <a data-id="<%=item.id%>" data-name="<%=item.enterpriseName%>" class="filing-log">备案企业跟踪</a>&nbsp;&nbsp;
+                <a data-reason="<%=item.reason%>" class="filing-reason">驳回原因</a>&nbsp;&nbsp;
+				
+			</td>
+			<td></td>
+		</tr>
+	<% }) %>
+</script>
+<script type="text/template" id="rejectinfo">
+	<div class="m-rejectinfo">
+		<textarea ce-model="reason" disabled="disabled"></textarea>
+	</div>
+</script>
+
+<script type="text/template"  id="bindLink">
+<div class="m-userinfo">
+	<div class="userinfo-content">
+		<p>
+			<label>
+				自注册企业账号 &nbsp;&nbsp;
+				<input type="text" ce-model="enterpriseAccount" class="search-enterpriseAccount">
+			</label>
+			<button class="u-btn-blue action-link">关联</button>
+		</p>
+	</div>
+	
+</div>
+</script>

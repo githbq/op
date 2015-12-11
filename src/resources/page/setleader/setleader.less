@@ -1,0 +1,35 @@
+.p-setleader{
+	section{
+		b{
+			display:inline-block;
+			padding-right:10px;
+		}
+	}	
+}
+.m-setleader{
+	.title{
+		padding: 0 5px 15px 5px;
+	}
+	max-height: 600px;
+	li{
+		display: inline-block;
+		width: 160px;
+		padding:10px;
+		border:1px #ccc solid;
+		margin-bottom:10px;
+		margin-right:5px;
+		margin-left:5px;
+		cursor:pointer;
+		p{
+			font-size:12px;
+			.ellipsis();
+			span{
+				font-weight:bold;
+			}
+		}
+		&.active{
+			border:1px rgb(0, 121, 173) solid;	
+		}
+	}
+}
+

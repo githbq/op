@@ -1,0 +1,28 @@
+<div class="p-backquestion p-list" js="true">
+    <div class="m-questionlist u-tablelist">
+    	<div class="form-box">
+			<h3 class="form-title">欢迎大家积极反馈意见或建议</h3>
+			<table class="form-info" >
+				<tr>
+					<td ><span>反馈者邮箱 <b>*</b></span></td>
+					<td class="form-text"><input type="text" ce-model="emailValue" class="email-text"></td>
+				</tr>
+				<tr>
+					<td><span>反馈意见 <b>*</b></span></td>
+					<td class="form-text">
+						<textarea cols=30 rows=6 ce-model="suggestion" onkeyup="this.value=this.value.replace(/(^\s*)|(\s*$)/g,'')" class="suggest-text" >
+					 
+						</textarea> 
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td class="form-text">
+						<button class="form-submit btn-blue"  >提交</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+    </div>
+</div>
+

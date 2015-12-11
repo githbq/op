@@ -1,0 +1,56 @@
+<script type="script/template" id="maintpl">
+	<div class="m-selectdialog">
+
+		<div class="selectdialog-input">
+			<section class="select-qy">
+				<span class="select-title">企业帐号</span>
+				<input type="text" placeholder="精确查询" class="qyzh">
+			</section>
+			<section class="select-name">
+				<span class="select-title">企业名称</span>
+				<input type="text" placeholder="模糊查询" class="qymc">
+			</section>
+			<section class="select-input">
+				<span class="select-title">用户名称</span>
+				<input type="text" class="username" placeholder="模糊查询">
+			</section>
+			<section class="select-input">
+				<span class="select-title">用户手机</span>
+				<input type="text" class="userphone" placeholder="精确查询">
+			</section>
+			<section class="select-input">
+				<button class="btn-blue btn-search">查询</button>
+			</section>
+		</div>
+		
+		<div class="selectdialog-list">
+			<table>
+				<thead>
+					<tr>
+						<th>用户帐户</th>
+						<th>用户名称</th>
+						<th>企业帐号</th>
+						<th>企业名称</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td colspan="7"><p class="tip">暂无数据</p></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</script>
+<script type="script/template" id="trtpl">
+	<% _.each( list , function(value){ %>
+		<tr>
+			<td><span class="list-clientaccount"><%=value.xkAccount%></span></td>
+			<td><span class="list-clientname"><%=value.clientName%></span></td>
+			<td><span class="list-companyaccount"><%=value.enterpriseAccount%></span></td>
+			<td><span class="list-companyname"><%=value.enterpriseName%></span></td>
+			<td><span class="list-button"><button data-id="<%=value.clientId%>" class="beginsession">发起对话</button></span></td>
+		</tr>
+	<% }) %>
+</script>

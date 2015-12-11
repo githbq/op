@@ -1,0 +1,133 @@
+<script type="text/template" id="requesttr">
+	<%_.each(content,function( item ){%>
+		<tr>
+			<td></td>
+			<td><%=item.enterpriseFilingName%></td>
+			<td><%=item.vendorName%></td>
+			<td><%=item.statusStr%></td>
+			<td><%=item.openBatch%></td>
+			<td><%=item.createTimeStr%></td>
+			<td><a data-id="<%=item.id%>" class="detail">详情</a></td>
+			<td></td>
+		</tr>
+	<%})%>
+</script>
+
+<!--申请详情-->
+<script type="text/template" id="reqdetail">
+	<div class="m-sreqdetail">
+		<section class="detail-info">
+			<h4>申请信息</h4>
+			<p>
+				<label for="">
+					<span>备案企业名称</span>
+					<input type="text" disabled ce-model="enterpriseFilingName">
+				</label>
+				<label for="">
+					<span>备案企业状态</span>
+					<input type="text" disabled ce-model="enterpriseFilingStatusStr">
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>代理商</span>
+					<input type="text" disabled ce-model="vendorName">
+				</label>
+				<label for="">
+					<span>申请状态</span>
+					<input type="text" disabled ce-model="statusStr">
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>申请原因</span>
+					<textarea disabled ce-model="requestReason"></textarea>
+				</label>
+			</p>
+			<p class="btns">
+				<button class="state action-beian">备案</button>
+				<button class="state action-bohui">驳回</button>
+				<button class="action-return">返回</button>
+			</p>
+			<p class="state state-beian">
+				<label>
+					<span>备案意见</span>
+					<textarea class="remark" ce-model="beianRemark">
+					</textarea>
+				</label>
+				<button class="beian-submit">提交</button>
+			</p>
+			<p class="state state-bohui">
+				<label>
+					<span>驳回意见</span>
+					<textarea class="remark" ce-model="bohuiRemark">
+					</textarea>
+				</label>
+				<button class="bohui-submit">提交</button>
+			</p>
+		</section>
+		<section class="detail-info detail-check state">
+			<h4>审核意见</h4>
+			<p>
+				<label for="">
+					<span>审核人</span>
+					<input type="text" ce-model="checkPerson" disabled>
+				</label>
+				<label for="">
+					<span>审核时间</span>
+					<input type="text" ce-model="checkTime" disabled>
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>审核意见</span>
+					<textarea ce-model="approveComments" disabled></textarea>
+				</label>
+			</p>
+		</section>
+		<section class="detail-fj">
+			<h4>附件查询</h4>
+			<p>
+				<label for="">
+					<span>附件名</span>
+					<input type="text" ce-model="search-name">
+				</label>
+				<label for="">
+					<span>上传时间</span>
+					<input type="text" class="startTime">到<input type="text" class="endTime">
+				</label>
+				<label for="">
+					<button class="search">查询</button>
+				</label>
+			</p>
+			<table>
+				<thead>
+					<tr>
+						<th>名称</th>
+						<th>大小</th>
+						<th>说明</th>
+						<th>上传时间</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- content -->
+				</tbody>
+			</table>
+			<div class="list-pager">
+			</div>
+		</section>
+	</div>
+</script>
+
+<!--附件列表-->
+<script type="text/template" id="reqTr">
+	<% _.each( content, function(item){ %>
+        <tr>
+            <td><a data-id="<%=item.id%>" class="attachement"><%=item.attachmentName%><a></td>
+            <td><%=item.attachmentSizeStr%></td>
+            <td><%=item.remark%></td>
+            <td><%=item.createTimeStr%></td>
+        </tr>
+    <% }) %>
+</script>
+

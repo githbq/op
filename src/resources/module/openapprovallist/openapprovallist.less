@@ -1,0 +1,91 @@
+.m-approvallist{
+    .list-header{
+        .title{
+            display:inline-block;
+            float:left;
+        }
+        .toggle{
+            display:block;
+            width:600px;
+            margin-left:auto;
+            margin-right:auto;
+            text-align:center;
+            b{
+				position:relative;
+                display:inline-block;
+                border:1px #ccc solid;
+                height:30px;
+                line-height:30px;
+                padding:0 6px;
+                cursor:pointer;
+                background:#fefefe;
+                &:first-child{
+                    border-right:none;
+                }
+                &:last-child{
+                    border-left:none;
+                }
+                &.active{
+                background:#eee;
+                }
+				.wait-approve{
+					position: absolute;
+					top: -21px;
+					left: -19px;
+					border-radius: 50%;
+					width: 51px;
+					height: 29px;
+					background: #FEFFEC;
+					z-index:99;
+				}
+				.going-approve{
+					position: absolute;
+					top: -21px;
+					left: -10px;
+					border-radius: 50%;
+					width: 51px;
+					height: 29px;
+					background: #FEFFEC;
+					z-index:99;
+					display:none;
+				}
+				.end-approve{
+					position: absolute;
+					top: -21px;
+					left: -10px;
+					border-radius: 50%;
+					width: 51px;
+					height: 29px;
+					background: #FEFFEC;
+					z-index:99;
+					display:none;
+				}
+				.allGoing-approve{
+					position: absolute;
+					top: -21px;
+					left: -10px;
+					border-radius: 50%;
+					width: 51px;
+					height: 29px;
+					background: #FEFFEC;
+					z-index:99;
+					display:none;
+				}
+				.allEnd-approve{
+					position: absolute;
+					top: -21px;
+					left: -10px;
+					border-radius: 50%;
+					width: 51px;
+					height: 29px;
+					background: #FEFFEC;
+					z-index:99;
+					display:none;
+				}
+            }
+			b.limits-show{
+				display:none;
+			}
+        }
+    }
+}

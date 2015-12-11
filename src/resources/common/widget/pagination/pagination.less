@@ -1,0 +1,46 @@
+.m-pagination{
+	span{
+		cursor:pointer;
+		display:inline-block;
+		color:@tc1;	
+	}
+	
+	span.disable{
+		color:@tc3;
+		cursor: default;
+	}
+
+	.page-totalsize{
+		color:#8E8E8E;
+		font-size:12px;
+		b{
+			font-weight:normal;
+			color:#2896F0;
+		}
+	}
+	
+	>section{
+		display:inline-block;
+		>span{
+			cursor:pointer;
+			&:hover { text-decoration: underline; }
+		}
+		.page-span{
+			display:inline-block;
+			min-width:16px;
+			height:16px;
+			line-height:16px;
+			text-align:center;
+			font-size:12px;
+			margin: 0 2px;
+			
+		}
+		.page-span.active{
+			color:@mc;
+			text-decoration:underline;
+			border-radius:8px;
+		}
+	}
+}
+
+

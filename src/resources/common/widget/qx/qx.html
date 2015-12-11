@@ -1,0 +1,292 @@
+<script type="script/template" id="sessiontpl">
+<div class="m-kf">
+	<div class="kf-session">
+		<div class="session-title">
+			<span class="b">对话列表</span>
+			<span class="btn-new"><i></i>发起对话</span>
+		</div>
+		<div class="session-tab">
+			<span data-target="#kf_wait">等待 <b class="kf_wait"></b> </span>
+			<span data-target="#kf_service">服务中 <b class="kf_service"></b> </span>
+			<span data-target="#kf_end">已结束 <b class="kf_end"></b> </span>
+		</div>
+		<div class="session-list">
+			<section id="kf_wait">
+				<div class="wait-info">
+					点击此处刷新列表
+				</div>
+				<ul>
+				</ul>
+			</section>
+			<section id="kf_service">
+				<ul>
+				</ul>
+			</section>
+			<section id="kf_end">
+				<ul>
+				</ul>
+			</section>
+		</div>
+	</div>
+	<div class="kf-connect-wrapper">
+		<p class="connect-empty">当前无对话</p>
+	</div>
+</div>
+</script>
+
+<!--等待列表-->
+<script type="script/template" id="waitlisttpl">
+	<li data-sessionid="<%=info.sessionId%>" data-clientid="<%=info.clientId%>" data-status="<%=info.status%>">
+		<div class="user-pic">
+            <img src="<%=info.avatar%>" />
+		</div>
+		<div class="user-name">
+			<p class="name" title="<%=info.clientName%>"><%=info.clientName%></p>
+			<p class="company" title="<%=info.clientCompanyName%>"><%=info.clientCompanyName%></p>
+		</div>
+		<div class="user-time">
+			<p class="servertime" title="<%=info.lastMsgTime%>"><%=info.lastMsgDisplayTime%></p>
+			<p class="servername" data-customerid="<%=info.customeServiceId%>">  </p>
+		</div>
+	</li>
+</script>
+
+<!--服务列表-->
+<script type="script/template" id="servicelisttpl">
+	<li data-sessionid="<%=info.sessionId%>" data-status="<%=info.status%>">
+		<span class="session-count">
+			
+		</span>
+		<div class="user-pic">
+            <img src="<%=info.avatar%>" />
+		</div>
+		<div class="user-name">
+            <p class="name" data-clientid="<%=info.clientId%>" title="<%=info.clientName%>"><%=info.clientName%></p>
+            <p class="company" title="<%=info.clientCompanyName%>"><%=info.clientCompanyName%></p>
+		</div>
+		<div class="user-time">
+            <p class="servertime" title="<%=info.lastMsgTime%>"><%=info.lastMsgDisplayTime%></p>
+			<p class="servername" data-customerid="<%=info.customeServiceId%>" title="<%=info.customeServiceName%>"> <%=info.customeServiceName%> </p>
+		</div>
+	</li>
+</script>
+
+<!--已结束列表-->
+<script type="script/template" id="endlisttpl">
+	<li data-sessionid="<%=info.sessionId%>" data-clientid="<%=info.clientId%>" data-status="<%=info.status%>">
+		<div class="user-pic">
+            <img src="<%=info.avatar%>" />
+		</div>
+		<div class="user-name">
+            <p class="name" title="<%=info.clientName%>"><%=info.clientName%></p>
+            <p class="company" title="<%=info.clientCompanyName%>"><%=info.clientCompanyName%></p>
+		</div>
+		<div class="user-time">
+            <p class="servertime" title="<%=info.lastMsgTime%>"><%=info.lastMsgDisplayTime%></p>
+            <p class="servername" data-customerid="<%=info.customeServiceId%>" title="<%=info.customeServiceName%>"><%=info.customeServiceName%> </p>
+		</div>
+	</li>
+</script>
+
+
+<!--对话主模板-->
+<script type="script/template" id="connecttpl">
+<div class="kf-connect">
+	<div class="connect-title">
+		<div class="title-left">
+			<h4></h4>
+			<p></p>
+		</div>
+		<div class="title-right">
+			<!--<button class='btn-wait'>转至等待中</button>-->
+			<!--<button class='btn-end'>结束服务</button>-->
+		</div>
+	</div>
+	<div class="connect-content">
+		<div class="content-info">
+			<!--
+			<section class="info-l">
+				<p class="section-time">
+					2014年6月2日
+				</p>
+				<div class="section-avatar">
+				</div>
+				<div class="section-msg">
+					<p class="msg">虚幻3模拟引擎 虚幻3模拟引擎 虚幻3模拟引擎</p>
+				</div>
+			</section>
+			<section class="info-r">
+				<div class="section-avatar">
+				</div>
+				<div class="section-msg">
+					<p class="msg">激战2</p>
+				</div>
+			</section>
+			<section class="info-l">
+				<div class="section-avatar">
+				</div>
+				<div class="section-msg">
+					<p class="msg">虚幻3模拟引擎 虚幻3模拟引擎</p>
+				</div>
+			</section>
+			<section class="info-r">
+				<div class="section-avatar">
+				</div>
+				<div class="section-msg">
+					<p class="msg">虚幻3模拟引擎 虚幻3模拟引擎 虚幻3模拟引擎</p>
+				</div>
+			</section>
+			-->
+		</div>
+	</div>
+	<div class="connect-send">
+		<div class="send-mask">
+		</div>
+		<div class="send-bar clearfix">
+			<span class="bar-img">
+				<input type="file" name="inputimg" title="图片">
+			</span>
+			<span class="bar-file">
+				<input type="file" name="inputfile" title="附件">
+			</span>
+			<span class="bar-bq">
+				<span class="bq-ico">
+
+				</span>
+				<div class="bq-content">
+					<div class="content-tab"><span class="active">表情</span><span>小蜜蜂</span></div>
+					<div class="content-main">
+						<div class="main-cookie clearfix">
+							<span class="bq-ok" data-id="ok" data-name="OK"></span>
+						    <span class="bq-buhao" data-id="buhao" data-name="不好"></span>
+						    <span class="bq-zan" data-id="zan" data-name="赞"></span>
+						    <span class="bq-paishou" data-id="paishou" data-name="拍手"></span>
+						    <span class="bq-ye" data-id="ye" data-name="耶"></span>
+						    <span class="bq-woshou" data-id="woshou" data-name="握手"></span>
+						    <span class="bq-baituo" data-id="baituo" data-name="拜托"></span>
+						    <span class="bq-weixiao" data-id="weixiao" data-name="微笑"></span>
+						    <span class="bq-ciya" data-id="ciya" data-name="呲牙"></span>
+						    <span class="bq-touxiao" data-id="touxiao" data-name="偷笑"></span>
+						    <span class="bq-yiwen" data-id="yiwen" data-name="疑问"></span>
+						    <span class="bq-jingya" data-id="jingya" data-name="惊讶"></span>
+						    <span class="bq-cahan" data-id="cahan" data-name="擦汗"></span>
+						    <span class="bq-yun" data-id="yun" data-name="晕"></span>
+						    <span class="bq-fennu" data-id="fennu" data-name="愤怒"></span>
+						    <span class="bq-nanguo" data-id="nanguo" data-name="难过"></span>
+						    <span class="bq-weiqu" data-id="weiqu" data-name="委屈"></span>
+						    <span class="bq-liulei" data-id="spanulei" data-name="流泪"></span>
+						    <span class="bq-fendou" data-id="fendou" data-name="奋斗"></span>
+						    <span class="bq-zhuakuang" data-id="zhuakuang" data-name="抓狂"></span>
+						    <span class="bq-haixiu" data-id="haixiu" data-name="害羞"></span>
+						    <span class="bq-deyi" data-id="deyi" data-name="得意"></span>
+						    <span class="bq-shui" data-id="shui" data-name="睡"></span>
+						    <span class="bq-aoman" data-id="aoman" data-name="傲慢"></span>
+						    <span class="bq-jie" data-id="jie" data-name="饥饿"></span>
+						    <span class="bq-kun" data-id="kun" data-name="困"></span>
+						    <span class="bq-jingkong" data-id="jingkong" data-name="惊恐"></span>
+						    <span class="bq-liuhan" data-id="spanuhan" data-name="流汗"></span>
+						    <span class="bq-hanxiao" data-id="hanxiao" data-name="憨笑"></span>
+						    <span class="bq-youxian" data-id="youxian" data-name="悠闲"></span>
+						    <span class="bq-tu" data-id="tu" data-name="吐"></span>
+						    <span class="bq-zhouma" data-id="zhouma" data-name="咒骂"></span>
+						    <span class="bq-yukuai" data-id="yukuai" data-name="愉快"></span>
+						    <span class="bq-xu" data-id="xu" data-name="嘘"></span>
+						    <span class="bq-baiyan" data-id="baiyan" data-name="白眼"></span>
+						    <span class="bq-fengle" data-id="fengle" data-name="疯了"></span>
+						    <span class="bq-shuai" data-id="shuai" data-name="衰"></span>
+						    <span class="bq-kulou" data-id="kulou" data-name="骷髅"></span>
+						    <span class="bq-qiaoda" data-id="qiaoda" data-name="敲打"></span>
+						    <span class="bq-zaijian" data-id="zaijian" data-name="再见"></span>
+						    <span class="bq-tiaopi" data-id="tiaopi" data-name="调皮"></span>
+						    <span class="bq-koubi" data-id="koubi" data-name="抠鼻"></span>
+						    <span class="bq-guzhang" data-id="guzhang" data-name="鼓掌"></span>
+						    <span class="bq-qiudale" data-id="qiudale" data-name="糗大了"></span>
+						    <span class="bq-huaixiao" data-id="huaixiao" data-name="坏笑"></span>
+						    <span class="bq-zuohengheng" data-id="zuohengheng" data-name="左哼哼"></span>
+						    <span class="bq-youhengheng" data-id="youhengheng" data-name="右哼哼"></span>
+						    <span class="bq-haqian" data-id="haqian" data-name="哈欠"></span>
+						    <span class="bq-bishi" data-id="bishi" data-name="鄙视"></span>
+						    <span class="bq-piezui" data-id="piezui" data-name="撇嘴"></span>
+						    <span class="bq-kuaikule" data-id="kuaikule" data-name="快哭了"></span>
+						    <span class="bq-yinxian" data-id="yinxian" data-name="阴险"></span>
+						    <span class="bq-qinqin" data-id="qinqin" data-name="亲亲"></span>
+						    <span class="bq-xia" data-id="xia" data-name="吓"></span>
+						    <span class="bq-kelian" data-id="kespanan" data-name="可怜"></span>
+						    <span class="bq-bizui" data-id="bizui" data-name="闭嘴"></span>
+						    <span class="bq-daku" data-id="daku" data-name="大哭"></span>
+						    <span class="bq-fadai" data-id="fadai" data-name="发呆"></span>
+						    <span class="bq-ganga" data-id="ganga" data-name="尴尬"></span>
+						    <span class="bq-ku" data-id="ku" data-name="酷"></span>
+						    <span class="bq-lenghan" data-id="lenghan" data-name="冷汗"></span>
+						    <span class="bq-se" data-id="se" data-name="色"></span>
+						    <span class="bq-dabian" data-id="dabian" data-name="大便"></span>
+						</div>
+						<div class="main-emotion clearfix">
+							<span class="emotion-a" data-id="0"></span>
+							<span class="emotion-b" data-id="1"></span>
+							<span class="emotion-c" data-id="2"></span>
+							<span class="emotion-d" data-id="3"></span>
+							<span class="emotion-e" data-id="4"></span>
+							<span class="emotion-f" data-id="5"></span>
+							<span class="emotion-g" data-id="6"></span>
+							<span class="emotion-h" data-id="7"></span>
+							<span class="emotion-i" data-id="8"></span>
+							<span class="emotion-j" data-id="9"></span>
+							<span class="emotion-k" data-id="10"></span>
+							<span class="emotion-l" data-id="11"></span>
+							<span class="emotion-m" data-id="12"></span>
+							<span class="emotion-n" data-id="13"></span>
+							<span class="emotion-o" data-id="14"></span>
+							<span class="emotion-p" data-id="15"></span>
+						</div>
+					</div>
+				</div>
+			</span>
+			<span class="bar-fastreply">
+				<span class="fastreply-ico">
+				
+				</span>
+				<div class="fastreply-content">
+					<section class="fastreply-list">
+						<p> 快捷回复1 </p>
+						<p> 快捷回复2 </p>
+						<p> 快捷回复3 </p>
+					</section>
+					<section class="fastreply-set">
+						<p> 自定义快捷回复设置 </p>
+					</section>
+				</div>
+			</span>
+			<span class="bar-recorder"></span>
+			<!--<div class="bar-history-wrapper"><span class="bar-history"></span>聊天记录</div>-->
+		</div>
+		<div class="send-area">
+			<div class="area-media">
+				<!--
+				<section>
+					<span class="media-ico media-icofile"></span>
+					<span class="media-name">1f0539e37cc6436533b3b6f370716864.jpg</span>
+					<span class="media-delete">删除</span>
+				</section>
+				-->
+			</div>
+			<div class="area-audio">
+				<section class="audio-file">
+					<span class="audio-ico"></span>
+					<span class="audio-play">播放</span>
+					<span class="audio-delete"> × </span>
+				</section>
+			</div>
+			<textarea class="area-textarea" maxlength="2000"></textarea>
+		</div>
+		<div class="send-btn">
+			<label class="save-reply"><input type="checkbox" name="savereply" disabled="disabled">保存自定义回复</label>
+			<button class="btn-record" data-status="0">点击开始录音</button>
+			<button class="btn-send btn-blue">发送</button>
+			<button class='btn-end'>结束服务</button>
+			<button class='btn-wait'>转至等待中</button>
+		</div>
+	</div>
+</div>
+</script>
+

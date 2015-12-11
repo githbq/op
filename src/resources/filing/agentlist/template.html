@@ -1,0 +1,68 @@
+<script type="text/template" id="trtpl">
+	<% _.each( content, function( item , index ){%>
+		<tr>
+			<td></td>
+			<td><%=item.name%></td>
+			<td><%=item.channelName%></td>
+			<td><%=item.target%></td>
+			<td><%=item.id%></td>
+			<td><%=item.cityStr%></td>
+			<td><%=item.statusStr%></td>
+			<td>
+				<a data-id="<%=item.id%>" data-name="<%=item.name%>" class="assign-ent"> 分配</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a data-id="<%=item.id%>" data-name="<%=item.name%>" class="recordEnt">  备案企业</a>
+				<a data-id="<%=item.id%>" data-number="<%=item.target%>" class="setTarget state">  设置目标</a>
+				<a data-id="<%=item.id%>" data-name="<%=item.name%>" class="userlist">   查看用户</a>
+			</td>
+			<td></td>
+		</tr>
+	<% }) %>
+</script>
+
+<script type="text/template" id="assignEntInfo">
+	<div class="m-assignEntInfo u-slider u-tablelist" id="agentId" data-agent=''>
+		<p>
+			<label>
+				渠道用户名 &nbsp;&nbsp;
+				<input type="text" ce-model="name" class="search-qudao">
+			</label>
+			
+		</p>
+		<table class="assign-ent-Info">
+		  <thead>
+			<tr>
+			  <th style="width:170px;">渠道</th>
+			  <th>操作</th>
+			</tr>
+		  </thead>
+		  <tbody>
+	
+		  </tbody>
+		</table>
+	</div>
+</script>
+
+<script type="text/template" id="trAssignEnt">
+	<% _.each( content, function( item , index ){%>
+		<tr data-id="<%=item.id%>">
+			<td><%=item.name%></td>
+			<td>
+				<a data-id="<%=item.id%>"  class="agent-bind-channel">绑定</a>
+			</td>
+		</tr>
+	<% }) %>
+</script>
+
+<script type="text/template" id="task">
+	<div>
+		<p>
+			<label>
+			当月目标金额(￥)
+			<input type="text" style="margin-bottom:10px;" ce-model="target">
+			</label>
+		</p>
+		<p>
+			<button class="btn-sure">确定</button>
+		</p>
+	</div>
+</script>

@@ -1,0 +1,50 @@
+<div class="u-tablelist m-agtlist">
+	<div class="list-main">
+		<div class="list-header">
+			<div class="header-opts">	
+				<button class="addAgent">新增代理商</button>
+			</div>
+			<h3>代理商</h3>
+		</div>
+		<div class="list-bar">
+			<div class="list-bar-btns">
+				<button class="btn-blue btn-search">查询</button>
+			</div>
+			<div class="list-bar-input">
+				<label for=""> 优惠码 <input type="text" ce-model="promotionCode"> </label>
+				<label for=""> 省或直辖市 <select name="" class="select-city" ce-model="city"></select> </label>
+				<label for="">  代理商名称 <input type="text" ce-model="name"> </label>
+				<label for="">
+					状态
+					<select name="" id="" ce-model="status">
+						<option value="">全部</option>
+						<option value="1">已启用</option>
+						<option value="0">已停用</option>
+					</select>
+				</label>
+			</div>
+		</div>
+		<div class="list-content">
+			<table>
+				<thead>
+					<tr>
+						<th></th>
+						<th>代理商名称</th>
+						<th style="width:110px;">优惠码</th>
+						<th style="width:110px;">省或直辖市</th>
+						<th style="width:130px;">区域</th>
+						<th style="width:110px;">状态</th>
+						<th style="width:110px;">操作</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<!--content-->
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="list-pager">
+	</div>
+</div>
+

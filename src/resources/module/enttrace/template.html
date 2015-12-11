@@ -1,0 +1,49 @@
+<script type="script/template" id="tracesend">
+	<div class="m-enttracesend">
+		<section class="send-data">
+			<p>
+				<textarea placeholder="备注" class="remark"></textarea>
+			</p>
+			<p>
+				<label for=""><span>图片</span><input type="file" class="inputimg" multiple="multiple"></label>
+			</p>
+			<p class="imgdata">
+				
+			</p>
+			<p>
+				<label for=""><span>附件</span><input type="file" class="inputfile" multiple="multiple"></label>
+			</p>
+			<p class="filedata">
+				
+			</p>
+			<p>
+				<label for=""><span>时间</span><input type="text" class="datetime"></label>
+			</p>
+		</section>
+		<section class="send-action">
+			<button class="send-btn">添加记录</button>
+		</section>
+	</div>
+</script>
+
+<script type="script/template" id="tracesec">
+	<% _.each(content, function(item){ %>
+		<section class="trace-sec">
+			<p class="sec-time"><%=item.traceDateStr%>                <%=item.enterpriseName%></p>
+			<p class="sec-content">
+				<%=item.remark%>
+			</p>
+			<p class="sec-imgs">
+				<% _.each(item.imageList,function(img){ %>
+					<a href="/op/api/enterprise/previewfile?path=<%=img.attachmentPath%>" target="_blank"> <img src="/op/api/enterprise/downloadfile?path=<%=img.attachmentPath%>"> </a>
+				<% }) %>
+			</p>
+			<p class="sec-attachs">
+				<% _.each(item.fileList,function(file){%>
+					<span><%=file.attachmentName%> <b data-id="<%=file.id%>" class="downloadfile">下载</b></span><br>
+				<% }) %>
+			</p>
+		</section>
+	<% }) %>
+</script>
+

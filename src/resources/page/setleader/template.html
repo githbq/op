@@ -1,0 +1,16 @@
+<div class="m-setleader">
+	<p class="title">
+		<label for="">
+			姓名&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" ce-model="name">
+		</label>
+		<button class="btn-blue search">查询</button>
+	</p>
+
+	<ul ce-collection="list"><li data-id="<%=item.id%>" data-name="<%=item.name%>" class="person-detail">
+			<p><span>名字：</span><%=item.name%></p>
+			<p><span>邮箱地址：</span><%=item.email%></p>
+			<!--<p><span>手机：</span><%=item.mobile%></p>
+			<p><span>办公电话：</span><%=item.phone%></p>--></li ></ul>
+</div>
+
+

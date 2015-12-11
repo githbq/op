@@ -1,0 +1,20 @@
+<script type="text/template" id="trEntLst">
+    <% _.each(content,function( value ,index ){ %>
+    <tr>
+        <td></td>
+        <td><%=value.enterpriseName%></td>
+        <td><%=value.enterpriseAccount%></td>
+        <td><%=value.agentName%></td>
+		<td><%=value.creator%></td>
+        <td><%=value.productName%></td>
+        <td><%=value.runStatusStr%></td>
+        <td><%=value.isPayedStr%></td>
+        <!--<td><%=value.activityStr%></td>-->
+        <td><%=value.creator%></td>
+        <td>
+            <a class="info-detail" data-id="<%=value.id%>" data-status="<%=value.runStatus%>">查看</a>
+        </td>
+        <td></td>
+    </tr>
+    <% }) %>
+</script>

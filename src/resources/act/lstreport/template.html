@@ -1,0 +1,42 @@
+<script type="text/template" id="trTpl">
+    <% _.each( content, function( item ){ %>
+        <tr>
+            <td> <%=item.salesName%> </td>
+            <td> <%=item.eaName%> </td>
+            <td> <%=item.openTime%> </td>
+			<td > <%=item.launchCount%> </td>
+            <td> <%=item.firstPeriodActualLaunchCount%>  </td>
+            <td> <%=item.firstPeriodRemainingDayCount%>  </td>
+			<td> <%=item.firstPeriodActivityCount%>  </td>
+			<td> <%=item.firstPeriodActivityOppoStr%>  </td>
+			<td> <%=item.firstActiveThreeDaysStr%>  </td>
+			<td> <%=item.secondPeriodActualLaunchCount%>  </td>
+			<td> <%=item.secondPeriodRemainingDayCount%>  </td>
+			<td> <%=item.secondPeriodActivityCount%>  </td>
+			<td> <%=item.secondPeriodActivityOppoStr%>  </td>
+			<td> <%=item.secondActiveThreeDaysStr%>  </td>
+			<td> <%=item.firstPeriodActivityStr%>  </td>
+			<td> <%=item.secondPeriodActivityStr%>  </td>
+			<td> <%=item.threePeriodActivityStr%>  </td>
+			<td> <%=item.fourPeriodActivityStr%>  </td>
+			<td> <%=item.fivePeriodActivityStr%>  </td>
+			<td> <%=item.sixPeriodActivityStr%>  </td>
+			<td> <%=item.shareCount%>  </td>
+			<td> <%=item.planCount%>  </td>
+			<td> <%=item.followTopicCount%>  </td>
+			<td> <%=item.approveCount%>  </td>
+			<td> <%=item.praiseCount%>  </td>
+			<td> <%=item.replyCount%>  </td>
+			<td> <%=item.waiqinqiandaoCount%>  </td>
+			<td> <%=item.workCount%>  </td>
+			<td> <%=item.kaoqinqiandaoCount%>  </td>
+			<td> <%=item.scheduleCount%>  </td>
+			<td> <%=item.receiptCount%>  </td>
+			<td> <%=item.addCustomerCount%>  </td>
+			<td> <%=item.addContactCount%>  </td>
+			<td> <%=item.customerFollowCount%>  </td>
+			<td> <%=item.shareContactCount%>  </td>
+            <td></td>
+        </tr>
+    <% } )%>
+</script>

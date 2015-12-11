@@ -1,0 +1,61 @@
+<div class="p-list" js="true">
+	<div class="m-requestlist u-tablelist">
+		<div class="list-header">
+			<h3>公开企业申请列表 <span class="header-title"></span></h3>
+		</div>
+		<div class="list-bar">
+			<div class="list-bar-btns">
+				<button class="search">查询</button>
+			</div>
+			<div class="list-bar-input">
+				<p>
+					<label for="">
+						<span>备案企业名称</span>
+						<input type="text" ce-model="enterpriseFilingName">
+					</label>
+					<label for="">
+						<span>创建时间</span>
+						<input type="text" class="startTime">
+						<span>到</span>
+						<input type="text" class="endTime">
+					</label>
+					<label for="">
+						<span>优惠码</span>
+						<input type="text" ce-model="vendorId">
+					</label>
+					<label for="">
+						<span>申请状态</span>
+						<select class="reqStatus" ce-model="status"></select>
+					</label>
+					<label for="">
+						<span>批号</span>
+						<input type="text" ce-model="openBatch">
+					</label>
+				</p>
+			</div>
+		</div>
+		<div class="list-content">
+			<table>
+				<thead>
+					<tr>
+						<th></th>
+						<th>备案企业</th>
+						<th style="width:110px;">代理商</th>
+						<th style="width:110px;">申请状态</th>
+						<th style="width:80px;">批号</th>
+						<th style="width:160px;">申请时间</th>
+						<th style="width:80px;"></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- -->
+				</tbody>
+			</table>
+		</div>
+		<div class="list-pager">
+			
+		</div>
+	</div>
+</div>
+

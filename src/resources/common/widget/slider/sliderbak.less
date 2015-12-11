@@ -1,0 +1,53 @@
+.ui-slider {
+	display: none;
+	padding: 0 20px;
+	background-color: #fff;
+	position: fixed;
+	right: 0;top: 52px;bottom: 0;
+	z-index: @slider-index;
+	#css3 > .shadow(0 7px 21px rgba(0, 0, 0, 0.15));
+	.inner {
+		height: 100%;
+	}
+	h3 {
+		line-height: 48px;
+		border-bottom: 1px solid #dbdbdb;			
+	}
+	.con-b {
+		position: absolute;
+		top: 49px;
+		bottom: 0;
+		left: 20px;
+		right: 20px;
+		overflow-x: hidden;
+		overflow-y: auto;
+	}
+	.btns-b a {
+		margin-right: 24px;
+	}
+	.close {
+		width: 16px;
+		line-height: 16px;
+		position: absolute;
+		right: 20px;
+		top: 15px;
+		color: #ccc;
+		font-size: 27px;
+		cursor: pointer;
+		overflow: hidden;
+		cursor: pointer;
+		&:hover {
+			color: #03a9f4;
+		}		
+	}
+}
+.ui-slider-notit {
+	.inner {
+		overflow-x: hidden;
+		overflow-y: auto;		
+	}
+	.con-b {
+		position: static;
+		overflow: auto;
+	}
+}

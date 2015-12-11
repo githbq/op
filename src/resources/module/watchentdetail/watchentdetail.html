@@ -1,0 +1,189 @@
+<div class="m-enterprisedetail">
+	<div class="dtl sectiona">
+		<section>
+			<h4>基本信息</h4>
+			<p>
+				<label><span>企业名称</span><input id="bName" class="g-ipt ipt-l " type="text" disabled="disabled"></label>
+				<label><span>企业账号</span><input id="bAccount" disabled="disabled" class="g-ipt ipt-l" type="text" disabled="disabled"></label>
+				<label class="hw"><span>来　　源</span><select id="tSource" class="sa-source " disabled="disabled"></select></label>
+				<label><span>代理商名称</span><input id="sAgentName" disabled="disabled" class="g-ipt ipt-l" type="text"></label>
+			</p>
+		</section>
+	</div>
+	<div class="dtl">
+		
+		<!--资料审核-->
+		<section class="accordian collapse commonsection" data-target="verification" id="verification" >
+			<h4><span class="arraw"></span>资料审核</h4>
+			<div class="content">
+
+				<h5>营业执照</h5>
+				<p>
+					<a href="" id="yingyezhizhaoinfo" target="_blank"><img src="" style="width:350px; height:200px;"></a>
+					<span id="yingyezhizhaonone" style="display:none; color:#0000ff; margin-left:20px;">未上传</span>
+				</p>
+				<h5>合同</h5>
+				<p>
+					<a id="hetonginfo" style="display:none;" target="_blank" href="">
+						<!-- -->
+					</a>
+					<span id="hetongnone" style="display:none; color:#0000ff; margin-left:20px;">未上传</span>
+				</p>
+				<h5>合同副本</h5>
+				<p>
+					<a id="hetongfbinfo" style="display:none" target="_blank" href="">
+						<!-- -->
+					</a>
+					<span id="hetongfbnone" style="display:none; color:#0000ff; margin-left:20px;">未上传</span>
+				</p>
+				<h5>门头信息</h5>
+				<p>
+					<a href="" id="mentouinfo" target="_blank"><img src="" style="width:350px; height:200px;"></a>
+					<span id="mentounone" style=" display:none; color:#0000ff; margin-left:20px;">未上传</span>
+				</p>
+				<p>
+					<label for="">
+						<span>门头照片关键字</span>
+						<input type="text"  id="companyGateKeyword" disabled="disabled">
+					</label>
+					<label for="">
+						<span>门头照片备注</span>
+						<input type="text" id="companyGateRemark" disabled="disabled">
+					</label>
+				</p>
+				<p id="shenheresult">
+					<label>
+						<span>审核结果</span><input type="text" disabled="disabled">
+					</label>
+				</p>
+				<p>
+					<label>
+						<span>审核意见</span>
+						<textarea class="approvalinfo"></textarea>
+					</label>
+				</p>
+				<p class="off btns">
+					<button class="u-btn-blue verificationaction-on">审核通过</button>
+					<button class="u-btn-red verificationaction-off">审核驳回</button>
+				</p>
+				<div style="border:1px solid #ccc; padding:15px;" class="on">
+					<p class="on">
+						<label>
+							<span>营业执照</span>
+							<input type="file" id="yingyezhizhao" accept="image/gif, image/jpeg, image/png">
+						</label>
+					</p>
+					<p class="on hetong">
+						<label>
+							<span>合同</span>
+							<input type="file" id="hetongzhaopian" accept="image/gif, image/jpeg, image/png">
+						</label>
+					</p>
+					<p class="on hetongfb">
+						<label>
+							<span>合同副本</span>
+							<input type="file" id="hetongfbzhaopian" accept="image/gif, image/jpeg, image/png">
+						</label>
+					</p>
+					<p class="on">
+						<label>
+							<span>门头照片</span>
+							<input type="file" id="mentou" accept="image/gif, image/jpeg, image/png">
+						</label>
+					</p>
+					<p class="on">
+						<label for="">
+							<span>门头照片关键字</span>
+							<input type="text" ce-model="companyGateKeyword" class="companyGateKeyword" >
+						</label>
+						<label for="">
+							<span>门头照片备注</span>
+							<input type="text" ce-model="companyGateRemark" class="companyGateRemark" >
+						</label>
+					</p>
+					<p class="on">
+						
+						<button class="u-btn-blue upload">保存</button>
+					</p>
+				</div>
+
+			</div>
+		</section>
+
+		<!--电话回访-->
+		<section class="accordian collapse commonsection off" data-target="callback" id="phonecallback">
+			<h4><span class="arraw"></span>电话回访</h4>
+			<div class="content">
+				<div class="content-result">
+					<p class="huifangresult">
+						<span>回访结果</span>
+						<b></b>
+					</p>
+					<p class="btns">
+						<button class="callback-actionon u-btn-blue">回访成功</button>
+						<button class="callback-actionoff u-btn-red">回访失败</button>
+					</p>
+				</div>
+				<div class="content-list tb">
+					<div class="tb-bar">
+						<!--<p>
+							<label>
+								用户姓名
+								<input type="text" class="callback-name">
+							</label>
+							<label>
+								电话
+								<input type="text" class="callback-phone">
+							</label>
+							<button id="btnPhoneCallbackEve">查询</button>
+						</p>-->
+					</div>
+					<table>
+						<thead>
+							<tr>
+								<th>姓名</th>
+								<th>是否是管理员</th>
+								<th>电话</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</section>
+		<!--风险详情-->
+		<section class="accordian collapse commonsection off" data-target="riskInfo" id="riskInfo">
+			<h4><span class="arraw"></span>风险详情</h4>
+			<div class="content">
+				<div class="content-list tb">
+					<table>
+						<thead>
+							<tr>
+								<th>日期</th>
+								<th>规则1</th>
+								<th>规则2</th>
+								<th>规则3</th>
+								<th>规则4</th>
+								<th>规则5</th>
+								<th>规则6</th>
+								<th>警告1</th>
+								<th>警告2</th>
+								<th>警告3</th>
+							</tr>
+						</thead>
+						<tbody>
+							
+						</tbody>
+					</table>
+					<div class="pager"></div>
+					<p>防作弊规则：<br/><span class="cheat-rule"></span></p>
+				</div>
+			</div>
+		</section>
+	</div>
+</div>
+
+

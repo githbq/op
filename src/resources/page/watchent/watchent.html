@@ -1,0 +1,123 @@
+<div class="p-list p-watch-ent" js="true">
+    <div class="m-vendorEnt u-tablelist ">
+    	<div class="list-header">
+    		<h3>
+    			企业监察列表<span class="header-info" style="font-weight:normal; font-size:12px; color:#666; padding:0 6px;"></span>
+    		</h3>
+    	</div>
+    	<div class="list-bar">
+            <div class="list-bar-btns">
+                <button class="bindall" data-permissions="F008004" style="margin-right:10px;">批量分配</button>
+                <button class="export" data-permissions="F008004" style="margin-right:10px;">导出</button>
+                <button class="btn-blue search" style="margin-right:10px;">查询</button>
+                <a href="" style="visibility:hidden" target="_blank" id="export"> </a>
+                <!--<button class="exportin">导入</button>-->
+            </div>
+    		<div class="list-bar-input watch-ent">
+				<label>
+                    <span>企业帐号</span>
+                    <input id="ea" class="g-ipt ipt-m" type="text" ce-model="enterpriseAccount"/>
+                </label>
+                <label>
+                    <span>企业名称</span>
+                    <input id="eaName" class="g-ipt ipt-m"  type="text" ce-model="enterpriseName"/>
+                </label>
+                <label>
+                    <span>资料审核状态</span>
+                    <select id="informationCheckStatus" ce-model="informationCheck">
+                    </select>
+                </label>
+                <label>
+                    <span>电话回访状态</span>
+                    <select id="returnBackStatus" ce-model="returnVisitCheck">
+                    </select>
+                </label>
+
+                <label>
+                    <span>优惠码</span>
+                    <input id="agentId" ce-model="agentId" type="text" class="g-ipt ipt-m" />
+                </label>
+                
+                <label>
+                    <span>风险天数</span>
+                    <input type="text" ce-model="cheatDayCount">
+                </label>
+
+                <label>
+                    <span>风险类型</span>
+                    <select ce-model="cheatType">
+                        <option value="">请选择</option>
+                        <option value="1">规则1</option>
+                        <option value="2">规则2</option>
+                        <option value="3">规则3</option>
+                        <option value="4">规则4</option>
+                        <option value="5">规则5</option>
+                        <option value="6">规则6</option>
+                        <option value="7">警告1</option>
+                        <option value="8">警告2</option>
+                        <option value="9">警告3</option>
+                    </select>
+                </label>
+                
+                <label data-permissions="F008004">
+                    <span>是否分配</span>
+                    <select ce-model="isSupervised">
+                        <option value="">请选择</option>
+                        <option value="1">是</option>
+                        <option value="0">否</option>
+                    </select>
+                </label>
+
+                <label class="sp">
+                    <label><span>开通时间</span>
+                        <input id="qcATBegin" type="text" class="g-ipt ipt-m" onkeyup='this.value=""'/>
+                    </label>
+                    <label><span>-</span>
+                        <input id="qcATEnd" type="text" class="g-ipt ipt-m" onkeyup='this.value=""'/>
+                    </label>
+                </label>
+ 
+    		</div>
+    	</div>
+    	<div class="list-content">
+    		<table>
+    			<thead>
+    				<tr>
+                        <th></th>
+    					<th><input type="checkbox" class="selectEntAll" data-permissions="F008004"></th>
+    					<th>企业名称</th>
+    					<th style="width:110px;">企业账号</th>
+    					<th style="width:110px;">代理商</th>
+						<th style="width:110px;">风险天数</th>
+						<th style="width:110px;">拜访人员</th>
+						<th style="width:110px;">资料审核状态</th>
+    					<th style="width:160px;">电话回访状态</th>
+                        <th style="width:150px;">操作</th>
+    					<th></th>
+    				</tr>
+    			</thead>
+    			<tbody ce-collection="list">
+    				<tr>
+                        <td></td>
+						<td><input type="checkbox" class="selectEnt" value="<%=item.enterpriseId%>" data-permissions="F008004"></td>
+						<td> <%=item.enterpriseName%> </td>
+						<td> <%=item.enterpriseAccount%> </td>
+						<td> <%=item.agentName%></td>
+						<td> <%=item.cheatDayCount%> </td>
+						<td> <%=item.superviseAccountName%> </td>
+						<td> <%=item.shenheStr%></td>
+                        <td> <%=item.huifangStr%></td>
+                        <td>
+							<a data-permissions="F008004" data-id="<%=item.enterpriseId%>" class="watchent-assgin">分配</a>&nbsp;&nbsp;
+							<a data-id="<%=item.enterpriseId%>" class="watchent-detail">详情</a>&nbsp;&nbsp;
+						</td>
+						<td></td>
+					</tr>
+    			</tbody>
+    		</table>
+    	</div>
+    	<div class="list-pager">
+    		
+    	</div>
+    </div>
+</div>

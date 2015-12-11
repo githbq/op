@@ -1,0 +1,52 @@
+.m-filinglist{
+	.open-input{
+		display: none;
+	}
+	.filing-check{
+		display: none;
+	}
+	[data-status="1"],[data-status="6"],[data-status="7"],[data-status="8"],[data-status="9"],
+	[data-status="10"]{
+		.open-input{
+			display:inline-block;
+		}
+	}
+	[data-status="4"]{
+		.filing-check{
+			display: inline;
+		}
+	}
+}
+.m-rejectinfo{
+	textarea{
+		box-sizing:border-box;
+		padding:10px;
+		width:100%;
+		height:200px;
+		margin-bottom:10px;
+	}
+	p{
+		text-align:right;
+	}
+}
+
+.m-filingInfo{
+	.visitcard,
+	.visitcard2{
+		border:none;
+		max-width:80%;
+		display:block;
+		margin-left:auto;
+		margin-right:auto;
+	}
+	label{
+		select{
+		    height: 27px;
+			width: 154px; 
+			border: 1px #d9d9d9 solid;
+			border-radius: 2px;
+		}
+	}
+}
+
+
