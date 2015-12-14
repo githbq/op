@@ -87,6 +87,7 @@ define( function(require, exports, module){
 			'.action-reject':'actionReject',
 			'.state-visite': 'stateVisite',
 			'.checked-email':'checkedEmail',
+			'.right-info':'rightInfo'
 		},
 
 		events:{
@@ -443,10 +444,10 @@ define( function(require, exports, module){
 					me.model.set(key,'false');
 				}
 			}
-			
+			me._setWidth('450');
 			if( me.attrs.activeStatus != 'end'){
 				util.api({
-					'url': '/enterprise/getbyprocessinstanceid ',
+					'url': '/enterprise/getbyprocessinstanceid',
 					'data': {
 						'processInstanceId': me.attrs.id
 					},
@@ -454,24 +455,24 @@ define( function(require, exports, module){
 						console.warn( data );
 						if( data.success ){
 
-							me.getRegistrationEnterprise(data);
+							//me.getRegistrationEnterprise(data);
 							me.getRecordEnterprise( data );
-							me.downFile(data);
+							//me.downFile(data);
 							
-							translateBool( 'isSaleTeam' , data.value.model['isSaleTeam'] );
-							translateBool( 'isFirstmeetingSign' , data.value.model['isFirstmeetingSign'] );
-							translateBool( 'isWillPin' , data.value.model['isWillPin'] );
-							translateBool( 'isStrangerVisits', data.value.model['isStrangerVisits'] );
-							translateBool( 'isFastSign' , data.value.model['isFastSign'] );
-							translateBool( 'isAutoClave', data.value.model['isAutoClave'] );
-							translateBool( 'isReferral', data.value.model['isReferral'] );
+							//translateBool( 'isSaleTeam' , data.value.model['isSaleTeam'] );
+							//translateBool( 'isFirstmeetingSign' , data.value.model['isFirstmeetingSign'] );
+							//translateBool( 'isWillPin' , data.value.model['isWillPin'] );
+							//translateBool( 'isStrangerVisits', data.value.model['isStrangerVisits'] );
+							//translateBool( 'isFastSign' , data.value.model['isFastSign'] );
+							//translateBool( 'isAutoClave', data.value.model['isAutoClave'] );
+							//translateBool( 'isReferral', data.value.model['isReferral'] );
 							
 						}
 					}
 				})
 			}else{
 				util.api({
-					'url': '/enterprise/getenterpriseandfiling ',
+					'url': '/enterprise/getenterpriseandfiling',
 					'data': {
 						'enterpriseId': me.attrs.eid
 					},
@@ -479,17 +480,17 @@ define( function(require, exports, module){
 						console.warn( data );
 						if( data.success ){
 
-							me.getRegistrationEnterprise(data);
+							//me.getRegistrationEnterprise(data);
 							me.getRecordEnterprise( data );
-							me.downFile(data);
+							//me.downFile(data);
 							
-							translateBool( 'isSaleTeam' , data.value.model['isSaleTeam'] );
+							/*translateBool( 'isSaleTeam' , data.value.model['isSaleTeam'] );
 							translateBool( 'isFirstmeetingSign' , data.value.model['isFirstmeetingSign'] );
 							translateBool( 'isWillPin' , data.value.model['isWillPin'] );
 							translateBool( 'isStrangerVisits', data.value.model['isStrangerVisits'] );
 							translateBool( 'isFastSign' , data.value.model['isFastSign'] );
 							translateBool( 'isAutoClave', data.value.model['isAutoClave'] );
-							translateBool( 'isReferral', data.value.model['isReferral'] );
+							translateBool( 'isReferral', data.value.model['isReferral'] );*/
 							
 						}
 					}
@@ -501,6 +502,7 @@ define( function(require, exports, module){
 		},
 		showInfo: function(id , eid , type , state, isCanEdit ){
 			var me = this;
+			me.$rightInfo.show();
 			me.$statusDisabled.attr('disabled','disabled');
 			//设置显示状态
 			me.attrs.processInstanceId = id;
@@ -508,7 +510,7 @@ define( function(require, exports, module){
             me.$('.state').hide();
             me.$('.state-'+state).show();
 			me.$('.wait-other').hide();
-
+			me._setWidth('730');
 			function translateBool( key , value ){
 				if(value){
 					me.model.set(key,'true');
@@ -518,7 +520,7 @@ define( function(require, exports, module){
 			}
 			if( state != 'end'){
 				util.api({
-					'url': '/enterprise/getbyprocessinstanceid ',
+					'url': '/enterprise/getbyprocessinstanceid',
 					'data': {
 						'processInstanceId': me.attrs.processInstanceId
 					},
@@ -543,7 +545,7 @@ define( function(require, exports, module){
 				})
 			}else if(state == 'end'||state == 'allEnd'){
 				util.api({
-					'url': '/enterprise/getenterpriseandfiling ',
+					'url': '/enterprise/getenterpriseandfiling',
 					'data': {
 						'enterpriseId': me.attrs.enterpriseId
 					},
@@ -782,6 +784,7 @@ define( function(require, exports, module){
 		hide: function(){
 			var me = this;
 			me.model.clear();
+			me.$rightInfo.hide();
 			me.$contractLink.attr('href', '');
 			me.$imgContract.attr('src', '');
 			me.$MtzhizhaoLink.attr('href', '');

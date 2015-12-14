@@ -63,6 +63,10 @@ define(function(require, exports, module){
 		_setTitle: function( title ){
 			this.$view.find('.header-title').text( title );
 		},
+		//设置标题
+		_setWidth: function( width ){
+			this.$view.css( 'width',width );
+		},
 
 		render: function(){
 			var me = this;
