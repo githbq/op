@@ -172,6 +172,15 @@
 		</p>
 		<p>
 			<label for="">
+				<span>是否赠送办公版 <b>*</b></span>
+				<select name=""  ce-model="presentOfficeEdition" class="required">
+					<option value="1">是</option>
+					<option value="0">否</option>
+				</select>
+			</label>
+		</p>
+		<p>
+			<label for="">
 				<span>空间总量(GB)<b>*</b></span>
 				<input type="text" ce-model="storageTotalSpace" class="required" onchange="this.value=this.value.replace(/[^\.\d]/g,'')">
 			</label>

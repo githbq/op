@@ -5,6 +5,7 @@ define( function(require, exports, module){
 	var Pagination = require('common/widget/pagination/pagination'),
 		Dialog = require('common/widget/dialog/dialog'),
 		Slider = require('common/widget/slider/slider'),
+		DepartmentModel = require('module/departmentmodel/departmentmodel'),
 
 		UserList = require('module/agentuserlist/agentuserlist'),
 		UserInfo = require('module/agentuser/agentuser'),
@@ -25,19 +26,51 @@ define( function(require, exports, module){
 			'.addagent-selectcity': 'selectCity',
 			'.startTime': 'starttime',
 			'.endTime': 'endtime',
-			'.selectArea': 'selectArea'
+			'.selectArea': 'selectArea',
+			'.companyType':'companyType'
 		},
 		events:{
 			'click .agent-reset': 'reset',
 			'click .agent-cancel': 'hide',
 			'click .agent-sure': 'addAgent',
-			'click .selectArea': 'selectAreaEve'
+			'click .selectArea': 'selectAreaEve',
+			'click .perdept-button':'getDerdeptEve'
 		},
 		init: function(){
 			AddAgent.__super__.init.apply( this,arguments );
 
 			var me = this;
 			var list = [{'name':'请选择','value':''}];
+			
+			me.departmentModel = new DepartmentModel({
+                'checkStyle':'radio'
+            });
+			
+			me.departmentModel.on('assginSuccess',function(){
+                var deptNode =  me.departmentModel.getValue();
+				//alert(departmentModel.getValue())
+				console.log(deptNode)
+				if(deptNode){
+					me.model.set('deptId',deptNode[0].id);
+					me.$('.depts-box').text(deptNode[0].name);
+				}else{
+					me.model.set('deptId','');
+					me.$('.depts-box').text('');
+				}
+				
+            });
+			me.$companyType.on('change',function(){
+				if(me.$companyType.val()=='1'){
+					me.model.set('deptId','');
+					me.$('.add-box').show();
+					me.$('.depts-box').text('');
+					
+				}else{
+					me.$('.add-box').hide();
+					me.model.set('deptId','');
+					me.$('.depts-box').text('');
+				}
+			});
             
             util.getEnums( 'PROVINCE', function( data ) {
           		data.value.model.forEach(function(item ){
@@ -120,6 +153,10 @@ define( function(require, exports, module){
 
 			//新增
 			}else{
+				if(!me.model.get('deptId')&& me.model.get('companyType')==1){
+					util.showToast('请选择所属部门');
+					return;
+				}
 				util.api({
 					'url':'/agent/addagent',
 					'data':{
@@ -127,7 +164,9 @@ define( function(require, exports, module){
 						'province': me.model.get('province'),
 						'region': region,
 						'validTimeStart': starttime ,
-						'validTimeEnd': endtime
+						'validTimeEnd': endtime,
+						'companyType':me.model.get('companyType'),
+						'deptId':me.model.get('deptId')
 					},
 					'success': function(data){
 						if( data.success ){
@@ -147,6 +186,12 @@ define( function(require, exports, module){
 			var me = this;
 
 			me.trigger('selectarea');
+		},
+		//选择部门
+		getDerdeptEve:function(){
+			var me = this;
+			//me.departmentModel.show([]);
+			me.departmentModel.show([],{},'~/op/api/am/agent/queryCanBindDepts')
 		},
 
 		//选择区域
@@ -183,10 +228,27 @@ define( function(require, exports, module){
 			me.$starttime.val('');
 			me.$endtime.val('');
 			me.$selectArea.val('').removeAttr('data-code');
-
+			me.$('.deptName').val('');
 			me.attrs['id'] = '';
 
 			AddAgent.__super__.hide.apply(this,arguments);
+		},
+		setState:function(id){
+			var me = this;
+			if(id){
+				me.$('.m-agentinfo').removeClass('agentadd');
+				me._setTitle('编辑');
+				me.$('.add-box').hide();
+				me.$('.edit-box').show();
+				me.$('.companyType').attr('disabled', 'disabled');
+			}else{
+				me.$('.m-agentinfo').addClass('agentadd');
+				me._setTitle('添加代理商');
+				me.$('.add-box').show();
+				me.$('.edit-box').hide();
+				me.$('.companyType')[0].options[0].selected = true;
+				me.$('.companyType').removeAttr('disabled');
+			}
 		},
 
 		/*
@@ -197,12 +259,12 @@ define( function(require, exports, module){
 
 			me.attrs['id'] = id || '';
 
-			me.$('.m-agentinfo').addClass('agentadd');
-			me._setTitle('添加代理商');
-
+			
+			
+			me.setState(me.attrs['id']);
+			
 			if( id ){
-				me.$('.m-agentinfo').removeClass('agentadd');
-				me._setTitle('编辑');
+				
 
 				util.api({
 					'url': '/agent/getagent',
@@ -212,14 +274,20 @@ define( function(require, exports, module){
 					'success': function( data ){
 						console.warn( data );
 						if(data.success){
-							me.model.load( data.value.model );
+							me.model.load( data.value.model.agent );
 							if( data.value.model.regionName ){
-								me.$selectArea.val( data.value.model.regionName + '(' + data.value.model.region + ')' ).attr('data-code',data.value.model.region);
+								me.$selectArea.val( data.value.model.regionName + '(' + data.value.model.agent.region + ')' ).attr('data-code',data.value.model.agent.region);
 							}
 							if( me.model.get('permissions') ){
 								me.model.set('permissions', 0 );
 							}else{
 								me.model.set('permissions', 1 );
+							}
+							if(!data.value.model.dept){
+								me.$('.edit-box').hide();
+							}else{
+								me.$('.edit-box').show();
+								me.$('.deptName').val(data.value.model.dept.name);
 							}
 						}
 					}

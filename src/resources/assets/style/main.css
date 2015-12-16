@@ -337,8 +337,8 @@ body {
 }
 body {
   min-height: 350px;
-  background-color: #eeeeee;
-  color: #888888;
+  background-color: #eee;
+  color: #888;
   font: 14px/1.5 tahoma, arial, 'Hiragino Sans GB', '\5FAE\8F6F\96C5\9ED1', sans-serif;
   -webkit-font-smoothing: antialiased;
   overflow-y: scroll;
@@ -497,7 +497,7 @@ body::-webkit-scrollbar-corner {
   float: right;
   line-height: 50px;
   padding: 0 30px 0 20px;
-  border-left: 1px #eeeeee solid;
+  border-left: 1px #eee solid;
   position: relative;
 }
 #header .header-person img {
@@ -517,7 +517,7 @@ body::-webkit-scrollbar-corner {
   position: absolute;
   top: 50px;
   right: 0;
-  background: #ffffff;
+  background: #fff;
   border: 1px #d9d9d9 solid;
   text-indent: 2em;
   cursor: pointer;
@@ -878,12 +878,12 @@ body::-webkit-scrollbar-corner {
 /* =======全局btn类=====*/
 button {
   padding: 4px 18px;
-  background: #ffffff;
+  background: #fff;
   border: 1px #d9d9d9 solid;
   outline: none;
   border-radius: 2px;
   cursor: pointer;
-  color: #888888;
+  color: #888;
   line-height: normal;
 }
 button:hover {
@@ -895,7 +895,7 @@ button:active {
 .btn-blue {
   border: 1px #2896f0 solid;
   background: #2896f0;
-  color: #ffffff;
+  color: #fff;
   padding: 4px 18px;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 }
@@ -986,7 +986,7 @@ input {
 }
 table {
   width: 100%;
-  background: #ffffff;
+  background: #fff;
   border-top: 1px #d9d9d9 solid;
   border-bottom: 1px #d9d9d9 solid;
 }
@@ -1004,7 +1004,7 @@ table td {
 }
 table td > span {
   display: inline-block;
-  color: #888888;
+  color: #888;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -1023,7 +1023,7 @@ table td a {
   white-space: nowrap;
   overflow: hidden;
   border-top: 1px #d9d9d9 solid;
-  border-bottom: 1px #eeeeee solid;
+  border-bottom: 1px #eee solid;
   box-sizing: border-box;
   padding-right: 8px;
 }
@@ -1037,7 +1037,7 @@ table td a {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  border-bottom: 1px #eeeeee solid;
+  border-bottom: 1px #eee solid;
   padding-right: 8px;
 }
 .m-table td:first-child,
@@ -1050,7 +1050,7 @@ table td a {
   max-height: 120px;
 }
 .m-table tbody tr:hover {
-  background: #eeeeee;
+  background: #eee;
 }
 .m-table .emptyinfo {
   text-align: center;
@@ -1222,7 +1222,7 @@ audio.fn-hide-abs {
 }
 .m-kf .kf-session {
   width: 268px;
-  background: #ffffff;
+  background: #fff;
   -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.07);
   -moz-box-shadow: 0 0 8px rgba(0, 0, 0, 0.07);
   box-shadwo: 0 0 8px rgba(0, 0, 0, 0.07);
@@ -1235,7 +1235,7 @@ audio.fn-hide-abs {
 }
 .m-kf .kf-session .session-title .b {
   font-weight: bold;
-  color: #888888;
+  color: #888;
 }
 .m-kf .kf-session .session-title span {
   float: left;
@@ -1330,7 +1330,7 @@ audio.fn-hide-abs {
 .m-kf .kf-session .session-list li.emptyTip p {
   line-height: 60px;
   font-size: 12px;
-  color: #888888;
+  color: #888;
   text-align: center;
 }
 .m-kf .kf-session .session-list li.emptyTip.active {
@@ -1368,7 +1368,7 @@ audio.fn-hide-abs {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  color: #888888;
+  color: #888;
 }
 .m-kf .kf-session .session-list li .user-time {
   font-size: 12px;
@@ -1383,7 +1383,7 @@ audio.fn-hide-abs {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  color: #888888;
+  color: #888;
 }
 .m-kf .kf-session .session-list li .session-count {
   position: absolute;
@@ -1406,7 +1406,7 @@ audio.fn-hide-abs {
   position: relative;
   margin-left: 278px;
   height: 810px;
-  background: #ffffff;
+  background: #fff;
   -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.07);
   -moz-box-shadow: 0 0 8px rgba(0, 0, 0, 0.07);
   box-shadwo: 0 0 8px rgba(0, 0, 0, 0.07);
@@ -1418,7 +1418,7 @@ audio.fn-hide-abs {
   left: 0;
   top: 380px;
   text-align: center;
-  color: #888888;
+  color: #888;
   font-weight: bold;
 }
 .m-kf .kf-connect-wrapper .kf-connect {
@@ -1444,10 +1444,10 @@ audio.fn-hide-abs {
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-title .title-left h4 {
   font-weight: bold;
-  color: #888888;
+  color: #888;
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-title .title-left p {
-  color: #888888;
+  color: #888;
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-title .title-right {
   float: right;
@@ -1525,7 +1525,7 @@ audio.fn-hide-abs {
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-content .content-info section .section-msg .msg-name {
   font-size: 12px;
-  color: #888888;
+  color: #888;
   line-height: 1em;
   padding-bottom: 3px;
 }
@@ -1706,12 +1706,12 @@ audio.fn-hide-abs {
   height: 152px;
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-content .content-info .news .section-msg .msg .s {
-  color: #888888;
+  color: #888;
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-content .content-info .news .section-msg .more {
   font-size: 12px;
   font-weight: bold;
-  color: #888888;
+  color: #888;
   border-top: 1px solid #b3d9ff;
   padding: 8px 16px;
 }
@@ -2176,7 +2176,7 @@ audio.fn-hide-abs {
   background: #f8f8f8;
   text-align: center;
   font-size: 12px;
-  color: #888888;
+  color: #888;
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-recorder {
   background-position: -160px -35px;
@@ -2274,7 +2274,7 @@ audio.fn-hide-abs {
   background: #fff;
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-area .area-audio .audio-file {
-  border: 1px #eeeeee solid;
+  border: 1px #eee solid;
   font-size: 12px;
   width: 200px;
   height: 30px;
@@ -2316,7 +2316,7 @@ audio.fn-hide-abs {
   padding: 11px 14px 8px 14px;
   height: 30px;
   font-size: 12px;
-  color: #888888;
+  color: #888;
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-btn .save-reply {
   vertical-align: middle;
@@ -2361,7 +2361,7 @@ audio.fn-hide-abs {
 }
 .m-fastreplydialog .dialog-content section {
   padding: 8px;
-  border-bottom: 1px #eeeeee solid;
+  border-bottom: 1px #eee solid;
   background: #fff;
 }
 .m-fastreplydialog .dialog-content section .section-edit {
@@ -2490,7 +2490,7 @@ audio.fn-hide-abs {
   padding-bottom: 20px;
 }
 .m-selectdialog .selectdialog-list table tr {
-  border-bottom: 1px #eeeeee solid;
+  border-bottom: 1px #eee solid;
 }
 .m-selectdialog .selectdialog-list table tbody tr {
   height: 40px;
@@ -2605,8 +2605,8 @@ audio.fn-hide-abs {
   display: inline-block;
   width: 170px;
   height: 90px;
-  background: #ffffff;
-  border: 2px #eeeeee dashed;
+  background: #fff;
+  border: 2px #eee dashed;
   color: #000;
   line-height: 30px;
   text-align: center;
@@ -2630,7 +2630,7 @@ audio.fn-hide-abs {
   left: 0;
   text-align: center;
   line-height: 90px;
-  color: #888888;
+  color: #888;
   z-index: 0;
 }
 .m-noticesendpic .sendpic-content section .sendpic-selectimg .sendpic-thumbwrapper .sendpic-thumb {
@@ -2780,7 +2780,7 @@ audio.fn-hide-abs {
 .m-dialog-wrapper .m-dialog {
   position: relative;
   border: 1px #d9d9d9 solid;
-  background: #ffffff;
+  background: #fff;
   margin-left: auto;
   margin-right: auto;
   min-width: 400px;
@@ -3419,7 +3419,7 @@ audio.fn-hide-abs {
   bottom: 0;
   top: 0;
   border: 1px #d9d9d9 solid;
-  background: #ffffff;
+  background: #fff;
   min-width: 400px;
 }
 .m-slider .slider-header {
@@ -3456,7 +3456,7 @@ audio.fn-hide-abs {
   margin-bottom: 40px;
 }
 .m-slider .dtl section {
-  border-bottom: 1px solid #eeeeee;
+  border-bottom: 1px solid #eee;
   margin-bottom: 10px;
 }
 .m-slider .dtl section h4 {
@@ -3651,7 +3651,7 @@ audio.fn-hide-abs {
   cursor: pointer;
   white-space: nowrap;
   padding: 0 5px;
-  border-bottom: 1px #eeeeee solid;
+  border-bottom: 1px #eee solid;
 }
 .m-select .select-list section:hover {
   background: #f8f8f8;
@@ -3706,7 +3706,7 @@ audio.fn-hide-abs {
   cursor: pointer;
   white-space: nowrap;
   padding: 0 5px;
-  border-bottom: 1px #eeeeee solid;
+  border-bottom: 1px #eee solid;
 }
 .m-ih .ih-sl section:hover {
   background: #f8f8f8;
@@ -3740,317 +3740,121 @@ audio.fn-hide-abs {
   -moz-transform: rotate(45deg);
   transform: rotate(45deg);
 }
-/*-------------------------------------
-zTree Style
-
-version:    3.4
-author:     Hunter.z
-email:      hunter.z@263.net
-website:    http://code.google.com/p/jquerytree/
-
--------------------------------------*/
-.m-ztree * {
-  padding: 0;
-  margin: 0;
-  font-size: 12px;
-  font-family: Verdana, Arial, Helvetica, AppleGothic, sans-serif;
+.ztree-b {
+  width: 100%;
+  overflow: hidden;
 }
 .m-ztree {
-  margin: 0;
-  padding: 5px;
-  color: #333333;
+  line-height: 51px;
+  background: url("/op/resources/common/images/widget/ztree/bg.png") repeat -1px 0;
+  margin-top: -1px;
+  overflow: hidden;
 }
 .m-ztree li {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  line-height: 17px;
-  text-align: left;
-  white-space: nowrap;
+  width: 100%;
   outline: 0;
-}
-.m-ztree li ul {
-  margin: 0;
-  padding: 0 0 0 18px;
-}
-.m-ztree li ul.line {
-  background: url("/op/resources/common/images/widget/ztree/create-session.png") 0 0 repeat-y;
+  position: relative;
 }
 .m-ztree li a {
-  padding-right: 3px;
-  margin: 0;
-  cursor: pointer;
-  height: 21px;
+  display: block;
+  padding: 0 25px 0 52px;
   color: #333;
-  background-color: transparent;
-  text-decoration: none;
-  vertical-align: top;
-  display: inline-block;
-}
-.m-ztree li a:hover {
-  text-decoration: underline;
-}
-.m-ztree li a.curSelectedNode {
-  padding-top: 0px;
-  background-color: #e5e5e5;
-  color: black;
-  height: 21px;
-  opacity: 0.8;
-}
-.m-ztree li a.curSelectedNode_Edit {
-  padding-top: 0px;
-  background-color: #e5e5e5;
-  color: black;
-  height: 21px;
-  border: 1px #666 solid;
-  opacity: 0.8;
-}
-.m-ztree li a.tmpTargetNode_inner {
-  padding-top: 0px;
-  background-color: #aaa;
-  color: white;
-  height: 21px;
-  border: 1px #666 solid;
-  opacity: 0.8;
-  filter: alpha(opacity=80);
-}
-.m-ztree li a input.rename {
-  height: 14px;
-  width: 80px;
-  padding: 0;
-  margin: 0;
-  font-size: 12px;
-  border: 1px #585956 solid;
-  *border: 0px;
-}
-.m-ztree li span {
-  line-height: 21px;
-  margin-right: 2px;
-}
-.m-ztree li span.button {
-  line-height: 0;
-  margin: 0;
-  padding: 0;
-  width: 21px;
-  height: 21px;
-  display: inline-block;
-  vertical-align: middle;
-  border: 0 none;
   cursor: pointer;
-  outline: none;
-  background-color: transparent;
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-image: url("/op/resources/common/images/widget/ztree/metro.png");
-  *background-image: url("/op/resources/common/images/widget/ztree/metro.gif");
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
 }
-.m-ztree li span.button.chk {
-  width: 13px;
-  height: 13px;
-  margin: 0 2px;
-  cursor: auto;
+.m-ztree li a.curSelectedNode,
+.m-ztree li a:hover {
+  background-color: #f5f5f5;
+  margin: 0 -500px;
+  padding: 0 525px 0 552px;
 }
-.m-ztree li span.button.chk.checkbox_false_full {
-  background-position: -5px -5px;
-}
-.m-ztree li span.button.chk.checkbox_false_full_focus {
-  background-position: -5px -26px;
-}
-.m-ztree li span.button.chk.checkbox_false_part {
-  background-position: -5px -48px;
-}
-.m-ztree li span.button.chk.checkbox_false_part_focus {
-  background-position: -5px -68px;
-}
-.m-ztree li span.button.chk.checkbox_false_disable {
-  background-position: -5px -89px;
-}
-.m-ztree li span.button.chk.checkbox_true_full {
-  background-position: -26px -5px;
-}
-.m-ztree li span.button.chk.checkbox_true_full_focus {
-  background-position: -26px -26px;
-}
-.m-ztree li span.button.chk.checkbox_true_part {
-  background-position: -26px -48px;
-}
-.m-ztree li span.button.chk.checkbox_true_part_focus {
-  background-position: -26px -68px;
-}
-.m-ztree li span.button.chk.checkbox_true_disable {
-  background-position: -26px -89px;
-}
-.m-ztree li span.button.chk.radio_false_full {
-  background-position: -47px -5px;
-}
-.m-ztree li span.button.chk.radio_false_full_focus {
-  background-position: -47px -26px;
-}
-.m-ztree li span.button.chk.radio_false_part {
-  background-position: -47px -47px;
-}
-.m-ztree li span.button.chk.radio_false_part_focus {
-  background-position: -47px -68px;
-}
-.m-ztree li span.button.chk.radio_false_disable {
-  background-position: -47px -89px;
-}
-.m-ztree li span.button.chk.radio_true_full {
-  background-position: -68px -5px;
-}
-.m-ztree li span.button.chk.radio_true_full_focus {
-  background-position: -68px -26px;
-}
-.m-ztree li span.button.chk.radio_true_part {
-  background-position: -68px -47px;
-}
-.m-ztree li span.button.chk.radio_true_part_focus {
-  background-position: -68px -68px;
-}
-.m-ztree li span.button.chk.radio_true_disable {
-  background-position: -68px -89px;
+.m-ztree li a.curSelectedNode_Edit input {
+  width: 200px;
+  padding: 6px 5px;
+  border: 1px solid #dbdbdb;
+  border-radius: 3px;
+  margin-top: -2px;
 }
 .m-ztree li span.button.switch {
-  width: 21px;
-  height: 21px;
-}
-.m-ztree li span.button.root_open {
-  background-position: -105px -63px;
-}
-.m-ztree li span.button.root_close {
-  background-position: -126px -63px;
-}
-.m-ztree li span.button.roots_open {
-  background-position: -105px 0;
-}
-.m-ztree li span.button.roots_close {
-  background-position: -126px 0;
-}
-.m-ztree li span.button.center_open {
-  background-position: -105px -21px;
-}
-.m-ztree li span.button.center_close {
-  background-position: -126px -21px;
-}
-.m-ztree li span.button.bottom_open {
-  background-position: -105px -42px;
-}
-.m-ztree li span.button.bottom_close {
-  background-position: -126px -42px;
-}
-.m-ztree li span.button.noline_open {
-  background-position: -105px -84px;
-}
-.m-ztree li span.button.noline_close {
-  background-position: -126px -84px;
-}
-.m-ztree li span.button.root_docu {
-  background: none;
-}
-.m-ztree li span.button.roots_docu {
-  background-position: -84px 0;
-}
-.m-ztree li span.button.center_docu {
-  background-position: -84px -21px;
-}
-.m-ztree li span.button.bottom_docu {
-  background-position: -84px -42px;
+  width: 19px;
+  height: 19px;
+  background: url("/op/resources/common/images/widget/ztree/ico.png") no-repeat;
+  position: absolute;
+  left: 25px;
+  top: 16px;
+  z-index: 20;
+  border-radius: 20px;
+  cursor: pointer;
 }
 .m-ztree li span.button.noline_docu {
-  background: none;
+  display: none;
 }
-.m-ztree li span.button.ico_open {
-  margin-right: 2px;
-  background-position: -147px -21px;
-  vertical-align: top;
-  *vertical-align: middle;
+.m-ztree li span.button.noline_close {
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  transform: rotate(180deg);
 }
-.m-ztree li span.button.ico_close {
-  margin-right: 2px;
-  background-position: -147px 0;
-  vertical-align: top;
-  *vertical-align: middle;
+.m-ztree li span.button.chk {
+  position: absolute;
+  right: 25px;
+  top: 15px;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  z-index: 2;
+  cursor: pointer;
 }
-.m-ztree li span.button.ico_docu {
-  margin-right: 2px;
-  background-position: -147px -42px;
-  vertical-align: top;
-  *vertical-align: middle;
+.m-ztree li span.button.checkbox_true_full,
+.m-ztree li span.button.checkbox_true_full_focus {
+  background: url("/op/resources/common/images/widget/ztree/bg-check.png") no-repeat -1px 0;
 }
-.m-ztree li span.button.edit {
-  margin-left: 2px;
-  margin-right: -1px;
-  background-position: -189px -21px;
-  vertical-align: top;
-  *vertical-align: middle;
+.m-ztree li span.button.checkbox_true_part,
+.m-ztree li span.button.checkbox_true_part_focus {
+  background: url("/op/resources/common/images/widget/ztree/bg-check.png") no-repeat 0 -20px;
 }
-.m-ztree li span.button.edit:hover {
-  background-position: -168px -21px;
+.m-ztree li span.button.radio_true_full,
+.m-ztree li span.button.radio_true_full_focus {
+  background: url("/op/resources/common/images/widget/ztree/bg-check.png") no-repeat -1px 0;
 }
-.m-ztree li span.button.remove {
-  margin-left: 2px;
-  margin-right: -1px;
-  background-position: -189px -42px;
-  vertical-align: top;
-  *vertical-align: middle;
-}
-.m-ztree li span.button.remove:hover {
-  background-position: -168px -42px;
-}
-.m-ztree li span.button.add {
-  margin-left: 2px;
-  margin-right: -1px;
-  background-position: -189px 0;
-  vertical-align: top;
-  *vertical-align: middle;
-}
-.m-ztree li span.button.add:hover {
-  background-position: -168px 0;
-}
-.m-ztree li span.button.ico_loading {
-  margin-right: 2px;
-  background: url(img/loading.gif) no-repeat scroll 0 0 transparent;
-  vertical-align: top;
-  *vertical-align: middle;
-}
-ul.tmpTargetzTree {
-  background-color: #FFE6B0;
-  opacity: 0.8;
-  filter: alpha(opacity=80);
-}
-span.tmpzTreeMove_arrow {
-  width: 16px;
-  height: 21px;
+.m-ztree li .save-nm,
+.m-ztree li .cancel-nm {
   display: inline-block;
-  padding: 0;
-  margin: 2px 0 0 1px;
-  border: 0 none;
-  position: absolute;
-  background-color: transparent;
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-position: -168px -84px;
-  background-image: url("/op/resources/common/images/widget/ztree/metro.png");
-  *background-image: url("/op/resources/common/images/widget/ztree/metro.gif");
+  width: 45px;
+  vertical-align: middle;
+  border: 1px solid #dbdbdb;
+  margin-left: 10px;
+  line-height: 26px;
+  border-radius: 3px;
+  margin-top: -2px;
+  text-align: center;
+  font-size: 12px;
 }
-ul.ztreeul.ztreeDragUL {
-  margin: 0;
-  padding: 0;
-  position: absolute;
-  width: auto;
-  height: auto;
-  overflow: hidden;
-  background-color: #cfcfcf;
-  border: 1px #00B83F dotted;
-  opacity: 0.8;
-  filter: alpha(opacity=80);
+.m-ztree li .cancel-nm:hover {
+  color: #505050;
+  background-color: #e0dede;
 }
-.ztreeMask {
-  z-index: 10000;
-  background-color: #cfcfcf;
-  opacity: 0.0;
-  filter: alpha(opacity=0);
-  position: absolute;
+.m-ztree li .save-nm {
+  background-color: #03a9f4;
+  color: #fff;
+  border-color: #0398db;
+}
+.m-ztree li .save-nm:hover {
+  color: #fff;
+  background-color: #2088bf;
+}
+.m-ztree li ul {
+  padding: 0 0 0 25px;
+}
+.m-ztree .edite-b {
+  float: right;
+  color: #03a9f4;
+}
+.m-ztree .edite-b em {
+  margin-left: 40px;
 }
 .ui-slider .con {
   padding-top: 20px;
@@ -4061,7 +3865,7 @@ ul.ztreeul.ztreeDragUL {
   color: #484848;
 }
 .ui-slider .con .dtl-ps {
-  color: #888888;
+  color: #888;
   display: inline-block;
   width: 120px;
 }
@@ -5730,6 +5534,19 @@ em {
 }
 .m-enterprisedetail #phonecallback table tr th {
   color: #000;
+}
+.m-deailbind .left-info {
+  float: left;
+}
+.m-deailbind .right-info {
+  float: right;
+  border-left: 1px solid #ccc;
+  padding-left: 10px;
+}
+.m-deailbind label textarea {
+  width: 169px;
+  height: 80px;
+  padding: 10px;
 }
 .m-deailbind .left-info {
   float: left;
