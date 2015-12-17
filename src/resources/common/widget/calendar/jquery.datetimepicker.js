@@ -954,7 +954,7 @@
 
 				var current_time_index = 0;
 				input.mousewheel&&input.mousewheel(function( event, delta, deltaX, deltaY ) {
-					if( !options.scrollInput )
+					/*if( !options.scrollInput )
 						return true;
 					if( !options.datepicker && options.timepicker ) {
 						current_time_index = timebox.find('.xdsoft_current').length?timebox.find('.xdsoft_current').eq(0).index():0;
@@ -967,7 +967,7 @@
 						input.val&&input.val( _xdsoft_datetime.str() );
 						datetimepicker.trigger('changedatetime.xdsoft');
 						return false;
-					}
+					}*/
 				});
 				var setPos = function() {
 					var offset = datetimepicker.data('input').offset(), top = offset.top+datetimepicker.data('input')[0].offsetHeight-1, left = offset.left;
