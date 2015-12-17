@@ -48,9 +48,9 @@ define( function(require, exports, module){
 			
 			me.departmentModel.on('assginSuccess',function(){
                 var deptNode =  me.departmentModel.getValue();
-				//alert(departmentModel.getValue())
+				
 				console.log(deptNode)
-				if(deptNode){
+				if(deptNode.length > 0){
 					me.model.set('deptId',deptNode[0].id);
 					me.$('.depts-box').text(deptNode[0].name);
 				}else{
@@ -153,7 +153,7 @@ define( function(require, exports, module){
 
 			//新增
 			}else{
-				if(!me.model.get('deptId')&& me.model.get('companyType')==1){
+				if(!me.model.get('deptId')&& me.$companyType.val()==1){
 					util.showToast('请选择所属部门');
 					return;
 				}
@@ -165,7 +165,7 @@ define( function(require, exports, module){
 						'region': region,
 						'validTimeStart': starttime ,
 						'validTimeEnd': endtime,
-						'companyType':me.model.get('companyType'),
+						'companyType':me.$companyType.val(),
 						'deptId':me.model.get('deptId')
 					},
 					'success': function(data){
