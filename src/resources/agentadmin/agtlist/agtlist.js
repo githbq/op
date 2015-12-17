@@ -246,6 +246,7 @@ define( function(require, exports, module){
 				me._setTitle('添加代理商');
 				me.$('.add-box').show();
 				me.$('.edit-box').hide();
+				me.$('.depts-box').text('');
 				me.$('.companyType')[0].options[0].selected = true;
 				me.$('.companyType').removeAttr('disabled');
 			}
