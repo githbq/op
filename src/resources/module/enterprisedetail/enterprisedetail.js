@@ -1112,7 +1112,7 @@ define( function(require, exports, module){
 								model.activityStr = "无";
 								break;
 						}
-
+						me.$('#presentOfficeEdition').val(model.presentOfficeEdition);
 						me.$hasSales.val( model.isSaleTeam ? 'true' : 'false' );
 						me.$isMettingSale.val( model.isWillPin ? 'true' : 'false' );
 						me.$isFirstView.val( model.isFirstmettingSign ? 'true': 'false' );
