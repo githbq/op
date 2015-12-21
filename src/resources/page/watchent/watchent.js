@@ -16,6 +16,10 @@ define( function( require, exports, module ) {
         '1': '是'            
     }
 
+    /**
+     *
+     * 导入slider
+     */
     var ExportIn = MClass( Slider ).include({
         defaultAttr:{
             'title':'导入',

@@ -130,7 +130,7 @@ module.exports = function (grunt) {
             },
             release:{
                 files:[
-                    {expand:true,cwd:'src/resources',src:'**/*.js',dest:'release/resources'}
+                    {expand:true,cwd:'src/resources',src:'**/*.js',dest:'<%=pkg.output%>/resources'}
                 ]
             }
         },
@@ -141,7 +141,7 @@ module.exports = function (grunt) {
             *@A
             */
             publish: {
-            	src:['release/index.html','release/index.jsp']
+            	src:['<%=pkg.output%>/index.html','<%=pkg.output%>/index.jsp']
             }
         },
 		

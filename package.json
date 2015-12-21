@@ -10,7 +10,7 @@
   "author": "ibss",
   "license": "BSD-2-Clause",
   
-  "output": "./release/",
+  "output": "./dest/",
 
   "commonPath": "/workspace/FS.FE/ibss/ibss_common/src/resources/common/",
 
