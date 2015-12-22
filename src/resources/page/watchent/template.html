@@ -7,6 +7,7 @@
     	<button class="exportin">导入</button>
     </p>
 </div>
+<!-- -->
 <script type="text/template" id="tabAssgin">
 <div class="m-assignEntInfo u-slider u-tablelist" id = 'enterpriseId' data-enterpriseId='' js="true">
 	<p>
@@ -38,33 +39,72 @@
 		</tr>
 	<% }) %>
 </script>
+
+<!--个人详情-->
 <script type="text/template" id="employeeDetailInfo">
 <div class="m-userinfo">
 	<div class="userinfo-content">
 
 		<h4>基本信息</h4>
 
-		<p> <label><span>企业账号</span>  <input type="text" disabled =disabled ce-model="ea" class="ea"></label> </p>
-		
-		<p> <label><span>企业名称  </span> <input type="text" ce-model="enterpriseName" disabled =disabled></label> </p>
-		<p> <label><span>员工姓名</span> <input type="text" ce-model="employeeName" disabled =disabled></label> </p>
-		<p> <label><span>联系电话</span> <input type="text" ce-model="employeeContact" disabled =disabled></label> </p>
-		<p> <label><span>职    位 </span> <input type="text" ce-model="employeePost" disabled =disabled></label> </p>
-		<p> <label><span>是否是管理员  </span> <input type="text" ce-model="admin" disabled =disabled></label> </p>
-		<p> <label><span>开通时间 </span> <input type="text" ce-model="appStartTime" disabled =disabled></label></p>
-		<p> <label><span>城    市  </span> <input type="text" ce-model="city" disabled =disabled></label></p>
-		<p> <label><span>回访结果  </span> 
-			<select ce-model="status" class="status"> 
-				<option value="" >未回访</option>
-				<option value="1">存疑</option> 
-				<option value="2">未存疑</option> 
-			</select> </label> 
-		</p>
-		<p> <label><span>存疑原因  </span> <input type="text" ce-model="reason"></label></p>
-		<p> <label><span>回访详情  </span> <textarea class="callBackDetail"  ce-model="callBackDetail"></textarea></p>
-		<p> <label><span>回访录音存放位置   </span> <input type="text" ce-model="storagePath"></label></p>
-		<div class="userinfo-action">
+		<p> <label><span>企业账号</span>  <input type="text" disabled="disabled" ce-model="ea" class="ea"></label> </p>
+		<p> <label><span>企业名称  </span> <input type="text" ce-model="enterpriseName" disabled="disabled"></label> </p>
+		<p> <label><span>员工姓名</span> <input type="text" ce-model="employeeName" disabled="disabled"></label> </p>
+		<p> <label><span>联系电话</span> <input type="text" ce-model="employeeContact" disabled="disabled"></label> </p>
+		<p> <label><span>职    位 </span> <input type="text" ce-model="employeePost" disabled="disabled"></label> </p>
+		<p> <label><span>是否是管理员  </span> <input type="text" ce-model="admin" disabled="disabled"></label> </p>
+		<p> <label><span>开通时间 </span> <input type="text" ce-model="appStartTime" disabled="disabled"></label></p>
+		<p> <label><span>城    市  </span> <input type="text" ce-model="city" disabled="disabled"></label></p>
 
+		<h4>回访结果</h4>
+		<p> 
+			<label>
+				<span> 是否回访 </span> 
+				<select ce-model="visitStatus"> 
+					<option value="1">是</option>
+					<option value="0">否</option>
+				</select> 
+			</label> 
+		</p>
+		<p>
+			<label>
+				<span> 是否存疑 </span>
+				<select ce-model="suspectStatus">
+					<option value="1">是</option>
+					<option value="0">否</option>
+				</select>
+			</label>
+		</p>
+		<p> 
+			<label>
+				<span> 存疑原因 </span>
+				<select ce-model="sreason">
+					<option value="">请选择</option>
+					<option value="未听说过纷享">未听说过纷享</option>
+					<option value="不是自己负责">不是自己负责</option>
+					<option value="还没开始用">还没开始用</option>
+					<option value="联系人信息不匹配">联系人信息不匹配</option>
+					<option value="号码无效">号码无效</option>
+					<option value="纷享/代理商同事">纷享/代理商同事</option>
+					<option value="与他人回答相违背">与他人回答相违背</option>
+					<option value="无人接听/拒接(3次)">无人接听/拒接(3次)</option>
+					<option value="号码存在多个企业内">号码存在多个企业内</option>
+					<option value="虚假手机号">虚假手机号</option>
+					<option value="空号/停机">空号/停机</option>
+					<option value="其他">其他</option>
+				</select> 
+			</label>
+		</p>
+		<p>
+			<label>
+				<span></span><input type="text" ce-model="reason" disabled="disabled">
+			</label>
+		</p>
+		<p> <label><span>回访详情</span> <textarea ce-model="callbackDetail"></textarea></p>
+		<p> <label><span>回访录音存放位置</span> <input type="text" ce-model="storagePath"></label></p>
+		<p> <label><span>回访操作人</span> <input type="text" disabled="disabled" ce-model="callBackContact">  </label> </p>
+		<p> <label><span>回访时间</span> <input type="text" disabled="disabled" ce-model="callbackTimeStr"> </label> </p>
+		<div class="userinfo-action">
 			<button class=" btn-blue save-info" data-id="">提交</button>
 		</div>
 	</div>

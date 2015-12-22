@@ -346,7 +346,6 @@ define( function( require, exports, module ) {
             '#enterpriseId': 'enterpriseId',
 			'.assign-ent-Info tbody':'assginList',
 			'.search-name':'searchName'
-            
         },
 		accountList:[],
         events: {
@@ -448,32 +447,35 @@ define( function( require, exports, module ) {
     
 	/**
      *
-     * 用户详细和新增
-     * 根据show的时候 是否传入id 确定是新增还是编辑 
+     * 回访详情
      */
     var EmployeeDetail = MClass( Dialog ).include({
-        content: $(contentStr).filter('#employeeDetailInfo').html(),
         
+        content: $(contentStr).filter('#employeeDetailInfo').html(),
+        defaultAttr:{
+            'title': '回访员工详情',
+            'width': 500
+        },
         events: {
-            'click .save-info': 'saveInfoEve',
+            'click .save-info': 'saveInfoEve'
 		},
         elements:{
-            '.save-info': 'stateSaveInfo',
-           
+            '.save-info': 'stateSaveInfo'
         },
         
         init: function(){
+
             EmployeeDetail.__super__.init.apply( this,arguments );
             var me = this;
-			me._setTitle('回访员工详情');
+        
         },
 
-
-        show: function( ea,phone ){
+        show: function( ea ,phone ){
             var me = this;
 
             me.attrs['ea'] = ea || '';
             me.attrs['phone'] = phone||'';
+
 			util.api({
                 'url': '/enterprise/getemployeecallbackdetail',
                 'data': {
@@ -483,14 +485,21 @@ define( function( require, exports, module ) {
                 'success': function( data ){
                     console.warn( data );
                     if( data.success ){
+                        
                         me.model.load( data.value.model );
+
 						me.$stateSaveInfo.attr('data-id',data.value.model.id)
+                        
 						if(data.value.model.admin == '1'){
 							me.model.set('admin','是');
 						}else{
 							me.model.set('admin','否');
 						}
-						me.model.set('appStartTime',new Date( data.value.model.appStartTime )._format('yyyy-MM-dd hh:mm'))
+
+                        me.model.set('callbackTimeStr', new Date( data.value.model.callbackTime )._format('yyyy-MM-dd hh:mm') );
+						me.model.set('appStartTime', new Date( data.value.model.appStartTime )._format('yyyy-MM-dd hh:mm'));
+
+                        /*
 						if(data.value.model.status == '2'){
 							me.model.set('reason','无');
 						}else if(data.value.model.status == '1'){
@@ -498,7 +507,7 @@ define( function( require, exports, module ) {
 						}else{
 							me.model.set('reason','');
 						}
-						me.$('.callBackDetail').val(data.value.model.callbackDetail)
+                        */
                     }
                 }
             })
@@ -506,10 +515,14 @@ define( function( require, exports, module ) {
  
             EmployeeDetail.__super__.show.apply( this,arguments );
         },
+
+        //提交
 		saveInfoEve:function(e){
 			var me = this;
 			var id = $(e.currentTarget).attr('data-id');
 			var dataObj = {};
+            
+            /*
 			if(!me.model.get('status')){
 				util.showToast('请选择回访结果是否存疑！');
 				return false;
@@ -518,11 +531,15 @@ define( function( require, exports, module ) {
 				util.showToast('请填写存疑原因');
 				return false;
 			}
+            */
+
 			dataObj['id'] = id;
-			dataObj['callBackDetail'] = me.$('.callBackDetail').val();
-			dataObj['status'] = me.model.get('status');
-			dataObj['reason'] = me.model.get('reason');
+			dataObj['callBackDetail'] = me.model.get('callbackDetail');
+			dataObj['visitStatus'] = me.model.get('visitStatus');
+			dataObj['suspectStatus'] = me.model.get('suspectStatus');
+            dataObj['reason'] = me.model.get('sreason');
 			dataObj['storagePath'] = me.model.get('storagePath');
+
 			util.api({
                 'url': '/enterprise/updateemployeecallbackdetail',
                 'data': dataObj,
@@ -547,7 +564,7 @@ define( function( require, exports, module ) {
             me.model.clear();
            
             EmployeeDetail.__super__.hide.apply( this,arguments );
-        },
+        }
 
 	});
 
