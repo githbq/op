@@ -1521,6 +1521,7 @@ define( function(require, exports, module){
 				enterpriseName: this.$name.val(),
 				address: this.$address.val(),
 				industry: this.$aindustry.val(),
+				presentOfficeEdition:this.$('#presentOfficeEdition').val(),
 				source: this.$asource.val(),
 				province: this.$aprovince.val(),
 				groupType: this.$agroup.val(),
@@ -2895,9 +2896,7 @@ define( function(require, exports, module){
 						if ( data.success ) {
 							util.showTip( '修改成功' );
 							var agent = me.findAgent( vid );
-							me.$sAgentId.val( agent.id );
-							me.$sAgentName.val( agent.name );
-						}
+							me.$sAgentId.val( agent.id );me.$sAgentName.val( agent.name );}
 					}
 				});
 			}

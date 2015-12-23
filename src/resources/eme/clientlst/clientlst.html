@@ -1,0 +1,40 @@
+<div class="p-list p-eme-lst" js="true">
+    <div class="m-list m-eme-lst u-tablelist">
+        <div class="list-main">
+            <div class="list-header">
+                <h3>客户检索</h3>
+            </div>
+            <div class="list-bar">
+                <div class="list-bar-btns"><button id="btnSearch" class="btn-blue">查询</button></div>
+                <div class="list-bar-input">
+                    <!--<label><span>企业帐号</span><input id="elEA" type="text" class="g-ipt ipt-m" /></label>
+                    <label><span>企业名称</span><input id="elEN" type="text" class="g-ipt ipt-l" /></label>
+                    <label><span>姓　　名</span><input id="elName" type="text" class="g-ipt ipt-m" /></label>-->
+                    <label><span>联系方式</span><input id="elMobile" type="text" class="g-ipt ipt-l" onchange="this.value=this.value.replace(/\D/g,'')"/></label>
+                </div>
+            </div>
+            <div class="list-content">
+                <table>
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th style="width: 130px;">企业帐号</th>
+                        <th style="">企业名称</th>
+                        <th style="width: 100px;">姓　　名</th>
+                        <th style="width: 100px;">联系方式</th>
+                        <th style="width: 160px;">电子邮箱</th>
+                        <th style="width: 100px;">职　　位</th>
+                        <th style="width: 100px;">管理员</th>
+                        <th style="width: 180px;"></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td colspan="10"><p class="info" style="font-size:16px;">点击查询数据</p></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="list-pager"></div>
+    </div>
+</div>
