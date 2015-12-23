@@ -4905,6 +4905,11 @@ em {
 .p-watch-ent .u-tablelist .list-bar .list-bar-btns {
   width: 330px;
 }
+.p-watch-ent .u-tablelist .enttextarea {
+  padding: 8px;
+  width: 190px;
+  height: 40px;
+}
 .m-areatree {
   min-height: 400px;
   padding: 0 20px 20px 20px;
