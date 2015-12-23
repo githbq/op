@@ -135,7 +135,7 @@ define( function( require, exports, module ) {
 
             me.getEnums();
             me.on('empty:list',function(){
-                me.$tbody.html("<tr><td colspan='10'><p class='info'>暂无数据</p></td></tr>");
+                me.$tbody.html("<tr><td colspan='12'><p class='info'>暂无数据</p></td></tr>");
             });
 
             me.$atBegin.on('focusout',function(){
@@ -228,7 +228,7 @@ define( function( require, exports, module ) {
             data.pageSize = me.pagination.attr['pageSize'];
             data.activityYn = 1;
             
-            me.$tbody.html("<tr><td colspan='10'><p class='info'>努力加载中</p></td></tr>");
+            me.$tbody.html("<tr><td colspan='12'><p class='info'>努力加载中</p></td></tr>");
 			if(IBSS.FUNCTIONS.indexOf('F008004') != -1){
 				util.api({
 					'url': '/enterprise/querypageforsupervise',

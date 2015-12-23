@@ -1,5 +1,7 @@
 <div class="m-enterprisedetail">
+
 	<div class="dtl sectiona">
+	
 		<section>
 			<h4>基本信息</h4>
 			<p>
@@ -54,6 +56,16 @@
 				<p id="shenheresult">
 					<label>
 						<span>审核结果</span><input type="text" disabled="disabled">
+					</label>
+				</p>
+				<p>
+					<label>
+						<span>操作人</span><input type="text" ce-model="informationCheckName" disabled="disabled">
+					</label>
+				</p>
+				<p>
+					<label>
+						<span>操作时间</span><input type="text" ce-model="informationCheckTimeStr" disabled="disabled">
 					</label>
 				</p>
 				<p>
@@ -115,29 +127,41 @@
 			<h4><span class="arraw"></span>电话回访</h4>
 			<div class="content">
 				<div class="content-result">
+					<p>
+						<label>
+							<span>电话回访状态</span>
+							<select id="phonecallbackselect" ce-model="returnVisitCheck">
+							</select>
+						</label>
+					</p>
+					<p>
+						<label>
+							<span>作弊情况</span>
+							<select id="cheatstatus" ce-model="cheatType">
+							</select>
+						</label>
+					</p>
+					<p>
+						<label>
+							<span>操作人</span>
+							<input type="text" disabled="disabled" ce-model="returnVisitCheckName">
+						</label>
+					</p>
+					<p>
+						<label>
+							<span>操作时间</span>
+							<input type="text" disabled="disabled" ce-model="returnVisitCheckTimeStr">
+						</label>
+					</p>
 					<p class="huifangresult">
 						<span>回访结果</span>
-						<b></b>
+						<b ce-model="returnVisitCheckStr"></b>
 					</p>
 					<p class="btns">
-						<button class="callback-actionon u-btn-blue">回访成功</button>
-						<button class="callback-actionoff u-btn-red">回访失败</button>
+						<button class="callback-actionon u-btn-blue">保存</button>
 					</p>
 				</div>
 				<div class="content-list tb">
-					<div class="tb-bar">
-						<!--<p>
-							<label>
-								用户姓名
-								<input type="text" class="callback-name">
-							</label>
-							<label>
-								电话
-								<input type="text" class="callback-phone">
-							</label>
-							<button id="btnPhoneCallbackEve">查询</button>
-						</p>-->
-					</div>
 					<table>
 						<thead>
 							<tr>
@@ -154,6 +178,7 @@
 				</div>
 			</div>
 		</section>
+
 		<!--风险详情-->
 		<section class="accordian collapse commonsection off" data-target="riskInfo" id="riskInfo">
 			<h4><span class="arraw"></span>风险详情</h4>
