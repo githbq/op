@@ -11,7 +11,7 @@ define( function( require, exports, module ) {
     
     var AccountDetail = MClass( Slider ).include({
         defaultAttr:{
-            'title': '帐号详情',
+            'title': '企业详情',
             'width': 300
         },
         content: tpl.filter('#accountDetail').html(),
