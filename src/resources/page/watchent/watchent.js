@@ -11,6 +11,7 @@ define( function( require, exports, module ) {
 	
 	var shenheMap = {};     //审核状态
     var huifangMap = {};    //回访状态
+    var cheatMap = {};      //作弊状态
     var huoyueMap = {       //活跃状态
         '0': '否',            
         '1': '是'            
@@ -149,11 +150,12 @@ define( function( require, exports, module ) {
 
             var state = {
                 'a':false,
-                'b':false
+                'b':false,
+                'c':false
             };
 
             function check(){
-                if( state.a && state.b ){
+                if( state.a && state.b && state.c ){
                     me.getList();
                 }
             };
@@ -171,6 +173,14 @@ define( function( require, exports, module ) {
                 state.b = true;
                 items.forEach(function(item){
                     huifangMap[item.value] = item.text;
+                });
+                check();
+            });
+
+            me.generateSelect('ENTERPRISE_CHEAT_TYPE', me.$('#cheatStatus'),function( items ){
+                state.c = true;
+                items.forEach(function(item){
+                    cheatMap[item.value] = item.text;
                 });
                 check();
             });

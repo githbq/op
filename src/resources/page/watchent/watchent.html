@@ -14,10 +14,6 @@
                 <!--<button class="exportin">导入</button>-->
             </div>
     		<div class="list-bar-input watch-ent">
-				<label>
-                    <span>企业帐号</span>
-                    <input id="ea" class="g-ipt ipt-m" type="text" ce-model="enterpriseAccount"/>
-                </label>
                 <label>
                     <span>企业名称</span>
                     <input id="eaName" class="g-ipt ipt-m"  type="text" ce-model="enterpriseName"/>
@@ -68,6 +64,25 @@
                     </select>
                 </label>
 
+                <label>
+                    <span>付费状态</span>
+                    <select ce-model="isPayed">
+                        <option value="">全部</option>
+                        <option value="1">是</option>
+                        <option value="0">否</option>
+                    </select>
+                </label>
+
+                <label>
+                    <span>销售人员</span>
+                    <input type="text" ce-model="creatorName">
+                </label>
+                
+                <label>
+                    <span>作弊情况</span>
+                    <select id="cheatStatus" ce-model="cheatStatus"></select>
+                </label>
+
                 <label class="sp">
                     <label><span>开通时间</span>
                         <input id="qcATBegin" type="text" class="g-ipt ipt-m" onkeyup='this.value=""'/>
@@ -76,7 +91,11 @@
                         <input id="qcATEnd" type="text" class="g-ipt ipt-m" onkeyup='this.value=""'/>
                     </label>
                 </label>
- 
+                <br>
+                <label>
+                    <span>企业帐号</span>
+                    <textarea id="ea" class="enttextarea" type="text" ce-model="enterpriseAccount" placeholder="换行批量输入企业帐号"></textarea>
+                </label>
     		</div>
     	</div>
     	<div class="list-content">
