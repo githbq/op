@@ -489,16 +489,10 @@ define( function(require, exports, module){
 						}else{
 							me.$getcompanyGateRemark.val('');
 						}
-						//审核结果
-						if( data.value.model && data.value.model.informationCheck == '1' ){
 
-							me.$verification.find('#shenheresult input').val('审核成功');
-						}else if( data.value.model && data.value.model.informationCheck=='0' ){
-							
-							me.$verification.find('#shenheresult input').val('审核失败');
-						}else {
-							me.$verification.find('#shenheresult input').val('暂无结果');
-						}
+						//审核结果
+						me.model.set('checkresult',IBSS.enums['INFORMATION_CHECK_STATUS']['model'][data.value.model.informationCheck-1]['text']);
+
 						if(changeBool){
 							me.trigger('changeStatus');
 						}
