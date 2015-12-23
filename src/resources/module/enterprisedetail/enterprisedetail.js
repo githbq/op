@@ -1007,12 +1007,18 @@ define( function(require, exports, module){
 		},
 
 		//重置select枚举值
-		generateSelect: function( name , select , callback ){
+		generateSelect: function( name , $select , callback ){
 			var me = this;
 			//var list = [{'name':'请选择','value':''}];
-
-			util.getEnums( name , function(data){
-
+			var list = [{ 'name': '请选择', 'value': '' }];
+			util.getEnums( name , function( data ){
+				var items = data.model, options ='';
+				items.forEach( function( item,index ){
+					options += '<option value="' + item.value + '" title="' + item.text + '">' + item.text + '</option>';
+				})
+				$select.html( options );
+                callback && callback( items );
+                /*
 				switch( name ) {
 					case 'INDUSTRY':
 						me.initializeIndustry( data, me.model.industry );
@@ -1048,6 +1054,7 @@ define( function(require, exports, module){
 					default: break;
 				}
 				callback && callback();
+				*/
 			});
 		},
 
