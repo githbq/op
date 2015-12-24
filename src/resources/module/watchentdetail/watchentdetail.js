@@ -587,16 +587,13 @@ define( function(require, exports, module){
 		loadCallBackList: function(){
 
 			var me = this;
-
-			console.log( me.model.all() );
-
 			me.$phonecallback.find('tbody').html('<tr><td colspan="4"><p class="info">加载中</p></td></tr>');
 
 			
 			util.api({
 				'url': '/enterprise/getemployeessupervise',
 				'data': {
-					'enterpriseId': me.model.attrs['id']//me.model.attrs['enterpriseId']
+					'enterpriseId': me.model.attrs['enterpriseId']
 				},
 				'success': function( data ){
 					//console.warn( data );

@@ -414,7 +414,9 @@ define( function(require, exports, module){
 			'click .callback-actionoff': 'callbackOffEve',    	//电话回访失败
 			'click .verificationaction-on': 'veriOnEve',      	//资料审核成功
 			'click .verificationaction-off': 'veriOffEve',	  	//资料审核失败
-			'click .fn-buy-free':'fnBuyFreeEve'                       //营销版办公版增购tab切换
+			'click .fn-buy-free':'fnBuyFreeEve',                       //营销版办公版增购tab切换
+
+			'click .employee-detail':'employeeDetailEve'
 		}, 
 
 		uploadzzEve: function(){
@@ -986,24 +988,30 @@ define( function(require, exports, module){
 				f: false,
 				g: false,
 				h: false,
-				i: false
+				i: false,
+				j: false,
+				k: false
 			};
 
 			function checkIsOk(){
-				if( state.a && state.b && state.c && state.d && state.e && state.f && state.g && state.h && state.i ){
+				if( state.a && state.b && state.c && state.d && state.e && state.f && state.g && state.h && state.i && state.j && state.k ){
 					me.getEnterprise( id );
 				}
 			};
 
 			me.generateSelect( 'INDUSTRY', me.$aindustry , function(){ state.a = true; checkIsOk() });  		//行业信息
-			me.generateSelect( 'ENT_LST_SOURCE', me.$asource , function(){ state.b = true; checkIsOk() });     //来源信息
-			me.generateSelect( 'PROVINCE', me.$aprovince ,function(){ state.c = true; checkIsOk() });         //省和直辖市
+			me.generateSelect( 'ENT_LST_SOURCE', me.$asource , function(){ state.b = true; checkIsOk() });      //来源信息
+			me.generateSelect( 'PROVINCE', me.$aprovince ,function(){ state.c = true; checkIsOk() });           //省和直辖市
 			me.generateSelect( 'GROUP_TYPE', me.$agroup ,function(){ state.d = true; checkIsOk() } );			//团队类型
-			me.generateSelect( 'KNOW_SOURCE', me.$aknow ,function(){ state.e = true; checkIsOk() });          //了解渠道
-			me.generateSelect( 'REGISTER_MOTIVE', me.$aregister ,function(){ state.f = true; checkIsOk() });  //注册动机
+			me.generateSelect( 'KNOW_SOURCE', me.$aknow ,function(){ state.e = true; checkIsOk() });            //了解渠道
+			me.generateSelect( 'REGISTER_MOTIVE', me.$aregister ,function(){ state.f = true; checkIsOk() });    //注册动机
 			me.generateSelect( 'CAMPANY_SCALE', me.$acompany ,function(){ state.g = true; checkIsOk() } );      //公司规模
-			me.generateSelect( 'SALE_TEAM_SCALE', me.$asales ,function(){ state.h = true; checkIsOk() });      //销售团队规模
+			me.generateSelect( 'SALE_TEAM_SCALE', me.$asales ,function(){ state.h = true; checkIsOk() });       //销售团队规模
 			me.generateSelect( 'ENTERPRISE_LOG_TYPE', me.$sbLogType ,function(){ state.i = true; checkIsOk() }); //日志类型
+			
+			me.generateSelect( 'RETURN_VISIT_CHECK', me.$('#phonecallbackselect'), function(){ state.j = true; checkIsOk() });       //电话回访状态
+			me.generateSelect( 'ENTERPRISE_CHEAT_TYPE', me.$('#cheatstatus'), function(){state.k = true; checkIsOk() });             //作弊情况
+			util.getEnums('INFORMATION_CHECK_STATUS');
 		},
 
 		//重置select枚举值
@@ -1011,6 +1019,7 @@ define( function(require, exports, module){
 			var me = this;
 			//var list = [{'name':'请选择','value':''}];
 			var list = [{ 'name': '请选择', 'value': '' }];
+
 			util.getEnums( name , function( data ){
 				var items = data.model, options ='';
 				items.forEach( function( item,index ){
@@ -1018,43 +1027,6 @@ define( function(require, exports, module){
 				})
 				$select.html( options );
                 callback && callback( items );
-                /*
-				switch( name ) {
-					case 'INDUSTRY':
-						me.initializeIndustry( data, me.model.industry );
-						break;
-					case 'ENT_LST_SOURCE':
-						me.initializeSource( data, me.model.source );
-						break;
-					case 'PROVINCE':
-						me.initializeSource( data, me.model.province );
-						break;
-					case 'GROUP_TYPE':
-						me.initializeSource( data, me.model.groupType );
-						break;
-					case 'KNOW_SOURCE':
-						me.initializeSource( data, me.model.knowSource );
-						break;
-					case 'REGISTER_MOTIVE':
-						me.initializeSource( data, me.model.registerMotive );
-						break;
-					case 'CAMPANY_SCALE':
-						me.initializeSource( data, me.model.companyScale );
-						break;
-					case 'SALE_TEAM_SCALE':
-						me.initializeSource( data, me.model.saleTeamScale );
-						break;
-					case 'ENTERPRISE_LOG_TYPE':
-						me.initializeLogTypes( data, me.$sbLogType );
-						break;
-					case 'PRODUCT_MODULE':
-						console.warn( data );
-						me.initializeSelectValue( data, '', me.$sProductModule );
-						break;
-					default: break;
-				}
-				callback && callback();
-				*/
 			});
 		},
 
@@ -1078,30 +1050,7 @@ define( function(require, exports, module){
 						me.$name.val( model.enterpriseName );
 						me.$account.val( model.enterpriseAccount );
 						me.$address.val( model.address );
-						if ( IBSS.enums[ 'INDUSTRY' ] ) {
-							me.initializeIndustry( IBSS.enums[ 'INDUSTRY' ], model.industry );
-						}
-						if ( IBSS.enums[ 'ENT_LST_SOURCE' ] ) {
-							me.initializeSource( IBSS.enums[ 'ENT_LST_SOURCE' ], model.source );
-						}
-						if ( IBSS.enums[ 'PROVINCE' ] ) {
-							me.initializeProvince( IBSS.enums[ 'PROVINCE' ], model.province );
-						}
-						if ( IBSS.enums[ 'GROUP_TYPE' ] ) {
-							me.initializeGroup( IBSS.enums[ 'GROUP_TYPE' ], model.groupType );
-						}
-						if ( IBSS.enums[ 'KNOW_SOURCE' ] ) {
-							me.initializeChannel( IBSS.enums[ 'KNOW_SOURCE' ], model.knowSource );
-						}
-						if ( IBSS.enums[ 'REGISTER_MOTIVE' ] ) {
-							me.initializeIntention( IBSS.enums[ 'REGISTER_MOTIVE' ], model.registerMotive );
-						}
-						if ( IBSS.enums[ 'CAMPANY_SCALE' ] ) {
-							me.initializeCompanySize( IBSS.enums[ 'CAMPANY_SCALE' ], model.companyScale );
-						}
-						if ( IBSS.enums[ 'SALE_TEAM_SCALE' ] ) {
-							me.initializeSalesSize( IBSS.enums[ 'SALE_TEAM_SCALE' ], model.saleTeamScale );
-						}
+
 						switch( model.activity ){
 							case 1:
 								model.activityStr = "无登录";
@@ -1119,6 +1068,7 @@ define( function(require, exports, module){
 								model.activityStr = "无";
 								break;
 						}
+
 						me.$('#presentOfficeEdition').val(model.presentOfficeEdition);
 						me.$hasSales.val( model.isSaleTeam ? 'true' : 'false' );
 						me.$isMettingSale.val( model.isWillPin ? 'true' : 'false' );
@@ -1140,7 +1090,7 @@ define( function(require, exports, module){
 						me.$kcEmail.val( model.keyContactEmail );
 						me.$remark.val( model.remark );
 						me.$sProductName.val( model.productName );
-						me.$spstatus.val( me.findEnumValue(IBSS.enums['ENT_LST_PSTS'], model.runStatus) );
+						me.$spstatus.val( util.findEnumsText('ENT_LST_PSTS', model.runStatus) );
 						me.$sAgentId.val( model.agentId );
 						me.$sAgentName.val( model.agentName );
 
@@ -1181,9 +1131,8 @@ define( function(require, exports, module){
 						me.$sdSmUC.val( model.smsUsedAmount );
 						me.$sdSC.val( model.storageTotalSpace );
 						me.$sdSUC.val( model.storageUsedSpace );
-						//me.$sActivity.val( me.findEnumValue( IBSS.enums['ENT_LST_ACTIVITY'], model.activity ) );
 						me.$sActivity.val( model.activityStr );
-						me.$sdProductModule.val( me.findEnumValue( IBSS.enums['PRODUCT_MODULE'], model.modules ) );
+						me.$sdProductModule.val( util.findEnumsText('PRODUCT_MODULE', model.modules ) );
 						me.$sdMarketingStatus.val( model.isMarketingStimulationEnabled ? '开通' : '停止' );
 						me.$sdCustom.val( model.isLoginPagePersonalization ? '开通' : '停止' );
 						me.$sdActiveTime.val( model.appStartTime ? new Date( model.appStartTime )._format( 'yyyy-MM-dd hh:mm' ) : '' );
@@ -1346,34 +1295,6 @@ define( function(require, exports, module){
 			}
 		},
 
-		/*
-		generateSelect: function( name, $select ) {
-			util.getEnums( name, function( data ) {
-				var items = data.model, options = '';
-				items.forEach( function( item , index){
-					options += '<option value="' + item.value + '" title="' + item.text + '">' + item.text + '</option>';
-				});
-				if ( $select ) {
-					$select.append( options );
-				}
-			});
-		},
-		*/
-
-		findEnumValue: function( list, value ) {
-			/*
-			var result = '';
-			$.each( list.value.model, function( i, item ){
-				if ( item.value == value ) {
-					result = item.text;
-					return;
-				}
-			} );
-			return result;
-			*/
-		},
-
-
 		/**
 		 *
 		 * 显示隐藏子菜单
@@ -1459,60 +1380,6 @@ define( function(require, exports, module){
 				default:
 					break;
 			}
-		},
-
-		initializeSelectValue: function( list, value, select ) {
-			var l = [ { 'name': '请选择', 'value': '' } ];
-			$.each( list.value.model, function( i, item ){
-				l.push( { 'name': item.text, 'value': item.value } );
-			} );
-			util.resetSelect( select , l );
-			if ( value ) {
-				select.val( value );
-			}
-		},
-
-		initializeIndustry: function( list, value ) {
-			this.initializeSelectValue( list, value, this.$aindustry );
-		},
-
-		initializeSource: function( list, value ) {
-			this.initializeSelectValue( list, value, this.$asource );
-		},
-
-		initializeProvince: function( list, value ) {
-			this.initializeSelectValue( list, value, this.$aprovince );
-		},
-
-		initializeGroup: function( list, value ) {
-			this.initializeSelectValue( list, value, this.$agroup );
-		},
-
-		initializeChannel: function( list, value ) {
-			this.initializeSelectValue( list, value, this.$aknow );
-		},
-
-		initializeIntention: function( list, value ) {
-			this.initializeSelectValue( list, value, this.$aregister );
-		},
-
-		initializeCompanySize: function( list, value ) {
-			this.initializeSelectValue( list, value, this.$acompany );
-		},
-
-		initializeSalesSize: function( list, value ) {
-			this.initializeSelectValue( list, value, this.$asales );
-		},
-
-		initializeLogTypes: function( list, select ) {
-			var l = [ {'name':'全部' ,'value':''} ];
-			$.each( list.value.model, function( i, item ){
-				l.push( { 'name': item.text, 'value': item.value } );
-
-				//缓存入LOGTYPE
-				LOGTYPE[item.value] = item.text;
-			} );
-			util.resetSelect( select , l );
 		},
 
 		saveBasicEve: function( e ) {
@@ -1677,6 +1544,7 @@ define( function(require, exports, module){
 				'success': function( data ){
 					console.warn( data );
 					if( data.success ){
+
 						//营业执照
 						if( data.value.model && data.value.model.businessLicense ){
 							console.log(111);
@@ -1717,27 +1585,20 @@ define( function(require, exports, module){
 						}
 
 						//审核结果
-						if( data.value.model && data.value.model.informationCheck=='1' ){
-
-							me.$verification.find('#shenheresult input').val('审核成功');
-						}else if( data.value.model && data.value.model.informationCheck=='0' ){
-							
-							me.$verification.find('#shenheresult input').val('审核失败');
-						}else if( data.value.model && data.value.model.informationCheck==undefined){
-							me.$verification.find('#shenheresult input').val('暂无结果');
-						}
-
-
+						me.$verification.find('#shenheresult input').val( util.findEnumsText( 'INFORMATION_CHECK_STATUS', data.value.model.informationCheck ) );
+					
 						//审核意见
 						if( data.value.model && data.value.model.informationCheckRemark ){
 
 							me.$('.approvalinfo').val( data.value.model.informationCheckRemark );
 						}
-						
+
+						//操作人 操作时间
+						me.model.set('informationCheckName', data.value.model.informationCheckAccount && data.value.model.informationCheckAccount['name']);
+						me.model.set('informationCheckTimeStr', data.value.model.informationCheckTime && new Date( data.value.model.informationCheckTime )._format('yyyy-MM-dd hh:mm') );
 					}
 				}
 			});
-
 		},
 		//资料审核成功
 		veriOnEve: function(){
@@ -1780,13 +1641,6 @@ define( function(require, exports, module){
 			me.agent.pagination && me.agent.pagination.setPage(0,true);
 		},
 
-
-		//电话回访查询
-		phoneCallbackEve: function(){
-			var me = this;
-			me.phonecallback.pagination && me.phonecallback.pagination.setPage(0,true);
-		},
-
 		/**
 		 *
 		 * 电话回访
@@ -1809,56 +1663,44 @@ define( function(require, exports, module){
 		 			'enterpriseId': me.model.attrs['enterpriseId']
 		 		},
 		 		'success': function( data ){
-		 			console.warn( data );
-		 			if( data.value.model && data.value.model.returnVisitCheck == '1' ){
-		 				me.$phonecallback.find('.huifangresult b').text('回访成功');
-		 			}else if(data.value.model && data.value.model.returnVisitCheck=='0'){
-		 				me.$phonecallback.find('.huifangresult b').text('回访失败');
-		 			}else {
-		 				me.$phonecallback.find('.huifangresult b').text('暂无结果');
+		 			
+		 			if( data.success ){
+						
+		 				me.$('#phonecallbackselect').val(data.value.model['returnVisitCheck']);
+		 				me.$('#cheatstatus').val(data.value.model['cheatType']);
+		 				me.$('#returnVisitCheckName').val( data.value.model['returnVisitCheckAccount'] && data.value.model['returnVisitCheckAccount']['name'] );
+		 				me.$('#returnVisitCheckTimeStr').val( data.value.model['returnVisitCheckTime'] && new Date( data.value.model['returnVisitCheckTime'] )._format('yyyy-MM-dd hh:mm') );
+		 				me.$('#returnVisitCheckStr').text( util.findEnumsText( 'RETURN_VISIT_CHECK',data.value.model['returnVisitCheck'] ) );
 		 			}
 		 		}
 		 	})
 			if( !me.attrs.isAgent ){
-				me.phonecallback = me.phonecallback || {};
-
-				if( me.phonecallback.pagination ){
-					me.phonecallback.pagination.setPage(0,true);
-				}else{
-					me.phonecallback.pagination = new Pagination({
-						wrapper: me.$phonecallback.find('.pager'),
-						pageSize: 10,
-						pageNumber: 0
-					})
-					me.phonecallback.pagination.render();
-					me.phonecallback.pagination.onChange = function(){
-						me.loadCallBackList();
-					};
-					me.loadCallBackList();
-				}
+				me.loadCallBackList();
 			}
 		},
 
 		loadCallBackList: function(){
 
 			var me = this;
+			me.$phonecallback.find('tbody').html('<tr><td colspan="4"><p class="info">加载中</p></td></tr>');
 
-			console.log( me.model.all() );
 			util.api({
-				'url': '/enterprise/getemployees',
+				'url': '/enterprise/getemployeessupervise',
 				'data': {
-					'pageIndex': me.phonecallback.pagination.attr['pageNumber'],
-					'pageSize': me.phonecallback.pagination.attr['pageSize'],
-					'enterpriseAccount': me.model.get('enterpriseAccount'),
-					'name': me.$phonecallback.find('.callback-name').val(),
-					'mobile': me.$phonecallback.find('.callback-phone').val()
+					'enterpriseId': me.model.attrs['enterpriseId']
 				},
 				'success': function( data ){
 					console.warn( data );
 					if( data.success ){
-						me.phonecallback.pagination.setTotalSize( data.value.model.itemCount );
-						if( data.value.model.content.length > 0 ){
-							me.$phonecallback.find('tbody').html( me.tplCallBackList( data.value.model ) );
+						if( data.value.model.length > 0 ){
+							data.value.model.forEach( function( item ){
+								if(item.admin == '1'){
+									item.adminStr = '是';
+								}else{
+									item.adminStr = '否';
+								}
+							});
+							me.$phonecallback.find('tbody').html( me.tplCallBackList( {'content':data.value.model} ) );
 						}else{
 							me.$phonecallback.find('tbody').html('<tr><td colspan="3"><p class="info">暂无数据</p></td></tr>')
 						}
@@ -1868,11 +1710,13 @@ define( function(require, exports, module){
 		},
 		callbackOnEve: function(){
 			var me = this;
+
 			util.api({
 				'url':'/enterprise/checkreturnvisit',
 				'data':{
 					'enterpriseId': me.model.attrs['enterpriseId'],
-					'isCheckPassed': 1
+					'cheatType': me.$('#cheatstatus').val(),
+					'returnVisitCheck': me.$('#phonecallbackselect').val()
 				},
 				'success': function( data ){
 					if( data.success ){
@@ -1881,22 +1725,17 @@ define( function(require, exports, module){
 				}
 			})
 		},
-		callbackOffEve: function(){
-			var me = this;
-			util.api({
-				'url':'/enterprise/checkreturnvisit',
-				'data':{
-					'enterpriseId': me.model.attrs['enterpriseId'],
-					'isCheckPassed': 0
-				},
-				'success': function( data ){
-					if( data.success ){
-						me.showCallBack();
-					}
-				}
-			})
+		
+		employeeDetailEve: function(e){
+			var ea = $(e.currentTarget).attr('data-ea');
+			var phone = $(e.currentTarget).attr('data-phone');
+			this.trigger('employeeDetail',ea,phone);
 		},
 
+		/**
+		 *
+		 * 显示代理商信息
+		 */
 		showAgentInfo: function() {
 			var me = this;
 			
@@ -1943,7 +1782,7 @@ define( function(require, exports, module){
 					if( data.success ) {
 						me.agent.pagination.setTotalSize( data.model.itemCount );
 						$( data.model.content ).each( function( i, item ) {
-							item.provinceName = me.findEnumValue( IBSS.enums['PROVINCE'], item.province );
+							item.provinceName = util.findEnumsText( 'PROVINCE', item.province );
 						} );
 						if ( data.model.content.length > 0 ) {
 							me.$tbAgent.html( me.tplAgent( { content: data.model.content } ) );
