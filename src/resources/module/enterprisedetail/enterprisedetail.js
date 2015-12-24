@@ -1647,11 +1647,6 @@ define( function(require, exports, module){
 		 */
 		showCallBack: function(){
 			var me = this;
-
-			me.$phonecallback.find('.callback-name').val('');
-			me.$phonecallback.find('.callback-phone').val('');
-
-			me.$phonecallback.find('tbody').html('<tr><td colspan="3"><p class="info">加载中</p></td></tr>');
 			
 			/**
 		 	*
@@ -1702,7 +1697,7 @@ define( function(require, exports, module){
 							});
 							me.$phonecallback.find('tbody').html( me.tplCallBackList( {'content':data.value.model} ) );
 						}else{
-							me.$phonecallback.find('tbody').html('<tr><td colspan="3"><p class="info">暂无数据</p></td></tr>')
+							me.$phonecallback.find('tbody').html('<tr><td colspan="4"><p class="info">暂无数据</p></td></tr>')
 						}
 					}
 				}
