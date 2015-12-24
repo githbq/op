@@ -292,10 +292,14 @@ define( function( require, exports, module ) {
             var me = this;
             var ids = [];
 
-            me.$('tbody .selectEnt').each(function(){
+            me.$('tbody .selectEnt:checked').each(function(){
                 ids.push( $(this).val() );
             });
 
+            if( ids.length <= 0 ){
+                util.showToast('请勾选企业后再分配');
+                return;
+            }
             this.trigger('assgin',ids);
         },
 
