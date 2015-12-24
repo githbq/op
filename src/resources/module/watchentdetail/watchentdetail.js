@@ -192,7 +192,6 @@ define( function(require, exports, module){
 			'click .callback-actionon': 'callbackOnEve',      //电话回访保存
 			'click .verificationaction-on': 'veriOnEve',      //资料审核成功
 			'click .verificationaction-off': 'veriOffEve',	  //资料审核失败
-			'click .upload':'saveFn'	,				  //资料审核提交
 			'click .fn-buy':'fnBuyEve',
 			'click .employee-detail':'employeeDetailEve',
 		}, 
