@@ -634,7 +634,7 @@ define( function(require, exports, module){
 						var contractEndTime = data.value.model.contractEndTime?new Date( data.value.model.contractEndTime)._format('yyyy/MM/dd'):'';
 						me.model.set('contractStartTime',contractStartTime );
 						me.model.set('contractEndTime',contractEndTime );
-						
+						me.model.set('discount',(data.value.model.discount ? data.value.model.discount.toFixed(1):'0') );
 						me.model.set('regionName',data.value.model.regionName?data.value.model.regionName:data.value.model.regionCode);
                     }
                 }

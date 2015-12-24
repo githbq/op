@@ -1882,6 +1882,7 @@ define( function( require, exports, module ) {
 							me.model.set('useBusinessCard','0');
 							me.$cardPrice.hide();
 						}
+						me.model.set('discount',(data.value.model.discount ? data.value.model.discount.toFixed(1):'0') );
 						//me.model.set('autoclaveDays',(data.value.model.autoclaveDays ? data.value.model.autoclaveDays:'0') );
 						me.model.set('dealDays',(data.value.model.dealDays ? data.value.model.dealDays:'0') );
 						me.model.set('city',(data.value.model.city ? data.value.model.city:'') );
