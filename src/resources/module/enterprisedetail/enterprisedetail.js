@@ -2351,6 +2351,7 @@ define( function(require, exports, module){
 					},
 					'success': function( data ){
 						if( data.success ){
+							
 							me.model.set('cardPriceAdd', data.value.model);
 							me.$cardPrice.show();
 							console.log(data);
@@ -2376,7 +2377,7 @@ define( function(require, exports, module){
 					'success': function( data ){
 						console.warn( data );
 						if( data.success ){
-							me.model.set('discountAdd', data.value.model);
+							me.model.set('discountAdd', (data.value.model.toFixed(1)));
 							me.$fnBuy.removeAttr('disabled');
 							me.$fnBuy.text('申请增购');
 							

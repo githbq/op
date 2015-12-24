@@ -270,7 +270,8 @@ define( function(require, exports, module){
 					'success': function( data ){
 						console.warn( data );
 						if( data.success ){
-							me.model.set('discount', data.value.model);
+							var tempDiscount = parseFloat(data.value.model).toFixed(1);
+							me.model.set('discount', tempDiscount);
 							//me.$actionSave.removeAttr('disabled');
 							//me.$actionSave.text('保存');
 							me.$actionResend.removeAttr('disabled');
@@ -551,7 +552,7 @@ define( function(require, exports, module){
 									me.$('.img-contractCopy-add').attr('src', '');
 								}
 								me.model.set('contractPriceAdd',(data.value.model.contractPrice ? data.value.model.contractPrice:'0') );
-								me.model.set('discountAdd',(data.value.model.discount ? data.value.model.discount:'0') );
+								me.model.set('discountAdd',(data.value.model.discount ? data.value.model.discount.toFixed(1):'0') );
 								me.model.set('invoiceTitleAdd',(data.value.model.invoiceTitle ? data.value.model.invoiceTitle:'') );
 								var marketingAccountAmountNum = data.value.model.marketingAccountAmount?parseInt(data.value.model.marketingAccountAmount):0;
 								
