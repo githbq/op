@@ -11,7 +11,8 @@ define( function( require, exports, module ) {
     //企业跟踪记录
     var EntTrace = require('module/enttrace/enttrace');
 
-
+    var EmployeeDetail = require('module/employeedetail/employeedetail'); 
+    
     //var entDetail;
     exports.init = function( param ) {
         var $el = exports.$el;
@@ -21,7 +22,8 @@ define( function( require, exports, module ) {
         
         var entDetail = new EntDetail();
         var entTrace = new EntTrace();
-        
+        var employeeDetail = new EmployeeDetail();
+
         //查看企业详情
         entList.on('detail',function( id , status ){
             entDetail.show( id,status );
@@ -31,6 +33,10 @@ define( function( require, exports, module ) {
         entList.on('trace',function( id ){
             console.log('trace' + id);
             entTrace.show( id );
+        });
+
+       entDetail.on('employeeDetail',function(ea,phone){
+            employeeDetail.show(ea,phone);
         });
     }
 } );

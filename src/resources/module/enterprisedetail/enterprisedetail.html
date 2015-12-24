@@ -179,6 +179,16 @@
 				</p>
 				<p>
 					<label>
+						<span>操作人</span><input type="text" disabled="disabled" ce-model="informationCheckName">
+					</label>
+				</p>
+				<p>
+					<label>
+						<span>操作时间</span><input type="text" disabled="disabled" ce-model="informationCheckTimeStr">
+					</label>
+				</p>
+				<p>
+					<label>
 						<span>审核意见</span>
 						<textarea class="approvalinfo"></textarea>
 					</label>
@@ -237,16 +247,41 @@
 			<h4><span class="arraw"></span>电话回访</h4>
 			<div class="content">
 				<div class="content-result">
+					<p>
+						<label>
+							<span>电话回访状态</span>
+							<select id="phonecallbackselect"></select>
+						</label>
+					</p>
+					<p>
+						<label>
+							<span>作弊情况</span>
+							<select id="cheatstatus">
+							</select>
+						</label>
+					</p>
+					<p>
+						<label>
+							<span>操作人</span>
+							<input type="text" id="returnVisitCheckName" disabled="disabled">
+						</label>
+					</p>
+					<p>
+						<label>
+							<span>操作时间</span>
+							<input type="text" id="returnVisitCheckTimeStr" disabled="disabled">
+						</label>
+					</p>
 					<p class="huifangresult">
 						<span>回访结果</span>
-						<b></b>
+						<b id="returnVisitCheckStr"></b>
 					</p>
 					<p class="btns">
-						<button class="callback-actionon u-btn-blue">回访成功</button>
-						<button class="callback-actionoff u-btn-red">回访失败</button>
+						<button class="callback-actionon u-btn-blue">保存</button>
 					</p>
 				</div>
 				<div class="content-list tb">
+					<!--
 					<div class="tb-bar">
 						<p>
 							<label>
@@ -260,12 +295,14 @@
 							<button id="btnPhoneCallbackEve">查询</button>
 						</p>
 					</div>
+					-->
 					<table>
 						<thead>
 							<tr>
 								<th>姓名</th>
 								<th>账号</th>
 								<th>电话</th>
+								<th>操作</th>
 							</tr>
 						</thead>
 						<tbody>

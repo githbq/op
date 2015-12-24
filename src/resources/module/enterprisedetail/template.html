@@ -85,9 +85,10 @@
 <script type="text/template" id="callBackList">
 	<% _.each( content, function( item ){ %>
 	<tr>
-		<td><%=item.name%></td>
-		<td><%=item.account%></td>
-		<td><%=item.mobile%></td>
+		<td><%=item.employeeName%></td>
+		<td><%=item.adminStr%></td>
+		<td><%=item.employeeContact%></td>
+		<td><a data-ea="<%=item.ea%>" data-phone="<%=item.employeeContact%>" class="employee-detail">详情</a></td>
 	</tr>
 	<% }) %>
 </script>
