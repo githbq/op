@@ -948,6 +948,7 @@
         },
 
         /**
+         *
          * 获取枚举值
          * 如果已经获取到 直接取缓存
          */
@@ -975,6 +976,25 @@
                     }
                 };
             return me.api( opt, false );
+        },
+
+        /**
+         *
+         * 根据value
+         * 获取相应enmus
+         */ 
+        findEnumsText: function( name,value ){
+            
+            var text = '';
+            if( IBSS.enums[name] ){
+                for( var i = 0; i<IBSS.enums[name]['model'].length; i++ ){
+                    if ( IBSS.enums[name]['model'][i]['value'] == value ){
+                        text = IBSS.enums[name]['model'][i]['text'];
+                        break;
+                    }
+                }
+            }
+            return text;
         },
 
         /***********************

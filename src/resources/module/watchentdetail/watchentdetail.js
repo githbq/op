@@ -491,7 +491,7 @@ define( function(require, exports, module){
 						}
 
 						//审核结果
-						me.model.set('checkresult',IBSS.enums['INFORMATION_CHECK_STATUS']['model'][data.value.model.informationCheck-1]['text']);
+						me.model.set('checkresult', util.findEnumsText( 'INFORMATION_CHECK_STATUS', data.value.model.informationCheck ) );
 
 						if(changeBool){
 							me.trigger('changeStatus');
@@ -569,10 +569,9 @@ define( function(require, exports, module){
 
 		 			if( data.success ){
 		 				me.model.load( data.value.model );
-		 				me.model.set('returnVisitCheckName',data.value.model['returnVisitCheckAccount'] && data.value.model['returnVisitCheckAccount']['name']);
-		 				me.model.set('returnVisitCheckTimeStr',data.value.model['returnVisitCheckTime'] && new Date( data.value.model['returnVisitCheckTime'] )._format('yyyy-MM-dd hh:mm') );
-		 				//me.model.set('returnVisitCheckStr', IBSS.enums['RETURN_VISIT_CHECK']['model'][data.value.model['returnVisitCheck']] );
-		 				me.model.set('returnVisitCheckStr', IBSS.enums['RETURN_VISIT_CHECK']['model'][data.value.model['returnVisitCheck']-1]['text'] );
+		 				me.model.set('returnVisitCheckName', data.value.model['returnVisitCheckAccount'] && data.value.model['returnVisitCheckAccount']['name']);
+		 				me.model.set('returnVisitCheckTimeStr', data.value.model['returnVisitCheckTime'] && new Date( data.value.model['returnVisitCheckTime'] )._format('yyyy-MM-dd hh:mm') );
+		 				me.model.set('returnVisitCheckStr', util.findEnumsText( 'RETURN_VISIT_CHECK',data.value.model['returnVisitCheck'] ) );
 		 			}
 					if(changeBool){
 						me.trigger('changeStatus');

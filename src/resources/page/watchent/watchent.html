@@ -19,6 +19,23 @@
                     <input id="eaName" class="g-ipt ipt-m"  type="text" ce-model="enterpriseName"/>
                 </label>
                 <label>
+                    <span>优惠码</span>
+                    <input id="agentId" ce-model="agentId" type="text" class="g-ipt ipt-m" />
+                </label>
+                <label>
+                    <span>风险天数</span>
+                    <input type="text" ce-model="cheatDayCount">
+                </label>
+                <label>
+                    <span>销售人员</span>
+                    <input type="text" ce-model="creatorName">
+                </label>    
+                <label>
+                    <span>作弊情况</span>
+                    <select id="cheatStatus" ce-model="cheatStatus"></select>
+                </label>
+                <br>
+                <label>
                     <span>资料审核状态</span>
                     <select id="informationCheckStatus" ce-model="informationCheck">
                     </select>
@@ -28,21 +45,18 @@
                     <select id="returnBackStatus" ce-model="returnVisitCheck">
                     </select>
                 </label>
-
                 <label>
-                    <span>优惠码</span>
-                    <input id="agentId" ce-model="agentId" type="text" class="g-ipt ipt-m" />
+                    <span>付费状态</span>
+                    <select ce-model="isPayed">
+                        <option value="">全部</option>
+                        <option value="1">是</option>
+                        <option value="0">否</option>
+                    </select>
                 </label>
-                
-                <label>
-                    <span>风险天数</span>
-                    <input type="text" ce-model="cheatDayCount">
-                </label>
-
                 <label>
                     <span>风险类型</span>
                     <select ce-model="cheatType">
-                        <option value="">请选择</option>
+                        <option value="">全部</option>
                         <option value="1">规则1</option>
                         <option value="2">规则2</option>
                         <option value="3">规则3</option>
@@ -54,35 +68,27 @@
                         <option value="9">警告3</option>
                     </select>
                 </label>
-                
                 <label data-permissions="F008004">
                     <span>是否分配</span>
                     <select ce-model="isSupervised">
-                        <option value="">请选择</option>
-                        <option value="1">是</option>
-                        <option value="0">否</option>
-                    </select>
-                </label>
-
-                <label>
-                    <span>付费状态</span>
-                    <select ce-model="isPayed">
                         <option value="">全部</option>
                         <option value="1">是</option>
                         <option value="0">否</option>
                     </select>
                 </label>
-
                 <label>
-                    <span>销售人员</span>
-                    <input type="text" ce-model="creatorName">
+                    <span>是否赠送办公版</span>
+                    <select ce-model="presentOfficeEdition">
+                        <option value="">全部</option>
+                        <option value="1">是</option>
+                        <option value="0">否</option>
+                    </select>
                 </label>
-                
+                <br>
                 <label>
-                    <span>作弊情况</span>
-                    <select id="cheatStatus" ce-model="cheatStatus"></select>
+                    <span>企业帐号</span>
+                    <textarea id="ea" class="enttextarea" type="text" ce-model="enterpriseAccount" placeholder="换行批量输入企业帐号"></textarea>
                 </label>
-
                 <label class="sp">
                     <label><span>开通时间</span>
                         <input id="qcATBegin" type="text" class="g-ipt ipt-m" onkeyup='this.value=""'/>
@@ -90,11 +96,6 @@
                     <label><span>-</span>
                         <input id="qcATEnd" type="text" class="g-ipt ipt-m" onkeyup='this.value=""'/>
                     </label>
-                </label>
-                <br>
-                <label>
-                    <span>企业帐号</span>
-                    <textarea id="ea" class="enttextarea" type="text" ce-model="enterpriseAccount" placeholder="换行批量输入企业帐号"></textarea>
                 </label>
     		</div>
     	</div>
