@@ -268,7 +268,7 @@ define( function(require, exports, module){
             var me = this;
 
             util.getEnums( name, function( data ) {
-                var items = data.model, options = '<option value="">全部</option>';
+                var items = data.model, options = '';
                 items.forEach( function( item ){
                     options += '<option value="' + item.value + '" title="' + item.text + '">' + item.text + '</option>';
                 });
@@ -568,7 +568,8 @@ define( function(require, exports, module){
 		 		'success': function( data ){
 
 		 			if( data.success ){
-		 				me.model.load( data.value.model );
+		 				me.model.set('returnVisitCheck',data.value.model['returnVisitCheck'] );
+		 				me.model.set('cheatType',data.value.model['cheatType'] );
 		 				me.model.set('returnVisitCheckName', data.value.model['returnVisitCheckAccount'] && data.value.model['returnVisitCheckAccount']['name']);
 		 				me.model.set('returnVisitCheckTimeStr', data.value.model['returnVisitCheckTime'] && new Date( data.value.model['returnVisitCheckTime'] )._format('yyyy-MM-dd hh:mm') );
 		 				me.model.set('returnVisitCheckStr', util.findEnumsText( 'RETURN_VISIT_CHECK',data.value.model['returnVisitCheck'] ) );
@@ -589,10 +590,12 @@ define( function(require, exports, module){
 			console.log( me.model.all() );
 
 			me.$phonecallback.find('tbody').html('<tr><td colspan="4"><p class="info">加载中</p></td></tr>');
+
+			
 			util.api({
 				'url': '/enterprise/getemployeessupervise',
 				'data': {
-					'enterpriseId': me.model.attrs.id
+					'enterpriseId': me.model.attrs['id']//me.model.attrs['enterpriseId']
 				},
 				'success': function( data ){
 					//console.warn( data );
@@ -613,6 +616,7 @@ define( function(require, exports, module){
 					}
 				}
 			})
+			
 		},
 
 		//回访成功
@@ -666,7 +670,7 @@ define( function(require, exports, module){
 				'data':{
 					'pageIndex': me.riskInfo.pagination.attr['pageNumber'],
 					'pageSize': me.riskInfo.pagination.attr['pageSize'],
-					'enterpriseId': me.model.attrs.id
+					'enterpriseId': me.model.attrs['enterpriseId']
 				},
 				'success': function( data ){
 					if( data.success ){
