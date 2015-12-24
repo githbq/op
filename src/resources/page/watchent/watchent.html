@@ -20,11 +20,11 @@
                 </label>
                 <label>
                     <span>优惠码</span>
-                    <input id="agentId" ce-model="agentId" type="text" class="g-ipt ipt-m" />
+                    <input id="agentId" ce-model="agentId" type="text" class="g-ipt ipt-m" oninput="this.value=this.value.replace(/\D/g,'')" />
                 </label>
                 <label>
                     <span>风险天数</span>
-                    <input type="text" ce-model="cheatDayCount">
+                    <input type="text" ce-model="cheatDayCount" oninput="this.value=this.value.replace(/\D/g,'')" >
                 </label>
                 <label>
                     <span>销售人员</span>

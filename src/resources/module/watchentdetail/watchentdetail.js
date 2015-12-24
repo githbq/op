@@ -568,6 +568,7 @@ define( function(require, exports, module){
 		 		'success': function( data ){
 
 		 			if( data.success ){
+
 		 				me.model.set('returnVisitCheck',data.value.model['returnVisitCheck'] );
 		 				me.model.set('cheatType',data.value.model['cheatType'] );
 		 				me.model.set('returnVisitCheckName', data.value.model['returnVisitCheckAccount'] && data.value.model['returnVisitCheckAccount']['name']);
@@ -632,6 +633,7 @@ define( function(require, exports, module){
 				},
 				'success': function( data ){
 					if( data.success ){
+						util.showTip('保存成功');
 						me.showCallBack(true);
 					}
 				}
