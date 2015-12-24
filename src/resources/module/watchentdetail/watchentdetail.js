@@ -635,6 +635,7 @@ define( function(require, exports, module){
 					if( data.success ){
 						util.showTip('保存成功');
 						me.showCallBack(true);
+						me.hide();
 					}
 				}
 			})
