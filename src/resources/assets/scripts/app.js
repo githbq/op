@@ -438,7 +438,7 @@ define('common/app', function(require, exports, module){
                 $(this).removeClass('active');
             });
             
-        	$el.find('li a').each(function(){
+        	$el.find('li a[href]').each(function(){
                 var $this = $(this),
                     href = $this.attr('href'),
                     aHash = href.slice( href.indexOf('#') );
@@ -560,6 +560,22 @@ define('common/app', function(require, exports, module){
 					// }
 				// }
 			// });
+			that._initEvent();
+		},
+		/**
+		 *
+		 * 初始化一些全局事件
+		 */
+		_initEvent: function(){
+			var me = this;
+
+			//类名为nav-root 的a标签点击时 如果没有href属性 会寻找同组内第一个有href属性的a标签的href 并赋值到location.href中
+			$('nav .nav-root').on('click',function(e){
+				var $this = $(e.target);
+				if( !$this.attr('href') ){
+					location.href = $this.parent('li').find('li:visible a[href]').eq(0).attr('href');
+				}
+			});
 		}
     });
 

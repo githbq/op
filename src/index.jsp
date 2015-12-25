@@ -78,14 +78,14 @@
             <!--<li>
                 <a href="#pdt/lst">产品</a>
             </li>-->
-            <li data-permissions="F008002 F008006">
-                <a href="#eme/lst">客户</a>
+            <li data-permissions="F008002 F008006 F008005">
+                <a class="nav-root">客户</a>
+				 <ul class="nav-sub">
+                    <li data-permissions="F008002 F008006"><a href="#eme/lst">客户</a></li>
+					<!--热线查询单独菜单-->
+                    <li data-permissions="F008005"><a href="#eme/clientlst">热线查询</a></li>
+                </ul>
             </li>
-			<!--热线查询单独菜单-->
-			<li data-permissions="F008005"><!---->
-                <a href="#eme/clientlst">客户</a>
-            </li>
-			<!--热线查询单独菜单-->
             <li data-permissions="F008002 F008006">
                 <a href="#page/approvallist">我的审批</a>
             </li>

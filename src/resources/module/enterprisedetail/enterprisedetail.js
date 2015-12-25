@@ -400,8 +400,8 @@ define( function(require, exports, module){
 
 			'click .callback-actionon': 'callbackOnEve',      //电话回访成功
 			'click .callback-actionoff': 'callbackOffEve',    //电话回访失败
-			'click .verificationaction-on': 'veriOnEve',      //资料审核成功
-			'click .verificationaction-off': 'veriOffEve',	  //资料审核失败
+			//'click .verificationaction-on': 'veriOnEve',      //资料审核成功
+			//'click .verificationaction-off': 'veriOffEve',	  //资料审核失败
 
 			'click .upload':'saveFn',				  //资料审核提交
 			'click .fn-buy':'fnBuyEve',
@@ -1504,9 +1504,9 @@ define( function(require, exports, module){
 		 *
 		 * 显示资料审核
 		 */
-		showVerifiCation: function(){
+		showVerifiCation: function(changeBool){
 			var me = this;
-
+			var changeBool = changeBool || false;
 			//清空上传组件信息
 			me.$yingyezhizhao.removeAttr('disabled');
 			me.$yingyezhizhao[0].value = '';
@@ -1608,12 +1608,12 @@ define( function(require, exports, module){
 				'url':'/enterprise/checkinformation',
 				'data':{
 					'enterpriseId': me.model.get('enterpriseId'),
-					'isCheckPassed': 1,
+					'isCheckPassed': 2,
 					'informationCheckRemark': me.$('.approvalinfo').val()
 				},
 				'success': function( data ){
 					console.warn( data );
-					me.showVerifiCation();
+					me.showVerifiCation(true);
 				}
 			})
 		},
@@ -1625,7 +1625,7 @@ define( function(require, exports, module){
 				'url':'/enterprise/checkinformation',
 				'data':{
 					'enterpriseId': me.model.get('enterpriseId'),
-					'isCheckPassed': 0,
+					'isCheckPassed': 3,
 					'informationCheckRemark': me.$('.approvalinfo').val()
 				},
 				'success': function( data ){
