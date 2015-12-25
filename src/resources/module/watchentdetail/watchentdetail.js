@@ -426,20 +426,11 @@ define( function(require, exports, module){
 			var me = this;
 
 			var changeBool = changeBool || false;
-			
-			me.$yingyezhizhao.removeAttr('disabled');
-			me.$yingyezhizhao[0].value = '';
-			me.$mentou.removeAttr('disabled');
-			me.$hetongzhaopian.removeAttr('disabled');
-			me.$hetongzhaopian[0].value = '';
-			me.$hetongfbzhaopian.removeAttr('disabled');
-			me.$hetongfbzhaopian[0].value = '';
-
-			me.$setcompanyGatekeyword.removeAttr('disabled');
-			me.$setcompanyGateRemark.removeAttr('disabled');
-			me.$mentou[0].value = '';
+	
 			me.$yingyezhizhaoinfo.attr('src','');
 			me.$mentouinfo.attr('src','');
+			me.$yingyezhizhaoinfo.find('img').attr('src','');
+			me.$mentouinfo.find('img').attr('src','');
 			me.model.set('companyGateKeyword','');
 			me.model.set('companyGateRemark','');
 			util.api({
@@ -477,6 +468,7 @@ define( function(require, exports, module){
 							me.$mentouinfo.hide()
 							me.$mentounone.show();
 						} 
+						
 						
 						if( data.value.model && data.value.model.companyGateKeyword){
 							me.$getcompanyGatekeyword.val(data.value.model.companyGateKeyword);
