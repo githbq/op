@@ -1050,6 +1050,14 @@ define( function(require, exports, module){
 						me.$name.val( model.enterpriseName );
 						me.$account.val( model.enterpriseAccount );
 						me.$address.val( model.address );
+						me.$aindustry.val( model.industry );
+						me.$asource.val( model.source );
+						me.$aprovince.val( model.province );
+						me.$agroup.val( model.groupType );
+						me.$aknow.val( model.knowSource );
+						me.$aregister.val( model.registerMotive );
+						me.$acompany.val( model.companyScale );
+						me.$asales.val( model.saleTeamScale );
 
 						switch( model.activity ){
 							case 1:
