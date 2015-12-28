@@ -293,7 +293,8 @@ define( function(require, exports, module){
 						me.$name.val( model.enterpriseName );
 						me.$account.val( model.enterpriseAccount );
 						me.$sAgentName.val( model.agentName );
-
+						me.$asource.val( model.source );
+						
 						//签约到期时间
 						var endtimestr;
 						if( model.endTime){
