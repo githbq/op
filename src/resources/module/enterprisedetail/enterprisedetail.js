@@ -1432,12 +1432,12 @@ define( function(require, exports, module){
 				//纷享平台管理员
 				contactName: this.$cName.val(),                             //姓名
 				contactPhone: this.$cMobile.val(),                          //电话
-				ContactEmail: this.$cEmail.val(),                           //电子邮箱
+				contactEmail: this.$cEmail.val(),                           //电子邮箱
 				contactIm: this.$cQQ.val(),                                 //常用QQ
 				remark: this.$remark.val()                                  //备注
 			};
 			util.api({
-				url: '/enterprise/updateenterprise',
+				url: '/enterprise/updatebasics',
 				data: data,
 				success: function( data ) {
 
