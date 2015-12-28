@@ -1021,7 +1021,7 @@ define( function(require, exports, module){
 			var list = [{ 'name': '请选择', 'value': '' }];
 
 			util.getEnums( name , function( data ){
-				var items = data.model, options ='';
+				var items = data.model, options ='<option value="">请选择</option>';
 				items.forEach( function( item,index ){
 					options += '<option value="' + item.value + '" title="' + item.text + '">' + item.text + '</option>';
 				})
@@ -1399,38 +1399,42 @@ define( function(require, exports, module){
 			$target.addClass( 'disable' );
 			
 			var data = {
-				enterpriseId: this.model.attrs.enterpriseId,
-				enterpriseName: this.$name.val(),
-				address: this.$address.val(),
-				industry: this.$aindustry.val(),
-				presentOfficeEdition:this.$('#presentOfficeEdition').val(),
-				source: this.$asource.val(),
-				province: this.$aprovince.val(),
-				groupType: this.$agroup.val(),
-				knowSource: this.$aknow.val(),
-				registerMotive: this.$aregister.val(),
-				companyScale: this.$acompany.val(),
-				isSaleTeam: this.$hasSales.val(),
-				saleTeamScale: this.$asales.val(),
-				isFirstMeetingSign: this.$isFirstView.val(),
-				isWillPin: this.$isMettingSale.val(),
-				isStrangerVisits: this.$isStranger.val(),
-				city: this.$city.val(),
+				enterpriseId: this.model.attrs.enterpriseId,  				//企业ID
+				enterpriseName: this.$name.val(),             				//企业名称
+				address: this.$address.val(),                 				//地址
+				industry: this.$aindustry.val(),                        	//行业
+				source: this.$asource.val(),                                //来源
+				isFreeGiven:this.$('#presentOfficeEdition').val(), 			//是否赠送办公版
+				groupType: this.$agroup.val(),                              //团队类型
+				knowSource: this.$aknow.val(),                              //了解渠道
+				registerMotive: this.$aregister.val(),                      //注册动机
+				companyScale: this.$acompany.val(),                         //公司规模
+				isSaleTeam: this.$hasSales.val(),                           //是否有销售团队
+				saleTeamScale: this.$asales.val(),                          //销售团队规模
+				isFirstMeetingSign: this.$isFirstView.val(),                //是否首面签约
+				isWillPin: this.$isMettingSale.val(),                       //是否会销
+				isStrangerVisits: this.$isStranger.val(),                   //是否陌拜
+				province: this.$aprovince.val(),                            //省市
+				city: this.$city.val(),                                     //城市
 				//isFastSign: this.$isFastSign.val(),
-				dealDays: this.$dealDays.val(),
+				dealDays: this.$dealDays.val(),                             //成交周期
 				//isAutoClave: this.$hp.val(),
 				//autoclaveDays: this.$hpDays.val(),
-				isReferral: this.$isIntro.val(),
-				isPayed: this.$isPayed.val(),
-				keyContactName: this.$kcName.val(),
-				keyContactPhone: this.$kcMobile.val(),
-				keyContactEmail: this.$kcEmail.val(),
-				contactName: this.$cName.val(),
-				contactPhone: this.$cMobile.val(),
-				ContactEmail: this.$cEmail.val(),
-				contactIm: this.$cQQ.val(),
-				contractType: me.model.get('contractType'),
-				remark: this.$remark.val()
+				isReferral: this.$isIntro.val(),                            //是否转介绍
+				isPayed: this.$isPayed.val(),                               //是否付费
+				//isEndlessTrial: this.$('#isEndlessTrial').val(),			//是否永久试用
+
+				//企业负责人
+				keyContactName: this.$kcName.val(),                         //企业负责人姓名                         
+				keyContactPhone: this.$kcMobile.val(),                      //企业负责人电话
+				keyContactEmail: this.$kcEmail.val(),                       //企业负责人电子邮箱
+
+				//纷享平台管理员
+				contactName: this.$cName.val(),                             //姓名
+				contactPhone: this.$cMobile.val(),                          //电话
+				ContactEmail: this.$cEmail.val(),                           //电子邮箱
+				contactIm: this.$cQQ.val(),                                 //常用QQ
+				remark: this.$remark.val()                                  //备注
 			};
 			util.api({
 				url: '/enterprise/updateenterprise',
