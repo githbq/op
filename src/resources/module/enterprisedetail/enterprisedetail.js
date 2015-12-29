@@ -387,23 +387,23 @@ define( function(require, exports, module){
 			'click .rebackSms': 'rebackSms',
 			'click .disSms': 'disSms',
 			'click .modifySmsName': 'modifySmsName',
-			'click #actDownload': 'actDownloadEve' ,   		   //活跃度下载
+			'click #actDownload': 'actDownloadEve' ,   		    //活跃度下载
 			'click #btnCardList': 'searchCardList',
 			'click #btnCardBuy': 'btnCardBuy',
 			'click #btnCardSend': 'btnCardSend',
-			'click #btnSBAgentSearch': 'agentSearchEve',       //回访列表
+			'click #btnSBAgentSearch': 'agentSearchEve',        //回访列表
 
-			'click #btnPhoneCallbackEve': 'phoneCallbackEve',  //电话回访
+			'click #btnPhoneCallbackEve': 'phoneCallbackEve',   //电话回访
 
 			'click .uploadzz': 'uploadzzEve',  					//上传执照
 			'click .uploadmt': 'uploadmtEve',   				//上传门头信息
 
-			'click .callback-actionon': 'callbackOnEve',      //电话回访成功
-			'click .callback-actionoff': 'callbackOffEve',    //电话回访失败
+			'click .callback-actionon': 'callbackOnEve',        //电话回访成功
+			'click .callback-actionoff': 'callbackOffEve',      //电话回访失败
 			//'click .verificationaction-on': 'veriOnEve',      //资料审核成功
-			//'click .verificationaction-off': 'veriOffEve',	  //资料审核失败
+			//'click .verificationaction-off': 'veriOffEve',	//资料审核失败
 
-			'click .upload':'saveFn',				  //资料审核提交
+			'click .upload':'saveFn',				  			//资料审核提交
 			'click .fn-buy':'fnBuyEve',
 
 			'click .addTraining': 'addTrainingEve',             //添加培训记录
@@ -1443,8 +1443,8 @@ define( function(require, exports, module){
 
 					console.warn( data );
 					if ( data.success ) {
-						me.model.attrs.updateTime = data.value.model.modifyTime;
 						util.showTip( '更新成功' );
+						me.model.attrs.updateTime = data.value.model.modifytime;
 					}
 				},
 				complete: function() {
@@ -3225,7 +3225,7 @@ define( function(require, exports, module){
 				return;
 			}
 			util.api({
-				url: '',
+				url: '/',
 				data: { enterpriseId: this.model.attrs.id },
 				success: function( data ) {
 					if ( data.success ) {
