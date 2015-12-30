@@ -4,6 +4,7 @@ define( function( require, exports, module ) {
 	 var Slider = require('common/widget/slider/slider');
     var tpl = $( require( './template.html' ) );
 	var AutoSelect = require( 'common/widget/autoselect/autoselect' );
+	var TeamTree = require( 'module/teamtree/teamtree' );
 
     var ActLst = MClass( M.Center ).include( {
        
@@ -40,6 +41,25 @@ define( function( require, exports, module ) {
             
             util.resetSelect( me.$yearselect,array,2015 );
             me.$('.mselect b').eq(0).trigger('click');
+			
+			me.teamTree = new TeamTree();
+			me.teamTree.on('select',function(data){
+				me.$('.deptId').val(data.name);
+				me.$('.deptId').attr('data-deptid',data.id);
+				
+			});
+			me.$('.companyId').on('change',function(){
+				me.$('.deptId').val('');
+				me.$('.deptId').attr('data-deptid',-1);
+			});
+			me.$('.deptId').on('focus',function(){
+				if(!me.$('.companyId').val()){
+					util.showToast('请先选择有效的公司！');
+					return false;
+				}
+				var companyId = me.$('.companyId').attr('data-id');
+				me.teamTree.show( companyId )	
+			})
 			
 			me.pagination = new Pagination( {
                 'wrapper': me.$view.find('.list-pager'),

@@ -4,6 +4,7 @@ define( function( require, exports, module ) {
 	var Slider = require('common/widget/slider/slider');
 	var AutoSelect = require( 'common/widget/autoselect/autoselect' );
 	var tem = $( require('./template.html') );
+	var TeamTree = require( 'module/teamtree/teamtree' );
 
     var ActLst = MClass( M.Center ).include( {
 
@@ -41,7 +42,24 @@ define( function( require, exports, module ) {
                 me.renderList();
             });
 
-			
+			me.teamTree = new TeamTree();
+			me.teamTree.on('select',function(data){
+				me.$('.deptId').val(data.name);
+				me.$('.deptId').attr('data-deptid',data.id);
+				
+			});
+			me.$('.companyId').on('change',function(){
+				me.$('.deptId').val('');
+				me.$('.deptId').attr('data-deptid',-1);
+			});
+			me.$('.deptId').on('focus',function(){
+				if(!me.$('.companyId').val()){
+					util.showToast('请先选择有效的公司！');
+					return false;
+				}
+				var companyId = me.$('.companyId').attr('data-id');
+				me.teamTree.show( companyId )	
+			})
             me.$appTimeStart.val( util.getDateStr(-30) );
             me.$appTimeEnd.val( util.getDateStr(-1) );
             me.initializeDatepicker();

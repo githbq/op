@@ -40,6 +40,7 @@ define(function(require, exports, module){
 				if(flag){
 					return false;
 				}
+				$select.val('');
 				$(this).attr({
 					'data-id':'-1',
 					'data-agentId':'-1'
