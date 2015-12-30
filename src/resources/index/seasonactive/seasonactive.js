@@ -2,6 +2,8 @@ define( function( require, exports, module ) {
     var IBSS = window.IBSS,TPL = IBSS.tpl;
 	var Pagination = require('common/widget/pagination/pagination');
 
+    var TeamTree = require('module/teamtree/teamtree');
+
 	/**
 	 *
 	 * 季度数据分析
@@ -89,8 +91,14 @@ define( function( require, exports, module ) {
     	}
     })
 
-    exports.init = function() {
+    exports.init = function() { 
         var $el = exports.$el;
         var seasonTable = new SeasonTable( { 'view': $el.find( '.m-seasonactive' ) } );
+        var teamTree = new TeamTree();
+
+        //teamTree.show(349);
+        //teamTree.on('select',function(data){
+        //    console.log(data);
+        //})
     }
 } );

@@ -1,0 +1,5 @@
+<ul>
+<% _.each(content,function(item){ %>
+	<li data-id="<%=item.id%>"><p><%=item.name%><span class="select" data-id="<%=item.id%>">选择</span></p></li>
+<% }) %>
+</ul>

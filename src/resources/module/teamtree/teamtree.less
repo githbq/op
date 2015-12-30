@@ -1,0 +1,25 @@
+.m-teamtree{
+	&>ul{
+		border: 1px #ccc solid;
+	}
+	li{
+		cursor:pointer;
+		border-bottom:1px #eee solid;
+		padding:4px 8px;
+		&:last-child{
+			border-bottom:none;
+		}
+		ul{
+			display:none;
+		}
+		&.active{
+			ul{
+				display:block;
+			}
+		}
+		span{
+			color:blue;
+			float:right;
+		}
+	}	
+}

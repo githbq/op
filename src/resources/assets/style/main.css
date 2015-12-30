@@ -6511,3 +6511,24 @@ em {
   height: 80px;
   padding: 10px;
 }
+.m-teamtree > ul {
+  border: 1px #ccc solid;
+}
+.m-teamtree li {
+  cursor: pointer;
+  border-bottom: 1px #eee solid;
+  padding: 4px 8px;
+}
+.m-teamtree li:last-child {
+  border-bottom: none;
+}
+.m-teamtree li ul {
+  display: none;
+}
+.m-teamtree li.active ul {
+  display: block;
+}
+.m-teamtree li span {
+  color: blue;
+  float: right;
+}
