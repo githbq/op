@@ -21,7 +21,7 @@ define( function(require, exports, module){
         litpl: _.template( temStr ),
 
         defaultAttr: {
-            'title': '选择区域',
+            'title': '选择团队',
             'width': 300
         },
         
