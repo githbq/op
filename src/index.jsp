@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <title>运营平台-支持人员</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <link rel="stylesheet" type="text/css" href="./resources/assets/style/main.css?t=20151221" />
+    <link rel="stylesheet" type="text/css" href="./resources/assets/style/main.css?t=20151230" />
 </head>
 <body>
 
@@ -65,6 +65,9 @@
                     <li>
                         <a href="#index/lstreport">企业日活跃汇总报表</a>
                     </li>
+                    <li>
+                        <a href="#index/seasonactive">月度季度总数据分析</a>
+                    </li>
                 </ul>
             </li>
 
@@ -80,12 +83,13 @@
             </li>-->
             <li data-permissions="F008002 F008006 F008005">
                 <a class="nav-root">客户</a>
-				 <ul class="nav-sub">
+                 <ul class="nav-sub">
                     <li data-permissions="F008002 F008006"><a href="#eme/lst">客户</a></li>
-					<!--热线查询单独菜单-->
+                    <!--热线查询单独菜单-->
                     <li data-permissions="F008005"><a href="#eme/clientlst">热线查询</a></li>
                 </ul>
             </li>
+            
             <li data-permissions="F008002 F008006">
                 <a href="#page/approvallist">我的审批</a>
             </li>
@@ -161,3 +165,4 @@
 
 </body>
 </html>
+

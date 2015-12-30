@@ -1004,7 +1004,7 @@
          * @param array [{'name':'XXX','value':'XXX'},{'name':'XXX','value':'XXX'},{'name':'XXX','value':'XXX'}] 或
          *              ['XXX','XXX','XXX']
          ***********************/
-        resetSelect: function( $select,array ){
+        resetSelect: function( $select, array , selectvalue ){
             var optionStr = '';
 
             if( array.length <=0 ) return;
@@ -1019,8 +1019,12 @@
 
             $select.html(optionStr);
 
+            if( selectvalue ){
+                $select.val( selectvalue );
+            } else {
+                $select[0].options[0].selected = true
+            }
             //todo 默认选中第一个 并触发事件
-            $select[0].options[0].selected = true
             $select.trigger('change');
         },
 
