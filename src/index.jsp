@@ -59,11 +59,17 @@
                     <li>
                         <a href="#index/personactive">个人活跃汇总</a>
                     </li>
+					<li>
+                        <a href="#index/activeanalyze">阶段活跃团队分析</a>
+                    </li>
                     <li>
                         <a href="#index/detail">企业日活跃详情报表</a>
                     </li>
                     <li>
                         <a href="#index/lstreport">企业日活跃汇总报表</a>
+                    </li>
+					<li>
+                        <a href="#index/monthanalyze">月季度团队数据分析</a>
                     </li>
                 </ul>
             </li>
