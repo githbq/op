@@ -2678,7 +2678,7 @@ define( function(require, exports, module){
 						if ( data.model.content.length > 0 ) {
 							data.model.content.forEach( function( item ){
 								item.createTimeStr = new Date( item.createTime )._format('yyyy-MM-dd hh:mm');
-								item.typeStr = LOGTYPE[item.type];
+								item.typeStr = util.findEnumsText('ENTERPRISE_LOG_TYPE',item.type);
 							});
 							me.$tbLog.html( me.tplLog( { content: data.model.content } ) );
 						} else {
