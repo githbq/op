@@ -12,8 +12,6 @@ define( function(require, exports, module){
 	var tpl = $( require( './template.html' ) );
 	var uploader = require('common/widget/upload').uploader;
 
-
-	var LOGTYPE = {};    //日志类别
 	var buyMap = new Object({'1':'赠送','2':'购买充值'});
 	var carMap = new Object({'0':'未开通服务','1':'限量购买','2':'不限量使用'});
 
