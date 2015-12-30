@@ -1,5 +1,5 @@
 <div class="p-list p-act-lst" js="true" cache="false">
-	<div class="m-list m-act-lst  m-lstreport">
+	<div class="m-list m-act-lst  m-seasonactive">
 		<div class="list-main">
 			<div class="u-tablelist">
 				<div class="list-header">
@@ -12,35 +12,65 @@
 						<button id="btnSearch" class="btn-blue btn-search">查询</button>
 					</div>
 					<div class="list-bar-input active-list">
+						<label>
+							<span>年份</span>
+							<select id="yearselect" ce-model="year">
+							</select>
+						</label>
+						<label>
+							<span class="mselect"><b data-target="month">月份选择</b><b data-target="season">季度选择</b></span>
+						</label>
+						<label id="monthlabel">
+							<span>月份</span>
+							<select id="monthselect" ce-model="month">
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+								<option value="9">9</option>
+								<option value="10">10</option>
+								<option value="11">11</option>
+								<option value="12">12</option>
+							</select>
+						</label>
+						<label id="seasonlabel">
+							<span>季度</span>
+							<select id="seasonselect" ce-model="season">
+								<option value="1">第一季度</option>
+								<option value="2">第二季度</option>
+								<option value="3">第三季度</option>
+								<option value="4">第四季度</option>
+							</select>
+						</label>
+						<label>
+							<span>是否赠送办公版</span>
+							<select ce-model="enterpriseType">
+								<option value="">全部</option>
+								<option value="1">是</option>
+								<option value="0">否</option>
+							</select>
+						</label>
+						<label>
+							<span>入职时间</span>
+							<select ce-model="employeeTpye">
+								<option value="">全部</option>
+								<option value="1">月初满30天</option>
+								<option value="0">月初未满30天</option>
+							</select>
+						</label>
 					
-						<label><span>企业账号</span>
-							<input id="enterpriseAccount" type="text" class="g-ipt ipt-m enterpriseAccount" />
+						<label><span>公司</span>
+							<input   type="text" class="g-ipt ipt-m companyId" onchange="this.value=this.value.replace(/(^\s*)|(\s*$)/g,'')" data-id="-1" data-agentid="-1"/>
 						</label>
-						<label><span>销售人员</span>
-							<input id="alCode" type="text" class="g-ipt ipt-m alName" />
+						<label><span>团队</span>
+							<input   type="text" class="g-ipt ipt-m deptId" onchange="this.value=this.value.replace(/(^\s*)|(\s*$)/g,'')" data-deptId="-1"/>
 						</label>
-						<label class="sp">
-							<label>
-								<span>开通时间</span>
-								<input id="alCST" type="text" class="g-ipt ipt-l" onkeyup='this.value=""'/>
-							</label>
-							<label>
-								<span>-</span>
-								<input id="alCET" type="text" class="g-ipt ipt-l" onkeyup='this.value=""'/>
-							</label>
-						</label>
-						<label class="sp" >
-							<label>
-								<span>活跃日期</span>
-								<input id="alAST"  type="text" class="g-ipt ipt-l start-active" onkeyup='this.value=""'/>
-							</label>
-							<label>
-								<span>-</span>
-								<input id="alAET" type="text" class="g-ipt ipt-l end-active" onkeyup='this.value=""'/>
-							</label>
-						</label>
-						<br />
 						
+						<br />
 					</div>
 				</div>
 			</div>
@@ -49,7 +79,7 @@
 					<table>
 						<thead>
 							<tr>
-								<th rowspan="2" style="width:110px;">团队名称</th>
+								<th rowspan="2" style="width:160px;">团队名称</th>
 								<th rowspan="2" style="width:110px;">入职时间</th>
 								<th rowspan="2" style="width:110px;">当前团队人数</th>
 								<th rowspan="2" style="width:110px;">总开通企业数</th>

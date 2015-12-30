@@ -91,7 +91,7 @@ define('common/app', function(require, exports, module){
 			//location.hash = $('nav li:visible a').eq(0).attr('href');
 			var me = this;
 
-			var hash = $('nav li:visible a').eq(0).attr('href') || '';
+			var hash = $('nav li:visible a[href]').eq(0).attr('href') || '';
 				hash = hash.slice(1);
 			var hasharray = hash.split('/');
 
@@ -412,6 +412,9 @@ define('common/app', function(require, exports, module){
 						break;
 					}
 				}
+				if(bool == false){
+					$this.remove();
+				}
 			});
 
 			//特殊处理
@@ -431,7 +434,7 @@ define('common/app', function(require, exports, module){
          */
         lightNav: function($el) {
 			var $el = $el || $('nav'),
-				hash = location.hash || $('nav li:visible a').eq(0).attr('href');
+				hash = location.hash || $('nav li:visible a[href]').eq(0).attr('href');
 
             //清除导航内 所有<li>元素的激活状态
             $el.find('li').each(function(){
