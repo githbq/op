@@ -5238,6 +5238,24 @@ em {
 .p-act-lst .m-act-lst .list-exel p .hl {
   font-weight: bold;
 }
+.m-seasonactive .mselect {
+  border: 1px #ccc solid;
+}
+.m-seasonactive .mselect b {
+  display: inline-block;
+  padding: 6px;
+  cursor: pointer;
+}
+.m-seasonactive .mselect b:first-child {
+  border-right: 1px #eee solid;
+}
+.m-seasonactive .mselect b.active {
+  background: #eee;
+}
+.m-seasonactive .mselect #monthlabel,
+.m-seasonactive .mselect #seasonlabel {
+  display: none;
+}
 .m-addenterprise .enterprise-content {
   padding-bottom: 6px;
 }

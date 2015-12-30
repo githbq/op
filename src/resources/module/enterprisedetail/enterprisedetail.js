@@ -12,8 +12,6 @@ define( function(require, exports, module){
 	var tpl = $( require( './template.html' ) );
 	var uploader = require('common/widget/upload').uploader;
 
-
-	var LOGTYPE = {};    //日志类别
 	var buyMap = new Object({'1':'赠送','2':'购买充值'});
 	var carMap = new Object({'0':'未开通服务','1':'限量购买','2':'不限量使用'});
 
@@ -2678,7 +2676,7 @@ define( function(require, exports, module){
 						if ( data.model.content.length > 0 ) {
 							data.model.content.forEach( function( item ){
 								item.createTimeStr = new Date( item.createTime )._format('yyyy-MM-dd hh:mm');
-								item.typeStr = LOGTYPE[item.type];
+								item.typeStr = util.findEnumsText('ENTERPRISE_LOG_TYPE',item.type);
 							});
 							me.$tbLog.html( me.tplLog( { content: data.model.content } ) );
 						} else {
