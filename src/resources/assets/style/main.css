@@ -6532,3 +6532,9 @@ em {
   color: blue;
   float: right;
 }
+.m-teamtree .emptyinfo {
+  text-align: center;
+  color: #ccc;
+  line-height: 60px;
+  font-size: 22px;
+}

@@ -70,7 +70,7 @@ define( function(require, exports, module){
                         if( data.value.model.length > 0 ){
                             contentstr = me.litpl({'content':data.value.model});
                         }else{
-                            contentStr = "<p>暂无数据</p>"
+                            contentstr = "<p class='emptyinfo'>暂无数据</p>"
                         }
                         me.$view.find('.m-teamtree').html(contentstr);
                     }
