@@ -23,11 +23,11 @@ define(function(require, exports, module){
 		
 		resetSelect: function( $select,callback ){
 			var me = this;
-			var listObjet = {};
+			var listObjet =[] ;
 			$select.on('blur',function(){
 				var tempName = $(this).val(),
 					flag = false;
-				listObjet.forEach(function( item ){
+				listObjet.length>0 && listObjet.forEach(function( item ){
 					if( item.name == tempName ){
 						$select.attr({
 							'data-id':item.id,

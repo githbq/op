@@ -1,11 +1,9 @@
 define( function( require, exports, module ) {
     var IBSS = window.IBSS,TPL = IBSS.tpl;
-	 var Pagination = require('common/widget/pagination/pagination');
-	 var Slider = require('common/widget/slider/slider');
-
+	var Pagination = require('common/widget/pagination/pagination');
+	var Slider = require('common/widget/slider/slider');
 	var AutoSelect = require( 'common/widget/autoselect/autoselect' );
-	 
-	 var tem = $( require('./template.html') );
+	var tem = $( require('./template.html') );
 
     var ActLst = MClass( M.Center ).include( {
 
@@ -89,12 +87,10 @@ define( function( require, exports, module ) {
             var data = me.model.all();
 			
 			//代理商id
-            data.agentId = me.$('.companyId').attr('data-agentId')||-1;
-			
+            data.agentId = me.$('.companyId').attr('data-agentId')||-1;	
 			//部门id
             data.deptId = me.$('.deptId').attr('data-deptId')||-1;
-			
-           
+
             //开通时间开始
             if ( me.$appTimeStart.val() ) {
                 data.appTimeStart = new Date( me.$appTimeStart.val() ).getTime();
@@ -137,7 +133,7 @@ define( function( require, exports, module ) {
             if( collection.length > 0 ){
                 htmlStr = me.trTpl( {'content': collection} );
             }else{
-                htmlStr = "<tr> <td colspan='7'><p class='info'>暂无数据</p></td> </tr>"
+                htmlStr = "<tr> <td colspan='6'><p class='info'>暂无数据</p></td> </tr>"
             }
 
             me.$tbody.html( htmlStr );
