@@ -5252,8 +5252,8 @@ em {
 .m-seasonactive .mselect b.active {
   background: #eee;
 }
-.m-seasonactive .mselect #monthlabel,
-.m-seasonactive .mselect #seasonlabel {
+.m-seasonactive #monthlabel,
+.m-seasonactive #seasonlabel {
   display: none;
 }
 .m-addenterprise .enterprise-content {
