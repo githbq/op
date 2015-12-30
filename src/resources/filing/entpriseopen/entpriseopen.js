@@ -58,7 +58,10 @@ define( function( require, exports, module ) {
             'click .search': 'searchEve',
             'click .detail': 'detailEve',
             'click .region': 'regionEve',
-            'click .clear': 'clearEve'
+            'click .clear': 'clearEve',
+			'click .bindall': 'bindEve',
+			'click .public-ent-assgin':'publicEntAssginEve',
+			 'click .selectEntAll': 'selectAllEve'
         },
 
         searchEve: function(){
@@ -81,6 +84,38 @@ define( function( require, exports, module ) {
         },
         clearEve: function( e ){
             this.$region.val('').attr('data-code','');
+        },
+		selectAllEve: function(e){
+            var me = this;
+
+            console.log( $(e.target).prop('checked') )
+            if($(e.target).prop('checked')){
+                me.$('tbody .selectEnt').prop('checked',true);
+            }else{
+                me.$('tbody .selectEnt').prop('checked',false);
+            }
+
+        },
+		//单个分配
+        publicEntAssginEve:function(e){
+			 var id = $(e.currentTarget).attr('data-id');
+			 this.trigger('assgin',[id]);
+		},
+
+        //批量分配
+        bindEve:function(){
+            var me = this;
+            var ids = [];
+
+            me.$('tbody .selectEnt:checked').each(function(){
+                ids.push( $(this).val() );
+            });
+
+            if( ids.length <= 0 ){
+                util.showToast('请勾选企业后再分配');
+                return;
+            }
+            this.trigger('assgin',ids);
         },
         //获取列表
     	getList: function(){
@@ -139,6 +174,132 @@ define( function( require, exports, module ) {
             var id = $( e.currentTarget ).attr('data-id');
 
             this.trigger('detail',id);
+        }
+    });
+	 /**
+    *
+    * 渠道管理员分配
+    */
+    var PublicEntAssgin = MClass( Slider ).include({
+
+         content: $(template).filter('#tabAssgin').html(),
+        
+        defaultAttr:{
+            'width': 660,
+            'title': '分配公开企业'
+        },
+		tpassginEntList: _.template( $(template).filter('#trAssignEnt').html() ),
+        elements: {
+            '#enterpriseId': 'enterpriseId',
+			'.assign-ent-Info tbody':'assginList',
+			'.search-name':'searchName',
+			'tbody': 'tbody' 
+        },
+		accountList:[],
+        events: {
+            'click .ent-bind-person': 'entBindPersonEve',
+			'click #btnSearch':'btnSearchEve'
+        },
+
+        init: function(){
+			var me =this;
+            PublicEntAssgin.__super__.init.apply( this,arguments );
+			
+			me.pagination = new Pagination({
+                wrapper: me.$view.find('.list-pager'),
+                pageSize: 10,
+                pageNumber: 0
+            });
+            me.pagination.render();
+            me.pagination.onChange = function() {
+                me.getList();
+            }
+			
+			me.collection = new M.Collection;
+            me.collection.on('reload',function(){
+                me.renderList();
+            });
+			
+        },
+		
+        //显示
+        show: function( ids ){
+            var me = this;
+
+            me.ents = ids;
+			me.getList();
+			
+            PublicEntAssgin.__super__.show.apply( this,arguments );
+        },
+		getList:function(){
+			 var me = this;
+			 
+			 util.api({
+                'url': '/agent/querypageforassginopenfiling',
+                'data': {
+					'id':me.$('#eiCode').val(),
+					'name':me.$('#eiName').val(),
+					'pageIndex': me.pagination.attr['pageNumber'],
+                    'pageSize': me.pagination.attr['pageSize']
+				},
+                'success': function( data ){
+                    console.warn( data );
+                    if( data.success ){
+						me.pagination.setTotalSize( data.value.model.itemCount );
+						me.collection.reload( data.value.model.content);
+                    }
+                }
+            })
+		},
+		//渲染数据
+        renderList: function(){
+            var me = this;
+
+            var content = me.collection.all();
+            if( content.length > 0 ){
+                me.$tbody.html( me.tpassginEntList( {'content':content} ) );
+            } else {
+                me.$tbody.html( '<tr><td colspan="4"><p class="info">暂无数据</p></td></tr>' );
+            }
+        },
+		btnSearchEve:function(){
+			var me = this;
+			me.getList();
+		},
+		entBindPersonEve:function(e){
+			var me = this;
+
+			var vendorId = $( e.currentTarget ).attr( 'data-id' );
+			var openFilingIds =  me.ents.join(',');
+
+
+			if(confirm("确定要将这些企业分配给此代理商吗？")){
+				util.api({
+					url: '/enterprisefiling/assignopenfiling',
+					data: {
+						'vendorId': vendorId,
+						'openFilingIds': openFilingIds
+					},
+					success: function( data ) {
+						if ( data.success ) {
+							util.showTip('分配成功');
+							me.trigger('success');
+                            me.hide();
+						}
+					}
+				}) ;
+			}
+			return false;	
+		
+		},
+		
+        hide: function(){
+            this.model.clear();
+			this.$('#eiCode').val(''),
+			this.$('#eiName').val(''),
+			this.ents = null;
+            this.$('.state').hide();
+            PublicEntAssgin.__super__.hide.apply( this,arguments );
         }
     });
     
@@ -216,9 +377,16 @@ define( function( require, exports, module ) {
 
     	var openList = new OpenList( {'view':$el.find('.m-openlist') } ),
             openDetail = new OpenInfo();
+		var publicEntAssgin = new PublicEntAssgin();
 
         openList.on('detail',function( id ){
             openDetail.show( id );
         })
+		openList.on('assgin',function(ids){
+            publicEntAssgin.show(ids);
+        });
+		publicEntAssgin.on('success',function(){
+            openList.getList();
+        });
     }
 })

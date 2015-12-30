@@ -24,3 +24,50 @@
 		</label>
 	</p>
 </div>
+<script type="text/template" id="tabAssgin">
+<div class="m-assignEntInfo u-slider u-tablelist" id = 'enterpriseId' data-enterpriseId='' js="true">
+	 <div class="list-bar">
+		<div class="list-bar-btns">
+			<button id="btnSearch" class="btn-blue">查询</button>
+		</div>
+		<div class="list-bar-input">
+			<label>
+				<span>代理商名称</span>
+				<input id="eiName" class="g-ipt ipt-m"  type="text" ce-model="ename"/>
+			</label>
+			<label>
+				<span>优惠码</span>
+				<input id="eiCode" class="g-ipt ipt-s" type="text" ce-model="agentId"/>
+			</label>
+	
+		</div>
+	</div>
+	<div class="list-content">
+		<table class=" assign-ent-Info">
+		  <thead>
+			<tr>
+			  <th style="width:300px;">代理商名称</th>
+			   <th style="width:100px;">优惠码</th>
+			  <th style="width:100px;">操作</th>
+			</tr>
+		  </thead>
+		  <tbody>
+
+		  </tbody>
+		</table>
+	</div>
+	<div class="list-pager">
+	</div>
+</div>
+</script>
+<script type="text/template" id="trAssignEnt">
+	<% _.each( content, function( item , index ){%>
+		<tr data-id="<%=item.id%>">
+			<td><%=item.name%></td>
+			<td><%=item.id%></td>
+			<td>
+				<a data-id="<%=item.id%>"  class="ent-bind-person">分配</a>
+			</td>
+		</tr>
+	<% }) %>
+</script>
