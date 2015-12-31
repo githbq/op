@@ -87,7 +87,7 @@ define( function( require, exports, module ) {
                 htmlStr = me.trTpl( {'content': collection} );
             } else {
 				
-                htmlStr = "<tr><td colspan='15'><p class='info'>暂无数据</p></td></tr>"
+                htmlStr = "<tr><td colspan='39'><p class='info'>暂无数据</p></td></tr>"
             }
             me.$tbody.html( htmlStr );
             IBSS.tplEvent.setPermissions( me.$tbody );
@@ -140,6 +140,10 @@ define( function( require, exports, module ) {
             util.api({
                 'url': '~/op/api/s/activity/queryteamactivityanalysisreport',
                 'data': objdata,
+                'beforeSend': function(){
+                    me.$search.addClass('u-btn-disabled').attr('disabled','disabled').text('查询');
+                    me.$tbody.html("<tr> <td colspan='39'><p class='info'>努力加载中....</p></td> </tr>");
+                },
                 'success': function( data ){
                     //console.warn( data );
                     if( data.success ){
@@ -158,6 +162,9 @@ define( function( require, exports, module ) {
                         me.pagination.setTotalSize( data.value.model.itemCount );
                         
                     }
+                },
+                'complete': function(){
+                    me.$search.removeClass('u-btn-disabled').removeAttr('disabled').text('查询');
                 }
             })
     	},

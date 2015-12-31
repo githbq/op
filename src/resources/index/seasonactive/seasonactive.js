@@ -15,7 +15,8 @@ define( function( require, exports, module ) {
             '#seasonlabel': 'seasonlabel',
     		'#yearselect': 'yearselect',
             '#monthselect': 'monthselect',
-    		'#seasonselect': 'seasonselect'
+    		'#seasonselect': 'seasonselect',
+            '.search': 'search'                  //搜索按钮
     	},
 
         events: {
@@ -81,12 +82,18 @@ define( function( require, exports, module ) {
     				'quarter': quarter,
     				'enterpriseType': me.model.get('enterpriseType')
     			},
+                'beforeSend': function(){
+                    me.$search.addClass('u-btn-disabled').attr('disabled','disabled').text('查询');
+                },
     			'success': function( data ){
     				console.warn( data );
                     if( data.success ){
                         me.listinfo.reload([data.value.model]);
                     }
-    			}
+    			},
+                'complete': function(){
+                    me.$search.removeClass('u-btn-disabled').removeAttr('disabled').text('查询');
+                }
     		})
     	}
     })

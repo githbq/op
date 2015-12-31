@@ -578,7 +578,13 @@
 					return;
 				}
 				if (!data.success) {
-					that.showToast('请求错误  ' + data.message);
+
+                    //截取20位
+                    if( data.message.length > 20 ){
+                        data.message = data.message.slice(0,20); 
+                    }
+					
+                    that.showToast('请求错误  ' + data.message);
 				}
 				return success && success.apply( this,arguments );
 			};

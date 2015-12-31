@@ -15,6 +15,7 @@ define( function( require, exports, module ) {
 			'.sellName':'sellName',
 			'.activityCount':'activityCount',
 			'tbody': 'tbody',
+            '#btnSearch': 'search'
         },
         events: {
            'click .btn-search':'searchEve'
@@ -132,13 +133,19 @@ define( function( require, exports, module ) {
             util.api({
                 'url': '~/op/api/s/activity/queryteamenterpriseactivityperiodbasic',
                 'data': data,
+                'beforeSend': function(){
+                    me.$search.addClass('u-btn-disabled').attr('disabled','disabled').text('查询');
+                    me.$tbody.html("<tr> <td colspan='6'><p class='info'>努力加载中....</p></td> </tr>");
+                },
                 'success': function( data ){
                     console.warn( data );
                     if( data.success ){
 						me.collection.reload( data.value.model.content);
-                        me.pagination.setTotalSize( data.value.model.itemCount );
-                        
+                        me.pagination.setTotalSize( data.value.model.itemCount );    
                     }
+                },
+                'complete': function(){
+                    me.$search.removeClass('u-btn-disabled').removeAttr('disabled').text('查询');
                 }
             })
     	},

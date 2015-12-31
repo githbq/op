@@ -1015,6 +1015,7 @@ button:active {
 .u-btn-red:active {
   background: #ff1717;
 }
+/*灰色*/
 .u-btn-gray {
   border: none;
   background: #eee;
@@ -1026,6 +1027,14 @@ button:active {
 }
 .u-btn-gray:active {
   background: #eee;
+}
+/*disabled*/
+.u-btn-disabled {
+  background: #98D1FF;
+}
+.u-btn-disabled:hover,
+.u-btn-disabled:active {
+  background: #98D1FF;
 }
 /*
  * ico 类
