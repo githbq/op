@@ -269,15 +269,7 @@ define( function(require, exports, module){
 			'#sEAC': 'sEAC',
 			'#sUFS': 'sUFS',
 			'#sActionDanger': 'sActionDanger',
-			'#sdJCFCompanyName': 'sdJCFCompanyName',
-			'#sdJCFActive': 'sdJCFActive',
-			'#sdJCFTotal': 'sdJCFTotal',
-			'#sdJCFUsed': 'sdJCFUsed',
-			'#sdJCFLeft': 'sdJCFLeft',
-			'#sJCFCount': 'sJCFCount',
-			'#sbJCFCST': 'sbJCFCST',
-			'#sbJCFCET': 'sbJCFCET',
-			'#tbJCFLog tbody': 'tbJCFLog',
+
 			'#sdMarketingStatus': 'sdMarketingStatus',
 			'#sdCustom': 'sdCustom',
 			'#sdActiveTime': 'sdActiveTime',
@@ -373,9 +365,7 @@ define( function(require, exports, module){
 			'click #sBtnRemove': 'uninstall',
 			'click #sBtnChangeModule': 'changeModule',
 			'click #sBtnChangeFunctions': 'changeFunctions',
-			'click #sBtnJCFBuy': 'chargeJCF',
-			'click #sBtnJCFSync': 'syncJCF',
-			'click #btnSBJCFLogSearch': 'searchJCFLog',
+
 			'click #sBtnMarketingStop': 'stopMarketing',
 			'click #sBtnCustomChange': 'changeCustomStatus',
 			'click #sBtnLogSearch': 'searchLog',
@@ -398,8 +388,6 @@ define( function(require, exports, module){
 
 			'click .callback-actionon': 'callbackOnEve',        //电话回访成功
 			'click .callback-actionoff': 'callbackOffEve',      //电话回访失败
-			//'click .verificationaction-on': 'veriOnEve',      //资料审核成功
-			//'click .verificationaction-off': 'veriOffEve',	//资料审核失败
 
 			'click .upload':'saveFn',				  			//资料审核提交
 			'click .fn-buy':'fnBuyEve',
@@ -412,7 +400,7 @@ define( function(require, exports, module){
 			'click .callback-actionoff': 'callbackOffEve',    	//电话回访失败
 			'click .verificationaction-on': 'veriOnEve',      	//资料审核成功
 			'click .verificationaction-off': 'veriOffEve',	  	//资料审核失败
-			'click .fn-buy-free':'fnBuyFreeEve',                       //营销版办公版增购tab切换
+			'click .fn-buy-free':'fnBuyFreeEve',                //营销版办公版增购tab切换
 
 			'click .employee-detail':'employeeDetailEve'
 		}, 
@@ -599,7 +587,6 @@ define( function(require, exports, module){
 		tplProduct: _.template( tpl.filter( '#trProduct' ).html() ),
 		tplAgent: _.template( tpl.filter( '#trAgent' ).html() ),
 		tplOperation: _.template( tpl.filter( '#trOperation' ).html() ),
-		tplJCFLog: _.template( tpl.filter( '#trJCFLog' ).html() ),
 		tplLog: _.template( tpl.filter('#trLog').html() ),
 		tpCardList: _.template( tpl.filter('#trCardList').html() ),
 		tplCallBackList: _.template( tpl.filter('#callBackList').html() ),
@@ -637,13 +624,7 @@ define( function(require, exports, module){
 			me.modules = {
 				isInitializes: false
 			};
-			
-			me.jcf = {};
-			
-			me.jcflog = {
-				isInitializes: false,
-				pagination: null
-			};
+
 			me.log = {
 				isInitializes: false,
 				pagination: null
@@ -827,26 +808,6 @@ define( function(require, exports, module){
 			} );
 			me.$sBCET.datetimepicker( {
 				format: 'Y/m/d',
-				timepicker: false
-			} );
-			me.$sbJCFCST.datetimepicker( {
-				format: 'Y/m/d',
-				onShow: function() {
-					var maxDate = me.$sbJCFCET.val() ? me.$sbJCFCET.val() : false;
-					this.setOptions({
-						maxDate: maxDate
-					});
-				},
-				timepicker: false
-			} );
-			me.$sbJCFCET.datetimepicker( {
-				format: 'Y/m/d',
-				onShow: function() {
-					var minDate = me.$sbJCFCST.val() ? me.$sbJCFCST.val() : false;
-					this.setOptions({
-						minDate: minDate
-					});
-				},
 				timepicker: false
 			} );
 			me.$sbLogST.datetimepicker( {
@@ -1350,16 +1311,8 @@ define( function(require, exports, module){
 					console.log('functions');
 					this.showFunctions();
 					break;
-				case 'jcf':
-					console.log('jcf');
-					this.showJCF();
-					break;
 				case 'activeness':
 					this.showActiveNess();
-					break;
-				case 'jcflog':
-					console.log('jcflog');
-					this.showJCFLog();
 					break;
 				case 'market':
 					console.log('market');
@@ -2454,30 +2407,6 @@ define( function(require, exports, module){
 				$( '#tbFunctions' ).css( 'display', 'none' );
 			}
 		},
-		showJCF: function() {
-			var me = this;
-			console.log('showJCF');
-			util.api({
-				url: '/enterprise/getenterprisestatistics',
-				data: { enterpriseId: this.model.attrs.id },
-				success: function( data ) {
-					if ( data.success ) {
-						var model = data.model || {};
-						me.$sdJCFCompanyName.val( me.model.attrs.enterpriseShortName );
-						me.$sdJCFActive.val( me.model.attrs.isJiuCiFang ? '是' : '否' );
-						me.$sdJCFTotal.val( model.rechargeAmount || 0 );
-						me.$sdJCFUsed.val( model.consumeAmount || 0 );
-						me.$sdJCFLeft.val( model.surplusAmount || 0 );
-						me.jcf.model = model;
-					}
-				}
-			});
-			if ( this.model.attrs.runStatus == 2 ) {
-				$( '#tbJCF' ).css( 'display', 'block' );
-			} else {
-				$( '#tbJCF' ).css( 'display', 'none' );
-			}
-		},
 		
 		/**
 		 *
@@ -2488,29 +2417,6 @@ define( function(require, exports, module){
 
 			me.$actStartTime.val('').removeAttr('disabled');
 			me.$actEndTime.val('').removeAttr('disabled');
-		},
-
-		showJCFLog: function() {
-			var me = this;
-
-			me.$sbJCFCST.val('').removeAttr('disabled');
-			me.$sbJCFCET.val('').removeAttr('disabled');
-
-			if( me.jcflog.pagination ){
-
-				me.jcflog.pagination.setPage(0,true);
-			} else {
-				me.jcflog.pagination = new Pagination({
-					wrapper: me.$view.find('#tbJCFLog .pager'),
-					pageSize: 10,
-					pageNumber: 0
-				});
-				me.jcflog.pagination.render();
-				me.jcflog.pagination.onChange = function() {
-					me.loadJCFLog();
-				};
-				me.loadJCFLog();
-			}
 		},
 		showCardList: function() {
 			var me = this;
@@ -2574,37 +2480,6 @@ define( function(require, exports, module){
 				item.rechargeType = buyMap[item.rechargeType];
 			}
 			return dataList;
-		},
-		loadJCFLog: function() {
-			var me = this,
-				data = {
-					pageIndex: me.jcflog.pagination.attr['pageNumber'],
-					pageSize: me.jcflog.pagination.attr['pageSize'],
-					enterpriseId: me.model.attrs.id
-				};
-			if ( me.$sbJCFCST.val() ) {
-				data.timeBegin = new Date( me.$sbJCFCST.val() ).getTime();
-			}
-			if ( me.$sbJCFCET.val() ) {
-				data.timeEnd = new Date( me.$sbJCFCET.val() ).getTime();
-			}
-			util.api({
-				url: '/enterprise/querypagejiucifangrecharge',
-				data: data,
-				success: function( data ) {
-					if ( data.success ) {
-						me.jcflog.pagination.setTotalSize( data.model.itemCount );
-						if ( data.model.content.length > 0 ) {
-							data.model.content.forEach(function(item){
-								item.timeStr = new Date( item.rechargeTime )._format('yyyy-MM-dd hh:mm');
-							});
-							me.$tbJCFLog.html( me.tplJCFLog( { content: data.model.content } ) );
-						} else {
-							me.$tbJCFLog.html( '<tr><td colspan="5"><p class="info">暂无数据</p></td></tr>' );
-						}
-					}
-				}
-			});
 		},
 		showMarketing: function() {
 			if ( this.model.attrs.runStatus == 2 ) {
@@ -3106,44 +2981,6 @@ define( function(require, exports, module){
 					}
 				}
 			});
-		},
-		chargeJCF: function() {
-			var me = this, data = {
-				enterpriseId: me.model.attrs.id,
-				count: me.$sJCFCount.val(),
-				oldModifyTime: me.model.attrs.updateTime
-			};
-			util.api({
-				url: '/enterprise/buyjiucifangrecharge',
-				data: data,
-				success: function( data ) {
-					if ( data.success ) {
-						util.showTip( '更新成功' );
-						console.log( data );
-					}
-				}
-			});
-		},
-		syncJCF: function() {
-			var me = this, data = {
-				enterpriseId: me.model.attrs.id,
-				consumeAmount: me.jcf.model.consumeAmount,
-				surplusAmount: me.jcf.model.surplusAmount,
-				oldModifyTime: me.model.attrs.updateTime
-			};
-			util.api({
-				url: '/enterprise/synchronizejiucifang',
-				data: data,
-				success: function( data ) {
-					if ( data.success ) {
-						util.showTip( '更新成功' );
-						console.log( data );
-					}
-				}
-			});
-		},
-		searchJCFLog: function() {
-			this.loadJCFLog();
 		},
 		searchCardList: function() {
 			this.loadCardList();
