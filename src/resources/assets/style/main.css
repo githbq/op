@@ -5945,6 +5945,10 @@ em {
 .m-enterprisedetail .tabs-box .content-box .content-info {
   display: none;
 }
+.m-enterprisedetail .detail-btn {
+  text-align: right;
+  padding: 10px 0;
+}
 .m-training p {
   padding: 6px 0;
 }

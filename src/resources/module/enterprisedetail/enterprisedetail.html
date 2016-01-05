@@ -1003,31 +1003,34 @@
 		</section>
 		
 		<!--安全监控-->
-		<section class="accordian">
+		<section class="accordian collapse" data-target="monitoring">
 			<h4><span class="arraw"></span>安全监控</h4>
 			<div class="content">
 				<p>
-					<label for="">
+					<label class="hw">
 						<span>安全监控</span>
-						<select>
+						<select class="g-ipt ipt-m">
 							<option value="0">否</option>
 							<option value="1">是</option>
 						</select>
 					</label>
-					<label for="">
-						<span>安全监控期</span>
-						<input type="text">天
+					<label class="hw">
+						<span>安全监控期(天)</span>
+						<input type="text" class="g-ipt ipt-m">
 					</label>
 				</p>
 				<p>
-					<label for="">
+					<label class="hw">
 						<span>监控开始时间</span>
-						<input type="text">
+						<input type="text" class="g-ipt ipt-m" id="monitoringSTime">
 					</label>
-					<label for="">
+					<label class="hw">
 						<span>监控结束时间</span>
-						<input type="text">
+						<input type="text" class="g-ipt ipt-m" id="monitoringETime">
 					</label>
+				</p>
+				<p class="detail-btn">
+					<button class="u-btn-blue" class="savemonitoring">保存</button>
 				</p>
 				<table>
 					<thead>

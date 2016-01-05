@@ -886,6 +886,16 @@ define( function(require, exports, module){
 			me.$('#trainendtime').datetimepicker({
 				format:'Y/m/d',
 				timepicker:false
+			});
+
+			me.$('#monitoringSTime').datetimepicker({
+				format:'Y/m/d',
+				timepicker: false
+			})
+
+			me.$('#monitoringETime').datetimepicker({
+				format:'Y/m/d',
+				timepicker: false
 			})
 		},
 
@@ -1331,10 +1341,13 @@ define( function(require, exports, module){
 					this.showCardList();
 					break;
 				case 'callback':
-					this.showCallBack();  //电话回访
+					this.showCallBack();  	//电话回访
 					break;
 				case 'training':
-					this.showTraining();  //显示培训详情
+					this.showTraining();  	//显示培训详情
+					break;
+				case 'monitoring':
+					this.showMonitoring();  //企业监控
 					break;
 				default:
 					break;
@@ -1779,6 +1792,14 @@ define( function(require, exports, module){
 				};
 				me.loadTraining();
 			}
+		},
+		
+		/**
+		 *
+		 * 显示企业监控详情
+		 */
+		showMonitoring: function(){
+			console.log('monitoring');
 		},
 
 		//添加培训详情
