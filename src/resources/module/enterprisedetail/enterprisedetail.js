@@ -1146,7 +1146,7 @@ define( function(require, exports, module){
 
 							if( /(jpeg|jpg|gif|png)/i.test( model.contract ) ){
 
-								var str = '<img src="'+'/op/api/file/previewimage'+'?filePath='+model.contract+'"style="width:350px; height:200px;">';
+								var str = '<img src="'+'/op/api/file/previewimage' + '?filePath=' + model.contract + '&t=' + new Date().getTime() + '"style="width:350px; height:200px;">';
 							}else{
 
 								var str = '下载合同';
@@ -1170,7 +1170,7 @@ define( function(require, exports, module){
 
 							if( /(jpeg|jpg|gif|png)/i.test( model.contractCopy ) ){
 
-								var str = '<img src="'+'/op/api/file/previewimage'+'?filePath='+model.contractCopy+'"style="width:350px; height:200px;">';
+								var str = '<img src="'+'/op/api/file/previewimage' + '?filePath=' + model.contractCopy + '&t=' + new Date().getTime() + '"style="width:350px; height:200px;">';
 							}else{
 
 								var str = '下载合同副本';
@@ -1512,7 +1512,7 @@ define( function(require, exports, module){
 						if( data.value.model && data.value.model.businessLicense ){
 							console.log(111);
 							me.$yingyezhizhaoinfo.attr('href','/op/api/file/previewimage' + '?filePath=' + data.value.model.businessLicense);
-							me.$yingyezhizhaoinfo.find('img').attr('src','/op/api/file/previewimage' + '?filePath=' + data.value.model.businessLicense);
+							me.$yingyezhizhaoinfo.find('img').attr('src','/op/api/file/previewimage' + '?filePath=' + data.value.model.businessLicense + '&t=' + new Date().getTime() );
 							me.$yingyezhizhaonone.hide();
 							me.$yingyezhizhaoinfo.show();
 						}else{
@@ -1526,7 +1526,7 @@ define( function(require, exports, module){
 						if( data.value.model && data.value.model.companyGatePicture ){
 							console.log(222);
 							me.$mentouinfo.attr('href','/op/api/file/previewimage' + '?filePath=' + data.value.model.companyGatePicture );
-							me.$mentouinfo.find('img').attr('src','/op/api/file/previewimage' + '?filePath=' + data.value.model.companyGatePicture )
+							me.$mentouinfo.find('img').attr('src','/op/api/file/previewimage' + '?filePath=' + data.value.model.companyGatePicture + '&t=' + new Date().getTime() );
 							me.$mentouinfo.show();
 							me.$mentounone.hide();
 						}else{
