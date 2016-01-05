@@ -20,7 +20,8 @@ define( function( require, exports, module ) {
             '#btnSearch': 'search',
             '.list-exel': 'result',
 			'.list-content tbody': 'tbody',
-			'.alName':'alName',
+			'.alName': 'alName',
+            '.enterpriseType': 'enterpriseType',
 			'.alDay':'alDay',
 			'#btnQyrhyExel':'btnQyrhyExel',
         },
@@ -112,16 +113,17 @@ define( function( require, exports, module ) {
 				return false;
 			}
 			objdata['name'] = me.$alName.val()||'';
+            objdata['enterpriseType'] = me.$('#enterpriseType').val()||'';
     
-			$('#btnRyhysExel').attr( 'disabled', 'disabled' );
-			$('#btnRyhysExel').addClass( 'disable');
+			me.$('#btnRyhysExel').attr( 'disabled', 'disabled' );
+			me.$('#btnRyhysExel').addClass( 'disable');
   
-			$('#btnRyhysExel').text('导出中...');
+			me.$('#btnRyhysExel').text('导出中...');
 			window.open('/op/api/query/peodayimport/generate?' + $.param( objdata ) );
-			$('#btnRyhysExel').removeClass( 'disable' );
+			me.$('#btnRyhysExel').removeClass( 'disable' );
 
-			$('#btnRyhysExel').removeAttr( 'disabled' );
-			$('#btnRyhysExel').text('个人汇总导出');  
+			me.$('#btnRyhysExel').removeAttr( 'disabled' );
+			me.$('#btnRyhysExel').text('个人汇总导出');  
         },
         generate: function() {
             var me = this;

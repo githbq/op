@@ -171,7 +171,8 @@ define( function( require, exports, module ) {
             }
             objdata['name'] = me.$alName.val()||'';
             objdata['account'] = me.$enterpriseAccount.val()||'';
-            
+            objdata['enterpriseType'] = me.$('#enterpriseType').val()||'';
+
             objdata['pageIndex'] = me.pagination.attr['pageNumber']; 
             objdata['pageSize'] = me.pagination.attr['pageSize'];
 			
@@ -274,7 +275,7 @@ define( function( require, exports, module ) {
             }
             objdata['name'] = me.$alName.val()||'';
             objdata['enterAccount'] = me.$enterpriseAccount.val()||'';
-            
+            objdata['enterpriseType'] = me.$('#enterpriseType').val()||'';
         
             //window.open('/op/api/query/eadayimport/generate?' + $.param( objdata ) );
             var filepath = '';

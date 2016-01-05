@@ -16,11 +16,20 @@
 				</div>
 				<div class="list-bar-input active-list">
 					
-					<label><span>公司</span>
-						<input   type="text" class="g-ipt ipt-m companyId" onchange="this.value=this.value.replace(/(^\s*)|(\s*$)/g,'')" data-id="-1" data-agentId="-1"/>
+					<label><span>公司类型</span>
+						<select class="g-ipt ipt-m companyType">
+							<option value="0">全部</option>
+							<option value="1">直销</option>
+							<option value="2">代理商</option>
+						</select>
 					</label>
+
+					<label><span>公司</span>
+						<input type="text" class="g-ipt ipt-m companyId" onchange="this.value=this.value.replace(/(^\s*)|(\s*$)/g,'')" data-id="-1" data-agentId="-1"/>
+					</label>
+
 					<label><span>团队</span>
-						<input   type="text" class="g-ipt ipt-m deptId" onchange="this.value=this.value.replace(/(^\s*)|(\s*$)/g,'')" data-deptId="-1"/>
+						<input type="text" class="g-ipt ipt-m deptId" onchange="this.value=this.value.replace(/(^\s*)|(\s*$)/g,'')" data-deptId="-1"/>
 					</label>
 					<label class="sp" >
 						<label>

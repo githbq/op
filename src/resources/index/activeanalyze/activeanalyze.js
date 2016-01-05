@@ -1,5 +1,6 @@
 define( function( require, exports, module ) {
     var IBSS = window.IBSS,TPL = IBSS.tpl;
+    
 	var Pagination = require('common/widget/pagination/pagination');
 	var Slider = require('common/widget/slider/slider');
 	var AutoSelect = require( 'common/widget/autoselect/autoselect' );
@@ -15,7 +16,10 @@ define( function( require, exports, module ) {
 			'.sellName':'sellName',
 			'.activityCount':'activityCount',
 			'tbody': 'tbody',
-            '#btnSearch': 'search'
+            '#btnSearch': 'search',
+            '.companyType': 'companyType',
+            '.companyId': 'companyId',
+            '.deptId': 'deptId'
         },
         events: {
            'click .btn-search':'searchEve'
@@ -38,6 +42,7 @@ define( function( require, exports, module ) {
             me.pagination.onChange = function(){
                 me.getList();
             }
+
 			me.collection = new M.Collection;
             me.collection.on('reload',function(){
                 me.renderList();
@@ -49,10 +54,21 @@ define( function( require, exports, module ) {
 				me.$('.deptId').attr('data-deptid',data.id);
 				
 			});
+
+            me.$('.companyType').on('change',function(e){
+
+                var type = $( this ).val();
+
+                me.$companyId.val('').attr('data-type',type).attr('data-id',-1).attr('data-agentId',-1);
+                me.$deptId.val('');
+                me.$deptId.attr('data-deptid',-1);
+            });
+
 			me.$('.companyId').on('change',function(){
-				me.$('.deptId').val('');
-				me.$('.deptId').attr('data-deptid',-1);
+				me.$deptId.val('');
+				me.$deptId.attr('data-deptid',-1);
 			});
+
 			me.$('.deptId').on('focus',function(){
 				if(!me.$('.companyId').val()){
 					util.showToast('请先选择有效的公司！');
@@ -61,6 +77,7 @@ define( function( require, exports, module ) {
 				var companyId = me.$('.companyId').attr('data-id');
 				me.teamTree.show( companyId )	
 			})
+
             me.$appTimeStart.val( util.getDateStr(-30) );
             me.$appTimeEnd.val( util.getDateStr(-1) );
             me.initializeDatepicker();
@@ -99,6 +116,7 @@ define( function( require, exports, module ) {
 			this.pagination.setPage( 0 ,false );
             this.getList();
         },
+
 		// 获取企业列表数据
     	getList: function(){
             var me = this;
@@ -106,9 +124,11 @@ define( function( require, exports, module ) {
             var data = me.model.all();
 			
 			//代理商id
-            data.agentId = me.$('.companyId').attr('data-agentId')||-1;	
+            data.agentId = me.$companyId.attr('data-agentId')||-1;	
 			//部门id
-            data.deptId = me.$('.deptId').attr('data-deptId')||-1;
+            data.deptId = me.$deptId.attr('data-deptId')||-1;
+            //类型
+            data.companyType = me.$companyType.val();
 
             //开通时间开始
             if ( me.$appTimeStart.val() ) {
@@ -149,7 +169,8 @@ define( function( require, exports, module ) {
                 }
             })
     	},
-		 //渲染列表
+
+		//渲染列表
         renderList: function(){
             var me = this;
             var collection = me.collection.all();

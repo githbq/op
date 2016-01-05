@@ -22,8 +22,11 @@ define(function(require, exports, module){
 		},
 		
 		resetSelect: function( $select,callback ){
+
 			var me = this;
+
 			var listObjet =[] ;
+			
 			$select.on('blur',function(){
 				var tempName = $(this).val(),
 					flag = false;
@@ -47,11 +50,15 @@ define(function(require, exports, module){
 				});
 			});
 			
-			$select.on('keyup',function(){
+			$select.on('input',function(){
+
+				var $this = $( this );
+
 				util.api({
 					'url': '~/op/api/s/activity/getcompanys',
 					'data': {
-						'companyName':$(this).val(),
+						'companyName': $this.val(),
+						'companyType': $this.attr('data-type') || 0,
 						'pageIndex':0,
 						'pageSize':10
 					},

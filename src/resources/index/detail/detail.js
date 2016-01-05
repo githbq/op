@@ -145,6 +145,7 @@ define( function( require, exports, module ) {
                 'data':{
                     'name': me.$alName.val()||'',
                     'account': me.$enterpriseAccount.val()||'',
+                    'enterpriseType': me.$('#enterpriseType').val(),
                     'appTimeStart': appTimeStart,
                     'appTimeEnd': appTimeEnd,
                     'actTimeStart': actTimeStart,
@@ -194,6 +195,7 @@ define( function( require, exports, module ) {
 			}
 			objdata['name'] = me.$alName.val()||'';
 			objdata['enterAccount'] = me.$enterpriseAccount.val()||'';
+            objdata['enterpriseType'] = me.$('#enterpriseType').val();
 			
 			me.$('#btnQyrhyExel').attr( 'disabled', 'disabled' );
 			me.$('#btnQyrhyExel').addClass( 'disable');
