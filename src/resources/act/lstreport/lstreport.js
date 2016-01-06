@@ -1,7 +1,6 @@
 define( function( require, exports, module ) {
-    var IBSS = window.IBSS,TPL = IBSS.tpl;
+    var IBSS = window.IBSS;
 	 var Pagination = require('common/widget/pagination/pagination');
-	 var Slider = require('common/widget/slider/slider');
     var tpl = $( require( './template.html' ) );
 
     var ActLst = MClass( M.Center ).include( {
@@ -35,7 +34,7 @@ define( function( require, exports, module ) {
             'click #btnDownload': 'download',
 			'click #btnDownExel': 'downExel',
 			'click #btnQyrhyExel': 'QyrhyExel',
-			'click #btnRyhysExel': 'RyhysExel',
+			'click #btnRyhysExel': 'RyhysExel'
         },
 		trTpl: _.template( tpl.filter('#trTpl').html() ),
         init: function() {
@@ -62,8 +61,7 @@ define( function( require, exports, module ) {
             me.collection.on('reload',function(){
                 me.renderList();
             });
-           // me.initializeSelect();
-			//me.renderList();
+         
 			me.getList();
         },
         initializeDatepicker: function() {
@@ -108,8 +106,7 @@ define( function( require, exports, module ) {
                 },
                 timepicker: false
             } );
-            //me.$ast.val( me.getDateString( -8 ) );
-            //me.$aet.val( me.getDateString( -1 ) );
+          
         },
         
 		//渲染企业列表数据
@@ -138,7 +135,7 @@ define( function( require, exports, module ) {
         },
         
         search: function() {
-            var me = this;
+         
 			this.pagination.setPage( 0 ,false );
             this.getList();
         },
@@ -179,7 +176,7 @@ define( function( require, exports, module ) {
                 'url': '~/op/api/activity/queryenterpriseactivitysummary',
                 'data': objdata,
                 'success': function( data ){
-                    //console.warn( data );
+                    
                     if( data.success ){
 						me.collection.reload( data.value.model.content, function( item ){
 					
@@ -239,7 +236,6 @@ define( function( require, exports, module ) {
                             
                         });
 
-						//me.list.reload( data.value.model.content );
                         me.pagination.setTotalSize( data.value.model.itemCount );
                         
                     }
@@ -276,8 +272,7 @@ define( function( require, exports, module ) {
             objdata['name'] = me.$alName.val()||'';
             objdata['enterAccount'] = me.$enterpriseAccount.val()||'';
             
-        
-            //window.open('/op/api/query/eadayimport/generate?' + $.param( objdata ) );
+   
             var filepath = '';
             util.api({
                 'url': '~/op/api/query/eadayimport/generate',
@@ -287,7 +282,7 @@ define( function( require, exports, module ) {
                     me.$downloaddayactive.hide()
                 },
                 'success': function( data ){
-                    console.warn( data );
+                    
                     if( data.success ){
                        filepath = data.value.model;
                        me.$('#btnDownExel').text('生成中 稍等几分钟...').attr('disabled','disabled');
@@ -322,20 +317,18 @@ define( function( require, exports, module ) {
                     },
                     'complete': function( xhr, status ){
 
-                        if( xhr.status == 200 ){
+                        if( xhr.status === 200 ){
 
                             console.log('status:200');
                             setTimeout( function(){
                                 reset();
                                 me.$downloaddayactive.show().find('a').attr('href','/op/api/file/downloadeadayimport?filePath='+filepath);
                             },5000);
-                        }else if( xhr.status == 404 ){
+                        }else if( xhr.status === 404 ){
 
-                            console.log('status:404');
                             setTimeout(function(){ checkExport() },5000 );
                         }else{
 
-                            console.log('status:undefined');
                             reset();
                             util.showToast('生成失败');
                         }
@@ -343,56 +336,6 @@ define( function( require, exports, module ) {
                 })
             }
         },
-		//日活详情导出
-		/*QyrhyExel:function() {
-            var me = this;
-            var objdata = {};
-
-			if ( me.$cst.val() ) {
-                objdata['appTimeStart'] = new Date( me.$cst.val() ).getTime();
-            }else{
-				objdata['appTimeStart'] = '';
-				//util.showToast('请完善开通时间');
-				//return false;
-			}
-            if ( me.$cet.val() ) {
-               objdata['appTimeEnd'] = new Date( me.$cet.val() ).getTime();
-            }else{
-				objdata['appTimeEnd'] ='';
-				//util.showToast('请完善开通时间');
-				//return false;
-			}
-            if ( me.$ast.val() ) {
-                objdata['actStartTime'] = new Date( me.$ast.val() ).getTime();
-            }else{
-				 //objdata['actStartTime'] = '';
-				 util.showToast('请完善活跃时间');
-				return false;
-			}
-            if ( me.$aet.val() ) {
-                objdata['actEndTime'] = new Date( me.$aet.val() ).getTime();
-            }else{
-				//objdata['actEndTime'] ='';
-				util.showToast('请完善活跃时间');
-				return false;
-			}
-			objdata['name'] = me.$alName.val()||'';
-			objdata['enterAccount'] = me.$enterpriseAccount.val()||'';
-			
-            $('#btnDownExel').addClass( 'disable');
-            $('#btnDownExel').attr( 'disabled', 'disabled' );
-			$('#btnQyrhyExel').attr( 'disabled', 'disabled' );
-			$('#btnQyrhyExel').addClass( 'disable');
-			$('#btnQyrhyExel').text('导出中...');
-			window.open( '/op/api/query/eaactimport/generate?' + $.param( objdata ) );
-			$('#btnDownExel').removeClass( 'disable' );
-			$('#btnQyrhyExel').removeClass( 'disable' );
-
-			$('#btnDownExel').removeAttr( 'disabled' );
-			$('#btnQyrhyExel').removeAttr( 'disabled' );
-
-			$('#btnQyrhyExel').text('日活详情导出');  
-        },*/
 		
         generate: function() {
             var me = this;

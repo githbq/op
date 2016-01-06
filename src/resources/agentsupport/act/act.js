@@ -18,7 +18,7 @@ define( function( require, exports, module ) {
             '#alListType': 'listType',
             '#alList': 'list',
             '#btnSearch': 'search',
-            '.list-content': 'result',
+            '.list-content': 'result'
         },
         events: {
             'click #btnSearch': 'search',

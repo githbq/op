@@ -1,7 +1,5 @@
 define( function( require, exports, module ) {
-    var IBSS = window.IBSS,TPL = IBSS.tpl;
-	 var Pagination = require('common/widget/pagination/pagination');
-	 var Slider = require('common/widget/slider/slider');
+    var IBSS = window.IBSS;
 
     var ActLst = MClass( M.Center ).include( {
 
@@ -22,14 +20,14 @@ define( function( require, exports, module ) {
 			'.list-content tbody': 'tbody',
 			'.alName':'alName',
 			'.alDay':'alDay',
-			'#btnQyrhyExel':'btnQyrhyExel',
+			'#btnQyrhyExel':'btnQyrhyExel'
         },
         events: {
             'click #btnSearch': 'search',
             'click #btnClear': 'clear',
             'click #btnReset': 'reset',
             'click #btnGenerate': 'generate',
-			'click #btnQyrhyExel': 'RyhysExel',
+			'click #btnQyrhyExel': 'RyhysExel'
         },
         init: function() {
             ActLst.__super__.init.apply( this, arguments );
@@ -86,7 +84,7 @@ define( function( require, exports, module ) {
        
    
         search: function() {
-            var me = this;
+   
 			this.pagination.setPage( 0 ,false );
             this.getList();
         },
@@ -100,14 +98,14 @@ define( function( require, exports, module ) {
                 objdata['actStartTime'] = new Date( me.$ast.val() ).getTime();
 				
             }else{
-				 //objdata['actStartTime'] = '';
+				 
 				 util.showToast('请填写活跃时间');
 				return false;
 			}
             if ( me.$aet.val() ) {
                 objdata['actEndTime'] = new Date( me.$aet.val() ).getTime();
             }else{
-				//objdata['actEndTime'] ='';
+				
 				util.showToast('请填写活跃时间');
 				return false;
 			}

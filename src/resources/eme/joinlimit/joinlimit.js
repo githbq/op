@@ -62,7 +62,7 @@ define( function( require, exports, module ) {
                 'success': function( data ){
                     console.warn( data );
                     if( data.success ){
-                        util.showTip( '可注册企业上限修改成功！' );
+                        util.showTip( '可加入企业上限修改成功！' );
 						me.load();
 						me.trigger('updateLimit');
                     }
@@ -133,7 +133,7 @@ define( function( require, exports, module ) {
                     if ( data.success ) {
                         me.stopPagination.setTotalSize( data.value.model.itemCount );
 						data.value.model.content.forEach( function( item ){
-								item.intercepttimeStr = new Date( item.intercepttime )._format('yyyy-MM-dd hh:mm');
+								item.createTimeStr = new Date( item.createTime )._format('yyyy-MM-dd hh:mm');
 						});
                         me.stopCollection.init( data.value.model.content );
 

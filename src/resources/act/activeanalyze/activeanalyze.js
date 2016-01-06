@@ -1,9 +1,7 @@
 define( function( require, exports, module ) {
-    var IBSS = window.IBSS,TPL = IBSS.tpl;
-	 var Pagination = require('common/widget/pagination/pagination');
-	 var Slider = require('common/widget/slider/slider');
-	 
-	 var tem = $( require('./template.html') );
+	
+	var Pagination = require('common/widget/pagination/pagination');
+	var tem = $( require('./template.html') );
 
     var ActLst = MClass( M.Center ).include( {
 
@@ -13,7 +11,7 @@ define( function( require, exports, module ) {
 			'.account':'account',
 			'.sellName':'sellName',
 			'.activityCount':'activityCount',
-			'tbody': 'tbody',
+			'tbody': 'tbody'
         },
         events: {
            'click .btn-search':'searchEve'
@@ -71,7 +69,6 @@ define( function( require, exports, module ) {
         },
 
         searchEve: function() {
-            var me = this;
 			this.pagination.setPage( 0 ,false );
             this.getList();
         },
@@ -118,8 +115,6 @@ define( function( require, exports, module ) {
                     console.warn( data );
                     if( data.success ){
 						me.collection.reload( data.value.model.content);
-
-						//me.list.reload( data.value.model.content );
                         me.pagination.setTotalSize( data.value.model.itemCount );
                         
                     }

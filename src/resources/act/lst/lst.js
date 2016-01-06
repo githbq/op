@@ -1,7 +1,6 @@
 define( function( require, exports, module ) {
-    var IBSS = window.IBSS,TPL = IBSS.tpl;
+    var IBSS = window.IBSS;
 	 var Pagination = require('common/widget/pagination/pagination');
-	 var Slider = require('common/widget/slider/slider');
     var tpl = $( require( './template.html' ) );
 
     var ActLst = MClass( M.Center ).include( {
@@ -36,22 +35,13 @@ define( function( require, exports, module ) {
             'click #btnDownload': 'download',
 			'click #btnDownExel': 'downExel',
 			'click #btnQyrhyExel': 'QyrhyExel',
-			'click #btnRyhysExel': 'RyhysExel',
+			'click #btnRyhysExel': 'RyhysExel'
         },
 		trTpl: _.template( tpl.filter('#trTpl').html() ),
         init: function() {
             ActLst.__super__.init.apply( this, arguments );
             var me = this;
 			
-			/*me.pagination = new Pagination( {
-                'wrapper': me.$view.find('.list-pager'),
-                'pageSize': 20,
-                'pageNumber': 0
-            });
-            me.pagination.render();
-            me.pagination.onChange = function(){
-               me.getList();
-            }*/
             me.$cst.val( util.getDateStr(-30) );
             me.$cet.val( util.getDateStr(-1) );
 
@@ -108,15 +98,13 @@ define( function( require, exports, module ) {
                 },
                 timepicker: false
             } );
-            //me.$ast.val( me.getDateString( -8 ) );
-            //me.$aet.val( me.getDateString( -1 ) );
+  
         },
         initializeSelect: function() {
-			var me = this;
+			
             this.generateSelect( 'INDUSTRY', this.$industry );
             this.generateSelect( 'PRODUCT_MODULE', this.$pModule );
             this.generateSelect( 'ENT_LST_SOURCE', this.$source );
-			//me.getList();
         },
 		//渲染企业列表数据
     	renderList: function(){
@@ -144,9 +132,9 @@ define( function( require, exports, module ) {
         },
         
         search: function() {
-            var me = this;
+           
 			this.pagination.setPage( 0 ,false );
-            //this.getList();
+            
         },
 		//日活列表导出
 		downExel:function() {
@@ -178,8 +166,6 @@ define( function( require, exports, module ) {
             objdata['name'] = me.$alName.val()||'';
             objdata['enterAccount'] = me.$enterpriseAccount.val()||'';
             
-        
-            //window.open('/op/api/query/eadayimport/generate?' + $.param( objdata ) );
             var filepath = '';
             util.api({
                 'url': '~/op/api/query/eadayimport/generate',
@@ -224,20 +210,17 @@ define( function( require, exports, module ) {
                     },
                     'complete': function( xhr, status ){
 
-                        if( xhr.status == 200 ){
+                        if( xhr.status === 200 ){
 
-                            console.log('status:200');
                             setTimeout( function(){
                                 reset();
                                 me.$downloaddayactive.show().find('a').attr('href','/op/api/file/downloadeadayimport?filePath='+filepath);
                             },5000);
-                        }else if( xhr.status == 404 ){
+                        }else if( xhr.status === 404 ){
 
-                            console.log('status:404');
                             setTimeout(function(){ checkExport() },5000 );
                         }else{
 
-                            console.log('status:undefined');
                             reset();
                             util.showToast('生成失败');
                         }
@@ -254,27 +237,25 @@ define( function( require, exports, module ) {
                 objdata['appTimeStart'] = new Date( me.$cst.val() ).getTime();
             }else{
 				objdata['appTimeStart'] = '';
-				//util.showToast('请完善开通时间');
-				//return false;
+				
 			}
             if ( me.$cet.val() ) {
                objdata['appTimeEnd'] = new Date( me.$cet.val() ).getTime();
             }else{
 				objdata['appTimeEnd'] ='';
-				//util.showToast('请完善开通时间');
-				//return false;
+				
 			}
             if ( me.$ast.val() ) {
                 objdata['actStartTime'] = new Date( me.$ast.val() ).getTime();
             }else{
-				 //objdata['actStartTime'] = '';
+				
 				 util.showToast('请完善活跃时间');
 				return false;
 			}
             if ( me.$aet.val() ) {
                 objdata['actEndTime'] = new Date( me.$aet.val() ).getTime();
             }else{
-				//objdata['actEndTime'] ='';
+				
 				util.showToast('请完善活跃时间');
 				return false;
 			}

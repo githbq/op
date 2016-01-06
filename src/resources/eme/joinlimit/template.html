@@ -2,11 +2,11 @@
     <% _.each(content,function( value ,index ){ %>
     <tr>
         <td></td>
-        <td><%=value.mobileoremail%></td>
-        <td><%=value.limit%></td>
-        <td><%=value.usedcount%></td>
+        <td><%=value.M2%></td>
+        <td><%=value.M3%></td>
+        <td><%=value.M4%></td>
         <td>
-            <em class="accountdetail" data-mobile="<%=value.mobileoremail%>" data-limit="<%=value.limit%>" data-usedcount="<%=value.usedcount%>" >查看</em>
+            <em class="accountdetail" data-mobile="<%=value.M2%>" data-limit="<%=value.M3%>" data-usedcount="<%=value.M4%>" >查看</em>
 		</td>
         <td></td>
     </tr>
@@ -24,7 +24,7 @@
 					<input name="mobile" class="g-ipt ipt-s mobile"  type="text" ce-model="mobile" disabled=disabled/>
 				</label>
 				<label>
-					<span>可注册企业上限</span>
+					<span>可加入企业上限</span>
 					<input name="limit" class="g-ipt ipt-s limit" type="text" ce-model="limit" onchange="this.value=this.value.replace(/\D/g,'')"/>
 				</label>
 				<label>
@@ -89,9 +89,9 @@
 	<% _.each(content,function( value ,index ){ %>
     <tr>
         <td></td>
-        <td><%=value.intercepttimeStr %></td>
+        <td><%=value.createTimeStr %></td>
         <td><%=value.mobile%></td>
-        <td><%=value.description%></td>
+        <td>手机号<%=value.mobile%>可加入企业上限为<%=value.maxLimit%>，已用量为<%=value.currentCount%>，尝试加入企业被拦截</td>
         <td></td>
     </tr>
     <% }) %>
