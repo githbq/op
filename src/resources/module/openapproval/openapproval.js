@@ -271,6 +271,11 @@ define( function(require, exports, module){
 						console.warn( data );
 						if( data.success ){
 							var tempDiscount = parseFloat(data.value.model).toFixed(1);
+							if(tempDiscount<0){
+								util.showToast('计算所得折扣小于0，请重新调整金额！');
+								return false;
+							}
+
 							me.model.set('discount', tempDiscount);
 							//me.$actionSave.removeAttr('disabled');
 							//me.$actionSave.text('保存');
