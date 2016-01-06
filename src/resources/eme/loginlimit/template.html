@@ -1,0 +1,99 @@
+<script type="text/template" id="trEme">
+    <% _.each(content,function( value ,index ){ %>
+    <tr>
+        <td></td>
+        <td><%=value.mobileoremail%></td>
+        <td><%=value.limit%></td>
+        <td><%=value.usedcount%></td>
+        <td>
+            <em class="accountdetail" data-mobile="<%=value.mobileoremail%>" data-limit="<%=value.limit%>" data-usedcount="<%=value.usedcount%>" >查看</em>
+		</td>
+        <td></td>
+    </tr>
+    <% }) %>
+</script>
+
+
+<script type="text/template" id="accountDetail">
+    <div class="m-accountdetail  u-tablelist">
+		<div class="list-bar">
+			
+			<div class="list-bar-input">
+				<label>
+					<span>账号</span>
+					<input name="mobile" class="g-ipt ipt-s mobile"  type="text" ce-model="mobile" disabled=disabled/>
+				</label>
+				<label>
+					<span>可注册企业上限</span>
+					<input name="limit" class="g-ipt ipt-s limit" type="text" ce-model="limit" onchange="this.value=this.value.replace(/\D/g,'')"/>
+				</label>
+				<label>
+					<span>已用量</span>
+					<input name="usedcount" class="g-ipt ipt-s usedcount" type="text" ce-model="usedcount" disabled=disabled/>
+				</label>
+			</div>
+			<p style="text-align:right;"><button id="saveLimit" class="btn-blue">保存</button></p>
+		</div>
+		<h3 style="padding:10px 0px; font-size:16px; font-weight:bold; color:#666;background:#f8f8f8;">操作日志</h3>
+		 <div class="list-content">
+			<table class="operating-log">
+				<thead>
+				<tr>
+					<th></th>
+					<th style="width: 180px;">操作日志</th>
+					<th style="width: 100px;">操作人</th>
+					<th style="">时间</th>
+					<th></th>
+				</tr>
+				</thead>
+				<tbody>
+					
+				</tbody>
+			</table>
+		</div>
+		<div class="list-pager operating-list-pager" style="border:none;">
+		</div>
+		<h3 style="font-size:16px; font-weight:bold; color:#666;background:#f8f8f8;">拦截日志</h3>
+		 <div class="list-content">
+			<table class="stop-log">
+				<thead>
+				<tr>
+					<th></th>
+					<th style="width: 120px;">时间</th>
+					<th style="width: 100px;">账号</th>
+					<th style="">拦截信息</th>
+					<th></th>
+				</tr>
+				</thead>
+				<tbody>
+					
+				</tbody>
+			</table>
+		</div>
+		<div class="list-pager stop-list-pager" style="border:none;">
+		</div>
+    </div>
+</script>
+<script type="text/template" id="trloglist">
+	<% _.each(content,function( value ,index ){ %>
+    <tr>
+        <td></td>
+        <td><%=value.remark %></td>
+        <td><%=value.creatorName%></td>
+        <td><%=value.createTimeStr%></td>
+        <td></td>
+    </tr>
+    <% }) %>
+</script>
+<script type="text/template" id="trstoplist">
+	<% _.each(content,function( value ,index ){ %>
+    <tr>
+        <td></td>
+        <td><%=value.intercepttimeStr %></td>
+        <td><%=value.mobile%></td>
+        <td><%=value.description%></td>
+        <td></td>
+    </tr>
+    <% }) %>
+</script>
+
