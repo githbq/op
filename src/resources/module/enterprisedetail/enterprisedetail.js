@@ -241,7 +241,7 @@ define( function(require, exports, module){
 			'#sSms': 'sSms',
 			'#sStorage': 'sStorage',
 			
-			'#sDevice': 'sDevice',     //销客终端扩容
+			'#sDevice': 'sDevice',     			 //销客终端扩容
 
 			'#yingxiao': 'yingxiao',             //营销版终端总量
 			'#yingxiaoAdd': 'yingxiaoAdd',	     //营销版终端扩容
@@ -400,7 +400,9 @@ define( function(require, exports, module){
 			'click .callback-actionoff': 'callbackOffEve',    	//电话回访失败
 			'click .verificationaction-on': 'veriOnEve',      	//资料审核成功
 			'click .verificationaction-off': 'veriOffEve',	  	//资料审核失败
-			'click .fn-buy-free':'fnBuyFreeEve',                //营销版办公版增购tab切换
+			'click .fn-buy-free': 'fnBuyFreeEve',               //营销版办公版增购tab切换
+
+			'click .savemonitoring': 'saveMonitoringEve',       //保存监控信息
 
 			'click .employee-detail':'employeeDetailEve'
 		}, 
@@ -590,6 +592,7 @@ define( function(require, exports, module){
 		tplLog: _.template( tpl.filter('#trLog').html() ),
 		tpCardList: _.template( tpl.filter('#trCardList').html() ),
 		tplCallBackList: _.template( tpl.filter('#callBackList').html() ),
+		tplMonitorList: _.template( tpl.filter('#monitoringList').html() ),      //监控列表
 
 		init: function(attrs){
 			EntDetail.__super__.init.apply( this,arguments );
@@ -636,7 +639,7 @@ define( function(require, exports, module){
 
 			/**
 			 *
-			 *  培训信息
+			 * 培训信息
 			 */
 			me.training = {
 				isInitializes: false,
@@ -652,6 +655,15 @@ define( function(require, exports, module){
 				console.log('updatesuccess');
 				me.loadTraining();
 			});
+
+			/**
+			 *
+			 * 企业监控
+			 */
+			 me.monitoring = {
+			 	pagination: null
+			 };
+
 
 			//初始化日期选择
 			me.initializeDatepickers();
@@ -1800,6 +1812,117 @@ define( function(require, exports, module){
 		 */
 		showMonitoring: function(){
 			console.log('monitoring');
+			var me = this;
+
+			me.$('#monitoringDay').val('');   	//安全监控天数
+			me.$('#monitoringSTime').val(''); 	//监控开始时间
+			me.$('#monitoringETime').val('');   //监控结束时间
+
+			//查询企业安全监控信息
+			util.api({
+				'url':'/enterprise/getenterprisemonitor',
+				'data':{
+					'enterpriseId': me.model.attrs['enterpriseId']
+				},
+				'success': function( data ){
+					console.warn( data );
+					if( data.success ){
+						
+						me.$('#monitoringDay').val( data.value.model['M10'] );
+						me.$('#monitoringSTime').val( new Date( data.value.model['M9']   )._format('yyyy-MM-dd') );
+						me.$('#monitoringETime').val( new Date( data.value.model['M11']  )._format('yyyy-MM-dd') );
+					}
+				}
+			});
+
+			if( me.monitoring.pagination ){
+				me.monitoring.pagination.setPage(0,true);
+			}else{
+				me.monitoring.pagination = new Pagination({
+					wrapper: me.$view.find('#monitoring .pager'),
+					pageSize: 10,
+					pageNumber: 0
+				});
+				me.monitoring.pagination.render();
+				me.monitoring.pagination.onChange = function(){
+					me.loadMonitoringLog();
+				};
+				me.loadMonitoringLog();
+			}
+
+			//是否监控企业安全
+			/*
+			util.api({
+				'url':'/enterprise/getenterpriseismonitor',
+				'data':{
+					'enterpriseId': me.model.attrs['enterpriseId']
+				},
+				'success': function( data ){
+					console.warn( data );
+					if( data.success ){
+						
+					}
+				}
+			})
+			*/
+		},
+
+		//load企业监控日志
+		loadMonitoringLog: function(){
+			var me = this;
+
+			util.api({
+				'url':'/enterprise/querypageenterprisemoniorlog',
+				'data':{
+					'pageIndex': me.monitoring.pagination.attr['pageNumber'] + 1, 
+					'pageSize': me.monitoring.pagination.attr['pageSize'], 
+					'enterpriseId': me.model.get('enterpriseId')
+				},
+				'beforeSend': function(){
+					me.$('#monitoring tbody').html('<tr><td colspan="4"><p class="info">加载中</p></td></tr>');
+				},
+				'success': function( data ){
+					console.warn( data );
+					if( data.success ){
+						me.monitoring.pagination.setTotalSize( data.value.model.itemCount );
+
+						if( data.value.model.content.length > 0 ){
+							
+							data.value.model.content.forEach(function( item ){
+								item.createTimeStr = new Date( item.createTime )._format('yyyy-MM-dd hh:mm');
+							});
+							me.$('#monitoring tbody').html( me.tplMonitorList( data.value.model ) );
+						}else{
+							me.$('#monitoring tbody').html('<tr><td colspan="4"><p class="info">暂无数据</p></td></tr>');
+						}
+					}
+				},
+				'error': function(){
+					me.$('#monitoring tbody').html('<tr><td colspan="4"><p class="info">数据加载失败</p></td></tr>');
+				}
+			})
+		},
+
+		//保存监控信息
+		saveMonitoringEve: function(){
+			console.log(1)
+			var me = this;
+			util.api({
+				'url': '/enterprise/updateenterprisemonior',
+				'data':{
+					'enterpriseId': me.model.get('enterpriseId'),
+					'isMonitor': me.$('#monitoringIs').val(),
+					'monitorDay': me.$('#monitoringDay').val(),
+					'monitorStartTime': new Date( me.$('#monitoringSTime').val() ).getTime(),
+					//'monitorEndTime': ''
+				},
+				'success': function( data ){
+					console.warn( data );
+					if( data.success ){
+						me.showMonitoring();
+					}
+				}
+			})
 		},
 
 		//添加培训详情
@@ -1862,7 +1985,6 @@ define( function(require, exports, module){
 					}
 				}
 			})
-			
 		},
 
 		/**
@@ -2737,59 +2859,8 @@ define( function(require, exports, module){
 			}
 			
 			/**
-			 *    第一层判断
-			 *    me._usestatus
-			 *    1   已确定不同步
-			 *	
-			 * 
-			 *    如果设置了[营销版到期时间] 且 [签约到期时间] 未设置
-			 *			如果[签约到期时间] 是9999-1-1
-			 *	  			则提醒 是否 同步到签约到期时间 是 则 同步并提交  否 则 自行设置后提交
-			 *	  		如果[签约到期时间] 已有值
-			 *				则提醒 是否 同步到签约到期时间 是 则 同步并提交  否 则 直接提交
 			 *
-			 */
-			 /*
-			if( data.marketingEndTime && !data.productEndTime ){
-
-				if( me.$sdXKET.val() == '永久' ){
-					if( confirm('是否将签约到期时间和营销版到期时间设置成相同值?') ){
-						
-						data.productEndTime = data.marketingEndTime;
-					}else{
-
-						me._usestatus = 1;
-						return false;
-					}
-
-				}else{
-					if( confirm('是否将签约到期时间和营销版到期时间设置成相同值?') ){
-
-						data.productEndTime = data.marketingEndTime;
-					}
-				}
-			}
-
-			if( data.marketingEndTime && data.productEndTime ){
-
-				if( (data.marketingEndTime != data.productEndTime) && (me._usestatus != 1 )  ){
-					if( confirm('是否将签约到期时间和营销版到期时间设置成相同值?') ){
-						data.productEndTime = data.marketingEndTime;
-					}
-				}
-
-			}
-			*/
-		 	/*
-			 if( data.marketingEndTime ){
-			 	data.productEndTime = data.marketingEndTime;
-			 }
-			*/
-
-
-			/**
-			 *
-			 *   第二层判断
+			 * 判断
 			 */
 			if( data.marketingEndTime && ( me.$yingxiaoSum.val() == 0 ) && (data.marketingAccountAmount == '') && (data.increaseMarketingAmount == '') ){
 				util.showTip('请填写营销版终端总量或营销版终端扩容个数');

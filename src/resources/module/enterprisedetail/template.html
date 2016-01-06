@@ -81,6 +81,17 @@
 	<% }) %>
 </script>
 
+<!--企业监控-->
+<script type="text/template" id="monitoringList">
+	<% _.each( content,function( item ){ %>
+	<tr>
+		<td><%=item.remark%></td>
+		<td><%=item.createTimeStr%></td>
+		<td><%=item.creatorName%></td>
+	</tr>
+	<% }) %>
+</script>
+
 <script type="text/template" id="training">
 	<div class="m-training">
 		<p>
