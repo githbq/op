@@ -50,19 +50,20 @@
 	 * seajs配置
 	 * fetch时增加版本号 防止缓存
 	 */
+	/*
 	seajs.on("fetch", function(data) {
 		data.requestUri = data.uri + '?v='+IBSS.VERSION; 
 	});
+	*/
 
 	/*
 	 * seajs配置
 	 */
 	seajs.config({
-		/*
+		
 		map: [
-    		[ '.js', '.js?v=20151118.2' ]
+    		[ '.js', '.js?v=' + IBSS.VERSION ]
   		],
-		*/
 		paths: {
 			'common': IBSS.COMMON_PATH,
 			'module': IBSS.BASE_PATH + '/module'

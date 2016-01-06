@@ -1003,20 +1003,20 @@
 		</section>
 		
 		<!--安全监控-->
-		<section class="accordian collapse off" data-target="monitoring">
+		<section class="accordian collapse off" data-target="monitoring" id="monitoring">
 			<h4><span class="arraw"></span>安全监控</h4>
 			<div class="content">
 				<p>
 					<label class="hw">
 						<span>安全监控</span>
-						<select class="g-ipt ipt-m">
-							<option value="0">否</option>
+						<select class="g-ipt ipt-m" id="monitoringIs">
 							<option value="1">是</option>
+							<option value="0">否</option>
 						</select>
 					</label>
 					<label class="hw">
 						<span>安全监控期(天)</span>
-						<input type="text" class="g-ipt ipt-m">
+						<input type="text" class="g-ipt ipt-m" id="monitoringDay">
 					</label>
 				</p>
 				<p>
@@ -1026,36 +1026,25 @@
 					</label>
 					<label class="hw">
 						<span>监控结束时间</span>
-						<input type="text" class="g-ipt ipt-m" id="monitoringETime">
+						<input type="text" class="g-ipt ipt-m" id="monitoringETime" disabled="disabled">
 					</label>
 				</p>
 				<p class="detail-btn">
-					<button class="u-btn-blue" class="savemonitoring">保存</button>
+					<button class="u-btn-blue savemonitoring">保存</button>
 				</p>
 				<table>
 					<thead>
 						<tr>
-							<th>序号</th>
+							<th>调整日志</th>
 							<th>操作时间</th>
-							<th>调整天数</th>
 							<th>操作人</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>1</td>
-							<td>2</td>
-							<td>3</td>
-							<td>4</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>2</td>
-							<td>3</td>
-							<td>4</td>
-						</tr>
+						<!-- -->
 					</tbody>
 				</table>
+				<p class="pager"></p>
 			</div>
 		</section>
 
