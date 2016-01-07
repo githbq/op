@@ -21,11 +21,11 @@
 			<div class="list-bar-input">
 				<label>
 					<span>账号</span>
-					<input name="mobile" class="g-ipt ipt-s mobile"  type="text" ce-model="mobile" disabled=disabled/>
+					<input name="mobile" class="g-ipt ipt-s mobile"  type="text" ce-model="mobile" disabled=disabled style="width:102px;"/>
 				</label>
 				<label>
 					<span>可加入企业上限</span>
-					<input name="limit" class="g-ipt ipt-s limit" type="text" ce-model="limit" onchange="this.value=this.value.replace(/\D/g,'')"/>
+					<input name="limit" class="g-ipt ipt-s limit" type="text" ce-model="limit" maxlength=4 onchange="this.value=this.value.replace(/\D/g,'')"/>
 				</label>
 				<label>
 					<span>已用量</span>

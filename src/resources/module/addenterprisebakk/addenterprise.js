@@ -368,9 +368,7 @@ define( function(require, exports, module){
 
 
 			if( accountAmount && contractPrice && contractStartTime && contractEndTime && buyBusinessCard ){
-				
-				me.$actionAdd.text('折扣计算中...');
-				me.$actionAdd.attr('disabled','disabled');
+			
 
 				me.discountxhr && me.discountxhr.abort();
 				me.discountxhr = util.api({
