@@ -661,6 +661,7 @@ define( function(require, exports, module){
 			 * 企业监控
 			 */
 			 me.monitoring = {
+			 	isInitializes: false,
 			 	pagination: null
 			 };
 
@@ -1818,6 +1819,17 @@ define( function(require, exports, module){
 			me.$('#monitoringSTime').val(''); 	//监控开始时间
 			me.$('#monitoringETime').val('');   //监控结束时间
 
+			function refreshstate(){
+				if( me.$('#monitoringIs').val() == 0 ){
+					me.$('#monitoringDay').attr('disabled','disabled');
+					me.$('#monitoringSTime').attr('disabled','disabled');
+				}else{
+					me.$('#monitoringDay').removeAttr('disabled');
+					me.$('#monitoringSTime').removeAttr('disabled');
+				} 
+			}
+
+
 			//查询企业安全监控信息
 			util.api({
 				'url':'/enterprise/getenterprisemonitor',
@@ -1828,16 +1840,28 @@ define( function(require, exports, module){
 					console.warn( data );
 					if( data.success ){
 						
+						me.$('#monitoringIs').val( data.value['isMonitoring'] );
 						me.$('#monitoringDay').val( data.value.model['M10'] );
 						me.$('#monitoringSTime').val( new Date( data.value.model['M9']   )._format('yyyy-MM-dd') );
 						me.$('#monitoringETime').val( new Date( data.value.model['M11']  )._format('yyyy-MM-dd') );
+						refreshstate();
 					}
 				}
 			});
 
-			if( me.monitoring.pagination ){
+
+
+
+			if( me.monitoring.isInitializes ){
+
 				me.monitoring.pagination.setPage(0,true);
+				
 			}else{
+
+				me.$('#monitoringIs').on('change',function(){
+					refreshstate();
+				});
+
 				me.monitoring.pagination = new Pagination({
 					wrapper: me.$view.find('#monitoring .pager'),
 					pageSize: 10,
@@ -1848,23 +1872,8 @@ define( function(require, exports, module){
 					me.loadMonitoringLog();
 				};
 				me.loadMonitoringLog();
+				me.monitoring.isInitializes = true;
 			}
-
-			//是否监控企业安全
-			/*
-			util.api({
-				'url':'/enterprise/getenterpriseismonitor',
-				'data':{
-					'enterpriseId': me.model.attrs['enterpriseId']
-				},
-				'success': function( data ){
-					console.warn( data );
-					if( data.success ){
-						
-					}
-				}
-			})
-			*/
 		},
 
 		//load企业监控日志
