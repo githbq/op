@@ -29,6 +29,7 @@
                     <li><a href="#qry/partner">合作伙伴</a></li>
                     <li><a href="#qry/exp">演示帐号</a></li>
                     <li><a href="#qry/cyc">查一查</a></li>
+                    <li><a href="#index/agentexport">代理商员工导出</a></li>
                 </ul>
             </li>
 
@@ -92,8 +93,8 @@
                     <li data-permissions="F008002 F008006"><a href="#eme/lst">客户</a></li>
                     <!--热线查询单独菜单-->
                     <li data-permissions="F008005"><a href="#eme/clientlst">热线查询</a></li>
-					<!--<li data-permissions="F008001 F008002 F008006 F008005"><a href="#eme/joinlimit">账号加入上限</a></li>
-					<li data-permissions="F008001 F008002 F008006 F008005"><a href="#eme/loginlimit">账号注册上限</a></li>-->
+                    <!--<li data-permissions="F008001 F008002 F008006 F008005"><a href="#eme/joinlimit">账号加入上限</a></li>
+                    <li data-permissions="F008001 F008002 F008006 F008005"><a href="#eme/loginlimit">账号注册上限</a></li>-->
                 </ul>
             </li>
             
@@ -172,5 +173,6 @@
 
 </body>
 </html>
+
 
 
