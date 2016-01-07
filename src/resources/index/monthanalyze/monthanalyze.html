@@ -20,6 +20,12 @@
 								<option value="2">代理商</option>
 							</select>
 						</label>
+						<label><span>公司</span>
+							<input   type="text" class="g-ipt ipt-m companyId" onchange="this.value=this.value.replace(/(^\s*)|(\s*$)/g,'')" data-id="-1" data-agentid="-1"/>
+						</label>
+						<label><span>团队</span>
+							<input   type="text" class="g-ipt ipt-m deptId" onchange="this.value=this.value.replace(/(^\s*)|(\s*$)/g,'')" data-deptId="-1"/>
+						</label>
 						<label>
 							<span>年份</span>
 							<select id="yearselect" ce-model="year">
@@ -69,13 +75,6 @@
 								<option value="1">月初满30天</option>
 								<option value="0">月初未满30天</option>
 							</select>
-						</label>
-					
-						<label><span>公司</span>
-							<input   type="text" class="g-ipt ipt-m companyId" onchange="this.value=this.value.replace(/(^\s*)|(\s*$)/g,'')" data-id="-1" data-agentid="-1"/>
-						</label>
-						<label><span>团队</span>
-							<input   type="text" class="g-ipt ipt-m deptId" onchange="this.value=this.value.replace(/(^\s*)|(\s*$)/g,'')" data-deptId="-1"/>
 						</label>
 						
 						<br />

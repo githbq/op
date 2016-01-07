@@ -52,8 +52,11 @@ define( function( require, exports, module ) {
 			me.teamTree.on('select',function(data){
 				me.$('.deptId').val(data.name);
 				me.$('.deptId').attr('data-deptid',data.id);
-				
 			});
+            me.teamTree.on('clear',function(data){
+                me.$('.deptId').val('');
+                me.$('.deptId').attr('data-deptid',-1);
+            })
 
             me.$('.companyType').on('change',function(e){
 

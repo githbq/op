@@ -24,14 +24,6 @@
     </div>
     <nav>
         <ul class="nav-main clearfix">
-            <!--
-            <li>
-                <a href="#agentsupport/query">查询</a>
-                <ul class="nav-sub">
-                    <li><a href="#agentsupport/query">综合查询</a></li>
-                </ul>
-            </li>
-            -->
             <li data-permissions="F009002 F009001">
                 <a href="#agentsupport/entprisefiling">备案企业</a>
                 <ul class="nav-sub">
@@ -42,47 +34,28 @@
             </li>
             <li>
                 <a href="#agentsupport/entpriselist">企业</a>
-                <!--
-                <ul class="nav-sub">
-                    <li><a href="#agentsupport/entpriselist">企业</a></li>
-                    <li  data-permissions="F009001"><a href="#agentsupport/registrationlist">自注册企业</a></li>
-                    <li><a href="#agentsupport/freereg">注册</a></li>
-                    <li><a href="#agentsupport/payreg">付费注册企业</a></li>
-                </ul>-->
             </li>
             <li>
-                <a href="#act/detail">活跃度</a>
+                <a href="#index/detail">活跃度</a>
                 <ul class="nav-sub">
-                    <li><a href="#act/detail">企业日活跃详情报表 </a></li>
-                    <li><a href="#act/lstreport">企业日活跃汇总报表</a></li>
-                    <li><a href="#act/personactive">个人活跃汇总</a></li>
+                    <li><a href="#index/detail">企业日活跃详情报表 </a></li>
+                    <li><a href="#index/lstreport">企业日活跃汇总报表</a></li>
+                    <li><a href="#index/personactive">个人活跃汇总</a></li>
                     <li data-permissions="F009002 F009001"><a href="#act/activeanalyze">阶段活跃分析</a></li>
-                   <!-- <li><a href="#act/rpt">月度报告</a></li>-->
+                    <li>
+                        <a href="#pagecommon/activeanalyze">阶段活跃团队分析</a>
+                    </li>
+                    <li>
+                        <a href="#pagecommon/monthanalyze">月季度团队数据分析</a>
+                    </li>
+                    <li>
+                        <a href="#pagecommon/seasonactive">月度季度总数据分析</a>
+                    </li>
                 </ul>
             </li>
             <li>
                 <a href="#agentsupport/renewlist">我的审批</a>
             </li>
-            <!--
-            <li  data-permissions="F009001">
-                <a href="#agentsupport/funnellist">销售漏斗</a>
-                <ul class="nav-sub">
-                    <li><a href="#agentsupport/funnellist">销售漏斗</a></li>
-                    <li><a href="#agentsupport/funneladdlist">增值漏斗</a></li>
-                </ul>
-            </li>
-           
-            <li>
-                <a href="#agentsupport/productlist">产品</a>
-            </li> -->
-            <!--<li data-permissions="F009001 F009003">
-                <a href="#agentsupport/customervalue">活跃企业</a>
-                <ul class="nav-sub">
-                    <li data-permissions="F009001 F009003"><a href="#agentsupport/customervalue">活跃企业</a></li>
-                    <li data-permissions="F009003"><a href="#agentsupport/customervaluemy">我的活跃企业</a></li>
-                </ul>
-            </li>-->
-            
         </ul>
     </nav>
 </header>
@@ -151,4 +124,5 @@
 </script>
 </body>
 </html>
+
 

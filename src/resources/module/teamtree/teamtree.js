@@ -28,7 +28,8 @@ define( function(require, exports, module){
         events: {
             'click .action-sure': 'sureEve',
             'click li': 'getChildrenEve',
-            'click .select': 'selectEve'
+            'click .select': 'selectEve',
+            'click .cancel': 'cancelEve'
         },
 
         elements: {
@@ -72,7 +73,7 @@ define( function(require, exports, module){
                         }else{
                             contentstr = "<p class='emptyinfo'>暂无数据</p>"
                         }
-                        me.$view.find('.m-teamtree').html(contentstr);
+                        me.$view.find('.m-teamtree .teamtree-content').html(contentstr);
                     }
                 }
             })
@@ -120,6 +121,14 @@ define( function(require, exports, module){
                 }
             }
             me.trigger('select',data);
+            me.hide();
+        },
+        cancelEve: function(e){
+            e.stopPropagation();
+
+            var me = this;
+
+            me.trigger('clear');
             me.hide();
         },
         //显示

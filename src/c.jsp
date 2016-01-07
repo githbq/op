@@ -43,6 +43,15 @@
                     <li>
                         <a href="#index/lstreport">企业日活跃汇总报表</a>
                     </li>
+                    <li>
+                        <a href="#pagecommon/activeanalyze">阶段活跃团队分析</a>
+                    </li>
+                    <li>
+                        <a href="#pagecommon/monthanalyze">月季度团队数据分析</a>
+                    </li>
+                    <li>
+                        <a href="#pagecommon/seasonactive">月度季度总数据分析</a>
+                    </li>
                 </ul>
             </li>
             <!--<li>
@@ -150,4 +159,5 @@
 
 </body>
 </html>
+
 
