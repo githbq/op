@@ -384,6 +384,7 @@ define( function(require, exports, module){
 						console.warn( data );
 						if( data.success ){
 							if(data.value.model<0){
+								me.model.set('discount', '');
 								util.showToast('计算所得折扣小于0,合同金额需大于等于名片金额！');
 								return false;
 							}
