@@ -128,7 +128,7 @@ define( function( require, exports, module ) {
 			//部门id
             data.deptId = me.$deptId.attr('data-deptId')||-1;
             //类型
-            data.companyType = 0;
+            data.companyType = me.$companyType.val();
 
             //开通时间开始
             if ( me.$appTimeStart.val() ) {

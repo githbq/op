@@ -1,0 +1,45 @@
+<script type="text/template" id="trTpl">
+    <% _.each( content, function( item ){ %>
+        <tr>
+            <td> <%=item.teamName%> </td>
+            <td> <%=item.employeeTpye%> </td>
+            <td> <%=item.employeeCount%> </td>
+			<td> <%=item.openCount%> </td>
+            <td> <%=item.averageVersionCount%>  </td>
+            <td> <%=item.averageOpenCount%>  </td>
+			<td> <%=item.firstPeriodActivityCount%>  </td>
+			<td> <%=(item.firstPeriodActivityRate * 100).toFixed(2)+'%'%>  </td>
+			<td> <%=item.firstPeriodAverageActivityCount%>  </td>
+			<td> <%=item.firstPeriodLaunchCount%>  </td>
+			<td> <%=item.secondPeriodActivityCount%>  </td>
+			<td> <%=(item.secondPeriodActivityRate * 100).toFixed(2)+'%'%>  </td>
+			<td> <%=(item.secondPeriodRemainRate * 100).toFixed(2)+'%'%>  </td>
+			<td> <%=item.secondPeriodAverageActivityCount%>  </td>
+			<td> <%=item.secondPeriodLaunchCount%>  </td>
+			<td> <%=(item.threePeriodActivityRate * 100).toFixed(2)+'%'%>  </td>
+			<td> <%=(item.threePeriodRemainRate * 100).toFixed(2)+'%'%>  </td>
+			<td> <%=item.threePeriodAverageActivityCount%>  </td>
+			<td> <%=(item.fourPeriodActivityRate * 100).toFixed(2)+'%'%>  </td>
+			<td> <%=(item.fourPeriodRemainRate * 100).toFixed(2)+'%'%>  </td>
+			<td> <%=item.fourPeriodAverageActivityCount%>  </td>
+			<td> <%=item.threeDayActivityCount%>  </td>
+			<td> <%=(item.threeDayActivityRate * 100).toFixed(2)+'%'%>  </td>
+			<td> <%=item.shareCount%>  </td>
+			<td> <%=item.planCount%>  </td>
+			<td> <%=item.followTopicCount%>  </td>
+			<td> <%=item.approveCount%>  </td>
+			<td> <%=item.praiseCount%>  </td>
+			<td> <%=item.replyCount%>  </td>
+			<td> <%=item.waiqinqiandaoCount%>  </td>
+			<td> <%=item.workCount%>  </td>
+			<td> <%=item.kaoqinqiandaoCount%>  </td>
+			<td> <%=item.scheduleCount%>  </td>
+			<td> <%=item.receiptCount%>  </td>
+			<td> <%=item.addCustomerCount%>  </td>
+			<td> <%=item.addContactCount%>  </td>
+			<td> <%=item.customerFollowCount%>  </td>
+			<td> <%=item.shareContactCount%>  </td>
+            <td></td>
+        </tr>
+    <% } )%>
+</script>

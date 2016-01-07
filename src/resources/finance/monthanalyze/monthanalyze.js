@@ -130,7 +130,7 @@ define( function( require, exports, module ) {
 
 			objdata['companyId'] = me.$('.companyId').attr('data-id')||-1;
 			objdata['deptId'] = me.$('.deptId').attr('data-deptId')||-1;
-            objdata['companyType'] = 0;
+            objdata['companyType'] = me.model.get('companyType');
             objdata['enterpriseType'] = me.model.get('enterpriseType');
 			objdata['month'] = month;
 			objdata['quarter'] = quarter;
