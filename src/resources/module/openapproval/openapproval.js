@@ -255,8 +255,7 @@ define( function(require, exports, module){
 			if( contractStartTime && contractEndTime && accountAmount && contractPrice && buyBusinessCard ){
 				//me.$actionSave.attr('disabled','disabled');
 				//me.$actionSave.text('折扣计算中...');
-				me.$actionResend.attr('disabled','disabled');
-				me.$actionResend.text('折扣计算中...');
+				
 				me.discountxhr && me.discountxhr.abort();
 				me.discountxhr = util.api({
 					url:'/enterprise/getdiscount',
@@ -272,6 +271,7 @@ define( function(require, exports, module){
 						if( data.success ){
 							var tempDiscount = parseFloat(data.value.model).toFixed(1);
 							if(tempDiscount<0){
+								me.model.set('discount', '');
 								util.showToast('计算所得折扣小于0,合同金额需大于等于名片金额！');
 								return false;
 							}
