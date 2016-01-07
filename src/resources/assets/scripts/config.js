@@ -29,16 +29,6 @@
 	IBSS.COMMON_PATH = IBSS.BASE_PATH + '/common';
 	
 	/*
-	*
-	* seajs配置
-	* fetch时增加版本号 防止缓存
-	*	*/
-	seajs.on("fetch", function(data) {
-		data.requestUri = data.uri + '?v='+IBSS.VERSION; 
-	});
-
-
-	/*
 	* 后端接口路径
 	*/
 	IBSS.UPLOAD_PATH = IBSS.API_PATH + '/upload/uploadpic';       //图片上传路径
