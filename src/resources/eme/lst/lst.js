@@ -8,6 +8,7 @@ define( function( require, exports, module ) {
 
     var tpl = $( require( './template.html' ) );
 
+
     var ResetWord = MClass( Slider ).include({
         content: tpl.filter('#resetWord').html(),
         events:{
@@ -68,6 +69,7 @@ define( function( require, exports, module ) {
             })
         }    
     });
+
 
     
     var AccountDetail = MClass( Slider ).include({
@@ -137,6 +139,10 @@ define( function( require, exports, module ) {
     });
 
 
+    /**
+     *
+     * 客户检索
+     */
     var EmployeeDataTable = MClass( M.Center ).include( {
         tplEme: _.template( tpl.filter( '#trEme' ).html() ),
         PAGESIZE: 20,
@@ -223,7 +229,7 @@ define( function( require, exports, module ) {
                     ename: me.$en.val(),
                     name: me.$name.val(),
                     mobile: me.$mobile.val(),
-                    pageIndex: me.pagination.attr['pageNumber'],
+                    pageIndex: me.pagination.attr['pageNumber'] + 1,
                     pageSize: me.pagination.attr['pageSize']
                 },
                 beforeSend: function() {
@@ -256,6 +262,7 @@ define( function( require, exports, module ) {
 
     exports.init = function() {
         var $el = exports.$el;
+        
         var employeeDataTable = new EmployeeDataTable( { 'view': $el.find( '.m-eme-lst' ) } );
         var resetWord = new ResetWord( {'title':'重置客户密码'} );
         var accountDetail = new AccountDetail();

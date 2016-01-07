@@ -2,18 +2,18 @@
     <% _.each(content,function( value ,index ){ %>
     <tr>
         <td></td>
-        <td><%=value.enterprise ? value.enterprise.enterpriseAccount : ''%></td>
-        <td><%=value.enterprise ? value.enterprise.enterpriseName : ''%></td>
-        <td><%=value.name%></td>
+        <td><%=value.enterpriseaccount%></td>
+        <td><%=value.enterprisename%></td>
+        <td><%=value.employeename%></td>
         <td><%=value.mobile%></td>
         <td><%=value.email%></td>
-        <td><%=value.title%></td>
-        <td><%=value.admin ? '是' : '否'%></td>
-        <td><em class="resetpwd" data-id="<%=value.id.employeeId%>" 
-                                 data-account="<%=value.id.enterpriseAccount%>">重置密码</em>
-            <em class="accountdetail" data-id="<%=value.id.employeeId%>" data-account="<%=value.enterprise && value.enterprise.enterpriseId%>">查看帐号详情</em>
-            <% if(!value.admin){%>
-                <em class="up" data-id="<%=value.id.employeeId%>" data-account="<%=value.id.enterpriseAccount%>">提升为管理员</em></td>
+        <td><%=value.post%></td>
+        <td><%=value.isadmin ? '是' : '否'%></td>
+        <td><em class="resetpwd" data-id="<%=value.employeeid%>" 
+                                 data-account="<%=value.enterpriseaccount%>">重置密码</em>
+            <em class="accountdetail" data-id="<%=value.employeeid%>" data-account="<%=value.enterpriseId%>">查看帐号详情</em>
+            <% if(!value.isadmin){%>
+                <em class="up" data-id="<%=value.employeeid%>" data-account="<%=value.enterpriseaccount%>">提升为管理员</em></td>
             <% }%>
         <td></td>
     </tr>
