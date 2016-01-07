@@ -53,10 +53,12 @@ define( function( require, exports, module ) {
 				me.$('.deptId').attr('data-deptid',-1);
 			});
 			me.$('.deptId').on('focus',function(){
+                
 				if(!me.$('.companyId').val()){
 					util.showToast('请先选择有效的公司！');
 					return false;
 				}
+
 				var companyId = me.$('.companyId').attr('data-id');
 				me.teamTree.show( companyId )	
 			})

@@ -90,7 +90,7 @@ define( function(require, exports, module){
             if( $li.hasClass('complete') ) return;
 
             util.api({
-                'url':'/activity/getsubdept',
+                'url':'~/op/api/s/activity/getsubdept',
                 'data':{
                     'companyId': me.companyId,
                     'parentId': $li.attr('data-id')

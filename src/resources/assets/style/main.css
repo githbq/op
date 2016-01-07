@@ -6546,6 +6546,9 @@ em {
   color: blue;
   float: right;
 }
+.m-teamtree .teamtree-content {
+  min-height: 182px;
+}
 .m-teamtree .emptyinfo {
   text-align: center;
   color: #ccc;
