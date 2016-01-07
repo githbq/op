@@ -3,9 +3,6 @@
   background: #fff;
   border: 1px #DADADA solid;
   border-radius: 4px;
-  -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.07);
-  -moz-box-shadow: 0 0 8px rgba(0, 0, 0, 0.07);
-  box-shadwo: 0 0 8px rgba(0, 0, 0, 0.07);
 }
 .u-tablelist .list-header {
   background: #f6f6f6;
