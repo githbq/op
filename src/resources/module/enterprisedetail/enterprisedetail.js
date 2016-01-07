@@ -2326,6 +2326,10 @@ define( function(require, exports, module){
 					'success': function( data ){
 						console.warn( data );
 						if( data.success ){
+							if(data.value.model.toFixed(1)<0){
+								util.showToast('计算折扣小于0,请重新调整金额');
+								return false;
+							}
 							me.model.set('discountAdd', (data.value.model.toFixed(1)));
 							me.$fnBuy.removeAttr('disabled');
 							me.$fnBuy.text('申请增购');
