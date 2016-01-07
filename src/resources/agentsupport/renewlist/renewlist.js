@@ -553,10 +553,7 @@ define( function( require, exports, module ) {
 			}
 
 			if( contractStartTime && contractEndTime && accountAmount && contractPrice && buyBusinessCard ){
-				me.$actionSave.attr('disabled','disabled');
-				me.$actionSave.text('折扣计算中...');
-				me.$actionResend.attr('disabled','disabled');
-				me.$actionResend.text('折扣计算中...');
+				
 				me.discountxhr && me.discountxhr.abort();
 				me.discountxhr = util.api({
 					url:'/enterprise/getdiscount',
