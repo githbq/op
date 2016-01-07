@@ -1922,7 +1922,7 @@ define( function(require, exports, module){
 					'enterpriseId': me.model.get('enterpriseId'),
 					'isMonitor': me.$('#monitoringIs').val(),
 					'monitorDay': me.$('#monitoringDay').val(),
-					'monitorStartTime': new Date( me.$('#monitoringSTime').val() ).getTime(),
+					'monitorStartTime': new Date( me.$('#monitoringSTime').val() ).getTime()
 					//'monitorEndTime': ''
 				},
 				'success': function( data ){
