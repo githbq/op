@@ -1,0 +1,88 @@
+<div class="p-list" js="true" cache="false">
+	<div class="m-active-analyze u-tablelist">
+		<div class="list-main">
+			<div class="list-header">
+				<h3>
+				阶段活跃分析
+				<div class="header-opts">
+					
+					<!--<button id="btnRyhysExel" class=" btn-exel">人员活跃企业数EXECL</button>-->
+				</div>
+				</h3>
+			</div>
+			<div class="list-bar">
+				<div class="list-bar-btns" style="width:200px;">
+					<button id="btnSearch" class="btn-blue btn-search">查询</button>
+				</div>
+				<div class="list-bar-input active-list">
+					
+					<label><span>公司类型</span>
+						<select class="g-ipt ipt-m companyType">
+							<option value="0">全部</option>
+							<option value="1">直销</option>
+							<option value="2">代理商</option>
+						</select>
+					</label>
+
+					<label><span>公司</span>
+						<input type="text" class="g-ipt ipt-m companyId" onchange="this.value=this.value.replace(/(^\s*)|(\s*$)/g,'')" data-id="-1" data-agentId="-1"/>
+					</label>
+
+					<label><span>团队</span>
+						<input type="text" class="g-ipt ipt-m deptId" onchange="this.value=this.value.replace(/(^\s*)|(\s*$)/g,'')" data-deptId="-1"/>
+					</label>
+					<label class="sp" >
+						<label>
+							<span>开通时间</span>
+							<input  ce-model="appTimeStart"   type="text" class="g-ipt ipt-l app-time-start" onkeyup='this.value=""'/>
+						</label>
+						<label>
+							<span>-</span>
+							<input ce-model="appTimeEnd"  type="text" class="g-ipt ipt-l app-time-end" onkeyup='this.value=""'/>
+						</label>
+					</label>
+					<label for="">
+						<span>阶段活跃</span>
+						<select name="" class="period" ce-model="period" >
+							<option value="1">第一阶段</option>
+							<option value="2">第二阶段</option>
+						</select>
+					</label>
+					<label for="">
+						<span>是否赠送办公版</span>
+						<select name="" class="enterpriseType" ce-model="enterpriseType" >
+							<option value="">全部</option>
+							<option value="1">是</option>
+							<option value="0">否</option>
+						</select>
+					</label>
+					<label><span>达到活跃天数</span>
+						<input ce-model="activityCount" type="text" class="g-ipt ipt-m activityCount" onchange="this.value=this.value.replace(/\D/g,'')"/>
+					</label>
+					<br />
+				</div>
+				
+			</div>
+			<div class="list-content">
+				<table>
+					<thead>
+						<tr>
+							<th></th>
+							<th style="min-width:160px">企业名称</th>
+							<th >开通时间</th>
+							<th style="width:200px;">平均开通数</th>
+							<th style="width:100px;">阶段活跃天数</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<!-- -->
+					</tbody>
+				</table>
+			</div>
+			<div class="list-pager">
+				
+			</div>
+		</div>
+	</div>
+</div>
