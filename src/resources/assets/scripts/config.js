@@ -54,6 +54,7 @@
 		map: [
     		[ '.js', '.js?v=' + IBSS.VERSION ]
   		],
+  		
 		paths: {
 			'common': IBSS.COMMON_PATH,
 			'module': IBSS.BASE_PATH + '/module'
