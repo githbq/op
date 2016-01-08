@@ -2,15 +2,15 @@
     <% _.each(content,function( value ,index ){ %>
     <tr>
         <td></td>
-        <td><%=value.enterprise ? value.enterprise.enterpriseAccount : ''%></td>
-        <td><%=value.enterprise ? value.enterprise.enterpriseName : ''%></td>
-        <td><%=value.name%></td>
+        <td><%=value.enterpriseaccount%></td>
+        <td><%=value.enterprisename%></td>
+        <td><%=value.employeename%></td>
         <td><%=value.mobile%></td>
         <td><%=value.email%></td>
-        <td><%=value.title%></td>
-        <td><%=value.admin ? '是' : '否'%></td>
+        <td><%=value.post%></td>
+        <td><%=value.isadmin ? '是' : '否'%></td>
         <td>
-            <em class="accountdetail" data-runStatus="<%=value.enterprise  &&value.enterprise.runStatus%>" data-contactPhone="<%=value.enterprise &&value.enterprise.contactPhone%>" data-contactName="<%=value.enterprise &&value.enterprise.contactName%>" data-id="<%=value.id.employeeId%>" data-account="<%=value.enterprise && value.enterprise.enterpriseId%>">查看详情</em>
+           <em class="accountdetail" data-runStatus="<%=value.runStatus%>" data-contactPhone="<%=value.contactPhone%>" data-contactName="<%=value.contactName%>" data-id="<%=value.employeeid%>" data-account="<%=value.enterpriseId%>">查看详情</em>
 		</td>
         <td></td>
     </tr>
@@ -37,4 +37,6 @@
     </div>
 </script>
 
-
+ <!--
+<em class="accountdetail" data-runStatus="<%=value.enterprise  &&value.enterprise.runStatus%>" data-contactPhone="<%=value.enterprise &&value.enterprise.contactPhone%>" data-contactName="<%=value.enterprise &&value.enterprise.contactName%>" data-id="<%=value.id.employeeId%>" data-account="<%=value.enterprise && value.enterprise.enterpriseId%>">查看详情</em>
+-->
