@@ -1,7 +1,7 @@
 define( function( require, exports, module ) {
     var IBSS = window.IBSS,TPL = IBSS.tpl;
-	 var Pagination = require('common/widget/pagination/pagination');
-	 var Slider = require('common/widget/slider/slider');
+	var Pagination = require('common/widget/pagination/pagination');
+	var Slider = require('common/widget/slider/slider');
     var tpl = $( require( './template.html' ) );
 
     var ActLst = MClass( M.Center ).include( {
