@@ -139,7 +139,7 @@ define( function( require, exports, module ) {
                     ename: '',
                     name: '',
                     mobile: me.$mobile.val(),
-                    pageIndex: me.pagination.attr['pageNumber'],
+                    pageIndex: me.pagination.attr['pageNumber'] + 1,
                     pageSize: me.pagination.attr['pageSize']
                 },
                 beforeSend: function() {

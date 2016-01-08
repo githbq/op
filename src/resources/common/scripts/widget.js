@@ -1,16 +1,14 @@
 /**
  *
- *
- *
- * @file
  * 	所有widget的父类
  * 	Class -> Event -> Center
  * 	一个模块可能在不同的场景中都会使用
  * 	有些元素可能会进行显隐 相关元素都可写
  * 	data-state属性 默认隐藏
  * 	在初始化时根据传入的state属性 进行显隐控制
- *  
+ *  数据驱动
  */
+
 ;(function(_, Backbone){
 
 	var win = this,
@@ -444,8 +442,8 @@
 	})
 
 	/*
-	 *Class Center
-	 *  
+	 * Class Center
+	 * 数据驱动
 	 */
 	var Center = MClass(Event).include({
 		init: function(attrs) {
@@ -511,6 +509,8 @@
 					return function(){temp.apply(me,arguments)};
 				})()
 				*/
+
+				//防止冒泡到body
 				var bindMethod = (function(method) {
 					var temp=method
 					return function(){temp.apply(me, arguments)};
@@ -526,6 +526,11 @@
 					me.$view.on(eventName, selector, bindMethod);
 				}
 			}
+
+			//防止事件冒泡到body
+			me.$view.on('click',function(e){
+				e.stopPropagation();
+			})
 		},
 
 		//////////////////
@@ -559,64 +564,23 @@
 						key = $element.attr('ce-model');
 
 					me.model.set( key, me._getValue( element ) );
-					$element.on('input change',function(){
+
+					//toto blur事件可以去掉
+					//input  监听input的变化
+					//change 监听select的变化
+					$element.on('input change blur',function(){
 						me.model.set( key, me._getValue( element ) );
 					});
-					/*
-					switch (this.type){
 
-						//textarea
-						case 'textarea':
-							me.model.set( key,$this.val() );
-							$this.on('input',function(){
-								me.model.set( key,$this.val() );
-							});
-						break;
+					//IE9下input事件不支持 回退 和 粘贴
+					//通过监听keyup事件 支持回退 但是依然不支持粘贴
+					//todo 如何支持粘贴???????????
+					if(document.documentMode === 9 ){
 
-						// input[text]
-						case 'text':
-							me.model.set( key,$this.val() );
-							$this.on('input',function(){
-								me.model.set( key,$this.val() );
-							});
-						break;
-
-	                    // input[password]
-	                    case 'password':
-	                        me.model.set( key,$this.val() );
-	                        $this.on('input',function(){
-	                            me.model.set( key,$this.val() );
-	                        });
-	                    break;
-
-	                    //input[checkbox]
-						case 'checkbox':
-							me.model.set( key, this.checked );
-							$this.on('click',function(){
-								me.model.set( key, this.checked);
-							});
-						break;
-						
-						//todo radio
-
-	                    // select
-						case 'select-one':
-							me.model.set( key,$this.val() );
-							$this.on('change',function(){
-								me.model.set( key,$this.val() );
-							});
-						break;
-
-						//	input[type="number"] 
-						//  input[type="email"] 
-						default:
-							me.model.set( key,$this.val() );
-							$this.on('input',function(){
-								me.model.set( key,$this.val() );
-							})
-
+						$element.on('keyup',function(){
+							me.model.set( key, me._getValue( element ) );
+						});
 					}
-					*/
 				});
 
 
@@ -637,58 +601,6 @@
 						if( value !== oldvalue ){
 							me._setValue(element,value);
 						};
-						/*
-						var $this = $(this);
-
-						switch (this.type){
-
-							case 'textarea':
-								var oldvalue = $this.val();
-								if( value !== oldvalue ){
-									$this.val( value );
-								}
-							break;
-
-							case 'text':
-								var oldvalue = $this.val();
-								if( value !== oldvalue ){
-									$this.val( value );
-								}
-							break;
-
-							case 'password':
-								var oldvalue = $this.val();
-								if( value !== oldvalue ){
-									$this.val( value );
-								}
-							break;
-
-							case 'checkbox':
-								var oldvalue = this.checked
-								if( value !== oldvalue ){
-									this.checked = value;
-								}
-							break;
-
-							case 'select-one':
-								var oldvalue = $this.val();
-
-								if( value !== oldvalue ){
-									$this.val( value );
-								}
-							break;
-							
-							// todo  img src 等属性 还需要判别
-							// 如果不是
-							// 有可能是普通文本节点 直接赋值 慎用
-							default:
-								var oldvalue = $this.text();
-								if( value !== oldvalue ){
-									$this.text(value);
-								}
-							break;
-						}
-						*/
 					})
 				});
 			}
@@ -701,11 +613,14 @@
 				me.$_arraydoms.each(function(){
 					var $this = $(this);
 					
-					var key = $this.attr('ce-collection'),      			//  数组名字
-						html =  $this.html() ,              				//  页面模板
-						htmlTem = _.template(  util.html_decode( html ) );  //  编译后的模板
-					$this.empty();  										//  清除模板数据                
+					var key = $this.attr('ce-collection'),      //  数组名字
+						html =  $this.html(),              	    //  页面模板
+						//htmlTem = _.template( "<%=item.accountName%>" );  			//  编译后的模板
+						htmlTem = _.template( util.html_decode( html ) );
+
+					$this.empty();  							//  清除模板数据                
 					$this.css({'visibility':'visible'});
+
 					//根据名字生成一个collection
 					me[key] = new M.Collection;
 
@@ -721,6 +636,7 @@
 							})
 							$this.html( htmlstr );
 						}else{
+							$this.html( htmlstr );
 							me.trigger('empty:' + key );
 						}
 					});
@@ -734,6 +650,74 @@
 			}
 		},
 		
+		/**
+		 * 
+		 * 扫描view中需要双向绑定的dom元素
+		 * 
+		 *
+		 *
+		 */			
+		_registerBingdings: function( el ){
+
+			var me = this;
+			var el = el || me.$view;
+			var selector = "[ce-model]";
+			me._bindings = {};
+
+			var elements = el.find( selector );
+			for(var i=0; i<elements.length; i++){
+				var element = elements[i];
+				//todo todo
+				//todo todo
+			}
+		},
+
+		//todo
+		_getOptions: function( element ){
+			var me = this;
+
+			//todo
+			//todo
+			//todo
+			//todo
+			//todo
+		},
+
+		/**
+		 *
+		 * 获取当前element元素的scope链
+		 * 如果父节点有[ce-scope-break]属性 不往上查找 
+		 * 如果本身含有[ce-scope-break]则没有scope链
+		 */
+		_getScope: function( element ){
+			var me = this;
+
+			var $element = $(element),
+				scopeAttr = "ce-scope",
+				scopeBreakAttr = "ce-scope-break",
+				scopes = [],
+				scope = "";
+
+			var parentsSelector = "[" + scopeBreakAttr + "],[" + scopeAttr + "]";
+			var $parents = $element.parents(parentsSelector);
+			
+			//遍历查找父元素的scope属性
+			for(var i=0;i<$parents.length;i++){
+				var $el = $parents.eq(i);
+				if( $el.attr( scopeBreakAttr ) ){ break; }
+				var attr = $el.attr(scopeAttr);
+				scopes.unshift(attr);
+			}
+
+			if( $element.attr(scopeAttr) ){ scopes.push( $(element).attr(scopeAttr) ) }
+			if( $element.attr(scopeBreakAttr) ){ scopes = []; }
+
+			scope = _.compact(scopes).join('.');
+			
+			return scope; 
+		},
+
+
 		/**
 		 *
 		 * 给相关dom元素 赋值或属性
@@ -840,6 +824,229 @@
 		}
 	})
 	
+
+	
+	////////////////////////////////////////
+	//
+	// json操作函数
+	// key传 以.分割的字符串
+	// 
+	//
+	////////////////////////////////////////
+	var deepJSON = function (obj, key, value, remove) { 
+
+		//???第一个正则的意义???
+		var keys = key.replace(/\[(["']?)([^\1]+?)\1?\]/g, '.$2').replace(/^\./, '').split('.'),
+				root,
+				i = 0,
+				n = keys.length;
+
+		// Set deep value
+		// 姐妹元素不影响 只影响当前元素的各子元素
+		if (arguments.length > 2) {
+
+			root = obj;
+			n--;
+
+			//如果要设置的key不存在 则创建新的object
+			while (i < n) {
+				key = keys[i++];
+				obj = obj[key] = _w.isObject(obj[key]) ? obj[key] : {};
+			}
+
+			if (remove) {
+				if (_w.isArray(obj)) {
+					obj.splice(keys[i], 1);
+				} else {
+					delete obj[keys[i]];
+				}
+			} else {
+				obj[keys[i]] = value;
+			}
+
+			value = root;
+
+		// 获取值???????
+		// Get deep value
+		} else {
+			while ((obj = obj[keys[i++]]) != null && i < n) {};
+			value = i < n ? void 0 : obj;
+		}
+
+		return value;
+	}
+
+
+	/***
+	 *
+	 * __json
+	 */
+	var _json = {}
+
+	_json.VERSION = '0.1.0';
+	_json.debug = true;
+
+	/***
+	 *
+	 * 抛出异常
+	 * 非调试情况下直接返回
+	 */
+	_json.exit = function(source, reason, data, value) {
+
+		if (!_json.debug) return;
+
+		var messages = {};
+		messages.noJSON = "Not a JSON";
+		messages.noString = "Not a String";
+		messages.noArray = "Not an Array";
+		messages.missing = "Missing argument";
+
+		var error = { source: source, data: data, value: value };
+		error.message = messages[reason] ? messages[reason] : "No particular reason";
+		console.log("Error", error);
+		return;
+
+	}
+
+	/***
+	 *
+	 * 判断是否是json对象
+	 */
+	_json.is = function(json) {
+
+		return (toString.call(json) == "[object Object]");
+
+	}
+
+	_json.isStringified = function(string) {
+
+		var test = false;
+		try {
+			test = /^[\],:{}\s]*$/.test(string.replace(/\\["\\\/bfnrtu]/g, '@').
+			replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').
+			replace(/(?:^|:|,)(?:\s*\[)+/g, ''));
+		} catch (e) {}
+		return test;
+
+	}
+
+	//get
+	_json.get = function(json, selector) {
+
+		if (json == undefined) return _json.exit("get", "missing", "json", json);
+		if (selector == undefined) return _json.exit("get", "missing", "selector", selector);
+		if (!_w.isString(selector)) return _json.exit("get", "noString", "selector", selector);
+		return deepJSON(json, selector);
+
+	};
+
+	//set value 如果value为空 则移除
+	_json.set = function(json, selector, value) {
+
+		if (json == undefined) return _json.exit("set", "missing", "json", json);
+		if (selector == undefined) return _json.exit("set", "missing", "selector", selector);
+		if (!_w.isString(selector)) return _json.exit("set", "noString", "selector", selector);
+		return value ? deepJSON(json, selector, value) : _json.remove(json, selector);
+		// return deepJSON(json, selector, value); // Now removes the property if the value is empty. Maybe should keep it instead?
+
+	};
+
+	//删除 key 上的值
+	_json.remove = function(json, selector) {
+
+		if (json == undefined) return _json.exit("remove", "missing", "json", json);
+		if (selector == undefined) return _json.exit("remove", "missing", "selector", selector);
+		if (!_w.isString(selector)) return _json.exit("remove", "noString", "selector", selector);
+		return deepJSON(json, selector, null, true);
+
+	}
+
+	//array push 
+	_json.push = function(json, selector, value, force) {
+
+		if (json == undefined) return _json.exit("push", "missing", "json", json);
+		if (selector == undefined) return _json.exit("push", "missing", "selector", selector);
+		var array = _json.get(json, selector);
+		if (!_w.isArray(array)) {
+			if (force) {
+				array = [];
+			} else {
+				return _json.exit("push", "noArray", "array", array);
+			}
+		}
+		array.push(value);
+		return _json.set(json, selector, array);
+
+	}
+
+	//array unshift
+	_json.unshift = function(json, selector, value) {
+
+		if (json == undefined) return _json.exit("unshift", "missing", "json", json);
+		if (selector == undefined) return _json.exit("unshift", "missing", "selector", selector);
+		if (value == undefined) return _json.exit("unshift", "missing", "value", value);
+		var array = _json.get(json, selector);
+		if (!_w.isArray(array)) return _json.exit("unshift", "noArray", "array", array);
+		array.unshift(value);
+		return _json.set(json, selector, array);
+
+	}
+
+	//??
+	_json.flatten = function(json) {
+
+		if (json.constructor.name != "Object") return _json.exit("flatten", "noJSON", "json", json);
+
+		var result = {};
+		function recurse (cur, prop) {
+			if (Object(cur) !== cur) {
+				result[prop] = cur;
+			} else if (Array.isArray(cur)) {
+				for (var i = 0, l = cur.length; i < l; i++) {
+					recurse(cur[i], prop ? prop + "." + i : "" + i);
+					if (l == 0) result[prop] = [];
+				}
+			} else {
+				var isEmpty = true;
+				for (var p in cur) {
+					isEmpty = false;
+					recurse(cur[p], prop ? prop + "." + p : p);
+				}
+				if (isEmpty) result[prop] = {};
+			}
+		}
+		recurse(json, "");
+		return result;
+
+	}
+
+	//??
+	_json.unflatten = function(data) {
+
+		if (Object(data) !== data || Array.isArray(data))
+			return data;
+		var result = {}, cur, prop, idx, last, temp;
+		for (var p in data) {
+			cur = result, prop = "", last = 0;
+			do {
+				idx = p.indexOf(".", last);
+				temp = p.substring(last, idx !== -1 ? idx : undefined);
+				cur = cur[prop] || (cur[prop] = (!isNaN(parseInt(temp)) ? [] : {}));
+				prop = temp;
+				last = idx + 1;
+			} while(idx >= 0);
+			cur[prop] = data[p];
+		}
+		return result[""];
+
+	}
+
+	//通过字符串打印json对象
+	_json.prettyprint = function(json) {
+
+		return JSON.stringify(json, undefined, 2);
+	}
+
 	win.MClass = MClass;
 	win.M = {
 		'Event': Event,
