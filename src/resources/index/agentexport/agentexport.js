@@ -4,7 +4,7 @@ define( function( require, exports, module ) {
     exports.init = function() {
         var $el = exports.$el;
         
-        $el.on('click .export',function(){
+        $el.on('click','.export',function(){
             location.href="/op/api/s/query/export/agentaccounts";
         })
 
