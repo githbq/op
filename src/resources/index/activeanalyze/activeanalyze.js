@@ -124,7 +124,7 @@ define( function( require, exports, module ) {
             var data = me.model.all();
 			
 			//代理商id
-            data.agentId = me.$companyId.attr('data-agentId')||-1;	
+            data.companyId = me.$companyId.attr('data-id')||-1;	
 			//部门id
             data.deptId = me.$deptId.attr('data-deptId')||-1;
             //类型
