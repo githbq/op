@@ -23,7 +23,20 @@
                     <input id="agentId" ce-model="agentId" type="text" class="g-ipt ipt-m" oninput="this.value=this.value.replace(/\D/g,'')" />
                 </label>
                 <label>
-                    <span>风险天数</span>
+                    <span>风险类型</span>
+                    <select ce-model="cheatType">
+                        <option value="">全部</option>
+                        <option value="1">规则1</option>
+                        <option value="2">规则2</option>
+                        <option value="3">规则3</option>
+                        <option value="4">规则4</option>
+                        <option value="5">规则5</option>
+                        <option value="6">规则6</option>
+                        <option value="7">警告1</option>
+                        <option value="8">警告2</option>
+                        <option value="9">警告3</option>
+                    </select>
+                    <span>———风险天数大于等于</span>
                     <input type="text" ce-model="cheatDayCount" oninput="this.value=this.value.replace(/\D/g,'')" >
                 </label>
                 <label>
@@ -51,21 +64,6 @@
                         <option value="">全部</option>
                         <option value="1">是</option>
                         <option value="0">否</option>
-                    </select>
-                </label>
-                <label>
-                    <span>风险类型</span>
-                    <select ce-model="cheatType">
-                        <option value="">全部</option>
-                        <option value="1">规则1</option>
-                        <option value="2">规则2</option>
-                        <option value="3">规则3</option>
-                        <option value="4">规则4</option>
-                        <option value="5">规则5</option>
-                        <option value="6">规则6</option>
-                        <option value="7">警告1</option>
-                        <option value="8">警告2</option>
-                        <option value="9">警告3</option>
                     </select>
                 </label>
                 <label data-permissions="F008004">
