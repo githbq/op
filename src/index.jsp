@@ -5,7 +5,10 @@
     <meta charset="utf-8" />
     <title>运营平台-支持人员</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <link rel="stylesheet" type="text/css" href="./resources/assets/style/main.css?t=20151230" />
+    <link rel="shortcut icon" href="//www.fxiaoke.com/favicon.ico" type="image/x-icon" />
+    <!-- build:css ./resources/assets/style/main.css -->
+    <link rel="stylesheet" type="text/css" href="./resources/assets/style/main.css"/>
+    <!-- endbuild -->
 </head>
 <body>
 
@@ -142,10 +145,11 @@
     IBSS.BASE_PATH = location.pathname.slice( 0,location.pathname.lastIndexOf('/') ) + '/resources';   //静态资源路径
     IBSS.API_PATH = '/op/api/s';       //api路径
     IBSS.IS_DEVELOP = true;
-    IBSS.VERSION = '4.7.' + (new Date()).getTime();
+    // IBSS.VERSION ='4.7.' + (new Date()).getTime();
+    IBSS.VERSION ='4.7';
 </script>
 
-<!--build:js(.) /common/static/js/common.min.js-->
+<!--build:common resources/common/scripts/common.js-->
 <script type="text/javascript" src="./resources/common/scripts/lib/jquery-2.1.3.js"></script>
 <script type="text/javascript" src="./resources/common/scripts/lib/underscore-1.7.0.js"></script>
 <script type="text/javascript" src="./resources/common/scripts/lib/backbone-1.1.2.js"></script>
@@ -155,16 +159,13 @@
 <script type="text/javascript" src="./resources/common/scripts/lib/seajs-preload.js"></script>
 <script type="text/javascript" src="./resources/common/scripts/util.js"></script>
 <script type="text/javascript" src="./resources/common/scripts/widget.js"></script>
-
-<script type="text/javascript">
-    var __randomNum=new Date().getTime();
-    document.write(unescape("%3Cscript src='./resources/assets/scripts/config.js?v="+__randomNum+"' type='text/javascript'%3E%3C/script%3E"));
-</script>
-
 <script type="text/javascript" src="./resources/common/widget/calendar/jquery.datetimepicker.js"></script>
 <!--endbuild-->
 
-<script type="text/javascript" src="./resources/assets/scripts/app.js"></script>
+<!--build:app resources/assets/scripts/app.js-->
+<script type="text/javascript" src="resources/assets/scripts/config.js"></script>
+<script type="text/javascript" src="resources/assets/scripts/app.js"></script>
+<!--endbuild-->
 
 <script type="text/javascript">
     seajs.use(['common/app'], function( app ) {

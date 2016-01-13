@@ -52,7 +52,8 @@
 	seajs.config({
 		
 		map: [
-    		[ '.js', '.js?v=' + IBSS.VERSION ]
+    		[ '.js', '.js?v=' + IBSS.VERSION ],
+    		[ '.html', '.html?v=' + IBSS.VERSION ]
   		],
   		
 		paths: {
