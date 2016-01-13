@@ -229,6 +229,7 @@ define( function( require, exports, module ) {
                     ename: me.$en.val(),
                     name: me.$name.val(),
                     mobile: me.$mobile.val(),
+					isStop: me.$('#isStop').val(),
                     pageIndex: me.pagination.attr['pageNumber'] + 1,
                     pageSize: me.pagination.attr['pageSize']
                 },
