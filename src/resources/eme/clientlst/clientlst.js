@@ -24,13 +24,14 @@ define( function( require, exports, module ) {
             })
         },
 
-        show: function( id , account,runstatus,contactphone,contactname ){
+        show: function( id , account,runstatus,contactphone,contactname,paystatus){
             AccountDetail.__super__.show.apply( this, arguments );
             var me = this;
             
             me.model.set('runstatus',runstatus);
             me.model.set('contactphone',contactphone);
             me.model.set('contactname',contactname);
+			me.model.set('paystatus',paystatus);
 
             util.api({
                 'url': '/employee/edition',
@@ -118,9 +119,10 @@ define( function( require, exports, module ) {
                 account = $( e.currentTarget ).attr('data-account'),
                 runstatus = $( e.currentTarget ).attr('data-runstatus'),
                 contactphone = $( e.currentTarget ).attr('data-contactphone'),
-                contactname = $( e.currentTarget ).attr('data-contactname');
+                contactname = $( e.currentTarget ).attr('data-contactname'),
+				paystatus = $( e.currentTarget ).attr('data-paystatus');
 
-            me.trigger('accountdetail', id , account,runstatus,contactphone,contactname);
+            me.trigger('accountdetail', id , account,runstatus,contactphone,contactname,paystatus);
         },
         search: function() {
             this.pagination.attr['pageNumber'] = 0;
@@ -176,8 +178,8 @@ define( function( require, exports, module ) {
  
         var accountDetail = new AccountDetail();
 
-        employeeDataTable.on('accountdetail',function( id , account,runstatus,contactphone,contactname ){
-            accountDetail.show( id , account,runstatus,contactphone,contactname );
+        employeeDataTable.on('accountdetail',function( id , account,runstatus,contactphone,contactname,paystatus ){
+            accountDetail.show( id , account,runstatus,contactphone,contactname ,paystatus);
         });
     }
 } );

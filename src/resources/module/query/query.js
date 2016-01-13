@@ -292,6 +292,12 @@ define( function(require, exports, module){
                 data.idOrName = me.$listType.val();
                 data.idsOrNames = me.$list.val();
             }
+			if($('#excessFlag').is(':checked')){
+				data['excessFlag'] = true;
+			}else{
+				data['excessFlag'] = false;
+			}
+			data['excessType'] = me.$('#excessType').val();
             me.$result.html( '' );
             me.$search.attr( 'disabled', 'disabled' );
             me.$search.addClass( 'disable' );
@@ -361,6 +367,12 @@ define( function(require, exports, module){
                 data.idOrName = me.$listType.val();
                 data.idsOrNames = me.$list.val();
             }
+			if($('#excessFlag').is(':checked')){
+				data['excessFlag'] = true;
+			}else{
+				data['excessFlag'] = false;
+			}
+			data['excessType'] = me.$('#excessType').val();
             var $generate = me.$result.find( '#btnGenerate' ),
                 $download = me.$result.find( '#btnDownload' ),
                 $console = me.$result.find( '#console' );
