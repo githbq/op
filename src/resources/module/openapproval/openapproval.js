@@ -22,7 +22,7 @@ define( function(require, exports, module){
         events: {
             'click .action-reject': 'rejectEve',
             'click .action-agree': 'agreeEve',
-			'click .action-resend': 'resendEve'  ,    //重新发送
+			'click .action-resend': 'resendEve'      //重新发送
         },
 
         elements: {
@@ -72,7 +72,7 @@ define( function(require, exports, module){
 			'.useBusinessCard':'useBusinessCard',
 			'.action-agree':'actionAgree',
 			'.action-reject':'actionReject',
-			'.add-type':'addType',
+			'.add-type':'addType'
 			
         },
 

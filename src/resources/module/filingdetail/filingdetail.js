@@ -58,7 +58,7 @@ define( function(require, exports, module){
 			'.e-source': 'source',
 			'.bind-link':'bindLink',
 			'.remark-info':'remarkInfo',
-			'.operat-status':'operatStatus',
+			'.operat-status':'operatStatus'
         },
         
         events: {

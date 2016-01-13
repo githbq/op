@@ -149,7 +149,7 @@ define( function( require, exports, module ) {
             'click .detail': 'detailEve',
             'click .trackrecord': 'trackEve',
             'click .renew': 'renewEve',
-			'click .enterpriseAssign': 'enterpriseAssignEve',
+			'click .enterpriseAssign': 'enterpriseAssignEve'
         },
 
         init: function(){

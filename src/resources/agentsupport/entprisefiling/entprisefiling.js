@@ -53,7 +53,7 @@ define( function( require, exports, module ) {
             'click .search': 'searchEve',
             'click .export': 'exportEve',
             'click .filing-reason': 'reasonEve',
-			'click .bind-link':'bindLinkEve',
+			'click .bind-link':'bindLinkEve'
         },
 
         elements:{
@@ -275,7 +275,7 @@ define( function( require, exports, module ) {
    var BindLink = MClass( Dialog ).include({
         content: tem.filter('#bindLink').html(),
         events: {
-            'click .action-link': 'actionLinkEve',
+            'click .action-link': 'actionLinkEve'
 		},
         elements:{
 			'.search-enterpriseAccount':'enterpriseAccount'
@@ -329,7 +329,7 @@ define( function( require, exports, module ) {
             me.model.clear();
            
             BindLink.__super__.hide.apply( this,arguments );
-        },
+        }
 
 	});
 

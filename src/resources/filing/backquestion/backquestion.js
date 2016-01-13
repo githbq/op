@@ -20,12 +20,12 @@ define( function( require, exports, module ) {
 
         elements:{
 			'.form-box .email-text':'emailText',
-            '.form-box .suggest-text':'suggestText',
+            '.form-box .suggest-text':'suggestText'
         },
 
         events:{
            'blur .form-box .email-text': 'emailEve',
-		   'click .form-box .form-submit': 'submitEve',
+		   'click .form-box .form-submit': 'submitEve'
         },
 		emailEve:function(){	
 			var me = this;

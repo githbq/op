@@ -153,7 +153,7 @@ define( function(require, exports, module){
                     'startTime': startTime,
                     'endTime': endTime,
                     'pageIndex': me.pagination.attr['pageNumber'],
-                    'pageSize': me.pagination.attr['pageSize'], 
+                    'pageSize': me.pagination.attr['pageSize']
                 },
                 'success': function( data ){
                     console.warn( data );   

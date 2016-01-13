@@ -32,7 +32,7 @@ define( function(require, exports, module){
             'tbody': 'tbody',
             '.list-starttime': 'startTime',
             '.list-endtime': 'endTime',
-			'.change-status':'changeStatus',
+			'.change-status':'changeStatus'
         },
         
         events:{

@@ -193,7 +193,7 @@ define( function(require, exports, module){
 			'click .verificationaction-on': 'veriOnEve',      //资料审核成功
 			'click .verificationaction-off': 'veriOffEve',	  //资料审核失败
 			'click .fn-buy':'fnBuyEve',
-			'click .employee-detail':'employeeDetailEve',
+			'click .employee-detail':'employeeDetailEve'
 		}, 
 		employeeDetailEve:function(e){
 			var ea = $(e.currentTarget).attr('data-ea');
@@ -689,7 +689,7 @@ define( function(require, exports, module){
 					}
 				}
 			})
-		},
+		}
 
 	});
 

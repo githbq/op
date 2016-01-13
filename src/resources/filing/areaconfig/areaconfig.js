@@ -103,7 +103,7 @@ define( function( require, exports, module ) {
                     },
                     removeHoverDom: function( treeId,treeNode ){
                         $("#addBtn_"+treeNode.tId).unbind().remove();
-                    },
+                    }
                 },
                 data: {
                     simpleData: {
@@ -127,7 +127,7 @@ define( function( require, exports, module ) {
                             util.api({
                                 'url': '~/op/api/region/deleteregion',
                                 'data': {
-                                    'code': treeNode.code,
+                                    'code': treeNode.code
                                 },
                                 success: function( data ){
                                     if( data.success ){

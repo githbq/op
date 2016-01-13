@@ -25,7 +25,7 @@ define( function( require, exports, module ) {
 			'.list-content tbody': 'tbody',
 			'.alName':'alName',
 			'.alDay':'alDay',
-			'#btnDownExel':'btnDownExel',
+			'#btnDownExel':'btnDownExel'
         },
         events: {
             'click #btnSearch': 'search',
@@ -35,7 +35,7 @@ define( function( require, exports, module ) {
             'click #btnDownload': 'download',
 			'click #btnDownExel': 'downExel',
 			'click #btnQyrhyExel': 'QyrhyExel',
-			'click #btnRyhysExel': 'RyhysExel',
+			'click #btnRyhysExel': 'RyhysExel'
         },
 		trTpl: _.template( tpl.filter('#trTpl').html() ),
         init: function() {
