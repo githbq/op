@@ -23,14 +23,14 @@ define( function( require, exports, module ) {
 			'.alName': 'alName',
             '.enterpriseType': 'enterpriseType',
 			'.alDay':'alDay',
-			'#btnQyrhyExel':'btnQyrhyExel',
+			'#btnQyrhyExel':'btnQyrhyExel'
         },
         events: {
             'click #btnSearch': 'search',
             'click #btnClear': 'clear',
             'click #btnReset': 'reset',
             'click #btnGenerate': 'generate',
-			'click #btnQyrhyExel': 'RyhysExel',
+			'click #btnQyrhyExel': 'RyhysExel'
         },
         init: function() {
             ActLst.__super__.init.apply( this, arguments );

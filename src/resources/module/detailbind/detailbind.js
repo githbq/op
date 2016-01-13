@@ -97,7 +97,7 @@ define( function(require, exports, module){
 			'click .action-save': 'saveEve',
 			'click .filing-region': 'regionEve',     //选择区域
 			 'click .action-reject': 'rejectEve',
-            'click .action-agree': 'agreeEve',
+            'click .action-agree': 'agreeEve'
 		},
 
 		//获取枚举值

@@ -541,7 +541,7 @@
 				dataType:'json',
                 button:{
                     'text': '提交中',
-                    'el': null,
+                    'el': null
                 }
 			},opt||{});
 

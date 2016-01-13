@@ -30,7 +30,7 @@ define( function(require, exports, module){
 
         events: {
             'click .agent-bind-channel': 'agentBindChannel',
-			 'click .customervalue-bind-channel': 'customervalueBindChannel',
+			 'click .customervalue-bind-channel': 'customervalueBindChannel'
             
         },
 		accountList:[],

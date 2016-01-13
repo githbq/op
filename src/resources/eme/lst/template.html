@@ -9,6 +9,7 @@
         <td><%=value.email%></td>
         <td><%=value.post%></td>
         <td><%=value.isadmin ? '是' : '否'%></td>
+		<td><%=value.isstop ? '停用' : '启用'%></td>
         <td><em class="resetpwd" data-id="<%=value.employeeid%>" 
                                  data-account="<%=value.enterpriseaccount%>">重置密码</em>
             <em class="accountdetail" data-id="<%=value.employeeid%>" data-account="<%=value.enterpriseId%>">查看帐号详情</em>

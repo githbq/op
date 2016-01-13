@@ -77,7 +77,7 @@ define(function(require, exports, module){
 				'type': 'post',
 				'url': '/quickmessage/delete',
 				'data':{
-					'id':id,
+					'id':id
 				},
 				'success': function(info){
 					if(info.success){

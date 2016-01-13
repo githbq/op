@@ -27,7 +27,7 @@ define( function(require, exports, module){
 			'click .search': 'getlist'
 		},
 		 elements: {
-            '.search': 'search',
+            '.search': 'search'
 
         },
 		init: function(){
@@ -156,12 +156,11 @@ define( function(require, exports, module){
         },
 
         elements: {
-            '.setleader': 'setleader',
+            '.setleader': 'setleader'
 
         },
         events: {
-            'click .setleader': 'setleaderEve',
-     
+            'click .setleader': 'setleaderEve'
         },
 
         init: function(){

@@ -10,7 +10,7 @@
         <td><%=value.post%></td>
         <td><%=value.isadmin ? '是' : '否'%></td>
         <td>
-           <em class="accountdetail" data-runStatus="<%=value.runStatus%>" data-contactPhone="<%=value.contactPhone%>" data-contactName="<%=value.contactName%>" data-id="<%=value.employeeid%>" data-account="<%=value.enterpriseId%>">查看详情</em>
+           <em class="accountdetail" data-runStatus="<%=value.runStatus%>" data-paystatus="<%=value.payStatus%>" data-contactPhone="<%=value.contactPhone%>" data-contactName="<%=value.contactName%>" data-id="<%=value.employeeid%>" data-account="<%=value.enterpriseId%>">查看详情</em>
 		</td>
         <td></td>
     </tr>
@@ -26,6 +26,12 @@
         	<select disabled="disabled" ce-model="runstatus">
         		<option value="1">待开通</option><option value="2">已开通</option>
         		<option value="3">已作废</option><option value="4">已停用</option>
+        	</select>
+        </label></p>
+		<p><label><span>付费状态</span>
+        	<select disabled="disabled" ce-model="paystatus">
+        		<option value=true>已付费</option>
+				<option value=false>未付费</option>
         	</select>
         </label></p>
        

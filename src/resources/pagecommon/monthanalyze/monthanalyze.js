@@ -20,7 +20,7 @@ define( function( require, exports, module ) {
         },
         events: {
             'click #btnSearch': 'search',
-			'click .mselect b': 'selectEve',
+			'click .mselect b': 'selectEve'
         },
 		trTpl: _.template( tpl.filter('#trTpl').html() ),
         init: function() {

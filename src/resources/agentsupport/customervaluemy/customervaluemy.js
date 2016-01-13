@@ -252,7 +252,7 @@ define( function( require, exports, module ) {
 			'click .buy-fn': 'buyEve',
 			'click .product-fn': 'productEve',
 			'click .cancal-fn': 'cancalEve',
-			'change .firm-status': 'changeFirmStatus',
+			'change .firm-status': 'changeFirmStatus'
 		},
 
 		elements: {
@@ -284,7 +284,7 @@ define( function( require, exports, module ) {
 			'.buy-box': 'buyBox',
 			'.supply-box':'supplyBox',
 			'.product-fn': 'btnProduct',
-			'.cancal-fn': 'btnCancal',
+			'.cancal-fn': 'btnCancal'
 			
 		},
 		

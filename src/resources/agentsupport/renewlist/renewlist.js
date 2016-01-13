@@ -739,6 +739,8 @@ define( function( require, exports, module ) {
 					me.$actionSave.text('文件上传...');
 					me.$actionResend.attr('disabled','disabled');
 					me.$actionResend.text('文件上传...');
+					console.log(me.$contract[0].files)
+					console.log(333)
 					uploader.send({
 						'url': '/op/api/file/uploadsinglefileandcheck',
 						'files': me.$contract[0].files,

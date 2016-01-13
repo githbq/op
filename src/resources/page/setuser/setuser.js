@@ -23,10 +23,10 @@ define( function(require, exports, module){
 			'click .userdetail': 'detailEve',
 			'click .search': 'searchEve',
 			'click .settinghighter': 'settingHighterEve',
-			'click .change-status':'changeStatusEve',
+			'click .change-status':'changeStatusEve'
 		},
 		elements:{
-			'.change-status':'changeStatus',
+			'.change-status':'changeStatus'
         },
 		init: function(){
 			UserList.__super__.init.apply(this,arguments);

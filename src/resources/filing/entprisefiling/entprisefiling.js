@@ -333,7 +333,7 @@ define( function( require, exports, module ) {
             util.api({
                 'url': '/enterprisefiling/closefiling',
                 'data': {
-                    'enterpriseFilingId': me.model.get('id'),
+                    'enterpriseFilingId': me.model.get('id')
                 },
                 'success': function( data ){
                     if( data.success ){

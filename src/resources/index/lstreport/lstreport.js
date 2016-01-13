@@ -35,7 +35,7 @@ define( function( require, exports, module ) {
             'click #btnDownload': 'download',
 			'click #btnDownExel': 'downExel',
 			'click #btnQyrhyExel': 'QyrhyExel',
-			'click #btnRyhysExel': 'RyhysExel',
+			'click #btnRyhysExel': 'RyhysExel'
         },
 		trTpl: _.template( tpl.filter('#trTpl').html() ),
         init: function() {
@@ -138,7 +138,6 @@ define( function( require, exports, module ) {
         },
         
         search: function() {
-            var me = this;
 			this.pagination.setPage( 0 ,false );
             this.getList();
         },
@@ -180,7 +179,6 @@ define( function( require, exports, module ) {
                 'url': '~/op/api/activity/queryenterpriseactivitysummary',
                 'data': objdata,
                 'success': function( data ){
-                    //console.warn( data );
                     if( data.success ){
 						me.collection.reload( data.value.model.content, function( item ){
 							if(item.firstPeriodActivityOppo){
