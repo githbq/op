@@ -24,7 +24,7 @@ define( function( require, exports, module ) {
         events: {
             'click #btnSearch': 'search',
             //'click .btn-exel': 'exportExel',
-			'click #btnQyrhyExel': 'downExel',
+			'click #btnQyrhyExel': 'downExel'
         },
 
         init: function() {
