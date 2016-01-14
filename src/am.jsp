@@ -6,15 +6,15 @@
     <title>运营平台-代理商管理员</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <link rel="shortcut icon" href="//www.fxiaoke.com/favicon.ico" type="image/x-icon" />
-    <!-- build:css ./resources/assets/style/main.css -->
-    <link rel="stylesheet" type="text/css" href="./resources/assets/style/main.css"/>
+    <!-- build:css resources/assets/style/main.css -->
+    <link rel="stylesheet" type="text/css" href="resources/assets/style/main.css"/>
     <!-- endbuild -->
 </head>
 <body>
 
 <!--头部区域-->
 <header id="header">
-    <h1 class="header-logo"><img src="./resources/assets/images/fxlogo.png" alt="" /></h1>
+    <h1 class="header-logo"><img src="resources/assets/images/fxlogo.png" alt="" /></h1>
     <div class="header-person">
         <span id="accountname"></span>
         <div class="person-loginout">
@@ -69,17 +69,17 @@
 </script>
 
 <!--build:common resources/common/scripts/common.js-->
-<script type="text/javascript" src="./resources/common/scripts/lib/jquery-2.1.3.js"></script>
-<script type="text/javascript" src="./resources/common/scripts/lib/underscore-1.7.0.js"></script>
-<script type="text/javascript" src="./resources/common/scripts/lib/backbone-1.1.2.js"></script>
-<script type="text/javascript" src="./resources/common/scripts/lib/seajs-2.3.0.js"></script>
-<script type="text/javascript" src="./resources/common/scripts/lib/seajs-css.js"></script>
-<script type="text/javascript" src="./resources/common/scripts/lib/seajs-text.js"></script>
-<script type="text/javascript" src="./resources/common/scripts/lib/seajs-preload.js"></script>
+<script type="text/javascript" src="resources/common/scripts/lib/jquery-2.1.3.js"></script>
+<script type="text/javascript" src="resources/common/scripts/lib/underscore-1.7.0.js"></script>
+<script type="text/javascript" src="resources/common/scripts/lib/backbone-1.1.2.js"></script>
+<script type="text/javascript" src="resources/common/scripts/lib/seajs-2.3.0.js"></script>
+<script type="text/javascript" src="resources/common/scripts/lib/seajs-css.js"></script>
+<script type="text/javascript" src="resources/common/scripts/lib/seajs-text.js"></script>
+<script type="text/javascript" src="resources/common/scripts/lib/seajs-preload.js"></script>
 
-<script type="text/javascript" src="./resources/common/scripts/util.js"></script>
-<script type="text/javascript" src="./resources/common/scripts/widget.js"></script>
-<script type="text/javascript" src="./resources/common/widget/calendar/jquery.datetimepicker.js"></script>
+<script type="text/javascript" src="resources/common/scripts/util.js"></script>
+<script type="text/javascript" src="resources/common/scripts/widget.js"></script>
+<script type="text/javascript" src="resources/common/widget/calendar/jquery.datetimepicker.js"></script>
 <!--endbuild-->
 
 <!--build:app resources/assets/scripts/app.js-->
