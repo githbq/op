@@ -50,7 +50,7 @@ gulp.task('copy', function() {
 gulp.task('minify-html', function() {
 	return gulp.src([
 			'dest/**/*.html',
-			'dest/**/*.jsp',
+			'!dest/**/*.jsp',
 			'!dest/resources/common/widget/editor/**/*.html'
 		], {
 			'base': 'dest'
