@@ -56,6 +56,7 @@ gulp.task('minify-html', function() {
 			'base': 'dest'
 		})
 		.pipe(minifyHTML({
+			empty: true,
 			minifyCSS: true,
 			minifyJS: true,
 			removeComments: true,
