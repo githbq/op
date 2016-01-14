@@ -93,7 +93,7 @@ gulp.task("transport", function() {
 		})
 		.pipe(transport({
 			dealIdCallback: function(id) {
-				return id;
+				return './' + id;
 			}
 		}))
 		.pipe(gulp.dest('dest/'));
