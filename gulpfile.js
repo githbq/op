@@ -94,7 +94,7 @@ gulp.task("transport", function() {
 		})
 		.pipe(transport({
 			dealIdCallback: function(id) {
-				return './' + id;
+				return id;
 			}
 		}))
 		.pipe(gulp.dest('dest/'));
@@ -145,7 +145,7 @@ gulp.task('minify-js', function() {
 		})
 		.pipe(uglify({
 			preserveComments: false,
-			mangle: true,
+			mangle: false,
 			compress: {
 				drop_console: true
 			},
@@ -188,4 +188,4 @@ gulp.task('test', function() {
  * 默认任务
  */
 gulp.task('default', ['less']);
-gulp.task('release', sequence('clean', 'less', 'copy', 'minify-css', ['transport', 'transport:common', 'transport:module'], 'minify-js', 'usemin', 'minify-html'));
+gulp.task('release', sequence('clean', 'less', 'copy', 'minify-css', /*['transport', 'transport:common', 'transport:module'],*/ 'minify-js', 'usemin'/*, 'minify-html'*/));
