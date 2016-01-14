@@ -163,7 +163,7 @@ define( function( require, exports, module ) {
                 }
             });
         },
-		//日活列表导出
+		//日活详情导出
 		downExel:function() {
             var me = this;
             var objdata = {};
