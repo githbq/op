@@ -6,6 +6,7 @@ var gulp = require('gulp'),
 	rev = require('gulp-rev'),
 	revCollector = require('gulp-rev-collector'),
 	usemin = require('gulp-usemin'),
+	htmlmin = require('gulp-htmlmin'),
 	minifyHTML = require('gulp-minify-html'),
 	minifyCSS = require('gulp-minify-css'),
 	uglify = require('gulp-uglify'),
@@ -50,12 +51,12 @@ gulp.task('copy', function() {
 gulp.task('minify-html', function() {
 	return gulp.src([
 			'dest/**/*.html',
-			'!dest/**/*.jsp',
+			'dest/**/*.jsp',
 			'!dest/resources/common/widget/editor/**/*.html'
 		], {
 			'base': 'dest'
 		})
-		.pipe(minifyHTML({
+		.pipe(htmlmin({
 			empty: true,
 			minifyCSS: true,
 			minifyJS: true,
