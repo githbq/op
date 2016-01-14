@@ -38,7 +38,7 @@ gulp.task('less', function() {
  * 复制所有文件
  */
 gulp.task('copy', function() {
-	return gulp.src(['src/**/*', '!src/**/*.less' /*, '!src/*.html'*/ ], {
+	return gulp.src(['src/**/*', '!src/**/*.less' , '!src/*.html' ], {
 			'base': 'src'
 		})
 		.pipe(gulp.dest('dest/'));
