@@ -250,8 +250,8 @@ gulp.task('release', sequence(
 		'transport:module'
 	],
 	'usemin',
-	'md5',
-	'seajs:map',
+	//'md5',
+	//'seajs:map',
 	'collector',
 	'minify-html',
 	'minify-js',
