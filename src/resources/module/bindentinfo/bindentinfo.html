@@ -1,79 +1,79 @@
-<div class="m-openapproval u-tablelist m-deailbind">
-	<h4 style="border-bottom:1px solid #ccc;">信息详情对比</h4>
+<div class="m-openapproval u-tablelist" style="padding:20px;">
+	<h4 style="border-bottom:1px solid #ccc;">关联自注册</h4>
 	<div class="left-info">
 		<h4 >备案企业</h4>
 		
 		<p>
 			<label for="">
 				<span>企业名称 <b class="state state-current">*</b></span>
-				<input type="text" ce-model="enterpriseNameRecord" class="status-disabled required">
+				<input type="text" ce-model="enterpriseNameRecord" class="status-disabled " disabled="disabled">
 			</label>
 		</p>
 		<p class="state state-current">
 			<label for="">
 				<span>绑定企业账号账号 <b class="state state-current">*</b></span>
-				<input type="text" ce-model="enterpriseAccountRecord" class="status-disabled required" >
+				<input type="text" ce-model="enterpriseAccountRecord" class="status-disabled " disabled="disabled" >
 			</label>
 		</p>
 		<p>
 			<label for="">
 				<span>地址 <b class="state state-current">*</b></span>
-				<input type="text" ce-model="addressRecord" class="status-disabled required" >
+				<input type="text" ce-model="addressRecord" class="status-disabled " disabled="disabled" >
 			</label>
 		</p>
 		<p>
 			<label for="">
 				<span>区域 <b class="state state-current">*</b></span>
-				<input type="text" ce-model="regionRecord" class="status-disabled filing-region required" onkeyup='this.value=""'>
+				<input type="text" ce-model="regionRecord" class="status-disabled filing-region " onkeyup='this.value=""' disabled="disabled">
 			</label>
 		</p>
 		<p>
 			<label for="" >
-				<span>法定代表人</span>
-				<input type="text" ce-model="agentPersonRecord" class="status-disabled" >
+				<span>法定代表人</span> 
+				<input type="text" ce-model="agentPersonRecord" class="status-disabled" disabled="disabled">
 			</label>
 		</p>
 		<p>
 			<label for="">
 				<span>行业 <b class="state state-current">*</b></span>
-				<select name="" class="status-disabled e-industry required" ce-model="industryRecord" ></select>
+				<select name="" class="status-disabled e-industry " ce-model="industryRecord" disabled="disabled"></select>
 			</label>
 		</p>
 		<p>
 			<label for="">
 				<span>来源 <b class="state state-current">*</b></span>
-				<select name="" class="status-disabled e-source required" ce-model="sourceRecord" ></select>
+				<select name="" class="status-disabled e-source " ce-model="sourceRecord" disabled="disabled"></select>
 			</label>
 		</p>
 		<p>
 			<label for="">
 				<span>联系人<b class="state state-current">*</b></span>
-				<input type="text" ce-model="contactNameRecord" class="status-disabled required">
+				<input type="text" ce-model="contactNameRecord" class="status-disabled " disabled="disabled">
 			</label>
 		</p>
 		<p>
 			<label for="">
 				<span>联系人职位<b class="state state-current">*</b></span>
-				<input type="text" ce-model="contactPostRecord" class="status-disabled required">
+				<input type="text" ce-model="contactPostRecord" class="status-disabled " disabled="disabled">
 			</label>
 		</p>
 		<p>
 			<label for="">
                 <span>联系电话 <b class="state state-current">*</b></span>
-                <input type="text" ce-model="contactPhoneRecord" class="status-disabled required" onchange="this.value=this.value.replace(/\D/g,'')">
+                <input type="text" ce-model="contactPhoneRecord" class="status-disabled " onchange="this.value=this.value.replace(/\D/g,'')" disabled="disabled">
             </label>
 		</p>
 		<p>
 			<label for="">
 				<span>联系人邮件</span>
-				<input type="text" ce-model="contactEmailRecord" class="status-disabled checked-email">
+				<input type="text" ce-model="contactEmailRecord" class="status-disabled checked-email" disabled="disabled">
 			</label>
 		</p>
 	
 		<p>
 			<label for="">
 				<span>备注</span>
-				<textarea name="" id="" ce-model="remarkRecord" class="status-disabled"></textarea>
+				<textarea name="" id="" ce-model="remarkRecord" class="status-disabled" disabled="disabled"></textarea>
 			</label>
 		</p>
 		
@@ -105,373 +105,129 @@
 		<p>
 			<label for="" class="" style="margin-top:10px;">
 				<span>公司人数<b class="state state-current">*</b></span>
-				<input type="text" ce-model="clientNumRecord" class="status-disabled required" onchange="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+				<input type="text" ce-model="clientNumRecord" class="status-disabled " onchange="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" disabled="disabled">
 			</label>
 		</p>
 		<p>
 			<label for="" class="" style="margin-top:10px;">
 				<span>开通人数<b class="state state-current">*</b></span>
-				<input type="text" ce-model="companyNumRecord" class="status-disabled required" onchange="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+				<input type="text" ce-model="companyNumRecord" class="status-disabled " onchange="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" disabled="disabled">
 			</label>
 		</p>
 		<p>
 			<label for="" class="" style="margin-top:10px;">
 				<span>法定代表人电话 <b class="state state-current">*</b></span>
-				<input type="text" ce-model="kpPhoneRecord" class="status-disabled required" onchange="this.value=this.value.replace(/\D/g,'')" maxlength="11" >
+				<input type="text" ce-model="kpPhoneRecord" class="status-disabled " onchange="this.value=this.value.replace(/\D/g,'')" maxlength="11" disabled="disabled">
 			</label>
 		</p>
 		<p>
 			<label for="" class="" style="margin-top:10px;">
 				<span>拜访时间 <b class="state state-current">*</b></span>
-				<input type="text" ce-model="visiteTimeRecord" class="status-disabled visite-time required">
-			</label>
-		</p>
-		
-		<p class="approval-action wait-other">
-			<button class="state state-current u-btn-blue action-resend">保存提交</button>
-			<!--<button class="state state-current u-btn-blue action-save">保存</button>
-			<button class="state state-cancel u-btn-red action-backout">撤销审批</button>-->
-			<!--<button class="state state-current u-btn-red action-cancel">取消审批</button>-->
-		</p>
-		<div class="approval-action state state-wait">
-			<p>
-				<textarea ce-model="comment" style="width:300px";></textarea>
-			</p>
-			<p class="actions">
-				<!--<button class="state-current u-btn-blue action-resend" style="margin:0px 5px;">保存通过</button>
-				<button class="state state-current u-btn-blue action-save" style="margin:0px 5px;">保存</button>-->
-				<button class="u-btn-blue action-agree"> 同意 </button>
-				<button class="u-btn-red action-reject"> 驳回 </button>
-			</p>
-		</div>
-		
-	</div>
-	
-	<div class="right-info" style="width:350px; display:none;">
-		<h4>自注册企业</h4>
-		<p>
-			<label for="">
-				<span>企业名称 </span>
-				<input type="text" ce-model="enterpriseName" class=" " disabled="disabled">
-			</label>
-		</p>
-		<p>
-			<label for="">
-				<span>企业账号 </span>
-				<input type="text" ce-model="enterpriseAccount" class="" placeholder="不可更改!" disabled="disabled">
-			</label>
-		</p>
-		<p>
-			<label for="">
-				<span>企业简称</span>
-				<input type="text" ce-model="enterpriseShortName" class="" disabled="disabled" placeholder="用于手机短消息签名">
-			</label>
-		</p>
-		<p>
-			<label for="">
-				<span>地址 </span>
-				<input type="text" ce-model="address" class="" disabled="disabled">
-			</label>
-		</p>
-		<p>
-			<label for="">
-				<span>行业 </span>
-				<select name="" class=" e-industry " ce-model="industry" disabled="disabled"></select>
-			</label>
-		</p>
-		<p>
-			<label for="">
-				<span>区域</span>
-				<input type="text" ce-model="regionName" class="regionName" disabled="disabled" >
-			</label>
-		</p>
-		<p>
-			<label for="">
-				<span>省市 </span>
-				<select name="" class="e-province " ce-model="province" disabled="disabled"></select>
-			</label>
-		</p>
-		<p>
-			<label for="">
-				<span>团队类型 </span>
-				<select name="" class=" e-group " ce-model="groupType" disabled="disabled"></select>
-			</label>
-		</p>
-		<p>
-			<label for="">
-				<span>了解渠道</span>
-				<select name="" class=" e-knowsource " ce-model="knowSource" disabled="disabled"></select>
-			</label>
-			
-		</p>
-		<p>
-			<label for="">
-				<span>注册动机 </span>
-				<select name="" class="e-motive " ce-model="registerMotive" disabled="disabled"></select>
-			</label>
-		</p>
-		<p>
-			<label for="">
-				<span>公司规模 </span>
-				<select name="" class=" companyscale " ce-model="companyScale" disabled="disabled"></select>
-			</label>
-		</p>
-		<p>
-			<label for="">
-				<span>来源 </span>
-				<select name="" class=" e-source " ce-model="source" disabled="disabled"></select>
-			</label>
-		</p>
-		<p>
-			<label for="">
-				<span>是否有销售团队 </span>
-				<select name="" id="aaa" ce-model="isSaleTeam" class="" disabled="disabled">
-					<option value="">请选择</option>
-					<option value="true">是</option>
-					<option value="false">否</option>
-				</select>
-			</label>
-			
-		</p>
-		<p>
-			<label for="">
-				<span>销售团队规模 </span>
-				<select name="" class=" saleteamscale " ce-model="saleTeamScale" disabled="disabled"></select>
-			</label>
-		</p>
-		<p>
-			<label for="">
-				<span>是否首面签约 </span>
-				<select name="" ce-model="isFirstmeetingSign" class="" disabled="disabled">
-					<option value="">请选择</option>
-					<option value="true">是</option>
-					<option value="false">否</option>
-				</select>
-			</label>
-		</p>
-		<p>
-			<label for="">
-				<span>是否会销</span>
-				<select name="" id="" ce-model="isWillPin" class="" disabled="disabled">
-					<option value="">请选择</option>
-					<option value="true">是</option>
-					<option value="false">否</option>
-				</select>
-			</label>
-		</p>
-		<p>
-			<label for="">
-				<span>是否陌拜</span>
-				<select name="" ce-model="isStrangerVisits" class="" disabled="disabled">
-					<option value="">请选择</option>
-					<option value="true">是</option>
-					<option value="false">否</option>
-				</select>
-			</label>
-		</p>
-		<p>
-			<label for="">
-				<span>城市 </span>
-				<input type="text" ce-model="city" class="" disabled="disabled">
-			</label>
-		</p>
-		<p>
-			<label for="">
-				<span>成交周期(天</span>
-				<input type="text" ce-model="dealDays" class="" onchange="this.value=this.value.replace(/[^\.\d]/g,'')" disabled="disabled">
-			</label>
-		</p>
-		<p>
-			<label for="">
-				<span>是否转介绍</span>
-				<select name="" id="" ce-model="isReferral" class="" disabled="disabled">
-					<option value="">请选择</option>
-					<option value="true">是</option>
-					<option value="false">否</option>
-				</select>
-			</label>
-		</p>
-		<h4>企业负责人</h4>
-		<p>
-			<label for="">
-				<span>企业负责人姓名 </span>
-				<input type="text" ce-model="keyContactName" class="" disabled="disabled">
-			</label>
-		</p>
-		<p>
-			<label for="">
-				<span>企业负责人电话</span>
-				<input type="text" ce-model="keyContactPhone" class="" onchange="this.value=this.value.replace(/\D/g,'')" disabled="disabled">
-			</label>
-		</p>
-		<p>
-			<label for="">
-				<span>企业负责人邮箱 </span>
-				<input type="text" ce-model="keyContactEmail" class="" disabled="disabled">
-			</label>
-		</p>
-		<h4>平台管理员</h4>
-		<p>
-			<label for="">
-				<span>平台管理员</span>
-				<input type="text" ce-model="contactName" class="" disabled="disabled">
-			</label>
-		</p>
-		<p>
-			<label for="">
-				<span>平台管理员电话 </span>
-				<input type="text" ce-model="contactPhone" class="" onchange="this.value=this.value.replace(/\D/g,'')" maxlength="11" disabled="disabled">
-			</label>
-		</p>
-		<p>
-			<label for="">
-				<span>平台管理员邮箱 </span>
-				<input type="text" ce-model="contactEmail" class="" disabled="disabled">
-			</label>
-		</p>
-		<p>
-			<label for="">
-				<span>平台管理员QQ</span>
-				<input type="text" ce-model="contactim" class="" disabled="disabled">
+				<input type="text" ce-model="visiteTimeRecord" class="status-disabled visite-time " disabled="disabled">
 			</label>
 		</p>
 		<h4>产品信息</h4>
-		<p>
-			<label for="">
-				<span>销客终端总量(个)</span>
-				<input type="text" ce-model="accountTotalAmount" class=" deviceamount" disabled="disabled" onchange="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
-			</label>
-		</p>
-		<p>
-			<div class="show-type">
+			<!--<p class="state state-pay">
 				<label for="">
-					<span>营销版数量(个)</span>
-					<input type="text" ce-model="marketingAccountAmount" class="marketingAccountAmount" onchange="this.value=this.value.replace(/\D/g,'')" disabled="disabled" onafterpaste="this.value=this.value.replace(/\D/g,'')">
-				</label>
-			</div>
-		</p>
-		<P>
-			<label for="">
-				<span>是否赠送办公版</span>
-				<select name=""  ce-model="presentOfficeEdition" class="" disabled="disabled">
-					<option value="1">是</option>
-					<option value="0">否</option>
-				</select>
-			</label>
-		</P>
-		<p>
-			<div class="show-type">
-				<label for="">
-					<span>是否付费 </span>
-					<select name="" ce-model="isPaid" class="isPaid" disabled='disabled'>
-						<option value="0">否</option>
-						<option value="1">是</option>
+					<span>产品 <b>*</b></span>
+					<select name="" class="enterpriseName " disabled="disabled" ce-model="productId">
 					</select>
 				</label>
+			</p>-->
+			<p>
+				<label for="">
+					<span>销客终端总量(个) <b>*</b></span>
+					<input type="text" ce-model="accountTotalAmount" class="required deviceamount" onchange="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+				</label>
+				<label for="">
+					<span>是否赠送办公版 <b>*</b></span>
+					<select name=""  ce-model="presentOfficeEdition" class="required">
+						<option value="1">是</option>
+						<option value="0">否</option>
+					</select>
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>空间总量(GB) <b>*</b></span>
+					<input type="text" ce-model="storageTotalSpace" class="required" onchange="this.value=this.value.replace(/[^\.\d]/g,'')">
+				</label>
+			</p>
+			<p class="state-pay">
+				<label for="">
+					<span>合同照片 <b>*</b></span>
+					<input type="file" accept="image/*"/ class="contract">（支持.png,.jpg,.gif格式）
+				</label>
+			</p>
+			<p class="state-pay">
+				<label for="">
+					<span>合同副本照片(可选)</span>
+					<input type="file" accept="image/*"/ class="contractCopy">（支持.png,.jpg,.gif格式）
+				</label>
+			</p>
+			<p class="state state-pay">
+				<label for="">
+					<span>合同金额(￥) <b>*</b></span>
+					<input type="text" ce-model="contractPrice" class="contractprice" onchange="this.value=this.value.replace(/[^\.\d]/g,'')">(*包含名片费用) 
+				</label>
+			</p>
+			<p class="state state-pay">
+				<label for="">
+					<span>折扣 <b>*</b></span>
+					<input type="text" ce-model="discount">
+				</label>
+				<label for="">
+					<span>发票抬头 <b>*</b></span>
+					<input type="text" ce-model="invoiceTitle">
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>合同开始时间<b>*</b></span>
+					<input type="text" class="startTime" ce-model="startTime" onkeyup='this.value=""'>
+					<span>合同结束时间<b>*</b></span>
+					<input type="text" class="endTime" ce-model="endTime" onkeyup='this.value=""'>
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>营业执照照片</span>
+					<input name="imgfile" type="file" accept="image/*" class="businessLicense">（支持.png,.jpg,.gif格式）
+				</label>
+			</p>
+			<div style="border:1px solid #ccc; padding:15px;">
+				<p>
+					<label for="">
+						<span>门头照片</span>
+						<input name="imgfile" type="file" accept="image/*" class="companyGate">（支持.png,.jpg,.gif格式）
+					</label>
+				</p>
+				<p>
+					<label for="">
+						<span>门头照片关键字</span>
+						<input type="text" ce-model="companyGateKeyword" class="companyGateKeyword">
+					</label>
+					<label for="">
+						<span>门头照片备注</span>
+						<input type="text" ce-model="companyGateRemark" class="companyGateRemark ">
+					</label>
+				</p>
 			</div>
-		</p>
-		<p>
-			<label for="">
-				<span>空间总量(GB)</span>
-				<input type="text" ce-model="storageTotalSpace" class="" onchange="this.value=this.value.replace(/[^\.\d]/g,'')" disabled="disabled">
-			</label>
-		</p>
-		<p class="" >
-				<label for="">
-					<span>合同</span>
-					<a class="look-contract-add contract-link-add" target="_blank"><img class="img-contract-add detail-card" src="" alt="" style="width:350px; height:200px;" ></a>
-					<a class=" contract-hide-add" target="_blank">未上传</a>
-				</label>
-			</p>
-	
-		<p class="" >
-			<label for="">
-				<span>合同副本</span>
-				<a class="look-contractCopy contractCopy-link" target="_blank"><img class="img-contractCopy detail-card" src="" alt="" style="width:189px; height:200px;" ></a>
-				<a class=" contractCopy-hide" target="_blank">未上传</a>
-			</label>
-		</p>
-		<div class="show-type">
-			
+			<h4>备注</h4>
 			<p>
 				<label for="">
-					<span>合同金额(￥)</span>
-					<input type="text" ce-model="contractPrice" class=" contractprice " disabled="disabled" onchange="this.value=this.value.replace(/[^\.\d]/g,'')">
-				</label>
-			</p>
-			<p>
-				<label for="" class="card-price" style="display:none;">
-					<span>名片金额</span>
-					<input type="text" ce-model="cardPrice" class="" disabled='disabled'>
-				</label>
-			</p>
-			<p>
-				<label for="" class="card-price" style="display:none;">
-					<span>名片金额</span>
-					<input type="text" ce-model="cardPrice" class="" disabled='disabled'>
-				</label>
-			</p>
-			<p class=" state-pay">
-				<label for="">
-					<span>发票抬头 </span>
-					<input type="text" ce-model="invoiceTitle" class=" " disabled="disabled">
-				</label>
-			</p>
-			<p class=" state-pay">
-				<label for="">
-					<span>折扣 </span>
-					<input type="text" ce-model="discount" disabled="disabled" class="">
+					<textarea name="" ce-model="remark"></textarea>
 				</label>
 			</p>
 		</div>
-		<p>
-			<label for="">
-				<span>合同开始时间</span>
-				<input type="text" class=" start-time-ht " ce-model="contractStartTime" onkeyup='this.value=""' disabled="disabled">
-			</label>
-		</p>
-		<p>
-			<label for="">
-				<span>合同结束时间</span>
-				<input type="text" class="end-time-ht " ce-model="contractEndTime" onkeyup='this.value=""' disabled="disabled">
-			</label>
-		</p>
-	
-		<p class=" " >
-			<label for="">
-				<span>营业执照</span>
-				<a class="look-yyzhizhao yyzhizhao-link" href="" target="_blank"><img class="img-yyzhizhao detail-card" src="" alt="" style="width:189px; height:200px;" > </a>
-				<a class="yyzhizhao-hide" target="_blank">未上传</a>
-			</label>
-		</p>
+		<div class="enterprise-action clearfix">
+			
+			<button class="action-add btn-blue">提交</button>
+			<button class="action-cancel">取消</button>
+		</div>
 		
-
-		<p >
-			<label for="">
-				<span>门头照片</span>
-				<a class="look-mtzhizhao mtzhizhao-link" target="_blank"><img  class="img-mtzhizhao detail-card" src="" alt="" style="width:189px; height:200px;" ></a>
-				<a class="mtzhizhao-hide" target="_blank">未上传</a>
-			</label>
-		</p>
-		<p>
-			<label for="">
-				<span>门头照片关键字</span>
-				<input type="text" ce-model="companyGateKeyword" class=" companyGateKeyword" disabled="disabled">
-			</label>
-		</p>
-		<p>
-			<label for="">
-				<span>门头照片备注</span>
-				<input type="text" ce-model="companyGateRemark" class="companyGateRemark " disabled="disabled"> 
-			</label>
-		</p>
-		<p>
-			<label for="">
-				<span>备注</span>
-				<textarea ce-model="remark" class="" disabled="disabled"></textarea>
-			</label>
-		</p>
 	</div>
+	
 	<div style="clear:both;">
 		
 	</div>
