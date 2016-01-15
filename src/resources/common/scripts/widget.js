@@ -563,6 +563,12 @@
 						$element = $(element),
 						key = $element.attr('ce-model');
 
+					//file类型 直接返回
+					if( element.type == 'file' ){
+						return;
+					}
+
+
 					me.model.set( key, me._getValue( element ) );
 
 					//toto blur事件可以去掉
