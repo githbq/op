@@ -11,6 +11,7 @@ define( function(require, exports, module){
 
     var Pagination = require('common/widget/pagination/pagination');
 	var Slider = require('common/widget/slider/slider');
+	var uploader = require('common/widget/upload').uploader;
 	 var AreaTree = require('module/areatree/areatree');
 
 	var contentStr = require('./bindentinfo.html');
@@ -37,6 +38,22 @@ define( function(require, exports, module){
 			'.start-time-ht':'startTimeHt',
 			'.end-time-ht':'endTimeHt',
 			'.visite-time':  'visiteTime',
+			'.startTime': 'startTime',
+            '.endTime': 'endTime',
+			'.deviceamount': 'deviceamount',          //终端数量
+			'.contractprice': 'contractprice',       //合同金额
+			'.contract': 'contract',
+			'.contractCopy': 'contractCopy',
+			'.mtzhizhao': 'mtzhizhao',
+			'.yyzhizhao': 'yyzhizhao',
+			'.look-contractCopy':'lookContractCopy',
+			'.contractCopy-link':'contractCopyLink',
+			'.img-contractCopy' :'imgContractCopy',
+			'.contractCopy-hide' :'contractCopyHide',
+			'.look-contract':'lookContract',
+			'.contract-hide':'contractHide',
+			'.action-add': 'actionSave',
+			'.money-date':'moneyDate'
 			
 		},
 
@@ -97,47 +114,28 @@ define( function(require, exports, module){
                 me.$filingRegion.val( treenodes[0]['name'] ).attr('data-code', treenodes[0]['code'] );
             });
 			
-			me.$startTimeHt.datetimepicker( {
-				format: 'Y/m/d',
-				onShow: function() {
-					var maxDate = me.$endTimeHt.val() ? me.$endTimeHt.val() : false;
-					this.setOptions({
-						maxDate: maxDate
-					});
-				},
-				timepicker: false
-			} );
-			me.$endTimeHt.datetimepicker( {
-				format: 'Y/m/d',
-				onShow: function() {
-					var minDate = me.$startTimeHt.val() ? me.$startTimeHt.val() : false;
-					this.setOptions({
-						minDate: minDate
-					});
-				},
-				timepicker: false
-			} );
-			me.$('.start-time-ht-add').datetimepicker( {
-				format: 'Y/m/d',
-				onShow: function() {
-					var maxDateAdd = me.$('.end-time-ht-add').val() ? me.$('.end-time-ht-add').val() : false;
-					this.setOptions({
-						maxDateAdd: maxDateAdd
-					});
-				},
-				timepicker: false
-			} );
-			me.$('.end-time-ht-add').datetimepicker( {
-				format: 'Y/m/d',
-				onShow: function() {
-					var minDateAdd = me.$('.start-time-ht-add').val() ? me.$('.start-time-ht-add') : false;
-					this.setOptions({
-						minDateAdd: minDateAdd
-					});
-				},
-				timepicker: false
-			} );
-			
+			me.$startTime.datetimepicker( {
+                format: 'Y/m/d',
+                onShow: function() {
+                    var maxDate = me.$endTime.val() ? me.$endTime.val() : false;
+                    this.setOptions({
+                        maxDate: maxDate
+                    });
+                },
+                timepicker: false
+            } );
+            me.$endTime.datetimepicker( {
+                format: 'Y/m/d',
+                onShow: function() {
+                    var minDate = me.$startTime.val() ? me.$startTime.val() : false;
+                    this.setOptions({
+                        minDate: minDate
+                    });
+                },
+                timepicker: false
+            } );
+			me.$moneyDate.datetimepicker({'timepicker': false,'format':'Y/m/d'});
+
 			 //初始化日期选择
             me.$visiteTime.datetimepicker({
                 format: 'Y/m/d',
@@ -145,29 +143,153 @@ define( function(require, exports, module){
             });
 			
 			
-			//合同金额改变
-			me.$contractprice.on('focusout',function(){
-				me.model.set('contractPrice',parseFloat(me.model.get('contractPrice'))?parseFloat(me.model.get('contractPrice')):'');
-				me.getdiscount();
-			});
+			/**
+			 *
+			 * 合同上传'actionSave',
+			'.action-resend':'actionResend',
+			 * input[file]变更时 合同文件自动上传
+			 */
+			me.$contract.on('change',function(){
+				var fileExtension =me.$contract[0].files[0].name.split('.').pop().toLowerCase();
+				if(fileExtension=='jpg'||fileExtension=='gif'||fileExtension=='png'||fileExtension=='jpeg'){
+					me.$actionSave.attr('disabled','disabled');
+					me.$actionSave.text('文件上传...');
+					uploader.send({
+						'url': '/op/api/file/uploadsinglefileandcheck',
+						'files': me.$contract[0].files,
+						'options':{
+							'limittype':'IMAGE'
+						},
+						'success': function( response ){
+							console.warn( response );
+							me.model.set('contract', response.value.model.path );
+							me.model.set('contractFileName', response.value.model.FileName );
+							
+							me.$actionSave.removeAttr('disabled');
+							me.$actionSave.text('保存');
 
-			//终端数量改变
-			me.$deviceamount.on('focusout',function(){
-				me.model.set('accountTotalAmount',parseInt(me.model.get('accountTotalAmount'))?parseInt(me.model.get('accountTotalAmount')):'');
+						},
+						'error':function(response){
+							me.$actionSave.removeAttr('disabled');
+							me.$actionSave.text('保存');
+
+							me.$contract.val('');
+							return false;
+						}
+					})
+				}else{
+					me.$contract.val('');
+					util.showToast('请上传图片格式不正确(.jpg,.png,.gif)！');
+					return false;
+				}
 				
-				me.getdiscount();
 			});
-			//合同开始时间
-			me.$startTime.on('focusout',function(){
-				me.getdiscount();
-			});
-			//合同结束时间时间
-			me.$endTime.on('focusout',function(){
-				me.getdiscount();
-			});
+			me.$contractCopy.on('change',function(){
+				var fileExtension =me.$contractCopy[0].files[0].name.split('.').pop().toLowerCase();
+				if(fileExtension=='jpg'||fileExtension=='gif'||fileExtension=='png'||fileExtension=='jpeg'){
+					me.$actionSave.attr('disabled','disabled');
+					me.$actionSave.text('文件上传...');
 
-			
-			
+					uploader.send({
+						'url': '/op/api/file/uploadsinglefileandcheck',
+						'files': me.$contractCopy[0].files,
+						'options':{
+							'limittype':'IMAGE'
+						},
+						'success': function( response ){	
+							console.warn( response );
+							me.model.set('contractCopy', response.value.model.path );
+							me.model.set('contractCopyFileName', response.value.model.FileName );
+				
+							me.$actionSave.removeAttr('disabled');
+							me.$actionSave.text('保存');
+						},
+						'error':function(response){
+							me.$actionSave.removeAttr('disabled');
+							me.$actionSave.text('保存');
+							me.$actionResend.removeAttr('disabled');
+							me.$contractCopy.val('');
+							return false;
+						}
+					})
+				}else{
+					me.$contractCopy.val('');
+					util.showToast('请上传图片格式不正确(.jpg,.png,.gif)！');
+					return false;
+				}
+				
+			});
+			me.$mtzhizhao.on('change',function(){
+				var fileExtension =me.$mtzhizhao[0].files[0].name.split('.').pop().toLowerCase();
+				if(fileExtension=='jpg'||fileExtension=='gif'||fileExtension=='png'||fileExtension=='jpeg'){
+					me.$actionSave.attr('disabled','disabled');
+					me.$actionSave.text('文件上传...');
+
+					uploader.send({
+						'url': '/op/api/file/uploadsinglefileandcheck',
+						'files': me.$mtzhizhao[0].files,
+						'options':{
+							'limittype':'IMAGE'
+						},
+						'success': function( response ){
+							console.warn( response );
+							me.model.set('companyGatePicture', response.value.model.path );
+							me.model.set('companyGatePictureFileName', response.value.model.FileName );
+							me.$actionSave.removeAttr('disabled');
+							me.$actionSave.text('保存');
+							
+						},
+						'error':function(response){
+							me.$actionSave.removeAttr('disabled');
+							me.$actionSave.text('保存');
+	
+							me.$mtzhizhao.val('');
+							return false;
+						}
+					})
+				}else{
+					me.$mtzhizhao.val('');
+					util.showToast('请上传图片格式不正确(.jpg,.png,.gif)！');
+					return false;
+				}
+				
+			});
+			me.$yyzhizhao.on('change',function(){
+				var fileExtension =me.$yyzhizhao[0].files[0].name.split('.').pop().toLowerCase();
+				if(fileExtension=='jpg'||fileExtension=='gif'||fileExtension=='png'||fileExtension=='jpeg'){
+					me.$actionSave.attr('disabled','disabled');
+					me.$actionSave.text('文件上传...');
+
+					 uploader.send({
+						'url': '/op/api/file/uploadsinglefileandcheck',
+						'files': me.$yyzhizhao[0].files,
+						'options':{
+							'limittype':'IMAGE'
+						},
+						'success': function( response ){
+							console.warn( response );
+							me.model.set('businessLicense', response.value.model.path );
+							me.model.set('businessLicenseFileName', response.value.model.FileName );
+
+							me.$actionSave.removeAttr('disabled');
+							me.$actionSave.text('保存');
+
+						},
+						'error':function(response){
+							me.$actionSave.removeAttr('disabled');
+							me.$actionSave.text('保存');
+
+							me.$yyzhizhao.val('');
+							return false;
+						}
+					})
+				}else{
+					me.$yyzhizhao.val('');
+					util.showToast('请上传图片格式不正确(.jpg,.png,.gif)！');
+					return false;
+				}
+				
+			});
 
 			me.getEnums();
 			
@@ -225,6 +347,12 @@ define( function(require, exports, module){
 		hide: function(){
 			var me = this;
 			me.model.clear();
+			me.$yyzhizhao.val('');
+			me.$mtzhizhao.val('');
+			me.$contract.val('');
+			me.$contractCopy.val('');
+			
+            me.$('.state').hide();
 		
 			BindEntInfo.__super__.hide.apply( this,arguments );
 		}

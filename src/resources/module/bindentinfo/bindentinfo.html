@@ -165,20 +165,35 @@
 					<input type="file" accept="image/*"/ class="contractCopy">（支持.png,.jpg,.gif格式）
 				</label>
 			</p>
-			<p class="state state-pay">
+			<p>
 				<label for="">
-					<span>合同金额(￥) <b>*</b></span>
-					<input type="text" ce-model="contractPrice" class="contractprice" onchange="this.value=this.value.replace(/[^\.\d]/g,'')">(*包含名片费用) 
+					<span>培训服务费 </span>
+					<select name=""  ce-model="presentOfficeEdition" class="required">
+						<option value="">未收</option>
+						<option value="">已收</option>
+					</select>
+				</label>
+				<label for="">
+					<span>收款金额</span>
+					<input type="text" ce-model="accountTotalAmount" class="required deviceamount" onchange="this.value=this.value.replace(/[^\.\d]/g,'')">
 				</label>
 			</p>
-			<p class="state state-pay">
+			<p>
 				<label for="">
-					<span>折扣 <b>*</b></span>
-					<input type="text" ce-model="discount">
+					<span>发票抬头</span>
+					<input type="text" ce-model="" class="" maxlength=100 style="width:500px;">
 				</label>
+			</p>
+			<p>
 				<label for="">
-					<span>发票抬头 <b>*</b></span>
-					<input type="text" ce-model="invoiceTitle">
+					<span>打款人</span>
+					<input type="text" ce-model="" class="" maxlength=100 style="width:500px;">
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>打款日期</span>
+					<input type="text" class="money-date" ce-model="" onkeyup='this.value=""'>
 				</label>
 			</p>
 			<p>
@@ -192,14 +207,14 @@
 			<p>
 				<label for="">
 					<span>营业执照照片</span>
-					<input name="imgfile" type="file" accept="image/*" class="businessLicense">（支持.png,.jpg,.gif格式）
+					<input name="imgfile" type="file" accept="image/*" class="yyzhizhao">（支持.png,.jpg,.gif格式）
 				</label>
 			</p>
 			<div style="border:1px solid #ccc; padding:15px;">
 				<p>
 					<label for="">
 						<span>门头照片</span>
-						<input name="imgfile" type="file" accept="image/*" class="companyGate">（支持.png,.jpg,.gif格式）
+						<input name="imgfile" type="file" accept="image/*" class="mtzhizhao">（支持.png,.jpg,.gif格式）
 					</label>
 				</p>
 				<p>
@@ -220,17 +235,13 @@
 				</label>
 			</p>
 		</div>
-		<div class="enterprise-action clearfix">
-			
-			<button class="action-add btn-blue">提交</button>
+		<div class=" clearfix" style="text-align:center;">
 			<button class="action-cancel">取消</button>
+			<button class="action-add btn-blue">提交</button>
 		</div>
 		
 	</div>
-	
-	<div style="clear:both;">
-		
-	</div>
+
 	
 </div>
 

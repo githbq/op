@@ -242,8 +242,33 @@ define( function(require, exports, module){
 					return false;
 				}
 			});
-
-
+			
+			 //初始化日期选择
+            me.$('.money-date').datetimepicker({
+                format: 'Y/m/d',
+                timepicker: true
+            });
+			me.$('.startTime-bind').datetimepicker( {
+                format: 'Y/m/d',
+                onShow: function() {
+                    var maxDate = me.$('.endTime-bind').val() ? me.$('.endTime-bind').val() : false;
+                    this.setOptions({
+                        maxDate: maxDate
+                    });
+                },
+                timepicker: false
+            } );
+            me.$('.endTime-bind').datetimepicker( {
+                format: 'Y/m/d',
+                onShow: function() {
+                    var minDate = me.$('.startTime-bind').val() ? me.$('.startTime-bind').val() : false;
+                    this.setOptions({
+                        minDate: minDate
+                    });
+                },
+                timepicker: false
+            } );
+			
 			me.getEnums();
 			
 		},
@@ -457,7 +482,7 @@ define( function(require, exports, module){
 
 							//me.getRegistrationEnterprise(data);
 							me.getRecordEnterprise( data );
-							//me.downFile(data);
+							me.downBindFile(data);
 							
 							//translateBool( 'isSaleTeam' , data.value.model['isSaleTeam'] );
 							//translateBool( 'isFirstmeetingSign' , data.value.model['isFirstmeetingSign'] );
@@ -482,7 +507,7 @@ define( function(require, exports, module){
 
 							//me.getRegistrationEnterprise(data);
 							me.getRecordEnterprise( data );
-							//me.downFile(data);
+							me.downBindFile(data);
 							
 							/*translateBool( 'isSaleTeam' , data.value.model['isSaleTeam'] );
 							translateBool( 'isFirstmeetingSign' , data.value.model['isFirstmeetingSign'] );
@@ -780,6 +805,69 @@ define( function(require, exports, module){
 				me.$imgMtzhizhao.attr('src', '');
 			}
 		},
+		/**
+		 *
+		 *显示文件
+		 */
+		downBindFile: function(data){
+			var me = this;
+			data.value.model = data.value.enterpriseQueryInfo;
+			var contractFilePath = data.value.model.contract ? data.value.model.contract:'';
+			var contractCopyFilePath = data.value.model.contractCopy ? data.value.model.contractCopy :'';
+			var businessLicense = data.value.model.businessLicense ? data.value.model.businessLicense:'';
+			var companyGatePicture = data.value.model.companyGatePicture ? data.value.model.companyGatePicture:'';
+			//更新企业详情
+			//var a = '~/op/api/file/previewimage ' + '?fileName=' + fileName ;
+			//显示合同下载
+			if(contractFilePath){
+				me.$('.contract-link-bind').show();
+				me.$('.contract-hide-bind').hide();
+				me.$('.contract-link-bind').attr('href', '/op/api/file/previewimage' + '?filePath=' + contractFilePath);
+				me.$('.img-contract-bind').attr('src', '/op/api/file/previewimage' + '?filePath=' + contractFilePath);
+			}else{
+				me.$('.contract-link-bind').hide();
+				me.$('.contract-hide-bind').show();
+				me.$('.contract-link-bind').attr('href', '');
+				me.$('.img-contract-bind').attr('src', '');
+			}
+			//显示合同副本
+			if(contractCopyFilePath){
+				me.$('.contractCopy-link-bind').show();
+				me.$('.contractCopy-hide-bind').hide();
+				me.$('.contractCopy-link-bind').attr('href', '/op/api/file/previewimage' + '?filePath=' + contractCopyFilePath);
+				me.$('.img-contractCopy-bind').attr('src', '/op/api/file/previewimage' + '?filePath=' + contractCopyFilePath);
+			}else{
+				me.$('.contractCopy-link-bind').hide();
+				me.$('.contractCopy-hide-bind').show();
+				me.$('.contractCopy-link-bind').attr('href', '');
+				me.$('.img-contractCopy-bind').attr('src', '');
+			}
+			//显示营业执照下载
+			if(businessLicense){
+				me.$('.yyzhizhao-link-bind').show();
+				me.$('.yyzhizhao-hide-bind').hide();
+				me.$('.yyzhizhao-link-bind').attr('href', '/op/api/file/previewimage' + '?filePath=' + businessLicense);
+				me.$('.img-yyzhizhao-bind').attr('src', '/op/api/file/previewimage' + '?filePath=' + businessLicense);
+			}else{
+				me.$('.yyzhizhao-link-bind').hide();
+				me.$('.yyzhizhao-hide-bind').show();
+				me.$('.yyzhizhao-link-bind').attr('href', '');
+				me.$('.img-yyzhizhao-bind').attr('src', '');
+
+			}
+			//显示门头执照下载
+			if(companyGatePicture){
+				me.$('.mtzhizhao-link-bind').show();
+				me.$('.mtzhizhao-hide-bind').hide();
+				me.$('.mtzhizhao-link-bind').attr('href', '/op/api/file/previewimage' + '?filePath=' + companyGatePicture);
+				me.$('.img-mtzhizhao-bind').attr('src', '/op/api/file/previewimage' + '?filePath=' + companyGatePicture);
+			}else{
+				me.$('.mtzhizhao-link-bind').hide();
+				me.$('.mtzhizhao-hide-bind').show();
+				me.$('.mtzhizhao-link-bind').attr('href', '');
+				me.$('.img-mtzhizhao-bind').attr('src', '');
+			}
+		},
 		//重新发送
 		hide: function(){
 			var me = this;
@@ -798,6 +886,14 @@ define( function(require, exports, module){
 			me.$('.img-contract-add').attr('src', '');
 			me.$('.contractCopy-link-add').attr('href','');
 			me.$('.img-contractCopy-add').attr('src', '');
+			me.$('.contract-link-bind').attr('href','');
+			me.$('.img-contract-bind').attr('src', '');
+			me.$('.contractCopy-link-bind').attr('href','');
+			me.$('.img-contractCopy-bind').attr('src', '');
+			me.$('.mtzhizhao-link-bind').attr('href', '');
+			me.$('.img-mtzhizhao-bind').attr('src', '');
+			me.$('.yyzhizhao-link-bind').attr('href', '');
+			me.$('.img-yyzhizhao-bind').attr('src', '');
 			me.$('.state').hide();
 			me.$('.state-wait').hide();
 			me.$('.wait-other').show();
