@@ -778,6 +778,8 @@
 
 						//todo
 						return element.checked;
+					}else if( type == 'file'){
+						//
 					}else{
 						return $element.val(); 
 					}
