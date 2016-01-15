@@ -313,9 +313,11 @@ define( function( require, exports, module ) {
 					},
 					'success': function( data ){
 						if( data.success ){
-						   util.showTip('关联自注册企业成功！');
+							
+						   location.hash = '#agentsupport/bindinfo';
+						   /*util.showTip('关联自注册企业成功！');
 						   me.trigger('bindLinkSuccess');
-						   me.hide();  
+						   me.hide(); */ 
 						} 
 					}
 				})
