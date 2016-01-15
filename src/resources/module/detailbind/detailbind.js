@@ -811,7 +811,8 @@ define( function(require, exports, module){
 		 */
 		downBindFile: function(data){
 			var me = this;
-			data.value.model = data.value.enterpriseQueryInfo;
+			data.value.model = data.value.enterpriseFiling;
+			
 			var contractFilePath = data.value.model.contract ? data.value.model.contract:'';
 			var contractCopyFilePath = data.value.model.contractCopy ? data.value.model.contractCopy :'';
 			var businessLicense = data.value.model.businessLicense ? data.value.model.businessLicense:'';
