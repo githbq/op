@@ -65,7 +65,7 @@
         IBSS.API_PATH = '/op/api/am';       //api路径
         IBSS.IS_DEVELOP = true;
         // IBSS.VERSION ='4.7.' + (new Date()).getTime();
-        IBSS.VERSION ='4.7';
+        IBSS.VERSION ='5.1.1';
 </script>
 
 <!--build:common resources/common/scripts/common.js-->
@@ -79,6 +79,7 @@
 
 <script type="text/javascript" src="resources/common/scripts/util.js"></script>
 <script type="text/javascript" src="resources/common/scripts/widget.js"></script>
+
 <script type="text/javascript" src="resources/common/widget/calendar/jquery.datetimepicker.js"></script>
 <!--endbuild-->
 
@@ -95,5 +96,7 @@
 
 </body>
 </html>
+
+
 
 
