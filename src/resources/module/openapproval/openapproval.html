@@ -197,15 +197,17 @@
 			</label>
 		</p>
 	</div>
+	<p>
+		<label for="">
+			<span>培训服务费 </span>
+			<select name=""   class="expenseType" disabled='disabled'>
+				<option value="0">未收</option>
+				<option value="1">已收</option>
+			</select>
+		</label>
+	</p>
 	<div class="show-service" style="display:none;">
 		<p>
-			<label for="">
-				<span>培训服务费 </span>
-				<select name=""   class="expenseType" disabled='disabled'>
-					<option value="0">未收</option>
-					<option value="1">已收</option>
-				</select>
-			</label>
 			<label for="" >
 				<span>收款金额</span>
 				<input type="text"  name="amountService" class="status-disabled amountService" onchange="this.value=this.value.replace(/[^\.\d]/g,'')">

@@ -131,6 +131,14 @@ define( function(require, exports, module){
 					this.value = '';
 				}
 			});
+			
+			me.$payServiceCharge.on('change',function(){
+				if(me.$payServiceCharge.val() == 1 ){
+					me.$checkedDisable.removeAttr('disabled')
+				}else{
+					me.$checkedDisable.attr('disabled','disabled');
+				}
+			});
 
 			me.$companyGate.on('change',function(){
 				var Extlist = ".BMP.GIF.JPEG.JPG.PNG";
@@ -142,7 +150,7 @@ define( function(require, exports, module){
 
 			me.$startTime.datetimepicker({'timepicker': false,'format':'Y/m/d'});
             me.$endTime.datetimepicker({'timepicker': false,'format':'Y/m/d'});
-			me.$('.money-date').datetimepicker({'timepicker': false,'format':'Y/m/d'});
+			me.$moneyDate.datetimepicker({'timepicker': false,'format':'Y/m/d'});
 
 		},
 		events:{
@@ -164,11 +172,14 @@ define( function(require, exports, module){
 			'.companyscale':'companyscale',
 			'.saleteamscale':'saleteamscale',
 			'.endTime': 'endTime',
+			'.money-date':'moneyDate',
 
 			'.yearlimit': 'yearlimit',               //合同年限
 			'.contractprice': 'contractprice',       //合同金额
 			'.deviceamount': 'deviceamount',          //终端数量
 			'.action-add': 'actionAdd',
+			'.payServiceCharge':'payServiceCharge',
+			'.checkedDisable':'checkedDisable',
 
 			'.startTime': 'startTime',
             '.endTime': 'endTime',

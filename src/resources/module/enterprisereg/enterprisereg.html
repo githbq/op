@@ -215,32 +215,32 @@
 		<p>
 			<label for="">
 				<span>培训服务费</span>
-				<select name=""  ce-model="payServiceCharge" class="" name="">
+				<select name=""  ce-model="payServiceCharge" class="payServiceCharge" name="">
 					<option value="0">未收</option>
 					<option value="1">已收</option>
 				</select>
 			</label>
 			<label for="">
 				<span>收款金额</span>
-				<input type="text" ce-model="serviceChargeAmount" class="" onchange="this.value=this.value.replace(/[^\.\d]/g,'')>0 ? this.value.replace(/[^\.\d]/g,'') : ''" >
+				<input type="text" ce-model="serviceChargeAmount" disabled=disabled class="checkedDisable" onchange="this.value=this.value.replace(/[^\.\d]/g,'')>0 ? this.value.replace(/[^\.\d]/g,'') : ''" >
 			</label>
 		</p>
 		<p>
 			<label for="">
 				<span>发票抬头</span>
-				<input type="text" ce-model="invoiceHead" class="" maxlength=100 />
+				<input type="text" ce-model="invoiceHead" disabled=disabled class="checkedDisable" maxlength=100 />
 			</label>
 		</p>
 		<p>
 			<label for="">
 				<span>打款人</span>
-				<input type="text" ce-model="payerName" class="" maxlength=100 />
+				<input type="text" ce-model="payerName" disabled=disabled class="checkedDisable" maxlength=100 />
 			</label>
 		</p>
 		<p>
 			<label for="">
 				<span>打款日期</span>
-				<input type="text" class="money-date"  onkeyup='this.value=""'>
+				<input type="text" class="money-date checkedDisable" disabled=disabled onkeyup='this.value=""'  />
     		</label>
 		</p>
 		<p>
