@@ -694,7 +694,7 @@ define( function(require, exports, module){
             me.$('.state').hide();
             me.$('.state-'+state).show();
 			me.$('.wait-other').hide();
-			me._setWidth('750');
+			me._setWidth('800');
 			function translateBool( key , value ){
 				if(value){
 					me.model.set(key,'true');

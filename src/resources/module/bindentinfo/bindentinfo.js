@@ -55,6 +55,8 @@ define( function(require, exports, module){
 			'.action-add': 'actionSave',
 			'.money-date':'moneyDate',
 			'.firm-status':  'firmStatus',
+			'.payServiceCharge':'payServiceCharge',
+			'.checkedDisable':'checkedDisable'
 			
 		},
 
@@ -212,6 +214,14 @@ define( function(require, exports, module){
                 timepicker: false
             } );
 			me.$moneyDate.datetimepicker({'timepicker': false,'format':'Y/m/d'});
+			
+			me.$payServiceCharge.on('change',function(){
+				if(me.$payServiceCharge.val() == 1 ){
+					me.$checkedDisable.removeAttr('disabled')
+				}else{
+					me.$checkedDisable.attr('disabled','disabled');
+				}
+			});
 
 			 //初始化日期选择
             me.$visiteTime.datetimepicker({
