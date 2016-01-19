@@ -51,9 +51,10 @@
 	 */
 	seajs.config({
 		
-		map: [
+		/*map: [
     		[ '.js', '.js?v=' + IBSS.VERSION ]
-  		],
+  		],*/
+		map: [ /*${gulp-replace}*/ ],
   		
 		paths: {
 			'common': IBSS.COMMON_PATH,

@@ -586,8 +586,8 @@ define( function(require, exports, module){
 				objDate['payerName']=me.model.get('payerName-bind');
 				objDate['payDate']=me.$('.money-date').val()?new Date( me.$('.money-date').val() ).getTime():'';
 				
-				if( !objDate['contract'] && !objDate['contractFileName']){
-					util.showToast('收取服务费时，请上传合同！');
+				if( !objDate['contract'] && !objDate['contractFileName'] && !objDate['contractStartTime'] && !objDate['contractEndTime']){
+					util.showToast('收取服务费时，请上传合同和合同时间！');
 					return false;
 				}
 			}
