@@ -72,7 +72,8 @@ define( function(require, exports, module){
 			'.useBusinessCard':'useBusinessCard',
 			'.action-agree':'actionAgree',
 			'.action-reject':'actionReject',
-			'.add-type':'addType'
+			'.add-type':'addType',
+			'.money-date':'moneyDate'
 			
         },
 
@@ -301,6 +302,10 @@ define( function(require, exports, module){
 				timepicker: true
 			} );
 			me.$endTimeHt.datetimepicker( {
+				format: 'Y/m/d',
+				timepicker: true
+			} );
+			me.$moneyDate.datetimepicker( {
 				format: 'Y/m/d',
 				timepicker: true
 			} );
