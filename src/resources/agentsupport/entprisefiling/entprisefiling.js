@@ -300,8 +300,7 @@ define( function( require, exports, module ) {
 				util.showToast('请填写完整自注册企业账号！');
 				return false;
 			}
-			//location.hash = '#agentsupport/bindinfo/'+me.attrs['entId']+'/'+enterpriseAccount;
-			
+
 			util.api({
 				'url': '/enterprisefiling/canbinding',
 				'data': {
@@ -314,9 +313,6 @@ define( function( require, exports, module ) {
 				'success': function( data ){
 					if( data.success ){
 					   location.hash = '#agentsupport/bindinfo/'+me.attrs['entId']+'/'+enterpriseAccount;
-					   /*util.showTip('关联自注册企业成功！');
-					   me.trigger('bindLinkSuccess');
-					   me.hide(); */
 					} 
 				}
 			})
