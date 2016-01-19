@@ -1016,8 +1016,10 @@ define( function( require, exports, module ) {
 					//me.$lookCard.hide()
 					me.$upCard.show();
 					me.$upCardAdd.hide();
+					
 				}else{
 					me.$actionSubmit.show();
+					me.$upCard.hide();
 				}
                 
             }else if( me.attrs.isCurrentTask  == 'true' && (me.attrs.type  == 'addPurchaseApproval' || me.attrs.type  == 'addFreeApproval') ){
