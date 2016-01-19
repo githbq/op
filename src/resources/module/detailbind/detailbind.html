@@ -140,7 +140,7 @@
 			<p class="up-card">
 				<label for="">
 					<span>合同<b class="state state-current">*</b> </span>
-					<input type="file" class="contract-bind" name="contract-bind" accept="image/gif, image/jpeg, image/png">
+					<input type="file" class="contract-bind" ce-model="contract-bind" name="contract-bind" accept="image/gif, image/jpeg, image/png">
 				</label>
 			</p>
 			<p class="" >
@@ -153,7 +153,7 @@
 			<p class="up-card">
 				<label for="">
 					<span>合同副本 (可选)</span>
-					<input type="file" class="contractCopy-bind"  accept="image/gif, image/jpeg, image/png">
+					<input type="file" class="contractCopy-bind" ce-model="contractCopy-bind"  accept="image/gif, image/jpeg, image/png">
 				</label>
 			</p>
 			<p class="" >
@@ -167,7 +167,7 @@
 			<p>
 				<label for="" class="">
 					<span>收款金额</span>
-					<input type="text" ce-model="amount-bind" name="" class="status-disabled "  onchange="this.value=this.value.replace(/[^\.\d]/g,'')" >
+					<input type="text" ce-model="amount-bind" name="" class="status-disabled "  maxlength=6   onchange="this.value=this.value.replace(/[^\.\d]/g,'')" >
 				</label>
 			</p>
 			<p>
@@ -203,7 +203,7 @@
 			<p class="up-card">
 				<label for="">
 					<span>营业执照 </span>
-					<input type="file" class="yyzhizhao-bind" name="yyzhizhao-bind" accept="image/gif, image/jpeg, image/png">
+					<input type="file" class="yyzhizhao-bind" ce-model="yyzhizhao-bind" name="yyzhizhao-bind" accept="image/gif, image/jpeg, image/png">
 				</label>
 			</p>
 			<p class=" " >
@@ -216,7 +216,7 @@
 			<p class="up-card">
 				<label for="">
 					<span>门头照片 </span>
-					<input type="file" class="mtzhizhao-bind" name="mtzhizhao-bind"  accept="image/gif, image/jpeg, image/png">
+					<input type="file" class="mtzhizhao-bind"  ce-model="mtzhizhao-bind" name="mtzhizhao-bind"  accept="image/gif, image/jpeg, image/png">
 				</label>
 			</p>
 			<p >

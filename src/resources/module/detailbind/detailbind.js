@@ -586,7 +586,7 @@ define( function(require, exports, module){
 				objDate['payerName']=me.model.get('payerName-bind');
 				objDate['payDate']=me.$('.money-date').val()?new Date( me.$('.money-date').val() ).getTime():'';
 				
-				if( !entObj['contract'] && !entObj['contractFileName']){
+				if( !objDate['contract'] && !objDate['contractFileName']){
 					util.showToast('收取服务费时，请上传合同！');
 					return false;
 				}
@@ -1004,11 +1004,13 @@ define( function(require, exports, module){
 			//var a = '~/op/api/file/previewimage ' + '?fileName=' + fileName ;
 			//显示合同下载
 			if(contractFilePath){
+				me.model.set('contract-bind', contractFilePath);
 				me.$('.contract-link-bind').show();
 				me.$('.contract-hide-bind').hide();
 				me.$('.contract-link-bind').attr('href', '/op/api/file/previewimage' + '?filePath=' + contractFilePath);
 				me.$('.img-contract-bind').attr('src', '/op/api/file/previewimage' + '?filePath=' + contractFilePath);
 			}else{
+				me.model.set('contract-bind', '');
 				me.$('.contract-link-bind').hide();
 				me.$('.contract-hide-bind').show();
 				me.$('.contract-link-bind').attr('href', '');
@@ -1016,11 +1018,13 @@ define( function(require, exports, module){
 			}
 			//显示合同副本
 			if(contractCopyFilePath){
+				me.model.set('contractCopy-bind', contractCopyFilePath);
 				me.$('.contractCopy-link-bind').show();
 				me.$('.contractCopy-hide-bind').hide();
 				me.$('.contractCopy-link-bind').attr('href', '/op/api/file/previewimage' + '?filePath=' + contractCopyFilePath);
 				me.$('.img-contractCopy-bind').attr('src', '/op/api/file/previewimage' + '?filePath=' + contractCopyFilePath);
 			}else{
+				me.model.set('contractCopy-bind', '');
 				me.$('.contractCopy-link-bind').hide();
 				me.$('.contractCopy-hide-bind').show();
 				me.$('.contractCopy-link-bind').attr('href', '');
@@ -1028,11 +1032,13 @@ define( function(require, exports, module){
 			}
 			//显示营业执照下载
 			if(businessLicense){
+				me.model.set('yyzhizhao-bind', businessLicense);
 				me.$('.yyzhizhao-link-bind').show();
 				me.$('.yyzhizhao-hide-bind').hide();
 				me.$('.yyzhizhao-link-bind').attr('href', '/op/api/file/previewimage' + '?filePath=' + businessLicense);
 				me.$('.img-yyzhizhao-bind').attr('src', '/op/api/file/previewimage' + '?filePath=' + businessLicense);
 			}else{
+				me.model.set('yyzhizhao-bind', '');
 				me.$('.yyzhizhao-link-bind').hide();
 				me.$('.yyzhizhao-hide-bind').show();
 				me.$('.yyzhizhao-link-bind').attr('href', '');
@@ -1041,11 +1047,13 @@ define( function(require, exports, module){
 			}
 			//显示门头执照下载
 			if(companyGatePicture){
+				me.model.set('mtzhizhao-bind',companyGatePicture);
 				me.$('.mtzhizhao-link-bind').show();
 				me.$('.mtzhizhao-hide-bind').hide();
 				me.$('.mtzhizhao-link-bind').attr('href', '/op/api/file/previewimage' + '?filePath=' + companyGatePicture);
 				me.$('.img-mtzhizhao-bind').attr('src', '/op/api/file/previewimage' + '?filePath=' + companyGatePicture);
 			}else{
+				me.model.set('mtzhizhao-bind','');
 				me.$('.mtzhizhao-link-bind').hide();
 				me.$('.mtzhizhao-hide-bind').show();
 				me.$('.mtzhizhao-link-bind').attr('href', '');

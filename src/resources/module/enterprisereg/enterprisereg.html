@@ -222,7 +222,7 @@
 			</label>
 			<label for="">
 				<span>收款金额</span>
-				<input type="text" ce-model="serviceChargeAmount" disabled=disabled class="checkedDisable" onchange="this.value=this.value.replace(/[^\.\d]/g,'')>0 ? this.value.replace(/[^\.\d]/g,'') : ''" >
+				<input type="text" ce-model="serviceChargeAmount" disabled=disabled class="checkedDisable" maxlength=6 onchange="this.value=this.value.replace(/[^\.\d]/g,'')>0 ? this.value.replace(/[^\.\d]/g,'') : ''" >
 			</label>
 		</p>
 		<p>

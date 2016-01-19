@@ -99,11 +99,11 @@ define( function( require, exports, module ) {
 			var isCanEdit = $target.attr('data-edit')||'false';
 			//var processInstanceId = $target.attr('data-processInstanceId')||'';
 			if ( me.attrs.state == "refuse"){
-                me.trigger( 'detail', id , eid , type ,canCancel , isCurrentTask );
+                me.trigger( 'detail', id , eid , type ,canCancel , isCurrentTask ,isCanEdit,me.attrs.state);
             }else if ( me.attrs.state == "wait"){
-                me.trigger( 'detail', id , eid , type , canCancel , isCurrentTask,isCanEdit );
+                me.trigger( 'detail', id , eid , type , canCancel , isCurrentTask,isCanEdit ,me.attrs.state);
             }else {
-                me.trigger( 'detail', id , eid , type ,canCancel , isCurrentTask,isCanEdit);
+                me.trigger( 'detail', id , eid , type ,canCancel , isCurrentTask,isCanEdit,me.attrs.state);
             }
         },
 		detailBindEve:function( e ){
@@ -1049,24 +1049,46 @@ define( function( require, exports, module ) {
                 me.$showType.show();
             }else if( me.attrs.type  == 'freeLaunchApproval' ){
 				me.$showType.hide();
-				util.api({
-					'url':'/order/getOrderDetailByProcessInstanceId',
-					'data':{
-						'processInstanceId': me.attrs.id
-					},
-					'success': function( data ){
-						if( data.success ){
-							me.$('.show-service').show();
-							me.model.load( data.value.model.invoice )
-							me.model.set('amountService', data.value.model.invoice.amount);
-							var payDate = data.value.model.invoice.payDate? new Date( data.value.model.invoice.payDate  )._format('yyyy/MM/dd'):'';
-							me.model.set('payDate', payDate);
-							me.attrs.orderId = data.value.model.invoice.orderId;
-						}else{
-							me.model.set('expenseType', 0);
+				if( me.attrs.currentState=='end'){
+					util.api({
+						'url':'/order/getOrderDetailByEnterpriseId ',
+						'data':{
+							'enterpriseId': me.attrs.eid
+						},
+						'success': function( data ){
+							if( data.success ){
+								me.$('.show-service').show();
+								me.model.load( data.value.model.invoice )
+								me.model.set('amountService', data.value.model.invoice.amount);
+								var payDate = data.value.model.invoice.payDate? new Date( data.value.model.invoice.payDate  )._format('yyyy/MM/dd'):'';
+								me.model.set('payDate', payDate);
+								me.attrs.orderId = data.value.model.invoice.orderId;
+							}else{
+								me.model.set('expenseType', 0);
+							}
 						}
-					}
-				});
+					});
+				}else{
+					util.api({
+						'url':'/order/getOrderDetailByProcessInstanceId',
+						'data':{
+							'processInstanceId': me.attrs.id
+						},
+						'success': function( data ){
+							if( data.success ){
+								me.$('.show-service').show();
+								me.model.load( data.value.model.invoice )
+								me.model.set('amountService', data.value.model.invoice.amount);
+								var payDate = data.value.model.invoice.payDate? new Date( data.value.model.invoice.payDate  )._format('yyyy/MM/dd'):'';
+								me.model.set('payDate', payDate);
+								me.attrs.orderId = data.value.model.invoice.orderId;
+							}else{
+								me.model.set('expenseType', 0);
+							}
+						}
+					});
+				}
+				
 			}else if( me.attrs.type  == 'addPurchaseApproval' || me.attrs.type  == 'addFreeApproval' ){
 				me.$addType.show();
 				//获取增购信息
@@ -1912,7 +1934,7 @@ define( function( require, exports, module ) {
          * @param eid  企业id
          * @param type 类型
          */
-        show: function( id , eid , type , canCancel , isCurrentTask,isCanEdit  ){
+        show: function( id , eid , type , canCancel , isCurrentTask,isCanEdit ,currentState ){
             var me = this;
 
             me.attrs.id = id;
@@ -1922,6 +1944,7 @@ define( function( require, exports, module ) {
             me.attrs.isCurrentTask = isCurrentTask || 'false';
 			me.attrs.isCanEdit = isCanEdit || 'false';
 			me.attrs.runStatus = '';
+			me.attrs.currentState = currentState;
 			//me.attrs.processInstanceId = processInstanceId||''; 
 			//me.attrs.applicantYn = applicantYn || 'false';
 
@@ -2077,9 +2100,9 @@ define( function( require, exports, module ) {
 		var detailBind = new DetailBind();
 
 
-        renewList.on('detail',function( id , eid , type , state,isCurrentTask,isCanEdit ){
+        renewList.on('detail',function( id , eid , type , state,isCurrentTask,isCanEdit,currentState ){
             
-            openApproval.show( id , eid , type , state,isCurrentTask,isCanEdit  );
+            openApproval.show( id , eid , type , state,isCurrentTask,isCanEdit ,currentState );
         });
 		renewList.on('detailBind',function( id , eid , type , state,isCurrentTask,isCanEdit, activeStatus ){
 		
