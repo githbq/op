@@ -585,6 +585,11 @@ define( function(require, exports, module){
 				objDate['invoiceHead']=me.model.get('invoiceHead-bind');
 				objDate['payerName']=me.model.get('payerName-bind');
 				objDate['payDate']=me.$('.money-date').val()?new Date( me.$('.money-date').val() ).getTime():'';
+				
+				if( !entObj['contract'] && !entObj['contractFileName']){
+					util.showToast('收取服务费时，请上传合同！');
+					return false;
+				}
 			}
 
 			util.api({
