@@ -5,90 +5,90 @@
 		<p>
 			<label for="">
 				<span>企业名称 <b>*</b></span>
-				<input type="text" ce-model="enterpriseName" class="required enterpriseName">
+				<input type="text" ce-model="enterpriseName" name="enterpriseName"  class="required enterpriseName">
 			</label>
 			<label for="">
 				<span>区域</span>
-				<input type="text" class="regionName" onkeyup="this.value=''" disabled="disabled">
+				<input type="text" class="regionName" name="regionName" onkeyup="this.value=''" disabled="disabled">
 			</label>
 		</p>
 		<p>
 			<label for="">
 				<span>企业账号 <b>*</b></span>
-				<input type="text" ce-model="enterpriseAccount" class="required" placeholder="不可更改!">
+				<input type="text" ce-model="enterpriseAccount" name="enterpriseAccount" class="required" placeholder="不可更改!">
 				<span class="remind">企业账号应为字母开头6-20位由字母数字的组合</span>
 			</label>
 		</p>
 		<p>
 			<label for="">
 				<span>地址 <b>*</b></span>
-				<input type="text" ce-model="address" class="required address">
+				<input type="text" ce-model="address" name="address" class="required address">
 			</label>
 			<label for="">
 				<span>行业 <b>*</b></span>
-				<select name="" class="e-industry required" ce-model="industry"></select>
+				<select name="" class="e-industry required" name="industry" ce-model="industry"></select>
 			</label>
 		</p>
 		<p>
 			<label for="">
 				<span>来源 <b>*</b></span>
-				<select name="" class="e-source required" ce-model="source"></select>
+				<select name="" class="e-source required" name="source" ce-model="source"></select>
 			</label>
 			<label for="">
 				<span>团队类型 <b>*</b></span>
-				<select name="" class="e-group required" ce-model="groupType"></select>
+				<select name="" class="e-group required" name="groupType" ce-model="groupType"></select>
 			</label>
 		</p>
 		<p>
 			<label for="">
 				<span>省份 <b>*</b></span>
-				<select name="" class="e-province required" ce-model="province"></select>
+				<select name="" class="e-province required" name="province" ce-model="province"></select>
 			</label>
 			<label for="">
 				<span>城市 <b>*</b></span>
-				<input type="text" ce-model="city" class="required">
+				<input type="text" ce-model="city" name="city"  class="required">
 			</label>
 		</p>
 		<p>
 			<label for="">
 				<span>了解渠道 <b>*</b></span>
-				<select name="" class="e-knowsource required" ce-model="knowSource"></select>
+				<select name="" class="e-knowsource required" name="knowSource" ce-model="knowSource"></select>
 			</label>
 			<label for="">
 				<span>注册动机 <b>*</b></span>
-				<select name="" class="e-motive required" ce-model="registerMotive"></select>
+				<select name="" class="e-motive required" name="registerMotive" ce-model="registerMotive"></select>
 			</label>
 		</p>
 		<p>
 			<label for="">
 				<span>公司规模 <b>*</b></span>
-				<select name="" class="companyscale required" ce-model="companyScale" onKeyUp="this.value=this.value.replace(/\D/g,'')"></select>
+				<select name="" class="companyscale required" name="companyScale" ce-model="companyScale" onKeyUp="this.value=this.value.replace(/\D/g,'')"></select>
 			</label>
 		</p>
 		<p>
 			<label for="">
 				<span>是否有销售团队 <b>*</b></span>
-				<select name="" id="" ce-model="isSaleTeam" class="required">
+				<select name="" id="" ce-model="isSaleTeam" name="isSaleTeam" class="required">
 					<option value="1">是</option>
 					<option value="0">否</option>
 				</select>
 			</label>
 			<label for="">
 				<span>销售团队规模 <b>*</b></span>
-				<select name="" class="saleteamscale required" ce-model="saleTeamScale"></select>
+				<select name="" class="saleteamscale required"  name="saleTeamScale" ce-model="saleTeamScale"></select>
 			</label>
 		</p>
 		<p>
 			<label for="">
 				<span>是否首面签约</span>
-				<select name="" ce-model="isFirstmeetingSign">
+				<select name="" ce-model="isFirstmeetingSign" name="isFirstmeetingSign">
 					<option value="1">是</option>
 					<option value="0">否</option>
 				</select>
 			</label>
 			<label for="">
 				<span>是否会销 <b>*</b></span>
-				<select name="" id="" ce-model="isWillPin" class="required">
+				<select name="" id="" ce-model="isWillPin" name="isWillPin" class="required">
 					<option value="1">是</option>
 					<option value="0">否</option>
 				</select>
@@ -97,20 +97,20 @@
 		<p>
 			<label for="">
 				<span>是否陌拜 <b>*</b></span>
-				<select name="" ce-model="isStrangerVisits" class="required">
+				<select name="" ce-model="isStrangerVisits" name="isStrangerVisits" class="required">
 					<option value="1">是</option>
 					<option value="0">否</option>
 				</select>
 			</label>
 			<label for="">
 				<span>成交周期(天)<b>*</b></span>
-				<input type="text" ce-model="dealDays" class="required" placeholder="请填写数字" onchange="this.value=this.value.replace(/\D/g,'')">
+				<input type="text" ce-model="dealDays" name="dealDays" class="required" placeholder="请填写数字" onchange="this.value=this.value.replace(/\D/g,'')">
 			</label>
 		</p>
 		<p>
 			<label for="">
 				<span>是否转介绍 <b>*</b></span>
-				<select name="" id="" ce-model="isReferral" class="required">
+				<select name="" id="" ce-model="isReferral" name="isReferral" class="required">
 					<option value="1">是</option>
 					<option value="0">否</option>
 				</select>
@@ -121,40 +121,40 @@
 		<p>
 			<label for="">
 				<span>企业负责人姓名 <b>*</b></span>
-				<input type="text" ce-model="keyContactName" class="required keyContactName">
+				<input type="text" ce-model="keyContactName" name="keyContactName" class="required keyContactName">
 			</label>
 			<label for="">
 				<span>企业负责人电话 <b>*</b></span>
-				<input type="text" ce-model="keyContactPhone" class="required" onchange="this.value=this.value.replace(/\D/g,'')">
+				<input type="text" ce-model="keyContactPhone" name="keyContactPhone" class="required" onchange="this.value=this.value.replace(/\D/g,'')">
 			</label>
 		</p>
 		<p>
 			<label for="">
 				<span>企业负责人邮箱 <b>*</b></span>
-				<input type="text" ce-model="keyContactEmail" class="required">
+				<input type="text" ce-model="keyContactEmail" name="keyContactEmail" class="required">
 			</label>
 		</p>
 		<h4>纷享平台管理员</h4>
 		<p>
 			<label for="">
 				<span>平台管理员 <b>*</b></span>
-				<input type="text" ce-model="contactName" class="required">
+				<input type="text" ce-model="contactName" name="contactName" class="required">
 			</label>
 			<label for="">
 				<span>平台管理员手机 <b>*</b></span>
-				<input type="text" ce-model="contactPhone" class="required" maxlength="11" onchange="this.value=this.value.replace(/\D/g,'')">
+				<input type="text" ce-model="contactPhone" name="contactPhone" class="required" maxlength="11" onchange="this.value=this.value.replace(/\D/g,'')">
 			</label>
 		</p>
 		<p>
 			<label for="">
 				<span>平台管理员邮箱 <b>*</b></span>
-				<input type="text" ce-model="contactEmail" class="required">
+				<input type="text" ce-model="contactEmail" name="contactEmail" class="required">
 			</label>
 		</p>
 		<p>
 			<label for="">
 				<span>平台管理员QQ</span>
-				<input type="text" ce-model="contactim">
+				<input type="text" ce-model="contactim" name="contactim">
 			</label>
 		</p>
 		<h4>产品信息</h4>
@@ -168,11 +168,11 @@
 		<p>
 			<label for="">
 				<span>销客终端总量(个) <b>*</b></span>
-				<input type="text" ce-model="accountTotalAmount" class="required deviceamount" onchange="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+				<input type="text" ce-model="accountTotalAmount" name="accountTotalAmount" class="required deviceamount" onchange="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
 			</label>
 			<label for="">
 				<span>是否赠送办公版 <b>*</b></span>
-				<select name=""  ce-model="presentOfficeEdition" class="required">
+				<select name=""  ce-model="presentOfficeEdition" class="required" name="presentOfficeEdition">
 					<option value="1">是</option>
 					<option value="0">否</option>
 				</select>
@@ -181,13 +181,13 @@
 		<p>
 			<label for="">
 				<span>空间总量(GB) <b>*</b></span>
-				<input type="text" ce-model="storageTotalSpace" class="required" onchange="this.value=this.value.replace(/[^\.\d]/g,'')">
+				<input type="text" ce-model="storageTotalSpace" name="storageTotalSpace" class="required" onchange="this.value=this.value.replace(/[^\.\d]/g,'')">
 			</label>
 		</p>
 		<p class="state-pay">
 			<label for="">
 				<span>合同照片 <b>*</b></span>
-				<input type="file" accept="image/*"/ class="contract">（支持.png,.jpg,.gif格式）
+				<input type="file" accept="image/*"/ class="contract" >（支持.png,.jpg,.gif格式）
 			</label>
 		</p>
 		<p class="state-pay">
@@ -199,25 +199,56 @@
 		<p class="state state-pay">
 			<label for="">
 				<span>合同金额(￥) <b>*</b></span>
-				<input type="text" ce-model="contractPrice" class="contractprice" onchange="this.value=this.value.replace(/[^\.\d]/g,'')">(*包含名片费用) 
+				<input type="text" ce-model="contractPrice" name="contractPrice" class="contractprice" onchange="this.value=this.value.replace(/[^\.\d]/g,'')">(*包含名片费用) 
 			</label>
 		</p>
 		<p class="state state-pay">
 			<label for="">
 				<span>折扣 <b>*</b></span>
-				<input type="text" ce-model="discount">
+				<input type="text" ce-model="discount" name="discount">
 			</label>
 			<label for="">
 				<span>发票抬头 <b>*</b></span>
-				<input type="text" ce-model="invoiceTitle">
+				<input type="text" ce-model="invoiceTitle" name="invoiceTitle">
 			</label>
 		</p>
 		<p>
 			<label for="">
+				<span>培训服务费</span>
+				<select name=""  ce-model="payServiceCharge" class="" name="">
+					<option value="0">未收</option>
+					<option value="1">已收</option>
+				</select>
+			</label>
+			<label for="">
+				<span>收款金额</span>
+				<input type="text" ce-model="serviceChargeAmount" class="" onchange="this.value=this.value.replace(/[^\.\d]/g,'')>0 ? this.value.replace(/[^\.\d]/g,'') : ''" >
+			</label>
+		</p>
+		<p>
+			<label for="">
+				<span>发票抬头</span>
+				<input type="text" ce-model="invoiceHead" class="" maxlength=100 />
+			</label>
+		</p>
+		<p>
+			<label for="">
+				<span>打款人</span>
+				<input type="text" ce-model="payerName" class="" maxlength=100 />
+			</label>
+		</p>
+		<p>
+			<label for="">
+				<span>打款日期</span>
+				<input type="text" class="money-date"  onkeyup='this.value=""'>
+    		</label>
+		</p>
+		<p>
+			<label for="">
 				<span>合同开始时间<b>*</b></span>
-				<input type="text" class="startTime" ce-model="startTime" onkeyup='this.value=""'>
+				<input type="text" class="startTime" name="startTime" ce-model="startTime" onkeyup='this.value=""'>
 				<span>合同结束时间<b>*</b></span>
-				<input type="text" class="endTime" ce-model="endTime" onkeyup='this.value=""'>
+				<input type="text" class="endTime" name="endTime" ce-model="endTime" onkeyup='this.value=""'>
     		</label>
 		</p>
 		<p>
@@ -236,18 +267,18 @@
 			<p>
 				<label for="">
 					<span>门头照片关键字</span>
-					<input type="text" ce-model="companyGateKeyword" class="companyGateKeyword">
+					<input type="text" ce-model="companyGateKeyword" name="companyGateKeyword" class="companyGateKeyword">
 				</label>
 				<label for="">
 					<span>门头照片备注</span>
-					<input type="text" ce-model="companyGateRemark" class="companyGateRemark ">
+					<input type="text" ce-model="companyGateRemark" name="companyGateRemark" class="companyGateRemark ">
 				</label>
 			</p>
 		</div>
 		<h4>备注</h4>
 		<p>
 			<label for="">
-				<textarea name="" ce-model="remark"></textarea>
+				<textarea name="" ce-model="remark" name="remark"></textarea>
 			</label>
 		</p>
 	</div>

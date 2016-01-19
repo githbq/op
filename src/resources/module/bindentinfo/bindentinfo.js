@@ -53,12 +53,14 @@ define( function(require, exports, module){
 			'.look-contract':'lookContract',
 			'.contract-hide':'contractHide',
 			'.action-add': 'actionSave',
-			'.money-date':'moneyDate'
+			'.money-date':'moneyDate',
+			'.firm-status':  'firmStatus',
 			
 		},
 
 		events:{
-			
+			'click .action-add': 'saveEntEve',
+			'click .action-cancel':'cancelEve'
 		},
 
 		//获取枚举值
@@ -67,12 +69,13 @@ define( function(require, exports, module){
 
 			var state = {
 				'i': false,
-				'e': false
+				'e': false,
+				's': false
 			};
 
 			//检查是否获取完毕
 			function check(){
-				if( state.i && state.e  ){
+				if( state.i && state.e && state.s  ){
 					me.state = true;
 				}
 			}
@@ -99,9 +102,83 @@ define( function(require, exports, module){
 
 			//获取来源
 			generate('ENT_LST_SOURCE', me.$source , 'e');
+			//获取星级状态
+			generate('LEADS_STATUS', me.$firmStatus , 's');
 
 		},
-		
+		getInfo:function(){
+			var me = this;
+			
+			util.api({
+				'url': '/enterprisefiling/getfiling',
+				'data': {
+					'enterpriseFilingId': me.attrs['entId']
+				},
+				'success': function( data ){
+					console.warn(data);
+					if( data.success ){
+
+						me.model.load( data.value.model );
+						me.model.set('region',data.value.model.regionName);
+						me.model.set('creatorName', data.value.model.creator.name);
+                        me.model.set('creatorUserName', data.value.model.creator.username);
+						me.$firmStatus.val(data.value.model.status);
+						me.model.set('kpPhone', data.value.model.representative_phone);
+						var visitTime = data.value.model.visitTime?new Date( data.value.model.visitTime )._format('yyyy/MM/dd'):'';
+						me.model.set('visitTime',visitTime)
+					}
+				}
+			})
+			
+		},
+		saveEntEve:function(){
+			var  me = this;
+			var entObj = {};
+			entObj['enterpriseFilingId'] = me.attrs['entId'];
+			entObj['enterpriseAccount'] = me.attrs['entAccount'];
+			entObj['contract']=me.model.get('contract');
+			entObj['contractFileName']=me.model.get('contractFileName');
+			entObj['contractCopy']=me.model.get('contractCopy');
+			entObj['contractCopyFileName']=me.model.get('contractCopyFileName');
+			entObj['companyGatePicture']=me.model.get('companyGatePicture');
+			entObj['companyGatePictureFileName']=me.model.get('companyGatePictureFileName');
+			entObj['businessLicense']=me.model.get('businessLicense');
+			entObj['businessLicenseFileName']=me.model.get('businessLicenseFileName');
+			entObj['contractStartTime'] = me.$('.startTime').val() ? new Date( me.$('.startTime').val() ).getTime() :'';
+			entObj['contractEndTime']= me.$('.endTime').val() ? new Date( me.$('.endTime').val() ).getTime() :'';
+			entObj['presentOfficeEdition']=0;
+			entObj['companyGateKeyword']=me.model.get('companyGateKeyword');
+			entObj['companyGateRemark']=me.model.get('companyGateRemark');
+			entObj['payServiceCharge']=me.model.get('payServiceCharge');
+			entObj['serviceChargeAmount']=me.model.get('serviceChargeAmount');
+			entObj['invoiceHead']=me.model.get('invoiceHead');
+			entObj['payerName']=me.model.get('payerName');
+			entObj['payDate']= me.$('.money-date').val() ? new Date( me.$('.money-date').val() ).getTime() :'';
+			
+			if(me.model.get('payServiceCharge') == 1){
+				util.showToast('收取服务费时，请上传合同信息！');
+				return false;
+			}
+			
+			util.api({
+					'url': '/enterprisefiling/bindingenterprisefiling',
+					'data': entObj,
+					'button': {
+						'el': me.$('.action-add'),
+						'text':'提交中......'
+					},
+					'success': function( data ){
+						if( data.success ){
+							util.showTip('关联自注册企业成功！')
+						 
+							location.hash = '#agentsupport/entprisefiling'
+						}
+					}
+				})
+		},
+		cancelEve:function(){
+			location.hash = '#agentsupport/entprisefiling'
+		},
 		init: function(){
 			BindEntInfo.__super__.init.apply( this,arguments );
 			var me = this;
@@ -292,7 +369,7 @@ define( function(require, exports, module){
 			});
 
 			me.getEnums();
-			
+			me.getInfo();
 		},
 
 	
@@ -313,35 +390,6 @@ define( function(require, exports, module){
 			me.attrs['wrapper'].html( me.$view );
 
 		},
-
-		/**
-		 *
-		 *获取备案企业信息
-		 */
-		 getRecordEnterprise:function(data){
-			var me = this;
-			me.model.set('enterpriseNameRecord',data.value.enterpriseFiling.enterpriseName );
-			me.model.set('addressRecord',data.value.enterpriseFiling.address );
-			me.model.set('regionRecord', data.value.enterpriseFiling.regionName );
-			me.$filingRegion.attr('data-code',data.value.enterpriseFiling.region);
-			me.model.set('agentPersonRecord',data.value.enterpriseFiling.representative );
-			me.model.set('industryRecord',data.value.enterpriseFiling.industry );
-			me.model.set('sourceRecord',data.value.enterpriseFiling.source );
-			me.model.set('contactNameRecord',data.value.enterpriseFiling.contactName );
-			me.model.set('contactPostRecord',data.value.enterpriseFiling.contactPost );
-			me.model.set('contactPhoneRecord',data.value.enterpriseFiling.contactPhone );
-			me.model.set('contactEmailRecord',data.value.enterpriseFiling.contactEmail );
-			me.model.set('remarkRecord',data.value.enterpriseFiling.remark );
-			me.model.set('creatorNameRecord',data.value.enterpriseFiling.creator.name );
-			me.model.set('creatorUserNameRecord',data.value.enterpriseFiling.creator.username );	
-			me.$firmStatus.val(data.value.enterpriseFiling.status);
-			me.model.set('clientNumRecord',data.value.enterpriseFiling.accountAmount );
-			me.model.set('companyNumRecord',data.value.enterpriseFiling.employeeNumber );
-			me.model.set('kpPhoneRecord',data.value.enterpriseFiling.representative_phone );
-			var visiteTime = data.value.enterpriseFiling.visitTime?new Date( data.value.enterpriseFiling.visitTime)._format('yyyy/MM/dd'):'';
-			me.model.set('visiteTimeRecord',visiteTime);
-			me.attrs.enterpriseFilingId = data.value.enterpriseFiling.id;
-		 },
 
 		//重新发送
 		hide: function(){

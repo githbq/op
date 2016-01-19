@@ -300,7 +300,8 @@ define( function( require, exports, module ) {
 				util.showToast('请填写完整自注册企业账号！');
 				return false;
 			}
-			if(confirm("确定要将该备案企业与该自注册企业绑定关联吗？")){
+			location.hash = '#agentsupport/bindinfo/'+me.attrs['entId']+'/'+enterpriseAccount;
+			/*if(confirm("确定要将该备案企业与该自注册企业绑定关联吗？")){
 				util.api({
 					'url': '/enterprisefiling/bindingenterprisefiling',
 					'data': {
@@ -314,14 +315,14 @@ define( function( require, exports, module ) {
 					'success': function( data ){
 						if( data.success ){
 							
-						   location.hash = '#agentsupport/bindinfo';
+						   location.hash = '#agentsupport/bindinfo/'+me.attrs['entId']+'/'+enterpriseAccount;
 						   /*util.showTip('关联自注册企业成功！');
 						   me.trigger('bindLinkSuccess');
-						   me.hide(); */ 
+						   me.hide(); 
 						} 
 					}
 				})
-			}
+			}*/ 
 			return false;
 		},
 

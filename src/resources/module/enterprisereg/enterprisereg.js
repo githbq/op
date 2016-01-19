@@ -142,6 +142,7 @@ define( function(require, exports, module){
 
 			me.$startTime.datetimepicker({'timepicker': false,'format':'Y/m/d'});
             me.$endTime.datetimepicker({'timepicker': false,'format':'Y/m/d'});
+			me.$('.money-date').datetimepicker({'timepicker': false,'format':'Y/m/d'});
 
 		},
 		events:{
@@ -460,13 +461,17 @@ define( function(require, exports, module){
 		addEve: function(){
 			var me = this;
 			tme = me;
-			var startTime='',endTime='';
+			var startTime='',endTime='',moneyDate = '';
 			if( me.$startTime.val() ){
                 startTime = new Date( me.$startTime.val() ).getTime();
             }
             if( me.$endTime.val() ){
                 endTime = new Date( me.$endTime.val() ).getTime();
             }
+			if(me.$('.money-date').val()){
+				moneyDate = new Date( me.$('.money-date').val() ).getTime();
+			}
+			me.model.set('payDate',moneyDate);
 	
       		me.model.set('enterpriseShortName',me.model.get('enterpriseAccount'));
             me.model.set('contractStartTime',startTime);
@@ -653,6 +658,9 @@ define( function(require, exports, module){
 						if( data.success ){
 							util.showTip('开通审批提交成功');
 							location.hash = "#agentsupport/entprisefiling";
+						}else{
+							me.$actionAdd.text('提交');
+							me.$actionAdd.removeAttr('disabled');
 						}
 					},
 					complete: function(){
@@ -664,7 +672,7 @@ define( function(require, exports, module){
             	me.$actionAdd.text('提交');
 				me.$actionAdd.removeAttr('disabled');
             });
-			//}
+		
 		}
 
 	});
