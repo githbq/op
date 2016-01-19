@@ -131,6 +131,14 @@ define( function(require, exports, module){
 					this.value = '';
 				}
 			});
+			
+			me.$payServiceCharge.on('change',function(){
+				if(me.$payServiceCharge.val() == 1 ){
+					me.$checkedDisable.removeAttr('disabled')
+				}else{
+					me.$checkedDisable.attr('disabled','disabled');
+				}
+			});
 
 			me.$companyGate.on('change',function(){
 				var Extlist = ".BMP.GIF.JPEG.JPG.PNG";
@@ -142,6 +150,7 @@ define( function(require, exports, module){
 
 			me.$startTime.datetimepicker({'timepicker': false,'format':'Y/m/d'});
             me.$endTime.datetimepicker({'timepicker': false,'format':'Y/m/d'});
+			me.$moneyDate.datetimepicker({'timepicker': false,'format':'Y/m/d'});
 
 		},
 		events:{
@@ -163,11 +172,14 @@ define( function(require, exports, module){
 			'.companyscale':'companyscale',
 			'.saleteamscale':'saleteamscale',
 			'.endTime': 'endTime',
+			'.money-date':'moneyDate',
 
 			'.yearlimit': 'yearlimit',               //合同年限
 			'.contractprice': 'contractprice',       //合同金额
 			'.deviceamount': 'deviceamount',          //终端数量
 			'.action-add': 'actionAdd',
+			'.payServiceCharge':'payServiceCharge',
+			'.checkedDisable':'checkedDisable',
 
 			'.startTime': 'startTime',
             '.endTime': 'endTime',
@@ -460,13 +472,17 @@ define( function(require, exports, module){
 		addEve: function(){
 			var me = this;
 			tme = me;
-			var startTime='',endTime='';
+			var startTime='',endTime='',moneyDate = '';
 			if( me.$startTime.val() ){
                 startTime = new Date( me.$startTime.val() ).getTime();
             }
             if( me.$endTime.val() ){
                 endTime = new Date( me.$endTime.val() ).getTime();
             }
+			if(me.$('.money-date').val()){
+				moneyDate = new Date( me.$('.money-date').val() ).getTime();
+			}
+			me.model.set('payDate',moneyDate);
 	
       		me.model.set('enterpriseShortName',me.model.get('enterpriseAccount'));
             me.model.set('contractStartTime',startTime);
@@ -653,6 +669,9 @@ define( function(require, exports, module){
 						if( data.success ){
 							util.showTip('开通审批提交成功');
 							location.hash = "#agentsupport/entprisefiling";
+						}else{
+							me.$actionAdd.text('提交');
+							me.$actionAdd.removeAttr('disabled');
 						}
 					},
 					complete: function(){
@@ -664,7 +683,7 @@ define( function(require, exports, module){
             	me.$actionAdd.text('提交');
 				me.$actionAdd.removeAttr('disabled');
             });
-			//}
+		
 		}
 
 	});

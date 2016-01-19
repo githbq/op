@@ -72,7 +72,8 @@ define( function(require, exports, module){
 			'.useBusinessCard':'useBusinessCard',
 			'.action-agree':'actionAgree',
 			'.action-reject':'actionReject',
-			'.add-type':'addType'
+			'.add-type':'addType',
+			'.money-date':'moneyDate'
 			
         },
 
@@ -304,6 +305,10 @@ define( function(require, exports, module){
 				format: 'Y/m/d',
 				timepicker: true
 			} );
+			me.$moneyDate.datetimepicker( {
+				format: 'Y/m/d',
+				timepicker: true
+			} );
 
             me.getEnums();
 			/**
@@ -505,10 +510,57 @@ define( function(require, exports, module){
 
             me.$showType.hide();
 			me.$addType.hide();
+			me.$('.show-service').hide();
             if( me.attrs.type  == 'payLaunchApproval' ){
                 me.$showType.show();
             }else if( me.attrs.type  == 'freeLaunchApproval' ){
 				me.$showType.hide();
+				if(me.attrs.currentState == 'end' || me.attrs.currentState == 'allEnd'){
+					util.api({
+						'url':'/order/getOrderDetailByEnterpriseId',
+						'data':{
+							'enterpriseId': me.attrs.eid
+						},
+						'success': function( data ){
+							if( data.success ){
+								me.$('.show-service').show();
+								me.$('.amountService').val(data.value.model.invoice.amount);
+								me.$('.expenseType').val(data.value.model.invoice.expenseType);
+								me.$('.invoiceHead').val(data.value.model.invoice.invoiceHead);
+								me.$('.payerName').val(data.value.model.invoice.payerName);
+			
+								var payDate = data.value.model.invoice.payDate? new Date( data.value.model.invoice.payDate  )._format('yyyy/MM/dd'):'';
+								me.$('.payDate').val(payDate);
+								me.attrs.orderId = data.value.model.invoice.orderId;
+							}else{
+								me.model.set('expenseType', 0);
+							}
+						}
+					});
+				}else{
+					util.api({
+						'url':'/order/getOrderDetailByProcessInstanceId',
+						'data':{
+							'processInstanceId': me.attrs.id
+						},
+						'success': function( data ){
+							if( data.success ){
+								me.$('.show-service').show();
+								me.$('.amountService').val(data.value.model.invoice.amount);
+								me.$('.expenseType').val(data.value.model.invoice.expenseType);
+								me.$('.invoiceHead').val(data.value.model.invoice.invoiceHead);
+								me.$('.payerName').val(data.value.model.invoice.payerName);
+			
+								var payDate = data.value.model.invoice.payDate? new Date( data.value.model.invoice.payDate  )._format('yyyy/MM/dd'):'';
+								me.$('.payDate').val(payDate);
+								me.attrs.orderId = data.value.model.invoice.orderId;
+							}else{
+								me.model.set('expenseType', 0);
+							}
+						}
+					});
+				}
+				
 			}else if( me.attrs.type  == 'addPurchaseApproval' || me.attrs.type  == 'addFreeApproval' ){
 				me.$addType.show();
 				me.$showType.hide();
@@ -608,6 +660,7 @@ define( function(require, exports, module){
             me.attrs.eid = eid;
             me.attrs.type = type;
 			me.attrs.isCanEdit = isCanEdit||'false';
+			me.attrs.currentState = state;
 
             //设置显示状态
             me.$('.state').hide();

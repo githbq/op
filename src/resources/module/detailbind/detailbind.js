@@ -113,12 +113,13 @@ define( function(require, exports, module){
 				'r': false,
 				'c': false,
 				's': false,
-				'pr': false
+				'pr': false,
+				'start':false
 			};
 
 			//检查是否获取完毕
 			function check(){
-				if( state.i && state.e && state.p && state.g && state.k && state.r && state.c && state.s && state.pr ){
+				if( state.i && state.e && state.p && state.g && state.k && state.r && state.c && state.s && state.pr && state.start){
 					me.state = true;
 				}
 			}
@@ -170,8 +171,8 @@ define( function(require, exports, module){
 			//获取销售团队规模
 			generate('SALE_TEAM_SCALE', me.$saleteamscale ,'s');
 			
-			//获取销售团队规模
-			generate('LEADS_STATUS', me.$firmStatus ,'');
+			//获取星级状态
+			generate('LEADS_STATUS', me.$firmStatus , 'start');
 		},
 		
 		init: function(){
@@ -242,8 +243,170 @@ define( function(require, exports, module){
 					return false;
 				}
 			});
+			
+			 //初始化日期选择
+            me.$('.money-date').datetimepicker({
+                format: 'Y/m/d',
+                timepicker: true
+            });
+			me.$('.startTime-bind').datetimepicker( {
+                format: 'Y/m/d',
+                onShow: function() {
+                    var maxDate = me.$('.endTime-bind').val() ? me.$('.endTime-bind').val() : false;
+                    this.setOptions({
+                        maxDate: maxDate
+                    });
+                },
+                timepicker: false
+            } );
+            me.$('.endTime-bind').datetimepicker( {
+                format: 'Y/m/d',
+                onShow: function() {
+                    var minDate = me.$('.startTime-bind').val() ? me.$('.startTime-bind').val() : false;
+                    this.setOptions({
+                        minDate: minDate
+                    });
+                },
+                timepicker: false
+            } );
+			
+			me.$('.contract-bind').on('change',function(){
+				var fileExtension =me.$contract[0].files[0].name.split('.').pop().toLowerCase();
+				if(fileExtension=='jpg'||fileExtension=='gif'||fileExtension=='png'||fileExtension=='jpeg'){
 
+					uploader.send({
+						'url': '/op/api/file/uploadsinglefileandcheck',
+						'files': me.$contract[0].files,
+						'options':{
+							'limittype':'IMAGE'
+						},
+						'success': function( response ){
+							console.warn( response );
+							me.model.set('contract-bind', response.value.model.path );
+							me.model.set('contractFileName-bind', response.value.model.FileName );
+							
+							me.$('.contract-link-bind').show();
+							me.$('.contract-hide-bind').hide();
+							me.$('.contract-link-bind').attr('href', '/op/api/file/previewimage' + '?filePath=' + response.value.model.path);
+							me.$('.img-contract-bind').attr('src', '/op/api/file/previewimage' + '?filePath=' + response.value.model.path);
+			
+						},
+						'error':function(response){
+						
+							me.$contract.val('');
+							return false;
+						}
+					})
+				}else{
+					me.$contract.val('');
+					util.showToast('请上传图片格式不正确(.jpg,.png,.gif)！');
+					return false;
+				}
+				
+			});
+			me.$('.contractCopy-bind').on('change',function(){
+				var fileExtension =me.$contract[0].files[0].name.split('.').pop().toLowerCase();
+				if(fileExtension=='jpg'||fileExtension=='gif'||fileExtension=='png'||fileExtension=='jpeg'){
 
+					uploader.send({
+						'url': '/op/api/file/uploadsinglefileandcheck',
+						'files': me.$contract[0].files,
+						'options':{
+							'limittype':'IMAGE'
+						},
+						'success': function( response ){
+							console.warn( response );
+							me.model.set('contractCopy-bind', response.value.model.path );
+							me.model.set('contractCopyFileName-bind', response.value.model.FileName );
+							
+							me.$('.contractCopy-link-bind').show();
+							me.$('.contractCopy-hide-bind').hide();
+							me.$('.contractCopy-link-bind').attr('href', '/op/api/file/previewimage' + '?filePath=' + response.value.model.path);
+							me.$('.img-contractCopy-bind').attr('src', '/op/api/file/previewimage' + '?filePath=' + response.value.model.path);
+			
+						},
+						'error':function(response){
+						
+							me.$('.contractCopy-bind').val('');
+							return false;
+						}
+					})
+				}else{
+					me.$('.contractCopy-bind').val('');
+					util.showToast('请上传图片格式不正确(.jpg,.png,.gif)！');
+					return false;
+				}
+				
+			});
+			me.$('.yyzhizhao-bind').on('change',function(){
+				var fileExtension =me.$contract[0].files[0].name.split('.').pop().toLowerCase();
+				if(fileExtension=='jpg'||fileExtension=='gif'||fileExtension=='png'||fileExtension=='jpeg'){
+
+					uploader.send({
+						'url': '/op/api/file/uploadsinglefileandcheck',
+						'files': me.$contract[0].files,
+						'options':{
+							'limittype':'IMAGE'
+						},
+						'success': function( response ){
+							console.warn( response );
+							me.model.set('yyzhizhao-bind', response.value.model.path );
+							me.model.set('yyzhizhaoFileName-bind', response.value.model.FileName );
+							
+							me.$('.yyzhizhao-link-bind').show();
+							me.$('.yyzhizhao-hide-bind').hide();
+							me.$('.yyzhizhao-link-bind').attr('href', '/op/api/file/previewimage' + '?filePath=' + response.value.model.path);
+							me.$('.img-yyzhizhao-bind').attr('src', '/op/api/file/previewimage' + '?filePath=' + response.value.model.path);
+			
+						},
+						'error':function(response){
+						
+							me.$('.yyzhizhao-bind').val('');
+							return false;
+						}
+					})
+				}else{
+					me.$('.yyzhizhao-bind').val('');
+					util.showToast('请上传图片格式不正确(.jpg,.png,.gif)！');
+					return false;
+				}
+				
+			});
+			me.$('.mtzhizhao-bind').on('change',function(){
+				var fileExtension =me.$contract[0].files[0].name.split('.').pop().toLowerCase();
+				if(fileExtension=='jpg'||fileExtension=='gif'||fileExtension=='png'||fileExtension=='jpeg'){
+
+					uploader.send({
+						'url': '/op/api/file/uploadsinglefileandcheck',
+						'files': me.$contract[0].files,
+						'options':{
+							'limittype':'IMAGE'
+						},
+						'success': function( response ){
+							console.warn( response );
+							me.model.set('mtzhizhao-bind', response.value.model.path );
+							me.model.set('mtzhizhaoFileName-bind', response.value.model.FileName );
+							
+							me.$('.mtzhizhao-link-bind').show();
+							me.$('.mtzhizhao-hide-bind').hide();
+							me.$('.mtzhizhao-link-bind').attr('href', '/op/api/file/previewimage' + '?filePath=' + response.value.model.path);
+							me.$('.img-mtzhizhao-bind').attr('src', '/op/api/file/previewimage' + '?filePath=' + response.value.model.path);
+			
+						},
+						'error':function(response){
+						
+							me.$('.mtzhizhao-bind').val('');
+							return false;
+						}
+					})
+				}else{
+					me.$('.mtzhizhao-bind').val('');
+					util.showToast('请上传图片格式不正确(.jpg,.png,.gif)！');
+					return false;
+				}
+				
+			});
+			
 			me.getEnums();
 			
 		},
@@ -252,7 +415,8 @@ define( function(require, exports, module){
 		setState: function(){
 			var me = this;
 
-			me.$('.state').hide();
+			//me.$('.state').hide();
+			
 
 			if( me.attrs.canCancel == 'true' ){
 				me.$('.state-cancel').show()
@@ -402,6 +566,32 @@ define( function(require, exports, module){
 			objDate['enterpriseAccount'] = me.model.get('enterpriseAccountRecord');
 			objDate['processInstanceId'] = me.attrs.id;
 			objDate['opinion'] = '';
+			
+			if( me.model.get('expenseType-bind') == 1 ){
+				objDate['contract'] = me.model.get('contract-bind');
+				objDate['contractFileName']=me.model.get('contractFileName-bind');
+				objDate['contractCopy']=me.model.get('contractCopy-bind');
+				objDate['contractCopyFileName']=me.model.get('contractCopyFileName-bind');
+				objDate['businessLicense']=me.model.get('yyzhizhao-bind');
+				objDate['businessLicenseFileName']=me.model.get('yyzhizhaoFileName-bind');
+				objDate['companyGatePicture']=me.model.get('mtzhizhao-bind');
+				objDate['companyGatePictureFileName']=me.model.get('mtzhizhaoFileName-bind');
+				objDate['contractStartTime'] = me.$('.startTime-bind').val()?new Date( me.$('.startTime-bind').val() ).getTime():'';
+				objDate['contractEndTime'] = me.$('.endTime-bind').val()?new Date( me.$('.endTime-bind').val() ).getTime():'';
+				objDate['companyGateKeyword']=me.model.get('companyGateKeyword-bind');
+				objDate['companyGateRemark']=me.model.get('companyGateRemark-bind');
+				objDate['presentOfficeEdition']=0;
+				objDate['serviceChargeAmount']=me.model.get('amount-bind');
+				objDate['invoiceHead']=me.model.get('invoiceHead-bind');
+				objDate['payerName']=me.model.get('payerName-bind');
+				objDate['payDate']=me.$('.money-date').val()?new Date( me.$('.money-date').val() ).getTime():'';
+				
+				if( !objDate['contract'] && !objDate['contractFileName'] && !objDate['contractStartTime'] && !objDate['contractEndTime']){
+					util.showToast('收取服务费时，请上传合同和合同时间！');
+					return false;
+				}
+			}
+
 			util.api({
                     'url': '/enterprisefiling/saveandbindenterprisefiling',
                     'data':objDate,
@@ -457,16 +647,13 @@ define( function(require, exports, module){
 
 							//me.getRegistrationEnterprise(data);
 							me.getRecordEnterprise( data );
-							//me.downFile(data);
+							if( data.value.invoice ){
+								me.attrs['orderId'] = data.value.invoice.orderId;
+								me.$('.show-service').show();
+								me.downBindFile(data);
+							}
 							
-							//translateBool( 'isSaleTeam' , data.value.model['isSaleTeam'] );
-							//translateBool( 'isFirstmeetingSign' , data.value.model['isFirstmeetingSign'] );
-							//translateBool( 'isWillPin' , data.value.model['isWillPin'] );
-							//translateBool( 'isStrangerVisits', data.value.model['isStrangerVisits'] );
-							//translateBool( 'isFastSign' , data.value.model['isFastSign'] );
-							//translateBool( 'isAutoClave', data.value.model['isAutoClave'] );
-							//translateBool( 'isReferral', data.value.model['isReferral'] );
-							
+						
 						}
 					}
 				})
@@ -482,20 +669,17 @@ define( function(require, exports, module){
 
 							//me.getRegistrationEnterprise(data);
 							me.getRecordEnterprise( data );
-							//me.downFile(data);
-							
-							/*translateBool( 'isSaleTeam' , data.value.model['isSaleTeam'] );
-							translateBool( 'isFirstmeetingSign' , data.value.model['isFirstmeetingSign'] );
-							translateBool( 'isWillPin' , data.value.model['isWillPin'] );
-							translateBool( 'isStrangerVisits', data.value.model['isStrangerVisits'] );
-							translateBool( 'isFastSign' , data.value.model['isFastSign'] );
-							translateBool( 'isAutoClave', data.value.model['isAutoClave'] );
-							translateBool( 'isReferral', data.value.model['isReferral'] );*/
-							
+							if( data.value.invoice ){
+								me.attrs['orderId'] = data.value.invoice.orderId;
+								me.$('.show-service').show();
+								me.downBindFile(data);
+							}
+	
 						}
 					}
 				})
 			}
+			me.$('.state').hide();
 			me.setState();
 			//me.setType();
 			DetailBind.__super__.show.apply( this,arguments );
@@ -510,7 +694,7 @@ define( function(require, exports, module){
             me.$('.state').hide();
             me.$('.state-'+state).show();
 			me.$('.wait-other').hide();
-			me._setWidth('730');
+			me._setWidth('800');
 			function translateBool( key , value ){
 				if(value){
 					me.model.set(key,'true');
@@ -531,7 +715,12 @@ define( function(require, exports, module){
 							me.getRegistrationEnterprise(data);
 							me.getRecordEnterprise( data );
 							me.downFile(data);
-							
+							if( data.value.invoice ){
+								me.attrs['orderId'] = data.value.invoice.orderId;
+								me.$('.show-service').show();
+								me.downBindFile(data);
+							}
+		
 							translateBool( 'isSaleTeam' , data.value.model['isSaleTeam'] );
 							translateBool( 'isFirstmeetingSign' , data.value.model['isFirstmeetingSign'] );
 							translateBool( 'isWillPin' , data.value.model['isWillPin'] );
@@ -555,7 +744,11 @@ define( function(require, exports, module){
 
 							me.getRegistrationEnterprise(data);
 							me.getRecordEnterprise( data );
-							me.downFile(data);
+							if( data.value.invoice ){
+								me.attrs['orderId'] = data.value.invoice.orderId;
+								me.$('.show-service').show();
+								me.downBindFile(data);
+							}
 							
 							translateBool( 'isSaleTeam' , data.value.model['isSaleTeam'] );
 							translateBool( 'isFirstmeetingSign' , data.value.model['isFirstmeetingSign'] );
@@ -569,7 +762,7 @@ define( function(require, exports, module){
 					}
 				})
 			}
-			//me.setState();
+			me.setState();
 			DetailBind.__super__.show.apply( this,arguments );
 		},
 		//驳回
@@ -684,6 +877,21 @@ define( function(require, exports, module){
 			var visiteTime = data.value.enterpriseFiling.visitTime?new Date( data.value.enterpriseFiling.visitTime)._format('yyyy/MM/dd'):'';
 			me.model.set('visiteTimeRecord',visiteTime);
 			me.attrs.enterpriseFilingId = data.value.enterpriseFiling.id;
+			if(data.value.invoice){
+				me.model.set('contractStartTime-bind',data.value.paidEnterpriseExtra.contractStartTime ? new Date( data.value.paidEnterpriseExtra.contractStartTime )._format('yyyy/MM/dd'):'');
+				me.model.set('contractEndTime-bind',data.value.paidEnterpriseExtra.contractEndTime ? new Date( data.value.paidEnterpriseExtra.contractEndTime )._format('yyyy/MM/dd'):'');
+				me.model.set('companyGateKeyword-bind',data.value.enterpriseExtend.companyGateKeyword);
+				me.model.set('companyGateRemark-bind',data.value.enterpriseExtend.companyGateRemark);
+				me.model.set('remark-bind',data.value.enterpriseExtend.remark);
+				me.model.set('expenseType-bind',data.value.invoice.expenseType);
+				me.model.set('amount-bind',data.value.invoice.amount);
+				me.model.set('invoiceHead-bind',data.value.invoice.invoiceHead);
+				me.model.set('payerName-bind',data.value.invoice.payerName);
+				me.model.set('payDate-bind',data.value.invoice.payDate ? new Date( data.value.invoice.payDate )._format('yyyy/MM/dd'):'');
+			}else{
+				me.model.set('expenseType-bind',0);
+			}
+			
 		 },
 		 /*
 		 *获取自注册企业信息
@@ -780,6 +988,78 @@ define( function(require, exports, module){
 				me.$imgMtzhizhao.attr('src', '');
 			}
 		},
+		/**
+		 *
+		 *显示文件
+		 */
+		downBindFile: function(data){
+			var me = this;
+			data.value.model = data.value;
+			
+			var contractFilePath = data.value.model.paidEnterpriseExtra.contract ? data.value.model.paidEnterpriseExtra.contract:'';
+			var contractCopyFilePath = data.value.model.paidEnterpriseExtra.contractCopy ? data.value.model.paidEnterpriseExtra.contractCopy :'';
+			var businessLicense = data.value.model.enterpriseExtend.businessLicense ? data.value.model.enterpriseExtend.businessLicense:'';
+			var companyGatePicture = data.value.model.enterpriseExtend.companyGatePicture ? data.value.model.enterpriseExtend.companyGatePicture:'';
+			//更新企业详情
+			//var a = '~/op/api/file/previewimage ' + '?fileName=' + fileName ;
+			//显示合同下载
+			if(contractFilePath){
+				me.model.set('contract-bind', contractFilePath);
+				me.$('.contract-link-bind').show();
+				me.$('.contract-hide-bind').hide();
+				me.$('.contract-link-bind').attr('href', '/op/api/file/previewimage' + '?filePath=' + contractFilePath);
+				me.$('.img-contract-bind').attr('src', '/op/api/file/previewimage' + '?filePath=' + contractFilePath);
+			}else{
+				me.model.set('contract-bind', '');
+				me.$('.contract-link-bind').hide();
+				me.$('.contract-hide-bind').show();
+				me.$('.contract-link-bind').attr('href', '');
+				me.$('.img-contract-bind').attr('src', '');
+			}
+			//显示合同副本
+			if(contractCopyFilePath){
+				me.model.set('contractCopy-bind', contractCopyFilePath);
+				me.$('.contractCopy-link-bind').show();
+				me.$('.contractCopy-hide-bind').hide();
+				me.$('.contractCopy-link-bind').attr('href', '/op/api/file/previewimage' + '?filePath=' + contractCopyFilePath);
+				me.$('.img-contractCopy-bind').attr('src', '/op/api/file/previewimage' + '?filePath=' + contractCopyFilePath);
+			}else{
+				me.model.set('contractCopy-bind', '');
+				me.$('.contractCopy-link-bind').hide();
+				me.$('.contractCopy-hide-bind').show();
+				me.$('.contractCopy-link-bind').attr('href', '');
+				me.$('.img-contractCopy-bind').attr('src', '');
+			}
+			//显示营业执照下载
+			if(businessLicense){
+				me.model.set('yyzhizhao-bind', businessLicense);
+				me.$('.yyzhizhao-link-bind').show();
+				me.$('.yyzhizhao-hide-bind').hide();
+				me.$('.yyzhizhao-link-bind').attr('href', '/op/api/file/previewimage' + '?filePath=' + businessLicense);
+				me.$('.img-yyzhizhao-bind').attr('src', '/op/api/file/previewimage' + '?filePath=' + businessLicense);
+			}else{
+				me.model.set('yyzhizhao-bind', '');
+				me.$('.yyzhizhao-link-bind').hide();
+				me.$('.yyzhizhao-hide-bind').show();
+				me.$('.yyzhizhao-link-bind').attr('href', '');
+				me.$('.img-yyzhizhao-bind').attr('src', '');
+
+			}
+			//显示门头执照下载
+			if(companyGatePicture){
+				me.model.set('mtzhizhao-bind',companyGatePicture);
+				me.$('.mtzhizhao-link-bind').show();
+				me.$('.mtzhizhao-hide-bind').hide();
+				me.$('.mtzhizhao-link-bind').attr('href', '/op/api/file/previewimage' + '?filePath=' + companyGatePicture);
+				me.$('.img-mtzhizhao-bind').attr('src', '/op/api/file/previewimage' + '?filePath=' + companyGatePicture);
+			}else{
+				me.model.set('mtzhizhao-bind','');
+				me.$('.mtzhizhao-link-bind').hide();
+				me.$('.mtzhizhao-hide-bind').show();
+				me.$('.mtzhizhao-link-bind').attr('href', '');
+				me.$('.img-mtzhizhao-bind').attr('src', '');
+			}
+		},
 		//重新发送
 		hide: function(){
 			var me = this;
@@ -798,8 +1078,17 @@ define( function(require, exports, module){
 			me.$('.img-contract-add').attr('src', '');
 			me.$('.contractCopy-link-add').attr('href','');
 			me.$('.img-contractCopy-add').attr('src', '');
+			me.$('.contract-link-bind').attr('href','');
+			me.$('.img-contract-bind').attr('src', '');
+			me.$('.contractCopy-link-bind').attr('href','');
+			me.$('.img-contractCopy-bind').attr('src', '');
+			me.$('.mtzhizhao-link-bind').attr('href', '');
+			me.$('.img-mtzhizhao-bind').attr('src', '');
+			me.$('.yyzhizhao-link-bind').attr('href', '');
+			me.$('.img-yyzhizhao-bind').attr('src', '');
 			me.$('.state').hide();
 			me.$('.state-wait').hide();
+			me.$('.show-service').show();
 			me.$('.wait-other').show();
 			DetailBind.__super__.hide.apply( this,arguments );
 		}

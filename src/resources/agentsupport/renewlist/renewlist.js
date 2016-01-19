@@ -99,11 +99,11 @@ define( function( require, exports, module ) {
 			var isCanEdit = $target.attr('data-edit')||'false';
 			//var processInstanceId = $target.attr('data-processInstanceId')||'';
 			if ( me.attrs.state == "refuse"){
-                me.trigger( 'detail', id , eid , type ,canCancel , isCurrentTask );
+                me.trigger( 'detail', id , eid , type ,canCancel , isCurrentTask ,isCanEdit,me.attrs.state);
             }else if ( me.attrs.state == "wait"){
-                me.trigger( 'detail', id , eid , type , canCancel , isCurrentTask,isCanEdit );
+                me.trigger( 'detail', id , eid , type , canCancel , isCurrentTask,isCanEdit ,me.attrs.state);
             }else {
-                me.trigger( 'detail', id , eid , type ,canCancel , isCurrentTask,isCanEdit);
+                me.trigger( 'detail', id , eid , type ,canCancel , isCurrentTask,isCanEdit,me.attrs.state);
             }
         },
 		detailBindEve:function( e ){
@@ -502,6 +502,8 @@ define( function( require, exports, module ) {
 
             //获取销售团队规模
             generate('SALE_TEAM_SCALE', me.$saleteamscale ,'s');
+			
+			
         },
 		//增购获取赠送数量
 		getFreeNumAdd: function(){
@@ -723,7 +725,10 @@ define( function( require, exports, module ) {
                 },
                 timepicker: false
             } );
-			
+			me.$('.money-date').datetimepicker( {
+                format: 'Y/m/d',
+                timepicker: false
+            } );
 
             me.getEnums();
 			/**
@@ -1011,8 +1016,10 @@ define( function( require, exports, module ) {
 					//me.$lookCard.hide()
 					me.$upCard.show();
 					me.$upCardAdd.hide();
+					
 				}else{
 					me.$actionSubmit.show();
+					me.$upCard.hide();
 				}
                 
             }else if( me.attrs.isCurrentTask  == 'true' && (me.attrs.type  == 'addPurchaseApproval' || me.attrs.type  == 'addFreeApproval') ){
@@ -1034,14 +1041,56 @@ define( function( require, exports, module ) {
 		//根据申请类型不同显示不同的信息
         setType: function(){
             var me = this;
+			me.attrs.orderId = '';
 
             me.$showType.hide();
 			me.$addType.hide();
+			me.$('.show-service').hide();
 			
             if( me.attrs.type  == 'payLaunchApproval' ){
                 me.$showType.show();
             }else if( me.attrs.type  == 'freeLaunchApproval' ){
 				me.$showType.hide();
+				if( me.attrs.currentState=='end'){
+					util.api({
+						'url':'/order/getOrderDetailByEnterpriseId ',
+						'data':{
+							'enterpriseId': me.attrs.eid
+						},
+						'success': function( data ){
+							if( data.success ){
+								me.$('.show-service').show();
+								me.model.load( data.value.model.invoice )
+								me.model.set('amountService', data.value.model.invoice.amount);
+								var payDate = data.value.model.invoice.payDate? new Date( data.value.model.invoice.payDate  )._format('yyyy/MM/dd'):'';
+								me.model.set('payDate', payDate);
+								me.attrs.orderId = data.value.model.invoice.orderId;
+							}else{
+								me.model.set('expenseType', 0);
+							}
+						}
+					});
+				}else{
+					util.api({
+						'url':'/order/getOrderDetailByProcessInstanceId',
+						'data':{
+							'processInstanceId': me.attrs.id
+						},
+						'success': function( data ){
+							if( data.success ){
+								me.$('.show-service').show();
+								me.model.load( data.value.model.invoice )
+								me.model.set('amountService', data.value.model.invoice.amount);
+								var payDate = data.value.model.invoice.payDate? new Date( data.value.model.invoice.payDate  )._format('yyyy/MM/dd'):'';
+								me.model.set('payDate', payDate);
+								me.attrs.orderId = data.value.model.invoice.orderId;
+							}else{
+								me.model.set('expenseType', 0);
+							}
+						}
+					});
+				}
+				
 			}else if( me.attrs.type  == 'addPurchaseApproval' || me.attrs.type  == 'addFreeApproval' ){
 				me.$addType.show();
 				//获取增购信息
@@ -1346,11 +1395,31 @@ define( function( require, exports, module ) {
                 data: objDate,
                 success: function( data ) {
 
-                    if ( data.success ) {
+                    if ( data.success && me.attrs.type != 'freeLaunchApproval' && !me.attrs.orderId ) {
                          util.showTip('保存更新成功！');
 						 me.trigger( 'saveSuccess');
 						 me.hide();
-                    }
+                    }else if( data.success && me.attrs.orderId  && me.attrs.type == 'freeLaunchApproval'){
+						var serviceObj = {};
+						serviceObj['orderId'] = me.attrs.orderId;
+						serviceObj['amount'] = me.model.get('amountService');
+						serviceObj['expenseType'] = me.model.get('expenseType');
+						serviceObj['invoiceHead'] = me.model.get('invoiceHead');
+						serviceObj['payerName'] = me.model.get('payerName');
+						serviceObj['payDate'] =  new Date( me.$('.money-date').val() ).getTime();
+						 util.api({
+							'url': '/order/updateOrderInvoice',
+							'data':serviceObj,
+							'success': function( data ){
+								
+								if( data.success ){
+									util.showTip('保存更新成功！');
+									me.trigger( 'saveSuccess');
+									me.hide();
+								}
+							}
+						});
+					}
                 },
 				complete: function(){
 					me.$actionResend.text('保存提交');
@@ -1616,12 +1685,32 @@ define( function( require, exports, module ) {
                     'success':function( data ){
                         if( data.success ){
                             util.showTip('保存提交发送成功');
-							 me.trigger( 'saveSuccess');
+							me.trigger( 'saveSuccess');
 							me.$statusDisabled.attr('disabled','disabled');
                             me.hide();
                         }
                     }
                 })
+            };
+			 //保存服务信息
+            function saveService(){
+                var serviceObj = {};
+				serviceObj['orderId'] = me.attrs.orderId;
+				serviceObj['amount'] = me.model.get('amountService');
+				serviceObj['expenseType'] = me.model.get('expenseType');
+				serviceObj['invoiceHead'] = me.model.get('invoiceHead');
+				serviceObj['payerName'] = me.model.get('payerName');
+				serviceObj['payDate'] = new Date( me.$('.money-date').val() ).getTime();
+				util.api({
+					'url': '/order/updateOrderInvoice',
+					'data':serviceObj,
+					'success': function( data ){
+						
+						if( data.success ){
+							changeNode();
+						}
+					}
+				});
             };
 
             //更新企业详情
@@ -1638,7 +1727,12 @@ define( function( require, exports, module ) {
                 success: function( data ) {
 
                     if ( data.success ) {
-                        changeNode();
+						if( me.attrs.type != 'freeLaunchApproval' && !me.attrs.orderId){
+							changeNode();
+						}else{
+							saveService();
+						}
+                        
                     }
                 },
 				complete: function(){
@@ -1842,7 +1936,7 @@ define( function( require, exports, module ) {
          * @param eid  企业id
          * @param type 类型
          */
-        show: function( id , eid , type , canCancel , isCurrentTask,isCanEdit  ){
+        show: function( id , eid , type , canCancel , isCurrentTask,isCanEdit ,currentState ){
             var me = this;
 
             me.attrs.id = id;
@@ -1852,6 +1946,7 @@ define( function( require, exports, module ) {
             me.attrs.isCurrentTask = isCurrentTask || 'false';
 			me.attrs.isCanEdit = isCanEdit || 'false';
 			me.attrs.runStatus = '';
+			me.attrs.currentState = currentState;
 			//me.attrs.processInstanceId = processInstanceId||''; 
 			//me.attrs.applicantYn = applicantYn || 'false';
 
@@ -2007,9 +2102,9 @@ define( function( require, exports, module ) {
 		var detailBind = new DetailBind();
 
 
-        renewList.on('detail',function( id , eid , type , state,isCurrentTask,isCanEdit ){
+        renewList.on('detail',function( id , eid , type , state,isCurrentTask,isCanEdit,currentState ){
             
-            openApproval.show( id , eid , type , state,isCurrentTask,isCanEdit  );
+            openApproval.show( id , eid , type , state,isCurrentTask,isCanEdit ,currentState );
         });
 		renewList.on('detailBind',function( id , eid , type , state,isCurrentTask,isCanEdit, activeStatus ){
 		

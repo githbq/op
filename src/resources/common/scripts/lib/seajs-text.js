@@ -94,7 +94,7 @@ seajs.on("request", function(data) {
   var name = uriCache[data.uri]
 
   if (name) {
-    xhr(data.requestUri + '?t=' + new Date().getTime(), function(content) {
+    xhr(data.requestUri /*+ '?t=' + new Date().getTime()*/, function(content) {
       plugins[name].exec(data.uri, content)
       data.onRequest()
     })

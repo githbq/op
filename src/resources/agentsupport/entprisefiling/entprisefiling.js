@@ -300,26 +300,23 @@ define( function( require, exports, module ) {
 				util.showToast('请填写完整自注册企业账号！');
 				return false;
 			}
-			if(confirm("确定要将该备案企业与该自注册企业绑定关联吗？")){
-				util.api({
-					'url': '/enterprisefiling/bindingenterprisefiling',
-					'data': {
-						'enterpriseFilingId':me.attrs['entId'],
-						'enterpriseAccount':enterpriseAccount
-					},
-					'button': {
-						'el': me.$enterpriseAccount,
-						'text':'提交中......'
-					},
-					'success': function( data ){
-						if( data.success ){
-						   util.showTip('关联自注册企业成功！');
-						   me.trigger('bindLinkSuccess');
-						   me.hide();  
-						} 
-					}
-				})
-			}
+
+			util.api({
+				'url': '/enterprisefiling/canbinding',
+				'data': {
+					'enterpriseAccount':enterpriseAccount
+				},
+				'button': {
+					'el': me.$enterpriseAccount,
+					'text':'提交中......'
+				},
+				'success': function( data ){
+					if( data.success ){
+					   location.hash = '#agentsupport/bindinfo/'+me.attrs['entId']+'/'+enterpriseAccount;
+					} 
+				}
+			})
+			 
 			return false;
 		},
 

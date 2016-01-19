@@ -1,0 +1,215 @@
+<div class="m-openapproval u-tablelist" style="padding:20px; width:680px;">
+	<h4 style="border-bottom:1px solid #ccc;">关联自注册</h4>
+	<div class="left-info">
+		<h4 >备案企业</h4>
+		
+		<p>
+			<label for="">
+				<span>企业名称 <b class="state state-current">*</b></span>
+				<input type="text" ce-model="enterpriseName" name="enterpriseName" class="status-disabled " disabled="disabled">
+			</label>
+		</p>
+		<p>
+			<label for="">
+				<span>地址 <b class="state state-current">*</b></span>
+				<input type="text" ce-model="address" class="status-disabled " name="address" disabled="disabled" >
+			</label>
+		</p>
+		<p>
+			<label for="">
+				<span>区域 <b class="state state-current">*</b></span>
+				<input type="text" ce-model="region" name="region" class="status-disabled filing-region " onkeyup='this.value=""' disabled="disabled">
+			</label>
+		</p>
+		<p>
+			<label for="" >
+				<span>法定代表人</span> 
+				<input type="text" ce-model="representative" name="representative" class="status-disabled" disabled="disabled">
+			</label>
+		</p>
+		<p>
+			<label for="">
+				<span>行业 <b class="state state-current">*</b></span>
+				<select name="" class="status-disabled e-industry " ce-model="industry" name="industry" disabled="disabled"></select>
+			</label>
+		</p>
+		<p>
+			<label for="">
+				<span>来源 <b class="state state-current">*</b></span>
+				<select name="" class="status-disabled e-source " ce-model="source" name="source" disabled="disabled"></select>
+			</label>
+		</p>
+		<p>
+			<label for="">
+				<span>联系人<b class="state state-current">*</b></span>
+				<input type="text" ce-model="contactName" name="contactName" class="status-disabled " disabled="disabled">
+			</label>
+		</p>
+		<p>
+			<label for="">
+				<span>联系人职位<b class="state state-current">*</b></span>
+				<input type="text" ce-model="contactPost" name="contactPost" class="status-disabled " disabled="disabled">
+			</label>
+		</p>
+		<p>
+			<label for="">
+                <span>联系电话 <b class="state state-current">*</b></span>
+                <input type="text" ce-model="contactPhone" name="contactPhone" class="status-disabled " onchange="this.value=this.value.replace(/\D/g,'')" disabled="disabled">
+            </label>
+		</p>
+		<p>
+			<label for="">
+				<span>联系人邮件</span>
+				<input type="text" ce-model="contactEmail" name="contactEmail" class="status-disabled checked-email" disabled="disabled">
+			</label>
+		</p>
+	
+		<p>
+			<label for="">
+				<span>备注</span>
+				<textarea name="" id="" ce-model="remark" name="remark" class="status-disabled" disabled="disabled"></textarea>
+			</label>
+		</p>
+		
+		
+		<h4>申请信息</h4>
+		<p>
+			<label for="">
+				<span>姓名</span>
+				<input type="text" ce-model="creatorName" name="creatorName" class="" disabled="disabled">
+			</label>	
+		</p>
+		<p>
+			<label for="">
+				<span>登录名</span>
+				<input type="text" ce-model="creatorUserName" name="creatorUserName" class="" disabled="disabled">
+			</label>
+		</p>
+
+		<p>
+			<label for="">
+				<span>状态 </span>
+				<select name="" class="firm-status operat-input" ce-model="firmStatus"  disabled="disabled">
+					
+				</select>
+			</label>
+		</p>
+		
+		<h4>企业跟进信息</h4>
+		<p>
+			<label for="" class="" style="margin-top:10px;">
+				<span>公司人数<b class="state state-current">*</b></span>
+				<input type="text" ce-model="accountAmount" name="accountAmount" class="status-disabled " onchange="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" disabled="disabled">
+			</label>
+		</p>
+		<p>
+			<label for="" class="" style="margin-top:10px;">
+				<span>开通人数<b class="state state-current">*</b></span>
+				<input type="text" ce-model="employeeNumber" name="employeeNumber" class="status-disabled " onchange="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" disabled="disabled">
+			</label>
+		</p>
+		<p>
+			<label for="" class="" style="margin-top:10px;">
+				<span>法定代表人电话 <b class="state state-current">*</b></span>
+				<input type="text" ce-model="kpPhone" name="kpPhone" class="status-disabled " onchange="this.value=this.value.replace(/\D/g,'')" maxlength="11" disabled="disabled">
+			</label>
+		</p>
+		<p>
+			<label for="" class="" style="margin-top:10px;">
+				<span>拜访时间 <b class="state state-current">*</b></span>
+				<input type="text" ce-model="visitTime" name="visitTime" class="status-disabled visite-time " disabled="disabled">
+			</label>
+		</p>
+		<h4>产品信息</h4>
+			<p class="state-pay">
+				<label for="">
+					<span>合同照片</span>
+					<input type="file" accept="image/*"/ class="contract">（支持.png,.jpg,.gif格式）
+				</label>
+			</p>
+			<p class="state-pay">
+				<label for="">
+					<span>合同副本照片(可选)</span>
+					<input type="file" accept="image/*"/ class="contractCopy">（支持.png,.jpg,.gif格式）
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>培训服务费 </span>
+					<select name="payServiceCharge"  ce-model="payServiceCharge" class="payServiceCharge">
+						<option value="0">未收</option>
+						<option value="1">已收</option>
+					</select>
+				</label>
+				<label for="">
+					<span>收款金额</span>
+					<input type="text" ce-model="serviceChargeAmount" disabled=disabled  maxlength=6  name="serviceChargeAmount" class="serviceChargeAmount checkedDisable" onchange="this.value=this.value.replace(/[^\.\d]/g,'')">
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>发票抬头</span>
+					<input type="text" ce-model="invoiceHead" class="checkedDisable" disabled=disabled name="invoiceHead" maxlength=100 style="width:500px;">
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>打款人</span>
+					<input type="text" ce-model="payerName" name="payerName" disabled=disabled class="checkedDisable" maxlength=100 style="width:500px;">
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>打款日期</span>
+					<input type="text" class="money-date checkedDisable" disabled=disabled  onkeyup='this.value=""'>
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>合同开始时间</span>
+					<input type="text" class="startTime" ce-model="startTime" onkeyup='this.value=""'>
+					<span>合同结束时间</span>
+					<input type="text" class="endTime" ce-model="endTime" onkeyup='this.value=""'>
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>营业执照照片</span>
+					<input name="imgfile" type="file" accept="image/*" class="yyzhizhao">（支持.png,.jpg,.gif格式）
+				</label>
+			</p>
+			<div style="border:1px solid #ccc; padding:15px;">
+				<p>
+					<label for="">
+						<span>门头照片</span>
+						<input name="imgfile" type="file" accept="image/*" class="mtzhizhao">（支持.png,.jpg,.gif格式）
+					</label>
+				</p>
+				<p>
+					<label for="">
+						<span>门头照片关键字</span>
+						<input type="text" ce-model="companyGateKeyword" class="companyGateKeyword">
+					</label>
+					<label for="">
+						<span>门头照片备注</span>
+						<input type="text" ce-model="companyGateRemark" class="companyGateRemark ">
+					</label>
+				</p>
+			</div>
+			<h4>备注</h4>
+			<p>
+				<label for="">
+					<textarea name="" ce-model="remark"></textarea>
+				</label>
+			</p>
+		</div>
+		<div class=" clearfix" style="text-align:center;">
+			<button class="action-cancel">取消</button>
+			<button class="action-add btn-blue">提交</button>
+		</div>
+		
+	</div>
+
+	
+</div>
+
