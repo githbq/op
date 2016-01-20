@@ -136,34 +136,34 @@
 				</select>
 			</label>
 		</p>
+		
+		<p class="up-card">
+			<label for="">
+				<span>合同 </span>
+				<input type="file" class="contract-bind" ce-model="contract-bind" name="contract-bind" accept="image/gif, image/jpeg, image/png">
+			</label>
+		</p>
+		<p class="" >
+			<label for="">
+				<span>合同</span>
+				<a class="contract-link-bind" target="_blank" name="contract-link-bind"><img class="img-contract-bind" src="" alt="" style="width:200px; height:200px;" name="img-contract-bind"></a>
+				<a class=" contract-hide-bind" target="_blank">未上传</a>
+			</label>
+		</p>
+		<p class="up-card">
+			<label for="">
+				<span>合同副本 (可选)</span>
+				<input type="file" class="contractCopy-bind" ce-model="contractCopy-bind"  accept="image/gif, image/jpeg, image/png">
+			</label>
+		</p>
+		<p class="" >
+			<label for="">
+				<span>合同副本</span>
+				<a class="contractCopy-link-bind" target="_blank"><img class="img-contractCopy-bind" src="" alt="" style="width:200px; height:200px;" ></a>
+				<a class=" contractCopy-hide-bind" target="_blank">未上传</a>
+			</label>
+		</p>
 		<div class="show-service" style="display:none;">
-			<p class="up-card">
-				<label for="">
-					<span>合同 </span>
-					<input type="file" class="contract-bind" ce-model="contract-bind" name="contract-bind" accept="image/gif, image/jpeg, image/png">
-				</label>
-			</p>
-			<p class="" >
-				<label for="">
-					<span>合同</span>
-					<a class="contract-link-bind" target="_blank" name="contract-link-bind"><img class="img-contract-bind" src="" alt="" style="width:200px; height:200px;" name="img-contract-bind"></a>
-					<a class=" contract-hide-bind" target="_blank">未上传</a>
-				</label>
-			</p>
-			<p class="up-card">
-				<label for="">
-					<span>合同副本 (可选)</span>
-					<input type="file" class="contractCopy-bind" ce-model="contractCopy-bind"  accept="image/gif, image/jpeg, image/png">
-				</label>
-			</p>
-			<p class="" >
-				<label for="">
-					<span>合同副本</span>
-					<a class="contractCopy-link-bind" target="_blank"><img class="img-contractCopy-bind" src="" alt="" style="width:200px; height:200px;" ></a>
-					<a class=" contractCopy-hide-bind" target="_blank">未上传</a>
-				</label>
-			</p>
-			
 			<p>
 				<label for="" class="">
 					<span>收款金额</span>
@@ -188,63 +188,64 @@
 					<input type="text" class="money-date status-disabled refuse-disabled" ce-model="payDate-bind" onkeyup='this.value=""'>
 				</label>
 			</p>
-			<p>
-				<label for="">
-					<span>合同开始时间</span>
-					<input type="text" class="startTime-bind status-disabled  un-disabled" ce-model="contractStartTime-bind" onkeyup='this.value=""'>
-				</label>
-			</p>
-			<p>
-				<label for="">
-					<span>合同结束时间</span>
-					<input type="text" class="endTime-bind status-disabled un-disabled" ce-model="contractEndTime-bind" onkeyup='this.value=""'>
-				</label>
-			</p>
-			<p class="up-card">
-				<label for="">
-					<span>营业执照 </span>
-					<input type="file" class="yyzhizhao-bind" ce-model="yyzhizhao-bind" name="yyzhizhao-bind" accept="image/gif, image/jpeg, image/png">
-				</label>
-			</p>
-			<p class=" " >
-				<label for="">
-					<span>营业执照</span>
-					<a class="yyzhizhao-link-bind" href="" target="_blank"><img class="img-yyzhizhao-bind" src="" alt="" style="width:200px; height:200px;" > </a>
-					<a class="yyzhizhao-hide-bind" target="_blank">未上传</a>
-				</label>
-			</p>
-			<p class="up-card">
-				<label for="">
-					<span>门头照片 </span>
-					<input type="file" class="mtzhizhao-bind"  ce-model="mtzhizhao-bind" name="mtzhizhao-bind"  accept="image/gif, image/jpeg, image/png">
-				</label>
-			</p>
-			<p >
-				<label for="">
-					<span>门头照片</span>
-					<a class="mtzhizhao-link-bind" target="_blank"><img  class="img-mtzhizhao-bind" src="" alt="" style="width:200px; height:200px;" ></a>
-					<a class="mtzhizhao-hide-bind" target="_blank">未上传</a>
-				</label>
-			</p>
-			<p>
-				<label for="">
-					<span>门头照片关键字</span>
-					<input type="text" name="" ce-model="companyGateKeyword-bind" class="status-disabled un-disabled">
-				</label>
-			</p>
-			<p>
-				<label for="">
-					<span>门头照片备注</span>
-					<input type="text" name="" ce-model="companyGateRemark-bind" class="status-disabled  un-disabled">
-				</label>
-			</p>
-			<p>
-				<label for="">
-					<span>备注</span>
-					<textarea name="" id="" ce-model="remark-bind" class="status-disabled un-disabled"></textarea>
-				</label>
-			</p>
 		</div>
+		<p>
+			<label for="">
+				<span>合同开始时间</span>
+				<input type="text" class="startTime-bind status-disabled  un-disabled" ce-model="contractStartTime-bind" onkeyup='this.value=""'>
+			</label>
+		</p>
+		<p>
+			<label for="">
+				<span>合同结束时间</span>
+				<input type="text" class="endTime-bind status-disabled un-disabled" ce-model="contractEndTime-bind" onkeyup='this.value=""'>
+			</label>
+		</p>
+		<p class="up-card">
+			<label for="">
+				<span>营业执照 </span>
+				<input type="file" class="yyzhizhao-bind" ce-model="yyzhizhao-bind" name="yyzhizhao-bind" accept="image/gif, image/jpeg, image/png">
+			</label>
+		</p>
+		<p class=" " >
+			<label for="">
+				<span>营业执照</span>
+				<a class="yyzhizhao-link-bind" href="" target="_blank"><img class="img-yyzhizhao-bind" src="" alt="" style="width:200px; height:200px;" > </a>
+				<a class="yyzhizhao-hide-bind" target="_blank">未上传</a>
+			</label>
+		</p>
+		<p class="up-card">
+			<label for="">
+				<span>门头照片 </span>
+				<input type="file" class="mtzhizhao-bind"  ce-model="mtzhizhao-bind" name="mtzhizhao-bind"  accept="image/gif, image/jpeg, image/png">
+			</label>
+		</p>
+		<p >
+			<label for="">
+				<span>门头照片</span>
+				<a class="mtzhizhao-link-bind" target="_blank"><img  class="img-mtzhizhao-bind" src="" alt="" style="width:200px; height:200px;" ></a>
+				<a class="mtzhizhao-hide-bind" target="_blank">未上传</a>
+			</label>
+		</p>
+		<p>
+			<label for="">
+				<span>门头照片关键字</span>
+				<input type="text" name="" ce-model="companyGateKeyword-bind" class="status-disabled un-disabled">
+			</label>
+		</p>
+		<p>
+			<label for="">
+				<span>门头照片备注</span>
+				<input type="text" name="" ce-model="companyGateRemark-bind" class="status-disabled  un-disabled">
+			</label>
+		</p>
+		<p>
+			<label for="">
+				<span>备注</span>
+				<textarea name="" id="" ce-model="remark-bind" class="status-disabled un-disabled"></textarea>
+			</label>
+		</p>
+		
 		<p class="approval-action wait-other">
 			<button class="state state-current u-btn-blue action-resend">保存提交</button>
 			<!--<button class="state state-current u-btn-blue action-save">保存</button>
