@@ -324,7 +324,10 @@ define( function( require, exports, module ) {
 			'.status-disabled-add':'statusDisabledAdd',
 			'.contractCopyAdd':'contractCopyAdd',
 			'.contractAdd':'contractAdd',
-			'.action-submit':'actionSubmit'
+			'.action-submit':'actionSubmit',
+			'.expenseType':'expenseType',
+			'.show-service':'showService',
+			'.refuse-disabled':'refuseDisabled'
         },
 
         events:{
@@ -446,7 +449,15 @@ define( function( require, exports, module ) {
 				//me.model.set('contractPriceAdd',parseFloat(me.model.get('contractPriceAdd'))?parseFloat(me.model.get('contractPriceAdd')):'');
 				me.getdiscountAdd();
 			});
-
+			
+			//服务费修改
+			me.$expenseType.on('change',function(){
+				if(me.$expenseType.val()==1){
+					me.$showService.show();
+				}else{
+					me.$showService.hide();
+				}
+			});
 
 			me.$('.accountTotalAmountAdd').on('focusout',function(){
 				
@@ -1005,6 +1016,7 @@ define( function( require, exports, module ) {
             if( me.attrs.canCancel == 'true' ){
                 me.$('.state-cancel').show()
 				me.$statusDisabled.attr('disabled','disabled');
+				me.$refuseDisabled.attr('disabled','disabled');
             }
 			if( me.attrs.canCancel == 'false' ){
 				me.$statusDisabled.attr('disabled','disabled');
@@ -1059,14 +1071,16 @@ define( function( require, exports, module ) {
 						},
 						'success': function( data ){
 							if( data.success ){
-								me.$('.show-service').show();
-								me.model.load( data.value.model.invoice )
-								me.model.set('amountService', data.value.model.invoice.amount);
-								var payDate = data.value.model.invoice.payDate? new Date( data.value.model.invoice.payDate  )._format('yyyy/MM/dd'):'';
-								me.model.set('payDate', payDate);
-								me.attrs.orderId = data.value.model.invoice.orderId;
-							}else{
-								me.model.set('expenseType', 0);
+								if( data.value.model.invoice ){
+									me.$('.show-service').show();
+									me.model.load( data.value.model.invoice )
+									me.model.set('amountService', data.value.model.invoice.amount);
+									var payDate = data.value.model.invoice.payDate? new Date( data.value.model.invoice.payDate  )._format('yyyy/MM/dd'):'';
+									me.model.set('payDate', payDate);
+									me.attrs.orderId = data.value.model.invoice.orderId;
+								}else{
+									me.model.set('expenseType', 0);
+								}
 							}
 						}
 					});
@@ -1078,14 +1092,25 @@ define( function( require, exports, module ) {
 						},
 						'success': function( data ){
 							if( data.success ){
-								me.$('.show-service').show();
-								me.model.load( data.value.model.invoice )
-								me.model.set('amountService', data.value.model.invoice.amount);
-								var payDate = data.value.model.invoice.payDate? new Date( data.value.model.invoice.payDate  )._format('yyyy/MM/dd'):'';
-								me.model.set('payDate', payDate);
-								me.attrs.orderId = data.value.model.invoice.orderId;
-							}else{
-								me.model.set('expenseType', 0);
+								if( data.value.model.isPayServiceCharge ){
+									me.attrs.saveFlag = 1;
+									me.$('.show-service').show();
+									me.model.load( data.value.model.invoice )
+									me.model.set('amountService', data.value.model.invoice.amount);
+									var payDate = data.value.model.invoice.payDate? new Date( data.value.model.invoice.payDate  )._format('yyyy/MM/dd'):'';
+									me.model.set('payDate', payDate);
+									me.attrs.orderId = data.value.model.invoice.orderId;
+								}else{
+									me.attrs.saveFlag = 0;
+									me.model.set('expenseType', 0);
+								}
+								if(  me.attrs.isCurrentTask  == 'true' ){
+									me.$refuseDisabled.removeAttr('disabled');
+									if( data.value.model.isServiceChargeReject ){
+										me.$expenseType.attr('disabled','disabled');
+									}
+									
+								}
 							}
 						}
 					});
@@ -1399,26 +1424,64 @@ define( function( require, exports, module ) {
                          util.showTip('保存更新成功！');
 						 me.trigger( 'saveSuccess');
 						 me.hide();
-                    }else if( data.success && me.attrs.orderId  && me.attrs.type == 'freeLaunchApproval'){
+                    }else if( data.success && me.attrs.type == 'freeLaunchApproval'){
 						var serviceObj = {};
-						serviceObj['orderId'] = me.attrs.orderId;
-						serviceObj['amount'] = me.model.get('amountService');
-						serviceObj['expenseType'] = me.model.get('expenseType');
-						serviceObj['invoiceHead'] = me.model.get('invoiceHead');
-						serviceObj['payerName'] = me.model.get('payerName');
-						serviceObj['payDate'] =  new Date( me.$('.money-date').val() ).getTime();
-						 util.api({
-							'url': '/order/updateOrderInvoice',
-							'data':serviceObj,
-							'success': function( data ){
-								
-								if( data.success ){
-									util.showTip('保存更新成功！');
-									me.trigger( 'saveSuccess');
-									me.hide();
+						
+						/**
+						 * 被驳回后原本不收取服务费的审批修改成收取服务费，需要创建服务费相关信息
+						 * @param request request
+						 * @param processInstanceId 审批流ID
+						 * @param serviceChargeAmount 服务费金额
+						 * @param invoiceHead 发票抬头
+						 * @param payerName 付款人姓名
+						 * @param payDate 付款日期
+						 * @return
+						 */
+						if(me.attrs.saveFlag != me.$expenseType.val()){ 
+							serviceObj['processInstanceId'] = me.attrs.id;
+							serviceObj['serviceChargeAmount'] = me.model.get('amountService');
+							serviceObj['payServiceCharge'] = me.model.get('expenseType');
+							serviceObj['invoiceHead'] = me.model.get('invoiceHead');
+							serviceObj['payerName'] = me.model.get('payerName');
+							serviceObj['payDate'] = me.$('.money-date').val()? new Date( me.$('.money-date').val() ).getTime():'';
+							
+							 util.api({
+								'url': '/order/changeToPayServiceCharge',
+								'data':serviceObj,
+								'success': function( data ){
+									
+									if( data.success ){
+										util.showTip('保存更新成功！');
+										me.trigger( 'saveSuccess');
+										me.hide();
+									}
 								}
-							}
-						});
+							});
+						}else if( me.$expenseType.val()==1 && me.attrs.saveFlag == me.$expenseType.val()){
+							serviceObj['orderId'] = me.attrs.orderId;
+							serviceObj['amount'] = me.model.get('amountService');
+							serviceObj['expenseType'] = me.model.get('expenseType');
+							serviceObj['invoiceHead'] = me.model.get('invoiceHead');
+							serviceObj['payerName'] = me.model.get('payerName');
+							serviceObj['payDate'] = me.$('.money-date').val()? new Date( me.$('.money-date').val() ).getTime():'';
+							
+							util.api({
+								'url': '/order/updateOrderInvoice',
+								'data':serviceObj,
+								'success': function( data ){
+									
+									if( data.success ){
+										util.showTip('保存更新成功！');
+										me.trigger( 'saveSuccess');
+										me.hide();
+									}
+								}
+							});
+						}else{
+							util.showTip('保存更新成功！');
+							 me.trigger( 'saveSuccess');
+							 me.hide();
+						}
 					}
                 },
 				complete: function(){
@@ -1694,23 +1757,47 @@ define( function( require, exports, module ) {
             };
 			 //保存服务信息
             function saveService(){
-                var serviceObj = {};
-				serviceObj['orderId'] = me.attrs.orderId;
-				serviceObj['amount'] = me.model.get('amountService');
-				serviceObj['expenseType'] = me.model.get('expenseType');
-				serviceObj['invoiceHead'] = me.model.get('invoiceHead');
-				serviceObj['payerName'] = me.model.get('payerName');
-				serviceObj['payDate'] = new Date( me.$('.money-date').val() ).getTime();
-				util.api({
-					'url': '/order/updateOrderInvoice',
-					'data':serviceObj,
-					'success': function( data ){
-						
-						if( data.success ){
-							changeNode();
+				var serviceObj = {};
+
+				if(me.attrs.saveFlag != me.$expenseType.val()){ 
+					serviceObj['processInstanceId'] = me.attrs.id;
+					serviceObj['serviceChargeAmount'] = me.model.get('amountService');
+					serviceObj['payServiceCharge'] = me.model.get('expenseType');
+					serviceObj['invoiceHead'] = me.model.get('invoiceHead');
+					serviceObj['payerName'] = me.model.get('payerName');
+					serviceObj['payDate'] = me.$('.money-date').val()? new Date( me.$('.money-date').val() ).getTime():'';
+					
+					 util.api({
+						'url': '/order/changeToPayServiceCharge',
+						'data':serviceObj,
+						'success': function( data ){
+							
+							if( data.success ){
+								changeNode();
+							}
 						}
-					}
-				});
+					});
+				}else if( me.$expenseType.val()==1 && me.attrs.saveFlag == me.$expenseType.val()){
+					serviceObj['orderId'] = me.attrs.orderId;
+					serviceObj['amount'] = me.model.get('amountService');
+					serviceObj['expenseType'] = me.model.get('expenseType');
+					serviceObj['invoiceHead'] = me.model.get('invoiceHead');
+					serviceObj['payerName'] = me.model.get('payerName');
+					serviceObj['payDate'] = me.$('.money-date').val()? new Date( me.$('.money-date').val() ).getTime():'';
+					
+					util.api({
+						'url': '/order/updateOrderInvoice',
+						'data':serviceObj,
+						'success': function( data ){
+							
+							if( data.success ){
+								changeNode();
+							}
+						}
+					});
+				}else{
+					changeNode();
+				}
             };
 
             //更新企业详情
@@ -1727,12 +1814,11 @@ define( function( require, exports, module ) {
                 success: function( data ) {
 
                     if ( data.success ) {
-						if( me.attrs.type != 'freeLaunchApproval' && !me.attrs.orderId){
+						if( me.attrs.type != 'freeLaunchApproval'){
 							changeNode();
 						}else{
 							saveService();
 						}
-                        
                     }
                 },
 				complete: function(){
@@ -1912,6 +1998,60 @@ define( function( require, exports, module ) {
          */
 		submitEve:function(){
 			var me = this;
+			
+			 //保存服务信息
+            function saveService(){
+				var serviceObj = {};
+
+				if(me.attrs.saveFlag != me.$expenseType.val()){ 
+					serviceObj['processInstanceId'] = me.attrs.id;
+					serviceObj['serviceChargeAmount'] = me.model.get('amountService');
+					serviceObj['payServiceCharge'] = me.model.get('expenseType');
+					serviceObj['invoiceHead'] = me.model.get('invoiceHead');
+					serviceObj['payerName'] = me.model.get('payerName');
+					serviceObj['payDate'] = me.$('.money-date').val()? new Date( me.$('.money-date').val() ).getTime():'';
+					
+					 util.api({
+						'url': '/order/changeToPayServiceCharge',
+						'data':serviceObj,
+						'success': function( data ){
+							
+							if( data.success ){
+								me.savePassInfo();
+							}
+						}
+					});
+				}else if( me.$expenseType.val()==1 && me.attrs.saveFlag == me.$expenseType.val()){
+					serviceObj['orderId'] = me.attrs.orderId;
+					serviceObj['amount'] = me.model.get('amountService');
+					serviceObj['expenseType'] = me.model.get('expenseType');
+					serviceObj['invoiceHead'] = me.model.get('invoiceHead');
+					serviceObj['payerName'] = me.model.get('payerName');
+					serviceObj['payDate'] = me.$('.money-date').val()? new Date( me.$('.money-date').val() ).getTime():'';
+					
+					util.api({
+						'url': '/order/updateOrderInvoice',
+						'data':serviceObj,
+						'success': function( data ){
+							
+							if( data.success ){
+								me.savePassInfo();
+							}
+						}
+					});
+				}else{
+					me.savePassInfo();
+				}
+            };
+			saveService();
+		},
+		 /**
+         *
+         *已经开通直接
+         */
+		savePassInfo:function(){
+			var me = this;
+			
 			util.api({
 				'url':'~/op/api/approval/directapprove',
 				'data':{
