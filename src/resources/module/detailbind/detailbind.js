@@ -588,20 +588,22 @@ define( function(require, exports, module){
 			objDate['processInstanceId'] = me.attrs.id;
 			objDate['opinion'] = '';
 			objDate['payServiceCharge'] = me.$expenseTypeBind.val();
+			
+			objDate['contract'] = me.model.get('contract-bind');
+			objDate['contractFileName']=me.model.get('contractFileName-bind');
+			objDate['contractCopy']=me.model.get('contractCopy-bind');
+			objDate['contractCopyFileName']=me.model.get('contractCopyFileName-bind');
+			objDate['businessLicense']=me.model.get('yyzhizhao-bind');
+			objDate['businessLicenseFileName']=me.model.get('yyzhizhaoFileName-bind');
+			objDate['companyGatePicture']=me.model.get('mtzhizhao-bind');
+			objDate['companyGatePictureFileName']=me.model.get('mtzhizhaoFileName-bind');
+			objDate['contractStartTime'] = me.$('.startTime-bind').val()?new Date( me.$('.startTime-bind').val() ).getTime():'';
+			objDate['contractEndTime'] = me.$('.endTime-bind').val()?new Date( me.$('.endTime-bind').val() ).getTime():'';
+			objDate['companyGateKeyword']=me.model.get('companyGateKeyword-bind');
+			objDate['companyGateRemark']=me.model.get('companyGateRemark-bind');
+			objDate['presentOfficeEdition']=0;
 			if( me.$expenseTypeBind.val() == 1 ){
-				objDate['contract'] = me.model.get('contract-bind');
-				objDate['contractFileName']=me.model.get('contractFileName-bind');
-				objDate['contractCopy']=me.model.get('contractCopy-bind');
-				objDate['contractCopyFileName']=me.model.get('contractCopyFileName-bind');
-				objDate['businessLicense']=me.model.get('yyzhizhao-bind');
-				objDate['businessLicenseFileName']=me.model.get('yyzhizhaoFileName-bind');
-				objDate['companyGatePicture']=me.model.get('mtzhizhao-bind');
-				objDate['companyGatePictureFileName']=me.model.get('mtzhizhaoFileName-bind');
-				objDate['contractStartTime'] = me.$('.startTime-bind').val()?new Date( me.$('.startTime-bind').val() ).getTime():'';
-				objDate['contractEndTime'] = me.$('.endTime-bind').val()?new Date( me.$('.endTime-bind').val() ).getTime():'';
-				objDate['companyGateKeyword']=me.model.get('companyGateKeyword-bind');
-				objDate['companyGateRemark']=me.model.get('companyGateRemark-bind');
-				objDate['presentOfficeEdition']=0;
+			
 				objDate['serviceChargeAmount']=me.model.get('amount-bind');
 				objDate['invoiceHead']=me.model.get('invoiceHead-bind');
 				objDate['payerName']=me.model.get('payerName-bind');
