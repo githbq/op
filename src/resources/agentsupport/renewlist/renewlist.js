@@ -2043,6 +2043,7 @@ define( function( require, exports, module ) {
 					me.savePassInfo();
 				}
             };
+			saveService();
 		},
 		 /**
          *
