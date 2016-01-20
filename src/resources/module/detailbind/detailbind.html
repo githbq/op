@@ -139,7 +139,7 @@
 		
 		<p class="up-card">
 			<label for="">
-				<span>合同 </span>
+				<span>合同 <b class="state state-current">*</b></span>
 				<input type="file" class="contract-bind" ce-model="contract-bind" name="contract-bind" accept="image/gif, image/jpeg, image/png">
 			</label>
 		</p>
@@ -191,13 +191,13 @@
 		</div>
 		<p>
 			<label for="">
-				<span>合同开始时间</span>
+				<span>合同开始时间<b class="state state-current">*</b></span>
 				<input type="text" class="startTime-bind status-disabled  un-disabled" ce-model="contractStartTime-bind" onkeyup='this.value=""'>
 			</label>
 		</p>
 		<p>
 			<label for="">
-				<span>合同结束时间</span>
+				<span>合同结束时间<b class="state state-current">*</b></span>
 				<input type="text" class="endTime-bind status-disabled un-disabled" ce-model="contractEndTime-bind" onkeyup='this.value=""'>
 			</label>
 		</p>

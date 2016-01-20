@@ -157,8 +157,8 @@ define( function(require, exports, module){
 			entObj['payerName']=me.model.get('payerName');
 			entObj['payDate']= me.$('.money-date').val() ? new Date( me.$('.money-date').val() ).getTime() :'';
 			
-			if(me.model.get('payServiceCharge') == 1 && !entObj['contract'] && !entObj['contractFileName'] && !entObj['contractStartTime'] && !entObj['contractEndTime']){
-				util.showToast('收取服务费时，请上传合同和合同时间等信息！');
+			if( !entObj['contract'] && !entObj['contractFileName'] && !entObj['contractStartTime'] && !entObj['contractEndTime']){
+				util.showToast('请上传合同和合同时间等信息！');
 				return false;
 			}
 			
