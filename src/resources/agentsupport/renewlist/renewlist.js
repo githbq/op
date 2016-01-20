@@ -1956,7 +1956,7 @@ define( function( require, exports, module ) {
 				});
             };
 			if(me.attrs.orderId){
-				saveService
+				saveService();
 			}else{
 				me.savePassInfo();
 			}
