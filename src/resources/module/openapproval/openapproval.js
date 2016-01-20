@@ -523,7 +523,7 @@ define( function(require, exports, module){
 						},
 						'success': function( data ){
 							if( data.success ){
-								if( data.value.model.isPayServiceCharge ){
+								if( data.value.model.invoice ){
 									me.$('.show-service').show();
 									me.$('.amountService').val(data.value.model.invoice.amount);
 									me.$('.expenseType').val(data.value.model.invoice.expenseType);

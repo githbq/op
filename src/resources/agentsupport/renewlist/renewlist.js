@@ -1071,7 +1071,7 @@ define( function( require, exports, module ) {
 						},
 						'success': function( data ){
 							if( data.success ){
-								if( data.value.model.isPayServiceCharge ){
+								if( data.value.model.invoice ){
 									me.$('.show-service').show();
 									me.model.load( data.value.model.invoice )
 									me.model.set('amountService', data.value.model.invoice.amount);
