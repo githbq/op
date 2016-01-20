@@ -1446,7 +1446,7 @@ define( function( require, exports, module ) {
 							serviceObj['payDate'] = me.$('.money-date').val()? new Date( me.$('.money-date').val() ).getTime():'';
 							
 							 util.api({
-								'url': '/order/changeToPayServiceCharge',
+								'url': '/enterprise/changeToPayServiceCharge',
 								'data':serviceObj,
 								'success': function( data ){
 									
@@ -1768,7 +1768,7 @@ define( function( require, exports, module ) {
 					serviceObj['payDate'] = me.$('.money-date').val()? new Date( me.$('.money-date').val() ).getTime():'';
 					
 					 util.api({
-						'url': '/order/changeToPayServiceCharge',
+						'url': '/enterprise/changeToPayServiceCharge',
 						'data':serviceObj,
 						'success': function( data ){
 							
@@ -2012,7 +2012,7 @@ define( function( require, exports, module ) {
 					serviceObj['payDate'] = me.$('.money-date').val()? new Date( me.$('.money-date').val() ).getTime():'';
 					
 					 util.api({
-						'url': '/order/changeToPayServiceCharge',
+						'url': '/enterprise/changeToPayServiceCharge',
 						'data':serviceObj,
 						'success': function( data ){
 							
