@@ -671,10 +671,12 @@ define( function(require, exports, module){
 							//me.getRegistrationEnterprise(data);
 							me.getRecordEnterprise( data );
 							me.attrs.isServiceChargeReject =  data.value.isServiceChargeReject
+							
+							me.downBindFile(data);
 							if( data.value.invoice ){
 								me.attrs['orderId'] = data.value.invoice.orderId;
 								me.$('.show-service').show();
-								me.downBindFile(data);
+								
 							}else{
 								me.$('.show-service').hide();
 							}
@@ -695,10 +697,10 @@ define( function(require, exports, module){
 
 							//me.getRegistrationEnterprise(data);
 							me.getRecordEnterprise( data );
+							me.downBindFile(data);
 							if( data.value.invoice ){
 								me.attrs['orderId'] = data.value.invoice.orderId;
 								me.$('.show-service').show();
-								me.downBindFile(data);
 							}else{
 								me.$('.show-service').hide();
 							}
@@ -743,10 +745,10 @@ define( function(require, exports, module){
 							me.getRegistrationEnterprise(data);
 							me.getRecordEnterprise( data );
 							me.downFile(data);
+							me.downBindFile(data);
 							if( data.value.invoice ){
 								me.attrs['orderId'] = data.value.invoice.orderId;
-								me.$('.show-service').show();
-								me.downBindFile(data);
+								me.$('.show-service').show();	
 							}else{
 								me.$('.show-service').hide();
 							}
@@ -774,10 +776,10 @@ define( function(require, exports, module){
 
 							me.getRegistrationEnterprise(data);
 							me.getRecordEnterprise( data );
+							me.downBindFile(data);
 							if( data.value.invoice ){
 								me.attrs['orderId'] = data.value.invoice.orderId;
 								me.$('.show-service').show();
-								me.downBindFile(data);
 							}{
 								me.$('.show-service').hide();
 							}
@@ -909,12 +911,14 @@ define( function(require, exports, module){
 			var visiteTime = data.value.enterpriseFiling.visitTime?new Date( data.value.enterpriseFiling.visitTime)._format('yyyy/MM/dd'):'';
 			me.model.set('visiteTimeRecord',visiteTime);
 			me.attrs.enterpriseFilingId = data.value.enterpriseFiling.id;
+			
+			me.model.set('contractStartTime-bind',data.value.paidEnterpriseExtra.contractStartTime ? new Date( data.value.paidEnterpriseExtra.contractStartTime )._format('yyyy/MM/dd'):'');
+			me.model.set('contractEndTime-bind',data.value.paidEnterpriseExtra.contractEndTime ? new Date( data.value.paidEnterpriseExtra.contractEndTime )._format('yyyy/MM/dd'):'');
+			me.model.set('companyGateKeyword-bind',data.value.enterpriseExtend.companyGateKeyword);
+			me.model.set('companyGateRemark-bind',data.value.enterpriseExtend.companyGateRemark);
+			me.model.set('remark-bind',data.value.enterpriseExtend.remark);
 			if(data.value.invoice){
-				me.model.set('contractStartTime-bind',data.value.paidEnterpriseExtra.contractStartTime ? new Date( data.value.paidEnterpriseExtra.contractStartTime )._format('yyyy/MM/dd'):'');
-				me.model.set('contractEndTime-bind',data.value.paidEnterpriseExtra.contractEndTime ? new Date( data.value.paidEnterpriseExtra.contractEndTime )._format('yyyy/MM/dd'):'');
-				me.model.set('companyGateKeyword-bind',data.value.enterpriseExtend.companyGateKeyword);
-				me.model.set('companyGateRemark-bind',data.value.enterpriseExtend.companyGateRemark);
-				me.model.set('remark-bind',data.value.enterpriseExtend.remark);
+
 				me.model.set('expenseType-bind',data.value.invoice.expenseType);
 				me.model.set('amount-bind',data.value.invoice.amount);
 				me.model.set('invoiceHead-bind',data.value.invoice.invoiceHead);
@@ -922,6 +926,7 @@ define( function(require, exports, module){
 				me.model.set('payDate-bind',data.value.invoice.payDate ? new Date( data.value.invoice.payDate )._format('yyyy/MM/dd'):'');
 			}else{
 				me.model.set('expenseType-bind',0);
+				me.$expenseTypeBind.val(0)
 			}
 			
 		 },

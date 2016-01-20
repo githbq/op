@@ -533,8 +533,10 @@ define( function(require, exports, module){
 									var payDate = data.value.model.invoice.payDate? new Date( data.value.model.invoice.payDate  )._format('yyyy/MM/dd'):'';
 									me.$('.payDate').val(payDate);
 									me.attrs.orderId = data.value.model.invoice.orderId;
+									me.$('.expenseType').val('1');
 								}else{
 									me.model.set('expenseType', 0);
+									me.$('.expenseType').val('0');
 								}
 							}
 						}
@@ -557,8 +559,10 @@ define( function(require, exports, module){
 									var payDate = data.value.model.invoice.payDate? new Date( data.value.model.invoice.payDate  )._format('yyyy/MM/dd'):'';
 									me.$('.payDate').val(payDate);
 									me.attrs.orderId = data.value.model.invoice.orderId;
+									me.$('.expenseType').val('1')
 								}else{
 									me.model.set('expenseType', 0);
+									me.$('.expenseType').val('0');
 								}
 							}
 						}
@@ -669,6 +673,7 @@ define( function(require, exports, module){
             //设置显示状态
             me.$('.state').hide();
             me.$('.state-'+state).show();
+			me.$('.expenseType').val('0');
 
             util.api({
                 'url': '/enterprise/getenterprise',
