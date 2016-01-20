@@ -90,7 +90,8 @@ define( function(require, exports, module){
 			'.right-info':'rightInfo',
 			'.expenseType-bind':'expenseTypeBind',
 			'.show-service':'showService',
-			'.refuse-disabled':'refuseDisabled'
+			'.refuse-disabled':'refuseDisabled',
+			'.un-disabled':'unDisabled'
 		},
 
 		events:{
@@ -283,12 +284,12 @@ define( function(require, exports, module){
             } );
 			
 			me.$('.contract-bind').on('change',function(){
-				var fileExtension =me.$contract[0].files[0].name.split('.').pop().toLowerCase();
+				var fileExtension =me.$('.contract-bind')[0].files[0].name.split('.').pop().toLowerCase();
 				if(fileExtension=='jpg'||fileExtension=='gif'||fileExtension=='png'||fileExtension=='jpeg'){
 
 					uploader.send({
 						'url': '/op/api/file/uploadsinglefileandcheck',
-						'files': me.$contract[0].files,
+						'files': me.$('.contract-bind')[0].files,
 						'options':{
 							'limittype':'IMAGE'
 						},
@@ -305,24 +306,24 @@ define( function(require, exports, module){
 						},
 						'error':function(response){
 						
-							me.$contract.val('');
+							me.$('.contract-bind').val('');
 							return false;
 						}
 					})
 				}else{
-					me.$contract.val('');
+					me.$('.contract-bind').val('');
 					util.showToast('请上传图片格式不正确(.jpg,.png,.gif)！');
 					return false;
 				}
 				
 			});
 			me.$('.contractCopy-bind').on('change',function(){
-				var fileExtension =me.$contract[0].files[0].name.split('.').pop().toLowerCase();
+				var fileExtension =me.$('.contractCopy-bind')[0].files[0].name.split('.').pop().toLowerCase();
 				if(fileExtension=='jpg'||fileExtension=='gif'||fileExtension=='png'||fileExtension=='jpeg'){
 
 					uploader.send({
 						'url': '/op/api/file/uploadsinglefileandcheck',
-						'files': me.$contract[0].files,
+						'files': me.$('.contractCopy-bind')[0].files,
 						'options':{
 							'limittype':'IMAGE'
 						},
@@ -351,12 +352,12 @@ define( function(require, exports, module){
 				
 			});
 			me.$('.yyzhizhao-bind').on('change',function(){
-				var fileExtension =me.$contract[0].files[0].name.split('.').pop().toLowerCase();
+				var fileExtension =me.$('.yyzhizhao-bind')[0].files[0].name.split('.').pop().toLowerCase();
 				if(fileExtension=='jpg'||fileExtension=='gif'||fileExtension=='png'||fileExtension=='jpeg'){
 
 					uploader.send({
 						'url': '/op/api/file/uploadsinglefileandcheck',
-						'files': me.$contract[0].files,
+						'files': me.$('.yyzhizhao-bind')[0].files,
 						'options':{
 							'limittype':'IMAGE'
 						},
@@ -385,12 +386,12 @@ define( function(require, exports, module){
 				
 			});
 			me.$('.mtzhizhao-bind').on('change',function(){
-				var fileExtension =me.$contract[0].files[0].name.split('.').pop().toLowerCase();
+				var fileExtension =me.$('.mtzhizhao-bind')[0].files[0].name.split('.').pop().toLowerCase();
 				if(fileExtension=='jpg'||fileExtension=='gif'||fileExtension=='png'||fileExtension=='jpeg'){
 
 					uploader.send({
 						'url': '/op/api/file/uploadsinglefileandcheck',
-						'files': me.$contract[0].files,
+						'files': me.$('.mtzhizhao-bind')[0].files,
 						'options':{
 							'limittype':'IMAGE'
 						},
@@ -474,6 +475,8 @@ define( function(require, exports, module){
 				me.$refuseDisabled.removeAttr('disabled');
 				if(me.attrs.isServiceChargeReject){
 					me.$expenseTypeBind.attr('disabled','disabled');
+					me.$unDisabled.attr('disabled','disabled');
+					me.$upCard.hide();
 				}
 			}
 			me.setType();
@@ -585,30 +588,32 @@ define( function(require, exports, module){
 			objDate['processInstanceId'] = me.attrs.id;
 			objDate['opinion'] = '';
 			objDate['payServiceCharge'] = me.$expenseTypeBind.val();
+			
+			objDate['contract'] = me.model.get('contract-bind');
+			objDate['contractFileName']=me.model.get('contractFileName-bind');
+			objDate['contractCopy']=me.model.get('contractCopy-bind');
+			objDate['contractCopyFileName']=me.model.get('contractCopyFileName-bind');
+			objDate['businessLicense']=me.model.get('yyzhizhao-bind');
+			objDate['businessLicenseFileName']=me.model.get('yyzhizhaoFileName-bind');
+			objDate['companyGatePicture']=me.model.get('mtzhizhao-bind');
+			objDate['companyGatePictureFileName']=me.model.get('mtzhizhaoFileName-bind');
+			objDate['contractStartTime'] = me.$('.startTime-bind').val()?new Date( me.$('.startTime-bind').val() ).getTime():'';
+			objDate['contractEndTime'] = me.$('.endTime-bind').val()?new Date( me.$('.endTime-bind').val() ).getTime():'';
+			objDate['companyGateKeyword']=me.model.get('companyGateKeyword-bind');
+			objDate['companyGateRemark']=me.model.get('companyGateRemark-bind');
+			objDate['presentOfficeEdition']=0;
 			if( me.$expenseTypeBind.val() == 1 ){
-				objDate['contract'] = me.model.get('contract-bind');
-				objDate['contractFileName']=me.model.get('contractFileName-bind');
-				objDate['contractCopy']=me.model.get('contractCopy-bind');
-				objDate['contractCopyFileName']=me.model.get('contractCopyFileName-bind');
-				objDate['businessLicense']=me.model.get('yyzhizhao-bind');
-				objDate['businessLicenseFileName']=me.model.get('yyzhizhaoFileName-bind');
-				objDate['companyGatePicture']=me.model.get('mtzhizhao-bind');
-				objDate['companyGatePictureFileName']=me.model.get('mtzhizhaoFileName-bind');
-				objDate['contractStartTime'] = me.$('.startTime-bind').val()?new Date( me.$('.startTime-bind').val() ).getTime():'';
-				objDate['contractEndTime'] = me.$('.endTime-bind').val()?new Date( me.$('.endTime-bind').val() ).getTime():'';
-				objDate['companyGateKeyword']=me.model.get('companyGateKeyword-bind');
-				objDate['companyGateRemark']=me.model.get('companyGateRemark-bind');
-				objDate['presentOfficeEdition']=0;
+			
 				objDate['serviceChargeAmount']=me.model.get('amount-bind');
 				objDate['invoiceHead']=me.model.get('invoiceHead-bind');
 				objDate['payerName']=me.model.get('payerName-bind');
 				objDate['payDate']=me.$('.money-date').val()?new Date( me.$('.money-date').val() ).getTime():'';
 				
-				if( !objDate['contract'] && !objDate['contractFileName'] && !objDate['contractStartTime'] && !objDate['contractEndTime']){
-					util.showToast('收取服务费时，请上传合同和合同时间！');
+			}
+			if( !objDate['contract'] && !objDate['contractFileName'] && !objDate['contractStartTime'] && !objDate['contractEndTime']){
+					util.showToast('请上传合同和合同时间！');
 					return false;
 				}
-			}
 
 			util.api({
                     'url': '/enterprisefiling/saveandbindenterprisefiling',
@@ -666,11 +671,17 @@ define( function(require, exports, module){
 							//me.getRegistrationEnterprise(data);
 							me.getRecordEnterprise( data );
 							me.attrs.isServiceChargeReject =  data.value.isServiceChargeReject
+							
+							me.downBindFile(data);
 							if( data.value.invoice ){
 								me.attrs['orderId'] = data.value.invoice.orderId;
 								me.$('.show-service').show();
-								me.downBindFile(data);
+								
+							}else{
+								me.$('.show-service').hide();
 							}
+							
+							me.setState();
 						}
 					}
 				})
@@ -686,12 +697,14 @@ define( function(require, exports, module){
 
 							//me.getRegistrationEnterprise(data);
 							me.getRecordEnterprise( data );
+							me.downBindFile(data);
 							if( data.value.invoice ){
 								me.attrs['orderId'] = data.value.invoice.orderId;
 								me.$('.show-service').show();
-								me.downBindFile(data);
+							}else{
+								me.$('.show-service').hide();
 							}
-	
+							me.setState();
 						}
 					}
 				})
@@ -732,10 +745,12 @@ define( function(require, exports, module){
 							me.getRegistrationEnterprise(data);
 							me.getRecordEnterprise( data );
 							me.downFile(data);
+							me.downBindFile(data);
 							if( data.value.invoice ){
 								me.attrs['orderId'] = data.value.invoice.orderId;
-								me.$('.show-service').show();
-								me.downBindFile(data);
+								me.$('.show-service').show();	
+							}else{
+								me.$('.show-service').hide();
 							}
 		
 							translateBool( 'isSaleTeam' , data.value.model['isSaleTeam'] );
@@ -745,7 +760,7 @@ define( function(require, exports, module){
 							translateBool( 'isFastSign' , data.value.model['isFastSign'] );
 							translateBool( 'isAutoClave', data.value.model['isAutoClave'] );
 							translateBool( 'isReferral', data.value.model['isReferral'] );
-							
+							me.setState();
 						}
 					}
 				})
@@ -761,10 +776,12 @@ define( function(require, exports, module){
 
 							me.getRegistrationEnterprise(data);
 							me.getRecordEnterprise( data );
+							me.downBindFile(data);
 							if( data.value.invoice ){
 								me.attrs['orderId'] = data.value.invoice.orderId;
 								me.$('.show-service').show();
-								me.downBindFile(data);
+							}{
+								me.$('.show-service').hide();
 							}
 							
 							translateBool( 'isSaleTeam' , data.value.model['isSaleTeam'] );
@@ -774,12 +791,12 @@ define( function(require, exports, module){
 							translateBool( 'isFastSign' , data.value.model['isFastSign'] );
 							translateBool( 'isAutoClave', data.value.model['isAutoClave'] );
 							translateBool( 'isReferral', data.value.model['isReferral'] );
-							
+							me.setState();
 						}
 					}
 				})
 			}
-			me.setState();
+			
 			DetailBind.__super__.show.apply( this,arguments );
 		},
 		//驳回
@@ -894,12 +911,14 @@ define( function(require, exports, module){
 			var visiteTime = data.value.enterpriseFiling.visitTime?new Date( data.value.enterpriseFiling.visitTime)._format('yyyy/MM/dd'):'';
 			me.model.set('visiteTimeRecord',visiteTime);
 			me.attrs.enterpriseFilingId = data.value.enterpriseFiling.id;
+			
+			me.model.set('contractStartTime-bind',data.value.paidEnterpriseExtra.contractStartTime ? new Date( data.value.paidEnterpriseExtra.contractStartTime )._format('yyyy/MM/dd'):'');
+			me.model.set('contractEndTime-bind',data.value.paidEnterpriseExtra.contractEndTime ? new Date( data.value.paidEnterpriseExtra.contractEndTime )._format('yyyy/MM/dd'):'');
+			me.model.set('companyGateKeyword-bind',data.value.enterpriseExtend.companyGateKeyword);
+			me.model.set('companyGateRemark-bind',data.value.enterpriseExtend.companyGateRemark);
+			me.model.set('remark-bind',data.value.enterpriseExtend.remark);
 			if(data.value.invoice){
-				me.model.set('contractStartTime-bind',data.value.paidEnterpriseExtra.contractStartTime ? new Date( data.value.paidEnterpriseExtra.contractStartTime )._format('yyyy/MM/dd'):'');
-				me.model.set('contractEndTime-bind',data.value.paidEnterpriseExtra.contractEndTime ? new Date( data.value.paidEnterpriseExtra.contractEndTime )._format('yyyy/MM/dd'):'');
-				me.model.set('companyGateKeyword-bind',data.value.enterpriseExtend.companyGateKeyword);
-				me.model.set('companyGateRemark-bind',data.value.enterpriseExtend.companyGateRemark);
-				me.model.set('remark-bind',data.value.enterpriseExtend.remark);
+
 				me.model.set('expenseType-bind',data.value.invoice.expenseType);
 				me.model.set('amount-bind',data.value.invoice.amount);
 				me.model.set('invoiceHead-bind',data.value.invoice.invoiceHead);
@@ -907,6 +926,7 @@ define( function(require, exports, module){
 				me.model.set('payDate-bind',data.value.invoice.payDate ? new Date( data.value.invoice.payDate )._format('yyyy/MM/dd'):'');
 			}else{
 				me.model.set('expenseType-bind',0);
+				me.$expenseTypeBind.val(0)
 			}
 			
 		 },
@@ -1096,6 +1116,8 @@ define( function(require, exports, module){
 			me.$('.contractCopy-link-add').attr('href','');
 			me.$('.img-contractCopy-add').attr('src', '');
 			me.$('.contract-link-bind').attr('href','');
+			me.$('.show-service').hide();
+			me.$unDisabled.removeAttr('disabled');
 			me.$('.img-contract-bind').attr('src', '');
 			me.$('.contractCopy-link-bind').attr('href','');
 			me.$('.img-contractCopy-bind').attr('src', '');

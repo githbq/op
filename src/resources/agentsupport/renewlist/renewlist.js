@@ -1078,8 +1078,10 @@ define( function( require, exports, module ) {
 									var payDate = data.value.model.invoice.payDate? new Date( data.value.model.invoice.payDate  )._format('yyyy/MM/dd'):'';
 									me.model.set('payDate', payDate);
 									me.attrs.orderId = data.value.model.invoice.orderId;
+									me.$expenseType.val('1');
 								}else{
 									me.model.set('expenseType', 0);
+									me.$expenseType.val('0');
 								}
 							}
 						}
@@ -1100,9 +1102,11 @@ define( function( require, exports, module ) {
 									var payDate = data.value.model.invoice.payDate? new Date( data.value.model.invoice.payDate  )._format('yyyy/MM/dd'):'';
 									me.model.set('payDate', payDate);
 									me.attrs.orderId = data.value.model.invoice.orderId;
+									me.$expenseType.val('1');
 								}else{
 									me.attrs.saveFlag = 0;
 									me.model.set('expenseType', 0);
+									me.$expenseType.val('0');
 								}
 								if(  me.attrs.isCurrentTask  == 'true' ){
 									me.$refuseDisabled.removeAttr('disabled');
@@ -1446,7 +1450,7 @@ define( function( require, exports, module ) {
 							serviceObj['payDate'] = me.$('.money-date').val()? new Date( me.$('.money-date').val() ).getTime():'';
 							
 							 util.api({
-								'url': '/order/changeToPayServiceCharge',
+								'url': '/enterprise/changeToPayServiceCharge',
 								'data':serviceObj,
 								'success': function( data ){
 									
@@ -1768,7 +1772,7 @@ define( function( require, exports, module ) {
 					serviceObj['payDate'] = me.$('.money-date').val()? new Date( me.$('.money-date').val() ).getTime():'';
 					
 					 util.api({
-						'url': '/order/changeToPayServiceCharge',
+						'url': '/enterprise/changeToPayServiceCharge',
 						'data':serviceObj,
 						'success': function( data ){
 							
@@ -2012,7 +2016,7 @@ define( function( require, exports, module ) {
 					serviceObj['payDate'] = me.$('.money-date').val()? new Date( me.$('.money-date').val() ).getTime():'';
 					
 					 util.api({
-						'url': '/order/changeToPayServiceCharge',
+						'url': '/enterprise/changeToPayServiceCharge',
 						'data':serviceObj,
 						'success': function( data ){
 							
