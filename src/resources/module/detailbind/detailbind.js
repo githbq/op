@@ -584,8 +584,8 @@ define( function(require, exports, module){
 			objDate['enterpriseAccount'] = me.model.get('enterpriseAccountRecord');
 			objDate['processInstanceId'] = me.attrs.id;
 			objDate['opinion'] = '';
-			
-			if( me.model.get('expenseType-bind') == 1 ){
+			objDate['payServiceCharge'] = me.$expenseTypeBind.val();
+			if( me.$expenseTypeBind.val() == 1 ){
 				objDate['contract'] = me.model.get('contract-bind');
 				objDate['contractFileName']=me.model.get('contractFileName-bind');
 				objDate['contractCopy']=me.model.get('contractCopy-bind');
