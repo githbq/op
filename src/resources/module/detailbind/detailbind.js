@@ -87,7 +87,10 @@ define( function(require, exports, module){
 			'.action-reject':'actionReject',
 			'.state-visite': 'stateVisite',
 			'.checked-email':'checkedEmail',
-			'.right-info':'rightInfo'
+			'.right-info':'rightInfo',
+			'.expenseType-bind':'expenseTypeBind',
+			'.show-service':'showService',
+			'.refuse-disabled':'refuseDisabled'
 		},
 
 		events:{
@@ -241,6 +244,15 @@ define( function(require, exports, module){
 					util.showToast('邮箱格式不正确！');
 					me.$checkedEmail.val('');
 					return false;
+				}
+			});
+			
+			//服务费类型
+			me.$expenseTypeBind.on('change',function(){
+				if(me.$expenseTypeBind.val()==1){
+					me.$showService.show();
+				}else{
+					me.$showService.hide();
 				}
 			});
 			
@@ -458,6 +470,12 @@ define( function(require, exports, module){
 				me.$('.state-current').hide();
 				me.$statusDisabledAdd.attr('disabled','disabled');
 			}
+			if( me.attrs.isCurrentTask  == 'true'){
+				me.$refuseDisabled.removeAttr('disabled');
+				if(me.attrs.isServiceChargeReject){
+					me.$expenseTypeBind.attr('disabled','disabled');
+				}
+			}
 			me.setType();
 		},
 		//根据申请类型不同显示不同的信息
@@ -647,13 +665,12 @@ define( function(require, exports, module){
 
 							//me.getRegistrationEnterprise(data);
 							me.getRecordEnterprise( data );
+							me.attrs.isServiceChargeReject =  data.value.isServiceChargeReject
 							if( data.value.invoice ){
 								me.attrs['orderId'] = data.value.invoice.orderId;
 								me.$('.show-service').show();
 								me.downBindFile(data);
 							}
-							
-						
 						}
 					}
 				})

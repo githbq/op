@@ -130,7 +130,7 @@
 		<p>
 			<label for="">
 				<span>培训服务费 </span>
-				<select name="" ce-model="expenseType-bind" class="" disabled="disabled">
+				<select name="" ce-model="expenseType-bind" class="expenseType-bind refuse-disabled" disabled="disabled">
 					<option value="0">未收</option>
 					<option value="1">已收</option>
 				</select>
@@ -167,25 +167,25 @@
 			<p>
 				<label for="" class="">
 					<span>收款金额</span>
-					<input type="text" ce-model="amount-bind" name="" class="status-disabled "  maxlength=6   onchange="this.value=this.value.replace(/[^\.\d]/g,'')" >
+					<input type="text" ce-model="amount-bind" name="" class="status-disabled refuse-disabled"  maxlength=6   onchange="this.value=this.value.replace(/[^\.\d]/g,'')" >
 				</label>
 			</p>
 			<p>
 				<label for="" class="">
 					<span>发票抬头</span>
-					<input type="text" ce-model="invoiceHead-bind" name="" class="status-disabled "  maxlength=100 onchange="this.value=this.value.replace(/(^\s*)|(\s*$)/g,'')">
+					<input type="text" ce-model="invoiceHead-bind" name="" class="status-disabled refuse-disabled"  maxlength=100 onchange="this.value=this.value.replace(/(^\s*)|(\s*$)/g,'')">
 				</label>
 			</p>
 			<p>
 				<label for="" class="">
 					<span>打款人</span>
-					<input type="text" ce-model="payerName-bind" name="" class="status-disabled "  maxlength=100 onchange="this.value=this.value.replace(/(^\s*)|(\s*$)/g,'')">
+					<input type="text" ce-model="payerName-bind" name="" class="status-disabled  refuse-disabled"  maxlength=100 onchange="this.value=this.value.replace(/(^\s*)|(\s*$)/g,'')">
 				</label>
 			</p>
 			<p>
 				<label for="">
 					<span>打款日期</span>
-					<input type="text" class="money-date status-disabled" ce-model="payDate-bind" onkeyup='this.value=""'>
+					<input type="text" class="money-date status-disabled refuse-disabled" ce-model="payDate-bind" onkeyup='this.value=""'>
 				</label>
 			</p>
 			<p>

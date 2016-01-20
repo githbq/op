@@ -1081,10 +1081,6 @@ define( function( require, exports, module ) {
 								}else{
 									me.model.set('expenseType', 0);
 								}
-								if(  me.attrs.isCurrentTask  == 'true' && !data.value.model.isServiceChargeReject ){
-									me.$refuseDisabled.removeAttr('disabled');
-								}
-								
 							}
 						}
 					});
@@ -1105,6 +1101,13 @@ define( function( require, exports, module ) {
 									me.attrs.orderId = data.value.model.invoice.orderId;
 								}else{
 									me.model.set('expenseType', 0);
+								}
+								if(  me.attrs.isCurrentTask  == 'true' ){
+									me.$refuseDisabled.removeAttr('disabled');
+									if( data.value.model.isServiceChargeReject ){
+										me.$expenseType.attr('disabled','disabled');
+									}
+									
 								}
 							}
 						}
