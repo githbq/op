@@ -523,17 +523,19 @@ define( function(require, exports, module){
 						},
 						'success': function( data ){
 							if( data.success ){
-								me.$('.show-service').show();
-								me.$('.amountService').val(data.value.model.invoice.amount);
-								me.$('.expenseType').val(data.value.model.invoice.expenseType);
-								me.$('.invoiceHead').val(data.value.model.invoice.invoiceHead);
-								me.$('.payerName').val(data.value.model.invoice.payerName);
-			
-								var payDate = data.value.model.invoice.payDate? new Date( data.value.model.invoice.payDate  )._format('yyyy/MM/dd'):'';
-								me.$('.payDate').val(payDate);
-								me.attrs.orderId = data.value.model.invoice.orderId;
-							}else{
-								me.model.set('expenseType', 0);
+								if( data.value.model.isPayServiceCharge ){
+									me.$('.show-service').show();
+									me.$('.amountService').val(data.value.model.invoice.amount);
+									me.$('.expenseType').val(data.value.model.invoice.expenseType);
+									me.$('.invoiceHead').val(data.value.model.invoice.invoiceHead);
+									me.$('.payerName').val(data.value.model.invoice.payerName);
+				
+									var payDate = data.value.model.invoice.payDate? new Date( data.value.model.invoice.payDate  )._format('yyyy/MM/dd'):'';
+									me.$('.payDate').val(payDate);
+									me.attrs.orderId = data.value.model.invoice.orderId;
+								}else{
+									me.model.set('expenseType', 0);
+								}
 							}
 						}
 					});
@@ -545,17 +547,19 @@ define( function(require, exports, module){
 						},
 						'success': function( data ){
 							if( data.success ){
-								me.$('.show-service').show();
-								me.$('.amountService').val(data.value.model.invoice.amount);
-								me.$('.expenseType').val(data.value.model.invoice.expenseType);
-								me.$('.invoiceHead').val(data.value.model.invoice.invoiceHead);
-								me.$('.payerName').val(data.value.model.invoice.payerName);
-			
-								var payDate = data.value.model.invoice.payDate? new Date( data.value.model.invoice.payDate  )._format('yyyy/MM/dd'):'';
-								me.$('.payDate').val(payDate);
-								me.attrs.orderId = data.value.model.invoice.orderId;
-							}else{
-								me.model.set('expenseType', 0);
+								if( data.value.model.isPayServiceCharge ){
+									me.$('.show-service').show();
+									me.$('.amountService').val(data.value.model.invoice.amount);
+									me.$('.expenseType').val(data.value.model.invoice.expenseType);
+									me.$('.invoiceHead').val(data.value.model.invoice.invoiceHead);
+									me.$('.payerName').val(data.value.model.invoice.payerName);
+				
+									var payDate = data.value.model.invoice.payDate? new Date( data.value.model.invoice.payDate  )._format('yyyy/MM/dd'):'';
+									me.$('.payDate').val(payDate);
+									me.attrs.orderId = data.value.model.invoice.orderId;
+								}else{
+									me.model.set('expenseType', 0);
+								}
 							}
 						}
 					});

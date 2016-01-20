@@ -324,7 +324,10 @@ define( function( require, exports, module ) {
 			'.status-disabled-add':'statusDisabledAdd',
 			'.contractCopyAdd':'contractCopyAdd',
 			'.contractAdd':'contractAdd',
-			'.action-submit':'actionSubmit'
+			'.action-submit':'actionSubmit',
+			'.expenseType':'expenseType',
+			'.show-service':'showService',
+			'.refuse-disabled':'refuseDisabled'
         },
 
         events:{
@@ -446,7 +449,15 @@ define( function( require, exports, module ) {
 				//me.model.set('contractPriceAdd',parseFloat(me.model.get('contractPriceAdd'))?parseFloat(me.model.get('contractPriceAdd')):'');
 				me.getdiscountAdd();
 			});
-
+			
+			//服务费修改
+			me.$expenseType.on('change',function(){
+				if(me.$expenseType.val()==1){
+					me.$showService.show();
+				}else{
+					me.$showService.hide();
+				}
+			});
 
 			me.$('.accountTotalAmountAdd').on('focusout',function(){
 				
@@ -1005,6 +1016,7 @@ define( function( require, exports, module ) {
             if( me.attrs.canCancel == 'true' ){
                 me.$('.state-cancel').show()
 				me.$statusDisabled.attr('disabled','disabled');
+				me.$refuseDisabled.attr('disabled','disabled');
             }
 			if( me.attrs.canCancel == 'false' ){
 				me.$statusDisabled.attr('disabled','disabled');
@@ -1059,14 +1071,20 @@ define( function( require, exports, module ) {
 						},
 						'success': function( data ){
 							if( data.success ){
-								me.$('.show-service').show();
-								me.model.load( data.value.model.invoice )
-								me.model.set('amountService', data.value.model.invoice.amount);
-								var payDate = data.value.model.invoice.payDate? new Date( data.value.model.invoice.payDate  )._format('yyyy/MM/dd'):'';
-								me.model.set('payDate', payDate);
-								me.attrs.orderId = data.value.model.invoice.orderId;
-							}else{
-								me.model.set('expenseType', 0);
+								if( data.value.model.isPayServiceCharge ){
+									me.$('.show-service').show();
+									me.model.load( data.value.model.invoice )
+									me.model.set('amountService', data.value.model.invoice.amount);
+									var payDate = data.value.model.invoice.payDate? new Date( data.value.model.invoice.payDate  )._format('yyyy/MM/dd'):'';
+									me.model.set('payDate', payDate);
+									me.attrs.orderId = data.value.model.invoice.orderId;
+								}else{
+									me.model.set('expenseType', 0);
+								}
+								if(  me.attrs.isCurrentTask  == 'true' && !data.value.model.isServiceChargeReject ){
+									me.$refuseDisabled.removeAttr('disabled');
+								}
+								
 							}
 						}
 					});
@@ -1078,14 +1096,16 @@ define( function( require, exports, module ) {
 						},
 						'success': function( data ){
 							if( data.success ){
-								me.$('.show-service').show();
-								me.model.load( data.value.model.invoice )
-								me.model.set('amountService', data.value.model.invoice.amount);
-								var payDate = data.value.model.invoice.payDate? new Date( data.value.model.invoice.payDate  )._format('yyyy/MM/dd'):'';
-								me.model.set('payDate', payDate);
-								me.attrs.orderId = data.value.model.invoice.orderId;
-							}else{
-								me.model.set('expenseType', 0);
+								if( data.value.model.isPayServiceCharge ){
+									me.$('.show-service').show();
+									me.model.load( data.value.model.invoice )
+									me.model.set('amountService', data.value.model.invoice.amount);
+									var payDate = data.value.model.invoice.payDate? new Date( data.value.model.invoice.payDate  )._format('yyyy/MM/dd'):'';
+									me.model.set('payDate', payDate);
+									me.attrs.orderId = data.value.model.invoice.orderId;
+								}else{
+									me.model.set('expenseType', 0);
+								}
 							}
 						}
 					});
@@ -1406,7 +1426,7 @@ define( function( require, exports, module ) {
 						serviceObj['expenseType'] = me.model.get('expenseType');
 						serviceObj['invoiceHead'] = me.model.get('invoiceHead');
 						serviceObj['payerName'] = me.model.get('payerName');
-						serviceObj['payDate'] =  new Date( me.$('.money-date').val() ).getTime();
+						serviceObj['payDate'] = me.$('.money-date').val()? new Date( me.$('.money-date').val() ).getTime():'';
 						 util.api({
 							'url': '/order/updateOrderInvoice',
 							'data':serviceObj,
@@ -1700,7 +1720,7 @@ define( function( require, exports, module ) {
 				serviceObj['expenseType'] = me.model.get('expenseType');
 				serviceObj['invoiceHead'] = me.model.get('invoiceHead');
 				serviceObj['payerName'] = me.model.get('payerName');
-				serviceObj['payDate'] = new Date( me.$('.money-date').val() ).getTime();
+				serviceObj['payDate'] = me.$('.money-date').val() ? new Date( me.$('.money-date').val() ).getTime():'';
 				util.api({
 					'url': '/order/updateOrderInvoice',
 					'data':serviceObj,
@@ -1912,6 +1932,40 @@ define( function( require, exports, module ) {
          */
 		submitEve:function(){
 			var me = this;
+			 //保存服务信息
+            function saveService(){
+                var serviceObj = {};
+				serviceObj['orderId'] = me.attrs.orderId;
+				serviceObj['amount'] = me.model.get('amountService');
+				serviceObj['expenseType'] = me.model.get('expenseType');
+				serviceObj['invoiceHead'] = me.model.get('invoiceHead');
+				serviceObj['payerName'] = me.model.get('payerName');
+				serviceObj['payDate'] = me.$('.money-date').val() ? new Date( me.$('.money-date').val() ).getTime():'';
+				util.api({
+					'url': '/order/updateOrderInvoice',
+					'data':serviceObj,
+					'success': function( data ){
+						
+						if( data.success ){
+							me.savePassInfo();
+						}
+					}
+				});
+            };
+			if(me.attrs.orderId){
+				saveService
+			}else{
+				me.savePassInfo();
+			}
+			
+		},
+		 /**
+         *
+         *已经开通直接
+         */
+		savePassInfo:function(){
+			var me = this;
+			
 			util.api({
 				'url':'~/op/api/approval/directapprove',
 				'data':{
