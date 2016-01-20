@@ -90,7 +90,8 @@ define( function(require, exports, module){
 			'.right-info':'rightInfo',
 			'.expenseType-bind':'expenseTypeBind',
 			'.show-service':'showService',
-			'.refuse-disabled':'refuseDisabled'
+			'.refuse-disabled':'refuseDisabled',
+			'.un-disabled':'unDisabled'
 		},
 
 		events:{
@@ -474,6 +475,8 @@ define( function(require, exports, module){
 				me.$refuseDisabled.removeAttr('disabled');
 				if(me.attrs.isServiceChargeReject){
 					me.$expenseTypeBind.attr('disabled','disabled');
+					me.$unDisabled.attr('disabled','disabled');
+					me.$upCard.hide();
 				}
 			}
 			me.setType();
@@ -1109,6 +1112,7 @@ define( function(require, exports, module){
 			me.$('.img-contractCopy-add').attr('src', '');
 			me.$('.contract-link-bind').attr('href','');
 			me.$('.show-service').hide();
+			me.$unDisabled.removeAttr('disabled');
 			me.$('.img-contract-bind').attr('src', '');
 			me.$('.contractCopy-link-bind').attr('href','');
 			me.$('.img-contractCopy-bind').attr('src', '');

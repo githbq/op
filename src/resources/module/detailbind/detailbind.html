@@ -6,74 +6,74 @@
 		<p>
 			<label for="">
 				<span>企业名称 <b class="state state-current">*</b></span>
-				<input type="text" ce-model="enterpriseNameRecord" class="status-disabled required">
+				<input type="text" ce-model="enterpriseNameRecord" class="status-disabled required un-disabled">
 			</label>
 		</p>
 		<p class="state state-current">
 			<label for="">
 				<span>绑定企业账号账号 <b class="state state-current">*</b></span>
-				<input type="text" ce-model="enterpriseAccountRecord" class="status-disabled" >
+				<input type="text" ce-model="enterpriseAccountRecord" class="status-disabled un-disabled" >
 			</label>
 		</p>
 		<p>
 			<label for="">
 				<span>地址 <b class="state state-current">*</b></span>
-				<input type="text" ce-model="addressRecord" class="status-disabled required" >
+				<input type="text" ce-model="addressRecord" class="status-disabled required un-disabled" >
 			</label>
 		</p>
 		<p>
 			<label for="">
 				<span>区域 <b class="state state-current">*</b></span>
-				<input type="text" ce-model="regionRecord" class="status-disabled filing-region required" onkeyup='this.value=""'>
+				<input type="text" ce-model="regionRecord" class="status-disabled filing-region required un-disabled" onkeyup='this.value=""'>
 			</label>
 		</p>
 		<p>
 			<label for="" >
 				<span>法定代表人</span>
-				<input type="text" ce-model="agentPersonRecord" class="status-disabled" >
+				<input type="text" ce-model="agentPersonRecord" class="status-disabled un-disabled" >
 			</label>
 		</p>
 		<p>
 			<label for="">
 				<span>行业 <b class="state state-current">*</b></span>
-				<select name="" class="status-disabled e-industry required" ce-model="industryRecord" ></select>
+				<select name="" class="status-disabled e-industry required un-disabled" ce-model="industryRecord" ></select>
 			</label>
 		</p>
 		<p>
 			<label for="">
 				<span>来源 <b class="state state-current">*</b></span>
-				<select name="" class="status-disabled e-source required" ce-model="sourceRecord" ></select>
+				<select name="" class="status-disabled e-source required un-disabled" ce-model="sourceRecord" ></select>
 			</label>
 		</p>
 		<p>
 			<label for="">
 				<span>联系人<b class="state state-current">*</b></span>
-				<input type="text" ce-model="contactNameRecord" class="status-disabled required">
+				<input type="text" ce-model="contactNameRecord" class="status-disabled required un-disabled">
 			</label>
 		</p>
 		<p>
 			<label for="">
 				<span>联系人职位<b class="state state-current">*</b></span>
-				<input type="text" ce-model="contactPostRecord" class="status-disabled required">
+				<input type="text" ce-model="contactPostRecord" class="status-disabled required un-disabled">
 			</label>
 		</p>
 		<p>
 			<label for="">
                 <span>联系电话 <b class="state state-current">*</b></span>
-                <input type="text" ce-model="contactPhoneRecord" class="status-disabled required" onchange="this.value=this.value.replace(/\D/g,'')">
+                <input type="text" ce-model="contactPhoneRecord" class="status-disabled required un-disabled" onchange="this.value=this.value.replace(/\D/g,'')">
             </label>
 		</p>
 		<p>
 			<label for="">
 				<span>联系人邮件</span>
-				<input type="text" ce-model="contactEmailRecord" class="status-disabled checked-email">
+				<input type="text" ce-model="contactEmailRecord" class="status-disabled checked-email un-disabled">
 			</label>
 		</p>
 	
 		<p>
 			<label for="">
 				<span>备注</span>
-				<textarea name="" id="" ce-model="remarkRecord" class="status-disabled"></textarea>
+				<textarea name="" id="" ce-model="remarkRecord" class="status-disabled un-disabled"></textarea>
 			</label>
 		</p>
 		
@@ -105,25 +105,25 @@
 		<p>
 			<label for="" class="" style="margin-top:10px;">
 				<span>公司人数<b class="state state-current">*</b></span>
-				<input type="text" ce-model="clientNumRecord" class="status-disabled required" onchange="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+				<input type="text" ce-model="clientNumRecord" class="status-disabled required un-disabled" onchange="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
 			</label>
 		</p>
 		<p>
 			<label for="" class="" style="margin-top:10px;">
 				<span>开通人数<b class="state state-current">*</b></span>
-				<input type="text" ce-model="companyNumRecord" class="status-disabled required" onchange="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+				<input type="text" ce-model="companyNumRecord" class="status-disabled required un-disabled" onchange="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
 			</label>
 		</p>
 		<p>
 			<label for="" class="" style="margin-top:10px;">
 				<span>法定代表人电话 <b class="state state-current">*</b></span>
-				<input type="text" ce-model="kpPhoneRecord" class="status-disabled required" onchange="this.value=this.value.replace(/\D/g,'')" maxlength="11" >
+				<input type="text" ce-model="kpPhoneRecord" class="status-disabled required un-disabled" onchange="this.value=this.value.replace(/\D/g,'')" maxlength="11" >
 			</label>
 		</p>
 		<p>
 			<label for="" class="" style="margin-top:10px;">
 				<span>拜访时间 <b class="state state-current">*</b></span>
-				<input type="text" ce-model="visiteTimeRecord" class="status-disabled visite-time required">
+				<input type="text" ce-model="visiteTimeRecord" class="status-disabled visite-time required un-disabled">
 			</label>
 		</p>
 		<h4>产品信息</h4>
@@ -191,13 +191,13 @@
 			<p>
 				<label for="">
 					<span>合同开始时间</span>
-					<input type="text" class="startTime-bind status-disabled " ce-model="contractStartTime-bind" onkeyup='this.value=""'>
+					<input type="text" class="startTime-bind status-disabled  un-disabled" ce-model="contractStartTime-bind" onkeyup='this.value=""'>
 				</label>
 			</p>
 			<p>
 				<label for="">
 					<span>合同结束时间</span>
-					<input type="text" class="endTime-bind status-disabled " ce-model="contractEndTime-bind" onkeyup='this.value=""'>
+					<input type="text" class="endTime-bind status-disabled un-disabled" ce-model="contractEndTime-bind" onkeyup='this.value=""'>
 				</label>
 			</p>
 			<p class="up-card">
@@ -229,19 +229,19 @@
 			<p>
 				<label for="">
 					<span>门头照片关键字</span>
-					<input type="text" name="" ce-model="companyGateKeyword-bind" class="status-disabled ">
+					<input type="text" name="" ce-model="companyGateKeyword-bind" class="status-disabled un-disabled">
 				</label>
 			</p>
 			<p>
 				<label for="">
 					<span>门头照片备注</span>
-					<input type="text" name="" ce-model="companyGateRemark-bind" class="status-disabled  ">
+					<input type="text" name="" ce-model="companyGateRemark-bind" class="status-disabled  un-disabled">
 				</label>
 			</p>
 			<p>
 				<label for="">
 					<span>备注</span>
-					<textarea name="" id="" ce-model="remark-bind" class="status-disabled"></textarea>
+					<textarea name="" id="" ce-model="remark-bind" class="status-disabled un-disabled"></textarea>
 				</label>
 			</p>
 		</div>
