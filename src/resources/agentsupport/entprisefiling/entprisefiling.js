@@ -1,6 +1,7 @@
 define( function( require, exports, module ) {
     var IBSS = window.IBSS,
         TPL = IBSS.tpl;
+        TplEvent = IBSS.tplEvent;
 
     var AddFiling = require('module/filingdetail/filingdetail');
     var FilingLog = require('module/filinglog/filinglog');
@@ -209,6 +210,7 @@ define( function( require, exports, module ) {
             }
 
             me.$tbody.html( htmlStr );
+            TplEvent.setPermissions( me.$tbody );
         },
 
         addEve: function(){
