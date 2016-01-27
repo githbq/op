@@ -2382,9 +2382,12 @@ define( function(require, exports, module){
 				}
 				
 			});
-			
 
-			
+			if(me.attrs.freeIncreaseContractRequired){
+				me.$('.check-hide').show();
+			}else{
+				me.$('.check-hide').hide();
+			}
 		},
 		//获取赠送数量
 		getFreeNum: function(){
