@@ -2383,11 +2383,6 @@ define( function(require, exports, module){
 				
 			});
 			
-			if(me.attrs.freeIncreaseContractRequired){
-				me.$('.check-hide').show();
-			}else{
-				me.$('.check-hide').hide();
-			}
 
 			
 		},
@@ -2653,6 +2648,11 @@ define( function(require, exports, module){
 							item.ncreaseTime = new Date( item.ncreased )._format( 'yyyy-MM-dd hh:mm' );
 						} );
 						me.attrs.freeIncreaseContractRequired = data.model.freeIncreaseContractRequired;
+						if(me.attrs.freeIncreaseContractRequired){
+							me.$('.check-hide').show();
+						}else{
+							me.$('.check-hide').hide();
+						}
 						if ( data.model.page && data.model.page.content && data.model.page.content.length > 0 ) {
 							me.$tbOperation.html( me.tplOperation( { content: data.model.page.content } ) );
 						} else {
