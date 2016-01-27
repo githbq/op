@@ -2647,11 +2647,11 @@ define( function(require, exports, module){
 
 					if ( data.success ) {
 						me.operations.pagination.setTotalSize( data.model.page.itemCount );
-						$( data.model.page.content ).each( function ( i, item ) {
+						data.model.page && $( data.model.page.content ).each( function ( i, item ) {
 							item.ncreaseTime = new Date( item.ncreased )._format( 'yyyy-MM-dd hh:mm' );
 						} );
 						me.attrs.freeIncreaseContractRequired = data.model.freeIncreaseContractRequired;
-						if ( data.model.page.content.length > 0 ) {
+						if ( data.model.page && data.model.page.content && data.model.page.content.length > 0 ) {
 							me.$tbOperation.html( me.tplOperation( { content: data.model.page.content } ) );
 						} else {
 							me.$tbOperation.html( '<tr><td colspan="4"><p class="info">暂无数据</p></td></tr>' );
