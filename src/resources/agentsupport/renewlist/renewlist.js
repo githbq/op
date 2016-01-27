@@ -1123,6 +1123,7 @@ define( function( require, exports, module ) {
 
             me.$('.state').hide();
 			me.$('.check-hide').hide();
+			me.$actionSubmit.hide();
 
             if( me.attrs.canCancel == 'true' ){
                 me.$('.state-cancel').show()
@@ -1805,8 +1806,8 @@ define( function( require, exports, module ) {
 				objDate['contractFileName']=me.model.get('contractFileNameFree');
 				objDate['contractCopy']=me.model.get('contractCopyFree');
 				objDate['contractCopyFileName']=me.model.get('contractCopyFileNameFree');
-				objDate['contractStartTime']=new Date( me.$('.start-time-ht-free').val() ).getTime();
-				objDate['contractEndTime']=new Date( me.$('.end-time-ht-free').val() ).getTime();
+				objDate['contractStartTime']= me.$('.start-time-ht-free').val()?new Date( me.$('.start-time-ht-free').val() ).getTime():'';
+				objDate['contractEndTime']=me.$('.end-time-ht-free').val()?new Date( me.$('.end-time-ht-free').val() ).getTime():'';
 				objDate['invoiceTitle']=me.model.get('invoiceTitleFree');
 				
 				util.api({
@@ -2191,8 +2192,8 @@ define( function( require, exports, module ) {
 				objDate['contractFileName']=me.model.get('contractFileNameFree');
 				objDate['contractCopy']=me.model.get('contractCopyFree');
 				objDate['contractCopyFileName']=me.model.get('contractCopyFileNameFree');
-				objDate['contractStartTime']=new Date( me.$('.start-time-ht-free').val() ).getTime();
-				objDate['contractEndTime']=new Date( me.$('.end-time-ht-free').val() ).getTime();
+				objDate['contractStartTime']=  me.$('.start-time-ht-free').val() ?new Date( me.$('.start-time-ht-free').val() ).getTime():'';
+				objDate['contractEndTime']= me.$('.end-time-ht-free').val() ?new Date( me.$('.end-time-ht-free').val() ).getTime():'';
 				objDate['invoiceTitle']=me.model.get('invoiceTitleFree');
 				
 				

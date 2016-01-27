@@ -2613,8 +2613,8 @@ define( function(require, exports, module){
 			objDate['contractCopy'] = me.model.get('contractCopyFree');
 			objDate['contractCopyFileName'] = me.model.get('contractCopyFileName');
 			objDate['invoiceTitle'] = me.model.get('invoiceTitleAddFree');
-			objDate['contractStartTime'] = new Date( me.$startTimeHtFree.val() ).getTime()||'';
-			objDate['contractEndTime'] = new Date( me.$endTimeHtFree.val() ).getTime();
+			objDate['contractStartTime'] = me.$startTimeHtFree.val()? new Date( me.$startTimeHtFree.val() ).getTime():'';
+			objDate['contractEndTime'] = me.$endTimeHtFree.val()?new Date( me.$endTimeHtFree.val() ).getTime():'';
 			
 			util.api({
 				'url': '/enterprise/increaseenterpriseaccountfree',
