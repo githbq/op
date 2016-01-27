@@ -2115,11 +2115,7 @@ define( function(require, exports, module){
 			me.$statusDisabled.removeAttr('disabled');
 			me.$statusDisabled.val('');
 			me.$stateCurrent.show();
-			if(me.attrs.freeIncreaseContractRequired){
-				me.$('.check-hide').show();
-			}else{
-				me.$('.check-hide').hide();
-			}
+			
 			me.$('.useBusinessCard').removeAttr('disabled');
 			
 			me.$contractCopyHide.show();
@@ -2386,6 +2382,12 @@ define( function(require, exports, module){
 				}
 				
 			});
+			
+			if(me.attrs.freeIncreaseContractRequired){
+				me.$('.check-hide').show();
+			}else{
+				me.$('.check-hide').hide();
+			}
 
 			
 		},
