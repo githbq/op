@@ -327,7 +327,9 @@ define( function( require, exports, module ) {
 			'.action-submit':'actionSubmit',
 			'.expenseType':'expenseType',
 			'.show-service':'showService',
-			'.refuse-disabled':'refuseDisabled'
+			'.refuse-disabled':'refuseDisabled',
+			'.contractFree':'contractFree',
+			'.contractCopyFree':'contractCopyFree',
         },
 
         events:{
@@ -485,6 +487,7 @@ define( function( require, exports, module ) {
 			me.$('.end-time-ht-add').on('focusout',function(){
 				me.getdiscountAdd();
 			});
+			
 			//是否使用名片
 			me.$('.useBusinessCardAdd').on('change',function(){
 				me.getdiscountAdd();
@@ -736,6 +739,27 @@ define( function( require, exports, module ) {
                 },
                 timepicker: false
             } );
+			//办公版合同时间
+			me.$('.start-time-ht-free').datetimepicker( {
+                format: 'Y/m/d',
+                onShow: function() {
+                    var maxDateAdd = me.$('.end-time-ht-free').val() ? me.$('.end-time-ht-free').val() : false;
+                    this.setOptions({
+                        maxDateAdd: maxDateAdd
+                    });
+                },
+                timepicker: false
+            } );
+            me.$('.end-time-ht-free').datetimepicker( {
+                format: 'Y/m/d',
+                onShow: function() {
+                    var minDateAdd = me.$('.start-time-ht-free').val() ? me.$('.start-time-ht-free') : false;
+                    this.setOptions({
+                        minDateAdd: minDateAdd
+                    });
+                },
+                timepicker: false
+            } );
 			me.$('.money-date').datetimepicker( {
                 format: 'Y/m/d',
                 timepicker: false
@@ -951,7 +975,7 @@ define( function( require, exports, module ) {
 							me.$actionSave.text('保存');
 							me.$actionResend.removeAttr('disabled');
 							me.$actionResend.text('保存提交');
-							me.$contractCopy.val('');
+							me.$('.contractAdd').val('');
 							return false;
 						}
 					})
@@ -994,12 +1018,98 @@ define( function( require, exports, module ) {
 							me.$actionSave.text('保存');
 							me.$actionResend.removeAttr('disabled');
 							me.$actionResend.text('保存提交');
-							me.$contractCopy.val('');
+							me.$('.contractCopyAdd').val('');
 							return false;
 						}
 					})
 				}else{
 					me.$('.contractCopyAdd').val('');
+					util.showToast('请上传图片格式不正确(.jpg,.png,.gif)！');
+					return false;
+				}
+				
+			});
+			//增购办公版合同与合同副本
+			me.$contractFree.on('change',function(){
+				var fileExtension = me.$contractFree[0].files[0].name.split('.').pop().toLowerCase();
+				if(fileExtension=='jpg'||fileExtension=='gif'||fileExtension=='png'||fileExtension=='jpeg'){
+					me.$actionSave.attr('disabled','disabled');
+					me.$actionSave.text('文件上传...');
+					me.$actionResend.attr('disabled','disabled');
+					me.$actionResend.text('文件上传...');
+					uploader.send({
+						'url': '/op/api/file/uploadsinglefileandcheck',
+						'files': me.$contractFree[0].files,
+						'options':{
+							'limittype':'IMAGE'
+						},
+						'success': function( response ){	
+							console.warn( response );
+							me.model.set('contractFree', response.value.model.path );
+							me.model.set('contractFileNameFree', response.value.model.FileName );
+							me.$('.contract-link-free').show();
+							me.$('.contract-hide-free').hide();
+							me.$('.contract-link-free').attr('href', '/op/api/file/previewimage' + '?filePath=' + response.value.model.path);
+							me.$('.img-contract-free').attr('src', '/op/api/file/previewimage' + '?filePath=' + response.value.model.path);
+							me.$actionSave.removeAttr('disabled');
+							me.$actionSave.text('保存');
+							me.$actionResend.removeAttr('disabled');
+							me.$actionResend.text('保存提交');
+						},
+						'error':function(response){
+							me.$actionSave.removeAttr('disabled');
+							me.$actionSave.text('保存');
+							me.$actionResend.removeAttr('disabled');
+							me.$actionResend.text('保存提交');
+							me.$contractFree.val('');
+							return false;
+						}
+					})
+				}else{
+					me.$contractFree.val('');
+					util.showToast('请上传图片格式不正确(.jpg,.png,.gif)！');
+					return false;
+				}
+				
+			});
+			//增购办公版合同与合同副本
+			me.$contractCopyFree.on('change',function(){
+				var fileExtension = me.$contractCopyFree[0].files[0].name.split('.').pop().toLowerCase();
+				if(fileExtension=='jpg'||fileExtension=='gif'||fileExtension=='png'||fileExtension=='jpeg'){
+					me.$actionSave.attr('disabled','disabled');
+					me.$actionSave.text('文件上传...');
+					me.$actionResend.attr('disabled','disabled');
+					me.$actionResend.text('文件上传...');
+					uploader.send({
+						'url': '/op/api/file/uploadsinglefileandcheck',
+						'files': me.$contractCopyFree[0].files,
+						'options':{
+							'limittype':'IMAGE'
+						},
+						'success': function( response ){	
+							console.warn( response );
+							me.model.set('contractCopyFree', response.value.model.path );
+							me.model.set('contractCopyFileNameFree', response.value.model.FileName );
+							me.$('.contractCopy-link-free').show();
+							me.$('.contractCopy-hide-free').hide();
+							me.$('.contractCopy-link-free').attr('href', '/op/api/file/previewimage' + '?filePath=' + response.value.model.path);
+							me.$('.img-contractCopy-free').attr('src', '/op/api/file/previewimage' + '?filePath=' + response.value.model.path);
+							me.$actionSave.removeAttr('disabled');
+							me.$actionSave.text('保存');
+							me.$actionResend.removeAttr('disabled');
+							me.$actionResend.text('保存提交');
+						},
+						'error':function(response){
+							me.$actionSave.removeAttr('disabled');
+							me.$actionSave.text('保存');
+							me.$actionResend.removeAttr('disabled');
+							me.$actionResend.text('保存提交');
+							me.$contractCopyFree.val('');
+							return false;
+						}
+					})
+				}else{
+					me.$contractCopyFree.val('');
 					util.showToast('请上传图片格式不正确(.jpg,.png,.gif)！');
 					return false;
 				}
@@ -1012,6 +1122,7 @@ define( function( require, exports, module ) {
             var me = this;
 
             me.$('.state').hide();
+			me.$('.check-hide').hide();
 
             if( me.attrs.canCancel == 'true' ){
                 me.$('.state-cancel').show()
@@ -1054,7 +1165,7 @@ define( function( require, exports, module ) {
         setType: function(){
             var me = this;
 			me.attrs.orderId = '';
-
+			me.attrs.freeIncreaseContractRequired ='';
             me.$showType.hide();
 			me.$addType.hide();
 			me.$('.show-service').hide();
@@ -1133,7 +1244,7 @@ define( function( require, exports, module ) {
 					'success': function( data ){
 						console.warn( data );
 						if( data.success ){
-							
+							me.attrs.freeIncreaseContractRequired = data.value.model.freeIncreaseContractRequired;
 							if(!data.value.model.isAddFree){
 								me.attrs.isAddFree = 0;
 								me.$('.buy-box').show();
@@ -1212,6 +1323,45 @@ define( function( require, exports, module ) {
 								me.model.set('freeAccountTotalAmount',(data.value.model.accountTotalAmount ? data.value.model.accountTotalAmount:'0') );
 								me.model.set('freeStorageTotalSpace',(data.value.model.storageTotalSpace ? data.value.model.storageTotalSpace:'0') );
 								
+								var contractStartTimeFree = data.value.model.contractStartTime ?new Date( data.value.model.contractStartTime  )._format('yyyy/MM/dd'):'';
+								var contractEndTimeFree =data.value.model.contractEndTime? new Date( data.value.model.contractEndTime  )._format('yyyy/MM/dd'):'';
+								me.model.set('contractStartTimeFree',(contractStartTimeFree ? contractStartTimeFree:'') );
+								me.model.set('contractEndTimeFree',(contractEndTimeFree ? contractEndTimeFree:'') );
+								
+								if(data.value.model.contract){
+									me.model.set('contractFree',data.value.model.contract );
+									me.$('.contract-link-free').show();
+									me.$('.contract-hide-free').hide();
+									me.$('.contract-link-free').attr('href', '/op/api/file/previewimage' + '?filePath=' + data.value.model.contract);
+									me.$('.img-contract-free').attr('src', '/op/api/file/previewimage' + '?filePath=' + data.value.model.contract);
+								}else{
+									me.model.set('contractFree','');
+									me.$('.contract-link-free').hide();
+									me.$('.contract-hide-free').show();
+									me.$('.contract-link-free').attr('href', '');
+									me.$('.img-contract-free').attr('src', '');
+								}
+								//显示合同副本
+								if(data.value.model.contractCopy){
+									me.model.set('contractCopyFree',data.value.model.contractCopy );
+									me.$('.contractCopy-link-free').show();
+									me.$('.contractCopy-hide-free').hide();
+									me.$('.contractCopy-link-free').attr('href', '/op/api/file/previewimage' + '?filePath=' + data.value.model.contractCopy);
+									me.$('.img-contractCopy-free').attr('src', '/op/api/file/previewimage' + '?filePath=' + data.value.model.contractCopy);
+								}else{
+									me.model.set('contractCopyFree','' );
+									me.$('.contractCopy-link-free').hide();
+									me.$('.contractCopy-hide-free');
+									me.$('.contractCopy-link-free').attr('href', '');
+									me.$('.img-contractCopy-free').attr('src', '');
+								}
+								me.model.set('invoiceTitleFree',(data.value.model.invoiceTitle ? data.value.model.invoiceTitle:'') );
+								
+								if(me.attrs.isCurrentTask  == 'true' && me.attrs.freeIncreaseContractRequired){
+									me.$('.check-hide').show();
+								}else{
+									me.$('.check-hide').hide();
+								}
 							}
 							
 						
@@ -1520,17 +1670,7 @@ define( function( require, exports, module ) {
 						util.unWarnInput( $('.invoiceTitleAdd') );
 					}
 				}
-				objDate['storageTotalSpace']=me.model.get('storageTotalSpaceAdd');
-				objDate['contract']=me.model.get('contractAdd');
-				objDate['contractFileName']=me.model.get('contractFileNameAdd');
-				objDate['contractCopy']=me.model.get('contractCopyAdd');
-				objDate['contractCopyFileName']=me.model.get('contractCopyFileNameAdd');
-				objDate['contractPrice']=me.model.get('contractPriceAdd');
-				objDate['contractStartTime']=new Date( me.$('.start-time-ht-add').val() ).getTime();
-				objDate['contractEndTime']=new Date( me.$('.end-time-ht-add').val() ).getTime();
-				objDate['discount']=me.model.get('discountAdd');
-				objDate['invoiceTitle']=me.model.get('invoiceTitleAdd');
-				objDate['useBusinessCard']=me.model.get('useBusinessCardAdd');
+				
 					
 				//检测必填项
 				var state = true; 
@@ -1552,14 +1692,14 @@ define( function( require, exports, module ) {
 					util.unWarnInput( $('.contractAdd') );
 				}
 
-				if( !objDate['contractStartTime'] ){
+				if( !me.$('.start-time-ht-add').val() ){
 					util.warnInput( $('.start-time-ht-add') );
 					state = false;
 				}else{
 					util.unWarnInput( $('.start-time-ht-add') );
 				}
 
-				if( !objDate['contractEndTime'] ){
+				if( !me.$('.end-time-ht-add').val() ){
 					util.warnInput( $('.end-time-ht-add') );
 					state = false;
 				}else{
@@ -1570,6 +1710,18 @@ define( function( require, exports, module ) {
 					util.showToast('信息填写不完整');
 					return ;
 				}
+				
+				objDate['storageTotalSpace']=me.model.get('storageTotalSpaceAdd');
+				objDate['contract']=me.model.get('contractAdd');
+				objDate['contractFileName']=me.model.get('contractFileNameAdd');
+				objDate['contractCopy']=me.model.get('contractCopyAdd');
+				objDate['contractCopyFileName']=me.model.get('contractCopyFileNameAdd');
+				objDate['contractPrice']=me.model.get('contractPriceAdd');
+				objDate['contractStartTime']=new Date( me.$('.start-time-ht-add').val() ).getTime();
+				objDate['contractEndTime']=new Date( me.$('.end-time-ht-add').val() ).getTime();
+				objDate['discount']=me.model.get('discountAdd');
+				objDate['invoiceTitle']=me.model.get('invoiceTitleAdd');
+				objDate['useBusinessCard']=me.model.get('useBusinessCardAdd');
 				
 				me.$actionResend.text('提交中....');
 				me.$actionResend.attr('disabled','disabled');
@@ -1609,10 +1761,53 @@ define( function( require, exports, module ) {
 					util.showToast('增购空间数量不能小于等于0！');
 					return false;
 				}
+				if(me.attrs.freeIncreaseContractRequired){
+					var state = true; 
+					if( !me.model.get('contractFree')){
+						util.warnInput( $('.contractFree') );
+						state = false;
+					}else{
+						util.unWarnInput( $('.contractFree') );
+					}
+
+					if( !me.$('.start-time-ht-free').val() ){
+						util.warnInput( $('.start-time-ht-free') );
+						state = false;
+					}else{
+						util.unWarnInput( $('.start-time-ht-free') );
+					}
+
+					if( !me.$('.end-time-ht-free').val() ){
+						util.warnInput( $('.end-time-ht-free') );
+						state = false;
+					}else{
+						util.unWarnInput( $('.end-time-ht-free'));
+					}
+					
+					if( !me.model.get('invoiceTitleFree') ){
+						util.warnInput( $('.invoiceTitleFree') );
+						state = false;
+					}else{
+						util.unWarnInput( $('.invoiceTitleFree'));
+					}
+
+					if( state == false ){
+						util.showToast('信息填写不完整');
+						return ;
+					}
+				}
+				
 				objDate['processInstanceId'] = me.attrs.id;
 				objDate['enterpriseId']= me.attrs.eid;
 				objDate['accountTotalAmount'] = me.model.get('freeAccountTotalAmount');
 				objDate['storageTotalSpace'] = me.model.get('freeStorageTotalSpace');
+				objDate['contract']=me.model.get('contractFree');
+				objDate['contractFileName']=me.model.get('contractFileNameFree');
+				objDate['contractCopy']=me.model.get('contractCopyFree');
+				objDate['contractCopyFileName']=me.model.get('contractCopyFileNameFree');
+				objDate['contractStartTime']=new Date( me.$('.start-time-ht-free').val() ).getTime();
+				objDate['contractEndTime']=new Date( me.$('.end-time-ht-free').val() ).getTime();
+				objDate['invoiceTitle']=me.model.get('invoiceTitleFree');
 				
 				util.api({
 					'url': '/enterprise/updateincreaseenterpriseaccountfree',
@@ -1952,10 +2147,54 @@ define( function( require, exports, module ) {
 					util.showToast('增购空间数量不能小于等于0！');
 					return false;
 				}
+				if(me.attrs.freeIncreaseContractRequired ){
+					var state = true; 
+					if( !me.model.get('contractFree')){
+						util.warnInput( $('.contractFree') );
+						state = false;
+					}else{
+						util.unWarnInput( $('.contractFree') );
+					}
+
+					if( !me.$('.start-time-ht-free').val() ){
+						util.warnInput( $('.start-time-ht-free') );
+						state = false;
+					}else{
+						util.unWarnInput( $('.start-time-ht-free') );
+					}
+
+					if( !me.$('.end-time-ht-free').val() ){
+						util.warnInput( $('.end-time-ht-free') );
+						state = false;
+					}else{
+						util.unWarnInput( $('.end-time-ht-free'));
+					}
+					
+					if( !me.model.get('invoiceTitleFree') ){
+						util.warnInput( $('.invoiceTitleFree') );
+						state = false;
+					}else{
+						util.unWarnInput( $('.invoiceTitleFree'));
+					}
+
+					if( state == false ){
+						util.showToast('信息填写不完整');
+						return ;
+					}
+				}
+				
 				objDate['processInstanceId'] = me.attrs.id;
 				objDate['enterpriseId']= me.attrs.eid;
 				objDate['accountTotalAmount'] = me.model.get('freeAccountTotalAmount');
 				objDate['storageTotalSpace'] = me.model.get('freeStorageTotalSpace');
+				objDate['contract']=me.model.get('contractFree');
+				objDate['contractFileName']=me.model.get('contractFileNameFree');
+				objDate['contractCopy']=me.model.get('contractCopyFree');
+				objDate['contractCopyFileName']=me.model.get('contractCopyFileNameFree');
+				objDate['contractStartTime']=new Date( me.$('.start-time-ht-free').val() ).getTime();
+				objDate['contractEndTime']=new Date( me.$('.end-time-ht-free').val() ).getTime();
+				objDate['invoiceTitle']=me.model.get('invoiceTitleFree');
+				
 				
 				//移交至下一个节点
 				function changeNode(){
@@ -2230,6 +2469,10 @@ define( function( require, exports, module ) {
 			me.$('.img-contract-add').attr('src', '');
 			me.$('.contractCopy-link-add').attr('href','');
 			me.$('.img-contractCopy-add').attr('src', '');
+			me.$('.contract-link-free').attr('href','');
+			me.$('.img-contract-free').attr('src', '');
+			me.$('.contractCopy-link-free').attr('href','');
+			me.$('.img-contractCopy-free').attr('src', '');
             me.$('.state').hide();
             OpenApproval.__super__.hide.apply( this,arguments );
         }

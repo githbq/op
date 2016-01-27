@@ -652,6 +652,36 @@ define( function(require, exports, module){
 								me.$('.free-box').show();
 								me.model.set('freeAccountTotalAmount',(data.value.model.accountTotalAmount ? data.value.model.accountTotalAmount:'0') );
 								me.model.set('freeStorageTotalSpace',(data.value.model.storageTotalSpace ? data.value.model.storageTotalSpace:'0') );
+								
+								var contractStartTimeFree = data.value.model.contractStartTime ?new Date( data.value.model.contractStartTime  )._format('yyyy/MM/dd'):'';
+								var contractEndTimeFree =data.value.model.contractEndTime? new Date( data.value.model.contractEndTime  )._format('yyyy/MM/dd'):'';
+								me.model.set('contractStartTimeFree',(contractStartTimeFree ? contractStartTimeFree:'') );
+								me.model.set('contractEndTimeFree',(contractEndTimeFree ? contractEndTimeFree:'') );
+								
+								if(data.value.model.contract){
+									me.$('.contract-link-free').show();
+									me.$('.contract-hide-free').hide();
+									me.$('.contract-link-free').attr('href', '/op/api/file/previewimage' + '?filePath=' + data.value.model.contract);
+									me.$('.img-contract-free').attr('src', '/op/api/file/previewimage' + '?filePath=' + data.value.model.contract);
+								}else{
+									me.$('.contract-link-free').hide();
+									me.$('.contract-hide-free').show();
+									me.$('.contract-link-free').attr('href', '');
+									me.$('.img-contract-free').attr('src', '');
+								}
+								//显示合同副本
+								if(data.value.model.contractCopy){
+									me.$('.contractCopy-link-free').show();
+									me.$('.contractCopy-hide-free').hide();
+									me.$('.contractCopy-link-free').attr('href', '/op/api/file/previewimage' + '?filePath=' + data.value.model.contractCopy);
+									me.$('.img-contractCopy-free').attr('src', '/op/api/file/previewimage' + '?filePath=' + data.value.model.contractCopy);
+								}else{
+									me.$('.contractCopy-link-free').hide();
+									me.$('.contractCopy-hide-free');
+									me.$('.contractCopy-link-free').attr('href', '');
+									me.$('.img-contractCopy-free').attr('src', '');
+								}
+								me.model.set('invoiceTitleFree',(data.value.model.invoiceTitle ? data.value.model.invoiceTitle:'') );
 							}
 							
 						}
@@ -953,6 +983,10 @@ define( function(require, exports, module){
 			me.$('.img-contract-add').attr('src', '');
 			me.$('.contractCopy-link-add').attr('href', '');
 			me.$('.img-contractCopy-add').attr('src', '');
+			me.$('.contract-link-free').attr('href', '');
+			me.$('.img-contract-free').attr('src', '');
+			me.$('.contractCopy-link-free').attr('href', '');
+			me.$('.img-contractCopy-free').attr('src', '');
 			me.$actionResend.text('保存通过');
 			me.$actionResend.removeAttr('disabled');
 			me.$actionAgree.text('同意');

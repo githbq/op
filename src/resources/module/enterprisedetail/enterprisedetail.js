@@ -345,6 +345,17 @@ define( function(require, exports, module){
 			'.show-type':'showType',
 			'.contract': 'contract',
 			'.contractCopy':'contractCopy',
+			'.contract-free':'contractFree',
+			'.look-contract-free':'lookContractFree',
+			'.img-contract-free':'imgContractFree',
+			'.contract-hide-free':'contractHideFree',
+			'.contractCopy-free':'contractCopyFree',
+			'.look-contractCopy-free':'lookContractCopyFree',
+			'.img-contractCopy-free':'imgContractCopyFree',
+			'.contractCopy-hide-free':'contractCopyHideFree',
+			'.start-time-ht-free':'startTimeHtFree',
+			'.end-time-ht-free':'endTimeHtFree',
+			'.fn-buy-free': 'fnBuyFree',
 
 			'#creatorName':'creatorName',
 			'#createTime':'createTime',
@@ -2026,6 +2037,8 @@ define( function(require, exports, module){
 			
 			me._usestatus = 0;     //状态值
 			
+			me.attrs.freeIncreaseContractRequired = '';
+			
 			//判断是否开通来显示增购部分是否可以显示
 			if(me.attrs.runStatus==2){
 				me.$('.approval-box').show();
@@ -2102,6 +2115,11 @@ define( function(require, exports, module){
 			me.$statusDisabled.removeAttr('disabled');
 			me.$statusDisabled.val('');
 			me.$stateCurrent.show();
+			if(me.attrs.freeIncreaseContractRequired){
+				me.$('.check-hide').show();
+			}else{
+				me.$('.check-hide').hide();
+			}
 			me.$('.useBusinessCard').removeAttr('disabled');
 			
 			me.$contractCopyHide.show();
@@ -2113,6 +2131,16 @@ define( function(require, exports, module){
 			me.$contractLink.hide();
 			me.$contractLink.attr('href', '');
 			me.$imgContract.attr('src', '');
+			
+			me.$contractCopyHideFree.show();
+			me.$lookContractCopyFree.hide();
+			me.$lookContractCopyFree.attr('href', '');
+			me.$imgContractCopyFree.attr('src', '');
+			me.$contractHideFree.show();
+			me.$lookContractFree.hide();
+			me.$lookContractFree.attr('href', '');
+			me.$imgContractFree.attr('src', '');
+			
 			me.model.set('discountAdd','');
 			//me.model.set('isPaidAdd','0');
 			me.model.set('useBusinessCardAdd','0');
@@ -2131,6 +2159,27 @@ define( function(require, exports, module){
                 format: 'Y/m/d',
                 onShow: function() {
                     var minDate = me.$startTimeHt.val() ? me.$startTimeHt.val() : false;
+                    this.setOptions({
+                        minDate: minDate
+                    });
+                },
+                timepicker: false
+            } );
+			
+			me.$startTimeHtFree.datetimepicker( {
+                format: 'Y/m/d',
+                onShow: function() {
+                    var maxDate = me.$endTimeHtFree.val() ? me.$endTimeHtFree.val() : false;
+                    this.setOptions({
+                        maxDate: maxDate
+                    });
+                },
+                timepicker: false
+            } );
+            me.$endTimeHtFree.datetimepicker( {
+                format: 'Y/m/d',
+                onShow: function() {
+                    var minDate = me.$startTimeHtFree.val() ? me.$startTimeHtFree.val() : false;
                     this.setOptions({
                         minDate: minDate
                     });
@@ -2256,6 +2305,82 @@ define( function(require, exports, module){
 					})
 				}else{
 					me.$contractCopy.val('');
+					util.showToast('请上传图片格式不正确(.jpg,.png,.gif)！');
+					return false;
+				}
+				
+			});
+			
+			me.$contractFree.on('change',function(){
+				var fileExtension =me.$contractFree[0].files[0].name.split('.').pop().toLowerCase();
+				if(fileExtension=='jpg'||fileExtension=='gif'||fileExtension=='png'||fileExtension=='jpeg'){
+					me.$fnBuyFree.attr('disabled','disabled');
+					me.$fnBuyFree.text('文件上传...');
+				
+					uploader.send({
+						'url': '/op/api/file/uploadsinglefileandcheck',
+						'files': me.$contractFree[0].files,
+						'options':{
+							'limittype':'IMAGE'
+						},
+						'success': function( response ){
+							
+							me.model.set('contractFree', response.value.model.path );
+							me.model.set('contractFileNameFree', response.value.model.FileName );
+							me.$lookContractFree.show();
+							me.$contractHideFree.hide();
+							me.$lookContractFree.attr('href', '/op/api/file/previewimage' + '?filePath=' + response.value.model.path);
+							me.$imgContractFree.attr('src', '/op/api/file/previewimage' + '?filePath=' + response.value.model.path);
+							me.$fnBuyFree.removeAttr('disabled');
+							me.$fnBuyFree.text('申请增购');
+							
+						},
+						'error':function(response){
+							me.$fnBuyFree.removeAttr('disabled');
+							me.$fnBuyFree.text('申请增购');
+							me.$contractFree.val('');
+							return false;
+						}
+					})
+				}else{
+					me.$contractFree.val('');
+					util.showToast('请上传图片格式不正确(.jpg,.png,.gif)！');
+					return false;
+				}
+				
+			});
+			me.$contractCopyFree.on('change',function(){
+				var fileExtension =me.$contractCopyFree[0].files[0].name.split('.').pop().toLowerCase();
+				if(fileExtension=='jpg'||fileExtension=='gif'||fileExtension=='png'||fileExtension=='jpeg'){
+					me.$fnBuyFree.attr('disabled','disabled');
+					me.$fnBuyFree.text('文件上传...');
+					
+					uploader.send({
+						'url': '/op/api/file/uploadsinglefileandcheck',
+						'files': me.$contractCopyFree[0].files,
+						'options':{
+							'limittype':'IMAGE'
+						},
+						'success': function( response ){	
+							console.warn( response );
+							me.model.set('contractCopyFree', response.value.model.path );
+							me.model.set('contractCopyFileNameFree', response.value.model.FileName );
+							me.$lookContractCopyFree.show();
+							me.$contractCopyHideFree.hide();
+							me.$lookContractCopyFree.attr('href', '/op/api/file/previewimage' + '?filePath=' + response.value.model.path);
+							me.$imgContractCopyFree.attr('src', '/op/api/file/previewimage' + '?filePath=' + response.value.model.path);
+							me.$fnBuyFree.removeAttr('disabled');
+							me.$fnBuyFree.text('申请增购');
+						},
+						'error':function(response){
+							me.$fnBuyFree.removeAttr('disabled');
+							me.$fnBuyFree.text('申请增购');
+							me.$contractCopyFree.val('');
+							return false;
+						}
+					})
+				}else{
+					me.$contractCopyFree.val('');
 					util.showToast('请上传图片格式不正确(.jpg,.png,.gif)！');
 					return false;
 				}
@@ -2447,9 +2572,49 @@ define( function(require, exports, module){
 				util.showToast('增购空间数量不能小于等于0！');
 				return false;
 			}
+			if(me.attrs.freeIncreaseContractRequired){
+				var state = true;
+				if( !me.model.get('contractFree')){
+					util.warnInput( $('.contract-free') );
+					state = false;
+				}else{
+					util.unWarnInput( $('.contract-free') );
+				}
+				if( !me.$startTimeHtFree.val() ){
+					util.warnInput( $('.start-time-ht-free') );
+					state = false;
+				}else{
+					util.unWarnInput( $('.start-time-ht-free') );
+				}
+
+				if( !me.$endTimeHtFree.val() ){
+					util.warnInput( $('.end-time-ht-free') );
+					state = false;
+				}else{
+					util.unWarnInput( $('.end-time-ht-free'));
+				}
+				if( !me.$('.invoiceTitleAddFree').val() ){
+					util.warnInput( $('.invoiceTitleAddFree') );
+					state = false;
+				}else{
+					util.unWarnInput( $('.invoiceTitleAddFree'));
+				}
+				if( !state ){
+					util.showToast('填写信息不完整！');
+					return false;
+				}
+			}
+			
 			objDate['enterpriseId'] = me.model.attrs.enterpriseId;
 			objDate['accountTotalAmount'] = me.model.get('freeAccountTotalAmount');
 			objDate['storageTotalSpace'] = me.model.get('freeStorageTotalSpace');
+			objDate['contract'] = me.model.get('contractFree');
+			objDate['contractFileName'] = me.model.get('contractFileNameFree');
+			objDate['contractCopy'] = me.model.get('contractCopyFree');
+			objDate['contractCopyFileName'] = me.model.get('contractCopyFileName');
+			objDate['invoiceTitle'] = me.model.get('invoiceTitleAddFree');
+			objDate['contractStartTime'] = new Date( me.$startTimeHtFree.val() ).getTime()||'';
+			objDate['contractEndTime'] = new Date( me.$endTimeHtFree.val() ).getTime();
 			
 			util.api({
 				'url': '/enterprise/increaseenterpriseaccountfree',
@@ -2481,12 +2646,13 @@ define( function(require, exports, module){
 				success: function( data ) {
 
 					if ( data.success ) {
-						me.operations.pagination.setTotalSize( data.model.itemCount );
-						$( data.model.content ).each( function ( i, item ) {
+						me.operations.pagination.setTotalSize( data.model.page.itemCount );
+						$( data.model.page.content ).each( function ( i, item ) {
 							item.ncreaseTime = new Date( item.ncreased )._format( 'yyyy-MM-dd hh:mm' );
 						} );
-						if ( data.model.content.length > 0 ) {
-							me.$tbOperation.html( me.tplOperation( { content: data.model.content } ) );
+						me.attrs.freeIncreaseContractRequired = data.model.freeIncreaseContractRequired;
+						if ( data.model.page.content.length > 0 ) {
+							me.$tbOperation.html( me.tplOperation( { content: data.model.page.content } ) );
 						} else {
 							me.$tbOperation.html( '<tr><td colspan="4"><p class="info">暂无数据</p></td></tr>' );
 						}
