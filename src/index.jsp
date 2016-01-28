@@ -106,7 +106,7 @@
             <li data-permissions="F008002 F008006">
                 <a href="#page/approvallist">我的审批</a>
             </li>
-            <li data-permissions="F008004 F008003 F008006">
+            <li data-permissions="F008004 F008003">
                 <a href="#page/watchent">企业监察</a>
             </li>
         </ul>
