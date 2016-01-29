@@ -2386,7 +2386,7 @@ define( function(require, exports, module){
 				
 			});
 
-			if(me.attrs.freeIncreaseContractRequired){
+			if(me.attrs.isPay==1 && me.attrs.freeIncreaseContractRequired){
 				me.$('.check-hide').show();
 			}else{
 				me.$('.check-hide').hide();
@@ -2654,7 +2654,7 @@ define( function(require, exports, module){
 							item.ncreaseTime = new Date( item.ncreased )._format( 'yyyy-MM-dd hh:mm' );
 						} );
 						me.attrs.freeIncreaseContractRequired = data.model.freeIncreaseContractRequired;
-						if(me.attrs.freeIncreaseContractRequired){
+						if(me.attrs.isPay == 1 && me.attrs.freeIncreaseContractRequired){
 							me.$('.check-hide').show();
 						}else{
 							me.$('.check-hide').hide();

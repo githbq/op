@@ -1360,7 +1360,7 @@ define( function( require, exports, module ) {
 								}
 								me.model.set('invoiceTitleFree',(data.value.model.invoiceTitle ? data.value.model.invoiceTitle:'') );
 								
-								if(me.attrs.isCurrentTask  == 'true' && me.attrs.freeIncreaseContractRequired){
+								if(me.attrs.isCurrentTask  == 'true' && me.attrs.freeIncreaseContractRequired && me.attrs.isPay==1 ){
 									me.$('.check-hide').show();
 								}else{
 									me.$('.check-hide').hide();
