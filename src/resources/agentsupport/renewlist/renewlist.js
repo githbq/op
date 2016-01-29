@@ -1360,11 +1360,8 @@ define( function( require, exports, module ) {
 								}
 								me.model.set('invoiceTitleFree',(data.value.model.invoiceTitle ? data.value.model.invoiceTitle:'') );
 								
-<<<<<<< HEAD
-								if(me.attrs.isCurrentTask  == 'true' && me.attrs.freeIncreaseContractRequired){
-=======
 								if(me.attrs.isCurrentTask  == 'true' && me.attrs.freeIncreaseContractRequired && me.attrs.isPay==1 ){
->>>>>>> dev
+
 									me.$('.check-hide').show();
 								}else{
 									me.$('.check-hide').hide();
@@ -1768,11 +1765,9 @@ define( function( require, exports, module ) {
 					util.showToast('增购空间数量不能小于等于0！');
 					return false;
 				}
-<<<<<<< HEAD
-				if(me.attrs.freeIncreaseContractRequired){
-=======
+
 				if(me.attrs.isPay ==1 && me.attrs.freeIncreaseContractRequired){
->>>>>>> dev
+
 					var state = true; 
 					if( !me.model.get('contractFree')){
 						util.warnInput( $('.contractFree') );
@@ -2158,11 +2153,8 @@ define( function( require, exports, module ) {
 					util.showToast('增购空间数量不能小于等于0！');
 					return false;
 				}
-<<<<<<< HEAD
-				if(me.attrs.freeIncreaseContractRequired ){
-=======
+
 				if(me.attrs.isPay ==1 && me.attrs.freeIncreaseContractRequired ){
->>>>>>> dev
 					var state = true; 
 					if( !me.model.get('contractFree')){
 						util.warnInput( $('.contractFree') );
