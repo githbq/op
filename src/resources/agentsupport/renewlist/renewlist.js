@@ -764,6 +764,8 @@ define( function( require, exports, module ) {
                 format: 'Y/m/d',
                 timepicker: false
             } );
+			
+			me.attrs.isPay = 0;
 
             me.getEnums();
 			/**
@@ -1358,7 +1360,11 @@ define( function( require, exports, module ) {
 								}
 								me.model.set('invoiceTitleFree',(data.value.model.invoiceTitle ? data.value.model.invoiceTitle:'') );
 								
+<<<<<<< HEAD
 								if(me.attrs.isCurrentTask  == 'true' && me.attrs.freeIncreaseContractRequired){
+=======
+								if(me.attrs.isCurrentTask  == 'true' && me.attrs.freeIncreaseContractRequired && me.attrs.isPay==1 ){
+>>>>>>> dev
 									me.$('.check-hide').show();
 								}else{
 									me.$('.check-hide').hide();
@@ -1762,7 +1768,11 @@ define( function( require, exports, module ) {
 					util.showToast('增购空间数量不能小于等于0！');
 					return false;
 				}
+<<<<<<< HEAD
 				if(me.attrs.freeIncreaseContractRequired){
+=======
+				if(me.attrs.isPay ==1 && me.attrs.freeIncreaseContractRequired){
+>>>>>>> dev
 					var state = true; 
 					if( !me.model.get('contractFree')){
 						util.warnInput( $('.contractFree') );
@@ -2148,7 +2158,11 @@ define( function( require, exports, module ) {
 					util.showToast('增购空间数量不能小于等于0！');
 					return false;
 				}
+<<<<<<< HEAD
 				if(me.attrs.freeIncreaseContractRequired ){
+=======
+				if(me.attrs.isPay ==1 && me.attrs.freeIncreaseContractRequired ){
+>>>>>>> dev
 					var state = true; 
 					if( !me.model.get('contractFree')){
 						util.warnInput( $('.contractFree') );
@@ -2351,6 +2365,7 @@ define( function( require, exports, module ) {
                     console.warn( data );
                     if( data.success ){
                         me.model.load( data.value.model );
+						me.attrs.isPay = data.value.model.isPayed;
 						me.downFile(data);
 						var contractStartTime = data.value.model.contractStartTime ?new Date( data.value.model.contractStartTime  )._format('yyyy/MM/dd'):'';
 						var contractEndTime =data.value.model.contractEndTime? new Date( data.value.model.contractEndTime  )._format('yyyy/MM/dd'):'';

@@ -647,6 +647,8 @@ define( function(require, exports, module){
 				isInitializes: false,
 				pagination: null
 			};
+			
+			me.attrs.isPay = 0;
 
 			/**
 			 *
@@ -1051,6 +1053,7 @@ define( function(require, exports, module){
 						me.$aregister.val( model.registerMotive );
 						me.$acompany.val( model.companyScale );
 						me.$asales.val( model.saleTeamScale );
+						me.attrs.isPay = model.isPayed;
 
 						switch( model.activity ){
 							case 1:
@@ -2383,7 +2386,11 @@ define( function(require, exports, module){
 				
 			});
 
+<<<<<<< HEAD
 			if(me.attrs.freeIncreaseContractRequired){
+=======
+			if(me.attrs.isPay==1 && me.attrs.freeIncreaseContractRequired){
+>>>>>>> dev
 				me.$('.check-hide').show();
 			}else{
 				me.$('.check-hide').hide();
@@ -2572,7 +2579,11 @@ define( function(require, exports, module){
 				util.showToast('增购空间数量不能小于等于0！');
 				return false;
 			}
+<<<<<<< HEAD
 			if(me.attrs.freeIncreaseContractRequired){
+=======
+			if(me.attrs.isPay==1 && me.attrs.freeIncreaseContractRequired){
+>>>>>>> dev
 				var state = true;
 				if( !me.model.get('contractFree')){
 					util.warnInput( $('.contract-free') );
@@ -2651,7 +2662,11 @@ define( function(require, exports, module){
 							item.ncreaseTime = new Date( item.ncreased )._format( 'yyyy-MM-dd hh:mm' );
 						} );
 						me.attrs.freeIncreaseContractRequired = data.model.freeIncreaseContractRequired;
+<<<<<<< HEAD
 						if(me.attrs.freeIncreaseContractRequired){
+=======
+						if(me.attrs.isPay == 1 && me.attrs.freeIncreaseContractRequired){
+>>>>>>> dev
 							me.$('.check-hide').show();
 						}else{
 							me.$('.check-hide').hide();
