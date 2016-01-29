@@ -764,6 +764,8 @@ define( function( require, exports, module ) {
                 format: 'Y/m/d',
                 timepicker: false
             } );
+			
+			me.attrs.isPay = 0;
 
             me.getEnums();
 			/**
@@ -1762,7 +1764,7 @@ define( function( require, exports, module ) {
 					util.showToast('增购空间数量不能小于等于0！');
 					return false;
 				}
-				if(me.attrs.freeIncreaseContractRequired){
+				if(me.attrs.isPay ==1 && me.attrs.freeIncreaseContractRequired){
 					var state = true; 
 					if( !me.model.get('contractFree')){
 						util.warnInput( $('.contractFree') );
@@ -2148,7 +2150,7 @@ define( function( require, exports, module ) {
 					util.showToast('增购空间数量不能小于等于0！');
 					return false;
 				}
-				if(me.attrs.freeIncreaseContractRequired ){
+				if(me.attrs.isPay ==1 && me.attrs.freeIncreaseContractRequired ){
 					var state = true; 
 					if( !me.model.get('contractFree')){
 						util.warnInput( $('.contractFree') );
@@ -2351,6 +2353,7 @@ define( function( require, exports, module ) {
                     console.warn( data );
                     if( data.success ){
                         me.model.load( data.value.model );
+						me.attrs.isPay = data.value.model.isPayed;
 						me.downFile(data);
 						var contractStartTime = data.value.model.contractStartTime ?new Date( data.value.model.contractStartTime  )._format('yyyy/MM/dd'):'';
 						var contractEndTime =data.value.model.contractEndTime? new Date( data.value.model.contractEndTime  )._format('yyyy/MM/dd'):'';
