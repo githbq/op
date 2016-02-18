@@ -206,7 +206,7 @@ define( function( require, exports, module ) {
             if( collection.length > 0 ){
                 htmlStr = me.trTpl( {'content': collection} );
             }else{
-                htmlStr = "<tr> <td colspan='8'><p class='info'>暂无数据</p></td> </tr>"
+                htmlStr = "<tr> <td colspan='11'><p class='info'>暂无数据</p></td> </tr>"
             }
 
             me.$tbody.html( htmlStr );

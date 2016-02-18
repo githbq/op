@@ -14,7 +14,18 @@ define( function(require, exports, module){
 		sourceMap = {},      //来源MAP
 		provinceMap = {},    //省市MAP
 		groupMap = {};       //团队类型MAP
-
+        
+   
+    //服务费MAP
+    var ServiceMap = {
+        '1': 2000,
+        '2': 3000,
+        '3': 6000,
+        '4': 8000
+    }
+        
+        
+        
 	var AddEnt = MClass( M.Center ).include({
 		view: contentStr,
 		/*
@@ -24,7 +35,9 @@ define( function(require, exports, module){
 		},
 		*/
 		init: function(){
+            
 			AddEnt.__super__.init.apply( this,arguments );
+            
 			var me = this;
 
 			/**
@@ -39,6 +52,11 @@ define( function(require, exports, module){
 				me.$product.removeAttr('disabled');
 				me.$title.text('付费企业注册');
 			}
+            
+            
+            
+            
+            
 			//获取所有必须的枚举信息
 			me.getEnums();
 
@@ -128,18 +146,7 @@ define( function(require, exports, module){
 					this.value = '';
 				}
 			});
-			
-            
-            
-            //培训服务费变化选择
-			me.$payServiceCharge.on('change',function(){
-				if(me.$payServiceCharge.val() == 1 ){
-					me.$checkedDisable.removeAttr('disabled')
-				}else{
-					me.$checkedDisable.attr('disabled','disabled');
-				}
-			});
-
+		
 			me.$companyGate.on('change',function(){
 				var Extlist = ".BMP.GIF.JPEG.JPG.PNG";
 				var file_name = /\.[^\.]+/.exec(this.value);
@@ -147,11 +154,22 @@ define( function(require, exports, module){
 					this.value = '';
 				}
 			});
-
+            
+            //培训服务费变化选择
+            me.model.on('change:personCount',function( key, value ){
+                var amount;
+                if( value ){
+                    amount = ServiceMap[value];
+                }else{
+                    amount = '';
+                }
+                me.model.set( 'serviceChargeAmount', amount );
+            });
+            
+            //初始化日期选择
 			me.$startTime.datetimepicker({'timepicker': false,'format':'Y/m/d'});
             me.$endTime.datetimepicker({'timepicker': false,'format':'Y/m/d'});
 			me.$moneyDate.datetimepicker({'timepicker': false,'format':'Y/m/d'});
-
 		},
 		events:{
 			'click .action-add': 'addEve',
@@ -178,8 +196,7 @@ define( function(require, exports, module){
 			'.contractprice': 'contractprice',       //合同金额
 			'.deviceamount': 'deviceamount',          //终端数量
 			'.action-add': 'actionAdd',
-			'.payServiceCharge':'payServiceCharge',
-			'.checkedDisable':'checkedDisable',
+			'.personCount':'personCount',
 
 			'.startTime': 'startTime',
             '.endTime': 'endTime',
@@ -285,12 +302,13 @@ define( function(require, exports, module){
 				'r': false,
 				'c': false,
 				's': false,
-				'pr': false
+				'pr': false,
+                'service': false
 			};
 
 			//检查是否获取完毕
 			function check(){
-				if( state.i && state.e && state.p && state.g && state.k && state.r && state.c && state.s && state.pr ){
+				if( state.i && state.e && state.p && state.g && state.k && state.r && state.c && state.s && state.pr && state.service ){
 					me.state = true;
 					me.model.set('source', IBSS.tempEnterprise['source']);
 					me.model.set('industry', IBSS.tempEnterprise['industry']);
@@ -408,6 +426,9 @@ define( function(require, exports, module){
 
 			//获取销售团队规模
 			generate('SALE_TEAM_SCALE', {} , me.$saleteamscale ,'s');
+            
+            //培训服务费
+            generate('OPEN_VERSION_NUM', {} , me.$personCount , 'service' );
 			
 			$('.e-industry').val(me.model.get('INDUSTRY'));
 		},
@@ -471,17 +492,23 @@ define( function(require, exports, module){
          */
 		addEve: function(){
 			var me = this;
-			tme = me;
-			var startTime='',endTime='',moneyDate = '';
+            
+			var startTime='',
+                endTime='',
+                moneyDate = '';
+            
 			if( me.$startTime.val() ){
                 startTime = new Date( me.$startTime.val() ).getTime();
             }
+            
             if( me.$endTime.val() ){
                 endTime = new Date( me.$endTime.val() ).getTime();
             }
+            
 			if(me.$('.money-date').val()){
 				moneyDate = new Date( me.$('.money-date').val() ).getTime();
 			}
+            
 			me.model.set('payDate',moneyDate);
 	
       		me.model.set('enterpriseShortName',me.model.get('enterpriseAccount'));
