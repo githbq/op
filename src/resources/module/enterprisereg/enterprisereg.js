@@ -1,9 +1,6 @@
 /**
  *
- *  添加企业
- *  todo
- *  接口校验
- *  初始化id时初始化选择产品
+ * 免费开通
  */
 define( function(require, exports, module){
 
@@ -132,6 +129,9 @@ define( function(require, exports, module){
 				}
 			});
 			
+            
+            
+            //培训服务费变化选择
 			me.$payServiceCharge.on('change',function(){
 				if(me.$payServiceCharge.val() == 1 ){
 					me.$checkedDisable.removeAttr('disabled')
