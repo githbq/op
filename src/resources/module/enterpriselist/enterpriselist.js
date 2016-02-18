@@ -1,5 +1,5 @@
 /**
- *
+ * index.html 支持人员企业列表
  * 企业列表
  */
  
@@ -110,7 +110,7 @@ define( function(require, exports, module){
             generateSelect( 'ENT_LST_PSTS', this.$pstatus );
             generateSelect( 'INDUSTRY', this.$industry );
             generateSelect( 'ENT_LST_ACTIVITY', this.$activity );
-
+            generateSelect( 'OPEN_VERSION_NUM', this.$('#servicecost'));
 
 
             function generateSelect( name , $select ){
@@ -131,7 +131,7 @@ define( function(require, exports, module){
 
                     $select.append( options );
                     state = state + 1;
-                    if( state > 4 ){
+                    if( state > 5 ){
 
                         me.getList();
                     }
@@ -165,6 +165,7 @@ define( function(require, exports, module){
                     productId: me.model.get('productId'),
                     agentId: me.model.get('agentId'),
 					accountName:me.model.get('accountName'),
+                    personCount: me.model.get('personCount'),
                     productId: me.attrs['productId'],
                     pageIndex: me.pagination.attr['pageNumber'],
                     pageSize: me.pagination.attr['pageSize']

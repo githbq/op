@@ -218,7 +218,7 @@ define( function( require, exports, module ) {
                 });
             }
 
-
+            /*
             var ih2 = new InputHandler({ view: me.$view.find('.m-ih-space'), target: me.$view.find('#qcSb')  });
 
             var ih3 = new Select({'view': me.$view.find('.select-kt') });
@@ -353,7 +353,7 @@ define( function( require, exports, module ) {
                 me.$bcACBegin.val( beginCount );
                 me.$bcACEnd.val( endCount );
             });
-
+            */
         },
 
         trTpl: _.template( tem.filter('#trTpl').html() ),
@@ -368,11 +368,12 @@ define( function( require, exports, module ) {
                 's': false,
                 'a': false,
                 'pro': false,
-                'ps': false
+                'ps': false,
+                'service': false
             };
 
             function checkReady(){
-                if( state.i && state.p && state.s && state.a && state.pro && state.ps ){
+                if( state.i && state.p && state.s && state.a && state.pro && state.ps && state.service ){
                     me.getList();
                 }
             }
@@ -455,6 +456,18 @@ define( function( require, exports, module ) {
                 state.ps = true;
                 checkReady();
             })
+            
+            //培训服务费
+            var serviceList = [{'name':'全部','value':''}];
+            util.getEnums('OPEN_VERSION_NUM',function( data ){
+                
+                data.value.model.forEach(function( item ){
+                    serviceList.push( {'name':item.text,'value':item.value} );
+                });
+                util.resetSelect( me.$('#servicecost'), serviceList );
+                state.service = true;
+                checkReady();
+            })
         },
 
         searchEve: function(){
@@ -524,7 +537,7 @@ define( function( require, exports, module ) {
                 data.toAccountTotalAmount = me.$acEnd.val();
             }
             
-            data.pageIndex = me.pagination.attr['pageNumber']; 
+            data.pageIndex = me.pagination.attr['pageNumber'] + 1; 
             data.pageSize = me.pagination.attr['pageSize'];
             data.product = me.attrs['productId'];
             
@@ -629,8 +642,7 @@ define( function( require, exports, module ) {
 						}
 					}) ;
 				}
-				return false;	
-			
+				return false;
 		},
   		searchEve: function(){
   			var me = this;
