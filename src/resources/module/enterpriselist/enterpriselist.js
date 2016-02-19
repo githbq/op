@@ -165,7 +165,7 @@ define( function(require, exports, module){
                     productId: me.model.get('productId'),
                     agentId: me.model.get('agentId'),
 					accountName:me.model.get('accountName'),
-                    personCount: me.model.get('personCount'),
+                    //personCount: me.model.get('personCount'),
                     productId: me.attrs['productId'],
                     pageIndex: me.pagination.attr['pageNumber'] + 1,
                     pageSize: me.pagination.attr['pageSize']
