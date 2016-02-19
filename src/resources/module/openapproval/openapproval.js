@@ -535,14 +535,14 @@ define( function(require, exports, module){
 								if( data.value.model.invoice ){
 									me.$('.amountService').val(data.value.model.invoice.amount);
 									//me.$('.expenseType').val(data.value.model.invoice.expenseType);
-									me.$('.expenseType').val( data.value.model.invoice.personCount);
+									me.$('.expenseType').val( data.value.model.invoice.personCount );
                                     me.$('.invoiceHead').val(data.value.model.invoice.invoiceHead);
 									me.$('.payerName').val(data.value.model.invoice.payerName);
 				
 									var payDate = data.value.model.invoice.payDate? new Date( data.value.model.invoice.payDate  )._format('yyyy/MM/dd'):'';
 									me.$('.payDate').val(payDate);
 									me.attrs.orderId = data.value.model.invoice.orderId;
-									me.$('.expenseType').val('1');
+									//me.$('.expenseType').val('1');
 								}else{
 									//me.model.set('expenseType', 0);
 									//me.$('.expenseType').val('0');
@@ -568,7 +568,7 @@ define( function(require, exports, module){
 									var payDate = data.value.model.invoice.payDate? new Date( data.value.model.invoice.payDate  )._format('yyyy/MM/dd'):'';
 									me.$('.payDate').val(payDate);
 									me.attrs.orderId = data.value.model.invoice.orderId;
-									me.$('.expenseType').val('1')
+									//me.$('.expenseType').val('1')
 								}else{
 									//me.model.set('expenseType', 0);
 									//me.$('.expenseType').val('0');
