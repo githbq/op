@@ -91,6 +91,7 @@ define( function(require, exports, module){
 			'.expenseType-bind':'expenseTypeBind',
 			'.show-service':'showService',
 			'.refuse-disabled':'refuseDisabled',
+			'.personCount-bind':'personCount',
 			'.un-disabled':'unDisabled'
 		},
 
@@ -117,13 +118,14 @@ define( function(require, exports, module){
 				'r': false,
 				'c': false,
 				's': false,
+				'm':false,
 				'pr': false,
 				'start':false
 			};
 
 			//检查是否获取完毕
 			function check(){
-				if( state.i && state.e && state.p && state.g && state.k && state.r && state.c && state.s && state.pr && state.start){
+				if( state.i && state.e && state.p && state.g && state.k && state.r && state.c && state.s && state.m && state.pr && state.start){
 					me.state = true;
 				}
 			}
@@ -177,6 +179,9 @@ define( function(require, exports, module){
 			
 			//获取星级状态
 			generate('LEADS_STATUS', me.$firmStatus , 'start');
+			
+			//获取服务费   
+			generate('OPEN_VERSION_NUM', me.$personCount , 'm');
 		},
 		
 		init: function(){
@@ -248,12 +253,26 @@ define( function(require, exports, module){
 				}
 			});
 			
-			//服务费类型
-			me.$expenseTypeBind.on('change',function(){
-				if(me.$expenseTypeBind.val()==1){
-					me.$showService.show();
-				}else{
-					me.$showService.hide();
+			//服务费修改
+			me.$personCount.on('change',function(){
+				var serviceType = me.$personCount.val();
+				
+				switch(serviceType)
+				{
+					case '1':
+					  me.model.set('amount-bind',2000);
+					  break;
+					case '2':
+					  me.model.set('amount-bind',3000);
+					  break;
+					case '3':
+					  me.model.set('amount-bind',6000);
+					  break;
+					case '4':
+					  me.model.set('amount-bind',8000);
+					  break;
+					default:
+					  me.model.set('amount-bind','');
 				}
 			});
 			
@@ -562,6 +581,32 @@ define( function(require, exports, module){
 					util.unWarnInput( $this );
 				}
 			});
+			if( !me.model.get('contract-bind')){
+				util.warnInput( $('.contractCopy-bind') );
+				state = false;
+			}else{
+				util.unWarnInput( $('.contractCopy-bind') );
+			}
+			if( !me.$('.money-date').val() ){
+				util.warnInput( $('.money-date') );
+				state = false;
+			}else{
+				util.unWarnInput( $('.money-date') );
+			}
+
+			if( !me.$('.startTime-bind').val() ){
+				util.warnInput( $('.startTime-bind') );
+				state = false;
+			}else{
+				util.unWarnInput( $('.startTime-bind') );
+			}
+
+			if( !me.$('.endTime-bind').val() ){
+				util.warnInput( $('.endTime-bind') );
+				state = false;
+			}else{
+				util.unWarnInput( $('.endTime-bind'));
+			}
 			if( state == false ){
 				util.showToast('信息填写不完整');
 				return ;
@@ -587,7 +632,7 @@ define( function(require, exports, module){
 			objDate['enterpriseAccount'] = me.model.get('enterpriseAccountRecord');
 			objDate['processInstanceId'] = me.attrs.id;
 			objDate['opinion'] = '';
-			objDate['payServiceCharge'] = me.$expenseTypeBind.val();
+			objDate['personCount'] = me.$personCount.val();
 			
 			objDate['contract'] = me.model.get('contract-bind');
 			objDate['contractFileName']=me.model.get('contractFileName-bind');
@@ -602,19 +647,12 @@ define( function(require, exports, module){
 			objDate['companyGateKeyword']=me.model.get('companyGateKeyword-bind');
 			objDate['companyGateRemark']=me.model.get('companyGateRemark-bind');
 			objDate['presentOfficeEdition']=0;
-			if( me.$expenseTypeBind.val() == 1 ){
 			
-				objDate['serviceChargeAmount']=me.model.get('amount-bind');
-				objDate['invoiceHead']=me.model.get('invoiceHead-bind');
-				objDate['payerName']=me.model.get('payerName-bind');
-				objDate['payDate']=me.$('.money-date').val()?new Date( me.$('.money-date').val() ).getTime():'';
-				
-			}
-			if( !objDate['contract'] && !objDate['contractFileName'] && !objDate['contractStartTime'] && !objDate['contractEndTime']){
-					util.showToast('请上传合同和合同时间！');
-					return false;
-				}
-
+			objDate['serviceChargeAmount']=me.model.get('amount-bind');
+			objDate['invoiceHead']=me.model.get('invoiceHead-bind');
+			objDate['payerName']=me.model.get('payerName-bind');
+			objDate['payDate']=me.$('.money-date').val()?new Date( me.$('.money-date').val() ).getTime():'';
+			
 			util.api({
                     'url': '/enterprisefiling/saveandbindenterprisefiling',
                     'data':objDate,
@@ -673,13 +711,6 @@ define( function(require, exports, module){
 							me.attrs.isServiceChargeReject =  data.value.isServiceChargeReject
 							
 							me.downBindFile(data);
-							if( data.value.invoice ){
-								me.attrs['orderId'] = data.value.invoice.orderId;
-								me.$('.show-service').show();
-								
-							}else{
-								me.$('.show-service').hide();
-							}
 							
 							me.setState();
 						}
@@ -698,12 +729,7 @@ define( function(require, exports, module){
 							//me.getRegistrationEnterprise(data);
 							me.getRecordEnterprise( data );
 							me.downBindFile(data);
-							if( data.value.invoice ){
-								me.attrs['orderId'] = data.value.invoice.orderId;
-								me.$('.show-service').show();
-							}else{
-								me.$('.show-service').hide();
-							}
+					
 							me.setState();
 						}
 					}
@@ -746,13 +772,7 @@ define( function(require, exports, module){
 							me.getRecordEnterprise( data );
 							me.downFile(data);
 							me.downBindFile(data);
-							if( data.value.invoice ){
-								me.attrs['orderId'] = data.value.invoice.orderId;
-								me.$('.show-service').show();	
-							}else{
-								me.$('.show-service').hide();
-							}
-		
+							
 							translateBool( 'isSaleTeam' , data.value.model['isSaleTeam'] );
 							translateBool( 'isFirstmeetingSign' , data.value.model['isFirstmeetingSign'] );
 							translateBool( 'isWillPin' , data.value.model['isWillPin'] );
@@ -777,12 +797,7 @@ define( function(require, exports, module){
 							me.getRegistrationEnterprise(data);
 							me.getRecordEnterprise( data );
 							me.downBindFile(data);
-							if( data.value.invoice ){
-								me.attrs['orderId'] = data.value.invoice.orderId;
-								me.$('.show-service').show();
-							}{
-								me.$('.show-service').hide();
-							}
+							
 							
 							translateBool( 'isSaleTeam' , data.value.model['isSaleTeam'] );
 							translateBool( 'isFirstmeetingSign' , data.value.model['isFirstmeetingSign'] );
@@ -919,14 +934,14 @@ define( function(require, exports, module){
 			me.model.set('remark-bind',data.value.enterpriseExtend.remark);
 			if(data.value.invoice){
 
-				me.model.set('expenseType-bind',data.value.invoice.expenseType);
+				me.model.set('personCount-bind',data.value.invoice.personCount);
 				me.model.set('amount-bind',data.value.invoice.amount);
 				me.model.set('invoiceHead-bind',data.value.invoice.invoiceHead);
 				me.model.set('payerName-bind',data.value.invoice.payerName);
 				me.model.set('payDate-bind',data.value.invoice.payDate ? new Date( data.value.invoice.payDate )._format('yyyy/MM/dd'):'');
 			}else{
-				me.model.set('expenseType-bind',0);
-				me.$expenseTypeBind.val(0)
+				me.model.set('personCount-bind',0);
+			
 			}
 			
 		 },

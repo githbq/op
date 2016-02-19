@@ -55,7 +55,7 @@ define( function(require, exports, module){
 			'.action-add': 'actionSave',
 			'.money-date':'moneyDate',
 			'.firm-status':  'firmStatus',
-			'.payServiceCharge':'payServiceCharge',
+			'.personCount':'personCount',
 			'.checkedDisable':'checkedDisable'
 			
 		},
@@ -72,7 +72,8 @@ define( function(require, exports, module){
 			var state = {
 				'i': false,
 				'e': false,
-				's': false
+				's': false,
+				'm':false
 			};
 
 			//检查是否获取完毕
@@ -106,6 +107,8 @@ define( function(require, exports, module){
 			generate('ENT_LST_SOURCE', me.$source , 'e');
 			//获取星级状态
 			generate('LEADS_STATUS', me.$firmStatus , 's');
+			//获取服务费   
+			generate('OPEN_VERSION_NUM', me.$personCount , 'm');
 
 		},
 		getInfo:function(){
@@ -151,16 +154,56 @@ define( function(require, exports, module){
 			entObj['presentOfficeEdition']=0;
 			entObj['companyGateKeyword']=me.model.get('companyGateKeyword');
 			entObj['companyGateRemark']=me.model.get('companyGateRemark');
-			entObj['payServiceCharge']=me.model.get('payServiceCharge');
+			entObj['personCount']=me.model.get('personCount');
 			entObj['serviceChargeAmount']=me.model.get('serviceChargeAmount');
 			entObj['invoiceHead']=me.model.get('invoiceHead');
 			entObj['payerName']=me.model.get('payerName');
 			entObj['payDate']= me.$('.money-date').val() ? new Date( me.$('.money-date').val() ).getTime() :'';
 			
-			if( !entObj['contract'] && !entObj['contractFileName'] && !entObj['contractStartTime'] && !entObj['contractEndTime']){
-				util.showToast('请上传合同和合同时间等信息！');
-				return false;
+			var state = true; 
+			me.$('.required').each(function(){
+				var $this = $( this );
+				var attr = $this.attr('ce-model');
+				if( !me.model.get(attr) ){
+					util.warnInput( $this );
+					state = false;
+					
+				}else{
+					util.unWarnInput( $this );
+				}
+			});
+			if( !me.model.get('contract')){
+				util.warnInput( $('.contract') );
+				state = false;
+			}else{
+				util.unWarnInput( $('.contract') );
 			}
+			if( !entObj['payDate'] ){
+				util.warnInput( $('.money-date') );
+				state = false;
+			}else{
+				util.unWarnInput( $('.money-date') );
+			}
+
+			if( !entObj['contractStartTime'] ){
+				util.warnInput( $('.startTime') );
+				state = false;
+			}else{
+				util.unWarnInput( $('.startTime') );
+			}
+
+			if( !entObj['contractEndTime'] ){
+				util.warnInput( $('.endTime') );
+				state = false;
+			}else{
+				util.unWarnInput( $('.endTime'));
+			}
+
+			if( state == false ){
+				util.showToast('信息填写不完整');
+				return ;
+			}
+			
 			
 			util.api({
 					'url': '/enterprisefiling/bindingenterprisefiling',
@@ -215,19 +258,35 @@ define( function(require, exports, module){
             } );
 			me.$moneyDate.datetimepicker({'timepicker': false,'format':'Y/m/d'});
 			
-			me.$payServiceCharge.on('change',function(){
-				if(me.$payServiceCharge.val() == 1 ){
-					me.$checkedDisable.removeAttr('disabled')
-				}else{
-					me.$checkedDisable.attr('disabled','disabled');
-				}
-			});
 
 			 //初始化日期选择
             me.$visiteTime.datetimepicker({
                 format: 'Y/m/d',
                 timepicker: true
             });
+			
+			//服务费修改
+			me.$personCount.on('change',function(){
+				var serviceType = me.$personCount.val();
+				
+				switch(serviceType)
+				{
+					case '1':
+					  me.model.set('serviceChargeAmount',2000);
+					  break;
+					case '2':
+					  me.model.set('serviceChargeAmount',3000);
+					  break;
+					case '3':
+					  me.model.set('serviceChargeAmount',6000);
+					  break;
+					case '4':
+					  me.model.set('serviceChargeAmount',8000);
+					  break;
+					default:
+					  me.model.set('serviceChargeAmount','');
+				}
+			});
 			
 			
 			/**
