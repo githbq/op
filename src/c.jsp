@@ -131,7 +131,7 @@
     IBSS.API_PATH = '/op/api/c';       //api路径
     IBSS.IS_DEVELOP = true;
     // IBSS.VERSION ='4.7.' + (new Date()).getTime();
-    IBSS.VERSION ='5.1.2';
+    IBSS.VERSION ='5.1.2.20160219';
 </script>
 
 <!--build:common resources/common/scripts/common.js-->
@@ -160,7 +160,5 @@
 
 </body>
 </html>
-
-
 
 

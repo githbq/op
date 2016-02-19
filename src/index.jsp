@@ -60,19 +60,19 @@
                     <li>
                         <a href="#index/paid">付费生命周期</a>
                     </li>
-                    <li>
+					<li>
                         <a href="#index/personactive">个人活跃汇总</a>
                     </li>
-                    <li>
+					<li>
                         <a href="#index/activeanalyze">阶段活跃团队分析</a>
                     </li>
-                    <li>
+					<li>
                         <a href="#index/detail">企业日活跃详情报表</a>
                     </li>
-                    <li>
+					<li>
                         <a href="#index/lstreport">企业日活跃汇总报表</a>
                     </li>
-                    <li>
+					<li>
                         <a href="#index/monthanalyze">月季度团队数据分析</a>
                     </li>
                     <li>
@@ -93,20 +93,19 @@
             </li>-->
             <li data-permissions="F008002 F008006 F008005">
                 <a class="nav-root">客户</a>
-                 <ul class="nav-sub">
+				 <ul class="nav-sub">
                     <li data-permissions="F008002 F008006"><a href="#eme/lst">客户</a></li>
-                    <!--热线查询单独菜单-->
+					<!--热线查询单独菜单-->
                     <li data-permissions="F008005"><a href="#eme/clientlst">热线查询</a></li>
-                   <li data-permissions="F008001 F008002 F008006 F008005"><a href="#eme/joinlimit">账号加入上限</a></li>
-                   <li data-permissions="F008001 F008002 F008006 F008005"><a href="#eme/loginlimit">账号注册上限</a></li>
-
+					<li data-permissions="F008001 F008002 F008006 F008005"><a href="#eme/joinlimit">账号加入上限</a></li>
+					<li data-permissions="F008001 F008002 F008006 F008005"><a href="#eme/loginlimit">账号注册上限</a></li>
                 </ul>
             </li>
-            
+			
             <li data-permissions="F008002 F008006">
                 <a href="#page/approvallist">我的审批</a>
             </li>
-            <li data-permissions="F008004 F008003">
+			<li data-permissions="F008004 F008003">
                 <a href="#page/watchent">企业监察</a>
             </li>
         </ul>
@@ -147,7 +146,7 @@
     IBSS.API_PATH = '/op/api/s';       //api路径
     IBSS.IS_DEVELOP = true;
     // IBSS.VERSION ='4.7.' + (new Date()).getTime();
-    IBSS.VERSION ='5.1.2';
+    IBSS.VERSION ='5.1.2.20160219';
 </script>
 
 <!--build:common resources/common/scripts/common.js-->
@@ -176,6 +175,7 @@
 
 </body>
 </html>
+
 
 
 

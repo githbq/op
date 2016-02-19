@@ -42,9 +42,9 @@
                 <a href="#index/detail">活跃度</a>
                 <ul class="nav-sub">
                     <li><a href="#index/detail">企业日活跃详情报表 </a></li>
-                    <li><a href="#index/lstreport">企业日活跃汇总报表</a></li>
-                    <li><a href="#index/personactive">个人活跃汇总</a></li>
-                    <li data-permissions="F009002 F009001"><a href="#act/activeanalyze">阶段活跃分析</a></li>
+					<li><a href="#index/lstreport">企业日活跃汇总报表</a></li>
+					<li><a href="#index/personactive">个人活跃汇总</a></li>
+					<li data-permissions="F009002 F009001"><a href="#act/activeanalyze">阶段活跃分析</a></li>
                     <li>
                         <a href="#pagecommon/activeanalyze">阶段活跃团队分析</a>
                     </li>
@@ -97,7 +97,7 @@
         IBSS.API_PATH = '/op/api/a';       //api路径
         IBSS.IS_DEVELOP = true;
         // IBSS.VERSION ='4.7.' + (new Date()).getTime();
-        IBSS.VERSION ='5.1.2.20160125';
+        IBSS.VERSION ='5.1.2.20160219';
 </script>
 
 <!--build:common resources/common/scripts/common.js-->
@@ -125,4 +125,5 @@
 </script>
 </body>
 </html>
+
 
