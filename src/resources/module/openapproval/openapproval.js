@@ -90,12 +90,13 @@ define( function(require, exports, module){
                 'r': false,
                 'c': false,
                 's': false,
-                'pr': false
+                'pr': false,
+                'service': false
             };
 
             //检查是否获取完毕
             function check(){
-                if( state.i && state.e && state.p && state.g && state.k && state.r && state.c ){
+                if( state.i && state.e && state.p && state.g && state.k && state.r && state.c && state.service ){
                     me.state = true;
                 }
             }
@@ -196,8 +197,8 @@ define( function(require, exports, module){
             //获取公司规模
             generate('CAMPANY_SCALE', me.$companyscale , 'c');
 
-            //获取销售团队规模
-            //generate('SALE_TEAM_SCALE', me.$saleteamscale ,'s');
+            //培训服务费
+            generate('OPEN_VERSION_NUM', me.$('.expenseType') ,'service');
         },
 		getFreeNum: function(){
 			var me = this;
@@ -511,10 +512,18 @@ define( function(require, exports, module){
             me.$showType.hide();
 			me.$addType.hide();
 			me.$('.show-service').hide();
+            
+            //付费审批
+            //付费审批 showType的元素显示
             if( me.attrs.type  == 'payLaunchApproval' ){
                 me.$showType.show();
+            
+            //免费审批
+            //免费审批 showType的元素隐藏
             }else if( me.attrs.type  == 'freeLaunchApproval' ){
 				me.$showType.hide();
+                me.$('.show-service').show();
+                
 				if(me.attrs.currentState == 'end' || me.attrs.currentState == 'allEnd'){
 					util.api({
 						'url':'/order/getOrderDetailByEnterpriseId',
@@ -524,10 +533,10 @@ define( function(require, exports, module){
 						'success': function( data ){
 							if( data.success ){
 								if( data.value.model.invoice ){
-									me.$('.show-service').show();
 									me.$('.amountService').val(data.value.model.invoice.amount);
-									me.$('.expenseType').val(data.value.model.invoice.expenseType);
-									me.$('.invoiceHead').val(data.value.model.invoice.invoiceHead);
+									//me.$('.expenseType').val(data.value.model.invoice.expenseType);
+									me.$('.expenseType').val( data.value.model.invoice.personCount);
+                                    me.$('.invoiceHead').val(data.value.model.invoice.invoiceHead);
 									me.$('.payerName').val(data.value.model.invoice.payerName);
 				
 									var payDate = data.value.model.invoice.payDate? new Date( data.value.model.invoice.payDate  )._format('yyyy/MM/dd'):'';
@@ -535,8 +544,8 @@ define( function(require, exports, module){
 									me.attrs.orderId = data.value.model.invoice.orderId;
 									me.$('.expenseType').val('1');
 								}else{
-									me.model.set('expenseType', 0);
-									me.$('.expenseType').val('0');
+									//me.model.set('expenseType', 0);
+									//me.$('.expenseType').val('0');
 								}
 							}
 						}
@@ -550,10 +559,10 @@ define( function(require, exports, module){
 						'success': function( data ){
 							if( data.success ){
 								if( data.value.model.isPayServiceCharge ){
-									me.$('.show-service').show();
 									me.$('.amountService').val(data.value.model.invoice.amount);
-									me.$('.expenseType').val(data.value.model.invoice.expenseType);
-									me.$('.invoiceHead').val(data.value.model.invoice.invoiceHead);
+									//me.$('.expenseType').val(data.value.model.invoice.expenseType);
+									me.$('.expenseType').val( data.value.model.invoice.personCount );
+                                    me.$('.invoiceHead').val(data.value.model.invoice.invoiceHead);
 									me.$('.payerName').val(data.value.model.invoice.payerName);
 				
 									var payDate = data.value.model.invoice.payDate? new Date( data.value.model.invoice.payDate  )._format('yyyy/MM/dd'):'';
@@ -561,8 +570,8 @@ define( function(require, exports, module){
 									me.attrs.orderId = data.value.model.invoice.orderId;
 									me.$('.expenseType').val('1')
 								}else{
-									me.model.set('expenseType', 0);
-									me.$('.expenseType').val('0');
+									//me.model.set('expenseType', 0);
+									//me.$('.expenseType').val('0');
 								}
 							}
 						}
@@ -572,7 +581,7 @@ define( function(require, exports, module){
 			}else if( me.attrs.type  == 'addPurchaseApproval' || me.attrs.type  == 'addFreeApproval' ){
 				me.$addType.show();
 				me.$showType.hide();
-					//获取增购信息
+			    //获取增购信息
 				util.api({
 					'url': '/enterprise/getIncreaseEnterpriseAccountDetail',
 					'data':{
@@ -687,7 +696,6 @@ define( function(require, exports, module){
 						}
 					}
 				});
-				
 			}
 			
         },
@@ -744,10 +752,13 @@ define( function(require, exports, module){
 		//保存并提交
         resendEve: function(){
 			var me = this;
-			me.model.set('dealDays',parseInt(me.model.get('dealDays'))?parseInt(me.model.get('dealDays')):'');
-			me.model.set('storageTotalSpace',parseFloat(me.model.get('storageTotalSpace'))?parseFloat(me.model.get('storageTotalSpace')):'');
-			var objDate = me.model.all();
-			objDate['contract']=me.model.get('contract');
+            
+			me.model.set('dealDays', parseInt( me.model.get('dealDays') ) ? parseInt( me.model.get('dealDays') ) :'' );
+			me.model.set('storageTotalSpace', parseFloat( me.model.get('storageTotalSpace') ) ? parseFloat(me.model.get('storageTotalSpace')):'' );
+			
+            var objDate = me.model.all();
+			
+            objDate['contract']=me.model.get('contract');
 			objDate['contractFileName']=me.model.get('contractFileName');
 			objDate['contractCopy']=me.model.get('contractCopy');
 			objDate['contractCopyFileName']=me.model.get('contractCopyFileName');
@@ -757,7 +768,9 @@ define( function(require, exports, module){
 			objDate['businessLicenseFileName']=me.model.get('businessLicenseFileName');
 			objDate['contractStartTime']=new Date( me.$startTimeHt.val() ).getTime();
 			objDate['contractEndTime']=new Date( me.$endTimeHt.val() ).getTime();
-			if( me.attrs.type  == 'payLaunchApproval' ){
+			
+            if( me.attrs.type  == 'payLaunchApproval' ){
+                
                 objDate['contractType'] = 1;
 				objDate['contractPrice']=me.model.get('contractPrice');
 				objDate['discount']=me.model.get('discount');
@@ -788,6 +801,7 @@ define( function(require, exports, module){
 				objDate['isPaid']=me.model.get('isPaid');
 				
             }else{
+                
 				objDate['contractType'] = 0;
 				objDate['contractPrice']='';
 				objDate['discount']='';
@@ -842,6 +856,7 @@ define( function(require, exports, module){
 				util.showToast('信息填写不完整');
 				return ;
 			}
+            
             //保存后同意审批
             function changeNode(){
                util.api({
@@ -869,6 +884,7 @@ define( function(require, exports, module){
 					}
                 });
             };
+            
 			var bool = confirm("确认修改并同意此条审批吗?");
             if( bool ){
 				//更新企业详情

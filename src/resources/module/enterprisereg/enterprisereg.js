@@ -17,12 +17,7 @@ define( function(require, exports, module){
         
    
     //服务费MAP
-    var ServiceMap = {
-        '1': 2000,
-        '2': 3000,
-        '3': 6000,
-        '4': 8000
-    }
+    var ServiceMap = IBSS.ServiceMap;
         
         
         

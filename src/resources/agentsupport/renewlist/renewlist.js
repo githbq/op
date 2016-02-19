@@ -260,9 +260,11 @@ define( function( require, exports, module ) {
         //
     });
 
+
+
     /**
      *
-     *付费开通审批详情
+     * 付费开通审批详情
      */
     var OpenApproval = MClass( Slider ).include({
         
@@ -287,9 +289,9 @@ define( function( require, exports, module ) {
             '.content-product': 'product',
             '.companyscale':'companyscale',
             '.saleteamscale':'saleteamscale',
-			'.yearlimit': 'yearlimit',               //合同年限
-			'.contractprice': 'contractprice',       //合同金额
-			'.deviceamount': 'deviceamount',          //终端数量
+			'.yearlimit': 'yearlimit',                           //合同年限
+			'.contractprice': 'contractprice',                   //合同金额
+			'.deviceamount': 'deviceamount',                     //终端数量
 			'.marketingAccountAmount':'marketingAccountAmount',
             '.endTime': 'endTime',
 			'.status-disabled': 'statusDisabled',
@@ -353,12 +355,13 @@ define( function( require, exports, module ) {
                 'r': false,
                 'c': false,
                 's': false,
-                'pr': false
+                'pr': false,
+                'service': false
             };
 
             //检查是否获取完毕
             function check(){
-                if( state.i && state.e && state.p && state.g && state.k && state.r && state.c && state.s && state.pr ){
+                if( state.i && state.e && state.p && state.g && state.k && state.r && state.c && state.s && state.pr && state.service){
                     me.state = true;
                 }
             }
@@ -453,14 +456,21 @@ define( function( require, exports, module ) {
 			});
 			
 			//服务费修改
+            
 			me.$expenseType.on('change',function(){
-				if(me.$expenseType.val()==1){
-					me.$showService.show();
-				}else{
-					me.$showService.hide();
-				}
-			});
 
+                var value = me.$expenseType.val();
+                var amount;
+                if( value ){
+                    amount = IBSS.ServiceMap[value];
+                }else{
+                    amount = '';
+                }
+                console.log( amount );                
+                me.model.set('amountService',amount);
+			});
+            
+            
 			me.$('.accountTotalAmountAdd').on('focusout',function(){
 				
 				var buyCount = me.model.get('marketingAccountAmountAdd')?parseInt(me.model.get('marketingAccountAmountAdd')):0;
@@ -517,8 +527,10 @@ define( function( require, exports, module ) {
             //获取销售团队规模
             generate('SALE_TEAM_SCALE', me.$saleteamscale ,'s');
 			
-			
+            //获取阶梯收费详情
+			generate('OPEN_VERSION_NUM', me.$('.expenseType'),'service');
         },
+        
 		//增购获取赠送数量
 		getFreeNumAdd: function(){
 			var me = this;
@@ -537,9 +549,11 @@ define( function( require, exports, module ) {
 				me.model.set('isPaidAdd','0');
 			}*/
 		},
-		//增购获取折扣
+		
+        //增购获取折扣
 		getdiscountAdd: function(){
 			var me = this;
+            
 			var contractStartTime = new Date( me.$('.start-time-ht-add').val() ).getTime()||'' ,
 				contractEndTime = new Date( me.$('.end-time-ht-add').val() ).getTime()||'',
 				contractPrice =me.$('.contractpriceAdd').val(),
@@ -604,6 +618,7 @@ define( function( require, exports, module ) {
 				})
 			}
 		},
+        
 		//获取赠送数量
 		getFreeNum: function(){
 			var me = this;
@@ -699,6 +714,7 @@ define( function( require, exports, module ) {
         init: function(){
             OpenApproval.__super__.init.apply( this,arguments );
             var me = this;
+            
 			me.$startTimeHt.datetimepicker( {
                 format: 'Y/m/d',
                 onShow: function() {
@@ -709,6 +725,7 @@ define( function( require, exports, module ) {
                 },
                 timepicker: false
             } );
+            
             me.$endTimeHt.datetimepicker( {
                 format: 'Y/m/d',
                 onShow: function() {
@@ -719,7 +736,8 @@ define( function( require, exports, module ) {
                 },
                 timepicker: false
             } );
-			me.$('.start-time-ht-add').datetimepicker( {
+			
+            me.$('.start-time-ht-add').datetimepicker( {
                 format: 'Y/m/d',
                 onShow: function() {
                     var maxDateAdd = me.$('.end-time-ht-add').val() ? me.$('.end-time-ht-add').val() : false;
@@ -729,6 +747,7 @@ define( function( require, exports, module ) {
                 },
                 timepicker: false
             } );
+            
             me.$('.end-time-ht-add').datetimepicker( {
                 format: 'Y/m/d',
                 onShow: function() {
@@ -739,6 +758,7 @@ define( function( require, exports, module ) {
                 },
                 timepicker: false
             } );
+            
 			//办公版合同时间
 			me.$('.start-time-ht-free').datetimepicker( {
                 format: 'Y/m/d',
@@ -910,7 +930,7 @@ define( function( require, exports, module ) {
 					me.$actionSave.text('文件上传...');
 					me.$actionResend.attr('disabled','disabled');
 					me.$actionResend.text('文件上传...');
-					 uploader.send({
+					uploader.send({
 						'url': '/op/api/file/uploadsinglefileandcheck',
 						'files': me.$yyzhizhao[0].files,
 						'options':{
@@ -945,6 +965,7 @@ define( function( require, exports, module ) {
 				}
 				
 			});
+            
 			//增购合同与合同副本
 			me.$('.contractAdd').on('change',function(){
 				var fileExtension = me.$contractAdd[0].files[0].name.split('.').pop().toLowerCase();
@@ -988,6 +1009,7 @@ define( function( require, exports, module ) {
 				}
 				
 			});
+            
 			//增购合同与合同副本
 			me.$('.contractCopyAdd').on('change',function(){
 				var fileExtension =me.$contractCopyAdd[0].files[0].name.split('.').pop().toLowerCase();
@@ -1119,7 +1141,8 @@ define( function( require, exports, module ) {
 			});
         },
 
-        //设置状态
+        // 设置状态
+        // show的时候根据参数 进行不同状态切换
         setState: function(){
             var me = this;
 
@@ -1164,6 +1187,7 @@ define( function( require, exports, module ) {
 			}
 			me.setType();
         },
+        
 		//根据申请类型不同显示不同的信息
         setType: function(){
             var me = this;
@@ -1173,33 +1197,41 @@ define( function( require, exports, module ) {
 			me.$addType.hide();
 			me.$('.show-service').hide();
 			
+            //付费审批
             if( me.attrs.type  == 'payLaunchApproval' ){
+                
                 me.$showType.show();
+            
+            //免费审批
             }else if( me.attrs.type  == 'freeLaunchApproval' ){
+                
 				me.$showType.hide();
+                me.$('.show-service').show();    
+                //
 				if( me.attrs.currentState=='end'){
 					util.api({
-						'url':'/order/getOrderDetailByEnterpriseId ',
+						'url':'/order/getOrderDetailByEnterpriseId',
 						'data':{
 							'enterpriseId': me.attrs.eid
 						},
 						'success': function( data ){
 							if( data.success ){
 								if( data.value.model.invoice ){
-									me.$('.show-service').show();
+									//me.$('.show-service').show();
 									me.model.load( data.value.model.invoice )
 									me.model.set('amountService', data.value.model.invoice.amount);
 									var payDate = data.value.model.invoice.payDate? new Date( data.value.model.invoice.payDate  )._format('yyyy/MM/dd'):'';
 									me.model.set('payDate', payDate);
 									me.attrs.orderId = data.value.model.invoice.orderId;
-									me.$expenseType.val('1');
+									me.$expenseType.val( data.value.model.invoice.personCount );
 								}else{
-									me.model.set('expenseType', 0);
-									me.$expenseType.val('0');
+									//me.model.set('expenseType', 0);
+									//me.$expenseType.val('0');
 								}
 							}
 						}
 					});
+                //
 				}else{
 					util.api({
 						'url':'/order/getOrderDetailByProcessInstanceId',
@@ -1210,22 +1242,22 @@ define( function( require, exports, module ) {
 							if( data.success ){
 								if( data.value.model.isPayServiceCharge ){
 									me.attrs.saveFlag = 1;
-									me.$('.show-service').show();
+									//me.$('.show-service').show();
 									me.model.load( data.value.model.invoice )
 									me.model.set('amountService', data.value.model.invoice.amount);
 									var payDate = data.value.model.invoice.payDate? new Date( data.value.model.invoice.payDate  )._format('yyyy/MM/dd'):'';
 									me.model.set('payDate', payDate);
 									me.attrs.orderId = data.value.model.invoice.orderId;
-									me.$expenseType.val('1');
+									me.$expenseType.val( data.value.model.invoice.personCount );
 								}else{
 									me.attrs.saveFlag = 0;
-									me.model.set('expenseType', 0);
-									me.$expenseType.val('0');
+									//me.model.set('expenseType', 0);
+									//me.$expenseType.val('0');
 								}
 								if(  me.attrs.isCurrentTask  == 'true' ){
 									me.$refuseDisabled.removeAttr('disabled');
 									if( data.value.model.isServiceChargeReject ){
-										me.$expenseType.attr('disabled','disabled');
+										//me.$expenseType.attr('disabled','disabled');
 									}
 									
 								}
@@ -1573,11 +1605,19 @@ define( function( require, exports, module ) {
 			me.$actionSave.attr('disabled','disabled');
 			me.$actionBackout.text('提交中....');
 			me.$actionBackout.attr('disabled','disabled');
+            
             util.api({
                 url: '/enterprise/updateenterprise',
                 data: objDate,
                 success: function( data ) {
-
+                    
+                    if ( data.success && me.attrs.type != 'freeLaunchApproval' && !me.attrs.orderId ){
+                        util.showTip('保存更新成功!');
+                        me.trigger( 'saveSuccess' );
+                        me.hide();  
+                    };
+                    
+                    /*
                     if ( data.success && me.attrs.type != 'freeLaunchApproval' && !me.attrs.orderId ) {
                          util.showTip('保存更新成功！');
 						 me.trigger( 'saveSuccess');
@@ -1595,6 +1635,7 @@ define( function( require, exports, module ) {
 						 * @param payDate 付款日期
 						 * @return
 						 */
+                        /*
 						if(me.attrs.saveFlag != me.$expenseType.val()){ 
 							serviceObj['processInstanceId'] = me.attrs.id;
 							serviceObj['serviceChargeAmount'] = me.model.get('amountService');
@@ -1640,7 +1681,8 @@ define( function( require, exports, module ) {
 							 me.trigger( 'saveSuccess');
 							 me.hide();
 						}
-					}
+                        
+					}*/
                 },
 				complete: function(){
 					me.$actionResend.text('保存提交');
@@ -1968,6 +2010,7 @@ define( function( require, exports, module ) {
 					serviceObj['processInstanceId'] = me.attrs.id;
 					serviceObj['serviceChargeAmount'] = me.model.get('amountService');
 					serviceObj['payServiceCharge'] = me.model.get('expenseType');
+                    serviceObj['personCount'] = me.model.get('expenseType');
 					serviceObj['invoiceHead'] = me.model.get('invoiceHead');
 					serviceObj['payerName'] = me.model.get('payerName');
 					serviceObj['payDate'] = me.$('.money-date').val()? new Date( me.$('.money-date').val() ).getTime():'';
@@ -2257,6 +2300,7 @@ define( function( require, exports, module ) {
 					serviceObj['processInstanceId'] = me.attrs.id;
 					serviceObj['serviceChargeAmount'] = me.model.get('amountService');
 					serviceObj['payServiceCharge'] = me.model.get('expenseType');
+                    serviceObj['personCount'] = me.model.get('expenseType');
 					serviceObj['invoiceHead'] = me.model.get('invoiceHead');
 					serviceObj['payerName'] = me.model.get('payerName');
 					serviceObj['payDate'] = me.$('.money-date').val()? new Date( me.$('.money-date').val() ).getTime():'';
