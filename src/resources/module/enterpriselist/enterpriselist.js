@@ -115,7 +115,7 @@ define( function(require, exports, module){
             generateSelect( 'ENT_LST_ACTIVITY', this.$activity );
             generateSelect( 'OPEN_VERSION_NUM', this.$('#servicecost'));
 
-
+            console.log( this.$('#servicecost') );
             function generateSelect( name , $select ){
                 util.getEnums( name, function( data ) {
                     var items = data.model, options = '';
@@ -206,7 +206,7 @@ define( function(require, exports, module){
             console.log('deauth');
             console.log( arrays );
 
-            if( arrays.length > 0 ){
+            if( arrays.length <= 0 ){
                 util.showToast('请选择企业');
                 return false;
             }
@@ -253,8 +253,9 @@ define( function(require, exports, module){
                     productId: me.model.get('productId'),
                     agentId: me.model.get('agentId'),
 					accountName:me.model.get('accountName'),
-                    //personCount: me.model.get('personCount'),
+                    personCount: me.model.get('personCount'),
                     productId: me.attrs['productId'],
+                    personCount: me.model.get('personCount'),
                     pageIndex: me.pagination.attr['pageNumber'] + 1,
                     pageSize: me.pagination.attr['pageSize']
                 },

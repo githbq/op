@@ -213,11 +213,51 @@ define( function( require, exports, module ) {
         //授权
         authEve: function(){
             var me = this;
+            var sa = me.getSelect();
+            console.log( sa );
+            if( sa.length <= 0 ){
+                util.showToast('请选择客户');
+                return false;
+            }
+            /*
+            util.api({
+                'url':'',
+                'data':{
+
+                },
+                'success': function( data ){
+                    if( data.success ){
+                        util.showTip('授权成功');
+                        me.load();
+                    }
+                }
+            })
+            */
         },
         
         //取消授权
         deAuthEve: function(){
             var me = this;
+            var sa = me.getSelect();
+            console.log( sa );
+            if( sa.length <= 0 ){
+                util.showToast('请选择客户');
+                return false;
+            }
+            /*
+            util.api({
+                'url':'',
+                'data':{
+
+                },
+                'success': function( data ){
+                    if( data.success ){
+                        util.showTip('授权成功');
+                        me.load();
+                    }
+                }
+            })
+            */
         },
 
         //
