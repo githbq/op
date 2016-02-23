@@ -1,4 +1,4 @@
-/**
+ /**
  * index.html 支持人员企业列表
  * 企业列表
  */
@@ -270,6 +270,13 @@ define( function(require, exports, module){
                             item.runStatusStr = PSTATUS_MAP[item.runStatus];
                             item.isPayedStr = PAYED_MAP[item.isPayed];
                             item.activityStr = ACTIVITY_MAP[item.activity] || '无';
+                            if( item.authLevel == 0 ){
+                                item.authStr = "未授权" 
+                            }else if( item.authLevel == 1){
+                                item.authStr = "全部授权" 
+                            }else if( item.authLevel == 2){
+                                item.authStr = "部分授权" 
+                            }
                         });
                         me.clearSelect();
                     }

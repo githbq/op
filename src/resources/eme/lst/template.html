@@ -2,7 +2,7 @@
     <% _.each(content,function( value ,index ){ %>
     <tr>
         <td></td>
-        <td><input type="checkbox" value="<%=value.employeeid%>" class="selectitem"></td>
+        <td><input type="checkbox" data-pid="<%=value.employeeid%>" data-eid="<%=value.enterpriseId%>" class="selectitem"></td>
         <td><%=value.enterpriseaccount%></td>
         <td><%=value.enterprisename%></td>
         <td><%=value.employeename%></td>

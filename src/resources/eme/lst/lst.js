@@ -201,29 +201,35 @@ define( function( require, exports, module ) {
         //获取选中的数组
         getSelect: function(){
             var me = this
-            var array = [];
+            
+            var eids = [];
+            var pids = [];
+            
             me.$('.selectitem').each( function( index , item ){
                 if( item.checked ){
-                    array.push( $(item).val() );
+                    eids.push( $(item).attr('data-eid') )
+                    pids.push( $(item).attr('data-pid') );
                 }
             } );
-            return array;
+            return { 'eids':eids, 'pids':pids };
         },
 
         //授权
         authEve: function(){
             var me = this;
             var sa = me.getSelect();
-            console.log( sa );
-            if( sa.length <= 0 ){
+
+            if( sa['eids'].length <= 0 ){
                 util.showToast('请选择客户');
                 return false;
             }
-            /*
+            
             util.api({
-                'url':'',
+                'url':'/accountprotectionwhitelist/changeemployeeauth',
                 'data':{
-
+                    'enterpriseAccouts': sa.eids.join(','),
+                    'employeeIds': sa.pids.join(','),
+                    'isAuth': true
                 },
                 'success': function( data ){
                     if( data.success ){
@@ -232,7 +238,7 @@ define( function( require, exports, module ) {
                     }
                 }
             })
-            */
+            
         },
         
         //取消授权
@@ -240,15 +246,17 @@ define( function( require, exports, module ) {
             var me = this;
             var sa = me.getSelect();
             console.log( sa );
-            if( sa.length <= 0 ){
+            if( sa['eids'].length <= 0 ){
                 util.showToast('请选择客户');
                 return false;
             }
-            /*
+            
             util.api({
-                'url':'',
+                'url':'/accountprotectionwhitelist/changeemployeeauth',
                 'data':{
-
+                    'enterpriseAccouts': sa.eids.join(','),
+                    'employeeIds': sa.pids.join(','),
+                    'isAuth': false
                 },
                 'success': function( data ){
                     if( data.success ){
@@ -257,7 +265,7 @@ define( function( require, exports, module ) {
                     }
                 }
             })
-            */
+            
         },
 
         //
