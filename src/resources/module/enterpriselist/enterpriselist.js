@@ -177,8 +177,26 @@ define( function(require, exports, module){
         authEve: function(){
             var me = this;
             var arrays = me.getSelect();
-            console.log('auth');
-            console.log( arrays );
+            
+            if( arrays.length <= 0 ){
+                util.showToast('请选择企业');
+                return false;
+            }
+
+            util.api({
+                'url':'/accountprotectionwhitelist/changeenterpriseauth',
+                'data':{
+                    'enterpriseAccouts': arrays.join(','),
+                    'isAuth': true
+                },
+                'success': function( data ){
+                    console.warn( data );
+                    if( data.success ){
+                        util.showTip('授权成功');
+                        me.getList();
+                    }
+                }
+            })
         },
 
         //取消授权
@@ -187,6 +205,26 @@ define( function(require, exports, module){
             var arrays = me.getSelect();
             console.log('deauth');
             console.log( arrays );
+
+            if( arrays.length > 0 ){
+                util.showToast('请选择企业');
+                return false;
+            }
+
+            util.api({
+                'url':'/accountprotectionwhitelist/changeenterpriseauth',
+                'data':{
+                    'enterpriseAccouts': arrays.join(','),
+                    'isAuth': false
+                },
+                'success': function( data ){
+                    console.warn( data );
+                    if( data.success ){
+                        util.showTip('取消授权成功');
+                        me.getList();
+                    }
+                }
+            })
         },
 
         //默认置为第一页 搜索
