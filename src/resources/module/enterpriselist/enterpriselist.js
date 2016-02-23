@@ -43,7 +43,10 @@ define( function(require, exports, module){
         events: {
             'click #btnSearch': 'search',
             'click .info-detail': 'detailEve',
-            'click .info-trace': 'traceEve'
+            'click .info-trace': 'traceEve',
+            'click .selectall': 'selectAllEve',
+            'click .auth': 'authEve',
+            'click .deauth': 'deauthEve'
         },
         
         init: function() {
@@ -138,6 +141,53 @@ define( function(require, exports, module){
                 });
             }
         },
+        
+        //选择全部
+        selectAllEve: function( e ){
+            var me = this;
+
+            var bool = $( e.currentTarget ).prop('checked');
+
+            me.$('.selectitem').each( function( index , item ){
+                item.checked = bool
+            } );
+        },
+        
+        //清除所有选择
+        clearSelect: function(){
+            this.$('.selectitem').each( function( index , item ){
+                item.checked = false;
+            } );
+            this.$('.selectall').prop('checked',false);
+        },
+
+        //获取选中的数组
+        getSelect: function(){
+            var me = this
+            var array = [];
+            me.$('.selectitem').each( function( index , item ){
+                if( item.checked ){
+                    array.push( $(item).val() );
+                }
+            } );
+            return array;
+        },
+
+        //授权
+        authEve: function(){
+            var me = this;
+            var arrays = me.getSelect();
+            console.log('auth');
+            console.log( arrays );
+        },
+
+        //取消授权
+        deauthEve: function(){
+            var me = this;
+            var arrays = me.getSelect();
+            console.log('deauth');
+            console.log( arrays );
+        },
 
         //默认置为第一页 搜索
         search: function() {
@@ -182,6 +232,7 @@ define( function(require, exports, module){
                             item.isPayedStr = PAYED_MAP[item.isPayed];
                             item.activityStr = ACTIVITY_MAP[item.activity] || '无';
                         });
+                        me.clearSelect();
                     }
                 },
                 error: function() {

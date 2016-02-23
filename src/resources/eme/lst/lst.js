@@ -141,7 +141,7 @@ define( function( require, exports, module ) {
 
     /**
      *
-     * 客户检索
+     * 客户检索列表
      */
     var EmployeeDataTable = MClass( M.Center ).include( {
         tplEme: _.template( tpl.filter( '#trEme' ).html() ),
@@ -157,8 +157,12 @@ define( function( require, exports, module ) {
             'click #btnSearch': 'search',
             'click .up': 'upEve',
             'click .resetpwd': 'resetPwdEve',
-            'click .accountdetail': 'accountDetailEve'
+            'click .accountdetail': 'accountDetailEve',
+            'click .selectall': 'selectAllEve',            //选择全部
+            'click .auth': 'authEve',                      //授权
+            'click .deauth': 'deAuthEve'                   //取消授权
         },
+        //
         init: function() {
             EmployeeDataTable.__super__.init.apply( this, arguments );
             var me = this;
@@ -175,6 +179,48 @@ define( function( require, exports, module ) {
             //me.load();
         },
 
+        //选择全部
+        selectAllEve: function( e ){
+            var me = this;
+
+            var bool = $( e.currentTarget ).prop('checked');
+
+            me.$('.selectitem').each( function( index , item ){
+                item.checked = bool
+            } );
+        },
+        
+        //清除所有选择
+        clearSelect: function(){
+            this.$('.selectitem').each( function( index , item ){
+                item.checked = false;
+            } );
+            this.$('.selectall').prop('checked',false);
+        },
+
+        //获取选中的数组
+        getSelect: function(){
+            var me = this
+            var array = [];
+            me.$('.selectitem').each( function( index , item ){
+                if( item.checked ){
+                    array.push( $(item).val() );
+                }
+            } );
+            return array;
+        },
+
+        //授权
+        authEve: function(){
+            var me = this;
+        },
+        
+        //取消授权
+        deAuthEve: function(){
+            var me = this;
+        },
+
+        //
         upEve: function( e ){
             var me = this;
             var id = $( e.currentTarget ).attr('data-id'),
