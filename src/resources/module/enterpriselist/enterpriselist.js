@@ -113,7 +113,7 @@ define( function(require, exports, module){
             generateSelect( 'ENT_LST_PSTS', this.$pstatus );
             generateSelect( 'INDUSTRY', this.$industry );
             generateSelect( 'ENT_LST_ACTIVITY', this.$activity );
-            //generateSelect( 'OPEN_VERSION_NUM', this.$('#servicecost'));
+            generateSelect( 'OPEN_VERSION_NUM', this.$('#servicecost'));
 
             console.log( this.$('#servicecost') );
             function generateSelect( name , $select ){
@@ -229,7 +229,7 @@ define( function(require, exports, module){
 
         //默认置为第一页 搜索
         search: function() {
-            this.pagination.attr['pageNumber'] = 0;
+            this.pagination.setPage( 0, false );
             this.getList();
         },
 
