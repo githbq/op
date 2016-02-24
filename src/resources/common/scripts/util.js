@@ -553,7 +553,8 @@
 			},opt||{});
 
             //添加token信息
-            opt.token = _token;
+            opt.data = opt.data || {};
+            opt.data.token = _token;
 
 			//
             // 按钮原始文本
