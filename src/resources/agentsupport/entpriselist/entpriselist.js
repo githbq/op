@@ -368,12 +368,12 @@ define( function( require, exports, module ) {
                 's': false,
                 'a': false,
                 'pro': false,
-                'ps': false,
-                'service': false
+                'ps': false
+               
             };
 
             function checkReady(){
-                if( state.i && state.p && state.s && state.a && state.pro && state.ps && state.service ){
+                if( state.i && state.p && state.s && state.a && state.pro && state.ps  ){
                     me.getList();
                 }
             }
@@ -458,7 +458,7 @@ define( function( require, exports, module ) {
             })
             
             //培训服务费
-            var serviceList = [{'name':'全部','value':''}];
+            /*var serviceList = [{'name':'全部','value':''}];
             util.getEnums('OPEN_VERSION_NUM',function( data ){
                 
                 data.value.model.forEach(function( item ){
@@ -467,7 +467,7 @@ define( function( require, exports, module ) {
                 util.resetSelect( me.$('#servicecost'), serviceList );
                 state.service = true;
                 checkReady();
-            })
+            })*/
         },
 
         searchEve: function(){

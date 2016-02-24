@@ -113,7 +113,7 @@ define( function(require, exports, module){
             generateSelect( 'ENT_LST_PSTS', this.$pstatus );
             generateSelect( 'INDUSTRY', this.$industry );
             generateSelect( 'ENT_LST_ACTIVITY', this.$activity );
-            generateSelect( 'OPEN_VERSION_NUM', this.$('#servicecost'));
+            //generateSelect( 'OPEN_VERSION_NUM', this.$('#servicecost'));
 
             console.log( this.$('#servicecost') );
             function generateSelect( name , $select ){
@@ -134,7 +134,7 @@ define( function(require, exports, module){
 
                     $select.append( options );
                     state = state + 1;
-                    if( state > 5 ){
+                    if( state >4 ){
 
                         me.getList();
                     }
