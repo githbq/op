@@ -333,6 +333,13 @@
         $preview.hide();
 	});
 
+    //获取token信息
+    var _token = $('#key').val();
+
+
+
+
+
     /**
      *@description工具类对象
      */    
@@ -526,7 +533,7 @@
         * @param bool     mask true时显示遮罩 false时不显示
         */   
              
-        api: function(opt,mask) {
+        api: function( opt,mask ) {
             var that = this,
                 beforeSend = opt.beforeSend,
 				success = opt.success,
@@ -544,6 +551,9 @@
                     'el': null
                 }
 			},opt||{});
+
+            //添加token信息
+            opt.token = _token;
 
 			//
             // 按钮原始文本

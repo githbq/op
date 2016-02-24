@@ -120,6 +120,10 @@
         <img src="" alt="">
     </div>
 </div>
+
+<!---->
+<input id="key" type="hidden" value="${token}" /></div>
+
 <!--Tip 提示-->
 <script type="text/template" id="g-tip">
     <div class="g-tip"><p></p></div>
