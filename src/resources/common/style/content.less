@@ -55,14 +55,11 @@
 			cursor:pointer;
 			z-index:10;
 			a{
-				display:block;
-				border-bottom:1px #f1f1f1 solid;
-				&:hover{
-					background:#efefef;
-				}
-				&:last-child{
-					border-bottom:none;
-				}
+				display: block;
+  				border-bottom: 1px #f1f1f1 solid;
+			}
+			a:hover{
+				color:@ltc1;
 			}
 		}
 		&:hover{
@@ -87,7 +84,7 @@
 			}
 		}
 		a{
-			width:90px;
+			padding:0 16px;
 			display:inline-block;
 			text-align:center;
 			&:link,
@@ -95,7 +92,7 @@
 				color:@tc1;
 			}
 			&:hover{
-				background:@bc6;
+				background:#ececec;
 				transition: background-color .3s linear;
 			}
 		}
@@ -136,9 +133,9 @@
 				}
 			}
 			a {
-				width: 160px;
+				width: 120px;
 				&:hover {
-					background: @bc6;
+					background: #f0f0f0;
 					transition: background-color .1s linear;
 				}
 			}

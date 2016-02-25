@@ -24,22 +24,22 @@
     <nav>
         <ul class="nav-main clearfix">
         
-            <li data-permissions="F008002">
-                <a href="#qry/cmp">查询</a>
+            <li data-modulecode="ComprehensiveQueryOpS PartnerOpS DemoAccountOpS QueryOpS ExportAgentAccountOpS">
+                <a class="nav-branch">查询</a>
                 <ul class="nav-sub">
-                    <li><a href="#qry/cmp">综合查询</a></li>
-                    <li><a href="#qry/partner">合作伙伴</a></li>
-                    <li><a href="#qry/exp">演示帐号</a></li>
-                    <li><a href="#qry/cyc">查一查</a></li>
-                    <li><a href="#index/agentexport">代理商员工导出</a></li>
+                    <li data-modulecode="ComprehensiveQueryOpS"><a href="#qry/cmp">综合查询</a></li>
+                    <li data-modulecode="PartnerOpS"><a href="#qry/partner">合作伙伴</a></li>
+                    <li data-modulecode="DemoAccountOpS"><a href="#qry/exp">演示帐号</a></li>
+                    <li data-modulecode="QueryOpS"><a href="#qry/cyc">查一查</a></li>
+                    <li data-modulecode="ExportAgentAccountOpS"><a href="#index/agentexport">代理商员工导出</a></li>
                 </ul>
             </li>
 
-            <li data-permissions="F008002 F008006">
-                <a href="#ent/lst">企业</a>
+            <li data-modulecode="EnterpriseOpS SelfRegisterOpS">
+                <a class="nav-branch">企业</a>
                 <ul class="nav-sub">
-                    <li><a href="#ent/lst">企业</a></li>
-                    <li><a href="#ent/ind">自注册</a></li>
+                    <li data-modulecode="EnterpriseOpS"><a href="#ent/lst">企业</a></li>
+                    <li data-modulecode="SelfRegisterOpS"><a href="#ent/ind">自注册</a></li>
                 </ul>
             </li>
 
@@ -48,7 +48,7 @@
             </li>
 
             <li data-permissions="F008002">
-                <a href="#index/lst">活跃度</a>
+                <a class="nav-branch">活跃度</a>
                 <ul class="nav-sub">
                     <li>
                         <a href="#index/lst">实时</a>
@@ -81,7 +81,7 @@
             </li>
 
             <li data-permissions="F008002 F008006">
-                <a href="#agt/lst">代理商</a>
+                <a class="nav-branch">代理商</a>
                 <ul class="nav-sub">
                     <li><a href="#agt/lst">代理商列表</a></li>
                     <li><a href="#agt/export">招商信息导出</a></li>
@@ -91,8 +91,8 @@
                 <a href="#pdt/lst">产品</a>
             </li>-->
             <li data-permissions="F008002 F008006 F008005">
-                <a class="nav-root">客户</a>
-                 <ul class="nav-sub">
+                <a class="nav-branch">客户</a>
+                <ul class="nav-sub">
                     <li data-permissions="F008002 F008006"><a href="#eme/lst">客户</a></li>
                     <!--热线查询单独菜单-->
                     <li data-permissions="F008005"><a href="#eme/clientlst">热线查询</a></li>
