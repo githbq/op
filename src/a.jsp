@@ -27,36 +27,36 @@
     </div>
     <nav>
         <ul class="nav-main clearfix">
-            <li data-permissions="F009002 F009001">
+            <li data-modulecode="EnterpriseFilingOpA EnterpriseFilingOpenOpA EnterpriseFilingOpenRequestOpA">
                 <a href="#agentsupport/entprisefiling">备案企业</a>
                 <ul class="nav-sub">
-                    <li><a href="#agentsupport/entprisefiling">备案企业列表</a></li>
-                    <li><a href="#agentsupport/entpriseopen">已公开列表</a></li>
-                    <li><a href="#agentsupport/entprisereq">公开企业申请列表</a></li>
+                    <li data-modulecode="EnterpriseFilingOpA"><a href="#agentsupport/entprisefiling">备案企业列表</a></li>
+                    <li data-modulecode="EnterpriseFilingOpenOpA"><a href="#agentsupport/entpriseopen">已公开列表</a></li>
+                    <li data-modulecode="EnterpriseFilingOpenRequestOpA"><a href="#agentsupport/entprisereq">公开企业申请列表</a></li>
                 </ul>
             </li>
-            <li>
+            <li data-modulecode="EnterpriseOpA">
                 <a href="#agentsupport/entpriselist">企业</a>
             </li>
-            <li>
+            <li data-modulecode="DayActivityDetailOpA DayActivityAllOpA SelfActivityAllOpA PeriodActivityAnalysisOpA PeriodActivityTeamAnalysisOpA MonthActivityTeamAnalysisOpA MonthActivityAllAnalysisOpA">
                 <a href="#index/detail">活跃度</a>
                 <ul class="nav-sub">
-                    <li><a href="#index/detail">企业日活跃详情报表 </a></li>
-					<li><a href="#index/lstreport">企业日活跃汇总报表</a></li>
-					<li><a href="#index/personactive">个人活跃汇总</a></li>
-					<li data-permissions="F009002 F009001"><a href="#act/activeanalyze">阶段活跃分析</a></li>
-                    <li>
+                    <li data-modulecode="DayActivityDetailOpA"><a href="#index/detail">企业日活跃详情报表 </a></li>
+                    <li data-modulecode="DayActivityAllOpA"><a href="#index/lstreport">企业日活跃汇总报表</a></li>
+                    <li data-modulecode="SelfActivityAllOpA"><a href="#index/personactive">个人活跃汇总</a></li>
+                    <li data-modulecode="PeriodActivityAnalysisOpA"><a href="#act/activeanalyze">阶段活跃分析</a></li>
+                    <li data-modulecode="PeriodActivityTeamAnalysisOpA">
                         <a href="#pagecommon/activeanalyze">阶段活跃团队分析</a>
                     </li>
-                    <li>
+                    <li data-modulecode="MonthActivityTeamAnalysisOpA">
                         <a href="#pagecommon/monthanalyze">月季度团队数据分析</a>
                     </li>
-                    <li>
+                    <li data-modulecode="MonthActivityAllAnalysisOpA">
                         <a href="#pagecommon/seasonactive">月度季度总数据分析</a>
                     </li>
                 </ul>
             </li>
-            <li>
+            <li data-modulecode="ApprovalOpA">
                 <a href="#agentsupport/renewlist">我的审批</a>
             </li>
         </ul>
@@ -129,5 +129,6 @@
 </script>
 </body>
 </html>
+
 
 
