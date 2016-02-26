@@ -48,7 +48,7 @@
                 <a href="#index/dayactive">企业日活跃</a>
             </li>
 
-            <li data-permissions="RealTimeActivityOpS MonthReportOpS PayedLifeCycleOpS SelfActivityAllOpS PeriodActivityAnalysisOpS DayActivityDetailOpS DayActivityAllOpS MonthActivityTeamAnalysisOpS MonthActivityAll">
+            <li data-modulecode="RealTimeActivityOpS MonthReportOpS PayedLifeCycleOpS SelfActivityAllOpS PeriodActivityAnalysisOpS DayActivityDetailOpS DayActivityAllOpS MonthActivityTeamAnalysisOpS MonthActivityAll">
                 <a class="nav-branch">活跃度</a>
                 <ul class="nav-sub">
                     <li data-modulecode="RealTimeActivityOpS">
@@ -102,10 +102,10 @@
                 </ul>
             </li>
             
-            <li data-permissions="ApprovalOpS">
+            <li data-modulecode="ApprovalOpS">
                 <a href="#page/approvallist">我的审批</a>
             </li>
-            <li data-permissions="SupervisionOpS">
+            <li data-modulecode="SupervisionOpS">
                 <a href="#page/watchent">企业监察</a>
             </li>
         </ul>
@@ -179,3 +179,7 @@
 
 </body>
 </html>
+
+
+
+
