@@ -71,7 +71,7 @@
 					</td>
 					<td><%=item.lastLoginTimeStr%></td>
 					<td>
-						<a data-id="<%=item.id%>" class="user-detail">查看</a>
+						<a data-id="<%=item.id%>" class="user-detail" data-permissions="F010009">查看</a>
 						<% if( item.auditStatus == 'WAIT'){ %>
 						<a data-id="<%=item.id%>" data-permissions="F011001" class="user-approval state">审核</a>
 						<% } %>
