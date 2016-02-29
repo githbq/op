@@ -588,7 +588,7 @@ body::-webkit-scrollbar-corner {
   border-bottom: none;
 }
 #header nav .nav-sub a {
-  width: 120px;
+  width: 128px;
 }
 #header nav .nav-sub a:hover {
   background: #f0f0f0;
