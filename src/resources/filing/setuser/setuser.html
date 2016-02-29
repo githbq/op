@@ -43,9 +43,9 @@
 							<a data-permissions="F011001 F011021" class="settinghighter" data-id="<%=item.id%>">设置上级 </a>
 						<%if((item.auditStatus != "WAIT")){%>
 							<%if(item.active == "1"){%>
-							<a data-permissions="F011001 F011019" class="change-status" data-id="<%=item.id%>"  data-status="0">&nbsp;&nbsp;停用</a>
+							<a data-permissions="F011001 F011019 F011056" class="change-status" data-id="<%=item.id%>"  data-status="0">&nbsp;&nbsp;停用</a>
 							<%}else if(item.active == "0"){%>
-							<a data-permissions="F011001 F011019" class="change-status" data-id="<%=item.id%>" data-status="1">&nbsp;&nbsp;启用</a>
+							<a data-permissions="F011001 F011019 F011056" class="change-status" data-id="<%=item.id%>" data-status="1">&nbsp;&nbsp;启用</a>
 							<%}%>
 						<%}%>
 						
