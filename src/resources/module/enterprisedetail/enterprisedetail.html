@@ -713,8 +713,8 @@
 					</label>
 				</p>
 				<p class="training-action">
-					<button class="addTraining">+添加培训记录</button>
-					<button class="u-btn-blue searchTraining">查询</button>
+					<button class="addTraining" data-permissions="F009039">+添加培训记录</button>
+					<button class="u-btn-blue searchTraining" data-permissions="F009041">查询</button>
 				</p>
 				<table>
 
@@ -736,7 +736,7 @@
 							<td><%=item.trainer%></td>
 							<td><%=item.trainingDateStr%></td>
 							<td><%=item.trainingDescription%></td>
-							<td><a data-id="<%=item.id%>" class="edittraining">编辑</a></td>
+							<td><a data-id="<%=item.id%>" class="edittraining" data-permissions="F009040 F009042">编辑</a></td>
 						</tr>
 					</tbody>
 

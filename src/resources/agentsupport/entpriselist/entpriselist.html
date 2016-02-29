@@ -179,9 +179,9 @@
 						<td> <%=item.contactName%> , <%=item.contactPhone%> , <%=item.contactEmail%> , <%=item.contactIM%> </td>
 						<td> 
 							<a data-id="<%=item.id%>" class="detail" data-permissions="F009018">查看&nbsp;</a>
-							<a data-id="<%=item.id%>" class="trackrecord">&nbsp;跟踪记录&nbsp;</a>
+							<a data-id="<%=item.id%>" class="trackrecord" data-permissions="F009082">&nbsp;跟踪记录&nbsp;</a>
 							<%if("2" == item.runStatus){%>
-							<a data-permissions="F009001" data-id="<%=item.id%>" class="enterpriseAssign">&nbsp;分配</a>
+							<a data-permissions="F009001 F009037" data-id="<%=item.id%>" class="enterpriseAssign">&nbsp;分配</a>
 							<%}%>
 							<!--<a data-id="<%=item.id%>" class="renew">增购续费</a>-->
 						</td>
