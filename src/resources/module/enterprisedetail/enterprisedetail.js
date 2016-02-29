@@ -1493,6 +1493,7 @@ define( function(require, exports, module){
 						me.product.pagination.setTotalSize( data.value.model.itemCount );
 						if ( data.value.model.content.length > 0 ) {
 							me.$tbProduct.html( me.tplProduct( { content: data.value.model.content } ) );
+							IBSS.tplEvent.setPermissions( me.$tbProduct );
 						} else {
 							me.$tbProduct.html( '<tr><td colspan="3"><p class="info">暂无数据</p></td></tr>' );
 						}
@@ -1784,6 +1785,7 @@ define( function(require, exports, module){
 						} );
 						if ( data.model.content.length > 0 ) {
 							me.$tbAgent.html( me.tplAgent( { content: data.model.content } ) );
+							IBSS.tplEvent.setPermissions( me.$tbAgent );
 						} else {
 							me.$tbAgent.html( '<tr><td colspan="4"><p class="info">暂无数据</p></td></tr>' );
 						}

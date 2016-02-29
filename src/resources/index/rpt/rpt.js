@@ -45,6 +45,7 @@ define( function( require, exports, module ) {
                         var content = me.collection.all();
                         if ( content.length > 0 ) {
                             me.$tbody.html( me.tplReport( {'content':me.collection.all() } ) );
+                            IBSS.tplEvent.setPermissions( me.$tbody );
                         } else {
                             me.$tbody.html( '<tr><td colspan="8"><p class="info">暂无数据</p></td></tr>' );
                         }
