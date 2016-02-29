@@ -18,11 +18,11 @@
     <div class="header-person">
         <span id="accountname"></span>
         <div class="person-loginout">
-            <a href="#page/changepwd">修改密码</a>
+            <a href="#page/changepwd" data-permissions="F009079">修改密码</a>
             <a href="#page/setleader">设置上级</a>
             <a href="#page/setuser">用户列表</a>
-            <a href="#agentsupport/backquestion">反馈</a>
-            <a href="/logout?from=/op/a">退出</a>
+            <a href="#agentsupport/backquestion" data-permissions="F009080">反馈</a>
+            <a href="/logout?from=/op/a" data-permissions="F009081">退出</a>
         </div>
     </div>
     <nav>
@@ -129,6 +129,3 @@
 </script>
 </body>
 </html>
-
-
-

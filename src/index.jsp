@@ -18,8 +18,8 @@
     <div class="header-person">
         <span id="accountname"></span>
         <div class="person-loginout">
-            <a href="#page/changepwd">修改密码</a>
-            <a href="/logout?from=/op">退出</a>
+            <a href="#page/changepwd" data-permissions="F008117">修改密码</a>
+            <a href="/logout?from=/op" data-permissions="F008118">退出</a>
         </div>
     </div>
     <nav>
@@ -137,7 +137,7 @@
 </div>
 
 <!---->
-<input id="key" type="hidden" value="${token}" /></div>
+<input id="key" type="hidden" value="HiVya4oQcD9+Oz2lbZYLG2Kw1RWybzctXxiNEWJ5BeA=" /></div>
 
 <!--Tip 提示-->
 <script type="text/template" id="g-tip">
@@ -179,6 +179,9 @@
 
 </body>
 </html>
+
+
+
 
 
 
