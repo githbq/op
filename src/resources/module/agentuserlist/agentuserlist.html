@@ -73,7 +73,7 @@
 					<td>
 						<a data-id="<%=item.id%>" class="user-detail" data-permissions="F010009">查看</a>
 						<% if( item.auditStatus == 'WAIT'){ %>
-						<a data-id="<%=item.id%>" data-permissions="F011001" class="user-approval state">审核</a>
+						<a data-id="<%=item.id%>" data-permissions="F011071" class="user-approval state">审核</a>
 						<% } %>
 						<a data-id="<%=item.id%>" data-name="<%=item.name%>" class="user-reset state state-am" data-permissions="F010005">重置密码</a>
 						<%if(item.auditStatus != "WAIT"){%>
