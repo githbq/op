@@ -13,7 +13,7 @@
 			<td><%=item.createTimeStr%></td>
 			<td><%=item.activeStr%></td>
 			<td>
-				<a data-id="<%=item.id%>" class="filing-detail" data-permissions="F011039">查看</a>
+				<a data-id="<%=item.id%>" class="filing-detail">查看</a>
 				<a data-id="<%=item.id%>" data-name="<%=item.enterpriseName%>" class="filing-service">服务记录</a>
 				<a data-name="<%=item.enterpriseName%>" data-id="<%=item.id%>" class="filing-request">公开申请(<%=item.requestCount%>)</a>
 				<a data-id="<%=item.id%>" class="filing-check">审核</a>
@@ -115,9 +115,9 @@
 		</section>
 		<div class="slider-action">
 			<button class="back btn-blue">返回</button>
-			<button class="state action-deactive" data-permissions="F011035">停用</button>
+			<button class="state action-deactive">停用</button>
 			<!--<button class="state action-deal">成交</button>-->
-			<button class="state action-public" data-permissions="F011033">公开</button>
+			<button class="state action-public">公开</button>
 		</div>
 	</div>
 </script>
@@ -126,8 +126,8 @@
 	<div class="m-rejectinfo">
 		<textarea placeholder="审核原因" ce-model="checkReason"></textarea>
 		<p>
-			<button class="u-btn-red reject-action" data-permissions="F011037 F011045">驳回</button>
-			<button class="u-btn-blue pass-action" data-permissions="F011036 F011045">通过</button>
+			<button class="u-btn-red reject-action">驳回</button>
+			<button class="u-btn-blue pass-action">通过</button>
 		</p>
 	</div>
 </script>

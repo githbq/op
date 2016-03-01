@@ -121,7 +121,6 @@ define( function( require, exports, module ) {
 				me.collection.reload( {'content':obj});
 				me.pagination.setTotalSize( itemCount );
 				me.$tbody.html("<tr><td colspan='5'><p class='info'>请输入查询条件</p></td></tr>");
-                IBSS.tplEvent.setPermissions( me.$tbody );
 			}
       		
       	},

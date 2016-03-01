@@ -310,7 +310,6 @@ define( function(require, exports, module){
                         model.dst = new Date( model.startTime )._format( 'yyyy-MM-dd hh:mm:ss' );
                         model.dct = new Date( model.completeTime )._format( 'yyyy-MM-dd hh:mm:ss' );
                         me.$result.html( me.tplSearch({ value: model }) );
-                        IBSS.tplEvent.setPermissions( me.$result );
                     }
                 },
                 complete: function() {

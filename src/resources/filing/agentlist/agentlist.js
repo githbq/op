@@ -161,7 +161,6 @@ define( function(require, exports, module){
 			var collection = me.collection.all();
 			if( collection.length > 0 ){
 				me.$tbody.html( me.trTpl({'content':collection}) );
-				IBSS.tplEvent.setPermissions( me.$tbody );
 			}else{
 				me.$tbody.html( '<tr><td colspan="6"><p class="info">暂无数据</p></td></tr>' );
 			}
@@ -251,7 +250,6 @@ define( function(require, exports, module){
                     if( data.success ){
                         if ( data.model.length > 0 ) {
 							me.$tbassginEntList.html(me.tpassginEntList( { content: data.model } ));
-							IBSS.tplEvent.setPermissions( me.$tbassginEntList );
 						} else {
 							me.$tbassginEntList.html( '<tr><td colspan="5"><p class="info">暂无数据</p></td></tr>' );
 						}

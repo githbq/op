@@ -55,11 +55,14 @@
 			cursor:pointer;
 			z-index:10;
 			a{
-				display: block;
-  				border-bottom: 1px #f1f1f1 solid;
-			}
-			a:hover{
-				color:@ltc1;
+				display:block;
+				border-bottom:1px #f1f1f1 solid;
+				&:hover{
+					background:#efefef;
+				}
+				&:last-child{
+					border-bottom:none;
+				}
 			}
 		}
 		&:hover{
@@ -84,7 +87,7 @@
 			}
 		}
 		a{
-			padding:0 16px;
+			width:90px;
 			display:inline-block;
 			text-align:center;
 			&:link,
@@ -92,7 +95,7 @@
 				color:@tc1;
 			}
 			&:hover{
-				background:#ececec;
+				background:@bc6;
 				transition: background-color .3s linear;
 			}
 		}
@@ -133,9 +136,9 @@
 				}
 			}
 			a {
-				width: 128px;
+				width: 160px;
 				&:hover {
-					background: #f0f0f0;
+					background: @bc6;
 					transition: background-color .1s linear;
 				}
 			}

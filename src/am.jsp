@@ -24,7 +24,7 @@
     </div>
     <nav>
         <ul class="nav-main clearfix">
-            <li data-modulecode="AgentOpAM">
+            <li>
                 <a href="#agentadmin/agtlist">代理商</a>
             </li>
         </ul>
@@ -100,7 +100,4 @@
 
 </body>
 </html>
-
-
-
 

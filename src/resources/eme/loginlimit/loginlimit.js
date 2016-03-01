@@ -105,7 +105,6 @@ define( function( require, exports, module ) {
                         var content = me.operatingaCollection.all();
                         if ( content.length > 0 ) {
                             me.$operatingTbody.html( me.tplEme( {'content':me.operatingaCollection.all() } ) );
-                            IBSS.tplEvent.setPermissions( me.$operatingTbody );
                         } else {
                             me.$operatingTbody.html( '<tr><td colspan="5"><p class="info">暂无数据</p></td></tr>' );
                         }

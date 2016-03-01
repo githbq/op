@@ -18,72 +18,75 @@
     <div class="header-person">
         <span id="accountname"></span>
         <div class="person-loginout">
-            <a href="#page/changepwd" data-permissions="F011052">修改密码</a>
-            <a href="#filing/setleader" data-permissions="F011053">设置上级</a>
+            <a href="#page/changepwd">修改密码</a>
+            <a href="#filing/setleader">设置上级</a>
             <a href="#filing/setuser">用户列表</a>
-            <a href="#filing/backquestion" data-permissions="F011054">反馈</a>
-            <a href="/logout?from=/op/c" data-permissions="F011055">退出</a>
+            <a href="#filing/backquestion">反馈</a>
+            <a href="/logout?from=/op/c">退出</a>
         </div>
     </div>
     <nav>
         <ul class="nav-main clearfix">
             
-            <li data-modulecode="AgentOpC AgentAccountOpC">
+            <li>
                 <a href="#filing/agentlist">代理商</a>
                 <ul class="nav-sub">
-                    <li data-modulecode="AgentOpC"><a href="#filing/agentlist">代理商</a> </li>
-                    <li data-modulecode="AgentAccountOpC"><a href="#filing/usersearch">用户查询</a></li>
+                    <li><a href="#filing/agentlist">代理商</a> </li>
+                    <li><a href="#filing/usersearch">用户查询</a></li>
                 </ul>
             </li>
 
             <!-- -->
-            <li data-modulecode="DayActivityDetailOpC DayActivityAllOpC PeriodActivityAnalysisOpC MonthActivityTeamAnalysisOpC MonthActivityAllAnalysisOpC">
+            <li>
                 <a href="#index/detail">活跃度</a>
                 <ul class="nav-sub">
-                    <li data-modulecode="DayActivityDetailOpC">
+                    <li>
                         <a href="#index/detail">企业日活跃详情报表</a>
                     </li>
-                    <li data-modulecode="DayActivityAllOpC">
+                    <li>
                         <a href="#index/lstreport">企业日活跃汇总报表</a>
                     </li>
-                    <li data-modulecode="PeriodActivityAnalysisOpC">
+                    <li>
                         <a href="#pagecommon/activeanalyze">阶段活跃团队分析</a>
                     </li>
-                    <li data-modulecode="MonthActivityTeamAnalysisOpC">
+                    <li>
                         <a href="#pagecommon/monthanalyze">月季度团队数据分析</a>
                     </li>
-                    <li data-modulecode="MonthActivityAllAnalysisOpC">
+                    <li>
                         <a href="#pagecommon/seasonactive">月度季度总数据分析</a>
                     </li>
                 </ul>
             </li>
+            <!--<li>
+                <a href="#filing/client">客户企业</a>
+            </li>-->
 
-            <li data-modulecode="EnterpriseFIlingOpC EnterpriseFIlingOpenOpC EnterpriseFIlingOpenRequestOpC">
+            <li>
                 <a href="#filing/entprisefiling">备案企业</a>
                 <ul class="nav-sub">
-                    <li data-modulecode="EnterpriseFIlingOpC"><a href="#filing/entprisefiling">备案企业列表</a></li>
-                    <li data-modulecode="EnterpriseFIlingOpenOpC"><a href="#filing/entpriseopen">公开企业列表</a></li>
-                    <li data-modulecode="EnterpriseFIlingOpenRequestOpC"><a href="#filing/requestlist">公开企业申请</a></li>
+                    <li><a href="#filing/entprisefiling">备案企业列表</a></li>
+                    <li><a href="#filing/entpriseopen">公开企业列表</a></li>
+                    <li data-permissions="F011001"><a href="#filing/requestlist">公开企业申请</a></li>
                 </ul>
             </li>
             
-            <li data-modulecode="RegionOpC">
+            <li data-permissions="F013">
                 <a href="#filing/areaconfig">区域配置</a>
             </li>
             
-            <li data-modulecode="ApprovalOpC">
+            <li>
                 <a href="#filing/approvallist">我的审批</a>
             </li>
             
-            <li data-modulecode="ApprovalAccountOpC">
+            <li data-permissions="F011001">
                 <a href="#filing/approvalwait">待审批用户</a>
             </li>
             
-            <li data-modulecode="SelfRegisterOpC">
+            <li data-permissions="F011001">
                 <a href="#filing/regent">自注册企业</a>
             </li>
             
-            <li data-modulecode="SalesFunnelModelOpC">
+            <li data-permissions="F011001">
                 <a href="#filing/funnellist">销售漏斗</a>
                 <ul class="nav-sub">
                     <li><a href="#filing/funnellist">销售漏斗</a></li>
@@ -161,8 +164,5 @@
 
 </body>
 </html>
-
-
-
 
 

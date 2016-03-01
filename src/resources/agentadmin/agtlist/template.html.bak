@@ -20,24 +20,26 @@
 			</p>
 			<p> <label> <span>省或直辖市 <b>*</b></span> <select class="addagent-selectcity" ce-model="province"></select></label></p>
 			<p> <label> <span>区域 <b>*</b></span> <input type="text" class="selectArea" placeholder="选择区域"> </label></p>
-			<p> <label> <span>代理商类型 <b>*</b></span>
-					<select class="companyType" ce-model="companyType">
-						<option value="1">销客</option>
-						<option value="2">代理商</option>
-					</select>
-				</label>
-			</p>
-			<div class="add-box">
-				<p>
-					<label> <span>所属部门 <b>*</b></span><span><button class="perdept-button button" name="employeedept">选择部门</button></span></label>
-				</p>
-				<div  class="depts-box" style="visibility: visible;padding-left: 139px;"></div>
-			</div>
-			<div class="edit-box">
-				<p> <label> <span>所属部门 </span> <input type="text" class="deptName" disabled="disabled"> </label></p>
-			</div>
 			<p> <label> <span>有效期开始时间</span> <input type="text" class="startTime"> </label> </p>
 			<p> <label> <span>有效期结束时间</span> <input type="text" class="endTime"> </label> </p>
+
+			<p class="companyCodep"> 
+				<label> 
+					<span>公司编码</span> 
+					<input type="text" ce-model="companyCode" id="companyCode" onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/g,'')"> 
+				</label> 
+			</p>
+			
+			<p class="companyTypep"> 
+				<label> 
+					<span>公司类型</span> 
+					<select ce-model="companyType" id="companyType">
+						<option value="1">直销</option>
+						<option value="2">代理商</option>
+					</select> 
+				</label> 
+			</p>
+
 			<p class="edit-state"> <label> <span>启用</span> <input type="checkbox" ce-model="status"> </p>
 			<p class="edit-state"> <label> <span>禁止设置</span> <input type="checkbox" ce-model="permissions"> </p>
 		</div>

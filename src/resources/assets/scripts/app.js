@@ -83,35 +83,6 @@ define('common/app', function(require, exports, module){
 		
 		/**
 		 *
-		 * @desc 获取当前hash
-		 * 如果location的hash为空 则取nav中可见且有href属性的a标签的href值
-		 */
-		_getCurrentHash: function(){
-
-			return location.hash || this._getIndexHash();
-		},
-
-		/**
-		 *
-		 * @desc 获取首个hash
-		 */
-		_getIndexHash: function(){
-
-			return $('nav li a[href]').eq(0).attr('href');
-		},
-
-		/**
-		 * @desc 重新刷新页面
-		 * 作用： 页面点击（loadNum）大于50次 或者缓存（cacheList）了大于20次 强制刷新页面
-		 */		
-		_reload: function() {
-			if (this.loadNum >= 50 || this.cacheList >= 20) {
-				location.reload();
-			}
-		},
-
-		/**
-		 *
 		 * @desc 载入nav首个链接地址
 		 * 同时不改变当前hash
 		 * 以防返回时报错
@@ -120,7 +91,7 @@ define('common/app', function(require, exports, module){
 			//location.hash = $('nav li:visible a').eq(0).attr('href');
 			var me = this;
 
-			var hash = me._getCurrentHash() || '';
+			var hash = $('nav li:visible a[href]').eq(0).attr('href') || '';
 				hash = hash.slice(1);
 			var hasharray = hash.split('/');
 
@@ -135,6 +106,16 @@ define('common/app', function(require, exports, module){
         path: function( path, module, param ) {
             this.loadModule( path , module, param )
         },
+
+		/**
+		 * @desc 重新刷新页面
+		 * 作用： 页面点击（loadNum）大于50次 或者缓存（cacheList）了大于20次 强制刷新页面
+		 */		
+		_reload: function() {
+			if (this.loadNum >= 50 || this.cacheList >= 20) {
+				location.reload();
+			}
+		},
 
 		/**
 		 * @desc 主逻辑
@@ -365,20 +346,25 @@ define('common/app', function(require, exports, module){
                 success: function (data) {
                 	
                     if (data.success) {
-                    	
+                    	IBSS.role = data.value.model;
                         $('#accountname').text(data.value.model.name);
-
-                        IBSS.role = data.value.model;
                         
-                        IBSS.FUNCTIONS = data.value.model.functionCodes.concat(data.value.model.ancientFunctionCodes);
-                        
-                        IBSS.MODULES = data.value.model.moduleCodes;
- 
+                        /*
+                        var functions = [];
+                        $(data.value.model.roles).each(function (i, role) {
+                            $(role.functions).each(function (i, f) {
+                                if ($.inArray(f.code, functions) < 0) {
+                                    functions.push(f.code);
+                                }
+                            });
+                        });
+						IBSS.FUNCTIONS = functions;
+						*/
+						IBSS.FUNCTIONS = data.value.model.functionCodes.concat(data.value.model.ancientFunctionCodes) 
 
                         //开始提醒轮询
                         me._startRemind();
                         me.setPermissions();
-                        me.setModuleCode();
                         callback && callback();
                     }
                 }
@@ -416,7 +402,7 @@ define('common/app', function(require, exports, module){
 
 					for( var j = 0; j < codes.length ; j++ ){
 						if( codes[j] == IBSS.FUNCTIONS[i] ){
-							//$this.show(); 默认不做任何处理
+							$this.show();
 							bool = true;
 							break;
 						}
@@ -442,46 +428,13 @@ define('common/app', function(require, exports, module){
 		},
 
 		/**
-		 *
-		 * 初始化菜单显隐
-		 */
-		setModuleCode: function(){
-			var $nav = $('nav');
-
-			$nav.find('li[data-modulecode]').each(function(){
-				var $this = $( this ),
-					codes = $this.attr('data-modulecode').split(/\s+/);
-
-				var bool = false;
-				for( var i=0; i < IBSS.MODULES.length ; i++ ){
-
-					for( var j = 0; j<codes.length; j++ ){
-						if( codes[j] == IBSS.MODULES[i] ){
-							$this.show();
-							bool = true;
-							break;
-						}
-					}
-					if( bool === true ){
-						break;
-					}
-				}
-
-				//循环结束后如果依然没有匹配的则remove此元素
-				if( bool === false ){
-					$this.remove();
-				}
-			});
-		},
-
-		/**
          * @desc 点亮导航
 		 * 点亮当前元素下 所有连接为当前hash的元素
          * @param {jquery}
          */
         lightNav: function($el) {
 			var $el = $el || $('nav'),
-				hash = this._getCurrentHash();
+				hash = location.hash || $('nav li:visible a[href]').eq(0).attr('href');
 
             //清除导航内 所有<li>元素的激活状态
             $el.find('li').each(function(){
@@ -490,10 +443,17 @@ define('common/app', function(require, exports, module){
             
         	$el.find('li a[href]').each(function(){
                 var $this = $(this),
-                    href = $this.attr('href') || '';
+                    href = $this.attr('href'),
+                    aHash = href.slice( href.indexOf('#') );
 
-                if( hash == href ){
-                    $this.parents('li').addClass('active');
+                //排除href为空的情况
+                if( aHash.length <= 0 ) return;
+
+                var $lis;
+                //if( hash.indexOf(aHash) >= 0 ){
+                if( hash == aHash ){
+                    $lis = $this.parents('li');
+                    $lis.addClass('active');
                 }
             });
         },		
@@ -517,6 +477,7 @@ define('common/app', function(require, exports, module){
 				//每次切换页面 都主动调用
 				IBSS.remind.getRemind();
 
+
 			});
 			
 			/**
@@ -539,6 +500,8 @@ define('common/app', function(require, exports, module){
 				
 				//执行permission权限过滤
 				that.setPermissions( $el );
+
+
 				that.loadNum = that.loadNum + 1;
 				if (that.curPage.cache) {
 					that.cacheList.push(_.extend({}, that.curPage));
@@ -610,10 +573,10 @@ define('common/app', function(require, exports, module){
 			var me = this;
 
 			//类名为nav-root 的a标签点击时 如果没有href属性 会寻找同组内第一个有href属性的a标签的href 并赋值到location.href中
-			$('nav .nav-branch').on('click',function(e){
+			$('nav .nav-root').on('click',function(e){
 				var $this = $(e.target);
 				if( !$this.attr('href') ){
-					location.href = $this.parent('li').find('li a[href]').eq(0).attr('href');
+					location.href = $this.parent('li').find('li:visible a[href]').eq(0).attr('href');
 				}
 			});
 		}

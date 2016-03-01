@@ -24,7 +24,7 @@
     </div>
     <nav>
         <ul class="nav-main clearfix">
-            <li data-modulecode="ApprovalOpf">
+            <li>
                 <a href="#finance/approvallist">我的审批</a>
             </li>
         </ul>

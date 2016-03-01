@@ -158,7 +158,6 @@ define( function( require, exports, module ) {
                 htmlStr = me.trTpl( {'content':collection} );
             }
             me.$tbody.html( me.trTpl({'content':collection}) );
-            IBSS.tplEvent.setPermissions( me.$tbody );
     	}
     });
     

@@ -9,9 +9,9 @@
 			<td><%=item.cityStr%></td>
 			<td><%=item.statusStr%></td>
 			<td>
-				<a data-id="<%=item.id%>" data-name="<%=item.name%>" class="assign-ent" data-permissions="F011012"> 分配</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a data-id="<%=item.id%>" data-name="<%=item.name%>" class="assign-ent"> 分配</a>&nbsp;&nbsp;&nbsp;&nbsp;
 				<a data-id="<%=item.id%>" data-name="<%=item.name%>" class="recordEnt">  备案企业</a>
-				<a data-id="<%=item.id%>" data-number="<%=item.target%>" class="setTarget state" data-permissions="F011003">  设置目标</a>
+				<a data-id="<%=item.id%>" data-number="<%=item.target%>" class="setTarget state">  设置目标</a>
 				<a data-id="<%=item.id%>" data-name="<%=item.name%>" class="userlist">   查看用户</a>
 			</td>
 			<td></td>
@@ -47,7 +47,7 @@
 		<tr data-id="<%=item.id%>">
 			<td><%=item.name%></td>
 			<td>
-				<a data-id="<%=item.id%>"  class="agent-bind-channel" data-permissions="F011013">绑定</a>
+				<a data-id="<%=item.id%>"  class="agent-bind-channel">绑定</a>
 			</td>
 		</tr>
 	<% }) %>

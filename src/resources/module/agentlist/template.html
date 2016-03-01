@@ -7,10 +7,7 @@
 			<td><%=item.cityStr%></td>
 			<td><%=item.regionName %></td>
 			<td><%=item.statusStr%></td>
-			<td> 
-				<a data-id="<%=item.id%>" class="agent-edit" data-permissions="F010010">编辑</a> 
-				<a data-id="<%=item.id%>" data-name="<%=item.name%>" class="agent-detail" data-permissions="F010003">查看用户</a> 
-			</td>
+			<td> <a data-id="<%=item.id%>" class="agent-edit">编辑</a> <a data-id="<%=item.id%>" data-name="<%=item.name%>" class="agent-detail">查看用户</a> </td>
 			<td></td>
 		</tr>
 	<% }) %>

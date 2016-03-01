@@ -1,0 +1,320 @@
+define( function(require, exports, module){
+
+	var template = $( require('./template.html') );
+
+	var Pagination = require('common/widget/pagination/pagination'),
+		Dialog = require('common/widget/dialog/dialog'),
+		Slider = require('common/widget/slider/slider'),
+
+		UserList = require('module/agentuserlist/agentuserlist'),
+		UserInfo = require('module/agentuser/agentuser'),
+		AgtList = require('module/agentlist/agentlist'),
+		AreaTree = require('module/areatree/areatree');
+
+	/**
+	 *
+	 * 添加代理商 或 编辑代理商
+	 * 根据调用时show的参数
+	 * 确定是添加代理商 还是 编辑代理商
+	 */
+	var AddAgent = MClass( Slider ).include({
+
+		content: template.filter('#adddialog').html(),
+
+		elements: {
+			'.addagent-selectcity': 'selectCity',
+			'.startTime': 'starttime',
+			'.endTime': 'endtime',
+			'.selectArea': 'selectArea',
+			'#companyCode': 'companyCode',
+			'#companyType': 'companyType',
+			'.companyCodep': 'companyCodep',
+			'.companyTypep': 'companyTypep'
+		},
+		events:{
+			'click .agent-reset': 'reset',
+			'click .agent-cancel': 'hide',
+			'click .agent-sure': 'addAgent',
+			'click .selectArea': 'selectAreaEve'
+		},
+		init: function(){
+			AddAgent.__super__.init.apply( this,arguments );
+
+			var me = this;
+			var list = [{'name':'请选择','value':''}];
+            
+            util.getEnums( 'PROVINCE', function( data ) {
+          		data.value.model.forEach(function(item ){
+          			list.push({'name':item.text,'value':item.value});
+          		});
+          		util.resetSelect( me.$selectCity, list );
+            });
+
+            me.$starttime.datetimepicker({timepicker: false,format:'Y/m/d'});
+            me.$endtime.datetimepicker({timepicker: false,format:'Y/m/d'});
+
+            //公司类型变化时 刷新状态
+            me.model.on('change:companyType',function( key , value ){
+            	me.refreshstate();
+            });
+		},
+		addAgent: function(){
+			var me = this;
+
+			if( !me.model.get('name') ){
+
+				util.showToast('请填写代理商名称');
+				return;
+			}
+
+
+			if( !me.model.get('province') ){
+
+				util.showToast('请选择省或直辖市');
+				return;
+			}
+
+			var starttime = '',
+				endtime = '',
+				region = me.$selectArea.attr('data-code');
+
+			if( me.$starttime.val().length > 0 ){
+				starttime = new Date( me.$starttime.val() ).getTime();
+			}
+			if( me.$endtime.val().length > 0 ){
+				endtime = new Date( me.$endtime.val() ).getTime();
+			}
+
+
+			if( !region ){
+
+				util.showToast('请选择区域');
+				return;
+			}
+
+			//编辑
+			if( me.attrs['id'] ){
+				var status = 0,
+					permissins = 1;
+
+				//todo
+				if( me.model.get('status') ){
+					status = 1; 
+				}
+
+				//todo
+				if( me.model.get('permissions') ){
+					permissins = 0;
+				}
+
+				util.api({
+					'url':'/agent/updateagent',
+					'data':{
+						'id': me.attrs['id'],
+						'name': me.model.get('name'),
+						'province': me.model.get('province'),
+						'region': region,
+						'validTimeStart': starttime,
+						'validTimeEnd': endtime,
+						'status': status,
+						'permissins': permissins
+					},
+					'success': function(data){
+						if( data.success ){
+							me.trigger('update');
+							me.hide();
+						}
+					}
+				},true)
+
+			//新增
+			}else{
+				util.api({
+					'url':'/agent/addagent',
+					'data':{
+						'name': me.model.get('name'),
+						'province': me.model.get('province'),
+						'region': region,
+						'validTimeStart': starttime ,
+						'validTimeEnd': endtime,
+						'companyCode': me.$('#companyCode').val(),
+						'companyType': me.model.get('companyType')
+					},
+					'success': function(data){
+						if( data.success ){
+							me.trigger('update');
+							me.hide();
+						}
+					}
+				},true)	
+			}
+		},
+		
+		/**
+		 *
+		 * 选择区域
+		 */
+		selectAreaEve: function(){
+			var me = this;
+
+			me.trigger('selectarea');
+		},
+
+		//选择区域
+		selectarea: function( treenodes ){
+			var me = this;
+
+			me.$selectArea.val( treenodes[0]['name'] ).attr('data-code', treenodes[0]['code'] );
+		},
+
+		reset: function(){
+			var me = this;
+
+			if( me.attrs['id'] ){
+				util.api({
+					'url': '/agent/getagent',
+					'data': {
+						'id': me.attrs['id']
+					},
+					'success': function( data ){
+						if(data.success){
+							me.model.load( data.value.model );
+						}
+					}
+				})
+			}else{
+				me.model.clear();
+			}
+		},
+		
+		hide: function(){
+			var me = this;
+			
+			me.model.clear();
+			me.$starttime.val('');
+			me.$endtime.val('');
+			me.$selectArea.val('').removeAttr('data-code');
+
+			me.attrs['id'] = '';
+
+			AddAgent.__super__.hide.apply(this,arguments);
+		},
+
+		/*
+		* 
+		*/
+		show: function( id ){
+			var me = this;
+
+			me.attrs['id'] = id || '';
+
+			me.$('.m-agentinfo').addClass('agentadd');
+			me._setTitle('添加代理商');
+
+			if( id ){
+				me.$('.m-agentinfo').removeClass('agentadd');
+				me._setTitle('编辑');
+
+				util.api({
+					'url': '/agent/getagent',
+					'data': {
+						'id': me.attrs['id']
+					},
+					'success': function( data ){
+						console.warn( data );
+						if(data.success){
+							me.model.load( data.value.model );
+							if( data.value.model.regionName ){
+								me.$selectArea.val( data.value.model.regionName + '(' + data.value.model.region + ')' ).attr('data-code',data.value.model.region);
+							}
+							if( me.model.get('permissions') ){
+								me.model.set('permissions', 0 );
+							}else{
+								me.model.set('permissions', 1 );
+							}
+							me.$companyCodep.hide();
+							me.$companyTypep.hide();
+						}
+					}
+				})
+			}else{
+				me.$companyCodep.show();
+				me.$companyTypep.show();
+				me.refreshstate();
+			}
+
+			AddAgent.__super__.show.apply(this,arguments);
+		},
+
+		//刷新公司编码
+		refreshstate: function(){
+			var me = this;
+			var value = me.model.get('companyType');
+			if( value == 2 ){
+				me.$companyCode.removeAttr('disabled');
+			}else if( value == 1 ){
+				me.$companyCode.val('').attr('disabled','disabled');
+			}
+		}
+	});
+	
+	exports.init = function(){
+		var $el = exports.$el;
+
+		var addAgent = new AddAgent( {'title':'添加代理商'} );
+		var agtList = new AgtList( {'wrapper':$el} );
+		var userList = new UserList( {'state':'am'} );
+
+		var userInfo = new UserInfo( {'state':'agenteditactive'} );
+		var userAdd = new UserInfo( {'state':'agentadd'} );
+
+		var areaTree = new AreaTree();
+
+		agtList.render();
+		
+		//新增代理商
+		agtList.on('add',function(){
+			addAgent.show();
+		});
+
+		//编辑代理商
+		agtList.on('editagent',function( id ){
+			addAgent.show( id );
+		});
+
+		//查看用户列表
+		agtList.on('userdetail',function( id , name ){
+			userList.show( id , name );
+		});
+
+		//新增成功
+		addAgent.on('update',function(){
+			agtList.searchEve();
+		});
+
+
+		//选择区域
+		addAgent.on('selectarea',function(){
+			areaTree.show();
+		});
+
+		areaTree.on('selectarea',function( treeNodes ){
+			addAgent.selectarea( treeNodes );
+		});
+
+		//
+		userList.on('detail',function( id , agentId ){
+			userInfo.show( id , agentId , true);
+		});
+		userList.on('add',function( agentId ){
+			userAdd.show( false, agentId , true);
+		});
+		userList.on('reset',function( id ){
+			console.log( id );
+		});
+
+		userInfo.on('update',function(){
+			userList.searchEve();
+		});
+	}
+});
