@@ -416,7 +416,7 @@ define('common/app', function(require, exports, module){
 
 					for( var j = 0; j < codes.length ; j++ ){
 						if( codes[j] == IBSS.FUNCTIONS[i] ){
-							$this.show();
+							//$this.show(); 默认不做任何处理
 							bool = true;
 							break;
 						}

@@ -1284,10 +1284,13 @@ li a.nav-root {
 /**
  *
  * 有权限信息的默认隐藏
+ * 去除逻辑
  */
-[data-permissions] {
-  display: none;
+/*
+[data-permissions]{
+	display:none;
 }
+*/
 [data-modulecode] {
   display: none;
 }
