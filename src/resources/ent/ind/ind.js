@@ -171,6 +171,7 @@ define( function( require, exports, module ) {
             }
 
             me.$tbody.html( htmlStr );
+            IBSS.tplEvent.setPermissions( me.$tbody );
     	}
     });
 

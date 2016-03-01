@@ -101,7 +101,7 @@
 			<h4>备注</h4>
 			<p><textarea id="remark" rows="4" class="ed"></textarea></p>
 		</section>
-		<p class="tr f1 f2"><button id="btnSaveBasic" class="btn-blue off">保存</button></p>
+		<p class="tr f1 f2"><button id="btnSaveBasic" class="btn-blue off" data-permissions="F008070">保存</button></p>
 	</div>
 	<div class="dtl">
 
@@ -194,8 +194,8 @@
 					</label>
 				</p>
 				<p class="off btns">
-					<button class="u-btn-blue verificationaction-on">审核通过</button>
-					<button class="u-btn-red verificationaction-off">审核驳回</button>
+					<button class="u-btn-blue verificationaction-on" data-permissions="F008050">审核通过</button>
+					<button class="u-btn-red verificationaction-off" data-permissions="F008050">审核驳回</button>
 				</p>
 				
 				<!--资料审核上传-->
@@ -445,7 +445,7 @@
 						</select>
 					</label>
 				</p>
-				<div class="tabs-box"  data-permissions="F009002"><!--data-permissions="F009002"-->
+				<div class="tabs-box"  data-permissions="F009090"><!--data-permissions="F009002"-->
 					<div class="approval-box" style="border:1px solid #ccc; padding:5px;">
 						<ul id="tabs">
 							<li class="current">营销版增购扩容</li>
@@ -671,7 +671,7 @@
 						<button class="btn-blue" id="sBtnChangeStatisticsagent">保存</button>
 					</p>-->
 					<p class="tr off">
-						<button class="btn-blue" id="sBtnChangeStatistics">保存</button>
+						<button class="btn-blue" id="sBtnChangeStatistics" data-permissions="F008023 F008028 F008029 F008030 F008031 F008032 F008033 F008034 F008035">保存</button>
 					</p>
 					<table>
 						<thead>
@@ -713,8 +713,8 @@
 					</label>
 				</p>
 				<p class="training-action">
-					<button class="addTraining">+添加培训记录</button>
-					<button class="u-btn-blue searchTraining">查询</button>
+					<button class="addTraining" data-permissions="F009039 F008063">+添加培训记录</button>
+					<button class="u-btn-blue searchTraining" data-permissions="F009041">查询</button>
 				</p>
 				<table>
 
@@ -736,7 +736,7 @@
 							<td><%=item.trainer%></td>
 							<td><%=item.trainingDateStr%></td>
 							<td><%=item.trainingDescription%></td>
-							<td><a data-id="<%=item.id%>" class="edittraining">编辑</a></td>
+							<td><a data-id="<%=item.id%>" class="edittraining" data-permissions="F009040 F009042 F008066">编辑</a></td>
 						</tr>
 					</tbody>
 
@@ -771,8 +771,8 @@
 				<p><textarea id="sActiveRemark" rows="4"></textarea></p>
 				<div class="tb">
 					<p class="tr">
-						<button id="sBtnActive" class="btn-blue">开通</button>
-						<button id="sBtnRemove" class="btn-blue">作废</button>
+						<button id="sBtnActive" class="btn-blue" data-permissions="F008046">开通</button>
+						<button id="sBtnRemove" class="btn-blue" data-permissions="F008047">作废</button>
 					</p>
 				</div>
 			</div>
@@ -791,7 +791,7 @@
 		</section>-->
 
 		<!--功能限制-->
-		<section class="accordian collapse f1 f2 f3 f4 off" data-target="functions">
+		<section class="accordian collapse f1 f2 f3 f4 off" data-target="functions" data-permissions="F008021">
 			<h4><span class="arraw"></span>功能限制</h4>
 			<div class="content">
 				<p>
@@ -818,7 +818,7 @@
 						<label class="hw"><span>设置上传文件大小限制(M)</span><select id="sUFS"><option value="50">50</option><option value="100">100</option></select></label>
 						<label class="hw"><span>是否允许危险操作</span><select id="sActionDanger"><option value="0">否</option><option value="1">是</option></select></label>
 					</p>
-					<p class="tr"><button id="sBtnChangeFunctions" class="btn-blue">保存</button></p>
+					<p class="tr"><button id="sBtnChangeFunctions" class="btn-blue" data-permissions="F008026">保存</button></p>
 				</div>
 			</div>
 		</section>
@@ -844,9 +844,9 @@
 					</label>
 				</p>
 				<p class="off tr">
-					<button class="modifySmsName">修改企业简称</button>
-					<button class="rebackSms">收回短信尾号</button>
-					<button class="disSms">分配短信尾号</button>
+					<button class="modifySmsName" data-permissions="F008037">修改企业简称</button>
+					<button class="rebackSms" data-permissions="F008040">收回短信尾号</button>
+					<button class="disSms" data-permissions="F008041">分配短信尾号</button>
 				</p>
 			</div>
 		</section>
@@ -897,14 +897,14 @@
 					</label>
 				</p>
 				<p class="f2 off tr"> 
-					<label for=""><button class="btn-card" id="btnCardBuy">购买</button></label>
-					<label for=""><button class="btn-card" id="btnCardSend">赠送</button></label>
+					<label for=""><button class="btn-card" id="btnCardBuy" data-permissions="F008043">购买</button></label>
+					<label for=""><button class="btn-card" id="btnCardSend" data-permissions="F008042">赠送</button></label>
 				</p>
 			</div>
 		</section>
 
 		<!--名片购买信息-->
-		<section class="accordian collapse f1 f2 f3 f4 off" data-target="card">
+		<section class="accordian collapse f1 f2 f3 f4 off" data-target="card" data-permissions="F008016">
 			<h4><span class="arraw"></span>名片购买信息</h4>
 			<div class="content">
 			  <fieldset>
@@ -998,7 +998,7 @@
 			<div class="content">
 				<p><label><span>状态</span><input id="sdMarketingStatus" disabled="disabled" class="g-ipt ipt-l" type="text"></label></p>
 				<div id="tbMarketing" class="tb off">
-					<p class="tr"><button id="sBtnMarketingStop" class="btn-blue">变更</button></p>
+					<p class="tr"><button id="sBtnMarketingStop" class="btn-blue" data-permissions="F008038">变更</button></p>
 				</div>
 			</div>
 		</section>
@@ -1076,7 +1076,7 @@
 					</label>
 				</p>
 				<p class="detail-btn">
-					<button class="u-btn-blue savemonitoring">保存</button>
+					<button class="u-btn-blue savemonitoring" data-permissions="F008073">保存</button>
 				</p>
 				<table>
 					<thead>
@@ -1094,7 +1094,7 @@
 		</section>
 		
 		<!--日志信息-->
-		<section class="accordian collapse f1 f2 f3 f4 off" data-target="log">
+		<section class="accordian collapse f1 f2 f3 f4 off" data-target="log" data-permissions="F008020">
 			<h4><span class="arraw"></span>日志信息</h4>
 			<div class="content">
 				<div id="tbLog" class="tb">
@@ -1125,8 +1125,8 @@
 		
 		<p class="tr">
 			<!--<button id="btnResetAdminPassword" class="f2 off">重置管理员密码</button>-->
-			<button id="btnStopService" class="f2 off">停用</button>
-			<button id="btnStartService" class="f4 off">启用</button>
+			<button id="btnStopService" class="f2 off" data-permissions="F008048">停用</button>
+			<button id="btnStartService" class="f4 off" data-permissions="F008048">启用</button>
 		</p>
 	</div>
 </div>

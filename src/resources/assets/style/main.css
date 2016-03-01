@@ -4,6 +4,7 @@
   border: 1px #DADADA solid;
   border-radius: 4px;
 }
+/*公用表格样式*/
 .u-tablelist .list-header {
   background: #f6f6f6;
   border-bottom: 1px solid #d9d9d9;
@@ -341,7 +342,7 @@ body {
   overflow-y: scroll;
   overflow-x: scroll;
 }
-a,
+a:link,
 a:hover {
   color: #2896f0;
   text-decoration: none;
@@ -525,10 +526,7 @@ body::-webkit-scrollbar-corner {
   border-bottom: 1px #f1f1f1 solid;
 }
 #header .header-person .person-loginout a:hover {
-  background: #efefef;
-}
-#header .header-person .person-loginout a:last-child {
-  border-bottom: none;
+  color: #2896f0;
 }
 #header .header-person:hover .person-loginout {
   display: block;
@@ -554,7 +552,7 @@ body::-webkit-scrollbar-corner {
   background: #f2f2f2;
 }
 #header nav a {
-  width: 90px;
+  padding: 0 16px;
   display: inline-block;
   text-align: center;
 }
@@ -563,7 +561,7 @@ body::-webkit-scrollbar-corner {
   color: #484848;
 }
 #header nav a:hover {
-  background: #f0f0f0;
+  background: #ececec;
   transition: background-color 0.3s linear;
 }
 #header nav .nav-main li {
@@ -590,7 +588,7 @@ body::-webkit-scrollbar-corner {
   border-bottom: none;
 }
 #header nav .nav-sub a {
-  width: 160px;
+  width: 128px;
 }
 #header nav .nav-sub a:hover {
   background: #f0f0f0;
@@ -1286,8 +1284,14 @@ li a.nav-root {
 /**
  *
  * 有权限信息的默认隐藏
+ * 去除逻辑
  */
-[data-permissions] {
+/*
+[data-permissions]{
+	display:none;
+}
+*/
+[data-modulecode] {
   display: none;
 }
 [data-state] {

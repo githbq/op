@@ -134,6 +134,7 @@ define( function(require, exports, module){
 			var collection = me.collection.all();
 			if( collection.length > 0 ){
 				me.$tbody.html( me.trTpl({'content':collection}) );
+				IBSS.tplEvent.setPermissions( me.$tbody );
 			}else{
 				me.$tbody.html( '<tr><td colspan="7"><p class="info">暂无数据</p></td></tr>' );
 			}
