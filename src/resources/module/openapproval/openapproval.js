@@ -807,6 +807,7 @@ define( function(require, exports, module){
 				objDate['discount']='';
 				objDate['invoiceTitle']='';
 				objDate['useBusinessCard'] = '0';
+				objDate['orderType']=1;
 				objDate['marketingAccountAmount'] = 0;
 				objDate['accountTotalAmount']=me.model.get('accountTotalAmount')
 				objDate['isPaid']='0';
