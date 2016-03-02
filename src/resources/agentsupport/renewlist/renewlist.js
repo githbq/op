@@ -1538,6 +1538,7 @@ define( function( require, exports, module ) {
 			objDate['businessLicenseFileName']=me.model.get('businessLicenseFileName');
 			objDate['contractStartTime']=new Date( me.$startTimeHt.val() ).getTime();
 			objDate['contractEndTime']=new Date( me.$endTimeHt.val() ).getTime();
+			objDate['orderType']=1;
 			if( me.attrs.type  == 'payLaunchApproval' ){
                 objDate['contractType'] = 1;
 				objDate['contractPrice']=me.model.get('contractPrice');
@@ -1955,6 +1956,7 @@ define( function( require, exports, module ) {
 				objDate['contractPrice']='';
 				objDate['discount']='';
 				objDate['invoiceTitle']='';
+				objDate['orderType']=1;
 				objDate['marketingAccountAmount'] = 0;
 				objDate['accountTotalAmount']=me.model.get('accountTotalAmount')
 				objDate['isPaid']='0';

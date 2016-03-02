@@ -836,6 +836,7 @@ define( function(require, exports, module){
 			var me = this;
 			me.model.set('contractType',1);
 			me.model.set('payStatus',1);
+			me.model.set('orderType',3);
 			
 			if(!me.$('.crm-check').is(':checked') && !me.$('.pk-check').is(':checked') && !me.$('.meet-check').is(':checked') && !me.$('.hr-check').is(':checked') && !me.$('.pay-check').is(':checked')){
 				util.showTip('请至少选择一种助手产品');
