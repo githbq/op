@@ -165,10 +165,7 @@
 				<span>销客终端总量(个)</span>
 				<input type="text" ce-model="accountTotalAmount" class=" deviceamount" onchange="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
 			</label>
-			<label for="">
-				<span>营销版数量(个 <b>*</b>)</span>
-				<input type="text" ce-model="marketingAccountAmount" class=" marketingAccountAmount required" onchange="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
-			</label>
+			
 		</p>
 		<p>
 			<label for="">
@@ -184,14 +181,159 @@
 				<span>空间总量(GB)<b>*</b></span>
 				<input type="text" ce-model="storageTotalSpace" class="required" onchange="this.value=this.value.replace(/[^\.\d]/g,'')">
 			</label>
-			<label for="">
+			<!--<label for="">
 				<span>是否付费 </span>
 				<select name="" ce-model="isPaid" class="isPaid" disabled='disabled'>
 					<option value="0">否</option>
 					<option value="1">是</option>
 				</select>
-			</label>
+			</label>-->
 		</p>
+		<div>
+			<hr/>
+			<p >
+				<label >
+					<span><input type="checkbox"  style="width:22px;" class="crm-check"/>CRM</span>
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>CRM总量(个)<b class="state crm-show">*</b></span>
+					<input type="text" ce-model="crm-purchaseCount" class=" crm-control crm-num" onchange="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" disabled=disabled>
+				</label>
+				<label for="">
+					<span>金额<b class="state crm-show">*</b></span>
+					<input type="text" ce-model="crm-purchaseAmount" class="crm-control crm-money" onchange="this.value=this.value.replace(/[^\.\d]/g,'')" disabled=disabled>
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>开始时间<b class=" state crm-show">*</b></span>
+					<input type="text" class="crm-startTime crm-control" ce-model="crm-startTime"  disabled=disabled>
+				</label>
+				<label for="">
+					<span>结束时间<b class="crm-show">*</b></span>
+					<input type="text" class="crm-endTime crm-control" ce-model="crm-endTime"  disabled=disabled>
+				</label>
+			</p>
+			<p>
+				<span>捆绑纷享百川</span>
+				<label for="">
+					<span>开始时间<b class="state crm-show">*</b></span>
+					<input type="text" class="baichuan-startTime " ce-model="crm-startTime" disabled=disabled>
+				</label>
+			</p>
+			<p>
+				<span></span>
+				<label for="">
+					<span>结束时间<b class="state crm-show">*</b></span>
+					<input type="text" class="baichuan-endTime " ce-model="crm-endTime"  disabled=disabled>
+				</label>
+			</p>
+			<p>
+				<span>捆绑报数系统</span>
+				<label for="">
+					<span>开始时间<b class="state crm-show">*</b></span>
+					<input type="text" class="system-startTime " ce-model="crm-startTime"  disabled=disabled>
+				</label>
+			</p>
+			<p>
+				<span></span>
+				<label for="">
+					<span>结束时间<b class="state crm-show">*</b></span>
+					<input type="text" class="system-endTime " ce-model="crm-endTime"  disabled=disabled>
+				</label>
+			</p>
+			<hr/>
+			<p >
+				<label >
+					<span><input type="checkbox" style="width:22px;" class="pk-check"/>PK助手</span>
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>金额<b class="state pk-show">*</b></span>
+					<input type="text" class="pk-control pk-purchaseAmount"  ce-model="pk-purchaseAmount" onchange="this.value=this.value.replace(/[^\.\d]/g,'')" disabled=disabled>
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>开始时间<b class="state pk-show">*</b></span>
+					<input type="text" class="pk-startTime pk-control"   disabled=disabled>
+				</label>
+				<label for="">
+					<span>结束时间<b class="state pk-show">*</b></span>
+					<input type="text" class="pk-endTime pk-control"  disabled=disabled>
+				</label>
+			</p>
+			<hr/>
+			<p >
+				<label >
+					<span><input type="checkbox" style="width:22px;" class="meet-check"/>会议助手</span>
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>金额<b class="state meet-show">*</b></span>
+					<input type="text" ce-model="meet-purchaseAmount" class="meet-control meet-purchaseAmount" onchange="this.value=this.value.replace(/[^\.\d]/g,'')" disabled=disabled>
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>开始时间<b class="state meet-show">*</b></span>
+					<input type="text" class="meet-startTime meet-control"   disabled=disabled>
+				</label>
+				<label for="">
+					<span>结束时间<b class="state meet-show">*</b></span>
+					<input type="text" class="meet-endTime meet-control"   disabled=disabled>
+				</label>
+			</p>
+			<hr/>
+			<p >
+				<label >
+					<span><input type="checkbox" style="width:22px;" class="hr-check"/>HR助手</span>
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>金额<b class="state hr-show">*</b></span>
+					<input type="text" ce-model="hr-purchaseAmount" class="hr-control hr-purchaseAmount" onchange="this.value=this.value.replace(/[^\.\d]/g,'')" disabled=disabled>
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>开始时间<b class="state hr-show">*</b></span>
+					<input type="text" class="hr-startTime hr-control"  disabled=disabled>
+				</label>
+				<label for="">
+					<span>结束时间<b class="state hr-show">*</b></span>
+					<input type="text" class="hr-endTime hr-control"   disabled=disabled>
+				</label>
+			</p>
+			<hr/>
+			<p >
+				<label >
+					<span><input type="checkbox" style="width:22px;" class="pay-check"/>工资助手</span>
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>金额<b class="state pay-show">*</b></span>
+					<input type="text" ce-model="pay-purchaseAmount" class="pay-control pay-purchaseAmount" onchange="this.value=this.value.replace(/[^\.\d]/g,'')" disabled=disabled>
+				</label>
+			</p>
+			<p>
+				<label for="">
+					<span>开始时间<b class="state pay-show">*</b></span>
+					<input type="text" class="pay-startTime pay-control"   disabled=disabled>
+				</label>
+				<label for="">
+					<span>结束时间<b class="state pay-show">*</b></span>
+					<input type="text" class="pay-endTime pay-control"   disabled=disabled>
+				</label>
+			</p>
+			<hr/>
+		</div>
 		<p class="state state-pay">
 			<label for="">
 				<span>合同照片<b>*</b></span>
@@ -216,14 +358,14 @@
 				<input type="text" ce-model="invoiceTitle" class="required">
 			</label>
 		</p>
-		<p>
+		<!--<p>
 			<label for="">
 				<span>合同开始时间<b>*</b></span>
 				<input type="text" class="startTime" ce-model="startTime" onkeyup='this.value=""'>
 				<span>合同结束时间<b>*</b></span>
 				<input type="text" class="endTime" ce-model="endTime" onkeyup='this.value=""'>
     		</label>
-		</p>
+		</p>-->
 		<p>
 			<label for="">
 				<span>是否使用名片 <b>*</b></span>
@@ -239,7 +381,7 @@
 		</p>
 		<p>
 			<label for="">
-				<span>折扣 <b>*</b></span>
+				<span>折扣 </span>
 				<input type="text" ce-model="discount" class="" disabled='disabled'>
 			</label>
 		</p>

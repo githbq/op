@@ -146,6 +146,180 @@ define( function(require, exports, module){
 					this.value = '';
 				}
 			});
+			
+			//crm事件
+			me.$('.crm-check').on('click',function(){
+				if(me.$('.crm-check').is(':checked')){
+					me.$('.crm-show').show();
+					me.$('.crm-control').removeAttr('disabled');
+				}else{
+					me.$('.crm-show').hide();
+					me.$('.crm-control').attr('disabled','disabled');
+				}
+			});
+			
+			//pk助手事件
+			me.$('.pk-check').on('click',function(){
+				if(me.$('.pk-check').is(':checked')){
+					me.$('.pk-show').show();
+					me.$('.pk-control').removeAttr('disabled');
+				}else{
+					me.$('.pk-show').hide();
+					me.$('.pk-control').attr('disabled','disabled');
+				}
+			});
+			
+			//会议助手事件
+			me.$('.meet-check').on('click',function(){
+				if(me.$('.meet-check').is(':checked')){
+					me.$('.meet-show').show();
+					me.$('.meet-control').removeAttr('disabled');
+				}else{
+					me.$('.meet-show').hide();
+					me.$('.meet-control').attr('disabled','disabled');
+					me.$('.meet-control').val('');
+				}
+			});
+			
+			
+			//Hr助手事件
+			me.$('.hr-check').on('click',function(){
+				if(me.$('.hr-check').is(':checked')){
+					me.$('.hr-show').show();
+					me.$('.hr-control').removeAttr('disabled');
+				}else{
+					me.$('.hr-show').hide();
+					me.$('.hr-control').attr('disabled','disabled');
+					me.$('.hr-control').val('');
+				}
+			});
+			//工资助手事件
+			me.$('.pay-check').on('click',function(){
+				if(me.$('.pay-check').is(':checked')){
+					me.$('.pay-show').show();
+					me.$('.pay-control').removeAttr('disabled');
+				}else{
+					me.$('.pay-show').hide();
+					me.$('.pay-control').attr('disabled','disabled');
+					me.$('.pay-control').val('');
+				}
+			});
+			
+			//crm --时间--start
+			me.$('.crm-startTime').datetimepicker( {
+				format: 'Y/m/d',
+				onShow: function() {
+					var maxDate = me.$('.crm-endTime').val() ? me.$('.crm-endTime').val() : false;
+					this.setOptions({
+						maxDate: maxDate
+					});
+				},
+				timepicker: false
+			} );
+			me.$('.crm-endTime').datetimepicker( {
+				format: 'Y/m/d',
+				onShow: function() {
+					var minDate = me.$('.crm-startTime').val() ? me.$('.crm-startTime').val() : false;
+					this.setOptions({
+						minDate: minDate
+					});
+				},
+				timepicker: false
+			} );
+			//crm --时间--end
+			
+			//pk --时间--start
+			me.$('.pk-startTime').datetimepicker( {
+				format: 'Y/m/d',
+				onShow: function() {
+					var maxDate = me.$('.pk-endTime').val() ? me.$('.pk-endTime').val() : false;
+					this.setOptions({
+						maxDate: maxDate
+					});
+				},
+				timepicker: false
+			} );
+			me.$('.pk-endTime').datetimepicker( {
+				format: 'Y/m/d',
+				onShow: function() {
+					var minDate = me.$('.pk-startTime').val() ? me.$('.pk-startTime').val() : false;
+					this.setOptions({
+						minDate: minDate
+					});
+				},
+				timepicker: false
+			} );
+			//pk --时间--end
+			
+			//会议助手 --时间--start
+			me.$('.meet-startTime').datetimepicker( {
+				format: 'Y/m/d',
+				onShow: function() {
+					var maxDate = me.$('.meet-endTime').val() ? me.$('.meet-endTime').val() : false;
+					this.setOptions({
+						maxDate: maxDate
+					});
+				},
+				timepicker: false
+			} );
+			me.$('.meet-endTime').datetimepicker( {
+				format: 'Y/m/d',
+				onShow: function() {
+					var minDate = me.$('.meet-startTime').val() ? me.$('.meet-startTime').val() : false;
+					this.setOptions({
+						minDate: minDate
+					});
+				},
+				timepicker: false
+			} );
+			//会议助手 --时间--end
+			
+			//hr助手 --时间--start
+			me.$('.hr-startTime').datetimepicker( {
+				format: 'Y/m/d',
+				onShow: function() {
+					var maxDate = me.$('.hr-endTime').val() ? me.$('.hr-endTime').val() : false;
+					this.setOptions({
+						maxDate: maxDate
+					});
+				},
+				timepicker: false
+			} );
+			me.$('.hr-endTime').datetimepicker( {
+				format: 'Y/m/d',
+				onShow: function() {
+					var minDate = me.$('.hr-startTime').val() ? me.$('.hr-startTime').val() : false;
+					this.setOptions({
+						minDate: minDate
+					});
+				},
+				timepicker: false
+			} );
+			//hr助手 --时间--end
+			
+			//工资助手 --时间--start
+			me.$('.pay-startTime').datetimepicker( {
+				format: 'Y/m/d',
+				onShow: function() {
+					var maxDate = me.$('.pay-endTime').val() ? me.$('.pay-endTime').val() : false;
+					this.setOptions({
+						maxDate: maxDate
+					});
+				},
+				timepicker: false
+			} );
+			me.$('.pay-endTime').datetimepicker( {
+				format: 'Y/m/d',
+				onShow: function() {
+					var minDate = me.$('.pay-startTime').val() ? me.$('.pay-startTime').val() : false;
+					this.setOptions({
+						minDate: minDate
+					});
+				},
+				timepicker: false
+			} );
+			//工资助手 --时间--end
+
 
 			me.$startTime.datetimepicker({'timepicker': false,'format':'Y/m/d'});
             me.$endTime.datetimepicker({'timepicker': false,'format':'Y/m/d'});
@@ -241,33 +415,31 @@ define( function(require, exports, module){
 			//合同金额改变
 			me.$contractprice.on('focusout',function(){
 				me.model.set('contractPrice',parseFloat(me.model.get('contractPrice'))?parseFloat(me.model.get('contractPrice')):'');
-				me.getdiscount();
+				//me.getdiscount();
 			});
-			//终端总量
-			me.$deviceamount.on('focusout',function(){
-				var buyCount = me.model.get('marketingAccountAmount')?parseInt(me.model.get('marketingAccountAmount')):0;
-				me.model.set('accountTotalAmount',parseInt(me.model.get('accountTotalAmount'))?parseInt(me.model.get('accountTotalAmount')):'');
-				if(buyCount>0){
-					me.getFreeNum();
-				}
-				
-			});
+			
 
-			//营销版数量改变
-			me.$marketingAccountAmount.on('focusout',function(){
-				me.getFreeNum();
+			//crm开始时间
+			me.$('.crm-startTime').on('focusout',function(){
 				me.getdiscount();
 			});
 
-			//开始时间
-			me.$startTime.on('focusout',function(){
+			//crm结束时间
+			me.$('.crm-endTime').on('focusout',function(){
 				me.getdiscount();
 			});
-
-			//结束时间
-			me.$endTime.on('focusout',function(){
+			//crn金额改变
+			me.$('.crm-money').on('focusout',function(){
+				//me.model.set('contractPrice',parseFloat(me.model.get('contractPrice'))?parseFloat(me.model.get('contractPrice')):'');
 				me.getdiscount();
 			});
+			//crn数量
+			me.$('.crm-num').on('focusout',function(){
+				//me.model.set('contractPrice',parseFloat(me.model.get('contractPrice'))?parseFloat(me.model.get('contractPrice')):'');
+				me.getdiscount();
+			});
+			
+			
 			//是否使用名片
 			me.$useBusinessCard.on('change',function(){
 				me.getdiscount();
@@ -300,56 +472,30 @@ define( function(require, exports, module){
 
 			$('.e-industry').val(me.model.get('INDUSTRY'));
 		},
-		//获取赠送数量
-		getFreeNum: function(){
-			var me = this;
 
-			var buyCount = me.model.get('marketingAccountAmount')?parseInt(me.model.get('marketingAccountAmount')):0;
-			me.model.set('marketingAccountAmount',parseInt(me.model.get('marketingAccountAmount'))?parseInt(me.model.get('marketingAccountAmount')):'');
-			
-			var	sumNum =  me.$deviceamount.val()?parseInt(me.$deviceamount.val()):0;
-			if(sumNum>0&&sumNum<buyCount){
-				util.showToast('营销版数量不能大于销客终端数量');
-				me.model.set('marketingAccountAmount','');
-				return false;
-			}
-			/*
-			if(sumNum!=0&&(sumNum-buyCount)>15){
-				util.showToast('终端赠送上限为15,请修改终端总量!');
-				me.$deviceamount.val('');
-				return false;
-			}
-			*/
-			if(buyCount>0){
-				me.model.set('isPaid','1');
-			}else{
-				me.model.set('isPaid','0');
-			}
-		},
-		
 		//获取折扣
 		getdiscount: function(){
 			var me = this;
 
-			var accountAmount = me.model.get('marketingAccountAmount'),
-				contractPrice = me.model.get('contractPrice'),
+			var crmNum = me.$('.crm-num').val(),
+				crmMoney = me.$('.crm-money').val(),
 				buyBusinessCard = me.model.get('useBusinessCard');
 
-			var contractStartTime = '';  
-			var contractEndTime = '';
+			var crmStartTime = '';  
+			var crmEndTime = '';
 
-			if( me.$startTime.val() ){
-				contractStartTime = new Date( me.$startTime.val() ).getTime();
+			if( me.$('.crm-startTime').val() ){
+				crmStartTime = new Date( me.$('.crm-startTime').val() ).getTime();
 			}
-			if( me.$endTime.val() ){
-				contractEndTime = new Date( me.$endTime.val() ).getTime();
+			if( me.$('.crm-endTime').val() ){
+				crmEndTime = new Date( me.$('.crm-endTime').val() ).getTime();
 			}
-			if( contractStartTime && contractEndTime && buyBusinessCard =='1'){
+			if( crmStartTime && crmEndTime && buyBusinessCard =='1'){
 				util.api({
 					'url':'/enterprise/getbusinesscardprice',
 					'data':{
-						'contractStartTime':contractStartTime,
-						'contractEndTime':contractEndTime
+						'contractStartTime':crmStartTime,
+						'contractEndTime':crmEndTime
 					},
 					'success': function( data ){
 						if( data.success ){
@@ -366,18 +512,18 @@ define( function(require, exports, module){
 				me.model.set('cardPrice','');
 			}
 
-
-			if( accountAmount && contractPrice && contractStartTime && contractEndTime && buyBusinessCard ){
+			
+			if( crmNum && crmMoney && crmStartTime && crmEndTime && buyBusinessCard ){
 			
 
 				me.discountxhr && me.discountxhr.abort();
 				me.discountxhr = util.api({
 					url:'/enterprise/getdiscount',
 					'data':{
-						'accountAmount': accountAmount,
-						'contractStartTime': contractStartTime,
-						'contractEndTime': contractEndTime,
-						'contractPrice': contractPrice,
+						'accountAmount': crmNum,
+						'contractStartTime': crmStartTime,
+						'contractEndTime': crmEndTime,
+						'contractPrice': crmMoney,
 						'buyBusinessCard':buyBusinessCard
 					},
 					'success': function( data ){
@@ -495,58 +641,21 @@ define( function(require, exports, module){
 			var me = this;
 			var startTime,endTime;
 			
-			if( me.$startTime.val() ){
-                startTime = new Date( me.$startTime.val() ).getTime();
-            }
-            if( me.$endTime.val() ){
-                endTime = new Date( me.$endTime.val() ).getTime();
-            }
+	
 			me.model.set('dealDays',parseInt(me.model.get('dealDays'))?parseInt(me.model.get('dealDays')):'');
 			me.model.set('storageTotalSpace',parseFloat(me.model.get('storageTotalSpace'))?parseFloat(me.model.get('storageTotalSpace')):'');
-            me.model.set('contractStartTime',startTime);
-            me.model.set('contractEndTime',endTime);
+  
             me.model.set('enterpriseShortName',me.model.get('enterpriseAccount'));
             me.model.set('productId',1);
-			//me.model.set('marketingAccountAmount',me.model.get('marketingAccountAmount'));
+	
             var model = me.model.all();
 			
-			/*
-            if( !me.$regionName.val() ){
-				util.showToast('请选择区域');
-				return false;
-			}else{
-				me.model.set( 'regionName', me.$regionName.val() );
-			}
-			*/
-			/*if( !me.state ){
-				util.showTip('信息未获取完毕 请稍等');
-				return;
-			}*/
-			var countNum =me.model.get('accountTotalAmount')? parseInt(me.model.get('accountTotalAmount')):0;
-			var singleNum = me.model.get('marketingAccountAmount')?parseInt(me.model.get('marketingAccountAmount')):0;
-			if(countNum==0 && singleNum==0){
-				util.showToast('销客终端数量与营销版数量不能同时为零！');
+			if(!me.$('.crm-check').is(':checked') && !me.$('.pk-check').is(':checked') && !me.$('.meet-check').is(':checked') && !me.$('.hr-check').is(':checked') && !me.$('.pay-check').is(':checked')){
+				util.showTip('请至少选择一种助手产品');
 				return false;
 			}
-
-			/*
-			if(singleNum!=0 && countNum!=0 && (countNum-singleNum)>15){
-				util.showToast('终端赠送上限为15！');
-				return false;
-			}else if(countNum!=0 && singleNum==0 && countNum>15){
-				util.showToast('终端赠送上限为15！');
-				return false;
-			}
-			*/
-			if(countNum==0&&singleNum>0){
-				me.model.set('accountTotalAmount',me.model.get('marketingAccountAmount'));
-			}
+			var tempArry = [];
 			
-			if(countNum!=0&&(countNum<singleNum)){
-				
-				util.showToast('营销版数量不能大于销客终端数量');
-				return false;
-			}
 			var state = true; 
 			//检测必填项
 			me.$('.required').each(function(){
@@ -567,25 +676,246 @@ define( function(require, exports, module){
 			}else{
 				util.unWarnInput( $('.contract') );
 			}
+			
+			$("input[type='checkbox']:checked").each(function(){ 
+				var className = $(this).attr('class').split('-')[0];
+				switch(className)
+				{
+					case 'crm':
+						if( !me.$('.crm-num').val() ){
+							util.warnInput( $('.crm-num') );
+							state = false;
+						}else{
+							util.unWarnInput( $('.crm-num') );
+						}
+						if( !me.$('.crm-money').val() ){
+							util.warnInput( $('.crm-money') );
+							state = false;
+						}else{
+							util.unWarnInput( $('.crm-money') );
+						}
+						if( !me.$('.crm-startTime').val() ){
+							util.warnInput( $('.crm-startTime') );
+							state = false;
+						}else{
+							util.unWarnInput( $('.crm-startTime') );
+						}
+						if( !me.$('.crm-endTime').val() ){
+							util.warnInput( $('.crm-endTime') );
+							state = false;
+						}else{
+							util.unWarnInput( $('.crm-endTime') );
+						}
+						
+						var tempCrm = {
+							'productId':1,
+							'purchaseAmount':me.model.get('crm-purchaseAmount'),
+							'purchaseCount':me.model.get('crm-purchaseCount'),
+							'productAmount':me.model.get('crm-purchaseAmount'),
+							'startTime':new Date( me.$('.crm-startTime').val() ).getTime(),
+							'endTime':new Date( me.$('.crm-endTime').val() ).getTime(),
+							'discount':10
+							
+						}
+						tempArry.push(tempCrm);
+						var tempBaichuan = {
+							'productId':2,
+							'purchaseAmount':9999, //页面没有百川数量设置默认
+							'purchaseCount':0,
+							'productAmount':0,
+							'startTime':new Date( me.$('.crm-startTime').val() ).getTime(),
+							'endTime':new Date( me.$('.crm-endTime').val() ).getTime(),
+							'discount':10
+							
+						}
+						tempArry.push(tempBaichuan);
+						var tempSystem = {
+							'productId':3,
+							'purchaseAmount':9999, //页面没有百川数量设置默认
+							'purchaseCount':0,
+							'productAmount':0,
+							'startTime':new Date( me.$('.crm-startTime').val() ).getTime(),
+							'endTime':new Date( me.$('.crm-endTime').val() ).getTime(),
+							'discount':10
+							
+						}
+						tempArry.push(tempSystem);
+						me.model.set('contractStartTime',new Date( me.$('.crm-startTime').val() ).getTime());
+						me.model.set('contractEndTime',new Date( me.$('.crm-endTime').val() ).getTime());
+					  break;
+					  
+					case 'pk':
+					
+						tempArry.push(me.getProductInfo('pk',4));
+					
+					  /*if( !me.$('.pk-purchaseAmount').val() ){
+							util.warnInput( $('.pk-purchaseAmount') );
+							state = false;
+						}else{
+							util.unWarnInput( $('.pk-purchaseAmount') );
+						}
+						if( !me.$('.pk-startTime').val() ){
+							util.warnInput( $('.pk-startTime') );
+							state = false;
+						}else{
+							util.unWarnInput( $('.pk-startTime') );
+						}
+						if( !me.$('.pk-endTime').val() ){
+							util.warnInput( $('.pk-endTime') );
+							state = false;
+						}else{
+							util.unWarnInput( $('.pk-endTime') );
+						}
+						
+						var tempPk = {
+							'productId':4,
+							'purchaseAmount':me.model.get('pk-purchaseAmount'),
+							'purchaseCount':9999,
+							'productAmount':me.model.get('pk-purchaseAmount'),
+							'startTime':new Date( me.$('.pk-startTime').val() ).getTime(),
+							'endTime':new Date( me.$('.pk-endTime').val() ).getTime(),
+							'discount':10
+						}
+						tempArry.push(tempPk);
+						if(!me.model.get('contractStartTime')){
+							me.model.set('contractStartTime',new Date( me.$('.pk-startTime').val() ).getTime());
+							me.model.set('contractEndTime',new Date( me.$('.pk-endTime').val() ).getTime());
+						}*/
+					  break;
+					  
+					case 'meet':
+						tempArry.push(me.getProductInfo('meet',5));
+					  /*if( !me.$('.meet-purchaseAmount').val() ){
+							util.warnInput( $('.meet-purchaseAmount') );
+							state = false;
+						}else{
+							util.unWarnInput( $('.meet-purchaseAmount') );
+						}
+						if( !me.$('.meet-startTime').val() ){
+							util.warnInput( $('.meet-startTime') );
+							state = false;
+						}else{
+							util.unWarnInput( $('.meet-startTime') );
+						}
+						if( !me.$('.meet-endTime').val() ){
+							util.warnInput( $('.meet-endTime') );
+							state = false;
+						}else{
+							util.unWarnInput( $('.meet-endTime') );
+						}
+						
+						var tempMeet = {
+							'productId':5,
+							'purchaseAmount':me.model.get('meet-purchaseAmount'),
+							'purchaseCount':9999,
+							'productAmount':me.model.get('meet-purchaseAmount'),
+							'startTime':new Date( me.$('.meet-startTime').val() ).getTime(),
+							'endTime':new Date( me.$('.meet-endTime').val() ).getTime(),
+							'discount':10
+						}
+						tempArry.push(tempMeet);
+						if(!me.model.get('contractStartTime')){
+							me.model.set('contractStartTime',new Date( me.$('.meet-startTime').val() ).getTime());
+							me.model.set('contractEndTime',new Date( me.$('.meet-endTime').val() ).getTime());
+						}*/
+					  break;
+					case 'hr':
+						tempArry.push(me.getProductInfo('hr',6));
+					  /*if( !me.$('.hr-purchaseAmount').val() ){
+							util.warnInput( $('.hr-purchaseAmount') );
+							state = false;
+						}else{
+							util.unWarnInput( $('.hr-purchaseAmount') );
+						}
+						if( !me.$('.hr-startTime').val() ){
+							util.warnInput( $('.hr-startTime') );
+							state = false;
+						}else{
+							util.unWarnInput( $('.hr-startTime') );
+						}
+						if( !me.$('.hr-endTime').val() ){
+							util.warnInput( $('.hr-endTime') );
+							state = false;
+						}else{
+							util.unWarnInput( $('.hr-endTime') );
+						}
+						
+						var tempHr = {
+							'productId':6,
+							'purchaseAmount':me.model.get('hr-purchaseAmount'),
+							'purchaseCount':9999,
+							'productAmount':me.model.get('hr-purchaseAmount'),
+							'startTime':new Date( me.$('.hr-startTime').val() ).getTime(),
+							'endTime':new Date( me.$('.hr-endTime').val() ).getTime(),
+							'discount':10
+						}
+						tempArry.push(tempHr);
+						if(!me.model.get('contractStartTime')){
+							me.model.set('contractStartTime',new Date( me.$('.hr-startTime').val() ).getTime());
+							me.model.set('contractEndTime',new Date( me.$('.hr-endTime').val() ).getTime());
+						}*/
+					  break;
+					case 'pay':
+					
+						tempArry.push(me.getProductInfo('pay',7));
+						
+					  /*if( !me.$('.pay-purchaseAmount').val() ){
+							util.warnInput( $('.pay-purchaseAmount') );
+							state = false;
+						}else{
+							util.unWarnInput( $('.pay-purchaseAmount') );
+						}
+						if( !me.$('.pay-startTime').val() ){
+							util.warnInput( $('.pay-startTime') );
+							state = false;
+						}else{
+							util.unWarnInput( $('.pay-startTime') );
+						}
+						if( !me.$('.pay-endTime').val() ){
+							util.warnInput( $('.pay-endTime') );
+							state = false;
+						}else{
+							util.unWarnInput( $('.pay-endTime') );
+						}
+						
+						var tempMeet = {
+							'productId':7,
+							'purchaseAmount':me.model.get('pay-purchaseAmount'),
+							'purchaseCount':9999,
+							'productAmount':me.model.get('pay-purchaseAmount'),
+							'startTime':new Date( me.$('.pay-startTime').val() ).getTime(),
+							'endTime':new Date( me.$('.pay-endTime').val() ).getTime(),
+							'discount':10
+						}
+						tempArry.push(tempMeet);
+						if(!me.model.get('contractStartTime')){
+							me.model.set('contractStartTime',new Date( me.$('.pay-startTime').val() ).getTime());
+							me.model.set('contractEndTime',new Date( me.$('.pay-endTime').val() ).getTime());
+						}*/
+					  break;
+					  
+					default:
+					  
+				}
+			});
 
-			if( !me.model.get('contractStartTime') ){
-				util.warnInput( $('.startTime') );
-				state = false;
-			}else{
-				util.unWarnInput( $('.startTime') );
-			}
-
-			if( !me.model.get('contractEndTime') ){
-				util.warnInput( $('.endTime') );
-				state = false;
-			}else{
-				util.unWarnInput( $('.endTime'));
-			}
 
 			if( state == false ){
 				util.showToast('信息填写不完整');
 				return ;
 			}
+		
+			me.model.set('subOrderInfo',JSON.stringify( tempArry ));
+			//付费状态
+			me.model.set('payStatus',1);
+			//crm如果没有填默认折扣10
+			if(!me.$('.crm-num').val()){
+				me.model.set('discount',10);
+				me.model.set('marketingAccountAmount',0);
+			}else{
+				me.model.set('marketingAccountAmount',me.$('.crm-num').val());
+			}
+			
 			
 			me.$actionAdd.text('提交中....');
 			me.$actionAdd.attr('disabled','disabled');
@@ -611,6 +941,44 @@ define( function(require, exports, module){
             	me.$actionAdd.text('提交');
 				me.$actionAdd.removeAttr('disabled');
             });
+		},
+		getProductInfo:function(productStr,productId){
+			var me = this;
+			debugger
+			if( !me.$('.'+productStr+'-purchaseAmount').val() ){
+				util.warnInput( $('.'+productStr+'-purchaseAmount') );
+				state = false;
+			}else{
+				util.unWarnInput( $('.'+productStr+'-purchaseAmount') );
+			}
+			if( !me.$('.'+productStr+'-startTime').val() ){
+				util.warnInput( $('.'+productStr+'-startTime') );
+				state = false;
+			}else{
+				util.unWarnInput( $('.'+productStr+'-startTime') );
+			}
+			if( !me.$('.'+productStr+'-endTime').val() ){
+				util.warnInput( $('.'+productStr+'-endTime') );
+				state = false;
+			}else{
+				util.unWarnInput( $('.'+productStr+'-endTime') );
+			}
+			
+			var temp = {
+				'productId':productId,
+				'purchaseAmount':me.model.get(productStr+'-purchaseAmount'),
+				'purchaseCount':9999,
+				'productAmount':me.model.get(productStr+'-purchaseAmount'),
+				'startTime':new Date( me.$('.'+productStr+'-startTime').val() ).getTime(),
+				'endTime':new Date( me.$('.'+productStr+'-endTime').val() ).getTime(),
+				'discount':10
+			}
+			
+			if(!me.model.get('contractStartTime')){
+				me.model.set('contractStartTime',new Date( me.$('.'+productStr+'-startTime').val() ).getTime());
+				me.model.set('contractEndTime',new Date( me.$('.'+productStr+'-endTime').val() ).getTime());
+			}
+			return temp;
 		}
 
 	});

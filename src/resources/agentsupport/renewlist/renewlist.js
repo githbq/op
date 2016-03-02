@@ -6,6 +6,7 @@ define( function( require, exports, module ) {
 	var Slider = require('common/widget/slider/slider');
 	var uploader = require('common/widget/upload').uploader;
 	var DetailBind = require('module/detailbind/detailbind');
+	var DetailPay = require('module/detailpay/detailpay');
 
     var tem = $( require('./template.html') );
 
@@ -65,7 +66,8 @@ define( function( require, exports, module ) {
             'click .search': 'searchEve',
             'click .detail': 'detailEve',
             'click .toggle b': 'toggleEve',
-			'click .detail-bind':'detailBindEve'
+			'click .detail-bind':'detailBindEve',
+			'click .detail-pay':'detailPayEve'
         },
 
         //获取审批类型枚举值
@@ -126,6 +128,28 @@ define( function( require, exports, module ) {
                 me.trigger( 'detailBind', id , eid , type , canCancel , isCurrentTask,isCanEdit );
             }else if( me.attrs.state == "end") {
                 me.trigger( 'detailBind', id , eid , type ,canCancel , isCurrentTask,isCanEdit, me.attrs.state);
+            }
+		},
+		detailPayEve:function( e ){
+			var me = this;
+
+            var $target = $( e.currentTarget );
+
+            var id = $target.attr('data-id');
+            var eid = $target.attr('data-eid');
+            var type = $target.attr('data-type');
+            var canCancel = $target.attr('data-cancel');
+			var applicantYn = $target.attr('data-applicantYn')||'false';
+            var isCurrentTask = $target.attr('data-task');
+			var isCanEdit = $target.attr('data-edit')||'false';
+			//var processInstanceId = $target.attr('data-processInstanceId')||'';
+			
+			if ( me.attrs.state == "refuse"){
+                me.trigger( 'detailPay', id , eid , type ,canCancel , isCurrentTask );
+            }else if ( me.attrs.state == "wait"){
+                me.trigger( 'detailPay', id , eid , type , canCancel , isCurrentTask,isCanEdit );
+            }else if( me.attrs.state == "end") {
+                me.trigger( 'detailPay', id , eid , type ,canCancel , isCurrentTask,isCanEdit, me.attrs.state);
             }
 		},
 
@@ -2539,6 +2563,7 @@ define( function( require, exports, module ) {
         //付费开通审批详情
         var openApproval = new OpenApproval();
 		var detailBind = new DetailBind();
+		var detailPay = null;
 
 
         renewList.on('detail',function( id , eid , type , state,isCurrentTask,isCanEdit,currentState ){
@@ -2548,6 +2573,13 @@ define( function( require, exports, module ) {
 		renewList.on('detailBind',function( id , eid , type , state,isCurrentTask,isCanEdit, activeStatus ){
 		
             detailBind.show( id , eid , type , state,isCurrentTask,isCanEdit ,activeStatus );
+        });
+		renewList.on('detailPay',function( id , eid , type , state,isCurrentTask,isCanEdit, activeStatus ){
+			detailPay = new DetailPay();
+			detailPay.on('sendsuccess',function(){
+				renewList.searchEve();
+			});
+            detailPay.show( id , eid , type , state,isCurrentTask,isCanEdit ,activeStatus );
         });
 
         openApproval.on('update',function(){
@@ -2559,6 +2591,9 @@ define( function( require, exports, module ) {
 		detailBind.on('sendsuccess',function(){
             renewList.searchEve();
         });
+		/*detailPay.on('sendsuccess',function(){
+            renewList.searchEve();
+        });*/
     }
 
 } );

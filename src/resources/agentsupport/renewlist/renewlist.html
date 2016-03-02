@@ -86,7 +86,12 @@
 									data-type="<%=item.approvalTypeId%>" data-edit="<%=item.canEdit%>"  data-task="<%=item.applicantYn%>" data-cancel="<%=item.canCancel%>">
 									查看
 								</a>
-							<%}else {%>
+							<%}else if(item.approvalTypeId == "payLaunchApproval") {%>
+								<a class="detail-pay" data-eid="<%=item.enterpriseId%>" data-id="<%=item.processInstanceId%>" 
+									data-type="<%=item.approvalTypeId%>" data-edit="<%=item.canEdit%>"  data-task="<%=item.applicantYn%>" data-cancel="<%=item.canCancel%>">
+									查看
+								</a>
+							<%} else {%>
 								<a class="detail" data-eid="<%=item.enterpriseId%>" data-id="<%=item.processInstanceId%>" 
 									data-type="<%=item.approvalTypeId%>" data-edit="<%=item.canEdit%>"  data-task="<%=item.applicantYn%>" data-cancel="<%=item.canCancel%>">
 									查看

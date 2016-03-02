@@ -89,6 +89,10 @@
 								<a class="detail-bind" data-eid="<%=item.enterpriseId%>" data-edit="<%=item.canEdit%>"  data-id="<%=item.processInstanceId%>" data-type="<%=item.approvalTypeId%>">
 									查看
 								</a>
+							<%}else if(item.approvalTypeId == "payLaunchApproval"){%>
+								<a class="detail-pay" data-eid="<%=item.enterpriseId%>" data-edit="<%=item.canEdit%>"  data-id="<%=item.processInstanceId%>" data-type="<%=item.approvalTypeId%>">
+									查看
+								</a>
 							<%}else {%>
 								<a class="detail" data-eid="<%=item.enterpriseId%>" data-edit="<%=item.canEdit%>"  data-id="<%=item.processInstanceId%>" data-type="<%=item.approvalTypeId%>">
 									查看

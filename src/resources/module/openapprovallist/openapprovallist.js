@@ -76,7 +76,8 @@ define( function(require, exports, module){
             'click .btn-search': 'searchEve',
             'click .detail': 'detailEve',
             'click .toggle b': 'toggleEve',
-			'click .detail-bind':'detailBindEve'
+			'click .detail-bind':'detailBindEve',
+			'click .detail-pay':'detailPayEve'
         },
 
         /**
@@ -150,6 +151,19 @@ define( function(require, exports, module){
             var type = $target.attr('data-type');
 			var isCanEdit = $target.attr('data-edit')||'false';
             me.trigger( 'detailBind', id , eid , type , me.attrs.state,isCanEdit );
+		},
+		//付费开通审批
+		detailPayEve:function(e){
+	
+			var me = this;
+            var $target = $( e.currentTarget );
+			
+            var id = $target.attr('data-id');
+            var eid = $target.attr('data-eid');
+            var type = $target.attr('data-type');
+			var isCanEdit = $target.attr('data-edit')||'false';
+			
+            me.trigger( 'detailPay', id , eid , type , me.attrs.state,isCanEdit );
 		},
 
         toggleEve: function( e ){
