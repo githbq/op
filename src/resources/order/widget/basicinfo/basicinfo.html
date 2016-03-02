@@ -1,0 +1,159 @@
+<div>
+	<p>
+		<label for="">
+			<span>企业名称 <b>*</b></span>
+			<input type="text" ce-model="enterpriseName" class="required enterpriseName" disabled="disabled">
+		</label>
+		<label for="">
+			<span>区域</span>
+			<input type="text" class="regionName" disabled="disabled">
+		</label>
+	</p>
+	<p>
+		<label for="">
+			<span>企业账号 <b>*</b></span>
+			<input type="text" ce-model="enterpriseAccount" class="required" placeholder="不可更改!">
+			<span class="remind">企业账号应为字母开头6-20位由字母数字的组合</span>
+		</label>
+	</p>
+	<p>
+		<label for="">
+			<span>地址 <b>*</b></span>
+			<input type="text" ce-model="address" class="required address">
+		</label>
+		<label for="">
+			<span>行业 <b>*</b></span>
+			<select name="" class="e-industry required" ce-model="industry"></select>
+		</label>
+	</p>
+	<p>
+		<label for="">
+			<span>来源 <b>*</b></span>
+			<select name="" class="e-source required" ce-model="source"></select>
+		</label>
+		<label for="">
+			<span>团队类型 <b>*</b></span>
+			<select name="" class="e-group required" ce-model="groupType"></select>
+		</label>
+	</p>
+	<p>
+		<label for="">
+			<span>省份 <b>*</b></span>
+			<select name="" class="e-province required" ce-model="province"></select>
+		</label>
+		<label for="">
+			<span>城市 <b>*</b></span>
+			<input type="text" ce-model="city" class="required">
+		</label>
+	</p>
+	<p>
+		<label for="">
+			<span>了解渠道 <b>*</b></span>
+			<select name="" class="e-knowsource required" ce-model="knowSource"></select>
+		</label>
+		<label for="">
+			<span>注册动机 <b>*</b></span>
+			<select name="" class="e-motive required" ce-model="registerMotive"></select>
+		</label>
+	</p>
+	<p>
+		<label for="">
+			<span>公司规模 <b>*</b></span>
+			<select name="" class="companyscale required" ce-model="companyScale"></select>
+		</label>
+	</p>
+	<p>
+		<label for="">
+			<span>是否有销售团队 <b>*</b></span>
+			<select name="" id="" ce-model="isSaleTeam" class="required">
+				<option value="">请选择</option>
+				<option value="1">是</option>
+				<option value="0">否</option>
+			</select>
+		</label>
+		<label for="">
+			<span>销售团队规模 <b>*</b></span>
+			<select name="" class="saleteamscale required" ce-model="saleTeamScale"></select>
+		</label>
+	</p>
+	<p>
+		<label for="">
+			<span>是否首面签约</span>
+			<select name="" ce-model="isFirstmeetingSign">
+				<option value="">请选择</option>
+				<option value="1">是</option>
+				<option value="0">否</option>
+			</select>
+		</label>
+		<label for="">
+			<span>是否会销 <b>*</b></span>
+			<select name="" id="" ce-model="isWillPin" class="required">
+				<option value="">请选择</option>
+				<option value="1">是</option>
+				<option value="0">否</option>
+			</select>
+		</label>
+	</p>
+	<p>
+		<label for="">
+			<span>是否陌拜 <b>*</b></span>
+			<select name="" ce-model="isStrangerVisits" class="required">
+				<option value="">请选择</option>
+				<option value="1">是</option>
+				<option value="0">否</option>
+			</select>
+		</label>
+		<label for="">
+			<span>成交周期(天)<b>*</b></span>
+			<input type="text" ce-model="dealDays" class="required" placeholder="请填写数字" onchange="this.value=this.value.replace(/\D/g,'')">
+		</label>
+	</p>
+	<p>
+		<label for="">
+			<span>是否转介绍 <b>*</b></span>
+			<select name="" id="" ce-model="isReferral" class="required">
+				<option value="">请选择</option>
+				<option value="1">是</option>
+				<option value="0">否</option>
+			</select>
+		</label>
+	</p>
+	<h4>企业负责人</h4>
+	<p>
+		<label for="">
+			<span>企业负责人姓名 <b>*</b></span>
+			<input type="text" ce-model="keyContactName" class="required keyContactName">
+		</label>
+		<label for="">
+			<span>企业负责人电话 <b>*</b></span>
+			<input type="text" ce-model="keyContactPhone" class="required" onchange="this.value=this.value.replace(/\D/g,'')">
+		</label>
+	</p>
+	<p>
+		<label for="">
+			<span>企业负责人邮箱 <b>*</b></span>
+			<input type="text" ce-model="keyContactEmail" class="required">
+		</label>
+	</p>
+	<h4>纷享平台管理员</h4>
+	<p>
+		<label for="">
+			<span>平台管理员 <b>*</b></span>
+			<input type="text" ce-model="contactName" class="required">
+		</label>
+		<label for="">
+			<span>平台管理员手机 <b>*</b></span>
+			<input type="text" ce-model="contactPhone" class="required" maxlength="11" onchange="this.value=this.value.replace(/\D/g,'')">
+		</label>
+	</p>
+	<p>
+		<label for="">
+			<span>平台管理员邮箱 <b>*</b></span>
+			<input type="text" ce-model="contactEmail" class="required">
+		</label>
+		<label for="">
+			<span>平台管理员QQ</span>
+			<input type="text" ce-model="contactim">
+		</label>
+	</p>
+</div>

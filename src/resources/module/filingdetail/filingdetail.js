@@ -278,6 +278,7 @@ define( function(require, exports, module){
                 'success': function( data ){
                     if( data.success ){
                         location.hash = '#agentsupport/payreg/link';
+						//location.hash = '#order/newmarketying';
                     }
                 }
             })
