@@ -68,9 +68,9 @@
                         <td><%=item.registerTimeStr%></td>
                         <td><%=item.vendorName%></td>
                         <td>
-                            <a data-id="<%=item.id%>" class="detail">详情</a>
+                            <a data-id="<%=item.id%>" class="detail" data-permissions="F011029">详情</a>
                             <% if( item.status == 4 ){%>
-                                <a data-account="<%=item.account%>" class="distribute">分配</a>
+                                <a data-account="<%=item.account%>" class="distribute" data-permissions="F011014">分配</a>
                             <% } %>
                         </td>
                         <td></td>

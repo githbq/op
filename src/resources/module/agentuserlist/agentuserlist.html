@@ -5,14 +5,14 @@
     </section>
 	<div class="list-header">
 		<div class="header-opts">	
-			<button class="addUser state state-am">添加用户</button>
+			<button class="addUser state state-am" data-permissions="F010002">添加用户</button>
 		</div>
 		<h3>查询条件</h3>
 	</div>
 
 	<div class="list-bar">
 		<div class="list-bar-btns">
-			<button class="btn-blue btn-search">查询</button>
+			<button class="btn-blue btn-search" data-permissions="F010003">查询</button>
 		</div>
 		<div class="list-bar-input">
 			<label for=""> <span>姓名</span> <input type="text" ce-model="name"> </label>
@@ -71,16 +71,16 @@
 					</td>
 					<td><%=item.lastLoginTimeStr%></td>
 					<td>
-						<a data-id="<%=item.id%>" class="user-detail">查看</a>
+						<a data-id="<%=item.id%>" class="user-detail" data-permissions="F010009">查看</a>
 						<% if( item.auditStatus == 'WAIT'){ %>
-						<a data-id="<%=item.id%>" data-permissions="F011001" class="user-approval state">审核</a>
+						<a data-id="<%=item.id%>" data-permissions="F011071" class="user-approval state">审核</a>
 						<% } %>
-						<a data-id="<%=item.id%>" data-name="<%=item.name%>" class="user-reset state state-am">重置密码</a>
+						<a data-id="<%=item.id%>" data-name="<%=item.name%>" class="user-reset state state-am" data-permissions="F010005">重置密码</a>
 						<%if(item.auditStatus != "WAIT"){%>
 							<%if(item.active == "1"){%>
-							<a  class="change-status" data-permissions="F010" data-id="<%=item.id%>"  data-status="0">&nbsp;&nbsp;停用</a>
+							<a  class="change-status" data-permissions="F010" data-id="<%=item.id%>"  data-status="0" data-permissions="F010006">&nbsp;&nbsp;停用</a>
 							<%}else if(item.active == "0"){%>
-							<a  class="change-status" data-permissions="F010" data-id="<%=item.id%>" data-status="1">&nbsp;&nbsp;启用</a>
+							<a  class="change-status" data-permissions="F010" data-id="<%=item.id%>" data-status="1" data-permissions="F010006">&nbsp;&nbsp;启用</a>
 							<%}%>
 						<%}%>
 					</td>

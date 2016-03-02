@@ -17,94 +17,94 @@
     <div class="header-person">
         <span id="accountname"></span>
         <div class="person-loginout">
-            <a href="#page/changepwd">修改密码</a>
-            <a href="/logout?from=/op">退出</a>
+            <a href="#page/changepwd" data-permissions="F008117">修改密码</a>
+            <a href="/logout?from=/op" data-permissions="F008118">退出</a>
         </div>
     </div>
     <nav>
         <ul class="nav-main clearfix">
         
-            <li data-permissions="F008002">
-                <a href="#qry/cmp">查询</a>
+            <li data-modulecode="ComprehensiveQueryOpS PartnerOpS DemoAccountOpS QueryOpS ExportAgentAccountOpS">
+                <a class="nav-branch">查询</a>
                 <ul class="nav-sub">
-                    <li><a href="#qry/cmp">综合查询</a></li>
-                    <li><a href="#qry/partner">合作伙伴</a></li>
-                    <li><a href="#qry/exp">演示帐号</a></li>
-                    <li><a href="#qry/cyc">查一查</a></li>
-                    <li><a href="#index/agentexport">代理商员工导出</a></li>
+                    <li data-modulecode="ComprehensiveQueryOpS"><a href="#qry/cmp">综合查询</a></li>
+                    <li data-modulecode="PartnerOpS"><a href="#qry/partner">合作伙伴</a></li>
+                    <li data-modulecode="DemoAccountOpS"><a href="#qry/exp">演示帐号</a></li>
+                    <li data-modulecode="QueryOpS"><a href="#qry/cyc">查一查</a></li>
+                    <li data-modulecode="ExportAgentAccountOpS"><a href="#index/agentexport">代理商员工导出</a></li>
                 </ul>
             </li>
 
-            <li data-permissions="F008002 F008006">
-                <a href="#ent/lst">企业</a>
+            <li data-modulecode="EnterpriseOpS SelfRegisterOpS">
+                <a class="nav-branch">企业</a>
                 <ul class="nav-sub">
-                    <li><a href="#ent/lst">企业</a></li>
-                    <li><a href="#ent/ind">自注册</a></li>
+                    <li data-modulecode="EnterpriseOpS"><a href="#ent/lst">企业</a></li>
+                    <li data-modulecode="SelfRegisterOpS"><a href="#ent/ind">自注册</a></li>
                 </ul>
             </li>
 
-            <li data-permissions="F008001" class="zhichinav">
+            <li data-modulecode="EnterpriseDayActivityOpS" class="zhichinav">
                 <a href="#index/dayactive">企业日活跃</a>
             </li>
 
-            <li data-permissions="F008002">
-                <a href="#index/lst">活跃度</a>
+            <li data-modulecode="RealTimeActivityOpS MonthReportOpS PayedLifeCycleOpS SelfActivityAllOpS PeriodActivityAnalysisOpS DayActivityDetailOpS DayActivityAllOpS MonthActivityTeamAnalysisOpS MonthActivityAll">
+                <a class="nav-branch">活跃度</a>
                 <ul class="nav-sub">
-                    <li>
+                    <li data-modulecode="RealTimeActivityOpS">
                         <a href="#index/lst">实时</a>
                     </li>
-                    <li>
+                    <li data-modulecode="MonthReportOpS">
                         <a href="#index/rpt">月度报告</a>
                     </li>
-                    <li>
+                    <li data-modulecode="PayedLifeCycleOpS">
                         <a href="#index/paid">付费生命周期</a>
                     </li>
-                    <li>
+                    <li data-modulecode="SelfActivityAllOpS">
                         <a href="#index/personactive">个人活跃汇总</a>
                     </li>
-                    <li>
+                    <li data-modulecode="PeriodActivityAnalysisOpS">
                         <a href="#index/activeanalyze">阶段活跃团队分析</a>
                     </li>
-                    <li>
+                    <li data-modulecode="DayActivityDetailOpS">
                         <a href="#index/detail">企业日活跃详情报表</a>
                     </li>
-                    <li>
+                    <li data-modulecode="DayActivityAllOpS">
                         <a href="#index/lstreport">企业日活跃汇总报表</a>
                     </li>
-                    <li>
+                    <li data-modulecode="MonthActivityTeamAnalysisOpS">
                         <a href="#index/monthanalyze">月季度团队数据分析</a>
                     </li>
-                    <li>
+                    <li data-modulecode="MonthActivityAll">
                         <a href="#index/seasonactive">月度季度总数据分析</a>
                     </li>
                 </ul>
             </li>
 
-            <li data-permissions="F008002 F008006">
-                <a href="#agt/lst">代理商</a>
+            <li data-modulecode="AgentOpS ExportInvestmentOpS">
+                <a class="nav-branch">代理商</a>
                 <ul class="nav-sub">
-                    <li><a href="#agt/lst">代理商列表</a></li>
-                    <li><a href="#agt/export">招商信息导出</a></li>
+                    <li data-modulecode="AgentOpS"><a href="#agt/lst">代理商列表</a></li>
+                    <li data-modulecode="ExportInvestmentOpS"><a href="#agt/export">招商信息导出</a></li>
                 </ul>
             </li>
             <!--<li>
                 <a href="#pdt/lst">产品</a>
             </li>-->
-            <li data-permissions="F008002 F008006 F008005">
-                <a class="nav-root">客户</a>
-                 <ul class="nav-sub">
-                    <li data-permissions="F008002 F008006"><a href="#eme/lst">客户</a></li>
+            <li data-modulecode="ClientOpS HotLineOpS AccountAddLimitOpS AccountRegisterLimitOpS">
+                <a class="nav-branch">客户</a>
+                <ul class="nav-sub">
+                    <li data-modulecode="ClientOpS"><a href="#eme/lst">客户</a></li>
                     <!--热线查询单独菜单-->
-                    <li data-permissions="F008005"><a href="#eme/clientlst">热线查询</a></li>
-                    <li data-permissions="F008001 F008002 F008006 F008005"><a href="#eme/joinlimit">账号加入上限</a></li>
-                    <li data-permissions="F008001 F008002 F008006 F008005"><a href="#eme/loginlimit">账号注册上限</a></li>
+                    <li data-modulecode="HotLineOpS"><a href="#eme/clientlst">热线查询</a></li>
+                    <li data-modulecode="AccountAddLimitOpS"><a href="#eme/joinlimit">账号加入上限</a></li>
+                    <li data-modulecode="AccountRegisterLimitOpS"><a href="#eme/loginlimit">账号注册上限</a></li>
                 </ul>
             </li>
             
-            <li data-permissions="F008002 F008006">
+            <li data-modulecode="ApprovalOpS">
                 <a href="#page/approvallist">我的审批</a>
             </li>
-            <li data-permissions="F008004 F008003">
+            <li data-modulecode="SupervisionOpS">
                 <a href="#page/watchent">企业监察</a>
             </li>
         </ul>
@@ -136,7 +136,7 @@
 </div>
 
 <!---->
-<input id="key" type="hidden" value="${token}" /></div>
+<input id="key" type="hidden" value="HiVya4oQcD9+Oz2lbZYLG2Kw1RWybzctXxiNEWJ5BeA=" /></div>
 
 <!--Tip 提示-->
 <script type="text/template" id="g-tip">
@@ -149,7 +149,7 @@
     IBSS.API_PATH = '/op/api/s';       //api路径
     IBSS.IS_DEVELOP = true;
     // IBSS.VERSION ='4.7.' + (new Date()).getTime();
-    IBSS.VERSION ='5.1.2.20160301';
+    IBSS.VERSION ='5.1.2.20160219';
 </script>
 
 <!--build:common resources/common/scripts/common.js-->

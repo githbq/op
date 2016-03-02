@@ -5,7 +5,7 @@
         <td><input type="checkbox" data-pid="<%=value.employeeid%>" data-eid="<%=value.enterpriseaccount%>" class="selectitem"></td>
         <td><%=value.enterpriseaccount%></td>
         <td><%=value.enterprisename%></td>
-        <td><%=value.hasAuth ? '否':'是'%></td>
+        <td><%=value.hasAuth ? '是':'否'%></td>
         <td><%=value.employeename%></td>
         <td><%=value.mobile%></td>
         <td><%=value.email%></td>
@@ -13,10 +13,10 @@
         <td><%=value.isadmin ? '是' : '否'%></td>
 		<td><%=value.isstop ? '停用' : '启用'%></td>
         <td><em class="resetpwd" data-id="<%=value.employeeid%>" 
-                                 data-account="<%=value.enterpriseaccount%>">重置密码</em>
-            <em class="accountdetail" data-id="<%=value.employeeid%>" data-account="<%=value.enterpriseId%>">查看帐号详情</em>
+                                 data-account="<%=value.enterpriseaccount%>" data-permissions="F008128">重置密码</em>
+            <em class="accountdetail" data-id="<%=value.employeeid%>" data-account="<%=value.enterpriseId%>" data-permissions="F008007">查看帐号详情</em>
             <% if(!value.isadmin){%>
-                <em class="up" data-id="<%=value.employeeid%>" data-account="<%=value.enterpriseaccount%>">提升为管理员</em></td>
+                <em class="up" data-id="<%=value.employeeid%>" data-account="<%=value.enterpriseaccount%>" data-permissions="F008127">提升为管理员</em></td>
             <% }%>
         <td></td>
     </tr>
