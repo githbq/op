@@ -189,4 +189,4 @@ gulp.task('test', function() {
  * 默认任务
  */
 gulp.task('default', ['less']);
-gulp.task('release', sequence('clean', 'less', 'copy', 'minify-css', ['transport', 'transport:common', 'transport:module'], 'minify-js', 'usemin', 'minify-html'));
+gulp.task('release', sequence('clean', 'less', 'copy', 'minify-css', ['transport', 'transport:common', 'transport:module'], 'minify-js', 'usemin'/*, 'minify-html'*/));
