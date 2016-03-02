@@ -14,62 +14,62 @@
 	var win = this,
 		IBSS = win.IBSS,
 		Widget;
-	
-	
+
+
 	/**
 	 * @Consturctor
-     * Widget类父类为Backbone.view	 
+     * Widget类父类为Backbone.view
 	 */
 	Widget = win.Widget = Backbone.View.extend({
-				
+
 		/**
  		 * @type {String}
 		 * 页面每个widget 都会带的样式
 		 */
 		_cls: 'ibss-widget',
-		
+
 
 		/**
 		 * @desc Backbone.View初始化函数
 		 * 组件不允许调用initialize初始化
-		 */		
+		 */
 		initialize: function(options) {
-			
+
 			// 保存默认值
 			this.defaults = _.clone(_.result(this, 'attrs') || {});
-			
+
 			// 组件所有属性的松散列表
 			// 组件集成中 用set方法扩展此项的值
 			this.attrs = _.extend(this.defaults, options || {});
-			
+
 			// 组件添加统一样式
 			this.$el.addClass(this._cls);
-			
+
 			// 记录每个页面中用到widget
 			// 用于切换页面时清除
 			IBSS.trigger('_addWidget', this);
-			
+
 			this.setup.apply(this, arguments);
 		},
 
-		
+
 		/**
 		 * @desc 每个组件外部调用的初始化函数
 		 */
 		setup: function() {
 			return this;
 		},
-		
+
 		/**
 		 * @desc 获取组件中制定name的值
-		 */				
+		 */
 		get: function(name) {
 		  return this.attrs[name];
 		},
 
 		/**
 		 * @desc 设置组件中属性的值
-		 */		
+		 */
 		set: function(key, value) {
 			if (_.isObject(key)) {
 				_.extend(this.attrs, key);
@@ -78,46 +78,46 @@
 				this.attrs[key] = value;
 			}
 		},
-		
-		
+
+
 		/**
 		 * @desc 显示组件
 		 */
 		show: function() {
 			this.$el.show();
-			return this;		
+			return this;
 		},
-		
+
 		/**
 		 * @desc 渲染组件
-		 */	
+		 */
 		render: function() {
 		},
 
 		/**
 		 * @desc 隐藏组件
-		 */		
+		 */
 		hide: function() {
 			this.$el.hide();
 			return this;
 		},
-		
+
 		/**
 		 * @desc 销毁组件
-		 */		
+		 */
 		destroy: function() {
 			this.remove();
 		}
 
 	});
-	
+
 	/////////////////
 	//
 	// 类函数
 	/////////////////
 	var MClass = function(parent){
-		
-		var klass = function(){
+
+	     function klass(){
 			this.init.apply(this,arguments);
 		};
 
@@ -127,9 +127,10 @@
 			var subclass = function(){ };
 			subclass.prototype = parent.prototype;
 			klass.prototype = new subclass;
-			
+			klass.prototype.constructor=klass;
 			//暴露__super__属性便于调取父类的函数
 			klass.__super__ = parent.prototype;
+
 		}
 
 		klass.prototype.init = function(){};
@@ -302,12 +303,12 @@
 			return me;
 		}
 	})
-	
+
 	/**
 	 * 数据层
 	 */
 	var Model = MClass(Event).include({
-		
+
 		init: function( attrs ){
 			this.attrs = {};
 			if( attrs ) this.load( attrs );
@@ -336,11 +337,11 @@
 			return this.attrs[key];
 		},
 
-		//todo 校验当前value 和 原始value 
+		//todo 校验当前value 和 原始value
 		//     如果相同则不触发change事件
 		//对model的所有赋值都走这个函数
 		set: function( key , value ){
-			
+
 			var originalValue = this.attrs[key];
 			if( originalValue !== value ){
 				this.attrs[key] = value;
@@ -373,7 +374,7 @@
 		//重新加载集合
 		reload: function( records , func ){
 			records = records || [];
-    
+
             if( func ){ this.replaceRecords( records , func ); }
             this.records = records;
             this.trigger('reload');
@@ -402,12 +403,12 @@
                 console.error("插入文档不能为空");
                 return;
             }
-            
+
             if( func ){ this.replaceRecords( records , func ); }
             this.records = this.records.concat( records );;
             this.trigger( 'insert',records );
         },
-        
+
         // 更新单条数据
         // 默认 item进行extend 
         // properties 进行 === 辨别 所以 '23' 和 23 是不一样的
@@ -435,7 +436,7 @@
 		},
 
 		clear: function(){
-			this.records = []; 
+			this.records = [];
 			this.trigger('clear');
 			return this;
 		}
@@ -489,13 +490,13 @@
 			if (!events) return me;
 
 			for (var key in events) {
-					
+
 				var method = events[key];
 				if ((typeof method) != 'function')
 					method = me[method];
 				if (!method)
 					continue;
-				
+
 				/**
 				 * method为循环外层的引用
 				 * 循环中的函数取method会取到最终的值
@@ -503,7 +504,7 @@
 				 * todo why?
 				 */
 				/**
-                 @试试这种写法  
+                 @试试这种写法
 				var bindMethod=(function(){
 					var temp=method;
 					return function(){temp.apply(me,arguments)};
@@ -515,7 +516,7 @@
 					var temp=method
 					return function(){temp.apply(me, arguments)};
 				})(method);
-				
+
 				var match = key.match( eventSplitter );
 				var eventName = match[1],
 					selector = match[2];
@@ -534,10 +535,10 @@
 		},
 
 		//////////////////
-		//   
+		//
 		//   双向绑定
 		//	 初始化一个model
-		//   view -> model 的起始主要是 各input的 change事件   
+		//   view -> model 的起始主要是 各input的 change事件
 		//   model -> view 的起始 是 model的set 事件
         //   初始扫描各input dom 并将input的值传递入model   
         //
@@ -550,7 +551,7 @@
 				me.model = new Model;
 			};
 			me.$doms = me.$view.find('[ce-model]');
-			
+
 			//有双向绑定声明的 进行双向绑定
 			if( me.$doms.length > 0 ){
 
@@ -558,7 +559,7 @@
 				//遍历元素并注册事件
 				//遍历到的元素会将初始值set入model
 				//当发生 用户触发的改变事件时 会触发inputchange model.set(key,value)
-				me.$doms.each(function(){                                                
+				me.$doms.each(function(){
 					var element = this,
 						$element = $(element),
 						key = $element.attr('ce-model');
@@ -591,13 +592,13 @@
 
 
 
-				//model change的时候改变dom的值 
-				// todo dom改变时 model -> dom 的更新已经完成 
+				//model change的时候改变dom的值
+				// todo dom改变时 model -> dom 的更新已经完成
 				// dom的改变 最好不要触发change等事件 以防再次set model
 				me.model.on('change',function( key,value ){
 					var $targets = me.$doms.filter('[ce-model="'+key+'"]');
 
-					
+
 
 					$targets.each(function(){
 						var element = this,
@@ -611,20 +612,20 @@
 				});
 			}
 
-			
+
 			//进行数组绑定 数组是单向绑定的
-			//对collection进行的数组层面的改变 都会反应到视图层面 
+			//对collection进行的数组层面的改变 都会反应到视图层面
 			me.$_arraydoms = me.$view.find('[ce-collection]');
 			if( me.$_arraydoms.length > 0 ){
 				me.$_arraydoms.each(function(){
 					var $this = $(this);
-					
+
 					var key = $this.attr('ce-collection'),      //  数组名字
 						html =  $this.html(),              	    //  页面模板
 						//htmlTem = _.template( "<%=item.accountName%>" );  			//  编译后的模板
 						htmlTem = _.template( util.html_decode( html ) );
 
-					$this.empty();  							//  清除模板数据                
+					$this.empty();  							//  清除模板数据
 					$this.css({'visibility':'visible'});
 
 					//根据名字生成一个collection
@@ -655,14 +656,14 @@
 				});
 			}
 		},
-		
+
 		/**
-		 * 
+		 *
 		 * 扫描view中需要双向绑定的dom元素
-		 * 
 		 *
 		 *
-		 */			
+		 *
+		 */
 		_registerBingdings: function( el ){
 
 			var me = this;
@@ -692,7 +693,7 @@
 		/**
 		 *
 		 * 获取当前element元素的scope链
-		 * 如果父节点有[ce-scope-break]属性 不往上查找 
+		 * 如果父节点有[ce-scope-break]属性 不往上查找
 		 * 如果本身含有[ce-scope-break]则没有scope链
 		 */
 		_getScope: function( element ){
@@ -706,7 +707,7 @@
 
 			var parentsSelector = "[" + scopeBreakAttr + "],[" + scopeAttr + "]";
 			var $parents = $element.parents(parentsSelector);
-			
+
 			//遍历查找父元素的scope属性
 			for(var i=0;i<$parents.length;i++){
 				var $el = $parents.eq(i);
@@ -719,8 +720,8 @@
 			if( $element.attr(scopeBreakAttr) ){ scopes = []; }
 
 			scope = _.compact(scopes).join('.');
-			
-			return scope; 
+
+			return scope;
 		},
 
 
@@ -729,7 +730,7 @@
 		 * 给相关dom元素 赋值或属性
 		 * 如果 value 和 原来的value 一样
 		 * 则不赋值
-		 */		
+		 */
 		_setValue: function( element , value ){
 			var $element = $( element );
 			var tagName = element.tagName;
@@ -746,7 +747,7 @@
 					if( type == 'text' || type == 'password' ){
 						$element.val( value );
 					}else if( type == 'checkbox' || type == 'radio' ){
-						
+
 						//todo
 						//改为和wayjs一样的写法
 						element.checked = value;
@@ -766,7 +767,7 @@
 		/**
 		 *
 		 * 获取相关dom元素绑定的值
-		 * 
+		 *
 		 */
 		_getValue: function( element ){
 			var $element = $( element );
@@ -787,7 +788,7 @@
 					}else if( type == 'file'){
 						//
 					}else{
-						return $element.val(); 
+						return $element.val();
 					}
 				break;
 				case 'TEXTAREA':
@@ -803,7 +804,7 @@
 		$: function(selector) {
 			return this.$view.find(selector);
 		},
-		
+
 		//留给子类覆盖 渲染至wrapper函数
 		render: function() {},
 
@@ -813,7 +814,7 @@
 			this.$view.remove();
 		},
 
-		//显示	
+		//显示
 		show: function() {
 			this.$view.show();
 		},
@@ -831,17 +832,17 @@
 			return this;
 		}
 	})
-	
 
-	
+
+
 	////////////////////////////////////////
 	//
 	// json操作函数
 	// key传 以.分割的字符串
-	// 
+	//
 	//
 	////////////////////////////////////////
-	var deepJSON = function (obj, key, value, remove) { 
+	var deepJSON = function (obj, key, value, remove) {
 
 		//???第一个正则的意义???
 		var keys = key.replace(/\[(["']?)([^\1]+?)\1?\]/g, '.$2').replace(/^\./, '').split('.'),
@@ -969,7 +970,7 @@
 
 	}
 
-	//array push 
+	//array push
 	_json.push = function(json, selector, value, force) {
 
 		if (json == undefined) return _json.exit("push", "missing", "json", json);

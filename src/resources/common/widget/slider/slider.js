@@ -20,8 +20,8 @@ define(function(require, exports, module){
 		
 		init: function(attrs){
 			var me = this;
-
-			me.attrs = Slider.merge( {} , me.defaultAttr ,attrs );
+			alert('Slider===me.prototype.constructor=>'+Slider===me.prototype.constructor)
+			me.attrs = me.prototype.constructor.merge( {} , me.defaultAttr ,attrs );
 
 			me.$view = $(me.view);
 			me.$view.find('.slider-body').html( me.content );
