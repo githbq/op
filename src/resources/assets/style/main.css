@@ -6557,3 +6557,9 @@ em {
   height: 182px;
   font-size: 22px;
 }
+.productinfo {
+  width: 800px;
+}
+.productinfo div {
+  width: 100%;
+}

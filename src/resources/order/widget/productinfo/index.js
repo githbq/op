@@ -1,189 +1,155 @@
-define( function( require, exports, module ) {
-    var IBSS = window.IBSS,
-        TPL = IBSS.tpl;
-
-    var Pagination = require('common/widget/pagination/pagination');
-    var EntInfo = require('module/entinfo/entinfo');
-    var Tem = $( require('./template.html') );
-
-    var sMap = TPL.sMap = {},     //来源
-        pMap = TPL.pMap = {},     //省市
-        uMap = TPL.uMap = {};     //状态
-
-    var RegList = MClass( M.Center ).include({
-        trTpl: _.template( Tem.filter('.trTpl').html() ),
-        init: function(){
-            RegList.__super__.init.apply( this, arguments );
-
-            var me = this;
-            me.pagination = new Pagination({
-                'wrapper': me.$view.find('.list-pager'),
-                'pageSize': 20,
-                'pageNumber': 0
-            });
-            me.pagination.render();
-            me.pagination.onChange = function(){
-                me.getList();
+define(function (require, exports, module) {
+    function DataItem() {
+        this.name = "";
+        this.events = [{
+            key: "", value: function (e) {
             }
+        }];
+        this.data = [];
+        this.type = "";
+        this.validateOption = {require: {value: true, message: ''}};
+        this.visible = true;
+        this.disable = false;
+        this.attr = {};
+    }
 
-            me.collection = new M.Collection;
-            me.collection.on('reload',function(){
-                me.renderList();
-            });
+    var tplStr = require('./template.html');
+    var PageClass = MClass(M.Center).include({
+            getTemplateStr: function () {
+                var me = this;
+                return $(tplStr).filter(me.selector).html();
+            },
+            init: function (data) {
+                debugger
+                //鍦ㄥ垵濮嬪寲鍓嶅仛鐨勪簨
+                var me = this;
+                me.o_fields = [];
+                $(data.dataItems).each(function (i, n) {
+                    me.elements['field_' + n.name] = n.name;
 
-            me.$startTime.datetimepicker({'timepicker': false,'format':'Y/m/d'});
-            me.$endTime.datetimepicker({'timepicker': false,'format':'Y/m/d'});
-
-
-            me.getEnums();
-        },
-
-        elements:{
-            'tbody': 'tbody',
-            '.sourceEnum': 'sourceEnum',
-            '.provinceEnum': 'provinceEnum',
-            '.statusEnum': 'statusEnum',
-            '.startTime': 'startTime',
-            '.endTime': 'endTime'
-        },
-
-        events:{
-            'click .search': 'searchEve',
-            'click .detail': 'detailEve'
-        },
-
-        //获取枚举值
-        getEnums: function(){
-            var me = this;
-
-            //来源
-            var sList = [ {'name':'全部','value':''} ];
-            var state = {
-                's': false,
-                'p': false,
-                'u': false
-            }
-            function check(){
-                if( state.s && state.p && state.u ){
-                    me.getList();
-                }
-            }
-
-            util.getEnums('ENT_IND_SOURCE',function( data ){
-                data.value.model.forEach(function( item ){
-                    sList.push({ 'name':item.text, 'value':item.value });
-                    sMap[item.value] = item.text;
+                    me.o_fields.push({key: '$' + n.name, value: n});
+                    $(n.events || []).each(function (j, m) {
+                        me[m.key + ' .field_' + name] = m.value;
+                    });
                 });
-                util.resetSelect( me.$sourceEnum , sList );
-                state.s = true;
-                check();
-            });
+               PageClass.__super__.init.apply(this, arguments);
+               me.$view.html(me.getTemplateStr());
 
-            //省市
-            var pList = [ {'name':'全部','value':''} ];
+            },
+            elements: {},
+            i_events: {},
+            i_dataItems: {},
+            i_selector: '',
+            o_fields: [{key: '', value: {}}],
+            o_validate: function () {
+            },
+            o_getValues: function () {
 
-            util.getEnums('PROVINCE',function( data ){
-                data.value.model.forEach(function( item ){
-                    pList.push({ 'name':item.text, 'value':item.value });
-                    pMap[item.value] = item.text;
-                });
-                util.resetSelect( me.$provinceEnum, pList );
-                state.p = true;
-                check();
-            });
 
-            //状态
-            var uList = [{'name':'全部','value':''}];
+            },
+            o_setValues: function (value) {
+                var me = this;
+                if (value) {
+                    var isArray = $.isArray(value);
+                    for (var i in value) {
+                        var data = null;
+                        var field = null;
+                        var valueObj = null;
+                        if (isArray) {
+                            field = me.o_findField(function ($ele, responseData) {
+                                return value[i].name == responseData.name;
+                            });
+                            if (field) {
+                                data = me.o_field_getData(field);
+                                valueObj = value[i];
+                            }
+                        } else {
+                            if (value.hasOwnProperty(i)) {
+                                field = me.o_findField(function ($ele, responseData) {
+                                    return responseData.name == i;
+                                });
+                                if (field) {
+                                    data = me.o_field_getData(field);
+                                    valueObj = {value: value[i]};
+                                }
+                            }
+                        }
+                        if (field) {
 
-            util.getEnums('ENT_IND_PSTS',function( data ){
-                data.value.model.forEach(function( item ){
-                    uList.push({ 'name':item.text, 'value':item.value });
-                    uMap[item.value] = item.text;
-                });
-                util.resetSelect( me.$statusEnum , uList);
-                state.u = true;
-                check();
-            });
-        },
+                            switch (data.type) {
+                                case 'inputRadio':
+                                {
+                                    field.attr('checked', false).filter('[value="' + valueObj.value + '"]').click();
+                                }
+                                    ;
+                                    break;
+                                case 'inputCheckbox':
+                                {
+                                    field.filter('[value="' + valueObj.value + '"]').click();
+                                }
+                                    ;
+                                    break;
+                                default:
+                                {
+                                    field.val(valueObj.value);
+                                }
+                                    ;
+                                    break;
 
-        searchEve: function(){
-            this.pagination.setPage( 0,false );
-            this.getList();
-        },
-
-        detailEve: function( e ){
-            var id = $( e.currentTarget ).attr('data-id');
-            this.trigger('detail',id);
-        },
-
-        getList: function(){
-            var me = this;
-
-            var startTime = '',
-                endTime = '';
-
-            if( me.$startTime.val() ){
-                startTime = new Date( me.$startTime.val() + " 00:00:00" ).getTime();
-            }
-            if( me.$endTime.val() ){
-                endTime = new Date( me.$endTime.val() + " 23:59:59" ).getTime();
-            }
-
-            util.api({
-                'url':'/enterprise/queryindpage',
-                'data':{
-                    'pageIndex': me.pagination.attr['pageNumber'],
-                    'pageSize': me.pagination.attr['pageSize'],
-                    'enterpriseName': me.model.get('enterpriseName'),
-                    'enterpriseAccount': me.model.get('enterpriseAccount'),
-                    'vendorId': me.model.get('vendorId'),
-                    'province': me.model.get('province'),
-                    'source': me.model.get('source'),
-                    'status': me.model.get('status'),
-                    'timeBegin': startTime,
-                    'timeEnd': endTime
-                },
-                'success': function( data ){
-                    console.warn( data );
-                    if( data.success ){
-                        me.pagination.setTotalSize( data.value.model.itemCount );
-                        me.collection.reload( data.value.model.content, function( item ){
-                            item.sourceStr = sMap[item.source];
-                            item.provinceStr = pMap[item.province];
-                            item.statusStr = uMap[item.status];
-                            item.registerTimeStr = new Date( item.registerTime )._format('yyyy-MM-dd hh:mm');
-                        });
+                            }
+                        }
                     }
                 }
-            })
-        },
-
-        renderList: function(){
-            var me = this;
-
-            var collection = me.collection.all();
-            var htmlStr = '';
-
-            if( collection.length > 0 ){
-                htmlStr = me.trTpl( {'content': collection} );
-            } else {
-                htmlStr = "<tr><td colspan='10'><p class='info'>暂无数据</p></td></tr>";
+            },
+            o_findField: function (callback) {
+                var me = this;
+                var results = me.o_findFields(callback);
+                return results.length > 0 ? results[0] : null;
+            },
+            o_findFields: function (callback) {
+                var me = this;
+                var finds = [];
+                me.o_eachFields(function ($ele, data) {
+                    if (typeof(callback) == 'boolean' || (callback && callback($ele, data))) {
+                        finds.push($ele);
+                    }
+                });
+                return finds;
+            },
+            o_eachFields: function (callback) {
+                var me = this;
+                $(me.o_fields).each(function (i, n) {
+                    n.value.attr = n.value.attr || {};
+                    var $ele = me[n.key];
+                    callback && callback($ele, $ele.data('data'));
+                });
+            },
+            o_field_getWrapper: function ($ele) {
+                return $ele.parents('.wrapper');
+            },
+            o_field_hideWrapper: function ($ele) {
+                this.o_field_getData($ele).visible = false;
+                return this.o_field_getWrapper($ele).hide();
+            },
+            o_field_setReadonly: function ($ele) {
+                this.o_field_getData($ele).readonly = true;
+                $ele.css('readonly', 'readonly').attr('readonly', 'readonly');
+                return $ele;
+            },
+            o_field_getData: function ($ele) {
+                return $ele.data('data');
             }
-
-            me.$tbody.html( htmlStr );
         }
-    });
+    );
+    module.exports.PageDataClass = DataItem;
+    module.exports.PageClass = PageClass;
+});
 
 
 
-    exports.init = function() {
-        var $el = exports.$el;
 
-        var regList = new RegList( {'view':$el.find('.m-regList')} );
-        var entInfo = new EntInfo();
 
-        regList.on('detail',function( id ){
-            entInfo.show( id ,true);
-        });
-    }
-} );
+
+
+
+

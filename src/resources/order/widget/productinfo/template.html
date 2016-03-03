@@ -1,13 +1,93 @@
 <script type="text/template" id="terminalinfo">
     <div class="terminalinfo">
+
+        <div class="field_group">
+            <div class="field_group_head">
+                <label>
+                    <span class="label">名片</span>
+                    <span class="red">*</span>
+                </label>
+            </div>
+            <div class="field_row">
+                <div class="field_wrapper">
+                    <div class="field">
+                        <label>
+                            <span class="label">开始日期</span>
+                            <span class="red">*</span>
+                        </label>
+                        <input type="text" class="" name=""/>
+                    </div>
+                    <div class="field">
+                        <label>
+                            <span class="label">结束日期</span>
+                            <span class="red">*</span>
+                        </label>
+                        <input type="text" class="" name=""/>
+                    </div>
+                    <div class="field">
+                        <label>
+                            <input type="checkbox" class="" name="kbbc" checked="checked"/>
+                            <span class="label">捆绑纷享百川</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" class="" name="kbbs" checked="checked"/>
+                            <span class="label">捆绑报数系统</span>
+                        </label>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="field_row">
+                <div class="field_wrapper">
+                    <div class="field">
+                        <label>
+                            <span class="label">产品原价</span>
+                            <span class="field_text">0</span>
+                            <span>元</span>
+                        </label>
+                    </div>
+                    <div class="field">
+                        <label>
+                            <input type="radio" name="sy"/>
+                            <span>试用</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="zs"/>
+                            <span>赠送</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="zc"/>
+                            <span>正常</span>
+                        </label>
+                    </div>
+
+                    <div class="field">
+                        <label>
+                            <span class="label">合同金额(元)</span>
+                            <span class="red">*</span>
+                        </label>
+                        <input type="text" class="" name="htje"/>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
         <div class="field_row">
             <div class="field_row_head">
-
             </div>
             <div class="field_wrapper">
                 <div class="field">
                     <label>
-                        <span class="label"> </span>
+                        <span class="label">销客终端总量</span>
+                        <span class="red">*</span>
+                    </label>
+                    <input type="text" class="" name=""/>
+                </div>
+                <div class="field">
+                    <label>
+                        <span class="label">开始日期</span>
                         <span class="red">*</span>
                     </label>
                     <input type="text" class="" name=""/>
@@ -15,38 +95,46 @@
                 </div>
                 <div class="field">
                     <label>
-                        <span class="label"> </span>
+                        <span class="label">结束日期</span>
                         <span class="red">*</span>
                     </label>
                     <input type="text" class="" name=""/>
-
                 </div>
             </div>
         </div>
         <div class="field_row">
             <div class="field_row_head">
-
             </div>
             <div class="field_wrapper">
                 <div class="field">
                     <label>
-                        <span class="label"> </span>
-                        <span class="red">*</span>
+                        <span class="label">培训服务费</span>
                     </label>
-                    <input type="text" class="" name=""/>
-
                 </div>
+
                 <div class="field">
                     <label>
-                        <span class="label"> </span>
-                        <span class="red">*</span>
+                        <span class="label">产品原价</span>
+                        <span class="field_text">0</span>
+                        <span>元</span>
                     </label>
-                    <input type="text" class="" name=""/>
+                </div>
 
+                <div class="field">
+                    <label>
+                        <span class="label">收费:</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="sf" checked="checked"/>
+                        <span>否</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="sf"/>
+                        <span>是</span>
+                    </label>
                 </div>
             </div>
         </div>
-
     </div>
 </script>
 
@@ -56,7 +144,7 @@
         <table>
             <thead>
             <tr>
-                <th><input type="checkbox"/> </th>
+                <th><input type="checkbox"/></th>
                 <th>应用名称</th>
                 <th>开始日期 <span class="red">*</span></th>
                 <th>结束日期 <span class="red">*</span></th>
@@ -68,14 +156,60 @@
             </thead>
             <tbody>
             <tr>
-                <td><input type="checkbox"/> </td>
+                <td><input type="checkbox"/></td>
+                <td>PK助手</td>
+                <td><input type="text" datecontrol/></td>
+                <td><input type="text" datecontrol/></td>
                 <td></td>
+                <td>
+                    <label> <input type="radio" name="pk_type"/>试用 </label>
+                    <label> <input type="radio" name="pk_type"/>赠送 </label>
+                    <label> <input type="radio" name="pk_type"/>折扣 </label>
+                </td>
+                <td><input type="text" name="price"/></td>
+                <td><span name="rate"></span></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"/></td>
+                <td>会议助手</td>
+                <td><input type="text" datecontrol/></td>
+                <td><input type="text" datecontrol/></td>
                 <td></td>
+                <td>
+                    <label> <input type="radio" name="hy_type"/>试用 </label>
+                    <label> <input type="radio" name="hy_type"/>赠送 </label>
+                    <label> <input type="radio" name="hy_type"/>折扣 </label>
+                </td>
+                <td><input type="text" name="price"/></td>
+                <td><span name="rate"></span></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"/></td>
+                <td>HR助手</td>
+                <td><input type="text" datecontrol/></td>
+                <td><input type="text" datecontrol/></td>
                 <td></td>
+                <td>
+                    <label> <input type="radio" name="hr_type"/>试用 </label>
+                    <label> <input type="radio" name="hr_type"/>赠送 </label>
+                    <label> <input type="radio" name="hr_type"/>折扣 </label>
+                </td>
+                <td><input type="text" name="price"/></td>
+                <td><span name="rate"></span></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"/></td>
+                <td>工资助手</td>
+                <td><input type="text" datecontrol/></td>
+                <td><input type="text" datecontrol/></td>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>
+                    <label> <input type="radio" name="gz_type"/>试用 </label>
+                    <label> <input type="radio" name="gz_type"/>赠送 </label>
+                    <label> <input type="radio" name="gz_type"/>折扣 </label>
+                </td>
+                <td><input type="text" name="price"/></td>
+                <td><span name="rate"></span></td>
             </tr>
             </tbody>
         </table>
@@ -88,25 +222,202 @@
     <div class="forminfo">
         <div class="field_row">
             <div class="field_row_head">
-
             </div>
             <div class="field_wrapper">
                 <div class="field">
                     <label>
-                        <span class="label"> </span>
+                        <span class="label">合同号</span>
                         <span class="red">*</span>
                     </label>
                     <input type="text" class="" name=""/>
-
                 </div>
+            </div>
+        </div>
+        <div class="field_row">
+            <div class="field_row_head">
+            </div>
+            <div class="field_wrapper">
                 <div class="field">
                     <label>
-                        <span class="label"> </span>
+                        <span class="label">合同总金额(元)</span>
                         <span class="red">*</span>
                     </label>
-                    <input type="file" class="" name="" accept="image/gif,image/jpeg,image/png" />
+                    <input type="text" class="" name=""/>
+                </div>
+            </div>
+        </div>
+        <div class="field_row">
+            <div class="field_row_head">
+            </div>
+            <div class="field_wrapper">
+                <div class="field">
+                    <label>
+                        <span class="label">付费状态</span>
+                        <span class="red">*</span>
+                    </label>
+                    <input type="text" class="" name=""/>
+                </div>
+            </div>
+        </div>
+        <div class="field_row">
+            <div class="field_row_head">
+            </div>
+            <div class="field_wrapper">
+                <div class="field">
+                    <label>
+                        <span class="label">本次到款金额(元)</span>
+                        <span class="red">*</span>
+                    </label>
+                    <input type="text" class="" name=""/>
+                </div>
+            </div>
+        </div>
+        <div class="field_row">
+            <div class="field_row_head">
+            </div>
+            <div class="field_wrapper">
+                <div class="field">
+                    <label>
+                        <span class="label">打款日期</span>
+                        <span class="red">*</span>
+                    </label>
+                    <input type="text" class="" name=""/>
+                </div>
+            </div>
+        </div>
+        <div class="field_row">
+            <div class="field_row_head">
+            </div>
+            <div class="field_wrapper">
+
+                <div class="field">
+                    <label>
+                        <span class="label">收款账户</span>
+                        <span class="red">*</span>
+                    </label>
+                    <input type="text" class="" name=""/>
+                </div>
+            </div>
+        </div>
+        <div class="field_row">
+            <div class="field_row_head">
+            </div>
+            <div class="field_wrapper">
+                <div class="field">
+                    <label>
+                        <span class="label">付款单位/个人名称</span>
+                        <span class="red">*</span>
+                    </label>
+                    <input type="text" class="" name=""/>
+                </div>
+            </div>
+        </div>
+        <div class="field_row">
+            <div class="field_row_head">
+            </div>
+            <div class="field_wrapper">
+
+                <div class="field">
+                    <label>
+                        <span class="label">合同章名称</span>
+                        <span class="red">*</span>
+                    </label>
+                    <input type="text" class="" name=""/>
+                </div>
+            </div>
+        </div>
+        <div class="field_row">
+            <div class="field_row_head">
+            </div>
+            <div class="field_wrapper">
+
+                <div class="field">
+                    <label>
+                        <span class="label">合同照片</span>
+                        <span class="red">*</span>
+                    </label>
+                    <input type="file" class="" name="" accept="image/gif,image/jpeg,image/png"/>
+                </div>
+            </div>
+        </div>
+        <div class="field_row">
+            <div class="field_row_head">
+            </div>
+            <div class="field_wrapper">
+
+                <div class="field">
+                    <label>
+                        <span class="label">合同副本照片</span>
+                        <span class="red">*</span>
+                    </label>
+                    <input type="file" class="" name="" accept="image/gif,image/jpeg,image/png"/>
+                </div>
+            </div>
+        </div>
+        <div class="field_row">
+            <div class="field_row_head">
+            </div>
+            <div class="field_wrapper">
+
+                <div class="field">
+                    <label>
+                        <span class="label">门头照片</span>
+                        <span class="red">*</span>
+                    </label>
+                    <input type="file" class="" name="" accept="image/gif,image/jpeg,image/png"/>
+                </div>
+            </div>
+        </div>
+        <div class="field_row">
+            <div class="field_row_head">
+            </div>
+            <div class="field_wrapper">
+
+                <div class="field">
+                    <label>
+                        <span class="label">门头照片关键词</span>
+                        <span class="red">*</span>
+                    </label>
+                    <input type="text" class="" name=""/>
+                </div>
+            </div>
+        </div>
+        <div class="field_row">
+            <div class="field_row_head">
+            </div>
+            <div class="field_wrapper">
+                <div class="field">
+                    <label>
+                        <span class="label">门头照片备注</span>
+                        <span class="red">*</span>
+                    </label>
+                    <input type="text" class="" name=""/>
                 </div>
             </div>
         </div>
     </div>
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
