@@ -9,7 +9,6 @@ define(function (require, exports, module) {
         selector:'#tableinfo',
         init:function(){
             var me=this;
-            debugger
             PageClass.__super__.init.apply( this, arguments );
         }
 

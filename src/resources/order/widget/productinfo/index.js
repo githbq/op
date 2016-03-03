@@ -20,7 +20,7 @@ define(function (require, exports, module) {
                 return $(tplStr).filter(me.selector).html();
             },
             init: function (data) {
-                debugger
+
                 //在初始化前做的事
                 var me = this;
                 me.o_fields = [];

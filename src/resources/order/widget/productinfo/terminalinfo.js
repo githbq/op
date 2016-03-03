@@ -8,8 +8,7 @@ define(function (require, exports, module) {
     var PageClass = MClass(IndexPageClass).include({
         selector:'#terminalinfo',
         init:function(){
-            var me=this;
-            debugger
+            var me=this; 
             PageClass.__super__.init.apply( this, arguments );
         }
 
