@@ -5862,6 +5862,28 @@ em {
   width: 190px;
   height: 40px;
 }
+.p-newoffice {
+  padding: 10px;
+}
+.m-invoice h4 {
+  font-size: 22px;
+}
+.m-invoice p {
+  padding: 8px 0;
+}
+.m-invoice p label {
+  padding: 0 4px;
+}
+.m-invoice .invoice-container section {
+  display: none;
+}
+.m-invoice .title {
+  display: inline-block;
+  width: 70px;
+}
+.m-invoice .title b {
+  color: red;
+}
 .m-areatree {
   min-height: 400px;
   padding: 0 20px 20px 20px;
