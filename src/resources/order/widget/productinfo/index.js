@@ -97,7 +97,7 @@ define(function (require, exports, module) {
                     //自动执行设置方法
                     for (var i in obj) {
                         if (obj.hasOwnProperty(i) && i.toString().length > 1) {
-                            var methodName = 'o_setField' + toUpperCase(i.substr(0, 1)) + i.substring(1);
+                            var methodName = 'o_setField' + i.substr(0, 1).toUpperCase() + i.substring(1);
                             var method = me[methodName];
                             if (method) {
                                 method.call(me, $field, obj[i]);
