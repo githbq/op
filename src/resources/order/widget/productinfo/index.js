@@ -160,19 +160,19 @@ define(function (require, exports, module) {
                 if (value !== undefined) {
                     value = value || true;
                     var wrapper = this.o_field_getWrapper($ele);
-                    if (result) {
+                    if (value) {
                         wrapper.hide();
                     } else {
                         wrapper.show();
                     }
-                    this.o_field_getData($ele).visible = result;
+                    this.o_field_getData($ele).visible = value;
                 }
             }
             ,
-            o_setFieldReadonly: function ($ele, result) {
-                result = result || false;
-                this.o_field_getData($ele).readonly = result;
-                if (result) {
+            o_setFieldReadonly: function ($ele, value) {
+                value = value || false;
+                this.o_field_getData($ele).readonly = value;
+                if (value) {
                     $ele.addClass('readonly', 'readonly').attr('readonly', 'readonly');
                 } else {
                     $ele.removeClass('readonly', 'readonly').removeClass('readonly', 'readonly');
