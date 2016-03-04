@@ -6560,6 +6560,9 @@ em {
 .productinfo {
   width: 1300px;
 }
+.productinfo .ipt-l {
+  width: 300px;
+}
 .productinfo > div {
   margin: 15px auto;
 }

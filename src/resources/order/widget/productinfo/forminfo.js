@@ -9,11 +9,9 @@ define(function (require, exports, module) {
         selector: '#forminfo',
         init: function () {
             var me = this;
-            debugger
             PageClass.__super__.init.apply(this, arguments);
             me.autoSelect = new AutoSelect({data: banks});
-            debugger
-            me.autoSelect.resetSelect(me.$('.bankno'))
+            me.autoSelect.resetSelect(me.$('.bankno'));
         }
     });
     module.exports = PageClass;
