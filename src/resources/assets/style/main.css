@@ -6603,6 +6603,9 @@ em {
 .productinfo .field_row .field {
   float: left;
 }
+.productinfo .field_row .field_row_head {
+  padding-right: 20px;
+}
 .productinfo table th,
 .productinfo table td {
   text-align: center;

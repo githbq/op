@@ -1,5 +1,7 @@
 define(function (require, exports, module) {
-    function DataItem() {
+
+
+    function DataItem(options) {
         this.name = "";
         this.events = [{
             key: "", value: function (e) {
@@ -11,7 +13,11 @@ define(function (require, exports, module) {
         this.visible = true;
         this.disable = false;
         this.attr = {};
+        this.init(options);
     }
+    DataItem.prototype.init=function(options){
+        $.extend(this,options||{});
+    };
 
     var tplStr = require('./template.html');
     var PageClass = MClass(M.Center).include({
@@ -20,20 +26,23 @@ define(function (require, exports, module) {
                 return $(tplStr).filter(me.selector).html();
             },
             init: function (data) {
-
+              debugger
                 //在初始化前做的事
                 var me = this;
+                me.events=me.events||{};
                 me.o_fields = [];
                 $(data.dataItems).each(function (i, n) {
-                    me.elements['field_' + n.name] = n.name;
+                    me.elements['.field_' + n.name] = n.name;
 
                     me.o_fields.push({key: '$' + n.name, value: n});
                     $(n.events || []).each(function (j, m) {
-                        me[m.key + ' .field_' + name] = m.value;
+                        me.events[m.key + ' .field_' + n.name] = m.value;
                     });
                 });
                PageClass.__super__.init.apply(this, arguments);
                me.$view.html(me.getTemplateStr());
+                debugger
+                me.$('input[datecontrol]').datetimepicker( {format: 'Y/m/d'});
 
             },
             elements: {},
