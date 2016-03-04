@@ -10,16 +10,23 @@ define(function( require , exports , module ){
 		view: template,
 		
 		events: {
-			'click [name="invoice"]': 'invoiceEve'
+			'click [name="invoice"]': 'invoiceEve',
+			'click [name="intype"]': 'intypeEve'
 		},
 
-		//发票类型点击事件
+		//发票点击事件
 		invoiceEve: function( e ){
 			var me = this;
 			var target = $( e.currentTarget ).attr('data-target');
 			
 			console.log( target );
 			me.$('.invoice'+target).show().siblings().hide();
+		},
+
+		//类型点击事件
+		intypeEve: function( e ){
+			var me = this;
+			
 		},
 
 		init: function(){
