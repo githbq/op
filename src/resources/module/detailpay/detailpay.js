@@ -1197,6 +1197,7 @@ define( function(require, exports, module){
 			me.attrs.currentState = state;
 			 //设置显示状态
             me.$('.state').hide();
+			me.$('.approval-agent').hide();
             me.$('.state-'+state).show();
 			debugger
             util.api({
