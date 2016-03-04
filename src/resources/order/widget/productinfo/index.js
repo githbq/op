@@ -29,13 +29,11 @@ define(function (require, exports, module) {
             events: {},
             elements: {},
             init: function (data) {
-                debugger
                 //在初始化前做的事
                 var me = this;
                 me.dataDic = {};//数据字典
                 me.events = me.events || {};
                 me.o_fields = [];
-                debugger
                 $(data.dataItems).each(function (i, n) {
                     n.__guid = n.name;//name要保持唯一
                     me.dataDic[n.__guid] = n;
@@ -50,17 +48,15 @@ define(function (require, exports, module) {
                 });
                 data.view.html(me.getTemplateStr());
                 PageClass.__super__.init.apply(this, arguments);
-
-                debugger
                 //元素与数据双向关联
                 $(me.o_fields).each(function (i, n) {
-                    var fieldData = me.dataDic[n.__guid];
                     var field = me[n.key];
+                    var fieldData = me.dataDic[n.value.__guid];
                     $(field).data('data', fieldData);
                     fieldData.$ele = field;
                 });
-                debugger
                 me.$('input[datecontrol]').datetimepicker({format: 'Y/m/d'});
+                me.o_setValues(data.dataItems);
 
             },
             i_dataItems: {},
@@ -74,6 +70,7 @@ define(function (require, exports, module) {
                 alert('json=>' + JSON.stringify(allFields[0].data('data')));
             },
             o_setValues: function (value) {
+                debugger
                 var me = this;
                 if (value) {
                     var isArray = $.isArray(value);
@@ -82,6 +79,7 @@ define(function (require, exports, module) {
                         var field = null;
                         var valueObj = null;
                         if (isArray) { //数组传递复杂数据
+                            debugger
                             me.o_setValue(value[i]);
                         } else {//对象传递简单值
                             me.o_setValue({name: i, value: value[i]});

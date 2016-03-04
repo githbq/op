@@ -12,6 +12,7 @@ define(function (require, exports, module) {
         var DataItems = [];
         DataItems.push(new DataItem({
             name: 'AAA',
+            value:'我工工工工',
             events: [
                 {
                     key: 'click',
