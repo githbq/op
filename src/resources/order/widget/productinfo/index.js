@@ -26,6 +26,10 @@ define(function (require, exports, module) {
                 var me = this;
                 return $(tplStr).filter(me.selector).html();
             },
+            i_attrName: 'data-name',
+            i_getSelectorByName: function (name) {
+                return '[' + this.i_attrName + '=' + name + ']';
+            },
             events: {},
             elements: {},
             init: function (data) {
@@ -37,12 +41,12 @@ define(function (require, exports, module) {
                 $(data.dataItems).each(function (i, n) {
                     n.__guid = n.name;//name要保持唯一
                     me.dataDic[n.__guid] = n;
-                    me.elements['[data-name=field_' + n.name+']'] = n.name;
+                    me.elements[me.i_getSelectorByName(n.name)] = n.name;
 
                     me.o_fields.push({key: '$' + n.name, value: n});
                     $(n.events || []).each(function (j, m) {
                         if (m && m.key) {
-                            me.events[m.key + ' [data-name=field_' + n.name+']'] = m.value;
+                            me.events[m.key + ' ' + me.i_getSelectorByName(n.name)] = m.value;
                         }
                     });
                 });
@@ -66,8 +70,32 @@ define(function (require, exports, module) {
             },
             o_getValues: function () {
                 var me = this;
-                var allFields = me.o_findFields(true);
-                alert('json=>' + JSON.stringify(allFields[0].data('data')));
+                var result = {};
+                me.o_eachFields(function ($ele, data) {
+                    result[data.name] = me.o_getFieldValue(data.name);
+
+                });
+                return result;
+            },
+            o_getFieldValue: function (name) {
+                //
+                var me = this;
+                var $ele = me.o_findField(function ($ele, data) {
+                    return data.name == name;
+                });
+                var value = "";
+                if ($ele) {
+                    if ($ele.is('input[type=radio]') || $ele.is('input[type=checkbox]')) {
+                        var arr = [];
+                        $($ele.filter(':checked')).each(function (i, n) {
+                            arr.push($(n).val());
+                        });
+                        value = arr.join(',');
+                    }
+                } else {
+                    value = $ele.val();
+                }
+                return value;
             },
             o_setValues: function (value) {
                 debugger
@@ -110,8 +138,12 @@ define(function (require, exports, module) {
                 if (value !== undefined) {
                     var me = this;
                     var data = me.o_field_getData($ele);
-
-                    $ele.val(value);
+                    //考虑复选框情况
+                    if ($ele.is('input[type=radio]') || $ele.is('input[type=checkbox]')) {
+                        $ele.attr('checked', false).filter('[value=' + value + ']').attr('checked', true).change();
+                    } else {
+                        $ele.val(value);
+                    }
                     data.value = value;
                 }
             },
@@ -121,7 +153,7 @@ define(function (require, exports, module) {
                     var me = this;
                     var data = me.o_field_getData($ele);
                     $ele.attr(value);
-                    data.attr =value;
+                    data.attr = value;
                 }
             }
             ,
