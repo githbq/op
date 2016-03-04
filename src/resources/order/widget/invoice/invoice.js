@@ -9,6 +9,11 @@ define(function( require , exports , module ){
 
 		view: template,
 		
+		elements: {
+			'#businessLicense': 'businessLicense',
+			'#qualification': 'qualification'
+		},
+
 		events: {
 			'click [name="invoice"]': 'invoiceEve',
 			'click [name="intype"]': 'intypeEve'
@@ -33,6 +38,23 @@ define(function( require , exports , module ){
 
 		init: function(){
 			Invoice.__super__.init.apply( this, arguments );
+
+			//初始化事件
+			this.initEvents();
+		},
+
+		initEvents: function(){
+			var me = this;
+
+			me.$businessLicense.on('change',function(){
+				console.log('change');
+				console.log( me.$businessLicense[0] );
+			});
+
+			me.$qualification.on('change',function(){
+				console.log('change');
+				console.log( me.$qualification[0] );
+			});
 		},
 
 		render: function(){

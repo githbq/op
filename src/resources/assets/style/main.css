@@ -5867,6 +5867,8 @@ em {
 }
 .m-invoice h4 {
   font-size: 22px;
+  padding: 10px 0 5px 0;
+  border-top: 1px #4f4f4f dashed;
 }
 .m-invoice .invoice-bar {
   font-size: 16px;
