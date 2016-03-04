@@ -770,7 +770,7 @@ define( function(require, exports, module){
 			objDate['contractEndTime']=new Date( me.$endTimeHt.val() ).getTime();
 			
             if( me.attrs.type  == 'payLaunchApproval' ){
-                
+                objDate['orderType']=3;
                 objDate['contractType'] = 1;
 				objDate['contractPrice']=me.model.get('contractPrice');
 				objDate['discount']=me.model.get('discount');

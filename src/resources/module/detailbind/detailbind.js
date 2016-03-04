@@ -650,6 +650,7 @@ define( function(require, exports, module){
 			
 			objDate['serviceChargeAmount']=me.model.get('amount-bind');
 			objDate['invoiceHead']=me.model.get('invoiceHead-bind');
+			objDate['orderType']=2;
 			objDate['payerName']=me.model.get('payerName-bind');
 			objDate['payDate']=me.$('.money-date').val()?new Date( me.$('.money-date').val() ).getTime():'';
 			
