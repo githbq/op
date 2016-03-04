@@ -1197,8 +1197,8 @@ define( function(require, exports, module){
 			me.attrs.currentState = state;
 			 //设置显示状态
             me.$('.state').hide();
+			me.$('.approval-agent').hide();
             me.$('.state-'+state).show();
-			debugger
             util.api({
                 'url': '/enterprise/getenterprise',
                 'data': {
@@ -1403,7 +1403,7 @@ define( function(require, exports, module){
             
 			me.model.set('dealDays', parseInt( me.model.get('dealDays') ) ? parseInt( me.model.get('dealDays') ) :'' );
 			me.model.set('storageTotalSpace', parseFloat( me.model.get('storageTotalSpace') ) ? parseFloat(me.model.get('storageTotalSpace')):'' );
-			
+			me.model.set('orderType',3);
             //调用获取提交的全部信息
 			me.getAllInfo();
             
