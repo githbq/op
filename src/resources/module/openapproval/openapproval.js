@@ -768,12 +768,12 @@ define( function(require, exports, module){
 			objDate['businessLicenseFileName']=me.model.get('businessLicenseFileName');
 			objDate['contractStartTime']=new Date( me.$startTimeHt.val() ).getTime();
 			objDate['contractEndTime']=new Date( me.$endTimeHt.val() ).getTime();
-			
+			objDate['payStatus']=1;
             if( me.attrs.type  == 'payLaunchApproval' ){
                 objDate['orderType']=3;
                 objDate['contractType'] = 1;
 				objDate['contractPrice']=me.model.get('contractPrice');
-				objDate['discount']=me.model.get('discount');
+				objDate['discount']=me.model.get('discount')||10;
 				objDate['invoiceTitle']=me.model.get('invoiceTitle');
 				
 				var countNum = me.model.get('accountTotalAmount')?parseInt(me.model.get('accountTotalAmount')):0;
@@ -804,7 +804,7 @@ define( function(require, exports, module){
                 
 				objDate['contractType'] = 0;
 				objDate['contractPrice']='';
-				objDate['discount']='';
+				objDate['discount']=10;
 				objDate['invoiceTitle']='';
 				objDate['useBusinessCard'] = '0';
 				objDate['orderType']=1;

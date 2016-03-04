@@ -1199,7 +1199,6 @@ define( function(require, exports, module){
             me.$('.state').hide();
 			me.$('.approval-agent').hide();
             me.$('.state-'+state).show();
-			debugger
             util.api({
                 'url': '/enterprise/getenterprise',
                 'data': {

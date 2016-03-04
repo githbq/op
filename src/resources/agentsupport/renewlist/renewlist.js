@@ -1541,6 +1541,7 @@ define( function( require, exports, module ) {
 			objDate['orderType']=1;
 			if( me.attrs.type  == 'payLaunchApproval' ){
                 objDate['contractType'] = 1;
+				objDate['payStatus']=1;
 				objDate['contractPrice']=me.model.get('contractPrice');
 				objDate['discount']=me.model.get('discount');
 				objDate['useBusinessCard']=me.model.get('useBusinessCard');
@@ -1570,8 +1571,9 @@ define( function( require, exports, module ) {
             }else{
 				objDate['contractType'] = 0;
 				objDate['contractPrice']='';
-				objDate['discount']='';
+				objDate['discount']=10;
 				objDate['invoiceTitle']='';
+				objDate['payStatus']=1;
 				objDate['accountTotalAmount']=me.model.get('accountTotalAmount');
 				objDate['marketingAccountAmount'] = 0;
 				objDate['isPaid']='0';
@@ -1922,7 +1924,7 @@ define( function( require, exports, module ) {
 			objDate['contractStartTime']=new Date( me.$startTimeHt.val() ).getTime();
 			objDate['contractEndTime']=new Date( me.$endTimeHt.val() ).getTime();
 			if( me.attrs.type  == 'payLaunchApproval' ){
-				
+				objDate['payStatus']=1;
                 objDate['contractType'] = 1;
 				objDate['contractPrice']=me.model.get('contractPrice');
 				objDate['discount']=me.model.get('discount');
@@ -1954,7 +1956,9 @@ define( function( require, exports, module ) {
             }else{
 				objDate['contractType'] = 0;
 				objDate['contractPrice']='';
-				objDate['discount']='';
+				objDate['discount']=10;
+				objDate['payStatus']=1;
+				
 				objDate['invoiceTitle']='';
 				objDate['orderType']=1;
 				objDate['marketingAccountAmount'] = 0;

@@ -633,7 +633,7 @@ define( function(require, exports, module){
 			objDate['processInstanceId'] = me.attrs.id;
 			objDate['opinion'] = '';
 			objDate['personCount'] = me.$personCount.val();
-			
+			objDate['payStatus']=1;
 			objDate['contract'] = me.model.get('contract-bind');
 			objDate['contractFileName']=me.model.get('contractFileName-bind');
 			objDate['contractCopy']=me.model.get('contractCopy-bind');
