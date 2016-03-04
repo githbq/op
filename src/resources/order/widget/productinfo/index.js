@@ -92,7 +92,7 @@ define(function (require, exports, module) {
                 if (!obj.name) {
                     return;
                 }
-                var $field = me.dataDic[obj.name];//找到对应的$DOM
+                var $field = me.dataDic[obj.name].$ele;//找到对应的$DOM
                 if ($field) {
                     //自动执行设置方法
                     for (var i in obj) {
