@@ -12,7 +12,7 @@ define(function (require, exports, module) {
         //enable:true/false 是否启用本验证
         this.validateOptions = {
             require: {
-                enable: true, value: true, message: '', handler: function () {
+                enable: true, value: true, message: '', handler: function (error,value, option, $ele,me) {
                 }
             }
         };
@@ -137,7 +137,7 @@ define(function (require, exports, module) {
                 if (callback && callback(value, option, $ele)) {
                     error = {field: $ele, name: requireName, option: option};
                 }
-                if (error && me.trigger('validateError', value, option, $ele,me)===false) {
+                if (error && me.trigger('validateError', value, option, $ele,me)!==false) {
                     if (error) {
                         wrapper.addClass('required-error');
                         wrapper.find('.error').show().html(option.message);
@@ -145,8 +145,8 @@ define(function (require, exports, module) {
                         wrapper.find('.error').hide().html('');
                         wrapper.removeClass('required-error');
                     }
+                    option.handler && option.handler.call(me,error,value, option, $ele);
                 }
-
                 return error;
             },
             o_getValues: function () {
@@ -186,7 +186,6 @@ define(function (require, exports, module) {
                         var field = null;
                         var valueObj = null;
                         if (isArray) { //数组传递复杂数据
-                            debugger
                             me.o_setValue(value[i]);
                         } else {//对象传递简单值
                             me.o_setValue({name: i, value: value[i]});
@@ -230,7 +229,6 @@ define(function (require, exports, module) {
             o_setFieldAttr: function ($ele, value) {
                 var me = this;
                 if (value !== undefined) {
-                    debugger
                     var me = this;
                     var data = me.o_field_getData($ele);
                     $ele.attr(value);
