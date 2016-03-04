@@ -42,10 +42,9 @@ define(function( require , exports , module ){
 			var me = this;
 			var value = $( e.currentTarget ).attr('data-value');
 			if( value == 1 ){
-
-				
+				me.$('.teaminfo').show();
 			} else {
-
+				me.$('.teaminfo').hide();
 			}
 		},
 
