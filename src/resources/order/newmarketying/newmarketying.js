@@ -12,7 +12,7 @@ define( function( require, exports, module ) {
         },
         events: {
 			'click .action-cancel': 'cancelEve',
-			'click .common-add' : 'commonAddEve',
+			'click .common-add' : 'getOrderInfo',
 			'click .special-add' : 'specialAddEve'
         },
         init: function() {
@@ -183,7 +183,7 @@ define( function( require, exports, module ) {
 			}
 			
 			
-			basicData = me.attrs.commonMarkey.getValue();
+			//basicData = me.attrs.commonMarkey.getValue();
 			$.extend(true, objData, basicData,productData,invoiceData);
 
 		},
