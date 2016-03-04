@@ -9,7 +9,13 @@ define(function (require, exports, module) {
         }];
         this.data = [];
         this.type = "";
-        this.validateOptions = {require: {value: true, message: ''};
+        //enable:true/false 是否启用本验证
+        this.validateOptions = {
+            require: {
+                enable: true, value: true, message: '', handler: function () {
+                }
+            }
+        };
         this.visible = true;
         this.disable = false;
         this.attr = {};
@@ -66,25 +72,76 @@ define(function (require, exports, module) {
             i_dataItems: {},
             i_selector: '',
             o_fields: [{key: '', value: {}}],
+            o_validate: function () {
+                var me = this;
+                var errors = [];
+                me.o_eachFields(function ($ele, data) {
+                    var error = me.o_validateField($ele);
+                    if (error) {
+                        errors.push(error);
+                    }
+                });
+                return errors.length > 0 ? errors : false;
+            },
             o_validateField: function ($ele) {
+                var me = this;
                 var data = me.o_field_getData($ele);
                 var options = data.validateOptions;
+                var value = me.o_getFieldValue(null, $ele);
+                var wrapper = me.o_field_getWrapper($ele);
+                var error = null;
                 if (options) {
                     for (var i in options) {
-                        if (options.hasOwnProperty(i)) {
+                        var option = options[i];
+                        if (options.hasOwnProperty(i) && option.enable) {
                             switch (i) {
                                 case 'required':
                                 {
-
-
-                                } ; break;
+                                    error = me.i_checkError(i, value, option, $ele, wrapper, function (value, option, $ele) {
+                                        return !value;
+                                    });
+                                }
+                                    break;
                                 case 'maxlength':
                                 {
-                                }  ; break;
+                                    error = me.i_checkError(i, value, option, $ele, wrapper, function (value, option, $ele) {
+                                        return value.length > option.value;
+
+                                    });
+                                }
+                                    break;
+                                default:
+                                {   //自定义验证   拓展名规则为      i_fieldValidateXXXXXXX
+                                    if (i.toString().length > 0) {
+                                        var methodName = me.i_toWord('i_fieldValidate', i);
+                                        var method = me[methodName];
+                                        if (method) {
+                                            error = me.i_checkError(method);
+                                        }
+                                    }
+                                }
+                                    ;
+                                    break;
                             }
                         }
                     }
                 }
+                return error;
+            },
+            i_toWord: function (prefix, value) {//驼峰命名法
+                return prefix + value.substr(0, 1) + value.substr(1);
+            },
+            i_checkError: function (requireName, value, option, $ele, wrapper, callback) {
+                var error = null;
+                if (callback && callback(value, option, $ele)) {
+                    wrapper.addClass('required-error');
+                    wrapper.find('.error').show().html(option.message);
+                    error = {field: $ele, name: requireName, option: option};
+                } else {
+                    wrapper.removeClass('required-error');
+                    wrapper.find('.error').hide().html('');
+                }
+                return error;
             },
             o_getValues: function () {
                 var me = this;
@@ -143,7 +200,7 @@ define(function (require, exports, module) {
                     //自动执行设置方法
                     for (var i in obj) {
                         if (obj.hasOwnProperty(i) && i.toString().length > 1) {
-                            var methodName = 'o_setField' + i.substr(0, 1).toUpperCase() + i.substring(1);
+                            var methodName = me.i_toWord('o_setField', i);
                             var method = me[methodName];
                             if (method) {
                                 method.call(me, $field, obj[i]);
