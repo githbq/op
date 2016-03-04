@@ -5868,6 +5868,9 @@ em {
 .m-invoice h4 {
   font-size: 22px;
 }
+.m-invoice .invoice-bar {
+  font-size: 16px;
+}
 .m-invoice p {
   padding: 8px 0;
 }
@@ -5879,7 +5882,7 @@ em {
 }
 .m-invoice .title {
   display: inline-block;
-  width: 70px;
+  width: 100px;
 }
 .m-invoice .title b {
   color: red;

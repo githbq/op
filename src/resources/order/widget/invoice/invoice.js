@@ -20,13 +20,15 @@ define(function( require , exports , module ){
 			var target = $( e.currentTarget ).attr('data-target');
 			
 			console.log( target );
-			me.$('.invoice'+target).show().siblings().hide();
+			me.$('.'+target).show().siblings().hide();
 		},
 
 		//类型点击事件
 		intypeEve: function( e ){
 			var me = this;
-			
+			var target = $( e.currentTarget ).attr('data-target');
+
+			me.$('.'+target).show().siblings().hide();
 		},
 
 		init: function(){
