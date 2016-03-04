@@ -260,7 +260,9 @@ define( function(require, exports, module){
                 'url':'/enterprisefiling/canAddEnterprise',
                 'success': function( data ){
                     if( data.success ){
-                        location.hash = '#agentsupport/freereg/link';
+                        //location.hash = '#agentsupport/freereg/link';
+						
+						location.hash = '#order/newmarketying/newOffice';
                     }
                 }
             })
@@ -277,8 +279,8 @@ define( function(require, exports, module){
                 'url':'/enterprisefiling/canAddEnterprise',
                 'success': function( data ){
                     if( data.success ){
-                        location.hash = '#agentsupport/payreg/link';
-						//location.hash = '#order/newmarketying';
+                        //location.hash = '#agentsupport/payreg/link';
+						location.hash = '#order/newmarketying/newMarket';
                     }
                 }
             })
@@ -287,6 +289,8 @@ define( function(require, exports, module){
 		},
 		bindLinkEve:function(e){
 			var me = this;
+			IBSS.tempEnterprise = temObj;
+			
 			var entId = $( e.currentTarget ).attr('data-entId');
 			me.trigger('bindLink',entId);
 			

@@ -6557,3 +6557,23 @@ em {
   height: 182px;
   font-size: 22px;
 }
+.order-content .nav-box {
+  display: inline-block;
+  font-size: 16px;
+}
+.order-content .nav-box #tabs li {
+  float: left;
+  color: #000;
+  height: 30px;
+  cursor: pointer;
+  line-height: 30px;
+  padding: 0 20px;
+  background: #eee;
+}
+.order-content .nav-box #tabs li.current {
+  color: #000;
+  background: #ccc;
+}
+.widget-order-info table tr {
+  line-height: 30px;
+}

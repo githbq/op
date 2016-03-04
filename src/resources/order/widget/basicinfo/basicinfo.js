@@ -29,8 +29,8 @@ define(function(require, exports, module){
 		},
 		*/
 		events:{
-			'click .action-add': 'addEve',
-			'click .action-cancel': 'cancelEve'
+
+	
 		},
 
 		elements: {
@@ -55,7 +55,8 @@ define(function(require, exports, module){
             '.contract':'contract',
 			'.useBusinessCard':'useBusinessCard',
 			'.card-price':'cardPrice',
-			'.regionName': 'regionName'
+			'.regionName': 'regionName',
+			
 		},
 		init: function(){
 			AddEnt.__super__.init.apply( this,arguments );
@@ -98,13 +99,12 @@ define(function(require, exports, module){
 			me.model.set('contractCopy', '');
 			me.model.set('contractCopyFileName', '');
 
-
 			IBSS.tempEnterprise['enterpriseName'] && me.$('.enterpriseName').attr('disabled','disabled');
 			IBSS.tempEnterprise['address'] && me.$('.address').attr('disabled','disabled');
 			IBSS.tempEnterprise['representative'] && me.$('.keyContactName').attr('disabled','disabled');
 			IBSS.tempEnterprise['source'] && me.$('.e-source').attr('disabled','disabled');
 			IBSS.tempEnterprise['industry']&& me.$('.e-industry').attr('disabled','disabled');
-
+		
 			me.model.set('enterpriseFilingId', IBSS.tempEnterprise['id']);
 
 			if( IBSS.tempEnterprise['regionName'] ){
@@ -179,25 +179,56 @@ define(function(require, exports, module){
 			//获取销售团队规模
 			generate('SALE_TEAM_SCALE', {} , me.$saleteamscale ,'s');
 
-			$('.e-industry').val(me.model.get('INDUSTRY'));
+			//$('.e-industry').val(me.model.get('INDUSTRY'));
 		},
 		//显示
 		render: function(){
 			var me = this;
 			me.attrs['wrapper'].html( me.$view );
+			me.checkEdit(me.attrs.editFlag)
 		},
-
-		cancelEve: function(){
-			location.hash = "#agentsupport/entprisefiling";
+		//数据渲染显示
+		setValue:function(){
+			var me = this;
 		},
 		//检测是否可编辑
 		checkEdit:function(editFlag){
 			var me = this;
+			if(editFlag){
+				me.$('.edit-flag').removeAttr('disabled');
+				me.$('.check-edit').show();
+			}else{
+				me.$('.edit-flag').attr('disabled','disabled')
+				me.$('.check-edit').hide();
+			}
 			
 		},
 		//对外获取文本框值
 		getValue:function(){
 			var me = this;
+			me.checkVaild();
+			return me.model.all();
+		},
+		//检测数据有效和必填项
+		checkVaild:function(){
+			var me = this;
+			//检测必填项
+			var state = true; 
+			me.$('.required-basic').each(function(){
+				var $this = $( this );
+				var attr = $this.attr('ce-model');
+				if( !me.model.get(attr) ){
+					util.warnInput( $this );
+					state = false;
+					
+				}else{
+					util.unWarnInput( $this );
+				}
+			});
+			if( state == false ){
+				util.showToast('信息填写不完整');
+				return ;
+			}
 		}
 		
 	});
