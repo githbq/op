@@ -12,7 +12,7 @@ define(function (require, exports, module) {
         //enable:true/false 是否启用本验证
         this.validateOptions = {
             require: {
-                enable: true, value: true, message: '', handler: function (error,value, option, $ele,me) {
+                enable: true, value: true, message: '', handler: function (error, value, option, $ele, me) {
                 }
             }
         };
@@ -86,7 +86,8 @@ define(function (require, exports, module) {
             o_validateField: function ($ele) {
                 var me = this;
                 var data = me.o_field_getData($ele);
-                var options = data.validateOptions;
+                var options = data.validateOptions
+                debugger
                 var value = me.o_getFieldValue(null, $ele);
                 var wrapper = me.o_field_getWrapper($ele);
                 var error = null;
@@ -137,7 +138,8 @@ define(function (require, exports, module) {
                 if (callback && callback(value, option, $ele)) {
                     error = {field: $ele, name: requireName, option: option};
                 }
-                if (error && me.trigger('validateError', value, option, $ele,me)!==false) {
+                debugger
+                if (error && me.trigger('validateError', value, option, $ele, me) !== false) {
                     if (error) {
                         wrapper.addClass('required-error');
                         wrapper.find('.error').show().html(option.message);
@@ -145,7 +147,7 @@ define(function (require, exports, module) {
                         wrapper.find('.error').hide().html('');
                         wrapper.removeClass('required-error');
                     }
-                    option.handler && option.handler.call(me,error,value, option, $ele);
+                    option.handler && option.handler.call(me, error, value, option, $ele);
                 }
                 return error;
             },
@@ -171,9 +173,9 @@ define(function (require, exports, module) {
                             arr.push($(n).val());
                         });
                         value = arr.join(',');
+                    } else {
+                        value = $ele.val();
                     }
-                } else {
-                    value = $ele.val();
                 }
                 return value;
             },
@@ -263,7 +265,7 @@ define(function (require, exports, module) {
             }
             ,
             o_field_getWrapper: function ($ele) {
-                return $ele.parents('.wrapper');
+                return $ele.parents('.field');
             }
             ,
             o_setFieldVisible: function ($ele, value) {
