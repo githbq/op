@@ -17,7 +17,8 @@ define(function (require, exports, module) {
                     key: 'click',
                     value: function (e) {
                         debugger
-                        alert('click了')
+                        terminalInfo.o_getValues();
+
                     }
                 }]
         }));
