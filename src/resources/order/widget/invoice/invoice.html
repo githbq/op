@@ -1,0 +1,83 @@
+<div class="m-invoice">
+	<h4>发票/收据</h4>
+	<p>
+		<label> <input type="radio" name="invoice" data-target="a">发票 </label>
+		<label> <input type="radio" name="invoice" data-target="b">收据 </label>
+		<label> <input type="radio" name="invoice" data-target="c">暂不需要</label>
+	</p>
+	<div class="invoice-container">
+
+		<!--发票-->
+		<section class="invoicea">
+			<p>
+				<span class="title">发票类型 <b>*</b> </span>
+				<label>
+					<input type="radio">
+					增值税普通发票
+				</label>
+				<label>
+					<input type="radio">
+					增值税专用发票
+				</label>
+			</p>
+			<p>
+				税务登记证正本/副本或三证合一的营业执照 <b>*</b>
+			</p>
+			<p>
+				<input type="file">
+			</p>
+			<p>
+				<span class="title">发票抬头 <b>*</b></span>
+				<input type="text">
+			</p>
+		</section>
+
+		<!--收据-->
+		<section class="invoiceb">
+			<p>
+				<span class="title">公司名称<b>*</b></span>
+				<input type="text">
+			</p>
+			<p>
+				<span class="title">收据金额<b>*</b></span>
+				<input type="text">
+			</p>
+		</section>
+		
+		<!--暂不需要-->
+		<section class="invoicec">
+			
+		</section>
+
+	</div>
+	
+	<h4>提单信息</h4>
+	<p>
+		<span class="title">提单人<b>*</b></span>
+		<span>
+			部门名称<b>XXXX</b>
+		</span>
+		<span>
+			员工姓名<b>XXXX</b>
+		</span>
+	</p>
+	<p>
+		<span class="title">合作单<b>*</b></span>
+		<label>
+			<input type="radio" name="team">
+			否
+		</label>
+		<label>
+			<input type="radio" name="team">
+			是 <input type="text" placeholder="请编写合作人姓名及所属部门">
+		</label>
+	</p>
+	<p>
+		<span>综合折扣:<b>8折</b></span>
+	</p>
+
+	<h4>备注</h4>
+	<p>
+		<textarea cols="60" rows="5"></textarea>
+	</p>
+</div>
