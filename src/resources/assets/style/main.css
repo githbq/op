@@ -6560,6 +6560,16 @@ em {
 .productinfo {
   width: 1300px;
 }
+.productinfo .disabled,
+.productinfo .readonly {
+  background-color: #ebebe4;
+  border: 1px solid #dedede;
+  color: #545454;
+}
+.productinfo .bold {
+  font-weight: bold;
+  color: black;
+}
 .productinfo .ipt-l {
   width: 300px;
 }
@@ -6580,15 +6590,18 @@ em {
 }
 .productinfo .field_row {
   overflow: hidden;
-  padding: 5px  0px;
+  padding: 5px 0px;
 }
-.productinfo .field_row .field {
+.productinfo .field_row > div {
   float: left;
 }
-.productinfo .field_row .field label {
+.productinfo .field_row label {
   display: inline-block;
   width: 150px;
   text-align: right;
+}
+.productinfo .field_row .field {
+  float: left;
 }
 .productinfo table th,
 .productinfo table td {

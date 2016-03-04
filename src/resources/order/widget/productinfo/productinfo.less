@@ -5,6 +5,10 @@
     border: 1px solid #dedede;
     color: #545454;
   }
+  .bold{
+    font-weight:bold;
+    color:black;
+  }
   .ipt-l {
     width: 300px;
   }
@@ -29,13 +33,17 @@
   .field_row {
     overflow: hidden;
     padding: 5px 0px;
+    >div{
+      float:left;
+    }
+    label {
+      display: inline-block;
+      width: 150px;
+      text-align: right;
+    }
     .field {
       float: left;
-      label {
-        display: inline-block;
-        width: 150px;
-        text-align: right;
-      }
+
     }
   }
 
