@@ -102,6 +102,8 @@ define(function( require , exports , module ){
 		//外部接口 获取当前数据信息
 		getInfo: function(){
 			var me = this;
+
+			return me.model.all();
 		}
 	});
 
