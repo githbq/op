@@ -132,16 +132,21 @@ define(function (require, exports, module) {
                 return prefix + value.substr(0, 1) + value.substr(1);
             },
             i_checkError: function (requireName, value, option, $ele, wrapper, callback) {
-                var me=this;
+                var me = this;
                 var error = null;
                 if (callback && callback(value, option, $ele)) {
-                    wrapper.addClass('required-error');
-                    wrapper.find('.error').show().html(option.message);
                     error = {field: $ele, name: requireName, option: option};
-                } else {
-                    wrapper.removeClass('required-error');
-                    wrapper.find('.error').hide().html('');
                 }
+                if (error && me.trigger('validateError', value, option, $ele,me)===false) {
+                    if (error) {
+                        wrapper.addClass('required-error');
+                        wrapper.find('.error').show().html(option.message);
+                    } else {
+                        wrapper.find('.error').hide().html('');
+                        wrapper.removeClass('required-error');
+                    }
+                }
+
                 return error;
             },
             o_getValues: function () {
@@ -209,7 +214,7 @@ define(function (require, exports, module) {
                 }
             },
             o_setFieldValue: function ($ele, value) {
-                var me=this;
+                var me = this;
                 if (value !== undefined) {
                     var me = this;
                     var data = me.o_field_getData($ele);
@@ -223,7 +228,7 @@ define(function (require, exports, module) {
                 }
             },
             o_setFieldAttr: function ($ele, value) {
-                var me=this;
+                var me = this;
                 if (value !== undefined) {
                     debugger
                     var me = this;
@@ -264,7 +269,7 @@ define(function (require, exports, module) {
             }
             ,
             o_setFieldVisible: function ($ele, value) {
-                var me=this;
+                var me = this;
                 if (value !== undefined) {
                     value = value || true;
                     var wrapper = this.o_field_getWrapper($ele);
@@ -278,7 +283,7 @@ define(function (require, exports, module) {
             }
             ,
             o_setFieldReadonly: function ($ele, value) {
-                var me=this;
+                var me = this;
                 value = value || false;
                 this.o_field_getData($ele).readonly = value;
                 if (value) {
