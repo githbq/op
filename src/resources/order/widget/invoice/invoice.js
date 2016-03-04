@@ -1,7 +1,7 @@
 define(function( require , exports , module ){
 
 	var template = require('./invoice.html'); 
-
+	var uploader = require('common/widget/upload').uploader;
 
 
 	//订单模块
@@ -43,22 +43,53 @@ define(function( require , exports , module ){
 			this.initEvents();
 		},
 
+		//初始化事件
 		initEvents: function(){
 			var me = this;
 
+			//
 			me.$businessLicense.on('change',function(){
 				console.log('change');
-				console.log( me.$businessLicense[0] );
+				console.log( me.$businessLicense[0].files );
+				uploader.send({
+					'url':'/op/api/file/uploadsinglefileandcheck',
+					'files': me.$businessLicense[0].files,
+					'options':{
+						'limittype':'IMAGE'
+					},
+					'success': function( response ){
+						console.warn( response );
+						me.model.set('businessLicense', response.value.model.path );
+						me.model.set('businessLicenseFileName', response.value.model.FileName );
+					}
+				})
 			});
-
+			//
 			me.$qualification.on('change',function(){
 				console.log('change');
-				console.log( me.$qualification[0] );
+				console.log( me.$qualification[0].files );
+				uploader.send({
+					'url': '/op/api/file/uploadsinglefileandcheck',
+					'files': me.$qualification[0].files,
+					'options':{
+						'limittype':'IMAGE'
+					},
+					'success': function( response ){
+						console.warn( response );
+						me.model.set('taxpayerQualification', response.value.model.path );
+						me.model.set('taxpayerQualificationFileName', response.value.model.FileName );
+					}
+				})
 			});
 		},
 
 		render: function(){
 			this.attrs['wrapper'].html( this.$view );
+		},
+
+		//外部接口 获取当前数据信息
+		getInfo: function(){
+			var me = this;
 		}
 	});
 
