@@ -139,7 +139,7 @@ define(function (require, exports, module) {
                     error = {field: $ele, name: requireName, option: option};
                 }
                 debugger
-                if (error && me.trigger('validateError', value, option, $ele, me) !== false) {
+                if (me.trigger('validateError', value, option, $ele, me) !== false) {
                     if (error) {
                         wrapper.addClass('required-error');
                         wrapper.find('.error').show().html(option.message);
@@ -147,8 +147,8 @@ define(function (require, exports, module) {
                         wrapper.find('.error').hide().html('');
                         wrapper.removeClass('required-error');
                     }
-                    option.handler && option.handler.call(me, error, value, option, $ele);
                 }
+                error && option.handler && option.handler.call(me, error, value, option, $ele);
                 return error;
             },
             o_getValues: function () {
