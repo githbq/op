@@ -12,14 +12,13 @@ define(function (require, exports, module) {
         var DataItems = [];
         DataItems.push(new DataItem({
             name: 'AAA',
-            value:'我工工工工',
+            value:'我工工工工BBBBB',
+            attr:{style:'border:2px solid red;'},
             events: [
                 {
                     key: 'click',
                     value: function (e) {
-                        debugger
-                        terminalInfo.o_getValues();
-
+                      this.setValue({name:'b',visible:false});
                     }
                 }]
         }));

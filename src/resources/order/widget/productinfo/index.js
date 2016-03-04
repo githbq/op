@@ -37,12 +37,12 @@ define(function (require, exports, module) {
                 $(data.dataItems).each(function (i, n) {
                     n.__guid = n.name;//name要保持唯一
                     me.dataDic[n.__guid] = n;
-                    me.elements['.field_' + n.name] = n.name;
+                    me.elements['[data-name=field_' + n.name+']'] = n.name;
 
                     me.o_fields.push({key: '$' + n.name, value: n});
                     $(n.events || []).each(function (j, m) {
                         if (m && m.key) {
-                            me.events[m.key + ' .field_' + n.name] = m.value;
+                            me.events[m.key + ' [data-name=field_' + n.name+']'] = m.value;
                         }
                     });
                 });
@@ -117,6 +117,7 @@ define(function (require, exports, module) {
             },
             o_setFieldAttr: function ($ele, value) {
                 if (value !== undefined) {
+                    debugger
                     var me = this;
                     var data = me.o_field_getData($ele);
                     $ele.attr(value);
