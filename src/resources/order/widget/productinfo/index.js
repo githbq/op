@@ -132,6 +132,7 @@ define(function (require, exports, module) {
                 return prefix + value.substr(0, 1) + value.substr(1);
             },
             i_checkError: function (requireName, value, option, $ele, wrapper, callback) {
+                var me=this;
                 var error = null;
                 if (callback && callback(value, option, $ele)) {
                     wrapper.addClass('required-error');
@@ -153,7 +154,6 @@ define(function (require, exports, module) {
                 return result;
             },
             o_getFieldValue: function (name, $ele) {
-                //
                 var me = this;
                 var $ele = $ele || me.o_findField(function ($ele, data) {
                         return data.name == name;
@@ -173,7 +173,6 @@ define(function (require, exports, module) {
                 return value;
             },
             o_setValues: function (value) {
-                debugger
                 var me = this;
                 if (value) {
                     var isArray = $.isArray(value);
@@ -210,6 +209,7 @@ define(function (require, exports, module) {
                 }
             },
             o_setFieldValue: function ($ele, value) {
+                var me=this;
                 if (value !== undefined) {
                     var me = this;
                     var data = me.o_field_getData($ele);
@@ -223,6 +223,7 @@ define(function (require, exports, module) {
                 }
             },
             o_setFieldAttr: function ($ele, value) {
+                var me=this;
                 if (value !== undefined) {
                     debugger
                     var me = this;
@@ -263,6 +264,7 @@ define(function (require, exports, module) {
             }
             ,
             o_setFieldVisible: function ($ele, value) {
+                var me=this;
                 if (value !== undefined) {
                     value = value || true;
                     var wrapper = this.o_field_getWrapper($ele);
@@ -276,6 +278,7 @@ define(function (require, exports, module) {
             }
             ,
             o_setFieldReadonly: function ($ele, value) {
+                var me=this;
                 value = value || false;
                 this.o_field_getData($ele).readonly = value;
                 if (value) {
