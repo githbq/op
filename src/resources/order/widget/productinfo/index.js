@@ -9,7 +9,7 @@ define(function (require, exports, module) {
         }];
         this.data = [];
         this.type = "";
-        this.validateOption = {require: {value: true, message: ''}};
+        this.validateOptions = {require: {value: true, message: ''};
         this.visible = true;
         this.disable = false;
         this.attr = {};
@@ -66,7 +66,25 @@ define(function (require, exports, module) {
             i_dataItems: {},
             i_selector: '',
             o_fields: [{key: '', value: {}}],
-            o_validate: function () {
+            o_validateField: function ($ele) {
+                var data = me.o_field_getData($ele);
+                var options = data.validateOptions;
+                if (options) {
+                    for (var i in options) {
+                        if (options.hasOwnProperty(i)) {
+                            switch (i) {
+                                case 'required':
+                                {
+
+
+                                } ; break;
+                                case 'maxlength':
+                                {
+                                }  ; break;
+                            }
+                        }
+                    }
+                }
             },
             o_getValues: function () {
                 var me = this;
@@ -77,12 +95,12 @@ define(function (require, exports, module) {
                 });
                 return result;
             },
-            o_getFieldValue: function (name) {
+            o_getFieldValue: function (name, $ele) {
                 //
                 var me = this;
-                var $ele = me.o_findField(function ($ele, data) {
-                    return data.name == name;
-                });
+                var $ele = $ele || me.o_findField(function ($ele, data) {
+                        return data.name == name;
+                    });
                 var value = "";
                 if ($ele) {
                     if ($ele.is('input[type=radio]') || $ele.is('input[type=checkbox]')) {
