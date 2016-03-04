@@ -32,7 +32,7 @@
 				<section class="typea" style="display:block;">
 					<p>
 						<span class="title">发票抬头 <b>*</b></span>
-						<input type="text">
+						<input type="text" ce-model="invoiceHead">
 					</p>	
 				</section>
 
@@ -99,12 +99,12 @@
 	<p>
 		<span class="title">合作单<b>*</b></span>
 		<label>
-			<input type="radio" name="team">
+			<input type="radio" name="team" data-value="0" >
 			否
 		</label>
 		<label>
-			<input type="radio" name="team">
-			是 <input type="text" placeholder="请编写合作人姓名及所属部门">
+			<input type="radio" name="team" data-value="1" >
+			是 <input type="text" placeholder="请编写合作人姓名及所属部门" class="teaminfo">
 		</label>
 	</p>
 	<p>

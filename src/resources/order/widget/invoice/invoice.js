@@ -16,7 +16,8 @@ define(function( require , exports , module ){
 
 		events: {
 			'click [name="invoice"]': 'invoiceEve',
-			'click [name="intype"]': 'intypeEve'
+			'click [name="intype"]': 'intypeEve',
+			'click [name="team"]': 'teamEve'
 		},
 
 		//发票点击事件
@@ -34,6 +35,18 @@ define(function( require , exports , module ){
 			var target = $( e.currentTarget ).attr('data-target');
 
 			me.$('.'+target).show().siblings().hide();
+		},
+
+		//选择合作单
+		teamEve: function( e ){
+			var me = this;
+			var value = $( e.currentTarget ).attr('data-value');
+			if( value == 1 ){
+
+				
+			} else {
+
+			}
 		},
 
 		init: function(){
