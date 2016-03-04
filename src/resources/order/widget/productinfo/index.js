@@ -119,10 +119,8 @@ define(function (require, exports, module) {
                 if (value !== undefined) {
                     var me = this;
                     var data = me.o_field_getData($ele);
-                    if (obj.attr !== undefined) {
-                        $field.attr(obj.attr);
-                        data.attr = obj.attr;
-                    }
+                    $ele.attr(value);
+                    data.attr =value;
                 }
             }
             ,
