@@ -305,7 +305,7 @@ define(function (require, exports, module) {
                 if (value) {
                     $ele.addClass('readonly', 'readonly').attr('readonly', 'readonly');
                 } else {
-                    $ele.removeClass('readonly', 'readonly').removeClass('readonly', 'readonly');
+                    $ele.removeClass('readonly', 'readonly').removeAttr('readonly', 'readonly');
                 }
                 return $ele;
             }
