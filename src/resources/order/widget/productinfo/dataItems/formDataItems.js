@@ -21,15 +21,16 @@ define(function (require, exports, module) {
     }));
 
     dataItems.push(new DataItem({
-        name: 'purchaseAmount_44',
-        value: '6666',
+        name: 'contractCopy_file',
         events: [
             {
                 key: 'change',
                 value: function (e) {
+                    alert(1);
+                    var me=this;
                     uploader.send({
                         'url': '/op/api/file/uploadsinglefileandcheck',
-                        'files': me.$businessLicense[0].files,
+                        'files': e.target.files,
                         'options': {
                             'limittype': 'IMAGE'
                         },
@@ -37,6 +38,7 @@ define(function (require, exports, module) {
                             console.warn(response);
                             me.model.set('businessLicense', response.value.model.path);
                             me.model.set('businessLicenseFileName', response.value.model.FileName);
+                            me.o_setValue({'purchaseAmount_44':JSON.stringify({businessLicense:response.value.model.path,businessLicenseFileName:response.value.model.FileName})});
                         }
                     })
                 }
@@ -44,6 +46,9 @@ define(function (require, exports, module) {
         ]
     }));
 
+    dataItems.push(new DataItem({
+        name: 'contractCopy'
+    }));
 
 
 

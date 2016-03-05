@@ -19,7 +19,7 @@ define(function (require, exports, module) {
         //this.visible = true;
         //this.disable = false;
         //this.readonly=false;
-        this.attr = {};
+        //this.attr = {};
         this.init(options);
     }
 
@@ -310,9 +310,9 @@ define(function (require, exports, module) {
             },
             o_setFieldAttr: function ($ele, value) {
                 var me = this;
-                if (value !== undefined) {
+                var data = me.o_field_getData($ele);
+                if (value !== undefined && data) {
                     var me = this;
-                    var data = me.o_field_getData($ele);
                     $ele.attr(value);
                     data.attr = value;
                 }
