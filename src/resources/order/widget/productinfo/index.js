@@ -1,189 +1,314 @@
-define( function( require, exports, module ) {
-    var IBSS = window.IBSS,
-        TPL = IBSS.tpl;
+define(function (require, exports, module) {
 
-    var Pagination = require('common/widget/pagination/pagination');
-    var EntInfo = require('module/entinfo/entinfo');
-    var Tem = $( require('./template.html') );
 
-    var sMap = TPL.sMap = {},     //��Դ
-        pMap = TPL.pMap = {},     //ʡ��
-        uMap = TPL.uMap = {};     //״̬
-
-    var RegList = MClass( M.Center ).include({
-        trTpl: _.template( Tem.filter('.trTpl').html() ),
-        init: function(){
-            RegList.__super__.init.apply( this, arguments );
-
-            var me = this;
-            me.pagination = new Pagination({
-                'wrapper': me.$view.find('.list-pager'),
-                'pageSize': 20,
-                'pageNumber': 0
-            });
-            me.pagination.render();
-            me.pagination.onChange = function(){
-                me.getList();
+    function DataItem(options) {
+        this.name = "";
+        this.events = [{
+            key: "", value: function (e) {
             }
-
-            me.collection = new M.Collection;
-            me.collection.on('reload',function(){
-                me.renderList();
-            });
-
-            me.$startTime.datetimepicker({'timepicker': false,'format':'Y/m/d'});
-            me.$endTime.datetimepicker({'timepicker': false,'format':'Y/m/d'});
-
-
-            me.getEnums();
-        },
-
-        elements:{
-            'tbody': 'tbody',
-            '.sourceEnum': 'sourceEnum',
-            '.provinceEnum': 'provinceEnum',
-            '.statusEnum': 'statusEnum',
-            '.startTime': 'startTime',
-            '.endTime': 'endTime'
-        },
-
-        events:{
-            'click .search': 'searchEve',
-            'click .detail': 'detailEve'
-        },
-
-        //��ȡö��ֵ
-        getEnums: function(){
-            var me = this;
-
-            //��Դ
-            var sList = [ {'name':'ȫ��','value':''} ];
-            var state = {
-                's': false,
-                'p': false,
-                'u': false
-            }
-            function check(){
-                if( state.s && state.p && state.u ){
-                    me.getList();
+        }];
+        this.data = [];
+        this.type = "";
+        //enable:true/false 是否启用本验证
+        this.validateOptions = {
+            require: {
+                enable: true, value: true, message: '', handler: function (error, value, option, $ele, me) {
                 }
             }
+        };
+        this.visible = true;
+        this.disable = false;
+        this.attr = {};
+        this.init(options);
+    }
 
-            util.getEnums('ENT_IND_SOURCE',function( data ){
-                data.value.model.forEach(function( item ){
-                    sList.push({ 'name':item.text, 'value':item.value });
-                    sMap[item.value] = item.text;
+    DataItem.prototype.init = function (options) {
+        $.extend(this, options || {});
+    };
+
+    var tplStr = require('./template.html');
+    var PageClass = MClass(M.Center).include({
+            getTemplateStr: function () {
+                var me = this;
+                return $(tplStr).filter(me.selector).html();
+            },
+            i_attrName: 'data-name',
+            i_getSelectorByName: function (name) {
+                return '[' + this.i_attrName + '=' + name + ']';
+            },
+            events: {},
+            elements: {},
+            init: function (data) {
+                //在初始化前做的事
+                var me = this;
+                me.dataDic = {};//数据字典
+                me.events = me.events || {};
+                me.o_fields = [];
+                $(data.dataItems).each(function (i, n) {
+                    n.__guid = n.name;//name要保持唯一
+                    me.dataDic[n.__guid] = n;
+                    me.elements[me.i_getSelectorByName(n.name)] = n.name;
+
+                    me.o_fields.push({key: '$' + n.name, value: n});
+                    $(n.events || []).each(function (j, m) {
+                        if (m && m.key) {
+                            me.events[m.key + ' ' + me.i_getSelectorByName(n.name)] = m.value;
+                        }
+                    });
                 });
-                util.resetSelect( me.$sourceEnum , sList );
-                state.s = true;
-                check();
-            });
-
-            //ʡ��
-            var pList = [ {'name':'ȫ��','value':''} ];
-
-            util.getEnums('PROVINCE',function( data ){
-                data.value.model.forEach(function( item ){
-                    pList.push({ 'name':item.text, 'value':item.value });
-                    pMap[item.value] = item.text;
+                data.view.html(me.getTemplateStr());
+                PageClass.__super__.init.apply(this, arguments);
+                //元素与数据双向关联
+                $(me.o_fields).each(function (i, n) {
+                    var field = me[n.key];
+                    var fieldData = me.dataDic[n.value.__guid];
+                    $(field).data('data', fieldData);
+                    fieldData.$ele = field;
                 });
-                util.resetSelect( me.$provinceEnum, pList );
-                state.p = true;
-                check();
-            });
+                me.$('input[datecontrol]').datetimepicker({format: 'Y/m/d'});
+                me.o_setValues(data.dataItems);
 
-            //״̬
-            var uList = [{'name':'ȫ��','value':''}];
-
-            util.getEnums('ENT_IND_PSTS',function( data ){
-                data.value.model.forEach(function( item ){
-                    uList.push({ 'name':item.text, 'value':item.value });
-                    uMap[item.value] = item.text;
+            },
+            i_dataItems: {},
+            i_selector: '',
+            o_fields: [{key: '', value: {}}],
+            o_validate: function () {
+                var me = this;
+                var errors = [];
+                me.o_eachFields(function ($ele, data) {
+                    var error = me.o_validateField($ele);
+                    if (error) {
+                        errors.push(error);
+                    }
                 });
-                util.resetSelect( me.$statusEnum , uList);
-                state.u = true;
-                check();
-            });
-        },
+                return errors.length > 0 ? errors : false;
+            },
+            o_validateField: function ($ele) {
+                var me = this;
+                var data = me.o_field_getData($ele);
+                var options = data.validateOptions
+                debugger
+                var value = me.o_getFieldValue(null, $ele);
+                var wrapper = me.o_field_getWrapper($ele);
+                var error = null;
+                if (options) {
+                    for (var i in options) {
+                        var option = options[i];
+                        if (options.hasOwnProperty(i) && option.enable) {
+                            switch (i) {
+                                case 'required':
+                                {
+                                    error = me.i_checkError(i, value, option, $ele, wrapper, function (value, option, $ele) {
+                                        return !value;
+                                    });
+                                }
+                                    break;
+                                case 'maxlength':
+                                {
+                                    error = me.i_checkError(i, value, option, $ele, wrapper, function (value, option, $ele) {
+                                        return value.length > option.value;
 
-        searchEve: function(){
-            this.pagination.setPage( 0,false );
-            this.getList();
-        },
-
-        detailEve: function( e ){
-            var id = $( e.currentTarget ).attr('data-id');
-            this.trigger('detail',id);
-        },
-
-        getList: function(){
-            var me = this;
-
-            var startTime = '',
-                endTime = '';
-
-            if( me.$startTime.val() ){
-                startTime = new Date( me.$startTime.val() + " 00:00:00" ).getTime();
-            }
-            if( me.$endTime.val() ){
-                endTime = new Date( me.$endTime.val() + " 23:59:59" ).getTime();
-            }
-
-            util.api({
-                'url':'/enterprise/queryindpage',
-                'data':{
-                    'pageIndex': me.pagination.attr['pageNumber'],
-                    'pageSize': me.pagination.attr['pageSize'],
-                    'enterpriseName': me.model.get('enterpriseName'),
-                    'enterpriseAccount': me.model.get('enterpriseAccount'),
-                    'vendorId': me.model.get('vendorId'),
-                    'province': me.model.get('province'),
-                    'source': me.model.get('source'),
-                    'status': me.model.get('status'),
-                    'timeBegin': startTime,
-                    'timeEnd': endTime
-                },
-                'success': function( data ){
-                    console.warn( data );
-                    if( data.success ){
-                        me.pagination.setTotalSize( data.value.model.itemCount );
-                        me.collection.reload( data.value.model.content, function( item ){
-                            item.sourceStr = sMap[item.source];
-                            item.provinceStr = pMap[item.province];
-                            item.statusStr = uMap[item.status];
-                            item.registerTimeStr = new Date( item.registerTime )._format('yyyy-MM-dd hh:mm');
-                        });
+                                    });
+                                }
+                                    break;
+                                default:
+                                {   //自定义验证   拓展名规则为      i_fieldValidateXXXXXXX
+                                    if (i.toString().length > 0) {
+                                        var methodName = me.i_toWord('i_fieldValidate', i);
+                                        var method = me[methodName];
+                                        if (method) {
+                                            error = me.i_checkError(method);
+                                        }
+                                    }
+                                }
+                                    ;
+                                    break;
+                            }
+                        }
                     }
                 }
-            })
-        },
+                return error;
+            },
+            i_toWord: function (prefix, value) {//驼峰命名法
+                return prefix + value.substr(0, 1) + value.substr(1);
+            },
+            i_checkError: function (requireName, value, option, $ele, wrapper, callback) {
+                var me = this;
+                var error = null;
+                if (callback && callback(value, option, $ele)) {
+                    error = {field: $ele, name: requireName, option: option};
+                }
+                debugger
+                if (me.trigger('validateError', value, option, $ele, me) !== false) {
+                    if (error) {
+                        wrapper.addClass('required-error');
+                        wrapper.find('.error').show().html(option.message);
+                    } else {
+                        wrapper.find('.error').hide().html('');
+                        wrapper.removeClass('required-error');
+                    }
+                }
+                error && option.handler && option.handler.call(me, error, value, option, $ele);
+                return error;
+            },
+            o_getValues: function () {
+                var me = this;
+                var result = {};
+                me.o_eachFields(function ($ele, data) {
+                    result[data.name] = me.o_getFieldValue(data.name);
 
-        renderList: function(){
-            var me = this;
-
-            var collection = me.collection.all();
-            var htmlStr = '';
-
-            if( collection.length > 0 ){
-                htmlStr = me.trTpl( {'content': collection} );
-            } else {
-                htmlStr = "<tr><td colspan='10'><p class='info'>��������</p></td></tr>";
+                });
+                return result;
+            },
+            o_getFieldValue: function (name, $ele) {
+                var me = this;
+                var $ele = $ele || me.o_findField(function ($ele, data) {
+                        return data.name == name;
+                    });
+                var value = "";
+                if ($ele) {
+                    if ($ele.is('input[type=radio]') || $ele.is('input[type=checkbox]')) {
+                        var arr = [];
+                        $($ele.filter(':checked')).each(function (i, n) {
+                            arr.push($(n).val());
+                        });
+                        value = arr.join(',');
+                    } else {
+                        value = $ele.val();
+                    }
+                }
+                return value;
+            },
+            o_setValues: function (value) {
+                var me = this;
+                if (value) {
+                    var isArray = $.isArray(value);
+                    for (var i in value) {
+                        var data = null;
+                        var field = null;
+                        var valueObj = null;
+                        if (isArray) { //数组传递复杂数据
+                            me.o_setValue(value[i]);
+                        } else {//对象传递简单值
+                            me.o_setValue({name: i, value: value[i]});
+                        }
+                    }
+                }
+            },
+            o_setValue: function (obj) {
+                var me = this;
+                if (!obj.name) {
+                    return;
+                }
+                var $field = me.dataDic[obj.name].$ele;//找到对应的$DOM
+                if ($field) {
+                    //自动执行设置方法
+                    for (var i in obj) {
+                        if (obj.hasOwnProperty(i) && i.toString().length > 1) {
+                            var methodName = me.i_toWord('o_setField', i);
+                            var method = me[methodName];
+                            if (method) {
+                                method.call(me, $field, obj[i]);
+                            }
+                        }
+                    }
+                }
+            },
+            o_setFieldValue: function ($ele, value) {
+                var me = this;
+                if (value !== undefined) {
+                    var me = this;
+                    var data = me.o_field_getData($ele);
+                    //考虑复选框情况
+                    if ($ele.is('input[type=radio]') || $ele.is('input[type=checkbox]')) {
+                        $ele.attr('checked', false).filter('[value=' + value + ']').attr('checked', true).change();
+                    } else {
+                        $ele.val(value);
+                    }
+                    data.value = value;
+                }
+            },
+            o_setFieldAttr: function ($ele, value) {
+                var me = this;
+                if (value !== undefined) {
+                    var me = this;
+                    var data = me.o_field_getData($ele);
+                    $ele.attr(value);
+                    data.attr = value;
+                }
             }
-
-            me.$tbody.html( htmlStr );
+            ,
+            o_findField: function (callback) {
+                var me = this;
+                var results = me.o_findFields(callback);
+                return results.length > 0 ? results[0] : null;
+            }
+            ,
+            o_findFields: function (callback) {
+                var me = this;
+                var finds = [];
+                me.o_eachFields(function ($ele, data) {
+                    if (typeof(callback) == 'boolean' || (callback && callback($ele, data))) {
+                        finds.push($ele);
+                    }
+                });
+                return finds;
+            }
+            ,
+            o_eachFields: function (callback) {
+                var me = this;
+                $(me.o_fields).each(function (i, n) {
+                    n.value.attr = n.value.attr || {};
+                    var $ele = me[n.key];
+                    callback && callback($ele, $ele.data('data'));
+                });
+            }
+            ,
+            o_field_getWrapper: function ($ele) {
+                return $ele.parents('.field');
+            }
+            ,
+            o_setFieldVisible: function ($ele, value) {
+                var me = this;
+                if (value !== undefined) {
+                    value = value || true;
+                    var wrapper = this.o_field_getWrapper($ele);
+                    if (value) {
+                        wrapper.hide();
+                    } else {
+                        wrapper.show();
+                    }
+                    this.o_field_getData($ele).visible = value;
+                }
+            }
+            ,
+            o_setFieldReadonly: function ($ele, value) {
+                var me = this;
+                value = value || false;
+                this.o_field_getData($ele).readonly = value;
+                if (value) {
+                    $ele.addClass('readonly', 'readonly').attr('readonly', 'readonly');
+                } else {
+                    $ele.removeClass('readonly', 'readonly').removeClass('readonly', 'readonly');
+                }
+                return $ele;
+            }
+            ,
+            o_field_getData: function ($ele) {
+                return $ele.data('data');
+            }
         }
-    });
+    );
+    module.exports.PageDataClass = DataItem;
+    module.exports.PageClass = PageClass;
+})
+;
 
 
 
-    exports.init = function() {
-        var $el = exports.$el;
 
-        var regList = new RegList( {'view':$el.find('.m-regList')} );
-        var entInfo = new EntInfo();
 
-        regList.on('detail',function( id ){
-            entInfo.show( id ,true);
-        });
-    }
-} );
+
+
+
+

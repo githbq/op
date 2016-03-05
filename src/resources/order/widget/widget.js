@@ -1,186 +1,54 @@
-define( function( require, exports, module ) {
-    var IBSS = window.IBSS,
-        TPL = IBSS.tpl;
-    var Tem = $( require('./template.html') );
+define(function (require, exports, module) {
 
-    var sMap = TPL.sMap = {},     //¿¥‘¥
-        pMap = TPL.pMap = {},     // ° –
-        uMap = TPL.uMap = {};     //◊¥Ã¨
+    var TerminalInfo = require('./productinfo/terminalinfo');
+    var TableInfo = require('./productinfo/tableinfo');
+    var FormInfo = require('./productinfo/forminfo');
+    var DataItem = require('./productinfo/index').PageDataClass;
 
-    var RegList = MClass( M.Center ).include({
-        trTpl: _.template( Tem.filter('.trTpl').html() ),
-        init: function(){
-            RegList.__super__.init.apply( this, arguments );
+    var PageClass = MClass(M.Center).include({});
 
-            var me = this;
-            me.pagination = new Pagination({
-                'wrapper': me.$view.find('.list-pager'),
-                'pageSize': 20,
-                'pageNumber': 0
-            });
-            me.pagination.render();
-            me.pagination.onChange = function(){
-                me.getList();
-            }
-
-            me.collection = new M.Collection;
-            me.collection.on('reload',function(){
-                me.renderList();
-            });
-
-            me.$startTime.datetimepicker({'timepicker': false,'format':'Y/m/d'});
-            me.$endTime.datetimepicker({'timepicker': false,'format':'Y/m/d'});
-
-
-            me.getEnums();
-        },
-
-        elements:{
-            'tbody': 'tbody',
-            '.sourceEnum': 'sourceEnum',
-            '.provinceEnum': 'provinceEnum',
-            '.statusEnum': 'statusEnum',
-            '.startTime': 'startTime',
-            '.endTime': 'endTime'
-        },
-
-        events:{
-            'click .search': 'searchEve',
-            'click .detail': 'detailEve'
-        },
-
-        //ªÒ»°√∂æŸ÷µ
-        getEnums: function(){
-            var me = this;
-
-            //¿¥‘¥
-            var sList = [ {'name':'»´≤ø','value':''} ];
-            var state = {
-                's': false,
-                'p': false,
-                'u': false
-            }
-            function check(){
-                if( state.s && state.p && state.u ){
-                    me.getList();
-                }
-            }
-
-            util.getEnums('ENT_IND_SOURCE',function( data ){
-                data.value.model.forEach(function( item ){
-                    sList.push({ 'name':item.text, 'value':item.value });
-                    sMap[item.value] = item.text;
-                });
-                util.resetSelect( me.$sourceEnum , sList );
-                state.s = true;
-                check();
-            });
-
-            // ° –
-            var pList = [ {'name':'»´≤ø','value':''} ];
-
-            util.getEnums('PROVINCE',function( data ){
-                data.value.model.forEach(function( item ){
-                    pList.push({ 'name':item.text, 'value':item.value });
-                    pMap[item.value] = item.text;
-                });
-                util.resetSelect( me.$provinceEnum, pList );
-                state.p = true;
-                check();
-            });
-
-            //◊¥Ã¨
-            var uList = [{'name':'»´≤ø','value':''}];
-
-            util.getEnums('ENT_IND_PSTS',function( data ){
-                data.value.model.forEach(function( item ){
-                    uList.push({ 'name':item.text, 'value':item.value });
-                    uMap[item.value] = item.text;
-                });
-                util.resetSelect( me.$statusEnum , uList);
-                state.u = true;
-                check();
-            });
-        },
-
-        searchEve: function(){
-            this.pagination.setPage( 0,false );
-            this.getList();
-        },
-
-        detailEve: function( e ){
-            var id = $( e.currentTarget ).attr('data-id');
-            this.trigger('detail',id);
-        },
-
-        getList: function(){
-            var me = this;
-
-            var startTime = '',
-                endTime = '';
-
-            if( me.$startTime.val() ){
-                startTime = new Date( me.$startTime.val() + " 00:00:00" ).getTime();
-            }
-            if( me.$endTime.val() ){
-                endTime = new Date( me.$endTime.val() + " 23:59:59" ).getTime();
-            }
-
-            util.api({
-                'url':'/enterprise/queryindpage',
-                'data':{
-                    'pageIndex': me.pagination.attr['pageNumber'],
-                    'pageSize': me.pagination.attr['pageSize'],
-                    'enterpriseName': me.model.get('enterpriseName'),
-                    'enterpriseAccount': me.model.get('enterpriseAccount'),
-                    'vendorId': me.model.get('vendorId'),
-                    'province': me.model.get('province'),
-                    'source': me.model.get('source'),
-                    'status': me.model.get('status'),
-                    'timeBegin': startTime,
-                    'timeEnd': endTime
-                },
-                'success': function( data ){
-                    console.warn( data );
-                    if( data.success ){
-                        me.pagination.setTotalSize( data.value.model.itemCount );
-                        me.collection.reload( data.value.model.content, function( item ){
-                            item.sourceStr = sMap[item.source];
-                            item.provinceStr = pMap[item.province];
-                            item.statusStr = uMap[item.status];
-                            item.registerTimeStr = new Date( item.registerTime )._format('yyyy-MM-dd hh:mm');
-                        });
-                    }
-                }
-            })
-        },
-
-        renderList: function(){
-            var me = this;
-
-            var collection = me.collection.all();
-            var htmlStr = '';
-
-            if( collection.length > 0 ){
-                htmlStr = me.trTpl( {'content': collection} );
-            } else {
-                htmlStr = "<tr><td colspan='10'><p class='info'>‘›Œﬁ ˝æ›</p></td></tr>";
-            }
-
-            me.$tbody.html( htmlStr );
-        }
-    });
-
-
-
-    exports.init = function() {
+    exports.init = function () {
         var $el = exports.$el;
+        var DataItems = [];
+        DataItems.push(new DataItem({
+            name: 'AAA',
+            value: 'ÊàëÂ∑•Â∑•Â∑•Â∑•BBBBB',
+            attr: {style: 'border:2px solid red;'},
+            validateOptions:{required: {
+                enable: true, value: true, message: 'AAAA‰∏çËÉΩ‰∏∫Á©∫Âïä', handler: function (error, value, option, $ele) {
+                    alert('handler');
+                }
+            }},
+            events: [
+                {
+                    key: 'click',
+                    value: function (e) {
+                        this.setValue({name: 'b', visible: false});
+                    }
+                }]
+        }));
+        $('.test').click(function () {
 
-        var regList = new RegList( {'view':$el.find('.m-regList')} );
-        var entInfo = new EntInfo();
+            alert('test');
+            terminalInfo.o_validate();
 
-        regList.on('detail',function( id ){
-            entInfo.show( id ,true);
         });
+        var terminalInfo = new TerminalInfo({view: $el.find('.panel1'), dataItems: DataItems});
+        terminalInfo.on('validateError',function( value, option, $ele,me){
+            alert(12212)
+
+
+        });
+        //var tableInfo = new TableInfo({view: $el.find('.panel2')});
+        //var formInfo = new FormInfo({view: $el.find('.panel3')});
     }
-} );
+});
+
+
+
+
+
+
+
+
+
