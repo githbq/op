@@ -21,7 +21,7 @@ define(function (require, exports, module) {
 
     dataItems.push(new DataItem({
         name: 'check',
-        value:'22',
+        value:'44',
         events: [
             {
                 key: 'change',
@@ -30,52 +30,51 @@ define(function (require, exports, module) {
             }
         ]
     }));
-    dataItems.push(new DataItem({
-        name: 'origin_price_11',
-        value:'产品原价11值'
-    }));
-    dataItems.push(new DataItem({
-        name: 'origin_price_22',
-        value:'产品原价22值'
-    }));
-    dataItems.push(new DataItem({
-        name: 'origin_price_33',
-        value:'产品原价33值'
-    }));
-    dataItems.push(new DataItem({
-        name: 'origin_price_44',
-        value:'产品原价44值'
-    }));
-    dataItems.push(new DataItem({
-        name: 'pk_type_11',
-        value:'1'
-    }));
-    dataItems.push(new DataItem({
-        name: 'hy_type_22',
-        value:'2'
-    }));
-    dataItems.push(new DataItem({
-        name: 'hr_type_33',
-        value:'3'
-    }));
-    dataItems.push(new DataItem({
-        name: 'gz_type_44',
-        value:'1'
-    }));
-    dataItems.push(new DataItem({
-        name: 'purchaseAmount_11',
-        value:'1111'
-    }));
-    dataItems.push(new DataItem({
-        name: 'purchaseAmount_22',
-        value:'54555'
-    }));
-    dataItems.push(new DataItem({
-        name: 'purchaseAmount_33',
-        value:'777'
-    }));
-    dataItems.push(new DataItem({
-        name: 'purchaseAmount_44',
-        value:'6666'
-    }));
+
+    var zhushous=[
+        {id:11,name:'PK助手'},
+        {id:22,name:'会议助手'},
+        {id:33,name:'HR助手'},
+        {id:44,name:'工资助手',options:{discount:{value:'options->工资助手折扣'}}}
+    ];
+    $(zhushous).each(function(i,n){
+        n.options= n.options||{};
+
+        //PK助手开始时间
+        dataItems.push(new DataItem($.extend({
+            name: 'startDate_'+ n.id,
+            value: n.name+'日期开始'
+        }, n.options.startDate)));
+        //PK助手结束时间
+        dataItems.push(new DataItem($.extend({
+            name: 'endDate_'+ n.id,
+            value: n.name+'日期结束'
+        }, n.options.endDate)));
+
+        //pk助手原价
+        dataItems.push(new DataItem($.extend({
+            name: 'productAmount_'+ n.id,
+            value: n.name+'合同金额'
+        }, n.options.productAmount)));
+
+        //pk助手合同金额
+        dataItems.push(new DataItem($.extend({
+            name: 'purchaseAmount_'+ n.id,
+            value: n.name+'合同金额'
+        }, n.options.purchaseAmount)));
+
+        //pk助手折扣
+        dataItems.push(new DataItem($.extend({
+            name: 'discount_'+ n.id,
+            value: n.name+'折扣'
+        }, n.options.discount)));
+
+
+    });
+
+
+
+
+
+
 });

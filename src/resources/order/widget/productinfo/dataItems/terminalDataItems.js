@@ -20,7 +20,7 @@ define(function (require, exports, module) {
             }
         ]
     }));
-  //开始日期
+  //终端开始日期
     dataItems.push(new DataItem({
         name: 'startTime_0',
         value: '',
@@ -32,7 +32,7 @@ define(function (require, exports, module) {
             }
         }
     }));
-    //结束日期
+    //终端结束日期
     dataItems.push(new DataItem({
         name: 'endTime_0',
         value: '',
@@ -44,7 +44,53 @@ define(function (require, exports, module) {
             }
         }
     }));
+
+
+    //服务人数
+    dataItems.push(new DataItem({
+        name: 'purchaseCount_1',
+        value: '[服务人数]'
+    }));
+
+    //产品原价
+    dataItems.push(new DataItem({
+        name: 'purchaseAmount_1',
+        value: '[产品原价]'
+    }));
+    //产品原价
+    dataItems.push(new DataItem({
+        name: 'purchaseAmount_1',
+        value: '[产品原价]'
+    }));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //名片部分
     dataItems.push(new DataItem({
         name: 'businesscard'
     }));
+
+
+
+
+
+
+
+
+
+
+
+
 });
