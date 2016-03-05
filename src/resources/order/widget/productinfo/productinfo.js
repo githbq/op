@@ -1,11 +1,11 @@
 define(function (require, exports, module) {
 
-    var TerminalInfo = require('./productinfo/terminalinfo');
-    var TableInfo = require('./productinfo/tableinfo');
-    var FormInfo = require('./productinfo/forminfo');
-    var terminalDataItems = require('./productinfo/dataitems/terminaldataitems');
-    var tableDataItems = require('./productinfo/dataitems/tabledataitems');
-    var formDataItems = require('./productinfo/dataitems/formdataitems');
+    var TerminalInfo = require('./terminalinfo');
+    var TableInfo = require('./tableinfo');
+    var FormInfo = require('./forminfo');
+    var terminalDataItems = require('./dataitems/terminaldataitems');
+    var tableDataItems = require('./dataitems/tabledataitems');
+    var formDataItems = require('./dataitems/formdataitems');
 //{terminalInfo:{$view:xx,dataItems},tableInfo:{$view:xx,dataItems},formInfo:{$view:xx,dataItems},}
     exports.showProductInfo = function (data) {
         var terminalInfo,tableInfo,formInfo=null;
