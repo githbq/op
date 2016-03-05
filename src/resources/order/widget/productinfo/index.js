@@ -8,12 +8,12 @@ define(function (require, exports, module) {
         this.data = [];
         this.type = "";
         //enable:true/false 是否启用本验证
-        this.validateOptions = {
-            require: {
-                enable: true, value: true, message: '', handler: function (error, value, option, $ele, me) {
-                }
-            }
-        };
+        //this.validateOptions = {
+        //    require: {
+        //        enable: true, value: true, message: '', handler: function (error, value, option, $ele, me) {
+        //        }
+        //    }
+        //};
         //this.visible = true;
         //this.disable = false;
         //this.readonly=false;
@@ -166,6 +166,12 @@ define(function (require, exports, module) {
                                 }
                                     ;
                                     break;
+                            }
+                            if (option.handler) { //错误代理
+                                var result = option.handler.call(me, error, value, $ele);
+                                if (result !== undefined) {
+                                    error = result;
+                                }
                             }
                         }
                     }
