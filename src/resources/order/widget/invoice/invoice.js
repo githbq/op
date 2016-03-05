@@ -118,6 +118,7 @@ define(function( require , exports , module ){
 		//设置折扣
 		setDiscount: function( number ){
 			var me = this;
+			me.$('.discount').text( number + '折' );
 		}
 	});
 
