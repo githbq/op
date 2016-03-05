@@ -292,6 +292,9 @@ define(function (require, exports, module) {
                 if (value !== undefined && value !== null) {
                     var me = this;
                     var data = me.o_field_getData($ele);
+                    if(!data){
+                       console.warn('未找到数据,值=>'+value);
+                    }
                     //考虑复选框情况
                     if ($ele.is('input[type=radio]') || $ele.is('input[type=checkbox]')) {
                         if (typeof(value) == 'boolean') {

@@ -10,7 +10,8 @@ define(function (require, exports, module) {
     }));
     //合同总金额
     dataItems.push(new DataItem({
-        name: 'contractPrice'
+        name: 'contractPrice',
+        value:'合同总金额'
     }));
     //付费状态值
     dataItems.push(new DataItem({
@@ -110,7 +111,8 @@ define(function (require, exports, module) {
 
     //门头照片
     dataItems.push(new DataItem({
-        name: 'companyGatePicture'
+        name: 'companyGatePicture',
+        value:'门头照片'
     }));
     //门头照片文件框
     dataItems.push(new DataItem({
@@ -135,6 +137,11 @@ define(function (require, exports, module) {
                 }
             }
         ]
+    }));
+    //门头照片关键词
+    dataItems.push(new DataItem({
+        name: 'companyGateKeyword',
+        value:'门头照片关键词'
     }));
   //照片备注
     dataItems.push(new DataItem({
