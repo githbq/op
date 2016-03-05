@@ -12,20 +12,53 @@ define(function (require, exports, module) {
         var DataItems = [];
         DataItems.push(new DataItem({
             name: 'AAA',
-            value: '我工工工工BBBBB',
+            value: '我AAA',
             attr: {style: 'border:2px solid red;'},
-            validateOptions:{required: {
-                enable: true, value: true, message: 'AAAA不能为空啊', handler: function (error, value, option, $ele) {
-                    alert('handler');
+            validateOptions: {
+                required: {
+                    enable: true, value: true, message: 'AAAA不能为空啊', handler: function (error, value, option, $ele) {
+                        alert('handler');
+                    }
                 }
-            }},
+            },
             events: [
                 {
                     key: 'click',
                     value: function (e) {
-                        this.setValue({name: 'b', visible: false});
+                        debugger
+                        this.o_setValue({name: 'BBB', readonly: true});
                     }
-                }]
+                }, {
+                    key: "blur",
+                    value: function (e) {
+                    }
+                }
+            ]
+        }));
+        DataItems.push(new DataItem({
+            name: 'BBB',
+            value: '我BBB',
+            attr: {style: 'border:2px solid red;'},
+            validateOptions: {
+                required: {
+                    enable: true, value: true, message: 'AAAA不能为空啊', handler: function (error, value, option, $ele) {
+                        alert('handler');
+                    }
+                }
+            },
+            events: [
+                {
+                    key: 'click',
+                    value: function (e) {
+                        debugger
+                        this.o_setValue({name: 'BBB', visible: false});
+                    }
+                }, {
+                    key: "blur",
+                    value: function (e) {
+                    }
+                }
+            ]
         }));
         $('.test').click(function () {
 
@@ -34,7 +67,7 @@ define(function (require, exports, module) {
 
         });
         var terminalInfo = new TerminalInfo({view: $el.find('.panel1'), dataItems: DataItems});
-        terminalInfo.on('validateError',function( value, option, $ele,me){
+        terminalInfo.on('validateError', function (value, option, $ele, me) {
             alert(12212)
 
 

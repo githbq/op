@@ -204,10 +204,12 @@ define(function (require, exports, module) {
                 }
             },
             o_setValue: function (obj) {
+                debugger
                 var me = this;
                 if (!obj.name) {
                     return;
                 }
+                var data = me.dataDic[obj.name];
                 var $field = me.dataDic[obj.name].$ele;//找到对应的$DOM
                 if ($field) {
                     //自动执行设置方法
@@ -286,21 +288,19 @@ define(function (require, exports, module) {
             ,
             o_setFieldVisible: function ($ele, value) {
                 var me = this;
-                if (value !== undefined) {
-                    value = value || true;
-                    var wrapper = this.o_field_getWrapper($ele);
-                    if (!value) {
-                        wrapper.hide();
-                    } else {
-                        wrapper.show();
-                    }
-                    this.o_field_getData($ele).visible = value;
+                value = value == undefined ? true : value;
+                var wrapper = this.o_field_getWrapper($ele);
+                if (!value) {
+                    wrapper.hide();
+                } else {
+                    wrapper.show();
                 }
+                this.o_field_getData($ele).visible = value;
             }
             ,
             o_setFieldReadonly: function ($ele, value) {
                 var me = this;
-                value = value || false;
+                value = value===undefined?false:true;
                 this.o_field_getData($ele).readonly = value;
                 if (value) {
                     $ele.addClass('readonly', 'readonly').attr('readonly', 'readonly');
