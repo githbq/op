@@ -40,8 +40,8 @@ define(function( require , exports , module ){
 		//选择合作单
 		teamEve: function( e ){
 			var me = this;
-			var value = $( e.currentTarget ).attr('data-value');
-			if( value == 1 ){
+			var value = $( e.currentTarget ).val();
+			if( value == 'true' ){
 				me.$('.teaminfo').show();
 			} else {
 				me.$('.teaminfo').hide();
@@ -118,6 +118,22 @@ define(function( require , exports , module ){
 			var intype = me.$('[name="intype"]:checked').val();
 			var invoice = me.$('[name="invoice"]:checked').val();
 
+			var invoiceType;
+			if( invoice == '2' ){
+
+				invoiceType = 3;
+			}else if( invoice == '1' ){
+
+				if( intype == '1' ){
+					invoiceType = 1;
+				}else( intype == '2' ){
+					invoiceType = 2;
+				}
+
+			}
+
+			me.model.set('invoiceType',invoiceType);
+
 			switch( intype ){
 				case '1':
 					switch( invoice ){
@@ -168,7 +184,7 @@ define(function( require , exports , module ){
 					}
 				break;
 				case '2':
-					if( !me.model.get('invoiceHead') ){
+					if( !me.model.get('companyName') ){
 						util.showToast('请填写公司名称');
 						return false;
 					}
@@ -182,7 +198,12 @@ define(function( require , exports , module ){
 			}
 			
 			return {
-				'invoice': me.model.all()
+				'invoice': me.model.all(),
+				'extra':{
+					'isCooperation': me.$('[name="team"]:checked').val(),   //是否合作单
+					'cooperationUnit':'',           						//部门员工      
+					'remark': me.model.get('remark')                        //备注
+				}
 			};
 		},
 
