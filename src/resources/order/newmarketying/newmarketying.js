@@ -4,6 +4,7 @@ define( function( require, exports, module ) {
 	var BasicInfo = require('../widget/basicinfo/basicinfo');
 	var Explain = require('../widget/explain/explain');
 	var OrderInfo = require('../widget/orderinfo/orderinfo');
+	var InvoiceInfo = require('../widget/invoice/invoice');
 
     var NewMarketing = MClass( M.Center ).include( {
         
@@ -46,8 +47,10 @@ define( function( require, exports, module ) {
 					
 					me.attrs.newBasicCommonOffice = new BasicInfo( { 'wrapper':me.$view.find('.common-market-basic'),'data':{},'editFlag':true,'type':'common'} );
 					me.attrs.newBasicSpecialOffice = new BasicInfo( { 'wrapper':me.$view.find('.special-market-basic'),'data':{},'editFlag':true,'type':'special'} );
-					me.attrs.newExplaincommonOffice = new Explain( { 'wrapper':me.$view.find('.common-market-explain'),'data':{},'editFlag':true,'type':'common'} );
+					me.attrs.newExplainCommonOffice = new Explain( { 'wrapper':me.$view.find('.common-market-explain'),'data':{},'editFlag':true,'type':'common'} );
 					me.attrs.newExplainSpecialOffice = new Explain( { 'wrapper':me.$view.find('.special-market-explain'),'data':{},'editFlag':true,'type':'special'} );
+					me.attrs.newInvoiceCommonOffice = new InvoiceInfo( { 'wrapper':me.$view.find('.common-market-invioce'),'data':{},'editFlag':true,'type':'common'} );
+					me.attrs.newInvoiceSpecialOffice = new InvoiceInfo( { 'wrapper':me.$view.find('.special-market-invioce'),'data':{},'editFlag':true,'type':'special'} );
 					
 					break;
 					
@@ -183,7 +186,7 @@ define( function( require, exports, module ) {
 			}
 			
 			
-			//basicData = me.attrs.commonMarkey.getValue();
+			basicData = me.attrs.newBasicCommonMarket.getValue();
 			$.extend(true, objData, basicData,productData,invoiceData);
 
 		},

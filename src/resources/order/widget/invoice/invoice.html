@@ -1,9 +1,9 @@
 <div class="m-invoice">
 	<h4>发票/收据</h4>
-	<p>
-		<label> <input type="radio" name="invoice" data-target="a" checked="checked">发票 </label>
-		<label> <input type="radio" name="invoice" data-target="b">收据 </label>
-		<label> <input type="radio" name="invoice" data-target="c">暂不需要</label>
+	<p class="invoice-bar">
+		<label> <input type="radio" name="invoice" data-target="invoicea" checked="checked">发票 </label>
+		<label> <input type="radio" name="invoice" data-target="invoiceb">收据 </label>
+		<label> <input type="radio" name="invoice" data-target="invoicec">暂不需要</label>
 	</p>
 	<div class="invoice-container">
 
@@ -12,59 +12,58 @@
 			<p>
 				<span class="title">发票类型 <b>*</b> </span>
 				<label>
-					<input type="radio" name="intype" data-target="a" checked="checked">
+					<input type="radio" name="intype" data-target="typea" checked="checked">
 					增值税普通发票
 				</label>
 				<label>
-					<input type="radio" name="intype" data-target="b">
+					<input type="radio" name="intype" data-target="typeb">
 					增值税专用发票
 				</label>
 			</p>
+			<p>
+				税务登记证正本/副本或三证合一的营业执照 <b>*</b>
+			</p>
+			<p>
+				<input type="file" id="businessLicense"><span>(支持.png,.jpg,.gif格式)</span>
+			</p>
 			<div>
+				
+				<!--增值税普通发票-->
 				<section class="typea" style="display:block;">
 					<p>
-						税务登记证正本/副本或三证合一的营业执照 <b>*</b>
-					</p>
-					<p>
-						<input type="file"><span>(支持.png,.jpg,.gif格式)</span>
-					</p>
-					<p>
 						<span class="title">发票抬头 <b>*</b></span>
-						<input type="text">
+						<input type="text" ce-model="invoiceHead">
 					</p>	
 				</section>
+
+				<!--增值税专用发票-->
 				<section class="typeb">
-					<p>
-						税务登记证正本/副本或三证合一的营业执照 <b>*</b>
-					</p>
-					<p>
-						<input type="file"><span>(支持.png,.jpg,.gif格式)</span>
-					</p>
 					<p>
 						一般纳税人资质证书(或认定通知) <b>*</b>
 					</p>
 					<p>
-						<input type="file"><span>(支持.png,.jpg,.gif格式)</span>
+						<input type="file" id="qualification"><span>(支持.png,.jpg,.gif格式)</span>
 					</p>
 					<p>
-						<span class="title">公司名称<b>*</b></span> <input type="text">
+						<span class="title">公司名称<b>*</b></span> <input type="text" ce-model="companyName">
 					</p>
 					<p>
-						<span class="title">纳税人识别号<b>*</b></span> <input type="text">
+						<span class="title">纳税人识别号<b>*</b></span> <input type="text" ce-model="taxpayerIdentificationNo">
 					</p>
 					<p>
-						<span class="title">地址<b>*</b></span> <input type="text"> 
+						<span class="title">地址<b>*</b></span> <input type="text" ce-model="address"> 
 					</p>
 					<p>
-						<span class="title">电话<b>*</b></span> <input type="text">
+						<span class="title">电话<b>*</b></span> <input type="text" ce-model="telephone">
 					</p>
 					<p>
-						<span class="title">开户行<b>*</b></span> <input type="text">
+						<span class="title">开户行<b>*</b></span> <input type="text" ce-model="bankName">
 					</p>
 					<p>
-						<span class="title">账号<b>*</b></span> <input type="text">
+						<span class="title">账号<b>*</b></span> <input type="text" ce-model="bankAccount">
 					</p>
 				</section>
+
 			</div>
 		</section>
 
@@ -72,11 +71,11 @@
 		<section class="invoiceb">
 			<p>
 				<span class="title">公司名称<b>*</b></span>
-				<input type="text">
+				<input type="text" ce-model="invoiceHead">
 			</p>
 			<p>
 				<span class="title">收据金额<b>*</b></span>
-				<input type="text">
+				<input type="text" ce-model="amount">
 			</p>
 		</section>
 		
@@ -100,12 +99,12 @@
 	<p>
 		<span class="title">合作单<b>*</b></span>
 		<label>
-			<input type="radio" name="team">
+			<input type="radio" name="team" data-value="0" checked="checked">
 			否
 		</label>
 		<label>
-			<input type="radio" name="team">
-			是 <input type="text" placeholder="请编写合作人姓名及所属部门">
+			<input type="radio" name="team" data-value="1">
+			是 <input type="text" placeholder="请编写合作人姓名及所属部门" class="teaminfo">
 		</label>
 	</p>
 	<p>

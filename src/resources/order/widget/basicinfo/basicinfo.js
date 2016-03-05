@@ -206,8 +206,10 @@ define(function(require, exports, module){
 		//对外获取文本框值
 		getValue:function(){
 			var me = this;
-			me.checkVaild();
-			return me.model.all();
+			if(me.checkVaild()){
+				return me.model.all();
+			}
+
 		},
 		//检测数据有效和必填项
 		checkVaild:function(){
@@ -227,8 +229,9 @@ define(function(require, exports, module){
 			});
 			if( state == false ){
 				util.showToast('信息填写不完整');
-				return ;
+				return  false;
 			}
+			return  true;
 		}
 		
 	});
