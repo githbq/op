@@ -1,6 +1,4 @@
 define(function (require, exports, module) {
-
-
     function DataItem(options) {
         this.name = "";
         this.events = [{
@@ -16,58 +14,104 @@ define(function (require, exports, module) {
                 }
             }
         };
-        this.visible = true;
-        this.disable = false;
-        this.attr = {};
+        //this.visible = true;
+        //this.disable = false;
+        //this.readonly=false;
+        //this.attr = {};
         this.init(options);
     }
 
     DataItem.prototype.init = function (options) {
         $.extend(this, options || {});
     };
-
-    var tplStr = require('./template.html');
     var PageClass = MClass(M.Center).include({
-            getTemplateStr: function () {
+            i_getTemplateStr: function () {
                 var me = this;
-                return $(tplStr).filter(me.selector).html();
+                return '<div></div>';
             },
+            i_textFieldSelector: '.field_text',
             i_attrName: 'data-name',
             i_getSelectorByName: function (name) {
                 return '[' + this.i_attrName + '=' + name + ']';
+            },
+            i_inject: function (data) {//被动注入
+                var me = this;
+                var $template = $(me.i_getTemplateStr());
+                $template.find('[data-name]').each(function (i, n) {
+                    var name = $(n).attr('data-name');
+                    var findItem = _.findWhere(data.dataItems, {name: $(n).attr('data-name')})
+                    if (!findItem) {
+                        data.dataItems.push(new DataItem({name: name,__auto:true}));
+                    }
+                });
+                data.view.html('').append($template);
+            },
+            i_initEventsAndElements: function (data) {
+                var me = this;
+                me.dataDic = {};//数据字典
+                me.events = me.events || {};
+                me.o_fields = [];
+                $(data.dataItems).each(function (i, n) {
+                    if (n.__enabled !== false) {
+                        n.__index = i;
+                        n.__guid = n.name;//name要保持唯一
+                        me.dataDic[n.__guid] = n;
+                        me.elements[me.i_getSelectorByName(n.name)] = n.name;
+
+                        me.o_fields.push({key: '$' + n.name, value: n});
+                        $(n.events || []).each(function (j, m) {
+                            if (m && m.key) {
+                                me.events[m.key + ' ' + me.i_getSelectorByName(n.name)] = m.value;
+                            }
+                        });
+                    }
+                });
             },
             events: {},
             elements: {},
             init: function (data) {
                 //在初始化前做的事
                 var me = this;
-                me.dataDic = {};//数据字典
-                me.events = me.events || {};
-                me.o_fields = [];
-                $(data.dataItems).each(function (i, n) {
-                    n.__guid = n.name;//name要保持唯一
-                    me.dataDic[n.__guid] = n;
-                    me.elements[me.i_getSelectorByName(n.name)] = n.name;
-
-                    me.o_fields.push({key: '$' + n.name, value: n});
-                    $(n.events || []).each(function (j, m) {
-                        if (m && m.key) {
-                            me.events[m.key + ' ' + me.i_getSelectorByName(n.name)] = m.value;
-                        }
-                    });
-                });
-                data.view.html(me.getTemplateStr());
-                PageClass.__super__.init.apply(this, arguments);
+                me.i_inject(data);//数据处理
+                me.i_initEventsAndElements(data);//核心对象处理
+                PageClass.__super__.init.apply(this, arguments);//调用父类初始化
+                me.i_init(data);//最终初始化
+            },
+            i_init: function (data) {
+                var me = this;
                 //元素与数据双向关联
                 $(me.o_fields).each(function (i, n) {
-                    var field = me[n.key];
+                    var $field = me[n.key];
                     var fieldData = me.dataDic[n.value.__guid];
-                    $(field).data('data', fieldData);
-                    fieldData.$ele = field;
+                    var config = $field.attr('data-config') && me.i_parseJSON($field.attr('data-config')) || {};
+                    $.extend(config, fieldData);
+                    me.dataDic[n.value.__guid] = config;
+                    data.dataItems[config.__index] = config;
+                    $field.data('data', config);
+                    if ($field) {
+                        config.$ele = $field;
+                    }
                 });
-                me.$('input[datecontrol]').datetimepicker({format: 'Y/m/d'});
+                me.i_initDatePicker();
                 me.o_setValues(data.dataItems);
-
+            },
+            i_initDatePicker: function () {
+                var me = this;
+                var option = {format: 'Y/m/d', timepicker: false};
+                me.$('input[datecontrol]').each(function (i, n) {
+                    var config = $(n).attr('datecontrol') ? me.i_parseJSON($(n).attr('datecontrol')) : {};
+                    $.extend(option, config);
+                    $(n).datetimepicker(option);
+                });
+            },
+            i_parseJSON: function (str) {
+                var me = this;
+                var data = {};
+                if (str) {
+                    str = str.replace(/[']/g, '"');
+                    data = $.parseJSON(str);
+                }
+                return data;
             },
             i_dataItems: {},
             i_selector: '',
@@ -86,8 +130,7 @@ define(function (require, exports, module) {
             o_validateField: function ($ele) {
                 var me = this;
                 var data = me.o_field_getData($ele);
-                var options = data.validateOptions
-                debugger
+                var options = data.validateOptions;
                 var value = me.o_getFieldValue(null, $ele);
                 var wrapper = me.o_field_getWrapper($ele);
                 var error = null;
@@ -130,7 +173,7 @@ define(function (require, exports, module) {
                 return error;
             },
             i_toWord: function (prefix, value) {//驼峰命名法
-                return prefix + value.substr(0, 1) + value.substr(1);
+                return prefix + value.substr(0, 1).toUpperCase() + value.substr(1);
             },
             i_checkError: function (requireName, value, option, $ele, wrapper, callback) {
                 var me = this;
@@ -138,8 +181,7 @@ define(function (require, exports, module) {
                 if (callback && callback(value, option, $ele)) {
                     error = {field: $ele, name: requireName, option: option};
                 }
-                debugger
-                if (me.trigger('validateError', value, option, $ele, me) !== false) {
+                if ((!option.handler) || (option.handler && option.handler.call(me, error, value, option, $ele) !== false)) {
                     if (error) {
                         wrapper.addClass('required-error');
                         wrapper.find('.error').show().html(option.message);
@@ -148,7 +190,7 @@ define(function (require, exports, module) {
                         wrapper.removeClass('required-error');
                     }
                 }
-                error && option.handler && option.handler.call(me, error, value, option, $ele);
+                me.trigger('validateError', value, option, $ele, me);
                 return error;
             },
             o_getValues: function () {
@@ -173,7 +215,35 @@ define(function (require, exports, module) {
                             arr.push($(n).val());
                         });
                         value = arr.join(',');
-                    } else {
+                    }
+                    else if ($ele.is('input[type=file]')) {
+                        var index = name.indexOf('_file');
+                        if (index > 0) {
+                            var hiddenName = name.substring(0, index);
+                            var hiddenField = me.o_findField(function ($ele, data) {
+                                return data.name == hiddenName;
+                            });
+                            if (hiddenField) {
+                                value = me.o_getFieldValue(hiddenName);
+                            }
+                        }
+                        else {
+                            console.warn(name + '文件标签必须data-name以_file结尾，且拥有一个对应的隐藏域data-name值为_file之前的部分');
+                        }
+                    }
+                    else if ($ele.is('[datecontrol]') && typeof(value) == 'int') {
+                        var configStr = $ele.attr('datecontrol');
+                        var config = configStr && me.i_parseJSON(configstr) || {};
+                        if (config.type == '1') {//0开始时间 1为结束时间
+                            value = new Date($ele.val() + " 23:59:59").getTime();
+                        } else {
+                            value = new Date($ele.val() + " 00:00:00").getTime();
+                        }
+                    }
+                    else if ($ele.is(me.i_textFieldSelector)) {
+                        value = $ele.text();
+                    }
+                    else {
                         value = $ele.val();
                     }
                 }
@@ -184,22 +254,25 @@ define(function (require, exports, module) {
                 if (value) {
                     var isArray = $.isArray(value);
                     for (var i in value) {
-                        var data = null;
-                        var field = null;
-                        var valueObj = null;
-                        if (isArray) { //数组传递复杂数据
-                            me.o_setValue(value[i]);
-                        } else {//对象传递简单值
-                            me.o_setValue({name: i, value: value[i]});
+                        if (value[i].__enabled !== false) {
+                            var data = null;
+                            var field = null;
+                            var valueObj = null;
+                            if (isArray) { //数组传递复杂数据
+                                me.o_setValue(value[i]);
+                            } else {//对象传递简单值
+                                me.o_setValue({name: i, value: value[i]});
+                            }
                         }
                     }
                 }
             },
-            o_setValue: function (obj) {
+            o_setValue: function (obj, silent) {//silent不触发事件
                 var me = this;
                 if (!obj.name) {
                     return;
                 }
+                var data = me.dataDic[obj.name];
                 var $field = me.dataDic[obj.name].$ele;//找到对应的$DOM
                 if ($field) {
                     //自动执行设置方法
@@ -208,31 +281,54 @@ define(function (require, exports, module) {
                             var methodName = me.i_toWord('o_setField', i);
                             var method = me[methodName];
                             if (method) {
-                                method.call(me, $field, obj[i]);
+                                method.call(me, $field, obj[i], silent);
                             }
                         }
                     }
                 }
             },
-            o_setFieldValue: function ($ele, value) {
+            o_setFieldValue: function ($ele, value, silent) {
                 var me = this;
-                if (value !== undefined) {
+                if (value !== undefined && value !== null) {
                     var me = this;
                     var data = me.o_field_getData($ele);
                     //考虑复选框情况
                     if ($ele.is('input[type=radio]') || $ele.is('input[type=checkbox]')) {
-                        $ele.attr('checked', false).filter('[value=' + value + ']').attr('checked', true).change();
-                    } else {
+                        if (typeof(value) == 'boolean') {
+                            $ele.prop('checked', value).change();
+                        } else {
+                            var items = $.isArray(value) ? value : value.split(',');
+                            $(items).each(function (i, n) {
+                                $ele.filter('[value=' + n + ']').attr('data-checked', '1');
+                            });
+                            var excepts = $ele.filter(':not([data-checked])').prop('checked', false).attr('checked', false);
+                            !silent && excepts.change();
+                            var wants = $ele.filter('[data-checked]').prop('checked', true).attr('checked', true).removeAttr('data-checked');
+                            !silent && wants.change();
+                        }
+                    }
+                    else if ($ele.is('[datecontrol]') && typeof(value) == 'int') {
+                        var configStr = $ele.attr('datecontrol');
+                        var config = configStr && $.parseJSON(configstr) || {};
+                        var format = config.format || "yyyy/MM/dd";
+                        value = new Date(value)._format(format);
+                    }
+                    else if ($ele.is(me.i_textFieldSelector)) {
+                        $ele.html(value);
+                    }
+                    else {
                         $ele.val(value);
                     }
+                    !silent && $ele.change();
                     data.value = value;
+                    me.trigger('setFieldValue', $ele, value);
                 }
             },
             o_setFieldAttr: function ($ele, value) {
                 var me = this;
-                if (value !== undefined) {
+                var data = me.o_field_getData($ele);
+                if (value !== undefined && data) {
                     var me = this;
-                    var data = me.o_field_getData($ele);
                     $ele.attr(value);
                     data.attr = value;
                 }
@@ -260,20 +356,23 @@ define(function (require, exports, module) {
                 $(me.o_fields).each(function (i, n) {
                     n.value.attr = n.value.attr || {};
                     var $ele = me[n.key];
-                    callback && callback($ele, $ele.data('data'));
+                    if ($ele.length > 0) {
+                        callback && callback($ele, $ele.data('data'));
+                    } else {
+                        console.warn(JSON.stringify(n) + '=>未找到对象');
+                    }
                 });
             }
             ,
             o_field_getWrapper: function ($ele) {
-                return $ele.parents('.field');
+                return $ele.parents('.field').length > 0 ? $ele.parents('.field') : $ele;
             }
             ,
             o_setFieldVisible: function ($ele, value) {
                 var me = this;
-                if (value !== undefined) {
-                    value = value || true;
+                if (value != undefined) {
                     var wrapper = this.o_field_getWrapper($ele);
-                    if (value) {
+                    if (!value) {
                         wrapper.hide();
                     } else {
                         wrapper.show();
@@ -284,12 +383,12 @@ define(function (require, exports, module) {
             ,
             o_setFieldReadonly: function ($ele, value) {
                 var me = this;
-                value = value || false;
+                value = value === undefined ? false : true;
                 this.o_field_getData($ele).readonly = value;
                 if (value) {
                     $ele.addClass('readonly', 'readonly').attr('readonly', 'readonly');
                 } else {
-                    $ele.removeClass('readonly', 'readonly').removeClass('readonly', 'readonly');
+                    $ele.removeClass('readonly', 'readonly').removeAttr('readonly', 'readonly');
                 }
                 return $ele;
             }
