@@ -33,7 +33,7 @@ define(function(require, exports, module){
 			var me = this;
 			me.attrs['wrapper'].html( me.$view );
 			me.checkEdit(me.attrs.editFlag)
-			if(me.attrs.type == 'common'){
+			if( (me.attrs.type%2) == 1 ){
 				me.$('.approval-box').hide();
 			}else{
 				me.$('.approval-box').show();
