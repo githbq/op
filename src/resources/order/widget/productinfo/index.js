@@ -207,7 +207,7 @@ define(function (require, exports, module) {
                             value = new Date($ele.val() + " 00:00:00").getTime();
                         }
                     }
-                    else if ($ele.is(me.i_textFieldClass)) {
+                    else if ($ele.is(me.i_textFieldSelector)) {
                         value = $ele.text();
                     }
                     else {
@@ -232,7 +232,7 @@ define(function (require, exports, module) {
                     }
                 }
             },
-            o_setValue: function (obj) {
+            o_setValue: function (obj, silent) {//silent不触发事件
                 var me = this;
                 if (!obj.name) {
                     return;
@@ -246,27 +246,29 @@ define(function (require, exports, module) {
                             var methodName = me.i_toWord('o_setField', i);
                             var method = me[methodName];
                             if (method) {
-                                method.call(me, $field, obj[i]);
+                                method.call(me, $field, obj[i], silent);
                             }
                         }
                     }
                 }
             },
-            o_setFieldValue: function ($ele, value) {
+            o_setFieldValue: function ($ele, value, silent) {
                 debugger
                 var me = this;
-                if (value !== undefined) {
+                if (value !== undefined && value !== null) {
                     var me = this;
                     var data = me.o_field_getData($ele);
                     //考虑复选框情况
                     if ($ele.is('input[type=radio]') || $ele.is('input[type=checkbox]')) {
                         if (typeof(value) == 'boolean') {
-                            $ele.attr('checked', value).change();
+                            $ele.prop('checked', value).change();
                         } else {
                             var items = $.isArray(value) ? value : value.split(',');
                             $(items).each(function (i, n) {
-                                $ele.filter('[value!=' + n + ']').attr('checked', false).change();
-                                $ele.filter('[value=' + n + ']').attr('checked', true).change();
+                                var excepts = $ele.filter('[value!=' + n + ']').attr('checked', false);
+                                !silent && excepts.change();
+                                var wants = $ele.filter('[value=' + n + ']').attr('checked', true);
+                                !silent && wants.change();
                             });
                         }
                     }
@@ -276,12 +278,13 @@ define(function (require, exports, module) {
                         var format = config.format || "yyyy/MM/dd";
                         value = new Date(value)._format(format);
                     }
-                    else if ($ele.is(me.i_textFieldClass)) {
+                    else if ($ele.is(me.i_textFieldSelector)) {
                         $ele.html(value);
                     }
                     else {
                         $ele.val(value);
                     }
+                    !silent && $ele.change();
                     data.value = value;
                     me.trigger('setFieldValue', $ele, value);
                 }

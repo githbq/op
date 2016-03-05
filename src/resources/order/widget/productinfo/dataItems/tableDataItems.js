@@ -3,13 +3,13 @@ define(function (require, exports, module) {
     var dataItems=module.exports=[];
     dataItems.push(new DataItem({
         name: 'checkAll',
-        value:'all',
+        value:null,
         events: [
             {
                 key: 'change',
                 value: function (e) {
                     debugger
-                    this.o_setValue({name: 'BBB', readonly: true});
+                    this.o_setValue({name: 'check', value:$(e.target).is(':checked')});
                 }
             }, {
                 key: "blur",
@@ -21,16 +21,10 @@ define(function (require, exports, module) {
 
     dataItems.push(new DataItem({
         name: 'check',
-        value:'all',
+        value:'44',
         events: [
             {
                 key: 'change',
-                value: function (e) {
-                    debugger
-                    this.o_setValue({name: 'BBB', readonly: true});
-                }
-            }, {
-                key: "blur",
                 value: function (e) {
                 }
             }
