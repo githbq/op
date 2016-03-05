@@ -3,7 +3,7 @@ define(function (require, exports, module) {
     var dataItems=module.exports=[];
     dataItems.push(new DataItem({
         name: 'checkAll',
-        value:'all',
+        value:null,
         events: [
             {
                 key: 'change',
@@ -21,7 +21,7 @@ define(function (require, exports, module) {
 
     dataItems.push(new DataItem({
         name: 'check',
-        value:'44',
+        value:'22',
         events: [
             {
                 key: 'change',
@@ -68,14 +68,14 @@ define(function (require, exports, module) {
     }));
     dataItems.push(new DataItem({
         name: 'purchaseAmount_22',
-        value:'2222'
+        value:'54555'
     }));
     dataItems.push(new DataItem({
         name: 'purchaseAmount_33',
-        value:'3333'
+        value:'777'
     }));
     dataItems.push(new DataItem({
         name: 'purchaseAmount_44',
-        value:'4444'
+        value:'6666'
     }));
 });
