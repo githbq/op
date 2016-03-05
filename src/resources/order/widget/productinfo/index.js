@@ -16,8 +16,9 @@ define(function (require, exports, module) {
                 }
             }
         };
-        this.visible = true;
-        this.disable = false;
+        //this.visible = true;
+        //this.disable = false;
+        //this.readonly=false;
         this.attr = {};
         this.init(options);
     }
@@ -32,6 +33,7 @@ define(function (require, exports, module) {
                 var me = this;
                 return $(tplStr).filter(me.selector).html();
             },
+            i_textFieldSelector: '.field_text',
             i_attrName: 'data-name',
             i_getSelectorByName: function (name) {
                 return '[' + this.i_attrName + '=' + name + ']';
@@ -39,12 +41,14 @@ define(function (require, exports, module) {
             events: {},
             elements: {},
             init: function (data) {
+                debugger
                 //在初始化前做的事
                 var me = this;
                 me.dataDic = {};//数据字典
                 me.events = me.events || {};
                 me.o_fields = [];
                 $(data.dataItems).each(function (i, n) {
+                    n.__index=i;
                     n.__guid = n.name;//name要保持唯一
                     me.dataDic[n.__guid] = n;
                     me.elements[me.i_getSelectorByName(n.name)] = n.name;
@@ -60,14 +64,38 @@ define(function (require, exports, module) {
                 PageClass.__super__.init.apply(this, arguments);
                 //元素与数据双向关联
                 $(me.o_fields).each(function (i, n) {
-                    var field = me[n.key];
+                    var $field = me[n.key];
                     var fieldData = me.dataDic[n.value.__guid];
-                    $(field).data('data', fieldData);
-                    fieldData.$ele = field;
+                    var config = $field.attr('data-config') && me.i_parseJSON($field.attr('data-config')) || {};
+                    $.extend(config, fieldData);
+                    me.dataDic[n.value.__guid] = config;
+                    data.dataItems[config.__index]=config;
+                    $field.data('data', config);
+                    if ($field) {
+                        config.$ele = $field;
+                    }
                 });
-                me.$('input[datecontrol]').datetimepicker({format: 'Y/m/d', timepicker: false});
+                debugger
+                me.i_initDatePicker();
                 me.o_setValues(data.dataItems);
-
+            },
+            i_initDatePicker: function () {
+                var me = this;
+                var option = {format: 'Y/m/d', timepicker: false};
+                me.$('input[datecontrol]').each(function (i, n) {
+                    var config = $(n).attr('datecontrol') ? me.i_parseJSON($(n).attr('datecontrol')) : {};
+                    $.extend(option, config);
+                    $(n).datetimepicker(option);
+                });
+            },
+            i_parseJSON: function (str) {
+                var me = this;
+                var data = {};
+                if (str) {
+                    str = str.replace(/[']/g, '"');
+                    data = $.parseJSON(str);
+                }
+                return data;
             },
             i_dataItems: {},
             i_selector: '',
@@ -174,12 +202,15 @@ define(function (require, exports, module) {
                     }
                     else if ($ele.is('[datecontrol]') && typeof(value) == 'int') {
                         var configStr = $ele.attr('datecontrol');
-                        var config = configStr && $.parseJSON(configstr) || {};
+                        var config = configStr && me.i_parseJSON(configstr) || {};
                         if (config.type == '1') {//0开始时间 1为结束时间
                             value = new Date($ele.val() + " 23:59:59").getTime();
                         } else {
                             value = new Date($ele.val() + " 00:00:00").getTime();
                         }
+                    }
+                    else if ($ele.is(me.i_textFieldClass)) {
+                        value = $ele.text();
                     }
                     else {
                         value = $ele.val();
@@ -204,11 +235,11 @@ define(function (require, exports, module) {
                 }
             },
             o_setValue: function (obj) {
-                debugger
                 var me = this;
                 if (!obj.name) {
                     return;
                 }
+                debugger
                 var data = me.dataDic[obj.name];
                 var $field = me.dataDic[obj.name].$ele;//找到对应的$DOM
                 if ($field) {
@@ -217,6 +248,7 @@ define(function (require, exports, module) {
                         if (obj.hasOwnProperty(i) && i.toString().length > 1) {
                             var methodName = me.i_toWord('o_setField', i);
                             var method = me[methodName];
+                            debugger
                             if (method) {
                                 method.call(me, $field, obj[i]);
                             }
@@ -238,6 +270,9 @@ define(function (require, exports, module) {
                         var config = configStr && $.parseJSON(configstr) || {};
                         var format = config.format || "yyyy/MM/dd";
                         value = new Date(value)._format(format);
+                    }
+                    else if ($ele.is(me.i_textFieldClass)) {
+                        $ele.html(value);
                     }
                     else {
                         $ele.val(value);
@@ -283,24 +318,26 @@ define(function (require, exports, module) {
             }
             ,
             o_field_getWrapper: function ($ele) {
-                return $ele.parents('.field');
+                return $ele.parents('.field').length > 0 ? $ele.parents('.field') : $ele;
             }
             ,
             o_setFieldVisible: function ($ele, value) {
+                debugger
                 var me = this;
-                value = value == undefined ? true : value;
-                var wrapper = this.o_field_getWrapper($ele);
-                if (!value) {
-                    wrapper.hide();
-                } else {
-                    wrapper.show();
+                if (value != undefined) {
+                    var wrapper = this.o_field_getWrapper($ele);
+                    if (!value) {
+                        wrapper.hide();
+                    } else {
+                        wrapper.show();
+                    }
+                    this.o_field_getData($ele).visible = value;
                 }
-                this.o_field_getData($ele).visible = value;
             }
             ,
             o_setFieldReadonly: function ($ele, value) {
                 var me = this;
-                value = value===undefined?false:true;
+                value = value === undefined ? false : true;
                 this.o_field_getData($ele).readonly = value;
                 if (value) {
                     $ele.addClass('readonly', 'readonly').attr('readonly', 'readonly');
