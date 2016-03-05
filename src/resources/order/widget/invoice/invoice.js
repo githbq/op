@@ -126,7 +126,7 @@ define(function( require , exports , module ){
 
 				if( intype == '1' ){
 					invoiceType = 1;
-				}else( intype == '2' ){
+				}else if( intype == '2' ){
 					invoiceType = 2;
 				}
 
