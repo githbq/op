@@ -71,7 +71,7 @@
 		<section class="invoiceb">
 			<p>
 				<span class="title">公司名称<b>*</b></span>
-				<input type="text" ce-model="invoiceHead">
+				<input type="text" ce-model="companyName">
 			</p>
 			<p>
 				<span class="title">收据金额<b>*</b></span>
@@ -99,11 +99,11 @@
 	<p>
 		<span class="title">合作单<b>*</b></span>
 		<label>
-			<input type="radio" name="team" data-value="0" checked="checked">
+			<input type="radio" name="team" value="false" checked="checked">
 			否
 		</label>
 		<label>
-			<input type="radio" name="team" data-value="1">
+			<input type="radio" name="team" value="true">
 			是 <input type="text" placeholder="请编写合作人姓名及所属部门" class="teaminfo">
 		</label>
 	</p>
@@ -113,6 +113,6 @@
 
 	<h4>备注</h4>
 	<p>
-		<textarea cols="60" rows="5"></textarea>
+		<textarea cols="60" rows="5" ce-model="remark"></textarea>
 	</p>
 </div>
