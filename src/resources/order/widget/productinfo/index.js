@@ -173,7 +173,18 @@ define(function (require, exports, module) {
                             arr.push($(n).val());
                         });
                         value = arr.join(',');
-                    } else {
+                    }
+                    if ($ele.is('[datecontrol]')) {
+                        var configStr = $ele.attr('datecontrol');
+                        var config = configStr && $.parseJSON(configstr) || {};
+                        config = $.parseJSON(configstr);
+                        if (config.type == '1') {
+                            value = new Date($ele.val() + " 23:59:59").getTime();
+                        } else {
+                            value = new Date($ele.val() + " 23:59:59").getTime();
+                        }
+                    }
+                    else {
                         value = $ele.val();
                     }
                 }
