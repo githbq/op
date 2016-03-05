@@ -268,7 +268,6 @@ define(function (require, exports, module) {
                                 $ele.filter('[value!=' + n + ']').attr('checked', false).change();
                                 $ele.filter('[value=' + n + ']').attr('checked', true).change();
                             });
-
                         }
                     }
                     else if ($ele.is('[datecontrol]') && typeof(value) == 'int') {
