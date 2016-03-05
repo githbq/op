@@ -321,7 +321,11 @@ define(function (require, exports, module) {
                 $(me.o_fields).each(function (i, n) {
                     n.value.attr = n.value.attr || {};
                     var $ele = me[n.key];
-                    callback && callback($ele, $ele.data('data'));
+                    if ($ele.length > 0) {
+                        callback && callback($ele, $ele.data('data'));
+                    }else{
+                        console.warn(JSON.stringify(n)+'=>未找到对象')；
+                    }
                 });
             }
             ,
