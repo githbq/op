@@ -60,6 +60,6 @@ define(function (require, exports, module) {
     //}));
     dataItems.push(new DataItem({
         name: 'gz_type_44',
-        value:'1,2'
+        value:'1'
     }));
 });

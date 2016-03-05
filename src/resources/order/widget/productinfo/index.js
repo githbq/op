@@ -267,13 +267,15 @@ define(function (require, exports, module) {
                         if (typeof(value) == 'boolean') {
                             $ele.prop('checked', value).change();
                         } else {
+                            debugger
                             var items = $.isArray(value) ? value : value.split(',');
                             $(items).each(function (i, n) {
-                                var excepts = $ele.filter('[value!=' + n + ']').prop('checked',false).attr('checked', false);
-                                !silent && excepts.change();
-                                var wants = $ele.filter('[value=' + n + ']').prop('checked',true).attr('checked', true);
-                                !silent && wants.change();
+                                $ele.filter('[value=' + n + ']').attr('data-checked','1');
                             });
+                            var excepts = $ele.filter(':not([data-checked])').prop('checked',false).attr('checked', false);
+                            !silent && excepts.change();
+                            var wants = $ele.filter('[data-checked]').prop('checked',true).attr('checked', true).removeAttr('data-checked');
+                            !silent && wants.change();
                         }
                     }
                     else if ($ele.is('[datecontrol]') && typeof(value) == 'int') {
