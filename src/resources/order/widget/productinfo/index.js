@@ -200,6 +200,19 @@ define(function (require, exports, module) {
                         });
                         value = arr.join(',');
                     }
+                    else if ($ele.is('input[type=file]') ) {
+                        var index=name.indexOf('_file');
+                        if(index>0){
+                            var hiddenName=name.substring(0,index);
+                            var hiddenField=me.o_findField(function($ele,data){return data.name==hiddenName;});
+                            if(hiddenField){
+                               value= me.o_getFieldValue(hiddenName);
+                            }
+                        }
+                        else{
+                            console.warn(name+'文件标签必须data-name以_file结尾，且拥有一个对应的隐藏域data-name值为_file之前的部分');
+                        }
+                    }
                     else if ($ele.is('[datecontrol]') && typeof(value) == 'int') {
                         var configStr = $ele.attr('datecontrol');
                         var config = configStr && me.i_parseJSON(configstr) || {};
@@ -270,11 +283,11 @@ define(function (require, exports, module) {
                             debugger
                             var items = $.isArray(value) ? value : value.split(',');
                             $(items).each(function (i, n) {
-                                $ele.filter('[value=' + n + ']').attr('data-checked','1');
+                                $ele.filter('[value=' + n + ']').attr('data-checked', '1');
                             });
-                            var excepts = $ele.filter(':not([data-checked])').prop('checked',false).attr('checked', false);
+                            var excepts = $ele.filter(':not([data-checked])').prop('checked', false).attr('checked', false);
                             !silent && excepts.change();
-                            var wants = $ele.filter('[data-checked]').prop('checked',true).attr('checked', true).removeAttr('data-checked');
+                            var wants = $ele.filter('[data-checked]').prop('checked', true).attr('checked', true).removeAttr('data-checked');
                             !silent && wants.change();
                         }
                     }
