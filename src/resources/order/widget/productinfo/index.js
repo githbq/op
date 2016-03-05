@@ -130,7 +130,7 @@ define(function (require, exports, module) {
                 return error;
             },
             i_toWord: function (prefix, value) {//驼峰命名法
-                return prefix + value.substr(0, 1) + value.substr(1);
+                return prefix + value.substr(0, 1).toUpperCase() + value.substr(1);
             },
             i_checkError: function (requireName, value, option, $ele, wrapper, callback) {
                 var me = this;
@@ -224,6 +224,7 @@ define(function (require, exports, module) {
                 }
             },
             o_setFieldValue: function ($ele, value) {
+                debugger
                 var me = this;
                 if (value !== undefined) {
                     var me = this;
