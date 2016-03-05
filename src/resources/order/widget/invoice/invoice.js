@@ -48,7 +48,15 @@ define(function( require , exports , module ){
 			}
 		},
 
-		init: function(){
+		/**
+		 *
+		 * attrs
+		 *  wrapper 
+		 *  data
+		 *  editFlag
+		 *  type
+		 */
+		init: function( attrs ){
 			Invoice.__super__.init.apply( this, arguments );
 
 			//初始化事件
