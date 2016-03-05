@@ -53,6 +53,7 @@ define(function( require , exports , module ){
 
 			//初始化事件
 			this.initEvents();
+			this.render();
 		},
 
 		//初始化事件
@@ -104,6 +105,11 @@ define(function( require , exports , module ){
 			var me = this;
 
 			return me.model.all();
+		},
+
+		//设置折扣
+		setDiscount: function( number ){
+			var me = this;
 		}
 	});
 
