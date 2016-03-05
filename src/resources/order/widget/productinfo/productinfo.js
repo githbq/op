@@ -10,12 +10,15 @@ define(function (require, exports, module) {
     exports.showProductInfo = function (data) {
         var terminalInfo,tableInfo,formInfo=null;
         if(data.terminalInfo &&data.terminalInfo.$view){
+            data.terminalInfo.$view.addClass('productinfo');
            terminalInfo = new TerminalInfo({view:data.terminalInfo.$view, dataItems: data.terminalInfo.dataItems||terminalDataItems});
         }
         if(data.tableInfo &&data.tableInfo.$view){
+            data.terminalInfo.$view.addClass('productinfo');
             tableInfo = new TableInfo({view:data.tableInfo.$view, dataItems: data.tableInfo.dataItems||tableDataItems});
         }
         if(data.formInfo &&data.formInfo.$view){
+            data.terminalInfo.$view.addClass('productinfo');
             formInfo = new FormInfo({view:data.formInfo.$view, dataItems: data.formInfo.dataItems||formDataItems});
         }
         return {terminalInfo:terminalInfo,tableInfo:tableInfo,formInfo:formInfo};

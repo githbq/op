@@ -1,6 +1,7 @@
 define(function (require, exports, module) {
     var DataItem = require('../index').PageDataClass;
     var dataItems = module.exports = [];
+    //终端总个数
     dataItems.push(new DataItem({
         name: 'purchaseCount_0',
         value: '1000',
@@ -19,7 +20,7 @@ define(function (require, exports, module) {
             }
         ]
     }));
-
+  //开始日期
     dataItems.push(new DataItem({
         name: 'startTime_0',
         value: '',
@@ -31,6 +32,7 @@ define(function (require, exports, module) {
             }
         }
     }));
+    //结束日期
     dataItems.push(new DataItem({
         name: 'endTime_0',
         value: '',
