@@ -1,6 +1,4 @@
 define(function (require, exports, module) {
-
-
     function DataItem(options) {
         this.name = "";
         this.events = [{
@@ -26,12 +24,10 @@ define(function (require, exports, module) {
     DataItem.prototype.init = function (options) {
         $.extend(this, options || {});
     };
-
-    var tplStr = require('./template.html');
     var PageClass = MClass(M.Center).include({
-            getTemplateStr: function () {
+            i_getTemplateStr: function () {
                 var me = this;
-                return $(tplStr).filter(me.selector).html();
+                return '<div></div>';
             },
             i_textFieldSelector: '.field_text',
             i_attrName: 'data-name',
@@ -61,7 +57,7 @@ define(function (require, exports, module) {
                         });
                     }
                 });
-                data.view.html(me.getTemplateStr());
+                data.view.html(me.i_getTemplateStr());
                 PageClass.__super__.init.apply(this, arguments);
                 //元素与数据双向关联
                 $(me.o_fields).each(function (i, n) {

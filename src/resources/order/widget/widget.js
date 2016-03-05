@@ -10,6 +10,7 @@ define(function (require, exports, module) {
     var terminalDataItems=require('./productinfo/dataitems/terminaldataitems');
     var tableDataItems=require('./productinfo/dataitems/tabledataitems');
     var formDataItems=require('./productinfo/dataitems/formdataitems');
+
     exports.init = function () {
         var $el = exports.$el;
 

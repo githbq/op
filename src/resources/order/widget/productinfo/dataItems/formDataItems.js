@@ -19,15 +19,16 @@ define(function (require, exports, module) {
             }
         ]
     }));
-
     dataItems.push(new DataItem({
-        name: 'contractCopy_file',
+        name: 'contract'
+    }));
+    dataItems.push(new DataItem({
+        name: 'contract_file',
         events: [
             {
                 key: 'change',
                 value: function (e) {
-                    alert(1);
-                    var me=this;
+                    var me = this;
                     uploader.send({
                         'url': '/op/api/file/uploadsinglefileandcheck',
                         'files': e.target.files,
@@ -36,9 +37,8 @@ define(function (require, exports, module) {
                         },
                         'success': function (response) {
                             console.warn(response);
-                            me.model.set('businessLicense', response.value.model.path);
-                            me.model.set('businessLicenseFileName', response.value.model.FileName);
-                            me.o_setValue({'purchaseAmount_44':JSON.stringify({businessLicense:response.value.model.path,businessLicenseFileName:response.value.model.FileName})});
+                            me.o_setValue({name: 'contract', value: JSON.stringify({contract: response.value.model.path, contractFileName: response.value.model.FileName})});
+
                         }
                     })
                 }
@@ -49,7 +49,34 @@ define(function (require, exports, module) {
     dataItems.push(new DataItem({
         name: 'contractCopy'
     }));
+    dataItems.push(new DataItem({
+        name: 'contractCopy_file',
+        events: [
+            {
+                key: 'change',
+                value: function (e) {
+                    var me = this;
+                    uploader.send({
+                        'url': '/op/api/file/uploadsinglefileandcheck',
+                        'files': e.target.files,
+                        'options': {
+                            'limittype': 'IMAGE'
+                        },
+                        'success': function (response) {
+                            console.warn(response);
+                            me.o_setValue({name: 'contractCopy', value: JSON.stringify({contractCopy: response.value.model.path, contractCopyFileName: response.value.model.FileName})});
 
-
+                        }
+                    })
+                }
+            }
+        ]
+    }));
+    dataItems.push(new DataItem({
+        name: 'payerName'
+    }));
+    dataItems.push(new DataItem({
+        name: 'sealName'
+    }));
 
 });

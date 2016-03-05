@@ -324,7 +324,7 @@
                         <span class="label">付款单位/个人名称</span>
                         <span class="red">*</span>
                     </label>
-                    <input type="text" class="" name=""/>
+                    <input data-name="payerName" type="text" class="" name=""/>
                 </div>
             </div>
         </div>
@@ -338,7 +338,7 @@
                         <span class="label">合同章名称</span>
                         <span class="red">*</span>
                     </label>
-                    <input type="text" class="" name=""/>
+                    <input data-name="sealName" type="text" class="" name=""/>
                 </div>
             </div>
         </div>
@@ -352,8 +352,9 @@
                         <span class="label">合同照片</span>
                         <span class="red">*</span>
                     </label>
-                    <input type="file" class="" name="" accept="image/gif,image/jpeg,image/png"/>
-                     <span class="supporttype">(支持png、jpg、gif)</span>
+                    <input type="hidden" data-name="contract" />
+                    <input data-name="contract_file" type="file" class="" name="" accept="image/gif,image/jpeg,image/png"/>
+                    <span class="supporttype">(支持png、jpg、gif)</span>
                 </div>
             </div>
         </div>
