@@ -22,8 +22,8 @@ define(function (require, exports, module) {
         var terminalInfo = new TerminalInfo({view: $el.find('.panel1'), dataItems: terminalDataItems});
         terminalInfo.on('validateError', function (value, option, $ele, me) {
         });
-        var tableInfo = new TableInfo({view: $el.find('.panel2')});
-        var formInfo = new FormInfo({view: $el.find('.panel3')});
+        var tableInfo = new TableInfo({view: $el.find('.panel2'),dataItems:tableDataItems});
+        var formInfo = new FormInfo({view: $el.find('.panel3'),dataItems:formDataItems});
     }
 });
 

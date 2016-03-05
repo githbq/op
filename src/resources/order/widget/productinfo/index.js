@@ -41,14 +41,13 @@ define(function (require, exports, module) {
             events: {},
             elements: {},
             init: function (data) {
-                debugger
                 //在初始化前做的事
                 var me = this;
                 me.dataDic = {};//数据字典
                 me.events = me.events || {};
                 me.o_fields = [];
                 $(data.dataItems).each(function (i, n) {
-                    n.__index=i;
+                    n.__index = i;
                     n.__guid = n.name;//name要保持唯一
                     me.dataDic[n.__guid] = n;
                     me.elements[me.i_getSelectorByName(n.name)] = n.name;
@@ -69,13 +68,12 @@ define(function (require, exports, module) {
                     var config = $field.attr('data-config') && me.i_parseJSON($field.attr('data-config')) || {};
                     $.extend(config, fieldData);
                     me.dataDic[n.value.__guid] = config;
-                    data.dataItems[config.__index]=config;
+                    data.dataItems[config.__index] = config;
                     $field.data('data', config);
                     if ($field) {
                         config.$ele = $field;
                     }
                 });
-                debugger
                 me.i_initDatePicker();
                 me.o_setValues(data.dataItems);
             },
@@ -239,7 +237,6 @@ define(function (require, exports, module) {
                 if (!obj.name) {
                     return;
                 }
-                debugger
                 var data = me.dataDic[obj.name];
                 var $field = me.dataDic[obj.name].$ele;//找到对应的$DOM
                 if ($field) {
@@ -248,7 +245,6 @@ define(function (require, exports, module) {
                         if (obj.hasOwnProperty(i) && i.toString().length > 1) {
                             var methodName = me.i_toWord('o_setField', i);
                             var method = me[methodName];
-                            debugger
                             if (method) {
                                 method.call(me, $field, obj[i]);
                             }
@@ -257,13 +253,23 @@ define(function (require, exports, module) {
                 }
             },
             o_setFieldValue: function ($ele, value) {
+                debugger
                 var me = this;
                 if (value !== undefined) {
                     var me = this;
                     var data = me.o_field_getData($ele);
                     //考虑复选框情况
                     if ($ele.is('input[type=radio]') || $ele.is('input[type=checkbox]')) {
-                        $ele.attr('checked', false).filter('[value=' + value + ']').attr('checked', true).change();
+                        if (typeof(value) == 'boolean') {
+                            $ele.attr('checked', value).change();
+                        } else {
+                            var items = $.isArray(value) ? value : value.split(',');
+                            $(items).each(function (i, n) {
+                                $ele.filter('[value!=' + n + ']').attr('checked', false).change();
+                                $ele.filter('[value=' + n + ']').attr('checked', true).change();
+                            });
+
+                        }
                     }
                     else if ($ele.is('[datecontrol]') && typeof(value) == 'int') {
                         var configStr = $ele.attr('datecontrol');
@@ -322,7 +328,6 @@ define(function (require, exports, module) {
             }
             ,
             o_setFieldVisible: function ($ele, value) {
-                debugger
                 var me = this;
                 if (value != undefined) {
                     var wrapper = this.o_field_getWrapper($ele);
