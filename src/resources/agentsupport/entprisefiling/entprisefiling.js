@@ -302,7 +302,12 @@ define( function( require, exports, module ) {
 				util.showToast('请填写完整自注册企业账号！');
 				return false;
 			}
-
+			var val = me.$('input:radio[name="newType"]:checked').val();
+			if( !val ){
+				util.showToast('请选择开通版本！');
+				return false;
+			}
+			
 			util.api({
 				'url': '/enterprisefiling/canbinding',
 				'data': {
@@ -314,7 +319,12 @@ define( function( require, exports, module ) {
 				},
 				'success': function( data ){
 					if( data.success ){
-					   location.hash = '#agentsupport/bindinfo/'+me.attrs['entId']+'/'+enterpriseAccount;
+						if( val == 'newOffice' ){
+							location.hash = '#order/newmarketying/newOffice';
+						}else{
+							location.hash = '#order/newmarketying/newMarket';
+						}
+					   //location.hash = '#agentsupport/bindinfo/'+me.attrs['entId']+'/'+enterpriseAccount;
 					} 
 				}
 			})

@@ -1,0 +1,159 @@
+<div>
+	<p>
+		<label for="">
+			<span>企业名称 <b class="check-edit">*</b></span>
+			<input type="text" ce-model="enterpriseName" class="required-basic enterpriseName" disabled="disabled">
+		</label>
+		<label for="">
+			<span>区域</span>
+			<input type="text" class="regionName" disabled="disabled">
+		</label>
+	</p>
+	<p>
+		<label for="">
+			<span>企业账号 <b class="check-edit">*</b></span>
+			<input type="text" ce-model="enterpriseAccount" class="required-basic edit-flag" placeholder="不可更改!">
+			<span class="remind">企业账号应为字母开头6-20位由字母数字的组合</span>
+		</label>
+	</p>
+	<p>
+		<label for="">
+			<span>地址 <b class="check-edit">*</b></span>
+			<input type="text" ce-model="address" class="required-basic address">
+		</label>
+		<label for="">
+			<span>行业 <b class="check-edit">*</b></span>
+			<select name="" class="e-industry required-basic" ce-model="industry"></select>
+		</label>
+	</p>
+	<p>
+		<label for="">
+			<span>来源 <b class="check-edit">*</b></span>
+			<select name="" class="e-source required-basic" ce-model="source"></select>
+		</label>
+		<label for="">
+			<span>团队类型 <b class="check-edit">*</b></span>
+			<select name="" class="e-group required-basic edit-flag" ce-model="groupType"></select>
+		</label>
+	</p>
+	<p>
+		<label for="">
+			<span>省份 <b class="check-edit">*</b></span>
+			<select name="" class="e-province required-basic edit-flag" ce-model="province"></select>
+		</label>
+		<label for="">
+			<span>城市 <b class="check-edit">*</b></span>
+			<input type="text" ce-model="city" class="required-basic edit-flag">
+		</label>
+	</p>
+	<p>
+		<label for="">
+			<span>了解渠道 <b class="check-edit">*</b></span>
+			<select name="" class="e-knowsource required-basic edit-flag" ce-model="knowSource"></select>
+		</label>
+		<label for="">
+			<span>注册动机 <b class="check-edit">*</b></span>
+			<select name="" class="e-motive required-basic edit-flag" ce-model="registerMotive"></select>
+		</label>
+	</p>
+	<p>
+		<label for="">
+			<span>公司规模 <b class="check-edit">*</b></span>
+			<select name="" class="companyscale required-basic edit-flag" ce-model="companyScale"></select>
+		</label>
+	</p>
+	<p>
+		<label for="">
+			<span>是否有销售团队 <b class="check-edit">*</b></span>
+			<select name="" id="" ce-model="isSaleTeam edit-flag" class="required-basic">
+				<option value="">请选择</option>
+				<option value="1">是</option>
+				<option value="0">否</option>
+			</select>
+		</label>
+		<label for="">
+			<span>销售团队规模 <b class="check-edit">*</b></span>
+			<select name="" class="saleteamscale required-basic edit-flag" ce-model="saleTeamScale"></select>
+		</label>
+	</p>
+	<p>
+		<label for="">
+			<span>是否首面签约</span>
+			<select name="" ce-model="isFirstmeetingSign" class="edit-flag">
+				<option value="">请选择</option>
+				<option value="1">是</option>
+				<option value="0">否</option>
+			</select>
+		</label>
+		<label for="">
+			<span>是否会销 <b class="check-edit">*</b></span>
+			<select name="" id="" ce-model="isWillPin" class="required-basic edit-flag">
+				<option value="">请选择</option>
+				<option value="1">是</option>
+				<option value="0">否</option>
+			</select>
+		</label>
+	</p>
+	<p>
+		<label for="">
+			<span>是否陌拜 <b class="check-edit">*</b></span>
+			<select name="" ce-model="isStrangerVisits" class="required-basic edit-flag">
+				<option value="">请选择</option>
+				<option value="1">是</option>
+				<option value="0">否</option>
+			</select>
+		</label>
+		<label for="">
+			<span>成交周期(天)<b class="check-edit">*</b></span>
+			<input type="text" ce-model="dealDays" class="required-basic edit-flag" placeholder="请填写数字" onchange="this.value=this.value.replace(/\D/g,'')">
+		</label>
+	</p>
+	<p>
+		<label for="">
+			<span>是否转介绍 <b class="check-edit">*</b></span>
+			<select name="" id="" ce-model="isReferral" class="required-basic edit-flag">
+				<option value="">请选择</option>
+				<option value="1">是</option>
+				<option value="0">否</option>
+			</select>
+		</label>
+	</p>
+	<h4>企业负责人</h4>
+	<p>
+		<label for="">
+			<span>企业负责人姓名 <b class="check-edit">*</b></span>
+			<input type="text" ce-model="keyContactName" class="required-basic keyContactName edit-flag">
+		</label>
+		<label for="">
+			<span>企业负责人电话 <b class="check-edit">*</b></span>
+			<input type="text" ce-model="keyContactPhone" class="required-basic edit-flag" onchange="this.value=this.value.replace(/\D/g,'')">
+		</label>
+	</p>
+	<p>
+		<label for="">
+			<span>企业负责人邮箱 <b class="check-edit">*</b></span>
+			<input type="text" ce-model="keyContactEmail" class="required-basic edit-flag">
+		</label>
+	</p>
+	<h4>纷享平台管理员</h4>
+	<p>
+		<label for="">
+			<span>平台管理员 <b class="check-edit">*</b></span>
+			<input type="text" ce-model="contactName" class="required-basic edit-flag">
+		</label>
+		<label for="">
+			<span>平台管理员手机 <b class="check-edit">*</b></span>
+			<input type="text" ce-model="contactPhone" class="required-basic edit-flag" maxlength="11" onchange="this.value=this.value.replace(/\D/g,'')">
+		</label>
+	</p>
+	<p>
+		<label for="">
+			<span>平台管理员邮箱 <b class="check-edit">*</b></span>
+			<input type="text" ce-model="contactEmail" class="required-basic edit-flag">
+		</label>
+		<label for="">
+			<span>平台管理员QQ</span>
+			<input type="text" ce-model="contactim" class="edit-flag">
+		</label>
+	</p>
+</div>
