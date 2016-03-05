@@ -86,8 +86,7 @@ define(function (require, exports, module) {
             o_validateField: function ($ele) {
                 var me = this;
                 var data = me.o_field_getData($ele);
-                var options = data.validateOptions
-                debugger
+                var options = data.validateOptions;
                 var value = me.o_getFieldValue(null, $ele);
                 var wrapper = me.o_field_getWrapper($ele);
                 var error = null;
@@ -224,7 +223,6 @@ define(function (require, exports, module) {
                 }
             },
             o_setFieldValue: function ($ele, value) {
-                debugger
                 var me = this;
                 if (value !== undefined) {
                     var me = this;
@@ -291,7 +289,7 @@ define(function (require, exports, module) {
                 if (value !== undefined) {
                     value = value || true;
                     var wrapper = this.o_field_getWrapper($ele);
-                    if (value) {
+                    if (!value) {
                         wrapper.hide();
                     } else {
                         wrapper.show();
