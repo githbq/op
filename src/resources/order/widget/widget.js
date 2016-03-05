@@ -7,9 +7,9 @@ define(function (require, exports, module) {
 
     var PageClass = MClass(M.Center).include({});
 
-    var terminalDataItems=require('./productinfo/dataitems/terminaldataitems');
-    var tableDataItems=require('./productinfo/dataitems/tabledataitems');
-    var formDataItems=require('./productinfo/dataitems/formdataitems');
+    var terminalDataItems = require('./productinfo/dataitems/terminaldataitems');
+    var tableDataItems = require('./productinfo/dataitems/tabledataitems');
+    var formDataItems = require('./productinfo/dataitems/formdataitems');
 
     exports.init = function () {
         var $el = exports.$el;
@@ -18,13 +18,14 @@ define(function (require, exports, module) {
 
             alert('test');
             terminalInfo.o_validate();
+            alert(JSON.stringify(terminalInfo.o_getValues()));
 
         });
         var terminalInfo = new TerminalInfo({view: $el.find('.panel1'), dataItems: terminalDataItems});
         terminalInfo.on('validateError', function (value, option, $ele, me) {
         });
-        var tableInfo = new TableInfo({view: $el.find('.panel2'),dataItems:tableDataItems});
-        var formInfo = new FormInfo({view: $el.find('.panel3'),dataItems:formDataItems});
+        var tableInfo = new TableInfo({view: $el.find('.panel2'), dataItems: tableDataItems});
+        var formInfo = new FormInfo({view: $el.find('.panel3'), dataItems: formDataItems});
     }
 });
 
