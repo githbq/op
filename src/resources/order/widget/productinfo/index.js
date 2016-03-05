@@ -34,10 +34,19 @@ define(function (require, exports, module) {
             i_getSelectorByName: function (name) {
                 return '[' + this.i_attrName + '=' + name + ']';
             },
-            events: {},
-            elements: {},
-            init: function (data) {
-                //在初始化前做的事
+            i_inject: function (data) {//被动注入
+                var me = this;
+                var $template = $(me.i_getTemplateStr());
+                $template.find('[data-name]').each(function (i, n) {
+                    var name = $(n).attr('data-name');
+                    var findItem = _.findWhere(data.dataItems, {name: $(n).attr('data-name')})
+                    if (!findItem) {
+                        data.dataItems.push(new DataItem({name: name,__auto:true}));
+                    }
+                });
+                data.view.html('').append($template);
+            },
+            i_initEventsAndElements: function (data) {
                 var me = this;
                 me.dataDic = {};//数据字典
                 me.events = me.events || {};
@@ -57,8 +66,19 @@ define(function (require, exports, module) {
                         });
                     }
                 });
-                data.view.html(me.i_getTemplateStr());
-                PageClass.__super__.init.apply(this, arguments);
+            },
+            events: {},
+            elements: {},
+            init: function (data) {
+                //在初始化前做的事
+                var me = this;
+                me.i_inject(data);//数据处理
+                me.i_initEventsAndElements(data);//核心对象处理
+                PageClass.__super__.init.apply(this, arguments);//调用父类初始化
+                me.i_init(data);//最终初始化
+            },
+            i_init: function (data) {
+                var me = this;
                 //元素与数据双向关联
                 $(me.o_fields).each(function (i, n) {
                     var $field = me[n.key];
@@ -196,17 +216,19 @@ define(function (require, exports, module) {
                         });
                         value = arr.join(',');
                     }
-                    else if ($ele.is('input[type=file]') ) {
-                        var index=name.indexOf('_file');
-                        if(index>0){
-                            var hiddenName=name.substring(0,index);
-                            var hiddenField=me.o_findField(function($ele,data){return data.name==hiddenName;});
-                            if(hiddenField){
-                               value= me.o_getFieldValue(hiddenName);
+                    else if ($ele.is('input[type=file]')) {
+                        var index = name.indexOf('_file');
+                        if (index > 0) {
+                            var hiddenName = name.substring(0, index);
+                            var hiddenField = me.o_findField(function ($ele, data) {
+                                return data.name == hiddenName;
+                            });
+                            if (hiddenField) {
+                                value = me.o_getFieldValue(hiddenName);
                             }
                         }
-                        else{
-                            console.warn(name+'文件标签必须data-name以_file结尾，且拥有一个对应的隐藏域data-name值为_file之前的部分');
+                        else {
+                            console.warn(name + '文件标签必须data-name以_file结尾，且拥有一个对应的隐藏域data-name值为_file之前的部分');
                         }
                     }
                     else if ($ele.is('[datecontrol]') && typeof(value) == 'int') {
@@ -266,7 +288,6 @@ define(function (require, exports, module) {
                 }
             },
             o_setFieldValue: function ($ele, value, silent) {
-                debugger
                 var me = this;
                 if (value !== undefined && value !== null) {
                     var me = this;
@@ -276,7 +297,6 @@ define(function (require, exports, module) {
                         if (typeof(value) == 'boolean') {
                             $ele.prop('checked', value).change();
                         } else {
-                            debugger
                             var items = $.isArray(value) ? value : value.split(',');
                             $(items).each(function (i, n) {
                                 $ele.filter('[value=' + n + ']').attr('data-checked', '1');
@@ -349,7 +369,6 @@ define(function (require, exports, module) {
             }
             ,
             o_setFieldVisible: function ($ele, value) {
-                debugger
                 var me = this;
                 if (value != undefined) {
                     var wrapper = this.o_field_getWrapper($ele);
