@@ -271,8 +271,8 @@
                         <span class="label">付费状态</span>
                         <span class="red">*</span>
                     </label>
-                    <span  class="field_text" >全额</span>
-                    <span  class="field_text" >全额</span>
+                    <input type="hidden" name="payStatus" value="1"/>
+                    <span  data-name="payStatus_name" class="field_text" ></span>
                 </div>
             </div>
         </div>
@@ -285,7 +285,7 @@
                         <span class="label">本次到款金额(元)</span>
                         <span class="red">*</span>
                     </label>
-                    <input type="text" class="" name=""/>
+                    <input data-name="currPayAmount" type="text" class="" name=""/>
                 </div>
             </div>
         </div>
@@ -298,7 +298,7 @@
                         <span class="label">打款日期</span>
                         <span class="red">*</span>
                     </label>
-                    <input datecontrol type="text" class="" name=""/>
+                    <input data-name="payDate" datecontrol type="text" class="" name=""/>
                 </div>
             </div>
         </div>
@@ -312,7 +312,7 @@
                         <span class="label">收款账户</span>
                         <span class="red">*</span>
                     </label>
-                    <input type="text" class="bankno" name=""/>
+                    <input data-name="receiptsAccount" type="text" class="bankno" name=""/>
                 </div>
             </div>
         </div>
@@ -385,7 +385,8 @@
                         <span class="label">门头照片</span>
                         <span class="red">*</span>
                     </label>
-                    <input type="file" class="" name="" accept="image/gif,image/jpeg,image/png"/>
+                    <input type="hidden" data-name="companyGatePicture"/>
+                    <input data-name="companyGatePicture_file" type="file" class="" name="" accept="image/gif,image/jpeg,image/png"/>
                     <span class="supporttype">(支持png、jpg、gif)</span>
                 </div>
             </div>
@@ -400,7 +401,7 @@
                         <span class="label">门头照片关键词</span>
                         <span class="red">*</span>
                     </label>
-                    <input type="text" class="" name=""/>
+                    <input data-name="companyGateKeyword" type="text" class="" name=""/>
                 </div>
             </div>
         </div>
@@ -413,7 +414,7 @@
                         <span class="label">门头照片备注</span>
                         <span class="red">*</span>
                     </label>
-                    <input  type="text" class="ipt-l" name=""/>
+                    <input  data-name="companyGateRemark" type="text" class="ipt-l" name=""/>
                 </div>
             </div>
         </div>
