@@ -174,14 +174,13 @@ define(function (require, exports, module) {
                         });
                         value = arr.join(',');
                     }
-                    if ($ele.is('[datecontrol]')) {
+                    else if ($ele.is('[datecontrol]') && typeof(value) == 'int') {
                         var configStr = $ele.attr('datecontrol');
                         var config = configStr && $.parseJSON(configstr) || {};
-                        config = $.parseJSON(configstr);
-                        if (config.type == '1') {
+                        if (config.type == '1') {//0开始时间 1为结束时间
                             value = new Date($ele.val() + " 23:59:59").getTime();
                         } else {
-                            value = new Date($ele.val() + " 23:59:59").getTime();
+                            value = new Date($ele.val() + " 00:00:00").getTime();
                         }
                     }
                     else {
@@ -233,7 +232,14 @@ define(function (require, exports, module) {
                     //考虑复选框情况
                     if ($ele.is('input[type=radio]') || $ele.is('input[type=checkbox]')) {
                         $ele.attr('checked', false).filter('[value=' + value + ']').attr('checked', true).change();
-                    } else {
+                    }
+                    else if ($ele.is('[datecontrol]') && typeof(value) == 'int') {
+                        var configStr = $ele.attr('datecontrol');
+                        var config = configStr && $.parseJSON(configstr) || {};
+                        var format = config.format || "yyyy/MM/dd";
+                        value = new Date(value)._format(format);
+                    }
+                    else {
                         $ele.val(value);
                     }
                     data.value = value;
