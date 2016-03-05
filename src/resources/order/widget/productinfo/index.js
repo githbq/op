@@ -349,6 +349,7 @@ define(function (require, exports, module) {
             }
             ,
             o_setFieldVisible: function ($ele, value) {
+                debugger
                 var me = this;
                 if (value != undefined) {
                     var wrapper = this.o_field_getWrapper($ele);

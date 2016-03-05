@@ -1,5 +1,5 @@
 define(function (require, exports, module) {
-    //var DataItem = require('../index').PageDataClass;
+    var DataItem = require('../index').PageDataClass;
     var dataItems = module.exports = [];
     //dataItems.push(new DataItem({
     //    name: 'purchaseCount_0',
@@ -43,7 +43,7 @@ define(function (require, exports, module) {
     //    }
     //}));
     //
-    //dataItems.push(new DataItem({
-    //    name: 'businesscard'
-    //}));
+    dataItems.push(new DataItem({
+        name: 'businesscard'
+    }));
 });
