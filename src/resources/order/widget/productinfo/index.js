@@ -47,17 +47,19 @@ define(function (require, exports, module) {
                 me.events = me.events || {};
                 me.o_fields = [];
                 $(data.dataItems).each(function (i, n) {
-                    n.__index = i;
-                    n.__guid = n.name;//name要保持唯一
-                    me.dataDic[n.__guid] = n;
-                    me.elements[me.i_getSelectorByName(n.name)] = n.name;
+                    if (n.__enabled !== false) {
+                        n.__index = i;
+                        n.__guid = n.name;//name要保持唯一
+                        me.dataDic[n.__guid] = n;
+                        me.elements[me.i_getSelectorByName(n.name)] = n.name;
 
-                    me.o_fields.push({key: '$' + n.name, value: n});
-                    $(n.events || []).each(function (j, m) {
-                        if (m && m.key) {
-                            me.events[m.key + ' ' + me.i_getSelectorByName(n.name)] = m.value;
-                        }
-                    });
+                        me.o_fields.push({key: '$' + n.name, value: n});
+                        $(n.events || []).each(function (j, m) {
+                            if (m && m.key) {
+                                me.events[m.key + ' ' + me.i_getSelectorByName(n.name)] = m.value;
+                            }
+                        });
+                    }
                 });
                 data.view.html(me.getTemplateStr());
                 PageClass.__super__.init.apply(this, arguments);
@@ -221,13 +223,15 @@ define(function (require, exports, module) {
                 if (value) {
                     var isArray = $.isArray(value);
                     for (var i in value) {
-                        var data = null;
-                        var field = null;
-                        var valueObj = null;
-                        if (isArray) { //数组传递复杂数据
-                            me.o_setValue(value[i]);
-                        } else {//对象传递简单值
-                            me.o_setValue({name: i, value: value[i]});
+                        if (value[i].__enabled !== false) {
+                            var data = null;
+                            var field = null;
+                            var valueObj = null;
+                            if (isArray) { //数组传递复杂数据
+                                me.o_setValue(value[i]);
+                            } else {//对象传递简单值
+                                me.o_setValue({name: i, value: value[i]});
+                            }
                         }
                     }
                 }
@@ -265,9 +269,9 @@ define(function (require, exports, module) {
                         } else {
                             var items = $.isArray(value) ? value : value.split(',');
                             $(items).each(function (i, n) {
-                                var excepts = $ele.filter('[value!=' + n + ']').attr('checked', false);
+                                var excepts = $ele.filter('[value!=' + n + ']').prop('checked',false).attr('checked', false);
                                 !silent && excepts.change();
-                                var wants = $ele.filter('[value=' + n + ']').attr('checked', true);
+                                var wants = $ele.filter('[value=' + n + ']').prop('checked',true).attr('checked', true);
                                 !silent && wants.change();
                             });
                         }
@@ -323,8 +327,8 @@ define(function (require, exports, module) {
                     var $ele = me[n.key];
                     if ($ele.length > 0) {
                         callback && callback($ele, $ele.data('data'));
-                    }else{
-                        console.warn(JSON.stringify(n)+'=>未找到对象')；
+                    } else {
+                        console.warn(JSON.stringify(n) + '=>未找到对象');
                     }
                 });
             }
