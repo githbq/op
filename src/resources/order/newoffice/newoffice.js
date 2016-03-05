@@ -9,6 +9,10 @@ define(function( require , exports , module ){
 
 		
 		var invoice = new Invoice( {'wrapper':$el.find('.invoicewrapper')} );
-		invoice.render();
+
+		$el.on('click #getinfo', function(){
+
+			invoice.getInfo();
+		});
 	}
 })

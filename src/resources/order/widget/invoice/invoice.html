@@ -1,9 +1,9 @@
 <div class="m-invoice">
 	<h4>发票/收据</h4>
 	<p class="invoice-bar">
-		<label> <input type="radio" name="invoice" data-target="invoicea" checked="checked">发票 </label>
-		<label> <input type="radio" name="invoice" data-target="invoiceb">收据 </label>
-		<label> <input type="radio" name="invoice" data-target="invoicec">暂不需要</label>
+		<label> <input type="radio" name="invoice" value="1" data-target="invoicea" checked="checked">发票 </label>
+		<label> <input type="radio" name="invoice" value="2" data-target="invoiceb">收据 </label>
+		<label> <input type="radio" name="invoice" value="3" data-target="invoicec">暂不需要</label>
 	</p>
 	<div class="invoice-container">
 
@@ -12,11 +12,11 @@
 			<p>
 				<span class="title">发票类型 <b>*</b> </span>
 				<label>
-					<input type="radio" name="intype" data-target="typea" checked="checked">
+					<input type="radio" name="intype" value="1" data-target="typea" checked="checked">
 					增值税普通发票
 				</label>
 				<label>
-					<input type="radio" name="intype" data-target="typeb">
+					<input type="radio" name="intype" value="2" data-target="typeb">
 					增值税专用发票
 				</label>
 			</p>
@@ -108,7 +108,7 @@
 		</label>
 	</p>
 	<p>
-		<span>综合折扣:<b>8折</b></span>
+		<span>综合折扣:<b class="discount"></b></span>
 	</p>
 
 	<h4>备注</h4>

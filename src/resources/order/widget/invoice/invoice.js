@@ -48,11 +48,20 @@ define(function( require , exports , module ){
 			}
 		},
 
-		init: function(){
+		/**
+		 *
+		 * attrs
+		 *  wrapper 
+		 *  data
+		 *  editFlag
+		 *  type
+		 */
+		init: function( attrs ){
 			Invoice.__super__.init.apply( this, arguments );
 
 			//初始化事件
 			this.initEvents();
+			this.render();
 		},
 
 		//初始化事件
@@ -102,6 +111,85 @@ define(function( require , exports , module ){
 		//外部接口 获取当前数据信息
 		getInfo: function(){
 			var me = this;
+
+			//进行表单验证
+
+			//获取发票类型
+			var intype = me.$('[name="intype"]:checked').val();
+			var invoice = me.$('[name="invoice"]:checked').val();
+
+			switch( intype ){
+				case '1':
+					switch( invoice ){
+						case '1':
+							if( !me.model.get('businessLicense') ){
+								util.showToast('请选择营业执照');
+								return false;
+							}
+							if( !me.model.get('invoiceHead') ){
+								util.showToast('请填写发票抬头');
+								return false;
+							}
+						break;
+						case '2':
+							if( !me.model.get('businessLicense') ){
+								util.showToast('请选择营业执照');
+								return false;
+							}
+							if( !me.model.get('taxpayerQualification') ){
+								util.showToast('请选择一般纳税人资质证书');
+								return false;
+							}
+							if( !me.model.get('companyName') ){
+								util.showToast('请填写公司名称');
+								return false;
+							}
+							if( !me.model.get('taxpayerIdentificationNo') ){
+								util.showToast('请填写纳税人识别号');
+								return false;
+							}
+							if( !me.model.get('address') ){
+								util.showToast('请填写地址');
+								return false;
+							}
+							if( !me.model.get('telephone') ){
+								util.showToast('请填写电话');
+								return false;
+							}
+							if( !me.model.get('bankName') ){
+								util.showToast('请填写开户行');
+								return false;
+							}
+							if( !me.model.get('bankAccount') ){
+								util.showToast('请填写账号');
+								return false;
+							}
+						break;
+					}
+				break;
+				case '2':
+					if( !me.model.get('invoiceHead') ){
+						util.showToast('请填写公司名称');
+						return false;
+					}
+					if( !me.model.get('amount') ){
+						util.showToast('请填写收据金额');
+						return false;
+					}
+				break;
+				case '3':
+				break;
+			}
+			
+			return {
+				'invoice': me.model.all()
+			};
+		},
+
+		//设置折扣
+		setDiscount: function( number ){
+			var me = this;
+			me.$('.discount').text( number + '折' );
 		}
 	});
 
