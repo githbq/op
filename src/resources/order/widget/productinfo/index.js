@@ -41,7 +41,7 @@ define(function (require, exports, module) {
                     var name = $(n).attr('data-name');
                     var findItem = _.findWhere(data.dataItems, {name: $(n).attr('data-name')})
                     if (!findItem) {
-                        data.dataItems.push(new DataItem({name: name,__auto:true}));
+                        data.dataItems.push(new DataItem({name: name, __auto: true}));
                     }
                 });
                 data.view.html('').append($template);
@@ -292,8 +292,8 @@ define(function (require, exports, module) {
                 if (value !== undefined && value !== null) {
                     var me = this;
                     var data = me.o_field_getData($ele);
-                    if(!data){
-                       console.warn('未找到数据,值=>'+value);
+                    if (!data) {
+                        console.warn('未找到数据,值=>' + value);
                     }
                     //考虑复选框情况
                     if ($ele.is('input[type=radio]') || $ele.is('input[type=checkbox]')) {
@@ -310,11 +310,12 @@ define(function (require, exports, module) {
                             !silent && wants.change();
                         }
                     }
-                    else if ($ele.is('[datecontrol]') && typeof(value) == 'int') {
+                    else if ($ele.is('[datecontrol]') && typeof(value) == 'number') {
+                        debugger
                         var configStr = $ele.attr('datecontrol');
-                        var config = configStr && $.parseJSON(configstr) || {};
+                        var config = configStr && me.i_parseJSON(configStr) || {};
                         var format = config.format || "yyyy/MM/dd";
-                        value = new Date(value)._format(format);
+                        $ele.val(new Date(value)._format(format));
                     }
                     else if ($ele.is(me.i_textFieldSelector)) {
                         $ele.html(value);

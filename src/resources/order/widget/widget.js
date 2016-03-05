@@ -18,7 +18,7 @@ define(function (require, exports, module) {
 
             alert('test');
             terminalInfo.o_validate();
-            alert(JSON.stringify(terminalInfo.o_getValues()));
+            alert(JSON.stringify(formInfo.o_getValues()));
 
         });
         var terminalInfo = new TerminalInfo({view: $el.find('.panel1'), dataItems: terminalDataItems});
