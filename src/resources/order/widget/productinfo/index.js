@@ -65,7 +65,7 @@ define(function (require, exports, module) {
                     $(field).data('data', fieldData);
                     fieldData.$ele = field;
                 });
-                me.$('input[datecontrol]').datetimepicker({format: 'Y/m/d'});
+                me.$('input[datecontrol]').datetimepicker({format: 'Y/m/d', timepicker: false});
                 me.o_setValues(data.dataItems);
 
             },
@@ -138,8 +138,7 @@ define(function (require, exports, module) {
                 if (callback && callback(value, option, $ele)) {
                     error = {field: $ele, name: requireName, option: option};
                 }
-                debugger
-                if (me.trigger('validateError', value, option, $ele, me) !== false) {
+                if ((!option.handler) || (option.handler && option.handler.call(me, error, value, option, $ele) !== false)) {
                     if (error) {
                         wrapper.addClass('required-error');
                         wrapper.find('.error').show().html(option.message);
@@ -148,7 +147,7 @@ define(function (require, exports, module) {
                         wrapper.removeClass('required-error');
                     }
                 }
-                error && option.handler && option.handler.call(me, error, value, option, $ele);
+                me.trigger('validateError', value, option, $ele, me);
                 return error;
             },
             o_getValues: function () {
@@ -243,6 +242,7 @@ define(function (require, exports, module) {
                         $ele.val(value);
                     }
                     data.value = value;
+                    me.trigger('setFieldValue', $ele, value);
                 }
             },
             o_setFieldAttr: function ($ele, value) {
