@@ -1,29 +1,32 @@
 define(function (require, exports, module) {
-    function DataItem(options) {
-        this.name = "";
-        this.events = [{
-            key: "", value: function (e) {
-            }
-        }];
-        this.data = [];
-        this.type = "";
-        //enable:true/false 是否启用本验证
-        //this.validateOptions = {
-        //    require: {
-        //        enable: true, value: true, message: '', handler: function (error, value, option, $ele, me) {
-        //        }
-        //    }
-        //};
-        //this.visible = true;
-        //this.disable = false;
-        //this.readonly=false;
-        //this.attr = {};
-        this.init(options);
-    }
-
-    DataItem.prototype.init = function (options) {
-        $.extend(this, options || {});
-    };
+    //模型参照
+    //function DataItem(options) {
+    //    this.name = "";
+    //    this.events = [{
+    //        key: "", value: function (e) {
+    //        }
+    //    }];
+    //    this.data = [];
+    //    this.type = "";
+    //    //enable:true/false 是否启用本验证
+    //    //this.validateOptions = {
+    //    //    require: {
+    //    //        enable: true, value: true, message: '', handler: function (error, value, option, $ele, me) {
+    //    //        }
+    //    //    }
+    //    //};
+    //    //this.visible = true;
+    //    //this.disable = false;
+    //    //this.readonly=false;
+    //    //this.attr = {};
+    //    this.init(options);
+    //}
+    var DataItem = MClass(M.Event).include({
+        init: function (options) {
+            $.extend(this, options || {});
+            DataItem.__super__.init.apply(this, arguments);
+        }
+    });
     var PageClass = MClass(M.Center).include({
             i_getTemplateStr: function () {
                 var me = this;
@@ -102,7 +105,8 @@ define(function (require, exports, module) {
             i_toHighOrderFunction: function (func, context, args) {
                 //转换为高阶函数
                 return function () {
-                    func.apply(context, args);
+                    var newArgs = args.concat([].slice.apply(arguments));
+                    return func.apply(context, newArgs);
                 }
             },
             i_initDatePicker: function () {
@@ -151,39 +155,16 @@ define(function (require, exports, module) {
                 var value = me.o_getFieldValue(null, $ele);
                 var wrapper = me.o_field_getWrapper($ele);
                 var error = null;
+                var defaultAction = me['i_checkFieldForDefault'];
                 if (options) {
                     for (var i in options) {
                         var option = options[i];
                         if (options.hasOwnProperty(i) && option.enable) {
-                            switch (i) {
-                                case 'required':
-                                {
-                                    error = me.i_checkError(i, value, option, $ele, wrapper, function (value, option, $ele) {
-                                        return !value;
-                                    });
-                                }
-                                    break;
-                                case 'maxlength':
-                                {
-                                    error = me.i_checkError(i, value, option, $ele, wrapper, function (value, option, $ele) {
-                                        return value.length > option.value;
-
-                                    });
-                                }
-                                    break;
-                                default:
-                                {   //自定义验证   拓展名规则为      i_fieldValidateXXXXXXX
-                                    if (i.toString().length > 0) {
-                                        var methodName = me.i_toWord('i_fieldValidate', i);
-                                        var method = me[methodName];
-                                        if (method) {
-                                            error = me.i_checkError(method);
-                                        }
-                                    }
-                                }
-                                    ;
-                                    break;
+                            var action = me[me.i_toWord('i_checkFieldFor', i)];
+                            if (!action) {
+                                action = defaultAction;
                             }
+                            error = action.call(this, i, value, option, $ele, wrapper);
                             if (option.handler) { //错误代理
                                 var result = option.handler.call(me, error, value, $ele);
                                 if (result !== undefined) {
@@ -195,6 +176,37 @@ define(function (require, exports, module) {
                 }
                 return error;
             },
+            i_checkFieldForRequired: function (name, value, option, $ele, wrapper) {
+                var me = this;
+                var error = me.i_checkError(name, value, option, $ele, wrapper, function (value, option, $ele) {
+                    return !value;
+                });
+                return error;
+            }
+            ,
+            i_checkFieldForMaxlength: function (name, value, option, $ele, wrapper) {
+                var me = this;
+                var error = me.i_checkError(name, value, option, $ele, wrapper, function (value, option, $ele) {
+                    return value.length > option.value;
+
+                });
+                return error;
+            }
+            ,
+
+            i_checkFieldForDefault: function (name, value, option, $ele, wrapper) {
+                var me = this;
+                var error = null;
+                if (i.toString().length > 0) {
+                    var methodName = me.i_toWord('i_checkFieldFor', i);
+                    var method = me[methodName];
+                    if (method) {
+                        error = me.i_checkError(method, name, value, option, $ele, wrapper);
+                    }
+                }
+                return error;
+            }
+            ,
             i_toWord: function (prefix, value) {//驼峰命名法
                 return prefix + value.substr(0, 1).toUpperCase() + value.substr(1);
             },
@@ -242,45 +254,101 @@ define(function (require, exports, module) {
                 }
                 var value = "";
                 if ($ele) {
-                    if ($ele.is('input[type=radio]') || $ele.is('input[type=checkbox]')) {
-                        var arr = [];
-                        $($ele.filter(':checked')).each(function (i, n) {
-                            arr.push($(n).val());
-                        });
-                        value = arr.join(',');
-                    }
-                    else if ($ele.is('input[type=file]')) {
-                        var index = name.indexOf('_file');
-                        if (index > 0) {
-                            var hiddenName = name.substring(0, index);
-                            var hiddenField = me.o_findField(function ($ele, data) {
-                                return data.name == hiddenName;
-                            });
-                            if (hiddenField) {
-                                value = me.o_getFieldValue(hiddenName);
-                            }
-                        }
-                        else {
-                            console.warn(name + '文件标签必须data-name以_file结尾，且拥有一个对应的隐藏域data-name值为_file之前的部分');
-                        }
-                    }
-                    else if ($ele.is('[datecontrol]') && typeof(value) == 'int') {
-                        var configStr = $ele.attr('datecontrol');
-                        var config = configStr && me.i_parseJSON(configstr) || {};
-                        if (config.type == '1') {//0开始时间 1为结束时间
-                            value = new Date($ele.val() + " 23:59:59").getTime();
-                        } else {
-                            value = new Date($ele.val() + " 00:00:00").getTime();
-                        }
-                    }
-                    else if ($ele.is(me.i_textFieldSelector)) {
-                        value = $ele.text();
-                    }
-                    else {
-                        value = $ele.val();
-                    }
+                    value = me.i_getFunctionPipe('i_getValueWhere', 'Default')[0]($ele);
                 }
                 return value;
+            },
+            i_getFunctionPipe: function (actionPrefix, defaultName) {//actionPrefix方法前缀名   //默认名defaultName
+                //将方法转换成管道流式调用
+                var me = this;
+                if (me['__highFunctions' + '_' + actionPrefix]) {
+                    return me['__highFunctions' + '_' + actionPrefix];
+                }
+                var args = [].slice.call(arguments, 2);
+                defaultName = defaultName || 'Default';
+                var actions = [];
+                for (var i in me) {
+                    var i = i.toString();
+                    if (i.indexOf(actionPrefix) == 0 && i.indexOf(defaultName) == -1) {
+                        actions.push(me[i]);
+                    }
+                }
+                var defaultAction = me[actionPrefix + defaultName] || function () {
+                    };
+                var highFunctions = [];
+                for (var j = actions.length; j >= 0; j--) {
+                    if (j == actions.length) {
+                        highFunctions.push(me.i_toHighOrderFunction(defaultAction, me, args));
+                    } else {
+                        highFunctions.push(me.i_toHighOrderFunction(actions[j], me, [highFunctions[highFunctions.length - 1]].concat(args)));
+                    }
+                }
+                return me['__highFunctions_' + actionPrefix] = highFunctions.reverse();//数组反转入口放在第一个
+            },
+            i_getValueWhereRadioOrCheckBox: function (next, $ele) {
+                var me = this;
+                var value = null;
+                if ($ele.is('input[type=radio]') || $ele.is('input[type=checkbox]')) {
+                    var arr = [];
+                    $($ele.filter(':checked')).each(function (i, n) {
+                        arr.push($(n).val());
+                    });
+                    value = arr.join(',');
+                    return value;
+                }
+                return next($ele);
+            }
+            ,
+            i_getValueWhereInputFile: function (next, $ele) {
+                var me = this;
+                var value = null;
+                if ($ele.is('input[type=file]')) {
+                    var index = name.indexOf('_file');
+                    if (index > 0) {
+                        var hiddenName = name.substring(0, index);
+                        var hiddenField = me.o_findField(function ($ele, data) {
+                            return data.name == hiddenName;
+                        });
+                        if (hiddenField) {
+                            value = me.o_getFieldValue(hiddenName);
+                        }
+                        return value;
+                    }
+                    else {
+                        console.warn(name + '文件标签必须data-name以_file结尾，且拥有一个对应的隐藏域data-name值为_file之前的部分');
+                    }
+                }
+                return next($ele);
+            }
+            ,
+            i_getValueWhereDateControl: function (next, $ele) {
+                var me = this;
+                var value = null;
+                if ($ele.is('[datecontrol]')) {
+                    var configStr = $ele.attr('datecontrol');
+                    var config = configStr && me.i_parseJSON(configStr) || {};
+                    if (config.type == '1') {//0开始时间 1为结束时间
+                        value = new Date($ele.val() + " 23:59:59").getTime();
+                    } else {
+                        value = new Date($ele.val() + " 00:00:00").getTime();
+                    }
+                    return value;
+                }
+                return next($ele);
+            }
+            ,
+            i_getValueWhereTextField: function (next, $ele) {
+                var me = this;
+                var value = null;
+                if ($ele.is(me.i_textFieldSelector)) {
+                    value = $ele.text();
+                    return value;
+                }
+                return next($ele);
+            }
+            ,
+            i_getValueWhereDefault: function ($ele) {
+                return $ele.val();
             },
             o_setValues: function (value, silent, first) {
                 var me = this;
