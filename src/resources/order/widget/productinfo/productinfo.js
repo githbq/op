@@ -32,18 +32,18 @@ define(function (require, exports, module) {
 
         if (data.terminalInfo && data.terminalInfo.$view) {
             data.terminalInfo.$view.addClass('productinfo');
-            data.terminalInfo.data && transferDataItems(data.terminalInfo.data, data.terminalInfo.dataItems);
-            terminalInfo = new TerminalInfo({wrapperView: data.terminalInfo.$view, dataItems: data.terminalInfo.dataItems || terminalDataItems});
+            data.terminalInfo.data && transferDataItems(data.terminalInfo.data, terminalDataItems);
+            terminalInfo = new TerminalInfo({wrapperView: data.terminalInfo.$view, dataItems: terminalDataItems});
         }
         if (data.tableInfo && data.tableInfo.$view) {
             data.terminalInfo.$view.addClass('productinfo');
-            data.terminalInfo.data && transferDataItems(data.tableInfo.data, data.tableInfo.dataItems);
-            tableInfo = new TableInfo({wrapperView: data.tableInfo.$view, dataItems: data.tableInfo.dataItems || tableDataItems});
+            data.terminalInfo.data && transferDataItems(data.tableInfo.data, tableDataItems);
+            tableInfo = new TableInfo({wrapperView: data.tableInfo.$view, dataItems: tableDataItems});
         }
         if (data.formInfo && data.formInfo.$view) {
             data.terminalInfo.$view.addClass('productinfo');
-            data.terminalInfo.data && transferDataItems(data.formInfo.data, data.formInfo.dataItems);
-            formInfo = new FormInfo({wrapperView: data.formInfo.$view, dataItems: data.formInfo.dataItems || formDataItems});
+            data.terminalInfo.data && transferDataItems(data.formInfo.data, formDataItems);
+            formInfo = new FormInfo({wrapperView: data.formInfo.$view, dataItems: formDataItems});
         }
         debugger
         var refs = {terminalInfo: terminalInfo, tableInfo: tableInfo, formInfo: formInfo, getData: getTransferDataByType(type)};
