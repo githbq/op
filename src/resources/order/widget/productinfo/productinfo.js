@@ -81,7 +81,7 @@ define(function (require, exports, module) {
 
                 //表格部分 //////////////////////////////////////////
                 var ids = ['11', '22', '33', '44'];
-                var checkeds = tableInfo.check.split(',');
+                var checkeds = tableInfoData.check.split(',');
                 $(ids).each(function (i, n) {
                         if ($.inArray(n, checkeds) >= 0) {
                             data.subOrders.push({
