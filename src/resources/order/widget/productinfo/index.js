@@ -136,6 +136,7 @@ define(function (require, exports, module) {
                 return me.errors;
             },
             o_validateField: function ($ele) {
+                if(!data){return null;}
                 var me = this;
                 var data = me.o_field_getData($ele);
                 var options = data.validateOptions;
