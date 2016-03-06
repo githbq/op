@@ -79,6 +79,7 @@ define(function (require, exports, module) {
             },
             i_init: function (data) {
                 var me = this;
+                var newDataItems=[];
                 //元素与数据双向关联
                 $(me.o_fields).each(function (i, n) {
                     var $field = me[n.key];
@@ -278,15 +279,17 @@ define(function (require, exports, module) {
                             var data = null;
                             var field = null;
                             var valueObj = null;
+                            if(first){
+                                value[i].__inited=true;
+                            }
                             if (isArray) { //数组传递复杂数据
                                 me.o_setValue(value[i]);
                             } else {//对象传递简单值
                                 me.o_setValue({name: i, value: value[i]});
                             }
+
                         }
-                        if(first){
-                            value[i].__inited==true;
-                        }
+
                     }
                 }
             },

@@ -31,6 +31,7 @@ define(function (require, exports, module) {
             {
                 key: 'change',
                 value: function (e) {
+                    debugger
                     var me = this;
                     var $dom = $(e.target);
                     var data = this.o_field_getData($dom);
