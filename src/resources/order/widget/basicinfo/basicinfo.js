@@ -208,8 +208,9 @@ define(function(require, exports, module){
 			var me = this;
 			if(me.checkVaild()){
 				return me.model.all();
-			}
 
+			}
+			return false;
 		},
 		//检测数据有效和必填项
 		checkVaild:function(){

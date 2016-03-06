@@ -8,6 +8,10 @@ define( function( require, exports, module ) {
     var tem = $( require('./template.html') );
 
     var statusMap = {},industryMap = {},sourceMap = {};
+
+    var statusAry = ['','已通过','待审核','已过期','撤回'];
+    var payStatusAry = ['','分期','全款','未付'];
+    var orderTypeAry = []
     
    /**
     *
@@ -130,16 +134,17 @@ define( function( require, exports, module ) {
             }
 
             util.api({
-                'url':'/order/querypage',
+                'url':'/odr/querypage',
                 'data':queryData,
                 'success': function( data ){
                     console.warn( data );
                     if( data.success ){
                         me.collection.reload( data.value.model.content, function( item ){
-                            //item.createTimeStr = new Date( item.createTime )._format('yyyy-MM-dd hh:mm');
-                            //item.statusStr = statusMap[ item.status ];
-							//item.industryStr = industryMap[ item.industry ];
-							//item.sourceStr = sourceMap[ item.source ];	
+
+                            item.statusStr = item.order.status ? statusAry[item.order.status] :'';
+                            item.payStatusStr = item.order.payStatus ? payStatusAry[item.order.payStatus] :'';
+                            item.createTimeStr = new Date( item.order.createTime )._format('yyyy/MM/dd');
+
                         });
 
                         me.pagination.setTotalSize( data.value.model.itemCount );
@@ -157,7 +162,7 @@ define( function( require, exports, module ) {
             if( collection.length > 0 ){
                 htmlStr = me.trTpl( {'content': collection} );
             }else{
-                htmlStr = "<tr> <td colspan='11'><p class='info'>暂无数据</p></td> </tr>"
+                htmlStr = "<tr> <td colspan='14'><p class='info'>暂无数据</p></td> </tr>"
             }
 
             me.$tbody.html( htmlStr );

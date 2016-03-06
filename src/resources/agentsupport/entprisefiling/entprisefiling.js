@@ -320,9 +320,9 @@ define( function( require, exports, module ) {
 				'success': function( data ){
 					if( data.success ){
 						if( val == 'newOffice' ){
-							location.hash = '#order/newmarketying/newOffice';
+							location.hash = '#order/newmarketying/releateOffice';
 						}else{
-							location.hash = '#order/newmarketying/newMarket';
+							location.hash = '#order/newmarketying/releateMarket';
 						}
 					   //location.hash = '#agentsupport/bindinfo/'+me.attrs['entId']+'/'+enterpriseAccount;
 					} 

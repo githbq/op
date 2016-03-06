@@ -5,7 +5,17 @@ define( function( require, exports, module ) {
 	var Explain = require('../widget/explain/explain');
 	var OrderInfo = require('../widget/orderinfo/orderinfo');
 	var InvoiceInfo = require('../widget/invoice/invoice');
-
+	var productinfo = require('../widget/productinfo/productinfo');
+	var orderDate = [
+						'newOffice-common','newOffice-special',
+						'newMarket-common','newMarket-special',
+						'addOffice-common','addOffice-special',
+						'addMarkey-common','addMarkey-special',
+						'againOffice-common','againOffice-special',
+						'againMarkey-common','againMarkey-special',
+						'releateOffice-common','releateOffice-special',
+						'releateMarket-common','releateMarket-special',
+					];
     var NewMarketing = MClass( M.Center ).include( {
         
         elements: {
@@ -20,6 +30,8 @@ define( function( require, exports, module ) {
             NewMarketing.__super__.init.apply( this, arguments );
             var me = this;
 			//me.$view.find('.list-pager')
+
+			//切换表头
 			me.$tabsList.on('click',function(){
 				var $this = $(this);
 				var $t = $this.index();
@@ -27,24 +39,34 @@ define( function( require, exports, module ) {
 				me.$(this).addClass('current');
 				me.$('.content-box ').css('display','none');
 				me.$('.content-box ').eq($t).css('display','block');
+
+				if( $this.attr('class').indexOf('common')> -1 ){
+					me.attrs.showType = 'common';
+				}else{
+					me.attrs.showType = 'special';
+				}
+				//重新设置产品信息模块
+				me.setProductShow();
 			})
-		
+			//初始化
+			me.attrs.showType = 'common';
 			me.checkType();
         },
 		//判断类型
 		checkType:function(){
 			var me = this;
-			
+
 			switch( me.attrs.typeFlag )
 			{
 				//新购办公版类型
-				case 'newOffice':
+				
+				case "newOffice" : case "releateOffice":
 					me.setNavTitle( '新购办公版', '新购办公版特批');
 					
 					if(!IBSS.tempEnterprise){
 						location.hash = "#agentsupport/entprisefiling";
 					}
-					
+
 					me.attrs.basicCommon = new BasicInfo( { 'wrapper':me.$view.find('.common-market-basic'),'data':{},'editFlag':true,'type':1} );
 					me.attrs.basicSpecial = new BasicInfo( { 'wrapper':me.$view.find('.special-market-basic'),'data':{},'editFlag':true,'type':2} );
 					me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common-market-explain'),'data':{},'editFlag':true,'type':1} );
@@ -55,7 +77,7 @@ define( function( require, exports, module ) {
 					break;
 					
 				//新购营销版类型
-				case 'newMarket':
+				case 'newMarket': case "releateMarket":
 					me.setNavTitle( '新购营销版', '新购营销版特批');
 					
 					if(!IBSS.tempEnterprise){
@@ -113,7 +135,6 @@ define( function( require, exports, module ) {
 					me.attrs.invoiceCommon = new InvoiceInfo( { 'wrapper':me.$view.find('.common-market-invioce'),'data':{},'editFlag':true,'type':9 } );
 					me.attrs.invoiceSpecial = new InvoiceInfo( { 'wrapper':me.$view.find('.special-market-invioce'),'data':{},'editFlag':true,'type':10 } );
 
-
 					me.setOrderInfo();
 					
 					break;
@@ -134,8 +155,19 @@ define( function( require, exports, module ) {
 					
 					break;	
 				default:
-				  
+
 			}
+			me.setProductShow();
+		},
+		//显示产品信息
+		setProductShow:function(){
+			var me = this;
+
+			me.attrs.prodeuctObj =  productinfo.showProductInfo( {terminalInfo:{$view:me.$view.find('.'+me.attrs.showType+'-terminalinfo')},
+					tableInfo:{$view:me.$view.find('.'+me.attrs.showType+'-tableinfo')},
+					formInfo:{$view:me.$view.find('.'+me.attrs.showType+'-forminfo')}}
+			);
+
 		},
 		//设置订单文字
 		setNavTitle:function( common, special ){
@@ -150,7 +182,7 @@ define( function( require, exports, module ) {
 		},
 		//获取全部订单数据
 		getOrderInfo:function(){
-			var me = this,objData = {};
+			var me = this,ObjData  = {  };
 			var basicData = {}, productData = {}, invoiceData = {},explainData = {};
 			
 			
@@ -158,48 +190,72 @@ define( function( require, exports, module ) {
 			{
 				//新购办公版类型
 				case 'newOffice':
-	
-					
+
 					break;
 					
 				//新购营销版类型
 				case 'newMarket':
-		
-					
+
 					break;
 				  
 				 //增购办公版订单
 				case 'addOffice':
-	
-					
+
 					break;
 					
 				 //增购营销版订单
 				case 'addMarkey':
-		
-					
+
 					break;
 					
 				//续费办公版订单
 				case 'againOffice':
-			
-					
+
 					break;
 					
 				//续费营销版订单
 				case 'againMarkey':
-				
-					
-					
+
 					break;	
 				default:
 				  
 			}
-			
-			
-			basicData = me.attrs.basicCommon.getValue();
-			explainData = me.attrs.invoiceCommon.getValue();
-			$.extend(true, objData, basicData,productData,invoiceData);
+			//获取普通订单信息
+			if(me.attrs.showType == 'common'){
+
+				//基本信息校验和取值
+				/*if( me.attrs.basicCommon.getValue() ){
+					ObjData.enterprise = me.attrs.basicCommon.getValue();
+				}else{
+					return ;
+				}*/
+
+				//产品信息
+				debugger
+				me.attrs.prodeuctObj.data();
+
+				//发票信息校验和取值
+				if( me.attrs.invoiceCommon.getInfo() ){
+					ObjData.enterprise = me.attrs.invoiceCommon.getInfo();;
+				}else{
+					return ;
+				}
+
+			//获取特批订单信息
+			}else{
+
+			}
+
+			util.api({
+                'url':me.attrs.url,
+                'data':me.attrs.objData,
+                'success': function( data ){
+             
+                    if( data.success ){
+                       
+                    }
+                }
+            })
 
 		},
 		cancelEve: function(){
@@ -216,17 +272,20 @@ define( function( require, exports, module ) {
 				default:
 				   location.hash = "#agentsupport/entprisefiling";
 			}
-		},
+		}
     } );
 
     exports.init = function(param) {
 		var $el = exports.$el;
 		param = param || [];
 		console.log(param)
-		if(param.length<1){
-			
+		if(param.length<1) {
+
 			return false;
 		}
-        var newMarketing = new NewMarketing( { 'view':$el,'typeFlag':param[0]} );
+		
+		var newMarketing = new NewMarketing( { 'view':$el,'typeFlag':param[0]} );
+		
+
     }
 } );
