@@ -97,8 +97,8 @@ define(function (require, exports, module) {
                 );
                 debugger
                 //合同部分//////////////////////////////////////////////////////////////////////////
-                var contractData = $.parseJSON( '{}'||formInfoData.contract);
-                var contractCopyData = $.parseJSON( '{}'||formInfoData.contractCopy);
+                var contractData = $.parseJSON('{}' || formInfoData.contract);
+                var contractCopyData = $.parseJSON('{}' || formInfoData.contractCopy);
                 data.contract = {
                     contractNo: formInfoData.contractNo,
                     contractPrice: formInfoData.contractPrice,
@@ -109,13 +109,24 @@ define(function (require, exports, module) {
                     contractCopyFileName: contractCopyData.contractCopyFileName
                 };
                 //门头照片
-                var companyGatePictureData = $.parseJSON( '{}'||formInfoData.companyGatePicture);
+                var companyGatePictureData = $.parseJSON('{}' || formInfoData.companyGatePicture);
                 data.enterpriseExtend = {
                     compayGatePicture: companyGatePictureData.compayGatePicture,
                     compayGatePictureFileName: companyGatePictureData.compayGatePictureFileName,
                     companyGateKeyword: formInfoData.companyGateKeyword,
                     companyGateRemark: formInfoData.companyGateRemark
                 };
+                //订单主信息
+                data.order = {
+                    payStatus: 1,
+                    currPayAmount:formInfoData.currPayAmount,
+                    payDate:formInfoData.payDate,
+                    receiptsAccount:formInfoData.receiptsAccount,
+                    payerName:formInfoData.payerName,
+                    contractNo:formInfoData.contractNo,
+                    contractPrice: formInfoData.contractPrice
+                };
+
             }
                 break;
         }
