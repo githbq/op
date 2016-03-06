@@ -37,7 +37,7 @@ define(function (require, exports, module) {
             i_inject: function (data) {//被动注入
                 var me = this;
                 var $template = $(me.i_getTemplateStr());
-                $template.find('['+me.i_attrName+']').each(function (i, n) {
+                $template.find('[' + me.i_attrName + ']').each(function (i, n) {
                     var name = $(n).attr(me.i_attrName);
                     var findItem = _.findWhere(data.dataItems, {name: $(n).attr(me.i_attrName)});
                     if (!findItem) {
@@ -79,7 +79,7 @@ define(function (require, exports, module) {
             },
             i_init: function (data) {
                 var me = this;
-                var newDataItems=[];
+                var newDataItems = [];
                 //元素与数据双向关联
                 $(me.o_fields).each(function (i, n) {
                     var $field = me[n.key];
@@ -89,7 +89,7 @@ define(function (require, exports, module) {
                     me.dataDic[n.value.__guid] = config;
                     data.dataItems[config.__index] = config;
                 });
-                me.o_setValues(data.dataItems,true);
+                me.o_setValues(data.dataItems, true);
                 me.i_initDatePicker();
             },
             i_toHighOrderFunction: function (func, context, args) {
@@ -215,7 +215,7 @@ define(function (require, exports, module) {
                 });
                 return result;
             },
-            o_getFieldDataByName:function(name){
+            o_getFieldDataByName: function (name) {
                 return me.dataDic[name];
             },
             o_getFieldValue: function (name, $ele) {
@@ -270,7 +270,7 @@ define(function (require, exports, module) {
                 }
                 return value;
             },
-            o_setValues: function (value,first) {
+            o_setValues: function (value, first) {
                 var me = this;
                 if (value) {
                     var isArray = $.isArray(value);
@@ -279,11 +279,8 @@ define(function (require, exports, module) {
                             var data = null;
                             var field = null;
                             var valueObj = null;
-                            if(first){
-                                value[i].__inited=true;
-                            }
                             if (isArray) { //数组传递复杂数据
-                                me.o_setValue(value[i]);
+                                me.o_setValue(value[i], first);
                             } else {//对象传递简单值
                                 me.o_setValue({name: i, value: value[i]});
                             }
@@ -304,7 +301,10 @@ define(function (require, exports, module) {
                     console.warn('未到找对应的数据=>data:' + JSON.stringify(obj));
                     return;
                 }
-                if ($field && $field.length>0) {
+                if (first) {
+                    data.__inited = true;
+                }
+                if ($field && $field.length > 0) {
                     //自动执行设置方法
                     for (var i in obj) {
                         if (obj.hasOwnProperty(i) && i.toString().length > 1) {
@@ -428,11 +428,11 @@ define(function (require, exports, module) {
             }
             ,
             o_field_getData: function ($ele) {
-                var me=this;
+                var me = this;
                 return me.dataDic[$ele.attr('data-name')];
             },
             o_data_getField: function (data) {
-                var me=this;
+                var me = this;
                 return me.$(me.i_getSelectorByName(data.name));
             }
         }
