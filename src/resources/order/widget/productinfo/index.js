@@ -118,14 +118,18 @@ define(function (require, exports, module) {
             o_fields: [{key: '', value: {}}],
             o_validate: function () {
                 var me = this;
-                var errors = [];
+                var errors = me.errors = [];
                 me.o_eachFields(function ($ele, data) {
                     var error = me.o_validateField($ele);
                     if (error) {
                         errors.push(error);
                     }
                 });
-                return errors.length > 0 ? errors : false;
+                return errors.length == 0;
+            },
+            o_getValidateErrors: function () {
+                //获取验证的错误信息
+                return me.errors;
             },
             o_validateField: function ($ele) {
                 var me = this;

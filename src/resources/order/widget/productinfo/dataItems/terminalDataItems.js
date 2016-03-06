@@ -5,8 +5,8 @@ define(function (require, exports, module) {
     dataItems.push(new DataItem({
         name: 'purchaseCount_0',
         value: '1000',
-        attr: {readonly: true},
-        //validateOptions: {
+        attr: {readonly: true}
+        //,validateOptions: {
         //    required: {
         //        enable: true, value: true, message: '', handler: function (error, value, option, $ele) {
         //        }
