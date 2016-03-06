@@ -199,7 +199,7 @@ define(function( require , exports , module ){
 			
 			return {
 				'invoice': me.model.all(),
-				'extra':{
+				'order':{
 					'isCooperation': me.$('[name="team"]:checked').val(),   //是否合作单
 					'cooperationUnit':'',           						//部门员工      
 					'remark': me.model.get('remark')                        //备注
