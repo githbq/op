@@ -55,7 +55,7 @@ define(function (require, exports, module) {
     //打款日期
     dataItems.push(new DataItem({
         name: 'payDate',
-        value:1023200032,
+        value:new Date().getTime(),
         validateOptions: {
             required: {
                 enable: true, value: true, message: '请填写打款日期', handler: function (error, value, option, $ele) {

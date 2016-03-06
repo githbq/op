@@ -32,17 +32,26 @@ define(function (require, exports, module) {
 
         if (data.terminalInfo && data.terminalInfo.$view) {
             data.terminalInfo.$view.addClass('productinfo');
-            terminalInfo = new TerminalInfo({view: data.terminalInfo.$view, dataItems: data.terminalInfo.dataItems || terminalDataItems});
+            data.terminalInfo.data && transferDataItems(data.terminalInfo.data, data.terminalInfo.dataItems);
+            terminalInfo = new TerminalInfo({wrapperView: data.terminalInfo.$view, dataItems: data.terminalInfo.dataItems || terminalDataItems});
         }
         if (data.tableInfo && data.tableInfo.$view) {
             data.terminalInfo.$view.addClass('productinfo');
-            tableInfo = new TableInfo({view: data.tableInfo.$view, dataItems: data.tableInfo.dataItems || tableDataItems});
+            data.terminalInfo.data && transferDataItems(data.tableInfo.data, data.tableInfo.dataItems);
+            tableInfo = new TableInfo({wrapperView: data.tableInfo.$view, dataItems: data.tableInfo.dataItems || tableDataItems});
         }
         if (data.formInfo && data.formInfo.$view) {
             data.terminalInfo.$view.addClass('productinfo');
-            formInfo = new FormInfo({view: data.formInfo.$view, dataItems: data.formInfo.dataItems || formDataItems});
+            data.terminalInfo.data && transferDataItems(data.formInfo.data, data.formInfo.dataItems);
+            formInfo = new FormInfo({wrapperView: data.formInfo.$view, dataItems: data.formInfo.dataItems || formDataItems});
         }
-        return {terminalInfo: terminalInfo, tableInfo: tableInfo, formInfo: formInfo, data: transferDataByType(type)};
+        debugger
+        var refs = {terminalInfo: terminalInfo, tableInfo: tableInfo, formInfo: formInfo, getData: getTransferDataByType(type)};
+        formInfo.__refs = tableInfo.__refs = terminalInfo.__refs = refs;
+        terminalInfo.render();
+        tableInfo.render();
+        formInfo.render();
+        return refs;
     };
 
     function getXinGouNormal(terminalInfo, tableInfo, formInfo) {
@@ -50,7 +59,18 @@ define(function (require, exports, module) {
 
     }
 
-    //转换数据
+    //dataItem转换
+    function transferDataItems(data, dataItems) {
+        for (var i in data) {
+            if (data.hasOwnProperty(i)) {
+                var temp = {};
+                temp[i] = data[i];
+                var item = _.findWhere(dataItems, temp);
+                item && $.extend(item, {value: data[i]});
+            }
+        }
+    }
+
     function transferDataByType(type) {
         type = type || '1';
         var data = {order: {}, subOrders: [], contract: {}, enterpriseExtend: {}};
@@ -119,11 +139,11 @@ define(function (require, exports, module) {
                 //订单主信息
                 data.order = {
                     payStatus: 1,
-                    currPayAmount:formInfoData.currPayAmount,
-                    payDate:formInfoData.payDate,
-                    receiptsAccount:formInfoData.receiptsAccount,
-                    payerName:formInfoData.payerName,
-                    contractNo:formInfoData.contractNo,
+                    currPayAmount: formInfoData.currPayAmount,
+                    payDate: formInfoData.payDate,
+                    receiptsAccount: formInfoData.receiptsAccount,
+                    payerName: formInfoData.payerName,
+                    contractNo: formInfoData.contractNo,
                     contractPrice: formInfoData.contractPrice
                 };
 
@@ -133,7 +153,16 @@ define(function (require, exports, module) {
         console.warn('transferData=>' + type + ':' + JSON.stringify(data));
         return data;
     }
+
+    function getTransferDataByType(type) {
+        //转换数据
+        return function () {
+            transferDataByType(type);
+        }
+    }
+
 });
+
 
 
 

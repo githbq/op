@@ -23,13 +23,13 @@ define(function (require, exports, module) {
     //终端开始日期
     dataItems.push(new DataItem({
         name: 'startTime_0',
-        value: '',
+        value:new Date().getTime(),
         readonly: true
     }));
     //终端结束日期
     dataItems.push(new DataItem({
         name: 'endTime_0',
-        value: '',
+        value:new Date().getTime(),
         attr: {readonly: true}
     }));
 

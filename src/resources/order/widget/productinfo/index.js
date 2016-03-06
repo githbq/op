@@ -44,7 +44,14 @@ define(function (require, exports, module) {
                         data.dataItems.push(new DataItem({name: name, __auto: true}));
                     }
                 });
-                data.view.html('').append($template);
+                me.wrapperView = data.wrapperView;
+                me.$view = me.view = $('<div>');
+                me.$view.html('').append($template);
+            },
+            render: function () {
+                var me = this;
+                me.i_init(me.attrs);//最终初始化
+                me.wrapperView.html('').append(me.$view);
             },
             i_initEventsAndElements: function (data) {
                 var me = this;
@@ -76,12 +83,11 @@ define(function (require, exports, module) {
                 me.i_inject(data);//数据处理
                 me.i_initEventsAndElements(data);//核心对象处理
                 PageClass.__super__.init.apply(this, arguments);//调用父类初始化
-                me.i_init(data);//最终初始化
             },
             i_init: function (data) {
                 var me = this;
                 var newDataItems = [];
-                //元素与数据双向关联
+                //元素与数据初始化
                 $(me.o_fields).each(function (i, n) {
                     var $field = me[n.key];
                     var fieldData = me.dataDic[n.value.__guid];
@@ -136,7 +142,9 @@ define(function (require, exports, module) {
                 return me.errors;
             },
             o_validateField: function ($ele) {
-                if(!$ele || $ele.length==0){return null;}
+                if (!$ele || $ele.length == 0) {
+                    return null;
+                }
                 var me = this;
                 var data = me.o_field_getData($ele);
                 var options = data.validateOptions;
