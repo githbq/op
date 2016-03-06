@@ -8,7 +8,6 @@ define(function (require, exports, module) {
             {
                 key: 'change',
                 value: function (e) {
-                    debugger
                     this.o_setValue({name: 'check', value: $(e.target).is(':checked')});
                 }
             }, {
@@ -31,7 +30,6 @@ define(function (require, exports, module) {
             {
                 key: 'change',
                 value: function (e) {
-                    debugger
                     var me = this;
                     var $dom = $(e.target);
                     var data = this.o_field_getData($dom);
