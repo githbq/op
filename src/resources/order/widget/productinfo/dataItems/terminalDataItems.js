@@ -5,7 +5,7 @@ define(function (require, exports, module) {
     dataItems.push(new DataItem({
         name: 'purchaseCount_0',
         value: '1000',
-        attr: {readonly: true}
+        readonly: true
         //,validateOptions: {
         //    required: {
         //        enable: true, value: true, message: '', handler: function (error, value, option, $ele) {
@@ -24,7 +24,7 @@ define(function (require, exports, module) {
     dataItems.push(new DataItem({
         name: 'startTime_0',
         value: '',
-        attr: {readonly: true}
+        readonly: true
     }));
     //终端结束日期
     dataItems.push(new DataItem({
