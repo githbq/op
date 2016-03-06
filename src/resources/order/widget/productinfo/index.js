@@ -419,6 +419,7 @@ define(function (require, exports, module) {
             }
             ,
             o_field_getData: function ($ele) {
+                var me=this;
                 return me.dataDic[$ele.attr('data-name')];
             },
             o_data_getField: function (data) {
