@@ -87,18 +87,14 @@ define(function (require, exports, module) {
                     $.extend(config, fieldData);
                     me.dataDic[n.value.__guid] = config;
                     data.dataItems[config.__index] = config;
-                    $field.data('data', config);
-                    if ($field) {
-                        config.$ele = $field;
-                    }
                 });
                 me.o_setValues(data.dataItems);
                 me.i_initDatePicker();
             },
-            i_toHighOrderFunction:function(func,context,args){
+            i_toHighOrderFunction: function (func, context, args) {
                 //转换为高阶函数
-                return function(){
-                    func.apply(context,args);
+                return function () {
+                    func.apply(context, args);
                 }
             },
             i_initDatePicker: function () {
@@ -220,9 +216,14 @@ define(function (require, exports, module) {
             },
             o_getFieldValue: function (name, $ele) {
                 var me = this;
+                var data = null;
                 var $ele = $ele || me.o_findField(function ($ele, data) {
+                        data = data;
                         return data.name == name;
                     });
+                if ($ele.length == 0 && data) {//无DOM数据
+                    return data;
+                }
                 var value = "";
                 if ($ele) {
                     if ($ele.is('input[type=radio]') || $ele.is('input[type=checkbox]')) {
@@ -289,7 +290,11 @@ define(function (require, exports, module) {
                     return;
                 }
                 var data = me.dataDic[obj.name];
-                var $field = me.dataDic[obj.name].$ele;//找到对应的$DOM
+                var $field = me.o_data_getField(data);//找到对应的$DOM
+                if (!data) {
+                    console.warn('未到找对应的数据=>data:' + JSON.stringify(obj));
+                    return;
+                }
                 if ($field) {
                     //自动执行设置方法
                     for (var i in obj) {
@@ -301,6 +306,8 @@ define(function (require, exports, module) {
                             }
                         }
                     }
+                } else {//无DOM的数据
+                    $.extend(data, obj);
                 }
             },
             o_setFieldValue: function ($ele, value, silent) {
@@ -376,11 +383,9 @@ define(function (require, exports, module) {
                 $(me.o_fields).each(function (i, n) {
                     n.value.attr = n.value.attr || {};
                     var $ele = me[n.key];
-                    if ($ele.length > 0) {
-                        callback && callback($ele, $ele.data('data'));
-                    } else {
-                        console.warn(JSON.stringify(n) + '=>未找到对象');
-                    }
+                    // if ($ele.length > 0) {//现在允许无dom的数据
+                    callback && callback($ele, me.o_field_getData($ele));
+                    //}
                 });
             }
             ,
@@ -414,7 +419,10 @@ define(function (require, exports, module) {
             }
             ,
             o_field_getData: function ($ele) {
-                return $ele.data('data');
+                return me.dataDic[$ele.attr('data-name')];
+            },
+            o_data_getField: function (data) {
+                return me.$('[data-name=' + data.name + ']');
             }
         }
     );
