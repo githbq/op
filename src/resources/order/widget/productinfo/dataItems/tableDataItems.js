@@ -42,12 +42,13 @@ define(function (require, exports, module) {
                             var $n = $(n);
                             if ($n.is(':checked')) {//勾选的项进入计算
                                 var id = $n.val();
-                                debugger
                                 order_amount += parseInt(me.o_getFieldValue('purchaseAmount_' + id) || 0);
                             }
                         });
-                        me.o_setValue({order_amount: order_amount});
-                        alert(me.o_getFieldValue({}));
+                        debugger
+                        me.o_setValue({name:'order_amount',value: order_amount});
+                        debugger
+                        alert(me.o_getFieldValue('order_amount'));
                     }
                 }
             }

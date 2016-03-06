@@ -69,6 +69,7 @@ define(function (require, exports, module) {
             },
             events: {},
             elements: {},
+            i_silent: false,//安静.不触发事件
             init: function (data) {
                 //在初始化前做的事
                 var me = this;
@@ -89,7 +90,7 @@ define(function (require, exports, module) {
                     me.dataDic[n.value.__guid] = config;
                     data.dataItems[config.__index] = config;
                 });
-                me.o_setValues(data.dataItems, true);
+                me.o_setValues(data.dataItems, me.i_silent, true);
                 me.i_initDatePicker();
             },
             i_toHighOrderFunction: function (func, context, args) {
@@ -215,15 +216,17 @@ define(function (require, exports, module) {
                 });
                 return result;
             },
-            o_getFieldDataByName: function (name) {
+            o_getFieldData: function (name) {
                 return me.dataDic[name];
             },
             o_getFieldValue: function (name, $ele) {
                 var me = this;
                 var data = null;
-                var $ele = $ele || me.o_findField(function ($ele, data) {
-                        data = data;
-                        return data && data.name == name;
+                var $ele = $ele || me.o_findField(function ($ele, _data) {
+                        if (_data && _data.name == name) {
+                            data = _data;
+                            return true;
+                        }
                     });
                 if ((!$ele || $ele.length == 0) && data) {//无DOM数据
                     return data.value;
@@ -270,7 +273,7 @@ define(function (require, exports, module) {
                 }
                 return value;
             },
-            o_setValues: function (value, first) {
+            o_setValues: function (value, silent, first) {
                 var me = this;
                 if (value) {
                     var isArray = $.isArray(value);
@@ -280,7 +283,7 @@ define(function (require, exports, module) {
                             var field = null;
                             var valueObj = null;
                             if (isArray) { //数组传递复杂数据
-                                me.o_setValue(value[i], first);
+                                me.o_setValue(value[i], silent, first);
                             } else {//对象传递简单值
                                 me.o_setValue({name: i, value: value[i]});
                             }
@@ -389,13 +392,12 @@ define(function (require, exports, module) {
             ,
             o_eachFields: function (callback) {
                 var me = this;
-                $(me.o_fields).each(function (i, n) {
-                    n.value.attr = n.value.attr || {};
-                    var $ele = me[n.key];
-                    // if ($ele.length > 0) {//现在允许无dom的数据
-                    callback && callback($ele, me.o_field_getData($ele));
-                    //}
-                });
+                for (var i in me.dataDic) {
+                    if (me.dataDic.hasOwnProperty(i)) {
+
+                        callback && callback(me.o_data_getField(me.dataDic[i]), me.dataDic[i]);
+                    }
+                }
             }
             ,
             o_field_getWrapper: function ($ele) {
@@ -429,11 +431,11 @@ define(function (require, exports, module) {
             ,
             o_field_getData: function ($ele) {
                 var me = this;
-                return me.dataDic[$ele.attr('data-name')];
+                return me.dataDic[$ele.attr(me.i_selector)];
             },
             o_data_getField: function (data) {
                 var me = this;
-                return me.$(me.i_getSelectorByName(data.name));
+                return data && me.$(me.i_getSelectorByName(data.name)) || undefined;
             }
         }
     );
