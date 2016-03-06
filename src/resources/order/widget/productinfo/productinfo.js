@@ -42,7 +42,7 @@ define(function (require, exports, module) {
             data.terminalInfo.$view.addClass('productinfo');
             formInfo = new FormInfo({view: data.formInfo.$view, dataItems: data.formInfo.dataItems || formDataItems});
         }
-        return {terminalInfo: terminalInfo, tableInfo: tableInfo, formInfo: formInfo,data:transferDataByType(type)};
+        return {terminalInfo: terminalInfo, tableInfo: tableInfo, formInfo: formInfo, data: transferDataByType(type)};
     };
 
     function getXinGouNormal(terminalInfo, tableInfo, formInfo) {
@@ -53,7 +53,7 @@ define(function (require, exports, module) {
     //转换数据
     function transferDataByType(type) {
         type = type || '1';
-        var data = {order: {}, subOrders: [], contract: {},enterpriseExtend:{}};
+        var data = {order: {}, subOrders: [], contract: {}, enterpriseExtend: {}};
         switch (config[type]) {
             case '办公版新购-普通':
             {
@@ -96,28 +96,29 @@ define(function (require, exports, module) {
                     }
                 );
                 //合同部分//////////////////////////////////////////////////////////////////////////
-                var contractData= $.parseJSON(formInfoData.contract||'{}');
-                var contractCopyData= $.parseJSON(formInfoData.contractCopy||'{}');
-                data.contract={
-                    contractNo:formInfoData.contractNo,
-                    contractPrice:formInfoData.contractPrice,
-                    sealName:formInfoData.sealName,
-                    contract:contractData.contract,
-                    contractFileName:contractData.contractFileName,
-                    contractCopy:contractCopyData.contractCopy,
-                    contractCopyFileName:contractCopyData.contractCopyFileName
+                var contractData = $.parseJSON(formInfoData.contract || '{}');
+                var contractCopyData = $.parseJSON(formInfoData.contractCopy || '{}');
+                data.contract = {
+                    contractNo: formInfoData.contractNo,
+                    contractPrice: formInfoData.contractPrice,
+                    sealName: formInfoData.sealName,
+                    contract: contractData.contract,
+                    contractFileName: contractData.contractFileName,
+                    contractCopy: contractCopyData.contractCopy,
+                    contractCopyFileName: contractCopyData.contractCopyFileName
                 };
                 //门头照片
-                var companyGatePictureData= $.parseJSON(formInfoData.companyGatePicture||'{}');
-                data.enterpriseExtend={
-                    compayGatePicture:companyGatePictureData.compayGatePicture,
-                    compayGatePictureFileName:companyGatePictureData.compayGatePictureFileName,
-                    companyGateKeyword:formInfoData.companyGateKeyword,
-                    companyGateRemark:formInfoData.companyGateRemark
+                var companyGatePictureData = $.parseJSON(formInfoData.companyGatePicture || '{}');
+                data.enterpriseExtend = {
+                    compayGatePicture: companyGatePictureData.compayGatePicture,
+                    compayGatePictureFileName: companyGatePictureData.compayGatePictureFileName,
+                    companyGateKeyword: formInfoData.companyGateKeyword,
+                    companyGateRemark: formInfoData.companyGateRemark
                 };
             }
                 break;
         }
+        console.warn('transferData=>' + type + ':' + JSON.stringify(data));
         return data;
     }
 });
