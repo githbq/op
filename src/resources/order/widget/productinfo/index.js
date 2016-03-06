@@ -422,6 +422,7 @@ define(function (require, exports, module) {
                 return me.dataDic[$ele.attr('data-name')];
             },
             o_data_getField: function (data) {
+                var me=this;
                 return me.$('[data-name=' + data.name + ']');
             }
         }
