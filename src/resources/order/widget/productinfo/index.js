@@ -92,13 +92,19 @@ define(function (require, exports, module) {
                         config.$ele = $field;
                     }
                 });
-                me.i_initDatePicker();
                 me.o_setValues(data.dataItems);
+                me.i_initDatePicker();
+            },
+            i_toHighOrderFunction:function(func,context,args){
+                //转换为高阶函数
+                return function(){
+                    func.apply(context,args);
+                }
             },
             i_initDatePicker: function () {
                 var me = this;
                 var option = {format: 'Y/m/d', timepicker: false};
-                me.$('input[datecontrol]').each(function (i, n) {
+                me.$('input[datecontrol]:not([readonly])').each(function (i, n) {
                     var config = $(n).attr('datecontrol') ? me.i_parseJSON($(n).attr('datecontrol')) : {};
                     $.extend(option, config);
                     $(n).datetimepicker(option);
