@@ -45,10 +45,8 @@ define(function (require, exports, module) {
                                 order_amount += parseInt(me.o_getFieldValue('purchaseAmount_' + id) || 0);
                             }
                         });
-                        debugger
                         me.o_setValue({name:'order_amount',value: order_amount});
-                        debugger
-                        alert(me.o_getFieldValue('order_amount'));
+                        //alert(me.o_getFieldValue('order_amount'));
                     }
                 }
             }

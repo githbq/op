@@ -118,7 +118,7 @@ define(function (require, exports, module) {
                 return data;
             },
             i_dataItems: {},
-            i_selector: '',
+            i_selector: '',//模板选择器
             o_fields: [{key: '', value: {}}],
             o_validate: function () {
                 var me = this;
@@ -431,7 +431,7 @@ define(function (require, exports, module) {
             ,
             o_field_getData: function ($ele) {
                 var me = this;
-                return me.dataDic[$ele.attr(me.i_selector)];
+                return me.dataDic[$ele.attr(me.i_attrName)];
             },
             o_data_getField: function (data) {
                 var me = this;

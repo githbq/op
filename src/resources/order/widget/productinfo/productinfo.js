@@ -51,6 +51,8 @@ define(function (require, exports, module) {
     }
     //转换数据
     function transferDataByType(type) {
+        type=type||'1';
+        var data={order:{},subOrders:[],contract:{}};
         switch (config[type]) {
             case '办公版新购-普通':
             {
@@ -58,9 +60,46 @@ define(function (require, exports, module) {
                 var tableInfoData = tableInfo.o_getValues();
                 var formInfoData = formInfo.o_getValues();
 
+
+
+                data.subOrders.push({
+                    purchaseCount: terminalInfoData.purchaseCount_0,
+                    subOrderType:0,
+                    purchaseAmount:null,
+                    startTime:terminalInfoData.startTime_0,
+                    endTime:terminalInfoData.endTime_0
+                });
+
+                data.subOrders.push({
+                    purchaseCount: terminalInfoData.purchaseCount_1,
+                    subOrderType:1,
+                    purchaseAmount:terminalInfoData.purchaseAmount_1,
+                    startTime:null,
+                    endTime:null
+                });
+
+
+                data.subOrders.push({
+                    purchaseCount: terminalInfoData.purchaseCount_1,
+                    subOrderType:1,
+                    purchaseAmount:terminalInfoData.purchaseAmount_1,
+                    startTime:null,
+                    endTime:null
+                });
+
+
+
+
+
+
+
+
+
+
             }
                 break;
         }
+        return data;
     }
 });
 
