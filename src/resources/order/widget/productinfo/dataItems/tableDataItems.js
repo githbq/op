@@ -34,18 +34,20 @@ define(function (require, exports, module) {
                     var me = this;
                     var $dom = $(e.target);
                     var data = this.o_field_getData($dom);
-                    var $ele = me.o_data_getField(data);
-                    var order_amount = 0;
-                    $ele.each(function (i, n) {
-                        var $n = $(n);
-                        if ($n.is(':checked')) {//勾选的项进入计算
-                            var id = $n.val();
-                            debugger
-                            order_amount += parseInt(me.o_getFieldValue('purchaseAmount_' + id) || 0);
-                        }
-                    });
-                    me.o_setValue({order_amount: order_amount})
-                    alert(me.o_getFieldValue({}));
+                    if (data.__inited) {
+                        var $ele = me.o_data_getField(data);
+                        var order_amount = 0;
+                        $ele.each(function (i, n) {
+                            var $n = $(n);
+                            if ($n.is(':checked')) {//勾选的项进入计算
+                                var id = $n.val();
+                                debugger
+                                order_amount += parseInt(me.o_getFieldValue('purchaseAmount_' + id) || 0);
+                            }
+                        });
+                        me.o_setValue({order_amount: order_amount});
+                        alert(me.o_getFieldValue({}));
+                    }
                 }
             }
         ]
