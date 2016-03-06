@@ -290,7 +290,7 @@ define(function (require, exports, module) {
                     }
                 }
             },
-            o_setValue: function (obj, silent) {//silent不触发事件
+            o_setValue: function (obj, silent, first) {//silent不触发事件
                 var me = this;
                 if (!obj.name) {
                     return;
@@ -330,7 +330,8 @@ define(function (require, exports, module) {
                     //考虑复选框情况
                     if ($ele.is('input[type=radio]') || $ele.is('input[type=checkbox]')) {
                         if (typeof(value) == 'boolean') {
-                            $ele.prop('checked', value).change();
+                            $ele.prop('checked', value);
+                            !silent && $ele.change();
                         } else {
                             var items = $.isArray(value) ? value : value.split(',');
                             $(items).each(function (i, n) {
@@ -343,7 +344,6 @@ define(function (require, exports, module) {
                         }
                     }
                     else if ($ele.is('[datecontrol]') && typeof(value) == 'number') {
-                        debugger
                         var configStr = $ele.attr('datecontrol');
                         var config = configStr && me.i_parseJSON(configStr) || {};
                         var format = config.format || "yyyy/MM/dd";
