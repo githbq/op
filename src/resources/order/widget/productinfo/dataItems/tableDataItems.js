@@ -25,7 +25,7 @@ define(function (require, exports, module) {
 
     var check = new DataItem({
         name: 'check',
-        value: '44',
+        value: '7',
         events: [
             {
                 key: 'change',

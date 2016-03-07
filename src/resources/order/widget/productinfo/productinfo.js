@@ -52,6 +52,7 @@ define(function (require, exports, module) {
         tableInfo.render();
         formInfo.render();
         terminalInfo.$('[data-name=purchaseCount_1]:first').change();
+        tableInfo.$('[data-name=check]:first').change();
 
         return refs;
     };
