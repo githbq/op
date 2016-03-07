@@ -23,12 +23,12 @@ define(function (require, exports, module) {
     //终端开始日期
     dataItems.push(new DataItem({
         name: 'startTime_2',
-        value: new Date().getTime()
+        value:''
     }));
     //终端结束日期
     dataItems.push(new DataItem({
         name: 'endTime_2',
-        value: new Date().getTime()
+        value:''
     }));
 
     //表单部分订单总金额
