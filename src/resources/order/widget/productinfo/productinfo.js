@@ -28,22 +28,22 @@ define(function (require, exports, module) {
     var terminalInfo, tableInfo, formInfo = null;
 //data:{terminalInfo:{$view:xx,dataItems,data:[{name:'enterpriseId',value:'2'},]},tableInfo:{$view:xx,dataItems},formInfo:{$view:xx,dataItems},}
 //type:订单类型
-    exports.showProductInfo = function (data, type,result) {
-        var apiPool={api_getServicePrice:api_getServicePrice,api_getCalculateSingle:api_getCalculateSingle};
+    exports.showProductInfo = function (data, type, result) {
+        var apiPool = {api_getServicePrice: api_getServicePrice, api_getCalculateSingle: api_getCalculateSingle};
         if (data.terminalInfo && data.terminalInfo.$view) {
             data.terminalInfo.$view.addClass('productinfo');
             data.terminalInfo.data && transferDataItems(data.terminalInfo.data, terminalDataItems);
-            terminalInfo = new TerminalInfo({wrapperView: data.terminalInfo.$view, dataItems: terminalDataItems,apiPool:apiPool});
+            terminalInfo = new TerminalInfo({wrapperView: data.terminalInfo.$view, dataItems: terminalDataItems, apiPool: apiPool});
         }
         if (data.tableInfo && data.tableInfo.$view) {
             data.terminalInfo.$view.addClass('productinfo');
             data.terminalInfo.data && transferDataItems(data.tableInfo.data, tableDataItems);
-            tableInfo = new TableInfo({wrapperView: data.tableInfo.$view, dataItems: tableDataItems,apiPool:apiPool});
+            tableInfo = new TableInfo({wrapperView: data.tableInfo.$view, dataItems: tableDataItems, apiPool: apiPool});
         }
         if (data.formInfo && data.formInfo.$view) {
             data.terminalInfo.$view.addClass('productinfo');
             data.terminalInfo.data && transferDataItems(data.formInfo.data, formDataItems);
-            formInfo = new FormInfo({wrapperView: data.formInfo.$view, dataItems: formDataItems,apiPool:apiPool});
+            formInfo = new FormInfo({wrapperView: data.formInfo.$view, dataItems: formDataItems, apiPool: apiPool});
         }
         var refs = {terminalInfo: terminalInfo, tableInfo: tableInfo, formInfo: formInfo, getData: getTransferDataByType(type)};
         formInfo.__refs = tableInfo.__refs = terminalInfo.__refs = refs;
@@ -51,7 +51,11 @@ define(function (require, exports, module) {
         tableInfo.render();
         formInfo.render();
         terminalInfo.$('[data-name=purchaseCount_1]:first').change();
+        tableInfo.$('[data-name]').attr('novalidate','novalidate');
         tableInfo.$('[data-name=check]:first').change();
+        setTimeout(function () {
+            tableInfo.$('[data-name]').removeAttr('novalidate');
+        }, 100);
 
         return refs;
     };
@@ -60,6 +64,7 @@ define(function (require, exports, module) {
 
 
     }
+
     /*
      * @apiParam {Integer} enterpriseId 企业id
      * @apiParam {Integer} personCount 新增服务人数
@@ -68,8 +73,9 @@ define(function (require, exports, module) {
     function api_getServicePrice(options) {
         connectApi($.extend({
             url: '~/op/api/a/odr/getServicePrice'
-        },options))
+        }, options))
     }
+
     /**
      * 计算单一产品折扣
      * @param id 产品id
@@ -82,9 +88,8 @@ define(function (require, exports, module) {
     function api_getCalculateSingle(options) {
         connectApi($.extend({
             url: '~/op/api/rebate/calculateSingle'
-        },options))
+        }, options))
     }
-
 
 
     function connectApi(option) {
@@ -193,7 +198,7 @@ define(function (require, exports, module) {
                     receiptsAccount: formInfoData.receiptsAccount,
                     payerName: formInfoData.payerName,
                     contractNo: formInfoData.contractNo,
-                    amount:formInfoData.contractPrice
+                    amount: formInfoData.contractPrice
                 };
 
             }
@@ -206,7 +211,7 @@ define(function (require, exports, module) {
     function getTransferDataByType(type) {
         //转换数据
         return function () {
-           return transferDataByType(type);
+            return transferDataByType(type);
         }
     }
 

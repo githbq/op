@@ -92,7 +92,7 @@ define(function (require, exports, module) {
                 if ($ele && $ele.length > 0) {
                     $ele.on('change', function (e) {
                         var data = me.o_field_getData($(e.target));
-                        if (data.__inited && !data.__silent) {
+                        if (data.__inited && !data.__silent && !$ele.attr('novalidate')) {
                             me.o_validate();
                         }
                     });
@@ -472,7 +472,6 @@ define(function (require, exports, module) {
             i_setValueWhereDateControl: function (next, $ele, value) {
                 var me = this;
                 if ($ele.is('[datecontrol]')) {
-                    debugger
                     if (typeof(value) == 'number') {
                         var configStr = $ele.attr('datecontrol');
                         var config = configStr && me.i_parseJSON(configStr) || {};
