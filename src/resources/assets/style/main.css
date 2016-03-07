@@ -6596,7 +6596,11 @@ em {
   color: #545454;
 }
 .productinfo .error {
+  color: red;
   display: none;
+}
+.productinfo .required-error .error {
+  border: 1px solid red;
 }
 .productinfo .bold {
   font-weight: bold;

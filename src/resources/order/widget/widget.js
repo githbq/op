@@ -7,8 +7,8 @@ define(function (require, exports, module) {
         var $el = exports.$el;
         $('.test').click(function () {
             alert('test');
-            alert(JSON.stringify(result.tableInfo.o_getValues()));
-
+          //  alert(JSON.stringify(result.tableInfo.o_getValues()));
+            result.terminalInfo.o_validate();
         });
         var result = productInfo.showProductInfo({terminalInfo: {$view: $el.find('.panel1')}, tableInfo: {$view: $el.find('.panel2')}, formInfo: {$view: $el.find('.panel3')}});
         //result.data

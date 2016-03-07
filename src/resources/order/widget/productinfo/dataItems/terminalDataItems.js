@@ -23,13 +23,13 @@ define(function (require, exports, module) {
     //终端开始日期
     dataItems.push(new DataItem({
         name: 'startTime_0',
-        value:new Date().getTime(),
+        value: new Date().getTime(),
         readonly: true
     }));
     //终端结束日期
     dataItems.push(new DataItem({
         name: 'endTime_0',
-        value:new Date().getTime(),
+        value: new Date().getTime(),
         readonly: true
     }));
 
@@ -37,7 +37,13 @@ define(function (require, exports, module) {
     //服务人数
     dataItems.push(new DataItem({
         name: 'purchaseCount_1',
-        value: '[服务人数]',
+        value: '',
+        events: [{
+            key: 'change', value: function (e) {
+                var $dom = $(e.target);
+                $dom.val($dom.val().replace(/[^\.\d]/g, ''));
+            }
+        }],
         validateOptions: {
             required: {
                 enable: true, value: true, message: '请填写服务人数', handler: function (error, value, option, $ele) {
@@ -49,12 +55,12 @@ define(function (require, exports, module) {
     //产品原价
     dataItems.push(new DataItem({
         name: 'purchaseAmount_1',
-        value: '[产品原价]'
+        value: ''
     }));
     //产品原价
     dataItems.push(new DataItem({
         name: 'purchaseAmount_1',
-        value: '[产品原价]'
+        value: ''
     }));
 
 

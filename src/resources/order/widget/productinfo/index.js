@@ -87,14 +87,23 @@ define(function (require, exports, module) {
                 me.i_initEventsAndElements(data);//核心对象处理
                 PageClass.__super__.init.apply(this, arguments);//调用父类初始化
             },
+            i_initInnerEvent:function($ele){
+                var me=this;
+                if($ele && $ele.length>0){
+                    $ele.on('change',function(){
+                        me.o_validate();
+                    });
+                }
+            },
             i_init: function (data) {
                 var me = this;
                 var newDataItems = [];
                 //元素与数据初始化
                 $(me.o_fields).each(function (i, n) {
                     var $field = me[n.key];
+                    me.i_initInnerEvent($field);
                     var fieldData = me.dataDic[n.value.__guid];
-                    var config = $field.attr('data-config') && me.i_parseJSON($field.attr('data-config')) || {};
+                    var config =$field && $field.length>0 && $field.attr('data-config') && me.i_parseJSON($field.attr('data-config')) || {};
                     $.extend(config, fieldData);
                     me.dataDic[n.value.__guid] = config;
                     data.dataItems[config.__index] = config;
@@ -131,12 +140,13 @@ define(function (require, exports, module) {
             i_selector: '',//模板选择器
             o_fields: [{key: '', value: {}}],
             o_validate: function () {
+                debugger
                 var me = this;
                 var errors = me.errors = [];
                 me.o_eachFields(function ($ele, data) {
-                    var error = me.o_validateField($ele);
-                    if (error) {
-                        errors.push(error);
+                    var tempErrors = me.o_validateField($ele);
+                    if (tempErrors && tempErrors.length>0) {
+                        errors=errors.concat(tempErrors);
                     }
                 });
                 return errors.length == 0;
@@ -154,10 +164,11 @@ define(function (require, exports, module) {
                 var options = data.validateOptions;
                 var value = me.o_getFieldValue(null, $ele);
                 var wrapper = me.o_field_getWrapper($ele);
-                var error = null;
+                var errors = [];
                 var defaultAction = me['i_checkFieldForDefault'];
                 if (options) {
                     for (var i in options) {
+                        var error=null;
                         var option = options[i];
                         if (options.hasOwnProperty(i) && option.enable) {
                             var action = me[me.i_toWord('i_checkFieldFor', i)];
@@ -165,16 +176,20 @@ define(function (require, exports, module) {
                                 action = defaultAction;
                             }
                             error = action.call(this, i, value, option, $ele, wrapper);
+
                             if (option.handler) { //错误代理
                                 var result = option.handler.call(me, error, value, $ele);
                                 if (result !== undefined) {
                                     error = result;
                                 }
                             }
+                            if(error){
+                                errors.push(error);
+                            }
                         }
                     }
                 }
-                return error;
+                return errors;
             },
             i_checkFieldForRequired: function (name, value, option, $ele, wrapper) {
                 var me = this;
@@ -218,11 +233,13 @@ define(function (require, exports, module) {
                 }
                 if ((!option.handler) || (option.handler && option.handler.call(me, error, value, option, $ele) !== false)) {
                     if (error) {
-                        wrapper.addClass('required-error');
-                        wrapper.find('.error').show().html(option.message);
+                        wrapper.addClass(requireName+'-error');
+                        $ele.addClass(requireName+'-error');
+                        wrapper.find('.error').addClass(requireName+'-error').show().html(option.message);
                     } else {
-                        wrapper.find('.error').hide().html('');
-                        wrapper.removeClass('required-error');
+                        wrapper.find('.error').removeClass(requireName+'-error').hide().html('');
+                        wrapper.removeClass(requireName+'-error');
+                        $ele.removeClass(requireName+'-error');
                     }
                 }
                 me.trigger('validateError', value, option, $ele, me);
