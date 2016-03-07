@@ -276,6 +276,7 @@ define( function( require, exports, module ) {
 				  
 			}
 			//获取普通订单信息
+			debugger
 			if(me.attrs.showType == 'common'){
 
 				//基本信息校验和取值
@@ -286,7 +287,7 @@ define( function( require, exports, module ) {
 				}
 
 				//产品信息
-				var temp = me.attrs.prodeuctObj.data();
+				var temp = me.attrs.prodeuctObj.getData();
 				objData.enterpriseExtend = temp.enterpriseExtend ;
 				objData.contract = temp.contract;
 				objData.orderEntity.order = temp.order
