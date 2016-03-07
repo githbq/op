@@ -182,6 +182,8 @@ define(function (require, exports, module) {
         if (options.data.startDate && options.data.endDate) {
             if (options.data.startDate >= options.data.endDate) {
                 util.showToast('开始日期必须小于结束日期')
+                me.o_setValue({name:'startDate_' + id,value:''});
+                me.o_setValue({name:'endDate_' + id,value:''});
             } else {
                 me.attrs.apiPool.api_getCalculateSingle(options);
             }
