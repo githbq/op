@@ -165,6 +165,7 @@ define(function (require, exports, module) {
         var $dom = $(e.target);
         var $tr = $dom.parents('tr');
         var id = $tr.find('input[type=checkbox]').val();
+
         if ($dom.is('[datecontrol]')) {
             $dom.change();
         }

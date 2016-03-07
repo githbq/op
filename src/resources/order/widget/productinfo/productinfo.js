@@ -143,12 +143,12 @@ define(function (require, exports, module) {
                     purchaseCount: terminalInfoData.purchaseCount_3,
                     subOrderType: 1,
                     purchaseAmount: terminalInfoData.purchaseAmount_3,
-                    startTime: null,
-                    endTime: null
+                    startTime: terminalInfoData.startTime_2,
+                    endTime: terminalInfoData.endTime_2
                 });
 
                 //表格部分 //////////////////////////////////////////
-                var ids = [4, 5, 7];
+                var ids = ['4', '5', '7'];
                 var checkeds = tableInfoData.check.split(',');
                 $(ids).each(function (i, n) {
                         if ($.inArray(n, checkeds) >= 0) {
