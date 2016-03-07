@@ -16,7 +16,7 @@
             <div class="list-bar-input">
                 <label>
                     <span>企业名称</span>
-                    <input id="eiName" class="g-ipt ipt-m"  type="text" ce-model="ename"/>
+                    <input id="eiName" class="g-ipt ipt-m"  type="text" ce-model="en"/>
                 </label>
                 <label>
                     <span>企业帐号</span>
@@ -24,14 +24,17 @@
                 </label>
                 <label>
                     <span>开通时间</span>
-                    <input type="text" id="OpenSTime">----<input type="text" id="OpenETime">
+                    <input type="text" id="OpenSTime"> ---- <input type="text" id="OpenETime">
                 </label>
                 <label>
                     <span>企业状态</span>
-                    <select name="" id="">
+                    <select ce-model="enterpriseStatus">
                         <option value="">全部</option>
-                        <option value="">开启</option>
-                        <option value="">关闭</option>
+                        <option value="1">待开通</option>
+                        <option value="2">已开通</option>
+                        <option value="3">已作废</option>
+                        <option value="4">已停用</option>
+                        <option value="5">已删除</option>
                     </select>
                 </label>
                 <label>
@@ -59,7 +62,7 @@
                 
                 <label>
                     <span>联系电话</span>
-                    <input id="eiMobile" class="g-ipt ipt-m"  type="text" ce-model="mobile"/>
+                    <input id="eiMobile" class="g-ipt ipt-m"  type="text" ce-model="tel"/>
                 </label>
             </div>
         </div>
@@ -69,22 +72,33 @@
                 <tr>
                     <th></th>
                     <th style="width:20px;"><input type="checkbox" class="selectall"></th>
-                    <th>企业</th>
+                    <th>企业名称</th>
                     <th>帐号</th>
-                    <th>授权信息</th>
-                    <th>代理商</th>
-					<th>销售人员</th>
-                    <th>产品名称</th>
-                    <th>产品状态</th>
-                    <th>付费</th>
-                    <!--<th>活跃度</th>-->
-                    <th>创建人</th>
-                    <th></th>
+                    <th>开通日期</th>
+                    <th>企业状态</th>
+					<th>CRM信息可见授权</th>
+                    <th>手机设备授权</th>
+                    <th>操作</th>
                     <th></th>
                 </tr>
                 </thead>
-                <tbody>
-                    
+                <tbody ce-collection="list">
+                    <td></td>
+                    <td><input type="checkbox" class="selectitem" value="<%=value.enterpriseAccount%>"></td>
+                    <td><%=value.enterpriseName%></td>
+                    <td><%=value.enterpriseAccount%></td>
+                    <td><%=value.authStr%></td>
+                    <td><%=value.agentName%></td>
+                    <td><%=value.creator%></td>
+                    <td><%=value.productName%></td>
+                    <td><%=value.runStatusStr%></td>
+                    <td><%=value.isPayedStr%></td>
+                    <!--<td><%=value.activityStr%></td>-->
+                    <td><%=value.creator%></td>
+                    <td>
+                        <a class="info-detail" data-id="<%=value.id%>" data-status="<%=value.runStatus%>">查看</a>
+                    </td>
+                    <td></td>
                 </tbody>
             </table>
         </div>

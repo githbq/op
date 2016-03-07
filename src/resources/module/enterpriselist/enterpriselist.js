@@ -19,8 +19,8 @@ define( function(require, exports, module){
         view: viewStr,
 
         elements: {
-            '#OpenSTime': 'openstime',
-            '#OpenETime': 'openetime',
+            '#OpenSTime': 'openstime',      //开通开始时间
+            '#OpenETime': 'openetime',      //开通结束时间
             '#eiSource': 'source',          //来源
             '#eiProvince': 'province',      //省市
             '#eiIndustry': 'industry',      //行业
@@ -216,27 +216,32 @@ define( function(require, exports, module){
         getList: function() {
             var me = this;
 
+            var fromAppStartTime = '';
+            var endAppStartTime = '';
+
+            if( me.$openstime.val() ){
+                fromAppStartTime = new Date( me.$openstime.val() ).getTime();
+            }
+
+            if( me.$openetime.val() ){
+                endAppStartTime = new Date( me.$openetime.val() ).getTime();
+            }
+
             util.api({
                 url: '/enterprise/querypage',
                 data: {
-                    ea: me.model.get('ea'),
-                    ename: me.model.get('ename'),
-                    mobile: me.model.get('mobile'),
-                    city: me.model.get('city'),
-                    pstatus: me.model.get('pstatus'),
-                    fstatus: me.model.get('fstatus'),
-                    province: me.model.get('province'),
-                    industry: me.model.get('industry'),
-                    source: me.model.get('source'),
-                    activity: me.model.get('activity'),
-                    productId: me.model.get('productId'),
-                    agentId: me.model.get('agentId'),
-					accountName:me.model.get('accountName'),
-                    personCount: me.model.get('personCount'),
-                    productId: me.attrs['productId'],
-                    personCount: me.model.get('personCount'),
                     pageIndex: me.pagination.attr['pageNumber'] + 1,
-                    pageSize: me.pagination.attr['pageSize']
+                    pageSize: me.pagination.attr['pageSize'],
+                    ea: me.model.get('ea'),
+                    en: me.model.get('en'),
+                    enterpriseStatus: me.model.get('enterpriseStatus'),
+                    source: me.model.get('source'),
+                    industry: me.model.get('industry'),
+                    province: me.model.get('province'),
+                    city: me.model.get('city'),
+                    tel: me.model.get('tel'),
+                    fromAppStartTime: fromAppStartTime, 
+                    endAppStartTime: endAppStartTime
                 },
                 beforeSend: function() {
                     me.$tbody.html( '<tr><td colspan="11"><p class="info">加载中...</p></td></tr>' );
@@ -246,9 +251,13 @@ define( function(require, exports, module){
                     if ( data.success ) {
                         me.pagination.setTotalSize( data.value.model.itemCount );
                         me.collection.reload( data.value.model.content, function( item ) {
+                            
+                            /*
                             item.runStatusStr = PSTATUS_MAP[item.runStatus];
                             item.isPayedStr = PAYED_MAP[item.isPayed];
                             item.activityStr = ACTIVITY_MAP[item.activity] || '无';
+                            */
+
                             if( item.authLevel == 0 ){
                                 item.authStr = "全部授权" 
                             }else if( item.authLevel == 1){
