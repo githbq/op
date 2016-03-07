@@ -84,12 +84,12 @@ define(function (require, exports, module) {
     //服务费 试用 赠送 折扣 的容器
     dataItems.push(new DataItem({
         name: 'typewrapper_3',
-        visible: true
+        visible: false
     }));
     //服务费金额文本框
     dataItems.push(new DataItem({
         name: 'purchaseAmount_wrapper_3',
-        visible: true
+        visible: false
     }));
     //服务费 1试用 2赠送 3折扣 的容器
     dataItems.push(new DataItem({
@@ -112,7 +112,7 @@ define(function (require, exports, module) {
     dataItems.push(new DataItem({
         name: 'purchaseAmount_input_3',
         value: '',
-        visible: true,
+        visible: false,
         events: [{
             key: 'change',
             value: function (e) {

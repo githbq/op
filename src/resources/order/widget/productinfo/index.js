@@ -127,6 +127,10 @@ define(function (require, exports, module) {
                 me.$('input[datecontrol]:not([readonly])').each(function (i, n) {
                     var config = $(n).attr('datecontrol') ? me.i_parseJSON($(n).attr('datecontrol')) : {};
                     $.extend(option, config);
+                     //option.onClose=function(time,$ele){
+                     //    $ele.change();
+                     //    return true;
+                     //};
                     $(n).datetimepicker(option);
                 });
             },
