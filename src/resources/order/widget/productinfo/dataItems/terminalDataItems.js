@@ -3,7 +3,7 @@ define(function (require, exports, module) {
     var dataItems = module.exports = [];
     //终端总个数
     dataItems.push(new DataItem({
-        name: 'purchaseCount_0',
+        name: 'purchaseCount_2',
         value: '1000',
         readonly: true
         //,validateOptions: {
@@ -22,13 +22,13 @@ define(function (require, exports, module) {
     }));
     //终端开始日期
     dataItems.push(new DataItem({
-        name: 'startTime_0',
+        name: 'startTime_2',
         value: new Date().getTime(),
         readonly: true
     }));
     //终端结束日期
     dataItems.push(new DataItem({
-        name: 'endTime_0',
+        name: 'endTime_2',
         value: new Date().getTime(),
         readonly: true
     }));
@@ -36,7 +36,7 @@ define(function (require, exports, module) {
 
     //服务人数
     dataItems.push(new DataItem({
-        name: 'purchaseCount_1',
+        name: 'purchaseCount_3',
         value: '',
         __silent: true,
         events: [{
@@ -58,12 +58,12 @@ define(function (require, exports, module) {
 
     //产品原价
     dataItems.push(new DataItem({
-        name: 'purchaseAmount_1',
+        name: 'purchaseAmount_3',
         value: ''
     }));
     //产品原价
     dataItems.push(new DataItem({
-        name: 'purchaseAmount_1',
+        name: 'purchaseAmount_3',
         value: ''
     }));
 

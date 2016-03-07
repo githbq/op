@@ -143,7 +143,6 @@ define(function (require, exports, module) {
             i_selector: '',//模板选择器
             o_fields: [{key: '', value: {}}],
             o_validate: function () {
-                debugger
                 var me = this;
                 var errors = me.errors = [];
                 me.o_eachFields(function ($ele, data) {
