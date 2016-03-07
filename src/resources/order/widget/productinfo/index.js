@@ -427,39 +427,56 @@ define(function (require, exports, module) {
                     if (!data) {
                         console.warn('未找到数据,值=>' + value);
                     }
-                    //考虑复选框情况
-                    if ($ele.is('input[type=radio]') || $ele.is('input[type=checkbox]')) {
-                        if (typeof(value) == 'boolean') {
-                            $ele.prop('checked', value);
-                            //!silent && $ele.change();
-                        } else {
-                            var items = $.isArray(value) ? value : value.split(',');
-                            $(items).each(function (i, n) {
-                                $ele.filter('[value=' + n + ']').attr('data-checked', '1');
-                            });
-                            var excepts = $ele.filter(':not([data-checked])').prop('checked', false).attr('checked', false);
-                            //!silent && excepts.change();
-                            var wants = $ele.filter('[data-checked]').prop('checked', true).attr('checked', true).removeAttr('data-checked');
-                            //!silent && wants.change();
-                        }
-                    }
-                    else if ($ele.is('[datecontrol]') && typeof(value) == 'number') {
-                        var configStr = $ele.attr('datecontrol');
-                        var config = configStr && me.i_parseJSON(configStr) || {};
-                        var format = config.format || "yyyy/MM/dd";
-                        $ele.val(new Date(value)._format(format));
-                    }
-                    else if ($ele.is(me.i_textFieldSelector)) {
-                        $ele.html(value);
-                    }
-                    else {
-                        $ele.val(value);
-                    }
+                    value = me.i_getFunctionPipe('i_setValueWhere', 'Default')[0]($ele, value);
                     //!silent && $ele.change();
                     data.value = value;
                     me.trigger('setFieldValue', $ele, value);
                     data.trigger('setFieldValue', $ele, value);
                 }
+            },
+            i_setValueWhereInputRadio: function (next, $ele, value) {
+                var me = this;
+                //考虑复选框情况
+                if ($ele.is('input[type=radio]') || $ele.is('input[type=checkbox]')) {
+                    if (typeof(value) == 'boolean') {
+                        $ele.prop('checked', value);
+                        //!silent && $ele.change();
+                    } else {
+                        var items = $.isArray(value) ? value : value.split(',');
+                        $(items).each(function (i, n) {
+                            $ele.filter('[value=' + n + ']').attr('data-checked', '1');
+                        });
+                        var excepts = $ele.filter(':not([data-checked])').prop('checked', false).attr('checked', false);
+                        //!silent && excepts.change();
+                        var wants = $ele.filter('[data-checked]').prop('checked', true).attr('checked', true).removeAttr('data-checked');
+                        //!silent && wants.change();
+                    }
+                    return value;
+                }
+                return next($ele, value);
+            },
+            i_setValueWhereDateControl: function (next, $ele, value) {
+                var me = this;
+                if ($ele.is('[datecontrol]') && typeof(value) == 'number') {
+                    var configStr = $ele.attr('datecontrol');
+                    var config = configStr && me.i_parseJSON(configStr) || {};
+                    var format = config.format || "yyyy/MM/dd";
+                    $ele.val(new Date(value)._format(format));
+                    return value;
+                }
+                return next($ele, value);
+            },
+            i_setValueWhereTextField: function (next, $ele, value) {
+                var me = this;
+                if ($ele.is(me.i_textFieldSelector)) {
+                    $ele.html(value);
+                    return value;
+                }
+                return next($ele, value);
+            },
+            i_setValueWhereDefault: function ($ele, value) {
+                $ele.val(value);
+                return value;
             },
             o_setFieldAttr: function ($ele, value) {
                 var me = this;
