@@ -44,7 +44,7 @@ define(function (require, exports, module) {
     //付费状态名
     dataItems.push(new DataItem({
         name: 'payStatus_name',
-        value: '',
+        value: '全款',
         validateOptions: {
             required: {
                 enable: true, value: true, message: '', handler: function (error, value, option, $ele) {
