@@ -172,6 +172,10 @@ define(function (require, exports, module) {
                     for (var i in options) {
                         var error = null;
                         var option = options[i];
+                        //allowHidden允许隐藏状态的控件参与验证 为false为不允许
+                        if(option.allowHidden===false && data.visible===false){
+                            continue;
+                        }
                         if (options.hasOwnProperty(i) && option.enable) {
                             var action = me[me.i_toWord('i_checkFieldFor', i)];
                             if (!action) {
