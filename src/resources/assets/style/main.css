@@ -6599,7 +6599,7 @@ em {
   color: red;
   display: none;
 }
-.productinfo .required-error .error {
+.productinfo .field-required-error {
   border: 1px solid red;
 }
 .productinfo .bold {

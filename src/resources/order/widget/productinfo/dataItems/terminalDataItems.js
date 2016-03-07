@@ -38,10 +38,14 @@ define(function (require, exports, module) {
     dataItems.push(new DataItem({
         name: 'purchaseCount_1',
         value: '',
+        __silent: true,
         events: [{
             key: 'change', value: function (e) {
+                var me = this;
                 var $dom = $(e.target);
                 $dom.val($dom.val().replace(/[^\.\d]/g, ''));
+                me.o_field_getData($dom).__silent = false;
+
             }
         }],
         validateOptions: {

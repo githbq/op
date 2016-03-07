@@ -51,8 +51,7 @@ define(function (require, exports, module) {
         terminalInfo.render();
         tableInfo.render();
         formInfo.render();
-        debugger
-        tableInfo.$('[data-price]:first').change();
+        terminalInfo.$('[data-name=purchaseCount_1]:first').change();
 
         return refs;
     };
