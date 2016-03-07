@@ -106,6 +106,14 @@ define(function( require , exports , module ){
 
 		render: function(){
 			this.attrs['wrapper'].html( this.$view );
+
+			var departmentname = '';
+			if( IBSS.role.department && IBSS.role.department.name ){
+				departmentname = IBSS.role.department.name;
+			}
+
+			this.model.set('departmentname','部门名称', departmentname);
+			this.model.set('accountname', IBSS.role.name);
 		},
 
 		//外部接口 获取当前数据信息
@@ -201,7 +209,7 @@ define(function( require , exports , module ){
 				'invoice': me.model.all(),
 				'order':{
 					'isCooperation': me.$('[name="team"]:checked').val(),   //是否合作单
-					'cooperationUnit':'',           						//部门员工      
+					'cooperationUnit': me.model.get('cooperationUnit'),     //部门员工      
 					'remark': me.model.get('remark')                        //备注
 				}
 			};
