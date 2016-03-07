@@ -1,14 +1,14 @@
 define(function (require, exports, module) {
     var DataItem = require('../index').PageDataClass;
     var dataItems = module.exports = [];
-    var productIdDic={
-        '1':'CRM',
-        '2':'FXBC',
-        '3':'Number_System',
-        '4':'PK_Helper',
-        '5':'Meeting_Helper',
-        '6':'HR_Helper',
-        '7':'Salary_Helper'
+    var productIdDic = {
+        '1': 'CRM',
+        '2': 'FXBC',
+        '3': 'Number_System',
+        '4': 'PK_Helper',
+        '5': 'Meeting_Helper',
+        '6': 'HR_Helper',
+        '7': 'Salary_Helper'
 
     };
     dataItems.push(new DataItem({
@@ -27,12 +27,7 @@ define(function (require, exports, module) {
             }
         ]
     }));
-    //表单部分订单总金额
-    dataItems.push(new DataItem({
-        name: 'order_amount',
-        value: 0
-    }));
-
+    //复选框
     var check = new DataItem({
         name: 'check',
         value: '7',
@@ -57,6 +52,9 @@ define(function (require, exports, module) {
         //{id: 6, name: 'HR助手'},
         {id: 7, name: '工资助手', options: {discount: {}}}
     ];
+    var getPriceEvents = [{
+        key: 'change', value: changeForGetPrice
+    }];
     $(zhushous).each(function (i, n) {
         n.options = n.options || {};
 
@@ -69,7 +67,7 @@ define(function (require, exports, module) {
                     enable: true, value: true, message: '', handler: function (error, value, option, $ele) {
                     }
                 }
-            }
+            }, events: getPriceEvents
         }, n.options.startDate)));
         //PK助手结束时间
         dataItems.push(new DataItem($.extend({
@@ -80,7 +78,7 @@ define(function (require, exports, module) {
                     enable: true, value: true, message: '', handler: function (error, value, option, $ele) {
                     }
                 }
-            }
+            }, events: getPriceEvents
         }, n.options.endDate)));
 
         //pk助手原价
@@ -98,12 +96,13 @@ define(function (require, exports, module) {
         //pk助手合同金额
         dataItems.push(new DataItem($.extend({
             name: 'purchaseAmount_' + n.id,
-            attr:{'data-price':'1'},
+            attr: {'data-price': '1'},
             value: 0,
             events: [
                 {
                     key: 'change', value: function (e) {
                     priceComput.call(this, e);
+                    changeForGetPrice.call(this, e);
                 }
                 }
             ]
@@ -120,7 +119,6 @@ define(function (require, exports, module) {
 
     //价格计算
     function priceComput(e) {
-        debugger
         var me = this;
         var $dom = $(e.target);
         var data = null;
@@ -132,18 +130,50 @@ define(function (require, exports, module) {
         var $ele = me.o_data_getField(data);
         var order_amount = 0;
         $ele.each(function (i, n) {
-            debugger
             var $n = $(n);
+            var id = $n.val();
             if ($n.is(':checked')) {//勾选的项进入计算
-                var id = $n.val();
-                order_amount += parseInt(me.o_getFieldValue('purchaseAmount_' + id) || 0);
+                me.o_setValue({name: 'purchaseAmount_' + id, allow: true});
+                order_amount += parseFloat(me.o_getFieldValue('purchaseAmount_' + id) || 0);
+            } else {
+                me.o_setValue({name: 'purchaseAmount_' + id, allow: false});
             }
         });
-        me.o_setValue({name: 'order_amount', value: order_amount});
-        console.log('合同总金额之表格部分计算结果:' + me.o_getFieldValue('order_amount'));
-        debugger
-        var abc = me.__refs && me.__refs.terminalInfo;
-        me.__refs.formInfo.o_setValue({name: 'contractPrice', value: order_amount});
 
+        console.log('合同总金额之表格部分计算结果:' + me.o_getFieldValue('order_amount'));
+
+        var purchaseAmount_3 = me.__refs.terminalInfo.o_getFieldValue('purchaseAmount_3');
+        if (purchaseAmount_3) {//服务费
+            order_amount += parseFloat(purchaseAmount_3);
+        }
+        me.__refs.formInfo.o_setValue({name: 'contractPrice', value: order_amount});
     }
+
+    function changeForGetPrice(e) {
+        debugger
+        var me = this;
+        var $dom = $(e.target);
+        var $tr = $dom.parents('tr');
+        var id = $tr.find('input[type=checkbox]').val();
+
+        var options = {
+            data: {
+                id: id,
+                startDate: me.o_getFieldValue('startDate_' + id),
+                endDate: me.o_getFieldValue('endDate_' + id),
+                sum: 1,
+                contractAmount: me.o_getFieldValue('purchaseAmount_' + id)
+            },
+            success: function (responseData) {
+                console.warn(responseData)
+                if (responseData.success) {
+                    //{"amount":200,"rebate":1.7000000000000002}
+                    me.o_setValue({name: 'discount_' + id, value: responseData.model.rebate});
+                    me.o_setValue({name: 'productAmount_' + id, value: responseData.model.amount})
+                }
+            }
+        };
+        me.attrs.apiPool.api_getCalculateSingle(options);
+    }
+
 });
