@@ -159,7 +159,8 @@ define(function (require, exports, module) {
                                 purchaseAmount: tableInfoData['purchaseAmount_' + n],
                                 startTime: tableInfoData['startDate_' + n],
                                 endTime: tableInfoData['endDate_' + n],
-                                productAmount: tableInfoData['productAmount_' + n]
+                                productAmount: tableInfoData['productAmount_' + n],
+                                discount: tableInfoData['discount_' + n]
                             });
                         }
                     }
