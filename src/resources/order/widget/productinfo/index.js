@@ -381,9 +381,7 @@ define(function (require, exports, module) {
                     console.warn('未到找对应的数据=>data:' + JSON.stringify(obj));
                     return;
                 }
-                if (first) {
-                    data.__inited = true;
-                }
+
                 if ($field && $field.length > 0) {
                     //自动执行设置方法
                     for (var i in obj) {
@@ -397,6 +395,9 @@ define(function (require, exports, module) {
                     }
                 } else {//无DOM的数据
                     $.extend(data, obj);
+                }
+                if (first) {
+                    data.__inited = true;
                 }
             },
             o_setFieldValue: function ($ele, value, silent) {
@@ -438,7 +439,7 @@ define(function (require, exports, module) {
                     //!silent && $ele.change();
                     data.value = value;
                     me.trigger('setFieldValue', $ele, value);
-                    data.trigger('setFieldValue',$ele, value);
+                    data.trigger('setFieldValue', $ele, value);
                 }
             },
             o_setFieldAttr: function ($ele, value) {

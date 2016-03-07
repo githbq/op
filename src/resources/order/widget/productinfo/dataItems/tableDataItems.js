@@ -23,13 +23,14 @@ define(function (require, exports, module) {
         value: 0
     }));
 
-  var check=  new DataItem({
+    var check = new DataItem({
         name: 'check',
         value: '44',
         events: [
             {
                 key: 'change',
                 value: function (e) {
+                    debugger
                     var me = this;
                     var $dom = $(e.target);
                     var data = this.o_field_getData($dom);
@@ -44,14 +45,17 @@ define(function (require, exports, module) {
                             }
                         });
                         me.o_setValue({name: 'order_amount', value: order_amount});
-                        console.log('合同总金额之表格部分计算结果:'+me.o_getFieldValue('order_amount'));
+                        console.log('合同总金额之表格部分计算结果:' + me.o_getFieldValue('order_amount'));
+                        debugger
+                        var abc = me.__refs && me.__refs.terminalInfo;
+                        me.__refs.formInfo.o_setValue({name:'contractPrice',value:order_amount});
                     }
                 }
             }
         ]
     });
-    check.on('setFieldValue',function($ele, value){
-      // alert(value);
+    check.on('setFieldValue', function ($ele, value) {
+        // alert(value);
     });
     //复选框
     dataItems.push(check);
@@ -109,6 +113,7 @@ define(function (require, exports, module) {
                     key: 'change', value: function (e) {
                     var me = this;
                     var $dom = $(e.target);
+                    $dom.val($dom.val().replace(/[^\.\d]/g, ''));
                     var data = this.o_field_getData($dom.parents('tr').find('input[type=checkbox]'));
                     var $ele = me.o_data_getField(data);
                     var order_amount = 0;
@@ -120,9 +125,10 @@ define(function (require, exports, module) {
                         }
                     });
                     me.o_setValue({name: 'order_amount', value: order_amount});
-                    console.log('合同总金额之表格部分计算结果:'+me.o_getFieldValue('order_amount'));
+                    console.log('合同总金额之表格部分计算结果:' + me.o_getFieldValue('order_amount'));
                     debugger
-                   var abc=me.__refs && me.__refs.terminalInfo;
+                    var abc = me.__refs && me.__refs.terminalInfo;
+                    me.__refs.formInfo.o_setValue({name:'contractPrice',value:order_amount});
                 }
                 }
             ]
