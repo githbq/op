@@ -207,7 +207,7 @@ define(function (require, exports, module) {
     function getTransferDataByType(type) {
         //转换数据
         return function () {
-            transferDataByType(type);
+           return transferDataByType(type);
         }
     }
 
