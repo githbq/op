@@ -51,9 +51,7 @@ define(function (require, exports, module) {
             });
 
             $select.on('input', function () {
-
                 var $this = $(this);
-                debugger
                 if (me.attrs.data) {
                     $select.autocomplete({
                         source: me.attrs.data

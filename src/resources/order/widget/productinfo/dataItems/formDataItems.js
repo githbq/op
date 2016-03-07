@@ -129,7 +129,6 @@ define(function (require, exports, module) {
                 value: function (e) {
                     var me = this;
                     sendFile(e,function (response) {
-                        debugger
                         console.warn(response);
                         me.o_setValue({name: 'contract', value: JSON.stringify({contract: response.value.model.path, contractFileName: response.value.model.FileName})});
                     });

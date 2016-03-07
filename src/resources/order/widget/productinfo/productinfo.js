@@ -45,7 +45,6 @@ define(function (require, exports, module) {
             data.terminalInfo.data && transferDataItems(data.formInfo.data, formDataItems);
             formInfo = new FormInfo({wrapperView: data.formInfo.$view, dataItems: formDataItems,apiPool:apiPool});
         }
-        debugger
         var refs = {terminalInfo: terminalInfo, tableInfo: tableInfo, formInfo: formInfo, getData: getTransferDataByType(type)};
         formInfo.__refs = tableInfo.__refs = terminalInfo.__refs = refs;
         terminalInfo.render();
@@ -165,7 +164,6 @@ define(function (require, exports, module) {
                         }
                     }
                 );
-                debugger
                 //合同部分//////////////////////////////////////////////////////////////////////////
                 var contractData = $.parseJSON(formInfoData.contract || '{}');
                 var contractCopyData = $.parseJSON(formInfoData.contractCopy || '{}');
@@ -207,7 +205,7 @@ define(function (require, exports, module) {
     function getTransferDataByType(type) {
         //转换数据
         return function () {
-            transferDataByType(type);
+           return transferDataByType(type);
         }
     }
 

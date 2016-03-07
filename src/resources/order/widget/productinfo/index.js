@@ -96,6 +96,11 @@ define(function (require, exports, module) {
                             me.o_validate();
                         }
                     });
+                    //$ele.on('focus', function (e) {
+                    //    var data = me.o_field_getData($(e.target));
+                    //
+                    //    me.o_validate();
+                    //});
                 }
             },
             i_init: function (data) {
@@ -127,6 +132,10 @@ define(function (require, exports, module) {
                 me.$('input[datecontrol]:not([readonly])').each(function (i, n) {
                     var config = $(n).attr('datecontrol') ? me.i_parseJSON($(n).attr('datecontrol')) : {};
                     $.extend(option, config);
+                    //option.onClose=function(time,$ele){
+                    //    $ele.change();
+                    //    return true;
+                    //};
                     $(n).datetimepicker(option);
                 });
             },
@@ -173,7 +182,7 @@ define(function (require, exports, module) {
                         var error = null;
                         var option = options[i];
                         //allowHidden允许隐藏状态的控件参与验证 为false为不允许
-                        if(option.allowHidden===false && data.visible===false){
+                        if (option.allowHidden === false && data.visible === false) {
                             continue;
                         }
                         if (options.hasOwnProperty(i) && option.enable) {
@@ -239,13 +248,13 @@ define(function (require, exports, module) {
                 }
                 if ((!option.handler) || (option.handler && option.handler.call(me, error, value, option, $ele) !== false)) {
                     if (error) {
-                        wrapper.addClass('warpper-' + requireName + '-error');
-                        $ele.addClass('field-' + requireName + '-error');
+                        wrapper.addClass('wrapper-validate-error');
+                        $ele.addClass('validate-error');
                         wrapper.find('.error').addClass(requireName + '-error').show().html(option.message);
                     } else {
                         wrapper.find('.error').removeClass(requireName + '-error').hide().html('');
-                        wrapper.removeClass('wrapper-' + requireName + '-error');
-                        $ele.removeClass('field-' + requireName + '-error');
+                        wrapper.removeClass('wrapper-validate-error');
+                        $ele.removeClass('validate-error');
                     }
                 }
                 me.trigger('validateError', value, option, $ele, me);
@@ -326,7 +335,7 @@ define(function (require, exports, module) {
                 var me = this;
                 var value = null;
                 if ($ele.is('input[type=file]')) {
-                    var index = name.indexOf('_file');
+                    var index = $ele.attr(me.i_attrName).indexOf('_file');
                     if (index > 0) {
                         var hiddenName = name.substring(0, index);
                         var hiddenField = me.o_findField(function ($ele, data) {

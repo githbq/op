@@ -55,30 +55,35 @@ define(function (require, exports, module) {
     var getPriceEvents = [{
         key: 'change', value: changeForGetPrice
     }];
+    var getPriceEventsForDate = [{
+        key: 'blur', value: changeForGetPrice
+    }];
     $(zhushous).each(function (i, n) {
         n.options = n.options || {};
 
         //PK助手开始时间
         dataItems.push(new DataItem($.extend({
             name: 'startDate_' + n.id,
-            value: new Date().getTime(),
+            value: '',
+            __silent: true,
             validateOptions: {
                 required: {
                     enable: true, value: true, message: '', handler: function (error, value, option, $ele) {
                     }
                 }
-            }, events: getPriceEvents
+            }, events: getPriceEventsForDate
         }, n.options.startDate)));
         //PK助手结束时间
         dataItems.push(new DataItem($.extend({
             name: 'endDate_' + n.id,
-            value: new Date().getTime(),
+            value: '',
+            __silent: true,
             validateOptions: {
                 required: {
                     enable: true, value: true, message: '', handler: function (error, value, option, $ele) {
                     }
                 }
-            }, events: getPriceEvents
+            }, events: getPriceEventsForDate
         }, n.options.endDate)));
 
         //pk助手原价
@@ -150,12 +155,13 @@ define(function (require, exports, module) {
     }
 
     function changeForGetPrice(e) {
-        debugger
         var me = this;
         var $dom = $(e.target);
         var $tr = $dom.parents('tr');
         var id = $tr.find('input[type=checkbox]').val();
-
+        if ($dom.is('[datecontrol]')) {
+            $dom.change();
+        }
         var options = {
             data: {
                 id: id,
@@ -173,7 +179,15 @@ define(function (require, exports, module) {
                 }
             }
         };
-        me.attrs.apiPool.api_getCalculateSingle(options);
+        if (options.data.startDate && options.data.endDate) {
+            if (options.data.startDate >= options.data.endDate) {
+                util.showToast('开始日期必须小于结束日期')
+                me.o_setValue({name:'startDate_' + id,value:''});
+                me.o_setValue({name:'endDate_' + id,value:''});
+            } else {
+                me.attrs.apiPool.api_getCalculateSingle(options);
+            }
+        }
     }
 
 });
