@@ -142,9 +142,9 @@ define(function( require , exports , module ){
 
 			me.model.set('invoiceType',invoiceType);
 
-			switch( intype ){
+			switch( invoice ){
 				case '1':
-					switch( invoice ){
+					switch( intype ){
 						case '1':
 							if( !me.model.get('businessLicense') ){
 								util.showToast('请选择营业执照');

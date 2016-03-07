@@ -135,7 +135,6 @@ define(function (require, exports, module) {
     }));
 
     function checkTypeForPrice(e) {
-        debugger
         var me = this;
         var typeValue = me.o_getFieldValue('type_3');
         switch (typeValue.toString()) {
