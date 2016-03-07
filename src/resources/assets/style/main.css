@@ -6596,7 +6596,11 @@ em {
   color: #545454;
 }
 .productinfo .error {
+  color: red;
   display: none;
+}
+.productinfo .field-required-error {
+  border: 1px solid red;
 }
 .productinfo .bold {
   font-weight: bold;
@@ -6671,4 +6675,7 @@ em {
 }
 .m-invoice .teaminfo {
   display: none;
+}
+.m-invoice .roleinfo b {
+  padding: 0 6px;
 }

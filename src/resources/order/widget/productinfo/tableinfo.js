@@ -16,7 +16,6 @@ define(function (require, exports, module) {
             var me=this;
             PageClass.__super__.init.apply( this, arguments );
         }
-
     });
     module.exports = PageClass;
 });

@@ -87,14 +87,26 @@ define(function (require, exports, module) {
                 me.i_initEventsAndElements(data);//核心对象处理
                 PageClass.__super__.init.apply(this, arguments);//调用父类初始化
             },
+            i_initInnerEvent: function ($ele) {
+                var me = this;
+                if ($ele && $ele.length > 0) {
+                    $ele.on('change', function (e) {
+                        var data = me.o_field_getData($(e.target));
+                        if (data.__inited && !data.__silent) {
+                            me.o_validate();
+                        }
+                    });
+                }
+            },
             i_init: function (data) {
                 var me = this;
                 var newDataItems = [];
                 //元素与数据初始化
                 $(me.o_fields).each(function (i, n) {
                     var $field = me[n.key];
+                    me.i_initInnerEvent($field);
                     var fieldData = me.dataDic[n.value.__guid];
-                    var config = $field.attr('data-config') && me.i_parseJSON($field.attr('data-config')) || {};
+                    var config = $field && $field.length > 0 && $field.attr('data-config') && me.i_parseJSON($field.attr('data-config')) || {};
                     $.extend(config, fieldData);
                     me.dataDic[n.value.__guid] = config;
                     data.dataItems[config.__index] = config;
@@ -134,9 +146,9 @@ define(function (require, exports, module) {
                 var me = this;
                 var errors = me.errors = [];
                 me.o_eachFields(function ($ele, data) {
-                    var error = me.o_validateField($ele);
-                    if (error) {
-                        errors.push(error);
+                    var tempErrors = me.o_validateField($ele);
+                    if (tempErrors && tempErrors.length > 0) {
+                        errors = errors.concat(tempErrors);
                     }
                 });
                 return errors.length == 0;
@@ -154,27 +166,36 @@ define(function (require, exports, module) {
                 var options = data.validateOptions;
                 var value = me.o_getFieldValue(null, $ele);
                 var wrapper = me.o_field_getWrapper($ele);
-                var error = null;
+                var errors = [];
                 var defaultAction = me['i_checkFieldForDefault'];
                 if (options) {
                     for (var i in options) {
+                        var error = null;
                         var option = options[i];
+                        //allowHidden允许隐藏状态的控件参与验证 为false为不允许
+                        if(option.allowHidden===false && data.visible===false){
+                            continue;
+                        }
                         if (options.hasOwnProperty(i) && option.enable) {
                             var action = me[me.i_toWord('i_checkFieldFor', i)];
                             if (!action) {
                                 action = defaultAction;
                             }
                             error = action.call(this, i, value, option, $ele, wrapper);
+
                             if (option.handler) { //错误代理
                                 var result = option.handler.call(me, error, value, $ele);
                                 if (result !== undefined) {
                                     error = result;
                                 }
                             }
+                            if (error) {
+                                errors.push(error);
+                            }
                         }
                     }
                 }
-                return error;
+                return errors;
             },
             i_checkFieldForRequired: function (name, value, option, $ele, wrapper) {
                 var me = this;
@@ -218,11 +239,13 @@ define(function (require, exports, module) {
                 }
                 if ((!option.handler) || (option.handler && option.handler.call(me, error, value, option, $ele) !== false)) {
                     if (error) {
-                        wrapper.addClass('required-error');
-                        wrapper.find('.error').show().html(option.message);
+                        wrapper.addClass('warpper-' + requireName + '-error');
+                        $ele.addClass('field-' + requireName + '-error');
+                        wrapper.find('.error').addClass(requireName + '-error').show().html(option.message);
                     } else {
-                        wrapper.find('.error').hide().html('');
-                        wrapper.removeClass('required-error');
+                        wrapper.find('.error').removeClass(requireName + '-error').hide().html('');
+                        wrapper.removeClass('wrapper-' + requireName + '-error');
+                        $ele.removeClass('field-' + requireName + '-error');
                     }
                 }
                 me.trigger('validateError', value, option, $ele, me);
@@ -381,9 +404,7 @@ define(function (require, exports, module) {
                     console.warn('未到找对应的数据=>data:' + JSON.stringify(obj));
                     return;
                 }
-                if (first) {
-                    data.__inited = true;
-                }
+
                 if ($field && $field.length > 0) {
                     //自动执行设置方法
                     for (var i in obj) {
@@ -398,6 +419,9 @@ define(function (require, exports, module) {
                 } else {//无DOM的数据
                     $.extend(data, obj);
                 }
+                if (first) {
+                    data.__inited = true;
+                }
             },
             o_setFieldValue: function ($ele, value, silent) {
                 var me = this;
@@ -407,39 +431,56 @@ define(function (require, exports, module) {
                     if (!data) {
                         console.warn('未找到数据,值=>' + value);
                     }
-                    //考虑复选框情况
-                    if ($ele.is('input[type=radio]') || $ele.is('input[type=checkbox]')) {
-                        if (typeof(value) == 'boolean') {
-                            $ele.prop('checked', value);
-                            //!silent && $ele.change();
-                        } else {
-                            var items = $.isArray(value) ? value : value.split(',');
-                            $(items).each(function (i, n) {
-                                $ele.filter('[value=' + n + ']').attr('data-checked', '1');
-                            });
-                            var excepts = $ele.filter(':not([data-checked])').prop('checked', false).attr('checked', false);
-                            //!silent && excepts.change();
-                            var wants = $ele.filter('[data-checked]').prop('checked', true).attr('checked', true).removeAttr('data-checked');
-                            //!silent && wants.change();
-                        }
-                    }
-                    else if ($ele.is('[datecontrol]') && typeof(value) == 'number') {
-                        var configStr = $ele.attr('datecontrol');
-                        var config = configStr && me.i_parseJSON(configStr) || {};
-                        var format = config.format || "yyyy/MM/dd";
-                        $ele.val(new Date(value)._format(format));
-                    }
-                    else if ($ele.is(me.i_textFieldSelector)) {
-                        $ele.html(value);
-                    }
-                    else {
-                        $ele.val(value);
-                    }
+                    value = me.i_getFunctionPipe('i_setValueWhere', 'Default')[0]($ele, value);
                     //!silent && $ele.change();
                     data.value = value;
                     me.trigger('setFieldValue', $ele, value);
-                    data.trigger('setFieldValue',$ele, value);
+                    data.trigger('setFieldValue', $ele, value);
                 }
+            },
+            i_setValueWhereInputRadio: function (next, $ele, value) {
+                var me = this;
+                //考虑复选框情况
+                if ($ele.is('input[type=radio]') || $ele.is('input[type=checkbox]')) {
+                    if (typeof(value) == 'boolean') {
+                        $ele.prop('checked', value);
+                        //!silent && $ele.change();
+                    } else {
+                        var items = $.isArray(value) ? value : value.split(',');
+                        $(items).each(function (i, n) {
+                            $ele.filter('[value=' + n + ']').attr('data-checked', '1');
+                        });
+                        var excepts = $ele.filter(':not([data-checked])').prop('checked', false).attr('checked', false);
+                        //!silent && excepts.change();
+                        var wants = $ele.filter('[data-checked]').prop('checked', true).attr('checked', true).removeAttr('data-checked');
+                        //!silent && wants.change();
+                    }
+                    return value;
+                }
+                return next($ele, value);
+            },
+            i_setValueWhereDateControl: function (next, $ele, value) {
+                var me = this;
+                if ($ele.is('[datecontrol]') && typeof(value) == 'number') {
+                    var configStr = $ele.attr('datecontrol');
+                    var config = configStr && me.i_parseJSON(configStr) || {};
+                    var format = config.format || "yyyy/MM/dd";
+                    $ele.val(new Date(value)._format(format));
+                    return value;
+                }
+                return next($ele, value);
+            },
+            i_setValueWhereTextField: function (next, $ele, value) {
+                var me = this;
+                if ($ele.is(me.i_textFieldSelector)) {
+                    $ele.html(value);
+                    return value;
+                }
+                return next($ele, value);
+            },
+            i_setValueWhereDefault: function ($ele, value) {
+                $ele.val(value);
+                return value;
             },
             o_setFieldAttr: function ($ele, value) {
                 var me = this;

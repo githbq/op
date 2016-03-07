@@ -90,14 +90,10 @@
 	</div>
 	
 	<h4>提单信息</h4>
-	<p>
+	<p class="roleinfo">
 		<span class="title">提单人<b>*</b></span>
-		<span>
-			部门名称<b>XXXX</b>
-		</span>
-		<span>
-			员工姓名<b>XXXX</b>
-		</span>
+		<span>部门名称</span><b ce-model="departmentname"></b>
+		<span>员工姓名</span><b ce-model="accountname"></b>
 	</p>
 	<p>
 		<span class="title">合作单<b>*</b></span>
@@ -107,7 +103,7 @@
 		</label>
 		<label>
 			<input type="radio" name="team" value="true">
-			是 <input type="text" placeholder="请编写合作人姓名及所属部门" class="teaminfo">
+			是 <input type="text" placeholder="请编写合作人姓名及所属部门" class="teaminfo" ce-model="cooperationUnit">
 		</label>
 	</p>
 	<p>
