@@ -163,6 +163,7 @@ define(function (require, exports, module) {
                 return errors.length == 0;
             },
             o_getValidateErrors: function () {
+                var me=this;
                 //获取验证的错误信息
                 return me.errors;
             },
