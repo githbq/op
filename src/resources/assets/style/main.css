@@ -6676,3 +6676,6 @@ em {
 .m-invoice .teaminfo {
   display: none;
 }
+.m-invoice .roleinfo b {
+  padding: 0 6px;
+}
