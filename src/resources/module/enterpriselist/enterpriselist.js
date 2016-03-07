@@ -10,6 +10,16 @@ define( function(require, exports, module){
     var tpl = $( require( './template.html' ) );
     var viewStr = require('./enterpriselist.html');
 
+    var EntStatusMap = {
+        '1': '待开通',
+        '2': '已开通',
+        '3': '已作废',
+        '4': '已停用',
+        '5': '已删除'
+    }
+
+
+
     var EntLst = MClass( M.Center ).include( {
         
         tplPartner: _.template( tpl.filter( '#trEntLst' ).html() ),
@@ -248,7 +258,7 @@ define( function(require, exports, module){
                         me.list.reload( data.value.model.content, function( item ) {
                             
                             item.createtimestr = new Date( item.enterprise.createtime )._format("yyyy-MM-dd");
-                            item.runstatusstr = item.enterprise.runstatus;
+                            item.runstatusstr = EntStatusMap[item.enterprise.runstatus];
 
                             if( item.protectionWhiteListStatus == 0 ){
                                 item.authStr = "全部授权" 
