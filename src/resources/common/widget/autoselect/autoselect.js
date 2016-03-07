@@ -27,7 +27,11 @@ define(function (require, exports, module) {
                 var tempName = $(this).val(),
                     flag = false;
                 listObjet.length > 0 && listObjet.forEach(function (item) {
-                    if (item.name == tempName) {
+                    if(typeof(item)=='string' && item==tempName){
+                        flag = true;
+                        return false;
+                    }
+                    else if (item.name == tempName) {
                         $select.attr({
                             'data-id': item.id,
                             'data-agentId': item.agentId
@@ -54,6 +58,7 @@ define(function (require, exports, module) {
                     $select.autocomplete({
                         source: me.attrs.data
                     });
+                    listObjet=me.attrs.data;
                 }
                 else {
                     util.api({
