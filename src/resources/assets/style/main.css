@@ -6603,6 +6603,9 @@ em {
   color: black;
 }
 .productinfo .ipt-l {
+  width: 500px;
+}
+.productinfo .ipt-m {
   width: 300px;
 }
 .productinfo > div {

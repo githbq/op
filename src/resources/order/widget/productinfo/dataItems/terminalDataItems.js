@@ -30,7 +30,7 @@ define(function (require, exports, module) {
     dataItems.push(new DataItem({
         name: 'endTime_0',
         value:new Date().getTime(),
-        attr: {readonly: true}
+        readonly: true
     }));
 
 

@@ -411,16 +411,16 @@ define(function (require, exports, module) {
                     if ($ele.is('input[type=radio]') || $ele.is('input[type=checkbox]')) {
                         if (typeof(value) == 'boolean') {
                             $ele.prop('checked', value);
-                            !silent && $ele.change();
+                            //!silent && $ele.change();
                         } else {
                             var items = $.isArray(value) ? value : value.split(',');
                             $(items).each(function (i, n) {
                                 $ele.filter('[value=' + n + ']').attr('data-checked', '1');
                             });
                             var excepts = $ele.filter(':not([data-checked])').prop('checked', false).attr('checked', false);
-                            !silent && excepts.change();
+                            //!silent && excepts.change();
                             var wants = $ele.filter('[data-checked]').prop('checked', true).attr('checked', true).removeAttr('data-checked');
-                            !silent && wants.change();
+                            //!silent && wants.change();
                         }
                     }
                     else if ($ele.is('[datecontrol]') && typeof(value) == 'number') {
@@ -435,9 +435,10 @@ define(function (require, exports, module) {
                     else {
                         $ele.val(value);
                     }
-                    !silent && $ele.change();
+                    //!silent && $ele.change();
                     data.value = value;
                     me.trigger('setFieldValue', $ele, value);
+                    data.trigger('setFieldValue',$ele, value);
                 }
             },
             o_setFieldAttr: function ($ele, value) {

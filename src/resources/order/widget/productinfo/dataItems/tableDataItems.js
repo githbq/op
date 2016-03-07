@@ -22,8 +22,8 @@ define(function (require, exports, module) {
         name: 'order_amount',
         value: 0
     }));
-    //复选框
-    dataItems.push(new DataItem({
+
+  var check=  new DataItem({
         name: 'check',
         value: '44',
         events: [
@@ -49,12 +49,17 @@ define(function (require, exports, module) {
                 }
             }
         ]
-    }));
+    });
+    check.on('setFieldValue',function($ele, value){
+      // alert(value);
+    });
+    //复选框
+    dataItems.push(check);
 
     var zhushous = [
         {id: 11, name: 'PK助手'},
         {id: 22, name: '会议助手'},
-        {id: 33, name: 'HR助手'},
+        //{id: 33, name: 'HR助手'},
         {id: 44, name: '工资助手', options: {discount: {}}}
     ];
     $(zhushous).each(function (i, n) {
