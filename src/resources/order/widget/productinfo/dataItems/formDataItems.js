@@ -173,7 +173,7 @@ define(function (require, exports, module) {
                     var me = this;
                     sendFile(function (response) {
                         console.warn(response);
-                        me.o_setValue({name: 'contractCopy', value: JSON.stringify({companyGatePicture: response.value.model.path, companyGatePictureFileName: response.value.model.FileName})});
+                        me.o_setValue({name: 'companyGatePicture', value: JSON.stringify({companyGatePicture: response.value.model.path, companyGatePictureFileName: response.value.model.FileName})});
                     });
                 }
             }

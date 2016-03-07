@@ -60,12 +60,19 @@ define(function (require, exports, module) {
     }];
     $(zhushous).each(function (i, n) {
         n.options = n.options || {};
+        var startTime='';
+        var endTime='';
+
+       if(n.id==7){
+
+           startTime=new Date().getTime();
+           endTime=new Date().setFullYear(new Date().getFullYear()+1);
+       }
 
         //PK助手开始时间
         dataItems.push(new DataItem($.extend({
             name: 'startDate_' + n.id,
-            value: '',
-            __silent: true,
+            value: startTime,
             validateOptions: {
                 required: {
                     enable: true, value: true, message: '', handler: function (error, value, option, $ele) {
@@ -76,8 +83,7 @@ define(function (require, exports, module) {
         //PK助手结束时间
         dataItems.push(new DataItem($.extend({
             name: 'endDate_' + n.id,
-            value: '',
-            __silent: true,
+            value: endTime,
             validateOptions: {
                 required: {
                     enable: true, value: true, message: '', handler: function (error, value, option, $ele) {
