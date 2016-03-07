@@ -112,7 +112,7 @@ define(function( require , exports , module ){
 				departmentname = IBSS.role.department.name;
 			}
 
-			this.model.set('departmentname','部门名称', departmentname);
+			this.model.set('departmentname', departmentname);
 			this.model.set('accountname', IBSS.role.name);
 		},
 
