@@ -470,11 +470,17 @@ define(function (require, exports, module) {
             },
             i_setValueWhereDateControl: function (next, $ele, value) {
                 var me = this;
-                if ($ele.is('[datecontrol]') && typeof(value) == 'number') {
-                    var configStr = $ele.attr('datecontrol');
-                    var config = configStr && me.i_parseJSON(configStr) || {};
-                    var format = config.format || "yyyy/MM/dd";
-                    $ele.val(new Date(value)._format(format));
+                if ($ele.is('[datecontrol]')) {
+                    debugger
+                    if (typeof(value) == 'number') {
+                        var configStr = $ele.attr('datecontrol');
+                        var config = configStr && me.i_parseJSON(configStr) || {};
+                        var format = config.format || "yyyy/MM/dd";
+                        $ele.val(new Date(value)._format(format));
+                    }else{
+                        value=value||'';
+                        $ele.val(value);
+                    }
                     return value;
                 }
                 return next($ele, value);
