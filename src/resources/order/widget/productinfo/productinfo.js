@@ -86,29 +86,32 @@ define(function (require, exports, module) {
                 //终端部分//////////////////////////////////
                 //销客终端总量
                 data.subOrders.push({
-                    purchaseCount: terminalInfoData.purchaseCount_0,
+                    productId:2,
+                    purchaseCount: terminalInfoData.purchaseCount_2,
                     subOrderType: 0,
                     purchaseAmount: null,
-                    startTime: terminalInfoData.startTime_0,
-                    endTime: terminalInfoData.endTime_0
+                    startTime: terminalInfoData.startTime_2,
+                    endTime: terminalInfoData.endTime_2
                 });
                 //服务人数
                 data.subOrders.push({
-                    purchaseCount: terminalInfoData.purchaseCount_1,
+                    productId:3,
+                    purchaseCount: terminalInfoData.purchaseCount_3,
                     subOrderType: 1,
-                    purchaseAmount: terminalInfoData.purchaseAmount_1,
+                    purchaseAmount: terminalInfoData.purchaseAmount_3,
                     startTime: null,
                     endTime: null
                 });
 
                 //表格部分 //////////////////////////////////////////
-                var ids = ['11', '22', '33', '44'];
+                var ids = [4,5,7];
                 var checkeds = tableInfoData.check.split(',');
                 $(ids).each(function (i, n) {
                         if ($.inArray(n, checkeds) >= 0) {
                             data.subOrders.push({
-                                purchaseCount: tableInfoData['purchaseCount_' + n],
-                                subOrderType: 11,
+                                productId:n,
+                                purchaseCount: 1,
+                                subOrderType: 1,
                                 purchaseAmount: tableInfoData['purchaseAmount_' + n],
                                 startTime: tableInfoData['startDate_' + n],
                                 endTime: tableInfoData['endDate_' + n],
