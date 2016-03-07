@@ -56,7 +56,6 @@ define(function (require, exports, module) {
         setTimeout(function () {
             tableInfo.$('[data-name]').removeAttr('novalidate');
         }, 100);
-
         return refs;
     };
 
