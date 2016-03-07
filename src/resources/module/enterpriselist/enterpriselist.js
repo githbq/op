@@ -54,11 +54,6 @@ define( function(require, exports, module){
             me.$openstime.datetimepicker({format: 'Y/m/d',timepicker: false});
             me.$openetime.datetimepicker({format: 'Y/m/d',timepicker: false});
 
-            me.collection = new M.Collection;
-            me.collection.on('reload',function(){
-                me.renderList();
-            });
-
             if( me.attrs['param'] && ( me.attrs['param'].length > 0 ) ){
                 var param = me.attrs['param'];
                 if( param.charAt(0) == 'p' ){
@@ -250,15 +245,12 @@ define( function(require, exports, module){
 
                     if ( data.success ) {
                         me.pagination.setTotalSize( data.value.model.itemCount );
-                        me.collection.reload( data.value.model.content, function( item ) {
+                        me.list.reload( data.value.model.content, function( item ) {
                             
-                            /*
-                            item.runStatusStr = PSTATUS_MAP[item.runStatus];
-                            item.isPayedStr = PAYED_MAP[item.isPayed];
-                            item.activityStr = ACTIVITY_MAP[item.activity] || '无';
-                            */
+                            item.createtimestr = new Date( item.enterprise.createtime )._format("yyyy-MM-dd");
+                            item.runstatusstr = item.enterprise.runstatus;
 
-                            if( item.authLevel == 0 ){
+                            if( item.protectionWhiteListStatus == 0 ){
                                 item.authStr = "全部授权" 
                             }else if( item.authLevel == 1){
                                 item.authStr = "未授权" 

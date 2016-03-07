@@ -12,7 +12,7 @@ define(function( require , exports , module ){
 
 		$el.on('click #getinfo', function(){
 
-			invoice.getInfo();
+			console.log( invoice.getInfo() );
 		});
 	}
 })
