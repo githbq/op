@@ -14,74 +14,53 @@
                 <button id="btnSearch" class="btn-blue">查询</button>
             </div>
             <div class="list-bar-input">
-            <label>
-                <span>企业帐号</span>
-                <input id="eiAccount" class="g-ipt ipt-m" type="text" ce-model="ea"/>
-            </label>
-            <label>
-                <span>企业名称</span>
-                <input id="eiName" class="g-ipt ipt-m"  type="text" ce-model="ename"/>
-            </label>
-			<label>
-				<span>销售人员</span>
-				<input id="accountName" class="g-ipt ipt-s"  type="text" ce-model="accountName"/>
-			</label>
-            <label>
-                <span>联系电话</span>
-                <input id="eiMobile" class="g-ipt ipt-m"  type="text" ce-model="mobile"/>
-            </label>
-            <label>
-                <span>城市</span>
-                <input id="eiCity" class="g-ipt ipt-s"  type="text" ce-model="city"/>
-            </label>
-            <label>
-                <span>优惠码</span>
-                <input id="eiCode" class="g-ipt ipt-s" type="text" ce-model="agentId"/>
-            </label>
-            <label>
-                <span>来源</span>
-                <select id="eiSource" ce-model="source">
-                    <option value="">全部</option>
-                </select>
-            </label>
-            <label>
-                <span>省市</span>
-                <select id="eiProvince" ce-model="province">
-                    <option value="">全部</option>
-                </select>
-            </label>
-            <label>
-                <span>产品状态</span>
-                <select id="eiPStatus" ce-model="pstatus">
-                    <option value="">全部</option>
-                </select>
-            </label>
-            <label>
-                <span>付费状态</span>
-                <select id="eiFStatus" ce-model="fstatus">
-                    <option value="">全部</option>
-                    <option value="1">是</option>
-                    <option value="0">否</option>
-                </select>
-            </label>
-            <label>
-                <span>行业</span>
-                <select id="eiIndustry" ce-model="industry">
-                    <option value="">全部</option>
-                </select>
-            </label>
-            <label>
-                <span>培训服务费</span>
-                <select id="servicecost" ce-model="personCount">
-                    <option value="">全部</option>
-                </select>
-            </label>
-           <label style="display:none;">
-                <span>活跃度</span>
-                <select id="eiActivity" ce-model="activity">
-                    <option value="">全部</option>
-                </select>
-            </label>
+                <label>
+                    <span>企业名称</span>
+                    <input id="eiName" class="g-ipt ipt-m"  type="text" ce-model="ename"/>
+                </label>
+                <label>
+                    <span>企业帐号</span>
+                    <input id="eiAccount" class="g-ipt ipt-m" type="text" ce-model="ea"/>
+                </label>
+                <label>
+                    <span>开通时间</span>
+                    <input type="text" id="OpenSTime">----<input type="text" id="OpenETime">
+                </label>
+                <label>
+                    <span>企业状态</span>
+                    <select name="" id="">
+                        <option value="">全部</option>
+                        <option value="">开启</option>
+                        <option value="">关闭</option>
+                    </select>
+                </label>
+                <label>
+                    <span>来源</span>
+                    <select id="eiSource" ce-model="source">
+                        <option value="">全部</option>
+                    </select>
+                </label>
+                <label>
+                    <span>行业</span>
+                    <select id="eiIndustry" ce-model="industry">
+                        <option value="">全部</option>
+                    </select>
+                </label>
+                <label>
+                    <span>省市</span>
+                    <select id="eiProvince" ce-model="province">
+                        <option value="">全部</option>
+                    </select>
+                </label>
+                <label>
+                    <span>城市</span>
+                    <input id="eiCity" class="g-ipt ipt-s"  type="text" ce-model="city"/>
+                </label>
+                
+                <label>
+                    <span>联系电话</span>
+                    <input id="eiMobile" class="g-ipt ipt-m"  type="text" ce-model="mobile"/>
+                </label>
             </div>
         </div>
         <div class="list-content">
@@ -104,7 +83,9 @@
                     <th></th>
                 </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody>
+                    
+                </tbody>
             </table>
         </div>
     </div>

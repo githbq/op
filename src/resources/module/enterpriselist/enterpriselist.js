@@ -10,18 +10,6 @@ define( function(require, exports, module){
     var tpl = $( require( './template.html' ) );
     var viewStr = require('./enterpriselist.html');
 
-    //产品状态
-    var PSTATUS_MAP = {};
-
-    //付费状态
-    var PAYED_MAP = {
-        '0': '否',
-        '1': '是'
-    };
-
-    //活跃度
-    var ACTIVITY_MAP = {};
-
     var EntLst = MClass( M.Center ).include( {
         
         tplPartner: _.template( tpl.filter( '#trEntLst' ).html() ),
@@ -31,13 +19,12 @@ define( function(require, exports, module){
         view: viewStr,
 
         elements: {
-            '#eiSource': 'source',       //来源
-            '#eiProvince': 'province',   //省市
-            '#eiPStatus': 'pstatus',     //产品状态
-            '#eiIndustry': 'industry',   //行业
-            '#eiActivity': 'activity',   //活跃度
-            '.header-info': 'headerInfo',
-            'tbody': 'tbody'             //
+            '#OpenSTime': 'openstime',
+            '#OpenETime': 'openetime',
+            '#eiSource': 'source',          //来源
+            '#eiProvince': 'province',      //省市
+            '#eiIndustry': 'industry',      //行业
+            'tbody': 'tbody'                //
         },
         
         events: {
@@ -62,7 +49,11 @@ define( function(require, exports, module){
             me.pagination.onChange = function() {
                 me.getList();
             }
-            
+
+            //初始化时间控件
+            me.$openstime.datetimepicker({format: 'Y/m/d',timepicker: false});
+            me.$openetime.datetimepicker({format: 'Y/m/d',timepicker: false});
+
             me.collection = new M.Collection;
             me.collection.on('reload',function(){
                 me.renderList();
@@ -102,18 +93,16 @@ define( function(require, exports, module){
             me.initializeSelect();
         },
 
+        //初始化枚举选择
         initializeSelect: function() {
             var me = this;
 
             var state = 0;
 
 
-            generateSelect( 'ENT_LST_SOURCE', this.$source );
-            generateSelect( 'PROVINCE', this.$province );
-            generateSelect( 'ENT_LST_PSTS', this.$pstatus );
-            generateSelect( 'INDUSTRY', this.$industry );
-            generateSelect( 'ENT_LST_ACTIVITY', this.$activity );
-            generateSelect( 'OPEN_VERSION_NUM', this.$('#servicecost'));
+            generateSelect( 'ENT_LST_SOURCE', this.$source );                     //来源
+            generateSelect( 'PROVINCE', this.$province );                         //省市
+            generateSelect( 'INDUSTRY', this.$industry );                         //行业
 
             console.log( this.$('#servicecost') );
             function generateSelect( name , $select ){
@@ -121,21 +110,11 @@ define( function(require, exports, module){
                     var items = data.model, options = '';
                     items.forEach( function( item , index){
                         options += '<option value="' + item.value + '" title="' + item.text + '">' + item.text + '</option>';
-                        switch( name ){
-                            case 'ENT_LST_PSTS':
-                                PSTATUS_MAP[item.value] = item.text;
-                                break;
-                            case 'ENT_LST_ACTIVITY':
-                                ACTIVITY_MAP[item.value] = item.text;
-                                break;
-                        }
-
                     });
 
                     $select.append( options );
                     state = state + 1;
-                    if( state >4 ){
-
+                    if( state >= 3 ){
                         me.getList();
                     }
                 });
