@@ -157,7 +157,7 @@ define(function (require, exports, module) {
                 var me = this;
                 var errors = me.errors = [];
                 me.o_eachFields(function ($ele, data) {
-                    if ($ele && $ele.length > 0 && data.visible) { //可见且dom存在
+                    if ($ele && $ele.length > 0 && data.visible && $ele.is(':visible')) { //可见且dom存在
                         var tempErrors = me.o_validateField($ele);
                         if (tempErrors && tempErrors.length > 0) {
                             errors = errors.concat(tempErrors);
