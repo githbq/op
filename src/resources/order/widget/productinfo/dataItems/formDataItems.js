@@ -88,6 +88,7 @@ define(function (require, exports, module) {
                     case '2':
                     {//分期
                         me.o_setValues([
+                            {name: 'currPayAmount', value: ''},
                             {name: 'payStatus_fq_3', value: '', visible: false},
                             {name: 'payStatus_fq_1', value: '', visible: false},
                             {name: 'payStatus_fq_4', value: '', visible: false},
@@ -100,13 +101,11 @@ define(function (require, exports, module) {
                                 {name: 'payStatus_fq_' + n, value: '', visible: true}
                             ]);
                         });
-
-                        //分期
                     }
                         ;
                         break;
                     case '3':
-                    {
+                    {  //未付
                         me.o_setValues([
                             {name: 'payStatus_fq_3', value: '', visible: false},
                             {name: 'payStatus_fq_1', value: '', visible: false},
@@ -115,8 +114,6 @@ define(function (require, exports, module) {
                             {name: 'payStatus_fq_7', value: '', visible: false},
                             {name: 'currPayAmount', value: '0'}
                         ]);
-
-                        //未付
                     }
                         ;
                         break;

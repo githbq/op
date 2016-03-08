@@ -6,18 +6,32 @@ define(function (require, exports, module) {
     var AutoSelect = require('common/widget/autoselect/autoselect');
     var banks = require('./banks');
     var tplStr = require('./template.html');
+
     function i_getTemplateStr() {
         var me = this;
         return $(tplStr).filter(me.i_selector).html();
     }
+
     var PageClass = MClass(IndexPageClass).include({
         i_selector: '#forminfo',
-        i_getTemplateStr:i_getTemplateStr,
+        i_getTemplateStr: i_getTemplateStr,
         init: function () {
             var me = this;
             PageClass.__super__.init.apply(this, arguments);
             me.autoSelect = new AutoSelect({data: banks});
             me.autoSelect.resetSelect(me.$('.bankno'));
+
+            me.$view.on('change','.fenqi', function (e) {//分期字段事件
+                var $dom=$(e.target);
+                $dom.val($dom.val().replace(/[^\.\d]/g, ''));
+                var currPayAmount = 0;
+                me.$('.fenqi:visible').each(function (i, n) {
+                    if ($(n).val()) {
+                        currPayAmount += parseFloat($(n).val());
+                    }
+                });
+                me.o_setValue({name: 'currPayAmount', value: currPayAmount})
+            })
         }
     });
     module.exports = PageClass;
