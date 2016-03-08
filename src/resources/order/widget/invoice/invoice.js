@@ -154,6 +154,10 @@ define(function( require , exports , module ){
 								util.showToast('请填写发票抬头');
 								return false;
 							}
+							if( !me.model.get('amount') ){
+								util.showToast('请填写发票金额');
+								return false;
+							}
 						break;
 						case '2':
 							if( !me.model.get('businessLicense') ){
@@ -164,8 +168,12 @@ define(function( require , exports , module ){
 								util.showToast('请选择一般纳税人资质证书');
 								return false;
 							}
-							if( !me.model.get('companyName') ){
-								util.showToast('请填写公司名称');
+							if( !me.model.get('invoiceHead') ){
+								util.showToast('请填写发票抬头');
+								return false;
+							}
+							if( !me.model.get('amount') ){
+								util.showToast('请填写发票金额');
 								return false;
 							}
 							if( !me.model.get('taxpayerIdentificationNo') ){
