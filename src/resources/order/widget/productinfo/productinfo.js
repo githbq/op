@@ -40,11 +40,28 @@ define(function (require, exports, module) {
     var tableDataItems = require('./dataitems/tabledataitems');
     var formDataItems = require('./dataitems/formdataitems');
     var terminalInfo, tableInfo, formInfo = null;
+
+    var DataItem = require('./index').PageDataClass;
+
+    function controlDataItems(items, name, func) {
+        var find = null;
+        $(items).each(function (i, n) {
+            if (n.name === name) {
+                find = n;
+            }
+        });
+        if (!find) {
+            find = new DataItem({name:name});
+            items.push(find);
+        }
+        func(find);
+    }
+
 //data:{terminalInfo:{$view:xx},tableInfo:{$view:xx},formInfo:{$view:xx},}
 //type:订单类型
     exports.showProductInfo = function (data, type, result) {
-        var controler = getDataControllerByType(type || 2);//根据类型获取控制器
-        var transferedDataItems = controler.transferDataItem(terminalDataItems, tableDataItems, formDataItems);//用控制器转换输入的数据项
+        var controller = getDataControllerByType(type || 2);//根据类型获取控制器
+        var transferedDataItems = controller.transferDataItem(terminalDataItems, tableDataItems, formDataItems, controlDataItems);//用控制器转换输入的数据项
         var apiPool = {api_getServicePrice: api_getServicePrice, api_getCalculateSingle: api_getCalculateSingle};//API池
         if (data.terminalInfo && data.terminalInfo.$view) {
             terminalInfo = new TerminalInfo({wrapperView: data.terminalInfo.$view, dataItems: transferedDataItems.terminalDataItems, apiPool: apiPool});
@@ -55,8 +72,9 @@ define(function (require, exports, module) {
         if (data.formInfo && data.formInfo.$view) {
             formInfo = new FormInfo({wrapperView: data.formInfo.$view, dataItems: transferedDataItems.formDataItems, apiPool: apiPool});
         }
-        var refs = {terminalInfo: terminalInfo, tableInfo: tableInfo, formInfo: formInfo, getData: controler.transferResultData(terminalInfo, tableInfo, formInfo)};
+        var refs = {terminalInfo: terminalInfo, tableInfo: tableInfo, formInfo: formInfo, getData: controller.transferResultData(terminalInfo, tableInfo, formInfo)};
         formInfo.__refs = tableInfo.__refs = terminalInfo.__refs = refs;
+
         terminalInfo.render();
         tableInfo.render();
         formInfo.render();
@@ -103,7 +121,6 @@ define(function (require, exports, module) {
     function getDataControllerByType(type) {
         return orderControllerConfig[type.toString()];
     }
-
 
 
 });

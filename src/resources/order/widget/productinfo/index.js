@@ -49,6 +49,8 @@ define(function (require, exports, module) {
                         }
                     }
                 });
+                //注入数据项时事件
+                data.i_on_injectDataItem && data.i_on_injectDataItem.call(me,data.dataItems);
                 me.wrapperView = data.wrapperView;
                 me.$view = me.view = $('<div>');
                 me.$view.html('').append($template);

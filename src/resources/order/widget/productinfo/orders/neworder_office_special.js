@@ -83,38 +83,39 @@ define(function (require, exports, module) {
             return data;
         }
     };
+
+
     //转换输入值
-    exports.transferDataItem = function (terminalDataItems, tableDataItems, formDataItems) {//转换数据项
-
-        $(terminalDataItems).each(function (i, n) {
-            if (n.name == 'typewrapper_3') {
-                n.visible = false;
-            }
-            if (n.name == 'purchaseAmount_wrapper_3') {
-                n.visible = false;
-            }
-            else if (n.name == 'purchaseAmount_input_3') {
-                n.visible = false;
-            }
-            else if (n.name == 'purchaseAmount_3') {
-                n.visible = false;
-            } else if (n.name == 'businesscard') {
-                n.visible = false;
-            }
-
-
+    exports.transferDataItem = function (terminalDataItems, tableDataItems, formDataItems, controller) {//转换数据项
+        debugger
+        controller(terminalDataItems, 'typewrapper_3', function (n) {
+            n.visible = true;
         });
-        $(formDataItems).each(function (i, n) {
-            if (n.name == 'payStatus_name') {
-                n.visible = false;
-            }
-            if (n.name == 'payStatus_select') {
-                n.visible = true;
-            }
-            if ($.inArray(n.name, ['payStatus_fq_1', 'payStatus_fq_2', 'payStatus_fq_3', 'payStatus_fq_4', 'payStatus_fq_5', 'payStatus_fq_7']) >= 0) {
-                n.visible = false;
-            }
+
+        controller(terminalDataItems, 'purchaseAmount_wrapper_3', function (n) {
+            n.visible = true;
         });
+        controller(terminalDataItems, 'purchaseAmount_input_3', function (n) {
+            n.visible = true;
+        });
+        controller(terminalDataItems, 'purchaseAmount_3', function (n) {
+            n.visible = false;
+        });
+
+        controller(terminalDataItems, 'businesscard', function (n) {
+            n.visible = false;
+        });
+        controller(formDataItems, 'payStatus_name', function (n) {
+            n.visible = false;
+        });
+        controller(formDataItems, 'payStatus_select', function (n) {
+            n.visible = true;
+        });
+        //$(['payStatus_fq_1', 'payStatus_fq_2', 'payStatus_fq_3', 'payStatus_fq_4', 'payStatus_fq_5', 'payStatus_fq_7']).each(function (i, n) {
+        //    controller(formDataItems, n, function (n) {
+        //        n.visible = false;
+        //    });
+        //});
 
 
         return {terminalDataItems: terminalDataItems, tableDataItems: tableDataItems, formDataItems: formDataItems};

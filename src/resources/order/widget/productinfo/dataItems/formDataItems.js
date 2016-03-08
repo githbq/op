@@ -127,31 +127,31 @@ define(function (require, exports, module) {
     //分期 服务费
     dataItems.push(new DataItem({
         name: 'payStatus_fq_3',
-        visible: true
+        visible: false
 
     }));
     //分期 CRM费
     dataItems.push(new DataItem({
         name: 'payStatus_fq_1',
-        visible: true
+        visible: false
 
     }));
     //分期 PK助手费
     dataItems.push(new DataItem({
         name: 'payStatus_fq_4',
-        visible: true
+        visible: false
 
     }));
     //分期 会议助手费
     dataItems.push(new DataItem({
         name: 'payStatus_fq_5',
-        visible: true
+        visible: false
 
     }));
     //PK助手费
     dataItems.push(new DataItem({
         name: 'payStatus_fq_7',
-        visible: true
+        visible: false
 
     }));
     //本次到款金额
