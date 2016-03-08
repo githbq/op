@@ -51,11 +51,11 @@ define(function (require, exports, module) {
         tableInfo.render();
         formInfo.render();
         terminalInfo.$('[data-name=purchaseCount_1]:first').change();
-        tableInfo.$('[data-name]').attr('novalidate','novalidate');
+        //tableInfo.$('[data-name]').attr('novalidate','novalidate');
         tableInfo.$('[data-name=check]:first').change();
-        setTimeout(function () {
-            tableInfo.$('[data-name]').removeAttr('novalidate');
-        }, 100);
+        //setTimeout(function () {
+        //    tableInfo.$('[data-name]').removeAttr('novalidate');
+        //}, 100);
         return refs;
     };
 
@@ -157,14 +157,16 @@ define(function (require, exports, module) {
                 $(ids).each(function (i, n) {
                         if ($.inArray(n, checkeds) >= 0) {
                             data.subOrders.push({
-                                productId: n,
-                                purchaseCount: 1,
-                                subOrderType: 1,
-                                purchaseAmount: tableInfoData['purchaseAmount_' + n],
-                                startTime: tableInfoData['startDate_' + n],
-                                endTime: tableInfoData['endDate_' + n],
-                                productAmount: tableInfoData['productAmount_' + n],
-                                discount: tableInfoData['discount_' + n]
+                                subOrder: {
+                                    productId: n,
+                                    purchaseCount: 1,
+                                    subOrderType: 1,
+                                    purchaseAmount: tableInfoData['purchaseAmount_' + n],
+                                    startTime: tableInfoData['startDate_' + n],
+                                    endTime: tableInfoData['endDate_' + n],
+                                    productAmount: tableInfoData['productAmount_' + n],
+                                    discount: tableInfoData['discount_' + n]
+                                }
                             });
                         }
                     }

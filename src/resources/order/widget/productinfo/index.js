@@ -88,20 +88,20 @@ define(function (require, exports, module) {
                 PageClass.__super__.init.apply(this, arguments);//调用父类初始化
             },
             i_initInnerEvent: function ($ele) {
-                var me = this;
-                if ($ele && $ele.length > 0) {
-                    $ele.on('change', function (e) {
-                        var data = me.o_field_getData($(e.target));
-                        if (data.__inited && !data.__silent && !$ele.attr('novalidate')) {
-                            me.o_validate();
-                        }
-                    });
-                    //$ele.on('focus', function (e) {
-                    //    var data = me.o_field_getData($(e.target));
-                    //
-                    //    me.o_validate();
-                    //});
-                }
+                //var me = this;
+                //if ($ele && $ele.length > 0) {
+                //    $ele.on('change', function (e) {
+                //        var data = me.o_field_getData($(e.target));
+                //        if (data.__inited && !data.__silent && !$ele.attr('novalidate')) {
+                //            me.o_validate();
+                //        }
+                //    });
+                //    //$ele.on('focus', function (e) {
+                //    //    var data = me.o_field_getData($(e.target));
+                //    //
+                //    //    me.o_validate();
+                //    //});
+                //}
             },
             i_init: function (data) {
                 var me = this;
