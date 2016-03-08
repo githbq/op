@@ -3,7 +3,7 @@ define(function (require, exports, module) {
     var uploader = require('common/widget/upload').uploader;
     var dataItems = module.exports = [];
 
-    function sendFile(e,callback) {
+    function sendFile(e, callback) {
         uploader.send({
             'url': '/op/api/file/uploadsinglefileandcheck',
             'files': e.target.files,
@@ -29,6 +29,7 @@ define(function (require, exports, module) {
     dataItems.push(new DataItem({
         name: 'contractPrice',
         value: '',
+        readonly: 'true',
         validateOptions: {
             required: {
                 enable: true, value: true, message: '请填写合同总金额', handler: function (error, value, option, $ele) {
@@ -36,6 +37,12 @@ define(function (require, exports, module) {
             }
         }
     }));
+    //原价总金额
+    dataItems.push(new DataItem({
+        name: 'productAmount',
+        value: 0
+    }));
+
     //付费状态值
     dataItems.push(new DataItem({
         name: 'payStatus',
@@ -45,6 +52,7 @@ define(function (require, exports, module) {
     dataItems.push(new DataItem({
         name: 'payStatus_name',
         value: '全款',
+        visible: false,
         validateOptions: {
             required: {
                 enable: true, value: true, message: '', handler: function (error, value, option, $ele) {
@@ -52,6 +60,98 @@ define(function (require, exports, module) {
             }
         }
     }));
+
+    //付费状态名 选择下拉列表
+    dataItems.push(new DataItem({
+        name: 'payStatus_select',
+        visible: true,
+        events: [
+            {
+                key: 'change', value: function (e) {
+                var me = this;
+                var $dom = $(e.target);
+                switch ($dom.val()) {
+                    case '1':
+                    {
+                        me.o_setValues([
+                            {name: 'currPayAmount', value: me.o_getFieldValue('contractPrice')},
+                            {name: 'payStatus_fq_3', value: '', visible: false},
+                            {name: 'payStatus_fq_1', value: '', visible: false},
+                            {name: 'payStatus_fq_4', value: '', visible: false},
+                            {name: 'payStatus_fq_5', value: '', visible: false},
+                            {name: 'payStatus_fq_7', value: '', visible: false}
+                        ]);
+                        //全款
+                    }
+                        ;
+                        break;
+                    case '2':
+                    {//分期
+                        me.o_setValues([
+                            {name: 'payStatus_fq_3', value: '', visible: false},
+                            {name: 'payStatus_fq_1', value: '', visible: false},
+                            {name: 'payStatus_fq_4', value: '', visible: false},
+                            {name: 'payStatus_fq_5', value: '', visible: false},
+                            {name: 'payStatus_fq_7', value: '', visible: false}
+                        ]);
+                        var checkeds = me.__refs.tableInfo.o_getFieldValue('check').split(',');
+                        $(checkeds).each(function (i, n) {
+                            me.o_setValues([
+                                {name: 'payStatus_fq_' + n, value: '', visible: true}
+                            ]);
+                        });
+
+                        //分期
+                    }
+                        ;
+                        break;
+                    case '3':
+                    {
+                        me.o_setValues([
+                            {name: 'payStatus_fq_3', value: '', visible: false},
+                            {name: 'payStatus_fq_1', value: '', visible: false},
+                            {name: 'payStatus_fq_4', value: '', visible: false},
+                            {name: 'payStatus_fq_5', value: '', visible: false},
+                            {name: 'payStatus_fq_7', value: '', visible: false},
+                            {name: 'currPayAmount', value: '0'}
+                        ]);
+
+                        //未付
+                    }
+                        ;
+                        break;
+                }
+            }
+            }
+        ]
+
+    }));
+
+    //分期 服务费
+    dataItems.push(new DataItem({
+        name: 'payStatus_fq_3',
+        visible: true
+
+    }));
+    //分期 CRM费
+    dataItems.push(new DataItem({
+        name: 'payStatus_fq_1',
+        visible: true
+
+    }));
+    //分期 PK助手费
+    dataItems.push(new DataItem({
+        name: 'payStatus_fq_4',
+        visible: true
+
+    }));
+    //分期 会议助手费
+    dataItems.push(new DataItem({
+        name: 'payStatus_fq_5',
+        visible: true
+
+    }));
+
     //本次到款金额
     dataItems.push(new DataItem({
         name: 'currPayAmount',
@@ -128,7 +228,7 @@ define(function (require, exports, module) {
                 key: 'change',
                 value: function (e) {
                     var me = this;
-                    sendFile(e,function (response) {
+                    sendFile(e, function (response) {
                         console.warn(response);
                         me.o_setValue({name: 'contract', value: JSON.stringify({contract: response.value.model.path, contractFileName: response.value.model.FileName})});
                     });
@@ -149,7 +249,7 @@ define(function (require, exports, module) {
                 key: 'change',
                 value: function (e) {
                     var me = this;
-                    sendFile(e,function (response) {
+                    sendFile(e, function (response) {
                         console.warn(response);
                         me.o_setValue({name: 'contractCopy', value: JSON.stringify({contractCopy: response.value.model.path, contractCopyFileName: response.value.model.FileName})});
                     });
@@ -171,7 +271,7 @@ define(function (require, exports, module) {
                 key: 'change',
                 value: function (e) {
                     var me = this;
-                    sendFile(e,function (response) {
+                    sendFile(e, function (response) {
                         console.warn(response);
                         me.o_setValue({name: 'companyGatePicture', value: JSON.stringify({companyGatePicture: response.value.model.path, companyGatePictureFileName: response.value.model.FileName})});
                     });

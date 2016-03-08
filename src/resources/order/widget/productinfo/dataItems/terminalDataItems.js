@@ -129,7 +129,8 @@ define(function (require, exports, module) {
 
     //名片部分
     dataItems.push(new DataItem({
-        name: 'businesscard'
+        name: 'businesscard',
+        visible:true
     }));
 
     function checkTypeForPrice(e) {
