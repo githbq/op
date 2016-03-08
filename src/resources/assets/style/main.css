@@ -6634,6 +6634,12 @@ em {
 .productinfo .field_row > div {
   float: left;
 }
+.productinfo .field_row .text-price label {
+  width: 100px;
+}
+.productinfo .field_row .typewrapper_3 label {
+  width: 60px;
+}
 .productinfo .field_row label {
   display: inline-block;
   width: 150px;
