@@ -88,20 +88,20 @@ define(function (require, exports, module) {
                 PageClass.__super__.init.apply(this, arguments);//调用父类初始化
             },
             i_initInnerEvent: function ($ele) {
-                var me = this;
-                if ($ele && $ele.length > 0) {
-                    $ele.on('change', function (e) {
-                        var data = me.o_field_getData($(e.target));
-                        if (data.__inited && !data.__silent) {
-                            me.o_validate();
-                        }
-                    });
-                    //$ele.on('focus', function (e) {
-                    //    var data = me.o_field_getData($(e.target));
-                    //
-                    //    me.o_validate();
-                    //});
-                }
+                //var me = this;
+                //if ($ele && $ele.length > 0) {
+                //    $ele.on('change', function (e) {
+                //        var data = me.o_field_getData($(e.target));
+                //        if (data.__inited && !data.__silent && !$ele.attr('novalidate')) {
+                //            me.o_validate();
+                //        }
+                //    });
+                //    //$ele.on('focus', function (e) {
+                //    //    var data = me.o_field_getData($(e.target));
+                //    //
+                //    //    me.o_validate();
+                //    //});
+                //}
             },
             i_init: function (data) {
                 var me = this;
@@ -163,6 +163,7 @@ define(function (require, exports, module) {
                 return errors.length == 0;
             },
             o_getValidateErrors: function () {
+                var me=this;
                 //获取验证的错误信息
                 return me.errors;
             },
@@ -470,11 +471,16 @@ define(function (require, exports, module) {
             },
             i_setValueWhereDateControl: function (next, $ele, value) {
                 var me = this;
-                if ($ele.is('[datecontrol]') && typeof(value) == 'number') {
-                    var configStr = $ele.attr('datecontrol');
-                    var config = configStr && me.i_parseJSON(configStr) || {};
-                    var format = config.format || "yyyy/MM/dd";
-                    $ele.val(new Date(value)._format(format));
+                if ($ele.is('[datecontrol]')) {
+                    if (typeof(value) == 'number') {
+                        var configStr = $ele.attr('datecontrol');
+                        var config = configStr && me.i_parseJSON(configStr) || {};
+                        var format = config.format || "yyyy/MM/dd";
+                        $ele.val(new Date(value)._format(format));
+                    }else{
+                        value=value||'';
+                        $ele.val(value);
+                    }
                     return value;
                 }
                 return next($ele, value);
