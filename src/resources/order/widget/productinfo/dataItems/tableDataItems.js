@@ -40,6 +40,7 @@ define(function (require, exports, module) {
             }
         ]
     });
+
     check.on('setFieldValue', function ($ele, value) {
 
     });
@@ -61,6 +62,38 @@ define(function (require, exports, module) {
 
     $(zhushous).each(function (i, n) {
         n.options = n.options || {};
+        //类型
+        dataItems.push(new DataItem({
+            name: 'table_type_'+ n.id,
+            value: '3',
+            events: [
+                {
+                    key: 'change',
+                    value: function (e) {
+                        var me=this;
+                       var $dom=$(e.target);
+                        debugger
+                        switch(me.o_getFieldValue($dom.attr('data-name'))){
+                            case '1':{
+                                //试用
+                                me.o_setValue({name:'purchaseAmount_'+ n.id,value:'0',readonly:true});
+                            };break;
+                            case '2':{
+                                //赠送
+                                me.o_setValue({name:'purchaseAmount_'+ n.id,value:'0',readonly:true});
+                            };break;
+                            case '3':{
+                                debugger
+                                //折扣
+                                me.o_setValue({name:'purchaseAmount_'+ n.id,value:'0',readonly:false});
+                            };break;
+                        }
+                        me.o_data_getField({name:'purchaseAmount_'+ n.id}).change();
+                    }
+                }
+            ]
+        }));
+
 
         var startTime = '';
         var endTime = '';

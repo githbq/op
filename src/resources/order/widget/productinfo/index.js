@@ -561,7 +561,7 @@ define(function (require, exports, module) {
             ,
             o_setFieldReadonly: function ($ele, value) {
                 var me = this;
-                value = value === undefined ? false : true;
+                value = value === undefined ? false : value;
                 this.o_field_getData($ele).readonly = value;
                 if (value) {
                     $ele.addClass('readonly', 'readonly').attr('readonly', 'readonly');
