@@ -31,10 +31,10 @@ define(function (require, exports, module) {
         value:''
     }));
 
-    //表单部分订单总金额
+    //企业ID
     dataItems.push(new DataItem({
         name: 'enterpriseId',
-        value: null
+        value: 1
     }));
 
 
@@ -126,7 +126,11 @@ define(function (require, exports, module) {
             }
         }
     }));
-
+    //名片部分
+    dataItems.push(new DataItem({
+        name: 'useCRMWrapper',
+        visible:false
+    }));
     //名片部分
     dataItems.push(new DataItem({
         name: 'businesscard',

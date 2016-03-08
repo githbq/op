@@ -52,7 +52,7 @@ define(function (require, exports, module) {
     dataItems.push(new DataItem({
         name: 'payStatus_name',
         value: '全款',
-        visible: false,
+        visible: true,
         validateOptions: {
             required: {
                 enable: true, value: true, message: '', handler: function (error, value, option, $ele) {
@@ -127,28 +127,33 @@ define(function (require, exports, module) {
     //分期 服务费
     dataItems.push(new DataItem({
         name: 'payStatus_fq_3',
-        visible: true
+        visible: false
 
     }));
     //分期 CRM费
     dataItems.push(new DataItem({
         name: 'payStatus_fq_1',
-        visible: true
+        visible: false
 
     }));
     //分期 PK助手费
     dataItems.push(new DataItem({
         name: 'payStatus_fq_4',
-        visible: true
+        visible: false
 
     }));
     //分期 会议助手费
     dataItems.push(new DataItem({
         name: 'payStatus_fq_5',
-        visible: true
+        visible: false
 
     }));
+    //PK助手费
+    dataItems.push(new DataItem({
+        name: 'payStatus_fq_7',
+        visible: false
 
+    }));
     //本次到款金额
     dataItems.push(new DataItem({
         name: 'currPayAmount',

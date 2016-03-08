@@ -13,7 +13,7 @@ define(function (require, exports, module) {
                 productId: 2,
                 purchaseCount: terminalInfoData.purchaseCount_2,
                 subOrderType: 0,
-                purchaseAmount: null,
+                purchaseAmount: 0,
                 startTime: terminalInfoData.startTime_2,
                 endTime: terminalInfoData.endTime_2
             });
@@ -86,7 +86,35 @@ define(function (require, exports, module) {
     //转换输入值
     exports.transferDataItem = function (terminalDataItems, tableDataItems, formDataItems) {//转换数据项
 
-        return {terminalDataItems:terminalDataItems,tableDataItems:tableDataItems,formDataItems:formDataItems};
+        $(terminalDataItems).each(function (i, n) {
+            if (n.name == 'typewrapper_3') {
+                n.visible = false;
+            }
+            if (n.name == 'purchaseAmount_wrapper_3') {
+                n.visible = false;
+            }
+            else if (n.name == 'purchaseAmount_input_3') {
+                n.visible = false;
+            }
+            else if (n.name == 'purchaseAmount_3') {
+                n.visible = false;
+            } else if (n.name == 'businesscard') {
+                n.visible = false;
+            }
+
+
+        });
+        $(formDataItems).each(function (i, n) {
+            if (n.name == 'payStatus_select') {
+                n.visible = false;
+            }
+            if ($.inArray(n.name, ['payStatus_fq_1', 'payStatus_fq_2', 'payStatus_fq_3', 'payStatus_fq_4', 'payStatus_fq_5', 'payStatus_fq_7']) >= 0) {
+                n.visible = false;
+            }
+        });
+
+
+        return {terminalDataItems: terminalDataItems, tableDataItems: tableDataItems, formDataItems: formDataItems};
     }
 
 });
