@@ -29,6 +29,7 @@ define(function (require, exports, module) {
     dataItems.push(new DataItem({
         name: 'contractPrice',
         value: '',
+        readonly:'true',
         validateOptions: {
             required: {
                 enable: true, value: true, message: '请填写合同总金额', handler: function (error, value, option, $ele) {
@@ -36,6 +37,12 @@ define(function (require, exports, module) {
             }
         }
     }));
+    //原价总金额
+    dataItems.push(new DataItem({
+        name: 'productAmount',
+        value: 0
+    }));
+
     //付费状态值
     dataItems.push(new DataItem({
         name: 'payStatus',
@@ -52,6 +59,44 @@ define(function (require, exports, module) {
             }
         }
     }));
+    //付费状态名 文件容器
+    dataItems.push(new DataItem({
+        name: 'priceStatus_text_wrapper',
+        visible:true
+
+    }));
+    //付费状态名 选择容器
+    dataItems.push(new DataItem({
+        name: 'payStatus_select',
+        visible:true
+
+    }));
+
+    //分期 服务费
+    dataItems.push(new DataItem({
+        name: 'payStatus_fq_3',
+        visible:true
+
+    }));
+    //分期 CRM费
+    dataItems.push(new DataItem({
+        name: 'payStatus_fq_1',
+        visible:true
+
+    }));
+    //分期 PK助手费
+    dataItems.push(new DataItem({
+        name: 'payStatus_fq_4',
+        visible:true
+
+    }));
+    //分期 会议助手费
+    dataItems.push(new DataItem({
+        name: 'payStatus_fq_5',
+        visible:true
+
+    }));
+
     //本次到款金额
     dataItems.push(new DataItem({
         name: 'currPayAmount',

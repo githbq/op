@@ -149,6 +149,7 @@ define(function (require, exports, module) {
         var maxEndDate = 0;
         var startDate = null;
         var endDate = null;
+        var productAmount=0;//产品原价
         $ele.each(function (i, n) {
             var $n = $(n);
             var id = $n.val();
@@ -173,6 +174,7 @@ define(function (require, exports, module) {
                 }
                 me.o_setValue({name: 'purchaseAmount_' + id, allow: true});
                 order_amount += parseFloat(me.o_getFieldValue('purchaseAmount_' + id) || 0);
+                productAmount+=parseFloat(me.o_getFieldValue('productAmount_' + id) || 0);
             } else {
                 me.o_setValue({name: 'purchaseAmount_' + id, allow: false});
             }
@@ -185,7 +187,12 @@ define(function (require, exports, module) {
         if (purchaseAmount_3) {//服务费
             order_amount += parseFloat(purchaseAmount_3);
         }
+        var productAmount_3 = me.__refs.terminalInfo.o_getFieldValue('productAmount_3');
+        if (productAmount_3) {//服务费
+            productAmount += parseFloat(productAmount_3);
+        }
         me.__refs.formInfo.o_setValue({name: 'contractPrice', value: order_amount});
+        me.__refs.formInfo.o_setValue({name: 'productAmount', value: productAmount});
     }
 
     function changeForGetPrice(e) {
@@ -210,7 +217,7 @@ define(function (require, exports, module) {
                 if (responseData.success) {
                     //{"amount":200,"rebate":1.7000000000000002}
                     me.o_setValue({name: 'discount_' + id, value: responseData.model.rebate});
-                    me.o_setValue({name: 'productAmount_' + id, value: responseData.model.amount})
+                    me.o_setValue({name: 'productAmount_' + id, value: responseData.model.amount});
                     priceComput.call(me, e);
                 }
             }

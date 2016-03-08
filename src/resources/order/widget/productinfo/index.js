@@ -42,9 +42,11 @@ define(function (require, exports, module) {
                 var $template = $(me.i_getTemplateStr());
                 $template.find('[' + me.i_attrName + ']').each(function (i, n) {
                     var name = $(n).attr(me.i_attrName);
-                    var findItem = _.findWhere(data.dataItems, {name: $(n).attr(me.i_attrName)});
-                    if (!findItem) {
-                        data.dataItems.push(new DataItem({name: name, __auto: true}));
+                    if (name) {//排除只有属性无值的情况
+                        var findItem = _.findWhere(data.dataItems, {name: $(n).attr(me.i_attrName)});
+                        if (!findItem) {
+                            data.dataItems.push(new DataItem({name: name, __auto: true}));
+                        }
                     }
                 });
                 me.wrapperView = data.wrapperView;
@@ -163,7 +165,7 @@ define(function (require, exports, module) {
                 return errors.length == 0;
             },
             o_getValidateErrors: function () {
-                var me=this;
+                var me = this;
                 //获取验证的错误信息
                 return me.errors;
             },
@@ -477,8 +479,8 @@ define(function (require, exports, module) {
                         var config = configStr && me.i_parseJSON(configStr) || {};
                         var format = config.format || "yyyy/MM/dd";
                         $ele.val(new Date(value)._format(format));
-                    }else{
-                        value=value||'';
+                    } else {
+                        value = value || '';
                         $ele.val(value);
                     }
                     return value;

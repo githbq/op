@@ -75,7 +75,8 @@ define(function (require, exports, module) {
                 receiptsAccount: formInfoData.receiptsAccount,
                 payerName: formInfoData.payerName,
                 contractNo: formInfoData.contractNo,
-                amount: formInfoData.contractPrice
+                amount: formInfoData.contractPrice,
+                productAmount:formInfoData.productAmount
             };
             return data;
         }
