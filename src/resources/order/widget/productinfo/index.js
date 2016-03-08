@@ -40,13 +40,15 @@ define(function (require, exports, module) {
             i_inject: function (data) {//被动注入
                 var me = this;
                 var $template = $(me.i_getTemplateStr());
+                var nameDic={};
                 $template.find('[' + me.i_attrName + ']').each(function (i, n) {
                     var name = $(n).attr(me.i_attrName);
-                    if (name) {//排除只有属性无值的情况
+                    if (name && !nameDic[name]) {//排除只有属性无值的情况
                         var findItem = _.findWhere(data.dataItems, {name: $(n).attr(me.i_attrName)});
                         if (!findItem) {
                             data.dataItems.push(new DataItem({name: name, __auto: true}));
                         }
+                        nameDic[name]=1;
                     }
                 });
                 //注入数据项时事件

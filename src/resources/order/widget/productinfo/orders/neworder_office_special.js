@@ -91,7 +91,6 @@ define(function (require, exports, module) {
         controller(terminalDataItems, 'typewrapper_3', function (n) {
             n.visible = true;
         });
-
         controller(terminalDataItems, 'purchaseAmount_wrapper_3', function (n) {
             n.visible = true;
         });
@@ -109,6 +108,10 @@ define(function (require, exports, module) {
             n.visible = false;
         });
         controller(formDataItems, 'payStatus_select', function (n) {
+            n.visible = true;
+        });
+        debugger
+        controller(tableDataItems, 'table_type', function (n) {
             n.visible = true;
         });
         //$(['payStatus_fq_1', 'payStatus_fq_2', 'payStatus_fq_3', 'payStatus_fq_4', 'payStatus_fq_5', 'payStatus_fq_7']).each(function (i, n) {
