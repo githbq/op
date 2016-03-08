@@ -13,7 +13,7 @@ define(function (require, exports, module) {
                 productId: 2,
                 purchaseCount: terminalInfoData.purchaseCount_2,
                 subOrderType: 0,
-                purchaseAmount: null,
+                purchaseAmount: 0,
                 startTime: terminalInfoData.startTime_2,
                 endTime: terminalInfoData.endTime_2
             });
