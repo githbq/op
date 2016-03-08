@@ -149,7 +149,7 @@ define(function (require, exports, module) {
         var maxEndDate = 0;
         var startDate = null;
         var endDate = null;
-        var productAmount=0;//产品原价
+        var productAmount = 0;//产品原价
         $ele.each(function (i, n) {
             var $n = $(n);
             var id = $n.val();
@@ -174,14 +174,14 @@ define(function (require, exports, module) {
                 }
                 me.o_setValue({name: 'purchaseAmount_' + id, allow: true});
                 order_amount += parseFloat(me.o_getFieldValue('purchaseAmount_' + id) || 0);
-                productAmount+=parseFloat(me.o_getFieldValue('productAmount_' + id) || 0);
+                productAmount += parseFloat(me.o_getFieldValue('productAmount_' + id) || 0);
             } else {
                 me.o_setValue({name: 'purchaseAmount_' + id, allow: false});
             }
         });
         me.__refs.terminalInfo.o_setValue({name: 'startTime_2', value: smallStartDate ? smallStartDate : null});
         me.__refs.terminalInfo.o_setValue({name: 'endTime_2', value: maxEndDate ? maxEndDate : null});
-        console.log('合同总金额之表格部分计算结果:' + me.o_getFieldValue('order_amount'));
+        console.log('合同总金额之表格部分计算结果1:' + me.o_getFieldValue('order_amount'));
 
         var purchaseAmount_3 = me.__refs.terminalInfo.o_getFieldValue('purchaseAmount_3');
         if (purchaseAmount_3) {//服务费
@@ -193,6 +193,11 @@ define(function (require, exports, module) {
         }
         me.__refs.formInfo.o_setValue({name: 'contractPrice', value: order_amount});
         me.__refs.formInfo.o_setValue({name: 'productAmount', value: productAmount});
+        console.log('合同总金额之表格部分计算结果2:' + me.o_getFieldValue('order_amount'));
+        console.log('原价总金额之表格部分计算结果:' + me.o_getFieldValue('order_amount'));
+        if (me.__refs.formInfo.o_getFieldData('payStatus_name').visible || me.__refs.formInfo.o_getFieldValue('payStatus_select')=='1') {
+            me.__refs.formInfo.o_setValue({name: 'currPayAmount', value: order_amount});
+        }
     }
 
     function changeForGetPrice(e) {
@@ -224,7 +229,7 @@ define(function (require, exports, module) {
         };
         if (options.data.startDate && options.data.endDate) {
             if (options.data.startDate >= options.data.endDate) {
-                util.showToast('开始日期必须小于结束日期')
+                util.showToast('开始日期必须小于结束日期');
                 me.o_setValue({name: 'startDate_' + id, value: ''});
                 me.o_setValue({name: 'endDate_' + id, value: ''});
             } else {

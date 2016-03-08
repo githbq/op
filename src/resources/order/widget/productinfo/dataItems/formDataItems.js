@@ -52,7 +52,7 @@ define(function (require, exports, module) {
     dataItems.push(new DataItem({
         name: 'payStatus_name',
         value: '全款',
-        visible: false,
+        visible: true,
         validateOptions: {
             required: {
                 enable: true, value: true, message: '', handler: function (error, value, option, $ele) {
@@ -148,7 +148,12 @@ define(function (require, exports, module) {
         visible: true
 
     }));
+    //PK助手费
+    dataItems.push(new DataItem({
+        name: 'payStatus_fq_7',
+        visible: true
 
+    }));
     //本次到款金额
     dataItems.push(new DataItem({
         name: 'currPayAmount',

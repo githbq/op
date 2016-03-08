@@ -98,7 +98,7 @@ define(function (require, exports, module) {
             }
             else if (n.name == 'purchaseAmount_3') {
                 n.visible = false;
-            }else if (n.name == 'businesscard') {
+            } else if (n.name == 'businesscard') {
                 n.visible = false;
             }
 
@@ -108,10 +108,13 @@ define(function (require, exports, module) {
             if (n.name == 'payStatus_select') {
                 n.visible = false;
             }
+            if ($.inArray(n.name, ['payStatus_fq_1', 'payStatus_fq_2', 'payStatus_fq_3', 'payStatus_fq_4', 'payStatus_fq_5', 'payStatus_fq_7']) >= 0) {
+                n.visible = false;
+            }
         });
 
 
-        return {terminalDataItems:terminalDataItems,tableDataItems:tableDataItems,formDataItems:formDataItems};
+        return {terminalDataItems: terminalDataItems, tableDataItems: tableDataItems, formDataItems: formDataItems};
     }
 
 });

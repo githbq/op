@@ -43,7 +43,7 @@ define(function (require, exports, module) {
 //data:{terminalInfo:{$view:xx},tableInfo:{$view:xx},formInfo:{$view:xx},}
 //type:订单类型
     exports.showProductInfo = function (data, type, result) {
-        var controler = getDataControllerByType(type || 1);//根据类型获取控制器
+        var controler = getDataControllerByType(type || 2);//根据类型获取控制器
         var transferedDataItems = controler.transferDataItem(terminalDataItems, tableDataItems, formDataItems);//用控制器转换输入的数据项
         var apiPool = {api_getServicePrice: api_getServicePrice, api_getCalculateSingle: api_getCalculateSingle};//API池
         if (data.terminalInfo && data.terminalInfo.$view) {
