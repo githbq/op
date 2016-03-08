@@ -104,81 +104,38 @@ define( function(require, exports, module){
 
             var state = 0;
 
-            util.getEnums('INDUSTRY',function( data ){
-                console.warn( data );
-                var items = {};
-                data.value.model.forEach(function( item, index ){
-                    
-                    //有父节点
-                    if( item.parentValue && item.parentValue!='0' ){
 
 
-                    //无父节点
-                    }else{
+            //
+            util.getIndustry( me.$industry ,function(){
 
-
-                    }
-                });
+                state = state + 1;
+                if( state >= 3 ){
+                    me.getList();
+                }
             });
-
-
-
-
-            /*
             generateSelect( 'ENT_LST_SOURCE', this.$source );                     //来源
             generateSelect( 'PROVINCE', this.$province );                         //省市
-            generateSelect( 'INDUSTRY', this.$industry );                         //行业
 
-            console.log( this.$('#servicecost') );
+
             function generateSelect( name , $select ){
                 util.getEnums( name, function( data ) {
 
-                    var items,
-                        options = '';
+                    var items = data.value.model;
+                    var options = ""; 
 
-                    //行业
-                    if( name == 'INDUSTRY' ){
-                        items = data.model,
-                        options = '';
-                        items.forEach( function( item , index){
-                            options += '<option value="' + item.value + '" title="' + item.text + '">' + item.text + '</option>';
-                        });
+                    items.forEach( function( item , index){
+                        options += '<option value="' + item.value + '" title="' + item.text + '">' + item.text + '</option>';
+                    });
 
-                        $select.append( options );
-                        state = state + 1;
-                    }else{
-                        items = {},
-                        options = '';
-
-                        //元素排序
-                        data.model.forEach(function( item, index ){
-                            
-                            if( item.parentValue && item.parentValue!='0' ){
-
-
-                            } else {
-
-
-                            }
-                        });
-
-
-
-
-                        items.forEach( function( item , index){
-                            options += '<option value="' + item.value + '" title="' + item.text + '">' + item.text + '</option>';
-                        });
-
-                        $select.append( options );
-                        state = state + 1;
-                    }
+                    $select.append( options );
+                    state = state + 1;
 
                     if( state >= 3 ){
                         me.getList();
                     }
                 });
             }
-            */
         },
         
         //选择全部
@@ -296,7 +253,7 @@ define( function(require, exports, module){
                     en: me.model.get('en'),
                     enterpriseStatus: me.model.get('enterpriseStatus'),
                     source: me.model.get('source'),
-                    industry: me.model.get('industry'),
+                    industry:'',// me.model.get('industry'),
                     province: me.model.get('province'),
                     city: me.model.get('city'),
                     tel: me.model.get('tel'),
