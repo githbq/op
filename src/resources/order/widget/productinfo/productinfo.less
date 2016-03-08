@@ -41,19 +41,23 @@
 
   }
 
-
   .field_row {
     overflow: hidden;
     padding: 5px 0px;
     > div {
       float: left;
     }
-    .text-price{
+    .input-price {
+      label {
+        width: 60px;
+      }
+    }
+    .text-price {
       label {
         width: 100px;
       }
     }
-    .typewrapper_3 {
+    .typewrapper {
 
       label {
         width: 60px;
@@ -63,8 +67,13 @@
       display: inline-block;
       width: 150px;
       text-align: right;
+      &.text_right {
+        padding-left:10px;
+        text-align: left;
+      }
     }
-    .field {
+
+    div.field {
       float: left;
 
     }

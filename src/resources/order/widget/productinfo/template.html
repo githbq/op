@@ -1,6 +1,11 @@
 <script type="text/template" id="terminalinfo">
+    <div class="field_row field" data-name="userFXWrapper">
+        <div class="field">
+            <label class="text_right"> <input type="checkbox" data-name="useFX" value="1" checked="checked"/> <span class="label bold">销客终端</span> </label>
+        </div>
+    </div>
     <div class="terminalinfo">
-        <div class="field_row" data-name="abc">
+        <div class="field_row">
             <div class="field_row_head">
                 <label>
                     <span class="label bold">销客终端总量(个)</span>
@@ -52,7 +57,7 @@
                     <span>元</span>
                 </div>
 
-                <div class="field typewrapper_3" data-name="typewrapper_3">
+                <div class="field typewrapper" data-name="typewrapper_3">
                     <label>
                         <input data-name="type_3" name="type_3" type="radio" value="1"/>
                         <span>试用</span>
@@ -98,6 +103,98 @@
                 </div>
             </div>
         </div>
+        <div class="field_row field" data-name="userCRMWrapper">
+            <div class="field">
+                <label class="text_right"> <input type="checkbox" data-name="useCRM" value="1" checked="checked"/> <span class="label bold">CRM</span> </label>
+            </div>
+        </div>
+        <div class="field_row">
+            <div class="field_row_head">
+                <label>
+                    <span class="label bold">CRM终端总量(个)</span>
+                    <span class="red">*</span>
+                </label>
+            </div>
+            <div class="field_wrapper">
+                <div class="field">
+                    <input type="text" class="purchaseCount" data-name="purchaseCount_2" name="purchaseCount_2"/>
+
+                    <div class="error"></div>
+                </div>
+                <div class="field">
+                    <label>
+                        <span class="label">开始日期</span>
+                    </label>
+                    <input data-name="startTime_1" datecontrol="{'type':0,'comment':'type为0表示开始时间'}" type="text" class="startTime" name="startTime"/>
+
+                </div>
+                <div class="field">
+                    <label>
+                        <span class="label">结束日期</span>
+                    </label>
+                    <input data-name="endTime_1" type="text" datecontrol="{'type':0,'comment':'type为1表示结束时间'}" class="startTime" name="startTime"/>
+                </div>
+                <div class="field">
+                    <label>
+                        <input type="checkbox" class="" name="kbbc_1" checked="checked"/>
+                        <span class="label">捆绑纷享百川</span>
+                    </label>
+                    <label>
+                        <input type="checkbox" class="" name="kbbs_1" checked="checked"/>
+                        <span class="label">捆绑报数系统</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="field_row">
+            <div class="field_row_head">
+                <label>
+                </label>
+            </div>
+            <div class="field_wrapper">
+                <div class="field">
+                    <input data-name="purchaseCount_1" type="text" class="" name=""/>
+                </div>
+
+                <div class="field text-price">
+                    <label>
+                        <span class="label">产品原价</span>
+                    </label>
+                    <span class="field_text" data-name="productAmount_1">0</span>
+                    <span>元</span>
+                </div>
+
+                <div class="field typewrapper" data-name="typewrapper_1">
+                    <label>
+                        <input data-name="type_1" name="type_1" type="radio" value="1"/>
+                        <span>试用</span>
+                    </label>
+                    <label>
+                        <input data-name="type_1" name="type_1" type="radio" value="2"/>
+                        <span>赠送</span>
+                    </label>
+                    <label>
+                        <input data-name="type_1" name="type_1" type="radio" value="3"/>
+                        <span>折扣</span>
+                    </label>
+                </div>
+
+                <div class="field">
+                    <label>
+                        <span class="label">合同金额</span>
+                    </label>
+                    <span class="field_text" data-name="purchaseAmount_1"></span>
+                    <span>元</span>
+                </div>
+                <div class="field">
+                    <span class="label">&nbsp;&nbsp;&nbsp;&nbsp;折扣</span>
+                    <span class="field_text" data-name="discount_1"></span>
+                    <span>折</span>
+                </div>
+            </div>
+        </div>
+
+
         <div class="field_group" data-name="businesscard" data-config="{'visible':false}">
             <div class="field_group_head">
                 <label>
@@ -112,24 +209,14 @@
                             <span class="label">开始日期</span>
                             <span class="red">*</span>
                         </label>
-                        <input datecontrol type="text" class="" name=""/>
+                        <input datecontrol type="text" class="" data-name="startTime_8"/>
                     </div>
                     <div class="field">
                         <label>
                             <span class="label">结束日期</span>
                             <span class="red">*</span>
                         </label>
-                        <input datecontrol type="text" class="" name=""/>
-                    </div>
-                    <div class="field">
-                        <label>
-                            <input type="checkbox" class="" name="kbbc" checked="checked"/>
-                            <span class="label">捆绑纷享百川</span>
-                        </label>
-                        <label>
-                            <input type="checkbox" class="" name="kbbs" checked="checked"/>
-                            <span class="label">捆绑报数系统</span>
-                        </label>
+                        <input datecontrol type="text" class="" data-name="endTime_8"/>
                     </div>
 
                 </div>
@@ -140,7 +227,7 @@
                     <div class="field">
                         <label>
                             <span class="label">产品原价</span>
-                            <span class="field_text">0</span>
+                            <span class="field_text" data-name="productAmount_8">0</span>
                             <span>元</span>
                         </label>
                     </div>
@@ -164,7 +251,7 @@
                             <span class="label">合同金额(元)</span>
                             <span class="red">*</span>
                         </label>
-                        <input type="text" class="" name="htje"/>
+                        <input type="text" class=""  data-name="purchaseAmount_8"/>
                     </div>
 
                 </div>
@@ -296,44 +383,44 @@
                         <span class="red">*</span>
                     </label>
                     <input type="hidden" data-name="payStatus" value="1"/>
+                    <span class="field">
                     <span data-name="payStatus_name" class="field_text"></span>
-                </div>
-                <div class="field">
-                    <label>
-                        <span class="label">付费状态</span>
-                        <span class="red">*</span>
-                    </label>
-                    <input type="hidden" data-name="payStatus" value="1"/>
-                    <span data-name="payStatus_name" class="field_text"></span>
+                    </span>
                     <select data-name="payStatus_select">
                         <option value="1">全额</option>
                         <option value="2">分期</option>
                         <option value="3">未付</option>
                     </select>
                 </div>
-                <div class="field">
+                <div class="field input-price">
                     <label>
                         <span class="label">服务费</span>
                     </label>
                     <input type="text" data-name="payStatus_fq_3" value=""/>
                 </div>
-                <div class="field">
+                <div class="field input-price">
                     <label>
                         <span class="label">CRM</span>
                     </label>
                     <input type="text" data-name="payStatus_fq_1" value=""/>
                 </div>
-                <div class="field">
+                <div class="field input-price">
                     <label>
                         <span class="label">PK助手</span>
                     </label>
                     <input type="text" data-name="payStatus_fq_4" value=""/>
                 </div>
-                <div class="field">
+                <div class="field input-price">
                     <label>
                         <span class="label">会议助手</span>
                     </label>
                     <input type="text" data-name="payStatus_fq_5" value=""/>
+                </div>
+                <div class="field input-price">
+                    <label>
+                        <span class="label">工资助手</span>
+                    </label>
+                    <input type="text" data-name="payStatus_fq_7" value=""/>
                 </div>
             </div>
         </div>

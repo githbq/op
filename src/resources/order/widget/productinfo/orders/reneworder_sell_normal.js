@@ -61,11 +61,14 @@ define(function (require, exports, module) {
             };
             //门头照片
             var companyGatePictureData = $.parseJSON(formInfoData.companyGatePicture || '{}');
+            var useBusinessCart = terminalInfo.o_getFieldData('businesscard').visible && terminalInfo.o_getFieldValue('useCRM') ? 1 : 0;//名片可见 CRM已勾选
             data.enterpriseExtend = {
                 compayGatePicture: companyGatePictureData.compayGatePicture,
                 compayGatePictureFileName: companyGatePictureData.compayGatePictureFileName,
                 companyGateKeyword: formInfoData.companyGateKeyword,
-                companyGateRemark: formInfoData.companyGateRemark
+                companyGateRemark: formInfoData.companyGateRemark,
+                useBusinessCard: useBusinessCart,
+                businessCardPrise: useBusinessCart ? terminalInfo.o_getFiledValue('purchaseAmount_8') : 0
             };
             //订单主信息
             data.order = {

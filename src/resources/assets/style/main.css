@@ -6634,10 +6634,13 @@ em {
 .productinfo .field_row > div {
   float: left;
 }
+.productinfo .field_row .input-price label {
+  width: 60px;
+}
 .productinfo .field_row .text-price label {
   width: 100px;
 }
-.productinfo .field_row .typewrapper_3 label {
+.productinfo .field_row .typewrapper label {
   width: 60px;
 }
 .productinfo .field_row label {
@@ -6645,7 +6648,11 @@ em {
   width: 150px;
   text-align: right;
 }
-.productinfo .field_row .field {
+.productinfo .field_row label.text_right {
+  padding-left: 10px;
+  text-align: left;
+}
+.productinfo .field_row div.field {
   float: left;
 }
 .productinfo .field_row .field_row_head {

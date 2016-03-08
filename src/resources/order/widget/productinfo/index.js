@@ -273,6 +273,7 @@ define(function (require, exports, module) {
                 return result;
             },
             o_getFieldData: function (name) {
+                var me=this;
                 return me.dataDic[name];
             },
             o_getFieldValue: function (name, $ele) {

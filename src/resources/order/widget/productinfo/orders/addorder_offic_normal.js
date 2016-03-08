@@ -61,11 +61,14 @@ define(function (require, exports, module) {
             };
             //门头照片
             var companyGatePictureData = $.parseJSON(formInfoData.companyGatePicture || '{}');
+            var useBusinessCart = terminalInfo.o_getFieldData('businesscard').visible && terminalInfo.o_getFieldValue('useCRM') ? 1 : 0;//名片可见 CRM已勾选
             data.enterpriseExtend = {
                 compayGatePicture: companyGatePictureData.compayGatePicture,
                 compayGatePictureFileName: companyGatePictureData.compayGatePictureFileName,
                 companyGateKeyword: formInfoData.companyGateKeyword,
-                companyGateRemark: formInfoData.companyGateRemark
+                companyGateRemark: formInfoData.companyGateRemark,
+                useBusinessCard: useBusinessCart,
+                businessCardPrise: useBusinessCart ? terminalInfo.o_getFiledValue('purchaseAmount_8') : 0
             };
             //订单主信息
             data.order = {
@@ -76,7 +79,7 @@ define(function (require, exports, module) {
                 payerName: formInfoData.payerName,
                 contractNo: formInfoData.contractNo,
                 amount: formInfoData.contractPrice,
-                productAmount:formInfoData.productAmount
+                productAmount: formInfoData.productAmount
             };
             return data;
         }
@@ -85,9 +88,7 @@ define(function (require, exports, module) {
     exports.transferDataItem = function (terminalDataItems, tableDataItems, formDataItems) {//转换数据项
 
 
-
-
-      return {terminalDataItems:terminalDataItems,tableDataItems:tableDataItems,formDataItems:formDataItems};
+        return {terminalDataItems: terminalDataItems, tableDataItems: tableDataItems, formDataItems: formDataItems};
     }
 
 });
