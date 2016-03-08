@@ -40,13 +40,19 @@ define(function (require, exports, module) {
             i_inject: function (data) {//被动注入
                 var me = this;
                 var $template = $(me.i_getTemplateStr());
+                var nameDic={};
                 $template.find('[' + me.i_attrName + ']').each(function (i, n) {
                     var name = $(n).attr(me.i_attrName);
-                    var findItem = _.findWhere(data.dataItems, {name: $(n).attr(me.i_attrName)});
-                    if (!findItem) {
-                        data.dataItems.push(new DataItem({name: name, __auto: true}));
+                    if (name && !nameDic[name]) {//排除只有属性无值的情况
+                        var findItem = _.findWhere(data.dataItems, {name: $(n).attr(me.i_attrName)});
+                        if (!findItem) {
+                            data.dataItems.push(new DataItem({name: name, __auto: true}));
+                        }
+                        nameDic[name]=1;
                     }
                 });
+                //注入数据项时事件
+                data.i_on_injectDataItem && data.i_on_injectDataItem.call(me,data.dataItems);
                 me.wrapperView = data.wrapperView;
                 me.$view = me.view = $('<div>');
                 me.$view.html('').append($template);
@@ -155,15 +161,17 @@ define(function (require, exports, module) {
                 var me = this;
                 var errors = me.errors = [];
                 me.o_eachFields(function ($ele, data) {
-                    var tempErrors = me.o_validateField($ele);
-                    if (tempErrors && tempErrors.length > 0) {
-                        errors = errors.concat(tempErrors);
+                    if ($ele && $ele.length > 0 && data.visible && $ele.is(':visible')) { //可见且dom存在
+                        var tempErrors = me.o_validateField($ele);
+                        if (tempErrors && tempErrors.length > 0) {
+                            errors = errors.concat(tempErrors);
+                        }
                     }
                 });
                 return errors.length == 0;
             },
             o_getValidateErrors: function () {
-                var me=this;
+                var me = this;
                 //获取验证的错误信息
                 return me.errors;
             },
@@ -271,6 +279,7 @@ define(function (require, exports, module) {
                 return result;
             },
             o_getFieldData: function (name) {
+                var me = this;
                 return me.dataDic[name];
             },
             o_getFieldValue: function (name, $ele) {
@@ -477,8 +486,8 @@ define(function (require, exports, module) {
                         var config = configStr && me.i_parseJSON(configStr) || {};
                         var format = config.format || "yyyy/MM/dd";
                         $ele.val(new Date(value)._format(format));
-                    }else{
-                        value=value||'';
+                    } else {
+                        value = value || '';
                         $ele.val(value);
                     }
                     return value;
@@ -528,14 +537,13 @@ define(function (require, exports, module) {
                 var me = this;
                 for (var i in me.dataDic) {
                     if (me.dataDic.hasOwnProperty(i)) {
-
                         callback && callback(me.o_data_getField(me.dataDic[i]), me.dataDic[i]);
                     }
                 }
             }
             ,
             o_field_getWrapper: function ($ele) {
-                return $ele.parents('.field').length > 0 ? $ele.parents('.field') : $ele;
+                return $ele.is('.field') ? $ele : $ele.parents('.field').length > 0 ? $ele.parents('.field:first') : $ele;
             }
             ,
             o_setFieldVisible: function ($ele, value) {
@@ -553,7 +561,7 @@ define(function (require, exports, module) {
             ,
             o_setFieldReadonly: function ($ele, value) {
                 var me = this;
-                value = value === undefined ? false : true;
+                value = value === undefined ? false : value;
                 this.o_field_getData($ele).readonly = value;
                 if (value) {
                     $ele.addClass('readonly', 'readonly').attr('readonly', 'readonly');
