@@ -96,8 +96,8 @@ define(function(require, exports, module){
 			me.model.set('enterpriseFilingId', IBSS.tempEnterprise['id']);
 			me.model.set('source', IBSS.tempEnterprise['source']);
 			me.model.set('industry', IBSS.tempEnterprise['industry']);
-			me.model.set('contractCopy', '');
-			me.model.set('contractCopyFileName', '');
+			me.model.set('Vendorid ',IBSS.role_vendorId);
+			me.model.set('StorageTotalSpace ',0);
 
 			IBSS.tempEnterprise['enterpriseName'] && me.$('.enterpriseName').attr('disabled','disabled');
 			IBSS.tempEnterprise['address'] && me.$('.address').attr('disabled','disabled');

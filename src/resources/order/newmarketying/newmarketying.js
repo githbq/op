@@ -6,7 +6,7 @@ define( function( require, exports, module ) {
 	var OrderInfo = require('../widget/orderinfo/orderinfo');
 	var InvoiceInfo = require('../widget/invoice/invoice');
 	var productinfo = require('../widget/productinfo/productinfo');
-	var orderDate = [
+	var orderDate = ['',
 						'newOffice-common','newOffice-special',
 						'newMarket-common','newMarket-special',
 						'addOffice-common','addOffice-special',
@@ -301,7 +301,7 @@ define( function( require, exports, module ) {
 				}else{
 					return ;
 				}
-
+ 				objData.orderEntity.order['isTp'] = 0;
 			//获取特批订单信息
 			}else{
 
@@ -336,10 +336,10 @@ define( function( require, exports, module ) {
 				}else{
 					return ;
 				}
+ 				objData.orderEntity.order['isTp'] = 1;
 			}
 			//获取订单类型
 			objData.orderEntity.order['orderType'] = me.attrs.orderType ;
-
 
 			//综合折扣
 			me.getDiscount( objData.orderEntity.subOrders ,objData.orderEntity.order.amount , function(  ){
@@ -347,7 +347,7 @@ define( function( require, exports, module ) {
 				if(me.attrs.showType == 'common'){
 					me.attrs.invoiceCommon.setDiscount( me.attrs.complexDiscount );
 					_.map( objData.orderEntity.subOrders , function( obj , index){
-						if(obj[index].discount && obj[index].discount<8){
+						if(obj.discount && obj.discount<8){
 							discoutFlag = false;
 							//break;
 						}
@@ -360,10 +360,152 @@ define( function( require, exports, module ) {
 					me.attrs.invoiceSpecial.setDiscount( me.attrs.complexDiscount );
 				}
 				objData.orderEntity.order['discount'] = me.attrs.complexDiscount ;
+				objData.contract['discount'] = me.attrs.complexDiscount ;
+
+			/*	var objData = {
+					"orderEntity": {
+						"order": {
+							"payStatus": 1,
+							"currPayAmount": "7000",
+							"payDate": 1457280000000,
+							"receiptsAccount": "110914627510801000130",
+							"productAmount":10000,
+							"payerName": "付款的",
+							"contractNo": "1230010",
+							"amount": "7500",
+							"isCooperation": 1,
+							"cooperationUnit": "风部",
+							"remark": "背时",
+							"orderType": 1,
+							"discount": 0
+						},
+						"subOrders": [
+							{"subOrder":{
+								 "productId": 2,
+								 "purchaseCount": "1000",
+								 "subOrderType": 0,
+								 "purchaseAmount": null,
+								 "startTime": 1457280000000,
+								 "endTime": 1488902400000
+								 }
+							},{
+								"subOrder":{
+								 "productId": 3,
+								 "purchaseCount": "20",
+								 "subOrderType": 1,
+								 "purchaseAmount": "2000",
+								 "startTime": 1457280000000,
+								 "endTime": 1488902400000
+								 }
+							},{
+								"subOrder":{
+									 "productId": "4",
+									 "purchaseCount": 1,
+									 "subOrderType": 1,
+									 "purchaseAmount": "500",
+									 "startTime": 1457280000000,
+									 "endTime": 1488902400000,
+									 "productAmount": "400",
+									 "discount": "12.5"
+								}
+							},{
+								"subOrder":{
+									 "productId": "5",
+									 "purchaseCount": 1,
+									 "subOrderType": 1,
+									 "purchaseAmount": "5000",
+									 "startTime": 1457280000000,
+									 "endTime": 1488902400000,
+									 "productAmount": "400",
+									 "discount": "125.0"
+								 }
+							 },{
+								 "subOrder":{
+									 "productId": "7",
+									 "purchaseCount": 1,
+									 "subOrderType": 1,
+									 "purchaseAmount": "0",
+									 "startTime": 1457280000000,
+									 "endTime": 1488816000000,
+									 "productAmount": "",
+									 "discount": ""
+								 }
+							 }
+						],
+						"invoice": {
+							"companyName": "公司名称",
+							"invoiceHead": "XXXX公司",
+							"taxpayerIdentificationNo": "12300000",
+							"address": "地址",
+							"telephone": "15241101101",
+							"bankName": "开户行",
+							"bankAccount": "7889554122",
+							"amount":7500,
+							"departmentname": "",
+							"accountname": "ceshiqrr",
+							"cooperationUnit": "风部",
+							"remark": "背时",
+							"businessLicense": "G_201603_07_296d5212ca0d4227a1a703b3fb676119.png",
+							"businessLicenseFileName": "Y(}_X[Y$8DWYFS)22Y9N]`X.png",
+							"taxpayerQualification": "G_201603_07_922e2e96f2604ed5873c66a63197a30b.png",
+							"taxpayerQualificationFileName": "phonebg.png",
+							"invoiceType": 2
+						}
+					},
+					"enterprise": {
+						"enterpriseName": "测试折扣",
+						"enterpriseAccount": "qiyezhanghao03",
+						"address": "测试折扣",
+						"industry": 2,
+						"Vendorid": 90925,
+						"source": 1,
+						"groupType": "1",
+						"StorageTotalSpace":0,
+						"province": "12",
+						"city": "城市",
+						"knowSource": "1",
+						"registerMotive": "98",
+						"companyScale": "5",
+						"isSaleTeam edit-flag": "1",
+						"saleTeamScale": "7",
+						"isFirstmeetingSign": "1",
+						"isWillPin": "0",
+						"isStrangerVisits": "1",
+						"dealDays": "6",
+						"isReferral": "1",
+						"keyContactName": "测试折扣",
+						"keyContactPhone": "183101010101",
+						"keyContactEmail": "1831010@qq.com",
+						"contactName": "dfd",
+						"contactPhone": "18310101010",
+						"contactEmail": "1831010@qq.com",
+						"contactim": "183101010101",
+						"enterpriseFilingId": 603,
+						"contractCopy": "",
+						"contractCopyFileName": ""
+					},
+					"enterpriseExtend": {
+						"companyGateKeyword": "门头关键自",
+						"useBusinessCard":0,//是否使用名片0否 1是
+						businessCardPrise:0,//名片金额
+						"companyGateRemark": "门头卑职"
+					},
+					"contract": {
+						"contractNo": "1230010",
+						"contractPrice": "7500",
+						"sealName": "合同章",
+						"contract": "G_201603_07_abe744dd182f44c4a1d1dd872aa0b993.png",
+						"contractFileName": "Y(}_X[Y$8DWYFS)22Y9N]`X.png",
+						"contractCopy": "G_201603_07_a91c762c3ada44a992f11c1d4d56ae7a.jpg",
+						"contractCopyFileName": "TI4T)TD$II@T995WBNX(D_L.jpg",
+						"discount": 0
+					}
+				};*/
+
 
 				util.api({
 					'url':me.attrs.url,
-					'data':JSON.stringify( me.attrs.objData ),
+					'data':JSON.stringify( objData ),
 					'contentType':'application/json;charset=UTF-8 ',
 					'success': function( data ){
 
@@ -373,8 +515,6 @@ define( function( require, exports, module ) {
 					}
 				})
 			});
-
-
 
 		},
 		cancelEve: function(){
