@@ -43,22 +43,9 @@ define(function (require, exports, module) {
         controller(tableDataItems, 'table_type', function (n) {
             n.visible = true;
         });
-        controller(tableDataItems, 'table_type_7', function (n) {
-            n.visible = false;
-        });
-        controller(tableDataItems, 'startTime_7', function (n) {
-            n.readonly=true;
-        });
-        controller(tableDataItems, 'endTime_7', function (n) {
-            n.readonly=true;
-        });
-        controller(tableDataItems, 'purchaseAmount_7', function (n) {
-            n.readonly=true;
-            n.value=0;
-        });
-        controller(tableDataItems, 'productAmount_7', function (n) {
-            n.value=0;
-        });
+        //工资助手强制
+        common.setGZHelper(controller,terminalDataItems,tableDataItems,formDataItems);
+        //工资助手强制 end
         //$(['currPayAmount_1', 'currPayAmount_2', 'currPayAmount_3', 'currPayAmount', 'currPayAmount_5', 'currPayAmount_7']).each(function (i, n) {
         //    controller(formDataItems, n, function (n) {
         //        n.visible = false;

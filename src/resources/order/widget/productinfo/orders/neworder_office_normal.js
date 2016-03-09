@@ -14,26 +14,26 @@ define(function (require, exports, module) {
         }
     };
     //转换输入值
-    exports.transferDataItem = function (terminalDataItems, tableDataItems, formDataItems) {//转换数据项
-
-        $(terminalDataItems).each(function (i, n) {
-            if (n.name == 'typewrapper_3') {
-                n.visible = false;
-            }
-            if (n.name == 'purchaseAmount_wrapper_3') {
-                n.visible = false;
-            }
-            else if (n.name == 'purchaseAmount_input_3') {
-                n.visible = false;
-            }
-            else if (n.name == 'purchaseAmount_3') {
-                n.visible = false;
-            } else if (n.name == 'businesscard') {
-                n.visible = false;
-            }
-
-
+    exports.transferDataItem = function (terminalDataItems, tableDataItems, formDataItems,controller) {//转换数据项
+        controller(terminalDataItems, 'typewrapper_3', function (n) {
+            n.visible = false;
         });
+        controller(terminalDataItems, 'purchaseAmount_wrapper_3', function (n) {
+            n.visible = false;
+        });
+        controller(terminalDataItems, 'purchaseAmount_input_3', function (n) {
+            n.visible = false;
+        });
+
+        controller(terminalDataItems, 'purchaseAmount_3', function (n) {
+            n.visible = false;
+        });
+        controller(terminalDataItems, 'businesscard', function (n) {
+            n.visible = false;
+        });
+        //工资助手强制
+        common.setGZHelper(controller,terminalDataItems,tableDataItems,formDataItems);
+        //工资助手强制 end
         $(formDataItems).each(function (i, n) {
             if (n.name == 'payStatus_select') {
                 n.visible = false;

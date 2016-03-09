@@ -1,5 +1,5 @@
 define(function (require, exports, module) {
-    var common=require('./index');
+    var common = require('./index');
     //转换结果值
     exports.transferResultData = function (terminalInfo, tableInfo, formInfo) {
         return function () {
@@ -7,14 +7,18 @@ define(function (require, exports, module) {
             var terminalInfoData = terminalInfo.o_getValues();
             var tableInfoData = tableInfo.o_getValues();
             var formInfoData = formInfo.o_getValues();
-            common.setSuborders(terminalInfo, tableInfo, formInfo,data);//设置子订单
+            common.setSuborders(terminalInfo, tableInfo, formInfo, data);//设置子订单
             //合同部分//////////////////////////////////////////////////////////////////////////
-            common.setOtherData(terminalInfo, tableInfo, formInfo,data);//设置子订单
+            common.setOtherData(terminalInfo, tableInfo, formInfo, data);//设置子订单
             return data;
         }
     };
     //转换输入值
-    exports.transferDataItem = function (terminalDataItems, tableDataItems, formDataItems) {//转换数据项
+    exports.transferDataItem = function (terminalDataItems, tableDataItems, formDataItems,controller) {//转换数据项
+//工资助手强制
+        //工资助手强制
+        common.setGZHelper(controller,terminalDataItems,tableDataItems,formDataItems);
+        //工资助手强制 end
 
         $(terminalDataItems).each(function (i, n) {
             if (n.name == 'typewrapper_3') {

@@ -40,6 +40,27 @@ define(function (require, exports, module) {
         };
 
     };
+
+    exports.setGZHelper=function(controller,terminalDataItems,tableDataItems,formDataItems){
+        controller(tableDataItems, 'table_type_7', function (n) {
+            n.visible = false;
+        });
+        controller(tableDataItems, 'startTime_7', function (n) {
+            n.readonly = true;
+        });
+        controller(tableDataItems, 'endTime_7', function (n) {
+            n.readonly = true;
+        });
+        controller(tableDataItems, 'purchaseAmount_7', function (n) {
+            n.readonly = true;
+            n.value = 0;
+        });
+        controller(tableDataItems, 'productAmount_7', function (n) {
+            n.value = 0;
+        });
+
+    };
+
     //转换输入值
     exports.setSuborders=function(terminalInfo, tableInfo, formInfo,data){
         var terminalInfoData = terminalInfo.o_getValues();
