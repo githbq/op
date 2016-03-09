@@ -101,6 +101,11 @@ define( function( require, exports, module ) {
 
             util.getIndustry( me.$industryData,function( data ){
                 if( data.success ){
+
+                    data.value.model.forEach(function( item, index){
+                       industryMap[ item.value ] = item.text;
+                    });
+                    
                     state.b = true;
                     checkState();
                 }

@@ -6489,7 +6489,7 @@ em {
 }
 .m-invoice .filetype {
   display: inline-block;
-  width: 100px;
+  width: 300px;
 }
 .m-invoice .filetype b {
   color: red;
