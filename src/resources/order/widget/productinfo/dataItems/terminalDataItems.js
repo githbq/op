@@ -61,7 +61,8 @@ define(function (require, exports, module) {
                                 if (response.success) {
                                     me.o_setValue({name: 'purchaseAmount_' + n, value: response.model});
                                     me.o_setValue({name: 'productAmount_' + n, value: response.model});
-                                    checkTypeForPrice.call(me, e);
+                                    checkTypeForPrice.call(me, n);
+                                    priceComput.call(me,e);
                                 }
                             }
                         });
@@ -86,7 +87,12 @@ define(function (require, exports, module) {
             value: '',
             __silent: true,
             events: [{
-                key: 'change', value: changeForGetPrice
+                key: 'change', value:function(e){
+                    var me = this;
+                    var $dom = $(e.target);
+                    $dom.val($dom.val().replace(/[^\.\d]/g, ''));
+                    changeForGetPrice.call(me,e);
+                }
             }],
             validateOptions: {
                 required: {
@@ -159,18 +165,18 @@ define(function (require, exports, module) {
 
     function checkTypeForPrice(e, id) {
         var me = this;
-        var typeValue = me.o_getFieldValue('type_3');
+        var typeValue = me.o_getFieldValue('type_'+id);
         switch (typeValue.toString()) {
             case '1':
             case '2':
             {
-                me.o_setValue({name: 'purchaseAmount_input_3', value: 0, readonly: true})
+                me.o_setValue({name: 'purchaseAmount_input_'+id, value: 0, readonly: true})
             }
                 ;
                 break;
             case '3':
             {
-                me.o_setValue({name: 'purchaseAmount_input_3', value: me.o_getFieldValue('purchaseAmount_input_3'), readonly: false})
+                me.o_setValue({name: 'purchaseAmount_input_'+id, value: me.o_getFieldValue('purchaseAmount_input_'+id), readonly: false})
             }
                 ;
                 break;
@@ -180,32 +186,6 @@ define(function (require, exports, module) {
     var numberIds = ['2', '3', '8'];
 
 
-    //服务费 文本
-    dataItems.push(new DataItem({
-        name: 'purchaseAmount_3',
-        value: ''
-    }));
-    //服务费 输入
-    dataItems.push(new DataItem({
-        name: 'purchaseAmount_input_3',
-        value: '',
-        visible: false,
-        events: [{
-            key: 'change',
-            value: function (e) {
-                var me = this;
-                var $dom = $(e.target);
-                $dom.val($dom.val().replace(/[^\.\d]/g, ''));
-                changeForGetPrice.call(this, e);
-            }
-        }],
-        validateOptions: {
-            required: {
-                allowHidden: false, enable: true, value: true, message: '请填写服务费金额', handler: function (error, value, option, $ele) {
-                }
-            }
-        }
-    }));
     //名片部分
     dataItems.push(new DataItem({
         name: 'useCRMWrapper',
