@@ -8,24 +8,33 @@ define(function (require, exports, module) {
             var formInfoData = formInfo.o_getValues();
 
             //终端部分//////////////////////////////////
+
             //销客终端总量
             data.subOrders.push({
-                productId: 2,
-                purchaseCount: terminalInfoData.purchaseCount_2,
-                subOrderType: 0,
-                purchaseAmount: null,
-                startTime: terminalInfoData.startTime_2,
-                endTime: terminalInfoData.endTime_2
-            });
+                    subOrder: {
+                        productId: 2,
+                        purchaseCount: terminalInfoData.purchaseCount_2,
+                        subOrderType: 1,
+                        purchaseAmount: 0,
+                        startTime: terminalInfoData.startTime_2,
+                        endTime: terminalInfoData.endTime_2,
+                        currPayAmount:formInfoData['currPayAmount_'+2]||0
+                    }
+                }
+            );
             //服务人数
             data.subOrders.push({
-                productId: 3,
-                purchaseCount: terminalInfoData.purchaseCount_3,
-                subOrderType: 1,
-                purchaseAmount: terminalInfoData.purchaseAmount_3,
-                startTime: terminalInfoData.startTime_2,
-                endTime: terminalInfoData.endTime_2
-            });
+                    subOrder: {
+                        productId: 3,
+                        purchaseCount: terminalInfoData.purchaseCount_3,
+                        subOrderType: 1,
+                        purchaseAmount: terminalInfoData.purchaseAmount_3,
+                        startTime: terminalInfoData.startTime_3,
+                        endTime: terminalInfoData.endTime_3,
+                        currPayAmount:formInfoData['currPayAmount_'+3]||0
+                    }
+                }
+            );
 
             //表格部分 //////////////////////////////////////////
             var ids = ['4', '5', '7'];

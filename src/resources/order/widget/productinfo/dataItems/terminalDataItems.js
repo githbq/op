@@ -74,32 +74,96 @@ define(function (require, exports, module) {
         }
     }));
 
-    //产品原价
-    dataItems.push(new DataItem({
-        name: 'productAmount_3',
-        value: ''
-    }));
-    //服务费 试用 赠送 折扣 的容器
-    dataItems.push(new DataItem({
-        name: 'typewrapper_3',
-        visible: false
-    }));
-    //服务费金额文本框
-    dataItems.push(new DataItem({
-        name: 'purchaseAmount_wrapper_3',
-        visible: false
-    }));
-    //服务费 1试用 2赠送 3折扣 的容器
-    dataItems.push(new DataItem({
-        name: 'type_3',
-        value: '3',
-        events: [
-            {
-                key: 'change', value: checkTypeForPrice
-            }
-        ]
-    }));
 
+
+    var typeIds=['1','3','8'];
+
+    $(typeIds).each(function(i,n){
+        if(n=='8'){
+        dataItems.push(new DataItem({
+            name: 'startTime_'+n,
+            value: '',
+            events:[{
+                key: 'blur', value: changeForGetPrice
+            }]
+        }));
+        dataItems.push(new DataItem({
+            name: 'endTime_'+n,
+            value: '',
+            events:[{
+                key: 'blur', value: changeForGetPrice
+            }]
+        }));
+        }
+        //产品原价
+        dataItems.push(new DataItem({
+            name: 'productAmount_'+n,
+            value: ''
+        }));
+        //服务费 试用 赠送 折扣 的容器
+        dataItems.push(new DataItem({
+            name: 'typewrapper_'+n,
+            visible: false
+        }));
+        //服务费金额文本框
+        dataItems.push(new DataItem({
+            name: 'purchaseAmount_wrapper_'+n,
+            visible: false
+        }));
+        //服务费 1试用 2赠送 3折扣 的容器
+        dataItems.push(new DataItem({
+            name: 'type_'+n,
+            value: '3',
+            events: [
+                {
+                    key: 'change', value:  function (e) {
+                    var me = this;
+                    var typeValue = me.o_getFieldValue('type_'+n);
+                    switch (typeValue.toString()) {
+                        case '1':
+                        case '2':
+                        {
+                            me.o_setValue({name: 'purchaseAmount_input_'+n, value: 0,readonly:true})
+                        }
+                            ;
+                            break;
+                        case '3':
+                        {
+                            me.o_setValue({name: 'purchaseAmount_input_'+n, value: me.o_getFieldValue('purchaseAmount_'+n),readonly:false})
+                        }
+                            ;
+                            break;
+                    }
+                }
+                }
+            ]
+        }));
+    });
+
+
+
+
+
+
+    function checkTypeForPrice(e,id) {
+        var me = this;
+        var typeValue = me.o_getFieldValue('type_3');
+        switch (typeValue.toString()) {
+            case '1':
+            case '2':
+            {
+                me.o_setValue({name: 'purchaseAmount_input_3', value: 0,readonly:true})
+            }
+                ;
+                break;
+            case '3':
+            {
+                me.o_setValue({name: 'purchaseAmount_input_3', value: me.o_getFieldValue('purchaseAmount_input_3'),readonly:false})
+            }
+                ;
+                break;
+        }
+    }
 
     //服务费 文本
     dataItems.push(new DataItem({
@@ -137,23 +201,44 @@ define(function (require, exports, module) {
         visible:true
     }));
 
-    function checkTypeForPrice(e) {
+
+
+    function changeForGetPrice(e) {
         var me = this;
-        var typeValue = me.o_getFieldValue('type_3');
-        switch (typeValue.toString()) {
-            case '1':
-            case '2':
-            {
-                me.o_setValue({name: 'purchaseAmount_input_3', value: 0})
+        var $dom = $(e.target);
+        var id = '8';
+
+        if ($dom.is('[datecontrol]')) {
+            $dom.change();
+        }
+        var options = {
+            data: {
+                id: id,
+                startDate: me.o_getFieldValue('startDate_' + id),
+                endDate: me.o_getFieldValue('endDate_' + id),
+                sum: 1,
+                contractAmount: me.o_getFieldValue('purchaseAmount_' + id)
+            },
+            success: function (responseData) {
+                console.warn(responseData)
+                if (responseData.success) {
+                    //{"amount":200,"rebate":1.7000000000000002}
+
+                    me.o_setValue({name: 'productAmount_' + id, value: responseData.model.amount});
+                    me.o_setValue({name: 'purchaseAmount_' + id, value: responseData.model.amount});
+                    priceComput.call(me, e);
+                }
             }
-                ;
-                break;
-            case '3':
-            {
-                me.o_setValue({name: 'purchaseAmount_input_3', value: me.o_getFieldValue('purchaseAmount_3')})
+        };
+        if (options.data.startDate && options.data.endDate) {
+            if (options.data.startDate >= options.data.endDate) {
+                util.showToast('开始日期必须小于结束日期');
+                me.o_setValue({name: 'startDate_' + id, value: ''});
+                me.o_setValue({name: 'endDate_' + id, value: ''});
+            } else {
+                me.attrs.apiPool.api_getCalculateSingle(options);
             }
-                ;
-                break;
         }
     }
+
 });

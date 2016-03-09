@@ -75,11 +75,11 @@ define(function (require, exports, module) {
                     {
                         me.o_setValues([
                             {name: 'currPayAmount', value: me.o_getFieldValue('contractPrice')},
-                            {name: 'payStatus_fq_3', value: '', visible: false},
-                            {name: 'payStatus_fq_1', value: '', visible: false},
-                            {name: 'payStatus_fq_4', value: '', visible: false},
-                            {name: 'payStatus_fq_5', value: '', visible: false},
-                            {name: 'payStatus_fq_7', value: '', visible: false}
+                            {name: 'currPayAmount_3', value: '', visible: false},
+                            {name: 'currPayAmount_1', value: '', visible: false},
+                            {name: 'currPayAmount_4', value: '', visible: false},
+                            {name: 'currPayAmount_5', value: '', visible: false},
+                            {name: 'currPayAmount_7', value: '', visible: false}
                         ]);
                         //全款
                     }
@@ -89,16 +89,16 @@ define(function (require, exports, module) {
                     {//分期
                         me.o_setValues([
                             {name: 'currPayAmount', value: ''},
-                            {name: 'payStatus_fq_3', value: '', visible: false},
-                            {name: 'payStatus_fq_1', value: '', visible: false},
-                            {name: 'payStatus_fq_4', value: '', visible: false},
-                            {name: 'payStatus_fq_5', value: '', visible: false},
-                            {name: 'payStatus_fq_7', value: '', visible: false}
+                            {name: 'currPayAmount_3', value: '', visible: false},
+                            {name: 'currPayAmount_1', value: '', visible: false},
+                            {name: 'currPayAmount_4', value: '', visible: false},
+                            {name: 'currPayAmount_5', value: '', visible: false},
+                            {name: 'currPayAmount_7', value: '', visible: false}
                         ]);
                         var checkeds = me.__refs.tableInfo.o_getFieldValue('check').split(',');
                         $(checkeds).each(function (i, n) {
                             me.o_setValues([
-                                {name: 'payStatus_fq_' + n, value: '', visible: true}
+                                {name: 'currPayAmount_' + n, value: '', visible: true}
                             ]);
                         });
                     }
@@ -107,11 +107,11 @@ define(function (require, exports, module) {
                     case '3':
                     {  //未付
                         me.o_setValues([
-                            {name: 'payStatus_fq_3', value: '', visible: false},
-                            {name: 'payStatus_fq_1', value: '', visible: false},
-                            {name: 'payStatus_fq_4', value: '', visible: false},
-                            {name: 'payStatus_fq_5', value: '', visible: false},
-                            {name: 'payStatus_fq_7', value: '', visible: false},
+                            {name: 'currPayAmount_3', value: '', visible: false},
+                            {name: 'currPayAmount_1', value: '', visible: false},
+                            {name: 'currPayAmount_4', value: '', visible: false},
+                            {name: 'currPayAmount_5', value: '', visible: false},
+                            {name: 'currPayAmount_7', value: '', visible: false},
                             {name: 'currPayAmount', value: '0'}
                         ]);
                     }
@@ -126,31 +126,31 @@ define(function (require, exports, module) {
 
     //分期 服务费
     dataItems.push(new DataItem({
-        name: 'payStatus_fq_3',
+        name: 'currPayAmount_3',
         visible: false
 
     }));
     //分期 CRM费
     dataItems.push(new DataItem({
-        name: 'payStatus_fq_1',
+        name: 'currPayAmount_1',
         visible: false
 
     }));
     //分期 PK助手费
     dataItems.push(new DataItem({
-        name: 'payStatus_fq_4',
+        name: 'currPayAmount_4',
         visible: false
 
     }));
     //分期 会议助手费
     dataItems.push(new DataItem({
-        name: 'payStatus_fq_5',
+        name: 'currPayAmount_5',
         visible: false
 
     }));
     //PK助手费
     dataItems.push(new DataItem({
-        name: 'payStatus_fq_7',
+        name: 'currPayAmount_7',
         visible: false
 
     }));
