@@ -1,7 +1,7 @@
 define(function (require, exports, module) {
 
 
-    exports.setOtherData=function(terminalInfo, tableInfo, formInfo,data){
+    exports.setOtherData = function (terminalInfo, tableInfo, formInfo, data) {
         var terminalInfoData = terminalInfo.o_getValues();
         var tableInfoData = tableInfo.o_getValues();
         var formInfoData = formInfo.o_getValues();
@@ -36,12 +36,12 @@ define(function (require, exports, module) {
             payerName: formInfoData.payerName,
             contractNo: formInfoData.contractNo,
             amount: formInfoData.contractPrice,
-            productAmount:formInfoData.productAmount
+            productAmount: formInfoData.productAmount
         };
 
     };
 
-    exports.setGZHelper=function(controller,terminalDataItems,tableDataItems,formDataItems){
+    exports.setGZHelper = function (controller, terminalDataItems, tableDataItems, formDataItems) {
         controller(tableDataItems, 'table_type_7', function (n) {
             n.visible = false;
         });
@@ -62,42 +62,55 @@ define(function (require, exports, module) {
     };
 
     //转换输入值
-    exports.setSuborders=function(terminalInfo, tableInfo, formInfo,data){
+    exports.setSuborders = function (terminalInfo, tableInfo, formInfo, data) {
         var terminalInfoData = terminalInfo.o_getValues();
         var tableInfoData = tableInfo.o_getValues();
         var formInfoData = formInfo.o_getValues();
         //suborders //////////////////////////////////////////
         var ids = tableInfoData.check.split(',');
-        if(terminalInfo.o_getFieldData('businesscard').visible){
+        if (terminalInfo.o_getFieldData('businesscard').visible) {
             ids.push('8');
         }
-        if(terminalInfo.o_getFieldData('useCRMWrapper').visible && terminalInfo.o_getFieldValue('useCRM')){
+        if (terminalInfo.o_getFieldData('useCRMWrapper').visible && terminalInfo.o_getFieldValue('useCRM')) {
             ids.push('1');
         }
-        if(terminalInfo.o_getFieldValue('useFX')){
+        if (terminalInfo.o_getFieldValue('useFX')) {
             ids.push('2');
             ids.push('3');
         }
         terminalInfo.o_getFieldValue('');
         $(ids).each(function (i, n) {
                 if ($.inArray(n, ids) >= 0) {
-                    var fromData=tableInfoData;
-                    if(n=='1' || n=='2' || n=='3' || n=='8'){
-                        fromData=terminalInfoData;
+                    var fromData = tableInfoData;
+                    var controler = tableInfo;
+                    if (n == '1' || n == '2' || n == '3' || n == '8') {
+                        fromData = terminalInfoData;
+                        controler = terminalInfo;
                     }
-
-                    data.subOrders.push({
-                        subOrder: {
-                            productId: n,
-                            purchaseCount:  fromData['purchaseCount_'+n]||1,
-                            subOrderType: 1,
-                            purchaseAmount: fromData['purchaseAmount_' + n]||0,
-                            startTime: fromData['startTime_' + n],
-                            endTime: fromData['endTime_' + n],
-                            productAmount: fromData['productAmount_' + n]||0,
-                            discount: fromData['discount_' + n]||0,
-                            currPayAmount:fromData['currPayAmount_'+n]||0
+                    var subOrder = {
+                        productId: n,
+                        purchaseCount: fromData['purchaseCount_' + n] || 1,
+                        subOrderType: 1,
+                        purchaseAmount: fromData['purchaseAmount_' + n] || 0,
+                        startTime: fromData['startTime_' + n],
+                        endTime: fromData['endTime_' + n],
+                        productAmount: fromData['productAmount_' + n] || 0,
+                        discount: fromData['discount_' + n] || 0,
+                        currPayAmount: fromData['currPayAmount_' + n] || 0
+                    }
+                    if (n == '1') {
+                        if (terminalInfo.o_getFieldValue('kunbang') && terminal.o_data_getField('kunbang').is(':visible'))
+                            subOrder.extends = [{productKey: 'bind', productValue: terminalInfo.o_getFieldValue('kunbang')}]
+                    }
+                    if (controler.o_data_getField('type_' + n).is(':visible')) {
+                        var value = controler.o_getFieldValue('type_' + n);
+                        if (n == '8' && value == '3') {
+                            value = '4';//名片的值3  为4 代表正常
                         }
+                        subOrder.extends = [{productKey: 'buytype', productValue: value}]
+                    }
+                    data.subOrders.push({
+                        subOrder: subOrder
                     });
                 }
             }

@@ -5,18 +5,15 @@ define(function (require, exports, module) {
     exports.init = function () {
         var me = this;
         var $el = exports.$el;
-        var result=null;
+        var result = null;
         $('.test').click(function () {
-            var type=$('#inputtype').val();
-            if(type && parseInt(type))
-                var result = productInfo.showProductInfo({
+            var type = $('#inputtype').val();
+            if (type && parseInt(type))
+                result = productInfo.showProductInfo({
                     terminalInfo: {$view: $el.find('.panel1')},
                     tableInfo: {$view: $el.find('.panel2')},
                     formInfo: {$view: $el.find('.panel3')}
-                },parseInt(type));
-            debugger
-            var aaa = result.getData();
-            debugger
+                }, parseInt(type));
         });
         $('.test2').click(function () {
             alert('结果')

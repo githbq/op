@@ -156,12 +156,14 @@ define(function (require, exports, module) {
                         case '1':
                         case '2':
                         {
+                            me.o_setValue({name: 'purchaseAmount_' + n, value: 0});
                             me.o_setValue({name: 'purchaseAmount_input_' + n, value: 0, readonly: true})
                         }
                             ;
                             break;
                         case '3':
                         {
+                            me.o_setValue({name: 'purchaseAmount_' + n, value:me.o_getFieldValue('purchaseAmount_' + n)});
                             me.o_setValue({name: 'purchaseAmount_input_' + n, value: me.o_getFieldValue('purchaseAmount_' + n), readonly: false})
                         }
                             ;

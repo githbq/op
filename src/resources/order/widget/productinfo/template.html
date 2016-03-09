@@ -68,7 +68,7 @@
                     </label>
                     <label>
                         <input data-name="type_3" name="type_3" type="radio" value="3"/>
-                        <span>正常</span>
+                        <span>折扣</span>
                     </label>
                 </div>
 
@@ -133,13 +133,13 @@
                         </label>
                         <input data-name="endTime_1" type="text" datecontrol="{'type':0,'comment':'type为1表示结束时间'}" class="startTime" name="startTime"/>
                     </div>
-                    <div class="field">
+                    <div class="field" data-name="kunbangWrapper" data-config="{'visible':false}">
                         <label>
-                            <input type="checkbox" class="" name="kbbc_1" checked="checked"/>
+                            <input type="checkbox" class="" data-name="kunbang" value="1" checked="checked"/>
                             <span class="label">捆绑纷享百川</span>
                         </label>
                         <label>
-                            <input type="checkbox" class="" name="kbbs_1" checked="checked"/>
+                            <input type="checkbox" class="" name="kunbang" value="2" checked="checked"/>
                             <span class="label">捆绑报数系统</span>
                         </label>
                     </div>
@@ -246,9 +246,10 @@
 
                     <div class="field">
                         <label>
-                            <span class="label">合同金额(元)</span>
+                            <span class="label">合同金额</span>
                         </label>
                         <span class="field_text" data-name="purchaseAmount_8"></span>
+                        <span>元</span>
                     </div>
                     <div class="field">
                         <label>

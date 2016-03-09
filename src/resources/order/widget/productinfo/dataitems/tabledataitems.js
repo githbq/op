@@ -236,7 +236,6 @@ define(function (require, exports, module) {
             productAmount += parseFloat(purchaseModule.o_getFieldValue('productAmount_' + id) || 0);
 
         });
-        debugger
         me.__refs.terminalInfo.o_setValue({name: 'startTime_2', value: smallStartDate ? smallStartDate : null});
         me.__refs.terminalInfo.o_setValue({name: 'endTime_2', value: maxEndDate ? maxEndDate : null});
         console.log('合同总金额之表格部分计算结果1:' + me.o_getFieldValue('order_amount'));
@@ -249,6 +248,10 @@ define(function (require, exports, module) {
         if (me.__refs.formInfo.o_getFieldData('payStatus_name').visible || me.__refs.formInfo.o_getFieldValue('payStatus_select') == '1') {
             me.__refs.formInfo.o_setValue({name: 'currPayAmount', value: order_amount});
         }
+        if(me.__refs.formInfo.o_getFieldData('payStatus_select').visible){
+            me.__refs.formInfo.o_data_getField({name:'payStatus_select'}).change();
+        }
+
     }
 
     function changeForGetPrice(e) {

@@ -23,14 +23,14 @@ define(function (require, exports, module) {
         controller(terminalDataItems, 'purchaseAmount_input_8', function (n) {
             n.visible = false;
         });
-        controller(terminalDataItems, 'purchaseAmount_wrapper_3', function (n) {
-            n.visible = true;
-        });
         controller(terminalDataItems, 'purchaseAmount_input_3', function (n) {
             n.visible = false;
         });
         controller(terminalDataItems, 'purchaseAmount_input_1', function (n) {
             n.visible = false;
+        });
+        controller(terminalDataItems, 'productAmount_3', function (n) {
+            n.visible = true;
         });
         controller(terminalDataItems, 'useCRMWrapper', function (n) {
             n.visible = true;
@@ -39,7 +39,13 @@ define(function (require, exports, module) {
         controller(terminalDataItems, 'useCRM', function (n) {
             n.visible = true;
             n.value=true;
+            n.readonly=true;
         });
+
+        controller(terminalDataItems, 'typewrapper_3', function (n) {
+            n.visible = false;
+        });
+
         controller(terminalDataItems, 'purchaseAmount_3', function (n) {
             n.visible = false;
         });

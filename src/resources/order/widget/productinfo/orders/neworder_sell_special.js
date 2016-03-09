@@ -17,9 +17,7 @@ define(function (require, exports, module) {
 
     //转换输入值
     exports.transferDataItem = function (terminalDataItems, tableDataItems, formDataItems, controller) {//转换数据项 
-        controller(terminalDataItems, 'type_8', function (n) {
-            n.visible = false;
-        });
+
         controller(terminalDataItems, 'typewrapper_8', function (n) {
             n.visible = true;
         });
@@ -39,6 +37,9 @@ define(function (require, exports, module) {
             n.visible = false;
         });
         controller(terminalDataItems, 'purchaseAmount_input_1', function (n) {
+            n.visible = true;
+        });
+        controller(terminalDataItems, 'discount_1', function (n) {
             n.visible = false;
         });
         controller(terminalDataItems, 'useCRMWrapper', function (n) {
@@ -52,15 +53,20 @@ define(function (require, exports, module) {
         controller(terminalDataItems, 'purchaseAmount_3', function (n) {
             n.visible = false;
         });
-
+        controller(terminalDataItems, 'kunbangWrapper', function (n) {
+            n.visible = true;
+        });
         controller(terminalDataItems, 'businesscard', function (n) {
             n.visible = true;
         });
         controller(formDataItems, 'payStatus_name', function (n) {
             n.visible = true;
         });
-        controller(formDataItems, 'payStatus_select', function (n) {
+        controller(formDataItems, 'payStatus_name', function (n) {
             n.visible = false;
+        });
+        controller(formDataItems, 'payStatus_select', function (n) {
+            n.visible = true;
         });
         controller(tableDataItems, 'table_type', function (n) {
             n.visible = true;
