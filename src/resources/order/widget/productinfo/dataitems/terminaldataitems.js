@@ -163,6 +163,7 @@ define(function (require, exports, module) {
                         {
                             me.o_setValue({name: 'purchaseAmount_' + n, value:me.o_getFieldValue('purchaseAmount_' + n)});
                             me.o_setValue({name: 'purchaseAmount_input_' + n, value: me.o_getFieldValue('purchaseAmount_' + n), readonly: false})
+                            me.o_data_getField({name:'startTime_'+n}).blur();
                         }
                             ;
                             break;

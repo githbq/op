@@ -50,6 +50,7 @@ define(function (require, exports, module) {
         controller(terminalDataItems, 'useCRM', function (n) {
             n.visible = true;
             n.value = true;
+            n.readonly=true;
         });
         controller(terminalDataItems, 'purchaseAmount_3', function (n) {
             n.visible = false;
