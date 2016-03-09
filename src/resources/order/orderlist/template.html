@@ -6,11 +6,11 @@
 			<td><%=item.order.contractNo%></td>
 			<td><%=item.order.enterpriseName%></td>
 			<td><%=item.order.enterpriseAccount%></td>
-			<td><%=item.订单类型%></td>
+			<td><%=item.orderTypeStr%></td>
 			<td><%=item.account.username%></td>
 			<td><%=item.agent.name%></td>
-			<td><%=item.是否特批%></td>
-			<td><%=item.isCooperation ? '是':'否'%></td>
+			<td><%=item.order.isTp ? '是':'否'%></td>
+			<td><%=item.isCooperation ==1 ? '是':'否'%></td>
 			<td><%=item.cooperationUnit ? item.cooperationUnit:'——'%></td>
 			<td><%=item.statusStr%></td>
 			<td><%=item.payStatusStr%></td>

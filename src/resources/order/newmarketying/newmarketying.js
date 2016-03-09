@@ -52,9 +52,11 @@ define( function( require, exports, module ) {
 			me.attrs.showType = 'common';
 			//综合折扣
 			me.attrs.complexDiscount = '';
+			//增购、续费需要的参数
+			me.attrs.id = me.attrs.paralist||'';
 			me.checkType();
         },
-		//判断类型
+		//判断类型.
 		checkType:function(){
 			var me = this;
 
@@ -277,7 +279,7 @@ define( function( require, exports, module ) {
 			}
 			//获取普通订单信息
 			debugger
-			if(me.attrs.showType == 'common'){
+			/*if(me.attrs.showType == 'common'){
 
 				//基本信息校验和取值
 				if( me.attrs.basicCommon.getValue() ){
@@ -360,9 +362,9 @@ define( function( require, exports, module ) {
 					me.attrs.invoiceSpecial.setDiscount( me.attrs.complexDiscount );
 				}
 				objData.orderEntity.order['discount'] = me.attrs.complexDiscount ;
-				objData.contract['discount'] = me.attrs.complexDiscount ;
+				objData.contract['discount'] = me.attrs.complexDiscount ;*/
 
-			/*	var objData = {
+				var objData = {
 					"orderEntity": {
 						"order": {
 							"payStatus": 1,
@@ -384,7 +386,9 @@ define( function( require, exports, module ) {
 								 "productId": 2,
 								 "purchaseCount": "1000",
 								 "subOrderType": 0,
-								 "purchaseAmount": null,
+								 "purchaseAmount": 0,
+								 "productAmount":0,
+								"currPayAmount":0,
 								 "startTime": 1457280000000,
 								 "endTime": 1488902400000
 								 }
@@ -394,6 +398,8 @@ define( function( require, exports, module ) {
 								 "purchaseCount": "20",
 								 "subOrderType": 1,
 								 "purchaseAmount": "2000",
+								  "productAmount":0,
+									"currPayAmount":0,
 								 "startTime": 1457280000000,
 								 "endTime": 1488902400000
 								 }
@@ -405,6 +411,7 @@ define( function( require, exports, module ) {
 									 "purchaseAmount": "500",
 									 "startTime": 1457280000000,
 									 "endTime": 1488902400000,
+									"currPayAmount":0,
 									 "productAmount": "400",
 									 "discount": "12.5"
 								}
@@ -415,6 +422,7 @@ define( function( require, exports, module ) {
 									 "subOrderType": 1,
 									 "purchaseAmount": "5000",
 									 "startTime": 1457280000000,
+									"currPayAmount":0,
 									 "endTime": 1488902400000,
 									 "productAmount": "400",
 									 "discount": "125.0"
@@ -426,9 +434,10 @@ define( function( require, exports, module ) {
 									 "subOrderType": 1,
 									 "purchaseAmount": "0",
 									 "startTime": 1457280000000,
+									 "currPayAmount":0,
 									 "endTime": 1488816000000,
-									 "productAmount": "",
-									 "discount": ""
+									 "productAmount": 0,
+									 "discount": 0
 								 }
 							 }
 						],
@@ -454,7 +463,7 @@ define( function( require, exports, module ) {
 					},
 					"enterprise": {
 						"enterpriseName": "测试折扣",
-						"enterpriseAccount": "qiyezhanghao03",
+						"enterpriseAccount": "qiyezhanghao22",
 						"address": "测试折扣",
 						"industry": 2,
 						"Vendorid": 90925,
@@ -500,7 +509,7 @@ define( function( require, exports, module ) {
 						"contractCopyFileName": "TI4T)TD$II@T995WBNX(D_L.jpg",
 						"discount": 0
 					}
-				};*/
+				};
 
 
 				util.api({
@@ -508,13 +517,13 @@ define( function( require, exports, module ) {
 					'data':JSON.stringify( objData ),
 					'contentType':'application/json;charset=UTF-8 ',
 					'success': function( data ){
-
 						if( data.success ){
-
+							util.showTip('提交成功！')
+							location.hash = "#order/orderlist";
 						}
 					}
 				})
-			});
+			//});
 
 		},
 		cancelEve: function(){

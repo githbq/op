@@ -96,7 +96,7 @@ define(function(require, exports, module){
 			me.model.set('enterpriseFilingId', IBSS.tempEnterprise['id']);
 			me.model.set('source', IBSS.tempEnterprise['source']);
 			me.model.set('industry', IBSS.tempEnterprise['industry']);
-			me.model.set('Vendorid ',IBSS.role_vendorId);
+			me.model.set('Vendorid',IBSS.role_vendorId);
 			me.model.set('StorageTotalSpace ',0);
 
 			IBSS.tempEnterprise['enterpriseName'] && me.$('.enterpriseName').attr('disabled','disabled');
