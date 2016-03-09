@@ -17,7 +17,7 @@ define(function (require, exports, module) {
 
     //转换输入值
     exports.transferDataItem = function (terminalDataItems, tableDataItems, formDataItems, controller) {//转换数据项
-        debugger
+        common.setCommonData(controller, terminalDataItems, tableDataItems, formDataItems,6);
         controller(terminalDataItems, 'typewrapper_3', function (n) {
             n.visible = true;
         });
@@ -40,10 +40,16 @@ define(function (require, exports, module) {
         controller(formDataItems, 'payStatus_select', function (n) {
             n.visible = true;
         });
-        debugger
-        controller(tableDataItems, 'table_type', function (n) {
-            n.visible = true;
+        controller(terminalDataItems, 'useCRMWrapper', function (n) {
+            n.visible = false;
+
         });
+        controller(terminalDataItems, 'useCRM', function (n) {
+            n.visible = false;
+            n.value = false;
+        });
+        common.setNotable(controller,terminalDataItems,tableDataItems,formDataItems);
+
         //工资助手强制
         common.setGZHelper(controller,terminalDataItems,tableDataItems,formDataItems);
         //工资助手强制 end

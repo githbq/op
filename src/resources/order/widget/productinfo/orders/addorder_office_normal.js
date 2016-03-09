@@ -16,6 +16,7 @@ define(function (require, exports, module) {
     //转换输入值
     exports.transferDataItem = function (terminalDataItems, tableDataItems, formDataItems,controller) {//转换数据项
 //工资助手强制
+        common.setCommonData(controller, terminalDataItems, tableDataItems, formDataItems,5);
         //工资助手强制
         common.setGZHelper(controller,terminalDataItems,tableDataItems,formDataItems);
         //工资助手强制 end
@@ -35,6 +36,15 @@ define(function (require, exports, module) {
         controller(formDataItems,'payStatus_select',function(n){
             n.visible = false;
         });
+        controller(terminalDataItems, 'useCRMWrapper', function (n) {
+            n.visible = false;
+
+        });
+        controller(terminalDataItems, 'useCRM', function (n) {
+            n.visible = false;
+            n.value = false;
+        });
+        common.setNotable(controller,terminalDataItems,tableDataItems,formDataItems);
       var arr=['currPayAmount_1', 'currPayAmount_2', 'currPayAmount_3', 'currPayAmount_4', 'currPayAmount_5', 'currPayAmount_7'];
         $(arr).each(function(i,b){
             controller(formDataItems,b,function(n){

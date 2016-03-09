@@ -17,14 +17,12 @@ define(function (require, exports, module) {
 
     //转换输入值
     exports.transferDataItem = function (terminalDataItems, tableDataItems, formDataItems, controller) {//转换数据项
+        common.setCommonData(controller, terminalDataItems, tableDataItems, formDataItems,3);
         controller(terminalDataItems, 'type_8', function (n) {
             n.visible = false;
         });
         controller(terminalDataItems, 'purchaseAmount_input_8', function (n) {
             n.visible = false;
-        });
-        controller(terminalDataItems, 'purchaseAmount_wrapper_3', function (n) {
-            n.visible = true;
         });
         controller(terminalDataItems, 'purchaseAmount_input_3', function (n) {
             n.visible = false;
@@ -32,14 +30,31 @@ define(function (require, exports, module) {
         controller(terminalDataItems, 'purchaseAmount_input_1', function (n) {
             n.visible = false;
         });
+        controller(terminalDataItems, 'productAmount_3', function (n) {
+            n.visible = true;
+        });
         controller(terminalDataItems, 'useCRMWrapper', function (n) {
             n.visible = true;
+
+        });
+        controller(terminalDataItems, 'purchaseCount_2', function (n) {
+            n.readonly=false;
+
+        });
+        controller(terminalDataItems, 'kunbangWrapper', function (n) {
+            n.visible=true;
 
         });
         controller(terminalDataItems, 'useCRM', function (n) {
             n.visible = true;
             n.value=true;
+            n.readonly=true;
         });
+
+        controller(terminalDataItems, 'typewrapper_3', function (n) {
+            n.visible = false;
+        });
+
         controller(terminalDataItems, 'purchaseAmount_3', function (n) {
             n.visible = false;
         });

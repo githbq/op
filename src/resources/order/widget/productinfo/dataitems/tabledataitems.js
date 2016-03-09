@@ -3,8 +3,8 @@ define(function (require, exports, module) {
     var dataItems = module.exports = [];
     var productIdDic = {
         '1': 'CRM',
-        '2': 'FXBC',
-        '3': 'Number_System',
+        '2': '销客终端',
+        '3': '服务',
         '4': 'PK_Helper',
         '5': 'Meeting_Helper',
         '6': 'HR_Helper',
@@ -73,7 +73,6 @@ define(function (require, exports, module) {
                     value: function (e) {
                         var me = this;
                         var $dom = $(e.target);
-                        debugger
                         switch (me.o_getFieldValue($dom.attr('data-name'))) {
                             case '1':
                             {
@@ -91,7 +90,6 @@ define(function (require, exports, module) {
                                 break;
                             case '3':
                             {
-                                debugger
                                 //折扣
                                 me.o_setValue({name: 'purchaseAmount_' + n.id, value: '0', readonly: false});
                             }
@@ -107,8 +105,7 @@ define(function (require, exports, module) {
 
         var startTime = '';
         var endTime = '';
-        if (n.id == 7) {
-
+        if (n.id == 7 ) {
             startTime = new Date().getTime();
             endTime = new Date().setFullYear(new Date().getFullYear() + 1);
         }
@@ -181,11 +178,6 @@ define(function (require, exports, module) {
         var me = this;
         var $dom = $(e.target);
         var data = null;
-        if ($dom.is('input[type=text]:not([datecontrol])')) {
-            $dom.val($dom.val().replace(/[^\.\d]/g, ''));
-
-        }
-
         var ids = this.o_getFieldValue('check').split(',');
 
         var order_amount = 0;
@@ -236,7 +228,6 @@ define(function (require, exports, module) {
             productAmount += parseFloat(purchaseModule.o_getFieldValue('productAmount_' + id) || 0);
 
         });
-        debugger
         me.__refs.terminalInfo.o_setValue({name: 'startTime_2', value: smallStartDate ? smallStartDate : null});
         me.__refs.terminalInfo.o_setValue({name: 'endTime_2', value: maxEndDate ? maxEndDate : null});
         console.log('合同总金额之表格部分计算结果1:' + me.o_getFieldValue('order_amount'));
@@ -249,6 +240,10 @@ define(function (require, exports, module) {
         if (me.__refs.formInfo.o_getFieldData('payStatus_name').visible || me.__refs.formInfo.o_getFieldValue('payStatus_select') == '1') {
             me.__refs.formInfo.o_setValue({name: 'currPayAmount', value: order_amount});
         }
+        if(me.__refs.formInfo.o_getFieldData('payStatus_select').visible){
+            me.__refs.formInfo.o_data_getField({name:'payStatus_select'}).change();
+        }
+
     }
 
     function changeForGetPrice(e) {

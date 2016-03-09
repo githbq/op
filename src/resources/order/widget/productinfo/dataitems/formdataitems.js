@@ -70,7 +70,7 @@ define(function (require, exports, module) {
                 key: 'change', value: function (e) {
                 var me = this;
                 var $dom = $(e.target);
-                me.o_setValue({name:'payStatus',value:$dom.val()});
+                me.o_setValue({name: 'payStatus', value: $dom.val()});
                 switch ($dom.val()) {
                     case '1':
                     {
@@ -97,6 +97,12 @@ define(function (require, exports, module) {
                             {name: 'currPayAmount_7', value: '', visible: false}
                         ]);
                         var checkeds = me.__refs.tableInfo.o_getFieldValue('check').split(',');
+                        if (me.__refs.terminalInfo.o_getFieldValue('useFX') && me.__refs.terminalInfo.o_getFieldData('useCRMWrapper').visible) {//使用了销客终端 要加入服务费
+                            checkeds.push('1');//CRM费用
+                        }
+                        if (me.__refs.terminalInfo.o_getFieldValue('useCRM')) {//使用了销客终端 要加入服务费
+                            checkeds.push('3');//服务费
+                        }
                         $(checkeds).each(function (i, n) {
                             me.o_setValues([
                                 {name: 'currPayAmount_' + n, value: '', visible: true}
@@ -158,6 +164,7 @@ define(function (require, exports, module) {
     //本次到款金额
     dataItems.push(new DataItem({
         name: 'currPayAmount',
+        readonly:true,
         value: '',
         validateOptions: {
             required: {
