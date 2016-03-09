@@ -77,26 +77,39 @@ define( function( require, exports, module ) {
         // 获取客户状态枚举值
         getEnums: function(){
             var me = this;
-            var statusList = [{'name':'全部','value':''}],industryList=[{'name':'全部','value':''}],sourceList=[{'name':'全部','value':''}];
-            util.getEnums('FILING_STATUS',function( data ){
-                data.value.model.forEach(function(item){
-                    statusList.push( {'name':item.text,'value':item.value} );
-                    statusMap[ item.value ] = item.text;
-                });
-                util.resetSelect( me.$status, statusList);
-                me.getList();
-            });
-			util.getEnums('INDUSTRY',function(data){
-                if( data.success ){
+            var statusList = [{'name':'全部','value':''}],sourceList=[{'name':'全部','value':''}];
 
+            var state = {
+                a: false,
+                b: false,
+                c: false
+            }
+
+            function checkState(){
+                if( state.a && state.b && state.c ){
+                    me.getList();
+                }
+            }
+
+            util.getEnums('FILING_STATUS',function( data ){
+                if( data.success ){
+                    data.value.model.forEach(function(item){
+                        statusList.push( {'name':item.text,'value':item.value} );
+                        statusMap[ item.value ] = item.text;
+                    });
+                    util.resetSelect( me.$status, statusList);
+                    state.a = true;
+                    checkState();
+                }
+            });
+
+            util.getIndustry( me.$industryData, function(data){
+                if( data.success ){
                     data.value.model.forEach(function( item, index){
                        industryMap[ item.value ] = item.text;
-                       industryList.push( {'name':item.text,'value':item.value} );
                     });
-
-
-                    util.resetSelect( me.$industryData, industryList );
-                    me.getList();
+                    state.b = true;
+                    checkState();
                 }
             })
 			util.getEnums('ENT_LST_SOURCE',function(data){
@@ -107,9 +120,9 @@ define( function( require, exports, module ) {
                        sourceList.push( {'name':item.text,'value':item.value} );
                     });
 
-
                     util.resetSelect( me.$sourceData, sourceList );
-                    me.getList();
+                    state.c = true;
+                    checkState();
                 }
             })
         },
