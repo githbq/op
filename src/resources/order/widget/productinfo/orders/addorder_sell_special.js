@@ -41,12 +41,12 @@ define(function (require, exports, module) {
             n.visible = false;
         });
         controller(terminalDataItems, 'useCRMWrapper', function (n) {
-            n.visible = true;
+            n.visible = false;
 
         });
         controller(terminalDataItems, 'useCRM', function (n) {
-            n.visible = true;
-            n.value = true;
+            n.visible = false;
+            n.value = false;
         });
         controller(terminalDataItems, 'purchaseAmount_3', function (n) {
             n.visible = false;
@@ -61,9 +61,7 @@ define(function (require, exports, module) {
         controller(formDataItems, 'payStatus_select', function (n) {
             n.visible = false;
         });
-        controller(tableDataItems, 'table_type', function (n) {
-            n.visible = true;
-        });
+        common.setNotable(controller,terminalDataItems,tableDataItems,formDataItems);
         //工资助手强制
         common.setGZHelper(controller,terminalDataItems,tableDataItems,formDataItems);
         //工资助手强制 end

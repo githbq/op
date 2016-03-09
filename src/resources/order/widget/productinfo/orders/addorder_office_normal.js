@@ -35,6 +35,15 @@ define(function (require, exports, module) {
         controller(formDataItems,'payStatus_select',function(n){
             n.visible = false;
         });
+        controller(terminalDataItems, 'useCRMWrapper', function (n) {
+            n.visible = false;
+
+        });
+        controller(terminalDataItems, 'useCRM', function (n) {
+            n.visible = false;
+            n.value = false;
+        });
+        common.setNotable(controller,terminalDataItems,tableDataItems,formDataItems);
       var arr=['currPayAmount_1', 'currPayAmount_2', 'currPayAmount_3', 'currPayAmount_4', 'currPayAmount_5', 'currPayAmount_7'];
         $(arr).each(function(i,b){
             controller(formDataItems,b,function(n){

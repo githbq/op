@@ -70,7 +70,7 @@ define(function (require, exports, module) {
                 key: 'change', value: function (e) {
                 var me = this;
                 var $dom = $(e.target);
-                me.o_setValue({name:'payStatus',value:$dom.val()});
+                me.o_setValue({name: 'payStatus', value: $dom.val()});
                 switch ($dom.val()) {
                     case '1':
                     {
@@ -97,6 +97,9 @@ define(function (require, exports, module) {
                             {name: 'currPayAmount_7', value: '', visible: false}
                         ]);
                         var checkeds = me.__refs.tableInfo.o_getFieldValue('check').split(',');
+                        if (me.__refs.terminalInfo.o_getFieldValue('useFX')) {//使用了销客终端 要加入服务费
+                            checkeds.push('3');//服务费
+                        }
                         $(checkeds).each(function (i, n) {
                             me.o_setValues([
                                 {name: 'currPayAmount_' + n, value: '', visible: true}

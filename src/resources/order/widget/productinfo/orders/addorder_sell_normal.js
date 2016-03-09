@@ -53,9 +53,7 @@ define(function (require, exports, module) {
         controller(formDataItems, 'payStatus_select', function (n) {
             n.visible = false;
         });
-        controller(tableDataItems, 'table_type', function (n) {
-            n.visible = false;
-        });
+        common.setNotable(controller,terminalDataItems,tableDataItems,formDataItems);
         //工资助手强制
         common.setGZHelper(controller,terminalDataItems,tableDataItems,formDataItems);
         //工资助手强制 end

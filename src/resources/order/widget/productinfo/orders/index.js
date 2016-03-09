@@ -60,6 +60,16 @@ define(function (require, exports, module) {
         });
 
     };
+    //没有表格
+    exports.setNotable = function (controller, terminalDataItems, tableDataItems, formDataItems) {
+        controller(tableDataItems,'tablelist',function(n){
+            n.visible = false;
+        });
+        controller(tableDataItems,'check',function(n){
+            n.value=false;
+        });
+
+    };
 
     //转换输入值
     exports.setSuborders = function (terminalInfo, tableInfo, formInfo, data) {
