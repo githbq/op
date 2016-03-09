@@ -17,6 +17,11 @@ define(function (require, exports, module) {
 
     //转换输入值
     exports.transferDataItem = function (terminalDataItems, tableDataItems, formDataItems, controller) {//转换数据项
+        controller(terminalDataItems,'useFX',function(n){
+            n.value = false;
+            n.readonly=false;
+        });
+
         controller(terminalDataItems, 'type_8', function (n) {
             n.visible = false;
         });
@@ -38,7 +43,7 @@ define(function (require, exports, module) {
         });
         controller(terminalDataItems, 'useCRM', function (n) {
             n.visible = true;
-            n.value=true;
+            n.value=false;
         });
         controller(terminalDataItems, 'purchaseAmount_3', function (n) {
             n.visible = false;
@@ -56,7 +61,7 @@ define(function (require, exports, module) {
         controller(tableDataItems, 'table_type', function (n) {
             n.visible = false;
         });
-
+        common.setNoGZHelper(controller,terminalDataItems, tableDataItems, formDataItems);
         return {terminalDataItems: terminalDataItems, tableDataItems: tableDataItems, formDataItems: formDataItems};
     }
 

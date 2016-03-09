@@ -3,8 +3,8 @@ define(function (require, exports, module) {
     var dataItems = module.exports = [];
     var productIdDic = {
         '1': 'CRM',
-        '2': 'FXBC',
-        '3': 'Number_System',
+        '2': '销客终端',
+        '3': '服务',
         '4': 'PK_Helper',
         '5': 'Meeting_Helper',
         '6': 'HR_Helper',
@@ -107,8 +107,7 @@ define(function (require, exports, module) {
 
         var startTime = '';
         var endTime = '';
-        if (n.id == 7) {
-
+        if (n.id == 7 ) {
             startTime = new Date().getTime();
             endTime = new Date().setFullYear(new Date().getFullYear() + 1);
         }

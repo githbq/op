@@ -164,6 +164,7 @@ define(function (require, exports, module) {
     //本次到款金额
     dataItems.push(new DataItem({
         name: 'currPayAmount',
+        readonly:true,
         value: '',
         validateOptions: {
             required: {

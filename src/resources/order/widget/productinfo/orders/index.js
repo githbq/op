@@ -62,13 +62,24 @@ define(function (require, exports, module) {
     };
     //没有表格
     exports.setNotable = function (controller, terminalDataItems, tableDataItems, formDataItems) {
-        controller(tableDataItems,'tablelist',function(n){
+        controller(tableDataItems, 'tablelist', function (n) {
             n.visible = false;
         });
-        controller(tableDataItems,'check',function(n){
-            n.value=false;
+        controller(tableDataItems, 'check', function (n) {
+            n.value = false;
         });
-
+    };
+    //
+    exports.setNoGZHelper = function (controller, terminalDataItems, tableDataItems, formDataItems) {
+        controller(tableDataItems, 'check', function (n) {
+            n.value = false;
+        });
+        controller(tableDataItems, 'startTime_7', function (n) {
+            n.value = '';
+        });
+        controller(tableDataItems, 'endTime_7', function (n) {
+            n.value = '';
+        });
     };
 
     //转换输入值
