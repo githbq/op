@@ -73,7 +73,6 @@ define(function (require, exports, module) {
                     value: function (e) {
                         var me = this;
                         var $dom = $(e.target);
-                        debugger
                         switch (me.o_getFieldValue($dom.attr('data-name'))) {
                             case '1':
                             {
@@ -91,7 +90,6 @@ define(function (require, exports, module) {
                                 break;
                             case '3':
                             {
-                                debugger
                                 //折扣
                                 me.o_setValue({name: 'purchaseAmount_' + n.id, value: '0', readonly: false});
                             }

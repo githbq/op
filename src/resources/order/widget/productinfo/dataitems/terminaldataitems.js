@@ -92,7 +92,6 @@ define(function (require, exports, module) {
             __silent: true,
             events: [{
                 key: 'change', value:function(e){
-                    debugger
                     var me = this;
                     var $dom = $(e.target);
                     $dom.val($dom.val().replace(/[^\.\d]/g, ''));
@@ -222,12 +221,10 @@ define(function (require, exports, module) {
 
     //价格计算
     function priceComput(e) {
-        debugger
         this.__refs.tableInfo.$('[data-name=check]:first').change();
     }
 
     function changeForGetPrice(e) {
-        debugger
         var me = this;
         var $dom = $(e.target);
         var id = $dom.parents('[data-productid]').attr('data-productid');
