@@ -41,7 +41,7 @@ define(function( require , exports , module ){
 		teamEve: function( e ){
 			var me = this;
 			var value = $( e.currentTarget ).val();
-			if( value == 'true' ){
+			if( value == '1' ){
 				me.$('.teaminfo').show();
 			} else {
 				me.$('.teaminfo').hide();
