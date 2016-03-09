@@ -78,7 +78,7 @@ define(function (require, exports, module) {
                 companyGateKeyword: formInfoData.companyGateKeyword,
                 companyGateRemark: formInfoData.companyGateRemark,
                 useBusinessCard: useBusinessCart,
-                businessCardPrise: useBusinessCart ? terminalInfo.o_getFiledValue('purchaseAmount_8') : 0
+                businessCardPrise: useBusinessCart ? terminalInfo.o_getFieldValue('purchaseAmount_8') : 0
             };
             //订单主信息
             data.order = {
