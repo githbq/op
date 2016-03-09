@@ -29,7 +29,7 @@ define(function (require, exports, module) {
         };
         //订单主信息
         data.order = {
-            payStatus: formData.payStatus,
+            payStatus: formInfoData.payStatus,
             currPayAmount: formInfoData.currPayAmount,
             payDate: formInfoData.payDate,
             receiptsAccount: formInfoData.receiptsAccount,
@@ -54,23 +54,28 @@ define(function (require, exports, module) {
             ids.push('1');
         }
         if(terminalInfo.o_getFieldValue('useFX')){
-            //ids.push('2');
+            ids.push('2');
             ids.push('3');
         }
         terminalInfo.o_getFieldValue('');
         $(ids).each(function (i, n) {
-                if ($.inArray(n, checkeds) >= 0) {
+                if ($.inArray(n, ids) >= 0) {
+                    var fromData=tableInfoData;
+                    if(n=='1' || n=='2' || n=='3' || n=='8'){
+                        fromData=terminalInfoData;
+                    }
+
                     data.subOrders.push({
                         subOrder: {
                             productId: n,
-                            purchaseCount:  terminalInfoData['purchaseCount_'+n]||1,
+                            purchaseCount:  fromData['purchaseCount_'+n]||1,
                             subOrderType: 1,
-                            purchaseAmount: tableInfoData['purchaseAmount_' + n]||0,
-                            startTime: tableInfoData['startTime_' + n],
-                            endTime: tableInfoData['endTime_' + n],
-                            productAmount: tableInfoData['productAmount_' + n]||0,
-                            discount: tableInfoData['discount_' + n],
-                            currPayAmount:formInfoData['currPayAmount_'+n]||0
+                            purchaseAmount: fromData['purchaseAmount_' + n]||0,
+                            startTime: fromData['startTime_' + n],
+                            endTime: fromData['endTime_' + n],
+                            productAmount: fromData['productAmount_' + n]||0,
+                            discount: fromData['discount_' + n]||0,
+                            currPayAmount:fromData['currPayAmount_'+n]||0
                         }
                     });
                 }
