@@ -64,31 +64,40 @@ define(function (require, exports, module) {
         n.options = n.options || {};
         //类型
         dataItems.push(new DataItem({
-            name: 'table_type_'+ n.id,
+            name: 'table_type_' + n.id,
             value: '3',
             events: [
                 {
                     key: 'change',
                     value: function (e) {
-                        var me=this;
-                       var $dom=$(e.target);
+                        var me = this;
+                        var $dom = $(e.target);
                         debugger
-                        switch(me.o_getFieldValue($dom.attr('data-name'))){
-                            case '1':{
+                        switch (me.o_getFieldValue($dom.attr('data-name'))) {
+                            case '1':
+                            {
                                 //试用
-                                me.o_setValue({name:'purchaseAmount_'+ n.id,value:'0',readonly:true});
-                            };break;
-                            case '2':{
+                                me.o_setValue({name: 'purchaseAmount_' + n.id, value: '0', readonly: true});
+                            }
+                                ;
+                                break;
+                            case '2':
+                            {
                                 //赠送
-                                me.o_setValue({name:'purchaseAmount_'+ n.id,value:'0',readonly:true});
-                            };break;
-                            case '3':{
+                                me.o_setValue({name: 'purchaseAmount_' + n.id, value: '0', readonly: true});
+                            }
+                                ;
+                                break;
+                            case '3':
+                            {
                                 debugger
                                 //折扣
-                                me.o_setValue({name:'purchaseAmount_'+ n.id,value:'0',readonly:false});
-                            };break;
+                                me.o_setValue({name: 'purchaseAmount_' + n.id, value: '0', readonly: false});
+                            }
+                                ;
+                                break;
                         }
-                        me.o_data_getField({name:'purchaseAmount_'+ n.id}).change();
+                        me.o_data_getField({name: 'purchaseAmount_' + n.id}).change();
                     }
                 }
             ]
@@ -175,60 +184,68 @@ define(function (require, exports, module) {
             $dom.val($dom.val().replace(/[^\.\d]/g, ''));
 
         }
-        data = this.o_field_getData($dom.parents('tr').find('input[type=checkbox]'));
-        var $ele = me.o_data_getField(data);
+
+        var ids = this.o_getFieldValue('check').split(',');
+
         var order_amount = 0;
         var smallStartDate = 0;
         var maxEndDate = 0;
         var startDate = null;
         var endDate = null;
         var productAmount = 0;//产品原价
-        $ele.each(function (i, n) {
-            var $n = $(n);
-            var id = $n.val();
-            if ($n.is(':checked')) {//勾选的项进入计算
-                startDate = me.o_getFieldValue('startTime_' + id);
-                endDate = me.o_getFieldValue('endTime_' + id);
-
-                if (!smallStartDate && startDate) {
-                    smallStartDate = startDate;
-                }
-                if (smallStartDate > startDate) {
-                    smallStartDate = startDate;
-                }
 
 
-                if (!maxEndDate && endDate) {
-                    maxEndDate = endDate;
-                }
+        if (me.__refs.terminalInfo.o_getFieldData('businesscard').visible) {
+            ids.push('8');
+        }
+        if (me.__refs.terminalInfo.o_getFieldData('useCRMWrapper').visible && me.__refs.terminalInfo.o_getFieldValue('useCRM')) {
+            ids.push('1');
+        }
 
-                if (maxEndDate < endDate) {
-                    maxEndDate = endDate;
-                }
-                me.o_setValue({name: 'purchaseAmount_' + id, allow: true});
-                order_amount += parseFloat(me.o_getFieldValue('purchaseAmount_' + id) || 0);
-                productAmount += parseFloat(me.o_getFieldValue('productAmount_' + id) || 0);
-            } else {
-                me.o_setValue({name: 'purchaseAmount_' + id, allow: false});
+        if (me.__refs.terminalInfo.o_getFieldValue('useFX')) {
+            //ids.push('2');
+            ids.push('3');
+        }
+
+
+        $(ids).each(function (i, n) {
+            var id = n;
+            var timeModule = me.o_getFieldData('startTime_' + id) ? me : me.__refs.terminalInfo;
+            startDate = timeModule.o_getFieldValue('startTime_' + id);
+            endDate = timeModule.o_getFieldValue('endTime_' + id);
+
+            if (!smallStartDate && startDate) {
+                smallStartDate = startDate;
             }
+            else if (smallStartDate > startDate && startDate) {
+                smallStartDate = startDate;
+            }
+            if (!maxEndDate && endDate) {
+                maxEndDate = endDate;
+            }
+            else if (maxEndDate < endDate && endDate) {
+                maxEndDate = endDate;
+            }
+            var purchaseModule = me.o_getFieldData('purchaseAmount_' + id) ? me : me.__refs.terminalInfo;
+            purchaseModule.__refs.terminalInfo.o_setValue({name: 'purchaseAmount_' + id, allow: true});
+            purchaseModule.o_setValue({name: 'purchaseAmount_' + id, allow: true});
+
+
+            order_amount += parseFloat(purchaseModule.o_getFieldValue('purchaseAmount_' + id) || 0);
+            productAmount += parseFloat(purchaseModule.o_getFieldValue('productAmount_' + id) || 0);
+
         });
+        debugger
         me.__refs.terminalInfo.o_setValue({name: 'startTime_2', value: smallStartDate ? smallStartDate : null});
         me.__refs.terminalInfo.o_setValue({name: 'endTime_2', value: maxEndDate ? maxEndDate : null});
         console.log('合同总金额之表格部分计算结果1:' + me.o_getFieldValue('order_amount'));
 
-        var purchaseAmount_3 = me.__refs.terminalInfo.o_getFieldValue('purchaseAmount_3');
-        if (purchaseAmount_3) {//服务费
-            order_amount += parseFloat(purchaseAmount_3);
-        }
-        var productAmount_3 = me.__refs.terminalInfo.o_getFieldValue('productAmount_3');
-        if (productAmount_3) {//服务费
-            productAmount += parseFloat(productAmount_3);
-        }
+
         me.__refs.formInfo.o_setValue({name: 'contractPrice', value: order_amount});
         me.__refs.formInfo.o_setValue({name: 'productAmount', value: productAmount});
         console.log('合同总金额之表格部分计算结果2:' + me.o_getFieldValue('order_amount'));
         console.log('原价总金额之表格部分计算结果:' + me.o_getFieldValue('order_amount'));
-        if (me.__refs.formInfo.o_getFieldData('payStatus_name').visible || me.__refs.formInfo.o_getFieldValue('payStatus_select')=='1') {
+        if (me.__refs.formInfo.o_getFieldData('payStatus_name').visible || me.__refs.formInfo.o_getFieldValue('payStatus_select') == '1') {
             me.__refs.formInfo.o_setValue({name: 'currPayAmount', value: order_amount});
         }
     }

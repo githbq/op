@@ -60,10 +60,18 @@ define(function (require, exports, module) {
             n.visible = true;
         });
         controller(terminalDataItems, 'purchaseAmount_input_3', function (n) {
-            n.visible = true;
+            n.visible = false;
+        });
+        controller(terminalDataItems, 'purchaseAmount_input_1', function (n) {
+            n.visible = false;
         });
         controller(terminalDataItems, 'useCRMWrapper', function (n) {
             n.visible = true;
+
+        });
+        controller(terminalDataItems, 'useCRM', function (n) {
+            n.visible = true;
+            n.value=true;
         });
         controller(terminalDataItems, 'purchaseAmount_3', function (n) {
             n.visible = false;
@@ -73,10 +81,10 @@ define(function (require, exports, module) {
             n.visible = true;
         });
         controller(formDataItems, 'payStatus_name', function (n) {
-            n.visible = false;
+            n.visible = true;
         });
         controller(formDataItems, 'payStatus_select', function (n) {
-            n.visible = true;
+            n.visible = false;
         });
         debugger
         controller(tableDataItems, 'table_type', function (n) {

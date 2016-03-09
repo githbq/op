@@ -6,15 +6,16 @@ define(function (require, exports, module) {
         var tableInfoData = tableInfo.o_getValues();
         var formInfoData = formInfo.o_getValues();
         //suborders //////////////////////////////////////////
-        var ids = ['2','3','4', '5', '7'];
-        var checkeds = tableInfoData.check.split(',');
-        if(terminalInfo.o_getFieldData('businesscard').visible){
-            //名片可见
-            checkeds.push('8');
+        var ids = tableInfoData.check.split(',');
+        if(me.__refs.terminalInfo.o_getFieldData('businesscard').visible){
+            ids.push('8');
         }
-        if(terminalInfo.o_getFieldData('useCRMWrapper').visible && terminalInfo.o_getFieldValue('useCRM')){
-            //使用CRM
-            checkeds.push('1');
+        if(terminalInfo.o_getFieldData('useCRMWrapper').visible && me.__refs.terminalInfo.o_getFieldValue('useCRM')){
+            ids.push('1');
+        }
+        if(terminalInfo.o_getFieldValue('useFX')){
+            //ids.push('2');
+            ids.push('3');
         }
         terminalInfo.o_getFieldValue('');
         $(ids).each(function (i, n) {
