@@ -11,7 +11,11 @@ define( function( require, exports, module ) {
 
     var statusAry = ['','已通过','待审核','已过期','撤回'];
     var payStatusAry = ['','分期','全款','未付'];
-    var orderTypeAry = []
+    var orderTypeAry = ['','办公版新购-普通','办公版新购-特批','营销版新购-普通','营销版新购-特批','办公版增购-普通',
+                        '办公版增购-特批','营销版增购-普通','营销版增购-特批','办公版续费-普通','办公版续费-特批',
+                        '营销版续费-普通','营销版续费-特批','关联自注册办公版-普通','关联自注册办公版-特批',
+                        '关联自注册营销版-普通','关联自注册营销版-特批','收尾款'
+                        ];
     
    /**
     *
@@ -29,7 +33,7 @@ define( function( require, exports, module ) {
             me.$putEndTime.datetimepicker({'timepicker': false,'format':'Y/m/d'});
 			
 			 me.$putStartTime.val( util.getDateStr(-30) );
-            me.$putEndTime.val( util.getDateStr(-1) );
+            me.$putEndTime.val( util.getDateStr(0) );
 
             me.pagination = new Pagination({
                 'wrapper': me.$view.find('.list-pager'),
@@ -144,6 +148,7 @@ define( function( require, exports, module ) {
                             item.statusStr = item.order.status ? statusAry[item.order.status] :'';
                             item.payStatusStr = item.order.payStatus ? payStatusAry[item.order.payStatus] :'';
                             item.createTimeStr = new Date( item.order.createTime )._format('yyyy/MM/dd');
+                            item.orderTypeStr = orderTypeAry[item.order.orderType];
 
                         });
 
