@@ -1,4 +1,5 @@
 define(function (require, exports, module) {
+    var common=require('./index');
     //转换结果值
     exports.transferResultData = function (terminalInfo, tableInfo, formInfo) {
         return function () {
@@ -6,57 +7,7 @@ define(function (require, exports, module) {
             var terminalInfoData = terminalInfo.o_getValues();
             var tableInfoData = tableInfo.o_getValues();
             var formInfoData = formInfo.o_getValues();
-
-            //终端部分//////////////////////////////////
-
-            //销客终端总量
-            data.subOrders.push({
-                    subOrder: {
-                        productId: 2,
-                        purchaseCount: terminalInfoData.purchaseCount_2,
-                        subOrderType: 1,
-                        purchaseAmount: 0,
-                        startTime: terminalInfoData.startTime_2,
-                        endTime: terminalInfoData.endTime_2,
-                        currPayAmount:formInfoData['currPayAmount_'+2]||0
-                    }
-                }
-            );
-            //服务人数
-            data.subOrders.push({
-                    subOrder: {
-                        productId: 3,
-                        purchaseCount: terminalInfoData.purchaseCount_3,
-                        subOrderType: 1,
-                        purchaseAmount: terminalInfoData.purchaseAmount_3,
-                        startTime: terminalInfoData.startTime_3,
-                        endTime: terminalInfoData.endTime_3,
-                        currPayAmount:formInfoData['currPayAmount_'+3]||0
-                    }
-                }
-            );
-
-
-            //表格部分 //////////////////////////////////////////
-            var ids = ['4', '5', '7'];
-            var checkeds = tableInfoData.check.split(',');
-            $(ids).each(function (i, n) {
-                    if ($.inArray(n, checkeds) >= 0) {
-                        data.subOrders.push({
-                            subOrder: {
-                                productId: n,
-                                purchaseCount: 1,
-                                subOrderType: 1,
-                                purchaseAmount: tableInfoData['purchaseAmount_' + n],
-                                startTime: tableInfoData['startTime_' + n],
-                                endTime: tableInfoData['endTime_' + n],
-                                productAmount: tableInfoData['productAmount_' + n],
-                                discount: tableInfoData['discount_' + n]
-                            }
-                        });
-                    }
-                }
-            );
+            common.setSuborders(terminalInfo, tableInfo, formInfo,data);//设置子订单
             //合同部分//////////////////////////////////////////////////////////////////////////
             var contractData = $.parseJSON(formInfoData.contract || '{}');
             var contractCopyData = $.parseJSON(formInfoData.contractCopy || '{}');
@@ -88,7 +39,8 @@ define(function (require, exports, module) {
                 receiptsAccount: formInfoData.receiptsAccount,
                 payerName: formInfoData.payerName,
                 contractNo: formInfoData.contractNo,
-                amount: formInfoData.contractPrice
+                amount: formInfoData.contractPrice,
+                productAmount: formInfoData.productAmount
             };
             return data;
         }
