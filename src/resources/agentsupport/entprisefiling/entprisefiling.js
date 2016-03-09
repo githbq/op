@@ -72,7 +72,20 @@ define( function( require, exports, module ) {
             var me = this;
             var statusList = [{'name':'全部','value':''}],industryList=[{'name':'全部','value':''}],sourceList=[{'name':'全部','value':''}];
 
-            util.getEnums('FILING_STATUS',function(data){
+            var state = {
+                a: false,
+                b: false,
+                c: false
+            }
+
+            //
+            function checkState(){
+                if( state.a && state.b && state.c ){
+                    me.getList();
+                }
+            }
+
+            util.getEnums('FILING_STATUS',function( data ){
                 if( data.success ){
 
                     data.value.model.forEach(function( item, index){
@@ -80,25 +93,20 @@ define( function( require, exports, module ) {
                        statusList.push( {'name':item.text,'value':item.value} );
                     });
 
-
                     util.resetSelect( me.$status, statusList );
-                    me.getList();
+                    state.a = true;
+                    checkState();
                 }
             });
-			util.getEnums('INDUSTRY',function(data){
+
+            util.getIndustry( me.$industryData,function( data ){
                 if( data.success ){
-
-                    data.value.model.forEach(function( item, index){
-                       industryMap[ item.value ] = item.text;
-                       industryList.push( {'name':item.text,'value':item.value} );
-                    });
-
-
-                    util.resetSelect( me.$industryData, industryList );
-                    me.getList();
+                    state.b = true;
+                    checkState();
                 }
-            })
-			util.getEnums('ENT_LST_SOURCE',function(data){
+            });
+
+			util.getEnums('ENT_LST_SOURCE',function( data ){
                 if( data.success ){
 
                     data.value.model.forEach(function( item, index){
@@ -106,9 +114,9 @@ define( function( require, exports, module ) {
                        sourceList.push( {'name':item.text,'value':item.value} );
                     });
 
-
                     util.resetSelect( me.$sourceData, sourceList );
-                    me.getList();
+                    state.c = true;
+                    checkState();
                 }
             })
         },
