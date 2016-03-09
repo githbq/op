@@ -105,7 +105,7 @@ define(function (require, exports, module) {
 
         //PK助手开始时间
         dataItems.push(new DataItem($.extend({
-            name: 'startDate_' + n.id,
+            name: 'startTime_' + n.id,
             value: startTime,
             validateOptions: {
                 required: {
@@ -116,7 +116,7 @@ define(function (require, exports, module) {
         }, n.options.startDate)));
         //PK助手结束时间
         dataItems.push(new DataItem($.extend({
-            name: 'endDate_' + n.id,
+            name: 'endTime_' + n.id,
             value: endTime,
             validateOptions: {
                 required: {
@@ -187,8 +187,8 @@ define(function (require, exports, module) {
             var $n = $(n);
             var id = $n.val();
             if ($n.is(':checked')) {//勾选的项进入计算
-                startDate = me.o_getFieldValue('startDate_' + id);
-                endDate = me.o_getFieldValue('endDate_' + id);
+                startDate = me.o_getFieldValue('startTime_' + id);
+                endDate = me.o_getFieldValue('endTime_' + id);
 
                 if (!smallStartDate && startDate) {
                     smallStartDate = startDate;
@@ -245,8 +245,8 @@ define(function (require, exports, module) {
         var options = {
             data: {
                 id: id,
-                startDate: me.o_getFieldValue('startDate_' + id),
-                endDate: me.o_getFieldValue('endDate_' + id),
+                startDate: me.o_getFieldValue('startTime_' + id),
+                endDate: me.o_getFieldValue('endTime_' + id),
                 sum: 1,
                 contractAmount: me.o_getFieldValue('purchaseAmount_' + id)
             },
@@ -263,8 +263,8 @@ define(function (require, exports, module) {
         if (options.data.startDate && options.data.endDate) {
             if (options.data.startDate >= options.data.endDate) {
                 util.showToast('开始日期必须小于结束日期');
-                me.o_setValue({name: 'startDate_' + id, value: ''});
-                me.o_setValue({name: 'endDate_' + id, value: ''});
+                me.o_setValue({name: 'startTime_' + id, value: ''});
+                me.o_setValue({name: 'endTime_' + id, value: ''});
             } else {
                 me.attrs.apiPool.api_getCalculateSingle(options);
             }
