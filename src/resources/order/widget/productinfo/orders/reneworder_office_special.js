@@ -45,10 +45,45 @@ define(function (require, exports, module) {
             return data;
         }
     };
-    //转换输入值
-    exports.transferDataItem = function (terminalDataItems, tableDataItems, formDataItems) {//转换数据项
 
-        return {terminalDataItems:terminalDataItems,tableDataItems:tableDataItems,formDataItems:formDataItems};
+
+    //转换输入值
+    exports.transferDataItem = function (terminalDataItems, tableDataItems, formDataItems, controller) {//转换数据项
+        debugger
+        controller(terminalDataItems, 'typewrapper_3', function (n) {
+            n.visible = true;
+        });
+        controller(terminalDataItems, 'purchaseAmount_wrapper_3', function (n) {
+            n.visible = true;
+        });
+        controller(terminalDataItems, 'purchaseAmount_input_3', function (n) {
+            n.visible = true;
+        });
+        controller(terminalDataItems, 'purchaseAmount_3', function (n) {
+            n.visible = false;
+        });
+
+        controller(terminalDataItems, 'businesscard', function (n) {
+            n.visible = false;
+        });
+        controller(formDataItems, 'payStatus_name', function (n) {
+            n.visible = false;
+        });
+        controller(formDataItems, 'payStatus_select', function (n) {
+            n.visible = true;
+        });
+        debugger
+        controller(tableDataItems, 'table_type', function (n) {
+            n.visible = true;
+        });
+        //$(['currPayAmount_1', 'currPayAmount_2', 'currPayAmount_3', 'currPayAmount', 'currPayAmount_5', 'currPayAmount_7']).each(function (i, n) {
+        //    controller(formDataItems, n, function (n) {
+        //        n.visible = false;
+        //    });
+        //});
+
+
+        return {terminalDataItems: terminalDataItems, tableDataItems: tableDataItems, formDataItems: formDataItems};
     }
 
 });

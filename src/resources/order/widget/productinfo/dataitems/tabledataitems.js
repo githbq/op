@@ -283,7 +283,9 @@ define(function (require, exports, module) {
                 me.o_setValue({name: 'startTime_' + id, value: ''});
                 me.o_setValue({name: 'endTime_' + id, value: ''});
             } else {
-                me.attrs.apiPool.api_getCalculateSingle(options);
+                if (!me.o_getFieldData('purchaseAmount_'+id).readonly) {
+                    me.attrs.apiPool.api_getCalculateSingle(options);
+                }
             }
         }
     }

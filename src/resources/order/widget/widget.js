@@ -17,7 +17,7 @@ define(function (require, exports, module) {
             terminalInfo: {$view: $el.find('.panel1')},
             tableInfo: {$view: $el.find('.panel2')},
             formInfo: {$view: $el.find('.panel3')}
-        },4);
+        },2);
         //result.data
     }
 });

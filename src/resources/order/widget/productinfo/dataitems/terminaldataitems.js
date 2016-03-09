@@ -37,7 +37,11 @@ define(function (require, exports, module) {
         value: 1
     }));
 
-
+    //企业ID
+    dataItems.push(new DataItem({
+        name: 'useFX',
+        readonly:true
+    }));
     var typeIds = ['1', '3', '8'];
 
     $(typeIds).each(function (i, n) {
@@ -81,7 +85,7 @@ define(function (require, exports, module) {
         }));
 
 
-        //服务人数
+        //金额
         dataItems.push(new DataItem({
             name: 'purchaseAmount_input_' + n,
             value: '',
@@ -92,7 +96,8 @@ define(function (require, exports, module) {
                     var me = this;
                     var $dom = $(e.target);
                     $dom.val($dom.val().replace(/[^\.\d]/g, ''));
-                    changeForGetPrice.call(me,e);
+                    me.o_setValue({name:'purchaseAmount_'+n,value:$dom.val()});
+                    priceComput.call(me, e);
                 }
             }],
             validateOptions: {
@@ -121,6 +126,11 @@ define(function (require, exports, module) {
         //产品原价
         dataItems.push(new DataItem({
             name: 'productAmount_' + n,
+            value: ''
+        }));
+        //产品原价
+        dataItems.push(new DataItem({
+            name: 'purchaseAmount_' + n,
             value: ''
         }));
         //服务费 试用 赠送 折扣 的容器
@@ -163,6 +173,15 @@ define(function (require, exports, module) {
         }));
     });
 
+
+    dataItems.push(new DataItem({
+        name: 'startTime_2',
+        readonly:true
+    }));
+    dataItems.push(new DataItem({
+        name: 'endTime_2',
+        readonly:true
+    }));
 
     function checkTypeForPrice(e, id) {
         var me = this;
