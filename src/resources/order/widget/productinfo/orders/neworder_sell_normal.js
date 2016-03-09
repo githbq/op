@@ -46,8 +46,8 @@ define(function (require, exports, module) {
                                 purchaseCount: 1,
                                 subOrderType: 1,
                                 purchaseAmount: tableInfoData['purchaseAmount_' + n],
-                                startTime: tableInfoData['startDate_' + n],
-                                endTime: tableInfoData['endDate_' + n],
+                                startTime: tableInfoData['startTime_' + n],
+                                endTime: tableInfoData['endTime_' + n],
                                 productAmount: tableInfoData['productAmount_' + n],
                                 discount: tableInfoData['discount_' + n],
                                 currPayAmount:formInfoData['currPayAmount_'+n]||0

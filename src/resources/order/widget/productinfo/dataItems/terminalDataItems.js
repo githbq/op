@@ -204,6 +204,7 @@ define(function (require, exports, module) {
 
 
     function changeForGetPrice(e) {
+        debugger
         var me = this;
         var $dom = $(e.target);
         var id = '8';
@@ -214,8 +215,8 @@ define(function (require, exports, module) {
         var options = {
             data: {
                 id: id,
-                startDate: me.o_getFieldValue('startDate_' + id),
-                endDate: me.o_getFieldValue('endDate_' + id),
+                startDate: me.o_getFieldValue('startTime_' + id),
+                endDate: me.o_getFieldValue('endTime_' + id),
                 sum: 1,
                 contractAmount: me.o_getFieldValue('purchaseAmount_' + id)
             },
