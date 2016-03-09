@@ -46,8 +46,7 @@ define( function(require, exports, module){
                 
                 me.$filingRegion.val( treenodes[0]['name'] ).attr('data-code', treenodes[0]['code'] );
             });
-			
-			
+
 		},
 
 		//设置状态
@@ -156,19 +155,56 @@ define( function(require, exports, module){
 		 * @param eid  企业id
 		 * @param type 类型
 		 */
-		show: function( id , eid , type , canCancel , isCurrentTask,isCanEdit ,activeStatus ){
+		show: function( options ){
 			var me = this;
-			me.attrs.id = id;
-			me.attrs.eid = eid;
-			me.attrs.type = type||'false';
-			me.attrs.canCancel = canCancel || 'false';
-			me.attrs.isCurrentTask = isCurrentTask || 'false';
-			me.attrs.isCanEdit = isCanEdit || 'false';
-			me.attrs.activeStatus = activeStatus || '';
-			me.attrs.enterpriseFilingId = '';
+			me.attrs.options = options||{};
 
 			
 			DetailApproval.__super__.show.apply( this,arguments );
+		},
+		//根据定单类型区分设置
+		sortType:function(){
+			var me = this;
+			switch( me.attrs.options )
+			{
+				case 1: case 13:
+
+					break;
+				case 2: case 14:
+
+					break;
+				case 3:case 15:
+
+					break;
+				case 4:case 16:
+
+					break;
+				case 5:
+
+					break;
+				case 6:
+
+					break;
+				case 7:
+
+					break;
+				case 8:
+
+					break;
+				case 9:
+
+					break;
+				case 10:
+
+					break;
+				case 11:
+
+					break;
+				case 12:
+
+					break;
+				default:
+			}
 		},
 		//根据不同类型获取数据
 		getData:function(){

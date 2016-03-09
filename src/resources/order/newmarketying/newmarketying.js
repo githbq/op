@@ -191,7 +191,7 @@ define( function( require, exports, module ) {
 			me.attrs.prodeuctObj =  productinfo.showProductInfo( {terminalInfo:{$view:me.$view.find('.'+me.attrs.showType+'-terminalinfo')},
 					tableInfo:{$view:me.$view.find('.'+me.attrs.showType+'-tableinfo')},
 					formInfo:{$view:me.$view.find('.'+me.attrs.showType+'-forminfo')}}
-			,tempOrderType );
+			,tempOrderType,{'enterpriseId':me.attrs.id } );
 
 		},
 		//设置订单文字
