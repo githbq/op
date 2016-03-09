@@ -13,7 +13,11 @@ define(function (require, exports, module) {
             var aaa = result.getData();
             debugger
         });
-        var result = productInfo.showProductInfo({terminalInfo: {$view: $el.find('.panel1')}, tableInfo: {$view: $el.find('.panel2')}, formInfo: {$view: $el.find('.panel3')}});
+        var result = productInfo.showProductInfo({
+            terminalInfo: {$view: $el.find('.panel1')},
+            tableInfo: {$view: $el.find('.panel2')},
+            formInfo: {$view: $el.find('.panel3')}
+        },1);
         //result.data
     }
 });
