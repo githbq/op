@@ -140,7 +140,7 @@ define(function (require, exports, module) {
                         subOrder.endTime = fromData['endTime_2'];
                     }
                     if (n == '1') {
-                        if (terminalInfo.o_getFieldValue('kunbang') && terminal.o_data_getField({name:'kunbang'}).is(':visible'))
+                        if (terminalInfo.o_getFieldValue('kunbang') && terminalInfo.o_data_getField({name:'kunbang'}).is(':visible'))
                             subOrder.extends = [{productKey: 'bind', productValue: terminalInfo.o_getFieldValue('kunbang')}]
                     }
                     if (controler.o_data_getField('type_' + n).is(':visible')) {
