@@ -51,7 +51,7 @@ define(function (require, exports, module) {
             }
         });
         if (!find) {
-            find = new DataItem({name:name});
+            find = new DataItem({name: name});
             items.push(find);
         }
         func(find);
@@ -80,8 +80,18 @@ define(function (require, exports, module) {
         formInfo.render();
         terminalInfo.$('[data-name=purchaseCount_1]:first').change();
         tableInfo.$('[data-name=check]:first').change();
+        afterRender(type, terminalInfo, tableInfo, formInfo);
         return refs;
     };
+
+    function afterRender(type, terminalInfo, tableInfo, formInfo) {
+        if (parseInt(type) <= 8) {
+            //续费不让修改
+            tableInfo.$('input[value=7]').attr('disabled', 'disabled');
+        }
+    }
+
+
     /*
      * @apiParam {Integer} enterpriseId 企业id
      * @apiParam {Integer} personCount 新增服务人数
