@@ -298,7 +298,6 @@ define( function( require, exports, module ) {
 				  
 			}
 			//获取普通订单信息
-			debugger
 			if(me.attrs.showType == 'common'){
 
 				//基本信息校验和取值
