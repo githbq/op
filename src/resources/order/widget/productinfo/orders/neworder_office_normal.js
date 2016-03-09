@@ -10,22 +10,30 @@ define(function (require, exports, module) {
             //终端部分//////////////////////////////////
             //销客终端总量
             data.subOrders.push({
-                productId: 2,
-                purchaseCount: terminalInfoData.purchaseCount_2,
-                subOrderType: 0,
-                purchaseAmount: 0,
-                startTime: terminalInfoData.startTime_2,
-                endTime: terminalInfoData.endTime_2
-            });
+                    subOrder: {
+                        productId: 2,
+                        purchaseCount: terminalInfoData.purchaseCount_2,
+                        subOrderType: 0,
+                        purchaseAmount: 0,
+                        startTime: terminalInfoData.startTime_2,
+                        endTime: terminalInfoData.endTime_2,
+                        currPayAmount:0
+                    }
+                }
+            );
             //服务人数
             data.subOrders.push({
-                productId: 3,
-                purchaseCount: terminalInfoData.purchaseCount_3,
-                subOrderType: 1,
-                purchaseAmount: terminalInfoData.purchaseAmount_3,
-                startTime: terminalInfoData.startTime_2,
-                endTime: terminalInfoData.endTime_2
-            });
+                    subOrder: {
+                        productId: 3,
+                        purchaseCount: terminalInfoData.purchaseCount_3,
+                        subOrderType: 1,
+                        purchaseAmount: terminalInfoData.purchaseAmount_3,
+                        startTime: terminalInfoData.startTime_2,
+                        endTime: terminalInfoData.endTime_2,
+                        currPayAmount:0
+                    }
+                }
+            );
 
             //表格部分 //////////////////////////////////////////
             var ids = ['4', '5', '7'];
@@ -41,7 +49,8 @@ define(function (require, exports, module) {
                                 startTime: tableInfoData['startDate_' + n],
                                 endTime: tableInfoData['endDate_' + n],
                                 productAmount: tableInfoData['productAmount_' + n],
-                                discount: tableInfoData['discount_' + n]
+                                discount: tableInfoData['discount_' + n],
+                                currPayAmount:0
                             }
                         });
                     }
@@ -108,7 +117,7 @@ define(function (require, exports, module) {
             if (n.name == 'payStatus_select') {
                 n.visible = false;
             }
-            if ($.inArray(n.name, ['payStatus_fq_1', 'payStatus_fq_2', 'payStatus_fq_3', 'payStatus_fq_4', 'payStatus_fq_5', 'payStatus_fq_7']) >= 0) {
+            if ($.inArray(n.name, ['currPayAmount_1', 'currPayAmount_2', 'currPayAmount_3', 'currPayAmount_4', 'currPayAmount_5', 'currPayAmount_7']) >= 0) {
                 n.visible = false;
             }
         });
