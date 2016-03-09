@@ -49,7 +49,6 @@ define(function (require, exports, module) {
 
     //转换输入值
     exports.transferDataItem = function (terminalDataItems, tableDataItems, formDataItems, controller) {//转换数据项
-        debugger
         controller(terminalDataItems, 'type_8', function (n) {
             n.visible = false;
         });
@@ -86,7 +85,6 @@ define(function (require, exports, module) {
         controller(formDataItems, 'payStatus_select', function (n) {
             n.visible = false;
         });
-        debugger
         controller(tableDataItems, 'table_type', function (n) {
             n.visible = false;
         });
