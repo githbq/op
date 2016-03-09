@@ -6487,6 +6487,13 @@ em {
 .m-invoice .invoice-bar {
   font-size: 16px;
 }
+.m-invoice .filetype {
+  display: inline-block;
+  width: 100px;
+}
+.m-invoice .filetype b {
+  color: red;
+}
 .m-invoice p {
   padding: 8px 0;
 }
