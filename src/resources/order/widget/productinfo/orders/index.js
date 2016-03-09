@@ -1,5 +1,45 @@
 define(function (require, exports, module) {
 
+
+    exports.setOtherData=function(terminalInfo, tableInfo, formInfo,data){
+        var terminalInfoData = terminalInfo.o_getValues();
+        var tableInfoData = tableInfo.o_getValues();
+        var formInfoData = formInfo.o_getValues();
+        var contractData = $.parseJSON(formInfoData.contract || '{}');
+        var contractCopyData = $.parseJSON(formInfoData.contractCopy || '{}');
+        data.contract = {
+            contractNo: formInfoData.contractNo,
+            contractPrice: formInfoData.contractPrice,
+            sealName: formInfoData.sealName,
+            contract: contractData.contract,
+            contractFileName: contractData.contractFileName,
+            contractCopy: contractCopyData.contractCopy,
+            contractCopyFileName: contractCopyData.contractCopyFileName
+        };
+        //门头照片
+        var companyGatePictureData = $.parseJSON(formInfoData.companyGatePicture || '{}');
+        var useBusinessCart = terminalInfo.o_getFieldData('businesscard').visible && terminalInfo.o_getFieldValue('useCRM') ? 1 : 0;//名片可见 CRM已勾选
+        data.enterpriseExtend = {
+            compayGatePicture: companyGatePictureData.compayGatePicture,
+            compayGatePictureFileName: companyGatePictureData.compayGatePictureFileName,
+            companyGateKeyword: formInfoData.companyGateKeyword,
+            companyGateRemark: formInfoData.companyGateRemark,
+            useBusinessCard: useBusinessCart,
+            businessCardPrise: useBusinessCart ? terminalInfo.o_getFieldValue('purchaseAmount_8') : 0
+        };
+        //订单主信息
+        data.order = {
+            payStatus: formData.payStatus,
+            currPayAmount: formInfoData.currPayAmount,
+            payDate: formInfoData.payDate,
+            receiptsAccount: formInfoData.receiptsAccount,
+            payerName: formInfoData.payerName,
+            contractNo: formInfoData.contractNo,
+            amount: formInfoData.contractPrice,
+            productAmount:formInfoData.productAmount
+        };
+
+    };
     //转换输入值
     exports.setSuborders=function(terminalInfo, tableInfo, formInfo,data){
         var terminalInfoData = terminalInfo.o_getValues();
@@ -7,7 +47,7 @@ define(function (require, exports, module) {
         var formInfoData = formInfo.o_getValues();
         //suborders //////////////////////////////////////////
         var ids = tableInfoData.check.split(',');
-        if(me.__refs.terminalInfo.o_getFieldData('businesscard').visible){
+        if(terminalInfo.o_getFieldData('businesscard').visible){
             ids.push('8');
         }
         if(terminalInfo.o_getFieldData('useCRMWrapper').visible && me.__refs.terminalInfo.o_getFieldValue('useCRM')){

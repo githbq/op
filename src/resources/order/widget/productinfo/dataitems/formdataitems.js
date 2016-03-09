@@ -70,6 +70,7 @@ define(function (require, exports, module) {
                 key: 'change', value: function (e) {
                 var me = this;
                 var $dom = $(e.target);
+                me.o_setValue({name:'payStatus',value:$dom.val()});
                 switch ($dom.val()) {
                     case '1':
                     {
