@@ -40,19 +40,20 @@ define(function (require, exports, module) {
             i_inject: function (data) {//被动注入
                 var me = this;
                 var $template = $(me.i_getTemplateStr());
-                var nameDic={};
+                var nameDic = {};
                 $template.find('[' + me.i_attrName + ']').each(function (i, n) {
                     var name = $(n).attr(me.i_attrName);
+                    me.i_init_FieldConvert($(n));//控件格式转换
                     if (name && !nameDic[name]) {//排除只有属性无值的情况
                         var findItem = _.findWhere(data.dataItems, {name: $(n).attr(me.i_attrName)});
                         if (!findItem) {
                             data.dataItems.push(new DataItem({name: name, __auto: true}));
                         }
-                        nameDic[name]=1;
+                        nameDic[name] = 1;
                     }
                 });
                 //注入数据项时事件
-                data.i_on_injectDataItem && data.i_on_injectDataItem.call(me,data.dataItems);
+                data.i_on_injectDataItem && data.i_on_injectDataItem.call(me, data.dataItems);
                 me.wrapperView = data.wrapperView;
                 me.$view = me.view = $('<div>');
                 me.$view.html('').append($template);
@@ -82,6 +83,31 @@ define(function (require, exports, module) {
                         });
                     }
                 });
+            },
+            i_convertFieldWhereDatetime: function (next, $ele) {
+                if ($ele.is('input[datecontrol]:not([readonly])')) {
+                    var me = this;
+                    var option = {format: 'Y/m/d', timepicker: false};
+                    var config = $ele.attr('datecontrol') ? me.i_parseJSON($ele.attr('datecontrol')) : {};
+                    $.extend(option, config);
+                    //option.onClose=function(time,$ele){
+                    //    $ele.change();
+                    //    return true;
+                    //};
+                    $ele.datetimepicker(option);
+                    return true;
+                }
+                return next($ele);
+            },
+            i_convertFieldWhereNumber: function (next, $ele) {
+
+                if ($ele.is('[data-type=number]')) {
+                    $ele.on('change', function (e) {
+                        var $dom = $(e.target);
+                        $dom.val($dom.val().replace(/[^\.\d]/g, ''));
+                    })
+                }
+                return next($ele);
             },
             events: {},
             elements: {},
@@ -123,7 +149,9 @@ define(function (require, exports, module) {
                     data.dataItems[config.__index] = config;
                 });
                 me.o_setValues(data.dataItems, me.i_silent, true);
-                me.i_initDatePicker();
+            },
+            i_init_FieldConvert: function ($ele) {//控件转换  比如日期 类型 数字类型
+                this.i_getFunctionPipe('i_convertFieldWhere', 'Default')[0]($ele);
             },
             i_toHighOrderFunction: function (func, context, args) {
                 //转换为高阶函数
@@ -131,19 +159,6 @@ define(function (require, exports, module) {
                     var newArgs = args.concat([].slice.apply(arguments));
                     return func.apply(context, newArgs);
                 }
-            },
-            i_initDatePicker: function () {
-                var me = this;
-                var option = {format: 'Y/m/d', timepicker: false};
-                me.$('input[datecontrol]:not([readonly])').each(function (i, n) {
-                    var config = $(n).attr('datecontrol') ? me.i_parseJSON($(n).attr('datecontrol')) : {};
-                    $.extend(option, config);
-                    //option.onClose=function(time,$ele){
-                    //    $ele.change();
-                    //    return true;
-                    //};
-                    $(n).datetimepicker(option);
-                });
             },
             i_parseJSON: function (str) {
                 var me = this;
@@ -564,7 +579,7 @@ define(function (require, exports, module) {
                 value = value === undefined ? false : value;
                 this.o_field_getData($ele).readonly = value;
                 if (value) {
-                    $ele.addClass('readonly', 'readonly').attr('readonly', 'readonly').attr('disabled','disabled');
+                    $ele.addClass('readonly', 'readonly').attr('readonly', 'readonly').attr('disabled', 'disabled');
                 } else {
                     $ele.removeClass('readonly').removeAttr('readonly').removeAttr('disabled');
                 }

@@ -108,6 +108,7 @@ define(function (require, exports, module) {
                         fromData = terminalInfoData;
                         controler = terminalInfo;
                     }
+
                     var subOrder = {
                         productId: n,
                         purchaseCount: fromData['purchaseCount_' + n] || 1,
@@ -118,6 +119,10 @@ define(function (require, exports, module) {
                         productAmount: fromData['productAmount_' + n] || 0,
                         discount: fromData['discount_' + n] || 0,
                         currPayAmount: fromData['currPayAmount_' + n] || 0
+                    };
+                    if(n=='3'){
+                        subOrder.startTime=fromData['startTime_' + 2];
+                        subOrder.startTime=fromData['endTime_' + 2];
                     }
                     if (n == '1') {
                         if (terminalInfo.o_getFieldValue('kunbang') && terminal.o_data_getField('kunbang').is(':visible'))

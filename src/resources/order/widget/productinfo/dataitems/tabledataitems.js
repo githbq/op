@@ -178,11 +178,6 @@ define(function (require, exports, module) {
         var me = this;
         var $dom = $(e.target);
         var data = null;
-        if ($dom.is('input[type=text]:not([datecontrol])')) {
-            $dom.val($dom.val().replace(/[^\.\d]/g, ''));
-
-        }
-
         var ids = this.o_getFieldValue('check').split(',');
 
         var order_amount = 0;

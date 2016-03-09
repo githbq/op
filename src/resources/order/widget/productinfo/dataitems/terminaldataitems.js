@@ -94,7 +94,6 @@ define(function (require, exports, module) {
                 key: 'change', value:function(e){
                     var me = this;
                     var $dom = $(e.target);
-                    $dom.val($dom.val().replace(/[^\.\d]/g, ''));
                     me.o_setValue({name:'purchaseAmount_'+n,value:$dom.val()});
                     priceComput.call(me, e);
                 }
