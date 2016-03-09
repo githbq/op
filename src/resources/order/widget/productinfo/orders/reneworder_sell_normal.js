@@ -56,12 +56,6 @@ define(function (require, exports, module) {
         controller(tableDataItems, 'table_type', function (n) {
             n.visible = false;
         });
-        //$(['currPayAmount_1', 'currPayAmount_2', 'currPayAmount_3', 'currPayAmount', 'currPayAmount_5', 'currPayAmount_7']).each(function (i, n) {
-        //    controller(formDataItems, n, function (n) {
-        //        n.visible = false;
-        //    });
-        //});
-
 
         return {terminalDataItems: terminalDataItems, tableDataItems: tableDataItems, formDataItems: formDataItems};
     }

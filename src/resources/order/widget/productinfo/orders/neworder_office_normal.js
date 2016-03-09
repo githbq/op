@@ -34,13 +34,11 @@ define(function (require, exports, module) {
         //工资助手强制
         common.setGZHelper(controller,terminalDataItems,tableDataItems,formDataItems);
         //工资助手强制 end
-        $(formDataItems).each(function (i, n) {
-            if (n.name == 'payStatus_select') {
+        var arr=['currPayAmount_1', 'currPayAmount_2', 'currPayAmount_3', 'currPayAmount_4', 'currPayAmount_5', 'currPayAmount_7'];
+        $(arr).each(function(i,b){
+            controller(formDataItems,b,function(n){
                 n.visible = false;
-            }
-            if ($.inArray(n.name, ['currPayAmount_1', 'currPayAmount_2', 'currPayAmount_3', 'currPayAmount_4', 'currPayAmount_5', 'currPayAmount_7']) >= 0) {
-                n.visible = false;
-            }
+            });
         });
 
 

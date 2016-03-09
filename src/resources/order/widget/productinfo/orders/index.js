@@ -71,7 +71,7 @@ define(function (require, exports, module) {
         if(terminalInfo.o_getFieldData('businesscard').visible){
             ids.push('8');
         }
-        if(terminalInfo.o_getFieldData('useCRMWrapper').visible && me.__refs.terminalInfo.o_getFieldValue('useCRM')){
+        if(terminalInfo.o_getFieldData('useCRMWrapper').visible && terminalInfo.o_getFieldValue('useCRM')){
             ids.push('1');
         }
         if(terminalInfo.o_getFieldValue('useFX')){

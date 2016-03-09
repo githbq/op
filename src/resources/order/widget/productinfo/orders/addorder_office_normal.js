@@ -19,35 +19,28 @@ define(function (require, exports, module) {
         //工资助手强制
         common.setGZHelper(controller,terminalDataItems,tableDataItems,formDataItems);
         //工资助手强制 end
-
-        $(terminalDataItems).each(function (i, n) {
-            if (n.name == 'typewrapper_3') {
-                n.visible = false;
-            }
-            if (n.name == 'purchaseAmount_wrapper_3') {
-                n.visible = false;
-            }
-            else if (n.name == 'purchaseAmount_input_3') {
-                n.visible = false;
-            }
-            else if (n.name == 'purchaseAmount_3') {
-                n.visible = false;
-            } else if (n.name == 'businesscard') {
-                n.visible = false;
-            }
-
-
+        controller(terminalDataItems,'typewrapper_3',function(n){
+            n.visible = false;
         });
-        $(formDataItems).each(function (i, n) {
-            if (n.name == 'payStatus_select') {
-                n.visible = false;
-            }
-            if ($.inArray(n.name, ['currPayAmount_1', 'currPayAmount_2', 'currPayAmount_3', 'currPayAmount_4', 'currPayAmount_5', 'currPayAmount_7']) >= 0) {
-                n.visible = false;
-            }
+        controller(terminalDataItems,'purchaseAmount_wrapper_3',function(n){
+            n.visible = false;
+        });
+        controller(terminalDataItems,'purchaseAmount_input_3',function(n){
+            n.visible = false;
+        });
+        controller(terminalDataItems,'businesscard',function(n){
+            n.visible = false;
         });
 
-
+        controller(formDataItems,'payStatus_select',function(n){
+            n.visible = false;
+        });
+      var arr=['currPayAmount_1', 'currPayAmount_2', 'currPayAmount_3', 'currPayAmount_4', 'currPayAmount_5', 'currPayAmount_7'];
+        $(arr).each(function(i,b){
+            controller(formDataItems,b,function(n){
+                n.visible = false;
+            });
+        });
         return {terminalDataItems: terminalDataItems, tableDataItems: tableDataItems, formDataItems: formDataItems};
     }
 
