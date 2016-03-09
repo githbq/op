@@ -5,7 +5,7 @@
         </div>
     </div>
     <div class="terminalinfo">
-        <div class="field_row">
+        <div class="field_row" data-productid="2">
             <div class="field_row_head">
                 <label>
                     <span class="label bold">销客终端总量(个)</span>
@@ -33,7 +33,7 @@
                 </div>
             </div>
         </div>
-        <div class="field_row">
+        <div class="field_row" data-productid="3">
             <div class="field_row_head">
                 <label>
                     <span class="label bold">服务人数(个数)</span>
@@ -85,31 +85,29 @@
                         <span class="red">*</span>
                     </label>
                     <input type="text" data-name="purchaseAmount_input_3"/>
-                    <span>元</span>
                 </div>
-
-                <div class="field" data-name="needmoney" data-config="{'visible':false}">
-                    <label>
-                        <span class="label">收费:</span>
-                    </label>
-                    <label>
-                        <input type="radio" name="sf" checked="checked"/>
-                        <span>否</span>
-                    </label>
-                    <label>
-                        <input type="radio" name="sf"/>
-                        <span>是</span>
-                    </label>
-                </div>
+                <!--<div class="field" data-name="needmoney" data-config="{'visible':false}">-->
+                    <!--<label>-->
+                        <!--<span class="label">收费:</span>-->
+                    <!--</label>-->
+                    <!--<label>-->
+                        <!--<input type="radio" name="sf" checked="checked"/>-->
+                        <!--<span>否</span>-->
+                    <!--</label>-->
+                    <!--<label>-->
+                        <!--<input type="radio" name="sf"/>-->
+                        <!--<span>是</span>-->
+                    <!--</label>-->
+                <!--</div>-->
             </div>
         </div>
-        <div data-name="useCRMWrapper">
+        <div data-name="useCRMWrapper" data-productid="1">
             <div class="field_row field">
                 <div class="field">
-                    <label class="text_right"> <input type="checkbox" data-name="useCRM" value="1"  /> <span class="label bold">CRM</span> </label>
+                    <label class="text_right"> <input type="checkbox" data-name="useCRM" value="1"/> <span class="label bold">CRM</span> </label>
                 </div>
             </div>
-            <div class="field_row">
+            <div class="field_row" data-productid="1">
                 <div class="field_row_head">
                     <label>
                         <span class="label bold">CRM终端总量(个)</span>
@@ -147,15 +145,13 @@
                     </div>
                 </div>
             </div>
-            <div class="field_row">
+            <div class="field_row" data-productid="1">
                 <div class="field_row_head">
                     <label>
                     </label>
                 </div>
                 <div class="field_wrapper">
-                    <div class="field">
-                        <input data-name="purchaseCount_1" type="text" class="" name=""/>
-                    </div>
+
 
                     <div class="field text-price">
                         <label>
@@ -182,10 +178,10 @@
 
                     <div class="field">
                         <label>
-                            <span class="label">合同金额</span>
+                            <span class="label">合同金额(元)</span>
                         </label>
-                        <span class="field_text" data-name="purchaseAmount_1"></span>
-                        <span>元</span>
+                        <input data-name="purchaseAmount_input_1" type="text" class="field" name=""/>
+                        <span class="field_text field" data-name="purchaseAmount_1"></span>
                     </div>
                     <div class="field">
                         <span class="label">&nbsp;&nbsp;&nbsp;&nbsp;折扣</span>
@@ -196,7 +192,7 @@
             </div>
         </div>
 
-        <div class="field_group" data-name="businesscard" >
+        <div class="field_group" data-name="businesscard" data-productid="8">
             <div class="field_group_head">
                 <label>
                     <span class="label">名片</span>
@@ -338,9 +334,11 @@
                 <td><input data-name="endTime_7" type="text" datecontrol="{'type':0}"/></td>
                 <td class="field_text" data-name="productAmount_7"></td>
                 <td data-name="table_type">
+                    <span class="field">
                     <label> <input type="radio" value="1" name="table_type_7" data-name="table_type_7"/>试用 </label>
                     <label> <input type="radio" value="2" name="table_type_7" data-name="table_type_7"/>赠送 </label>
                     <label> <input type="radio" value="3" name="table_type_7" data-name="table_type_7" checked="checked"/>折扣 </label>
+                    </span>
                 </td>
                 <td><input type="text" data-name="purchaseAmount_7"/></td>
                 <td><span data-name="discount_7" class="field_text">9.9</span></td>
