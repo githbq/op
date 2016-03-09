@@ -120,9 +120,9 @@ define(function (require, exports, module) {
                         discount: fromData['discount_' + n] || 0,
                         currPayAmount: fromData['currPayAmount_' + n] || 0
                     };
-                    if(n=='3'){
-                        subOrder.startTime=fromData['startTime_' + 2];
-                        subOrder.startTime=fromData['endTime_' + 2];
+                    if (n == '3') {
+                        subOrder.startTime = fromData['startTime_2'];
+                        subOrder.endTime = fromData['endTime_2'];
                     }
                     if (n == '1') {
                         if (terminalInfo.o_getFieldValue('kunbang') && terminal.o_data_getField('kunbang').is(':visible'))
