@@ -29,23 +29,34 @@ define(function (require, exports, module) {
         controller(terminalDataItems, 'purchaseAmount_input_3', function (n) {
             n.visible = false;
         });
-        controller(terminalDataItems, 'purchaseAmount_input_1', function (n) {
+        controller(terminalDataItems, 'purchaseAmount_1', function (n) {
             n.visible = false;
+        });
+        controller(terminalDataItems, 'purchaseAmount_input_1', function (n) {
+            n.visible = true;
         });
         controller(terminalDataItems, 'useCRMWrapper', function (n) {
             n.visible = true;
+        });
+        controller(terminalDataItems, 'kunbangWrapper', function (n) {
+            n.visible = true;
+        });
+        controller(terminalDataItems, 'useFX', function (n) {
+            n.readonly=false;
+            n.value=true;
 
         });
         controller(terminalDataItems, 'useCRM', function (n) {
             n.visible = true;
             n.value=true;
+            n.readonly=true;
         });
         controller(terminalDataItems, 'purchaseAmount_3', function (n) {
             n.visible = false;
         });
 
         controller(terminalDataItems, 'businesscard', function (n) {
-            n.visible = true;
+            n.visible = false;
         });
         controller(formDataItems, 'payStatus_name', function (n) {
             n.visible = true;
