@@ -28,6 +28,7 @@ define(function (require, exports, module) {
     //终端结束日期
     dataItems.push(new DataItem({
         name: 'endTime_2',
+		
         value: ''
     }));
 

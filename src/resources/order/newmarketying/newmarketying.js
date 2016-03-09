@@ -52,6 +52,7 @@ define( function( require, exports, module ) {
 			me.attrs.showType = 'common';
 			//综合折扣
 			me.attrs.complexDiscount = '';
+			me.attrs.tempData = {};
 			//增购、续费需要的参数
 			me.attrs.id = me.attrs.paralist||'';
 			me.checkType();
@@ -252,17 +253,36 @@ define( function( require, exports, module ) {
 					
 				//新购营销版类型
 				case 'newMarket':
-
+					me.attrs.url = '/odr/submit'
 					break;
 				  
 				 //增购办公版订单
 				case 'addOffice':
-
+					me.attrs.url = '/odr/submitPurchaseAdditional'
+					me.attrs.tempData = { "orderEntity":{
+							"order":{
+								"enterpriseId":me.attrs.id ||''
+							}
+						},
+						"enterpriseExtend":{
+							"enterpriseId":me.attrs.id ||''
+						}
+					}
 					break;
 					
 				 //增购营销版订单
 				case 'addMarkey':
+					me.attrs.url = '/odr/submitPurchaseAdditional'
 
+					me.attrs.tempData = { "orderEntity":{
+						"order":{
+							"enterpriseId":me.attrs.id ||''
+						}
+					},
+						"enterpriseExtend":{
+							"enterpriseId":me.attrs.id ||''
+						}
+					}
 					break;
 					
 				//续费办公版订单
@@ -279,7 +299,7 @@ define( function( require, exports, module ) {
 			}
 			//获取普通订单信息
 			debugger
-			/*if(me.attrs.showType == 'common'){
+			if(me.attrs.showType == 'common'){
 
 				//基本信息校验和取值
 				if( me.attrs.basicCommon.getValue() ){
@@ -299,7 +319,7 @@ define( function( require, exports, module ) {
 				if( me.attrs.invoiceCommon.getInfo() ){
 					var temp  = me.attrs.invoiceCommon.getInfo();
 					objData.orderEntity.invoice =temp.invoice;
-					 $.extend(true, objData.orderEntity.order, temp.order);
+					 $.extend(true, objData.orderEntity.order, temp.order , me.attrs.tempData);
 				}else{
 					return ;
 				}
@@ -326,7 +346,7 @@ define( function( require, exports, module ) {
 				if( me.attrs.invoiceSpecial.getInfo() ){
 					var temp  = me.attrs.invoiceSpecial.getInfo();
 					objData.orderEntity.invoice =temp.invoice;
-					$.extend(true, objData.orderEntity.order, temp.order);
+					$.extend(true, objData.orderEntity.order, temp.order, me.attrs.tempData);
 				}else{
 					return ;
 				}
@@ -362,11 +382,12 @@ define( function( require, exports, module ) {
 					me.attrs.invoiceSpecial.setDiscount( me.attrs.complexDiscount );
 				}
 				objData.orderEntity.order['discount'] = me.attrs.complexDiscount ;
-				objData.contract['discount'] = me.attrs.complexDiscount ;*/
+				objData.contract['discount'] = me.attrs.complexDiscount ;
 
-				var objData = {
+	/*			var objData = {
 					"orderEntity": {
 						"order": {
+							"enterpriseId":54936,
 							"payStatus": 1,
 							"currPayAmount": "7000",
 							"payDate": 1457280000000,
@@ -376,10 +397,11 @@ define( function( require, exports, module ) {
 							"contractNo": "1230010",
 							"amount": "7500",
 							"isCooperation": 1,
-							"cooperationUnit": "风部",
+							"isTp":0,
+							"cooperationUnit": "风dddedddd部",
 							"remark": "背时",
-							"orderType": 1,
-							"discount": 0
+							"orderType": 5,
+							"discount": 5.0
 						},
 						"subOrders": [
 							{"subOrder":{
@@ -399,47 +421,11 @@ define( function( require, exports, module ) {
 								 "subOrderType": 1,
 								 "purchaseAmount": "2000",
 								  "productAmount":0,
-									"currPayAmount":0,
+								  "currPayAmount":0,
 								 "startTime": 1457280000000,
 								 "endTime": 1488902400000
 								 }
-							},{
-								"subOrder":{
-									 "productId": "4",
-									 "purchaseCount": 1,
-									 "subOrderType": 1,
-									 "purchaseAmount": "500",
-									 "startTime": 1457280000000,
-									 "endTime": 1488902400000,
-									"currPayAmount":0,
-									 "productAmount": "400",
-									 "discount": "12.5"
-								}
-							},{
-								"subOrder":{
-									 "productId": "5",
-									 "purchaseCount": 1,
-									 "subOrderType": 1,
-									 "purchaseAmount": "5000",
-									 "startTime": 1457280000000,
-									"currPayAmount":0,
-									 "endTime": 1488902400000,
-									 "productAmount": "400",
-									 "discount": "125.0"
-								 }
-							 },{
-								 "subOrder":{
-									 "productId": "7",
-									 "purchaseCount": 1,
-									 "subOrderType": 1,
-									 "purchaseAmount": "0",
-									 "startTime": 1457280000000,
-									 "currPayAmount":0,
-									 "endTime": 1488816000000,
-									 "productAmount": 0,
-									 "discount": 0
-								 }
-							 }
+							}
 						],
 						"invoice": {
 							"companyName": "公司名称",
@@ -461,40 +447,9 @@ define( function( require, exports, module ) {
 							"invoiceType": 2
 						}
 					},
-					"enterprise": {
-						"enterpriseName": "测试折扣",
-						"enterpriseAccount": "qiyezhanghao22",
-						"address": "测试折扣",
-						"industry": 2,
-						"Vendorid": 90925,
-						"source": 1,
-						"groupType": "1",
-						"StorageTotalSpace":0,
-						"province": "12",
-						"city": "城市",
-						"knowSource": "1",
-						"registerMotive": "98",
-						"companyScale": "5",
-						"isSaleTeam edit-flag": "1",
-						"saleTeamScale": "7",
-						"isFirstmeetingSign": "1",
-						"isWillPin": "0",
-						"isStrangerVisits": "1",
-						"dealDays": "6",
-						"isReferral": "1",
-						"keyContactName": "测试折扣",
-						"keyContactPhone": "183101010101",
-						"keyContactEmail": "1831010@qq.com",
-						"contactName": "dfd",
-						"contactPhone": "18310101010",
-						"contactEmail": "1831010@qq.com",
-						"contactim": "183101010101",
-						"enterpriseFilingId": 603,
-						"contractCopy": "",
-						"contractCopyFileName": ""
-					},
 					"enterpriseExtend": {
 						"companyGateKeyword": "门头关键自",
+						"enterpriseId":54936,
 						"useBusinessCard":0,//是否使用名片0否 1是
 						businessCardPrise:0,//名片金额
 						"companyGateRemark": "门头卑职"
@@ -509,8 +464,7 @@ define( function( require, exports, module ) {
 						"contractCopyFileName": "TI4T)TD$II@T995WBNX(D_L.jpg",
 						"discount": 0
 					}
-				};
-
+				};*/
 
 				util.api({
 					'url':me.attrs.url,
@@ -523,7 +477,7 @@ define( function( require, exports, module ) {
 						}
 					}
 				})
-			//});
+			});
 
 		},
 		cancelEve: function(){

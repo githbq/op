@@ -12,6 +12,7 @@ define(function (require, exports, module) {
             },
             'success': callback
         })
+		
     }
 
     //合同号
