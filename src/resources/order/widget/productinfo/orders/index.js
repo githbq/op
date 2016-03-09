@@ -1,5 +1,20 @@
 define(function (require, exports, module) {
 
+    exports.setCommonData = function (controller, terminalDataItems, tableDataItems, formDataItems, type) {
+        type = type.toString();
+        controller(terminalDataItems, 'keyword', function (n) {
+            if ($.inArray(type, ['1', '2', '3', '4']) >= 0) {
+                n.value = '新购';
+            }
+            else if ($.inArray(type, ['5', '6', '7', '8']) >= 0) {
+                n.value = '增购';
+            }
+            else if ($.inArray(type, ['9', '10', '11', '12']) >= 0) {
+                n.value = '续费';
+            }
+
+        })
+    }
 
     exports.setOtherData = function (terminalInfo, tableInfo, formInfo, data) {
         var terminalInfoData = terminalInfo.o_getValues();

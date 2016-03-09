@@ -48,6 +48,7 @@ define(function (require, exports, module) {
         $(items).each(function (i, n) {
             if (n.name === name) {
                 find = n;
+                return false;
             }
         });
         if (!find) {

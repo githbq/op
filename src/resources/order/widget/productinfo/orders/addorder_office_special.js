@@ -17,6 +17,7 @@ define(function (require, exports, module) {
 
     //转换输入值
     exports.transferDataItem = function (terminalDataItems, tableDataItems, formDataItems, controller) {//转换数据项
+        common.setCommonData(controller, terminalDataItems, tableDataItems, formDataItems,6);
         controller(terminalDataItems, 'typewrapper_3', function (n) {
             n.visible = true;
         });
