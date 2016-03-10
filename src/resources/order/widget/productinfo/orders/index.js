@@ -1,6 +1,9 @@
 define(function (require, exports, module) {
 
         exports.setCommonData = function (controller, terminalDataItems, tableDataItems, formDataItems, type, responseData) {
+
+            console.warn('编辑时数据=>');
+            console.warn(responseData);
             type = type.toString();
             controller(terminalDataItems, 'keyword', function (n) {
                 if ($.inArray(type, ['1', '2', '3', '4']) >= 0) {
@@ -47,8 +50,8 @@ define(function (require, exports, module) {
                                 setValue(dataDic, j + '_' + subOrder.productId, subOrder[j]);
                             }
                         }
-                        if (subOrder.productExtends) {//有拓展属性
-                            $(subOrder.productExtends).each(function (index, kv) {
+                        if (n.productExtends) {//有拓展属性
+                            $(n.productExtends).each(function (index, kv) {
                                 switch (kv.key) {
                                     case 'buytype':
                                     {
