@@ -40,7 +40,7 @@ define(function (require, exports, module) {
     //企业ID
     dataItems.push(new DataItem({
         name: 'useFX',
-        readonly:true
+        readonly: true
     }));
     var typeIds = ['1', '3', '8'];
 
@@ -66,7 +66,7 @@ define(function (require, exports, module) {
                                     me.o_setValue({name: 'purchaseAmount_' + n, value: response.model});
                                     me.o_setValue({name: 'productAmount_' + n, value: response.model});
                                     checkTypeForPrice.call(me, n);
-                                    priceComput.call(me,e);
+                                    priceComput.call(me, e);
                                 }
                             }
                         });
@@ -91,10 +91,10 @@ define(function (require, exports, module) {
             value: '',
             __silent: true,
             events: [{
-                key: 'change', value:function(e){
+                key: 'change', value: function (e) {
                     var me = this;
                     var $dom = $(e.target);
-                    me.o_setValue({name:'purchaseAmount_'+n,value:$dom.val()});
+                    me.o_setValue({name: 'purchaseAmount_' + n, value: $dom.val()});
                     priceComput.call(me, e);
                 }
             }],
@@ -111,14 +111,24 @@ define(function (require, exports, module) {
             name: 'startTime_' + n,
             value: '',
             events: [{
-                key: 'blur', value: changeForGetPrice
+                key: 'blur', value: function (e) {
+                    var me = this;
+                    setTimeout(function () {
+                        changeForGetPrice.call(me, e);
+                    })
+                }
             }]
         }));
         dataItems.push(new DataItem({
             name: 'endTime_' + n,
             value: '',
             events: [{
-                key: 'blur', value: changeForGetPrice
+                key: 'blur', value: function (e) {
+                    var me = this;
+                    setTimeout(function () {
+                        changeForGetPrice.call(me, e);
+                    })
+                }
             }]
         }));
         //产品原价
@@ -161,9 +171,9 @@ define(function (require, exports, module) {
                             break;
                         case '3':
                         {
-                            me.o_setValue({name: 'purchaseAmount_' + n, value:me.o_getFieldValue('purchaseAmount_' + n)});
+                            me.o_setValue({name: 'purchaseAmount_' + n, value: me.o_getFieldValue('purchaseAmount_' + n)});
                             me.o_setValue({name: 'purchaseAmount_input_' + n, value: me.o_getFieldValue('purchaseAmount_' + n), readonly: false})
-                            me.o_data_getField({name:'startTime_'+n}).blur();
+                            me.o_data_getField({name: 'startTime_' + n}).blur();
                         }
                             ;
                             break;
@@ -177,27 +187,27 @@ define(function (require, exports, module) {
 
     dataItems.push(new DataItem({
         name: 'startTime_2',
-        readonly:true
+        readonly: true
     }));
     dataItems.push(new DataItem({
         name: 'endTime_2',
-        readonly:true
+        readonly: true
     }));
 
     function checkTypeForPrice(e, id) {
         var me = this;
-        var typeValue = me.o_getFieldValue('type_'+id);
+        var typeValue = me.o_getFieldValue('type_' + id);
         switch (typeValue.toString()) {
             case '1':
             case '2':
             {
-                me.o_setValue({name: 'purchaseAmount_input_'+id, value: 0, readonly: true})
+                me.o_setValue({name: 'purchaseAmount_input_' + id, value: 0, readonly: true})
             }
                 ;
                 break;
             case '3':
             {
-                me.o_setValue({name: 'purchaseAmount_input_'+id, value: me.o_getFieldValue('purchaseAmount_input_'+id), readonly: false})
+                me.o_setValue({name: 'purchaseAmount_input_' + id, value: me.o_getFieldValue('purchaseAmount_input_' + id), readonly: false})
             }
                 ;
                 break;
