@@ -48,6 +48,10 @@ define(function (require, exports, module) {
             n.visible = true;
 
         });
+        controller(terminalDataItems, 'purchaseCount_2', function (n) {
+            n.readonly = false;
+            n.value='';
+        });
         controller(terminalDataItems, 'useCRM', function (n) {
             n.visible = true;
             n.value = true;
