@@ -27,7 +27,7 @@ define(function (require, exports, module) {
         });
 
         controller(terminalDataItems, 'purchaseAmount_3', function (n) {
-            n.visible = false;
+            n.visible = true;
         });
         controller(terminalDataItems, 'businesscard', function (n) {
             n.visible = false;
