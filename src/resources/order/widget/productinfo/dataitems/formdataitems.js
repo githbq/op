@@ -252,7 +252,6 @@ define(function (require, exports, module) {
                 value: function (e) {
                     var me = this;
                     sendFile(e, function (response) {
-                        console.warn(response);
                         me.o_setValue({name: 'contract', value: JSON.stringify({contract: response.value.model.path, contractFileName: response.value.model.FileName})});
                     });
                 }
@@ -273,7 +272,6 @@ define(function (require, exports, module) {
                 value: function (e) {
                     var me = this;
                     sendFile(e, function (response) {
-                        console.warn(response);
                         me.o_setValue({name: 'contractCopy', value: JSON.stringify({contractCopy: response.value.model.path, contractCopyFileName: response.value.model.FileName})});
                     });
                 }
@@ -295,7 +293,6 @@ define(function (require, exports, module) {
                 value: function (e) {
                     var me = this;
                     sendFile(e, function (response) {
-                        console.warn(response);
                         me.o_setValue({name: 'companyGatePicture', value: JSON.stringify({companyGatePicture: response.value.model.path, companyGatePictureFileName: response.value.model.FileName})});
                     });
                 }

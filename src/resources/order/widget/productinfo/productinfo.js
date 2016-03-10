@@ -41,17 +41,16 @@ define(function (require, exports, module) {
     var formDataItems = require('./dataitems/formdataitems');
     var terminalInfo, tableInfo, formInfo = null;
 
-    var DataItem = require('./index').PageDataClass;
 
+    var DataItem = require('./index').PageDataClass;
     function controlDataItems(items, name, func) {
         var find = null;
-        if(!items.____dic){
-            items.____dic={};
-            $(items).each(function (i, n) {
-                items.____dic[n.name ]=n;
-            });
-        }
-        find=items.____dic['name'];
+        $(items).each(function (i, n) {
+            if (n.name === name) {
+                find = n;
+                return false;
+            }
+        });
         if (!find) {
             find = new DataItem({name: name});
             items.push(find);
@@ -63,8 +62,10 @@ define(function (require, exports, module) {
 //type:订单类型
     exports.showProductInfo = function (data, type, result) {
         var controller = getDataControllerByType(type);//根据类型获取控制器
-        if(!controller){return;}
-        var transferedDataItems = controller.transferDataItem(terminalDataItems, tableDataItems, formDataItems, controlDataItems,result);//用控制器转换输入的数据项
+        if (!controller) {
+            return;
+        }
+        var transferedDataItems = controller.transferDataItem(terminalDataItems, tableDataItems, formDataItems, controlDataItems, result);//用控制器转换输入的数据项
         var apiPool = {api_getServicePrice: api_getServicePrice, api_getCalculateSingle: api_getCalculateSingle};//API池
         if (data.terminalInfo && data.terminalInfo.$view) {
             terminalInfo = new TerminalInfo({wrapperView: data.terminalInfo.$view, dataItems: transferedDataItems.terminalDataItems, apiPool: apiPool});

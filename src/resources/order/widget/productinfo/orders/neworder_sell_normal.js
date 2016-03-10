@@ -42,7 +42,6 @@ define(function (require, exports, module) {
         });
         controller(terminalDataItems, 'kunbangWrapper', function (n) {
             n.visible=true;
-
         });
         controller(terminalDataItems, 'discount_1', function (n) {
             n.visible = false;
@@ -58,10 +57,7 @@ define(function (require, exports, module) {
         });
 
         controller(terminalDataItems, 'purchaseAmount_3', function (n) {
-            n.visible = false;
-        });
-        controller(terminalDataItems, 'purchaseCount_2', function (n) {
-            n.readonly = false;
+            n.visible = true;
         });
         controller(terminalDataItems, 'businesscard', function (n) {
             n.visible = true;

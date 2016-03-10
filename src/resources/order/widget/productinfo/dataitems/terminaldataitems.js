@@ -40,6 +40,7 @@ define(function (require, exports, module) {
     //企业ID
     dataItems.push(new DataItem({
         name: 'useFX',
+        value:true,
         readonly: true
     }));
     var typeIds = ['1', '3', '8'];
@@ -215,7 +216,12 @@ define(function (require, exports, module) {
         name: 'endTime_2',
         readonly: true
     }));
-
+    //捆绑只读
+    dataItems.push(new DataItem({
+        name: 'kunbang',
+        value:true,
+        readonly:true
+    }));
     function checkTypeForPrice(e, id) {
         var me = this;
         var typeValue = me.o_getFieldValue('type_' + id);
@@ -273,7 +279,6 @@ define(function (require, exports, module) {
                 contractAmount: me.o_getFieldValue('purchaseAmount_' + id) || 0
             },
             success: function (responseData) {
-                console.warn(responseData)
                 if (responseData.success) {
                     //{"amount":200,"rebate":1.7000000000000002}
                     me.o_setValue({name: 'discount_' + id, value: responseData.model.rebate});

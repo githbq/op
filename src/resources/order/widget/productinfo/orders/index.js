@@ -1,9 +1,6 @@
 define(function (require, exports, module) {
 
         exports.setCommonData = function (controller, terminalDataItems, tableDataItems, formDataItems, type, responseData) {
-
-            console.warn('编辑时数据=>');
-            console.warn(responseData);
             type = type.toString();
             controller(terminalDataItems, 'keyword', function (n) {
                 if ($.inArray(type, ['1', '2', '3', '4']) >= 0) {
@@ -81,7 +78,6 @@ define(function (require, exports, module) {
                 });
 
                 if (responseData.readonly === true) {
-                    debugger
                     $(terminalDataItems).each(function (i, n) {
                         if (n.name.toLowerCase().indexOf('wrapper') < 0) {//包裹者不设
                             n.readonly = true;
@@ -224,14 +220,12 @@ define(function (require, exports, module) {
                 n.readonly = true;
             });
         };
-
         //转换输入值
         exports.setSuborders = function (terminalInfo, tableInfo, formInfo, data) {
             var terminalInfoData = terminalInfo.o_getValues();
             var tableInfoData = tableInfo.o_getValues();
             var formInfoData = formInfo.o_getValues();
             //suborders //////////////////////////////////////////
-            debugger
             var ids = tableInfoData.check.split(',');
             if (terminalInfo.o_getFieldData('businesscard').visible) {
                 ids.push('8');

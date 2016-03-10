@@ -57,6 +57,7 @@ define(function (require, exports, module) {
     //复选框
     dataItems.push(check);
 
+
     var zhushous = [
         {id: 4, name: 'PK助手'},
         {id: 5, name: '会议助手'},
@@ -187,6 +188,7 @@ define(function (require, exports, module) {
 
     });
 
+
     //价格计算
     function priceComput(e) {
         var me = this;
@@ -244,13 +246,13 @@ define(function (require, exports, module) {
         });
         //me.__refs.terminalInfo.o_setValue({name: 'startTime_2', value: smallStartDate ? smallStartDate : null});
         //me.__refs.terminalInfo.o_setValue({name: 'endTime_2', value: maxEndDate ? maxEndDate : null});
-        console.log('合同总金额之表格部分计算结果1:' + me.o_getFieldValue('order_amount'));
+        //console.log('合同总金额之表格部分计算结果1:' + me.o_getFieldValue('order_amount'));
 
 
         me.__refs.formInfo.o_setValue({name: 'contractPrice', value: order_amount});
         me.__refs.formInfo.o_setValue({name: 'productAmount', value: productAmount});
-        console.log('合同总金额之表格部分计算结果2:' + me.o_getFieldValue('order_amount'));
-        console.log('原价总金额之表格部分计算结果:' + me.o_getFieldValue('order_amount'));
+        //console.log('合同总金额之表格部分计算结果2:' + me.o_getFieldValue('order_amount'));
+        //console.log('原价总金额之表格部分计算结果:' + me.o_getFieldValue('order_amount'));
         if (me.__refs.formInfo.o_getFieldData('payStatus_name').visible || me.__refs.formInfo.o_getFieldValue('payStatus_select') == '1') {
             me.__refs.formInfo.o_setValue({name: 'currPayAmount', value: order_amount});
         }

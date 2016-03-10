@@ -41,9 +41,6 @@ define(function (require, exports, module) {
         controller(terminalDataItems, 'kunbangWrapper', function (n) {
             n.visible = true;
         });
-        controller(terminalDataItems, 'kunbang', function (n) {
-            n.readonly = true;
-        });
         controller(terminalDataItems, 'useFX', function (n) {
             n.readonly=false;
             n.value=true;
