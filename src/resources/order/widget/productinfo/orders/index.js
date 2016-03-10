@@ -257,8 +257,8 @@ define(function (require, exports, module) {
                             productId: n,
                             purchaseCount: fromData['purchaseCount_' + n] || 1,
                             purchaseAmount: fromData['purchaseAmount_' + n] || 0,
-                            startTime: fromData['startTime_' + n] || null,
-                            endTime: fromData['endTime_' + n] || null,
+                            startTime: fromData['startTime_' + n] || new Date().getTime(),
+                            endTime: fromData['endTime_' + n] || new Date().getTime(),
                             productAmount: fromData['productAmount_' + n] || 0,
                             discount: fromData['discount_' + n] || 0,
                             currPayAmount: fromData['currPayAmount_' + n] || 0
