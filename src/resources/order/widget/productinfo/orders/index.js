@@ -13,23 +13,7 @@ define(function (require, exports, module) {
                 n.value = '续费';
             }
         });
-        if (responseData && responseData.readonly === true) {
-            $(terminalDataItems).each(function (i, n) {
-                if (n.name.toLowerCase().indexOf('wrapper') < 0) {//包裹者不设
-                    n.readonly = true;
-                }
-            });
-            $(tableDataItems).each(function (i, n) {
-                if (n.name.toLowerCase().indexOf('wrapper') < 0) {//包裹者不设
-                    n.readonly = true;
-                }
-            });
-            $(formDataItems).each(function (i, n) {
-                if (n.name.toLowerCase().indexOf('wrapper') < 0) {//包裹者不设
-                    n.readonly = true;
-                }
-            });
-
+        if (responseData) {
             var bigArr = terminalDataItems.concat(tableDataItems).concat(formDataItems);
             var dataDic = toNameDictionary(bigArr);
             var order = responseData.order;
@@ -87,7 +71,23 @@ define(function (require, exports, module) {
 
             });
 
-
+            if (responseData.readonly === true) {
+                $(terminalDataItems).each(function (i, n) {
+                    if (n.name.toLowerCase().indexOf('wrapper') < 0) {//包裹者不设
+                        n.readonly = true;
+                    }
+                });
+                $(tableDataItems).each(function (i, n) {
+                    if (n.name.toLowerCase().indexOf('wrapper') < 0) {//包裹者不设
+                        n.readonly = true;
+                    }
+                });
+                $(formDataItems).each(function (i, n) {
+                    if (n.name.toLowerCase().indexOf('wrapper') < 0) {//包裹者不设
+                        n.readonly = true;
+                    }
+                });
+            }
         }
 
 
