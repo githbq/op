@@ -104,7 +104,7 @@ define(function (require, exports, module) {
         ;
         function setValue(dataDic, key, value, callback) {
             if (dataDic && dataDic[key] !== undefined) {
-                dataDic[key] = value;
+                dataDic[key].value = value;
                 dataDic[key] && callback && callback(dataDic[key]);
             }
         }
