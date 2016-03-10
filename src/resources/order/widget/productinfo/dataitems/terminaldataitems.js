@@ -115,7 +115,7 @@ define(function (require, exports, module) {
                     var me = this;
                     setTimeout(function () {
                         changeForGetPrice.call(me, e);
-                    })
+                    }, 200);
                 }
             }]
         }));
