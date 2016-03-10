@@ -13,6 +13,17 @@ define( function(require, exports, module){
 	 var AreaTree = require('module/areatree/areatree');
 
 	var contentStr = require('./detailapproval.html');
+	var BasicInfo = require('../widget/basicinfo/basicinfo');
+	var Explain = require('../widget/explain/explain');
+	var OrderInfo = require('../widget/orderinfo/orderinfo');
+	var InvoiceInfo = require('../widget/invoice/invoice');
+	var productinfo = require('../widget/productinfo/productinfo');
+
+	var orderTypeAry = ['','办公版新购-普通','办公版新购-特批','营销版新购-普通','营销版新购-特批','办公版增购-普通',
+		'办公版增购-特批','营销版增购-普通','营销版增购-特批','办公版续费-普通','办公版续费-特批',
+		'营销版续费-普通','营销版续费-特批','关联自注册办公版-普通','关联自注册办公版-特批',
+		'关联自注册营销版-普通','关联自注册营销版-特批','收尾款'
+	];
 
     /////////////////
     //
@@ -23,7 +34,7 @@ define( function(require, exports, module){
 		content: contentStr,
 
 		defaultAttr: {
-			'width': 730
+			'width': 1300
 		},
 
 		elements: {
@@ -158,50 +169,52 @@ define( function(require, exports, module){
 		show: function( options ){
 			var me = this;
 			me.attrs.options = options||{};
-
+			me.sortType();
 			
 			DetailApproval.__super__.show.apply( this,arguments );
 		},
 		//根据定单类型区分设置
 		sortType:function(){
 			var me = this;
-			switch( me.attrs.options )
+			me.attrs.options.orderType = parseInt(me.attrs.options.orderType)
+			switch( me.attrs.options.orderType )
 			{
 				case 1: case 13:
+					me._setTitle( orderTypeAry[me.attrs.options.orderType] );
 
 					break;
 				case 2: case 14:
-
+					me._setTitle( orderTypeAry[me.attrs.options.orderType] );
 					break;
 				case 3:case 15:
-
+					me._setTitle( orderTypeAry[me.attrs.options.orderType] );
 					break;
 				case 4:case 16:
-
+					me._setTitle( orderTypeAry[me.attrs.options.orderType] );
 					break;
 				case 5:
-
+					me._setTitle( orderTypeAry[me.attrs.options.orderType] );
 					break;
 				case 6:
-
+					me._setTitle( orderTypeAry[me.attrs.options.orderType] );
 					break;
 				case 7:
-
+					me._setTitle( orderTypeAry[me.attrs.options.orderType] );
 					break;
 				case 8:
-
+					me._setTitle( orderTypeAry[me.attrs.options.orderType] );
 					break;
 				case 9:
-
+					me._setTitle( orderTypeAry[me.attrs.options.orderType] );
 					break;
 				case 10:
-
+					me._setTitle( orderTypeAry[me.attrs.options.orderType] );
 					break;
 				case 11:
-
+					me._setTitle( orderTypeAry[me.attrs.options.orderType] );
 					break;
 				case 12:
-
+					me._setTitle( orderTypeAry[me.attrs.options.orderType] );
 					break;
 				default:
 			}

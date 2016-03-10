@@ -11,7 +11,7 @@ define( function( require, exports, module ) {
 
     var statusAry = ['','已通过','待审核','已过期','撤回'];
     var payStatusAry = ['','分期','全款','未付'];
-    var orderTypeAry = ['办公版新购-普通','办公版新购-特批','营销版新购-普通','营销版新购-特批','办公版增购-普通',
+    var orderTypeAry = ['','办公版新购-普通','办公版新购-特批','营销版新购-普通','营销版新购-特批','办公版增购-普通',
                         '办公版增购-特批','营销版增购-普通','营销版增购-特批','办公版续费-普通','办公版续费-特批',
                         '营销版续费-普通','营销版续费-特批','关联自注册办公版-普通','关联自注册办公版-特批',
                         '关联自注册营销版-普通','关联自注册营销版-特批','收尾款'
@@ -74,7 +74,8 @@ define( function( require, exports, module ) {
            var id = $(e.currentTarget).attr('data-id');
            var enterpriseId = $(e.currentTarget).attr('data-enterpriseId');
            var orderType = $(e.currentTarget).attr('data-orderType');
-           me.trigger('orderDetail',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':false,'orderType':orderType,person:'' } );
+           var opinion = $(e.currentTarget).attr('data-opinion');
+           me.trigger('orderDetail',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':false,'orderType':orderType,'person':'', 'opinion':opinion} );
        },
         //导出excel
         exportEve: function(e){
