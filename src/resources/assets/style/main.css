@@ -6412,6 +6412,10 @@ em {
   border: 1px solid #dedede;
   color: #545454;
 }
+.productinfo .product-image {
+  width: 300px;
+  height: 300px;
+}
 .productinfo .error {
   color: red;
   display: none;

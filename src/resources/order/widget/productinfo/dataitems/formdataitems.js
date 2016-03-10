@@ -61,6 +61,20 @@ define(function (require, exports, module) {
         }
     }));
 
+    dataItems.push(new DataItem({
+        name: 'contract-image',
+        visible: false
+    }));
+    dataItems.push(new DataItem({
+        name: 'contractCopy-image',
+        visible: false
+
+    }));
+    dataItems.push(new DataItem({
+        name: 'companyGatePicture-image',
+        visible: false
+
+    }));
     //付费状态名 选择下拉列表
     dataItems.push(new DataItem({
         name: 'payStatus_select',
