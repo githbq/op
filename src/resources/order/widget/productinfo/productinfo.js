@@ -45,12 +45,13 @@ define(function (require, exports, module) {
 
     function controlDataItems(items, name, func) {
         var find = null;
-        $(items).each(function (i, n) {
-            if (n.name === name) {
-                find = n;
-                return false;
-            }
-        });
+        if(!items.____dic){
+            items.____dic={};
+            $(items).each(function (i, n) {
+                items.____dic[n.name ]=n;
+            });
+        }
+        find=items.____dic['name'];
         if (!find) {
             find = new DataItem({name: name});
             items.push(find);

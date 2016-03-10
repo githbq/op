@@ -154,7 +154,7 @@ define(function (require, exports, module) {
         //服务费 1试用 2赠送 3折扣 的容器
         dataItems.push(new DataItem({
             name: 'type_' + n,
-            value: '3',
+            value: n=='8'?'4':'3',
             events: [
                 {
                     key: 'change', value: function (e) {
