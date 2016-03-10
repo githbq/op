@@ -35,6 +35,31 @@ define( function( require, exports, module ) {
             entTrace.show( id );
         });
 
+        //增购办公
+        entList.on('zengbangong',function( id ){
+            console.log('zengbangong');
+            console.log( id );
+            location.hash = "order/newmarketying/addOffice/" + id;
+        });
+        //增购营销
+        entList.on('zengyingxiao',function( id ){
+            console.log('zengyingxiao');
+            console.log( id );
+            location.hash = "order/newmarketying/addMarkey/" + id;
+        });
+        //续费办公
+        entList.on('renewbangong',function( id ){
+            console.log('renewbangong');
+            console.log( id );
+            location.hash = "order/newmarketying/againOffice/" + id;
+        });
+        //续费营销
+        entList.on('renewyingxiao',function( id ){
+            console.log('renewyingxiao');
+            console.log( id );
+            location.hash = "order/newmarketying/againMarkey/" + id;
+        });
+
        entDetail.on('employeeDetail',function(ea,phone){
             employeeDetail.show(ea,phone);
         });
