@@ -43,6 +43,9 @@ define(function (require, exports, module) {
         controller(terminalDataItems, 'discount_1', function (n) {
             n.visible = false;
         });
+        controller(terminalDataItems, 'purchaseAmount_1', function (n) {
+            n.visible = false;
+        });
         controller(terminalDataItems, 'useCRMWrapper', function (n) {
             n.visible = true;
 

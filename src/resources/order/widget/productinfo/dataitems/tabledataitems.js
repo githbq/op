@@ -58,7 +58,12 @@ define(function (require, exports, module) {
         key: 'change', value: changeForGetPrice
     }];
     var getPriceEventsForDate = [{
-        key: 'blur', value: changeForGetPrice
+        key: 'blur', value:function(e){
+            var me=this;
+            setTimeout(function(){
+            changeForGetPrice.apply(me,e);
+            },200)
+        }
     }];
 
     $(zhushous).each(function (i, n) {
