@@ -60,7 +60,9 @@ define(function (require, exports, module) {
         controller(terminalDataItems, 'purchaseAmount_3', function (n) {
             n.visible = false;
         });
-
+        controller(terminalDataItems, 'purchaseCount_2', function (n) {
+            n.readonly = false;
+        });
         controller(terminalDataItems, 'businesscard', function (n) {
             n.visible = true;
         });
