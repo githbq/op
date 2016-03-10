@@ -160,6 +160,7 @@ define(function (require, exports, module) {
                     key: 'change', value: function (e) {
                     var me = this;
                     var typeValue = me.o_getFieldValue('type_' + n);
+                    var data = me.o_getFieldData('type_' + n);
                     switch (typeValue.toString()) {
                         case '1':
                         case '2':
@@ -171,8 +172,29 @@ define(function (require, exports, module) {
                             break;
                         case '3':
                         {
-                            me.o_setValue({name: 'purchaseAmount_' + n, value: me.o_getFieldValue('purchaseAmount_' + n)});
-                            me.o_setValue({name: 'purchaseAmount_input_' + n, value: me.o_getFieldValue('purchaseAmount_' + n), readonly: false})
+
+                            if (data.__editChange === false) {
+                                data.__editChange = true;
+                                me.o_setValue({name: 'purchaseAmount_' + n});
+                                me.o_setValue({name: 'purchaseAmount_input_' + n, readonly: false});
+                            } else {
+                                me.o_setValue({name: 'purchaseAmount_' + n, value: me.o_getFieldValue('purchaseAmount_' + n)});
+                                me.o_setValue({name: 'purchaseAmount_input_' + n, value: me.o_getFieldValue('purchaseAmount_' + n), readonly: false})
+                            }
+                            me.o_data_getField({name: 'startTime_' + n}).blur();
+                        }
+                            ;
+                            break;
+                        case '4':
+                        {
+                            if (data.__editChange === false) {
+                                data.__editChange = true;
+                                me.o_setValue({name: 'purchaseAmount_' + n});
+                                me.o_setValue({name: 'purchaseAmount_input_' + n, readonly: false});
+                            } else {
+                                me.o_setValue({name: 'purchaseAmount_' + n, value: me.o_getFieldValue('purchaseAmount_' + n)});
+                                me.o_setValue({name: 'purchaseAmount_input_' + n, value: me.o_getFieldValue('purchaseAmount_' + n), readonly: false})
+                            }
                             me.o_data_getField({name: 'startTime_' + n}).blur();
                         }
                             ;

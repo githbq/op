@@ -70,6 +70,8 @@ define(function (require, exports, module) {
                 key: 'change', value: function (e) {
                 var me = this;
                 var $dom = $(e.target);
+                var data = me.o_getFieldData('payStatus_select');
+
                 me.o_setValue({name: 'payStatus', value: $dom.val()});
                 switch ($dom.val()) {
                     case '1':
@@ -88,6 +90,8 @@ define(function (require, exports, module) {
                         break;
                     case '2':
                     {//分期
+
+
                         me.o_setValues([
                             {name: 'currPayAmount', value: ''},
                             {name: 'currPayAmount_3', value: '', visible: false},
@@ -103,11 +107,20 @@ define(function (require, exports, module) {
                         if (me.__refs.terminalInfo.o_getFieldValue('useCRM')) {//使用了销客终端 要加入服务费
                             checkeds.push('3');//服务费
                         }
-                        $(checkeds).each(function (i, n) {
-                            me.o_setValues([
-                                {name: 'currPayAmount_' + n, value: '', visible: true}
-                            ]);
-                        });
+                        if (data.__editChanged === false) {
+                            data.__editChanged = true;
+                            $(checkeds).each(function (i, n) {
+                                me.o_setValues([
+                                    {name: 'currPayAmount_' + n, visible: true}
+                                ]);
+                            });
+                        } else {
+                            $(checkeds).each(function (i, n) {
+                                me.o_setValues([
+                                    {name: 'currPayAmount_' + n, value: '', visible: true}
+                                ]);
+                            });
+                        }
                     }
                         ;
                         break;
@@ -164,7 +177,7 @@ define(function (require, exports, module) {
     //本次到款金额
     dataItems.push(new DataItem({
         name: 'currPayAmount',
-        readonly:true,
+        readonly: true,
         value: '',
         validateOptions: {
             required: {

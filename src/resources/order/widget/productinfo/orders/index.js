@@ -12,7 +12,7 @@ define(function (require, exports, module) {
             else if ($.inArray(type, ['9', '10', '11', '12']) >= 0) {
                 n.value = '续费';
             }
-        })
+        });
         if (responseData && responseData.readonly === true) {
             $(terminalDataItems).each(function (i, n) {
                 if (n.name.toLowerCase().indexOf('wrapper') < 0) {//包裹者不设
@@ -28,11 +28,98 @@ define(function (require, exports, module) {
                 if (n.name.toLowerCase().indexOf('wrapper') < 0) {//包裹者不设
                     n.readonly = true;
                 }
-            })
+            });
+
+            var bigArr = terminalDataItems.concat(tableDataItems).concat(formDataItems);
+            var dataDic = toNameDictionary(bigArr);
+            var order = responseData.order;
+            var contract = responseData.contract;
+            var enterpriseExtend = responseData.enterpriseExtend;
+            var subOrders = responseData.subOrders || [];
+            setObjValue(order, bigArr);
+            setValue(dataDic, 'payStatus_select', order.payStatus || 1, function (n) {
+                n.on('setFieldValue', function ($ele, value, data) {
+                    data.__editChange = false;
+                })
+            });
+            dataDic['enterpriseId'] && ( dataDic['enterpriseId'].value = responseData.enterpriseId);
+            dataDic['contract'] = JSON.stringify(contract || {});
+            dataDic['contractCopy'] = JSON.stringify(contract || {});
+            dataDic['companyGatePicture'] = JSON.stringify(enterpriseExtend || {});
+
+
+            $(subOrders).each(function (i, n) {
+                if (n.subOrder && n.subOrder.productId) {
+                    var subOrder = n.subOrder;
+                    for (var j in subOrder) {
+                        if (subOrder.hasOwnProperty(j)) {
+                            setValue(dataDic, j + '_' + subOrder.productId, subOrder[j]);
+                        }
+                    }
+                    if (subOrder.productExtends) {//有拓展属性
+                        $(subOrder.productExtends).each(function (index, kv) {
+                            switch (kv.key) {
+                                case 'buytype':
+                                {
+                                    controller(terminalDataItems, 'type_' + subOrder.productId, function (item) {
+                                    });
+                                    setValue(dataDic, 'type_' + subOrder.productId, kv.value, function (item) {
+                                        item.on('setFieldValue', function ($ele, value, data) {
+                                            data.__editChange = false;
+                                        })
+                                    });
+                                }
+                                    ;
+                                    break;
+                                case 'bind':
+                                {
+                                    controller(terminalDataItems, 'kunbang', function (item) {
+                                        item.value = kv.value;
+                                    });
+                                }
+                                    ;
+                                    break;
+                            }
+                        })
+
+                    }
+                }
+
+            });
+
+
         }
 
 
     };
+    function setValue(dataDic, key, value, callback) {
+        if (dataDic && dataDic[key] !== undefined) {
+            dataDic[key] = value;
+            dataDic[key] && callback && callback(dataDic[key]);
+        }
+    }
+
+    function setObjValue(formObj, bigArr, func) {
+        if (formObj) {
+            for (var i in formObj) {
+                if (formObj.hasOwnProperty(i)) {
+
+                    var find = _.findWhere(bigArr, {name: i});
+                    if (find) {
+                        find.value = formObj[i];
+                    }
+                }
+            }
+        }
+    }
+
+    function toNameDictionary(arr) {
+        var obj = {};
+        $(arr).each(function (i, n) {
+            obj[n.name] = n;
+        })
+        return obj;
+    }
 
     exports.setOtherData = function (terminalInfo, tableInfo, formInfo, data) {
         var terminalInfoData = terminalInfo.o_getValues();
@@ -159,7 +246,6 @@ define(function (require, exports, module) {
                     var subOrder = {
                         productId: n,
                         purchaseCount: fromData['purchaseCount_' + n] || 1,
-                        subOrderType: 1,
                         purchaseAmount: fromData['purchaseAmount_' + n] || 0,
                         startTime: fromData['startTime_' + n] || null,
                         endTime: fromData['endTime_' + n] || null,
@@ -177,9 +263,6 @@ define(function (require, exports, module) {
                     }
                     if (controler.o_data_getField('type_' + n).is(':visible')) {
                         var value = controler.o_getFieldValue('type_' + n);
-                        if (n == '8' && value == '3') {
-                            value = '4';//名片的值3  为4 代表正常
-                        }
                         subOrder.extends = [{productKey: 'buytype', productValue: value}]
                     }
                     data.subOrders.push({
@@ -191,6 +274,8 @@ define(function (require, exports, module) {
     }
 });
 
+// productKey :bind   绑定百川1   绑定报数系统2
+// productKey :buytype   购买方式   1试用  2 赠送  3折扣  4正常
 
 
 

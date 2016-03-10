@@ -468,8 +468,8 @@ define(function (require, exports, module) {
                     value = me.i_getFunctionPipe('i_setValueWhere', 'Default')[0]($ele, value);
                     //!silent && $ele.change();
                     data.value = value;
-                    me.trigger('setFieldValue', $ele, value);
-                    data.trigger('setFieldValue', $ele, value);
+                    me.trigger('setFieldValue', $ele, value,data);
+                    data.trigger('setFieldValue', $ele, value,data);
                 }
             },
             i_setValueWhereInputRadio: function (next, $ele, value) {
