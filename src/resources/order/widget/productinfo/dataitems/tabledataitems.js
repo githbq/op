@@ -18,7 +18,16 @@ define(function (require, exports, module) {
             {
                 key: 'change',
                 value: function (e) {
-                    this.o_setValue({name: 'check', value: $(e.target).is(':checked')});
+                    var checked= $(e.target).is(':checked');
+                    var me=this;
+                    var $checks=$('[data-name=check]');
+                    $checks.each(function(i,n){
+                        var $check=$(n);
+                        if(!$check.is('[readonly],[disabled]')){
+                            $check.prop('checked',checked).attr('checked',checked);
+                        }
+                    });
+                    $checks.first().change();
                 }
             }, {
                 key: "blur",
