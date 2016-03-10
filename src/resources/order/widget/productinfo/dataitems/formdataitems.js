@@ -110,15 +110,19 @@ define(function (require, exports, module) {
                         if (data.__editChanged === false) {
                             data.__editChanged = true;
                             $(checkeds).each(function (i, n) {
-                                me.o_setValues([
-                                    {name: 'currPayAmount_' + n, visible: true}
-                                ]);
+                                if (!(n == '7' && me.o_getFieldValue('productAmount_7') == 0)) {
+                                    me.o_setValues([
+                                        {name: 'currPayAmount_' + n, visible: true}
+                                    ]);
+                                }
                             });
                         } else {
                             $(checkeds).each(function (i, n) {
-                                me.o_setValues([
-                                    {name: 'currPayAmount_' + n, value: '', visible: true}
-                                ]);
+                                if (!(n == '7' && me.o_getFieldValue('productAmount_7') == 0)) {
+                                    me.o_setValues([
+                                        {name: 'currPayAmount_' + n, visible: true}
+                                    ]);
+                                }
                             });
                         }
                     }
