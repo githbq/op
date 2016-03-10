@@ -28,6 +28,9 @@ define(function (require, exports, module) {
             n.visible = false;
         });
         controller(terminalDataItems, 'purchaseAmount_input_1', function (n) {
+            n.visible = true;
+        });
+        controller(terminalDataItems, 'purchaseAmount_1', function (n) {
             n.visible = false;
         });
         controller(terminalDataItems, 'productAmount_3', function (n) {
@@ -40,6 +43,9 @@ define(function (require, exports, module) {
         controller(terminalDataItems, 'kunbangWrapper', function (n) {
             n.visible=true;
 
+        });
+        controller(terminalDataItems, 'discount_1', function (n) {
+            n.visible = false;
         });
         controller(terminalDataItems, 'useCRM', function (n) {
             n.visible = true;
@@ -67,6 +73,7 @@ define(function (require, exports, module) {
         controller(tableDataItems, 'table_type', function (n) {
             n.visible = false;
         });
+
         //工资助手强制
         common.setGZHelper(controller,terminalDataItems,tableDataItems,formDataItems);
         //工资助手强制 end

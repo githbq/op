@@ -15,6 +15,15 @@ define(function (require, exports, module) {
                     formInfo: {$view: $el.find('.panel3')}
                 }, parseInt(type));
         });
+        $('#changeType').change(function(){
+            if(!$(this).val()){return;}
+            result = productInfo.showProductInfo({
+                terminalInfo: {$view: $el.find('.panel1')},
+                tableInfo: {$view: $el.find('.panel2')},
+                formInfo: {$view: $el.find('.panel3')}
+            }, parseInt($(this).val()));
+
+        });
         $('.test2').click(function () {
             alert('结果')
             debugger

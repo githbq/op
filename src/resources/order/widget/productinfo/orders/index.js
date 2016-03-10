@@ -97,6 +97,16 @@ define(function (require, exports, module) {
         });
     };
 
+   ///增购需要默认时间
+    exports.setAddOrderTime = function (controller, terminalDataItems, tableDataItems, formDataItems) {
+        controller(terminalDataItems, 'endTime_1', function (n) {
+            n.readonly=true;
+        });
+        controller(terminalDataItems, 'startTime_1', function (n) {
+            n.readonly=true;
+        });
+    };
+
     //转换输入值
     exports.setSuborders = function (terminalInfo, tableInfo, formInfo, data) {
         var terminalInfoData = terminalInfo.o_getValues();
