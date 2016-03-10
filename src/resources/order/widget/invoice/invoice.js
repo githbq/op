@@ -213,8 +213,15 @@ define(function( require , exports , module ){
 				break;
 			}
 			
+			var invoiceinfo;
+			if( invoice == "3" ){
+				inviceinfo = {};
+			}else{
+				invoiceinfo = me.model.all();
+			}
+
 			return {
-				'invoice': me.model.all(),
+				'invoice': invoiceinfo,
 				'order':{
 					'isCooperation': me.$('[name="team"]:checked').val(),   //是否合作单
 					'cooperationUnit': me.model.get('cooperationUnit'),     //部门员工      
