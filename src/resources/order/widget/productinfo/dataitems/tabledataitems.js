@@ -24,7 +24,7 @@ define(function (require, exports, module) {
                 key: "blur",
                 value: function (e) {
                 }
-				
+
             }
         ]
     }));
@@ -58,11 +58,11 @@ define(function (require, exports, module) {
         key: 'change', value: changeForGetPrice
     }];
     var getPriceEventsForDate = [{
-        key: 'blur', value:function(e){
-            var me=this;
-            setTimeout(function(){
-            changeForGetPrice.apply(me,e);
-            },200)
+        key: 'blur', value: function (e) {
+            var me = this;
+            setTimeout(function () {
+                changeForGetPrice.call(me, e);
+            }, 200);
         }
     }];
 
@@ -110,7 +110,7 @@ define(function (require, exports, module) {
 
         var startTime = '';
         var endTime = '';
-        if (n.id == 7 ) {
+        if (n.id == 7) {
             startTime = new Date().getTime();
             endTime = new Date().setFullYear(new Date().getFullYear() + 1);
         }
@@ -245,8 +245,8 @@ define(function (require, exports, module) {
         if (me.__refs.formInfo.o_getFieldData('payStatus_name').visible || me.__refs.formInfo.o_getFieldValue('payStatus_select') == '1') {
             me.__refs.formInfo.o_setValue({name: 'currPayAmount', value: order_amount});
         }
-        if(me.__refs.formInfo.o_getFieldData('payStatus_select').visible){
-            me.__refs.formInfo.o_data_getField({name:'payStatus_select'}).change();
+        if (me.__refs.formInfo.o_getFieldData('payStatus_select').visible) {
+            me.__refs.formInfo.o_data_getField({name: 'payStatus_select'}).change();
         }
 
     }
@@ -284,7 +284,7 @@ define(function (require, exports, module) {
                 me.o_setValue({name: 'startTime_' + id, value: ''});
                 me.o_setValue({name: 'endTime_' + id, value: ''});
             } else {
-                if (me.o_getFieldData('purchaseAmount_'+id).readonly!==true) {
+                if (me.o_getFieldData('purchaseAmount_' + id).readonly !== true) {
                     me.attrs.apiPool.api_getCalculateSingle(options);
                 }
             }
