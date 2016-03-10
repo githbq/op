@@ -242,8 +242,8 @@ define(function (require, exports, module) {
             productAmount += parseFloat(purchaseModule.o_getFieldValue('productAmount_' + id) || 0);
 
         });
-        me.__refs.terminalInfo.o_setValue({name: 'startTime_2', value: smallStartDate ? smallStartDate : null});
-        me.__refs.terminalInfo.o_setValue({name: 'endTime_2', value: maxEndDate ? maxEndDate : null});
+        //me.__refs.terminalInfo.o_setValue({name: 'startTime_2', value: smallStartDate ? smallStartDate : null});
+        //me.__refs.terminalInfo.o_setValue({name: 'endTime_2', value: maxEndDate ? maxEndDate : null});
         console.log('合同总金额之表格部分计算结果1:' + me.o_getFieldValue('order_amount'));
 
 
