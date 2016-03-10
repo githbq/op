@@ -16,8 +16,8 @@ define(function (require, exports, module) {
 
 
     //转换输入值
-    exports.transferDataItem = function (terminalDataItems, tableDataItems, formDataItems, controller) {//转换数据项
-        common.setCommonData(controller, terminalDataItems, tableDataItems, formDataItems,3);
+    exports.transferDataItem = function (terminalDataItems, tableDataItems, formDataItems, controller,responseData) {//转换数据项
+
         controller(terminalDataItems, 'type_8', function (n) {
             n.visible = false;
         });
@@ -80,7 +80,7 @@ define(function (require, exports, module) {
         common.setGZHelper(controller,terminalDataItems,tableDataItems,formDataItems);
         //工资助手强制 end
 
-
+        common.setCommonData(controller, terminalDataItems, tableDataItems, formDataItems,3,responseData);
         return {terminalDataItems: terminalDataItems, tableDataItems: tableDataItems, formDataItems: formDataItems};
     }
 

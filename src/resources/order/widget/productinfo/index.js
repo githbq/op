@@ -578,10 +578,12 @@ define(function (require, exports, module) {
                 var me = this;
                 value = value === undefined ? false : value;
                 this.o_field_getData($ele).readonly = value;
-                if (value) {
-                    $ele.addClass('readonly', 'readonly').attr('readonly', 'readonly').attr('disabled', 'disabled');
-                } else {
-                    $ele.removeClass('readonly').removeAttr('readonly').removeAttr('disabled');
+                if (!$ele.is('.field_text')) {
+                    if (value) {
+                        $ele.addClass('readonly', 'readonly').attr('readonly', 'readonly').attr('disabled', 'disabled');
+                    } else {
+                        $ele.removeClass('readonly').removeAttr('readonly').removeAttr('disabled');
+                    }
                 }
                 return $ele;
             }

@@ -1,6 +1,6 @@
 define(function (require, exports, module) {
 
-    exports.setCommonData = function (controller, terminalDataItems, tableDataItems, formDataItems, type) {
+    exports.setCommonData = function (controller, terminalDataItems, tableDataItems, formDataItems, type, responseData) {
         type = type.toString();
         controller(terminalDataItems, 'keyword', function (n) {
             if ($.inArray(type, ['1', '2', '3', '4']) >= 0) {
@@ -12,9 +12,27 @@ define(function (require, exports, module) {
             else if ($.inArray(type, ['9', '10', '11', '12']) >= 0) {
                 n.value = '续费';
             }
-
         })
-    }
+        if (responseData && responseData.readonly === true) {
+            $(terminalDataItems).each(function (i, n) {
+                if (n.name.toLowerCase().indexOf('wrapper') < 0) {//包裹者不设
+                    n.readonly = true;
+                }
+            });
+            $(tableDataItems).each(function (i, n) {
+                if (n.name.toLowerCase().indexOf('wrapper') < 0) {//包裹者不设
+                    n.readonly = true;
+                }
+            });
+            $(formDataItems).each(function (i, n) {
+                if (n.name.toLowerCase().indexOf('wrapper') < 0) {//包裹者不设
+                    n.readonly = true;
+                }
+            })
+        }
+
+
+    };
 
     exports.setOtherData = function (terminalInfo, tableInfo, formInfo, data) {
         var terminalInfoData = terminalInfo.o_getValues();
@@ -97,13 +115,13 @@ define(function (require, exports, module) {
         });
     };
 
-   ///增购需要默认时间
+    ///增购需要默认时间
     exports.setAddOrderTime = function (controller, terminalDataItems, tableDataItems, formDataItems) {
         controller(terminalDataItems, 'endTime_1', function (n) {
-            n.readonly=true;
+            n.readonly = true;
         });
         controller(terminalDataItems, 'startTime_1', function (n) {
-            n.readonly=true;
+            n.readonly = true;
         });
     };
 
@@ -127,7 +145,7 @@ define(function (require, exports, module) {
         }
         terminalInfo.o_getFieldValue('');
         $(ids).each(function (i, n) {
-                if(!n){
+                if (!n) {
                     return;
                 }
                 if ($.inArray(n, ids) >= 0) {
@@ -143,8 +161,8 @@ define(function (require, exports, module) {
                         purchaseCount: fromData['purchaseCount_' + n] || 1,
                         subOrderType: 1,
                         purchaseAmount: fromData['purchaseAmount_' + n] || 0,
-                        startTime: fromData['startTime_' + n]||null,
-                        endTime: fromData['endTime_' + n]||null,
+                        startTime: fromData['startTime_' + n] || null,
+                        endTime: fromData['endTime_' + n] || null,
                         productAmount: fromData['productAmount_' + n] || 0,
                         discount: fromData['discount_' + n] || 0,
                         currPayAmount: fromData['currPayAmount_' + n] || 0
@@ -154,7 +172,7 @@ define(function (require, exports, module) {
                         subOrder.endTime = fromData['endTime_2'];
                     }
                     if (n == '1') {
-                        if (terminalInfo.o_getFieldValue('kunbang') && terminalInfo.o_data_getField({name:'kunbang'}).is(':visible'))
+                        if (terminalInfo.o_getFieldValue('kunbang') && terminalInfo.o_data_getField({name: 'kunbang'}).is(':visible'))
                             subOrder.extends = [{productKey: 'bind', productValue: terminalInfo.o_getFieldValue('kunbang')}]
                     }
                     if (controler.o_data_getField('type_' + n).is(':visible')) {

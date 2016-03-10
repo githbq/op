@@ -16,8 +16,8 @@ define(function (require, exports, module) {
 
 
     //转换输入值
-    exports.transferDataItem = function (terminalDataItems, tableDataItems, formDataItems, controller) {//转换数据项
-        common.setCommonData(controller, terminalDataItems, tableDataItems, formDataItems,11);
+    exports.transferDataItem = function (terminalDataItems, tableDataItems, formDataItems, controller,responseData) {//转换数据项
+
         controller(terminalDataItems,'useFX',function(n){
             n.value = false;
             n.readonly=false;
@@ -63,6 +63,7 @@ define(function (require, exports, module) {
             n.visible = false;
         });
         common.setNoGZHelper(controller,terminalDataItems, tableDataItems, formDataItems);
+        common.setCommonData(controller, terminalDataItems, tableDataItems, formDataItems,11,responseData);
         return {terminalDataItems: terminalDataItems, tableDataItems: tableDataItems, formDataItems: formDataItems};
     }
 
