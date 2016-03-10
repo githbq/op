@@ -54,6 +54,7 @@ define( function( require, exports, module ) {
 			me.attrs.complexDiscount = '';
 			me.attrs.tempData = {};
 			//增购、续费需要的参数
+
 			me.attrs.id = me.attrs.paralist||'';
 			me.checkType();
         },
@@ -242,7 +243,7 @@ define( function( require, exports, module ) {
 		//获取全部订单数据
 		getOrderInfo:function(){
 			var me = this,objData  = { 'orderEntity':{}};
-			
+			debugger
 			switch( me.attrs.typeFlag )
 			{
 				//新购办公版类型
@@ -287,12 +288,12 @@ define( function( require, exports, module ) {
 					
 				//续费办公版订单
 				case 'againOffice':
-
+					me.attrs.url = '/odr/renew/submit'
 					break;
 					
 				//续费营销版订单
 				case 'againMarkey':
-
+					me.attrs.url = '/odr/renew/submit'
 					break;	
 				default:
 				  
@@ -491,7 +492,7 @@ define( function( require, exports, module ) {
 					location.hash = "#agentsupport/entprisefiling";
 					break;
 				default:
-				   location.hash = "#agentsupport/entprisefiling";
+				   location.hash = "#ent/lst";
 			}
 		}
     } );
@@ -505,7 +506,7 @@ define( function( require, exports, module ) {
 			return false;
 		}else if(param.length==1){
 			var newMarketing = new NewMarketing( { 'view':$el,'typeFlag':param[0]} );
-		}else if( param.length==1 ){
+		}else if( param.length==2 ){
 			var newMarketing = new NewMarketing( { 'view':$el,'typeFlag':param[0], 'paralist':param[1]} );
 		}
 

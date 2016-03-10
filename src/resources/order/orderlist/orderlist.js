@@ -75,7 +75,10 @@ define( function( require, exports, module ) {
            var enterpriseId = $(e.currentTarget).attr('data-enterpriseId');
            var orderType = $(e.currentTarget).attr('data-orderType');
            var opinion = $(e.currentTarget).attr('data-opinion');
-           me.trigger('orderDetail',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':false,'orderType':orderType,'person':'', 'opinion':opinion} );
+           var isTp = $(e.currentTarget).attr('data-isTp');
+
+           me.trigger('orderDetail',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':false,'orderType':orderType,
+               'person':'', 'opinion':opinion ,'isTp':isTp } );
        },
         //导出excel
         exportEve: function(e){
