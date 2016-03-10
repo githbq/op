@@ -113,6 +113,7 @@ define(function (require, exports, module) {
         var tableInfoData = tableInfo.o_getValues();
         var formInfoData = formInfo.o_getValues();
         //suborders //////////////////////////////////////////
+        debugger
         var ids = tableInfoData.check.split(',');
         if (terminalInfo.o_getFieldData('businesscard').visible) {
             ids.push('8');
@@ -126,6 +127,9 @@ define(function (require, exports, module) {
         }
         terminalInfo.o_getFieldValue('');
         $(ids).each(function (i, n) {
+                if(!n){
+                    return;
+                }
                 if ($.inArray(n, ids) >= 0) {
                     var fromData = tableInfoData;
                     var controler = tableInfo;
@@ -139,8 +143,8 @@ define(function (require, exports, module) {
                         purchaseCount: fromData['purchaseCount_' + n] || 1,
                         subOrderType: 1,
                         purchaseAmount: fromData['purchaseAmount_' + n] || 0,
-                        startTime: fromData['startTime_' + n],
-                        endTime: fromData['endTime_' + n],
+                        startTime: fromData['startTime_' + n]||null,
+                        endTime: fromData['endTime_' + n]||null,
                         productAmount: fromData['productAmount_' + n] || 0,
                         discount: fromData['discount_' + n] || 0,
                         currPayAmount: fromData['currPayAmount_' + n] || 0
