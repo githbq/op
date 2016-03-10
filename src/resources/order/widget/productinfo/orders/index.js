@@ -1,45 +1,45 @@
 define(function (require, exports, module) {
 
-    exports.setCommonData = function (controller, terminalDataItems, tableDataItems, formDataItems, type, responseData) {
-        type = type.toString();
-        controller(terminalDataItems, 'keyword', function (n) {
-            if ($.inArray(type, ['1', '2', '3', '4']) >= 0) {
-                n.value = '新购';
-            }
-            else if ($.inArray(type, ['5', '6', '7', '8']) >= 0) {
-                n.value = '增购';
-            }
-            else if ($.inArray(type, ['9', '10', '11', '12']) >= 0) {
-                n.value = '续费';
-            }
-        });
-        if (responseData) {
-            var bigArr = terminalDataItems.concat(tableDataItems).concat(formDataItems);
-            var dataDic = toNameDictionary(bigArr);
-            var order, contract, enterpriseExtend, subOrders;
-            if (responseData.data) {
-                order = responseData.data.order;
-                contract = responseData.data.contract;
-                enterpriseExtend = responseData.data.enterpriseExtend;
-                subOrders = responseData.data.subOrders || [];
-            }
-            if (order) {
-                setObjValue(order, bigArr);
-                setValue(dataDic, 'payStatus_select', order.payStatus || 1, function (n) {
-                    n.on('setFieldValue', function ($ele, value, data) {
-                        data.__editChange = false;
-                    })
-                });
-            }
-            dataDic['enterpriseId'] && ( dataDic['enterpriseId'].value = responseData.enterpriseId);
-            if (contract) {
-                dataDic['contract'] = JSON.stringify(contract || {});
-                dataDic['contractCopy'] = JSON.stringify(contract || {});
-            }
-            if (enterpriseExtend) {
-                dataDic['companyGatePicture'] = JSON.stringify(enterpriseExtend || {});
-            }
-            $(subOrders).each(function (i, n) {
+        exports.setCommonData = function (controller, terminalDataItems, tableDataItems, formDataItems, type, responseData) {
+            type = type.toString();
+            controller(terminalDataItems, 'keyword', function (n) {
+                if ($.inArray(type, ['1', '2', '3', '4']) >= 0) {
+                    n.value = '新购';
+                }
+                else if ($.inArray(type, ['5', '6', '7', '8']) >= 0) {
+                    n.value = '增购';
+                }
+                else if ($.inArray(type, ['9', '10', '11', '12']) >= 0) {
+                    n.value = '续费';
+                }
+            });
+            if (responseData) {
+                var bigArr = terminalDataItems.concat(tableDataItems).concat(formDataItems);
+                var dataDic = toNameDictionary(bigArr);
+                var order, contract, enterpriseExtend, subOrders;
+                if (responseData.data) {
+                    order = responseData.data.order;
+                    contract = responseData.data.contract;
+                    enterpriseExtend = responseData.data.enterpriseExtend;
+                    subOrders = responseData.data.subOrders || [];
+                }
+                if (order) {
+                    setObjValue(order, bigArr);
+                    setValue(dataDic, 'payStatus_select', order.payStatus || 1, function (n) {
+                        n.on('setFieldValue', function ($ele, value, data) {
+                            data.__editChange = false;
+                        })
+                    });
+                }
+                dataDic['enterpriseId'] && ( dataDic['enterpriseId'].value = responseData.enterpriseId);
+                if (contract) {
+                    dataDic['contract'] = JSON.stringify(contract || {});
+                    dataDic['contractCopy'] = JSON.stringify(contract || {});
+                }
+                if (enterpriseExtend) {
+                    dataDic['companyGatePicture'] = JSON.stringify(enterpriseExtend || {});
+                }
+                $(subOrders).each(function (i, n) {
                     if (n.subOrder && n.subOrder.productId) {
                         var subOrder = n.subOrder;
                         for (var j in subOrder) {
@@ -75,18 +75,16 @@ define(function (require, exports, module) {
 
                         }
                     }
-                }
-            )
-            ;
+                });
 
-            if (responseData.readonly === true) {
-                debugger
-                $(terminalDataItems).each(function (i, n) {
-                    if (n.name.toLowerCase().indexOf('wrapper') < 0) {//包裹者不设
-                        n.readonly = true;
+                if (responseData.readonly === true) {
+                    debugger
+                    $(terminalDataItems).each(function (i, n) {
+                        if (n.name.toLowerCase().indexOf('wrapper') < 0) {//包裹者不设
+                            n.readonly = true;
 
-                    }
-                    )
+                        }
+                    })
                     ;
                     $(tableDataItems).each(function (i, n) {
                         if (n.name.toLowerCase().indexOf('wrapper') < 0) {//包裹者不设
@@ -285,8 +283,8 @@ define(function (require, exports, module) {
             );
         }
     }
-    )
-    ;
+)
+;
 
 // productKey :bind   绑定百川1   绑定报数系统2
 // productKey :buytype   购买方式   1试用  2 赠送  3折扣  4正常
