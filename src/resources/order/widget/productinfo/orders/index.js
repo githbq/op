@@ -266,10 +266,10 @@ define(function (require, exports, module) {
                             discount: fromData['discount_' + n] || 0,
                             currPayAmount: fromData['currPayAmount_' + n] || 0
                         };
-                        if (n == '3') {
-                            subOrder.startTime = fromData['startTime_2'];
-                            subOrder.endTime = fromData['endTime_2'];
-                        }
+                        //if (n == '3') {
+                        //    subOrder.startTime = fromData['startTime_2'];
+                        //    subOrder.endTime = fromData['endTime_2'];
+                        //}
                         if (n == '1') {
                             if (terminalInfo.o_getFieldValue('kunbang') && terminalInfo.o_data_getField({name: 'kunbang'}).is(':visible'))
                                 subOrder.extends = [{productKey: 'bind', productValue: terminalInfo.o_getFieldValue('kunbang')}]
