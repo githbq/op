@@ -13,8 +13,8 @@ define(function (require, exports, module) {
                     n.value = '续费';
                 }
             });
+            var bigArr = terminalDataItems.concat(tableDataItems).concat(formDataItems);
             if (responseData) {
-                var bigArr = terminalDataItems.concat(tableDataItems).concat(formDataItems);
                 var dataDic = toNameDictionary(bigArr);
                 var order, contract, enterpriseExtend, subOrders;
                 if (responseData.data) {
@@ -58,12 +58,12 @@ define(function (require, exports, module) {
                         });
                     }
                 }
-                var checkids =[];
-                if( dataDic['check'] && dataDic['check'].value){
-                    if($.isArray(dataDic['check'].value)){
-                        checkids=checkids.concat(dataDic['check'].value);
-                    }else{
-                        checkids=dataDic['check'].value.split(',');
+                var checkids = [];
+                if (dataDic['check'] && dataDic['check'].value) {
+                    if ($.isArray(dataDic['check'].value)) {
+                        checkids = checkids.concat(dataDic['check'].value);
+                    } else {
+                        checkids = dataDic['check'].value.split(',');
                     }
                 }
                 $(subOrders).each(function (i, n) {
@@ -97,10 +97,10 @@ define(function (require, exports, module) {
                                     }
                                         ;
                                         break;
-                                    case 'bind':
+                                    case 'bind'://捆绑已经强制了,只要有 则一定全选
                                     {
                                         controller(terminalDataItems, 'kunbang', function (item) {
-                                            item.value = kv.value;
+                                            item.value =true;
                                         });
                                     }
                                         ;
@@ -114,26 +114,28 @@ define(function (require, exports, module) {
                 dataDic['check'].value = checkids;
                 if (responseData.readonly === true) {
                     $(terminalDataItems).each(function (i, n) {
-                        if (n.name.toLowerCase().indexOf('wrapper') < 0 && n.name!='table_type') {//包裹者不设
+                        if (n.name.toLowerCase().indexOf('wrapper') < 0 && n.name != 'table_type') {//包裹者不设
                             n.readonly = true;
 
                         }
                     })
                     ;
                     $(tableDataItems).each(function (i, n) {
-                        if (n.name.toLowerCase().indexOf('wrapper') < 0 && n.name!='table_type') {//包裹者不设
+                        if (n.name.toLowerCase().indexOf('wrapper') < 0 && n.name != 'table_type') {//包裹者不设
                             n.readonly = true;
                         }
                     });
                     $(formDataItems).each(function (i, n) {
-                        if (n.name.toLowerCase().indexOf('wrapper') < 0 && n.name!='table_type') {//包裹者不设
+                        if (n.name.toLowerCase().indexOf('wrapper') < 0 && n.name != 'table_type') {//包裹者不设
                             n.readonly = true;
                         }
                     });
                 }
             }
 
-
+            $(bigArr).each(function (i, n) {
+                n.attr = {maxlength: 50};
+            })
         }
         ;
         function setValue(dataDic, key, value, callback) {
@@ -274,7 +276,7 @@ define(function (require, exports, module) {
             }
             terminalInfo.o_getFieldValue('');
             $(ids).each(function (i, n) {
-                      if (!n) {
+                    if (!n) {
                         return;
                     }
                     if ($.inArray(n, ids) >= 0) {
@@ -299,13 +301,20 @@ define(function (require, exports, module) {
                         //    subOrder.startTime = fromData['startTime_2'];
                         //    subOrder.endTime = fromData['endTime_2'];
                         //}
+                        subOrder.productExtends = [];
                         if (n == '1') {
-                            if (terminalInfo.o_getFieldValue('kunbang') && terminalInfo.o_data_getField({name: 'kunbang'}).is(':visible'))
-                                subOrder.extends = [{productKey: 'bind', productValue: terminalInfo.o_getFieldValue('kunbang')}]
+                            if (terminalInfo.o_getFieldValue('kunbang') && terminalInfo.o_data_getField({name: 'kunbang'}).is(':visible')) {
+                                var binds = (terminalInfo.o_getFieldValue('kunbang') || '').split(',');
+                                $(binds).each(function (b, i) {
+                                    if (b) {
+                                        subOrder.productExtends.push({productKey: 'bind', productValue: b});
+                                    }
+                                })
+                            }
                         }
                         if (controler.o_data_getField('type_' + n).is(':visible')) {
                             var value = controler.o_getFieldValue('type_' + n);
-                            subOrder.extends = [{productKey: 'buytype', productValue: value}]
+                            subOrder.productExtends.push({productKey: 'buytype', productValue: value});
                         }
                         data.subOrders.push({
                             subOrder: subOrder
@@ -318,7 +327,7 @@ define(function (require, exports, module) {
 )
 ;
 
-// productKey :bind   绑定百川1   绑定报数系统2
+// productKey :bind   绑定百川1   绑定报数系统2   两个都选的话  值为   1,2  以逗号分割
 // productKey :buytype   购买方式   1试用  2 赠送  3折扣  4正常
 
 
