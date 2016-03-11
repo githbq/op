@@ -58,7 +58,14 @@ define(function (require, exports, module) {
                         });
                     }
                 }
-                var checkids = dataDic['check'] &&dataDic['check'].value.split(',');
+                var checkids =[];
+                if( dataDic['check'] && dataDic['check'].value){
+                    if($.isArray(dataDic['check'].value)){
+                        checkids=checkids.concat(dataDic['check'].value);
+                    }else{
+                        checkids=dataDic['check'].value.split(',');
+                    }
+                }
                 $(subOrders).each(function (i, n) {
                     if (n.subOrder && n.subOrder.productId) {
                         checkids.push(n.subOrder.productId);
