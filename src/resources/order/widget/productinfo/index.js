@@ -214,10 +214,10 @@ define(function (require, exports, module) {
                             if (!action) {
                                 action = defaultAction;
                             }
-                            error = action.call(this, i, value, option, $ele, wrapper);
+                            error = action.call(me, i, value, option, $ele, wrapper);
 
                             if (option.handler) { //错误代理
-                                var result = option.handler.call(me, error, value, $ele);
+                                var result = option.handler.call(me, error, value, $ele, option);
                                 if (result !== undefined) {
                                     error = result;
                                 }
@@ -232,7 +232,7 @@ define(function (require, exports, module) {
             },
             i_checkFieldForRequired: function (name, value, option, $ele, wrapper) {
                 var me = this;
-                var error = me.i_checkError(name, value, option, $ele, wrapper, function (value, option, $ele) {
+                var error = me.i_checkError(name, value, option, $ele, function (value, option, $ele) {
                     return !value;
                 });
                 return error;
@@ -240,7 +240,7 @@ define(function (require, exports, module) {
             ,
             i_checkFieldForMaxlength: function (name, value, option, $ele, wrapper) {
                 var me = this;
-                var error = me.i_checkError(name, value, option, $ele, wrapper, function (value, option, $ele) {
+                var error = me.i_checkError(name, value, option, $ele, function (value, option, $ele) {
                     return value.length > option.value;
 
                 });
@@ -255,7 +255,7 @@ define(function (require, exports, module) {
                     var methodName = me.i_toWord('i_checkFieldFor', i);
                     var method = me[methodName];
                     if (method) {
-                        error = me.i_checkError(method, name, value, option, $ele, wrapper);
+                        error = me.i_checkError(method, name, value, option, $ele);
                     }
                 }
                 return error;
@@ -264,25 +264,37 @@ define(function (require, exports, module) {
             i_toWord: function (prefix, value) {//驼峰命名法
                 return prefix + value.substr(0, 1).toUpperCase() + value.substr(1);
             },
-            i_checkError: function (requireName, value, option, $ele, wrapper, callback) {
+            i_checkError: function (validateName, value, option, $ele, callback) {
                 var me = this;
                 var error = null;
                 if (callback && callback(value, option, $ele)) {
-                    error = {field: $ele, name: requireName, option: option};
+                    error = {field: $ele, name: validateName, option: option};
                 }
+                var addError=false;
                 if ((!option.handler) || (option.handler && option.handler.call(me, error, value, option, $ele) !== false)) {
-                    if (error) {
-                        wrapper.addClass('wrapper-validate-error');
-                        $ele.addClass('validate-error');
-                        wrapper.find('.error').addClass(requireName + '-error').show().html(option.message);
-                    } else {
-                        wrapper.find('.error').removeClass(requireName + '-error').hide().html('');
-                        wrapper.removeClass('wrapper-validate-error');
-                        $ele.removeClass('validate-error');
-                    }
+                        error&& (addError=true);
                 }
-                me.trigger('validateError', value, option, $ele, me);
+                me.trigger('validateError', value, error, option, $ele, me);
+                if (error.__enabled === false) {
+                    error = false;
+                    addError=false;
+                }
+                addError?me.o_addValidateError($ele,option.message,validateName):me.o_removeValidateError($ele,validateName);
                 return error;
+            },
+            o_addValidateError: function ($ele, message,validateName) {
+                var me=this;
+                var wrapper = me.o_field_getWrapper($ele);
+                wrapper.addClass('wrapper-validate-error');
+                $ele.addClass('validate-error');
+                wrapper.find('.error').addClass(validateName + '-error').show().html(option.message);
+            },
+            o_removeValidateError: function ($ele,validateName) {
+                var me=this;
+                var wrapper = me.o_field_getWrapper($ele);
+                wrapper.find('.error').removeClass(validateName + '-error').hide().html('');
+                wrapper.removeClass('wrapper-validate-error');
+                $ele.removeClass('validate-error');
             },
             o_getValues: function () {
                 var me = this;
@@ -468,8 +480,8 @@ define(function (require, exports, module) {
                     value = me.i_getFunctionPipe('i_setValueWhere', 'Default')[0]($ele, value);
                     //!silent && $ele.change();
                     data.value = value;
-                    me.trigger('setFieldValue', $ele, value,data);
-                    data.trigger('setFieldValue', $ele, value,data);
+                    me.trigger('setFieldValue', $ele, value, data);
+                    data.trigger('setFieldValue', $ele, value, data);
                 }
             },
             i_setValueWhereInputRadio: function (next, $ele, value) {

@@ -183,7 +183,20 @@ define(function (require, exports, module) {
             //pk助手折扣
             dataItems.push(new DataItem($.extend({
                 name: 'discount_' + n.id,
-                value: ''
+                value: '',
+                validateOptions: {
+                    required: {
+                        enable: true, value: true, message: '', handler: function (error, value, option, $ele) {
+                            var name=$ele.attr('data_name');
+                            var checkbox=$ele.parents('tr').find('input[type=checkbox]');
+                            if(name.toLowerCase().indexOf('discount_')>=0 && checkbox.is(':checked')){
+
+                            }else{
+                                return null;
+                            }
+                        }
+                    }
+                }
             }, n.options.discount)));
 
 
