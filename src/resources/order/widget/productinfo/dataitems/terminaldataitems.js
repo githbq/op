@@ -65,6 +65,7 @@ define(function (require, exports, module) {
                                 //{"login":true,"model":2000,"privilege":true,"success":true,"value":{"model":2000}}
                                 if (response.success) {
                                     me.o_setValue({name: 'purchaseAmount_' + n, value: response.model});
+                                    me.o_setValue({name: 'purchaseAmount_input_' + n, value: response.model});
                                     me.o_setValue({name: 'productAmount_' + n, value: response.model});
                                     checkTypeForPrice.call(me, n);
                                     priceComput.call(me, e);
