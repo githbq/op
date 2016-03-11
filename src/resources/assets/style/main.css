@@ -6473,6 +6473,9 @@ em {
   padding-left: 10px;
   text-align: left;
 }
+.productinfo .field_row label.date {
+  width: 120px;
+}
 .productinfo .field_row div.field {
   float: left;
 }
