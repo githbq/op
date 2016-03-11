@@ -36,13 +36,19 @@ define( function(require, exports, module){
 		defaultAttr: {
 			'width': 1300
 		},
-
 		elements: {
-		
+			'.action-save':'actionSave',
+			'.action-resend':'actionResend',
+			'.action-agree':'actionAgree',
+			'.action-reject':'actionReject',
+			'.action-submit':'actionSubmit'
 		},
-
 		events:{
-			
+			'click .action-save':'actionSaveEve',
+			'click .action-submit':'actionSubmitEve',
+			'click .action-resend':'actionResendEve',
+			'click .action-agree':'actionAgreeEve',
+			'click .action-reject':'actionRejectEve'
 		},
 
 		
@@ -169,6 +175,7 @@ define( function(require, exports, module){
 		show: function( options ){
 			var me = this;
 			me.attrs.options = options||{};
+			me.attrs.allData = {'orderEntity':{},'contract':{},'enterpriseExtend':{},'enterprise':{}};
 			me.setState();
 			me.sortType();
 			
@@ -386,6 +393,7 @@ define( function(require, exports, module){
 				'success': function( data ){
 					if( data.success ){
 						me.attrs.enterpriseData = data.value.model;
+						$.extend(true, me.attrs.allData, me.attrs.enterpriseData );
 						//callback && callback();
 					}
 				}
@@ -401,6 +409,7 @@ define( function(require, exports, module){
 				'success': function( data ){
 					if( data.success ){
 						me.attrs.orderData = data.value.model;
+						$.extend(true, me.attrs.allData, me.attrs.orderData );
 						//callback && callback();
 					}
 				}
@@ -438,9 +447,92 @@ define( function(require, exports, module){
 			me.$('.state').hide();
 			me.$('.state-'+me.attrs.options.state).show()
 		},
+		//获取全部订单数据
+		getOrderInfo:function(){
+			var me = this,objData  = { 'orderEntity':{}};
 
+
+			//获取普通订单信息
+			//基本信息校验和取值
+			if( me.attrs.basicCommon.getValue() ){
+				objData.enterprise = me.attrs.basicCommon.getValue();
+				//$.extend(true, objData.enterprise, me.attrs.basicCommon.getValue() );
+				//$.extend(true, me.attrs.allData, me.attrs.orderData );
+			}else{
+				return ;
+			}
+
+			//产品信息
+			var temp = me.attrs.prodeuctObj.getData();
+			objData.enterpriseExtend = temp.enterpriseExtend ;
+			objData.contract = temp.contract;
+			objData.orderEntity.order = temp.order
+			objData.orderEntity.subOrders = temp.subOrders;
+
+			//发票信息校验和取值
+			if( me.attrs.invoiceCommon.getInfo() ){
+				var temp  = me.attrs.invoiceCommon.getInfo();
+				objData.orderEntity.invoice =temp.invoice;
+				$.extend(true, objData.orderEntity.order, temp.order );
+			}else{
+				return ;
+			}
+
+
+			if(me.attrs.options.isTp == '1'){
+				//获取特批地址
+				if( me.attrs.explainSpecial.getValue() ){
+					var temp  = me.attrs.explainSpecial.getValue();
+					objData.orderEntity.order['approved_url'] = temp.approved_url;
+				}else{
+					return ;
+				}
+
+			}
+
+			//综合折扣
+			me.getDiscount( objData.orderEntity.subOrders ,objData.orderEntity.order.amount , function(  ){
+				var discoutFlag = true;
+				if(me.attrs.showType == 'common'){
+					me.attrs.invoiceCommon.setDiscount( me.attrs.complexDiscount );
+					_.map( objData.orderEntity.subOrders , function( obj , index){
+						if(obj.discount && obj.discount<8){
+							discoutFlag = false;
+							//break;
+						}
+					});
+					if( !discoutFlag ){
+						util.showToast('综合折扣低于8折，必须申请特批');
+						return false;
+					}
+				}else{
+					me.attrs.invoiceSpecial.setDiscount( me.attrs.complexDiscount );
+				}
+				objData.orderEntity.order['discount'] = me.attrs.complexDiscount ;
+				objData.contract['discount'] = me.attrs.complexDiscount ;
+
+				$.extend(true, me.attrs.allData, objData );
+
+				util.api({
+					'url':me.attrs.url,
+					'data':JSON.stringify( me.attrs.allData ),
+					'contentType':'application/json;charset=UTF-8 ',
+					'success': function( data ){
+						if( data.success ){
+							util.showTip('提交成功！')
+							location.hash = "#order/orderlist";
+						}
+					}
+				})
+			});
+
+		},
+		//保存
+		actionSaveEve:function(){
+
+		},
 		//驳回
-        rejectEve: function(){
+		actionRejectEve: function(){
             var me = this;
 
             if( !me.model.get('comment') ){
@@ -483,12 +575,11 @@ define( function(require, exports, module){
         },
 
         //同意
-        agreeEve: function(){
+		actionAgreeEve: function(){
             var me = this;
 
             if( !me.model.get('comment') ){
-               // util.showToast('请填写意见');
-                //return;
+
             }
             var bool = confirm("确认同意此条审批吗?");
             if( bool ){
@@ -528,7 +619,7 @@ define( function(require, exports, module){
 		//重新发送
 		hide: function(){
 			var me = this;
-			this.remove();
+			me.remove();
 			DetailApproval.__super__.hide.apply( this,arguments );
 		}
 	});
