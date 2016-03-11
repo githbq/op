@@ -54,11 +54,16 @@ define(function (require, exports, module) {
                 __silent: true,
                 events: [{
                     key: 'change', value: function (e) {
+                        
                         var me = this;
                         var $dom = $(e.target);
                         if (n != '3') {
-                            checkTypeForPrice.call(me, n);
-                            priceComput.call(me, e);
+                            if (n == '1') {//CRM的数量变化还要计算一下原价
+                                changeForGetPrice.call(me, e);
+                            } else {
+                                checkTypeForPrice.call(me, n);
+                                priceComput.call(me, e);
+                            }
                         } else {
 
                             $dom.val($dom.val().replace(/[^\.\d]/g, ''));
@@ -68,7 +73,7 @@ define(function (require, exports, module) {
                                     data: {enterpriseId: me.o_getFieldValue('enterpriseId'), personCount: $dom.val()}, success: function (response) {
                                         //{"login":true,"model":2000,"privilege":true,"success":true,"value":{"model":2000}}
                                         if (response.success) {
-                                            debugger
+                                            
                                             me.o_setValue({name: 'purchaseAmount_' + n, value: response.model});
                                             me.o_setValue({name: 'purchaseAmount_input_' + n, value: response.model});
                                             me.o_setValue({name: 'productAmount_' + n, value: response.model});
@@ -282,20 +287,30 @@ define(function (require, exports, module) {
             if ($dom.is('[datecontrol]')) {
                 $dom.change();
             }
+            var sum = 1;
+            if (id == '1') {//针对CRM数量可改
+                sum = me.o_getFieldValue('purchaseCount_' + id);
+                if (!sum) {
+                    return;
+                }
+            }
+
             var options = {
                 data: {
                     id: id,
                     startDate: me.o_getFieldValue('startTime_' + id),
                     endDate: me.o_getFieldValue('endTime_' + id),
-                    sum: 1,
+                    sum: sum,
                     contractAmount: me.o_getFieldValue('purchaseAmount_' + id) || 0
                 },
                 success: function (responseData) {
                     if (responseData.success) {
                         //{"amount":200,"rebate":1.7000000000000002}
                         me.o_setValue({name: 'discount_' + id, value: responseData.model.rebate});
+
                         me.o_setValue({name: 'productAmount_' + id, value: responseData.model.amount});
                         me.o_setValue({name: 'purchaseAmount_' + id, value: responseData.model.amount});
+                        me.o_setValue({name: 'purchaseAmount_input_' + id, value: responseData.model.amount});
                         priceComput.call(me, e);
                     }
                 }
