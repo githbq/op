@@ -169,6 +169,7 @@ define( function(require, exports, module){
 		show: function( options ){
 			var me = this;
 			me.attrs.options = options||{};
+			me.setState();
 			me.sortType();
 			
 			DetailApproval.__super__.show.apply( this,arguments );
@@ -433,8 +434,9 @@ define( function(require, exports, module){
 		},
 		//设置自己部分的显示和隐藏：
 		setState:function(){
-			
-			
+			var me = this;
+			me.$('.state').hide();
+			me.$('.state-'+me.attrs.options.state).show()
 		},
 
 		//驳回
