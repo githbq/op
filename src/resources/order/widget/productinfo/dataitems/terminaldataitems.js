@@ -54,14 +54,14 @@ define(function (require, exports, module) {
                 __silent: true,
                 events: [{
                     key: 'change', value: function (e) {
-                        
+
                         var me = this;
                         var $dom = $(e.target);
                         if (n != '3') {
                             if (n == '1') {//CRM的数量变化还要计算一下原价
                                 changeForGetPrice.call(me, e);
                             } else {
-                                checkTypeForPrice.call(me, n);
+                                checkTypeForPrice.call(me,e, n);
                                 priceComput.call(me, e);
                             }
                         } else {
@@ -73,11 +73,11 @@ define(function (require, exports, module) {
                                     data: {enterpriseId: me.o_getFieldValue('enterpriseId'), personCount: $dom.val()}, success: function (response) {
                                         //{"login":true,"model":2000,"privilege":true,"success":true,"value":{"model":2000}}
                                         if (response.success) {
-                                            
+
                                             me.o_setValue({name: 'purchaseAmount_' + n, value: response.model});
                                             me.o_setValue({name: 'purchaseAmount_input_' + n, value: response.model});
                                             me.o_setValue({name: 'productAmount_' + n, value: response.model});
-                                            checkTypeForPrice.call(me, n);
+                                            checkTypeForPrice.call(me,e, n);
                                             priceComput.call(me, e);
                                         } else {
                                             me.o_setValue({name: 'purchaseAmount_input_' + n, value: ''});
@@ -240,18 +240,22 @@ define(function (require, exports, module) {
             readonly: true
         }));
         function checkTypeForPrice(e, id) {
+            
             var me = this;
             var typeValue = me.o_getFieldValue('type_' + id);
             switch (typeValue.toString()) {
                 case '1':
                 case '2':
                 {
+                    me.o_setValue({name: 'purchaseAmount_' + id, value: 0})
                     me.o_setValue({name: 'purchaseAmount_input_' + id, value: 0, readonly: true})
                 }
                     ;
                     break;
+                case '4':
                 case '3':
                 {
+                    me.o_setValue({name: 'purchaseAmount' + id, value: me.o_getFieldValue('purchaseAmount_input_' + id)})
                     me.o_setValue({name: 'purchaseAmount_input_' + id, value: me.o_getFieldValue('purchaseAmount_input_' + id), readonly: false})
                 }
                     ;
@@ -311,7 +315,7 @@ define(function (require, exports, module) {
                         me.o_setValue({name: 'productAmount_' + id, value: responseData.model.amount});
                         me.o_setValue({name: 'purchaseAmount_' + id, value: responseData.model.amount});
                         me.o_setValue({name: 'purchaseAmount_input_' + id, value: responseData.model.amount});
-                        checkTypeForPrice.call(me,e,id);
+                        checkTypeForPrice.call(me, e, id);
                         priceComput.call(me, e);
                     }
                 }
