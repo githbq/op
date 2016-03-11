@@ -187,6 +187,7 @@ define(function(require, exports, module){
 			me.attrs['wrapper'].html( me.$view );
 			me.checkEdit(me.attrs.editFlag)
 			me.setValue();
+			(!me.$('.enterpriseAccount').val()) && me.$('.enterpriseAccount').removeAttr('disabled');
 		},
 		//数据渲染显示
 		setValue:function(){
