@@ -35,11 +35,30 @@ define(function (require, exports, module) {
                 if (contract) {
                     dataDic['contract'] = JSON.stringify(contract || {});
                     dataDic['contractCopy'] = JSON.stringify(contract || {});
+
+                    if (contract.contractFileName) {
+                        controller(formDataItems, 'contract-image', function (item) {
+                            item.visible = true;
+                            item.attr = {src: contract.contractFileName}
+                        });
+                    }
+                    if (contract.contractCopyFileName) {
+                        controller(formDataItems, 'contractCopy-image', function (item) {
+                            item.visible = true;
+                            item.attr = {src: contract.contractCopyFileName}
+                        });
+                    }
                 }
                 if (enterpriseExtend) {
                     dataDic['companyGatePicture'] = JSON.stringify(enterpriseExtend || {});
+                    if (enterpriseExtend.companyGatePictureFileName) {
+                        controller(formDataItems, 'companyGatePicture-image', function (item) {
+                            item.visible = true;
+                            item.attr = {src: enterpriseExtend.companyGatePictureFileName}
+                        });
+                    }
                 }
-                var checkids=[];
+                var checkids = [];
                 $(subOrders).each(function (i, n) {
                     if (n.subOrder && n.subOrder.productId) {
                         checkids.push(n.subOrder.productId);
@@ -84,7 +103,7 @@ define(function (require, exports, module) {
                         }
                     }
                 });
-                dataDic['check'].value=checkids;
+                dataDic['check'].value = checkids;
                 if (responseData.readonly === true) {
                     $(terminalDataItems).each(function (i, n) {
                         if (n.name.toLowerCase().indexOf('wrapper') < 0) {//包裹者不设
