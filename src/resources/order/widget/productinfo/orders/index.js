@@ -58,13 +58,14 @@ define(function (require, exports, module) {
                         });
                     }
                 }
-                var checkids = [];
+                var checkids = dataDic['check'] &&dataDic['check'].value.split(',');
                 $(subOrders).each(function (i, n) {
                     if (n.subOrder && n.subOrder.productId) {
                         checkids.push(n.subOrder.productId);
                         var subOrder = n.subOrder;
                         for (var j in subOrder) {
                             if (subOrder.hasOwnProperty(j)) {
+                                setValue(dataDic, j + '_input_' + subOrder.productId, subOrder[j]);
                                 setValue(dataDic, j + '_' + subOrder.productId, subOrder[j]);
                             }
                         }
@@ -106,19 +107,19 @@ define(function (require, exports, module) {
                 dataDic['check'].value = checkids;
                 if (responseData.readonly === true) {
                     $(terminalDataItems).each(function (i, n) {
-                        if (n.name.toLowerCase().indexOf('wrapper') < 0) {//包裹者不设
+                        if (n.name.toLowerCase().indexOf('wrapper') < 0 && n.name!='table_type') {//包裹者不设
                             n.readonly = true;
 
                         }
                     })
                     ;
                     $(tableDataItems).each(function (i, n) {
-                        if (n.name.toLowerCase().indexOf('wrapper') < 0) {//包裹者不设
+                        if (n.name.toLowerCase().indexOf('wrapper') < 0 && n.name!='table_type') {//包裹者不设
                             n.readonly = true;
                         }
                     });
                     $(formDataItems).each(function (i, n) {
-                        if (n.name.toLowerCase().indexOf('wrapper') < 0) {//包裹者不设
+                        if (n.name.toLowerCase().indexOf('wrapper') < 0 && n.name!='table_type') {//包裹者不设
                             n.readonly = true;
                         }
                     });
