@@ -39,17 +39,17 @@
                         <option value="4">营销版新购-特批</option>
                         <option value="5">办公版增购-普通</option>
                         <option value="6">办公版增购-特批</option>
-                        <option value="7"></option>
-                        <option value="8"></option>
-                        <option value="9"></option>
-                        <option value="10"></option>
-                        <option value="11"></option>
-                        <option value="12"></option>
-                        <option value="13"></option>
-                        <option value="14"></option>
-                        <option value="15"></option>
-                        <option value="16"></option>
-                        <option value="17"></option>
+                        <option value="7">营销版增购-普通</option>
+                        <option value="8">营销版增购-特批</option>
+                        <option value="9">办公版续费-普通</option>
+                        <option value="10">办公版续费-特批</option>
+                        <option value="11">营销版续费-普通</option>
+                        <option value="12">营销版续费-特批</option>
+                        <option value="13">关联自注册办公版-普通</option>
+                        <option value="14">关联自注册办公版-特批</option>
+                        <option value="15">关联自注册营销版-普通</option>
+                        <option value="16">关联自注册营销版-特批</option>
+                        <option value="17">收尾款</option>
                     </select>
                 </label>
                 <label for="">
@@ -58,18 +58,30 @@
                 </label>
                 <label for="">
                     特批单
-                    <select name="" id="">
+                    <select name="tpd" ce-model="isTp">
+                        <option value="">全部</option>
                         <option value="1">是</option>
                         <option value="2">否</option>
                     </select>
                 </label>
                 <label for="">
                     审核状态
-                    <select ce-model=""></select>
+                    <select name="shzt" ce-model="">
+                        <option value="">全部</option>
+                        <option value="1">待审批</option>
+                        <option value="2">已通过</option>
+                        <option value="3">驳回</option>
+                        <option value="4">撤回</option>
+                    </select>
                 </label>
                 <label for="">
                     付费状态
-                    <select ce-model=""></select>
+                    <select name="ffzt" ce-model="">
+                        <option value="">全部</option>
+                        <option value="1">全款</option>
+                        <option value="2">分期</option>
+                        <option value="3">未付</option>
+                    </select>
                 </label>
                 <label for="">
                     提单日期 <input type="text" placeholder="开始时间" class="starttime"> ———— <input type="text" placeholder="结束时间" class="endtime">

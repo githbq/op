@@ -53,9 +53,11 @@ define( function( require, exports, module ) {
 			//综合折扣
 			me.attrs.complexDiscount = '';
 			me.attrs.tempData = {};
+			me.attrs.orderList = {};
 			//增购、续费需要的参数
 
 			me.attrs.id = me.attrs.paralist||'';
+			me.attrs.account= me.attrs.paraName||'54976';
 			me.attrs.subData = {}
 			me.checkType();
         },
@@ -106,14 +108,15 @@ define( function( require, exports, module ) {
 				case 'addOffice':
 					me.setNavTitle( '增购办公版', '增购办公版特批');
 					
-					me.attrs.basicCommon = new OrderInfo( { 'wrapper':me.$view.find('.common-market-basic'),'data':{},'editFlag':true,'type':5} );
-					me.attrs.basicSpecial = new OrderInfo( { 'wrapper':me.$view.find('.common-market-basic'),'data':{},'editFlag':true,'type':6} );
+
 					me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common-market-explain'),'data':{},'editFlag':true,'type':5} );
 					me.attrs.explainSpecial = new Explain( { 'wrapper':me.$view.find('.special-market-explain'),'data':{},'editFlag':true,'type':6} );
 					me.attrs.invoiceCommon = new InvoiceInfo( { 'wrapper':me.$view.find('.common-market-invioce'),'data':{},'editFlag':true,'type':5} );
 					me.attrs.invoiceSpecial = new InvoiceInfo( { 'wrapper':me.$view.find('.special-market-invioce'),'data':{},'editFlag':true,'type':6} );
 					
 					me.setOrderInfo(function(){
+						me.attrs.basicCommon = new OrderInfo( { 'wrapper':me.$view.find('.common-market-basic'),'data':me.attrs.orderList,'editFlag':true,'type':5} );
+						me.attrs.basicSpecial = new OrderInfo( { 'wrapper':me.$view.find('.common-market-basic'),'data':me.attrs.orderList,'editFlag':true,'type':6} );
 						me.getNeedDate();
 						me.setProductShow();
 					});
@@ -123,15 +126,15 @@ define( function( require, exports, module ) {
 				 //增购营销版订单
 				case 'addMarkey':
 					me.setNavTitle( '增购营销版', '增购营销版特批');
-					
-					me.attrs.basicCommon = new OrderInfo( { 'wrapper':me.$view.find('.common-market-basic'),'data':{},'editFlag':true,'type':7} );
-					me.attrs.basicSpecial = new OrderInfo( { 'wrapper':me.$view.find('.common-market-basic'),'data':{},'editFlag':true,'type':8} );
+
 					me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common-market-explain'),'data':{},'editFlag':true,'type':7} );
 					me.attrs.explainSpecial = new Explain( { 'wrapper':me.$view.find('.special-market-explain'),'data':{},'editFlag':true,'type':8} );
 					me.attrs.invoiceCommon = new InvoiceInfo( { 'wrapper':me.$view.find('.common-market-invioce'),'data':{},'editFlag':true,'type':7 } );
 					me.attrs.invoiceSpecial = new InvoiceInfo( { 'wrapper':me.$view.find('.special-market-invioce'),'data':{},'editFlag':true,'type':8 } );
 
 					me.setOrderInfo(function(){
+						me.attrs.basicCommon = new OrderInfo( { 'wrapper':me.$view.find('.common-market-basic'),'data':me.attrs.orderList,'editFlag':true,'type':7} );
+						me.attrs.basicSpecial = new OrderInfo( { 'wrapper':me.$view.find('.common-market-basic'),'data':me.attrs.orderList,'editFlag':true,'type':8} );
 						me.getNeedDate();
 						me.setProductShow();
 					});
@@ -143,14 +146,15 @@ define( function( require, exports, module ) {
 				
 					me.setNavTitle( '续费办公版', '续费办公版特批');
 					
-					me.attrs.basicCommon = new OrderInfo( { 'wrapper':me.$view.find('.common-market-basic'),'data':{},'editFlag':true,'type':9} );
-					me.attrs.basicSpecial= new OrderInfo( { 'wrapper':me.$view.find('.common-market-basic'),'data':{},'editFlag':true,'type':10} );
+
 					me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common-market-explain'),'data':{},'editFlag':true,'type':9} );
 					me.attrs.explainSpecial = new Explain( { 'wrapper':me.$view.find('.special-market-explain'),'data':{},'editFlag':true,'type':10} );
 					me.attrs.invoiceCommon = new InvoiceInfo( { 'wrapper':me.$view.find('.common-market-invioce'),'data':{},'editFlag':true,'type':9 } );
 					me.attrs.invoiceSpecial = new InvoiceInfo( { 'wrapper':me.$view.find('.special-market-invioce'),'data':{},'editFlag':true,'type':10 } );
 
 					me.setOrderInfo(function(){
+						me.attrs.basicCommon = new OrderInfo( { 'wrapper':me.$view.find('.common-market-basic'),'data':me.attrs.orderList,'editFlag':true,'type':9} );
+						me.attrs.basicSpecial= new OrderInfo( { 'wrapper':me.$view.find('.common-market-basic'),'data':me.attrs.orderList,'editFlag':true,'type':10} );
 						me.getNeedDate();
 						me.setProductShow();
 					});
@@ -162,16 +166,18 @@ define( function( require, exports, module ) {
 				
 					me.setNavTitle( '续费营销版', '续费营销版特批');
 					
-					me.attrs.basicCommon = new OrderInfo( { 'wrapper':me.$view.find('.common-market-basic'),'data':{},'editFlag':true,'type':11} );
-					me.attrs.basicSpecial = new OrderInfo( { 'wrapper':me.$view.find('.common-market-basic'),'data':{},'editFlag':true,'type':12} );
+
 					me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common-market-explain'),'data':{},'editFlag':true,'type':11} );
 					me.attrs.explainSpecial = new Explain( { 'wrapper':me.$view.find('.special-market-explain'),'data':{},'editFlag':true,'type':12} );
 					me.attrs.invoiceCommon = new InvoiceInfo( { 'wrapper':me.$view.find('.common-market-invioce'),'data':{},'editFlag':true,'type':11 } );
 					me.attrs.invoiceSpecial = new InvoiceInfo( { 'wrapper':me.$view.find('.special-market-invioce'),'data':{},'editFlag':true,'type':12 } );
 
 					me.setOrderInfo(function(){
+						me.attrs.basicCommon = new OrderInfo( { 'wrapper':me.$view.find('.common-market-basic'),'data':me.attrs.orderList,'editFlag':true,'type':11} );
+						me.attrs.basicSpecial = new OrderInfo( { 'wrapper':me.$view.find('.common-market-basic'),'data':me.attrs.orderList,'editFlag':true,'type':12} );
 						me.getNeedDate();
 						me.setProductShow();
+
 					});
 					
 					break;	
@@ -220,23 +226,36 @@ define( function( require, exports, module ) {
 		setOrderInfo:function( callback ){
 			var me = this;
 
-			callback && callback();
-			
+			util.api({
+				'url':'/odr/queryProductVOList',
+				'data':{'ea':me.attrs.account},
+				'success': function( data ){
+
+					if( data.success ){
+
+						me.attrs.orderList = data;
+						callback && callback();
+					}
+				}
+			})
+
 		},
 		//转换为基本需要时间格式
-		getNeedDate:function( data ){
+		getNeedDate:function(  ){
 			var me = this;
 			var subArry = [];
-			var data = data||[];
+			var data = me.attrs.orderList.model||[];
 
 			if( me.attrs.typeFlag == 'addMarkey' ){
 				//增购营销版需要crm时间
 				for(var i = 0 ;i<data.length; i++ ){
-					if( data[productId] == 1 ){
+					if( data[i].code == "CRM" ){
 						var tempObe = {"subOrder":{
 							"productId":1,
-							"startTime":data,
-							"endTime":data
+							"startTime": data[i].startDate,
+							"startTime_readonly":true,
+							"endTime":data[i].endDate,
+							"endTime_readonly":true
 						}}
 						subArry.push(tempObe)
 						break;
@@ -262,56 +281,47 @@ define( function( require, exports, module ) {
 					{
 						return false;
 					}
-					else
-						return true;
+
+					return true;
 
 				}
 				_.map( data , function( obj , index){
-					switch( obj[productId] )
+					switch( obj["code"] )
 					{
-						case 4:
+						case "PK_Helper":
 							var nowDate = new Date( new Date().getTime() )._format('yyyy/MM/dd');
-							var endDate = new Date( obj[productId]  )._format('yyyy/MM/dd');
+							var endDate = new Date( obj["endDate"]  )._format('yyyy/MM/dd');
 							if( dateCompare(nowDate,endDate) ){
 								var tempObe = {"subOrder":{
-									"productId":'',
-									"startTime":data
+									"productId":4,
+									"startTime":obj["endDate"],
+									"startTime_readonly":true
 								}}
 								subArry.push(tempObe)
 							}
 
 							break;
-						case 5:
+						case "Meeting_Helper'":
 							var nowDate = new Date( new Date().getTime() )._format('yyyy/MM/dd');
-							var endDate = new Date( obj[productId]  )._format('yyyy/MM/dd');
+							var endDate = new Date( obj["endDate"]  )._format('yyyy/MM/dd');
 							if( dateCompare(nowDate,endDate) ){
 								var tempObe = {"subOrder":{
-									"productId":'',
-									"startTime":data
+									"productId":5,
+									"startTime":obj["endDate"],
+									"startTime_readonly":true
 								}}
 								subArry.push(tempObe)
 							}
 
 							break;
-						case 6:
+						case "Salary_Helper":
 							var nowDate = new Date( new Date().getTime() )._format('yyyy/MM/dd');
-							var endDate = new Date( obj[productId]  )._format('yyyy/MM/dd');
+							var endDate = new Date( obj["endDate"]  )._format('yyyy/MM/dd');
 							if( dateCompare(nowDate,endDate) ){
 								var tempObe = {"subOrder":{
-									"productId":'',
-									"startTime":data
-								}}
-								subArry.push(tempObe)
-							}
-
-							break;
-						case7:
-							var nowDate = new Date( new Date().getTime() )._format('yyyy/MM/dd');
-							var endDate = new Date( obj[productId]  )._format('yyyy/MM/dd');
-							if( dateCompare(nowDate,endDate) ){
-								var tempObe = {"subOrder":{
-									"productId":'',
-									"startTime":data
+									"productId":7,
+									"startTime":obj["endDate"],
+									"startTime_readonly":true
 								}}
 								subArry.push(tempObe)
 							}
@@ -502,7 +512,7 @@ define( function( require, exports, module ) {
 						}
 					});
 					if( !discoutFlag ){
-						util.showToast('综合折扣低于8折，必须申请特批');
+						util.showToast('子产品折扣低于8折，必须申请特批');
 						return false;
 					}
 				}else{
@@ -510,88 +520,6 @@ define( function( require, exports, module ) {
 				}
 				objData.orderEntity.order['discount'] = me.attrs.complexDiscount ;
 				objData.contract['discount'] = me.attrs.complexDiscount ;
-
-	/*			var objData = {
-					"orderEntity": {
-						"order": {
-							"enterpriseId":54936,
-							"payStatus": 1,
-							"currPayAmount": "7000",
-							"payDate": 1457280000000,
-							"receiptsAccount": "110914627510801000130",
-							"productAmount":10000,
-							"payerName": "付款的",
-							"contractNo": "1230010",
-							"amount": "7500",
-							"isCooperation": 1,
-							"isTp":0,
-							"cooperationUnit": "风dddedddd部",
-							"remark": "背时",
-							"orderType": 5,
-							"discount": 5.0
-						},
-						"subOrders": [
-							{"subOrder":{
-								 "productId": 2,
-								 "purchaseCount": "1000",
-								 "subOrderType": 0,
-								 "purchaseAmount": 0,
-								 "productAmount":0,
-								"currPayAmount":0,
-								 "startTime": 1457280000000,
-								 "endTime": 1488902400000
-								 }
-							},{
-								"subOrder":{
-								 "productId": 3,
-								 "purchaseCount": "20",
-								 "subOrderType": 1,
-								 "purchaseAmount": "2000",
-								  "productAmount":0,
-								  "currPayAmount":0,
-								 "startTime": 1457280000000,
-								 "endTime": 1488902400000
-								 }
-							}
-						],
-						"invoice": {
-							"companyName": "公司名称",
-							"invoiceHead": "XXXX公司",
-							"taxpayerIdentificationNo": "12300000",
-							"address": "地址",
-							"telephone": "15241101101",
-							"bankName": "开户行",
-							"bankAccount": "7889554122",
-							"amount":7500,
-							"departmentname": "",
-							"accountname": "ceshiqrr",
-							"cooperationUnit": "风部",
-							"remark": "背时",
-							"businessLicense": "G_201603_07_296d5212ca0d4227a1a703b3fb676119.png",
-							"businessLicenseFileName": "Y(}_X[Y$8DWYFS)22Y9N]`X.png",
-							"taxpayerQualification": "G_201603_07_922e2e96f2604ed5873c66a63197a30b.png",
-							"taxpayerQualificationFileName": "phonebg.png",
-							"invoiceType": 2
-						}
-					},
-					"enterpriseExtend": {
-						"companyGateKeyword": "门头关键自",
-						"enterpriseId":54936,
-						"useBusinessCard":0,//是否使用名片0否 1是
-						businessCardPrise:0,//名片金额
-						"companyGateRemark": "门头卑职"
-					},
-					"contract": {
-						"contractNo": "1230010",
-						"contractPrice": "7500",
-						"sealName": "合同章",
-						"contract": "G_201603_07_abe744dd182f44c4a1d1dd872aa0b993.png",
-						"contractFileName": "Y(}_X[Y$8DWYFS)22Y9N]`X.png",
-						"contractCopy": "G_201603_07_a91c762c3ada44a992f11c1d4d56ae7a.jpg",
-						"contractCopyFileName": "TI4T)TD$II@T995WBNX(D_L.jpg",
-						"discount": 0
-					}
-				};*/
 
 				util.api({
 					'url':me.attrs.url,
@@ -605,7 +533,6 @@ define( function( require, exports, module ) {
 					}
 				})
 			});
-
 		},
 		cancelEve: function(){
 			
@@ -635,6 +562,8 @@ define( function( require, exports, module ) {
 			var newMarketing = new NewMarketing( { 'view':$el,'typeFlag':param[0]} );
 		}else if( param.length==2 ){
 			var newMarketing = new NewMarketing( { 'view':$el,'typeFlag':param[0], 'paralist':param[1]} );
+		}if( param.length==3 ){
+			var newMarketing = new NewMarketing( { 'view':$el,'typeFlag':param[0], 'paralist':param[1] ,"paraName":param[2]} );
 		}
 
     }

@@ -76,9 +76,10 @@ define( function( require, exports, module ) {
            var orderType = $(e.currentTarget).attr('data-orderType');
            var opinion = $(e.currentTarget).attr('data-opinion');
            var isTp = $(e.currentTarget).attr('data-isTp');
+           var ea = $(e.currentTarget).attr('data-ea');
 
            me.trigger('orderDetail',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':false,'orderType':orderType,
-               'person':'', 'opinion':opinion ,'isTp':isTp,'state':''} );
+               'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea} );
        },
         //导出excel
         exportEve: function(e){

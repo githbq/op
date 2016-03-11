@@ -89,15 +89,16 @@ define(function(require, exports, module){
             	me.areaTree.show();
             });
 			IBSS.tempEnterprise = IBSS.tempEnterprise ? IBSS.tempEnterprise :{};
-			me.model.set('enterpriseName', IBSS.tempEnterprise['enterpriseName']);
+			me.model.set('enterprisename', IBSS.tempEnterprise['enterpriseName']);
+			debugger
 			//me.model.set('regionName', IBSS.tempEnterprise['regionName']);
 			me.model.set('address', IBSS.tempEnterprise['address']);
-			me.model.set('keyContactName', IBSS.tempEnterprise['representative']);
+			me.model.set('keycontactname', IBSS.tempEnterprise['representative']);
 			me.model.set('enterpriseFilingId', IBSS.tempEnterprise['id']);
 			me.model.set('source', IBSS.tempEnterprise['source']);
 			me.model.set('industry', IBSS.tempEnterprise['industry']);
-			me.model.set('Vendorid',IBSS.role_vendorId);
-			me.model.set('StorageTotalSpace ',0);
+			me.model.set('vendorid',IBSS.role_vendorId);
+			me.model.set('storagetotalspace ',0);
 
 			IBSS.tempEnterprise['enterpriseName'] && me.$('.enterpriseName').attr('disabled','disabled');
 			IBSS.tempEnterprise['address'] && me.$('.address').attr('disabled','disabled');
@@ -187,6 +188,7 @@ define(function(require, exports, module){
 			me.attrs['wrapper'].html( me.$view );
 			me.checkEdit(me.attrs.editFlag)
 			me.setValue();
+			(!me.$('.enterpriseAccount').val()) && me.$('.enterpriseAccount').removeAttr('disabled');
 		},
 		//数据渲染显示
 		setValue:function(){
