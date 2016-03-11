@@ -39,8 +39,10 @@ define(function (require, exports, module) {
                 if (enterpriseExtend) {
                     dataDic['companyGatePicture'] = JSON.stringify(enterpriseExtend || {});
                 }
+                var checkids=[];
                 $(subOrders).each(function (i, n) {
                     if (n.subOrder && n.subOrder.productId) {
+                        checkids.push(n.subOrder.productId);
                         var subOrder = n.subOrder;
                         for (var j in subOrder) {
                             if (subOrder.hasOwnProperty(j)) {
@@ -82,7 +84,7 @@ define(function (require, exports, module) {
                         }
                     }
                 });
-
+                dataDic['check'].value=checkids;
                 if (responseData.readonly === true) {
                     $(terminalDataItems).each(function (i, n) {
                         if (n.name.toLowerCase().indexOf('wrapper') < 0) {//包裹者不设
