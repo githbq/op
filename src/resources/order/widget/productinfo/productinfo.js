@@ -36,13 +36,11 @@ define(function (require, exports, module) {
     var TerminalInfo = require('./terminalinfo');
     var TableInfo = require('./tableinfo');
     var FormInfo = require('./forminfo');
-    var terminalDataItems = require('./dataitems/terminaldataitems');
-    var tableDataItems = require('./dataitems/tabledataitems');
-    var formDataItems = require('./dataitems/formdataitems');
     var terminalInfo, tableInfo, formInfo = null;
 
 
     var DataItem = require('./index').PageDataClass;
+
     function controlDataItems(items, name, func) {
         var find = null;
         $(items).each(function (i, n) {
@@ -61,6 +59,9 @@ define(function (require, exports, module) {
 //data:{terminalInfo:{$view:xx},tableInfo:{$view:xx},formInfo:{$view:xx},}
 //type:订单类型
     exports.showProductInfo = function (data, type, result) {
+        var terminalDataItems = require('./dataitems/terminaldataitems').getItems();
+        var tableDataItems = require('./dataitems/tabledataitems').getItems();
+        var formDataItems = require('./dataitems/formdataitems').getItems();
         var controller = getDataControllerByType(type);//根据类型获取控制器
         if (!controller) {
             return;
