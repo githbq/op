@@ -220,6 +220,7 @@ define(function (require, exports, module) {
 
             $(ids).each(function (i, n) {
                 var id = n;
+                checkTypeForPrice.call(me,e, id);
                 var timeModule = me.o_getFieldData('startTime_' + id) ? me : me.__refs.terminalInfo;
                 startDate = timeModule.o_getFieldValue('startTime_' + id);
                 endDate = timeModule.o_getFieldValue('endTime_' + id);
@@ -303,6 +304,29 @@ define(function (require, exports, module) {
             }
         }
 
+        function checkTypeForPrice(e, id) {
+
+            var me = this;
+            var typeValue = me.o_getFieldValue('type_' + id);
+            switch (typeValue.toString()) {
+                case '1':
+                case '2':
+                {
+                    me.o_setValue({name: 'purchaseAmount_' + id, value: 0})
+                    me.o_setValue({name: 'purchaseAmount_input_' + id, value: 0, readonly: true})
+                }
+                    ;
+                    break;
+                case '4':
+                case '3':
+                {
+                    me.o_setValue({name: 'purchaseAmount' + id, value: me.o_getFieldValue('purchaseAmount_input_' + id)})
+                    me.o_setValue({name: 'purchaseAmount_input_' + id, value: me.o_getFieldValue('purchaseAmount_input_' + id), readonly: false})
+                }
+                    ;
+                    break;
+            }
+        }
         return dataItems;
     }
 });
