@@ -32,11 +32,46 @@ define(function(require, exports, module){
 		render: function(){
 			var me = this;
 			me.attrs['wrapper'].html( me.$view );
-
+			debugger;
+			me.setValue();
 		},
 		//数据渲染显示
 		setValue:function(){
 			var me = this;
+			var strDom = '';
+			me.$('.ea').text(me.attrs.data.value.enterpriseAccount);
+			me.$('.account').text(me.attrs.data.value.enterpriseName);
+
+			_.map( me.attrs.data.model , function( obj ){
+
+				switch( obj["code"] )
+				{
+					case "FX_Terminal":
+						var strartTime = "",endTime = "";
+						strartTime =  new Date( obj['startDate']  )._format('yyyy/MM/dd');
+						endTime = new Date( obj['endDate']  )._format('yyyy/MM/dd');
+						strDom += " <tr> <td>"+obj['appName']+"(个)：</td><td>"+obj['quota']+"</td>" +
+						" <td>开始时间：</td><td>"+ strartTime +"</td> <td>结束时间：</td><td >"+endTime+"</td> </tr>";
+
+						break;
+					case "CRM":
+						var strartTime = "",endTime = "";
+						strartTime =  new Date( obj['startDate']  )._format('yyyy/MM/dd');
+						endTime = new Date( obj['endDate']  )._format('yyyy/MM/dd');
+						strDom += " <tr> <td>"+obj['appName']+"(个)：</td><td>"+obj['quota']+"</td>" +
+						" <td>开始时间：</td><td>"+ strartTime +"</td> <td>结束时间：</td><td >"+endTime+"</td>" +
+						" <td><input type='checkbox' name='baichuai' checked='checked' disabled='disabled' />捆绑纷享百川</td><td>" +
+						"<input type='checkbox' name='system' checked='checked'   disabled='disabled' />捆绑报数系统</td> </tr>";
+
+						break;
+					default:
+						var strartTime = "",endTime = "";
+						strartTime =  new Date( obj['startDate']  )._format('yyyy/MM/dd');
+						endTime = new Date( obj['endDate']  )._format('yyyy/MM/dd');
+						strDom += " <tr> <td colspan='2'>"+obj['appName']+"：</td> <td>开始时间：</td><td>"+ strartTime +"</td> <td>结束时间：</td><td >"+endTime+"</td></tr>";
+				}
+			});
+			me.$('.order-tab tbody').html(strDom);
 		},
 		//检测是否可编辑
 		checkEdit:function(editFlag){
