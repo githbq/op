@@ -14,13 +14,82 @@
             </div>
             <div class="list-bar-input">
                 <label for="">
+                    订单号
+                    <input type="text" ce-model="orderId">
+                </label>
+                <label for="">
+                    合同号
+                    <input type="text" ce-model="contractNo">
+                </label>
+                <label for="">
+                    企业名称
+                    <input type="text" ce-model="en">
+                </label>
+                <label for="">
+                    企业账号
+                    <input type="text" ce-model="ea">
+                </label>
+                <label for="">
+                    订单类型
+                    <select name="orderType" ce-model="orderType">
+                        <option value="">全部</option>
+                        <option value="1">办公版新购-普通</option>
+                        <option value="2">办公版新购-特批</option>
+                        <option value="3">营销版新购-普通</option>
+                        <option value="4">营销版新购-特批</option>
+                        <option value="5">办公版增购-普通</option>
+                        <option value="6">办公版增购-特批</option>
+                        <option value="7"></option>
+                        <option value="8"></option>
+                        <option value="9"></option>
+                        <option value="10"></option>
+                        <option value="11"></option>
+                        <option value="12"></option>
+                        <option value="13"></option>
+                        <option value="14"></option>
+                        <option value="15"></option>
+                        <option value="16"></option>
+                        <option value="17"></option>
+                    </select>
+                </label>
+                <label for="">
+                    提单人
+                    <input type="text" ce-model="applicantName">
+                </label>
+                <label for="">
+                    特批单
+                    <select name="" id="">
+                        <option value="1">是</option>
+                        <option value="2">否</option>
+                    </select>
+                </label>
+                <label for="">
+                    审核状态
+                    <select ce-model=""></select>
+                </label>
+                <label for="">
+                    付费状态
+                    <select ce-model=""></select>
+                </label>
+                <label for="">
+                    提单日期 <input type="text" placeholder="开始时间" class="starttime"> ———— <input type="text" placeholder="结束时间" class="endtime">
+                </label>
+                <label for="">
+                    代理商
+                    <input type="text" ce-model="agentName">
+                </label>
+                <label for="">
+                    优惠码
+                    <input type="text" ce-model="agentId">
+                </label>
+                <!--
+                <label for="">
                     申请人姓名
                     <input type="text" ce-model="applicantName">
                 </label>
                 <label for="">
                     申请类型
                     <select class="applytype" ce-model="approvalType">
-                        <!-- -->
                     </select>
                 </label>
                 <label for="">
@@ -45,6 +114,7 @@
                     开始 <input type="text" ce-model="endTimeStart" class="" onkeyup='this.value=""'>
                     结束 <input type="text" ce-model="endTimeEnd" class="" onkeyup='this.value=""'>
                 </label>
+                -->
             </div>
         </div>
         <div class="list-content">

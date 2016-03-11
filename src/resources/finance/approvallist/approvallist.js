@@ -19,8 +19,9 @@ define( function(require, exports, module){
 
 		approvalList.render();
 
-		approvalList.on('detail',function( id , eid , type , state,isCanEdit ){
-			openApproval.show( id , eid , type , state,isCanEdit);
+		approvalList.on('detail',function( id , eid , type , state, isCanEdit ){
+			
+			openApproval.show( id , eid , type , state, isCanEdit);
 		});
 		approvalList.on('detailBind',function( id , eid , type , state,isCanEdit ){
 

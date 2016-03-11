@@ -36,28 +36,28 @@ define( function( require, exports, module ) {
         });
 
         //增购办公
-        entList.on('zengbangong',function( id ){
+        entList.on('zengbangong',function( id , account ){
             console.log('zengbangong');
             console.log( id );
-            location.hash = "order/newmarketying/addOffice/" + id;
+            location.hash = "order/newmarketying/addOffice/" + id + '/' + account;
         });
         //增购营销
-        entList.on('zengyingxiao',function( id ){
+        entList.on('zengyingxiao',function( id , account ){
             console.log('zengyingxiao');
             console.log( id );
-            location.hash = "order/newmarketying/addMarkey/" + id;
+            location.hash = "order/newmarketying/addMarkey/" + id + '/' + account;
         });
         //续费办公
-        entList.on('renewbangong',function( id ){
+        entList.on('renewbangong',function( id , account ){
             console.log('renewbangong');
             console.log( id );
-            location.hash = "order/newmarketying/againOffice/" + id;
+            location.hash = "order/newmarketying/againOffice/" + id + '/' + account;
         });
         //续费营销
-        entList.on('renewyingxiao',function( id ){
+        entList.on('renewyingxiao',function( id , account ){
             console.log('renewyingxiao');
             console.log( id );
-            location.hash = "order/newmarketying/againMarkey/" + id;
+            location.hash = "order/newmarketying/againMarkey/" + id + '/' + account;
         });
 
        entDetail.on('employeeDetail',function(ea,phone){

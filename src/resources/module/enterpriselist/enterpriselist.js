@@ -41,10 +41,10 @@ define( function(require, exports, module){
             'click #btnSearch': 'search',
             'click .info-detail': 'detailEve',
             'click .info-trace': 'traceEve',
-            'click .info-zengbangong': function(e){ this.trigger('zengbangong',$(e.currentTarget).attr('data-id') )      },  //增购办公版
-            'click .info-zengyingxiao': function(e){ this.trigger('zengyingxiao',$(e.currentTarget).attr('data-id') )   },                                //增购营销版
-            'click .info-renewbangong': function(e){ this.trigger('renewbangong',$(e.currentTarget).attr('data-id') )   },                                 //续费办公版
-            'click .info-renewyingxiao': function(e){ this.trigger('renewyingxiao',$(e.currentTarget).attr('data-id') ) },                               //续费营销版
+            'click .info-zengbangong': function(e){ this.trigger('zengbangong',$(e.currentTarget).attr('data-id'), $(e.currentTarget).attr('data-account') )},      //增购办公版
+            'click .info-zengyingxiao': function(e){ this.trigger('zengyingxiao',$(e.currentTarget).attr('data-id'), $(e.currentTarget).attr('data-account') )},    //增购营销版
+            'click .info-renewbangong': function(e){ this.trigger('renewbangong',$(e.currentTarget).attr('data-id'), $(e.currentTarget).attr('data-account') )},    //续费办公版
+            'click .info-renewyingxiao': function(e){ this.trigger('renewyingxiao',$(e.currentTarget).attr('data-id'), $(e.currentTarget).attr('data-account') )},  //续费营销版
             'click .selectall': 'selectAllEve',
             'click .auth': 'authEve',
             'click .deauth': 'deauthEve'
