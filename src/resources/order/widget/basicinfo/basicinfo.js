@@ -186,10 +186,12 @@ define(function(require, exports, module){
 			var me = this;
 			me.attrs['wrapper'].html( me.$view );
 			me.checkEdit(me.attrs.editFlag)
+			me.setValue();
 		},
 		//数据渲染显示
 		setValue:function(){
 			var me = this;
+			me.model.load( me.attrs.data )
 		},
 		//检测是否可编辑
 		checkEdit:function(editFlag){
