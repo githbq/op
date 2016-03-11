@@ -64,8 +64,8 @@ define(function (require, exports, module) {
         controller(formDataItems, 'payStatus_select', function (n) {
             n.visible = true;
         });
-        controller(terminalDataItems, 'discount_1', function (n) {
-            n.visible = false;
+        controller(formDataItems, 'discount_1', function (n) {
+            n.visible = true;
         });
         common.setNotable(controller,terminalDataItems,tableDataItems,formDataItems);
         //工资助手强制
