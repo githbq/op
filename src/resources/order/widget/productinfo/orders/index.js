@@ -267,7 +267,7 @@ define(function (require, exports, module) {
             }
             terminalInfo.o_getFieldValue('');
             $(ids).each(function (i, n) {
-                    if (!n) {
+                      if (!n) {
                         return;
                     }
                     if ($.inArray(n, ids) >= 0) {
