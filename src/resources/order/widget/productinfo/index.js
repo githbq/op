@@ -176,7 +176,11 @@ define(function (require, exports, module) {
                 var me = this;
                 var errors = me.errors = [];
                 me.o_eachFields(function ($ele, data) {
-                    if ($ele && $ele.length > 0 && data.visible && $ele.is(':visible')) { //可见且dom存在
+                    if ($ele.attr('data-name') == 'payDate' ||$ele.attr('data-name')=='payerName') {
+
+                        debugger
+                    }
+                    if ($ele && $ele.length > 0 && data.visible!==false && $ele.is(':visible')) { //可见且dom存在
                         var tempErrors = me.o_validateField($ele);
                         if (tempErrors && tempErrors.length > 0) {
                             errors = errors.concat(tempErrors);
@@ -270,27 +274,27 @@ define(function (require, exports, module) {
                 if (callback && callback(value, option, $ele)) {
                     error = {field: $ele, name: validateName, option: option};
                 }
-                var addError=false;
+                var addError = false;
                 if ((!option.handler) || (option.handler && option.handler.call(me, error, value, option, $ele) !== false)) {
-                        error&& (addError=true);
+                    error && (addError = true);
                 }
                 me.trigger('validateError', value, error, option, $ele, me);
-                if (error.__enabled === false) {
+                if (error && error.__enabled === false) {
                     error = false;
-                    addError=false;
+                    addError = false;
                 }
-                addError?me.o_addValidateError($ele,option.message,validateName):me.o_removeValidateError($ele,validateName);
+                addError ? me.o_addValidateError($ele, option.message, validateName) : me.o_removeValidateError($ele, validateName);
                 return error;
             },
-            o_addValidateError: function ($ele, message,validateName) {
-                var me=this;
+            o_addValidateError: function ($ele, message, validateName) {
+                var me = this;
                 var wrapper = me.o_field_getWrapper($ele);
                 wrapper.addClass('wrapper-validate-error');
                 $ele.addClass('validate-error');
-                wrapper.find('.error').addClass(validateName + '-error').show().html(option.message);
+                wrapper.find('.error').addClass(validateName + '-error').show().html(message);
             },
-            o_removeValidateError: function ($ele,validateName) {
-                var me=this;
+            o_removeValidateError: function ($ele, validateName) {
+                var me = this;
                 var wrapper = me.o_field_getWrapper($ele);
                 wrapper.find('.error').removeClass(validateName + '-error').hide().html('');
                 wrapper.removeClass('wrapper-validate-error');
@@ -394,12 +398,20 @@ define(function (require, exports, module) {
                 var me = this;
                 var value = null;
                 if ($ele.is('[datecontrol]')) {
-                    var configStr = $ele.attr('datecontrol');
-                    var config = configStr && me.i_parseJSON(configStr) || {};
-                    if (config.type == '1') {//0开始时间 1为结束时间
-                        value = new Date($ele.val() + " 23:59:59").getTime();
+                    if (!$ele.val()) {
+                        value = '';
                     } else {
-                        value = new Date($ele.val() + " 00:00:00").getTime();
+                        try {
+                            var configStr = $ele.attr('datecontrol');
+                            var config = configStr && me.i_parseJSON(configStr) || {};
+                            if (config.type == '1') {//0开始时间 1为结束时间
+                                value = new Date($ele.val() + " 23:59:59").getTime();
+                            } else {
+                                value = new Date($ele.val() + " 00:00:00").getTime();
+                            }
+                        } catch (e) {
+                            value = '';
+                        }
                     }
                     return value;
                 }

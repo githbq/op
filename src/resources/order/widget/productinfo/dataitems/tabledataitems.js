@@ -82,7 +82,7 @@ define(function (require, exports, module) {
             //类型
             dataItems.push(new DataItem({
                 name: 'type_' + n.id,
-                value: '3',
+                value: (n.id=='7'?'2':'3'),
                 events: [
                     {
                         key: 'change',
@@ -234,7 +234,6 @@ define(function (require, exports, module) {
             }
 
             if (me.__refs.terminalInfo.o_getFieldValue('useFX')) {
-                //ids.push('2');
                 ids.push('3');
             }
 
@@ -343,8 +342,8 @@ define(function (require, exports, module) {
                 case '4':
                 case '3':
                 {
-                    me.o_setValue({name: 'purchaseAmount' + id, value: me.o_getFieldValue('purchaseAmount_input_' + id)})
-                    me.o_setValue({name: 'purchaseAmount_input_' + id, value: me.o_getFieldValue('purchaseAmount_input_' + id), readonly: false})
+                    me.o_setValue({name: 'purchaseAmount' + id, value: me.o_getFieldValue('purchaseAmount_input_' + id)});
+                    me.o_setValue({name: 'purchaseAmount_input_' + id, value: me.o_getFieldValue('purchaseAmount_input_' + id), readonly: false});
                 }
                     ;
                     break;

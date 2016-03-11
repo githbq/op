@@ -15,8 +15,10 @@ define(function (require, exports, module) {
                     formInfo: {$view: $el.find('.panel3')}
                 }, parseInt(type));
         });
-        $('#changeType').change(function(){
-            if(!$(this).val()){return;}
+        $('#changeType').change(function () {
+            if (!$(this).val()) {
+                return;
+            }
             result = productInfo.showProductInfo({
                 terminalInfo: {$view: $el.find('.panel1')},
                 tableInfo: {$view: $el.find('.panel2')},
