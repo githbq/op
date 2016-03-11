@@ -18,19 +18,19 @@
 
                     <div class="error"></div>
                 </div>
-                <div class="field">
-                    <label>
-                        <span class="label">开始日期</span>
-                    </label>
-                    <input data-name="startTime_2" datecontrol="{'type':0,'comment':'type为0表示开始时间'}" type="text" class="startTime" name="startTime"/>
+                <!--<div class="field">-->
+                    <!--<label>-->
+                        <!--<span class="label">开始日期</span>-->
+                    <!--</label>-->
+                    <!--<input data-name="startTime_2" datecontrol="{'type':0,'comment':'type为0表示开始时间'}" type="text" class="startTime" name="startTime"/>-->
 
-                </div>
-                <div class="field">
-                    <label>
-                        <span class="label">结束日期</span>
-                    </label>
-                    <input data-name="endTime_2" type="text" datecontrol="{'type':0,'comment':'type为1表示结束时间'}" class="startTime" name="startTime"/>
-                </div>
+                <!--</div>-->
+                <!--<div class="field">-->
+                    <!--<label>-->
+                        <!--<span class="label">结束日期</span>-->
+                    <!--</label>-->
+                    <!--<input data-name="endTime_2" type="text" datecontrol="{'type':0,'comment':'type为1表示结束时间'}" class="startTime" name="startTime"/>-->
+                <!--</div>-->
             </div>
         </div>
         <div class="field_row" data-productid="3">
@@ -116,30 +116,30 @@
                 </div>
                 <div class="field_wrapper">
                     <div class="field">
-                        <input type="text" class="purchaseCount" data-name="purchaseCount_2" name="purchaseCount_2"/>
+                        <input type="text" class="purchaseCount" data-name="purchaseCount_1" name="purchaseCount_1"/>
 
                         <div class="error"></div>
                     </div>
                     <div class="field">
-                        <label>
-                            <span class="label">开始日期</span>
+                        <label class="date">
+                            <span class="label ">开始日期</span>
                         </label>
                         <input data-name="startTime_1" datecontrol="{'type':0,'comment':'type为0表示开始时间'}" type="text" class="startTime" name="startTime"/>
 
                     </div>
-                    <div class="field">
-                        <label>
+                    <div class="field ">
+                        <label  class="date">
                             <span class="label">结束日期</span>
                         </label>
                         <input data-name="endTime_1" type="text" datecontrol="{'type':0,'comment':'type为1表示结束时间'}" class="startTime" name="startTime"/>
                     </div>
                     <div class="field" data-name="kunbangWrapper" data-config="{'visible':false}">
                         <label>
-                            <input type="checkbox" class="" data-name="kunbang" value="1" checked="checked"/>
+                            <input type="checkbox" class="" data-name="kunbang" value="1"/>
                             <span class="label">捆绑纷享百川</span>
                         </label>
                         <label>
-                            <input type="checkbox" class="" name="kunbang" value="2" checked="checked"/>
+                            <input type="checkbox" class="" data-name="kunbang" value="2"/>
                             <span class="label">捆绑报数系统</span>
                         </label>
                     </div>
@@ -232,7 +232,7 @@
                             <span>赠送</span>
                         </label>
                         <label>
-                            <input type="radio" name="type_8" data-name="type_8" value="3"/>
+                            <input type="radio" name="type_8" data-name="type_8" value="4"/>
                             <span>正常</span>
                         </label>
                     </div>
@@ -505,7 +505,6 @@
             <div class="field_row_head">
             </div>
             <div class="field_wrapper">
-
                 <div class="field">
                     <label>
                         <span class="label">合同照片</span>
@@ -514,6 +513,9 @@
                     <input type="hidden" data-name="contract"/>
                     <input data-name="contract_file" type="file" class="" name="" accept="image/gif,image/jpeg,image/png"/>
                     <span class="supporttype">(支持png、jpg、gif)</span>
+                </div>
+                <div class="field">
+                    <img class="product-image" data-name="contract-image" />
                 </div>
             </div>
         </div>
@@ -530,6 +532,9 @@
                     <input data-name="contractCopy_file" type="file" class="" name="" accept="image/gif,image/jpeg,image/png"/>
                     <span class="supporttype">(支持png、jpg、gif)</span>
                 </div>
+                <div class="field">
+                    <img class="product-image" data-name="contractCopy-image" />
+                </div>
             </div>
         </div>
         <div class="field_row">
@@ -544,6 +549,9 @@
                     <input type="hidden" data-name="companyGatePicture"/>
                     <input data-name="companyGatePicture_file" type="file" class="" name="" accept="image/gif,image/jpeg,image/png"/>
                     <span class="supporttype">(支持png、jpg、gif)</span>
+                </div>
+                <div class="field">
+                    <img class="product-image" data-name="companyGatePicture-image" />
                 </div>
             </div>
         </div>

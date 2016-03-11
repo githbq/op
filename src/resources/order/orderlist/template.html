@@ -19,7 +19,10 @@
 				<a data-id="<%=item.order.id%>" >收尾款</a>&nbsp;&nbsp;
 				<a data-id="<%=item.order.id%>">删除</a>&nbsp;&nbsp;
 
-                <a data-id="<%=item.order.id%>" >查看</a>&nbsp;&nbsp;
+                <a class="order-detail" data-id="<%=item.order.id%>"  data-enterpriseId="<%=item.order.enterpriseId%>"
+						data-orderType="<%=item.order.orderType%>" data-opinion="<%=item.order.rejectReason ?item.order.rejectReason :'' %>"
+				   data-isTp="<%=item.order.isTp%>"
+						>查看</a>&nbsp;&nbsp;
 
 			</td>
 			<td></td>

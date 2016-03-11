@@ -14,8 +14,8 @@ define(function (require, exports, module) {
         }
     };
     //转换输入值
-    exports.transferDataItem = function (terminalDataItems, tableDataItems, formDataItems,controller) {//转换数据项
-        common.setCommonData(controller, terminalDataItems, tableDataItems, formDataItems,9);
+    exports.transferDataItem = function (terminalDataItems, tableDataItems, formDataItems,controller,responseData) {//转换数据项
+
         controller(terminalDataItems,'useFX',function(n){
             n.value = false;
             n.readonly=false;
@@ -30,7 +30,7 @@ define(function (require, exports, module) {
             n.visible = false;
         });
         controller(terminalDataItems,'purchaseAmount_3',function(n){
-            n.visible = false;
+            n.visible = true;
         });
 
         controller(terminalDataItems,'businesscard',function(n){
@@ -46,7 +46,7 @@ define(function (require, exports, module) {
             });
         });
 
-
+        common.setCommonData(controller, terminalDataItems, tableDataItems, formDataItems,9,responseData);
         return {terminalDataItems: terminalDataItems, tableDataItems: tableDataItems, formDataItems: formDataItems};
     }
 

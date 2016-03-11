@@ -14,8 +14,8 @@ define(function (require, exports, module) {
         }
     };
     //转换输入值
-    exports.transferDataItem = function (terminalDataItems, tableDataItems, formDataItems,controller) {//转换数据项
-        common.setCommonData(controller, terminalDataItems, tableDataItems, formDataItems,1);
+    exports.transferDataItem = function (terminalDataItems, tableDataItems, formDataItems,controller,responseData) {//转换数据项
+
         controller(terminalDataItems, 'typewrapper_3', function (n) {
             n.visible = false;
         });
@@ -45,7 +45,7 @@ define(function (require, exports, module) {
             });
         });
 
-
+        common.setCommonData(controller, terminalDataItems, tableDataItems, formDataItems,1,responseData);
         return {terminalDataItems: terminalDataItems, tableDataItems: tableDataItems, formDataItems: formDataItems};
     }
 

@@ -19,17 +19,17 @@
 	<p>
 		<label for="">
 			<span>地址 <b class="check-edit">*</b></span>
-			<input type="text" ce-model="address" class="required-basic address">
+			<input type="text" ce-model="address" class="required-basic address edit-flag">
 		</label>
 		<label for="">
 			<span>行业 <b class="check-edit">*</b></span>
-			<select name="" class="e-industry required-basic" ce-model="industry"></select>
+			<select name="" class="e-industry required-basic" ce-model="industry" disabled="disabled"></select>
 		</label>
 	</p>
 	<p>
 		<label for="">
 			<span>来源 <b class="check-edit">*</b></span>
-			<select name="" class="e-source required-basic" ce-model="source"></select>
+			<select name="" class="e-source required-basic" ce-model="source" disabled="disabled"></select>
 		</label>
 		<label for="">
 			<span>团队类型 <b class="check-edit">*</b></span>
@@ -65,10 +65,10 @@
 	<p>
 		<label for="">
 			<span>是否有销售团队 <b class="check-edit">*</b></span>
-			<select name="" id="" ce-model="isSaleTeam edit-flag" class="required-basic">
+			<select name=""  ce-model="isSaleTeam" class="required-basic edit-flag">
 				<option value="">请选择</option>
-				<option value="1">是</option>
-				<option value="0">否</option>
+				<option value="true">是</option>
+				<option value="false">否</option>
 			</select>
 		</label>
 		<label for="">
@@ -81,16 +81,16 @@
 			<span>是否首面签约</span>
 			<select name="" ce-model="isFirstmeetingSign" class="edit-flag">
 				<option value="">请选择</option>
-				<option value="1">是</option>
-				<option value="0">否</option>
+				<option value="true">是</option>
+				<option value="false">否</option>
 			</select>
 		</label>
 		<label for="">
 			<span>是否会销 <b class="check-edit">*</b></span>
 			<select name="" id="" ce-model="isWillPin" class="required-basic edit-flag">
 				<option value="">请选择</option>
-				<option value="1">是</option>
-				<option value="0">否</option>
+				<option value="true">是</option>
+				<option value="false">否</option>
 			</select>
 		</label>
 	</p>
@@ -99,8 +99,8 @@
 			<span>是否陌拜 <b class="check-edit">*</b></span>
 			<select name="" ce-model="isStrangerVisits" class="required-basic edit-flag">
 				<option value="">请选择</option>
-				<option value="1">是</option>
-				<option value="0">否</option>
+				<option value="true">是</option>
+				<option value="false">否</option>
 			</select>
 		</label>
 		<label for="">
@@ -113,8 +113,8 @@
 			<span>是否转介绍 <b class="check-edit">*</b></span>
 			<select name="" id="" ce-model="isReferral" class="required-basic edit-flag">
 				<option value="">请选择</option>
-				<option value="1">是</option>
-				<option value="0">否</option>
+				<option value="true">是</option>
+				<option value="false">否</option>
 			</select>
 		</label>
 	</p>

@@ -1,15 +1,43 @@
-<div class="p-list order-content" js="true">
-	<div class=" m-addenterprise">
-		<div class="content-box" style="clear:both;">
-			<div class="enterprise-content ">
-				<div class="common--explain"></div>
-				<h4>基本信息</h4>
-				<div class="common--basic"></div>
-				<h4>产品信息</h4>
-				<div class="common--product"></div>
-				<h4>发票收据</h4>
-				<div class="common--product"></div>
+<div class="order-content" js="true">
+
+	<div class="content-box" style="clear:both;">
+		<div class="m-addenterprise " style="width:1200px;">
+			<div class="common--explain" ></div>
+			<h4 style="font-weight: bold; font-size: 18px; padding-top: 8px; padding-bottom: 8px;">基本信息</h4>
+			<div class="common--basic"></div>
+			<h4 style="font-weight: bold; font-size: 18px; padding-top: 8px; padding-bottom: 8px;">产品信息</h4>
+			<div class="common-product productinfo">
+				<div class="common-terminalinfo"></div>
+				<div class="common-tableinfo"></div>
+				<div class="common-forminfo"></div>
 			</div>
-		</div
+			<div class="common--invioce"></div>
+		</div>
+		<div>
+			<hr/>
+			<h4 style="font-weight: bold; font-size: 18px; padding-top: 8px; padding-bottom: 8px;">上一审批意见</h4>
+			<p>暂无</p>
+		</div>
+		<div class="state state-refuse">
+			<hr/>
+			<p class="approval-action">
+				<button class="state  u-btn-blue action-submit">保存提交</button>
+				<button class="state  u-btn-blue action-save">保存</button>
+			</p>
+		</div>
+
+		<div class="approval-action state state-wait">
+			<hr/>
+			<p>
+			<h3>审批意见</h3>
+			<textarea ce-model="comment"></textarea>
+			</p>
+			<p class="actions">
+				<button class="state  u-btn-blue action-resend" style="margin:0px 5px;">保存通过</button>
+				<button class="u-btn-blue action-agree"> 同意 </button>
+				<button class="u-btn-red action-reject"> 驳回 </button>
+			</p>
+		</div>
 	</div>
+
 </div>

@@ -1,22 +1,21 @@
 define( function( require, exports, module ) {
     var IBSS = window.IBSS,
-        TPL = IBSS.tpl;
         TplEvent = IBSS.tplEvent;
 
     var Pagination = require('common/widget/pagination/pagination');
-    var Slider = require('common/widget/slider/slider');
+    //var Slider = require('common/widget/slider/slider');
+    var DetailApproval = require('../detailapproval/detailapproval');
     var tem = $( require('./template.html') );
 
     var statusMap = {},industryMap = {},sourceMap = {};
 
     var statusAry = ['','已通过','待审核','已过期','撤回'];
     var payStatusAry = ['','分期','全款','未付'];
-    var orderTypeAry = ['办公版新购-普通','办公版新购-特批','营销版新购-普通','营销版新购-特批','办公版增购-普通',
+    var orderTypeAry = ['','办公版新购-普通','办公版新购-特批','营销版新购-普通','营销版新购-特批','办公版增购-普通',
                         '办公版增购-特批','营销版增购-普通','营销版增购-特批','办公版续费-普通','办公版续费-特批',
                         '营销版续费-普通','营销版续费-特批','关联自注册办公版-普通','关联自注册办公版-特批',
                         '关联自注册营销版-普通','关联自注册营销版-特批','收尾款'
                         ];
-    
    /**
     *
     * 代理商用户
@@ -55,21 +54,32 @@ define( function( require, exports, module ) {
         },
         trTpl: _.template( tem.filter('#orderList').html() ),
         events: {
-			'click .search':'searchEve'
-            
+			'click .search':'searchEve',
+            'click .order-detail':'orderDetailEve'
         },
-
         elements:{
             'tbody': 'tbody',
             '.putStartTime': 'putStartTime',
-            '.putEndTime': 'putEndTime',
+            '.putEndTime': 'putEndTime'
         },
 
         searchEve: function(e){
             this.pagination.setPage( 0,false );
             this.getList();
         },
+       //查看详情
+       orderDetailEve:function( e ){
+           var me = this;
 
+           var id = $(e.currentTarget).attr('data-id');
+           var enterpriseId = $(e.currentTarget).attr('data-enterpriseId');
+           var orderType = $(e.currentTarget).attr('data-orderType');
+           var opinion = $(e.currentTarget).attr('data-opinion');
+           var isTp = $(e.currentTarget).attr('data-isTp');
+
+           me.trigger('orderDetail',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':false,'orderType':orderType,
+               'person':'', 'opinion':opinion ,'isTp':isTp,'state':''} );
+       },
         //导出excel
         exportEve: function(e){
             var me = this;
@@ -179,6 +189,11 @@ define( function( require, exports, module ) {
         var $el = exports.$el;
 
         var orderList = new OrderList( {'view': $el.find('.m-orderlist')} );
+        var detailApproval = null;
+        orderList.on('orderDetail', function( options ){
+            detailApproval = new DetailApproval();
+            detailApproval.show( options );
+        })
 
     }
 } );

@@ -16,8 +16,8 @@ define(function (require, exports, module) {
 
 
     //转换输入值
-    exports.transferDataItem = function (terminalDataItems, tableDataItems, formDataItems, controller) {//转换数据项
-        common.setCommonData(controller, terminalDataItems, tableDataItems, formDataItems,7);
+    exports.transferDataItem = function (terminalDataItems, tableDataItems, formDataItems, controller,responseData) {//转换数据项
+
         controller(terminalDataItems, 'type_8', function (n) {
             n.visible = false;
         });
@@ -68,6 +68,8 @@ define(function (require, exports, module) {
         common.setNotable(controller,terminalDataItems,tableDataItems,formDataItems);
         //工资助手强制
         common.setGZHelper(controller,terminalDataItems,tableDataItems,formDataItems);
+        //增购默认时间
+        common.setAddOrderTime(controller,terminalDataItems,tableDataItems,formDataItems);
         //工资助手强制 end
         //$(['currPayAmount_1', 'currPayAmount_2', 'currPayAmount_3', 'currPayAmount', 'currPayAmount_5', 'currPayAmount_7']).each(function (i, n) {
         //    controller(formDataItems, n, function (n) {
@@ -75,7 +77,7 @@ define(function (require, exports, module) {
         //    });
         //});
 
-
+        common.setCommonData(controller, terminalDataItems, tableDataItems, formDataItems,7,responseData);
         return {terminalDataItems: terminalDataItems, tableDataItems: tableDataItems, formDataItems: formDataItems};
     }
 

@@ -60,7 +60,7 @@ define(function(require, exports, module){
 			var me = this;
 
 			if(me.checkVaild()){
-				return me.model.all();
+				return me.model.all()||{};
 			}
 			return false;
 		},

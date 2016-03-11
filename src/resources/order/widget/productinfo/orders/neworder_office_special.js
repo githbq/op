@@ -16,8 +16,7 @@ define(function (require, exports, module) {
 
 
     //转换输入值
-    exports.transferDataItem = function (terminalDataItems, tableDataItems, formDataItems, controller) {//转换数据项
-        common.setCommonData(controller, terminalDataItems, tableDataItems, formDataItems,2);
+    exports.transferDataItem = function (terminalDataItems, tableDataItems, formDataItems, controller,responseData) {//转换数据项
         controller(terminalDataItems, 'typewrapper_3', function (n) {
             n.visible = true;
         });
@@ -48,7 +47,7 @@ define(function (require, exports, module) {
         //工资助手强制 end
 
 
-
+        common.setCommonData(controller, terminalDataItems, tableDataItems, formDataItems,2,responseData);
         return {terminalDataItems: terminalDataItems, tableDataItems: tableDataItems, formDataItems: formDataItems};
     }
 
