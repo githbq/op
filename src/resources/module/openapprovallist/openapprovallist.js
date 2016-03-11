@@ -3,6 +3,9 @@
  * 查看 企业开通审批详情
  * 用于 渠道人员 支持人员 查看 审批详情
  *
+ * 支持人员(小助手) 用审批列表 
+ * 渠道人员 用审批列表
+ * 财务人员 用审批列表
  */
 
 define( function(require, exports, module){
@@ -15,13 +18,17 @@ define( function(require, exports, module){
         init: function(){
             ApprovalList.__super__.init.apply( this , arguments );
             var me = this;
+
 			me.attrs.state = 'wait';
+            
             me.pagination = new Pagination({
                 'wrapper': me.$view.find('.list-pager'),
                 'pageSize': 20,
                 'pageNumber': 0
             });
 			
+
+            //是否显示 系统全部审批列表
 			if(me.attrs.limits){
 				me.$limitsShow.css({'display':'inline-block'});
 			}else{
@@ -29,6 +36,8 @@ define( function(require, exports, module){
 				me.$limitsShow.hide();
 			}
 			
+
+
             me.pagination.render();
             me.pagination.onChange = function(){
                 me.getList();
@@ -65,30 +74,33 @@ define( function(require, exports, module){
         view: contentStr,
 
         elements:{
-            '.applytype': 'applytype',
-            '.starttime': 'starttime',
-			'.limits-show': 'limitsShow',
-            '.endtime': 'endtime',
-            'tbody': 'tbody'
+            '.applytype': 'applytype',      //
+            '.starttime': 'starttime',      //开始时间
+			'.limits-show': 'limitsShow',   //
+            '.endtime': 'endtime',          //结束时间
+            'tbody': 'tbody'                //
         },
 
         events: {
-            'click .btn-search': 'searchEve',
-            'click .detail': 'detailEve',
-            'click .toggle b': 'toggleEve',
-			'click .detail-bind':'detailBindEve'
+            'click .btn-search': 'searchEve',       //查询
+            'click .detail': 'detailEve',           //详情
+            'click .toggle b': 'toggleEve',         //切换
+			'click .detail-bind':'detailBindEve'    //查看详情
         },
 
         /**
          *
-         * 获取审批类型 枚举值
+         * 获取需要的枚举值
          */
         getEnums: function(){
             var me = this;
 
             util.getEnumsSelect('APPROVAL_TYPE',me.$applytype,function( data ){
                 me.getList();
-            })
+            });
+
+            
+
         },
 
         //渲染至页面
