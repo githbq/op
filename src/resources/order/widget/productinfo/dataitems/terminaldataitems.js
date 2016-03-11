@@ -32,17 +32,34 @@ define(function (require, exports, module) {
             value: ''
         }));
 
+
         //企业ID
         dataItems.push(new DataItem({
             name: 'enterpriseId',
             value: 1
         }));
 
-        //企业ID
+        //使用销客终端复选框
         dataItems.push(new DataItem({
             name: 'useFX',
             value: true,
-            readonly: true
+            readonly: true,
+            events: [
+                {
+                    key: 'change', value: function (e) {
+                    priceComput.call(this,e);
+                }
+                }]
+        }));
+        //使用销客终端复选框
+        dataItems.push(new DataItem({
+            name: 'useCRM',
+            events: [
+                {
+                    key: 'change', value: function (e) {
+                    priceComput.call(this,e);
+                }
+                }]
         }));
         var typeIds = ['1', '3', '8'];
 
@@ -61,7 +78,7 @@ define(function (require, exports, module) {
                             if (n == '1') {//CRM的数量变化还要计算一下原价
                                 changeForGetPrice.call(me, e);
                             } else {
-                                checkTypeForPrice.call(me,e, n);
+                                checkTypeForPrice.call(me, e, n);
                                 priceComput.call(me, e);
                             }
                         } else {
@@ -77,7 +94,7 @@ define(function (require, exports, module) {
                                             me.o_setValue({name: 'purchaseAmount_' + n, value: response.model});
                                             me.o_setValue({name: 'purchaseAmount_input_' + n, value: response.model});
                                             me.o_setValue({name: 'productAmount_' + n, value: response.model});
-                                            checkTypeForPrice.call(me,e, n);
+                                            checkTypeForPrice.call(me, e, n);
                                             priceComput.call(me, e);
                                         } else {
                                             me.o_setValue({name: 'purchaseAmount_input_' + n, value: ''});
@@ -240,7 +257,7 @@ define(function (require, exports, module) {
             readonly: true
         }));
         function checkTypeForPrice(e, id) {
-            
+
             var me = this;
             var typeValue = me.o_getFieldValue('type_' + id);
             switch (typeValue.toString()) {
