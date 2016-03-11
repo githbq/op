@@ -13,8 +13,8 @@ define(function (require, exports, module) {
                     n.value = '续费';
                 }
             });
+            var bigArr = terminalDataItems.concat(tableDataItems).concat(formDataItems);
             if (responseData) {
-                var bigArr = terminalDataItems.concat(tableDataItems).concat(formDataItems);
                 var dataDic = toNameDictionary(bigArr);
                 var order, contract, enterpriseExtend, subOrders;
                 if (responseData.data) {
@@ -58,12 +58,12 @@ define(function (require, exports, module) {
                         });
                     }
                 }
-                var checkids =[];
-                if( dataDic['check'] && dataDic['check'].value){
-                    if($.isArray(dataDic['check'].value)){
-                        checkids=checkids.concat(dataDic['check'].value);
-                    }else{
-                        checkids=dataDic['check'].value.split(',');
+                var checkids = [];
+                if (dataDic['check'] && dataDic['check'].value) {
+                    if ($.isArray(dataDic['check'].value)) {
+                        checkids = checkids.concat(dataDic['check'].value);
+                    } else {
+                        checkids = dataDic['check'].value.split(',');
                     }
                 }
                 $(subOrders).each(function (i, n) {
@@ -114,26 +114,28 @@ define(function (require, exports, module) {
                 dataDic['check'].value = checkids;
                 if (responseData.readonly === true) {
                     $(terminalDataItems).each(function (i, n) {
-                        if (n.name.toLowerCase().indexOf('wrapper') < 0 && n.name!='table_type') {//包裹者不设
+                        if (n.name.toLowerCase().indexOf('wrapper') < 0 && n.name != 'table_type') {//包裹者不设
                             n.readonly = true;
 
                         }
                     })
                     ;
                     $(tableDataItems).each(function (i, n) {
-                        if (n.name.toLowerCase().indexOf('wrapper') < 0 && n.name!='table_type') {//包裹者不设
+                        if (n.name.toLowerCase().indexOf('wrapper') < 0 && n.name != 'table_type') {//包裹者不设
                             n.readonly = true;
                         }
                     });
                     $(formDataItems).each(function (i, n) {
-                        if (n.name.toLowerCase().indexOf('wrapper') < 0 && n.name!='table_type') {//包裹者不设
+                        if (n.name.toLowerCase().indexOf('wrapper') < 0 && n.name != 'table_type') {//包裹者不设
                             n.readonly = true;
                         }
                     });
                 }
             }
 
-
+            $(bigArr).each(function (i, n) {
+                n.attr = {maxlength: 50};
+            })
         }
         ;
         function setValue(dataDic, key, value, callback) {
@@ -274,7 +276,7 @@ define(function (require, exports, module) {
             }
             terminalInfo.o_getFieldValue('');
             $(ids).each(function (i, n) {
-                      if (!n) {
+                    if (!n) {
                         return;
                     }
                     if ($.inArray(n, ids) >= 0) {
