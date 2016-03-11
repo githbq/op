@@ -47,8 +47,6 @@ define(function (require, exports, module) {
         var typeIds = ['1', '3', '8'];
 
         $(typeIds).each(function (i, n) {
-
-
             //服务人数
             dataItems.push(new DataItem({
                 name: 'purchaseCount_' + n,
@@ -56,33 +54,38 @@ define(function (require, exports, module) {
                 __silent: true,
                 events: [{
                     key: 'change', value: function (e) {
-                        debugger
                         var me = this;
                         var $dom = $(e.target);
-                        $dom.val($dom.val().replace(/[^\.\d]/g, ''));
-                        me.o_field_getData($dom).__silent = false;
-                        if ($dom.val()) {
-                            me.attrs.apiPool.api_getServicePrice({
-                                data: {enterpriseId: me.o_getFieldValue('enterpriseId'), personCount: $dom.val()}, success: function (response) {
-                                    //{"login":true,"model":2000,"privilege":true,"success":true,"value":{"model":2000}}
-                                    if (response.success) {
-                                        debugger
-                                        me.o_setValue({name: 'purchaseAmount_' + n, value: response.model});
-                                        me.o_setValue({name: 'purchaseAmount_input_' + n, value: response.model});
-                                        me.o_setValue({name: 'productAmount_' + n, value: response.model});
-                                        checkTypeForPrice.call(me, n);
-                                        priceComput.call(me, e);
-                                    } else {
-                                        me.o_setValue({name: 'purchaseAmount_input_' + n, value: ''});
-                                        me.o_setValue({name: 'purchaseAmount_' + n, value: ''});
-                                        me.o_setValue({name: 'productAmount_' + n, value: ''})
-                                    }
-                                }
-                            });
+                        if (n != '3') {
+                            checkTypeForPrice.call(me, n);
+                            priceComput.call(me, e);
                         } else {
-                            me.o_setValue({name: 'purchaseAmount_input_' + n, value: ''});
-                            me.o_setValue({name: 'purchaseAmount_' + n, value: ''});
-                            me.o_setValue({name: 'productAmount_' + n, value: ''})
+
+                            $dom.val($dom.val().replace(/[^\.\d]/g, ''));
+                            me.o_field_getData($dom).__silent = false;
+                            if ($dom.val()) {
+                                me.attrs.apiPool.api_getServicePrice({
+                                    data: {enterpriseId: me.o_getFieldValue('enterpriseId'), personCount: $dom.val()}, success: function (response) {
+                                        //{"login":true,"model":2000,"privilege":true,"success":true,"value":{"model":2000}}
+                                        if (response.success) {
+                                            debugger
+                                            me.o_setValue({name: 'purchaseAmount_' + n, value: response.model});
+                                            me.o_setValue({name: 'purchaseAmount_input_' + n, value: response.model});
+                                            me.o_setValue({name: 'productAmount_' + n, value: response.model});
+                                            checkTypeForPrice.call(me, n);
+                                            priceComput.call(me, e);
+                                        } else {
+                                            me.o_setValue({name: 'purchaseAmount_input_' + n, value: ''});
+                                            me.o_setValue({name: 'purchaseAmount_' + n, value: ''});
+                                            me.o_setValue({name: 'productAmount_' + n, value: ''})
+                                        }
+                                    }
+                                });
+                            } else {
+                                me.o_setValue({name: 'purchaseAmount_input_' + n, value: ''});
+                                me.o_setValue({name: 'purchaseAmount_' + n, value: ''});
+                                me.o_setValue({name: 'productAmount_' + n, value: ''})
+                            }
                         }
                     }
                 }],
