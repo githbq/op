@@ -47,6 +47,12 @@ define(function (require, exports, module) {
                                 setValue(dataDic, j + '_' + subOrder.productId, subOrder[j]);
                             }
                         }
+                        if (subOrder['startTime_readonly'] === true && dataDic['startTime_' + subOrder.productId]) {
+                            dataDic['startTime_' + subOrder.productId].readonly = true;
+                        }
+                        if (subOrder['endTime_readonly'] === true && dataDic['endTime_' + subOrder.productId]) {
+                            dataDic['endTime_' + subOrder.productId].readonly = true;
+                        }
                         if (n.productExtends) {//有拓展属性
                             $(n.productExtends).each(function (index, kv) {
                                 switch (kv.key) {
