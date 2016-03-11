@@ -23,7 +23,7 @@ define(function (require, exports, module) {
         controller(terminalDataItems, 'typewrapper_1', function (n) {
             n.visible = true;
         });
-        controller(tableDataItems, 'table_type_7', function (n) {
+        controller(tableDataItems, 'type_7', function (n) {
             n.visible = false;
         });
         controller(terminalDataItems, 'purchaseAmount_input_8', function (n) {
@@ -71,7 +71,7 @@ define(function (require, exports, module) {
         controller(formDataItems, 'payStatus_select', function (n) {
             n.visible = true;
         });
-        controller(tableDataItems, 'table_type', function (n) {
+        controller(tableDataItems, 'table_type_wrapper', function (n) {
             n.visible = true;
         });
         //工资助手强制

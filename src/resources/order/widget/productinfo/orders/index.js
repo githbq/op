@@ -114,19 +114,19 @@ define(function (require, exports, module) {
                 dataDic['check'].value = checkids;
                 if (responseData.readonly === true) {
                     $(terminalDataItems).each(function (i, n) {
-                        if (n.name.toLowerCase().indexOf('wrapper') < 0 && n.name != 'table_type') {//包裹者不设
+                        if (n.name.toLowerCase().indexOf('wrapper') < 0) {//包裹者不设
                             n.readonly = true;
 
                         }
                     })
                     ;
                     $(tableDataItems).each(function (i, n) {
-                        if (n.name.toLowerCase().indexOf('wrapper') < 0 && n.name != 'table_type') {//包裹者不设
+                        if (n.name.toLowerCase().indexOf('wrapper') < 0) {//包裹者不设
                             n.readonly = true;
                         }
                     });
                     $(formDataItems).each(function (i, n) {
-                        if (n.name.toLowerCase().indexOf('wrapper') < 0 && n.name != 'table_type') {//包裹者不设
+                        if (n.name.toLowerCase().indexOf('wrapper') < 0) {//包裹者不设
                             n.readonly = true;
                         }
                     });
@@ -208,7 +208,7 @@ define(function (require, exports, module) {
         };
 
         exports.setGZHelper = function (controller, terminalDataItems, tableDataItems, formDataItems) {
-            controller(tableDataItems, 'table_type_7', function (n) {
+            controller(tableDataItems, 'type_7', function (n) {
                 n.visible = false;
             });
             controller(tableDataItems, 'startTime_7', function (n) {

@@ -64,7 +64,7 @@ define(function (require, exports, module) {
         controller(formDataItems, 'payStatus_select', function (n) {
             n.visible = true;
         });
-        controller(tableDataItems, 'table_type', function (n) {
+        controller(tableDataItems, 'table_type_wrapper', function (n) {
             n.visible = true;
         });
         common.setNoGZHelper(controller,terminalDataItems, tableDataItems, formDataItems);

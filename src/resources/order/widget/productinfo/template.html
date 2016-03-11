@@ -276,7 +276,7 @@
                 <th>开始日期 <span class="red">*</span></th>
                 <th>结束日期 <span class="red">*</span></th>
                 <th>产品原价(元)</th>
-                <th data-name="table_type" data-config="{'visible':false}">类型 <span class="red">*</span></th>
+                <th data-name="table_type_wrapper" data-config="{'visible':false}">类型 <span class="red">*</span></th>
                 <th>合同金额(元) <span class="red">*</span></th>
                 <th>折扣</th>
                 <th></th>
@@ -289,10 +289,10 @@
                 <td><input data-name="startTime_4" type="text" datecontrol="{'type':0}"/></td>
                 <td><input data-name="endTime_4" type="text" datecontrol="{'type':0}"/></td>
                 <td class="field_text" data-name="productAmount_4"></td>
-                <td data-name="table_type">
-                    <label> <input data-name="table_type_4" value="1" type="radio" name="pk_type"/>试用 </label>
-                    <label> <input data-name="table_type_4" value="2" type="radio" name="pk_type"/>赠送 </label>
-                    <label> <input data-name="table_type_4" value="3" type="radio" name="pk_type" checked="checked"/>折扣 </label>
+                <td data-name="table_type_wrapper">
+                    <label> <input data-name="type_4" value="1" type="radio" name="pk_type"/>试用 </label>
+                    <label> <input data-name="type_4" value="2" type="radio" name="pk_type"/>赠送 </label>
+                    <label> <input data-name="type_4" value="3" type="radio" name="pk_type" checked="checked"/>折扣 </label>
                 </td>
                 <td><input type="text" data-type="number" data-name="purchaseAmount_4"/></td>
                 <td><span data-name="discount_4" class="field_text">9.9</span></td>
@@ -304,10 +304,10 @@
                 <td><input data-name="startTime_5" type="text" datecontrol="{'type':0}"/></td>
                 <td><input data-name="endTime_5" type="text" datecontrol="{'type':0}"/></td>
                 <td class="field_text" data-name="productAmount_5"></td>
-                <td data-name="table_type">
-                    <label> <input data-name="table_type_5" value="1" type="radio" name="hy_type"/>试用 </label>
-                    <label> <input data-name="table_type_5" value="2" type="radio" name="hy_type"/>赠送 </label>
-                    <label> <input data-name="table_type_5" value="3" type="radio" name="hy_type" checked="checked"/>折扣 </label>
+                <td data-name="table_type_wrapper">
+                    <label> <input data-name="type_5" value="1" type="radio" name="hy_type"/>试用 </label>
+                    <label> <input data-name="type_5" value="2" type="radio" name="hy_type"/>赠送 </label>
+                    <label> <input data-name="type_5" value="3" type="radio" name="hy_type" checked="checked"/>折扣 </label>
                 </td>
                 <td><input type="text" data-type="number" data-name="purchaseAmount_5"/></td>
                 <td><span data-name="discount_5" class="field_text">9.9</span></td>
@@ -319,10 +319,10 @@
             <!--<td><input data-name="startTime_6" type="text" datecontrol="{'type':0}"/></td>-->
             <!--<td><input data-name="endTime_6" type="text" datecontrol="{'type':0}"/></td>-->
             <!--<td class="field_text" data-name="productAmount_6"></td>-->
-            <!--<td data-name="table_type">-->
-            <!--<label> <input data-name="table_type_6" value="1" type="radio" name="hr_type"/>试用 </label>-->
-            <!--<label> <input data-name="table_type_6" value="2" type="radio" name="hr_type"/>赠送 </label>-->
-            <!--<label> <input data-name="table_type_6" value="3" type="radio" name="hr_type" checked="checked"/>折扣 </label>-->
+            <!--<td data-name="table_type_wrapper">-->
+            <!--<label> <input data-name="type_6" value="1" type="radio" name="hr_type"/>试用 </label>-->
+            <!--<label> <input data-name="type_6" value="2" type="radio" name="hr_type"/>赠送 </label>-->
+            <!--<label> <input data-name="type_6" value="3" type="radio" name="hr_type" checked="checked"/>折扣 </label>-->
             <!--</td>-->
             <!--<td><input type="text" data-name="purchaseAmount_6"/></td>-->
             <!--<td><span data-name="discount_6" class="field_text">9.9</span></td>-->
@@ -334,11 +334,11 @@
                 <td><input data-name="startTime_7" type="text" datecontrol="{'type':0}"/></td>
                 <td><input data-name="endTime_7" type="text" datecontrol="{'type':0}"/></td>
                 <td class="field_text" data-name="productAmount_7"></td>
-                <td data-name="table_type">
+                <td data-name="table_type_wrapper">
                     <span class="field">
-                    <label> <input type="radio" value="1" name="table_type_7" data-name="table_type_7"/>试用 </label>
-                    <label> <input type="radio" value="2" name="table_type_7" data-name="table_type_7"/>赠送 </label>
-                    <label> <input type="radio" value="3" name="table_type_7" data-name="table_type_7" checked="checked"/>折扣 </label>
+                    <label> <input type="radio" value="1" name="type_7" data-name="type_7"/>试用 </label>
+                    <label> <input type="radio" value="2" name="type_7" data-name="type_7"/>赠送 </label>
+                    <label> <input type="radio" value="3" name="type_7" data-name="type_7" checked="checked"/>折扣 </label>
                     </span>
                 </td>
                 <td><input type="text" data-type="number" data-name="purchaseAmount_7"/></td>

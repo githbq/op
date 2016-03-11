@@ -81,7 +81,7 @@ define(function (require, exports, module) {
             n.options = n.options || {};
             //类型
             dataItems.push(new DataItem({
-                name: 'table_type_' + n.id,
+                name: 'type_' + n.id,
                 value: '3',
                 events: [
                     {
@@ -187,12 +187,20 @@ define(function (require, exports, module) {
                 validateOptions: {
                     required: {
                         enable: true, value: true, message: '', handler: function (error, value, option, $ele) {
-                            var name=$ele.attr('data_name');
-                            var checkbox=$ele.parents('tr').find('input[type=checkbox]');
-                            if(name.toLowerCase().indexOf('discount_')>=0 && checkbox.is(':checked')){
-
-                            }else{
-                                return null;
+                            var me = this;
+                            var name = $ele.attr('data_name');
+                            var $checkbox = $ele.parents('tr').find('input[type=checkbox]');
+                            if ($checkbox.length > 0) {
+                                var id = $checkbox.val();
+                                if (checkbox.is(':checked')) {
+                                    if (me.o_data_getField({name: 'type_' + id}).length > 0 && me.o_data_getField({name: 'type_' + id}).is(':visible')) {
+                                        if (me.o_getFieldValue('type_' + id).value != '3') {
+                                            return false;
+                                        }
+                                    }
+                                } else {
+                                    return false;
+                                }
                             }
                         }
                     }
@@ -233,7 +241,7 @@ define(function (require, exports, module) {
 
             $(ids).each(function (i, n) {
                 var id = n;
-                checkTypeForPrice.call(me,e, id);
+                checkTypeForPrice.call(me, e, id);
                 var timeModule = me.o_getFieldData('startTime_' + id) ? me : me.__refs.terminalInfo;
                 startDate = timeModule.o_getFieldValue('startTime_' + id);
                 endDate = timeModule.o_getFieldValue('endTime_' + id);
@@ -295,7 +303,7 @@ define(function (require, exports, module) {
                     contractAmount: me.o_getFieldValue('purchaseAmount_' + id)
                 },
                 success: function (responseData) {
-                    console.warn(responseData)
+                    console.warn(responseData);
                     if (responseData.success) {
                         //{"amount":200,"rebate":1.7000000000000002}
                         me.o_setValue({name: 'discount_' + id, value: responseData.model.rebate});
@@ -309,6 +317,8 @@ define(function (require, exports, module) {
                     util.showToast('开始日期必须小于结束日期');
                     me.o_setValue({name: 'startTime_' + id, value: ''});
                     me.o_setValue({name: 'endTime_' + id, value: ''});
+                    me.o_setValue({name: 'discount_' + id, value: ''});
+                    me.o_setValue({name: 'productAmount_' + id, value: ''});
                 } else {
                     if (me.o_getFieldData('purchaseAmount_' + id).readonly !== true) {
                         me.attrs.apiPool.api_getCalculateSingle(options);
@@ -340,6 +350,7 @@ define(function (require, exports, module) {
                     break;
             }
         }
+
         return dataItems;
     }
 });

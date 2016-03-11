@@ -43,7 +43,7 @@ define(function (require, exports, module) {
             n.visible = true;
         });
         common.setNoGZHelper(controller,terminalDataItems, tableDataItems, formDataItems);
-        controller(tableDataItems, 'table_type', function (n) {
+        controller(tableDataItems, 'table_type_wrapper', function (n) {
             n.visible = true;
         });
         common.setCommonData(controller, terminalDataItems, tableDataItems, formDataItems,10,responseData);
