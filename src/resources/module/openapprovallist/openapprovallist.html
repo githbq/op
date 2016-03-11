@@ -58,18 +58,30 @@
                 </label>
                 <label for="">
                     特批单
-                    <select name="" id="">
+                    <select name="tpd" ce-model="isTp">
+                        <option value="">全部</option>
                         <option value="1">是</option>
                         <option value="2">否</option>
                     </select>
                 </label>
                 <label for="">
                     审核状态
-                    <select ce-model=""></select>
+                    <select name="shzt" ce-model="">
+                        <option value="">全部</option>
+                        <option value="1">待审批</option>
+                        <option value="2">已通过</option>
+                        <option value="3">驳回</option>
+                        <option value="4">撤回</option>
+                    </select>
                 </label>
                 <label for="">
                     付费状态
-                    <select ce-model=""></select>
+                    <select name="ffzt" ce-model="">
+                        <option value="">全部</option>
+                        <option value="1">全款</option>
+                        <option value="2">分期</option>
+                        <option value="3">未付</option>
+                    </select>
                 </label>
                 <label for="">
                     提单日期 <input type="text" placeholder="开始时间" class="starttime"> ———— <input type="text" placeholder="结束时间" class="endtime">

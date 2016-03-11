@@ -46,8 +46,9 @@ define( function(require, exports, module){
             me.$starttime.datetimepicker( {'timepicker': false,'format':'Y/m/d'} );
             me.$endtime.datetimepicker( {'timepicker': false, 'format':'Y/m/d'} );
 
-            me.getEnums();
-           
+            //me.getEnums();
+            me.getList();
+
             me.setState();
 
             me.on('empty:list',function(){
@@ -188,58 +189,59 @@ define( function(require, exports, module){
         getList: function(){
             var me = this;
 
+            var appTimeStart = '',
+                appTimeEnd = '';
 
-            var applyTimeStart = '',
-                applyTimeEnd = '',
-                endTimeStart = '',
-                endTimeEnd = '';
+            if( me.$('.starttime').val() ){
 
-            if( me.model.get('applyTimeStart') ){
-                applyTimeStart = new Date( me.model.get('applyTimeStart') ).getTime();
-            }
-            if( me.model.get('applyTimeEnd') ){
-                applyTimeEnd = new Date( me.model.get('applyTimeEnd') ).getTime();
-            }
-            if( me.model.get('endTimeStart') ){
-                endTimeStart = new Date( me.model.get('endTimeStart') ).getTime();
-            }
-            if( me.model.get('endTimeEnd') ){
-                endTimeEnd = new Date( me.model.get('endTimeEnd') ).getTime();
+                appTimeStart = new Date( me.$('.starttime').val() ).getTime();
+            }   
+            
+            if( me.$('.endtime').val() ){
+
+                appTimeEnd = new Date( me.$('.endtime').val() ).getTime();
             }
 
             var data = {
-                'applicantName': me.model.get('applicantName'),
-                'approvalType': me.model.get('approvalType'),
-                'enterpriseName': me.model.get('enterpriseName'),
-                'enterpriseAccount': me.model.get('enterpriseAccount'),
-                'enterpriseShortName': me.model.get('enterpriseShortName'),
-                'applyTimeStart': me.model.get('applyTimeStart'),
-                'applyTimeEnd': me.model.get('applyTimeEnd'),
+                'applicantName': me.model.get('applicantname'),
+                'orderId': me.model.get('orderId'),
+                'contractNo': me.model.get('contractNo'),
+                'ea': me.model.get('ea'),
+                'en': me.model.get('en'),
+                'orderType': me.model.get('orderType'),
+                'isTp': me.model.get('isTp'),
+                'payStatus': me.model.get('payStatus'),
+                'appTimeStart': appTimeStart, 
+                'appTimeEnd': appTimeEnd,
+                'agentName': me.model.get('agentName'),
+                'agentId': me.model.get('agentId'),
                 'pageIndex': me.pagination.attr['pageNumber'],
                 'pageSize': me.pagination.attr['pageSize']
             }
 
             var state = me.attrs.state;
+            /*
             if( state == "end" ){
                 data.endTimeStart = me.model.get('endTimeStart');
                 data.endTimeEnd = me.model.get('endTimeEnd');
             }
+            */
             var url;
             switch ( state ){
                 case 'wait':
-                    url = "/approval/getongoingapprovalbyapprover";
+                    url = "/approval/getongoingapprovalpage";
                 break;
                 case 'going':
-                    url = "/approval/getapprovedongoingapprovalbyapprover";
+                    url = "/approval/getapprovedongoingapprovalpage";
                 break;
                 case 'end':
-                    url = "/approval/getcompletedapprovalbyapprover";
+                    url = "/approval/getcompletedapprovalpage";
                 break;
 				case 'allGoing':
-                    url = "/approval/getallongoingapproval";
+                    url = "/approval/getallongoingapprovalpage";
                 break;
 				case 'allEnd':
-                    url = "/approval/getallcompletedapproval";
+                    url = "/approval/getallcompletedapprovalpage";
                 break;
             };
 
@@ -248,7 +250,7 @@ define( function(require, exports, module){
             me.xhr && me.xhr.abort();
 
             me.xhr = util.api({
-                'url': '~/op/api' + url,
+                'url': url,
                 'data': data,
                 'success': function( data ){
                     console.warn( data );

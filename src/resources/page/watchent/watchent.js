@@ -180,10 +180,11 @@ define( function( require, exports, module ) {
                 items.forEach(function(item){
                     huifangMap[item.value] = item.text;
                 });
+                me.model.set('returnVisitCheck',1);
                 check();
             });
 
-            me.generateSelect('ENTERPRISE_CHEAT_TYPE', me.$('#cheatStatus'),function( items ){
+            me.generateSelect('ENTERPRISE_CHEAT_TYPE', me.$('#cheatStatus'),function( items ){s
                 state.c = true;
                 items.forEach(function(item){
                     cheatMap[item.value] = item.text;
