@@ -311,6 +311,7 @@ define(function (require, exports, module) {
                         me.o_setValue({name: 'productAmount_' + id, value: responseData.model.amount});
                         me.o_setValue({name: 'purchaseAmount_' + id, value: responseData.model.amount});
                         me.o_setValue({name: 'purchaseAmount_input_' + id, value: responseData.model.amount});
+                        checkTypeForPrice.call(me,e,id);
                         priceComput.call(me, e);
                     }
                 }
