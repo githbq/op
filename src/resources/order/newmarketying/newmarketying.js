@@ -361,7 +361,7 @@ define( function( require, exports, module ) {
 		},
 		//获取全部订单数据
 		getOrderInfo:function(){
-			var me = this,objData  = { 'orderEntity':{}};
+			var me = this,objData  = { 'orderEntity':{},'enterprise':{}};
 			debugger
 			switch( me.attrs.typeFlag )
 			{
@@ -427,8 +427,8 @@ define( function( require, exports, module ) {
 
 				//基本信息校验和取值
 				if( me.attrs.basicCommon.getValue() ){
-					//objData.enterprise = me.attrs.basicCommon.getValue();
-					$.extend(true, objData.enterprise, me.attrs.basicCommon.getValue() );
+					var tem ={'enterprise': me.attrs.basicCommon.getValue()} ;
+					$.extend(true, objData, tem );
 				}else{
 					return ;
 				}
@@ -454,7 +454,8 @@ define( function( require, exports, module ) {
 
 				//基本信息校验和取值
 				if( me.attrs.basicSpecial.getValue() ){
-					objData.enterprise = me.attrs.basicSpecial.getValue();
+					var tem ={'enterprise':me.attrs.basicSpecial.getValue()}
+					$.extend(true, objData, tem );
 				}else{
 					return ;
 				}
