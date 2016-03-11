@@ -207,7 +207,7 @@ define( function( require, exports, module ) {
 			me.attrs.prodeuctObj =  productinfo.showProductInfo( {terminalInfo:{$view:me.$view.find('.'+me.attrs.showType+'-terminalinfo')},
 					tableInfo:{$view:me.$view.find('.'+me.attrs.showType+'-tableinfo')},
 					formInfo:{$view:me.$view.find('.'+me.attrs.showType+'-forminfo')}}
-			,tempOrderType,{'enterpriseId':me.attrs.id,'data':me.attrs.subData } );
+			,tempOrderType,{'enterpriseId':me.attrs.id,'data':me.attrs.subData ,'readonly':false} );
 
 		},
 		//设置订单文字
@@ -368,14 +368,15 @@ define( function( require, exports, module ) {
 				//新购办公版类型
 				case 'newOffice':
 					me.attrs.url = '/odr/submit';
-					me.attrs.tempData = { "enterpriseFilingId":IBSS.tempEnterprise.id||''};
-
+					//me.attrs.tempData = { "enterpriseFilingId":IBSS.tempEnterprise.id||''};
+					objData.enterpriseFilingId = IBSS.tempEnterprise.id||'';
 					break;
 					
 				//新购营销版类型
 				case 'newMarket':
 					me.attrs.url = '/odr/submit';
-					me.attrs.tempData = { "enterpriseFilingId":IBSS.tempEnterprise.id||''};
+					//me.attrs.tempData = { "enterpriseFilingId":IBSS.tempEnterprise.id||''};
+					objData.enterpriseFilingId = IBSS.tempEnterprise.id||'';
 					break;
 				  
 				 //增购办公版订单
@@ -410,29 +411,13 @@ define( function( require, exports, module ) {
 				//续费办公版订单
 				case 'againOffice':
 					me.attrs.url = '/odr/renew/submit';
-					me.attrs.tempData = { "orderEntity":{
-						"order":{
-							"enterpriseId":me.attrs.id ||''
-						}
-					},
-						"enterpriseExtend":{
-							"enterpriseId":me.attrs.id ||''
-						}
-					}
+					objData.enterprise = { "enterpriseId":me.attrs.id }
 					break;
 					
 				//续费营销版订单
 				case 'againMarkey':
 					me.attrs.url = '/odr/renew/submit';
-					me.attrs.tempData = { "orderEntity":{
-						"order":{
-							"enterpriseId":me.attrs.id ||''
-						}
-					},
-						"enterpriseExtend":{
-							"enterpriseId":me.attrs.id ||''
-						}
-					}
+					objData.enterprise = { "enterpriseId":me.attrs.id }
 					break;	
 				default:
 				  
@@ -442,7 +427,8 @@ define( function( require, exports, module ) {
 
 				//基本信息校验和取值
 				if( me.attrs.basicCommon.getValue() ){
-					objData.enterprise = me.attrs.basicCommon.getValue();
+					//objData.enterprise = me.attrs.basicCommon.getValue();
+					$.extend(true, objData.enterprise, me.attrs.basicCommon.getValue() );
 				}else{
 					return ;
 				}
@@ -501,6 +487,7 @@ define( function( require, exports, module ) {
 			}
 			//获取订单类型
 			objData.orderEntity.order['orderType'] = me.attrs.orderType ;
+			//objData.enterpriseFilingId = objData.enterprise.enterpriseFilingId
 
 			//综合折扣
 			me.getDiscount( objData.orderEntity.subOrders ,objData.orderEntity.order.amount , function(  ){

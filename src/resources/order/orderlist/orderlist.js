@@ -78,7 +78,7 @@ define( function( require, exports, module ) {
            var isTp = $(e.currentTarget).attr('data-isTp');
 
            me.trigger('orderDetail',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':false,'orderType':orderType,
-               'person':'', 'opinion':opinion ,'isTp':isTp } );
+               'person':'', 'opinion':opinion ,'isTp':isTp,'state':''} );
        },
         //导出excel
         exportEve: function(e){
