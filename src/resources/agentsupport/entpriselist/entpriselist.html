@@ -2,10 +2,6 @@
    <div class="m-list m-ent-lst u-tablelist">
         <div class="list-main">
             <div class="list-header">
-                <div class="header-opts">
-                    <button class="u-btn-blue deauth">授权</button>
-                    <button class="auth">取消授权</button>
-                </div>
                 <h3>
                     企业列表
                 </h3>
@@ -72,7 +68,6 @@
                     <thead>
                     <tr>
                         <th></th>
-                        <th style="width:20px;"><input type="checkbox" class="selectall"></th>
                         <th style="width:180px;">企业名称</th>
                         <th style="width:170px;">帐号</th>
                         <th style="width:150px;">开通日期</th>
@@ -85,7 +80,6 @@
                     </thead>
                     <tbody ce-collection="list">
                         <td></td>
-                        <td><input type="checkbox" class="selectitem" value="<%=item.enterprise.enterpriseAccount%>"></td>
                         <td><%=item.enterprise.enterprisename%></td>
                         <td><%=item.enterprise.enterpriseaccount%></td>
                         <td><%=item.createtimestr%></td>

@@ -44,10 +44,7 @@ define( function( require, exports, module ) {
         events: {
             'click #btnSearch': 'search',
             'click .info-detail': 'detailEve',
-            'click .info-trace': 'traceEve',
-            'click .selectall': 'selectAllEve',
-            'click .auth': 'authEve',
-            'click .deauth': 'deauthEve'
+            'click .info-trace': 'traceEve'
         },
         
         init: function() {
@@ -141,92 +138,7 @@ define( function( require, exports, module ) {
                 });
             }
         },
-        
-        //选择全部
-        selectAllEve: function( e ){
-            var me = this;
-
-            var bool = $( e.currentTarget ).prop('checked');
-
-            me.$('.selectitem').each( function( index , item ){
-                item.checked = bool
-            } );
-        },
-        
-        //清除所有选择
-        clearSelect: function(){
-            this.$('.selectitem').each( function( index , item ){
-                item.checked = false;
-            } );
-            this.$('.selectall').prop('checked',false);
-        },
-
-        //获取选中的数组
-        getSelect: function(){
-            var me = this
-            var array = [];
-            me.$('.selectitem').each( function( index , item ){
-                if( item.checked ){
-                    array.push( $(item).val() );
-                }
-            } );
-            return array;
-        },
-
-        //授权
-        authEve: function(){
-            var me = this;
-            var arrays = me.getSelect();
-            
-            if( arrays.length <= 0 ){
-                util.showToast('请选择企业');
-                return false;
-            }
-
-            util.api({
-                'url':'/accountprotectionwhitelist/changeenterpriseauth',
-                'data':{
-                    'enterpriseAccouts': arrays.join(','),
-                    'isAuth': true
-                },
-                'success': function( data ){
-                    console.warn( data );
-                    if( data.success ){
-                        util.showTip('授权成功');
-                        me.getList();
-                    }
-                }
-            })
-        },
-
-        //取消授权
-        deauthEve: function(){
-            var me = this;
-            var arrays = me.getSelect();
-            console.log('deauth');
-            console.log( arrays );
-
-            if( arrays.length <= 0 ){
-                util.showToast('请选择企业');
-                return false;
-            }
-
-            util.api({
-                'url':'/accountprotectionwhitelist/changeenterpriseauth',
-                'data':{
-                    'enterpriseAccouts': arrays.join(','),
-                    'isAuth': false
-                },
-                'success': function( data ){
-                    console.warn( data );
-                    if( data.success ){
-                        util.showTip('取消授权成功');
-                        me.getList();
-                    }
-                }
-            })
-        },
-
+     
         //默认置为第一页 搜索
         search: function() {
             this.pagination.setPage( 0, false );
@@ -284,7 +196,6 @@ define( function( require, exports, module ) {
                                 item.authStr = "部分授权" 
                             }
                         });
-                        me.clearSelect();
                     }
                 },
                 error: function() {
