@@ -145,11 +145,11 @@ define( function(require, exports, module){
 
             var $target = $( e.currentTarget );
 
-            var id = $target.attr('data-id');
-            var eid = $target.attr('data-eid');
-            var type = $target.attr('data-type');
-			var isCanEdit = $target.attr('data-edit')||'false';
-            me.trigger( 'detail', id , eid , type , me.attrs.state,isCanEdit );
+            var inid = $target.attr('data-inid');
+
+            var detail = me.list.find('processInstanceId',inid);
+         
+            me.trigger( 'detail', detail, me.attrs['state'] );
         },
 		detailBindEve:function(e){
 			 var me = this;

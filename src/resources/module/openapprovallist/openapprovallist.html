@@ -94,39 +94,6 @@
                     优惠码
                     <input type="text" ce-model="agentId">
                 </label>
-                <!--
-                <label for="">
-                    申请人姓名
-                    <input type="text" ce-model="applicantName">
-                </label>
-                <label for="">
-                    申请类型
-                    <select class="applytype" ce-model="approvalType">
-                    </select>
-                </label>
-                <label for="">
-                    企业名称
-                    <input type="text" ce-model="enterpriseName">
-                </label>
-                <label for="">
-                    企业账号
-                    <input type="text" ce-model="enterpriseAccount">
-                </label>
-                <label for="">
-                    企业简称
-                    <input type="text" ce-model="enterpriseShortName">
-                </label>
-                <label for="">
-                    申请时间范围
-                    开始 <input type="text" ce-model="applyTimeStart" class="starttime" onkeyup='this.value=""'>
-                    结束 <input type="text" ce-model="applyTimeEnd" class="endtime" onkeyup='this.value=""'>
-                </label>
-                <label class="state state-end">
-                    结束时间范围
-                    开始 <input type="text" ce-model="endTimeStart" class="" onkeyup='this.value=""'>
-                    结束 <input type="text" ce-model="endTimeEnd" class="" onkeyup='this.value=""'>
-                </label>
-                -->
             </div>
         </div>
         <div class="list-content">
@@ -166,13 +133,12 @@
                         <td class="state state-going state-allGoing"><%=item.currentApproverName%></td>
                         <td class="state state-end state-allEnd"><%=item.endDateStr%></td>
                         <td>
-                            
 							<%if(item.approvalTypeId == "bindingEnterpriseApproval"){%>
 								<a class="detail-bind" data-eid="<%=item.enterpriseId%>" data-edit="<%=item.canEdit%>"  data-id="<%=item.processInstanceId%>" data-type="<%=item.approvalTypeId%>">
 									查看
 								</a>
 							<%}else {%>
-								<a class="detail" data-eid="<%=item.enterpriseId%>" data-edit="<%=item.canEdit%>"  data-id="<%=item.processInstanceId%>" data-type="<%=item.approvalTypeId%>">
+								<a class="detail" data-inid="<%=item.processInstanceId%>">
 									查看
 								</a>
 							<%}%>
