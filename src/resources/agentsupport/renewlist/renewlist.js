@@ -6,7 +6,8 @@ define( function( require, exports, module ) {
 	var Slider = require('common/widget/slider/slider');
 	var uploader = require('common/widget/upload').uploader;
 	var DetailBind = require('module/detailbind/detailbind');
-
+    var OpenApprovalList = require('module/openapprovallist/openapprovallist');
+    
     var tem = $( require('./template.html') );
 
     //审批列表
@@ -2534,7 +2535,9 @@ define( function( require, exports, module ) {
         var $el = exports.$el;
 
         //审批中列表
-        var renewList = new RenewList( {'view':$el.find('.m-renewlist')} );
+        //var renewList = new RenewList( {'view':$el.find('.m-renewlist')} );
+        var renewList = new OpenApprovalList( { 'wrapper':$el } );    //
+        renewList.render();
 
         //付费开通审批详情
         var openApproval = new OpenApproval();
