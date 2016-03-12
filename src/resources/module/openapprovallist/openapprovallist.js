@@ -99,9 +99,7 @@ define( function(require, exports, module){
             util.getEnumsSelect('APPROVAL_TYPE',me.$applytype,function( data ){
                 me.getList();
             });
-
             
-
         },
 
         //渲染至页面
