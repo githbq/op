@@ -53,15 +53,15 @@ define( function(require, exports, module){
 
             me.on('empty:list',function(){
                 if( me.attrs.state == "wait" ){
-                    trlength = 10;
+                    trlength = 15;
                 }else if( me.attrs.state =="going" ){
-                    trlength = 11;
+                    trlength = 16;
                 }else if( me.attrs.state =="end" ){
-                    trlength = 10;
+                    trlength = 15;
                 }else if( me.attrs.state =="allGoing" ){
-                    trlength = 11;
+                    trlength = 16;
                 }else if( me.attrs.state =="allEnd" ){
-                    trlength = 10;
+                    trlength = 15;
                 }
 
                 me.$tbody.html("<tr><td colspan='" + trlength + "'><p class='info'>暂无数据</p></td></tr>");
@@ -243,7 +243,7 @@ define( function(require, exports, module){
                 break;
             };
 
-            me.$tbody.html('<tr><td colspan="11"><p class="info">加载中...</p></td></tr>');
+            me.$tbody.html('<tr><td colspan="15"><p class="info">加载中...</p></td></tr>');
             
             me.xhr && me.xhr.abort();
 

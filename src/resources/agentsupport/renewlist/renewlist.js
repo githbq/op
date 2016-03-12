@@ -31,7 +31,7 @@ define( function( require, exports, module ) {
             var data = {
                 'id' : detail.orderId || '',
                 'enterpriseId': detail.enterpriseId || '', 
-                'editFlag': detail.canEdit || '',
+                'editFlag': detail.canEdit,
                 'orderType': detail.orderType || '',
                 'opinion': detail.opinion || '',
                 'isTp': detail.isTp || '',
