@@ -20,13 +20,7 @@ define( function( require, exports, module ) {
      *
      * 企业列表
      */
-     var EntStatusMap = {
-        '1': '待开通',
-        '2': '已开通',
-        '3': '已作废',
-        '4': '已停用',
-        '5': '已删除'
-    }
+    var EntStatusMap = IBSS.EntStatusMap;
 
     var EntList = MClass( M.Center ).include( {
                 
@@ -44,6 +38,10 @@ define( function( require, exports, module ) {
         events: {
             'click #btnSearch': 'search',
             'click .info-detail': 'detailEve',
+             'click .info-zengbangong': function(e){ this.trigger('zengbangong',$(e.currentTarget).attr('data-id'), $(e.currentTarget).attr('data-account') )},      //增购办公版
+            'click .info-zengyingxiao': function(e){ this.trigger('zengyingxiao',$(e.currentTarget).attr('data-id'), $(e.currentTarget).attr('data-account') )},    //增购营销版
+            'click .info-renewbangong': function(e){ this.trigger('renewbangong',$(e.currentTarget).attr('data-id'), $(e.currentTarget).attr('data-account') )},    //续费办公版
+            'click .info-renewyingxiao': function(e){ this.trigger('renewyingxiao',$(e.currentTarget).attr('data-id'), $(e.currentTarget).attr('data-account') )},  //续费营销版
             'click .info-trace': 'traceEve'
         },
         
@@ -380,13 +378,41 @@ define( function( require, exports, module ) {
             entDetail.show( id );
         });
 
-        entList.on('track', function( id ){
+        entList.on('trace', function( id ){
+
+            console.warn('trace');
+            console.warn( id );
             entTrace.show( id );
         });
 
 		enterpriseAssign.on('success',function(){
 			entList.getList();
-		})
+		});
+
+        //增购办公
+        entList.on('zengbangong',function( id , account ){
+            console.log('zengbangong');
+            console.log( id );
+            location.hash = "order/newmarketying/addOffice/" + id + '/' + account;
+        });
+        //增购营销
+        entList.on('zengyingxiao',function( id , account ){
+            console.log('zengyingxiao');
+            console.log( id );
+            location.hash = "order/newmarketying/addMarkey/" + id + '/' + account;
+        });
+        //续费办公
+        entList.on('renewbangong',function( id , account ){
+            console.log('renewbangong');
+            console.log( id );
+            location.hash = "order/newmarketying/againOffice/" + id + '/' + account;
+        });
+        //续费营销
+        entList.on('renewyingxiao',function( id , account ){
+            console.log('renewyingxiao');
+            console.log( id );
+            location.hash = "order/newmarketying/againMarkey/" + id + '/' + account;
+        });
     }
 } );
 
