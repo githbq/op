@@ -42,7 +42,8 @@ define( function(require, exports, module){
 			'.action-agree':'actionAgree',
 			'.action-reject':'actionReject',
 			'.action-submit':'actionSubmit',
-			'.enterpriseAccount':'enterpriseAccount'
+			'.enterpriseAccount':'enterpriseAccount',
+			'.money-time':'moneyTime'
 		},
 		events:{
 			'click .action-save':'actionSaveEve',
@@ -58,7 +59,7 @@ define( function(require, exports, module){
 			var me = this;
 			
 			//选择区域模块
-
+			me.$moneyTime.datetimepicker({'timepicker': false,'format':'Y/m/d'});
             me.areaTree = new AreaTree();
             me.areaTree.on('selectarea',function( treenodes ){
                 
@@ -67,106 +68,6 @@ define( function(require, exports, module){
 
 		},
 
-		//设置状态
-		setState: function(){
-			var me = this;
-
-			me.$('.state').hide();
-			
-
-			if( me.attrs.canCancel == 'true' ){
-				me.$('.state-cancel').show()
-				me.$statusDisabled.attr('disabled','disabled');
-			}
-			if( me.attrs.canCancel == 'false' ){
-				me.$statusDisabled.attr('disabled','disabled');
-			}
-			if( me.attrs.isCurrentTask  == 'true' ){
-				me.$('.state-current').show();
-				me.$statusDisabled.removeAttr('disabled');
-				
-				
-				//me.$lookCard.hide()
-				me.$upCard.show();
-				me.$upCardAdd.hide();
-			}else if( me.attrs.isCurrentTask  == 'true' && me.attrs.type  == 'addPurchaseApproval' ){
-				me.$statusDisabled.attr('disabled','disabled');
-				me.$statusDisabledAdd.removeAttr('disabled');
-				me.$('.state-current').show();
-				me.$upCardAdd.show();
-				me.$upCard.hide();
-			}else{
-				me.$statusDisabled.attr('disabled','disabled');
-		
-				me.$statusDisabledAdd.attr('disabled','disabled');
-			}
-			if( me.attrs.isCurrentTask  == 'true'){
-				me.$refuseDisabled.removeAttr('disabled');
-				
-			}
-			me.setType();
-		},
-		//根据申请类型不同显示不同的信息
-		setType: function(){
-			var me = this;
-
-		},
-
-		/**
-		 *
-		 *撤销审批
-		 */
-		 //选择区域
-        regionEve: function(){
-            var me = this;
-            me.areaTree.show();
-        },
-
-		backoutEve: function(){
-			var me = this;
-
-			me.$actionResend.text('提交中....');
-			me.$actionResend.attr('disabled','disabled');
-			me.$actionSave.text('提交中....');
-			me.$actionSave.attr('disabled','disabled');
-			me.$actionBackout.text('提交中....');
-			me.$actionBackout.attr('disabled','disabled');
-			util.api({
-				'url': '~/op/api/approval/withdrawapproval',
-				'data':{
-					'processInstanceId': me.attrs.id
-				},
-				'success': function( data ){
-					console.warn( data );
-					if( data.success ){
-						util.showTip('撤销成功');
-						me.trigger( 'saveSuccess');
-						me.$statusDisabled.removeAttr('disabled');
-						me.attrs.canCancel = 'false';
-						me.attrs.isCurrentTask = 'true';
-						me.setState();
-					}
-				},
-				'complete': function(){
-					me.$actionResend.text('保存提交');
-					me.$actionResend.removeAttr('disabled');
-					me.$actionSave.text('保存');
-					me.$actionSave.removeAttr('disabled');
-					me.$actionBackout.text('撤销审批');
-					me.$actionBackout.removeAttr('disabled');
-				}
-			})
-		},
-
-		/**
-		 *
-		 *保存提交
-		 */
-		resendEve:function(){
-			var me = this;
-			
-		},
-		
 		/**
 		 *
 		 * @param id   实例id
@@ -176,7 +77,10 @@ define( function(require, exports, module){
 		show: function( options ){
 			var me = this;
 			me.attrs.options = options||{};
+			//me.attrs.options.isTp = 0;
+			//me.attrs.options.editFlag=true;
 			me.attrs.orderList = {};
+			me.attrs.enterpriseData = {};
 			me.attrs.allData = {'orderEntity':{},'contract':{},'enterpriseExtend':{},'enterprise':{}};
 			me.$('.enterpriseAccount').attr('disable','disable');
 			me.setState();
@@ -256,7 +160,7 @@ define( function(require, exports, module){
 					break;
 				case 5:
 					me._setTitle( orderTypeAry[me.attrs.options.orderType] );
-					$.when( me.getOrderDetail(), me.getEnterpriseInfo(), me.setOrderInfo()).done(function(){
+					$.when( me.getOrderDetail(), me.getEnterpriseInfo(), me.setOrderList()).done(function(){
 						//备注信息
 						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData,
 							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
@@ -272,7 +176,7 @@ define( function(require, exports, module){
 					break;
 				case 6:
 					me._setTitle( orderTypeAry[me.attrs.options.orderType] );
-					$.when( me.getOrderDetail(), me.getEnterpriseInfo(),me.setOrderInfo()).done(function(){
+					$.when( me.getOrderDetail(), me.getEnterpriseInfo(),me.setOrderList()).done(function(){
 						//备注信息
 						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData,
 							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
@@ -287,7 +191,7 @@ define( function(require, exports, module){
 					break;
 				case 7:
 					me._setTitle( orderTypeAry[me.attrs.options.orderType] );
-					$.when( me.getOrderDetail(), me.getEnterpriseInfo(),me.setOrderInfo()).done(function(){
+					$.when( me.getOrderDetail(), me.getEnterpriseInfo(),me.setOrderList()).done(function(){
 						//备注信息
 						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData,
 							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
@@ -303,7 +207,7 @@ define( function(require, exports, module){
 					break;
 				case 8:
 					me._setTitle( orderTypeAry[me.attrs.options.orderType] );
-					$.when( me.getOrderDetail(), me.getEnterpriseInfo(),me.setOrderInfo()).done(function(){
+					$.when( me.getOrderDetail(), me.getEnterpriseInfo(),me.setOrderList()).done(function(){
 						//备注信息
 						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData,
 							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
@@ -319,7 +223,7 @@ define( function(require, exports, module){
 					break;
 				case 9:
 					me._setTitle( orderTypeAry[me.attrs.options.orderType] );
-					$.when( me.getOrderDetail(), me.getEnterpriseInfo(),me.setOrderInfo()).done(function(){
+					$.when( me.getOrderDetail(), me.getEnterpriseInfo(),me.setOrderList()).done(function(){
 						//备注信息
 						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData,
 							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
@@ -335,7 +239,7 @@ define( function(require, exports, module){
 					break;
 				case 10:
 					me._setTitle( orderTypeAry[me.attrs.options.orderType] );
-					$.when( me.getOrderDetail(), me.getEnterpriseInfo(),me.setOrderInfo()).done(function(){
+					$.when( me.getOrderDetail(), me.getEnterpriseInfo(),me.setOrderList()).done(function(){
 						//备注信息
 						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData,
 							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
@@ -351,7 +255,7 @@ define( function(require, exports, module){
 					break;
 				case 11:
 					me._setTitle( orderTypeAry[me.attrs.options.orderType] );
-					$.when( me.getOrderDetail(), me.getEnterpriseInfo(),me.setOrderInfo()).done(function(){
+					$.when( me.getOrderDetail(), me.getEnterpriseInfo(),me.setOrderList()).done(function(){
 						//备注信息
 						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData,
 							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
@@ -368,7 +272,7 @@ define( function(require, exports, module){
 					break;
 				case 12:
 					me._setTitle( orderTypeAry[me.attrs.options.orderType] );
-					$.when( me.getOrderDetail(), me.getEnterpriseInfo(),me.setOrderInfo()).done(function(){
+					$.when( me.getOrderDetail(), me.getEnterpriseInfo(),me.setOrderList()).done(function(){
 						//备注信息
 						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData,
 							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
@@ -416,7 +320,9 @@ define( function(require, exports, module){
 				'success': function( data ){
 					if( data.success ){
 						me.attrs.orderData = data.value.model;
-						$.extend(true, me.attrs.allData, me.attrs.orderData );
+
+						me.attrs.allData.orderEntity = me.attrs.orderData;
+						//$.extend(true, me.attrs.allData, me.attrs.orderData );
 						//callback && callback();
 					}
 				}
@@ -424,7 +330,7 @@ define( function(require, exports, module){
 
 		},
 		//渲染订单和产品基础信息：
-		setOrderInfo:function( callback ){
+		setOrderList:function( callback ){
 			var me = this;
 
 			return util.api({
@@ -445,7 +351,7 @@ define( function(require, exports, module){
 		 setOrderInfo:function(){
 			 var  me = this;
 			var productData = me.attrs.orderData;
-			 productData.enterpriseExtend = me.attrs.enterpriseData.enterpriseExtend;
+			 productData.enterpriseExtend = me.attrs.enterpriseData.enterpriseExtend ? me.attrs.enterpriseData.enterpriseExtend:null;
 			 productData.contract = me.attrs.enterpriseData.contract ? me.attrs.enterpriseData.contract : null ;
 			 me.attrs.prodeuctObj =  productinfo.showProductInfo( {terminalInfo:{$view:me.$view.find('.common-terminalinfo')},
 					 tableInfo:{$view:me.$view.find('.common-tableinfo')},
@@ -456,33 +362,32 @@ define( function(require, exports, module){
 			 me.attrs.invoiceCommon = new InvoiceInfo( { 'wrapper':me.$view.find('.common--invioce'),'data':me.attrs.orderData,
 				 'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
 		 },
-
-		//判断审批类型
-		judgeType:function(){
-			
-			var me = this;
-		},
-		//判断是否可以编辑状态：
-		checkEdit:function(){
-			
-		},
 		//设置自己部分的显示和隐藏：
 		setState:function(){
 			var me = this;
 			me.$('.state').hide();
-			me.$('.state-'+me.attrs.options.state).show()
+			me.$('.state-'+me.attrs.options.state).show();
+			if(me.attrs.options.editFlag){
+				me.$('.state-refuse').show();
+			}
+			me.$('.currentTask-'+me.attrs.options.currentTask).show();
+			//判断审批意见
+			var opinion = me.attrs.options.opinion ? me.attrs.options.opinion :'暂无';
+			me.$('.last-options').text(opinion);
+			
+
 		},
 		//获取全部订单数据
-		getOrderInfo:function(){
-			var me = this,objData  = { 'orderEntity':{}};
+		getOrderInfo:function( callback ){
 
+			var me = this,objData  = { 'orderEntity':{}};
 
 			//获取普通订单信息
 			//基本信息校验和取值
 			if( me.attrs.basicCommon.getValue() ){
-				objData.enterprise = me.attrs.basicCommon.getValue();
-				//$.extend(true, objData.enterprise, me.attrs.basicCommon.getValue() );
-				//$.extend(true, me.attrs.allData, me.attrs.orderData );
+				//objData.enterprise = me.attrs.basicCommon.getValue();
+				var tem ={'enterprise': me.attrs.basicCommon.getValue()} ;
+			    $.extend(true, objData, tem );
 			}else{
 				return ;
 			}
@@ -506,8 +411,8 @@ define( function(require, exports, module){
 
 			if(me.attrs.options.isTp == '1'){
 				//获取特批地址
-				if( me.attrs.explainSpecial.getValue() ){
-					var temp  = me.attrs.explainSpecial.getValue();
+				if( me.attrs.explainCommon.getValue() ){
+					var temp  = me.attrs.explainCommon.getValue();
 					objData.orderEntity.order['approved_url'] = temp.approved_url;
 				}else{
 					return ;
@@ -518,8 +423,9 @@ define( function(require, exports, module){
 			//综合折扣
 			me.getDiscount( objData.orderEntity.subOrders ,objData.orderEntity.order.amount , function(  ){
 				var discoutFlag = true;
-				if(me.attrs.showType == 'common'){
-					me.attrs.invoiceCommon.setDiscount( me.attrs.complexDiscount );
+
+				me.attrs.invoiceCommon.setDiscount( me.attrs.complexDiscount );
+				if(me.attrs.options.isTp == 0){
 					_.map( objData.orderEntity.subOrders , function( obj , index){
 						if(obj.discount && obj.discount<8){
 							discoutFlag = false;
@@ -530,31 +436,109 @@ define( function(require, exports, module){
 						util.showToast('综合折扣低于8折，必须申请特批');
 						return false;
 					}
-				}else{
-					me.attrs.invoiceSpecial.setDiscount( me.attrs.complexDiscount );
 				}
 				objData.orderEntity.order['discount'] = me.attrs.complexDiscount ;
 				objData.contract['discount'] = me.attrs.complexDiscount ;
-
+				objData.enterpriseExtend['enterpriseId'] = me.attrs.options.enterpriseId;
+				if(objData.orderEntity.invoice['businessLicense']){
+					objData.enterpriseExtend['businessLicense'] = objData.orderEntity.invoice['businessLicense'] ;
+					objData.enterpriseExtend['businessLicenseFileName'] = objData.orderEntity.invoice['businessLicenseFileName'];
+				}
 				$.extend(true, me.attrs.allData, objData );
+				
+				//调用回调
+				callback && callback();
 
+			});
+		},
+		//获取综合折扣
+		getDiscount:function( data ,account ,callback){
+			var me = this;
+
+			var tempObj = {
+				'productJson':JSON.stringify(data),
+				'contractAmount':account
+			}
+			/**
+			 * 计算订单总折扣
+			 * @param request
+			 * @param resp
+			 * @param serviceFee 培训服务费
+			 * @param productJson 产品信息集合json串
+			 * @param contractAmount 合同总金额
+			 * @return
+			 */
+			util.api({
+				'url':'~/op/api/rebate/calculateSum',
+				'data':tempObj,
+				'success': function( data ){
+
+					if( data.success ){
+						me.attrs.complexDiscount = data.value.model;
+						callback && callback( data.value.model );
+					}
+				},
+			})
+		},
+		//保存
+		actionSaveEve:function(){
+			var me = this;
+			console.log(me.attrs.allData)
+			//var tempData = {'orderId':me.attrs.options.id,'orderVO':me.attrs.allData};
+			me.attrs.allData.orderEntity.order.id = me.attrs.options.id;
+			me.getOrderInfo(function(){
 				util.api({
-					'url':me.attrs.url,
+					'url':'/odr/updateOrderVO',
 					'data':JSON.stringify( me.attrs.allData ),
 					'contentType':'application/json;charset=UTF-8 ',
 					'success': function( data ){
 						if( data.success ){
-							util.showTip('提交成功！')
-							location.hash = "#order/orderlist";
+							util.showTip('提交成功！');
+							me.trigger( 'saveSuccess');
+							me.hide();
 						}
 					}
 				})
+				
 			});
-
+			
 		},
-		//保存
-		actionSaveEve:function(){
-
+		//保存提交
+		actionSubmitEve:function(){
+			var me = this;
+			me.attrs.allData.orderEntity.order.id = me.attrs.options.id;
+			me.getOrderInfo(function(){
+				util.api({
+					'url':'/odr/updateOrderVO',
+					'data':JSON.stringify( me.attrs.allData ),
+					'contentType':'application/json;charset=UTF-8 ',
+					'success': function( data ){
+						if( data.success ){
+							changeNode();
+						}
+					}
+				})
+				
+			});
+			 //移交至下一个节点
+            function changeNode(){
+                util.api({
+                    'url':'~/op/api/approval/directapprove',
+                    'data':{
+                        'processInstanceId': me.attrs.options.processInstanceId,
+                        'approved': true,
+                        'opinion':''
+                    },
+                    'success':function( data ){
+                        if( data.success ){
+                            util.showTip('保存提交发送成功');
+							
+							me.trigger( 'saveSuccess');
+                            me.hide();
+                        }
+                    }
+                })
+            };
 		},
 		//驳回
 		actionRejectEve: function(){
@@ -573,7 +557,7 @@ define( function(require, exports, module){
                 util.api({
                     'url': '~/op/api/approval/directapprove',
                     'data':{
-                        'processInstanceId': me.attrs.processInstanceId,   //流程实例ID
+                        'processInstanceId': me.attrs.options.processInstanceId,   //流程实例ID
                         'approved': false,                  //审批结果(通过/拒绝)
                         'opinion': me.model.get('comment')  //审批意见
                     },
@@ -586,7 +570,7 @@ define( function(require, exports, module){
                         if( data.success ){
                             util.showTip('批复成功');
                             me.hide();
-                            me.trigger('success');
+                            me.trigger( 'saveSuccess');
                         }
                     },
 					complete: function(){
@@ -615,7 +599,7 @@ define( function(require, exports, module){
                 util.api({
                     'url': '~/op/api/approval/directapprove',
                     'data':{
-                        'processInstanceId': me.attrs.processInstanceId,     //流程实例ID
+                        'processInstanceId': me.attrs.options.processInstanceId,     //流程实例ID
                         'approved': true,                     //审批结果(通过/拒绝)
                         'opinion': me.model.get('comment')    //审批意见
                     },
@@ -628,7 +612,7 @@ define( function(require, exports, module){
                         if( data.success ){
                             util.showTip('批复成功');
                             me.hide();
-                            me.trigger('success');
+                            me.trigger( 'saveSuccess');
                         }
                     },
 					complete: function(){

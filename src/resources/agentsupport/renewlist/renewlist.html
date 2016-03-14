@@ -61,6 +61,7 @@
 		                    <option value="2">否</option>
 		                </select>
 		            </label>
+		            <!--
 		            <label for="">
 		                审核状态
 		                <select name="shzt" ce-model="">
@@ -71,13 +72,14 @@
 		                    <option value="4">撤回</option>
 		                </select>
 		            </label>
+		            -->
 		            <label for="">
 		                付费状态
 		                <select name="ffzt" ce-model="">
 		                    <option value="">全部</option>
 		                    <option value="1">全款</option>
 		                    <option value="2">分期</option>
-		                    <option value="3">未付</option>
+		                    <option value="3">未付款</option>
 		                </select>
 		            </label>
 		            <label for="">
@@ -108,7 +110,6 @@
 		                    <th>特批单</th>
 		                    <th>合作单</th>
 		                    <th>合作人</th>
-		                    <th>审核状态</th>
 		                    <th>付费状态</th>
 		                    <th>提单日期</th>
 		                    <th>操作</th>
@@ -136,19 +137,10 @@
 		                    <td><%=item.applicantName%></td>
 		                    <td><%=item.agentName%></td>
 		                    <td><%=item.istp == "1" ? "是":"否"%></td>
-		                    <td></td>
-		                    <td></td>
-		                    <td></td>
-		                    <td></td>
+		                    <td><%=item.isCooperation == "1" ? "是":"否"%></td>
+		                    <td><%=item.cooperationUnit%></td>
+		                    <td><%=IBSS.PayMap[item.payStatus]%></td>
 		                    <td><%=item.applyTimeStr%></td>
-		                    <!--
-		                    <td class="state state-wait"><%=item.assigneeName%></td>
-							<td class="state state-wait"><%=item.lastTaskName%></td>
-							<td class="state state-wait"><%=item.lastAssigneeName%></td>
-		                    <td class="state state-going state-allGoing"><%=item.currentTaskName%></td>
-		                    <td class="state state-going state-allGoing"><%=item.currentApproverName%></td>
-		                    <td class="state state-end state-allEnd"><%=item.endDateStr%></td>
-		                    -->
 		                    <td>
 								<a class="detail" data-inid="<%=item.processInstanceId%>">
 									查看

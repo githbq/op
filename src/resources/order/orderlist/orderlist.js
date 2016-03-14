@@ -9,7 +9,7 @@ define( function( require, exports, module ) {
 
     var statusMap = {},industryMap = {},sourceMap = {};
 
-    var statusAry = ['','已通过','待审核','已过期','撤回'];
+    var statusAry = ['','待审核','已撤回','被驳回','已通过'];
     var payStatusAry = ['','分期','全款','未付'];
     var orderTypeAry = ['','办公版新购-普通','办公版新购-特批','营销版新购-普通','营销版新购-特批','办公版增购-普通',
                         '办公版增购-特批','营销版增购-普通','营销版增购-特批','办公版续费-普通','办公版续费-特批',
@@ -31,8 +31,8 @@ define( function( require, exports, module ) {
             me.$putStartTime.datetimepicker({'timepicker': false,'format':'Y/m/d'});
             me.$putEndTime.datetimepicker({'timepicker': false,'format':'Y/m/d'});
 			
-			 me.$putStartTime.val( util.getDateStr(-30) );
-            me.$putEndTime.val( util.getDateStr(0) );
+			me.$putStartTime.val( util.getDateStr(-30) );
+            me.$putEndTime.val( util.getDateStr(1) );
 
             me.pagination = new Pagination({
                 'wrapper': me.$view.find('.list-pager'),
@@ -79,7 +79,7 @@ define( function( require, exports, module ) {
            var ea = $(e.currentTarget).attr('data-ea');
 
            me.trigger('orderDetail',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':false,'orderType':orderType,
-               'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea} );
+               'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea,'processInstanceId':''} );
        },
         //导出excel
         exportEve: function(e){

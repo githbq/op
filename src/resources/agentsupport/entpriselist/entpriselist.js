@@ -190,9 +190,9 @@ define( function( require, exports, module ) {
 
                             if( item.protectionWhiteListStatus == 0 ){
                                 item.authStr = "全部授权" 
-                            }else if( item.authLevel == 1){
+                            }else if( item.protectionWhiteListStatus == 1){
                                 item.authStr = "未授权" 
-                            }else if( item.authLevel == 2){
+                            }else if( item.protectionWhiteListStatus == 2){
                                 item.authStr = "部分授权" 
                             }
                         });
