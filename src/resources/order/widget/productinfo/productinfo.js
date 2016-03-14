@@ -66,6 +66,14 @@ define(function (require, exports, module) {
         if (!controller) {
             return;
         }
+
+        controlDataItems(terminalDataItems,'orderType',function(n){
+            n.value=type;
+        });
+        controlDataItems(tableDataItems,'orderType',function(n){
+            n.value=type;
+        });
+
         var transferedDataItems = controller.transferDataItem(terminalDataItems, tableDataItems, formDataItems, controlDataItems, result);//用控制器转换输入的数据项
         var apiPool = {api_getServicePrice: api_getServicePrice, api_getCalculateSingle: api_getCalculateSingle};//API池
         if (data.terminalInfo && data.terminalInfo.$view) {

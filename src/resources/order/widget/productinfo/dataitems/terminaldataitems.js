@@ -31,7 +31,11 @@ define(function (require, exports, module) {
             name: 'endTime_2',
             value: ''
         }));
-
+        //订单类型
+        dataItems.push(new DataItem({
+            name: 'orderType',
+            value: ''
+        }));
 
         //企业ID
         dataItems.push(new DataItem({
@@ -326,7 +330,8 @@ define(function (require, exports, module) {
                     startDate: me.o_getFieldValue('startTime_' + id),
                     endDate: me.o_getFieldValue('endTime_' + id),
                     sum: sum,
-                    contractAmount: me.o_getFieldValue('purchaseAmount_' + id) || 0
+                    contractAmount: me.o_getFieldValue('purchaseAmount_' + id) || 0,
+                    orderType:me.o_getFieldValue('orderType')
                 },
                 success: function (responseData) {
                     if (responseData.success) {
