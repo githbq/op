@@ -24,18 +24,6 @@ define( function( require, exports, module ) {
                 'pageSize': 20,
                 'pageNumber': 0
             });
-            
-
-            //是否显示 系统全部审批列表
-            if(me.attrs.limits){
-                me.$limitsShow.css({'display':'inline-block'});
-            }else{
-                //$('.limits-show').hide();
-                me.$limitsShow.hide();
-            }
-            
-
-
             me.pagination.render();
             me.pagination.onChange = function(){
                 me.getList();
@@ -56,12 +44,7 @@ define( function( require, exports, module ) {
                     trlength = 16;
                 }else if( me.attrs.state =="end" ){
                     trlength = 15;
-                }else if( me.attrs.state =="allGoing" ){
-                    trlength = 16;
-                }else if( me.attrs.state =="allEnd" ){
-                    trlength = 15;
                 }
-
                 me.$tbody.html("<tr><td colspan='" + trlength + "'><p class='info'>暂无数据</p></td></tr>");
             });
 
@@ -73,7 +56,6 @@ define( function( require, exports, module ) {
         elements:{
             '.applytype': 'applytype',      //
             '.starttime': 'starttime',      //开始时间
-            '.limits-show': 'limitsShow',   //
             '.endtime': 'endtime',          //结束时间
             'tbody': 'tbody'                //
         },
@@ -301,6 +283,9 @@ define( function( require, exports, module ) {
                 'processInstanceId': detail.processInstanceId || ''
             }
             detailApproval.show( data );
+            detailApproval.on('saveSuccess',function(){
+                renewList.getList();
+            });
         });
 
         /*
