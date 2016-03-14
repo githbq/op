@@ -82,7 +82,7 @@ define(function (require, exports, module) {
             //类型
             dataItems.push(new DataItem({
                 name: 'type_' + n.id,
-                value: (n.id=='7'?'2':'3'),
+                value: (n.id == '7' ? '2' : '3'),
                 events: [
                     {
                         key: 'change',
@@ -94,6 +94,8 @@ define(function (require, exports, module) {
                                 {
                                     //试用
                                     me.o_setValue({name: 'purchaseAmount_' + n.id, value: '0', readonly: true});
+                                    //清空折扣
+                                    me.o_setValue({name: 'discount_' + n.id, value: '', readonly: true});
                                 }
                                     ;
                                     break;
@@ -101,6 +103,8 @@ define(function (require, exports, module) {
                                 {
                                     //赠送
                                     me.o_setValue({name: 'purchaseAmount_' + n.id, value: '0', readonly: true});
+                                    //清空折扣
+                                    me.o_setValue({name: 'discount_' + n.id, value: '', readonly: true});
                                 }
                                     ;
                                     break;
@@ -335,7 +339,8 @@ define(function (require, exports, module) {
                 case '2':
                 {
                     me.o_setValue({name: 'purchaseAmount_' + id, value: 0})
-                    me.o_setValue({name: 'purchaseAmount_input_' + id, value: 0, readonly: true})
+                    me.o_setValue({name: 'purchaseAmount_input_' + id, value: 0, readonly: true});
+                    me.o_setValue({name: 'discount_' + id, value:''});
                 }
                     ;
                     break;
@@ -348,6 +353,7 @@ define(function (require, exports, module) {
                     ;
                     break;
             }
+
         }
 
         return dataItems;

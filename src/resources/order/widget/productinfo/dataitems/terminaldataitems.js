@@ -47,7 +47,7 @@ define(function (require, exports, module) {
             events: [
                 {
                     key: 'change', value: function (e) {
-                    priceComput.call(this,e);
+                    priceComput.call(this, e);
                 }
                 }]
         }));
@@ -57,7 +57,7 @@ define(function (require, exports, module) {
             events: [
                 {
                     key: 'change', value: function (e) {
-                    priceComput.call(this,e);
+                    priceComput.call(this, e);
                 }
                 }]
         }));
@@ -94,8 +94,7 @@ define(function (require, exports, module) {
                                             me.o_setValue({name: 'purchaseAmount_' + n, value: response.model});
                                             me.o_setValue({name: 'purchaseAmount_input_' + n, value: response.model});
                                             me.o_setValue({name: 'productAmount_' + n, value: response.model});
-                                            checkTypeForPrice.call(me, e, n);
-                                            priceComput.call(me, e);
+                                            changeForGetPrice.call(me, e);
                                         } else {
                                             me.o_setValue({name: 'purchaseAmount_input_' + n, value: ''});
                                             me.o_setValue({name: 'purchaseAmount_' + n, value: ''});
@@ -127,10 +126,12 @@ define(function (require, exports, module) {
                 __silent: true,
                 events: [{
                     key: 'change', value: function (e) {
+                        debugger
                         var me = this;
                         var $dom = $(e.target);
                         me.o_setValue({name: 'purchaseAmount_' + n, value: $dom.val()});
-                        changeForGetPrice.call(me, e,true);
+                        var id = $dom.parents('[data-productid]').attr('data-productid');
+                        changeForGetPrice.call(me, e);
                     }
                 }],
                 validateOptions: {
@@ -162,7 +163,7 @@ define(function (require, exports, module) {
                         var me = this;
                         setTimeout(function () {
                             changeForGetPrice.call(me, e);
-                        },200)
+                        }, 200)
                     }
                 }]
             }));
@@ -201,7 +202,8 @@ define(function (require, exports, module) {
                             case '2':
                             {
                                 me.o_setValue({name: 'purchaseAmount_' + n, value: 0});
-                                me.o_setValue({name: 'purchaseAmount_input_' + n, value: 0, readonly: true})
+                                me.o_setValue({name: 'purchaseAmount_input_' + n, value: 0, readonly: true});
+                                me.o_setValue({name: 'discount_' + n, value: ''});
                             }
                                 ;
                                 break;
@@ -216,7 +218,6 @@ define(function (require, exports, module) {
                                     me.o_setValue({name: 'purchaseAmount_' + n, value: me.o_getFieldValue('purchaseAmount_' + n)});
                                     me.o_setValue({name: 'purchaseAmount_input_' + n, value: me.o_getFieldValue('purchaseAmount_' + n), readonly: false})
                                 }
-                                me.o_data_getField({name: 'startTime_' + n}).blur();
                             }
                                 ;
                                 break;
@@ -230,11 +231,11 @@ define(function (require, exports, module) {
                                     me.o_setValue({name: 'purchaseAmount_' + n, value: me.o_getFieldValue('purchaseAmount_' + n)});
                                     me.o_setValue({name: 'purchaseAmount_input_' + n, value: me.o_getFieldValue('purchaseAmount_' + n), readonly: false})
                                 }
-                                me.o_data_getField({name: 'startTime_' + n}).blur();
                             }
                                 ;
                                 break;
                         }
+                        changeForGetPrice.call(me,e);
                     }
                     }
                 ]
@@ -278,6 +279,7 @@ define(function (require, exports, module) {
                     ;
                     break;
             }
+
         }
 
         var numberIds = ['2', '3', '8'];
@@ -300,14 +302,14 @@ define(function (require, exports, module) {
             this.__refs.tableInfo.$('[data-name=check]:first').change();
         }
 
-        function changeForGetPrice(e,change) {
+        function changeForGetPrice(e, change) {
             var me = this;
             var $dom = $(e.target);
             var id = $dom.parents('[data-productid]').attr('data-productid');
 
-            if ($dom.is('[datecontrol]')) {
-                $dom.change();
-            }
+            //if ($dom.is('[datecontrol]')) {
+            //    $dom.change();
+            //}
             var sum = 1;
             if (id == '1') {//针对CRM数量可改
                 sum = me.o_getFieldValue('purchaseCount_' + id);
@@ -319,8 +321,8 @@ define(function (require, exports, module) {
             var options = {
                 data: {
                     id: id,
-                    startDate: me.o_getFieldValue('startTime_' + id),
-                    endDate: me.o_getFieldValue('endTime_' + id),
+                    startDate: me.o_getFieldValue('startTime_' + id)||new Date().getTime(),
+                    endDate: me.o_getFieldValue('endTime_' + id)||new Date().getTime(),
                     sum: sum,
                     contractAmount: me.o_getFieldValue('purchaseAmount_' + id) || 0
                 },
@@ -337,12 +339,17 @@ define(function (require, exports, module) {
                     }
                 }
             };
-            if (options.data.startDate && options.data.endDate) {
+            if(id=='3' ){//服务人数不计算折扣
+                checkTypeForPrice.call(me, e, id);
+                priceComput.call(me, e);
+            }
+            else if (options.data.startDate && options.data.endDate ) {
                 if (options.data.startDate >= options.data.endDate) {
                     util.showToast('开始日期必须小于结束日期');
                     me.o_setValue({name: 'startTime_' + id, value: ''});
                     me.o_setValue({name: 'endTime_' + id, value: ''});
                 } else {
+                    //document.title=Math.random();
                     me.attrs.apiPool.api_getCalculateSingle(options);
                 }
             }
