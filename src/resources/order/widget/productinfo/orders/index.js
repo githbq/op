@@ -35,6 +35,11 @@ define(function (require, exports, module) {
                 if (contract) {
                     dataDic['contract'] = JSON.stringify(contract || {});
                     dataDic['contractCopy'] = JSON.stringify(contract || {});
+
+                    controller(formDataItems, 'sealName', function (item) {
+                        item.value=contract.sealName;
+                    });
+
                     //
                     //$a.attr('href', '/op/api/file/previewimage' + '?filePath=' + contractFilePath);
                     //$img.attr('src', '/op/api/file/previewimage' + '?filePath=' + contractFilePath);
@@ -69,6 +74,12 @@ define(function (require, exports, module) {
                             })
                         });
                     }
+                    controller(formDataItems, 'companyGateKeyword', function (item) {
+                        item.value=enterpriseExtend.companyGateKeyword;
+                    });
+                    controller(formDataItems, 'companyGateRemark', function (item) {
+                        item.value=enterpriseExtend.companyGateRemark;
+                    });
                 }
                 var checkids = [];
                 if (dataDic['check'] && dataDic['check'].value) {
