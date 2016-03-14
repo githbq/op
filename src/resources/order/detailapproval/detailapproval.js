@@ -401,7 +401,7 @@ define( function(require, exports, module){
 			//发票信息校验和取值
 			if( me.attrs.invoiceCommon.getInfo() ){
 				var temp  = me.attrs.invoiceCommon.getInfo();
-				objData.orderEntity.invoice =temp.invoice;
+				temp.invoice ? objData.orderEntity.invoice =temp.invoice : objData.orderEntity.invoice = null;
 				$.extend(true, objData.orderEntity.order, temp.order );
 			}else{
 				return ;
@@ -439,7 +439,7 @@ define( function(require, exports, module){
 				objData.orderEntity.order['discount'] = me.attrs.complexDiscount ;
 				objData.contract['discount'] = me.attrs.complexDiscount ;
 				objData.enterpriseExtend['enterpriseId'] = me.attrs.options.enterpriseId;
-				if(objData.orderEntity.invoice['businessLicense']){
+				if(objData.orderEntity.invoice && objData.orderEntity.invoice['businessLicense']){
 					objData.enterpriseExtend['businessLicense'] = objData.orderEntity.invoice['businessLicense'] ;
 					objData.enterpriseExtend['businessLicenseFileName'] = objData.orderEntity.invoice['businessLicenseFileName'];
 				}

@@ -454,7 +454,7 @@ define( function( require, exports, module ) {
 				//发票信息校验和取值
 				if( me.attrs.invoiceCommon.getInfo() ){
 					var temp  = me.attrs.invoiceCommon.getInfo();
-					objData.orderEntity.invoice =temp.invoice;
+					temp.invoice ? objData.orderEntity.invoice =temp.invoice:objData.orderEntity.invoice = null;
 					 $.extend(true, objData.orderEntity.order, temp.order , me.attrs.tempData);
 				}else{
 					return ;
@@ -482,7 +482,7 @@ define( function( require, exports, module ) {
 				//发票信息校验和取值
 				if( me.attrs.invoiceSpecial.getInfo() ){
 					var temp  = me.attrs.invoiceSpecial.getInfo();
-					objData.orderEntity.invoice =temp.invoice;
+					temp.invoice ? objData.orderEntity.invoice =temp.invoice : objData.orderEntity.invoice = null;
 					$.extend(true, objData.orderEntity.order, temp.order, me.attrs.tempData);
 				}else{
 					return ;
@@ -499,7 +499,7 @@ define( function( require, exports, module ) {
 			}
 			//获取订单类型
 			objData.orderEntity.order['orderType'] = me.attrs.orderType ;
-			if(objData.orderEntity.invoice['businessLicense']){
+			if(objData.orderEntity.invoice && objData.orderEntity.invoice['businessLicense']){
 				objData.enterpriseExtend['businessLicense'] = objData.orderEntity.invoice['businessLicense'] ;
 				objData.enterpriseExtend['businessLicenseFileName'] = objData.orderEntity.invoice['businessLicenseFileName'];
 			}

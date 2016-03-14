@@ -55,7 +55,8 @@ define( function( require, exports, module ) {
         trTpl: _.template( tem.filter('#orderList').html() ),
         events: {
 			'click .search':'searchEve',
-            'click .order-detail':'orderDetailEve'
+            'click .order-detail':'orderDetailEve',
+			'click .receive-money':'receiveMoneyEve'
         },
         elements:{
             'tbody': 'tbody',
@@ -77,10 +78,23 @@ define( function( require, exports, module ) {
            var opinion = $(e.currentTarget).attr('data-opinion');
            var isTp = $(e.currentTarget).attr('data-isTp');
            var ea = $(e.currentTarget).attr('data-ea');
-
+		   
            me.trigger('orderDetail',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':false,'orderType':orderType,
                'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea,'processInstanceId':''} );
        },
+	   //收尾款
+	   receiveMoneyEve:function( e ){
+		   var me = this;
+		   var id = $(e.currentTarget).attr('data-id')||'';
+		   var enterpriseId = $(e.currentTarget).attr('data-enterpriseId')||'';
+           var orderType = $(e.currentTarget).attr('data-orderType')||'';
+           var opinion = $(e.currentTarget).attr('data-opinion')||'';
+           var isTp = $(e.currentTarget).attr('data-isTp')||'';
+           var ea = $(e.currentTarget).attr('data-ea')||'';
+		   var contractNo = $(e.currentTarget).attr('data-contractNo')||'';
+		  
+           location.hash = '#order/payment/'+id+'/'+enterpriseId+'/'+orderType+'/'+opinion+'/'+isTp+'/'+ea+'/'+contractNo;
+	   },
         //导出excel
         exportEve: function(e){
             var me = this;
