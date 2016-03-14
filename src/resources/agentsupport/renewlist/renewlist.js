@@ -81,6 +81,7 @@ define( function( require, exports, module ) {
         events: {
             'click .btn-search': 'searchEve',       //查询
             'click .detail': 'detailEve',           //详情
+            'click .revoke': 'revokeEve',           //撤销审批
             'click .toggle b': 'toggleEve'          //切换
         },
 
@@ -110,11 +111,34 @@ define( function( require, exports, module ) {
                 $parent.find( '.' + me.attrs.state+'-approve' ).show();
             }
         },
+        
         //设置状态
         setNum: function( state,data){
             var me = this;
             var listNum = data.value.model.itemCount||0;
             $('.' + state+'-approve').text(listNum);
+        },
+
+        //撤销审批
+        revokeEve: function( e ){
+            var me = this;
+
+            var $target = $( e.currentTarget );
+            var inid = $target.attr('data-inid');
+
+            util.api({
+                'url': '~/op/api/approval/withdrawapproval',
+                'data':{
+                    'processInstanceId': inid
+                },
+                'success': function( data ){
+                    console.warn( data );
+                    if( data.success ){
+                        util.showTip('撤销成功');
+                        me.getList();
+                    }
+                }
+            })
         },
 
         searchEve: function(){
@@ -245,9 +269,6 @@ define( function( require, exports, module ) {
             })
         }
     });
-
-
-
 
     exports.init = function( param ) {
         var $el = exports.$el;

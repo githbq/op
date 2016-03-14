@@ -153,6 +153,9 @@
 								<a class="detail" data-inid="<%=item.processInstanceId%>">
 									查看
 								</a>
+								<% if( item.canCancel){ %>
+									<a class="revoke" data-inid="<%=item.processInstanceId%>">撤销审批</a>
+								<% } %>
 		                    </td>
 		                    <td></td>
 		                </tr>
