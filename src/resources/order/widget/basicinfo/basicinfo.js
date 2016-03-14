@@ -101,6 +101,7 @@ define(function(require, exports, module){
 			me.model.set('industry', IBSS.tempEnterprise['industry']);
 			me.model.set('vendorid',IBSS.role_vendorId);
 			me.model.set('storagetotalspace',0);
+			me.model.set('useBusinessCard',1);
 
 			IBSS.tempEnterprise['enterpriseName'] && me.$('.enterpriseName').attr('disabled','disabled');
 			IBSS.tempEnterprise['address'] && me.$('.address').attr('disabled','disabled');
