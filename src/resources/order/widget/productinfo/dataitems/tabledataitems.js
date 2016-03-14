@@ -32,8 +32,9 @@ define(function (require, exports, module) {
                             if (!$check.is('[readonly],[disabled]')) {
                                 $check.prop('checked', checked).attr('checked', checked);
                             }
+                            $(n).change();
                         });
-                        $checks.first().change();
+
                     }
                 }, {
                     key: "blur",
@@ -51,17 +52,17 @@ define(function (require, exports, module) {
                 {
                     key: 'change',
                     value: function (e) {
-                            debugger
-                            var me = this;
-                            var $dom = $(e.target);
-                            var checked = $dom.is(':checked');
-                            var readonly=!checked;
-                            var id = $dom.val();
-                            me.o_setValue({name: 'startTime_' + id, readonly: readonly});
-                            me.o_setValue({name: 'endTime_' + id, readonly: readonly});
-                            me.o_setValue({name: 'type_' + id, readonly: readonly});
-                            me.o_setValue({name: 'purchaseAmount_' + id, readonly: readonly});
-                            priceComput.call(this, e);
+                        debugger
+                        var me = this;
+                        var $dom = $(e.target);
+                        var checked = $dom.is(':checked');
+                        var readonly = !checked;
+                        var id = $dom.val();
+                        me.o_setValue({name: 'startTime_' + id, readonly: readonly});
+                        me.o_setValue({name: 'endTime_' + id, readonly: readonly});
+                        me.o_setValue({name: 'type_' + id, readonly: readonly});
+                        me.o_setValue({name: 'purchaseAmount_' + id, readonly: readonly});
+                        priceComput.call(this, e);
                     }
                 }
             ]
@@ -340,7 +341,7 @@ define(function (require, exports, module) {
                     }
                 }
             };
-            if (options.data.startDate && options.data.endDate && options.data.contractAmount && parseFloat(options.data.contractAmount)) {
+            if (options.data.startDate && options.data.endDate) {
                 if (options.data.startDate >= options.data.endDate) {
                     util.showToast('开始日期必须小于结束日期');
                     me.o_setValue({name: 'startTime_' + id, value: ''});
