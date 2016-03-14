@@ -107,11 +107,11 @@ define(function (require, exports, module) {
                                     }
                                 });
                             } else {
-                                me.o_setValue({name: 'purchaseAmount_input_' + n, value: '',readonly:true});
+                                me.o_setValue({name: 'purchaseAmount_input_' + n, value: '',readonly:false});
                                 me.o_setValue({name: 'purchaseAmount_' + n, value: ''});
                                 me.o_setValue({name: 'productAmount_' + n, value: ''});
                                 changeForGetPrice.call(me, e);
-                                me.o_setValue({name: 'purchaseAmount_input_' + n,readonly:true});
+                                me.o_setValue({name: 'purchaseAmount_input_' + n,readonly:false});
                             }
                         }
                     }
@@ -129,7 +129,7 @@ define(function (require, exports, module) {
             dataItems.push(new DataItem({
                 name: 'purchaseAmount_input_' + n,
                 value: '',
-                readonly:true,
+                readonly:false,
                 __silent: true,
                 events: [{
                     key: 'change', value: function (e) {
