@@ -59,6 +59,12 @@ define(function( require , exports , module ){
 		init: function( attrs ){
 			Invoice.__super__.init.apply( this, arguments );
 
+			console.warn('invoice init');
+			console.warn( attrs );
+			if( attrs.data ){
+				//me.model.load
+			}
+
 			//初始化事件
 			this.initEvents();
 			this.render();
