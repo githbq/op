@@ -260,9 +260,6 @@ define( function( require, exports, module ) {
                         me.pagination.setTotalSize( data.value.model.itemCount );
                         me.list.reload( data.value.model.content , function( item ){
                             item.applyTimeStr = new Date( item.applyTime )._format('yyyy-MM-dd hh:mm');
-                            if( item.endDate ){
-                                item.endDateStr = new Date( item.endDate )._format('yyyy-MM-dd hh:mm');
-                            }
                         });
                     }
                 }
