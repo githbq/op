@@ -35,17 +35,27 @@ define(function (require, exports, module) {
                 if (contract) {
                     dataDic['contract'] = JSON.stringify(contract || {});
                     dataDic['contractCopy'] = JSON.stringify(contract || {});
-
+                    //
+                    //$a.attr('href', '/op/api/file/previewimage' + '?filePath=' + contractFilePath);
+                    //$img.attr('src', '/op/api/file/previewimage' + '?filePath=' + contractFilePath);
+                    //
                     if (contract.contractFileName) {
+                        debugger
                         controller(formDataItems, 'contract-image', function (item) {
                             item.visible = true;
-                            item.attr = {src: contract.contractFileName}
+                            item.attr = {src: '/op/api/file/previewimage?filePath=' + contract.contract};
+                            item.on('setFieldValue', function ($ele, value) {
+                                $ele.parent('a').attr('href', '/op/api/file/previewimage?filePath=' + contract.contract);
+                            })
                         });
                     }
                     if (contract.contractCopyFileName) {
                         controller(formDataItems, 'contractCopy-image', function (item) {
                             item.visible = true;
-                            item.attr = {src: contract.contractCopyFileName}
+                            item.attr = {src: '/op/api/file/previewimage?filePath=' + contract.contractCopy};
+                            item.on('setFieldValue', function ($ele, value) {
+                                $ele.parent('a').attr('href', '/op/api/file/previewimage?filePath=' + ontract.contractCopy);
+                            });
                         });
                     }
                 }
@@ -54,7 +64,10 @@ define(function (require, exports, module) {
                     if (enterpriseExtend.companyGatePictureFileName) {
                         controller(formDataItems, 'companyGatePicture-image', function (item) {
                             item.visible = true;
-                            item.attr = {src: enterpriseExtend.companyGatePictureFileName}
+                            item.attr = {src:'/op/api/file/previewimage?filePath=' +  enterpriseExtend.companyGatePicture};
+                            item.on('setFieldValue', function ($ele, value) {
+                                $ele.parent('a').attr('href', '/op/api/file/previewimage?filePath=' + enterpriseExtend.companyGatePicture);
+                            })
                         });
                     }
                 }
@@ -100,7 +113,7 @@ define(function (require, exports, module) {
                                     case 'bind'://捆绑已经强制了,只要有 则一定全选
                                     {
                                         controller(terminalDataItems, 'kunbang', function (item) {
-                                            item.value =true;
+                                            item.value = true;
                                         });
                                     }
                                         ;
@@ -114,19 +127,19 @@ define(function (require, exports, module) {
                 dataDic['check'].value = checkids;
                 if (responseData.readonly === true) {
                     $(terminalDataItems).each(function (i, n) {
-                        if (n.name.toLowerCase().indexOf('wrapper') < 0) {//包裹者不设
+                        if (n.name.toLowerCase().indexOf('wrapper') < 0 && n.name.toLowerCase().indexOf('image') < 0) {//包裹者不设
                             n.readonly = true;
 
                         }
                     })
                     ;
                     $(tableDataItems).each(function (i, n) {
-                        if (n.name.toLowerCase().indexOf('wrapper') < 0) {//包裹者不设
+                        if (n.name.toLowerCase().indexOf('wrapper') < 0 && n.name.toLowerCase().indexOf('image') < 0) {//包裹者不设
                             n.readonly = true;
                         }
                     });
                     $(formDataItems).each(function (i, n) {
-                        if (n.name.toLowerCase().indexOf('wrapper') < 0) {//包裹者不设
+                        if (n.name.toLowerCase().indexOf('wrapper') < 0 && n.name.toLowerCase().indexOf('image') < 0) {//包裹者不设
                             n.readonly = true;
                         }
                     });

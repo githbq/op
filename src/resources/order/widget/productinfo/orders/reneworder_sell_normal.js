@@ -17,7 +17,9 @@ define(function (require, exports, module) {
 
     //转换输入值
     exports.transferDataItem = function (terminalDataItems, tableDataItems, formDataItems, controller,responseData) {//转换数据项
-
+        controller(terminalDataItems, 'discount_1', function (n) {
+            n.visible = true;
+        });
         controller(terminalDataItems,'useFX',function(n){
             n.value = false;
             n.readonly=false;

@@ -130,7 +130,7 @@ define(function (require, exports, module) {
                         var me = this;
                         var $dom = $(e.target);
                         me.o_setValue({name: 'purchaseAmount_' + n, value: $dom.val()});
-                        priceComput.call(me, e);
+                        changeForGetPrice.call(me, e,true);
                     }
                 }],
                 validateOptions: {
@@ -162,7 +162,7 @@ define(function (require, exports, module) {
                         var me = this;
                         setTimeout(function () {
                             changeForGetPrice.call(me, e);
-                        })
+                        },200)
                     }
                 }]
             }));
@@ -300,7 +300,7 @@ define(function (require, exports, module) {
             this.__refs.tableInfo.$('[data-name=check]:first').change();
         }
 
-        function changeForGetPrice(e) {
+        function changeForGetPrice(e,change) {
             var me = this;
             var $dom = $(e.target);
             var id = $dom.parents('[data-productid]').attr('data-productid');
@@ -330,8 +330,8 @@ define(function (require, exports, module) {
                         me.o_setValue({name: 'discount_' + id, value: responseData.model.rebate});
 
                         me.o_setValue({name: 'productAmount_' + id, value: responseData.model.amount});
-                        me.o_setValue({name: 'purchaseAmount_' + id, value: responseData.model.amount});
-                        me.o_setValue({name: 'purchaseAmount_input_' + id, value: responseData.model.amount});
+                        //me.o_setValue({name: 'purchaseAmount_' + id, value: responseData.model.amount});
+                        //me.o_setValue({name: 'purchaseAmount_input_' + id, value: responseData.model.amount});
                         checkTypeForPrice.call(me, e, id);
                         priceComput.call(me, e);
                     }
