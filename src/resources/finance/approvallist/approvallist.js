@@ -4,9 +4,10 @@
  *
  */
 define( function(require, exports, module){
-
-	var Pagination = require('common/widget/pagination/pagination');
-	var OpenApproval = require('module/openapproval/openapproval');
+	var IBSS = window.IBSS,
+		TPL = IBSS.tpl;
+	
+	var DetailApproval = require('../../order/detailApproval/detailApproval');
 	var OpenApprovalList = require('module/openapprovallist/openapprovallist');
 	var DetailBind = require('module/detailbind/detailbind');
 
@@ -14,26 +15,28 @@ define( function(require, exports, module){
 		var $el = exports.$el;
 		
 		var approvalList = new OpenApprovalList( { 'wrapper':$el } );  	//
-		var openApproval = new OpenApproval();                 							//审批详情
-		var detailBind = new DetailBind();
-
 		approvalList.render();
 
-		approvalList.on('detail',function( id , eid , type , state, isCanEdit ){
+		var detailApproval;
+		approvalList.on('detail',function( detail , state ){
 			
-			openApproval.show( id , eid , type , state, isCanEdit);
+			detailApproval = new DetailApproval();
+            var data = {
+                'id' : detail.orderId || '',
+                'enterpriseId': detail.enterpriseId || '', 
+                'editFlag': detail.canEdit,
+                'orderType': detail.orderType || '',
+                'opinion': detail.opinion || '',
+                'isTp': detail.isTp || '',
+                'state': state || '',
+                'ea': detail.enterpriseAccount || '',
+                'currentTask': detail.currentTask || '',
+                'processInstanceId': detail.processInstanceId || ''
+            }
+            detailApproval.show( data );
+            detailApproval.on('saveSuccess',function(){
+                approvalList.getList();
+            });
 		});
-		approvalList.on('detailBind',function( id , eid , type , state,isCanEdit ){
-
-			detailBind.showInfo( id , eid , type , state,isCanEdit );
-		});
-		
-		openApproval.on('success',function(){
-			approvalList.searchEve();
-		});
-		detailBind.on('success',function(){
-			approvalList.searchEve();
-		});
-
 	}
 });
