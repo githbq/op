@@ -341,7 +341,8 @@ define( function( require, exports, module ) {
 
 			var tempObj = {
 				'productJson':JSON.stringify(data),
-				'contractAmount':account
+				'contractAmount':account,
+				'orderType':me.attrs.orderType
 			}
 			/**
 			 * 计算订单总折扣
@@ -498,6 +499,10 @@ define( function( require, exports, module ) {
 			}
 			//获取订单类型
 			objData.orderEntity.order['orderType'] = me.attrs.orderType ;
+			if(objData.orderEntity.invoice['businessLicense']){
+				objData.enterpriseExtend['businessLicense'] = objData.orderEntity.invoice['businessLicense'] ;
+				objData.enterpriseExtend['businessLicenseFileName'] = objData.orderEntity.invoice['businessLicenseFileName'];
+			}
 			//objData.enterpriseFilingId = objData.enterprise.enterpriseFilingId
 
 			//综合折扣

@@ -271,7 +271,7 @@ define(function (require, exports, module) {
                     error = {field: $ele, name: validateName, option: option};
                 }
                 var addError = false;
-                if ((!option.handler) || (option.handler && option.handler.call(me, error, value, option, $ele) !== false)) {
+                if ((!option.handler) || (option.handler && option.handler.call(me, error, value, option, $ele) !== undefined)) {
                     error && (addError = true);
                 }
                 me.trigger('validateError', value, error, option, $ele, me);

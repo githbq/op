@@ -12,6 +12,11 @@ define(function (require, exports, module) {
             '7': 'Salary_Helper'
 
         };
+        //订单类型
+        dataItems.push(new DataItem({
+            name: 'orderType',
+            value: ''
+        }));
         dataItems.push(new DataItem({
             name: 'checkAll',
             value: null,
@@ -138,6 +143,7 @@ define(function (require, exports, module) {
                     validateOptions: {
                         required: {
                             enable: true, value: true, message: '', handler: function (error, value, option, $ele) {
+                               return $ele.parents('tr').find('input[type=checkbox]:checked').length!=0;
                             }
                         }
                     }, events: getPriceEventsForDate
@@ -305,7 +311,8 @@ define(function (require, exports, module) {
                     startDate: me.o_getFieldValue('startTime_' + id),
                     endDate: me.o_getFieldValue('endTime_' + id),
                     sum: 1,
-                    contractAmount: me.o_getFieldValue('purchaseAmount_' + id)
+                    contractAmount: me.o_getFieldValue('purchaseAmount_' + id),
+                    orderType:me.o_getFieldValue('orderType')
                 },
                 success: function (responseData) {
                     console.warn(responseData);
