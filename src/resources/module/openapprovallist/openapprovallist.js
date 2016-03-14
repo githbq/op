@@ -53,15 +53,15 @@ define( function(require, exports, module){
 
             me.on('empty:list',function(){
                 if( me.attrs.state == "wait" ){
-                    trlength = 10;
+                    trlength = 15;
                 }else if( me.attrs.state =="going" ){
-                    trlength = 11;
+                    trlength = 16;
                 }else if( me.attrs.state =="end" ){
-                    trlength = 10;
+                    trlength = 15;
                 }else if( me.attrs.state =="allGoing" ){
-                    trlength = 11;
+                    trlength = 16;
                 }else if( me.attrs.state =="allEnd" ){
-                    trlength = 10;
+                    trlength = 15;
                 }
 
                 me.$tbody.html("<tr><td colspan='" + trlength + "'><p class='info'>暂无数据</p></td></tr>");
@@ -85,8 +85,7 @@ define( function(require, exports, module){
         events: {
             'click .btn-search': 'searchEve',       //查询
             'click .detail': 'detailEve',           //详情
-            'click .toggle b': 'toggleEve',         //切换
-			'click .detail-bind':'detailBindEve'    //查看详情
+            'click .toggle b': 'toggleEve'          //切换
         },
 
         /**
@@ -99,9 +98,7 @@ define( function(require, exports, module){
             util.getEnumsSelect('APPROVAL_TYPE',me.$applytype,function( data ){
                 me.getList();
             });
-
             
-
         },
 
         //渲染至页面
@@ -147,24 +144,13 @@ define( function(require, exports, module){
 
             var $target = $( e.currentTarget );
 
-            var id = $target.attr('data-id');
-            var eid = $target.attr('data-eid');
-            var type = $target.attr('data-type');
-			var isCanEdit = $target.attr('data-edit')||'false';
-            me.trigger( 'detail', id , eid , type , me.attrs.state,isCanEdit );
+            var inid = $target.attr('data-inid');
+
+            var detail = me.list.find('processInstanceId',inid);
+         
+            me.trigger( 'detail', detail, me.attrs['state'] );
         },
-		detailBindEve:function(e){
-			 var me = this;
-
-            var $target = $( e.currentTarget );
-
-            var id = $target.attr('data-id');
-            var eid = $target.attr('data-eid');
-            var type = $target.attr('data-type');
-			var isCanEdit = $target.attr('data-edit')||'false';
-            me.trigger( 'detailBind', id , eid , type , me.attrs.state,isCanEdit );
-		},
-
+	
         toggleEve: function( e ){
             var $target = $( e.currentTarget );
             $target.addClass('active').siblings().removeClass('active');
@@ -245,7 +231,7 @@ define( function(require, exports, module){
                 break;
             };
 
-            me.$tbody.html('<tr><td colspan="11"><p class="info">加载中...</p></td></tr>');
+            me.$tbody.html('<tr><td colspan="15"><p class="info">加载中...</p></td></tr>');
             
             me.xhr && me.xhr.abort();
 
