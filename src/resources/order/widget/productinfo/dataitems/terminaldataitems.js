@@ -208,7 +208,7 @@ define(function (require, exports, module) {
                             case '2':
                             {
                                 me.o_setValue({name: 'purchaseAmount_' + n, value: 0});
-                                me.o_setValue({name: 'purchaseAmount_input_' + n, value: 0, readonly: true});
+                                me.o_setValue({name: 'purchaseAmount_input_' + n, value: 0, readonly: false});
                                 me.o_setValue({name: 'discount_' + n, value: ''});
                             }
                                 ;
@@ -339,6 +339,9 @@ define(function (require, exports, module) {
                         me.o_setValue({name: 'discount_' + id, value: responseData.model.rebate===null?'':responseData.model.rebate});
 
                         me.o_setValue({name: 'productAmount_' + id, value: responseData.model.amount});
+                        if(id=='8'){
+                            me.o_setValue({name: 'purchaseAmount_' + id, value: responseData.model.amount});
+                        }
                         checkTypeForPrice.call(me, e, id);
                         priceComput.call(me, e);
                     }
@@ -348,7 +351,7 @@ define(function (require, exports, module) {
                 checkTypeForPrice.call(me, e, id);
                 priceComput.call(me, e);
             }
-            else if (options.data.startDate && options.data.endDate && options.data.contractAmount && parseFloat(options.data.contractAmount)) {
+            else if (options.data.startDate && options.data.endDate) {
                 if (options.data.startDate >= options.data.endDate) {
                     util.showToast('开始日期必须小于结束日期');
                     me.o_setValue({name: 'startTime_' + id, value: ''});
