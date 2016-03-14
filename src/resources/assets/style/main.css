@@ -6534,3 +6534,7 @@ em {
 .m-invoice .roleinfo b {
   padding: 0 6px;
 }
+.m-invoice .yyzzimg,
+.m-invoice .nsrzimg {
+  display: none;
+}

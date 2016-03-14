@@ -58,11 +58,45 @@ define(function( require , exports , module ){
 		 */
 		init: function( attrs ){
 			Invoice.__super__.init.apply( this, arguments );
+			var me = this;
 
 			console.warn('invoice init');
 			console.warn( attrs );
+
+			//设置数据 显示数据
 			if( attrs.data ){
-				//me.model.load
+				me.model.load( attrs.data.invoice );
+				me.model.load( attrs.data.order );
+
+				if( attrs.data.order && attrs.data.order.discount ){
+					me.setDiscount( attrs.data.order.discount );
+				}
+
+				if( attrs.data.invoice.invoiceType == 1 ){
+					me.$('.invoice-bar label').eq(0).trigger('click');
+					me.$('[name="intype"]').eq(0).trigger('click');
+					me.$('.yyzzimg').show().find('img').attr('src',"/op/api/file/previewimage?filePath="+attrs.data.invoice.businessLicense)
+
+				}else if( attrs.data.invoice.invoiceType == 2 ){
+					me.$('.invoice-bar label').eq(0).trigger('click');
+					me.$('[name="intype"]').eq(1).trigger('click');
+					me.$('.yyzzimg').show().find('img').attr('src',"/op/api/file/previewimage?filePath="+attrs.data.invoice.businessLicense)
+					me.$('.nsrzimg').show().find('img').attr('src',"/op/api/file/previewimage?filePath="+attrs.data.invoice.taxpayerQualification)
+				}else{
+					me.$('.invoice-bar label').eq(1).trigger('click');
+				}
+
+				if( attrs.data.order.isTp == 1 ){
+
+					me.$('[name="team"]').eq(1).trigger('click');
+				}else{
+					me.$('[name="team"]').eq(0).trigger('click');
+				}
+
+				me.$('.roleinfo').hide();
+			}
+			if( attrs.editFlag == false ){
+				me.$('input').attr('disabled','disabled');
 			}
 
 			//初始化事件
@@ -143,7 +177,6 @@ define(function( require , exports , module ){
 				}else if( intype == '2' ){
 					invoiceType = 2;
 				}
-
 			}
 
 			me.model.set('invoiceType',invoiceType);
@@ -221,7 +254,7 @@ define(function( require , exports , module ){
 			
 			var invoiceinfo;
 			if( invoice == "3" ){
-				inviceinfo = {};
+				invoiceinfo = null;
 			}else{
 				invoiceinfo = me.model.all();
 			}
