@@ -107,11 +107,11 @@ define(function (require, exports, module) {
                                     }
                                 });
                             } else {
-                                me.o_setValue({name: 'purchaseAmount_input_' + n, value: '',readonly:true});
+                                me.o_setValue({name: 'purchaseAmount_input_' + n, value: '',readonly:false});
                                 me.o_setValue({name: 'purchaseAmount_' + n, value: ''});
                                 me.o_setValue({name: 'productAmount_' + n, value: ''});
                                 changeForGetPrice.call(me, e);
-                                me.o_setValue({name: 'purchaseAmount_input_' + n,readonly:true});
+                                me.o_setValue({name: 'purchaseAmount_input_' + n,readonly:false});
                             }
                         }
                     }
@@ -129,7 +129,7 @@ define(function (require, exports, module) {
             dataItems.push(new DataItem({
                 name: 'purchaseAmount_input_' + n,
                 value: '',
-                readonly:true,
+                readonly:false,
                 __silent: true,
                 events: [{
                     key: 'change', value: function (e) {
@@ -339,10 +339,6 @@ define(function (require, exports, module) {
                         me.o_setValue({name: 'discount_' + id, value: responseData.model.rebate===null?'':responseData.model.rebate});
 
                         me.o_setValue({name: 'productAmount_' + id, value: responseData.model.amount});
-                        if (change!==false) {
-                            me.o_setValue({name: 'purchaseAmount_' + id, value: responseData.model.amount});
-                            me.o_setValue({name: 'purchaseAmount_input_' + id, value: responseData.model.amount});
-                        }
                         checkTypeForPrice.call(me, e, id);
                         priceComput.call(me, e);
                     }
@@ -352,7 +348,7 @@ define(function (require, exports, module) {
                 checkTypeForPrice.call(me, e, id);
                 priceComput.call(me, e);
             }
-            else if (options.data.startDate && options.data.endDate) {
+            else if (options.data.startDate && options.data.endDate && options.data.contractAmount && parseFloat(options.data.contractAmount)) {
                 if (options.data.startDate >= options.data.endDate) {
                     util.showToast('开始日期必须小于结束日期');
                     me.o_setValue({name: 'startTime_' + id, value: ''});
