@@ -315,9 +315,11 @@ define(function (require, exports, module) {
                         if (change !== false) {
                             me.o_setValue({name: 'purchaseAmount_' + id, value: responseData.model.amount});
                         }
-                        checkTypeForPrice.call(e, id);
+                        checkTypeForPrice.call(me, e, id);
                         priceComput.call(me, e);
-                        me.o_setValue({name: 'purchaseAmount_' + id, readonly: false});
+                        if (me.o_getFieldValue('type_' + id) == '3') {
+                            me.o_setValue({name: 'purchaseAmount_' + id, readonly: false});
+                        }
                     }
                 }
             };
@@ -329,7 +331,7 @@ define(function (require, exports, module) {
                     me.o_setValue({name: 'discount_' + id, value: ''});
                     me.o_setValue({name: 'productAmount_' + id, value: ''});
                 } else {
-                    if (me.o_getFieldValue('purchaseAmount_' + id)  && me.o_getFieldData('endTime_'+id).readonly!=true) {
+                    if (me.o_getFieldValue('purchaseAmount_' + id) && me.o_getFieldData('endTime_' + id).readonly != true) {
                         me.attrs.apiPool.api_getCalculateSingle(options);
                     }
                 }
