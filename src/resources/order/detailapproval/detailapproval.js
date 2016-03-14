@@ -136,7 +136,7 @@ define( function(require, exports, module){
 						//setOrderInfo--订单信息
 						me.setOrderInfo();
 						//基本信息
-						me.attrs.basicCommon = new BasicInfo( { 'wrapper':me.$view.find('.common--basic'),'data':{},
+						me.attrs.basicCommon = new BasicInfo( { 'wrapper':me.$view.find('.common--basic'),'data':me.attrs.enterpriseData.enterprise,
 							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
 					});
 
@@ -162,7 +162,7 @@ define( function(require, exports, module){
 					me._setTitle( orderTypeAry[me.attrs.options.orderType] );
 					$.when( me.getOrderDetail(), me.getEnterpriseInfo(), me.setOrderList()).done(function(){
 						//备注信息
-						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData,
+						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData.order,
 							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
 
 						//setOrderInfo--订单信息
@@ -178,7 +178,7 @@ define( function(require, exports, module){
 					me._setTitle( orderTypeAry[me.attrs.options.orderType] );
 					$.when( me.getOrderDetail(), me.getEnterpriseInfo(),me.setOrderList()).done(function(){
 						//备注信息
-						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData,
+						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData.order,
 							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
 
 						//setOrderInfo--订单信息
@@ -193,7 +193,7 @@ define( function(require, exports, module){
 					me._setTitle( orderTypeAry[me.attrs.options.orderType] );
 					$.when( me.getOrderDetail(), me.getEnterpriseInfo(),me.setOrderList()).done(function(){
 						//备注信息
-						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData,
+						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData.order,
 							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
 
 						//setOrderInfo--订单信息
@@ -209,7 +209,7 @@ define( function(require, exports, module){
 					me._setTitle( orderTypeAry[me.attrs.options.orderType] );
 					$.when( me.getOrderDetail(), me.getEnterpriseInfo(),me.setOrderList()).done(function(){
 						//备注信息
-						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData,
+						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData.order,
 							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
 
 						//setOrderInfo--订单信息
@@ -225,7 +225,7 @@ define( function(require, exports, module){
 					me._setTitle( orderTypeAry[me.attrs.options.orderType] );
 					$.when( me.getOrderDetail(), me.getEnterpriseInfo(),me.setOrderList()).done(function(){
 						//备注信息
-						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData,
+						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData.order,
 							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
 
 						//setOrderInfo--订单信息
@@ -241,7 +241,7 @@ define( function(require, exports, module){
 					me._setTitle( orderTypeAry[me.attrs.options.orderType] );
 					$.when( me.getOrderDetail(), me.getEnterpriseInfo(),me.setOrderList()).done(function(){
 						//备注信息
-						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData,
+						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData.order,
 							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
 
 						//setOrderInfo--订单信息
@@ -257,7 +257,7 @@ define( function(require, exports, module){
 					me._setTitle( orderTypeAry[me.attrs.options.orderType] );
 					$.when( me.getOrderDetail(), me.getEnterpriseInfo(),me.setOrderList()).done(function(){
 						//备注信息
-						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData,
+						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData.order,
 							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
 
 						//setOrderInfo--订单信息
@@ -274,7 +274,7 @@ define( function(require, exports, module){
 					me._setTitle( orderTypeAry[me.attrs.options.orderType] );
 					$.when( me.getOrderDetail(), me.getEnterpriseInfo(),me.setOrderList()).done(function(){
 						//备注信息
-						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData,
+						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData.order,
 							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
 
 						//setOrderInfo--订单信息
@@ -374,7 +374,6 @@ define( function(require, exports, module){
 			//判断审批意见
 			var opinion = me.attrs.options.opinion ? me.attrs.options.opinion :'暂无';
 			me.$('.last-options').text(opinion);
-			
 
 		},
 		//获取全部订单数据

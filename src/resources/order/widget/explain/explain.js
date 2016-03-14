@@ -35,13 +35,17 @@ define(function(require, exports, module){
 			me.checkEdit(me.attrs.editFlag)
 			if( (me.attrs.type%2) == 1 ){
 				me.$('.approval-box').hide();
+				me.model.set('approved_url','');
 			}else{
 				me.$('.approval-box').show();
+				me.setValue();
 			}
 		},
 		//数据渲染显示
 		setValue:function(){
 			var me = this;
+			var approvedUrl = me.attrs.data.approved_url||'';
+			me.model.set('approved_url',approvedUrl);
 		},
 		//检测是否可编辑
 		checkEdit:function(editFlag){
