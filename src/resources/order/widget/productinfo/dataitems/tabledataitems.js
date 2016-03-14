@@ -192,7 +192,7 @@ define(function (require, exports, module) {
                             var $checkbox = $ele.parents('tr').find('input[type=checkbox]');
                             if ($checkbox.length > 0) {
                                 var id = $checkbox.val();
-                                if (checkbox.is(':checked')) {
+                                if ($checkbox.is(':checked')) {
                                     if (me.o_data_getField({name: 'type_' + id}).length > 0 && me.o_data_getField({name: 'type_' + id}).is(':visible')) {
                                         if (me.o_getFieldValue('type_' + id).value != '3') {
                                             return false;
