@@ -63,14 +63,16 @@ define(function(require, exports, module){
 			var me = this;
 			//企业5星后传递的企业基本信息
 			me.getBasicInfo();
-			
-			//获取所有必须的枚举信息
-			me.getEnums();
 			//记录所有的枚举信息是否获取完毕
 			me.state = false;
-			
-			//显示基本信息模块
-			me.render();
+
+			//获取所有必须的枚举信息
+			me.getEnums( function(){
+				//显示基本信息模块
+				me.render();
+			});
+
+
 
 		},
 		//企业5星后传递的企业基本信息
@@ -90,7 +92,7 @@ define(function(require, exports, module){
             });
 			IBSS.tempEnterprise = IBSS.tempEnterprise ? IBSS.tempEnterprise :{};
 			me.model.set('enterprisename', IBSS.tempEnterprise['enterpriseName']);
-			debugger
+
 			//me.model.set('regionName', IBSS.tempEnterprise['regionName']);
 			me.model.set('address', IBSS.tempEnterprise['address']);
 			me.model.set('keycontactname', IBSS.tempEnterprise['representative']);
@@ -98,7 +100,7 @@ define(function(require, exports, module){
 			me.model.set('source', IBSS.tempEnterprise['source']);
 			me.model.set('industry', IBSS.tempEnterprise['industry']);
 			me.model.set('vendorid',IBSS.role_vendorId);
-			me.model.set('storagetotalspace ',0);
+			me.model.set('storagetotalspace',0);
 
 			IBSS.tempEnterprise['enterpriseName'] && me.$('.enterpriseName').attr('disabled','disabled');
 			IBSS.tempEnterprise['address'] && me.$('.address').attr('disabled','disabled');
@@ -115,7 +117,7 @@ define(function(require, exports, module){
 			IBSS.tempEnterprise['id'] && me.model.set('enterpriseFilingId', IBSS.tempEnterprise['id']);
 		},
 		//获取枚举值
-		getEnums: function(){
+		getEnums: function( callback ){
 			var me = this;
 			
 			var state = {
@@ -135,6 +137,7 @@ define(function(require, exports, module){
 					me.state = true;
 					me.model.set('source', IBSS.tempEnterprise['source']);
 					me.model.set('industry', IBSS.tempEnterprise['industry']);
+					callback && callback();
 				}
 			}
 
@@ -193,7 +196,15 @@ define(function(require, exports, module){
 		//数据渲染显示
 		setValue:function(){
 			var me = this;
+
 			me.model.load( me.attrs.data )
+			me.attrs.data.industry && me.model.set('industry', me.attrs.data.industry);
+			me.attrs.data.source && me.model.set('source', me.attrs.data.source);
+			me.attrs.data.grouptype && me.model.set('grouptype', me.attrs.data.grouptype);
+			me.attrs.data.province && me.model.set('province', me.attrs.data.province);
+			me.attrs.data.knowsource && me.model.set('knowsource', me.attrs.data.knowsource);
+			me.attrs.data.registermotive && me.model.set('registermotive', me.attrs.data.registermotive);
+			me.attrs.data.companyscale && me.model.set('companyscale', me.attrs.data.companyscale);
 		},
 		//检测是否可编辑
 		checkEdit:function(editFlag){

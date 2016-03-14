@@ -1,4 +1,4 @@
-<div class="order-content" js="true">
+<div class="order-content" js="true" style="z-index:100">
 
 	<div class="content-box" style="clear:both;">
 		<div class="m-addenterprise " style="width:1200px;">
@@ -16,24 +16,30 @@
 		<div>
 			<hr/>
 			<h4 style="font-weight: bold; font-size: 18px; padding-top: 8px; padding-bottom: 8px;">上一审批意见</h4>
-			<p>暂无</p>
+			<p class="last-options"></p>
 		</div>
-		<div class="state state-refuse">
+		<div class="state state-refuse ">
 			<hr/>
 			<p class="approval-action">
-				<button class="state  u-btn-blue action-submit">保存提交</button>
-				<button class="state  u-btn-blue action-save">保存</button>
+				<button class="  u-btn-blue action-submit">保存提交</button>
+				<button class="  u-btn-blue action-save">保存</button>
 			</p>
 		</div>
 
 		<div class="approval-action state state-wait">
 			<hr/>
+			<p class="currentTask-finance">
+				<label for="">
+					<span>实际到款时间 </span>
+					<input type="text"  class="money-time">
+				</label>
+	
+			</p>
 			<p>
-			<h3>审批意见</h3>
-			<textarea ce-model="comment"></textarea>
+			<h3 style="font-size:18px;">审批意见</h3>
+			<textarea ce-model="comment" cols="60" rows="5" style=" margin:10px;esize: none;word-wrap: break-word;outline: none; border: 1px solid #d9d9d9;-webkit-border-radius: 3px; -moz-border-radius: 3px;border-radius: 3px;"></textarea>
 			</p>
 			<p class="actions">
-				<button class="state  u-btn-blue action-resend" style="margin:0px 5px;">保存通过</button>
 				<button class="u-btn-blue action-agree"> 同意 </button>
 				<button class="u-btn-red action-reject"> 驳回 </button>
 			</p>
