@@ -457,7 +457,8 @@ define( function(require, exports, module){
 
 			var tempObj = {
 				'productJson':JSON.stringify(data),
-				'contractAmount':account
+				'contractAmount':account,
+				'orderType':me.attrs.options.orderType
 			}
 			/**
 			 * 计算订单总折扣
