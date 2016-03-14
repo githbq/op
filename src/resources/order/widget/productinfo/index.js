@@ -176,10 +176,6 @@ define(function (require, exports, module) {
                 var me = this;
                 var errors = me.errors = [];
                 me.o_eachFields(function ($ele, data) {
-                    if ($ele.attr('data-name') == 'payDate' ||$ele.attr('data-name')=='payerName') {
-
-                        debugger
-                    }
                     if ($ele && $ele.length > 0 && data.visible!==false && $ele.is(':visible')) { //可见且dom存在
                         var tempErrors = me.o_validateField($ele);
                         if (tempErrors && tempErrors.length > 0) {

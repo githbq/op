@@ -40,7 +40,6 @@ define(function (require, exports, module) {
                     //$img.attr('src', '/op/api/file/previewimage' + '?filePath=' + contractFilePath);
                     //
                     if (contract.contractFileName) {
-                        debugger
                         controller(formDataItems, 'contract-image', function (item) {
                             item.visible = true;
                             item.attr = {src: '/op/api/file/previewimage?filePath=' + contract.contract};
@@ -64,7 +63,7 @@ define(function (require, exports, module) {
                     if (enterpriseExtend.companyGatePictureFileName) {
                         controller(formDataItems, 'companyGatePicture-image', function (item) {
                             item.visible = true;
-                            item.attr = {src:'/op/api/file/previewimage?filePath=' +  enterpriseExtend.companyGatePicture};
+                            item.attr = {src: '/op/api/file/previewimage?filePath=' + enterpriseExtend.companyGatePicture};
                             item.on('setFieldValue', function ($ele, value) {
                                 $ele.parent('a').attr('href', '/op/api/file/previewimage?filePath=' + enterpriseExtend.companyGatePicture);
                             })
@@ -147,7 +146,11 @@ define(function (require, exports, module) {
             }
 
             $(bigArr).each(function (i, n) {
-                n.attr = {maxlength: 50};
+                if (n.attr) {
+                    n.attr.maxlength = 50;
+                } else {
+                    n.attr = {maxlength: 50};
+                }
             })
         }
         ;
@@ -199,8 +202,8 @@ define(function (require, exports, module) {
             var companyGatePictureData = $.parseJSON(formInfoData.companyGatePicture || '{}');
             var useBusinessCart = terminalInfo.o_getFieldData('businesscard').visible && terminalInfo.o_getFieldValue('useCRM') ? 1 : 0;//名片可见 CRM已勾选
             data.enterpriseExtend = {
-                compayGatePicture: companyGatePictureData.compayGatePicture,
-                compayGatePictureFileName: companyGatePictureData.compayGatePictureFileName,
+                companyGatePicture: companyGatePictureData.companyGatePicture,
+                companyGatePictureFileName: companyGatePictureData.companyGatePictureFileName,
                 companyGateKeyword: formInfoData.companyGateKeyword,
                 companyGateRemark: formInfoData.companyGateRemark,
                 useBusinessCard: useBusinessCart,

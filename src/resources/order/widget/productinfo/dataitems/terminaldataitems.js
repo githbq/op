@@ -331,7 +331,7 @@ define(function (require, exports, module) {
                 success: function (responseData) {
                     if (responseData.success) {
                         //{"amount":200,"rebate":1.7000000000000002}
-                        me.o_setValue({name: 'discount_' + id, value: responseData.model.rebate});
+                        me.o_setValue({name: 'discount_' + id, value: responseData.model.rebate===null?'':responseData.model.rebate});
 
                         me.o_setValue({name: 'productAmount_' + id, value: responseData.model.amount});
                         if (change!==false) {
