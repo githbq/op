@@ -153,15 +153,9 @@
                         <td class="state state-end state-allEnd"><%=item.endDateStr%></td>
                         -->
                         <td>
-							<%if(item.approvalTypeId == "bindingEnterpriseApproval"){%>
-								<a class="detail-bind" data-eid="<%=item.enterpriseId%>" data-edit="<%=item.canEdit%>"  data-id="<%=item.processInstanceId%>" data-type="<%=item.approvalTypeId%>">
-									查看
-								</a>
-							<%}else {%>
-								<a class="detail" data-inid="<%=item.processInstanceId%>">
-									查看
-								</a>
-							<%}%>
+							<a class="detail" data-inid="<%=item.processInstanceId%>">
+								查看
+							</a>
                         </td>
                         <td></td>
                     </tr>

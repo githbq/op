@@ -85,8 +85,7 @@ define( function(require, exports, module){
         events: {
             'click .btn-search': 'searchEve',       //查询
             'click .detail': 'detailEve',           //详情
-            'click .toggle b': 'toggleEve',         //切换
-			'click .detail-bind':'detailBindEve'    //查看详情
+            'click .toggle b': 'toggleEve'          //切换
         },
 
         /**
@@ -151,18 +150,7 @@ define( function(require, exports, module){
          
             me.trigger( 'detail', detail, me.attrs['state'] );
         },
-		detailBindEve:function(e){
-			 var me = this;
-
-            var $target = $( e.currentTarget );
-
-            var id = $target.attr('data-id');
-            var eid = $target.attr('data-eid');
-            var type = $target.attr('data-type');
-			var isCanEdit = $target.attr('data-edit')||'false';
-            me.trigger( 'detailBind', id , eid , type , me.attrs.state,isCanEdit );
-		},
-
+	
         toggleEve: function( e ){
             var $target = $( e.currentTarget );
             $target.addClass('active').siblings().removeClass('active');
