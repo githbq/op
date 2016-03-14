@@ -129,7 +129,7 @@
                         <td><%=item.contractNo%></td>
                         <td><%=item.enterpriseName%></td>
                         <td><%=item.enterpriseAccount%></td>
-                        <td><%=item.approvalTypeName%></td>
+                        <td><%=IBSS.OrderTypeMap[item.orderType]%></td>
                         <td><%=item.applicantName%></td>
                         <td><%=item.agentName%></td>
                         <td><%=item.istp == "1" ? "是":"否"%></td>
