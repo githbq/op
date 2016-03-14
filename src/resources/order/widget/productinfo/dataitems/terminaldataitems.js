@@ -82,7 +82,6 @@ define(function (require, exports, module) {
                                 priceComput.call(me, e);
                             }
                         } else {
-
                             $dom.val($dom.val().replace(/[^\.\d]/g, ''));
                             me.o_field_getData($dom).__silent = false;
                             if ($dom.val()) {
@@ -92,7 +91,7 @@ define(function (require, exports, module) {
                                         if (response.success) {
 
                                             me.o_setValue({name: 'purchaseAmount_' + n, value: response.model});
-                                            me.o_setValue({name: 'purchaseAmount_input_' + n, value: response.model});
+                                            me.o_setValue({name: 'purchaseAmount_input_' + n, value: response.model,readonly:false});
                                             me.o_setValue({name: 'productAmount_' + n, value: response.model});
 
                                         } else {
@@ -104,10 +103,11 @@ define(function (require, exports, module) {
                                     }
                                 });
                             } else {
-                                me.o_setValue({name: 'purchaseAmount_input_' + n, value: ''});
+                                me.o_setValue({name: 'purchaseAmount_input_' + n, value: '',readonly:true});
                                 me.o_setValue({name: 'purchaseAmount_' + n, value: ''});
                                 me.o_setValue({name: 'productAmount_' + n, value: ''});
                                 changeForGetPrice.call(me, e);
+                                me.o_setValue({name: 'purchaseAmount_input_' + n,readonly:true});
                             }
                         }
                     }
@@ -125,6 +125,7 @@ define(function (require, exports, module) {
             dataItems.push(new DataItem({
                 name: 'purchaseAmount_input_' + n,
                 value: '',
+                readonly:true,
                 __silent: true,
                 events: [{
                     key: 'change', value: function (e) {
@@ -266,16 +267,16 @@ define(function (require, exports, module) {
                 case '1':
                 case '2':
                 {
-                    me.o_setValue({name: 'purchaseAmount_' + id, value: 0})
-                    me.o_setValue({name: 'purchaseAmount_input_' + id, value: 0, readonly: true})
+                    me.o_setValue({name: 'purchaseAmount_' + id, value: 0});
+                    me.o_setValue({name: 'purchaseAmount_input_' + id, value: 0, readonly: true});
                 }
                     ;
                     break;
                 case '4':
                 case '3':
                 {
-                    me.o_setValue({name: 'purchaseAmount' + id, value: me.o_getFieldValue('purchaseAmount_input_' + id)})
-                    me.o_setValue({name: 'purchaseAmount_input_' + id, value: me.o_getFieldValue('purchaseAmount_input_' + id), readonly: false})
+                    me.o_setValue({name: 'purchaseAmount' + id, value: me.o_getFieldValue('purchaseAmount_input_' + id)});
+                    me.o_setValue({name: 'purchaseAmount_input_' + id, value: me.o_getFieldValue('purchaseAmount_input_' + id), readonly: false});
                 }
                     ;
                     break;

@@ -111,7 +111,7 @@ define(function (require, exports, module) {
                                 case '3':
                                 {
                                     //折扣
-                                    me.o_setValue({name: 'purchaseAmount_' + n.id, value: '0', readonly: false});
+                                    me.o_setValue({name: 'purchaseAmount_' + n.id, value: '0'});
                                 }
                                     ;
                                     break;
@@ -174,11 +174,12 @@ define(function (require, exports, module) {
                 name: 'purchaseAmount_' + n.id,
                 attr: {'data-price': '1'},
                 value: 0,
+                readonly: true,
                 events: [
                     {
                         key: 'change', value: function (e) {
                         priceComput.call(this, e);
-                        changeForGetPrice.call(this, e,false);
+                        changeForGetPrice.call(this, e, false);
                     }
                     }
                 ]
@@ -288,7 +289,7 @@ define(function (require, exports, module) {
 
         }
 
-        function changeForGetPrice(e,change) {
+        function changeForGetPrice(e, change) {
             var me = this;
             var $dom = $(e.target);
             var $tr = $dom.parents('tr');
@@ -311,10 +312,12 @@ define(function (require, exports, module) {
                         //{"amount":200,"rebate":1.7000000000000002}
                         me.o_setValue({name: 'discount_' + id, value: responseData.model.rebate});
                         me.o_setValue({name: 'productAmount_' + id, value: responseData.model.amount});
-                        if (change!==false) {
+                        if (change !== false) {
                             me.o_setValue({name: 'purchaseAmount_' + id, value: responseData.model.amount});
                         }
+                        checkTypeForPrice.call(e, id);
                         priceComput.call(me, e);
+                        me.o_setValue({name: 'purchaseAmount_' + id, readonly: false});
                     }
                 }
             };
@@ -326,7 +329,7 @@ define(function (require, exports, module) {
                     me.o_setValue({name: 'discount_' + id, value: ''});
                     me.o_setValue({name: 'productAmount_' + id, value: ''});
                 } else {
-                    if (me.o_getFieldData('purchaseAmount_' + id).readonly !== true) {
+                    if (me.o_getFieldValue('purchaseAmount_' + id)  && me.o_getFieldData('endTime_'+id).readonly!=true) {
                         me.attrs.apiPool.api_getCalculateSingle(options);
                     }
                 }
@@ -334,14 +337,13 @@ define(function (require, exports, module) {
         }
 
         function checkTypeForPrice(e, id) {
-
             var me = this;
             var typeValue = me.o_getFieldValue('type_' + id);
             switch (typeValue.toString()) {
                 case '1':
                 case '2':
                 {
-                    me.o_setValue({name: 'purchaseAmount_' + id, value: 0})
+                    me.o_setValue({name: 'purchaseAmount_' + id, value: 0, readonly: true});
                     me.o_setValue({name: 'purchaseAmount_input_' + id, value: 0, readonly: true});
                     me.o_setValue({name: 'discount_' + id, value: ''});
                 }
@@ -351,7 +353,7 @@ define(function (require, exports, module) {
                 case '3':
                 {
                     me.o_setValue({name: 'purchaseAmount' + id, value: me.o_getFieldValue('purchaseAmount_input_' + id)});
-                    me.o_setValue({name: 'purchaseAmount_input_' + id, value: me.o_getFieldValue('purchaseAmount_input_' + id), readonly: false});
+                    me.o_setValue({name: 'purchaseAmount_input_' + id, value: me.o_getFieldValue('purchaseAmount_input_' + id)});
                 }
                     ;
                     break;
