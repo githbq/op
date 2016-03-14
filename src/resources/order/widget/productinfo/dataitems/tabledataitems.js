@@ -51,7 +51,17 @@ define(function (require, exports, module) {
                 {
                     key: 'change',
                     value: function (e) {
-                        priceComput.call(this, e);
+                            debugger
+                            var me = this;
+                            var $dom = $(e.target);
+                            var checked = $dom.is(':checked');
+                            var readonly=!checked;
+                            var id = $dom.val();
+                            me.o_setValue({name: 'startTime_' + id, readonly: readonly});
+                            me.o_setValue({name: 'endTime_' + id, readonly: readonly});
+                            me.o_setValue({name: 'type_' + id, readonly: readonly});
+                            me.o_setValue({name: 'purchaseAmount_' + id, readonly: readonly});
+                            priceComput.call(this, e);
                     }
                 }
             ]
@@ -88,6 +98,7 @@ define(function (require, exports, module) {
                 //类型
                 dataItems.push(new DataItem({
                     name: 'type_' + n.id,
+                    readonly: true,
                     value: (n.id == '7' ? '2' : '3'),
                     events: [
                         {
@@ -117,7 +128,7 @@ define(function (require, exports, module) {
                                     case '3':
                                     {
                                         //折扣
-                                        me.o_setValue({name: 'purchaseAmount_' + n.id, value: me.o_getFieldValue('productAmount_' + n.id)});
+                                        me.o_setValue({name: 'purchaseAmount_' + n.id, value: me.o_getFieldValue('productAmount_' + n.id), readonly: false});
                                     }
                                         ;
                                         break;
@@ -140,10 +151,11 @@ define(function (require, exports, module) {
                 dataItems.push(new DataItem($.extend({
                     name: 'startTime_' + n.id,
                     value: startTime,
+                    readonly: true,
                     validateOptions: {
                         required: {
                             enable: true, value: true, message: '', handler: function (error, value, option, $ele) {
-                               return $ele.parents('tr').find('input[type=checkbox]:checked').length!=0;
+                                return $ele.parents('tr').find('input[type=checkbox]:checked').length != 0;
                             }
                         }
                     }, events: getPriceEventsForDate
@@ -152,6 +164,7 @@ define(function (require, exports, module) {
                 dataItems.push(new DataItem($.extend({
                     name: 'endTime_' + n.id,
                     value: endTime,
+                    readonly: true,
                     validateOptions: {
                         required: {
                             enable: true, value: true, message: '', handler: function (error, value, option, $ele) {
@@ -181,7 +194,6 @@ define(function (require, exports, module) {
                     name: 'purchaseAmount_' + n.id,
                     attr: {'data-price': '1'},
                     value: 0,
-                    readonly: true,
                     events: [
                         {
                             key: 'change', value: function (e) {
@@ -312,7 +324,7 @@ define(function (require, exports, module) {
                     endDate: me.o_getFieldValue('endTime_' + id),
                     sum: 1,
                     contractAmount: me.o_getFieldValue('purchaseAmount_' + id),
-                    orderType:me.o_getFieldValue('orderType')
+                    orderType: me.o_getFieldValue('orderType')
                 },
                 success: function (responseData) {
                     console.warn(responseData);
@@ -320,9 +332,6 @@ define(function (require, exports, module) {
                         //{"amount":200,"rebate":1.7000000000000002}
                         me.o_setValue({name: 'discount_' + id, value: responseData.model.rebate === null ? '' : responseData.model.rebate});
                         me.o_setValue({name: 'productAmount_' + id, value: responseData.model.amount});
-                        if (change !== false) {
-                            me.o_setValue({name: 'purchaseAmount_' + id, value: responseData.model.amount});
-                        }
                         checkTypeForPrice.call(me, e, id);
                         priceComput.call(me, e);
                         if (me.o_getFieldValue('type_' + id) == '3') {
@@ -331,7 +340,7 @@ define(function (require, exports, module) {
                     }
                 }
             };
-            if (options.data.startDate && options.data.endDate) {
+            if (options.data.startDate && options.data.endDate && options.data.contractAmount && parseFloat(options.data.contractAmount)) {
                 if (options.data.startDate >= options.data.endDate) {
                     util.showToast('开始日期必须小于结束日期');
                     me.o_setValue({name: 'startTime_' + id, value: ''});
