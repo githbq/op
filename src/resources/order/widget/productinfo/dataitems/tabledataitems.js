@@ -78,141 +78,142 @@ define(function (require, exports, module) {
         }];
 
         $(zhushous).each(function (i, n) {
-            n.options = n.options || {};
-            //类型
-            dataItems.push(new DataItem({
-                name: 'type_' + n.id,
-                value: (n.id == '7' ? '2' : '3'),
-                events: [
-                    {
-                        key: 'change',
-                        value: function (e) {
-                            var me = this;
-                            var $dom = $(e.target);
-                            switch (me.o_getFieldValue($dom.attr('data-name'))) {
-                                case '1':
-                                {
-                                    //试用
-                                    me.o_setValue({name: 'purchaseAmount_' + n.id, value: '0', readonly: true});
-                                    //清空折扣
-                                    me.o_setValue({name: 'discount_' + n.id, value: '', readonly: true});
-                                }
-                                    ;
-                                    break;
-                                case '2':
-                                {
-                                    //赠送
-                                    me.o_setValue({name: 'purchaseAmount_' + n.id, value: '0', readonly: true});
-                                    //清空折扣
-                                    me.o_setValue({name: 'discount_' + n.id, value: '', readonly: true});
-                                }
-                                    ;
-                                    break;
-                                case '3':
-                                {
-                                    //折扣
-                                    me.o_setValue({name: 'purchaseAmount_' + n.id, value: '0'});
-                                }
-                                    ;
-                                    break;
-                            }
-                            me.o_data_getField({name: 'purchaseAmount_' + n.id}).change();
-                        }
-                    }
-                ]
-            }));
-
-
-            var startTime = '';
-            var endTime = '';
-            if (n.id == 7) {
-                startTime = new Date().getTime();
-                endTime = new Date().setFullYear(new Date().getFullYear() + 1);
-            }
-
-            //PK助手开始时间
-            dataItems.push(new DataItem($.extend({
-                name: 'startTime_' + n.id,
-                value: startTime,
-                validateOptions: {
-                    required: {
-                        enable: true, value: true, message: '', handler: function (error, value, option, $ele) {
-                        }
-                    }
-                }, events: getPriceEventsForDate
-            }, n.options.startDate)));
-            //PK助手结束时间
-            dataItems.push(new DataItem($.extend({
-                name: 'endTime_' + n.id,
-                value: endTime,
-                validateOptions: {
-                    required: {
-                        enable: true, value: true, message: '', handler: function (error, value, option, $ele) {
-                        }
-                    }
-                }, events: getPriceEventsForDate
-            }, n.options.endDate)));
-
-
-            if (n.id == 7) {
-                dataItems[dataItems.length - 1].on('setFieldValue', function ($ele, value) {
-                    setTimeout(function () {
-                        $ele.blur();
-                    }, 100);
-                })
-            }
-
-
-            //pk助手原价
-            dataItems.push(new DataItem($.extend({
-                name: 'productAmount_' + n.id,
-                value: ''
-            }, n.options.productAmount)));
-
-            //pk助手合同金额
-            dataItems.push(new DataItem($.extend({
-                name: 'purchaseAmount_' + n.id,
-                attr: {'data-price': '1'},
-                value: 0,
-                readonly: true,
-                events: [
-                    {
-                        key: 'change', value: function (e) {
-                        priceComput.call(this, e);
-                        changeForGetPrice.call(this, e, false);
-                    }
-                    }
-                ]
-            }, n.options.purchaseAmount)));
-
-            //pk助手折扣
-            dataItems.push(new DataItem($.extend({
-                name: 'discount_' + n.id,
-                value: '',
-                validateOptions: {
-                    required: {
-                        enable: true, value: true, message: '', handler: function (error, value, option, $ele) {
-                            var me = this;
-                            var name = $ele.attr('data_name');
-                            var $checkbox = $ele.parents('tr').find('input[type=checkbox]');
-                            if ($checkbox.length > 0) {
-                                var id = $checkbox.val();
-                                if ($checkbox.is(':checked')) {
-                                    if (me.o_data_getField({name: 'type_' + id}).length > 0 && me.o_data_getField({name: 'type_' + id}).is(':visible')) {
-                                        if (me.o_getFieldValue('type_' + id).value != '3') {
-                                            return false;
-                                        }
+            (function (n) {
+                n.options = n.options || {};
+                //类型
+                dataItems.push(new DataItem({
+                    name: 'type_' + n.id,
+                    value: (n.id == '7' ? '2' : '3'),
+                    events: [
+                        {
+                            key: 'change',
+                            value: function (e) {
+                                var me = this;
+                                var $dom = $(e.target);
+                                switch (me.o_getFieldValue($dom.attr('data-name'))) {
+                                    case '1':
+                                    {
+                                        //试用
+                                        me.o_setValue({name: 'purchaseAmount_' + n.id, value: '0', readonly: true});
+                                        //清空折扣
+                                        me.o_setValue({name: 'discount_' + n.id, value: '', readonly: true});
                                     }
-                                } else {
-                                    return false;
+                                        ;
+                                        break;
+                                    case '2':
+                                    {
+                                        //赠送
+                                        me.o_setValue({name: 'purchaseAmount_' + n.id, value: '0', readonly: true});
+                                        //清空折扣
+                                        me.o_setValue({name: 'discount_' + n.id, value: '', readonly: true});
+                                    }
+                                        ;
+                                        break;
+                                    case '3':
+                                    {
+                                        //折扣
+                                        me.o_setValue({name: 'purchaseAmount_' + n.id, value: me.o_getFieldValue('productAmount_' + n.id)});
+                                    }
+                                        ;
+                                        break;
+                                }
+                                me.o_data_getField({name: 'purchaseAmount_' + n.id}).change();
+                            }
+                        }
+                    ]
+                }));
+
+
+                var startTime = '';
+                var endTime = '';
+                if (n.id == 7) {
+                    startTime = new Date().getTime();
+                    endTime = new Date().setFullYear(new Date().getFullYear() + 1);
+                }
+
+                //PK助手开始时间
+                dataItems.push(new DataItem($.extend({
+                    name: 'startTime_' + n.id,
+                    value: startTime,
+                    validateOptions: {
+                        required: {
+                            enable: true, value: true, message: '', handler: function (error, value, option, $ele) {
+                            }
+                        }
+                    }, events: getPriceEventsForDate
+                }, n.options.startDate)));
+                //PK助手结束时间
+                dataItems.push(new DataItem($.extend({
+                    name: 'endTime_' + n.id,
+                    value: endTime,
+                    validateOptions: {
+                        required: {
+                            enable: true, value: true, message: '', handler: function (error, value, option, $ele) {
+                            }
+                        }
+                    }, events: getPriceEventsForDate
+                }, n.options.endDate)));
+
+
+                if (n.id == 7) {
+                    dataItems[dataItems.length - 1].on('setFieldValue', function ($ele, value) {
+                        setTimeout(function () {
+                            $ele.blur();
+                        }, 100);
+                    })
+                }
+
+
+                //pk助手原价
+                dataItems.push(new DataItem($.extend({
+                    name: 'productAmount_' + n.id,
+                    value: ''
+                }, n.options.productAmount)));
+
+                //pk助手合同金额
+                dataItems.push(new DataItem($.extend({
+                    name: 'purchaseAmount_' + n.id,
+                    attr: {'data-price': '1'},
+                    value: 0,
+                    readonly: true,
+                    events: [
+                        {
+                            key: 'change', value: function (e) {
+                            priceComput.call(this, e);
+                            changeForGetPrice.call(this, e, false);
+                        }
+                        }
+                    ]
+                }, n.options.purchaseAmount)));
+
+                //pk助手折扣
+                dataItems.push(new DataItem($.extend({
+                    name: 'discount_' + n.id,
+                    value: '',
+                    validateOptions: {
+                        required: {
+                            enable: true, value: true, message: '', handler: function (error, value, option, $ele) {
+                                var me = this;
+                                var name = $ele.attr('data_name');
+                                var $checkbox = $ele.parents('tr').find('input[type=checkbox]');
+                                if ($checkbox.length > 0) {
+                                    var id = $checkbox.val();
+                                    if ($checkbox.is(':checked')) {
+                                        if (me.o_data_getField({name: 'type_' + id}).length > 0 && me.o_data_getField({name: 'type_' + id}).is(':visible')) {
+                                            if (me.o_getFieldValue('type_' + id).value != '3') {
+                                                return false;
+                                            }
+                                        }
+                                    } else {
+                                        return false;
+                                    }
                                 }
                             }
                         }
                     }
-                }
-            }, n.options.discount)));
+                }, n.options.discount)));
 
-
+            })(n);
         });
 
 
@@ -310,7 +311,7 @@ define(function (require, exports, module) {
                     console.warn(responseData);
                     if (responseData.success) {
                         //{"amount":200,"rebate":1.7000000000000002}
-                        me.o_setValue({name: 'discount_' + id, value: responseData.model.rebate});
+                        me.o_setValue({name: 'discount_' + id, value: responseData.model.rebate === null ? '' : responseData.model.rebate});
                         me.o_setValue({name: 'productAmount_' + id, value: responseData.model.amount});
                         if (change !== false) {
                             me.o_setValue({name: 'purchaseAmount_' + id, value: responseData.model.amount});
@@ -354,8 +355,8 @@ define(function (require, exports, module) {
                 case '4':
                 case '3':
                 {
-                    me.o_setValue({name: 'purchaseAmount' + id, value: me.o_getFieldValue('purchaseAmount_input_' + id)});
-                    me.o_setValue({name: 'purchaseAmount_input_' + id, value: me.o_getFieldValue('purchaseAmount_input_' + id)});
+                    me.o_setValue({name: 'purchaseAmount' + id, value: me.o_getFieldValue('productAmount_' + id)});
+                    me.o_setValue({name: 'purchaseAmount_input_' + id, value: me.o_getFieldValue('productAmount_' + id)});
                 }
                     ;
                     break;

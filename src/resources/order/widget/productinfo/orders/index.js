@@ -64,7 +64,7 @@ define(function (require, exports, module) {
                     if (enterpriseExtend.companyGatePictureFileName) {
                         controller(formDataItems, 'companyGatePicture-image', function (item) {
                             item.visible = true;
-                            item.attr = {src:'/op/api/file/previewimage?filePath=' +  enterpriseExtend.companyGatePicture};
+                            item.attr = {src: '/op/api/file/previewimage?filePath=' + enterpriseExtend.companyGatePicture};
                             item.on('setFieldValue', function ($ele, value) {
                                 $ele.parent('a').attr('href', '/op/api/file/previewimage?filePath=' + enterpriseExtend.companyGatePicture);
                             })
@@ -147,7 +147,11 @@ define(function (require, exports, module) {
             }
 
             $(bigArr).each(function (i, n) {
-                n.attr = {maxlength: 50};
+                if (n.attr) {
+                    n.attr.maxlength = 50;
+                } else {
+                    n.attr = {maxlength: 50};
+                }
             })
         }
         ;
