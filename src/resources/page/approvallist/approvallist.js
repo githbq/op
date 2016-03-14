@@ -40,7 +40,7 @@ define( function(require, exports, module){
 			detailApproval.show( data );
 			detailApproval.on('saveSuccess',function(){
 				approvalList.getList();
-			}
+			})
 		});
 		approvalList.on('detailBind',function( id , eid , type , state,isCanEdit ){
 
