@@ -178,7 +178,7 @@ define(function (require, exports, module) {
                     {
                         key: 'change', value: function (e) {
                         priceComput.call(this, e);
-                        changeForGetPrice.call(this, e);
+                        changeForGetPrice.call(this, e,false);
                     }
                     }
                 ]
@@ -288,7 +288,7 @@ define(function (require, exports, module) {
 
         }
 
-        function changeForGetPrice(e) {
+        function changeForGetPrice(e,change) {
             var me = this;
             var $dom = $(e.target);
             var $tr = $dom.parents('tr');
@@ -311,6 +311,9 @@ define(function (require, exports, module) {
                         //{"amount":200,"rebate":1.7000000000000002}
                         me.o_setValue({name: 'discount_' + id, value: responseData.model.rebate});
                         me.o_setValue({name: 'productAmount_' + id, value: responseData.model.amount});
+                        if (change!==false) {
+                            me.o_setValue({name: 'purchaseAmount_' + id, value: responseData.model.amount});
+                        }
                         priceComput.call(me, e);
                     }
                 }
@@ -340,7 +343,7 @@ define(function (require, exports, module) {
                 {
                     me.o_setValue({name: 'purchaseAmount_' + id, value: 0})
                     me.o_setValue({name: 'purchaseAmount_input_' + id, value: 0, readonly: true});
-                    me.o_setValue({name: 'discount_' + id, value:''});
+                    me.o_setValue({name: 'discount_' + id, value: ''});
                 }
                     ;
                     break;
