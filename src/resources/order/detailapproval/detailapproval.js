@@ -361,6 +361,7 @@ define( function(require, exports, module){
 			 //发票信息
 			 me.attrs.invoiceCommon = new InvoiceInfo( { 'wrapper':me.$view.find('.common--invioce'),'data':me.attrs.orderData,
 				 'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
+
 		 },
 		//设置自己部分的显示和隐藏：
 		setState:function(){

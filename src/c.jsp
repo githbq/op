@@ -35,6 +35,9 @@
                     <li><a href="#filing/usersearch">用户查询</a></li>
                 </ul>
             </li>
+			 <li>
+                <a href="#order/orderlist">订单</a>
+            </li>
 
             <!-- -->
             <li>
