@@ -247,7 +247,7 @@ define(function(require, exports, module){
 				util.showToast('信息填写不完整');
 				return  false;
 			}
-			return  true;
+			return  {};
 		}
 		
 	});

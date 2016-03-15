@@ -58,7 +58,7 @@ define(function (require, exports, module) {
                             item.visible = true;
                             item.attr = {src: '/op/api/file/previewimage?filePath=' + contract.contractCopy};
                             item.on('setValue', function ($ele, data) {
-                                $ele.parent('a').attr('href', '/op/api/file/previewimage?filePath=' + ontract.contractCopy);
+                                $ele.parent('a').attr('href', '/op/api/file/previewimage?filePath=' + contract.contractCopy);
                             });
                         });
                     }
