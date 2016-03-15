@@ -84,7 +84,7 @@
     //审批节点
     IBSS.TaskMap = {
     	'finance': '财务人员',
-    	'support': '支持人员',
+    	'support': '小助手',
     	'agent': '代理商'
     };
 
