@@ -1013,12 +1013,13 @@
 
                 //第一次遍历缓存所有数据
                 data.value.model.forEach(function( item, index ){
+                    item.children = {};
                     items[item.value] = item;
                 });
 
                 //第二次遍历生成缓存map
                 data.value.model.forEach(function( item, index ){
-                    generateNode( item.value );
+                    getNode( item.value );
                 });
 
                 console.log( items );
@@ -1034,16 +1035,19 @@
             // 从无生成一个node 
             // 并返回node的详细信息
             // 如果node有父节点则插入父节点的children节点
-            function generateNode( value ){
+            function getNode( value ){
 
+                //如果有父节点 则挂载在父节点上
                 if( items[value].parentValue && items[value].parentValue!='0' ){
 
-                    var parent = generateNode( items[value].parentValue );
-                    parent.children[value] = { info:items[value], children:{} };
-                    return parent.children[value];
+                    var parent =items[items[value].parentValue];
+                    parent.children[value] = items[value];
+                    return items[value];
+
+                //如果没父节点 则挂载在顶级对象上
                 }else{
 
-                    INMAP[value] = INMAP[value] || { info:items[value], children:{} };
+                    INMAP[value] = INMAP[value] || items[value];
                     return INMAP[value];
                 }
             }
@@ -1052,16 +1056,16 @@
             var str = "<option value=''>全部</option>";
             function generateDom( node , zindex ){
                 var item;
-                var mstr = "∟";
+                var mstr = "|-";
                 for( var i=1; i<=zindex; i++ ){
-                    mstr = "&nbsp;&nbsp;&nbsp;&nbsp;"+mstr;
+                    mstr = "&nbsp;&nbsp;&nbsp;"+mstr;
                 }
 
                 //console.log( mstr );
                 for( var key in node ){
                     
                     item = node[key];
-                    str = str + '<option value="' + item.info.value + '" title="' + item.info.text + '">' + mstr + item.info.text + '</option>';
+                    str = str + '<option value="' + item.value + '" title="' + item.text + '">' + mstr + item.text + '</option>';
                     generateDom( item.children , zindex+1 );
                 }
             }
