@@ -239,7 +239,6 @@ define(function(require, exports, module){
 				if( !me.model.get(attr) ){
 					util.warnInput( $this );
 					state = false;
-					
 				}else{
 					util.unWarnInput( $this );
 				}

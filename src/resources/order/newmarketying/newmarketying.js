@@ -191,8 +191,8 @@ define( function( require, exports, module ) {
 			var me = this;
 
 			var tempOrderType = _.indexOf(orderDate, me.attrs.typeFlag+'-'+me.attrs.showType) ;
-
-			me.attrs.orderType = tempOrderType;
+			tempOrderType = parseInt(tempOrderType);
+			me.attrs.orderType = parseInt(tempOrderType) ;
 			switch( tempOrderType )
 			{
 				case 13:
@@ -373,18 +373,18 @@ define( function( require, exports, module ) {
 		//获取全部订单数据
 		getOrderInfo:function(){
 			var me = this,objData  = { 'orderEntity':{},'enterprise':{}};
-			debugger
+
 			switch( me.attrs.typeFlag )
 			{
 				//新购办公版类型
-				case 'newOffice':
+				case 'newOffice': case 'releateOffice':
 					me.attrs.url = '/odr/submit';
 					//me.attrs.tempData = { "enterpriseFilingId":IBSS.tempEnterprise.id||''};
 					objData.enterpriseFilingId = IBSS.tempEnterprise.id||'';
 					break;
 					
 				//新购营销版类型
-				case 'newMarket':
+				case 'newMarket': case 'releateMarket':
 					me.attrs.url = '/odr/submit';
 					//me.attrs.tempData = { "enterpriseFilingId":IBSS.tempEnterprise.id||''};
 					objData.enterpriseFilingId = IBSS.tempEnterprise.id||'';
@@ -451,6 +451,9 @@ define( function( require, exports, module ) {
 				objData.orderEntity.order = temp.order
 				objData.orderEntity.subOrders = temp.subOrders;
 
+				//检测子订单折扣是否低于8折
+				me.checkDiscount( temp.subOrders);
+
 				//发票信息校验和取值
 				if( me.attrs.invoiceCommon.getInfo() ){
 					var temp  = me.attrs.invoiceCommon.getInfo();
@@ -477,7 +480,6 @@ define( function( require, exports, module ) {
 				objData.contract = temp.contract;
 				objData.orderEntity.order = temp.order
 				objData.orderEntity.subOrders = temp.subOrders;
-
 
 				//发票信息校验和取值
 				if( me.attrs.invoiceSpecial.getInfo() ){
@@ -507,22 +509,8 @@ define( function( require, exports, module ) {
 
 			//综合折扣
 			me.getDiscount( objData.orderEntity.subOrders ,objData.orderEntity.order.amount , function(  ){
-				var discoutFlag = true;
-				if(me.attrs.showType == 'common'){
-					me.attrs.invoiceCommon.setDiscount( me.attrs.complexDiscount );
-					_.map( objData.orderEntity.subOrders , function( obj , index){
-						if(obj.discount && obj.discount<8){
-							discoutFlag = false;
-							//break;
-						}
-					});
-					if( !discoutFlag ){
-						util.showToast('子产品折扣低于8折，必须申请特批');
-						return false;
-					}
-				}else{
-					me.attrs.invoiceSpecial.setDiscount( me.attrs.complexDiscount );
-				}
+
+				me.attrs.invoiceSpecial.setDiscount( me.attrs.complexDiscount );
 				objData.orderEntity.order['discount'] = me.attrs.complexDiscount ;
 				objData.contract['discount'] = me.attrs.complexDiscount ;
 
@@ -538,6 +526,35 @@ define( function( require, exports, module ) {
 					}
 				})
 			});
+		},
+		checkDiscount:function( data ){
+			var me = this;
+			var discoutFlag = true;
+			if( me.attrs.typeFlag == 'newOffice' || me.attrs.typeFlag == 'newMarket'|| me.attrs.typeFlag == 'releateOffice'|| me.attrs.typeFlag == 'releateMarket' ){
+				_.map( data , function( obj ){
+					if(obj.subOrder.productId ==1 || obj.subOrder.productId ==4  || obj.subOrder.productId ==5 ){
+						if( obj.subOrder.discount  &&  obj.subOrder.discount<8){
+							discoutFlag = false;
+							//util.showToast('子产品折扣低于8折，必须申请特批');
+							//return false;
+						}
+					}
+				});
+			}else{
+				_.map( data , function( obj ){
+					if(obj.subOrder.productId ==1 || obj.subOrder.productId ==4  || obj.subOrder.productId ==7  || obj.subOrder.productId ==5 ){
+						if( obj.subOrder.discount  &&  obj.subOrder.discount<8){
+							discoutFlag = false;
+							//util.showToast('子产品折扣低于8折，必须申请特批');
+							//return false;
+						}
+					}
+				});
+			}
+			if( !discoutFlag ){
+				util.showToast('子产品折扣低于8折，必须申请特批');
+				return false;
+			}
 		},
 		cancelEve: function(){
 			
