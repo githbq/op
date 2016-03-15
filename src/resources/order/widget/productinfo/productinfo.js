@@ -67,11 +67,11 @@ define(function (require, exports, module) {
             return;
         }
 
-        controlDataItems(terminalDataItems,'orderType',function(n){
-            n.value=type;
+        controlDataItems(terminalDataItems, 'orderType', function (n) {
+            n.value = type;
         });
-        controlDataItems(tableDataItems,'orderType',function(n){
-            n.value=type;
+        controlDataItems(tableDataItems, 'orderType', function (n) {
+            n.value = type;
         });
 
         var transferedDataItems = controller.transferDataItem(terminalDataItems, tableDataItems, formDataItems, controlDataItems, result);//用控制器转换输入的数据项
@@ -92,8 +92,11 @@ define(function (require, exports, module) {
         tableInfo.render();
         formInfo.render();
         terminalInfo.$('[data-name=purchaseCount_1]:first').change();
-        tableInfo.$('[data-name=check]:first').change();
         afterRender(type, terminalInfo, tableInfo, formInfo);
+        tableInfo.$('[data-name=checkAll]').change();
+        if (result && responseData.readonly === true) {
+
+        }
         return refs;
     };
 

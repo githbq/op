@@ -4,12 +4,10 @@
  *
  */
 define( function(require, exports, module){
-	var IBSS = window.IBSS,
-		TPL = IBSS.tpl;
+	var IBSS = window.IBSS;
 	
 	var DetailApproval = require('../../order/detailapproval/detailapproval');
 	var OpenApprovalList = require('module/openapprovallist/openapprovallist');
-	var DetailBind = require('module/detailbind/detailbind');
 
 	exports.init = function(){
 		var $el = exports.$el;
