@@ -72,10 +72,10 @@ define(function (require, exports, module) {
             dataItems.push(new DataItem({
                 name: 'purchaseCount_' + n,
                 value: '',
+                attr: {maxlength: 10},
                 __silent: true,
                 events: [{
                     key: 'change', value: function (e) {
-
                         var me = this;
                         var $dom = $(e.target);
                         if (n != '3') {
@@ -95,7 +95,7 @@ define(function (require, exports, module) {
                                         if (response.success) {
 
                                             me.o_setValue({name: 'purchaseAmount_' + n, value: response.model});
-                                            me.o_setValue({name: 'purchaseAmount_input_' + n, value: response.model,readonly:false});
+                                            me.o_setValue({name: 'purchaseAmount_input_' + n, value: response.model, readonly: false});
                                             me.o_setValue({name: 'productAmount_' + n, value: response.model});
 
                                         } else {
@@ -107,11 +107,11 @@ define(function (require, exports, module) {
                                     }
                                 });
                             } else {
-                                me.o_setValue({name: 'purchaseAmount_input_' + n, value: '',readonly:false});
+                                me.o_setValue({name: 'purchaseAmount_input_' + n, value: '', readonly: false});
                                 me.o_setValue({name: 'purchaseAmount_' + n, value: ''});
                                 me.o_setValue({name: 'productAmount_' + n, value: ''});
                                 changeForGetPrice.call(me, e);
-                                me.o_setValue({name: 'purchaseAmount_input_' + n,readonly:false});
+                                me.o_setValue({name: 'purchaseAmount_input_' + n, readonly: false});
                             }
                         }
                     }
@@ -129,7 +129,8 @@ define(function (require, exports, module) {
             dataItems.push(new DataItem({
                 name: 'purchaseAmount_input_' + n,
                 value: '',
-                readonly:false,
+                readonly: false,
+                attr: {maxlength: 10},
                 __silent: true,
                 events: [{
                     key: 'change', value: function (e) {
@@ -137,7 +138,7 @@ define(function (require, exports, module) {
                         var $dom = $(e.target);
                         me.o_setValue({name: 'purchaseAmount_' + n, value: $dom.val()});
                         var id = $dom.parents('[data-productid]').attr('data-productid');
-                        changeForGetPrice.call(me, e,false);
+                        changeForGetPrice.call(me, e, false);
                     }
                 }],
                 validateOptions: {
@@ -176,12 +177,14 @@ define(function (require, exports, module) {
             //产品原价
             dataItems.push(new DataItem({
                 name: 'productAmount_' + n,
-                value: ''
+                value: '',
+                attr: {maxlength: 10}
             }));
             //产品原价
             dataItems.push(new DataItem({
                 name: 'purchaseAmount_' + n,
-                value: ''
+                value: '',
+                attr: {maxlength: 10}
             }));
             //服务费 试用 赠送 折扣 的容器
             dataItems.push(new DataItem({
@@ -191,7 +194,8 @@ define(function (require, exports, module) {
             //服务费金额文本框
             dataItems.push(new DataItem({
                 name: 'purchaseAmount_wrapper_' + n,
-                visible: false
+                visible: false,
+                attr: {maxlength: 10}
             }));
             //服务费 1试用 2赠送 3折扣 的容器
             dataItems.push(new DataItem({
@@ -331,15 +335,15 @@ define(function (require, exports, module) {
                     endDate: me.o_getFieldValue('endTime_' + id),
                     sum: sum,
                     contractAmount: me.o_getFieldValue('purchaseAmount_' + id) || 0,
-                    orderType:me.o_getFieldValue('orderType')
+                    orderType: me.o_getFieldValue('orderType')
                 },
                 success: function (responseData) {
                     if (responseData.success) {
                         //{"amount":200,"rebate":1.7000000000000002}
-                        me.o_setValue({name: 'discount_' + id, value: responseData.model.rebate===null?'':responseData.model.rebate});
+                        me.o_setValue({name: 'discount_' + id, value: responseData.model.rebate === null ? '' : responseData.model.rebate});
 
                         me.o_setValue({name: 'productAmount_' + id, value: responseData.model.amount});
-                        if(id=='8'){
+                        if (id == '8') {
                             me.o_setValue({name: 'purchaseAmount_' + id, value: responseData.model.amount});
                         }
                         checkTypeForPrice.call(me, e, id);

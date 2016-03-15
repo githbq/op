@@ -30,6 +30,7 @@ define(function (require, exports, module) {
         dataItems.push(new DataItem({
             name: 'contractPrice',
             value: '',
+            attr:{maxlength:10},
             readonly: 'true',
             validateOptions: {
                 required: {
@@ -41,6 +42,7 @@ define(function (require, exports, module) {
         //原价总金额
         dataItems.push(new DataItem({
             name: 'productAmount',
+            attr:{maxlength:10},
             value: 0
         }));
 
@@ -166,31 +168,36 @@ define(function (require, exports, module) {
         //分期 服务费
         dataItems.push(new DataItem({
             name: 'currPayAmount_3',
-            visible: false
+            visible: false,
+            attr:{maxlength:10}
 
         }));
         //分期 CRM费
         dataItems.push(new DataItem({
             name: 'currPayAmount_1',
-            visible: false
+            visible: false,
+            attr:{maxlength:10}
 
         }));
         //分期 PK助手费
         dataItems.push(new DataItem({
             name: 'currPayAmount_4',
-            visible: false
+            visible: false,
+            attr:{maxlength:10}
 
         }));
         //分期 会议助手费
         dataItems.push(new DataItem({
             name: 'currPayAmount_5',
-            visible: false
+            visible: false,
+            attr:{maxlength:10}
 
         }));
         //PK助手费
         dataItems.push(new DataItem({
             name: 'currPayAmount_7',
-            visible: false
+            visible: false,
+            attr:{maxlength:10}
 
         }));
         //本次到款金额

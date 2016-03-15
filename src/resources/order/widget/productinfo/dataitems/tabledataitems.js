@@ -52,7 +52,6 @@ define(function (require, exports, module) {
                 {
                     key: 'change',
                     value: function (e) {
-                        debugger
                         var me = this;
                         var $dom = $(e.target);
                         var checked = $dom.is(':checked');
@@ -129,7 +128,7 @@ define(function (require, exports, module) {
                                     case '3':
                                     {
                                         //折扣
-                                        me.o_setValue({name: 'purchaseAmount_' + n.id, value: me.o_getFieldValue('productAmount_' + n.id), readonly: false});
+                                        me.o_setValue({name: 'purchaseAmount_' + n.id, value: me.o_getFieldValue('productAmount_' + n.id)||'0', readonly: false});
                                     }
                                         ;
                                         break;
@@ -187,13 +186,14 @@ define(function (require, exports, module) {
                 //pk助手原价
                 dataItems.push(new DataItem($.extend({
                     name: 'productAmount_' + n.id,
-                    value: ''
+                    value: '',
+                    attr:{maxlength:10}
                 }, n.options.productAmount)));
 
                 //pk助手合同金额
                 dataItems.push(new DataItem($.extend({
                     name: 'purchaseAmount_' + n.id,
-                    attr: {'data-price': '1'},
+                    attr: {'data-price': '1',maxlength:10},
                     value: 0,
                     events: [
                         {
@@ -336,7 +336,7 @@ define(function (require, exports, module) {
                         checkTypeForPrice.call(me, e, id);
                         priceComput.call(me, e);
                         if (me.o_getFieldValue('type_' + id) == '3') {
-                            me.o_setValue({name: 'purchaseAmount_' + id, readonly: false});
+                            me.o_setValue({name: 'purchaseAmount_' + id});
                         }
                     }
                 }
