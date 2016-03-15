@@ -37,7 +37,7 @@
 					</p>	
 					<p>
 						<span class="title">发票金额 <b>*</b></span>
-						<input type="text" ce-model="amount" name="fpje" oninput="this.value">
+						<input type="text" ce-model="amount" name="fpje" oninput="this.value=this.value.replace(/[^\.\d]/g,'')">
 					</p>
 				</section>
 
@@ -69,7 +69,7 @@
 						<span class="title">开户行<b>*</b></span> <input type="text" ce-model="bankName" name="khh">
 					</p>
 					<p>
-						<span class="title">账号<b>*</b></span> <input type="text" ce-model="bankAccount" name="zhanghao">
+						<span class="title">账号<b>*</b></span> <input type="text" ce-model="bankAccount" name="zhanghao" oninput="this.value=this.value.replace(/[^\d]/g,'')">
 					</p>
 				</section>
 
