@@ -161,7 +161,8 @@ define( function( require, exports, module ) {
 				'pageIndex': me.pagination.attr['pageNumber']+1,
                 'pageSize': me.pagination.attr['pageSize']
             }
-
+            htmlStr = "<tr> <td colspan='14'><p class='info'>加载中...</p></td> </tr>"
+            me.$tbody.html( htmlStr );
             util.api({
                 'url':'/odr/querypage',
                 'data':queryData,

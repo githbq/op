@@ -124,7 +124,7 @@ define(function(require, exports, module){
 					var sum = 0;
 					me.$view.find('.sub-app').each(function(){
 						var temp = {};
-						temp.productId = $(this).attrs('data-productId');
+						temp.productId = $(this).attr('data-productId');
 						temp.currPayAmount = $(this).val() ? $(this).val():0;
 						tempArry.push({'subOrder':temp});
 					});

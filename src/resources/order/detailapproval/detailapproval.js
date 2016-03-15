@@ -401,7 +401,10 @@ define( function(require, exports, module){
 
 			//检测自订单是否小于7折
 			if(me.attrs.options.isTp == '0'){
-				me.checkDiscount(temp.subOrders);
+				if(!me.checkDiscount(temp.subOrders)){
+					util.showToast('子产品折扣低于8折，必须申请特批');
+					return false;
+				}
 			}
 			//发票信息校验和取值
 			if( me.attrs.invoiceCommon.getInfo() ){
@@ -469,9 +472,10 @@ define( function(require, exports, module){
 			}
 
 			if( !discoutFlag ){
-				util.showToast('子产品折扣低于8折，必须申请特批');
+
 				return false;
 			}
+			return true;
 		},
 		//获取综合折扣
 		getDiscount:function( data ,account ,callback){
