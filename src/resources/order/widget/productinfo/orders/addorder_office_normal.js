@@ -20,10 +20,7 @@ define(function (require, exports, module) {
         //工资助手强制 end
         controller(terminalDataItems,'typewrapper_3',function(n){
             n.visible = false;
-        });
-        controller(terminalDataItems,'purchaseAmount_wrapper_3',function(n){
-            n.visible = false;
-        });
+        })
         controller(terminalDataItems,'purchaseAmount_input_3',function(n){
             n.visible = false;
         });

@@ -1,6 +1,7 @@
 define(function (require, exports, module) {
     var DataItem = require('../index').PageDataClass;
     var uploader = require('common/widget/upload').uploader;
+
     module.exports.getItems = function () {
         var dataItems = [];
 

@@ -1,22 +1,24 @@
 <script type="text/template" id="terminalinfo">
-    <div class="field_row field" data-name="userFXWrapper">
-        <div class="field">
-            <label class="text_right"> <input type="checkbox" data-name="useFX" value="2" checked="checked"/> <span class="label bold">销客终端</span> </label>
-        </div>
-    </div>
     <div class="terminalinfo">
-        <div class="field_row" data-productid="2">
-            <div class="field_row_head">
-                <label>
-                    <span class="label bold">销客终端总量(个)</span>
-                    <span class="red">*</span>
-                </label>
+        <div class="field_wrapper">
+            <div class="field_row_head userxk" data-name="userFXWrapper">
+                <label class="text_right"> <input type="checkbox" data-name="useFX" value="2" checked="checked"/> <span class="label bold">销客终端</span> </label>
             </div>
-            <div class="field_wrapper">
-                <div class="field">
-                    <input type="text" data-type="number" class="purchaseCount" data-name="purchaseCount_2" name="purchaseCount_2"/>
+            <div class="field_row_wrapper">
+                <div class="field_row" data-productid="2">
+                    <div class="field_row_head">
+                        <label class="text_right">
+                            <span class="label bold">销客终端总量(个)</span>
+                            <span class="red">*</span>
+                        </label>
+                    </div>
+                    <div class="field">
+                        <input type="text" data-type="number" class="purchaseCount" data-name="purchaseCount_2" name="purchaseCount_2"/>
 
-                    <div class="error"></div>
+                        <div class="error"></div>
+
+                    </div>
+
                 </div>
                 <!--<div class="field">-->
                 <!--<label>-->
@@ -31,77 +33,78 @@
                 <!--</label>-->
                 <!--<input data-name="endTime_2" type="text" datecontrol="{'type':0,'comment':'type为1表示结束时间'}" class="startTime" name="startTime"/>-->
                 <!--</div>-->
+
+                <div class="field_row suborder" data-productid="3">
+                    <div class="field_row_head">
+                        <label>
+                            <span class="label bold"><span class="field_text" data-name="keyword"></span>服务人数(个数)</span>
+                            <span class="red">*</span>
+                        </label>
+                    </div>
+                    <div class="field_wrapper">
+                        <div class="field">
+                            <input data-type="number" data-name="purchaseCount_3" type="text" class="" name=""/>
+                        </div>
+                        <div class="field">
+                            <label>
+                                <span class="label">培训服务费</span>
+                            </label>
+                        </div>
+                        <div class="field text-price">
+                            <label>
+                                <span class="label">产品原价</span>
+                            </label>
+                            <span class="field_text" data-name="productAmount_3">0</span>
+                            <span>元</span>
+                        </div>
+
+                        <div class="field typewrapper" data-name="typewrapper_3">
+                            <label>
+                                <input data-name="type_3" name="type_3" type="radio" value="1"/>
+                                <span>试用</span>
+                            </label>
+                            <label>
+                                <input data-name="type_3" name="type_3" type="radio" value="2"/>
+                                <span>赠送</span>
+                            </label>
+                            <label>
+                                <input data-name="type_3" name="type_3" type="radio" value="3"/>
+                                <span>折扣</span>
+                            </label>
+                        </div>
+
+                        <div class="field">
+                            <label>
+                                <span class="label">合同金额</span>
+                            </label>
+                            <span class="field_text" data-name="purchaseAmount_3"></span>
+                            <span>元</span>
+                        </div>
+                        <div class="field">
+                            <label>
+                                <span class="label">合同金额(元)</span>
+                                <span class="red">*</span>
+                            </label>
+                            <input type="text" data-type="number" data-name="purchaseAmount_input_3"/>
+                        </div>
+                        <!--<div class="field" data-name="needmoney" data-config="{'visible':false}">-->
+                        <!--<label>-->
+                        <!--<span class="label">收费:</span>-->
+                        <!--</label>-->
+                        <!--<label>-->
+                        <!--<input type="radio" name="sf" checked="checked"/>-->
+                        <!--<span>否</span>-->
+                        <!--</label>-->
+                        <!--<label>-->
+                        <!--<input type="radio" name="sf"/>-->
+                        <!--<span>是</span>-->
+                        <!--</label>-->
+                        <!--</div>-->
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="field_row" data-productid="3">
-            <div class="field_row_head">
-                <label>
-                    <span class="label bold"><span class="field_text" data-name="keyword"></span>服务人数(个数)</span>
-                    <span class="red">*</span>
-                </label>
-            </div>
-            <div class="field_wrapper">
-                <div class="field">
-                    <input data-type="number" data-name="purchaseCount_3" type="text" class="" name=""/>
-                </div>
-                <div class="field">
-                    <label>
-                        <span class="label">培训服务费</span>
-                    </label>
-                </div>
-                <div class="field text-price">
-                    <label>
-                        <span class="label">产品原价</span>
-                    </label>
-                    <span class="field_text" data-name="productAmount_3">0</span>
-                    <span>元</span>
-                </div>
-
-                <div class="field typewrapper" data-name="typewrapper_3">
-                    <label>
-                        <input data-name="type_3" name="type_3" type="radio" value="1"/>
-                        <span>试用</span>
-                    </label>
-                    <label>
-                        <input data-name="type_3" name="type_3" type="radio" value="2"/>
-                        <span>赠送</span>
-                    </label>
-                    <label>
-                        <input data-name="type_3" name="type_3" type="radio" value="3"/>
-                        <span>折扣</span>
-                    </label>
-                </div>
-
-                <div class="field">
-                    <label>
-                        <span class="label">合同金额</span>
-                    </label>
-                    <span class="field_text" data-name="purchaseAmount_3"></span>
-                    <span>元</span>
-                </div>
-                <div class="field" data-name="purchaseAmount_wrapper_3">
-                    <label>
-                        <span class="label">合同金额(元)</span>
-                        <span class="red">*</span>
-                    </label>
-                    <input type="text" data-type="number" data-name="purchaseAmount_input_3"/>
-                </div>
-                <!--<div class="field" data-name="needmoney" data-config="{'visible':false}">-->
-                <!--<label>-->
-                <!--<span class="label">收费:</span>-->
-                <!--</label>-->
-                <!--<label>-->
-                <!--<input type="radio" name="sf" checked="checked"/>-->
-                <!--<span>否</span>-->
-                <!--</label>-->
-                <!--<label>-->
-                <!--<input type="radio" name="sf"/>-->
-                <!--<span>是</span>-->
-                <!--</label>-->
-                <!--</div>-->
-            </div>
-        </div>
-        <div data-name="useCRMWrapper" data-productid="1">
+        <div data-name="useCRMWrapper" data-productid="1" class="suborder">
             <div class="field_row field">
                 <div class="field">
                     <label class="text_right"> <input type="checkbox" data-name="useCRM" value="1"/> <span class="label bold">CRM</span> </label>
@@ -190,75 +193,76 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="field_group" data-name="businesscard" data-productid="8">
-            <div class="field_group_head">
-                <label>
-                    <span class="label">名片</span>
-                    <span class="red">*</span>
-                </label>
-            </div>
-            <div class="field_row">
-                <div class="field_wrapper">
-                    <div class="field">
-                        <label>
-                            <span class="label">开始日期</span>
-                            <span class="red">*</span>
-                        </label>
-                        <input datecontrol type="text" class="" data-name="startTime_8"/>
-                    </div>
-                    <div class="field">
-                        <label>
-                            <span class="label">结束日期</span>
-                            <span class="red">*</span>
-                        </label>
-                        <input datecontrol type="text" class="" data-name="endTime_8"/>
-                    </div>
 
+            <div class="field_group suborder" data-name="businesscard" data-productid="8">
+                <div class="field_group_head">
+                    <label>
+                        <span class="label">名片</span>
+                        <span class="red">*</span>
+                    </label>
                 </div>
-            </div>
+                <div class="field_row">
+                    <div class="field_wrapper">
+                        <div class="field">
+                            <label>
+                                <span class="label">开始日期</span>
+                                <span class="red">*</span>
+                            </label>
+                            <input datecontrol type="text" class="" data-name="startTime_8"/>
+                        </div>
+                        <div class="field">
+                            <label>
+                                <span class="label">结束日期</span>
+                                <span class="red">*</span>
+                            </label>
+                            <input datecontrol type="text" class="" data-name="endTime_8"/>
+                        </div>
 
-            <div class="field_row">
-                <div class="field_wrapper">
-
-                    <div class="field typewrapper_8">
-                        <label>
-                            <input type="radio" name="type_8" data-name="type_8" value="1"/>
-                            <span>试用</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="type_8" data-name="type_8" value="2"/>
-                            <span>赠送</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="type_8" data-name="type_8" value="4"/>
-                            <span>正常</span>
-                        </label>
                     </div>
-                    <div class="field">
-                        <label>
-                            <span class="label">产品原价</span>
-                            <span class="field_text" data-name="productAmount_8">0</span>
+                </div>
+
+                <div class="field_row">
+                    <div class="field_wrapper">
+
+                        <div class="field typewrapper_8">
+                            <label>
+                                <input type="radio" name="type_8" data-name="type_8" value="1"/>
+                                <span>试用</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="type_8" data-name="type_8" value="2"/>
+                                <span>赠送</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="type_8" data-name="type_8" value="4"/>
+                                <span>正常</span>
+                            </label>
+                        </div>
+                        <div class="field">
+                            <label>
+                                <span class="label">产品原价</span>
+                                <span class="field_text" data-name="productAmount_8">0</span>
+                                <span>元</span>
+                            </label>
+                        </div>
+
+                        <div class="field">
+                            <label>
+                                <span class="label">合同金额</span>
+                            </label>
+                            <span class="field_text" data-name="purchaseAmount_8"></span>
                             <span>元</span>
-                        </label>
-                    </div>
+                        </div>
+                        <div class="field">
+                            <label>
+                                <span class="label">合同金额(元)</span>
+                                <span class="red">*</span>
+                            </label>
+                            <input type="text" class="" data-type="number" data-name="purchaseAmount_input_8"/>
+                        </div>
 
-                    <div class="field">
-                        <label>
-                            <span class="label">合同金额</span>
-                        </label>
-                        <span class="field_text" data-name="purchaseAmount_8"></span>
-                        <span>元</span>
                     </div>
-                    <div class="field">
-                        <label>
-                            <span class="label">合同金额(元)</span>
-                            <span class="red">*</span>
-                        </label>
-                        <input type="text" class="" data-type="number" data-name="purchaseAmount_input_8"/>
-                    </div>
-
                 </div>
             </div>
         </div>
@@ -283,7 +287,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
+            <tr class="suborder">
                 <td><input data-name="check" value="4" type="checkbox"/></td>
                 <td>PK助手</td>
                 <td><input data-name="startTime_4" type="text" datecontrol="{'type':0}"/></td>
@@ -298,7 +302,7 @@
                 <td><span data-name="discount_4" class="field_text">9.9</span></td>
                 <td width="*"></td>
             </tr>
-            <tr>
+            <tr class="suborder">
                 <td><input data-name="check" value="5" type="checkbox"/></td>
                 <td>会议助手</td>
                 <td><input data-name="startTime_5" type="text" datecontrol="{'type':0}"/></td>
@@ -313,7 +317,7 @@
                 <td><span data-name="discount_5" class="field_text">9.9</span></td>
                 <td width="*"></td>
             </tr>
-            <!--<tr>-->
+            <!--<tr class="suborder">-->
             <!--<td><input  data-name="check" value="6" type="checkbox"/></td>-->
             <!--<td>HR助手</td>-->
             <!--<td><input data-name="startTime_6" type="text" datecontrol="{'type':0}"/></td>-->
@@ -328,7 +332,7 @@
             <!--<td><span data-name="discount_6" class="field_text">9.9</span></td>-->
             <!--<td width="*"></td>-->
             <!--</tr>-->
-            <tr>
+            <tr class="suborder">
                 <td><input data-name="check" value="7" type="checkbox"/></td>
                 <td>工资助手</td>
                 <td><input data-name="startTime_7" type="text" datecontrol="{'type':0}"/></td>
@@ -515,7 +519,7 @@
                     <span class="supporttype">(支持png、jpg、gif)</span>
                 </div>
                 <div class="field image-field">
-                    <a href=""  target="_blank">
+                    <a href="" target="_blank">
                         <img class="product-image" data-name="contract-image"/>
                     </a>
                 </div>
@@ -555,7 +559,7 @@
                     <span class="supporttype">(支持png、jpg、gif)</span>
                 </div>
                 <div class="field image-field">
-                    <a href=""  target="_blank">
+                    <a href="" target="_blank">
                         <img class="product-image" data-name="companyGatePicture-image"/>
                     </a>
                 </div>
