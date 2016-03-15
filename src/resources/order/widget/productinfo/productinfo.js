@@ -100,7 +100,10 @@ define(function (require, exports, module) {
             formInfo.$('span.red').remove();
         }
         refs.validate = function () {
-            return terminalInfo.o_validate() && tableInfo.o_validate() && formInfo.o_validate();
+            var flag1=terminalInfo.o_validate();
+            var flag2=tableInfo.o_validate();
+            var flag3=formInfo.o_validate();
+            return flag1&&flag2&&flag3;
         };
         return refs;
     };
