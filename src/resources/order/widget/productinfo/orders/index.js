@@ -37,7 +37,7 @@ define(function (require, exports, module) {
                     dataDic['contractCopy'] = JSON.stringify(contract || {});
 
                     controller(formDataItems, 'sealName', function (item) {
-                        item.value=contract.sealName;
+                        item.value = contract.sealName;
                     });
 
                     //
@@ -75,10 +75,10 @@ define(function (require, exports, module) {
                         });
                     }
                     controller(formDataItems, 'companyGateKeyword', function (item) {
-                        item.value=enterpriseExtend.companyGateKeyword;
+                        item.value = enterpriseExtend.companyGateKeyword;
                     });
                     controller(formDataItems, 'companyGateRemark', function (item) {
-                        item.value=enterpriseExtend.companyGateRemark;
+                        item.value = enterpriseExtend.companyGateRemark;
                     });
                 }
                 var checkids = [];
@@ -158,7 +158,7 @@ define(function (require, exports, module) {
 
             $(bigArr).each(function (i, n) {
                 if (n.attr) {
-                    n.attr.maxlength = 50;
+                    (!n.attr.maxlength) && (n.attr.maxlength = 50);
                 } else {
                     n.attr = {maxlength: 50};
                 }
