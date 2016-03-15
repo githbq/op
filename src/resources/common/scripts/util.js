@@ -1021,6 +1021,9 @@
                     generateNode( item.value );
                 });
 
+                console.log( items );
+                console.log( INMAP );
+
                 generateDom( INMAP ,0 );
                 $select.html( str );
 

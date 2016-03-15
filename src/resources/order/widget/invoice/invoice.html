@@ -37,7 +37,7 @@
 					</p>	
 					<p>
 						<span class="title">发票金额 <b>*</b></span>
-						<input type="text" ce-model="amount" name="fpje" oninput="this.value=this.value.replace(/[^\.\d]/g,'')">
+						<input type="text" ce-model="amount" name="fpje" oninput="this.value=this.value.replace(/[^\.\d]/g,'')" maxlength="9">
 					</p>
 				</section>
 
@@ -54,10 +54,10 @@
 						<span class="title">发票抬头<b>*</b></span> <input type="text" ce-model="invoiceHead" name="fptt">
 					</p>
 					<p>
-						<span class="title">发票金额<b>*</b></span> <input type="text" ce-model="amount" name="fpje">
+						<span class="title">发票金额<b>*</b></span> <input type="text" ce-model="amount" name="fpje" oninput="this.value=this.value.replace(/[^\.\d]/g,'')" maxlength="9">
 					</p>
 					<p>
-						<span class="title">纳税人识别号<b>*</b></span> <input type="text" ce-model="taxpayerIdentificationNo" name="nsrsbh">
+						<span class="title">纳税人识别号<b>*</b></span> <input type="text" ce-model="taxpayerIdentificationNo" name="nsrsbh" maxlength="30">
 					</p>
 					<p>
 						<span class="title">地址<b>*</b></span> <input type="text" ce-model="address" name="dz"> 
@@ -69,7 +69,7 @@
 						<span class="title">开户行<b>*</b></span> <input type="text" ce-model="bankName" name="khh">
 					</p>
 					<p>
-						<span class="title">账号<b>*</b></span> <input type="text" ce-model="bankAccount" name="zhanghao" oninput="this.value=this.value.replace(/[^\d]/g,'')">
+						<span class="title">账号<b>*</b></span> <input type="text" ce-model="bankAccount" name="zhanghao" oninput="this.value=this.value.replace(/[^\d]/g,'')" maxlength="20">
 					</p>
 				</section>
 
