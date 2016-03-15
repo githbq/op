@@ -24,7 +24,7 @@ define( function(require, exports, module){
                 'enterpriseId': detail.enterpriseId || '', 
                 'editFlag': detail.canEdit,
                 'orderType': detail.orderType || '',
-                'opinion': detail.opinion || '',
+                'opinion': detail.lastAssigneeOpinion || '',
                 'isTp': detail.isTp || '',
                 'state': state || '',
                 'ea': detail.enterpriseAccount || '',

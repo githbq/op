@@ -87,20 +87,20 @@
 		            <thead>
 		                <tr>
 		                    <th></th>
-		                    <th>订单号</th>
-		                    <th>合同号</th>
-		                    <th>企业名称</th>
-		                    <th>账号</th>
-		                    <th>订单类型</th>
-		                    <th>提单人</th>
-		                    <th>代理商</th>
-		                    <th>特批单</th>
-		                    <th>合作单</th>
-		                    <th>合作人</th>
-		                    <th>当前审批节点</th>
-		                    <th>付费状态</th>
-		                    <th>提单日期</th>
-		                    <th>操作</th>
+		                    <th style="width:100px;">订单号</th>
+		                    <th style="width:100px;">合同号</th>
+		                    <th style="width:100px;">企业名称</th>
+		                    <th style="width:100px;">账号</th>
+		                    <th style="width:100px;">订单类型</th>
+		                    <th style="width:100px;">提单人</th>
+		                    <th style="width:100px;">代理商</th>
+		                    <th style="width:100px;">特批单</th>
+		                    <th style="width:100px;">合作单</th>
+		                    <th style="width:100px;">合作人</th>
+		                    <th style="width:100px;">当前审批节点</th>
+		                    <th style="width:100px;">付费状态</th>
+		                    <th style="width:100px;">提单日期</th>
+		                    <th style="width:100px;">操作</th>
 		                    <th></th>
 		                </tr>
 		            </thead>
@@ -114,7 +114,7 @@
 		                    <td><%=IBSS.OrderTypeMap[item.orderType]%></td>
 		                    <td><%=item.applicantName%></td>
 		                    <td><%=item.agentName%></td>
-		                    <td><%=item.istp == "1" ? "是":"否"%></td>
+		                    <td><%=item.isTp == "1" ? "是":"否"%></td>
 		                    <td><%=item.isCooperationStr%></td>
 		                    <td><%=item.cooperationUnit%></td>
 		                    <th><%=IBSS.TaskMap[item.currentTask]%></th>
