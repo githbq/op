@@ -7,7 +7,7 @@
 			<td><%=item.order.enterpriseName%></td>
 			<td><%=item.order.enterpriseAccount%></td>
 			<td><%=item.orderTypeStr%></td>
-			<td><%=item.account.username%></td>
+			<td><%=item.account.name%></td>
 			<td><%=item.agent.name%></td>
 			<td><%=item.order.isTp ? '是':'否'%></td>
 			<td><%=item.isCooperation ==1 ? '是':'否'%></td>
@@ -16,7 +16,10 @@
 			<td><%=item.payStatusStr%></td>
 			<td><%=item.createTimeStr%></td>
 			<td>
-				<a data-id="<%=item.order.id%>" >收尾款</a>&nbsp;&nbsp;
+				<a class="receive-money" data-id="<%=item.order.id%>"  data-enterpriseId="<%=item.order.enterpriseId%>"
+						data-orderType="<%=item.order.orderType%>" data-opinion="<%=item.order.rejectReason ?item.order.rejectReason :'' %>"
+				   data-isTp="<%=item.order.isTp%>"  data-ea="<%=item.order.enterpriseAccount%>" data-contractNo="<%=item.order.contractNo%>" >收尾款</a>&nbsp;&nbsp;
+				   
 				<a data-id="<%=item.order.id%>">删除</a>&nbsp;&nbsp;
 
                 <a class="order-detail" data-id="<%=item.order.id%>"  data-enterpriseId="<%=item.order.enterpriseId%>"
