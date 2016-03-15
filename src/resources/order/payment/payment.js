@@ -3,6 +3,7 @@ define( function( require, exports, module ) {
 
 	var OrderInfo = require('../widget/orderinfo/orderinfo');
 	var InvoiceInfo = require('../widget/invoice/invoice');
+	var GetMoney = require('../widget/getmoney/getmoney');
 	
     var PayMent = MClass( M.Center ).include( {
         
@@ -19,19 +20,20 @@ define( function( require, exports, module ) {
             var me = this;
 
 			me.attrs.orderList = {};
-			me.attrs.id = me.attrs.paralist||'';
 
 			me.checkType();
         },
 		//判断类型.
 		checkType:function(){
 			var me = this;
-			
+			me.$('.order-id').text(me.attrs.id)
 			
 			$.when( me.setOrderList(), me.getReceiveOrder() ).done(function(){
 						
-				me.attrs.invoiceCommon = new InvoiceInfo( { 'wrapper':me.$view.find('.common-invioce'),'data':{},'editFlag':true,'type':17 } );
-				me.attrs.basicCommon = new OrderInfo( { 'wrapper':me.$view.find('.common-basic'),'data':me.attrs.orderList,'editFlag':true,'type':9} );
+				me.attrs.invoiceCommon = new InvoiceInfo( { 'wrapper':me.$view.find('.common-invioce'),'data':null,'editFlag':true,'type':17 } );
+				me.attrs.basicCommon = new OrderInfo( { 'wrapper':me.$view.find('.common-basic'),'data':me.attrs.orderList,'editFlag':true,'type':17} );
+				me.attrs.getMoney = new GetMoney( { 'wrapper':me.$view.find('.common-product'),'data':me.attrs.receiveData,'editFlag':true,'type':17,'showType':true} );
+
 			});
 		
 		},
@@ -44,9 +46,8 @@ define( function( require, exports, module ) {
 					'success': function( data ){
 
 						if( data.success ){
-							me.attrs.receiveData = '';
-							//me.attrs.orderList = data;
-							
+							me.attrs.receiveData = data.value.model;
+
 						}
 					}
 				});
@@ -73,39 +74,31 @@ define( function( require, exports, module ) {
 		//获取全部订单数据
 		getOrderInfo:function(){
 			var me = this,objData  = { 'orderEntity':{},'enterprise':{}};
-			
-		
 
-				//基本信息校验和取值
-				if( me.attrs.basicCommon.getValue() ){
-					var tem ={'enterprise': me.attrs.basicCommon.getValue()} ;
-					$.extend(true, objData, tem );
+				//尾款订单数据
+				if( me.attrs.getMoney.getValue() ){
+					var tem = me.attrs.getMoney.getValue() ;
+					objData.orderEntity.order = tem.order;
+					objData.orderEntity.subOrders = tem.subOrders;
 				}else{
 					return ;
 				}
-
-				//产品信息
-				var temp = me.attrs.prodeuctObj.getData();
-				objData.enterpriseExtend = temp.enterpriseExtend ;
-				objData.contract = temp.contract;
-				objData.orderEntity.order = temp.order
-				objData.orderEntity.subOrders = temp.subOrders;
 
 				//发票信息校验和取值
 				if( me.attrs.invoiceCommon.getInfo() ){
 					var temp  = me.attrs.invoiceCommon.getInfo();
 					objData.orderEntity.invoice =temp.invoice;
-					 $.extend(true, objData.orderEntity.order, temp.order , me.attrs.tempData);
+					 $.extend(true, objData.orderEntity.order, temp.order );
 				}else{
 					return ;
 				}
- 				objData.orderEntity.order['isTp'] = 0;
-			
+
 			//获取订单类型
-			objData.orderEntity.order['orderType'] = me.attrs.orderType ;
-			//objData.enterpriseFilingId = objData.enterprise.enterpriseFilingId
+			objData.orderEntity.order['orderType'] = 17 ;
+			objData.enterprise.enterpriseId = me.attrs.enterpriseId;
+
 			util.api({
-				'url':me.attrs.url,
+				'url':'/odr/balancePayment/submit',
 				'data':JSON.stringify( objData ),
 				'contentType':'application/json;charset=UTF-8 ',
 				'success': function( data ){
@@ -118,9 +111,8 @@ define( function( require, exports, module ) {
 		},
 		cancelEve: function(){
 			
-			var me = this; 
-			
-			location.hash = "#ent/lst";
+			var me = this;
+			location.hash = "#order/orderlist";
 			
 		}
     } );
