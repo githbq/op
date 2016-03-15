@@ -57,10 +57,12 @@ define(function (require, exports, module) {
                         var checked = $dom.is(':checked');
                         var readonly = !checked;
                         var id = $dom.val();
-                        me.o_setValue({name: 'startTime_' + id, readonly: readonly});
-                        me.o_setValue({name: 'endTime_' + id, readonly: readonly});
-                        me.o_setValue({name: 'type_' + id, readonly: readonly});
-                        me.o_setValue({name: 'purchaseAmount_' + id, readonly: readonly});
+                        if (!$dom.is('[readonly],[disabled]')) {
+                            me.o_setValue({name: 'startTime_' + id, readonly: readonly});
+                            me.o_setValue({name: 'endTime_' + id, readonly: readonly});
+                            me.o_setValue({name: 'type_' + id, readonly: readonly});
+                            me.o_setValue({name: 'purchaseAmount_' + id, readonly: readonly});
+                        }
                         priceComput.call(this, e);
                     }
                 }
@@ -128,7 +130,7 @@ define(function (require, exports, module) {
                                     case '3':
                                     {
                                         //折扣
-                                        me.o_setValue({name: 'purchaseAmount_' + n.id, value: me.o_getFieldValue('productAmount_' + n.id)||'0', readonly: false});
+                                        me.o_setValue({name: 'purchaseAmount_' + n.id, value: me.o_getFieldValue('productAmount_' + n.id) || '0', readonly: false});
                                     }
                                         ;
                                         break;
@@ -187,13 +189,13 @@ define(function (require, exports, module) {
                 dataItems.push(new DataItem($.extend({
                     name: 'productAmount_' + n.id,
                     value: '',
-                    attr:{maxlength:10}
+                    attr: {maxlength: 10}
                 }, n.options.productAmount)));
 
                 //pk助手合同金额
                 dataItems.push(new DataItem($.extend({
                     name: 'purchaseAmount_' + n.id,
-                    attr: {'data-price': '1',maxlength:10},
+                    attr: {'data-price': '1', maxlength: 10},
                     value: 0,
                     events: [
                         {
