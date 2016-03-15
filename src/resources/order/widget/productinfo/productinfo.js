@@ -95,10 +95,16 @@ define(function (require, exports, module) {
         afterRender(type, terminalInfo, tableInfo, formInfo);
         tableInfo.$('[data-name=checkAll]').change();
         if (result && result.readonly === true) {
-                terminalInfo.$('span.red').remove();
-                tableInfo.$('span.red').remove();
-                formInfo.$('span.red').remove();
+            terminalInfo.$('span.red').remove();
+            tableInfo.$('span.red').remove();
+            formInfo.$('span.red').remove();
         }
+        refs.validate = function () {
+            var flag1=terminalInfo.o_validate();
+            var flag2=tableInfo.o_validate();
+            var flag3=formInfo.o_validate();
+            return flag1&&flag2&&flag3;
+        };
         return refs;
     };
 

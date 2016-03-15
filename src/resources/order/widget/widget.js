@@ -37,9 +37,7 @@ define(function (require, exports, module) {
         $('#testValidate').click(function () {
 
             debugger
-            var aaa = result.terminalInfo.o_validate();
-            var bbb = result.tableInfo.o_validate();
-            var ccc = result.formInfo.o_validate();
+            var aaa = result.validate();
             debugger
         });
 

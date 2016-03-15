@@ -452,7 +452,10 @@ define( function( require, exports, module ) {
 				objData.orderEntity.subOrders = temp.subOrders;
 
 				//检测子订单折扣是否低于8折
-				me.checkDiscount( temp.subOrders);
+				if(!me.checkDiscount( temp.subOrders)){
+					util.showToast('子产品折扣低于8折，必须申请特批');
+					return false;
+				}
 
 				//发票信息校验和取值
 				if( me.attrs.invoiceCommon.getInfo() ){
@@ -552,9 +555,9 @@ define( function( require, exports, module ) {
 				});
 			}
 			if( !discoutFlag ){
-				util.showToast('子产品折扣低于8折，必须申请特批');
 				return false;
 			}
+			return  true;
 		},
 		cancelEve: function(){
 			

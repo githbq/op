@@ -80,6 +80,7 @@ define( function( require, exports, module ) {
 					var tem = me.attrs.getMoney.getValue() ;
 					objData.orderEntity.order = tem.order;
 					objData.orderEntity.subOrders = tem.subOrders;
+					objData.orderEntity.order.contractNo = me.attrs.contractNo;
 				}else{
 					return ;
 				}

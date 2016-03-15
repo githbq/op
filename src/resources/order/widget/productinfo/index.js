@@ -174,16 +174,16 @@ define(function (require, exports, module) {
             o_fields: [{key: '', value: {}}],
             o_validate: function () {
                 var me = this;
-                var errors = me.errors = [];
+                 me.errors = [];
                 me.o_eachFields(function ($ele, data) {
                     if ($ele && $ele.length > 0 && data.visible !== false && $ele.is(':visible')) { //可见且dom存在
                         var tempErrors = me.o_validateField($ele);
                         if (tempErrors && tempErrors.length > 0) {
-                            errors = errors.concat(tempErrors);
+                            me.errors =  me.errors.concat(tempErrors);
                         }
                     }
                 });
-                return errors.length == 0;
+                return me.errors.length == 0;
             },
             o_getValidateErrors: function () {
                 var me = this;
