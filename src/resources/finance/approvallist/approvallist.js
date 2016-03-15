@@ -7,7 +7,7 @@ define( function(require, exports, module){
 	var IBSS = window.IBSS,
 		TPL = IBSS.tpl;
 	
-	var DetailApproval = require('../../order/detailApproval/detailApproval');
+	var DetailApproval = require('../../order/detailapproval/detailapproval');
 	var OpenApprovalList = require('module/openapprovallist/openapprovallist');
 	var DetailBind = require('module/detailbind/detailbind');
 
