@@ -1,5 +1,6 @@
 define(function (require, exports, module) {
     var DataItem = require('../index').PageDataClass;
+    var helper=require('./index');
     module.exports.getItems = function () {
         var dataItems = [];
         //终端总个数
@@ -115,13 +116,8 @@ define(function (require, exports, module) {
                             }
                         }
                     }
-                }],
-                validateOptions: {
-                    required: {
-                        enable: true, value: true, message: '', handler: function (error, value, option, $ele) {
-                        }
-                    }
-                }
+                }]
+                ,validateOptions: helper.getValidateLogic()
             }));
 
 
@@ -131,6 +127,7 @@ define(function (require, exports, module) {
                 value: '',
                 readonly: false,
                 attr: {maxlength: 10},
+                validateOptions: helper.getValidateLogic(),
                 __silent: true,
                 events: [{
                     key: 'change', value: function (e) {
@@ -140,19 +137,14 @@ define(function (require, exports, module) {
                         var id = $dom.parents('[data-productid]').attr('data-productid');
                         changeForGetPrice.call(me, e, false);
                     }
-                }],
-                validateOptions: {
-                    required: {
-                        enable: true, value: true, message: '', handler: function (error, value, option, $ele) {
-                        }
-                    }
-                }
+                }]
             }));
 
 
             dataItems.push(new DataItem({
                 name: 'startTime_' + n,
                 value: '',
+                validateOptions: helper.getValidateLogic(),
                 events: [{
                     key: 'blur', value: function (e) {
                         var me = this;
@@ -165,6 +157,7 @@ define(function (require, exports, module) {
             dataItems.push(new DataItem({
                 name: 'endTime_' + n,
                 value: '',
+                validateOptions: helper.getValidateLogic(),
                 events: [{
                     key: 'blur', value: function (e) {
                         var me = this;
@@ -178,12 +171,14 @@ define(function (require, exports, module) {
             dataItems.push(new DataItem({
                 name: 'productAmount_' + n,
                 value: '',
+                validateOptions: helper.getValidateLogic(),
                 attr: {maxlength: 10}
             }));
-            //产品原价
+            //合同金额
             dataItems.push(new DataItem({
                 name: 'purchaseAmount_' + n,
                 value: '',
+                validateOptions: helper.getValidateLogic(),
                 attr: {maxlength: 10}
             }));
             //服务费 试用 赠送 折扣 的容器

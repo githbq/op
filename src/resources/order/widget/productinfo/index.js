@@ -215,13 +215,6 @@ define(function (require, exports, module) {
                                 action = defaultAction;
                             }
                             error = action.call(me, i, value, option, $ele, wrapper);
-
-                            if (option.handler) { //错误代理
-                                var result = option.handler.call(me, error, value, $ele, option);
-                                if (result !== undefined) {
-                                    error = result;
-                                }
-                            }
                             if (error) {
                                 errors.push(error);
                             }
@@ -249,16 +242,7 @@ define(function (require, exports, module) {
             ,
 
             i_checkFieldForDefault: function (name, value, option, $ele, wrapper) {
-                var me = this;
-                var error = null;
-                if (i.toString().length > 0) {
-                    var methodName = me.i_toWord('i_checkFieldFor', i);
-                    var method = me[methodName];
-                    if (method) {
-                        error = me.i_checkError(method, name, value, option, $ele);
-                    }
-                }
-                return error;
+                return null;
             }
             ,
             i_toWord: function (prefix, value) {//驼峰命名法
@@ -270,16 +254,15 @@ define(function (require, exports, module) {
                 if (callback && callback(value, option, $ele)) {
                     error = {field: $ele, name: validateName, option: option};
                 }
-                var addError = false;
-                if ((!option.handler) || (option.handler && option.handler.call(me, error, value, option, $ele) !== undefined)) {
-                    error && (addError = true);
+                if (option.handler) { //错误代理
+                    var result = option.handler.call(me, error, value, option, $ele);
+                    if (result !== undefined) {
+                        error = result;
+                    }
                 }
+
                 me.trigger('validateError', value, error, option, $ele, me);
-                if (error && error.__enabled === false) {
-                    error = false;
-                    addError = false;
-                }
-                addError ? me.o_addValidateError($ele, option.message, validateName) : me.o_removeValidateError($ele, validateName);
+                error ? me.o_addValidateError($ele, option.message, validateName) : me.o_removeValidateError($ele, validateName);
                 return error;
             },
             o_addValidateError: function ($ele, message, validateName) {

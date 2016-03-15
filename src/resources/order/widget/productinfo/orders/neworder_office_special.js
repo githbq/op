@@ -20,9 +20,6 @@ define(function (require, exports, module) {
         controller(terminalDataItems, 'typewrapper_3', function (n) {
             n.visible = true;
         });
-        controller(terminalDataItems, 'purchaseAmount_wrapper_3', function (n) {
-            n.visible = true;
-        });
         controller(terminalDataItems, 'purchaseAmount_input_3', function (n) {
             n.visible = true;
         });

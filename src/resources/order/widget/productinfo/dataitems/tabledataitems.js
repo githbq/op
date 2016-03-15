@@ -1,5 +1,6 @@
 define(function (require, exports, module) {
     var DataItem = require('../index').PageDataClass;
+    var helper=require('./index');
     module.exports.getItems = function () {
         var dataItems = [];
         var productIdDic = {
@@ -154,25 +155,16 @@ define(function (require, exports, module) {
                     name: 'startTime_' + n.id,
                     value: startTime,
                     readonly: true,
-                    validateOptions: {
-                        required: {
-                            enable: true, value: true, message: '', handler: function (error, value, option, $ele) {
-                                return $ele.parents('tr').find('input[type=checkbox]:checked').length != 0;
-                            }
-                        }
-                    }, events: getPriceEventsForDate
+                    validateOptions: helper.getValidateLogic(),
+                    events: getPriceEventsForDate
                 }, n.options.startDate)));
                 //PK助手结束时间
                 dataItems.push(new DataItem($.extend({
                     name: 'endTime_' + n.id,
                     value: endTime,
                     readonly: true,
-                    validateOptions: {
-                        required: {
-                            enable: true, value: true, message: '', handler: function (error, value, option, $ele) {
-                            }
-                        }
-                    }, events: getPriceEventsForDate
+                    validateOptions: helper.getValidateLogic(),
+                     events: getPriceEventsForDate
                 }, n.options.endDate)));
 
 
@@ -197,6 +189,7 @@ define(function (require, exports, module) {
                     name: 'purchaseAmount_' + n.id,
                     attr: {'data-price': '1', maxlength: 10},
                     value: 0,
+                    validateOptions: helper.getValidateLogic(),
                     events: [
                         {
                             key: 'change', value: function (e) {
@@ -210,32 +203,12 @@ define(function (require, exports, module) {
                 //pk助手折扣
                 dataItems.push(new DataItem($.extend({
                     name: 'discount_' + n.id,
-                    value: '',
-                    validateOptions: {
-                        required: {
-                            enable: true, value: true, message: '', handler: function (error, value, option, $ele) {
-                                var me = this;
-                                var name = $ele.attr('data_name');
-                                var $checkbox = $ele.parents('tr').find('input[type=checkbox]');
-                                if ($checkbox.length > 0) {
-                                    var id = $checkbox.val();
-                                    if ($checkbox.is(':checked')) {
-                                        if (me.o_data_getField({name: 'type_' + id}).length > 0 && me.o_data_getField({name: 'type_' + id}).is(':visible')) {
-                                            if (me.o_getFieldValue('type_' + id).value != '3') {
-                                                return false;
-                                            }
-                                        }
-                                    } else {
-                                        return false;
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    value: ''
                 }, n.options.discount)));
 
             })(n);
         });
+
 
 
         //价格计算
