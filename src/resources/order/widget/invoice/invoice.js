@@ -103,6 +103,9 @@ define(function( require , exports , module ){
 			if( attrs.editFlag == false ){
 				me.$('input').attr('disabled','disabled');
 			}
+			if( attrs.type == 17 ){
+				me.$('.tidan').hide();
+			}
 
 			//初始化事件
 			this.initEvents();
@@ -264,11 +267,22 @@ define(function( require , exports , module ){
 				invoiceinfo = me.model.all();
 			}
 
+			var isCooperation = "";
+			var cooperationUnit = "";
+			if( me.attrs.type != 17 ){
+				isCooperation = me.$('[name="team"]:checked').val();
+				cooperationUnit = me.model.get('cooperationUnit');
+				if( isCooperation == 1 && !cooperationUnit ){
+					util.showToast('请填写合作单部门员工');
+					return false;
+				}
+			}
+
 			return {
 				'invoice': invoiceinfo,
 				'order':{
-					'isCooperation': me.$('[name="team"]:checked').val(),   //是否合作单
-					'cooperationUnit': me.model.get('cooperationUnit'),     //部门员工      
+					'isCooperation': isCooperation,   //是否合作单
+					'cooperationUnit': cooperationUnit,     //部门员工      
 					'remark': me.model.get('remark')                        //备注
 				}
 			};
