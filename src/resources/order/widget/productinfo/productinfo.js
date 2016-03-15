@@ -94,8 +94,10 @@ define(function (require, exports, module) {
         terminalInfo.$('[data-name=purchaseCount_1]:first').change();
         afterRender(type, terminalInfo, tableInfo, formInfo);
         tableInfo.$('[data-name=checkAll]').change();
-        if (result && responseData.readonly === true) {
-
+        if (result && result.readonly === true) {
+                terminalInfo.$('span.red').remove();
+                tableInfo.$('span.red').remove();
+                formInfo.$('span.red').remove();
         }
         return refs;
     };

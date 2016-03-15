@@ -48,7 +48,7 @@ define(function (require, exports, module) {
                         controller(formDataItems, 'contract-image', function (item) {
                             item.visible = true;
                             item.attr = {src: '/op/api/file/previewimage?filePath=' + contract.contract};
-                            item.on('setFieldValue', function ($ele, value) {
+                            item.on('setValue', function ($ele, data) {
                                 $ele.parent('a').attr('href', '/op/api/file/previewimage?filePath=' + contract.contract);
                             })
                         });
@@ -57,7 +57,7 @@ define(function (require, exports, module) {
                         controller(formDataItems, 'contractCopy-image', function (item) {
                             item.visible = true;
                             item.attr = {src: '/op/api/file/previewimage?filePath=' + contract.contractCopy};
-                            item.on('setFieldValue', function ($ele, value) {
+                            item.on('setValue', function ($ele, data) {
                                 $ele.parent('a').attr('href', '/op/api/file/previewimage?filePath=' + ontract.contractCopy);
                             });
                         });
@@ -69,7 +69,7 @@ define(function (require, exports, module) {
                         controller(formDataItems, 'companyGatePicture-image', function (item) {
                             item.visible = true;
                             item.attr = {src: '/op/api/file/previewimage?filePath=' + enterpriseExtend.companyGatePicture};
-                            item.on('setFieldValue', function ($ele, value) {
+                            item.on('setValue', function ($ele, data) {
                                 $ele.parent('a').attr('href', '/op/api/file/previewimage?filePath=' + enterpriseExtend.companyGatePicture);
                             })
                         });

@@ -6490,6 +6490,10 @@ em {
 .productinfo .field_row div.field {
   float: left;
 }
+.productinfo .field_row div.field.image-field {
+  float: none;
+  margin-left: 150px;
+}
 .productinfo .field_row .field_row_head {
   padding-right: 20px;
 }

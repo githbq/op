@@ -176,7 +176,7 @@ define(function (require, exports, module) {
                 var me = this;
                 var errors = me.errors = [];
                 me.o_eachFields(function ($ele, data) {
-                    if ($ele && $ele.length > 0 && data.visible!==false && $ele.is(':visible')) { //可见且dom存在
+                    if ($ele && $ele.length > 0 && data.visible !== false && $ele.is(':visible')) { //可见且dom存在
                         var tempErrors = me.o_validateField($ele);
                         if (tempErrors && tempErrors.length > 0) {
                             errors = errors.concat(tempErrors);
@@ -473,6 +473,8 @@ define(function (require, exports, module) {
                 } else {//无DOM的数据
                     $.extend(data, obj);
                 }
+                me.trigger('setValue', $field, data);
+                data.trigger('setValue', $field, data);
                 if (first) {
                     data.__inited = true;
                 }
