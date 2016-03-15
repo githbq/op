@@ -5,11 +5,10 @@
             </div>
             <div class="field_wrapper">
                 <div class="field">
-                    <label>
-                        <span class="label">合同号</span>
-                        
+                    <label style="width:250px;">
+                        <span class="label">合同号：</span>
+                        <span ce-model="contractNo"></span>
                     </label>
-                    <input data-name="contractNo" type="text" class="ipt-s contractNo" name="contractNo"/>
                 </div>
             </div>
         </div>
@@ -18,11 +17,10 @@
             </div>
             <div class="field_wrapper">
                 <div class="field">
-                    <label>
-                        <span class="label">合同总金额(元)</span>
-                        <span class="red">*</span>
+                    <label style="width:250px;">
+                        <span class="label">合同总金额(元)：</span>
+                        <span ce-model="amount"></span>
                     </label>
-                    <input data-name="contractPrice" data-type="number" type="text" class="contractPrice" name="contractPrice"/>
                 </div>
             </div>
         </div>
@@ -31,51 +29,83 @@
             </div>
             <div class="field_wrapper">
                 <div class="field">
-                    <label>
-                        <span class="label">付费状态</span>
-                        <span class="red">*</span>
+                    <label style="width:250px;">
+                        <span class="label">到款金额（财务确认到款)(元)：</span>
+                        <span ce-model="auditedAmount"></span>
                     </label>
-                    <input type="hidden" data-name="payStatus" value="1"/>
-                    <span class="field">
-                    <span data-name="payStatus_name" class="field_text"></span>
-                    </span>
-                    <span class="field">
-                    <select data-name="payStatus_select">
-                        <option value="1">全额</option>
+                </div>
+            </div>
+        </div>
+        <div class="field_row">
+            <div class="field_row_head">
+            </div>
+            <div class="field_wrapper">
+                <div class="field">
+                    <label style="width:250px;">
+                        <span class="label">已收金额（财务审核中）(元):</span>
+                        <span ce-model="auditAmount"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="field_row">
+            <div class="field_row_head">
+            </div>
+            <div class="field_wrapper">
+                <div class="field">
+                    <label style="width:250px;">
+                        <span class="label">未收金额：</span>
+                        <span ce-model="noChargeAmount"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="field_row">
+            <div class="field_row_head">
+            </div>
+            <div class="field_wrapper">
+                <div class="field">
+                    <label style="width:250px;">
+                        <span class="label">当前状态：</span>
+                        <select ce-model="payStatus" disabled="disabled">
+                            <option value="1">全额</option>
+                            <option value="2">分期</option>
+                            <option value="3">未付</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <br/>
+        <div class="field_row">
+            <div class="field_row_head">
+            </div>
+            <div class="field_wrapper">
+                <div class="field">
+                    <label>
+                        <span class="label">本次付费状态</span>
+                        <b class="check-edit" style="color: #ff0000">*</b>
+                    </label>
+                    <select data-name="" class="payStatus-select ">
+                        <option value="1">补齐尾款</option>
                         <option value="2">分期</option>
-                        <option value="3">未付</option>
                     </select>
-                    </span>
                 </div>
-                <div class="field input-price">
-                    <label>
-                        <span class="label">服务费</span>
-                    </label>
-                    <input type="text" data-type="number" class="fenqi" data-name="currPayAmount_3" data-id="3" value=""/>
+            </div>
+        </div>
+        <div class="stage-box" style="border:1px #ccc solid;display: none;">
+            <div class="field_row">
+                <div class="field_row_head">
                 </div>
-                <div class="field input-price">
-                    <label>
-                        <span class="label">CRM</span>
-                    </label>
-                    <input type="text" data-type="number" class="fenqi" data-name="currPayAmount_1" data-id="1" value=""/>
+                <div class="field_wrapper">
+                    <div class="field">
+                        <label style="width:250px;">
+                            <span class="label">本期每项应用金额（元）</span>
+                        </label>
+                    </div>
                 </div>
-                <div class="field input-price">
-                    <label>
-                        <span class="label">PK助手</span>
-                    </label>
-                    <input type="text" data-type="number" class="fenqi" data-name="currPayAmount_4" data-id="4" value=""/>
-                </div>
-                <div class="field input-price">
-                    <label>
-                        <span class="label">会议助手</span>
-                    </label>
-                    <input type="text" data-type="number" class="fenqi" data-name="currPayAmount_5" data-id="5" value=""/>
-                </div>
-                <div class="field input-price">
-                    <label>
-                        <span class="label">工资助手</span>
-                    </label>
-                    <input type="text" data-type="number" class="fenqi" data-name="currPayAmount_7" data-id="7" value=""/>
+                <div class="app-box">
+
                 </div>
             </div>
         </div>
@@ -86,9 +116,9 @@
                 <div class="field">
                     <label>
                         <span class="label">本次到款金额(元)</span>
-                        <span class="red">*</span>
+                        <b class="check-edit" style="color: #ff0000">*</b>
                     </label>
-                    <input data-name="currPayAmount" data-type="number" type="text" class="" name=""/>
+                    <input data-name="currPayAmount" ce-model="currPayAmount" data-type="number" type="text" class="" name="" disabled="disabled"/>
                 </div>
             </div>
         </div>
@@ -99,9 +129,9 @@
                 <div class="field">
                     <label>
                         <span class="label">打款日期</span>
-                        <span class="red">*</span>
+                        <b class="check-edit" style="color: #ff0000">*</b>
                     </label>
-                    <input data-name="payDate" datecontrol type="text" class="" name=""/>
+                    <input data-name="payDate" ce-model="payDate"  type="text" class="required-basic payDate" name=""/>
                 </div>
             </div>
         </div>
@@ -113,9 +143,9 @@
                 <div class="field">
                     <label>
                         <span class="label">收款账户</span>
-                        <span class="red">*</span>
+                        <b class="check-edit" style="color: #ff0000">*</b>
                     </label>
-                    <input data-name="receiptsAccount" type="text" class="ipt-l bankno" name=""/>
+                    <input data-name="receiptsAccount"  ce-model="receiptsAccount" type="text" class="ipt-l bankno required-basic" name=""/>
                     <span>请输入银行卡号码进行查询</span>
                 </div>
             </div>
@@ -127,9 +157,9 @@
                 <div class="field">
                     <label>
                         <span class="label">付款单位/个人名称</span>
-                        <span class="red">*</span>
+                        <b class="check-edit" style="color: #ff0000">*</b>
                     </label>
-                    <input data-name="payerName" type="text" class="ipt-l" name=""/>
+                    <input data-name="payerName"  ce-model="payerName" type="text" class="ipt-l required-basic" name=""/>
                 </div>
             </div>
         </div>

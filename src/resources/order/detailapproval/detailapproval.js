@@ -399,6 +399,10 @@ define( function(require, exports, module){
 			objData.orderEntity.order = temp.order
 			objData.orderEntity.subOrders = temp.subOrders;
 
+			//检测自订单是否小于7折
+			if(me.attrs.options.isTp == '0'){
+				me.checkDiscount(temp.subOrders);
+			}
 			//发票信息校验和取值
 			if( me.attrs.invoiceCommon.getInfo() ){
 				var temp  = me.attrs.invoiceCommon.getInfo();
@@ -408,7 +412,6 @@ define( function(require, exports, module){
 				return ;
 			}
 
-
 			if(me.attrs.options.isTp == '1'){
 				//获取特批地址
 				if( me.attrs.explainCommon.getValue() ){
@@ -417,7 +420,6 @@ define( function(require, exports, module){
 				}else{
 					return ;
 				}
-
 			}
 
 			//综合折扣
@@ -425,18 +427,6 @@ define( function(require, exports, module){
 				var discoutFlag = true;
 
 				me.attrs.invoiceCommon.setDiscount( me.attrs.complexDiscount );
-				if(me.attrs.options.isTp == 0){
-					_.map( objData.orderEntity.subOrders , function( obj , index){
-						if(obj.discount && obj.discount<8){
-							discoutFlag = false;
-							//break;
-						}
-					});
-					if( !discoutFlag ){
-						util.showToast('综合折扣低于8折，必须申请特批');
-						return false;
-					}
-				}
 				objData.orderEntity.order['discount'] = me.attrs.complexDiscount ;
 				objData.contract['discount'] = me.attrs.complexDiscount ;
 				objData.enterpriseExtend['enterpriseId'] = me.attrs.options.enterpriseId;
@@ -450,6 +440,38 @@ define( function(require, exports, module){
 				callback && callback();
 
 			});
+		},
+		//检测自订单折扣是否大于8折
+		checkDiscount:function( data ){
+			var me = this;
+			var discoutFlag = true;
+
+			switch( me.attrs.options.orderType ){
+				case 1:case 2:case 3:case 4:case 13:case 14:case 15:case 16:
+					_.map( data , function( obj ){
+						if(obj.subOrder.productId ==1 || obj.subOrder.productId ==4  || obj.subOrder.productId ==5 ){
+							if( obj.subOrder.discount  &&  obj.subOrder.discount<8){
+								discoutFlag = false;
+								//util.showToast('子产品折扣低于8折，必须申请特批');
+								//return false;
+							}
+						}
+					});
+					break;
+				default:
+					_.map( data , function( obj ){
+						if(obj.subOrder.productId ==1 || obj.subOrder.productId ==4  || obj.subOrder.productId ==7  || obj.subOrder.productId ==5 ){
+							if( obj.subOrder.discount  &&  obj.subOrder.discount<8){
+								discoutFlag = false;
+							}
+						}
+					});
+			}
+
+			if( !discoutFlag ){
+				util.showToast('子产品折扣低于8折，必须申请特批');
+				return false;
+			}
 		},
 		//获取综合折扣
 		getDiscount:function( data ,account ,callback){
