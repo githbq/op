@@ -81,6 +81,13 @@
         '5': '已删除'
     };
 
+    //审批节点
+    IBSS.TaskMap = {
+    	'finance': '财务人员',
+    	'support': '支持人员',
+    	'agent': '代理商'
+    };
+
 	/*
 	 *
 	 * seajs配置
