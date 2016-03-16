@@ -116,11 +116,15 @@ define(function (require, exports, module) {
                                 {name: 'currPayAmount_1', value: '', visible: false},
                                 {name: 'currPayAmount_4', value: '', visible: false},
                                 {name: 'currPayAmount_5', value: '', visible: false},
-                                {name: 'currPayAmount_7', value: '', visible: false}
+                                {name: 'currPayAmount_7', value: '', visible: false},
+                                {name: 'currPayAmount_8', value: '', visible: false}
                             ]);
                             var checkeds = me.__refs.tableInfo.o_getFieldValue('check').split(',');
                             if (me.__refs.terminalInfo.o_getFieldValue('useCRM') && me.__refs.terminalInfo.o_getFieldData('useCRMWrapper').visible) {//使用了销客终端 要加入服务费
                                 checkeds.push('1');//CRM费用
+                                if(me.__refs.terminalInfo.o_getFieldData('businesscard').visible){
+                                    checkeds.push('8');//名片费用
+                                }
                             }
                             if (me.__refs.terminalInfo.o_getFieldValue('useFX')) {//使用了销客终端 要加入服务费
                                 checkeds.push('3');//服务费
@@ -154,6 +158,7 @@ define(function (require, exports, module) {
                                 {name: 'currPayAmount_4', value: '', visible: false},
                                 {name: 'currPayAmount_5', value: '', visible: false},
                                 {name: 'currPayAmount_7', value: '', visible: false},
+                                {name: 'currPayAmount_8', value: '', visible: false},
                                 {name: 'currPayAmount', value: '0'}
                             ]);
                         }
@@ -180,6 +185,13 @@ define(function (require, exports, module) {
             attr:{maxlength:10}
 
         }));
+        //分期名片费
+        dataItems.push(new DataItem({
+            name: 'currPayAmount_8',
+            visible: false,
+            attr:{maxlength:10}
+
+        }));
         //分期 PK助手费
         dataItems.push(new DataItem({
             name: 'currPayAmount_4',
@@ -199,7 +211,6 @@ define(function (require, exports, module) {
             name: 'currPayAmount_7',
             visible: false,
             attr:{maxlength:10}
-
         }));
         //本次到款金额
         dataItems.push(new DataItem({

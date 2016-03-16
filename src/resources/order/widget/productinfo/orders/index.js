@@ -284,6 +284,44 @@ define(function (require, exports, module) {
                 n.readonly = true;
             });
         };
+
+        ///增购需要默认时间
+        exports.setPayInfoReadonly = function (controller, terminalDataItems, tableDataItems, formDataItems) {
+            controller(formDataItems, 'contractNo', function (n) {
+                n.readonly = true;
+            });
+            controller(formDataItems, 'contractPrice', function (n) {
+                n.readonly = true;
+            });
+            controller(formDataItems, 'payStatus_select', function (n) {
+                n.readonly = true;
+            });
+            controller(formDataItems, 'payDate', function (n) {
+                n.readonly = true;
+            });
+            controller(formDataItems, 'currPayAmount', function (n) {
+                n.readonly = true;
+            });
+            //////////////////////
+            controller(formDataItems, 'currPayAmount_3', function (n) {
+                n.readonly = true;
+            });
+            controller(formDataItems, 'currPayAmount_1', function (n) {
+                n.readonly = true;
+            });
+            controller(formDataItems, 'currPayAmount_4', function (n) {
+                n.readonly = true;
+            });
+            controller(formDataItems, 'currPayAmount_5', function (n) {
+                n.readonly = true;
+            });
+            controller(formDataItems, 'currPayAmount_7', function (n) {
+                n.readonly = true;
+            });
+            controller(formDataItems, 'currPayAmount_8', function (n) {
+                n.readonly = true;
+            });
+        };
         //转换输入值
         exports.setSuborders = function (terminalInfo, tableInfo, formInfo, data) {
             var terminalInfoData = terminalInfo.o_getValues();
