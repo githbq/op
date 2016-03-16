@@ -116,7 +116,7 @@ define( function( require, exports, module ) {
 					
 					me.setOrderInfo(function(){
 						me.attrs.basicCommon = new OrderInfo( { 'wrapper':me.$view.find('.common-market-basic'),'data':me.attrs.orderList,'editFlag':true,'type':5} );
-						me.attrs.basicSpecial = new OrderInfo( { 'wrapper':me.$view.find('.common-market-basic'),'data':me.attrs.orderList,'editFlag':true,'type':6} );
+						me.attrs.basicSpecial = new OrderInfo( { 'wrapper':me.$view.find('.special-market-basic'),'data':me.attrs.orderList,'editFlag':true,'type':6} );
 						me.getNeedDate();
 						me.setProductShow();
 					});
@@ -134,7 +134,7 @@ define( function( require, exports, module ) {
 
 					me.setOrderInfo(function(){
 						me.attrs.basicCommon = new OrderInfo( { 'wrapper':me.$view.find('.common-market-basic'),'data':me.attrs.orderList,'editFlag':true,'type':7} );
-						me.attrs.basicSpecial = new OrderInfo( { 'wrapper':me.$view.find('.common-market-basic'),'data':me.attrs.orderList,'editFlag':true,'type':8} );
+						me.attrs.basicSpecial = new OrderInfo( { 'wrapper':me.$view.find('.special-market-basic'),'data':me.attrs.orderList,'editFlag':true,'type':8} );
 						me.getNeedDate();
 						me.setProductShow();
 					});
@@ -154,7 +154,7 @@ define( function( require, exports, module ) {
 
 					me.setOrderInfo(function(){
 						me.attrs.basicCommon = new OrderInfo( { 'wrapper':me.$view.find('.common-market-basic'),'data':me.attrs.orderList,'editFlag':true,'type':9} );
-						me.attrs.basicSpecial= new OrderInfo( { 'wrapper':me.$view.find('.common-market-basic'),'data':me.attrs.orderList,'editFlag':true,'type':10} );
+						me.attrs.basicSpecial= new OrderInfo( { 'wrapper':me.$view.find('.special-market-basic'),'data':me.attrs.orderList,'editFlag':true,'type':10} );
 						me.getNeedDate();
 						me.setProductShow();
 					});
@@ -174,7 +174,7 @@ define( function( require, exports, module ) {
 
 					me.setOrderInfo(function(){
 						me.attrs.basicCommon = new OrderInfo( { 'wrapper':me.$view.find('.common-market-basic'),'data':me.attrs.orderList,'editFlag':true,'type':11} );
-						me.attrs.basicSpecial = new OrderInfo( { 'wrapper':me.$view.find('.common-market-basic'),'data':me.attrs.orderList,'editFlag':true,'type':12} );
+						me.attrs.basicSpecial = new OrderInfo( { 'wrapper':me.$view.find('.special-market-basic'),'data':me.attrs.orderList,'editFlag':true,'type':12} );
 						me.getNeedDate();
 						me.setProductShow();
 

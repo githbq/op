@@ -170,8 +170,8 @@ define( function( require, exports, module ) {
                     console.warn( data );
                     if( data.success ){
                         me.collection.reload( data.value.model.content, function( item ){
-
-                            item.statusStr = item.order.status ? statusAry[item.order.status] :'';
+							var approveStatus = item.approveStatus ? parseInt(item.approveStatus):0;
+                            item.statusStr = statusAry[approveStatus] ;
                             item.payStatusStr = item.order.payStatus ? payStatusAry[item.order.payStatus] :'';
                             item.createTimeStr = new Date( item.order.createTime )._format('yyyy/MM/dd');
                             item.orderTypeStr = orderTypeAry[item.order.orderType];
