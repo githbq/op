@@ -430,7 +430,7 @@ define( function(require, exports, module){
 				//获取特批地址
 				if( me.attrs.explainCommon.getValue() ){
 					var temp  = me.attrs.explainCommon.getValue();
-					objData.orderEntity.order['approved_url'] = temp.approved_url;
+					objData.orderEntity.order['approvedUrl'] = temp.approvedUrl;
 				}else{
 					return ;
 				}
