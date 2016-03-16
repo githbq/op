@@ -5,6 +5,7 @@ define( function( require, exports, module ) {
     var Pagination = require('common/widget/pagination/pagination');
     //var Slider = require('common/widget/slider/slider');
     var DetailApproval = require('../detailapproval/detailapproval');
+	var DetailPayment = require('../detailpayment/detailpayment');
     var tem = $( require('./template.html') );
 
     var statusMap = {},industryMap = {},sourceMap = {};
@@ -56,7 +57,9 @@ define( function( require, exports, module ) {
         events: {
 			'click .search':'searchEve',
             'click .order-detail':'orderDetailEve',
-			'click .receive-money':'receiveMoneyEve'
+			'click .receive-money':'receiveMoneyEve',
+			'click .order-detailPay':'orderDetailPayEve',
+			'click .order-del':'orderDelEve'
         },
         elements:{
             'tbody': 'tbody',
@@ -82,6 +85,21 @@ define( function( require, exports, module ) {
            me.trigger('orderDetail',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':false,'orderType':orderType,
                'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea,'processInstanceId':''} );
        },
+	   //查看收尾款详情：
+	   orderDetailPayEve:function( e ){
+		   var me = this;
+
+           var id = $(e.currentTarget).attr('data-id');
+           var enterpriseId = $(e.currentTarget).attr('data-enterpriseId');
+           var orderType = $(e.currentTarget).attr('data-orderType');
+           var opinion = $(e.currentTarget).attr('data-opinion');
+           var isTp = $(e.currentTarget).attr('data-isTp');
+           var ea = $(e.currentTarget).attr('data-ea');
+		   var contractNo = $(e.currentTarget).attr('data-contractNo');
+		   
+           me.trigger('orderDetailPayment',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':false,'orderType':orderType,
+               'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea,'processInstanceId':'','contractNo':contractNo} );
+	   },
 	   //收尾款
 	   receiveMoneyEve:function( e ){
 		   var me = this;
@@ -94,6 +112,30 @@ define( function( require, exports, module ) {
 		   var contractNo = $(e.currentTarget).attr('data-contractNo')||'';
 		  
            location.hash = '#order/payment/'+id+'/'+enterpriseId+'/'+orderType+'/'+opinion+'/'+isTp+'/'+ea+'/'+contractNo;
+	   },
+	   /**
+		 * 删除订单
+		 * @param request
+		 * @param orderId  订单id
+		 * @return
+		*/
+	   //删除自订单
+	   orderDelEve:function(e){
+		   var me = this;
+		   var id = $(e.currentTarget).attr('data-id');
+		   util.api({
+                'url':'/odr/deleteOrder',
+                'data':{
+					'orderId':id
+				},
+                'success': function( data ){
+                    console.warn( data );
+                    if( data.success ){
+					   util.showTip('订单删除成功！')
+                       me.searchEve();
+                    }
+                }
+            });
 	   },
         //导出excel
         exportEve: function(e){
@@ -206,9 +248,14 @@ define( function( require, exports, module ) {
 
         var orderList = new OrderList( {'view': $el.find('.m-orderlist')} );
         var detailApproval = null;
+		var detailPayment = null;
         orderList.on('orderDetail', function( options ){
             detailApproval = new DetailApproval();
             detailApproval.show( options );
+        });
+		 orderList.on('orderDetailPayment', function( options ){
+            detailPayment = new DetailPayment();
+            detailPayment.show( options );
         })
 
     }

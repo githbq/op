@@ -70,18 +70,45 @@ define(function(require, exports, module){
 			if(me.attrs.showType){
 				me.model.set("currPayAmount",me.attrs.data.noChargeAmount);
 			}
+			if(me.attrs.dataDetail){
+				 me.$('.payStatus-select').val(me.attrs.dataDetail.order.payStatus)
+				if(me.attrs.dataDetail.order.payStatus==2){
+					me.setSubers();
+					me.setSubersMoney();
+					me.checkEdit();
+				}
+				me.model.set('currPayAmount',me.attrs.dataDetail.order.currPayAmount);
+				me.model.set('payDate',new Date( me.attrs.dataDetail.order.payDate  )._format('yyyy/MM/dd'));
+				me.model.set('receiptsAccount',me.attrs.dataDetail.order.receiptsAccount);
+				me.model.set('payerName',me.attrs.dataDetail.order.payerName);
+			}
+		},
+		//付费情况显示自订单
+		setSubersMoney:function(){
+			var me = this;
+			var strDom = '';
+			_.map( me.attrs.dataDetail.subOrders , function( obj){
+				me.$view.find('.sub-app').each(function(){
+					var tempId = $(this).attr('data-productId');
+					tempId = parseInt(tempId);
+					if(obj.subOrder.productId == tempId){
+						$(this).val(obj.subOrder.currPayAmount)
+					}
+				});
+			});
 		},
 		//渲染显示子产品：
 		setSubers:function(){
 			var me = this;
 			var strDom = '';
+			me.$stageBox.show();
 			me.$appBox.empty();
 			_.map( me.attrs.data.items , function( obj ){
 				if(obj.noChargeAmount > 0){
 					strDom +="<div class='field_row'> <div class='field_row_head'> </div> " +
 					"<div class='field_wrapper'> <div class='field'> <label> " +
 					"<span class='label'>"+obj.productName+"(未收"+obj.noChargeAmount+")</span> </label> " +
-					"<input  type='text' data-productId='"+obj.productId+"' class='sub-app' /> </div> </div> </div>"
+					"<input  type='text' data-productId='"+obj.productId+"' class='sub-app edit-flag' /> </div> </div> </div>"
 				}
 			});
 			me.$appBox.html(strDom);

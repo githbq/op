@@ -86,7 +86,7 @@
                         <span class="label">本次付费状态</span>
                         <b class="check-edit" style="color: #ff0000">*</b>
                     </label>
-                    <select data-name="" class="payStatus-select ">
+                    <select data-name="" class="payStatus-select edit-flag ">
                         <option value="1">补齐尾款</option>
                         <option value="2">分期</option>
                     </select>
@@ -131,7 +131,7 @@
                         <span class="label">打款日期</span>
                         <b class="check-edit" style="color: #ff0000">*</b>
                     </label>
-                    <input data-name="payDate" ce-model="payDate"  type="text" class="required-basic payDate" name=""/>
+                    <input data-name="payDate" ce-model="payDate"  type="text" class="required-basic payDate edit-flag" name=""/>
                 </div>
             </div>
         </div>
@@ -145,7 +145,7 @@
                         <span class="label">收款账户</span>
                         <b class="check-edit" style="color: #ff0000">*</b>
                     </label>
-                    <input data-name="receiptsAccount"  ce-model="receiptsAccount" type="text" class="ipt-l bankno required-basic" name=""/>
+                    <input data-name="receiptsAccount"  ce-model="receiptsAccount" type="text" class="ipt-l bankno required-basic edit-flag" name=""/>
                     <span>请输入银行卡号码进行查询</span>
                 </div>
             </div>
@@ -159,7 +159,7 @@
                         <span class="label">付款单位/个人名称</span>
                         <b class="check-edit" style="color: #ff0000">*</b>
                     </label>
-                    <input data-name="payerName"  ce-model="payerName" type="text" class="ipt-l required-basic" name=""/>
+                    <input data-name="payerName"  ce-model="payerName" type="text" class="ipt-l required-basic edit-flag" name=""/>
                 </div>
             </div>
         </div>
