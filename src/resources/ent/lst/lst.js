@@ -10,7 +10,7 @@ define( function( require, exports, module ) {
 
     //企业跟踪记录
     var EntTrace = require('module/enttrace/enttrace');
-
+    
     var EmployeeDetail = require('module/employeedetail/employeedetail'); 
     
     //var entDetail;
@@ -21,7 +21,9 @@ define( function( require, exports, module ) {
         entList.render();
         
         var entDetail = new EntDetail();
+
         var entTrace = new EntTrace();
+        
         var employeeDetail = new EmployeeDetail();
 
         //查看企业详情

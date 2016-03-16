@@ -6,15 +6,12 @@
 define( function(require, exports, module){
 
     var Pagination = require( 'common/widget/pagination/pagination' );
-    
-    var tpl = $( require( './template.html' ) );
+
     var viewStr = require('./enterpriselist.html');
 
     var EntStatusMap = IBSS.EntStatusMap;
 
     var EntLst = MClass( M.Center ).include( {
-        
-        tplPartner: _.template( tpl.filter( '#trEntLst' ).html() ),
         
         PAGESIZE: 20,
 
@@ -249,7 +246,7 @@ define( function(require, exports, module){
                     en: me.model.get('en'),
                     enterpriseStatus: me.model.get('enterpriseStatus'),
                     source: me.model.get('source'),
-                    industry:'',// me.model.get('industry'),
+                    industry: me.model.get('industry'),
                     province: me.model.get('province'),
                     city: me.model.get('city'),
                     tel: me.model.get('tel'),
@@ -283,18 +280,6 @@ define( function(require, exports, module){
                     me.$tbody.html( '<tr><td colspan="11"><p class="info">数据加载失败</p></td></tr>' );
                 }
             });
-        },
-
-        //渲染数据
-        renderList: function(){
-            var me = this;
-
-            var content = me.collection.all();
-            if( content.length > 0 ){
-                me.$tbody.html( me.tplPartner( {'content':content} ) );
-            } else {
-                me.$tbody.html( '<tr><td colspan="11"><p class="info">暂无数据</p></td></tr>' );
-            }
         },
 
         //查看详情
