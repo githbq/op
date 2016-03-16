@@ -37,7 +37,7 @@ define( function(require, exports, module){
                 'contractNo': detail.contractNo
             };
             
-            if( data.orderType == 17 ){
+            if( data.orderType != 17 ){
 
                 detailApproval = new DetailApproval();
                 detailApproval.show( data );
