@@ -56,8 +56,8 @@ define( function( require, exports, module ) {
 			me.attrs.orderList = {};
 			//增购、续费需要的参数
 
-			me.attrs.id = me.attrs.paralist||'';
-			me.attrs.account= me.attrs.paraName||'54976';
+			me.attrs.id = me.attrs.enterpriseId||'';
+			me.attrs.account= me.attrs.account||'54976';
 			me.attrs.subData = {}
 			me.checkType();
         },
@@ -116,7 +116,7 @@ define( function( require, exports, module ) {
 					
 					me.setOrderInfo(function(){
 						me.attrs.basicCommon = new OrderInfo( { 'wrapper':me.$view.find('.common-market-basic'),'data':me.attrs.orderList,'editFlag':true,'type':5} );
-						me.attrs.basicSpecial = new OrderInfo( { 'wrapper':me.$view.find('.common-market-basic'),'data':me.attrs.orderList,'editFlag':true,'type':6} );
+						me.attrs.basicSpecial = new OrderInfo( { 'wrapper':me.$view.find('.special-market-basic'),'data':me.attrs.orderList,'editFlag':true,'type':6} );
 						me.getNeedDate();
 						me.setProductShow();
 					});
@@ -134,7 +134,7 @@ define( function( require, exports, module ) {
 
 					me.setOrderInfo(function(){
 						me.attrs.basicCommon = new OrderInfo( { 'wrapper':me.$view.find('.common-market-basic'),'data':me.attrs.orderList,'editFlag':true,'type':7} );
-						me.attrs.basicSpecial = new OrderInfo( { 'wrapper':me.$view.find('.common-market-basic'),'data':me.attrs.orderList,'editFlag':true,'type':8} );
+						me.attrs.basicSpecial = new OrderInfo( { 'wrapper':me.$view.find('.special-market-basic'),'data':me.attrs.orderList,'editFlag':true,'type':8} );
 						me.getNeedDate();
 						me.setProductShow();
 					});
@@ -154,7 +154,7 @@ define( function( require, exports, module ) {
 
 					me.setOrderInfo(function(){
 						me.attrs.basicCommon = new OrderInfo( { 'wrapper':me.$view.find('.common-market-basic'),'data':me.attrs.orderList,'editFlag':true,'type':9} );
-						me.attrs.basicSpecial= new OrderInfo( { 'wrapper':me.$view.find('.common-market-basic'),'data':me.attrs.orderList,'editFlag':true,'type':10} );
+						me.attrs.basicSpecial= new OrderInfo( { 'wrapper':me.$view.find('.special-market-basic'),'data':me.attrs.orderList,'editFlag':true,'type':10} );
 						me.getNeedDate();
 						me.setProductShow();
 					});
@@ -174,7 +174,7 @@ define( function( require, exports, module ) {
 
 					me.setOrderInfo(function(){
 						me.attrs.basicCommon = new OrderInfo( { 'wrapper':me.$view.find('.common-market-basic'),'data':me.attrs.orderList,'editFlag':true,'type':11} );
-						me.attrs.basicSpecial = new OrderInfo( { 'wrapper':me.$view.find('.common-market-basic'),'data':me.attrs.orderList,'editFlag':true,'type':12} );
+						me.attrs.basicSpecial = new OrderInfo( { 'wrapper':me.$view.find('.special-market-basic'),'data':me.attrs.orderList,'editFlag':true,'type':12} );
 						me.getNeedDate();
 						me.setProductShow();
 
@@ -269,11 +269,11 @@ define( function( require, exports, module ) {
 				//比较时间
 				function dateCompare(nowDate,endDate)
 				{
-					var arr=startdate.split("/");
+					var arr=nowDate.split("/");
 					var starttime=new Date(arr[0],arr[1],arr[2]);
 					var starttimes=starttime.getTime();
 
-					var arrs=enddate.split("/");
+					var arrs=endDate.split("/");
 					var lktime=new Date(arrs[0],arrs[1],arrs[2]);
 					var lktimes=lktime.getTime();
 
@@ -281,9 +281,7 @@ define( function( require, exports, module ) {
 					{
 						return false;
 					}
-
 					return true;
-
 				}
 				_.map( data , function( obj , index){
 					switch( obj["code"] )
@@ -372,7 +370,7 @@ define( function( require, exports, module ) {
 		},
 		//获取全部订单数据
 		getOrderInfo:function(){
-			var me = this,objData  = { 'orderEntity':{},'enterprise':{}};
+			var me = this,objData  = { 'orderEntity':{}};
 
 			switch( me.attrs.typeFlag )
 			{
@@ -400,6 +398,9 @@ define( function( require, exports, module ) {
 						},
 						"enterpriseExtend":{
 							"enterpriseId":me.attrs.id ||''
+						},
+						"enterprise":{
+							"enterpriseId":me.attrs.id ||''
 						}
 					}
 					break;
@@ -414,6 +415,9 @@ define( function( require, exports, module ) {
 						}
 					},
 						"enterpriseExtend":{
+							"enterpriseId":me.attrs.id ||''
+						},
+						"enterprise":{
 							"enterpriseId":me.attrs.id ||''
 						}
 					}
@@ -439,17 +443,26 @@ define( function( require, exports, module ) {
 				//基本信息校验和取值
 				if( me.attrs.basicCommon.getValue() ){
 					var tem ={'enterprise': me.attrs.basicCommon.getValue()} ;
-					$.extend(true, objData, tem );
+					tem.enterprise && $.extend(true, objData, tem );
 				}else{
 					return ;
 				}
 
 				//产品信息
-				var temp = me.attrs.prodeuctObj.getData();
-				objData.enterpriseExtend = temp.enterpriseExtend ;
-				objData.contract = temp.contract;
-				objData.orderEntity.order = temp.order
-				objData.orderEntity.subOrders = temp.subOrders;
+				if(me.attrs.prodeuctObj.validate()){
+					var temp = me.attrs.prodeuctObj.getData();
+					objData.enterpriseExtend = temp.enterpriseExtend ;
+					objData.contract = temp.contract;
+					objData.orderEntity.order = temp.order
+					objData.orderEntity.subOrders = temp.subOrders;
+					if(temp.subOrders.length<1){
+						util.showToast('请至少选择一款子产品！');
+						return false;
+					}
+				}else{
+					util.showToast('产品信息填写不完整！');
+					return false;
+				}
 
 				//检测子订单折扣是否低于8折
 				if(!me.checkDiscount( temp.subOrders)){
@@ -461,7 +474,7 @@ define( function( require, exports, module ) {
 				if( me.attrs.invoiceCommon.getInfo() ){
 					var temp  = me.attrs.invoiceCommon.getInfo();
 					temp.invoice ? objData.orderEntity.invoice =temp.invoice:objData.orderEntity.invoice = null;
-					 $.extend(true, objData.orderEntity.order, temp.order , me.attrs.tempData);
+					 $.extend(true, objData.orderEntity.order, temp.order);
 				}else{
 					return ;
 				}
@@ -472,23 +485,33 @@ define( function( require, exports, module ) {
 				//基本信息校验和取值
 				if( me.attrs.basicSpecial.getValue() ){
 					var tem ={'enterprise':me.attrs.basicSpecial.getValue()}
-					$.extend(true, objData, tem );
+					tem.enterprise && $.extend(true, objData, tem );
 				}else{
 					return ;
 				}
 
 				//产品信息
-				var temp = me.attrs.prodeuctObj.getData();
-				objData.enterpriseExtend = temp.enterpriseExtend ;
-				objData.contract = temp.contract;
-				objData.orderEntity.order = temp.order
-				objData.orderEntity.subOrders = temp.subOrders;
+				if(me.attrs.prodeuctObj.validate()){
+					var temp = me.attrs.prodeuctObj.getData();
+					objData.enterpriseExtend = temp.enterpriseExtend ;
+					objData.contract = temp.contract;
+					objData.orderEntity.order = temp.order
+					if(temp.subOrders.length<1){
+						util.showToast('请至少选择一款子产品！');
+						return false;
+					}
+					objData.orderEntity.subOrders = temp.subOrders;
+				
+				}else{
+					util.showToast('产品信息填写不完整！');
+					return false;
+				}
 
 				//发票信息校验和取值
 				if( me.attrs.invoiceSpecial.getInfo() ){
 					var temp  = me.attrs.invoiceSpecial.getInfo();
 					temp.invoice ? objData.orderEntity.invoice =temp.invoice : objData.orderEntity.invoice = null;
-					$.extend(true, objData.orderEntity.order, temp.order, me.attrs.tempData);
+					$.extend(true, objData.orderEntity.order, temp.order);
 				}else{
 					return ;
 				}
@@ -504,6 +527,7 @@ define( function( require, exports, module ) {
 			}
 			//获取订单类型
 			objData.orderEntity.order['orderType'] = me.attrs.orderType ;
+			$.extend(true, objData, me.attrs.tempData);
 			if(objData.orderEntity.invoice && objData.orderEntity.invoice['businessLicense']){
 				objData.enterpriseExtend['businessLicense'] = objData.orderEntity.invoice['businessLicense'] ;
 				objData.enterpriseExtend['businessLicenseFileName'] = objData.orderEntity.invoice['businessLicenseFileName'];
@@ -586,9 +610,9 @@ define( function( require, exports, module ) {
 		}else if(param.length==1){
 			var newMarketing = new NewMarketing( { 'view':$el,'typeFlag':param[0]} );
 		}else if( param.length==2 ){
-			var newMarketing = new NewMarketing( { 'view':$el,'typeFlag':param[0], 'paralist':param[1]} );
+			var newMarketing = new NewMarketing( { 'view':$el,'typeFlag':param[0], 'enterpriseId':param[1]} );
 		}if( param.length==3 ){
-			var newMarketing = new NewMarketing( { 'view':$el,'typeFlag':param[0], 'paralist':param[1] ,"paraName":param[2]} );
+			var newMarketing = new NewMarketing( { 'view':$el,'typeFlag':param[0], 'enterpriseId':param[1] ,"account":param[2]} );
 		}
 
     }

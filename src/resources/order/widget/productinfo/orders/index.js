@@ -58,7 +58,7 @@ define(function (require, exports, module) {
                             item.visible = true;
                             item.attr = {src: '/op/api/file/previewimage?filePath=' + contract.contractCopy};
                             item.on('setValue', function ($ele, data) {
-                                $ele.parent('a').attr('href', '/op/api/file/previewimage?filePath=' + ontract.contractCopy);
+                                $ele.parent('a').attr('href', '/op/api/file/previewimage?filePath=' + contract.contractCopy);
                             });
                         });
                     }
@@ -162,7 +162,11 @@ define(function (require, exports, module) {
                 } else {
                     n.attr = {maxlength: 50};
                 }
-            })
+            });
+            if (responseData && responseData.payInfoReadonly!==undefined) {//支付信息只读
+                exports.setPayInfoReadonly(controller, terminalDataItems, tableDataItems, formDataItems,responseData.payInfoReadonly);
+            }
+
         }
         ;
         function setValue(dataDic, key, value, callback) {
@@ -284,6 +288,53 @@ define(function (require, exports, module) {
                 n.readonly = true;
             });
         };
+
+        ///增购需要默认时间
+        exports.setPayInfoReadonly = function (controller, terminalDataItems, tableDataItems, formDataItems,isReadonly) {
+            controller(formDataItems, 'contractNo', function (n) {
+                n.readonly = isReadonly;
+            });
+            controller(formDataItems, 'contractPrice', function (n) {
+                n.readonly = isReadonly;
+            });
+            controller(formDataItems, 'payStatus_select', function (n) {
+                n.readonly = isReadonly;
+            });
+            controller(formDataItems, 'payDate', function (n) {
+                n.readonly = isReadonly;
+            });
+            controller(formDataItems, 'currPayAmount', function (n) {
+                n.readonly = isReadonly;
+            });
+            //////////////////////
+            controller(formDataItems, 'currPayAmount_3', function (n) {
+                n.readonly = isReadonly;
+            });
+            controller(formDataItems, 'currPayAmount_1', function (n) {
+                n.readonly = isReadonly;
+            });
+            controller(formDataItems, 'currPayAmount_4', function (n) {
+                n.readonly = isReadonly;
+            });
+            controller(formDataItems, 'currPayAmount_5', function (n) {
+                n.readonly = isReadonly;
+            });
+            controller(formDataItems, 'currPayAmount_7', function (n) {
+                n.readonly = isReadonly;
+            });
+            controller(formDataItems, 'currPayAmount_8', function (n) {
+                n.readonly = isReadonly;
+            });
+            controller(formDataItems, 'receiptsAccount', function (n) {
+                n.readonly = isReadonly;
+            });
+            controller(formDataItems, 'payerName', function (n) {
+                n.readonly = isReadonly;
+            });
+            controller(formDataItems, 'sealName', function (n) {
+                n.readonly = isReadonly;
+            });
+        };
         //转换输入值
         exports.setSuborders = function (terminalInfo, tableInfo, formInfo, data) {
             var terminalInfoData = terminalInfo.o_getValues();
@@ -328,23 +379,24 @@ define(function (require, exports, module) {
                         //    subOrder.startTime = fromData['startTime_2'];
                         //    subOrder.endTime = fromData['endTime_2'];
                         //}
-                        subOrder.productExtends = [];
+                        var productExtends = [];
                         if (n == '1') {
                             if (terminalInfo.o_getFieldValue('kunbang') && terminalInfo.o_data_getField({name: 'kunbang'}).is(':visible')) {
                                 var binds = (terminalInfo.o_getFieldValue('kunbang') || '').split(',');
                                 $(binds).each(function (b, i) {
                                     if (b) {
-                                        subOrder.productExtends.push({productKey: 'bind', productValue: b});
+                                        productExtends.push({productKey: 'bind', productValue: b});
                                     }
                                 })
                             }
                         }
                         if (controler.o_data_getField('type_' + n).is(':visible')) {
                             var value = controler.o_getFieldValue('type_' + n);
-                            subOrder.productExtends.push({productKey: 'buytype', productValue: value});
+                            productExtends.push({productKey: 'buytype', productValue: value});
                         }
                         data.subOrders.push({
-                            subOrder: subOrder
+                            subOrder: subOrder,
+                            productExtends: productExtends
                         });
                     }
                 }

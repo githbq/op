@@ -382,22 +382,33 @@ define( function(require, exports, module){
 
 			var me = this,objData  = { 'orderEntity':{}};
 
+			
+
 			//获取普通订单信息
 			//基本信息校验和取值
 			if( me.attrs.basicCommon.getValue() ){
 				//objData.enterprise = me.attrs.basicCommon.getValue();
 				var tem ={'enterprise': me.attrs.basicCommon.getValue()} ;
-			    $.extend(true, objData, tem );
+				tem.enterprise && $.extend(true, objData, tem  );
 			}else{
 				return ;
 			}
 
 			//产品信息
-			var temp = me.attrs.prodeuctObj.getData();
-			objData.enterpriseExtend = temp.enterpriseExtend ;
-			objData.contract = temp.contract;
-			objData.orderEntity.order = temp.order
-			objData.orderEntity.subOrders = temp.subOrders;
+			if(me.attrs.prodeuctObj.validate()){
+				var temp = me.attrs.prodeuctObj.getData();
+				objData.enterpriseExtend = temp.enterpriseExtend ;
+				objData.contract = temp.contract;
+				objData.orderEntity.order = temp.order
+				objData.orderEntity.subOrders = temp.subOrders;
+				if(temp.subOrders.length<1){
+					util.showToast('请至少选择一款子产品！');
+					return false;
+				}
+			}else{
+				util.showToast('产品信息填写不完整！');
+				return false;
+			}
 
 			//检测自订单是否小于7折
 			if(me.attrs.options.isTp == '0'){
@@ -614,44 +625,73 @@ define( function(require, exports, module){
 		actionAgreeEve: function(){
             var me = this;
 
-            if( !me.model.get('comment') ){
+            if( me.attrs.options.currentTask == 'finance' ){
+               me.setMoneyTime(function(){
+					me.replyOptions();
+			   });
+            }else{
+				me.replyOptions();
+			}
 
-            }
-            var bool = confirm("确认同意此条审批吗?");
-            if( bool ){
+        },
+		//批复审批
+		replyOptions:function(){
+		 	var me = this;
+			var bool = confirm("确认同意此条审批吗?");
+			if( bool ){
 				me.$actionReject.text('提交中....');
 				me.$actionReject.attr('disabled','disabled');
 				me.$actionResend.text('提交中....');
 				me.$actionResend.attr('disabled','disabled');
-                util.api({
-                    'url': '~/op/api/approval/directapprove',
-                    'data':{
-                        'processInstanceId': me.attrs.options.processInstanceId,     //流程实例ID
-                        'approved': true,                     //审批结果(通过/拒绝)
-                        'opinion': me.model.get('comment')    //审批意见
-                    },
+				util.api({
+					'url': '~/op/api/approval/directapprove',
+					'data':{
+						'processInstanceId': me.attrs.options.processInstanceId,     //流程实例ID
+						'approved': true,                     //审批结果(通过/拒绝)
+						'opinion': me.model.get('comment')    //审批意见
+					},
 					'button': {
 						'el': me.$actionAgree,
 						'text':'提交中......'
 					},
-                    success: function( data ){
-                        console.warn( data );
-                        if( data.success ){
-                            util.showTip('批复成功');
-                            me.hide();
-                            me.trigger( 'saveSuccess');
-                        }
-                    },
+					success: function( data ){
+						console.warn( data );
+						if( data.success ){
+							util.showTip('批复成功');
+							me.hide();
+							me.trigger( 'saveSuccess');
+						}
+					},
 					complete: function(){
 						me.$actionReject.text('驳回');
 						me.$actionReject.removeAttr('disabled');
 						me.$actionResend.text('保存通过');
 						me.$actionResend.removeAttr('disabled');
 					}
-                })
-            }
-        },
-		
+				})
+			}
+		},
+		//设置到款时间
+		setMoneyTime:function( callback ){
+			var me = this;
+			if(!me.$moneyTime.val() ){
+				util.showToast('请填写到账时间！');
+				return false;
+			}
+			util.api({
+				'url': '/odr/setreceivedpaydate',
+				'data':{
+					'orderId': me.attrs.options.id,   //流程实例ID
+					'receivedPayDate':new Date( me.$moneyTime.val()  ).getTime()          //审批结果(通过/拒绝)
+				},
+				success: function( data ){
+					console.warn( data );
+					if( data.success ){
+						callback && callback();
+					}
+				}
+			})
+		},
 		//重新发送
 		hide: function(){
 			var me = this;
