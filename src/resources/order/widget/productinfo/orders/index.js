@@ -328,7 +328,7 @@ define(function (require, exports, module) {
                         //    subOrder.startTime = fromData['startTime_2'];
                         //    subOrder.endTime = fromData['endTime_2'];
                         //}
-                        subOrder.productExtends = [];
+                       var productExtends = [];
                         if (n == '1') {
                             if (terminalInfo.o_getFieldValue('kunbang') && terminalInfo.o_data_getField({name: 'kunbang'}).is(':visible')) {
                                 var binds = (terminalInfo.o_getFieldValue('kunbang') || '').split(',');
@@ -344,7 +344,8 @@ define(function (require, exports, module) {
                             subOrder.productExtends.push({productKey: 'buytype', productValue: value});
                         }
                         data.subOrders.push({
-                            subOrder: subOrder
+                            subOrder: subOrder,
+                            productExtends:productExtends
                         });
                     }
                 }
