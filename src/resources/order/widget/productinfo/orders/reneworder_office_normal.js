@@ -33,7 +33,9 @@ define(function (require, exports, module) {
         controller(terminalDataItems,'businesscard',function(n){
             n.visible = false;
         });
-
+        controller(tableDataItems,'type_7',function(n){
+            n.value = '3';
+        });
         common.setNoGZHelper(controller,terminalDataItems, tableDataItems, formDataItems);
 
         var arr=['payStatus_select','currPayAmount_1','currPayAmount_1', 'currPayAmount_2', 'currPayAmount_3', 'currPayAmount_4', 'currPayAmount_5', 'currPayAmount_7'];
