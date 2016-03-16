@@ -2,10 +2,10 @@ define( function( require, exports, module ) {
     var IBSS = window.IBSS,
         TPL = IBSS.tpl;
 
-    var DetailBind = require('module/detailbind/detailbind');
+
     var Pagination = require('common/widget/pagination/pagination');
     var DetailApproval = require('../../order/detailapproval/detailapproval');
-
+    var DetailPayment = require('../../order/detailpayment/detailpayment');
 
     /**
      *
@@ -263,11 +263,8 @@ define( function( require, exports, module ) {
         //审批列表
         var renewList = new OpenApprovalList( { 'view':$el.find('.m-approvallist') } );    //
 
-        //付费开通审批详情
-		//var detailBind = new DetailBind();
-
-        //存储审批详情
-        var detailApproval;
+        var detailApproval,
+            detailPayment;
 
         renewList.on('detail',function( detail , state ){
             
@@ -288,31 +285,27 @@ define( function( require, exports, module ) {
                 'state': state || '',
                 'ea': detail.enterpriseAccount || '',
                 'currentTask': detail.currentTask || '',
-                'processInstanceId': detail.processInstanceId || ''
+                'processInstanceId': detail.processInstanceId || '',
+                'contractNo': detail.contractNo
             }
-            detailApproval.show( data );
-            detailApproval.on('saveSuccess',function(){
-                renewList.getList();
-            });
-        });
 
-        /*
-		renewList.on('detailBind',function( id , eid , type , state,isCurrentTask,isCanEdit, activeStatus ){
-		
-            detailBind.show( id , eid , type , state,isCurrentTask,isCanEdit ,activeStatus );
-        });
+            if( data.orderType == 17 ){
 
-        openApproval.on('update',function(){
-            renewList.searchEve();
-        });
-		openApproval.on('saveSuccess',function(){
-            renewList.getList();
-        });
+                detailApproval = new DetailApproval();
+                detailApproval.show( data );
+                detailApproval.on('saveSuccess',function(){
+                    renewList.getList();
+                })
+            } else {
 
-		detailBind.on('sendsuccess',function(){
-            renewList.searchEve();
+                detailPayment = new DetailPayment();
+                detailPayment.show( data );
+                detailPayment.on('saveSuccess',function(){
+                    renewList.getList();
+                });
+            }
+
         });
-        */
     }
 } );
 
