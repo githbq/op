@@ -91,7 +91,7 @@ define(function( require , exports , module ){
 					me.$('.invoice-bar label').eq(1).trigger('click');
 				}
 			
-				if( attrs.data.order.isTp == 1 ){
+				if( attrs.data.order.isCooperation == 1 ){
 
 					me.$('[name="team"]').eq(1).trigger('click');
 				}else{
@@ -102,6 +102,7 @@ define(function( require , exports , module ){
 			}
 			if( attrs.editFlag == false ){
 				me.$('input').attr('disabled','disabled');
+				me.$('.nsr').hide();                     //隐藏必选*
 			}
 			if( attrs.type == 17 ){
 				me.$('.tidan').hide();
