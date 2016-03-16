@@ -90,7 +90,7 @@ define(function (require, exports, module) {
                     }
                 }
                 $(subOrders).each(function (i, n) {
-                    if (n.subOrder && n.subOrder.productId) {
+                    if (n.subOrder && n.subOrder.productId && subOrder.productId!=9 && subOrder.productId!=10) {
                         checkids.push(n.subOrder.productId);
                         var subOrder = n.subOrder;
                         for (var j in subOrder) {
@@ -121,14 +121,6 @@ define(function (require, exports, module) {
                                             item.on('setFieldValue', function ($ele, value, data) {
                                                 data.__editChange = false;
                                             })
-                                        });
-                                    }
-                                        ;
-                                        break;
-                                    case 'bind'://捆绑已经强制了,只要有 则一定全选
-                                    {
-                                        controller(terminalDataItems, 'kunbang', function (item) {
-                                            item.value = true;
                                         });
                                     }
                                         ;
@@ -359,7 +351,6 @@ define(function (require, exports, module) {
                 ids.push('2');
                 ids.push('3');
             }
-            terminalInfo.o_getFieldValue('');
             $(ids).each(function (i, n) {
                     if (!n) {
                         return;
@@ -390,9 +381,21 @@ define(function (require, exports, module) {
                         if (n == '1') {
                             if (terminalInfo.o_getFieldValue('kunbang') && terminalInfo.o_data_getField({name: 'kunbang'}).is(':visible')) {
                                 var binds = (terminalInfo.o_getFieldValue('kunbang') || '').split(',');
-                                $(binds).each(function (b, i) {
+                                $(binds).each(function (i, b) {
                                     if (b) {
-                                        productExtends.push({productKey: 'bind', productValue: b});
+                                        data.subOrders.push({
+                                            subOrder: {
+                                                productId: b,
+                                                purchaseCount:  1,
+                                                purchaseAmount: 0,
+                                                startTime: fromData['startTime_1'],
+                                                endTime: fromData['endTime_1'],
+                                                productAmount: 0,
+                                                discount: 0,
+                                                currPayAmount: 0
+                                            },
+                                            productExtends: []
+                                        });
                                     }
                                 })
                             }
