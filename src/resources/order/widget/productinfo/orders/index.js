@@ -162,7 +162,11 @@ define(function (require, exports, module) {
                 } else {
                     n.attr = {maxlength: 50};
                 }
-            })
+            });
+            if (responseData && responseData.payInfoReadonly===true) {//支付信息只读
+                exports.setPayInfoReadonly(controller, terminalDataItems, tableDataItems, formDataItems)
+            }
+
         }
         ;
         function setValue(dataDic, key, value, callback) {
@@ -366,7 +370,7 @@ define(function (require, exports, module) {
                         //    subOrder.startTime = fromData['startTime_2'];
                         //    subOrder.endTime = fromData['endTime_2'];
                         //}
-                       var productExtends = [];
+                        var productExtends = [];
                         if (n == '1') {
                             if (terminalInfo.o_getFieldValue('kunbang') && terminalInfo.o_data_getField({name: 'kunbang'}).is(':visible')) {
                                 var binds = (terminalInfo.o_getFieldValue('kunbang') || '').split(',');
@@ -383,7 +387,7 @@ define(function (require, exports, module) {
                         }
                         data.subOrders.push({
                             subOrder: subOrder,
-                            productExtends:productExtends
+                            productExtends: productExtends
                         });
                     }
                 }
