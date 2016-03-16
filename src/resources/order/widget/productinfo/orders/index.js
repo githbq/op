@@ -334,14 +334,14 @@ define(function (require, exports, module) {
                                 var binds = (terminalInfo.o_getFieldValue('kunbang') || '').split(',');
                                 $(binds).each(function (b, i) {
                                     if (b) {
-                                        subOrder.productExtends.push({productKey: 'bind', productValue: b});
+                                        productExtends.push({productKey: 'bind', productValue: b});
                                     }
                                 })
                             }
                         }
                         if (controler.o_data_getField('type_' + n).is(':visible')) {
                             var value = controler.o_getFieldValue('type_' + n);
-                            subOrder.productExtends.push({productKey: 'buytype', productValue: value});
+                            productExtends.push({productKey: 'buytype', productValue: value});
                         }
                         data.subOrders.push({
                             subOrder: subOrder,
