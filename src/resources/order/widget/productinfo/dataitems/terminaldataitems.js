@@ -1,6 +1,6 @@
 define(function (require, exports, module) {
     var DataItem = require('../index').PageDataClass;
-    var helper=require('./index');
+    var helper = require('./index');
     module.exports.getItems = function () {
         var dataItems = [];
         //终端总个数
@@ -62,6 +62,14 @@ define(function (require, exports, module) {
             events: [
                 {
                     key: 'change', value: function (e) {
+                    var me = this;
+                    var $dom = $(e.target);
+                    if ($dom.is(':checked')) {//选中的话 终端为0
+                        me.o_setValue({name: 'productAmount_3', value: '0'});
+                        me.o_setValue({name: 'purchaseAmount_input_3', value: '0'});
+                        me.o_setValue({name: 'purchaseAmount_3', value: '0'});
+                        //   var $purchaseAmount_input_3 = me.o_data_getField({name: 'purchaseAmount_input_3'});
+                    }
                     priceComput.call(this, e);
                 }
                 }]
@@ -81,6 +89,10 @@ define(function (require, exports, module) {
                         var $dom = $(e.target);
                         if (n != '3') {
                             if (n == '1') {//CRM的数量变化还要计算一下原价
+                                if ($dom.val() && parseFloat($dom.val()) > parseFloat(me.o_getFieldValue('purchaseCount_2'))) {
+                                    util.showToast('销客终端总量需大于CRM终端总量');
+                                    $dom.val(me.o_getFieldValue('purchaseCount_2'));
+                                }
                                 changeForGetPrice.call(me, e);
                             } else {
                                 checkTypeForPrice.call(me, e, n);
@@ -89,6 +101,10 @@ define(function (require, exports, module) {
                         } else {
                             $dom.val($dom.val().replace(/[^\.\d]/g, ''));
                             me.o_field_getData($dom).__silent = false;
+                            if (me.o_getFieldValue('useCRM')) {//如果选了CRM 服务费价格一定0
+                                me.o_data_getField({'name': 'useCRM'}).change();
+                                return;
+                            }
                             if ($dom.val()) {
                                 me.attrs.apiPool.api_getServicePrice({
                                     data: {enterpriseId: me.o_getFieldValue('enterpriseId'), personCount: $dom.val()}, success: function (response) {
@@ -117,7 +133,7 @@ define(function (require, exports, module) {
                         }
                     }
                 }]
-                ,validateOptions: helper.getValidateLogic()
+                , validateOptions: helper.getValidateLogic()
             }));
 
 
@@ -290,7 +306,7 @@ define(function (require, exports, module) {
         var numberIds = ['2', '3', '8'];
 
 
-        //名片部分
+        //CRM部分
         dataItems.push(new DataItem({
             name: 'useCRMWrapper',
             visible: false
