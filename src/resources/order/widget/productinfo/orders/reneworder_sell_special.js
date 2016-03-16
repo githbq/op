@@ -40,6 +40,9 @@ define(function (require, exports, module) {
             n.visible = true;
         });
         controller(terminalDataItems, 'purchaseAmount_input_1', function (n) {
+            n.visible = true;
+        });
+        controller(terminalDataItems, 'purchaseAmount_1', function (n) {
             n.visible = false;
         });
         controller(terminalDataItems, 'useCRMWrapper', function (n) {
