@@ -40,13 +40,13 @@ define(function (require, exports, module) {
         });
         controller(terminalDataItems, 'useFX', function (n) {
             n.readonly=false;
-            n.value=true;
+            n.value=false;
 
         });
         controller(terminalDataItems, 'useCRM', function (n) {
-            n.visible = true;
-            n.value=true;
+            n.visible = false;
             n.readonly=true;
+            n.value=true;
         });
         controller(terminalDataItems, 'purchaseAmount_3', function (n) {
             n.visible = false;

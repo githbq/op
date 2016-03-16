@@ -15,6 +15,11 @@ define(function (require, exports, module) {
     };
     //转换输入值
     exports.transferDataItem = function (terminalDataItems, tableDataItems, formDataItems,controller,responseData) {//转换数据项
+        controller(terminalDataItems, 'useFX', function (n) {
+            n.on('setFieldValue', function ($ele) {
+                $ele.hide();
+            });
+        });
         //工资助手强制
         common.setGZHelper(controller,terminalDataItems,tableDataItems,formDataItems);
         //工资助手强制 end

@@ -6429,11 +6429,13 @@ em {
   padding-bottom: 15px;
   border-top: 2px dashed #999999;
 }
+.productinfo .forminfo {
+  border-top: 2px dashed #999999;
+}
 .productinfo .tableinfo {
   padding: 10px;
   padding-top: 10px;
   padding-bottom: 10px;
-  border-bottom: 2px dashed #999999;
   border-top: 2px dashed #999999;
 }
 .productinfo .tableinfo table td,
