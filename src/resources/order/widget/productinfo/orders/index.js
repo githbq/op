@@ -347,7 +347,7 @@ define(function (require, exports, module) {
             var formInfoData = formInfo.o_getValues();
             //suborders //////////////////////////////////////////
             var ids = tableInfoData.check.split(',');
-            if (terminalInfo.o_getFieldData('businesscard').visible) {
+            if (terminalInfo.o_getFieldData('businesscard').visible && terminalInfo.o_getFieldValue('useCRM')) {
                 ids.push('8');
             }
             if (terminalInfo.o_getFieldData('useCRMWrapper').visible && terminalInfo.o_getFieldValue('useCRM')) {

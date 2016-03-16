@@ -519,7 +519,7 @@ define( function( require, exports, module ) {
 				//获取特批地址
 				if( me.attrs.explainSpecial.getValue() ){
 					var temp  = me.attrs.explainSpecial.getValue();
-					objData.orderEntity.order['approved_url'] = temp.approved_url;
+					objData.orderEntity.order['approvedUrl'] = temp.approvedUrl;
 				}else{
 					return ;
 				}
