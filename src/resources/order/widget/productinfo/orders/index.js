@@ -105,7 +105,7 @@ define(function (require, exports, module) {
                         if (subOrder['endTime_readonly'] === true && dataDic['endTime_' + subOrder.productId]) {
                             dataDic['endTime_' + subOrder.productId].readonly = true;
                         }
-                        if (subOrder.currPayAmount) {
+                        if (subOrder.currPayAmount!==undefined || subOrder.currPayAmount!==null) {
                             controller(formDataItems, 'currPayAmount_' + subOrder.productId, function (item) {
                                 item.value = subOrder.currPayAmount;
                             });
