@@ -73,7 +73,7 @@ define(function (require, exports, module) {
             dataItems.push(new DataItem({
                 name: 'purchaseCount_' + n,
                 value: '',
-                attr: {maxlength: 10},
+                attr: {maxlength: 9},
                 __silent: true,
                 events: [{
                     key: 'change', value: function (e) {
@@ -126,7 +126,7 @@ define(function (require, exports, module) {
                 name: 'purchaseAmount_input_' + n,
                 value: '',
                 readonly: false,
-                attr: {maxlength: 10},
+                attr: {maxlength: 9},
                 validateOptions: helper.getValidateLogic(),
                 __silent: true,
                 events: [{
@@ -172,14 +172,14 @@ define(function (require, exports, module) {
                 name: 'productAmount_' + n,
                 value: '',
                 validateOptions: helper.getValidateLogic(),
-                attr: {maxlength: 10}
+                attr: {maxlength: 9}
             }));
             //合同金额
             dataItems.push(new DataItem({
                 name: 'purchaseAmount_' + n,
                 value: '',
                 validateOptions: helper.getValidateLogic(),
-                attr: {maxlength: 10}
+                attr: {maxlength: 9}
             }));
             //服务费 试用 赠送 折扣 的容器
             dataItems.push(new DataItem({
@@ -190,7 +190,7 @@ define(function (require, exports, module) {
             dataItems.push(new DataItem({
                 name: 'purchaseAmount_wrapper_' + n,
                 visible: false,
-                attr: {maxlength: 10}
+                attr: {maxlength: 9}
             }));
             //服务费 1试用 2赠送 3折扣 的容器
             dataItems.push(new DataItem({

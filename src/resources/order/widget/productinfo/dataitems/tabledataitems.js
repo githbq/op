@@ -181,13 +181,13 @@ define(function (require, exports, module) {
                 dataItems.push(new DataItem($.extend({
                     name: 'productAmount_' + n.id,
                     value: '',
-                    attr: {maxlength: 10}
+                    attr: {maxlength: 9}
                 }, n.options.productAmount)));
 
                 //pk助手合同金额
                 dataItems.push(new DataItem($.extend({
                     name: 'purchaseAmount_' + n.id,
-                    attr: {'data-price': '1', maxlength: 10},
+                    attr: {'data-price': '1', maxlength: 9},
                     value: 0,
                     validateOptions: helper.getValidateLogic(),
                     events: [
