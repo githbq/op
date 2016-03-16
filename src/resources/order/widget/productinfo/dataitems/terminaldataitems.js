@@ -64,7 +64,7 @@ define(function (require, exports, module) {
                 {
                     key: 'change', value: function (e) {
                     var me = this;
-
+                    var isReadonly=$dom.is('[readonly],[disabled]');
                     var $dom = $(e.target);
                     if ($dom.is(':checked')) {//选中的话 终端为0
                         me.o_setValue({name: 'productAmount_3', value: '0'});
@@ -73,7 +73,7 @@ define(function (require, exports, module) {
                         var id = $dom.val();
                         priceComput.call(this, e);
                     } else {
-                        me.o_setValue({name: 'purchaseAmount_input_3', value: '0', readonly: false});
+                        me.o_setValue({name: 'purchaseAmount_input_3', readonly: isReadonly});
                         me.o_data_getField({name: 'purchaseCount_3'}).change();//服务费
                     }
                 }
