@@ -1008,6 +1008,8 @@
             var INMAP = {};
             //存储缓存数据
             var items = {};
+            //生成dom结构
+            var str = "<option value=''>全部</option>";
 
             util.getEnums('INDUSTRY',function( data ){
 
@@ -1052,8 +1054,6 @@
                 }
             }
 
-            //生成dom结构
-            var str = "<option value=''>全部</option>";
             function generateDom( node , zindex ){
                 var item;
                 var mstr = "|-";
