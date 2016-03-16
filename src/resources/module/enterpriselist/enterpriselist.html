@@ -93,10 +93,16 @@
                     <td><%=item.authStr%></td>
                     <td data-status="<%=item.enterprise.runstatus%>">
                         <a class="info-detail" data-id="<%=item.enterprise.enterpriseid%>" data-account="<%=item.enterprise.enterpriseaccount%>">查看</a>
+
+                        <% if(item.canIncrease){ %>
                         <a class="info-zengbangong" data-id="<%=item.enterprise.enterpriseid%>" data-account="<%=item.enterprise.enterpriseaccount%>">增购办公版</a>
                         <a class="info-zengyingxiao" data-id="<%=item.enterprise.enterpriseid%>" data-account="<%=item.enterprise.enterpriseaccount%>">增购营销版</a>
+                        <% } %>
+                        
+                        <% if(item.canRenew){ %>
                         <a class="info-renewbangong" data-id="<%=item.enterprise.enterpriseid%>" data-account="<%=item.enterprise.enterpriseaccount%>">续费办公版</a>
                         <a class="info-renewyingxiao" data-id="<%=item.enterprise.enterpriseid%>" data-account="<%=item.enterprise.enterpriseaccount%>">续费营销版</a>
+                        <% } %>
                     </td>
                     <td></td>
                 </tbody>
