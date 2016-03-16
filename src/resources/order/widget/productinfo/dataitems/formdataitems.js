@@ -95,11 +95,11 @@ define(function (require, exports, module) {
                         {
                             me.o_setValues([
                                 {name: 'currPayAmount', value: me.o_getFieldValue('contractPrice')},
-                                {name: 'currPayAmount_3', value: '0', visible: false},
-                                {name: 'currPayAmount_1', value: '0', visible: false},
-                                {name: 'currPayAmount_4', value: '0', visible: false},
-                                {name: 'currPayAmount_5', value: '0', visible: false},
-                                {name: 'currPayAmount_7', value: '0', visible: false}
+                                {name: 'currPayAmount_3', value: '', visible: false},
+                                {name: 'currPayAmount_1', value: '', visible: false},
+                                {name: 'currPayAmount_4', value: '', visible: false},
+                                {name: 'currPayAmount_5', value: '', visible: false},
+                                {name: 'currPayAmount_7', value: '', visible: false}
                             ]);
                             //全款
                         }
@@ -128,35 +128,25 @@ define(function (require, exports, module) {
                             }
                             if (data.__editChanged === false) {
                                 data.__editChanged = true;
-                                $(checkeds).each(function (i, n) {
-                                    if (!(n == '7' && me.o_getFieldValue('productAmount_7') == 0)) {
-                                        me.o_setValues([
-                                            {name: 'currPayAmount_' + n, visible: true}
-                                        ]);
-                                    }
-                                });
-                            } else {
-                                $(checkeds).each(function (i, n) {
-                                    if (!(n == '7' && me.o_getFieldValue('productAmount_7') == 0)) {
-                                        me.o_setValues([
-                                            {name: 'currPayAmount_' + n, visible: true}
-                                        ]);
-                                    }
-                                });
                             }
+                            $(checkeds).each(function (i, n) {
+                                me.o_setValues([
+                                    {name: 'currPayAmount_' + n, visible: true}
+                                ]);
+                            });
                         }
                             ;
                             break;
                         case '3':
                         {  //未付
                             me.o_setValues([
-                                {name: 'currPayAmount_3', value: '0', visible: false},
-                                {name: 'currPayAmount_1', value: '0', visible: false},
-                                {name: 'currPayAmount_4', value: '0', visible: false},
-                                {name: 'currPayAmount_5', value: '0', visible: false},
-                                {name: 'currPayAmount_7', value: '0', visible: false},
-                                {name: 'currPayAmount_8', value: '0', visible: false},
-                                {name: 'currPayAmount', value: '0'}
+                                {name: 'currPayAmount_3', value: '', visible: false},
+                                {name: 'currPayAmount_1', value: '', visible: false},
+                                {name: 'currPayAmount_4', value: '', visible: false},
+                                {name: 'currPayAmount_5', value: '', visible: false},
+                                {name: 'currPayAmount_7', value: '', visible: false},
+                                {name: 'currPayAmount_8', value: '', visible: false},
+                                {name: 'currPayAmount', value: ''}
                             ]);
                         }
                             ;

@@ -105,9 +105,9 @@ define(function (require, exports, module) {
                         if (subOrder['endTime_readonly'] === true && dataDic['endTime_' + subOrder.productId]) {
                             dataDic['endTime_' + subOrder.productId].readonly = true;
                         }
-                        if (subOrder.currPayAmount!==undefined && subOrder.currPayAmount!==null) {
+                        if (subOrder.currPayAmount !== undefined && subOrder.currPayAmount !== null) {
                             controller(formDataItems, 'currPayAmount_' + subOrder.productId, function (item) {
-                                item.value =subOrder.currPayAmount.toString();
+                                item.value = subOrder.currPayAmount.toString();
                             });
                         }
                         if (n.productExtends) {//有拓展属性
@@ -140,7 +140,15 @@ define(function (require, exports, module) {
                     }
                 });
                 dataDic['check'].value = checkids;
+                $(bigArr).each(function (i, n) {
+                    if (n.attr) {
+                        (!n.attr.maxlength) && (n.attr.maxlength = 50);
+                    } else {
+                        n.attr = {maxlength: 50};
+                    }
+                });
                 if (responseData.readonly === true) {
+
                     $(terminalDataItems).each(function (i, n) {
                         if (n.name.toLowerCase().indexOf('wrapper') < 0 && n.name.toLowerCase().indexOf('image') < 0) {//包裹者不设
                             n.readonly = true;
@@ -159,18 +167,12 @@ define(function (require, exports, module) {
                         }
                     });
                 }
+                if (responseData && responseData.payInfoReadonly !== undefined) {//支付信息只读
+                    exports.setPayInfoReadonly(controller, terminalDataItems, tableDataItems, formDataItems, responseData.payInfoReadonly);
+                }
+
             }
 
-            $(bigArr).each(function (i, n) {
-                if (n.attr) {
-                    (!n.attr.maxlength) && (n.attr.maxlength = 50);
-                } else {
-                    n.attr = {maxlength: 50};
-                }
-            });
-            if (responseData && responseData.payInfoReadonly !== undefined) {//支付信息只读
-                exports.setPayInfoReadonly(controller, terminalDataItems, tableDataItems, formDataItems, responseData.payInfoReadonly);
-            }
 
         }
         ;
