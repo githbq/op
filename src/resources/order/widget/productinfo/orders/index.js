@@ -90,7 +90,7 @@ define(function (require, exports, module) {
                     }
                 }
                 $(subOrders).each(function (i, n) {
-                    if (n.subOrder && n.subOrder.productId && subOrder.productId!=9 && subOrder.productId!=10) {
+                    if (n.subOrder && n.subOrder.productId && subOrder.productId!=10 && subOrder.productId!=11) {
                         checkids.push(n.subOrder.productId);
                         var subOrder = n.subOrder;
                         for (var j in subOrder) {
@@ -390,6 +390,7 @@ define(function (require, exports, module) {
                                                 purchaseAmount: 0,
                                                 startTime: fromData['startTime_1'],
                                                 endTime: fromData['endTime_1'],
+
                                                 productAmount: 0,
                                                 discount: 0,
                                                 currPayAmount: 0
