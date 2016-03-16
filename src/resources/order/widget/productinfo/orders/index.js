@@ -163,8 +163,8 @@ define(function (require, exports, module) {
                     n.attr = {maxlength: 50};
                 }
             });
-            if (responseData && responseData.payInfoReadonly===true) {//支付信息只读
-                exports.setPayInfoReadonly(controller, terminalDataItems, tableDataItems, formDataItems)
+            if (responseData && responseData.payInfoReadonly!==undefined) {//支付信息只读
+                exports.setPayInfoReadonly(controller, terminalDataItems, tableDataItems, formDataItems,responseData.payInfoReadonly);
             }
 
         }
@@ -290,49 +290,49 @@ define(function (require, exports, module) {
         };
 
         ///增购需要默认时间
-        exports.setPayInfoReadonly = function (controller, terminalDataItems, tableDataItems, formDataItems) {
+        exports.setPayInfoReadonly = function (controller, terminalDataItems, tableDataItems, formDataItems,isReadonly) {
             controller(formDataItems, 'contractNo', function (n) {
-                n.readonly = true;
+                n.readonly = isReadonly;
             });
             controller(formDataItems, 'contractPrice', function (n) {
-                n.readonly = true;
+                n.readonly = isReadonly;
             });
             controller(formDataItems, 'payStatus_select', function (n) {
-                n.readonly = true;
+                n.readonly = isReadonly;
             });
             controller(formDataItems, 'payDate', function (n) {
-                n.readonly = true;
+                n.readonly = isReadonly;
             });
             controller(formDataItems, 'currPayAmount', function (n) {
-                n.readonly = true;
+                n.readonly = isReadonly;
             });
             //////////////////////
             controller(formDataItems, 'currPayAmount_3', function (n) {
-                n.readonly = true;
+                n.readonly = isReadonly;
             });
             controller(formDataItems, 'currPayAmount_1', function (n) {
-                n.readonly = true;
+                n.readonly = isReadonly;
             });
             controller(formDataItems, 'currPayAmount_4', function (n) {
-                n.readonly = true;
+                n.readonly = isReadonly;
             });
             controller(formDataItems, 'currPayAmount_5', function (n) {
-                n.readonly = true;
+                n.readonly = isReadonly;
             });
             controller(formDataItems, 'currPayAmount_7', function (n) {
-                n.readonly = true;
+                n.readonly = isReadonly;
             });
             controller(formDataItems, 'currPayAmount_8', function (n) {
-                n.readonly = true;
+                n.readonly = isReadonly;
             });
             controller(formDataItems, 'receiptsAccount', function (n) {
-                n.readonly = true;
+                n.readonly = isReadonly;
             });
             controller(formDataItems, 'payerName', function (n) {
-                n.readonly = true;
+                n.readonly = isReadonly;
             });
             controller(formDataItems, 'sealName', function (n) {
-                n.readonly = true;
+                n.readonly = isReadonly;
             });
         };
         //转换输入值
