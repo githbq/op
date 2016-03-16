@@ -81,7 +81,7 @@ define(function(require, exports, module){
 		//对外获取文本框值
 		getValue:function(){
 			var me = this;
-			return true;
+			return {};
 		},
 		//检测数据有效和必填项
 		checkVaild:function(){
