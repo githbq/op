@@ -95,11 +95,11 @@ define(function (require, exports, module) {
                         {
                             me.o_setValues([
                                 {name: 'currPayAmount', value: me.o_getFieldValue('contractPrice')},
-                                {name: 'currPayAmount_3', value: '', visible: false},
-                                {name: 'currPayAmount_1', value: '', visible: false},
-                                {name: 'currPayAmount_4', value: '', visible: false},
-                                {name: 'currPayAmount_5', value: '', visible: false},
-                                {name: 'currPayAmount_7', value: '', visible: false}
+                                {name: 'currPayAmount_3', value: '0', visible: false},
+                                {name: 'currPayAmount_1', value: '0', visible: false},
+                                {name: 'currPayAmount_4', value: '0', visible: false},
+                                {name: 'currPayAmount_5', value: '0', visible: false},
+                                {name: 'currPayAmount_7', value: '0', visible: false}
                             ]);
                             //全款
                         }
@@ -108,7 +108,7 @@ define(function (require, exports, module) {
                         case '2':
                         {//分期
                             me.o_setValues([
-                                {name: 'currPayAmount', value: ''},
+                                {name: 'currPayAmount', value: '0'},
                                 {name: 'currPayAmount_3', visible: false},
                                 {name: 'currPayAmount_1', visible: false},
                                 {name: 'currPayAmount_4', visible: false},
@@ -140,13 +140,13 @@ define(function (require, exports, module) {
                         case '3':
                         {  //未付
                             me.o_setValues([
-                                {name: 'currPayAmount_3', value: '', visible: false},
-                                {name: 'currPayAmount_1', value: '', visible: false},
-                                {name: 'currPayAmount_4', value: '', visible: false},
-                                {name: 'currPayAmount_5', value: '', visible: false},
-                                {name: 'currPayAmount_7', value: '', visible: false},
-                                {name: 'currPayAmount_8', value: '', visible: false},
-                                {name: 'currPayAmount', value: ''}
+                                {name: 'currPayAmount_3', value: '0', visible: false},
+                                {name: 'currPayAmount_1', value: '0', visible: false},
+                                {name: 'currPayAmount_4', value: '0', visible: false},
+                                {name: 'currPayAmount_5', value: '0', visible: false},
+                                {name: 'currPayAmount_7', value: '0', visible: false},
+                                {name: 'currPayAmount_8', value: '0', visible: false},
+                                {name: 'currPayAmount', value: '0'}
                             ]);
                         }
                             ;
