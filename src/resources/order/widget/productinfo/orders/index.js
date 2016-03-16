@@ -28,7 +28,7 @@ define(function (require, exports, module) {
                     setValue(dataDic, 'payStatus_select', order.payStatus || 1, function (n) {
                         n.on('setFieldValue', function ($ele, value, data) {
                             data.__editChange = false;
-                        })
+                        });
                     });
                 }
                 dataDic['enterpriseId'] && ( dataDic['enterpriseId'].value = responseData.enterpriseId);
@@ -105,9 +105,9 @@ define(function (require, exports, module) {
                         if (subOrder['endTime_readonly'] === true && dataDic['endTime_' + subOrder.productId]) {
                             dataDic['endTime_' + subOrder.productId].readonly = true;
                         }
-                        if (subOrder.currPayAmount!==undefined || subOrder.currPayAmount!==null) {
+                        if (subOrder.currPayAmount!==undefined && subOrder.currPayAmount!==null) {
                             controller(formDataItems, 'currPayAmount_' + subOrder.productId, function (item) {
-                                item.value = subOrder.currPayAmount;
+                                item.value =subOrder.currPayAmount.toString();
                             });
                         }
                         if (n.productExtends) {//有拓展属性
