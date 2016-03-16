@@ -52,7 +52,8 @@ define(function (require, exports, module) {
             events: [
                 {
                     key: 'change', value: function (e) {
-                    priceComput.call(this, e);
+                    var me = this;
+                    priceComput.call(me, e);
                 }
                 }]
         }));
@@ -63,17 +64,27 @@ define(function (require, exports, module) {
                 {
                     key: 'change', value: function (e) {
                     var me = this;
+
                     var $dom = $(e.target);
                     if ($dom.is(':checked')) {//选中的话 终端为0
                         me.o_setValue({name: 'productAmount_3', value: '0'});
-                        me.o_setValue({name: 'purchaseAmount_input_3', value: '0'});
+                        me.o_setValue({name: 'purchaseAmount_input_3', value: '0', readonly: true});
                         me.o_setValue({name: 'purchaseAmount_3', value: '0'});
-                        //   var $purchaseAmount_input_3 = me.o_data_getField({name: 'purchaseAmount_input_3'});
+                        var id = $dom.val();
+                        priceComput.call(this, e);
+                    } else {
+                        me.o_setValue({name: 'purchaseAmount_input_3', value: '0', readonly: false});
+                        me.o_data_getField({name: 'purchaseCount_3'}).change();//服务费
                     }
-                    priceComput.call(this, e);
                 }
                 }]
         }));
+        dataItems[dataItems.length - 1].on('setFieldValue', function ($ele, value, data) {
+            setTimeout(function () {
+                $ele.change();
+            }, 10);
+
+        });
         var typeIds = ['1', '3', '8'];
 
         $(typeIds).each(function (i, n) {
@@ -85,12 +96,18 @@ define(function (require, exports, module) {
                 __silent: true,
                 events: [{
                     key: 'change', value: function (e) {
+
                         var me = this;
                         var $dom = $(e.target);
+                        if ($dom.val() && parseFloat($dom.val()) <= 0) {
+                            util.showToast('服务人数与终端数量必须大于0');
+                            $dom.val('');
+                            return;
+                        }
                         if (n != '3') {
                             if (n == '1') {//CRM的数量变化还要计算一下原价
                                 if ($dom.val() && parseFloat($dom.val()) > parseFloat(me.o_getFieldValue('purchaseCount_2'))) {
-                                    util.showToast('销客终端总量需大于CRM终端总量');
+                                    util.showToast('CRM终端总量需小于等于销客终端总量');
                                     $dom.val(me.o_getFieldValue('purchaseCount_2'));
                                 }
                                 changeForGetPrice.call(me, e);

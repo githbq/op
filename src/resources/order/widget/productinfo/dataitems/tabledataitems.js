@@ -226,7 +226,7 @@ define(function (require, exports, module) {
             var productAmount = 0;//产品原价
 
 
-            if (me.__refs.terminalInfo.o_getFieldData('businesscard').visible) {
+            if (me.__refs.terminalInfo.o_getFieldData('businesscard').visible && me.__refs.terminalInfo.o_getFieldValue('useCRM')) {
                 ids.push('8');
             }
             if (me.__refs.terminalInfo.o_getFieldData('useCRMWrapper').visible && me.__refs.terminalInfo.o_getFieldValue('useCRM')) {
