@@ -105,6 +105,11 @@ define(function (require, exports, module) {
                         if (subOrder['endTime_readonly'] === true && dataDic['endTime_' + subOrder.productId]) {
                             dataDic['endTime_' + subOrder.productId].readonly = true;
                         }
+                        if (subOrder.currPayAmount) {
+                            controller(formDataItems, 'currPayAmount_' + subOrder.productId, function (item) {
+                                item.value = subOrder.currPayAmount;
+                            });
+                        }
                         if (n.productExtends) {//有拓展属性
                             $(n.productExtends).each(function (index, kv) {
                                 switch (kv.key) {
@@ -163,8 +168,8 @@ define(function (require, exports, module) {
                     n.attr = {maxlength: 50};
                 }
             });
-            if (responseData && responseData.payInfoReadonly!==undefined) {//支付信息只读
-                exports.setPayInfoReadonly(controller, terminalDataItems, tableDataItems, formDataItems,responseData.payInfoReadonly);
+            if (responseData && responseData.payInfoReadonly !== undefined) {//支付信息只读
+                exports.setPayInfoReadonly(controller, terminalDataItems, tableDataItems, formDataItems, responseData.payInfoReadonly);
             }
 
         }
@@ -290,7 +295,7 @@ define(function (require, exports, module) {
         };
 
         ///增购需要默认时间
-        exports.setPayInfoReadonly = function (controller, terminalDataItems, tableDataItems, formDataItems,isReadonly) {
+        exports.setPayInfoReadonly = function (controller, terminalDataItems, tableDataItems, formDataItems, isReadonly) {
             controller(formDataItems, 'contractNo', function (n) {
                 n.readonly = isReadonly;
             });
