@@ -90,7 +90,7 @@ define(function (require, exports, module) {
                     }
                 }
                 $(subOrders).each(function (i, n) {
-                    if (n.subOrder && n.subOrder.productId) {
+                    if (n.subOrder && n.subOrder.productId && subOrder.productId!=10 && subOrder.productId!=11) {
                         checkids.push(n.subOrder.productId);
                         var subOrder = n.subOrder;
                         for (var j in subOrder) {
@@ -105,9 +105,9 @@ define(function (require, exports, module) {
                         if (subOrder['endTime_readonly'] === true && dataDic['endTime_' + subOrder.productId]) {
                             dataDic['endTime_' + subOrder.productId].readonly = true;
                         }
-                        if (subOrder.currPayAmount!==undefined && subOrder.currPayAmount!==null) {
+                        if (subOrder.currPayAmount !== undefined && subOrder.currPayAmount !== null) {
                             controller(formDataItems, 'currPayAmount_' + subOrder.productId, function (item) {
-                                item.value =subOrder.currPayAmount.toString();
+                                item.value = subOrder.currPayAmount.toString();
                             });
                         }
                         if (n.productExtends) {//有拓展属性
@@ -125,14 +125,6 @@ define(function (require, exports, module) {
                                     }
                                         ;
                                         break;
-                                    case 'bind'://捆绑已经强制了,只要有 则一定全选
-                                    {
-                                        controller(terminalDataItems, 'kunbang', function (item) {
-                                            item.value = true;
-                                        });
-                                    }
-                                        ;
-                                        break;
                                 }
                             })
 
@@ -140,7 +132,15 @@ define(function (require, exports, module) {
                     }
                 });
                 dataDic['check'].value = checkids;
+                $(bigArr).each(function (i, n) {
+                    if (n.attr) {
+                        (!n.attr.maxlength) && (n.attr.maxlength = 50);
+                    } else {
+                        n.attr = {maxlength: 50};
+                    }
+                });
                 if (responseData.readonly === true) {
+
                     $(terminalDataItems).each(function (i, n) {
                         if (n.name.toLowerCase().indexOf('wrapper') < 0 && n.name.toLowerCase().indexOf('image') < 0) {//包裹者不设
                             n.readonly = true;
@@ -159,18 +159,12 @@ define(function (require, exports, module) {
                         }
                     });
                 }
+                if (responseData && responseData.payInfoReadonly !== undefined) {//支付信息只读
+                    exports.setPayInfoReadonly(controller, terminalDataItems, tableDataItems, formDataItems, responseData.payInfoReadonly);
+                }
+
             }
 
-            $(bigArr).each(function (i, n) {
-                if (n.attr) {
-                    (!n.attr.maxlength) && (n.attr.maxlength = 50);
-                } else {
-                    n.attr = {maxlength: 50};
-                }
-            });
-            if (responseData && responseData.payInfoReadonly !== undefined) {//支付信息只读
-                exports.setPayInfoReadonly(controller, terminalDataItems, tableDataItems, formDataItems, responseData.payInfoReadonly);
-            }
 
         }
         ;
@@ -357,7 +351,6 @@ define(function (require, exports, module) {
                 ids.push('2');
                 ids.push('3');
             }
-            terminalInfo.o_getFieldValue('');
             $(ids).each(function (i, n) {
                     if (!n) {
                         return;
@@ -388,9 +381,22 @@ define(function (require, exports, module) {
                         if (n == '1') {
                             if (terminalInfo.o_getFieldValue('kunbang') && terminalInfo.o_data_getField({name: 'kunbang'}).is(':visible')) {
                                 var binds = (terminalInfo.o_getFieldValue('kunbang') || '').split(',');
-                                $(binds).each(function (b, i) {
+                                $(binds).each(function (i, b) {
                                     if (b) {
-                                        productExtends.push({productKey: 'bind', productValue: b});
+                                        data.subOrders.push({
+                                            subOrder: {
+                                                productId: b,
+                                                purchaseCount:  1,
+                                                purchaseAmount: 0,
+                                                startTime: fromData['startTime_1'],
+                                                endTime: fromData['endTime_1'],
+
+                                                productAmount: 0,
+                                                discount: 0,
+                                                currPayAmount: 0
+                                            },
+                                            productExtends: []
+                                        });
                                     }
                                 })
                             }

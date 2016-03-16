@@ -108,7 +108,7 @@ define(function (require, exports, module) {
                         case '2':
                         {//分期
                             me.o_setValues([
-                                {name: 'currPayAmount', value: ''},
+                                {name: 'currPayAmount', value: '0'},
                                 {name: 'currPayAmount_3', visible: false},
                                 {name: 'currPayAmount_1', visible: false},
                                 {name: 'currPayAmount_4', visible: false},
@@ -128,22 +128,12 @@ define(function (require, exports, module) {
                             }
                             if (data.__editChanged === false) {
                                 data.__editChanged = true;
-                                $(checkeds).each(function (i, n) {
-                                    if (!(n == '7' && me.o_getFieldValue('productAmount_7') == 0)) {
-                                        me.o_setValues([
-                                            {name: 'currPayAmount_' + n, visible: true}
-                                        ]);
-                                    }
-                                });
-                            } else {
-                                $(checkeds).each(function (i, n) {
-                                    if (!(n == '7' && me.o_getFieldValue('productAmount_7') == 0)) {
-                                        me.o_setValues([
-                                            {name: 'currPayAmount_' + n, visible: true}
-                                        ]);
-                                    }
-                                });
                             }
+                            $(checkeds).each(function (i, n) {
+                                me.o_setValues([
+                                    {name: 'currPayAmount_' + n, visible: true}
+                                ]);
+                            });
                         }
                             ;
                             break;

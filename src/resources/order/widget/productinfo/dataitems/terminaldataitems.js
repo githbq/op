@@ -311,8 +311,10 @@ define(function (require, exports, module) {
                 case '4':
                 case '3':
                 {
+                    var isReadonly=$(e.target).is('[readonly],[disabled]');
+
                     me.o_setValue({name: 'purchaseAmount' + id, value: me.o_getFieldValue('purchaseAmount_input_' + id)});
-                    me.o_setValue({name: 'purchaseAmount_input_' + id, value: me.o_getFieldValue('purchaseAmount_input_' + id), readonly: false});
+                    me.o_setValue({name: 'purchaseAmount_input_' + id, value: me.o_getFieldValue('purchaseAmount_input_' + id), readonly: isReadonly});
                 }
                     ;
                     break;
