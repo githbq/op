@@ -25,6 +25,7 @@ define(function( require , exports , module ){
 			var me = this;
 			var target = $( e.currentTarget ).attr('data-target');
 			
+			console.log('invoiceEve');
 			console.log( target );
 			me.$('.'+target).show().siblings().hide();
 		},
@@ -78,19 +79,25 @@ define(function( require , exports , module ){
 					if( attrs.data.invoice.invoiceType == 1 ){
 						me.$('.invoice-bar label').eq(0).trigger('click');
 						me.$('[name="intype"]').eq(0).trigger('click');
+
+
 						me.$('.yyzzimg').show().find('img').attr('src',"/op/api/file/previewimage?filePath="+attrs.data.invoice.businessLicense)
 
 					}else if( attrs.data.invoice.invoiceType == 2 ){
 						me.$('.invoice-bar label').eq(0).trigger('click');
 						me.$('[name="intype"]').eq(1).trigger('click');
+
 						me.$('.yyzzimg').show().find('img').attr('src',"/op/api/file/previewimage?filePath="+attrs.data.invoice.businessLicense)
 						me.$('.nsrzimg').show().find('img').attr('src',"/op/api/file/previewimage?filePath="+attrs.data.invoice.taxpayerQualification)
 					}
 				}else{
 
+					console.log( me.$('.invoice-bar label').eq(1) );
 					me.$('.invoice-bar label').eq(1).trigger('click');
 				}
-			
+				
+				me.$('.invoice-bar label').eq(1).trigger('click');
+				
 				if( attrs.data.order.isCooperation == 1 ){
 
 					me.$('[name="team"]').eq(1).trigger('click');

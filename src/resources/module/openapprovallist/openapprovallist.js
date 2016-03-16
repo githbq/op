@@ -248,7 +248,7 @@ define( function(require, exports, module){
                             
                             if( item.isCooperation == "1" ){
                                 item.isCooperationStr = "是";
-                            }else if( item.isCooperation == "2" ){
+                            }else if( item.isCooperation == "0" ){
                                 item.isCooperationStr = "否"
                             }else{
                                 item.isCooperationStr = "";
