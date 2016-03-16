@@ -56,8 +56,8 @@ define( function( require, exports, module ) {
 			me.attrs.orderList = {};
 			//增购、续费需要的参数
 
-			me.attrs.id = me.attrs.paralist||'';
-			me.attrs.account= me.attrs.paraName||'54976';
+			me.attrs.id = me.attrs.enterpriseId||'';
+			me.attrs.account= me.attrs.account||'54976';
 			me.attrs.subData = {}
 			me.checkType();
         },
@@ -401,7 +401,6 @@ define( function( require, exports, module ) {
 						},
 						"enterprise":{
 							"enterpriseId":me.attrs.id ||''
-							
 						}
 					}
 					break;
@@ -419,7 +418,7 @@ define( function( require, exports, module ) {
 							"enterpriseId":me.attrs.id ||''
 						},
 						"enterprise":{
-							"enterpriseId":me.attrs.options.id ||''
+							"enterpriseId":me.attrs.id ||''
 						}
 					}
 					break;
@@ -444,7 +443,7 @@ define( function( require, exports, module ) {
 				//基本信息校验和取值
 				if( me.attrs.basicCommon.getValue() ){
 					var tem ={'enterprise': me.attrs.basicCommon.getValue()} ;
-					tem.enterprise && $.extend(true, objData, tem ,me.attrs.tempData);
+					tem.enterprise && $.extend(true, objData, tem );
 				}else{
 					return ;
 				}
@@ -456,6 +455,10 @@ define( function( require, exports, module ) {
 					objData.contract = temp.contract;
 					objData.orderEntity.order = temp.order
 					objData.orderEntity.subOrders = temp.subOrders;
+					if(temp.subOrders.length<1){
+						util.showToast('请至少选择一款子产品！');
+						return false;
+					}
 				}else{
 					util.showToast('产品信息填写不完整！');
 					return false;
@@ -471,7 +474,7 @@ define( function( require, exports, module ) {
 				if( me.attrs.invoiceCommon.getInfo() ){
 					var temp  = me.attrs.invoiceCommon.getInfo();
 					temp.invoice ? objData.orderEntity.invoice =temp.invoice:objData.orderEntity.invoice = null;
-					 $.extend(true, objData.orderEntity.order, temp.order , me.attrs.tempData);
+					 $.extend(true, objData.orderEntity.order, temp.order);
 				}else{
 					return ;
 				}
@@ -493,7 +496,12 @@ define( function( require, exports, module ) {
 					objData.enterpriseExtend = temp.enterpriseExtend ;
 					objData.contract = temp.contract;
 					objData.orderEntity.order = temp.order
+					if(temp.subOrders.length<1){
+						util.showToast('请至少选择一款子产品！');
+						return false;
+					}
 					objData.orderEntity.subOrders = temp.subOrders;
+				
 				}else{
 					util.showToast('产品信息填写不完整！');
 					return false;
@@ -503,7 +511,7 @@ define( function( require, exports, module ) {
 				if( me.attrs.invoiceSpecial.getInfo() ){
 					var temp  = me.attrs.invoiceSpecial.getInfo();
 					temp.invoice ? objData.orderEntity.invoice =temp.invoice : objData.orderEntity.invoice = null;
-					$.extend(true, objData.orderEntity.order, temp.order, me.attrs.tempData);
+					$.extend(true, objData.orderEntity.order, temp.order);
 				}else{
 					return ;
 				}
@@ -519,6 +527,7 @@ define( function( require, exports, module ) {
 			}
 			//获取订单类型
 			objData.orderEntity.order['orderType'] = me.attrs.orderType ;
+			$.extend(true, objData, me.attrs.tempData);
 			if(objData.orderEntity.invoice && objData.orderEntity.invoice['businessLicense']){
 				objData.enterpriseExtend['businessLicense'] = objData.orderEntity.invoice['businessLicense'] ;
 				objData.enterpriseExtend['businessLicenseFileName'] = objData.orderEntity.invoice['businessLicenseFileName'];
@@ -601,9 +610,9 @@ define( function( require, exports, module ) {
 		}else if(param.length==1){
 			var newMarketing = new NewMarketing( { 'view':$el,'typeFlag':param[0]} );
 		}else if( param.length==2 ){
-			var newMarketing = new NewMarketing( { 'view':$el,'typeFlag':param[0], 'paralist':param[1]} );
+			var newMarketing = new NewMarketing( { 'view':$el,'typeFlag':param[0], 'enterpriseId':param[1]} );
 		}if( param.length==3 ){
-			var newMarketing = new NewMarketing( { 'view':$el,'typeFlag':param[0], 'paralist':param[1] ,"paraName":param[2]} );
+			var newMarketing = new NewMarketing( { 'view':$el,'typeFlag':param[0], 'enterpriseId':param[1] ,"account":param[2]} );
 		}
 
     }

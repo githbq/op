@@ -382,27 +382,14 @@ define( function(require, exports, module){
 
 			var me = this,objData  = { 'orderEntity':{}};
 
-			me.attrs.tempData = { "orderEntity":{
-				"order":{
-					"enterpriseId":me.attrs.options.enterpriseId ||''
-				}
-			},
-				"enterpriseExtend":{
-					"enterpriseId":me.attrs.options.enterpriseId ||','
-				},
-				"enterprise":{
-					"enterpriseId":me.attrs.options.enterpriseId ||'',
-					"enterpriseName":me.attrs.orderList.value.enterpriseName,
-					"enterpriseAccount":me.attrs.orderList.value.enterpriseAccount
-				}
-			};
+			
 
 			//获取普通订单信息
 			//基本信息校验和取值
 			if( me.attrs.basicCommon.getValue() ){
 				//objData.enterprise = me.attrs.basicCommon.getValue();
 				var tem ={'enterprise': me.attrs.basicCommon.getValue()} ;
-				tem.enterprise && $.extend(true, objData, tem ,me.attrs.tempData );
+				tem.enterprise && $.extend(true, objData, tem  );
 			}else{
 				return ;
 			}
@@ -414,6 +401,10 @@ define( function(require, exports, module){
 				objData.contract = temp.contract;
 				objData.orderEntity.order = temp.order
 				objData.orderEntity.subOrders = temp.subOrders;
+				if(temp.subOrders.length<1){
+					util.showToast('请至少选择一款子产品！');
+					return false;
+				}
 			}else{
 				util.showToast('产品信息填写不完整！');
 				return false;
