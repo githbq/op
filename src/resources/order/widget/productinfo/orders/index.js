@@ -13,6 +13,9 @@ define(function (require, exports, module) {
                     n.value = '续费';
                 }
             });
+            controller(terminalDataItems, 'allreadonly', function (item) {
+                item.allreadonly=false;
+            });
             var bigArr = terminalDataItems.concat(tableDataItems).concat(formDataItems);
             if (responseData) {
                 var dataDic = toNameDictionary(bigArr);
@@ -139,8 +142,12 @@ define(function (require, exports, module) {
                         n.attr = {maxlength: 50};
                     }
                 });
+
                 if (responseData.readonly === true) {
 
+                    controller(terminalDataItems, 'allreadonly', function (item) {
+                        item.allreadonly=true;
+                    });
                     $(terminalDataItems).each(function (i, n) {
                         if (n.name.toLowerCase().indexOf('wrapper') < 0 && n.name.toLowerCase().indexOf('image') < 0) {//包裹者不设
                             n.readonly = true;

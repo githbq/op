@@ -53,10 +53,19 @@ define(function (require, exports, module) {
                 {
                     key: 'change', value: function (e) {
                     var me = this;
+                    var $dom = $(e.target);
+                    var checked = $dom.is(':checked');
+                    var allreadonly = me.o_getFieldData('allreadonly').allreadonly;
                     priceComput.call(me, e);
                 }
                 }]
         }));
+        dataItems[dataItems.length - 1].on('setFieldValue', function ($ele, value, data) {
+            setTimeout(function () {
+                $ele.change();
+            }, 10);
+
+        });
         //使用销客终端复选框
         dataItems.push(new DataItem({
             name: 'useCRM',
@@ -64,14 +73,17 @@ define(function (require, exports, module) {
                 {
                     key: 'change', value: function (e) {
                     var me = this;
-                    var isReadonly=$dom.is('[readonly],[disabled]');
                     var $dom = $(e.target);
+
+                    var isReadonly = me.o_getFieldData('allreadonly').allreadonly === true;
+
                     if ($dom.is(':checked')) {//选中的话 终端为0
                         me.o_setValue({name: 'productAmount_3', value: '0'});
                         me.o_setValue({name: 'purchaseAmount_input_3', value: '0', readonly: true});
                         me.o_setValue({name: 'purchaseAmount_3', value: '0'});
                         var id = $dom.val();
                         priceComput.call(this, e);
+
                     } else {
                         me.o_setValue({name: 'purchaseAmount_input_3', readonly: isReadonly});
                         me.o_data_getField({name: 'purchaseCount_3'}).change();//服务费
@@ -96,8 +108,8 @@ define(function (require, exports, module) {
                 __silent: true,
                 events: [{
                     key: 'change', value: function (e) {
-
                         var me = this;
+                        var allreadonly = me.o_getFieldData('allreadonly').allreadonly;
                         var $dom = $(e.target);
                         if ($dom.val() && parseFloat($dom.val()) <= 0) {
                             util.showToast('服务人数与终端数量必须大于0');
@@ -129,7 +141,7 @@ define(function (require, exports, module) {
                                         if (response.success) {
 
                                             me.o_setValue({name: 'purchaseAmount_' + n, value: response.model});
-                                            me.o_setValue({name: 'purchaseAmount_input_' + n, value: response.model, readonly: false});
+                                            me.o_setValue({name: 'purchaseAmount_input_' + n, value: response.model, readonly: allreadonly});
                                             me.o_setValue({name: 'productAmount_' + n, value: response.model});
 
                                         } else {
@@ -141,11 +153,11 @@ define(function (require, exports, module) {
                                     }
                                 });
                             } else {
-                                me.o_setValue({name: 'purchaseAmount_input_' + n, value: '', readonly: false});
+                                me.o_setValue({name: 'purchaseAmount_input_' + n, value: '', readonly: allreadonly});
                                 me.o_setValue({name: 'purchaseAmount_' + n, value: ''});
                                 me.o_setValue({name: 'productAmount_' + n, value: ''});
                                 changeForGetPrice.call(me, e);
-                                me.o_setValue({name: 'purchaseAmount_input_' + n, readonly: false});
+                                me.o_setValue({name: 'purchaseAmount_input_' + n, readonly: allreadonly});
                             }
                         }
                     }
@@ -157,7 +169,7 @@ define(function (require, exports, module) {
             //金额
             dataItems.push(new DataItem({
                 name: 'purchaseAmount_input_' + n,
-                value: '',
+                value: '0',
                 readonly: false,
                 attr: {maxlength: 9},
                 validateOptions: helper.getValidateLogic(),
@@ -203,7 +215,7 @@ define(function (require, exports, module) {
             //产品原价
             dataItems.push(new DataItem({
                 name: 'productAmount_' + n,
-                value: '',
+                value: 0,
                 validateOptions: helper.getValidateLogic(),
                 attr: {maxlength: 9}
             }));
@@ -311,7 +323,7 @@ define(function (require, exports, module) {
                 case '4':
                 case '3':
                 {
-                    var isReadonly=$(e.target).is('[readonly],[disabled]');
+                    var isReadonly = $(e.target).is('[readonly],[disabled]');
 
                     me.o_setValue({name: 'purchaseAmount' + id, value: me.o_getFieldValue('purchaseAmount_input_' + id)});
                     me.o_setValue({name: 'purchaseAmount_input_' + id, value: me.o_getFieldValue('purchaseAmount_input_' + id), readonly: isReadonly});
