@@ -325,6 +325,15 @@ define(function (require, exports, module) {
             controller(formDataItems, 'currPayAmount_8', function (n) {
                 n.readonly = true;
             });
+            controller(formDataItems, 'receiptsAccount', function (n) {
+                n.readonly = true;
+            });
+            controller(formDataItems, 'payerName', function (n) {
+                n.readonly = true;
+            });
+            controller(formDataItems, 'sealName', function (n) {
+                n.readonly = true;
+            });
         };
         //转换输入值
         exports.setSuborders = function (terminalInfo, tableInfo, formInfo, data) {
