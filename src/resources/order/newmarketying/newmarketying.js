@@ -269,11 +269,11 @@ define( function( require, exports, module ) {
 				//比较时间
 				function dateCompare(nowDate,endDate)
 				{
-					var arr=startdate.split("/");
+					var arr=nowDate.split("/");
 					var starttime=new Date(arr[0],arr[1],arr[2]);
 					var starttimes=starttime.getTime();
 
-					var arrs=enddate.split("/");
+					var arrs=endDate.split("/");
 					var lktime=new Date(arrs[0],arrs[1],arrs[2]);
 					var lktimes=lktime.getTime();
 
@@ -281,9 +281,7 @@ define( function( require, exports, module ) {
 					{
 						return false;
 					}
-
 					return true;
-
 				}
 				_.map( data , function( obj , index){
 					switch( obj["code"] )
@@ -372,7 +370,7 @@ define( function( require, exports, module ) {
 		},
 		//获取全部订单数据
 		getOrderInfo:function(){
-			var me = this,objData  = { 'orderEntity':{},'enterprise':{}};
+			var me = this,objData  = { 'orderEntity':{}};
 
 			switch( me.attrs.typeFlag )
 			{
@@ -400,6 +398,10 @@ define( function( require, exports, module ) {
 						},
 						"enterpriseExtend":{
 							"enterpriseId":me.attrs.id ||''
+						},
+						"enterprise":{
+							"enterpriseId":me.attrs.id ||''
+							
 						}
 					}
 					break;
@@ -415,6 +417,9 @@ define( function( require, exports, module ) {
 					},
 						"enterpriseExtend":{
 							"enterpriseId":me.attrs.id ||''
+						},
+						"enterprise":{
+							"enterpriseId":me.attrs.options.id ||''
 						}
 					}
 					break;
@@ -439,17 +444,22 @@ define( function( require, exports, module ) {
 				//基本信息校验和取值
 				if( me.attrs.basicCommon.getValue() ){
 					var tem ={'enterprise': me.attrs.basicCommon.getValue()} ;
-					$.extend(true, objData, tem );
+					tem.enterprise && $.extend(true, objData, tem ,me.attrs.tempData);
 				}else{
 					return ;
 				}
 
 				//产品信息
-				var temp = me.attrs.prodeuctObj.getData();
-				objData.enterpriseExtend = temp.enterpriseExtend ;
-				objData.contract = temp.contract;
-				objData.orderEntity.order = temp.order
-				objData.orderEntity.subOrders = temp.subOrders;
+				if(me.attrs.prodeuctObj.validate()){
+					var temp = me.attrs.prodeuctObj.getData();
+					objData.enterpriseExtend = temp.enterpriseExtend ;
+					objData.contract = temp.contract;
+					objData.orderEntity.order = temp.order
+					objData.orderEntity.subOrders = temp.subOrders;
+				}else{
+					util.showToast('产品信息填写不完整！');
+					return false;
+				}
 
 				//检测子订单折扣是否低于8折
 				if(!me.checkDiscount( temp.subOrders)){
@@ -472,17 +482,22 @@ define( function( require, exports, module ) {
 				//基本信息校验和取值
 				if( me.attrs.basicSpecial.getValue() ){
 					var tem ={'enterprise':me.attrs.basicSpecial.getValue()}
-					$.extend(true, objData, tem );
+					tem.enterprise && $.extend(true, objData, tem );
 				}else{
 					return ;
 				}
 
 				//产品信息
-				var temp = me.attrs.prodeuctObj.getData();
-				objData.enterpriseExtend = temp.enterpriseExtend ;
-				objData.contract = temp.contract;
-				objData.orderEntity.order = temp.order
-				objData.orderEntity.subOrders = temp.subOrders;
+				if(me.attrs.prodeuctObj.validate()){
+					var temp = me.attrs.prodeuctObj.getData();
+					objData.enterpriseExtend = temp.enterpriseExtend ;
+					objData.contract = temp.contract;
+					objData.orderEntity.order = temp.order
+					objData.orderEntity.subOrders = temp.subOrders;
+				}else{
+					util.showToast('产品信息填写不完整！');
+					return false;
+				}
 
 				//发票信息校验和取值
 				if( me.attrs.invoiceSpecial.getInfo() ){
