@@ -7,8 +7,8 @@ define( function(require, exports, module){
 
 	
 	var OpenApprovalList = require('module/openapprovallist/openapprovallist');
-	var DetailBind = require('module/detailbind/detailbind');
 	var DetailApproval = require('../../order/detailapproval/detailapproval');
+	var DetailPayment = require('../../order/detailpayment/detailpayment');
 
 	exports.init = function(){
 		var $el = exports.$el;
@@ -17,14 +17,13 @@ define( function(require, exports, module){
 		approvalList.render();
 		
 
-		var detailBind = new DetailBind();
 
-		var detailApproval;
+		var detailApproval,
+			detailPayment;
 
 		approvalList.on('detail',function( detail, state ){
 			console.log( detail )
 
-			detailApproval = new DetailApproval();
 			var data = {
 				'id' : detail.orderId || '',
                 'enterpriseId': detail.enterpriseId || '', 
@@ -35,27 +34,25 @@ define( function(require, exports, module){
                 'state': state || '',
                 'ea': detail.enterpriseAccount || '',
                 'currentTask': detail.currentTash || '',
-                'processInstanceId': detail.processInstanceId || ''
+                'processInstanceId': detail.processInstanceId || '',
+                'contractNo': detail.contractNo
+			};
+
+			if( data.orderType == 17 ){
+
+				detailApproval = new DetailApproval();
+				detailApproval.show( data );
+				detailApproval.on('saveSuccess',function(){
+					approvalList.getList();
+				});
+			} else {
+
+				detailPayment = new DetailPayment();
+				detailPayment.show( data );
+				detailPayment.on('saveSuccess',function(){
+					approvalList.getList();
+				});
 			}
-			detailApproval.show( data );
-			detailApproval.on('saveSuccess',function(){
-				approvalList.getList();
-			})
 		});
-		approvalList.on('detailBind',function( id , eid , type , state,isCanEdit ){
-
-			detailBind.showInfo( id , eid , type , state,isCanEdit );
-		});
-		
-		/*
-		openApproval.on('success',function(){
-			approvalList.searchEve();
-		});
-		*/
-
-		detailBind.on('success',function(){
-			approvalList.searchEve();
-		});
-
 	}
 });

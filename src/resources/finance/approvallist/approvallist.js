@@ -8,6 +8,7 @@ define( function(require, exports, module){
 	
 	var DetailApproval = require('../../order/detailapproval/detailapproval');
 	var OpenApprovalList = require('module/openapprovallist/openapprovallist');
+    var DetailPayment = require('../../order/detailpayment/detailpayment');
 
 	exports.init = function(){
 		var $el = exports.$el;
@@ -15,10 +16,13 @@ define( function(require, exports, module){
 		var approvalList = new OpenApprovalList( { 'wrapper':$el } );  	//
 		approvalList.render();
 
-		var detailApproval;
+
+		var detailApproval,
+            detailPayment;
+
 		approvalList.on('detail',function( detail , state ){
+			console.log( detail )
 			
-			detailApproval = new DetailApproval();
             var data = {
                 'id' : detail.orderId || '',
                 'enterpriseId': detail.enterpriseId || '', 
@@ -29,12 +33,25 @@ define( function(require, exports, module){
                 'state': state || '',
                 'ea': detail.enterpriseAccount || '',
                 'currentTask': detail.currentTask || '',
-                'processInstanceId': detail.processInstanceId || ''
+                'processInstanceId': detail.processInstanceId || '',
+                'contractNo': detail.contractNo
+            };
+            
+            if( data.orderType == 17 ){
+
+                detailApproval = new DetailApproval();
+                detailApproval.show( data );
+                detailApproval.on('saveSuccess',function(){
+                    approvalList.getList();
+                });
+            } else {
+
+                detailPayment = new DetailPayment();
+                detailPayment.show( data );
+                detailPayment.on('saveSuccess',function(){
+                    approvalList.getList();
+                });
             }
-            detailApproval.show( data );
-            detailApproval.on('saveSuccess',function(){
-                approvalList.getList();
-            });
 		});
 	}
 });
