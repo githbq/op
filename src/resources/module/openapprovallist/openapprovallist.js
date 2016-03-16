@@ -106,7 +106,9 @@ define( function(require, exports, module){
             this.attrs.wrapper.html( this.$view );
         },
 
-        //设置状态
+        // 设置状态
+        //  
+        //
         setState: function( element ){
             var me = this;
 
@@ -150,7 +152,9 @@ define( function(require, exports, module){
          
             me.trigger( 'detail', detail, me.attrs['state'] );
         },
-	
+	    
+        //
+        // 切换事件
         toggleEve: function( e ){
             var $target = $( e.currentTarget );
             $target.addClass('active').siblings().removeClass('active');
