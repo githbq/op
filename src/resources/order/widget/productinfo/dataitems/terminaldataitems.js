@@ -134,7 +134,7 @@ define(function (require, exports, module) {
                             //    me.o_data_getField({'name': 'useCRM'}).change();
                             //    return;
                             //}
-                            if ($dom.val()) {
+                            if ($dom.val() && !allreadonly) {
                                 me.attrs.apiPool.api_getServicePrice({
                                     data: {enterpriseId: me.o_getFieldValue('enterpriseId'), personCount: $dom.val()}, success: function (response) {
                                         //{"login":true,"model":2000,"privilege":true,"success":true,"value":{"model":2000}}
@@ -157,7 +157,7 @@ define(function (require, exports, module) {
                                         changeForGetPrice.call(me, e);
                                     }
                                 });
-                            } else {
+                            } else if(!allreadonly){
                                 me.o_setValue({name: 'purchaseAmount_input_' + n, value: '', readonly: allreadonly});
                                 me.o_setValue({name: 'purchaseAmount_' + n, value: ''});
                                 me.o_setValue({name: 'productAmount_' + n, value: ''});
