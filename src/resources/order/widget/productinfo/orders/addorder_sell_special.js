@@ -78,6 +78,29 @@ define(function (require, exports, module) {
         common.setCommonData(controller, terminalDataItems, tableDataItems, formDataItems,8,responseData);
 
         return {terminalDataItems: terminalDataItems, tableDataItems: tableDataItems, formDataItems: formDataItems};
+
+        //controller(tableDataItems, 'tablelist', function (n) {
+        //    n.visible = true;
+        //});
+        //
+        //
+        //controller(tableDataItems, 'check', function (n) {
+        //    n.value = false;
+        //    n.on('setFieldValue',function(){
+        //        var me=this;
+        //        if(responseData && responseData.subOrders){
+        //            $(responseData.subOrders).each(function(j,m){
+        //                var checkbox=me.$('input[type=checkbox][name=check][value='+ n.subOrder.productId+']');
+        //                if(n.subOrder && checkbox.length>0){//如果存在此纪录 则隐藏 且取消勾选
+        //                    checkbox.prop('checked',false).attr('checked',false);
+        //                    checkbox.hide();
+        //                }
+        //            });
+        //        }
+        //
+        //    });
+        //});
+
         //
         //controller(terminalDataItems, 'useFX', function (n) {
         //    n.visible=false;

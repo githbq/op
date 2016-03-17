@@ -154,7 +154,9 @@ define(function (require, exports, module) {
                         item.value = useFX;
                     }
                 });
-                dataDic['check'].value = checkids;
+                controller(tableDataItems, 'check', function (item) {
+                    item.value = checkids;
+                });
                 $(bigArr).each(function (i, n) {
                     if (n.attr) {
                         (!n.attr.maxlength) && (n.attr.maxlength = 50);
