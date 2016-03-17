@@ -12,13 +12,15 @@
 	<% }) %>
 </script>
 
+<!--产品信息-->
 <script type="text/template" id="trProduct">
 <% _.each( content, function( item, index ) { %>
-	<tr>
-		<td><%=item.id%></td>
-		<td><%=item.name%></td>
-		<td><em data-id="<%=item.id%>" class="off" data-permissions="F008024">选择</em></td>
-	</tr>
+	<p>
+		<span><%=item.appName && item.appName%></span>
+		<span><%=item.quota && item.quota%></span>
+		<span><%=item.startDate && new Date( item.startDate )._format('yyyy/MM/dd')%></span>
+		<span><%=item.endDate && new Date( item.endDate )._format('yyyy/MM/dd')%></span>
+	</p>
 <% } ) %>
 </script>
 

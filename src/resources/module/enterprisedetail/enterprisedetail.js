@@ -1488,6 +1488,25 @@ define( function(require, exports, module){
 			}
 			$('#tbProduct').css( 'display', 'block' );
 
+			console.log('product');
+			util.api({
+				'url':'/odr/queryProductVOList',
+				'data': {
+					'ea': me.model.get('enterpriseAccount')
+				},
+				'success': function( data ){
+					console.warn( data );
+					if( data.success ) {
+						if ( data.value.model.length > 0 ) {
+							me.$tbProduct.html( me.tplProduct( { content: data.value.model.content } ) );
+						} else {
+							me.$tbProduct.html( '<p>暂无数据</p>' );
+						}
+					}
+				}
+			})
+
+			/*
 			if( me.product.pagination ){
 
 				me.product.pagination.setPage(0,true);
@@ -1503,6 +1522,7 @@ define( function(require, exports, module){
 				};
 				me.loadProducts();
 			}
+			*/
 		},
 		loadProducts: function() {
 			var me = this, data = {
