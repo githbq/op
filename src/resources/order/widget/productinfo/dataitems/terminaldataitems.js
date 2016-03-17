@@ -78,7 +78,7 @@ define(function (require, exports, module) {
                     var isReadonly = me.o_getFieldData('allreadonly').allreadonly === true;
 
                     if ($dom.is(':checked')) {//选中的话 终端为0
-                        me.o_setValue({name: 'productAmount_3', value: '0'});
+                        //me.o_setValue({name: 'productAmount_3', value: '0'});
                         me.o_setValue({name: 'purchaseAmount_input_3', value: '0', readonly: true});
                         me.o_setValue({name: 'purchaseAmount_3', value: '0'});
                         var id = $dom.val();
@@ -130,18 +130,23 @@ define(function (require, exports, module) {
                         } else {
                             $dom.val($dom.val().replace(/[^\.\d]/g, ''));
                             me.o_field_getData($dom).__silent = false;
-                            if (me.o_getFieldValue('useCRM')) {//如果选了CRM 服务费价格一定0
-                                me.o_data_getField({'name': 'useCRM'}).change();
-                                return;
-                            }
+                            //if (me.o_getFieldValue('useCRM')) {//如果选了CRM 服务费价格一定0
+                            //    me.o_data_getField({'name': 'useCRM'}).change();
+                            //    return;
+                            //}
                             if ($dom.val()) {
                                 me.attrs.apiPool.api_getServicePrice({
                                     data: {enterpriseId: me.o_getFieldValue('enterpriseId'), personCount: $dom.val()}, success: function (response) {
                                         //{"login":true,"model":2000,"privilege":true,"success":true,"value":{"model":2000}}
                                         if (response.success) {
+                                            if (me.o_getFieldValue('useCRM')) {
+                                                me.o_setValue({name: 'purchaseAmount_' + n, value: '0'});
+                                                me.o_setValue({name: 'purchaseAmount_input_' + n, value: '0', readonly: true});
+                                            } else {
+                                                me.o_setValue({name: 'purchaseAmount_' + n, value: response.model});
+                                                me.o_setValue({name: 'purchaseAmount_input_' + n, value: response.model, readonly: allreadonly});
+                                            }
 
-                                            me.o_setValue({name: 'purchaseAmount_' + n, value: response.model});
-                                            me.o_setValue({name: 'purchaseAmount_input_' + n, value: response.model, readonly: allreadonly});
                                             me.o_setValue({name: 'productAmount_' + n, value: response.model});
 
                                         } else {
@@ -324,9 +329,12 @@ define(function (require, exports, module) {
                 case '3':
                 {
                     var isReadonly = $(e.target).is('[readonly],[disabled]');
-
+                    if (id == '3' && me.o_getFieldValue('useCRM')) {
+                        me.o_setValue({name: 'purchaseAmount_input_' + id, value: me.o_getFieldValue('purchaseAmount_input_' + id)});
+                    } else {
+                        me.o_setValue({name: 'purchaseAmount_input_' + id, value: me.o_getFieldValue('purchaseAmount_input_' + id), readonly: isReadonly});
+                    }
                     me.o_setValue({name: 'purchaseAmount' + id, value: me.o_getFieldValue('purchaseAmount_input_' + id)});
-                    me.o_setValue({name: 'purchaseAmount_input_' + id, value: me.o_getFieldValue('purchaseAmount_input_' + id), readonly: isReadonly});
                 }
                     ;
                     break;
