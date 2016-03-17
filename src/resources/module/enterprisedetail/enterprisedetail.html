@@ -353,6 +353,7 @@
 		</section>
 
 		<!--使用情况-->
+		
 		<section class="accordian collapse f1 f2 f3 f4" id="operationssection" data-target="operations">
 			<h4><span class="arraw"></span>使用情况</h4>
 			<div class="content">
@@ -445,6 +446,8 @@
 						</select>
 					</label>
 				</p>
+
+				<!--删除项  开始-->
 				<div class="tabs-box"  data-permissions="F009002">
 					<div class="approval-box" style="border:1px solid #ccc; padding:5px;">
 						<ul id="tabs">
@@ -466,15 +469,6 @@
 									</label>
 								</p>
 								<p>
-									<!--<div class="show-type" style="padding:10px 0px;">
-										<label for="">
-										<span>是否付费 </span>
-										<select name="" ce-model="isPaidAdd" class="select-disabled isPaid" disabled='disabled'>
-											<option value="0">否</option>
-											<option value="1">是</option>
-										</select>
-									</label>
-									</div>-->
 									<label for="">
 										<span>增购空间数量(GB)<b class="state state-current" style="color:#ff0000;">*</b></span>
 										<input type="text" ce-model="storageTotalSpaceAdd" class="check-empty status-disabled required" onchange="this.value=this.value.replace(/[^\.\d]/g,'')">
@@ -620,6 +614,8 @@
 						</div>
 					</div>
 				</div>
+				<!--删除项 结束-->
+
 				<div id="tbOperation" class="tb">
 					<p class="off isadmin">
 
