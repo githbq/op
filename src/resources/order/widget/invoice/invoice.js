@@ -25,6 +25,7 @@ define(function( require , exports , module ){
 			var me = this;
 			var target = $( e.currentTarget ).attr('data-target');
 			
+			console.log( target );
 			me.$('.'+target).show().siblings().hide();
 		},
 
@@ -33,6 +34,7 @@ define(function( require , exports , module ){
 			var me = this;
 			var target = $( e.currentTarget ).attr('data-target');
 
+			console.log( target );
 			me.$('.'+target).show().siblings().hide();
 		},
 
@@ -61,6 +63,10 @@ define(function( require , exports , module ){
 
 			console.warn('invoice init');
 			console.warn( attrs );
+			
+			//初始化事件
+			this.initEvents();
+			this.render();
 
 			//设置数据 显示数据
 			if( attrs.data ){
@@ -109,9 +115,7 @@ define(function( require , exports , module ){
 				me.$('.tidan').hide();
 			}
 
-			//初始化事件
-			this.initEvents();
-			this.render();
+
 		},
 
 		//初始化事件
