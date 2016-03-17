@@ -369,15 +369,19 @@ define( function( require, exports, module ) {
 
         //企业跟踪记录
         var entTrace = new EntTrace();
-        		
+        
+
+        //企业分配
 		entList.on('enterpriseAssign',function( id ){
 			 enterpriseAssign.show( id );
 		});
 
+        //企业详情
         entList.on('detail', function( id ){
             entDetail.show( id );
         });
 
+        //企业跟踪记录
         entList.on('trace', function( id ){
 
             console.warn('trace');
