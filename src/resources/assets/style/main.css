@@ -342,6 +342,7 @@ body {
   overflow-y: scroll;
   overflow-x: scroll;
 }
+a,
 a:link,
 a:hover {
   color: #2896f0;
@@ -555,6 +556,7 @@ body::-webkit-scrollbar-corner {
   padding: 0 16px;
   display: inline-block;
   text-align: center;
+  color: #484848;
 }
 #header nav a:link,
 #header nav a:visited {
