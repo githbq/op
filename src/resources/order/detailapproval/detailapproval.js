@@ -352,11 +352,29 @@ define( function(require, exports, module){
 			 var  me = this;
 			var productData = me.attrs.orderData;
 			 productData.enterpriseExtend = me.attrs.enterpriseData.enterpriseExtend ? me.attrs.enterpriseData.enterpriseExtend:null;
+			 var tempOrderType = parseInt(me.attrs.options.orderType);
+			 switch( tempOrderType )
+			{
+				case 13:
+					tempOrderType = 1;
+					break;
+				case 14:
+					tempOrderType = 2;
+					break;
+				case 15:
+					tempOrderType = 3;
+					break;
+				case 16:
+					tempOrderType = 4;
+					break;
+				default:
+			}
+	
 			 productData.contract = me.attrs.enterpriseData.contract ? me.attrs.enterpriseData.contract : null ;
 			 me.attrs.prodeuctObj =  productinfo.showProductInfo( {terminalInfo:{$view:me.$view.find('.common-terminalinfo')},
 					 tableInfo:{$view:me.$view.find('.common-tableinfo')},
 					 formInfo:{$view:me.$view.find('.common-forminfo')}}
-				 ,me.attrs.options.orderType,{'enterpriseId':me.attrs.options.enterpriseId,'readonly': !me.attrs.options.editFlag,'data':productData } );
+				 ,tempOrderType ,{'enterpriseId':me.attrs.options.enterpriseId,'readonly': !me.attrs.options.editFlag,'data':productData } );
 
 			 //发票信息
 			 me.attrs.invoiceCommon = new InvoiceInfo( { 'wrapper':me.$view.find('.common--invioce'),'data':me.attrs.orderData,
