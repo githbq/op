@@ -164,7 +164,7 @@ define(function (require, exports, module) {
                 dataItems.push(new DataItem({
                     name: 'currPayAmount_' + id,
                     visible: false,
-                    attr: {maxlength: 9,abc:231},
+                    attr: {maxlength: 9},
                     events: [{
                         key: 'change', value: function (e) {
                             var me = this;
