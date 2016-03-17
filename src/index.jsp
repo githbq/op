@@ -18,7 +18,6 @@
     <div class="header-person">
         <span id="accountname"></span>
         <div class="person-loginout">
-
             <a href="#page/changepwd" data-permissions="F008117">修改密码</a>
             <a href="/logout?from=/op" data-permissions="F008118">退出</a>
         </div>
@@ -26,7 +25,6 @@
     <nav>
         <ul class="nav-main clearfix">
         
-
             <li data-modulecode="ComprehensiveQueryOpS PartnerOpS DemoAccountOpS QueryOpS ExportAgentAccountOpS">
                 <a class="nav-branch">查询</a>
                 <ul class="nav-sub">
@@ -37,7 +35,7 @@
                     <li data-modulecode="ExportAgentAccountOpS"><a href="#index/agentexport">代理商员工导出</a></li>
                 </ul>
             </li>
-			<li>
+            <li>
                 <a href="#order/orderlist">订单</a>
             </li>
 
@@ -52,6 +50,7 @@
             <li data-modulecode="EnterpriseDayActivityOpS" class="zhichinav">
                 <a href="#index/dayactive">企业日活跃</a>
             </li>
+
             <li data-modulecode="RealTimeActivityOpS MonthReportOpS PayedLifeCycleOpS SelfActivityAllOpS PeriodActivityAnalysisOpS DayActivityDetailOpS DayActivityAllOpS MonthActivityTeamAnalysisOpS MonthActivityAll">
                 <a class="nav-branch">活跃度</a>
                 <ul class="nav-sub">
@@ -84,6 +83,7 @@
                     </li>
                 </ul>
             </li>
+
             <li data-modulecode="AgentOpS ExportInvestmentOpS">
                 <a class="nav-branch">代理商</a>
                 <ul class="nav-sub">
@@ -104,8 +104,6 @@
                     <li data-modulecode="AccountRegisterLimitOpS"><a href="#eme/loginlimit">账号注册上限</a></li>
                 </ul>
             </li>
-			
-            
             <li data-modulecode="ApprovalOpS">
                 <a href="#page/approvallist">我的审批</a>
             </li>
@@ -141,7 +139,7 @@
 </div>
 
 <!---->
-<input id="key" type="hidden" value="HiVya4oQcD9+Oz2lbZYLG2Kw1RWybzctXxiNEWJ5BeA=" /></div>
+<input id="key" type="hidden" value="${token}" /></div>
 
 <!--Tip 提示-->
 <script type="text/template" id="g-tip">
@@ -154,7 +152,7 @@
     IBSS.API_PATH = '/op/api/s';       //api路径
     IBSS.IS_DEVELOP = true;
     // IBSS.VERSION ='4.7.' + (new Date()).getTime();
-    IBSS.VERSION ='5.1.2.20160219';
+
 </script>
 
 <!--build:common resources/common/scripts/common.js-->
@@ -183,7 +181,6 @@
 
 </body>
 </html>
-
 
 
 
