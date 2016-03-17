@@ -1241,11 +1241,21 @@ define( function(require, exports, module){
 			})
 		},
 
+		/*
+		*
+		* 整个显隐控制共分为三层
+		* 第一层 权限层  由 data-permissions 属性确定  初始化时 不符合的移除元素
+		* 第二层 由初始化的参数确定 支持 代理商 打开企业详情时根据isAgent参数 确定某些元素的显隐 
+		* 第三层 由企业开通状态决定 根据企业开通的不同状态 对不同元素进行显隐控制
+		*/
+
+
+
 		/**
 		 *
 		 *  进行状态切换控制 
 		 *  dom元素内     含有 f1 f2 f3 f4 等类名的元素全部隐藏
-		 *  根据权限信息相应类名显示 
+		 *  根据状态信息相应类名显示 
 		 *  f1待开通  f2已开通 f3已作废 f4已停用 
 		 */
 		setVisibility: function() {
@@ -1282,6 +1292,7 @@ define( function(require, exports, module){
 			var me = this;
 
 			console.log( me.attrs.isAgent );
+
 			/**
 			 *
 			 * 如果是代理商
