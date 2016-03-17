@@ -44,7 +44,7 @@ define(function(require, exports, module){
 		//数据渲染显示
 		setValue:function(){
 			var me = this;
-			var approvedUrl = me.attrs.data.approvedUrl||'';
+			var approvedUrl = me.attrs.data.order.approvedUrl||'';
 			me.model.set('approvedUrl',approvedUrl);
 		},
 		//检测是否可编辑
