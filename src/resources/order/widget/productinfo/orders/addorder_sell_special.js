@@ -78,6 +78,52 @@ define(function (require, exports, module) {
         common.setCommonData(controller, terminalDataItems, tableDataItems, formDataItems,8,responseData);
 
         return {terminalDataItems: terminalDataItems, tableDataItems: tableDataItems, formDataItems: formDataItems};
+        //
+        //controller(terminalDataItems, 'useFX', function (n) {
+        //    n.visible=false;
+        //});
+        //controller(terminalDataItems, 'typewrapper_8', function (n) {
+        //    n.visible = true;
+        //});
+        //controller(terminalDataItems, 'typewrapper_1', function (n) {
+        //    n.visible = true;
+        //});
+        //controller(tableDataItems, 'type_7', function (n) {
+        //    n.visible = false;
+        //});
+        //controller(terminalDataItems, 'purchaseAmount_input_8', function (n) {
+        //    n.visible = false;
+        //});
+        //controller(terminalDataItems, 'purchaseAmount_input_3', function (n) {
+        //    n.visible = true;
+        //});
+        //controller(terminalDataItems, 'purchaseAmount_input_1', function (n) {
+        //    n.visible = true;
+        //});
+        //controller(terminalDataItems, 'discount_1', function (n) {
+        //    n.visible = true;
+        //});
+        //controller(terminalDataItems, 'purchaseAmount_1', function (n) {
+        //    n.visible = false;
+        //});
+        //controller(terminalDataItems, 'useCRMWrapper', function (n) {
+        //    n.visible = true;
+        //
+        //});
+        //controller(terminalDataItems, 'useCRM', function (n) {
+        //    n.visible = false;
+        //    n.value = true;
+        //    n.readonly=true;
+        //});
+        //controller(terminalDataItems, 'purchaseAmount_3', function (n) {
+        //    n.visible = false;
+        //});
+        //controller(terminalDataItems, 'kunbangWrapper', function (n) {
+        //    n.visible = true;
+        //});
+        //controller(terminalDataItems, 'businesscard', function (n) {
+        //    n.visible = true;
+        //});
     }
 
 });

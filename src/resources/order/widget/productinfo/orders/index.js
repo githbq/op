@@ -92,6 +92,8 @@ define(function (require, exports, module) {
                         checkids = dataDic['check'].value.split(',');
                     }
                 }
+                var useCRM=false;
+                var useFX=false;
                 $(subOrders).each(function (i, n) {
                     if (n.subOrder && n.subOrder.productId && n.subOrder.productId != 10 && n.subOrder.productId != 11) {//10为绑定百川  11为绑定报数系统
                         checkids.push(n.subOrder.productId);
@@ -103,14 +105,10 @@ define(function (require, exports, module) {
                             }
                         }
                         if (subOrder.productId == '1') {//选中CRM
-                            controller(terminalDataItems, 'useCRM', function (item) {
-                                item.value = true;
-                            });
+                            useCRM=true;
                         }
                         if (subOrder.productId == '2' || subOrder.productId == '3') {//选中销客终端
-                            controller(terminalDataItems, 'useFX', function (item) {
-                                item.value = true;
-                            });
+                            useFX=true;
                         }
 
                         if (subOrder['startTime_readonly'] === true && dataDic['startTime_' + subOrder.productId]) {
@@ -144,6 +142,13 @@ define(function (require, exports, module) {
 
                         }
                     }
+                });
+                //使用销客终端 使用CRM 选中效果
+                controller(terminalDataItems, 'useCRM', function (item) {
+                    item.value = useCRM;
+                });
+                controller(terminalDataItems, 'useFX', function (item) {
+                    item.value = useFX;
                 });
                 dataDic['check'].value = checkids;
                 $(bigArr).each(function (i, n) {
@@ -186,6 +191,12 @@ define(function (require, exports, module) {
 
         }
         ;
+
+        //设置增购逻辑
+        exports.setAddOrderLogic=function(controller, terminalDataItems, tableDataItems, formDataItems, type, responseData){
+
+        };
+
         function setValue(dataDic, key, value, callback) {
             if (dataDic && dataDic[key] !== undefined) {
                 dataDic[key].value = value;
