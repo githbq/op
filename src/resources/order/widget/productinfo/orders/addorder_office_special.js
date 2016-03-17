@@ -68,7 +68,7 @@ define(function (require, exports, module) {
             n.visible = true;
         });
         controller(tableDataItems, 'check', function (n) {
-            n.value = false;
+            n.value = '7';
             n.on('setFieldValue', function () {
                 var me = this;
                 if (responseData && responseData.subOrders) {
@@ -86,7 +86,6 @@ define(function (require, exports, module) {
                 }
             });
         });
-
         //增购逻辑END
 
 

@@ -406,7 +406,7 @@ define(function (require, exports, module) {
                             endTime: fromData['endTime_' + n] || new Date().getTime(),
                             productAmount: fromData['productAmount_' + n] || 0,
                             discount: fromData['discount_' + n] || 0,
-                            currPayAmount: fromData['currPayAmount_' + n] || 0
+                            currPayAmount: formInfoData['currPayAmount_' + n] || 0
                         };
                         //if (n == '3') {
                         //    subOrder.startTime = fromData['startTime_2'];

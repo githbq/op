@@ -16,6 +16,16 @@ define( function( require, exports, module ) {
 						'releateOffice-common','releateOffice-special',
 						'releateMarket-common','releateMarket-special',
 					];
+	var productIdDic = {
+            '1': 'CRM',
+            '2': '销客终端',
+            '3': '服务',
+            '4': 'PK助手',
+            '5': '会议助手',
+            '6': 'HR助手',
+            '7': '工资助手',
+            '8':'名片'
+        }; 
     var NewMarketing = MClass( M.Center ).include( {
         
         elements: {
@@ -459,6 +469,10 @@ define( function( require, exports, module ) {
 						util.showToast('请至少选择一款子产品！');
 						return false;
 					}
+					if(!me.checkUsedDate( temp.subOrders )){
+					
+						return false;
+					}
 				}else{
 					util.showToast('产品信息填写不完整！');
 					return false;
@@ -498,6 +512,11 @@ define( function( require, exports, module ) {
 					objData.orderEntity.order = temp.order
 					if(temp.subOrders.length<1){
 						util.showToast('请至少选择一款子产品！');
+						return false;
+					}
+					//检测类型为使用时，时间是90天
+					if(!me.checkUsedDate( temp.subOrders )){
+					
 						return false;
 					}
 					objData.orderEntity.subOrders = temp.subOrders;
@@ -553,6 +572,23 @@ define( function( require, exports, module ) {
 					}
 				})
 			});
+		},
+		//检测子产品使用时时间不能超过九十天
+		checkUsedDate:function( data ){
+			var me = this;
+			for( var i = 0; i< data.length; i++){
+				if( data[i].productExtends && data[i].productExtends.length>0 && data[i].productExtends[0].productKey == 'buytype' && data[i].productExtends[0].productValue == '1' ){
+					var startTime = data[i].subOrder.startTime;
+					var endTime = data[i].subOrder.endTime ;
+					var iDays = parseInt(Math.abs(endTime - startTime ) / 1000 / 60 / 60 /24)
+					if( iDays > 90 ){
+						var productName = productIdDic[data[i].subOrder.productId];
+						util.showToast(productName+'试用时间不能超过90天！');
+						return false;
+					}
+				}
+			}
+			return true;
 		},
 		checkDiscount:function( data ){
 			var me = this;
