@@ -10,8 +10,8 @@ define(function (require, exports, module) {
             '4': 'PK_Helper',
             '5': 'Meeting_Helper',
             '6': 'HR_Helper',
-            '7': 'Salary_Helper'
-
+            '7': 'Salary_Helper',
+            '8':'名片'
         };
         //订单类型
         dataItems.push(new DataItem({

@@ -93,7 +93,7 @@ define(function (require, exports, module) {
         formInfo.render();
         terminalInfo.$('[data-name=purchaseCount_1]:first').change();
         afterRender(type, terminalInfo, tableInfo, formInfo);
-        tableInfo.$('[data-name=checkAll]').change();
+        tableInfo.$('[data-name=check]').change();
         if (result && result.readonly === true) {
             terminalInfo.$('span.red').remove();
             tableInfo.$('span.red').remove();

@@ -350,7 +350,9 @@ define( function(require, exports, module){
 		//设置订单基本信息
 		 setOrderInfo:function(){
 			 var  me = this;
+			 var payInfoReadonly = true;
 			var productData = me.attrs.orderData;
+			var edit = false;
 			 productData.enterpriseExtend = me.attrs.enterpriseData.enterpriseExtend ? me.attrs.enterpriseData.enterpriseExtend:null;
 			 var tempOrderType = parseInt(me.attrs.options.orderType);
 			 switch( tempOrderType )
@@ -369,12 +371,18 @@ define( function(require, exports, module){
 					break;
 				default:
 			}
+			if(me.attrs.options.rejectsFrom && me.attrs.options.rejectsFrom == 2 && me.attrs.options.editFlag){
+				payInfoReadonly = false;
+			}
+			if( me.attrs.options.editFlag ){
+				edit = true;
+			}
 	
 			 productData.contract = me.attrs.enterpriseData.contract ? me.attrs.enterpriseData.contract : null ;
 			 me.attrs.prodeuctObj =  productinfo.showProductInfo( {terminalInfo:{$view:me.$view.find('.common-terminalinfo')},
 					 tableInfo:{$view:me.$view.find('.common-tableinfo')},
 					 formInfo:{$view:me.$view.find('.common-forminfo')}}
-				 ,tempOrderType ,{'enterpriseId':me.attrs.options.enterpriseId,'readonly': !me.attrs.options.editFlag,'data':productData } );
+				 ,tempOrderType ,{'edit':edit,'payInfoReadonly':payInfoReadonly,'enterpriseId':me.attrs.options.enterpriseId,'readonly': !me.attrs.options.editFlag,'data':productData } );
 
 			 //发票信息
 			 me.attrs.invoiceCommon = new InvoiceInfo( { 'wrapper':me.$view.find('.common--invioce'),'data':me.attrs.orderData,
