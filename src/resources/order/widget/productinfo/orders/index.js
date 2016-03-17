@@ -14,7 +14,7 @@ define(function (require, exports, module) {
                 }
             });
             controller(terminalDataItems, 'allreadonly', function (item) {
-                item.allreadonly=false;
+                item.allreadonly = false;
             });
             var bigArr = terminalDataItems.concat(tableDataItems).concat(formDataItems);
             if (responseData) {
@@ -93,7 +93,7 @@ define(function (require, exports, module) {
                     }
                 }
                 $(subOrders).each(function (i, n) {
-                    if (n.subOrder && n.subOrder.productId && n.subOrder.productId!=10 && n.subOrder.productId!=11) {//10为绑定百川  11为绑定报数系统
+                    if (n.subOrder && n.subOrder.productId && n.subOrder.productId != 10 && n.subOrder.productId != 11) {//10为绑定百川  11为绑定报数系统
                         checkids.push(n.subOrder.productId);
                         var subOrder = n.subOrder;
                         for (var j in subOrder) {
@@ -102,6 +102,17 @@ define(function (require, exports, module) {
                                 setValue(dataDic, j + '_' + subOrder.productId, subOrder[j]);
                             }
                         }
+                        if (subOrder.productId == '1') {//选中CRM
+                            controller(terminalDataItems, 'useCRM', function (item) {
+                                item.value = true;
+                            });
+                        }
+                        if (subOrder.productId == '2' || subOrder.productId == '3') {//选中销客终端
+                            controller(terminalDataItems, 'useFX', function (item) {
+                                item.value = true;
+                            });
+                        }
+
                         if (subOrder['startTime_readonly'] === true && dataDic['startTime_' + subOrder.productId]) {
                             dataDic['startTime_' + subOrder.productId].readonly = true;
                         }
@@ -146,7 +157,7 @@ define(function (require, exports, module) {
                 if (responseData.readonly === true) {
 
                     controller(terminalDataItems, 'allreadonly', function (item) {
-                        item.allreadonly=true;
+                        item.allreadonly = true;
                     });
                     $(terminalDataItems).each(function (i, n) {
                         if (n.name.toLowerCase().indexOf('wrapper') < 0 && n.name.toLowerCase().indexOf('image') < 0) {//包裹者不设
@@ -393,7 +404,7 @@ define(function (require, exports, module) {
                                         data.subOrders.push({
                                             subOrder: {
                                                 productId: b,
-                                                purchaseCount:  1,
+                                                purchaseCount: 1,
                                                 purchaseAmount: 0,
                                                 startTime: fromData['startTime_1'],
                                                 endTime: fromData['endTime_1'],
