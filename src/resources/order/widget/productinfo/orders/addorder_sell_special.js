@@ -77,13 +77,10 @@ define(function (require, exports, module) {
         //});
         common.setCommonData(controller, terminalDataItems, tableDataItems, formDataItems, 8, responseData);
 
-        return {terminalDataItems: terminalDataItems, tableDataItems: tableDataItems, formDataItems: formDataItems};
-
+        //增购逻辑
         var hasCRM = false;
         if (responseData && responseData.subOrders) {
-
             $(responseData.subOrders).each(function (j, m) {
-
                 if (m.subOrder.productId == '1') {
                     hasCRM = true;
                 }
@@ -104,15 +101,16 @@ define(function (require, exports, module) {
                             checkbox.parents('tr').attr('hidetr','hidetr').hide();
                         }
                     });
-
+                    //一个也没有就隐藏
+                    if(me.$('.tableinfo tbody tr:not([hidetr])').length==0){
+                        me.$('.tableinfo').hide();
+                    }
                 }
-
             });
         });
-
         if (!hasCRM) {
             controller(terminalDataItems, 'useFX', function (n) {
-                n.visible = false;
+                n.visible = true;
             });
             controller(terminalDataItems, 'typewrapper_8', function (n) {
                 n.visible = true;
@@ -120,35 +118,16 @@ define(function (require, exports, module) {
             controller(terminalDataItems, 'typewrapper_1', function (n) {
                 n.visible = true;
             });
-            controller(tableDataItems, 'type_7', function (n) {
-                n.visible = false;
-            });
             controller(terminalDataItems, 'purchaseAmount_input_8', function (n) {
-                n.visible = false;
-            });
-            controller(terminalDataItems, 'purchaseAmount_input_3', function (n) {
-                n.visible = true;
-            });
-            controller(terminalDataItems, 'purchaseAmount_input_1', function (n) {
-                n.visible = true;
-            });
-            controller(terminalDataItems, 'discount_1', function (n) {
-                n.visible = true;
-            });
-            controller(terminalDataItems, 'purchaseAmount_1', function (n) {
                 n.visible = false;
             });
             controller(terminalDataItems, 'useCRMWrapper', function (n) {
                 n.visible = true;
-
             });
             controller(terminalDataItems, 'useCRM', function (n) {
                 n.visible = false;
                 n.value = true;
                 n.readonly = true;
-            });
-            controller(terminalDataItems, 'purchaseAmount_3', function (n) {
-                n.visible = false;
             });
             controller(terminalDataItems, 'kunbangWrapper', function (n) {
                 n.visible = true;
@@ -157,6 +136,9 @@ define(function (require, exports, module) {
                 n.visible = true;
             });
         }
+        //增购逻辑END
+        return {terminalDataItems: terminalDataItems, tableDataItems: tableDataItems, formDataItems: formDataItems};
+
     }
 
 });

@@ -436,7 +436,7 @@ define(function (require, exports, module) {
                                 })
                             }
                         }
-                        if (controler.o_data_getField('type_' + n).is(':visible')) {
+                        if (controler.o_data_getField({name: 'type_' + n}).is(':visible')) {
                             var value = controler.o_getFieldValue('type_' + n);
                             productExtends.push({productKey: 'buytype', productValue: value});
                         }

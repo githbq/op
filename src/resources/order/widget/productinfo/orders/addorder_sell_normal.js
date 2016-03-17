@@ -73,61 +73,67 @@ define(function (require, exports, module) {
         common.setAddOrderTime(controller, terminalDataItems, tableDataItems, formDataItems);
 
         common.setCommonData(controller, terminalDataItems, tableDataItems, formDataItems, 7, responseData);
+
+
+        //增购逻辑
+        var hasCRM = false;
+        if (responseData && responseData.subOrders) {
+            $(responseData.subOrders).each(function (j, m) {
+                if (m.subOrder.productId == '1') {
+                    hasCRM = true;
+                }
+            });
+        }
+        controller(tableDataItems, 'tablelist', function (n) {
+            n.visible = true;
+        });
+        controller(tableDataItems, 'check', function (n) {
+            n.value = false;
+            n.on('setFieldValue', function () {
+                var me = this;
+                if (responseData && responseData.subOrders) {
+                    $(responseData.subOrders).each(function (j, m) {
+                        var checkbox = me.$('input[type=checkbox][name=check][value=' + n.subOrder.productId + ']');
+                        if (n.subOrder && checkbox.length > 0) {//如果存在此纪录 则隐藏 且取消勾选
+                            checkbox.prop('checked', false).attr('checked', false);
+                            checkbox.parents('tr').attr('hidetr', 'hidetr').hide();
+                        }
+                    });
+                    //一个也没有就隐藏
+                    if (me.$('.tableinfo tbody tr:not([hidetr])').length == 0) {
+                        me.$('.tableinfo').hide();
+                    }
+                }
+            });
+        });
+        if (!hasCRM) {
+            controller(terminalDataItems, 'type_8', function (n) {
+                n.visible = false;
+            });
+            controller(terminalDataItems, 'purchaseAmount_input_8', function (n) {
+                n.visible = false;
+            });
+
+            controller(terminalDataItems, 'useCRMWrapper', function (n) {
+                n.visible = true;
+
+            });
+            controller(terminalDataItems, 'kunbangWrapper', function (n) {
+                n.visible=true;
+            });
+            controller(terminalDataItems, 'useCRM', function (n) {
+                n.visible = false;
+                n.value=true;
+                n.readonly=true;
+            });
+            controller(terminalDataItems, 'businesscard', function (n) {
+                n.visible = true;
+            });
+        }
+        //增购逻辑END
+
+
         return {terminalDataItems: terminalDataItems, tableDataItems: tableDataItems, formDataItems: formDataItems};
-
-
-
-
-        //controller(terminalDataItems, 'useFX', function (n) {
-        //    n.visible=false;
-        //});
-        //controller(terminalDataItems, 'type_8', function (n) {
-        //    n.visible = false;
-        //});
-        //controller(terminalDataItems, 'purchaseAmount_input_8', function (n) {
-        //    n.visible = false;
-        //});
-        //controller(terminalDataItems, 'purchaseAmount_input_3', function (n) {
-        //    n.visible = false;
-        //});
-        //controller(terminalDataItems, 'purchaseAmount_input_1', function (n) {
-        //    n.visible = true;
-        //});
-        //controller(terminalDataItems, 'purchaseAmount_1', function (n) {
-        //    n.visible = false;
-        //});
-        //controller(terminalDataItems, 'productAmount_3', function (n) {
-        //    n.visible = true;
-        //});
-        //controller(terminalDataItems, 'useCRMWrapper', function (n) {
-        //    n.visible = true;
-        //
-        //});
-        //controller(terminalDataItems, 'kunbangWrapper', function (n) {
-        //    n.visible=true;
-        //});
-        //controller(terminalDataItems, 'discount_1', function (n) {
-        //    n.visible = true;
-        //});
-        //controller(terminalDataItems, 'useCRM', function (n) {
-        //    n.visible = false;
-        //    n.value=true;
-        //    n.readonly=true;
-        //});
-        //
-        //controller(terminalDataItems, 'typewrapper_3', function (n) {
-        //    n.visible = false;
-        //});
-        //
-        //controller(terminalDataItems, 'purchaseAmount_3', function (n) {
-        //    n.visible = true;
-        //});
-        //controller(terminalDataItems, 'businesscard', function (n) {
-        //    n.visible = true;
-        //});
-
-
-
 
 
     }

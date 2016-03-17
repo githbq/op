@@ -53,6 +53,43 @@ define(function (require, exports, module) {
         //工资助手强制
         common.setGZHelper(controller,terminalDataItems,tableDataItems,formDataItems);
         common.setCommonData(controller, terminalDataItems, tableDataItems, formDataItems,6,responseData);
+
+
+        //增购逻辑
+        var hasCRM = false;
+        if (responseData && responseData.subOrders) {
+            $(responseData.subOrders).each(function (j, m) {
+                if (m.subOrder.productId == '1') {
+                    hasCRM = true;
+                }
+            });
+        }
+        controller(tableDataItems, 'tablelist', function (n) {
+            n.visible = true;
+        });
+        controller(tableDataItems, 'check', function (n) {
+            n.value = false;
+            n.on('setFieldValue', function () {
+                var me = this;
+                if (responseData && responseData.subOrders) {
+                    $(responseData.subOrders).each(function (j, m) {
+                        var checkbox = me.$('input[type=checkbox][name=check][value=' + n.subOrder.productId + ']');
+                        if (n.subOrder && checkbox.length > 0) {//如果存在此纪录 则隐藏 且取消勾选
+                            checkbox.prop('checked', false).attr('checked', false);
+                            checkbox.parents('tr').attr('hidetr', 'hidetr').hide();
+                        }
+                    });
+                    //一个也没有就隐藏
+                    if (me.$('.tableinfo tbody tr:not([hidetr])').length == 0) {
+                        me.$('.tableinfo').hide();
+                    }
+                }
+            });
+        });
+
+        //增购逻辑END
+
+
         return {terminalDataItems: terminalDataItems, tableDataItems: tableDataItems, formDataItems: formDataItems};
     }
 
