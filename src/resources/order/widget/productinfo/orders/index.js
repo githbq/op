@@ -143,13 +143,13 @@ define(function (require, exports, module) {
                         }
                     }
                 });
-                ////使用销客终端 使用CRM 选中效果
-                //controller(terminalDataItems, 'useCRM', function (item) {
-                //    item.value = useCRM;
-                //});
-                //controller(terminalDataItems, 'useFX', function (item) {
-                //    item.value = useFX;
-                //});
+                //使用销客终端 使用CRM 选中效果
+                controller(terminalDataItems, 'useCRM', function (item) {
+                    item.value = useCRM;
+                });
+                controller(terminalDataItems, 'useFX', function (item) {
+                    item.value = useFX;
+                });
                 dataDic['check'].value = checkids;
                 $(bigArr).each(function (i, n) {
                     if (n.attr) {
