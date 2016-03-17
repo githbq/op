@@ -150,17 +150,17 @@ define(function (require, exports, module) {
                                             me.o_setValue({name: 'productAmount_' + n, value: response.model});
 
                                         } else {
-                                            me.o_setValue({name: 'purchaseAmount_input_' + n, value: ''});
-                                            me.o_setValue({name: 'purchaseAmount_' + n, value: ''});
-                                            me.o_setValue({name: 'productAmount_' + n, value: ''})
+                                            me.o_setValue({name: 'purchaseAmount_input_' + n, value: '0'});
+                                            me.o_setValue({name: 'purchaseAmount_' + n, value: '0'});
+                                            me.o_setValue({name: 'productAmount_' + n, value: '0'})
                                         }
                                         changeForGetPrice.call(me, e);
                                     }
                                 });
                             } else if(!allreadonly){
-                                me.o_setValue({name: 'purchaseAmount_input_' + n, value: '', readonly: allreadonly});
-                                me.o_setValue({name: 'purchaseAmount_' + n, value: ''});
-                                me.o_setValue({name: 'productAmount_' + n, value: ''});
+                                me.o_setValue({name: 'purchaseAmount_input_' + n, value: '0', readonly: allreadonly});
+                                me.o_setValue({name: 'purchaseAmount_' + n, value: '0'});
+                                me.o_setValue({name: 'productAmount_' + n, value: '0'});
                                 changeForGetPrice.call(me, e);
                                 me.o_setValue({name: 'purchaseAmount_input_' + n, readonly: allreadonly});
                             }
@@ -227,7 +227,7 @@ define(function (require, exports, module) {
             //合同金额
             dataItems.push(new DataItem({
                 name: 'purchaseAmount_' + n,
-                value: '',
+                value: '0',
                 validateOptions: helper.getValidateLogic(),
                 attr: {maxlength: 9}
             }));
@@ -258,7 +258,7 @@ define(function (require, exports, module) {
                             {
                                 me.o_setValue({name: 'purchaseAmount_' + n, value: 0});
                                 me.o_setValue({name: 'purchaseAmount_input_' + n, value: 0, readonly: false});
-                                me.o_setValue({name: 'discount_' + n, value: ''});
+                                me.o_setValue({name: 'discount_' + n, value: '0'});
                             }
                                 ;
                                 break;
