@@ -18,6 +18,7 @@
     <div class="header-person">
         <span id="accountname"></span>
         <div class="person-loginout">
+
             <a href="#page/changepwd" data-permissions="F011052">修改密码</a>
             <a href="#filing/setleader" data-permissions="F011053">设置上级</a>
             <a href="#filing/setuser">用户列表</a>
@@ -35,11 +36,12 @@
                     <li data-modulecode="AgentAccountOpC"><a href="#filing/usersearch">用户查询</a></li>
                 </ul>
             </li>
-			 <li>
+            <li>
                 <a href="#order/orderlist">订单</a>
             </li>
 
             <!-- -->
+
             <li data-modulecode="DayActivityDetailOpC DayActivityAllOpC PeriodActivityAnalysisOpC MonthActivityTeamAnalysisOpC MonthActivityAllAnalysisOpC">
                 <a href="#index/detail">活跃度</a>
                 <ul class="nav-sub">
@@ -61,6 +63,7 @@
                 </ul>
             </li>
 
+  
             <li data-modulecode="EnterpriseFIlingOpC EnterpriseFIlingOpenOpC EnterpriseFIlingOpenRequestOpC">
                 <a href="#filing/entprisefiling">备案企业</a>
                 <ul class="nav-sub">
@@ -70,18 +73,24 @@
                 </ul>
             </li>
             
+
             <li data-modulecode="RegionOpC">
                 <a href="#filing/areaconfig">区域配置</a>
             </li>
-            
+
+            <!--
+
             <li data-modulecode="ApprovalOpC">
                 <a href="#filing/approvallist">我的审批</a>
             </li>
-            
+            -->
+
+
             <li data-modulecode="ApprovalAccountOpC">
                 <a href="#filing/approvalwait">待审批用户</a>
             </li>
             
+
             <li data-modulecode="SelfRegisterOpC">
                 <a href="#filing/regent">自注册企业</a>
             </li>
@@ -164,8 +173,4 @@
 
 </body>
 </html>
-
-
-
-
 
