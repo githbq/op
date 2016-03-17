@@ -167,7 +167,7 @@ define( function( require, exports, module ) {
                     en: me.model.get('en'),
                     enterpriseStatus: me.model.get('enterpriseStatus'),
                     source: me.model.get('source'),
-                    industry:'',// me.model.get('industry'),
+                    industry: me.model.get('industry'),
                     province: me.model.get('province'),
                     city: me.model.get('city'),
                     tel: me.model.get('tel'),
