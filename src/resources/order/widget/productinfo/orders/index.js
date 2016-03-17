@@ -143,13 +143,13 @@ define(function (require, exports, module) {
                         }
                     }
                 });
-                //使用销客终端 使用CRM 选中效果
-                controller(terminalDataItems, 'useCRM', function (item) {
-                    item.value = useCRM;
-                });
-                controller(terminalDataItems, 'useFX', function (item) {
-                    item.value = useFX;
-                });
+                ////使用销客终端 使用CRM 选中效果
+                //controller(terminalDataItems, 'useCRM', function (item) {
+                //    item.value = useCRM;
+                //});
+                //controller(terminalDataItems, 'useFX', function (item) {
+                //    item.value = useFX;
+                //});
                 dataDic['check'].value = checkids;
                 $(bigArr).each(function (i, n) {
                     if (n.attr) {
@@ -191,6 +191,12 @@ define(function (require, exports, module) {
 
         }
         ;
+
+        //设置增购逻辑
+        exports.setAddOrderLogic=function(controller, terminalDataItems, tableDataItems, formDataItems, type, responseData){
+
+        };
+
         function setValue(dataDic, key, value, callback) {
             if (dataDic && dataDic[key] !== undefined) {
                 dataDic[key].value = value;
