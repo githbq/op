@@ -20,18 +20,6 @@ define(function (require, exports, module) {
             PageClass.__super__.init.apply(this, arguments);
             me.autoSelect = new AutoSelect({data: banks});
             me.autoSelect.resetSelect(me.$('.bankno'));
-
-            me.$view.on('change','.fenqi', function (e) {//分期字段事件
-                var $dom=$(e.target);
-                $dom.val($dom.val().replace(/[^\.\d]/g, ''));
-                var currPayAmount = 0;
-                me.$('.fenqi:visible').each(function (i, n) {
-                    if ($(n).val()) {
-                        currPayAmount += parseFloat($(n).val());
-                    }
-                });
-                me.o_setValue({name: 'currPayAmount', value: currPayAmount})
-            })
         }
     });
     module.exports = PageClass;
