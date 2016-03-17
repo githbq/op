@@ -48,7 +48,7 @@ define(function (require, exports, module) {
             n.value = false;
         });
         common.setNotable(controller,terminalDataItems,tableDataItems,formDataItems);
-      var arr=['currPayAmount_1', 'currPayAmount_2', 'currPayAmount_3', 'currPayAmount_4', 'currPayAmount_5', 'currPayAmount_7'];
+      var arr=['currPayAmount_1', 'currPayAmount_2', 'currPayAmount_3', 'currPayAmount_4', 'currPayAmount_5', 'currPayAmount_7', 'currPayAmount_8'];
         $(arr).each(function(i,b){
             controller(formDataItems,b,function(n){
                 n.visible = false;

@@ -99,7 +99,8 @@ define(function (require, exports, module) {
                                 {name: 'currPayAmount_1', value: '0', visible: false},
                                 {name: 'currPayAmount_4', value: '0', visible: false},
                                 {name: 'currPayAmount_5', value: '0', visible: false},
-                                {name: 'currPayAmount_7', value: '0', visible: false}
+                                {name: 'currPayAmount_7', value: '0', visible: false},
+                                {name: 'currPayAmount_8', value: '0', visible: false}
                             ]);
                             //全款
                         }
@@ -157,48 +158,43 @@ define(function (require, exports, module) {
             ]
 
         }));
+        var currPayIdArr = [3, 1, 8, 4, 5, 7];
+        $(currPayIdArr).each(function (i, n) {
+            (function (id) {
+                dataItems.push(new DataItem({
+                    name: 'currPayAmount_' + id,
+                    visible: false,
+                    attr: {maxlength: 9},
+                    events: [{
+                        key: 'change', value: function (e) {
+                            var me = this;
+                            var controll=me.__refs.tableInfo;
+                            if(id=='1' || id=='3' || id=='8'){
+                                controll=me.__refs.terminalInfo;
+                            }
+                            var $dom=$(e.target);
+                            $dom.val($dom.val().replace(/[^\.\d]/g, ''));
 
-        //分期 服务费
-        dataItems.push(new DataItem({
-            name: 'currPayAmount_3',
-            visible: false,
-            attr: {maxlength: 9}
+                            var purchaseAmount = controll.o_getFieldValue('purchaseAmount_' + id);
+                            if (!purchaseAmount) {
+                                $dom.val('');
+                            }else if($dom.val() && parseFloat(purchaseAmount)<parseFloat($dom.val())){
+                                util.showToast('分期金额不能大于对应的合同金额');
+                                $dom.val(purchaseAmount);
+                            }
+                            var currPayAmount = 0;
+                            me.$('.fenqi:visible').each(function (i, n) {
+                                if ($(n).val()) {
+                                    currPayAmount += parseFloat($(n).val());
+                                }
+                            });
+                            me.o_setValue({name: 'currPayAmount', value: currPayAmount});
 
-        }));
-        //分期 CRM费
-        dataItems.push(new DataItem({
-            name: 'currPayAmount_1',
-            visible: false,
-            attr: {maxlength: 9}
-
-        }));
-        //分期名片费
-        dataItems.push(new DataItem({
-            name: 'currPayAmount_8',
-            visible: false,
-            attr: {maxlength: 9}
-
-        }));
-        //分期 PK助手费
-        dataItems.push(new DataItem({
-            name: 'currPayAmount_4',
-            visible: false,
-            attr: {maxlength: 9}
-
-        }));
-        //分期 会议助手费
-        dataItems.push(new DataItem({
-            name: 'currPayAmount_5',
-            visible: false,
-            attr: {maxlength: 9}
-
-        }));
-        //PK助手费
-        dataItems.push(new DataItem({
-            name: 'currPayAmount_7',
-            visible: false,
-            attr: {maxlength: 9}
-        }));
+                        }
+                    }]
+                }));
+            })(n);
+        });
         //本次到款金额
         dataItems.push(new DataItem({
             name: 'currPayAmount',
