@@ -621,6 +621,11 @@ define( function(require, exports, module){
 
 			var me = this;
 
+			//主要记录pagination是否已经初始化 
+			//如果已经初始化 就不再初始化
+			//
+
+			//product??
 			me.product = {
 				isInitialized: false,
 				list: [],
@@ -629,6 +634,7 @@ define( function(require, exports, module){
 				pagination: null
 			};
 
+			//agent??
 			me.agent = {
 				isInitialized: false,
 				list: [],
