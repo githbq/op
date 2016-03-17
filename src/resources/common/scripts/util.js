@@ -997,6 +997,82 @@
 
         /**
          *
+         * 获取行业 遍历为树状信息
+         * 并赋值给select
+         */
+        getIndustry: function( $select, callback ){
+            var me = this;
+
+            
+            //存储最终数据
+            var INMAP = {};
+            //存储缓存数据
+            var items = {};
+            //生成dom结构
+            var str = "<option value=''>全部</option>";
+
+            util.getEnums('INDUSTRY',function( data ){
+
+                //第一次遍历缓存所有数据
+                data.value.model.forEach(function( item, index ){
+                    item.children = {};
+                    items[item.value] = item;
+                });
+
+                //第二次遍历生成缓存map
+                data.value.model.forEach(function( item, index ){
+                    getNode( item.value );
+                });
+
+                console.log( items );
+                console.log( INMAP );
+
+                generateDom( INMAP ,0 );
+                $select.html( str );
+
+                callback && callback( data );
+            })
+
+
+            // 从无生成一个node 
+            // 并返回node的详细信息
+            // 如果node有父节点则插入父节点的children节点
+            function getNode( value ){
+
+                //如果有父节点 则挂载在父节点上
+                if( items[value].parentValue && items[value].parentValue!='0' ){
+
+                    var parent =items[items[value].parentValue];
+                    parent.children[value] = items[value];
+                    return items[value];
+
+                //如果没父节点 则挂载在顶级对象上
+                }else{
+
+                    INMAP[value] = INMAP[value] || items[value];
+                    return INMAP[value];
+                }
+            }
+
+            function generateDom( node , zindex ){
+                var item;
+                var mstr = "|-";
+                for( var i=1; i<=zindex; i++ ){
+                    mstr = "&nbsp;&nbsp;&nbsp;"+mstr;
+                }
+
+                //console.log( mstr );
+                for( var key in node ){
+                    
+                    item = node[key];
+                    str = str + '<option value="' + item.value + '" title="' + item.text + '">' + mstr + item.text + '</option>';
+                    generateDom( item.children , zindex+1 );
+                }
+            }
+        },
+
+        /**
+         *
          * 根据value
          * 获取相应enmus
          */ 

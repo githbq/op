@@ -1,0 +1,260 @@
+<div >
+    <div class="forminfo">
+        <div class="field_row">
+            <div class="field_row_head">
+            </div>
+            <div class="field_wrapper">
+                <div class="field">
+                    <label style="width:250px;">
+                        <span class="label">合同号：</span>
+                        <span ce-model="contractNo"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="field_row">
+            <div class="field_row_head">
+            </div>
+            <div class="field_wrapper">
+                <div class="field">
+                    <label style="width:250px;">
+                        <span class="label">合同总金额(元)：</span>
+                        <span ce-model="amount"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="field_row">
+            <div class="field_row_head">
+            </div>
+            <div class="field_wrapper">
+                <div class="field">
+                    <label style="width:250px;">
+                        <span class="label">到款金额（财务确认到款)(元)：</span>
+                        <span ce-model="auditedAmount"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="field_row">
+            <div class="field_row_head">
+            </div>
+            <div class="field_wrapper">
+                <div class="field">
+                    <label style="width:250px;">
+                        <span class="label">已收金额（财务审核中）(元):</span>
+                        <span ce-model="auditAmount"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="field_row">
+            <div class="field_row_head">
+            </div>
+            <div class="field_wrapper">
+                <div class="field">
+                    <label style="width:250px;">
+                        <span class="label">未收金额：</span>
+                        <span ce-model="noChargeAmount"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="field_row">
+            <div class="field_row_head">
+            </div>
+            <div class="field_wrapper">
+                <div class="field">
+                    <label style="width:250px;">
+                        <span class="label">当前状态：</span>
+                        <select ce-model="payStatus" disabled="disabled">
+                            <option value="1">全额</option>
+                            <option value="2">分期</option>
+                            <option value="3">未付</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <br/>
+        <div class="field_row">
+            <div class="field_row_head">
+            </div>
+            <div class="field_wrapper">
+                <div class="field">
+                    <label>
+                        <span class="label">本次付费状态</span>
+                        <b class="check-edit" style="color: #ff0000">*</b>
+                    </label>
+                    <select data-name="" class="payStatus-select edit-flag ">
+                        <option value="1">补齐尾款</option>
+                        <option value="2">分期</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="stage-box" style="border:1px #ccc solid;display: none;">
+            <div class="field_row">
+                <div class="field_row_head">
+                </div>
+                <div class="field_wrapper">
+                    <div class="field">
+                        <label style="width:250px;">
+                            <span class="label">本期每项应用金额（元）</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="app-box">
+
+                </div>
+            </div>
+        </div>
+        <div class="field_row">
+            <div class="field_row_head">
+            </div>
+            <div class="field_wrapper">
+                <div class="field">
+                    <label>
+                        <span class="label">本次到款金额(元)</span>
+                        <b class="check-edit" style="color: #ff0000">*</b>
+                    </label>
+                    <input data-name="currPayAmount" ce-model="currPayAmount" data-type="number" type="text" class="" name="" disabled="disabled"/>
+                </div>
+            </div>
+        </div>
+        <div class="field_row">
+            <div class="field_row_head">
+            </div>
+            <div class="field_wrapper">
+                <div class="field">
+                    <label>
+                        <span class="label">打款日期</span>
+                        <b class="check-edit" style="color: #ff0000">*</b>
+                    </label>
+                    <input data-name="payDate" ce-model="payDate"  type="text" class="required-basic payDate edit-flag" name=""/>
+                </div>
+            </div>
+        </div>
+        <div class="field_row">
+            <div class="field_row_head">
+            </div>
+            <div class="field_wrapper">
+
+                <div class="field">
+                    <label>
+                        <span class="label">收款账户</span>
+                        <b class="check-edit" style="color: #ff0000">*</b>
+                    </label>
+                    <input data-name="receiptsAccount"  ce-model="receiptsAccount" type="text" class="ipt-l bankno required-basic edit-flag" name=""/>
+                    <span>请输入银行卡号码进行查询</span>
+                </div>
+            </div>
+        </div>
+        <div class="field_row">
+            <div class="field_row_head">
+            </div>
+            <div class="field_wrapper">
+                <div class="field">
+                    <label>
+                        <span class="label">付款单位/个人名称</span>
+                        <b class="check-edit" style="color: #ff0000">*</b>
+                    </label>
+                    <input data-name="payerName"  ce-model="payerName" type="text" class="ipt-l required-basic edit-flag" name=""/>
+                </div>
+            </div>
+        </div>
+        <!--<div class="field_row">
+            <div class="field_row_head">
+            </div>
+            <div class="field_wrapper">
+
+                <div class="field">
+                    <label>
+                        <span class="label">合同章名称</span>
+                        <span class="red">*</span>
+                    </label>
+                    <input data-name="sealName" type="text" class="ipt-l" name=""/>
+                </div>
+            </div>
+        </div>
+        <div class="field_row">
+            <div class="field_row_head">
+            </div>
+            <div class="field_wrapper">
+                <div class="field">
+                    <label>
+                        <span class="label">合同照片</span>
+                        <span class="red">*</span>
+                    </label>
+                    <input type="hidden" data-name="contract"/>
+                    <input data-name="contract_file" type="file" class="" name="" accept="image/gif,image/jpeg,image/png"/>
+                    <span class="supporttype">(支持png、jpg、gif)</span>
+                </div>
+                <div class="field">
+                    <img class="product-image" data-name="contract-image" />
+                </div>
+            </div>
+        </div>
+        <div class="field_row">
+            <div class="field_row_head">
+            </div>
+            <div class="field_wrapper">
+
+                <div class="field">
+                    <label>
+                        <span class="label">合同副本照片</span>
+                    </label>
+                    <input type="hidden" data-name="contractCopy"/>
+                    <input data-name="contractCopy_file" type="file" class="" name="" accept="image/gif,image/jpeg,image/png"/>
+                    <span class="supporttype">(支持png、jpg、gif)</span>
+                </div>
+                <div class="field">
+                    <img class="product-image" data-name="contractCopy-image" />
+                </div>
+            </div>
+        </div>
+        <div class="field_row">
+            <div class="field_row_head">
+            </div>
+            <div class="field_wrapper">
+
+                <div class="field">
+                    <label>
+                        <span class="label">门头照片</span>
+                    </label>
+                    <input type="hidden" data-name="companyGatePicture"/>
+                    <input data-name="companyGatePicture_file" type="file" class="" name="" accept="image/gif,image/jpeg,image/png"/>
+                    <span class="supporttype">(支持png、jpg、gif)</span>
+                </div>
+                <div class="field">
+                    <img class="product-image" data-name="companyGatePicture-image" />
+                </div>
+            </div>
+        </div>
+        <div class="field_row">
+            <div class="field_row_head">
+            </div>
+            <div class="field_wrapper">
+
+                <div class="field">
+                    <label>
+                        <span class="label">门头照片关键词</span>
+                    </label>
+                    <input data-name="companyGateKeyword" type="text" class="ipt-l" name=""/>
+                </div>
+            </div>
+        </div>
+        <div class="field_row">
+            <div class="field_row_head">
+            </div>
+            <div class="field_wrapper">
+                <div class="field">
+                    <label>
+                        <span class="label">门头照片备注</span>
+                    </label>
+                    <input data-name="companyGateRemark" type="text" class="ipt-l" name=""/>
+                </div>
+            </div>
+        </div>-->
+    </div>
+</div>

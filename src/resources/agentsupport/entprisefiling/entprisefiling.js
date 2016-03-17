@@ -72,7 +72,20 @@ define( function( require, exports, module ) {
             var me = this;
             var statusList = [{'name':'全部','value':''}],industryList=[{'name':'全部','value':''}],sourceList=[{'name':'全部','value':''}];
 
-            util.getEnums('FILING_STATUS',function(data){
+            var state = {
+                a: false,
+                b: false,
+                c: false
+            }
+
+            //
+            function checkState(){
+                if( state.a && state.b && state.c ){
+                    me.getList();
+                }
+            }
+
+            util.getEnums('FILING_STATUS',function( data ){
                 if( data.success ){
 
                     data.value.model.forEach(function( item, index){
@@ -80,25 +93,25 @@ define( function( require, exports, module ) {
                        statusList.push( {'name':item.text,'value':item.value} );
                     });
 
-
                     util.resetSelect( me.$status, statusList );
-                    me.getList();
+                    state.a = true;
+                    checkState();
                 }
             });
-			util.getEnums('INDUSTRY',function(data){
+
+            util.getIndustry( me.$industryData,function( data ){
                 if( data.success ){
 
                     data.value.model.forEach(function( item, index){
                        industryMap[ item.value ] = item.text;
-                       industryList.push( {'name':item.text,'value':item.value} );
                     });
-
-
-                    util.resetSelect( me.$industryData, industryList );
-                    me.getList();
+                    
+                    state.b = true;
+                    checkState();
                 }
-            })
-			util.getEnums('ENT_LST_SOURCE',function(data){
+            });
+
+			util.getEnums('ENT_LST_SOURCE',function( data ){
                 if( data.success ){
 
                     data.value.model.forEach(function( item, index){
@@ -106,9 +119,9 @@ define( function( require, exports, module ) {
                        sourceList.push( {'name':item.text,'value':item.value} );
                     });
 
-
                     util.resetSelect( me.$sourceData, sourceList );
-                    me.getList();
+                    state.c = true;
+                    checkState();
                 }
             })
         },
@@ -302,7 +315,12 @@ define( function( require, exports, module ) {
 				util.showToast('请填写完整自注册企业账号！');
 				return false;
 			}
-
+			var val = me.$('input:radio[name="newType"]:checked').val();
+			if( !val ){
+				util.showToast('请选择开通版本！');
+				return false;
+			}
+			
 			util.api({
 				'url': '/enterprisefiling/canbinding',
 				'data': {
@@ -314,7 +332,12 @@ define( function( require, exports, module ) {
 				},
 				'success': function( data ){
 					if( data.success ){
-					   location.hash = '#agentsupport/bindinfo/'+me.attrs['entId']+'/'+enterpriseAccount;
+						if( val == 'newOffice' ){
+							location.hash = '#order/newmarketying/releateOffice';
+						}else{
+							location.hash = '#order/newmarketying/releateMarket';
+						}
+					   //location.hash = '#agentsupport/bindinfo/'+me.attrs['entId']+'/'+enterpriseAccount;
 					} 
 				}
 			})

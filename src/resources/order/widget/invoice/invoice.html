@@ -1,0 +1,130 @@
+<form class="m-invoice">
+	<h4>发票</h4>
+	<p class="invoice-bar">
+		<label> <input type="radio" name="invoice" value="1" data-target="invoicea" checked="checked">发票 </label>
+		<!--<label> <input type="radio" name="invoice" value="2" data-target="invoiceb">收据 </label>-->
+		<label> <input type="radio" name="invoice" value="3" data-target="invoicec">暂不需要</label>
+	</p>
+	<div class="invoice-container">
+
+		<!--发票-->
+		<section class="invoicea" style="display:block;">
+			<p>
+				<span class="title">发票类型 <b class="nsr">*</b> </span>
+				<label>
+					<input type="radio" name="intype" value="1" data-target="typea" checked="checked">
+					增值税普通发票
+				</label>
+				<label>
+					<input type="radio" name="intype" value="2" data-target="typeb">
+					增值税专用发票
+				</label>
+			</p>
+			<p>
+				<span class="filetype">税务登记证正本/副本或三证合一的营业执照 <b class="nsr">*</b></span><input type="file" id="businessLicense" class="businessLicense"><span>(支持.png,.jpg,.gif格式)</span>
+			</p>
+			<p class="yyzzimg">
+				<span class="title"></span>
+				<img src="http://pic3.nipic.com/20090625/389213_182209008_2.jpg" alt="">
+			</p>
+			<div>
+				
+				<!--增值税普通发票-->
+				<section class="typea" style="display:block;">
+					<p>
+						<span class="title">发票抬头 <b class="nsr">*</b></span>
+						<input type="text" ce-model="invoiceHead" name="fptt">
+					</p>	
+					<p>
+						<span class="title">发票金额 <b class="nsr">*</b></span>
+						<input type="text" ce-model="amount" name="fpje" oninput="this.value=this.value.replace(/[^\.\d]/g,'')" maxlength="9">
+					</p>
+				</section>
+
+				<!--增值税专用发票-->
+				<section class="typeb">
+					<p>
+						<span class="filetype">一般纳税人资质证书(或认定通知) <b class="nsr">*</b></span><input type="file" id="qualification" class="qualification"><span>(支持.png,.jpg,.gif格式)</span>
+					</p>
+					<p class="nsrzimg">
+						<span class="title"></span>
+						<img src="http://pic3.nipic.com/20090625/389213_182209008_2.jpg" alt="">
+					</p>
+					<p>
+						<span class="title">发票抬头<b class="nsr">*</b></span> <input type="text" ce-model="invoiceHead" name="fptt">
+					</p>
+					<p>
+						<span class="title">发票金额<b class="nsr">*</b></span> <input type="text" ce-model="amount" name="fpje" oninput="this.value=this.value.replace(/[^\.\d]/g,'')" maxlength="9">
+					</p>
+					<p>
+						<span class="title">纳税人识别号<b class="nsr">*</b></span> <input type="text" ce-model="taxpayerIdentificationNo" name="nsrsbh" maxlength="30">
+					</p>
+					<p>
+						<span class="title">地址<b class="nsr">*</b></span> <input type="text" ce-model="address" name="dz"> 
+					</p>
+					<p>
+						<span class="title">电话<b class="nsr">*</b></span> <input type="text" ce-model="telephone" name="dh">
+					</p>
+					<p>
+						<span class="title">开户行<b class="nsr">*</b></span> <input type="text" ce-model="bankName" name="khh">
+					</p>
+					<p>
+						<span class="title">账号<b class="nsr">*</b></span> <input type="text" ce-model="bankAccount" name="zhanghao" oninput="this.value=this.value.replace(/[^\d]/g,'')" maxlength="20">
+					</p>
+				</section>
+
+			</div>
+		</section>
+
+		<!--收据-->
+		
+		<!--
+		<section class="invoiceb">
+			<p>
+				<span class="title">公司名称<b>*</b></span>
+				<input type="text" ce-model="companyName">
+			</p>
+			<p>
+				<span class="title">收据金额<b>*</b></span>
+				<input type="text" ce-model="amount">
+			</p>
+		</section>
+		-->
+
+		<!--暂不需要-->
+		<section class="invoicec">
+			
+		</section>
+
+	</div>
+	
+	<!-- 提单信息 -->
+	<section class="tidan">
+	<h4>提单信息</h4>
+	<p class="roleinfo">
+		<span class="title">提单人<b class="nsr">*</b></span>
+		<span>部门名称</span><b ce-model="departmentname"></b>
+		<span>员工姓名</span><b ce-model="accountname"></b>
+	</p>
+	<p>
+		<span class="title">合作单<b class="nsr">*</b></span>
+		<label>
+			<input type="radio" name="team" value="0" checked="checked">
+			否
+		</label>
+		<label>
+			<input type="radio" name="team" value="1">
+			是 <input type="text" placeholder="请编写合作人姓名及所属部门" class="teaminfo" ce-model="cooperationUnit">
+		</label>
+	</p>
+	<p>
+		<span>综合折扣:<b class="discount"></b></span>
+	</p>
+	</section>
+	<!-- end -->
+
+	<h4>备注</h4>
+	<p>
+		<textarea cols="60" rows="5" ce-model="remark"></textarea>
+	</p>
+</form>

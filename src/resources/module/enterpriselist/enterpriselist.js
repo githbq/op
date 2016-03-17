@@ -6,44 +6,34 @@
 define( function(require, exports, module){
 
     var Pagination = require( 'common/widget/pagination/pagination' );
-    
-    var tpl = $( require( './template.html' ) );
+
     var viewStr = require('./enterpriselist.html');
 
-    //产品状态
-    var PSTATUS_MAP = {};
-
-    //付费状态
-    var PAYED_MAP = {
-        '0': '否',
-        '1': '是'
-    };
-
-    //活跃度
-    var ACTIVITY_MAP = {};
+    var EntStatusMap = IBSS.EntStatusMap;
 
     var EntLst = MClass( M.Center ).include( {
-        
-        tplPartner: _.template( tpl.filter( '#trEntLst' ).html() ),
         
         PAGESIZE: 20,
 
         view: viewStr,
 
         elements: {
-            '#eiSource': 'source',       //来源
-            '#eiProvince': 'province',   //省市
-            '#eiPStatus': 'pstatus',     //产品状态
-            '#eiIndustry': 'industry',   //行业
-            '#eiActivity': 'activity',   //活跃度
-            '.header-info': 'headerInfo',
-            'tbody': 'tbody'             //
+            '#OpenSTime': 'openstime',      //开通开始时间
+            '#OpenETime': 'openetime',      //开通结束时间
+            '#eiSource': 'source',          //来源
+            '#eiProvince': 'province',      //省市
+            '#eiIndustry': 'industry',      //行业
+            'tbody': 'tbody'                //
         },
         
         events: {
             'click #btnSearch': 'search',
             'click .info-detail': 'detailEve',
             'click .info-trace': 'traceEve',
+            'click .info-zengbangong': function(e){ this.trigger('zengbangong',$(e.currentTarget).attr('data-id'), $(e.currentTarget).attr('data-account') )},      //增购办公版
+            'click .info-zengyingxiao': function(e){ this.trigger('zengyingxiao',$(e.currentTarget).attr('data-id'), $(e.currentTarget).attr('data-account') )},    //增购营销版
+            'click .info-renewbangong': function(e){ this.trigger('renewbangong',$(e.currentTarget).attr('data-id'), $(e.currentTarget).attr('data-account') )},    //续费办公版
+            'click .info-renewyingxiao': function(e){ this.trigger('renewyingxiao',$(e.currentTarget).attr('data-id'), $(e.currentTarget).attr('data-account') )},  //续费营销版
             'click .selectall': 'selectAllEve',
             'click .auth': 'authEve',
             'click .deauth': 'deauthEve'
@@ -62,11 +52,10 @@ define( function(require, exports, module){
             me.pagination.onChange = function() {
                 me.getList();
             }
-            
-            me.collection = new M.Collection;
-            me.collection.on('reload',function(){
-                me.renderList();
-            });
+
+            //初始化时间控件
+            me.$openstime.datetimepicker({format: 'Y/m/d',timepicker: false});
+            me.$openetime.datetimepicker({format: 'Y/m/d',timepicker: false});
 
             if( me.attrs['param'] && ( me.attrs['param'].length > 0 ) ){
                 var param = me.attrs['param'];
@@ -102,40 +91,40 @@ define( function(require, exports, module){
             me.initializeSelect();
         },
 
+        //初始化枚举选择
         initializeSelect: function() {
             var me = this;
 
             var state = 0;
 
 
-            generateSelect( 'ENT_LST_SOURCE', this.$source );
-            generateSelect( 'PROVINCE', this.$province );
-            generateSelect( 'ENT_LST_PSTS', this.$pstatus );
-            generateSelect( 'INDUSTRY', this.$industry );
-            generateSelect( 'ENT_LST_ACTIVITY', this.$activity );
-            generateSelect( 'OPEN_VERSION_NUM', this.$('#servicecost'));
 
-            console.log( this.$('#servicecost') );
+            //
+            util.getIndustry( me.$industry ,function(){
+
+                state = state + 1;
+                if( state >= 3 ){
+                    me.getList();
+                }
+            });
+            generateSelect( 'ENT_LST_SOURCE', this.$source );                     //来源
+            generateSelect( 'PROVINCE', this.$province );                         //省市
+
+
             function generateSelect( name , $select ){
                 util.getEnums( name, function( data ) {
-                    var items = data.model, options = '';
+
+                    var items = data.value.model;
+                    var options = ""; 
+
                     items.forEach( function( item , index){
                         options += '<option value="' + item.value + '" title="' + item.text + '">' + item.text + '</option>';
-                        switch( name ){
-                            case 'ENT_LST_PSTS':
-                                PSTATUS_MAP[item.value] = item.text;
-                                break;
-                            case 'ENT_LST_ACTIVITY':
-                                ACTIVITY_MAP[item.value] = item.text;
-                                break;
-                        }
-
                     });
 
                     $select.append( options );
                     state = state + 1;
-                    if( state >4 ){
 
+                    if( state >= 3 ){
                         me.getList();
                     }
                 });
@@ -237,27 +226,32 @@ define( function(require, exports, module){
         getList: function() {
             var me = this;
 
+            var fromAppStartTime = '';
+            var endAppStartTime = '';
+
+            if( me.$openstime.val() ){
+                fromAppStartTime = new Date( me.$openstime.val() ).getTime();
+            }
+
+            if( me.$openetime.val() ){
+                endAppStartTime = new Date( me.$openetime.val() ).getTime();
+            }
+
             util.api({
                 url: '/enterprise/querypage',
                 data: {
-                    ea: me.model.get('ea'),
-                    ename: me.model.get('ename'),
-                    mobile: me.model.get('mobile'),
-                    city: me.model.get('city'),
-                    pstatus: me.model.get('pstatus'),
-                    fstatus: me.model.get('fstatus'),
-                    province: me.model.get('province'),
-                    industry: me.model.get('industry'),
-                    source: me.model.get('source'),
-                    activity: me.model.get('activity'),
-                    productId: me.model.get('productId'),
-                    agentId: me.model.get('agentId'),
-					accountName:me.model.get('accountName'),
-                    personCount: me.model.get('personCount'),
-                    productId: me.attrs['productId'],
-                    personCount: me.model.get('personCount'),
                     pageIndex: me.pagination.attr['pageNumber'] + 1,
-                    pageSize: me.pagination.attr['pageSize']
+                    pageSize: me.pagination.attr['pageSize'],
+                    ea: me.model.get('ea'),
+                    en: me.model.get('en'),
+                    enterpriseStatus: me.model.get('enterpriseStatus'),
+                    source: me.model.get('source'),
+                    industry: me.model.get('industry'),
+                    province: me.model.get('province'),
+                    city: me.model.get('city'),
+                    tel: me.model.get('tel'),
+                    fromAppStartTime: fromAppStartTime, 
+                    endAppStartTime: endAppStartTime
                 },
                 beforeSend: function() {
                     me.$tbody.html( '<tr><td colspan="11"><p class="info">加载中...</p></td></tr>' );
@@ -266,15 +260,16 @@ define( function(require, exports, module){
 
                     if ( data.success ) {
                         me.pagination.setTotalSize( data.value.model.itemCount );
-                        me.collection.reload( data.value.model.content, function( item ) {
-                            item.runStatusStr = PSTATUS_MAP[item.runStatus];
-                            item.isPayedStr = PAYED_MAP[item.isPayed];
-                            item.activityStr = ACTIVITY_MAP[item.activity] || '无';
-                            if( item.authLevel == 0 ){
-                                item.authStr = "未授权" 
-                            }else if( item.authLevel == 1){
+                        me.list.reload( data.value.model.content, function( item ) {
+                            
+                            item.createtimestr = new Date( item.enterprise.createtime )._format("yyyy-MM-dd");
+                            item.runstatusstr = EntStatusMap[item.enterprise.runstatus];
+
+                            if( item.protectionWhiteListStatus == 0 ){
                                 item.authStr = "全部授权" 
-                            }else if( item.authLevel == 2){
+                            }else if( item.protectionWhiteListStatus == 1){
+                                item.authStr = "未授权" 
+                            }else if( item.protectionWhiteListStatus == 2){
                                 item.authStr = "部分授权" 
                             }
                         });
@@ -285,18 +280,6 @@ define( function(require, exports, module){
                     me.$tbody.html( '<tr><td colspan="11"><p class="info">数据加载失败</p></td></tr>' );
                 }
             });
-        },
-
-        //渲染数据
-        renderList: function(){
-            var me = this;
-
-            var content = me.collection.all();
-            if( content.length > 0 ){
-                me.$tbody.html( me.tplPartner( {'content':content} ) );
-            } else {
-                me.$tbody.html( '<tr><td colspan="11"><p class="info">暂无数据</p></td></tr>' );
-            }
         },
 
         //查看详情

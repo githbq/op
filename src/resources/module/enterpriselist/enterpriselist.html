@@ -14,74 +14,56 @@
                 <button id="btnSearch" class="btn-blue">查询</button>
             </div>
             <div class="list-bar-input">
-            <label>
-                <span>企业帐号</span>
-                <input id="eiAccount" class="g-ipt ipt-m" type="text" ce-model="ea"/>
-            </label>
-            <label>
-                <span>企业名称</span>
-                <input id="eiName" class="g-ipt ipt-m"  type="text" ce-model="ename"/>
-            </label>
-			<label>
-				<span>销售人员</span>
-				<input id="accountName" class="g-ipt ipt-s"  type="text" ce-model="accountName"/>
-			</label>
-            <label>
-                <span>联系电话</span>
-                <input id="eiMobile" class="g-ipt ipt-m"  type="text" ce-model="mobile"/>
-            </label>
-            <label>
-                <span>城市</span>
-                <input id="eiCity" class="g-ipt ipt-s"  type="text" ce-model="city"/>
-            </label>
-            <label>
-                <span>优惠码</span>
-                <input id="eiCode" class="g-ipt ipt-s" type="text" ce-model="agentId"/>
-            </label>
-            <label>
-                <span>来源</span>
-                <select id="eiSource" ce-model="source">
-                    <option value="">全部</option>
-                </select>
-            </label>
-            <label>
-                <span>省市</span>
-                <select id="eiProvince" ce-model="province">
-                    <option value="">全部</option>
-                </select>
-            </label>
-            <label>
-                <span>产品状态</span>
-                <select id="eiPStatus" ce-model="pstatus">
-                    <option value="">全部</option>
-                </select>
-            </label>
-            <label>
-                <span>付费状态</span>
-                <select id="eiFStatus" ce-model="fstatus">
-                    <option value="">全部</option>
-                    <option value="1">是</option>
-                    <option value="0">否</option>
-                </select>
-            </label>
-            <label>
-                <span>行业</span>
-                <select id="eiIndustry" ce-model="industry">
-                    <option value="">全部</option>
-                </select>
-            </label>
-            <label>
-                <span>培训服务费</span>
-                <select id="servicecost" ce-model="personCount">
-                    <option value="">全部</option>
-                </select>
-            </label>
-           <label style="display:none;">
-                <span>活跃度</span>
-                <select id="eiActivity" ce-model="activity">
-                    <option value="">全部</option>
-                </select>
-            </label>
+                <label>
+                    <span>企业名称</span>
+                    <input id="eiName" class="g-ipt ipt-m"  type="text" ce-model="en"/>
+                </label>
+                <label>
+                    <span>企业帐号</span>
+                    <input id="eiAccount" class="g-ipt ipt-m" type="text" ce-model="ea"/>
+                </label>
+                <label>
+                    <span>开通时间</span>
+                    <input type="text" id="OpenSTime"> ---- <input type="text" id="OpenETime">
+                </label>
+                <label>
+                    <span>企业状态</span>
+                    <select ce-model="enterpriseStatus">
+                        <option value="">全部</option>
+                        <option value="1">待开通</option>
+                        <option value="2">已开通</option>
+                        <option value="3">已作废</option>
+                        <option value="4">已停用</option>
+                        <option value="5">已删除</option>
+                    </select>
+                </label>
+                <label>
+                    <span>来源</span>
+                    <select id="eiSource" ce-model="source">
+                        <option value="">全部</option>
+                    </select>
+                </label>
+                <label>
+                    <span>行业</span>
+                    <select id="eiIndustry" ce-model="industry">
+                        <option value="">全部</option>
+                    </select>
+                </label>
+                <label>
+                    <span>省市</span>
+                    <select id="eiProvince" ce-model="province">
+                        <option value="">全部</option>
+                    </select>
+                </label>
+                <label>
+                    <span>城市</span>
+                    <input id="eiCity" class="g-ipt ipt-s"  type="text" ce-model="city"/>
+                </label>
+                
+                <label>
+                    <span>联系电话</span>
+                    <input id="eiMobile" class="g-ipt ipt-m"  type="text" ce-model="tel"/>
+                </label>
             </div>
         </div>
         <div class="list-content">
@@ -90,21 +72,40 @@
                 <tr>
                     <th></th>
                     <th style="width:20px;"><input type="checkbox" class="selectall"></th>
-                    <th>企业</th>
+                    <th>企业名称</th>
                     <th>帐号</th>
-                    <th>授权信息</th>
-                    <th>代理商</th>
-					<th>销售人员</th>
-                    <th>产品名称</th>
-                    <th>产品状态</th>
-                    <th>付费</th>
-                    <!--<th>活跃度</th>-->
-                    <th>创建人</th>
-                    <th></th>
+                    <th style="width:120px;">开通日期</th>
+                    <th style="width:120px;">企业状态</th>
+					<th style="width:120px;">CRM信息可见授权</th>
+                    <th style="width:120px;">手机设备授权</th>
+                    <th style="min-width:380px;">操作</th>
                     <th></th>
                 </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody ce-collection="list">
+                    <td></td>
+                    <td><input type="checkbox" class="selectitem" value="<%=item.enterprise.enterpriseAccount%>"></td>
+                    <td><%=item.enterprise.enterprisename%></td>
+                    <td><%=item.enterprise.enterpriseaccount%></td>
+                    <td><%=item.createtimestr%></td>
+                    <td><%=item.runstatusstr%></td>
+                    <td></td>
+                    <td><%=item.authStr%></td>
+                    <td data-status="<%=item.enterprise.runstatus%>">
+                        <a class="info-detail" data-id="<%=item.enterprise.enterpriseid%>" data-account="<%=item.enterprise.enterpriseaccount%>">查看</a>
+
+                        <% if(item.canIncrease){ %>
+                        <a class="info-zengbangong" data-id="<%=item.enterprise.enterpriseid%>" data-account="<%=item.enterprise.enterpriseaccount%>">增购办公版</a>
+                        <a class="info-zengyingxiao" data-id="<%=item.enterprise.enterpriseid%>" data-account="<%=item.enterprise.enterpriseaccount%>">增购营销版</a>
+                        <% } %>
+                        
+                        <% if(item.canRenew){ %>
+                        <a class="info-renewbangong" data-id="<%=item.enterprise.enterpriseid%>" data-account="<%=item.enterprise.enterpriseaccount%>">续费办公版</a>
+                        <a class="info-renewyingxiao" data-id="<%=item.enterprise.enterpriseid%>" data-account="<%=item.enterprise.enterpriseaccount%>">续费营销版</a>
+                        <% } %>
+                    </td>
+                    <td></td>
+                </tbody>
             </table>
         </div>
     </div>

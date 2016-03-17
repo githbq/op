@@ -20,7 +20,7 @@ define(function(require, exports, module){
 		
 		init: function(attrs){
 			var me = this;
-
+			
 			me.attrs = Slider.merge( {} , me.defaultAttr ,attrs );
 
 			me.$view = $(me.view);

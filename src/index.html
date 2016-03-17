@@ -34,6 +34,9 @@
                     <li data-modulecode="ExportAgentAccountOpS"><a href="#index/agentexport">代理商员工导出</a></li>
                 </ul>
             </li>
+			<li>
+                <a href="#order/orderlist">订单</a>
+            </li>
 
             <li data-modulecode="EnterpriseOpS SelfRegisterOpS">
                 <a class="nav-branch">企业</a>
@@ -101,6 +104,7 @@
                 </ul>
             </li>
             
+
             <li data-modulecode="ApprovalOpS">
                 <a href="#page/approvallist">我的审批</a>
             </li>
@@ -136,7 +140,7 @@
 </div>
 
 <!---->
-<input id="key" type="hidden" value="HiVya4oQcD9+Oz2lbZYLG2Kw1RWybzctXxiNEWJ5BeA=" /></div>
+<input id="key" type="hidden" value="${token}" /></div>
 
 <!--Tip 提示-->
 <script type="text/template" id="g-tip">
@@ -149,7 +153,7 @@
     IBSS.API_PATH = '/op/api/s';       //api路径
     IBSS.IS_DEVELOP = true;
     // IBSS.VERSION ='4.7.' + (new Date()).getTime();
-    IBSS.VERSION ='5.1.2.20160219';
+
 </script>
 
 <!--build:common resources/common/scripts/common.js-->

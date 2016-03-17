@@ -3,6 +3,9 @@
  * 查看 企业开通审批详情
  * 用于 渠道人员 支持人员 查看 审批详情
  *
+ * 支持人员(小助手) 用审批列表 
+ * 渠道人员 用审批列表
+ * 财务人员 用审批列表
  */
 
 define( function(require, exports, module){
@@ -15,13 +18,17 @@ define( function(require, exports, module){
         init: function(){
             ApprovalList.__super__.init.apply( this , arguments );
             var me = this;
+
 			me.attrs.state = 'wait';
+            
             me.pagination = new Pagination({
                 'wrapper': me.$view.find('.list-pager'),
                 'pageSize': 20,
                 'pageNumber': 0
             });
 			
+
+            //是否显示 系统全部审批列表
 			if(me.attrs.limits){
 				me.$limitsShow.css({'display':'inline-block'});
 			}else{
@@ -29,6 +36,8 @@ define( function(require, exports, module){
 				me.$limitsShow.hide();
 			}
 			
+
+
             me.pagination.render();
             me.pagination.onChange = function(){
                 me.getList();
@@ -37,21 +46,22 @@ define( function(require, exports, module){
             me.$starttime.datetimepicker( {'timepicker': false,'format':'Y/m/d'} );
             me.$endtime.datetimepicker( {'timepicker': false, 'format':'Y/m/d'} );
 
-            me.getEnums();
-           
+            //me.getEnums();
+            me.getList();
+
             me.setState();
 
             me.on('empty:list',function(){
                 if( me.attrs.state == "wait" ){
-                    trlength = 10;
+                    trlength = 15;
                 }else if( me.attrs.state =="going" ){
-                    trlength = 11;
+                    trlength = 16;
                 }else if( me.attrs.state =="end" ){
-                    trlength = 10;
+                    trlength = 15;
                 }else if( me.attrs.state =="allGoing" ){
-                    trlength = 11;
+                    trlength = 16;
                 }else if( me.attrs.state =="allEnd" ){
-                    trlength = 10;
+                    trlength = 15;
                 }
 
                 me.$tbody.html("<tr><td colspan='" + trlength + "'><p class='info'>暂无数据</p></td></tr>");
@@ -65,31 +75,30 @@ define( function(require, exports, module){
         view: contentStr,
 
         elements:{
-            '.applytype': 'applytype',
-            '.starttime': 'starttime',
-			'.limits-show': 'limitsShow',
-            '.endtime': 'endtime',
-            'tbody': 'tbody'
+            '.applytype': 'applytype',      //
+            '.starttime': 'starttime',      //开始时间
+			'.limits-show': 'limitsShow',   //
+            '.endtime': 'endtime',          //结束时间
+            'tbody': 'tbody'                //
         },
 
         events: {
-            'click .btn-search': 'searchEve',
-            'click .detail': 'detailEve',
-            'click .toggle b': 'toggleEve',
-			'click .detail-bind':'detailBindEve',
-			'click .detail-pay':'detailPayEve'
+            'click .btn-search': 'searchEve',       //查询
+            'click .detail': 'detailEve',           //详情
+            'click .toggle b': 'toggleEve'          //切换
         },
 
         /**
          *
-         * 获取审批类型 枚举值
+         * 获取需要的枚举值
          */
         getEnums: function(){
             var me = this;
 
             util.getEnumsSelect('APPROVAL_TYPE',me.$applytype,function( data ){
                 me.getList();
-            })
+            });
+            
         },
 
         //渲染至页面
@@ -97,7 +106,9 @@ define( function(require, exports, module){
             this.attrs.wrapper.html( this.$view );
         },
 
-        //设置状态
+        // 设置状态
+        //  
+        //
         setState: function( element ){
             var me = this;
 
@@ -135,37 +146,15 @@ define( function(require, exports, module){
 
             var $target = $( e.currentTarget );
 
-            var id = $target.attr('data-id');
-            var eid = $target.attr('data-eid');
-            var type = $target.attr('data-type');
-			var isCanEdit = $target.attr('data-edit')||'false';
-            me.trigger( 'detail', id , eid , type , me.attrs.state,isCanEdit );
+            var inid = $target.attr('data-inid');
+
+            var detail = me.list.find('processInstanceId',inid);
+         
+            me.trigger( 'detail', detail, me.attrs['state'] );
         },
-		detailBindEve:function(e){
-			 var me = this;
-
-            var $target = $( e.currentTarget );
-
-            var id = $target.attr('data-id');
-            var eid = $target.attr('data-eid');
-            var type = $target.attr('data-type');
-			var isCanEdit = $target.attr('data-edit')||'false';
-            me.trigger( 'detailBind', id , eid , type , me.attrs.state,isCanEdit );
-		},
-		//付费开通审批
-		detailPayEve:function(e){
-	
-			var me = this;
-            var $target = $( e.currentTarget );
-			
-            var id = $target.attr('data-id');
-            var eid = $target.attr('data-eid');
-            var type = $target.attr('data-type');
-			var isCanEdit = $target.attr('data-edit')||'false';
-			
-            me.trigger( 'detailPay', id , eid , type , me.attrs.state,isCanEdit );
-		},
-
+	    
+        //
+        // 切换事件
         toggleEve: function( e ){
             var $target = $( e.currentTarget );
             $target.addClass('active').siblings().removeClass('active');
@@ -190,67 +179,68 @@ define( function(require, exports, module){
         getList: function(){
             var me = this;
 
+            var appTimeStart = '',
+                appTimeEnd = '';
 
-            var applyTimeStart = '',
-                applyTimeEnd = '',
-                endTimeStart = '',
-                endTimeEnd = '';
+            if( me.$('.starttime').val() ){
 
-            if( me.model.get('applyTimeStart') ){
-                applyTimeStart = new Date( me.model.get('applyTimeStart') ).getTime();
-            }
-            if( me.model.get('applyTimeEnd') ){
-                applyTimeEnd = new Date( me.model.get('applyTimeEnd') ).getTime();
-            }
-            if( me.model.get('endTimeStart') ){
-                endTimeStart = new Date( me.model.get('endTimeStart') ).getTime();
-            }
-            if( me.model.get('endTimeEnd') ){
-                endTimeEnd = new Date( me.model.get('endTimeEnd') ).getTime();
+                appTimeStart = new Date( me.$('.starttime').val() ).getTime();
+            }   
+            
+            if( me.$('.endtime').val() ){
+
+                appTimeEnd = new Date( me.$('.endtime').val() ).getTime();
             }
 
             var data = {
-                'applicantName': me.model.get('applicantName'),
-                'approvalType': me.model.get('approvalType'),
-                'enterpriseName': me.model.get('enterpriseName'),
-                'enterpriseAccount': me.model.get('enterpriseAccount'),
-                'enterpriseShortName': me.model.get('enterpriseShortName'),
-                'applyTimeStart': me.model.get('applyTimeStart'),
-                'applyTimeEnd': me.model.get('applyTimeEnd'),
+                'applicantName': me.model.get('applicantname'),
+                'orderId': me.model.get('orderId'),
+                'contractNo': me.model.get('contractNo'),
+                'ea': me.model.get('ea'),
+                'en': me.model.get('en'),
+                'orderType': me.model.get('orderType'),
+                'isTp': me.model.get('isTp'),
+                'payStatus': me.model.get('payStatus'),
+                'appTimeStart': appTimeStart, 
+                'appTimeEnd': appTimeEnd,
+                'agentName': me.model.get('agentName'),
+                'agentId': me.model.get('agentId'),
                 'pageIndex': me.pagination.attr['pageNumber'],
                 'pageSize': me.pagination.attr['pageSize']
             }
 
             var state = me.attrs.state;
+            /*
             if( state == "end" ){
                 data.endTimeStart = me.model.get('endTimeStart');
                 data.endTimeEnd = me.model.get('endTimeEnd');
             }
+            */
             var url;
             switch ( state ){
                 case 'wait':
-                    url = "/approval/getongoingapprovalbyapprover";
+                    url = "/approval/getongoingapprovalpage";
                 break;
                 case 'going':
-                    url = "/approval/getapprovedongoingapprovalbyapprover";
+                    url = "/approval/getapprovedongoingapprovalpage";
                 break;
                 case 'end':
-                    url = "/approval/getcompletedapprovalbyapprover";
+                    url = "/approval/getcompletedapprovalpage";
                 break;
 				case 'allGoing':
-                    url = "/approval/getallongoingapproval";
+                    url = "/approval/getallongoingapprovalpage";
                 break;
 				case 'allEnd':
-                    url = "/approval/getallcompletedapproval";
+                    url = "/approval/getallcompletedapprovalpage";
                 break;
             };
 
-            me.$tbody.html('<tr><td colspan="11"><p class="info">加载中...</p></td></tr>');
+            me.$tbody.html('<tr><td colspan="15"><p class="info">加载中...</p></td></tr>');
             
             me.xhr && me.xhr.abort();
 
             me.xhr = util.api({
-                'url': '~/op/api' + url,
+                'url': url,
                 'data': data,
                 'success': function( data ){
                     console.warn( data );
@@ -259,8 +249,13 @@ define( function(require, exports, module){
                         me.pagination.setTotalSize( data.value.model.itemCount );
                         me.list.reload( data.value.model.content , function( item ){
                             item.applyTimeStr = new Date( item.applyTime )._format('yyyy-MM-dd hh:mm');
-                            if( item.endDate ){
-                                item.endDateStr = new Date( item.endDate )._format('yyyy-MM-dd hh:mm');
+                            
+                            if( item.isCooperation == "1" ){
+                                item.isCooperationStr = "是";
+                            }else if( item.isCooperation == "0" ){
+                                item.isCooperationStr = "否"
+                            }else{
+                                item.isCooperationStr = "";
                             }
                         });
                     }
