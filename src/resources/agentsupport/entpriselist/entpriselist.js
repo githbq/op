@@ -183,6 +183,12 @@ define( function( require, exports, module ) {
                         me.pagination.setTotalSize( data.value.model.itemCount );
                         me.list.reload( data.value.model.content, function( item ) {
                             
+                            if( item.enterprise.appstarttime ){
+                                item.createtimestr = new Date( item.enterprise.appstarttime )._format("yyyy-MM-dd");
+                            } else {
+                                item.createtimestr = "--";
+                            }
+                            
                             item.createtimestr = new Date( item.enterprise.appstarttime )._format("yyyy-MM-dd");
                             item.runstatusstr = EntStatusMap[item.enterprise.runstatus];
 
