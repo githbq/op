@@ -325,41 +325,47 @@ define( function(require, exports, module){
 			'.companyGateKeyword':'setcompanyGatekeyword',
 			'.companyGateRemark':'setcompanyGateRemark',
 			'.upload':'saveEve',
-			'.status-disabled':'statusDisabled',
-			'.contractCopy-link':'contractCopyLink',
-			'.img-contractCopy' :'imgContractCopy',
-			'.contractCopy-hide' :'contractCopyHide',
-			'.contract-link':'contractLink',
-			'.img-contract' :'imgContract',
-			'.contract-hide' :'contractHide',
-			'.select-disabled':'selectDisabled',
-			'.state-current':'stateCurrent',
-			'.start-time-ht':'startTimeHt',
-			'.end-time-ht':'endTimeHt',
-			'.contractprice': 'contractprice',       //合同金额
-			'.deviceamount': 'deviceamount',          //终端数量
-			'.marketingAccountAmount':'marketingAccountAmount',
-			'.useBusinessCard':'useBusinessCard',
-			'.card-price':'cardPrice',
-			'.fn-buy':'fnBuy',
-			'.show-type':'showType',
-			'.contract': 'contract',
-			'.contractCopy':'contractCopy',
-			'.contract-free':'contractFree',
-			'.look-contract-free':'lookContractFree',
-			'.img-contract-free':'imgContractFree',
-			'.contract-hide-free':'contractHideFree',
-			'.contractCopy-free':'contractCopyFree',
-			'.look-contractCopy-free':'lookContractCopyFree',
-			'.img-contractCopy-free':'imgContractCopyFree',
-			'.contractCopy-hide-free':'contractCopyHideFree',
-			'.start-time-ht-free':'startTimeHtFree',
-			'.end-time-ht-free':'endTimeHtFree',
-			'.fn-buy-free': 'fnBuyFree',
+
+
+			///'.status-disabled':'statusDisabled',
+			///'.contractCopy-link':'contractCopyLink',
+			///'.img-contractCopy' :'imgContractCopy',
+			///'.contractCopy-hide' :'contractCopyHide',
+			///'.contract-link':'contractLink',
+			///'.img-contract' :'imgContract',
+			///'.contract-hide' :'contractHide',
+			///'.select-disabled':'selectDisabled',
+			///'.state-current':'stateCurrent',
+			///'.start-time-ht':'startTimeHt',
+			///'.end-time-ht':'endTimeHt',
+			///'.contractprice': 'contractprice',       //合同金额
+			///'.deviceamount': 'deviceamount',          	//终端数量
+			///'.marketingAccountAmount':'marketingAccountAmount',
+			///'.useBusinessCard':'useBusinessCard',
+			///'.card-price':'cardPrice',
+
+			///'.fn-buy':'fnBuy',
+
+			///'.show-type':'showType',
+			///'.contract': 'contract',
+			///'.contractCopy':'contractCopy',
+			///'.contract-free':'contractFree',
+			///'.look-contract-free':'lookContractFree',
+			///'.img-contract-free':'imgContractFree',
+			///'.contract-hide-free':'contractHideFree',
+			///'.contractCopy-free':'contractCopyFree',
+			///'.look-contractCopy-free':'lookContractCopyFree',
+			///'.img-contractCopy-free':'imgContractCopyFree',
+			///'.contractCopy-hide-free':'contractCopyHideFree',
+			///'.start-time-ht-free':'startTimeHtFree',
+			///'.end-time-ht-free':'endTimeHtFree',
+			///'.fn-buy-free': 'fnBuyFree',
+
+
 
 			'#creatorName':'creatorName',
 			'#createTime':'createTime',
-			'#tabs li'   :'tabsList',
+			///'#tabs li'   :'tabsList',
 			
 			'#crmInfoState':'crmInfoState'    //crm控制信息状态
 		},
@@ -403,7 +409,8 @@ define( function(require, exports, module){
 			'click .callback-actionoff': 'callbackOffEve',      //电话回访失败
 
 			'click .upload':'saveFn',				  			//资料审核提交
-			'click .fn-buy':'fnBuyEve',
+
+			///'click .fn-buy':'fnBuyEve',
 
 			'click .addTraining': 'addTrainingEve',             //添加培训记录
 			'click .edittraining': 'editTrainingEve',           //编辑培训记录
@@ -413,7 +420,8 @@ define( function(require, exports, module){
 			'click .callback-actionoff': 'callbackOffEve',    	//电话回访失败
 			'click .verificationaction-on': 'veriOnEve',      	//资料审核成功
 			'click .verificationaction-off': 'veriOffEve',	  	//资料审核失败
-			'click .fn-buy-free': 'fnBuyFreeEve',               //营销版办公版增购tab切换
+
+			///'click .fn-buy-free': 'fnBuyFreeEve',               //营销版办公版增购tab切换
 
 			'click .savemonitoring': 'saveMonitoringEve',       //保存监控信息
 
@@ -1248,8 +1256,6 @@ define( function(require, exports, module){
 		* 第二层 由初始化的参数确定 支持 代理商 打开企业详情时根据isAgent参数 确定某些元素的显隐 
 		* 第三层 由企业开通状态决定 根据企业开通的不同状态 对不同元素进行显隐控制
 		*/
-
-
 
 		/**
 		 *
@@ -2173,43 +2179,44 @@ define( function(require, exports, module){
 				};
 				me.loadOperations();
 			}
+			
 			//代理商普通员工可操作增购扩容
-			me.addBuyDataInit();
-			
-			
+			//me.addBuyDataInit();
 		},
-		addBuyDataInit:function(){
-			var me = this;
-			
-			me.$statusDisabled.removeAttr('disabled');
-			me.$statusDisabled.val('');
-			me.$stateCurrent.show();
-			
-			me.$('.useBusinessCard').removeAttr('disabled');
-			
-			me.$contractCopyHide.show();
-			me.$contractCopyLink.hide();
-			me.$cardPrice.hide();
-			me.$contractCopyLink.attr('href', '');
-			me.$imgContractCopy.attr('src', '');
-			me.$contractHide.show();
-			me.$contractLink.hide();
-			me.$contractLink.attr('href', '');
-			me.$imgContract.attr('src', '');
-			
-			me.$contractCopyHideFree.show();
-			me.$lookContractCopyFree.hide();
-			me.$lookContractCopyFree.attr('href', '');
-			me.$imgContractCopyFree.attr('src', '');
-			me.$contractHideFree.show();
-			me.$lookContractFree.hide();
-			me.$lookContractFree.attr('href', '');
-			me.$imgContractFree.attr('src', '');
-			
-			me.model.set('discountAdd','');
-			//me.model.set('isPaidAdd','0');
-			me.model.set('useBusinessCardAdd','0');
 
+		//----删除开始
+		///addBuyDataInit:function(){
+			///var me = this;
+			
+			///me.$statusDisabled.removeAttr('disabled');
+			///me.$statusDisabled.val('');
+			///me.$stateCurrent.show();
+			
+			///me.$('.useBusinessCard').removeAttr('disabled');
+			
+			///me.$contractCopyHide.show();
+			///me.$contractCopyLink.hide();
+			///me.$cardPrice.hide();
+			///me.$contractCopyLink.attr('href', '');
+			///me.$imgContractCopy.attr('src', '');
+			///me.$contractHide.show();
+			///me.$contractLink.hide();
+			///me.$contractLink.attr('href', '');
+			///me.$imgContract.attr('src', '');
+			
+			///me.$contractCopyHideFree.show();
+			///me.$lookContractCopyFree.hide();
+			///me.$lookContractCopyFree.attr('href', '');
+			///me.$imgContractCopyFree.attr('src', '');
+			///me.$contractHideFree.show();
+			///me.$lookContractFree.hide();
+			///me.$lookContractFree.attr('href', '');
+			///me.$imgContractFree.attr('src', '');
+			
+			///me.model.set('discountAdd','');
+			///me.model.set('isPaidAdd','0');
+			///me.model.set('useBusinessCardAdd','0');
+			/*
 			me.$startTimeHt.datetimepicker( {
                 format: 'Y/m/d',
                 onShow: function() {
@@ -2220,6 +2227,9 @@ define( function(require, exports, module){
                 },
                 timepicker: false
             } );
+			*/
+
+			/*
             me.$endTimeHt.datetimepicker( {
                 format: 'Y/m/d',
                 onShow: function() {
@@ -2230,7 +2240,9 @@ define( function(require, exports, module){
                 },
                 timepicker: false
             } );
-			
+			*/
+
+			/*
 			me.$startTimeHtFree.datetimepicker( {
                 format: 'Y/m/d',
                 onShow: function() {
@@ -2241,6 +2253,9 @@ define( function(require, exports, module){
                 },
                 timepicker: false
             } );
+			*/
+
+			/**
             me.$endTimeHtFree.datetimepicker( {
                 format: 'Y/m/d',
                 onShow: function() {
@@ -2251,8 +2266,9 @@ define( function(require, exports, module){
                 },
                 timepicker: false
             } );
+			*/
 			
-			
+			/*
 			me.$tabsList.on('click',function(){
 				var $this = $(this);
 				var $t = $this.index();
@@ -2261,16 +2277,20 @@ define( function(require, exports, module){
 				me.$('.content-box .content-info').css('display','none');
 				me.$('.content-box .content-info').eq($t).css('display','block');
 			});
+			*/
+
 			//var me = this;
 	
 			
 			//合同金额改变
+			/*
 			me.$contractprice.on('focusout',function(){
 				me.model.set('cardPriceAdd',parseFloat(me.model.get('cardPriceAdd'))?parseFloat(me.model.get('cardPriceAdd')):'');
 				me.getdiscount();
 			});
+			*/
 
-
+			/*
 			me.$deviceamount.on('focusout',function(){
 				var buyCount = me.model.get('marketingAccountAmountAdd')?parseInt(me.model.get('marketingAccountAmountAdd')):0;
 				me.model.set('accountTotalAmountAdd',parseInt(me.model.get('accountTotalAmountAdd'))?parseInt(me.model.get('accountTotalAmountAdd')):'');
@@ -2280,26 +2300,39 @@ define( function(require, exports, module){
 				//}
 				
 			});
+			*/
 
 			//营销版数量改变
+			/*
 			me.$marketingAccountAmount.on('focusout',function(){
 				me.getFreeNum();
 				me.getdiscount();
 			});
+			*/
 			
 			//合同开始时间
+			/*
 			me.$startTimeHt.on('focusout',function(){
 				me.getdiscount();
 			});
+			*/
+			
 			//合同介绍时间
+			/*
 			me.$endTimeHt.on('focusout',function(){
 				me.getdiscount();
 			});
+			*/
+
 			//是否使用名片
+
+			/***
 			me.$useBusinessCard.on('change',function(){
 				me.getdiscount();
 			});
-			
+			***/
+
+			/***
 			me.$contract.on('change',function(){
 				var fileExtension =me.$contract[0].files[0].name.split('.').pop().toLowerCase();
 				if(fileExtension=='jpg'||fileExtension=='gif'||fileExtension=='png'||fileExtension=='jpeg'){
@@ -2338,6 +2371,9 @@ define( function(require, exports, module){
 				}
 				
 			});
+			***/
+
+			/***
 			me.$contractCopy.on('change',function(){
 				var fileExtension =me.$contractCopy[0].files[0].name.split('.').pop().toLowerCase();
 				if(fileExtension=='jpg'||fileExtension=='gif'||fileExtension=='png'||fileExtension=='jpeg'){
@@ -2375,7 +2411,9 @@ define( function(require, exports, module){
 				}
 				
 			});
-			
+			***/
+
+			/***
 			me.$contractFree.on('change',function(){
 				var fileExtension =me.$contractFree[0].files[0].name.split('.').pop().toLowerCase();
 				if(fileExtension=='jpg'||fileExtension=='gif'||fileExtension=='png'||fileExtension=='jpeg'){
@@ -2414,6 +2452,9 @@ define( function(require, exports, module){
 				}
 				
 			});
+			***/
+
+			/*
 			me.$contractCopyFree.on('change',function(){
 				var fileExtension =me.$contractCopyFree[0].files[0].name.split('.').pop().toLowerCase();
 				if(fileExtension=='jpg'||fileExtension=='gif'||fileExtension=='png'||fileExtension=='jpeg'){
@@ -2451,33 +2492,36 @@ define( function(require, exports, module){
 				}
 				
 			});
+			*/
 
-			if(me.attrs.isPay==1 && me.attrs.freeIncreaseContractRequired){
+			///if(me.attrs.isPay==1 && me.attrs.freeIncreaseContractRequired){
 
-				me.$('.check-hide').show();
-			}else{
-				me.$('.check-hide').hide();
-			}
-		},
+			///	me.$('.check-hide').show();
+			///}else{
+			///	me.$('.check-hide').hide();
+			///}
+		///},
 		//获取赠送数量
-		getFreeNum: function(){
-			var me = this;
-
-			var buyCount = me.model.get('marketingAccountAmountAdd')?parseInt(me.model.get('marketingAccountAmountAdd')):0;
-			var	sumNum =  me.$deviceamount.val()?parseInt(me.$deviceamount.val()):0;
-			if(sumNum>0&&sumNum<buyCount){
-				util.showToast('营销版数量不能大于销客终端数量');
-				me.model.set('marketingAccountAmountAdd','');
-				return false;
-			}
+		///
+		///getFreeNum: function(){
+		///	var me = this;
+		///
+		///	var buyCount = me.model.get('marketingAccountAmountAdd')?parseInt(me.model.get('marketingAccountAmountAdd')):0;
+		///	var	sumNum =  me.$deviceamount.val()?parseInt(me.$deviceamount.val()):0;
+		///	if(sumNum>0&&sumNum<buyCount){
+		///		util.showToast('营销版数量不能大于销客终端数量');
+		///		me.model.set('marketingAccountAmountAdd','');
+		///		return false;
+		///	}
  
 			/*if(buyCount>0){
 				me.model.set('isPaidAdd','1');
 			}else{
 				me.model.set('isPaidAdd','0');
 			})*/
-		},
+		///},
 		//获取折扣
+		/*
 		getdiscount: function(){
 			var me = this;
 			var contractStartTime = new Date( me.$startTimeHt.val() ).getTime()||'' ,
@@ -2537,8 +2581,10 @@ define( function(require, exports, module){
 				})
 			}
 		},		
-		
+		*/
+
 		//增购扩容
+		/*
 		fnBuyEve:function(){
 			var  me = this;
 			var objDate = {};
@@ -2629,7 +2675,9 @@ define( function(require, exports, module){
                 })
 			
 		},
+		*/
 		//增购办公版
+		/*
 		fnBuyFreeEve:function(){
 			var  me = this;
 			var objDate = {};
@@ -2705,6 +2753,9 @@ define( function(require, exports, module){
 			});
 			
 		},
+		*/
+		//----删除结束
+
 		loadOperations: function() {
 			var me = this;
 			var data = {
