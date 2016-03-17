@@ -431,6 +431,9 @@ define( function(require, exports, module){
 					util.showToast('请至少选择一款子产品！');
 					return false;
 				}
+				if(!me.checkUsedDate( temp.subOrders )){
+					return false;
+				}
 			}else{
 				util.showToast('产品信息填写不完整！');
 				return false;
@@ -480,6 +483,26 @@ define( function(require, exports, module){
 				callback && callback();
 
 			});
+		},
+		//检测子产品使用时时间不能超过九十天
+		checkUsedDate:function( data ){
+			var me = this;
+			for( var i = 0; i< data.length; i++){
+				if( data[i].productExtends && data[i].productExtends.length>0 && data[i].productExtends[0].productKey == 'buytype' && data[i].productExtends[0].productValue == '1' ){
+					var startTime = data[i].subOrder.startTime;
+					var endTime = data[i].subOrder.endTime ;
+					var iDays = parseInt(Math.abs(endTime - startTime ) / 1000 / 60 / 60 /24)
+					if( iDays > 90 ){
+						var productName = productIdDic[data[i].subOrder.productId];
+						
+						util.showToast(productName+'使用版时间不能超过90天！');
+						return false;
+						
+					}
+				}
+			}
+			return true;
+	
 		},
 		//检测自订单折扣是否大于8折
 		checkDiscount:function( data ){
