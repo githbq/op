@@ -184,7 +184,7 @@ define( function( require, exports, module ) {
                 check();
             });
 
-            me.generateSelect('ENTERPRISE_CHEAT_TYPE', me.$('#cheatStatus'),function( items ){s
+            me.generateSelect('ENTERPRISE_CHEAT_TYPE', me.$('#cheatStatus'),function( items ){
                 state.c = true;
                 items.forEach(function(item){
                     cheatMap[item.value] = item.text;
