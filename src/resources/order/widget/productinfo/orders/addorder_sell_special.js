@@ -102,7 +102,7 @@ define(function (require, exports, module) {
                     });
                     //一个也没有就隐藏
                     if (me.$('.tableinfo tbody tr:not([hidetr])').length == 0) {
-                        me.$('.tableinfo').hide();
+                        me.o_setValue({name:'tablelist',visible:false});
                     }
                 }
             });
