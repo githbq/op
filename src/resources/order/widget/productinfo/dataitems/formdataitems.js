@@ -109,7 +109,7 @@ define(function (require, exports, module) {
                         case '2':
                         {//分期
                             me.o_setValues([
-                                {name: 'currPayAmount', value: '0'},
+                                {name: 'currPayAmount'},
                                 {name: 'currPayAmount_3', visible: false},
                                 {name: 'currPayAmount_1', visible: false},
                                 {name: 'currPayAmount_4', visible: false},
