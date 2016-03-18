@@ -271,7 +271,7 @@ define( function( require, exports, module ) {
 							subArry.push(tempObe)
 							break;
 
-						case "Meeting_Helper'":
+						case "Meeting_Helper":
 							var tempObe = {"subOrder":{
 								"productId":5,
 								"startTime": data[i].startDate,
@@ -357,7 +357,7 @@ define( function( require, exports, module ) {
 							}
 
 							break;
-						case "Meeting_Helper'":
+						case "Meeting_Helper":
 							var nowDate = new Date( new Date().getTime() )._format('yyyy/MM/dd');
 							var endDate = new Date( obj["endDate"]  )._format('yyyy/MM/dd');
 							if( dateCompare(nowDate,endDate) ){
