@@ -236,6 +236,7 @@ define(function (require, exports, module) {
         }
 
         exports.setOtherData = function (terminalInfo, tableInfo, formInfo, data) {
+            debugger
             var terminalInfoData = terminalInfo.o_getValues();
             var tableInfoData = tableInfo.o_getValues();
             var formInfoData = formInfo.o_getValues();
@@ -374,6 +375,7 @@ define(function (require, exports, module) {
         };
         //转换输入值
         exports.setSuborders = function (terminalInfo, tableInfo, formInfo, data) {
+            debugger
             var terminalInfoData = terminalInfo.o_getValues();
             var tableInfoData = tableInfo.o_getValues();
             var formInfoData = formInfo.o_getValues();
