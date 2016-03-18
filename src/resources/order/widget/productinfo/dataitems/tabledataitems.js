@@ -323,8 +323,12 @@ define(function (require, exports, module) {
             if (options.data.startDate && options.data.endDate) {
                 if (options.data.startDate >= options.data.endDate) {
                     util.showToast('开始日期必须小于结束日期');
+                    if(!me.o_getFieldData('startTime_' + id).__force){
                     me.o_setValue({name: 'startTime_' + id, value: ''});
-                    me.o_setValue({name: 'endTime_' + id, value: ''});
+                    }
+                    if(!me.o_getFieldData('endTime_' + id).__force){
+                        me.o_setValue({name: 'endTime_' + id, value: ''});
+                    }
                     me.o_setValue({name: 'discount_' + id, value: ''});
                     me.o_setValue({name: 'productAmount_' + id, value: ''});
                 } else {
