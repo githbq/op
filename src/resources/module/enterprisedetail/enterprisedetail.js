@@ -247,8 +247,8 @@ define( function(require, exports, module){
 			'#yingxiaoAdd': 'yingxiaoAdd',	     //营销版终端扩容
 			
 			'#sActivity': 'sActivity',
-			'#sActiveRemark': 'sActiveRemark',
-			'#sdProductModule': 'sdProductModule',
+			///'#sActiveRemark': 'sActiveRemark',
+			///'#sdProductModule': 'sdProductModule',
 			'#sProductModule': 'sProductModule',
 			'#sdELC': 'sdELC',
 			'#sdELUC': 'sdELUC',
@@ -380,9 +380,9 @@ define( function(require, exports, module){
 			'click #sBtnChangeStatistics': 'changeStatistics',
 			'click #sBtnChangeStatisticsagent': 'changeStatisticsagent',
 
-			'click #sBtnActive': 'active',
-			'click #sBtnRemove': 'uninstall',
-			'click #sBtnChangeModule': 'changeModule',
+			///'click #sBtnActive': 'active',
+			///'click #sBtnRemove': 'uninstall',
+			///'click #sBtnChangeModule': 'changeModule',
 			'click #sBtnChangeFunctions': 'changeFunctions',
 
 			'click #sBtnMarketingStop': 'stopMarketing',
@@ -626,6 +626,7 @@ define( function(require, exports, module){
 			//
 
 			//product??
+			/*
 			me.product = {
 				isInitialized: false,
 				list: [],
@@ -633,6 +634,7 @@ define( function(require, exports, module){
 				status: '',
 				pagination: null
 			};
+			*/
 
 			//agent??
 			me.agent = {
@@ -652,9 +654,11 @@ define( function(require, exports, module){
 				pagination: null
 			};
 
-			me.modules = {
-				isInitializes: false
-			};
+			/*
+			* me.modules = {
+			*	isInitializes: false
+			* };
+			*/
 
 			me.log = {
 				isInitializes: false,
@@ -1059,7 +1063,7 @@ define( function(require, exports, module){
 					if( data.success ){
 						me.attrs.runStatus = data.value.model.runStatus;
 						var model = data.value.model;
-						me.product.isInitialized = false;
+						///me.product.isInitialized = false;
 						me.model.load( model );
 						me.$name.val( model.enterpriseName );
 						me.$account.val( model.enterpriseAccount );
@@ -1156,7 +1160,7 @@ define( function(require, exports, module){
 						me.$sdSC.val( model.storageTotalSpace );
 						me.$sdSUC.val( model.storageUsedSpace );
 						me.$sActivity.val( model.activityStr );
-						me.$sdProductModule.val( util.findEnumsText('PRODUCT_MODULE', model.modules ) );
+						///me.$sdProductModule.val( util.findEnumsText('PRODUCT_MODULE', model.modules ) );
 						me.$sdMarketingStatus.val( model.isMarketingStimulationEnabled ? '开通' : '停止' );
 						me.$sdCustom.val( model.isLoginPagePersonalization ? '开通' : '停止' );
 						me.$sdActiveTime.val( model.appStartTime ? new Date( model.appStartTime )._format( 'yyyy-MM-dd hh:mm' ) : '' );
@@ -1369,10 +1373,10 @@ define( function(require, exports, module){
 					console.log('operations');
 					this.showOperations();
 					break;
-				case 'modules':
-					console.log('modules');
-					this.showModules();
-					break;
+				///case 'modules':
+				///	console.log('modules');
+				///	this.showModules();
+				///	break;
 				case 'functions':
 					console.log('functions');
 					this.showFunctions();
@@ -1483,11 +1487,7 @@ define( function(require, exports, module){
 		 */
 		showProductInfo: function() {
 			var me = this;
-			/*
-			if ( me.product.isInitialized ) {
-				return;
-			}
-			*/
+
 			if ( me.model.attrs.runStatus > 2 || me.attrs.isAgent == true) {
 				$('#tbProduct').css( 'display', 'none' );
 				return;
@@ -1515,48 +1515,6 @@ define( function(require, exports, module){
 				}
 			})
 
-			/*
-			if( me.product.pagination ){
-
-				me.product.pagination.setPage(0,true);
-			}else{
-				me.product.pagination = new Pagination({
-					wrapper: me.$view.find('#tbProduct .pager'),
-					pageSize: 10,
-					pageNumber: 0
-				});
-				me.product.pagination.render();
-				me.product.pagination.onChange = function() {
-					me.loadProducts();
-				};
-				me.loadProducts();
-			}
-			*/
-		},
-		loadProducts: function() {
-			var me = this, data = {
-				pageIndex: me.product.pagination.attr['pageNumber'],
-				pageSize: me.product.pagination.attr['pageSize']
-				//isPage:1
-			};
-			util.api({
-				url: '/product/querypage',
-				data: data,
-				success: function( data ) {
-					console.warn( data );
-					if( data.success ) {
-						me.product.pagination.setTotalSize( data.value.model.itemCount );
-						if ( data.value.model.content.length > 0 ) {
-							me.$tbProduct.html( me.tplProduct( { content: data.value.model.content } ) );
-							IBSS.tplEvent.setPermissions( me.$tbProduct );
-						} else {
-							me.$tbProduct.html( '<tr><td colspan="3"><p class="info">暂无数据</p></td></tr>' );
-						}
-						me.product.isInitialized = true;
-						me.product.list = data.value.model.content;
-					}
-				}
-			});
 		},
 
 		/**
@@ -2820,12 +2778,9 @@ define( function(require, exports, module){
 				}
 			});
 		},
+
+		/*
 		showModules: function() {
-			/*
-			if ( this.modules.isInitialized ) {
-				return;
-			}
-			*/
 			if ( this.model.attrs.runStatus == 2 ) {
 				$( '#tbProductModule' ).css( 'display', 'block' );
 				this.generateSelect( 'PRODUCT_MODULE', this.$sProductModule );
@@ -2834,7 +2789,7 @@ define( function(require, exports, module){
 				$( '#tbProductModule' ).css( 'display', 'none' );
 			}
 		},
-
+		*/
 		/**
 		 * 显示功能限制 并拉取相应的数据
 		 *
@@ -3312,6 +3267,7 @@ define( function(require, exports, module){
          *
          * 开通企业
          */
+        /*
 		active: function() {
 			var me = this,
 				data = {
@@ -3333,11 +3289,13 @@ define( function(require, exports, module){
 				});
 			}
 		},
-		
+		*/
+
 		/**
 		 *
 		 * 作废企业
 		 */
+		/*
 		uninstall: function() {
 			var me = this,
 				data = {
@@ -3359,6 +3317,9 @@ define( function(require, exports, module){
 				});
 			}
 		},
+		*/
+
+		/*
 		changeModule: function() {
 			var me = this,
 				data = {
@@ -3376,6 +3337,8 @@ define( function(require, exports, module){
 				}
 			});
 		},
+		*/
+
 		clearFunctions: function() {
 			var me = this;
 			me.$sELC.val( '' );
