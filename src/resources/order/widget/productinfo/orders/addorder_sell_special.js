@@ -135,6 +135,9 @@ define(function (require, exports, module) {
                 n.visible = true;
             });
         }
+        controller(terminalDataItems,'isadd',function(n){
+            n.value = true;
+        });
         //增购逻辑END
         return {terminalDataItems: terminalDataItems, tableDataItems: tableDataItems, formDataItems: formDataItems};
 
