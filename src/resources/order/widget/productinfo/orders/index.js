@@ -1,6 +1,7 @@
 define(function (require, exports, module) {
 
         exports.setCommonData = function (controller, terminalDataItems, tableDataItems, formDataItems, type, responseData) {
+            debugger
             type = type.toString();
             controller(terminalDataItems, 'keyword', function (n) {
                 if ($.inArray(type, ['1', '2', '3', '4']) >= 0) {
@@ -113,9 +114,11 @@ define(function (require, exports, module) {
 
                         if (subOrder['startTime_readonly'] === true && dataDic['startTime_' + subOrder.productId]) {
                             dataDic['startTime_' + subOrder.productId].readonly = true;
+                            dataDic['startTime_' + subOrder.productId].__force=true;
                         }
                         if (subOrder['endTime_readonly'] === true && dataDic['endTime_' + subOrder.productId]) {
                             dataDic['endTime_' + subOrder.productId].readonly = true;
+                            dataDic['endTime_' + subOrder.productId].__force=true;
                         }
                         if (subOrder.currPayAmount !== undefined && subOrder.currPayAmount !== null) {
                             controller(formDataItems, 'currPayAmount_' + subOrder.productId, function (item) {

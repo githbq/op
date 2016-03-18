@@ -1,6 +1,6 @@
 define(function (require, exports, module) {
     var DataItem = require('../index').PageDataClass;
-    var helper=require('./index');
+    var helper = require('./index');
     module.exports.getItems = function () {
         var dataItems = [];
         var productIdDic = {
@@ -11,7 +11,7 @@ define(function (require, exports, module) {
             '5': 'Meeting_Helper',
             '6': 'HR_Helper',
             '7': 'Salary_Helper',
-            '8':'名片'
+            '8': '名片'
         };
         //订单类型
         dataItems.push(new DataItem({
@@ -59,8 +59,12 @@ define(function (require, exports, module) {
                         var readonly = !checked;
                         var id = $dom.val();
                         if (!$dom.is('[readonly],[disabled]')) {
-                            me.o_setValue({name: 'startTime_' + id, readonly: readonly});
-                            me.o_setValue({name: 'endTime_' + id, readonly: readonly});
+                            if (!me.o_getFieldData('startTime_' + id).__force) {
+                                me.o_setValue({name: 'startTime_' + id, readonly: readonly});
+                            }
+                            if (!me.o_getFieldData('endTime_' + id).__force) {
+                                me.o_setValue({name: 'endTime_' + id, readonly: readonly});
+                            }
                             me.o_setValue({name: 'type_' + id, readonly: readonly});
                             me.o_setValue({name: 'purchaseAmount_' + id, readonly: readonly});
                         }
@@ -164,7 +168,7 @@ define(function (require, exports, module) {
                     value: endTime,
                     readonly: true,
                     validateOptions: helper.getValidateLogic(),
-                     events: getPriceEventsForDate
+                    events: getPriceEventsForDate
                 }, n.options.endDate)));
 
 
@@ -208,7 +212,6 @@ define(function (require, exports, module) {
 
             })(n);
         });
-
 
 
         //价格计算
