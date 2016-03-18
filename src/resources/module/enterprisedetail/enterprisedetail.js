@@ -621,6 +621,11 @@ define( function(require, exports, module){
 
 			var me = this;
 
+			//主要记录pagination是否已经初始化 
+			//如果已经初始化 就不再初始化
+			//
+
+			//product??
 			me.product = {
 				isInitialized: false,
 				list: [],
@@ -629,6 +634,7 @@ define( function(require, exports, module){
 				pagination: null
 			};
 
+			//agent??
 			me.agent = {
 				isInitialized: false,
 				list: [],
@@ -1488,6 +1494,25 @@ define( function(require, exports, module){
 			}
 			$('#tbProduct').css( 'display', 'block' );
 
+			console.log('product');
+			util.api({
+				'url':'/odr/queryProductVOList',
+				'data': {
+					'ea': me.model.get('enterpriseAccount')
+				},
+				'success': function( data ){
+					console.warn( data );
+					if( data.success ) {
+						if ( data.value.model.length > 0 ) {
+							me.$tbProduct.html( me.tplProduct( { content: data.value.model.content } ) );
+						} else {
+							me.$tbProduct.html( '<p>暂无数据</p>' );
+						}
+					}
+				}
+			})
+
+			/*
 			if( me.product.pagination ){
 
 				me.product.pagination.setPage(0,true);
@@ -1503,6 +1528,7 @@ define( function(require, exports, module){
 				};
 				me.loadProducts();
 			}
+			*/
 		},
 		loadProducts: function() {
 			var me = this, data = {
