@@ -277,6 +277,14 @@ define( function(require, exports, module){
                             }else if( item.protectionWhiteListStatus == 2){
                                 item.authStr = "部分授权" 
                             }
+
+                            if( !item.cRMVisible ){
+                                item.crmvisible = "—— ——";
+                            }else if( item.cRMVisible == 1 ){
+                                item.crmvisible = "所有下级可见";
+                            }else if( item.cRMVisible == 2 ){
+                                item.crmvisible = "直属下级可见";
+                            }
                         });
                         me.clearSelect();
                     }

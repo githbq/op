@@ -209,9 +209,9 @@ define( function(require, exports, module){
 			'#kcEmail': 'kcEmail',
 			'#cQQ': 'cQQ',
 			'#remark': 'remark',
-			'#tbProduct tbody': 'tbProduct',
-			'#sProductName': 'sProductName',
-			'#sProductStatus': 'spstatus',
+			'#tbProduct': 'tbProduct',
+			///'#sProductName': 'sProductName',
+			///'#sProductStatus': 'spstatus',
 			'#tbAgent tbody': 'tbAgent',
 			'#sAgentId': 'sAgentId',
 			'#sAgentName': 'sAgentName',
@@ -372,7 +372,7 @@ define( function(require, exports, module){
 		events: {
 			'click .accordian h4': 'showAccordian',
 			'click #btnSaveBasic': 'saveBasicEve',
-			'click #tbProduct em': 'changeProductEve',
+			///'click #tbProduct em': 'changeProductEve',
 			'click #tbAgent em': 'changeAgentEve',
 			'click #btnSBAgentSearch': 'loadAgents',
 			'click #sBtnChangeTrial': 'changeTrial',
@@ -1113,7 +1113,7 @@ define( function(require, exports, module){
 						me.$kcMobile.val( model.keyContactPhone );
 						me.$kcEmail.val( model.keyContactEmail );
 						me.$remark.val( model.remark );
-						me.$sProductName.val( model.productName );
+						///me.$sProductName.val( model.productName );
 						me.$spstatus.val( util.findEnumsText('ENT_LST_PSTS', model.runStatus) );
 						me.$sAgentId.val( model.agentId );
 						me.$sAgentName.val( model.agentName );
@@ -1500,13 +1500,16 @@ define( function(require, exports, module){
 				'data': {
 					'ea': me.model.get('enterpriseAccount')
 				},
+				'beforeSend': function(){
+					me.$tbProduct.html( '<p class="info">加载中...</p>' );
+				},
 				'success': function( data ){
 					console.warn( data );
 					if( data.success ) {
 						if ( data.value.model.length > 0 ) {
-							me.$tbProduct.html( me.tplProduct( { content: data.value.model.content } ) );
+							me.$tbProduct.html( me.tplProduct( { content: data.value.model } ) );
 						} else {
-							me.$tbProduct.html( '<p>暂无数据</p>' );
+							me.$tbProduct.html( '<p class="info">暂无数据</p>' );
 						}
 					}
 				}
@@ -3050,6 +3053,7 @@ define( function(require, exports, module){
 		/**
 		 *@ 变更产品信息
 		 */
+		/*
 		changeProductEve: function( e ) {
 			var me = this,
 				$target = $( e.currentTarget ),
@@ -3084,6 +3088,8 @@ define( function(require, exports, module){
 			} );
 			return result;
 		},
+		*/
+
 		changeAgentEve: function( e ) {
 			var me = this,
 				$target = $( e.currentTarget ),

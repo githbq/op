@@ -5694,6 +5694,7 @@ em {
 }
 .m-enterprisedetail {
   /* 审核意见 */
+  /*产品信息*/
 }
 .m-enterprisedetail .btn-card {
   margin-left: 115px;
@@ -5772,6 +5773,20 @@ em {
 .m-enterprisedetail .pager {
   text-align: right;
   padding: 6px 0;
+}
+.m-enterprisedetail #tbProduct {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.m-enterprisedetail #tbProduct p {
+  line-height: 26px;
+}
+.m-enterprisedetail #tbProduct p span {
+  display: inline-block;
+  width: 200px;
+}
+.m-enterprisedetail #tbProduct p.info {
+  text-align: center;
 }
 .m-training p {
   padding: 6px 0;
