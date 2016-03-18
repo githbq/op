@@ -111,10 +111,13 @@ define(function (require, exports, module) {
                         var me = this;
                         var allreadonly = me.o_getFieldData('allreadonly').allreadonly;
                         var $dom = $(e.target);
-                        if ($dom.val() && parseFloat($dom.val()) <= 0 && !me.o_getFieldValue('isrenew')) {//续费服务人数可为0
-                            util.showToast('服务人数与终端数量必须大于0');
-                            $dom.val('');
-                            return;
+                        if ($dom.val() && parseFloat($dom.val()) <= 0) {
+                            if (n == '3' && (me.o_getFieldValue('isrenew')|| me.o_getFieldValue('isadd'))) {//增购续费 服务人数可为0
+                            } else {
+                                util.showToast('服务人数与终端数量必须大于0');
+                                $dom.val('');
+                                return;
+                            }
                         }
                         if (n != '3') {
                             if (n == '1') {//CRM的数量变化还要计算一下原价
@@ -158,7 +161,7 @@ define(function (require, exports, module) {
                                         changeForGetPrice.call(me, e);
                                     }
                                 });
-                            } else if(!allreadonly){
+                            } else if (!allreadonly) {
                                 me.o_setValue({name: 'purchaseAmount_input_' + n, value: '0', readonly: allreadonly});
                                 me.o_setValue({name: 'purchaseAmount_' + n, value: '0'});
                                 me.o_setValue({name: 'productAmount_' + n, value: '0'});

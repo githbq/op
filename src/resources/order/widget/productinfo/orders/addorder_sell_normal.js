@@ -130,7 +130,9 @@ define(function (require, exports, module) {
             });
         }
         //增购逻辑END
-
+        controller(terminalDataItems,'isadd',function(n){
+            n.value = true;
+        });
 
         return {terminalDataItems: terminalDataItems, tableDataItems: tableDataItems, formDataItems: formDataItems};
 
