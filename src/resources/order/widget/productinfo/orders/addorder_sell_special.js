@@ -79,8 +79,8 @@ define(function (require, exports, module) {
 
         //增购逻辑
         var hasCRM = false;
-        if (responseData && responseData.subOrders) {
-            $(responseData.subOrders).each(function (j, m) {
+        if (responseData && responseData.data&& responseData.data.subOrders) {
+            $(responseData.data.subOrders).each(function (j, m) {
                 if (m.subOrder.productId == '1') {
                     hasCRM = true;
                 }
@@ -93,8 +93,9 @@ define(function (require, exports, module) {
             n.value = '7';
             n.on('setFieldValue', function () {
                 var me = this;
-                if (responseData && responseData.subOrders) {
-                    $(responseData.subOrders).each(function (j, m) {
+                debugger
+                if (responseData && responseData.data&& responseData.data.subOrders) {
+                    $(responseData.data.subOrders).each(function (j, m) {
                         var checkbox = me.$('input[type=checkbox][name=check][value=' + n.subOrder.productId + ']');
                         if (n.subOrder && checkbox.length > 0) {//如果存在此纪录 则隐藏 且取消勾选
                             checkbox.prop('checked', false).attr('checked', false);

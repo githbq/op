@@ -99,14 +99,14 @@ define( function(require, exports, module){
 					$.when( me.getOrderDetail(), me.getEnterpriseInfo()).done(function(){
 						//备注信息
 						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData,
-							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
 
 						//setOrderInfo--订单信息
 						me.setOrderInfo();
 
 						//基本信息
 						me.attrs.basicCommon = new BasicInfo( { 'wrapper':me.$view.find('.common--basic'),'data':me.attrs.enterpriseData.enterprise,
-							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
 					});
 
 					break;
@@ -115,14 +115,14 @@ define( function(require, exports, module){
 					$.when( me.getOrderDetail(), me.getEnterpriseInfo()).done(function(){
 						//备注信息
 						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData,
-							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
 
 						//setOrderInfo--订单信息
 						me.setOrderInfo();
 
 						//基本信息
 						me.attrs.basicCommon = new BasicInfo( { 'wrapper':me.$view.find('.common--basic'),'data':me.attrs.enterpriseData.enterprise,
-							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
 					});
 
 					break;
@@ -131,13 +131,13 @@ define( function(require, exports, module){
 					$.when( me.getOrderDetail(), me.getEnterpriseInfo()).done(function(){
 						//备注信息
 						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData,
-							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
 
 						//setOrderInfo--订单信息
 						me.setOrderInfo();
 						//基本信息
 						me.attrs.basicCommon = new BasicInfo( { 'wrapper':me.$view.find('.common--basic'),'data':me.attrs.enterpriseData.enterprise,
-							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
 					});
 
 
@@ -148,13 +148,13 @@ define( function(require, exports, module){
 
 						//备注信息
 						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData,
-							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
 
 						//setOrderInfo--订单信息
 						me.setOrderInfo();
 						//基本信息
 						me.attrs.basicCommon = new BasicInfo( { 'wrapper':me.$view.find('.common--basic'),'data':me.attrs.enterpriseData.enterprise,
-							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
 					});
 
 					break;
@@ -163,14 +163,14 @@ define( function(require, exports, module){
 					$.when( me.getOrderDetail(), me.getEnterpriseInfo(), me.setOrderList()).done(function(){
 						//备注信息
 						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData.order,
-							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
 
 						//setOrderInfo--订单信息
 						me.setOrderInfo();
 
 						//基本信息
 						me.attrs.basicCommon = new OrderInfo( { 'wrapper':me.$view.find('.common--basic'),'data':me.attrs.orderList,
-							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
 					});
 
 					break;
@@ -179,13 +179,13 @@ define( function(require, exports, module){
 					$.when( me.getOrderDetail(), me.getEnterpriseInfo(),me.setOrderList()).done(function(){
 						//备注信息
 						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData.order,
-							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
 
 						//setOrderInfo--订单信息
 						me.setOrderInfo();
 						//基本信息
 						me.attrs.basicCommon = new OrderInfo( { 'wrapper':me.$view.find('.common--basic'),'data':me.attrs.orderList,
-							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
 					});
 
 					break;
@@ -194,14 +194,14 @@ define( function(require, exports, module){
 					$.when( me.getOrderDetail(), me.getEnterpriseInfo(),me.setOrderList()).done(function(){
 						//备注信息
 						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData.order,
-							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
 
 						//setOrderInfo--订单信息
 						me.setOrderInfo();
 
 						//基本信息
 						me.attrs.basicCommon = new OrderInfo( { 'wrapper':me.$view.find('.common--basic'),'data':me.attrs.orderList,
-							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
 					});
 
 					break;
@@ -210,14 +210,14 @@ define( function(require, exports, module){
 					$.when( me.getOrderDetail(), me.getEnterpriseInfo(),me.setOrderList()).done(function(){
 						//备注信息
 						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData.order,
-							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
 
 						//setOrderInfo--订单信息
 						me.setOrderInfo();
 
 						//基本信息
 						me.attrs.basicCommon = new OrderInfo( { 'wrapper':me.$view.find('.common--basic'),'data':me.attrs.orderList,
-							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
 					});
 
 					break;
@@ -226,14 +226,14 @@ define( function(require, exports, module){
 					$.when( me.getOrderDetail(), me.getEnterpriseInfo(),me.setOrderList()).done(function(){
 						//备注信息
 						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData.order,
-							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
 
 						//setOrderInfo--订单信息
 						me.setOrderInfo();
 
 						//基本信息
 						me.attrs.basicCommon = new OrderInfo( { 'wrapper':me.$view.find('.common--basic'),'data':me.attrs.orderList,
-							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
 					});
 
 					break;
@@ -242,14 +242,14 @@ define( function(require, exports, module){
 					$.when( me.getOrderDetail(), me.getEnterpriseInfo(),me.setOrderList()).done(function(){
 						//备注信息
 						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData.order,
-							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
 
 						//setOrderInfo--订单信息
 						me.setOrderInfo();
 
 						//基本信息
 						me.attrs.basicCommon = new OrderInfo( { 'wrapper':me.$view.find('.common--basic'),'data':me.attrs.orderList,
-							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
 					});
 
 					break;
@@ -258,14 +258,14 @@ define( function(require, exports, module){
 					$.when( me.getOrderDetail(), me.getEnterpriseInfo(),me.setOrderList()).done(function(){
 						//备注信息
 						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData.order,
-							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
 
 						//setOrderInfo--订单信息
 						me.setOrderInfo();
 
 						//基本信息
 						me.attrs.basicCommon = new OrderInfo( { 'wrapper':me.$view.find('.common--basic'),'data':me.attrs.orderList,
-							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
 					});
 
 
@@ -275,14 +275,14 @@ define( function(require, exports, module){
 					$.when( me.getOrderDetail(), me.getEnterpriseInfo(),me.setOrderList()).done(function(){
 						//备注信息
 						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData.order,
-							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
 
 						//setOrderInfo--订单信息
 						me.setOrderInfo();
 
 						//基本信息
 						me.attrs.basicCommon = new OrderInfo( { 'wrapper':me.$view.find('.common--basic'),'data':me.attrs.orderList,
-							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
 					});
 
 
@@ -401,6 +401,13 @@ define( function(require, exports, module){
 			//判断审批意见
 			var opinion = me.attrs.options.opinion ? me.attrs.options.opinion :'暂无';
 			me.$('.last-options').text(opinion);
+			
+			//设置是否可以编辑
+			me.attrs.edit = me.attrs.options.editFlag;
+			//财务驳回只能部分编辑
+			if(me.attrs.options.rejectsFrom && me.attrs.options.rejectsFrom == 2 && me.attrs.options.editFlag){
+				me.attrs.moneyEdit = false;;
+			}
 
 		},
 		//获取全部订单数据
