@@ -373,6 +373,7 @@ define( function(require, exports, module){
 			}
 			if(me.attrs.options.rejectsFrom && (me.attrs.options.rejectsFrom == 2 || me.attrs.options.rejectsFrom == 3 ) && me.attrs.options.editFlag){
 				payInfoReadonly = false;
+				me.attrs.moneyEdit = false
 			}
 			/*if( me.attrs.options.editFlag ){
 				edit = true;
@@ -386,7 +387,7 @@ define( function(require, exports, module){
 
 			 //发票信息
 			 me.attrs.invoiceCommon = new InvoiceInfo( { 'wrapper':me.$view.find('.common--invioce'),'data':me.attrs.orderData,
-				 'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
+				 'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
 
 		 },
 		//设置自己部分的显示和隐藏：
@@ -403,7 +404,7 @@ define( function(require, exports, module){
 			me.$('.last-options').text(opinion);
 			
 			//设置是否可以编辑
-			me.attrs.edit = me.attrs.options.editFlag;
+			me.attrs.moneyEdit = me.attrs.options.editFlag;
 			//财务驳回只能部分编辑和小助手第二次驳回
 			if(me.attrs.options.rejectsFrom && (me.attrs.options.rejectsFrom == 2 || me.attrs.options.rejectsFrom == 3 ) && me.attrs.options.editFlag){
 				me.attrs.moneyEdit = false;;
