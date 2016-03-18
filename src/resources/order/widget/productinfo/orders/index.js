@@ -15,7 +15,9 @@ define(function (require, exports, module) {
                 }
             });
             controller(terminalDataItems, 'isedit', function (item) {
-                item.value = responseData.edit;
+                if(responseData) {
+                    item.value = responseData.edit;
+                }
             });
             controller(terminalDataItems, 'allreadonly', function (item) {
                 item.allreadonly = false;

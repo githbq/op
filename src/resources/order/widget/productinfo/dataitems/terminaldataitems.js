@@ -111,7 +111,7 @@ define(function (require, exports, module) {
                         var me = this;
                         var allreadonly = me.o_getFieldData('allreadonly').allreadonly;
                         var $dom = $(e.target);
-                        if ($dom.val() && parseFloat($dom.val()) <= 0) {
+                        if ($dom.val() && parseFloat($dom.val()) <= 0 && !me.o_getFieldValue('isrenew')) {//续费服务人数可为0
                             util.showToast('服务人数与终端数量必须大于0');
                             $dom.val('');
                             return;
