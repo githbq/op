@@ -279,13 +279,13 @@ define(function (require, exports, module) {
                 }
             ],
             validateOptions:{
-                required:{
-                    enable:true,value:true,handler:function(error, value, option, $ele){
-                        if(!this.o_getFieldValue('contract')){
-                            return error = {field: $ele, name: 'required', option: option};
-                        }
-                    }
-                }
+                //required:{
+                //    enable:true,value:true,handler:function(error, value, option, $ele){
+                //        if(!this.o_getFieldValue('contract')){
+                //            return error = {field: $ele, name: 'required', option: option};
+                //        }
+                //    }
+                //}
             }
         }));
         //合同副本照片
