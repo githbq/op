@@ -286,7 +286,8 @@ define( function( require, exports, module ) {
                 'ea': detail.enterpriseAccount || '',
                 'currentTask': detail.currentTask || '',
                 'processInstanceId': detail.processInstanceId || '',
-                'contractNo': detail.contractNo
+                'contractNo': detail.contractNo,
+                'rejectsFrom': detail.rejectsFrom || ''
             }
 
             if( data.orderType != 17 ){
