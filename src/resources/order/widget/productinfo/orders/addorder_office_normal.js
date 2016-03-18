@@ -79,7 +79,6 @@ define(function (require, exports, module) {
                             checkbox.parents('tr').attr('hidetr', 'hidetr').hide();
                         }
                     });
-                    debugger
                     //一个也没有就隐藏
                     if (me.$('.tableinfo tbody tr:not([hidetr])').length == 0) {
                        me.o_setValue({name:'tablelist',visible:false});
