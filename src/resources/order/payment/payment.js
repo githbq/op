@@ -41,8 +41,8 @@ define( function( require, exports, module ) {
 		getReceiveOrder:function(){
 			var me = this;
 			return util.api({
-					'url':'/odr/contract/paidInfo',
-					'data':{'contractNo':me.attrs.contractNo},
+					'url':'/odr/orderId/paidInfo',
+					'data':{'orderId':me.attrs.id},
 					'success': function( data ){
 
 						if( data.success ){
@@ -81,6 +81,7 @@ define( function( require, exports, module ) {
 					objData.orderEntity.order = tem.order;
 					objData.orderEntity.subOrders = tem.subOrders;
 					objData.orderEntity.order.contractNo = me.attrs.contractNo;
+					objData.orderEntity.order.oriOrderId = me.attrs.id;
 				}else{
 					return ;
 				}

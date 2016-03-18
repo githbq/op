@@ -134,7 +134,7 @@ define(function (require, exports, module) {
                             //    me.o_data_getField({'name': 'useCRM'}).change();
                             //    return;
                             //}
-                            if ($dom.val() && !allreadonly) {
+                            if ($dom.val() && !allreadonly && !me.o_getFieldValue('isedit')) {
                                 me.attrs.apiPool.api_getServicePrice({
                                     data: {enterpriseId: me.o_getFieldValue('enterpriseId'), personCount: $dom.val()}, success: function (response) {
                                         //{"login":true,"model":2000,"privilege":true,"success":true,"value":{"model":2000}}

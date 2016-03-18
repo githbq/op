@@ -147,8 +147,8 @@ define( function(require, exports, module){
 		getReceiveOrder:function(){
 			var me = this;
 			return util.api({
-					'url':'/odr/contract/paidInfo',
-					'data':{'contractNo':me.attrs.options.contractNo},
+					'url':'/odr/orderId/paidInfo',
+					'data':{'orderId':me.attrs.options.id},
 					'success': function( data ){
 
 						if( data.success ){
@@ -216,7 +216,8 @@ define( function(require, exports, module){
 				var tem = me.attrs.getMoneyCommon.getValue() ;
 				objData.orderEntity.order = tem.order;
 				objData.orderEntity.subOrders = tem.subOrders;
-				objData.orderEntity.order.contractNo = me.attrs.contractNo;
+				objData.orderEntity.order.contractNo = me.attrs.options.contractNo;
+				objData.orderEntity.order.oriOrderId = me.attrs.options.id;
 			}else{
 				return ;
 			}

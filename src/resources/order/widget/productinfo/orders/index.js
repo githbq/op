@@ -14,6 +14,9 @@ define(function (require, exports, module) {
                     n.value = '续费';
                 }
             });
+            controller(terminalDataItems, 'isedit', function (item) {
+                item.value = responseData.edit;
+            });
             controller(terminalDataItems, 'allreadonly', function (item) {
                 item.allreadonly = false;
             });
@@ -114,11 +117,11 @@ define(function (require, exports, module) {
 
                         if (subOrder['startTime_readonly'] === true && dataDic['startTime_' + subOrder.productId]) {
                             dataDic['startTime_' + subOrder.productId].readonly = true;
-                            dataDic['startTime_' + subOrder.productId].__force=true;
+                            dataDic['startTime_' + subOrder.productId].__force = true;
                         }
                         if (subOrder['endTime_readonly'] === true && dataDic['endTime_' + subOrder.productId]) {
                             dataDic['endTime_' + subOrder.productId].readonly = true;
-                            dataDic['endTime_' + subOrder.productId].__force=true;
+                            dataDic['endTime_' + subOrder.productId].__force = true;
                         }
                         if (subOrder.currPayAmount !== undefined && subOrder.currPayAmount !== null) {
                             controller(formDataItems, 'currPayAmount_' + subOrder.productId, function (item) {

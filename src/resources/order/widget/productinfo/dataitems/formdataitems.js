@@ -284,6 +284,7 @@ define(function (require, exports, module) {
                         if(!this.o_getFieldValue('contract')){
                             return error = {field: $ele, name: 'required', option: option};
                         }
+                        return false;
                     }
                 }
             }
