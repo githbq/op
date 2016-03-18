@@ -350,7 +350,7 @@ define( function(require, exports, module){
 		//设置订单基本信息
 		 setOrderInfo:function(){
 			 var  me = this;
-			 var payInfoReadonly = true;
+			 var payInfoReadonly = !me.attrs.options.editFlag;
 			var productData = me.attrs.orderData;
 			var edit = false;
 			 productData.enterpriseExtend = me.attrs.enterpriseData.enterpriseExtend ? me.attrs.enterpriseData.enterpriseExtend:null;

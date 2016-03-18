@@ -17,7 +17,8 @@ define(function(require, exports, module){
 
 		},
 		elements: {
-
+			'.edit-url':'editUrl',
+			'.show-url':'showUrl'
 		},
 		init: function(){
 			View.__super__.init.apply( this,arguments );
@@ -46,6 +47,16 @@ define(function(require, exports, module){
 			var me = this;
 			var approvedUrl = me.attrs.data.order ? me.attrs.data.order.approvedUrl:'';
 			me.model.set('approvedUrl',approvedUrl);
+			
+			if(me.attrs.editFlag){
+				me.$editUrl.show();
+				me.$showUrl.hide();
+				me.$('.approval-url').attr('href','');
+			}else{
+				me.$editUrl.hide();
+				me.$showUrl.show();
+				me.$('.approval-url').attr('href',approvedUrl);
+			}
 		},
 		//检测是否可编辑
 		checkEdit:function(editFlag){

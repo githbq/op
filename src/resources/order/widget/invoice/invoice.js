@@ -108,7 +108,7 @@ define(function( require , exports , module ){
 				me.$('.roleinfo').hide();
 			}
 			if( attrs.editFlag == false ){
-				me.$('input').attr('disabled','disabled');
+				me.$('input,textarea').attr('disabled','disabled');
 				me.$('.nsr').hide();                     //隐藏必选*
 			}
 			if( attrs.type == 17 ){
