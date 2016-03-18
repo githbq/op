@@ -42,8 +42,8 @@ define(function (require, exports, module) {
                 }
                 dataDic['enterpriseId'] && ( dataDic['enterpriseId'].value = responseData.enterpriseId);
                 if (contract) {
-                    dataDic['contract'] = JSON.stringify(contract || {});
-                    dataDic['contractCopy'] = JSON.stringify(contract || {});
+                    dataDic['contract'].value = JSON.stringify(contract || {});
+                    dataDic['contractCopy'].value = JSON.stringify(contract || {});
 
                     controller(formDataItems, 'sealName', function (item) {
                         item.value = contract.sealName;
@@ -73,7 +73,7 @@ define(function (require, exports, module) {
                     }
                 }
                 if (enterpriseExtend) {
-                    dataDic['companyGatePicture'] = JSON.stringify(enterpriseExtend || {});
+                    dataDic['companyGatePicture'].value = JSON.stringify(enterpriseExtend || {});
                     if (enterpriseExtend.companyGatePictureFileName) {
                         controller(formDataItems, 'companyGatePicture-image', function (item) {
                             item.visible = true;
