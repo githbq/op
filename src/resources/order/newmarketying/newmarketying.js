@@ -256,19 +256,67 @@ define( function( require, exports, module ) {
 			var subArry = [];
 			var data = me.attrs.orderList.model||[];
 
-			if( me.attrs.typeFlag == 'addMarkey' ){
+			if( me.attrs.typeFlag == 'addMarkey' || me.attrs.typeFlag == 'addOffice' ){
 				//增购营销版需要crm时间
 				for(var i = 0 ;i<data.length; i++ ){
-					if( data[i].code == "CRM" ){
-						var tempObe = {"subOrder":{
-							"productId":1,
-							"startTime": data[i].startDate,
-							"startTime_readonly":true,
-							"endTime":data[i].endDate,
-							"endTime_readonly":true
-						}}
-						subArry.push(tempObe)
-						break;
+					
+					switch( data[i].code )
+					{
+						case "PK_Helper":
+							var tempObe = {"subOrder":{
+								"productId":4,
+								"startTime": data[i].startDate,
+								"endTime":data[i].endDate
+							}}
+							subArry.push(tempObe)
+							break;
+
+						case "Meeting_Helper":
+							var tempObe = {"subOrder":{
+								"productId":5,
+								"startTime": data[i].startDate,
+								"endTime":data[i].endDate
+							}}
+							subArry.push(tempObe)
+
+							break;
+						case "Salary_Helper":
+							var tempObe = {"subOrder":{
+								"productId":7,
+								"startTime": data[i].startDate,
+								"endTime":data[i].endDate
+							}}
+							subArry.push(tempObe)
+
+							break;
+						case "CRM":
+							var tempObe = {"subOrder":{
+								"productId":1,
+								"startTime": data[i].startDate,
+								"endTime":data[i].endDate
+							}}
+							subArry.push(tempObe)
+
+							break;
+						case "HR_Helper":
+							var tempObe = {"subOrder":{
+								"productId":6,
+								"startTime": data[i].startDate,
+								"endTime":data[i].endDate
+							}}
+							subArry.push(tempObe)
+
+							break;
+						case "Business_Card":
+							var tempObe = {"subOrder":{
+								"productId":8,
+								"startTime": data[i].startDate,
+								"endTime":data[i].endDate
+							}}
+							subArry.push(tempObe)
+
+							break;
+						default:
 					}
 				}
 				me.attrs.subData =  {
@@ -309,7 +357,7 @@ define( function( require, exports, module ) {
 							}
 
 							break;
-						case "Meeting_Helper'":
+						case "Meeting_Helper":
 							var nowDate = new Date( new Date().getTime() )._format('yyyy/MM/dd');
 							var endDate = new Date( obj["endDate"]  )._format('yyyy/MM/dd');
 							if( dateCompare(nowDate,endDate) ){

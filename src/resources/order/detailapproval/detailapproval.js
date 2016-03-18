@@ -371,7 +371,7 @@ define( function(require, exports, module){
 					break;
 				default:
 			}
-			if(me.attrs.options.rejectsFrom && me.attrs.options.rejectsFrom == 2 && me.attrs.options.editFlag){
+			if(me.attrs.options.rejectsFrom && (me.attrs.options.rejectsFrom == 2 || me.attrs.options.rejectsFrom == 3 ) && me.attrs.options.editFlag){
 				payInfoReadonly = false;
 			}
 			if( me.attrs.options.editFlag ){
@@ -404,8 +404,8 @@ define( function(require, exports, module){
 			
 			//设置是否可以编辑
 			me.attrs.edit = me.attrs.options.editFlag;
-			//财务驳回只能部分编辑
-			if(me.attrs.options.rejectsFrom && me.attrs.options.rejectsFrom == 2 && me.attrs.options.editFlag){
+			//财务驳回只能部分编辑和小助手第二次驳回
+			if(me.attrs.options.rejectsFrom && (me.attrs.options.rejectsFrom == 2 || me.attrs.options.rejectsFrom == 3 ) && me.attrs.options.editFlag){
 				me.attrs.moneyEdit = false;;
 			}
 

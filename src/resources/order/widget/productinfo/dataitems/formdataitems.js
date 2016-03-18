@@ -109,7 +109,7 @@ define(function (require, exports, module) {
                         case '2':
                         {//分期
                             me.o_setValues([
-                                {name: 'currPayAmount', value: '0'},
+                                {name: 'currPayAmount'},
                                 {name: 'currPayAmount_3', visible: false},
                                 {name: 'currPayAmount_1', visible: false},
                                 {name: 'currPayAmount_4', visible: false},
@@ -277,7 +277,16 @@ define(function (require, exports, module) {
                         });
                     }
                 }
-            ]
+            ],
+            validateOptions:{
+                required:{
+                    enable:true,value:true,handler:function(error, value, option, $ele){
+                        if(!this.o_getFieldValue('contract')){
+                            return error = {field: $ele, name: 'required', option: option};
+                        }
+                    }
+                }
+            }
         }));
         //合同副本照片
         dataItems.push(new DataItem({

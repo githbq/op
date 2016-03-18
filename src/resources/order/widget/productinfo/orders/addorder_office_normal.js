@@ -70,12 +70,11 @@ define(function (require, exports, module) {
         });
         controller(tableDataItems, 'check', function (n) {
             n.value = '7';
-            n.on('setFieldValue', function () {
-                var me = this;
+            n.on('setFieldValue', function ($ele, value, data,me) {
                 if (responseData && responseData.data&& responseData.data.subOrders) {
                     $(responseData.data.subOrders).each(function (j, m) {
-                        var checkbox = me.$('input[type=checkbox][name=check][value=' + n.subOrder.productId + ']');
-                        if (n.subOrder && checkbox.length > 0) {//如果存在此纪录 则隐藏 且取消勾选
+                        var checkbox = me.$('input[type=checkbox][data-name=check][value=' + m.subOrder.productId + ']');
+                        if (checkbox.length > 0) {//如果存在此纪录 则隐藏 且取消勾选
                             checkbox.prop('checked', false).attr('checked', false);
                             checkbox.parents('tr').attr('hidetr', 'hidetr').hide();
                         }
