@@ -278,7 +278,7 @@ define( function(require, exports, module){
                                 item.authStr = "部分授权" 
                             }
 
-                            if( item.!cRMVisible ){
+                            if( !item.cRMVisible ){
                                 item.crmvisible = "—— ——";
                             }else if( item.cRMVisible == 1 ){
                                 item.crmvisible = "所有下级可见";
