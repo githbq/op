@@ -265,7 +265,7 @@ define( function(require, exports, module){
                             if( item.enterprise.appstarttime ){
                                 item.createtimestr = new Date( item.enterprise.appstarttime )._format("yyyy-MM-dd");
                             } else {
-                                item.createtimestr = "--";
+                                item.createtimestr = "—— ——";
                             }
                             
                             item.runstatusstr = EntStatusMap[item.enterprise.runstatus];
