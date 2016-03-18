@@ -58,13 +58,13 @@ define(function (require, exports, module) {
 
         //增购逻辑
         var hasCRM = false;
-        //if (responseData && responseData.data&& responseData.data.subOrders) {
-        //    $(responseData.data.subOrders).each(function (j, m) {
-        //        if (m.subOrder.productId == '1') {
-        //            hasCRM = true;
-        //        }
-        //    });
-        //}
+        if (responseData && responseData.data&& responseData.data.subOrders) {
+            $(responseData.data.subOrders).each(function (j, m) {
+                if (m.subOrder.productId == '1') {
+                    hasCRM = true;
+                }
+            });
+        }
         controller(tableDataItems, 'tablelist', function (n) {
             n.visible = true;
         });
