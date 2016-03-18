@@ -79,31 +79,29 @@ define(function (require, exports, module) {
 
         //增购逻辑
         var hasCRM = false;
-        if (responseData && responseData.data&& responseData.data.subOrders) {
-            $(responseData.data.subOrders).each(function (j, m) {
-                if (m.subOrder.productId == '1') {
-                    hasCRM = true;
-                }
-            });
-        }
+        //if (responseData && responseData.data && responseData.data.subOrders) {
+        //    $(responseData.data.subOrders).each(function (j, m) {
+        //        if (m.subOrder.productId == '1') {
+        //            hasCRM = true;
+        //        }
+        //    });
+        //}
         controller(tableDataItems, 'tablelist', function (n) {
             n.visible = true;
         });
         controller(tableDataItems, 'check', function (n) {
             n.value = '7';
-            n.on('setFieldValue', function () {
-                var me = this;
-                debugger
-                if (responseData && responseData.data&& responseData.data.subOrders) {
+            n.on('setFieldValue', function ($ele, value, data, me) {
+                if (responseData && responseData.data && responseData.data.subOrders) {
                     $(responseData.data.subOrders).each(function (j, m) {
-                        var checkbox = me.$('input[type=checkbox][name=check][value=' + n.subOrder.productId + ']');
-                        if (n.subOrder && checkbox.length > 0) {//如果存在此纪录 则隐藏 且取消勾选
+                        var checkbox = me.$('input[type=checkbox][data-name=check][value=' + m.subOrder.productId + ']');
+                        if (checkbox.length > 0) {//如果存在此纪录 则隐藏 且取消勾选
                             checkbox.prop('checked', false).attr('checked', false);
-                            checkbox.parents('tr').attr('hidetr','hidetr').hide();
+                            checkbox.parents('tr').attr('hidetr', 'hidetr').hide();
                         }
                     });
                     //一个也没有就隐藏
-                    if(me.$('.tableinfo tbody tr:not([hidetr])').length==0){
+                    if (me.$('.tableinfo tbody tr:not([hidetr])').length == 0) {
                         me.$('.tableinfo').hide();
                     }
                 }
