@@ -74,7 +74,7 @@
                         <th style="width:100px;">企业状态</th>
                         <th style="width:150px;">CRM信息可见授权</th>
                         <th style="width:110px;">手机设备授权</th>
-                        <th style="width:350px;">操作</th>
+                        <th style="width:250px;">操作</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -92,7 +92,7 @@
     
                             <a class="info-trace" data-id="<%=item.enterprise.enterpriseid%>" data-status="<%=item.enterprise.runstatus%>">跟踪记录</a>
                             
-                            <%if("2" == item.runStatus){%>
+                            <%if("2" == item.enterprise.runstatus){%>
                             <a data-permissions="F009001" data-id="<%=item.enterprise.enterpriseid%>" class="info-enterpriseAssign">&nbsp;分配</a>
                             <%}%>
 
