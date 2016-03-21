@@ -337,18 +337,18 @@ define(function (require, exports, module) {
             controller(formDataItems, 'contractNo', function (n) {
                 n.readonly = isReadonly;
             });
-            controller(formDataItems, 'contractPrice', function (n) {
-                n.readonly = isReadonly;
-            });
+            //controller(formDataItems, 'contractPrice', function (n) {
+            //    n.readonly = isReadonly;
+            //});
             controller(formDataItems, 'payStatus_select', function (n) {
                 n.readonly = isReadonly;
             });
             controller(formDataItems, 'payDate', function (n) {
                 n.readonly = isReadonly;
             });
-            controller(formDataItems, 'currPayAmount', function (n) {
-                n.readonly = isReadonly;
-            });
+            //controller(formDataItems, 'currPayAmount', function (n) {
+            //    n.readonly = isReadonly;
+            //});
             //////////////////////
             controller(formDataItems, 'currPayAmount_3', function (n) {
                 n.readonly = isReadonly;
