@@ -137,6 +137,7 @@ define( function(require, exports, module){
 				'success': function( data ){
 					if( data.success ){
 						me.attrs.orderData = data.value.model;
+						me.setOptions();
 						me.attrs.allData.orderEntity = me.attrs.orderData;
 					}
 				}
@@ -147,8 +148,7 @@ define( function(require, exports, module){
 		getReceiveOrder:function(){
 			var me = this;
 			return util.api({
-					'url':'/odr/orderId/paidInfo',
-					'data':{'orderId':me.attrs.options.id},
+					'url':'/odr/'+me.attrs.options.id+'/paidInfo',
 					'success': function( data ){
 
 						if( data.success ){
@@ -185,9 +185,15 @@ define( function(require, exports, module){
 			me.attrs.getMoneyCommon = new GetMoney( { 'wrapper':me.$view.find('.common-product'),'data':me.attrs.receiveData,'editFlag':me.attrs.options.editFlag,
 			'type':me.attrs.options.orderType ,'dataDetail':me.attrs.orderData} );
 			
+			//设置是否可以编辑
+			me.attrs.moneyEdit = me.attrs.options.editFlag;
+			//财务驳回只能部分编辑和小助手第二次驳回
+			if(me.attrs.options.rejectsFrom && (me.attrs.options.rejectsFrom == 2 || me.attrs.options.rejectsFrom == 3 ) && me.attrs.options.editFlag){
+				me.attrs.moneyEdit = true;;
+			}
 			 //发票信息
 			 me.attrs.invoiceCommon = new InvoiceInfo( { 'wrapper':me.$view.find('.common--invioce'),'data':me.attrs.orderData,
-				 'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
+				 'editFlag': me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
 
 		 },
 		//设置自己部分的显示和隐藏：
@@ -200,9 +206,34 @@ define( function(require, exports, module){
 			}
 			me.$('.currentTask-'+me.attrs.options.currentTask).show();
 			//判断审批意见
-			var opinion = me.attrs.options.opinion ? me.attrs.options.opinion :'暂无';
-			me.$('.last-options').text(opinion);
+			//var opinion = me.attrs.options.opinion ? me.attrs.options.opinion :'暂无';
+			//me.$('.last-options').text(opinion);
+			
+			//设置到款时间 receivedPayDate
+			var receivedPayDate = me.attrs.orderData.order.receivedPayDate ? new Date( me.attrs.orderData.order.receivedPayDate  )._format("yyyy-MM-dd"):'';
+			if(receivedPayDate){
+				me.$('.receivedPayDate').show();
+				me.$('.receivedPayDate-text').text(receivedPayDate);
+				me.$('.currentTask-finance').hide();
+			}
 
+		},
+		//设置审批意见
+		setOptions:function(){
+			var me = this,strDom = '';
+			
+			var optionsList = me.attrs.orderData.order.rejectReason ? me.attrs.orderData.order.rejectReason.split('<+>'): [];
+			for(var i = 0; i<optionsList.length; i++){
+				var tempAry = optionsList[i].split('<->');
+				tempAry[2] = (tempAry[2]=='true') ? '同意':'驳回';
+				strDom+='<tr><td>'+tempAry[0]+'</td><td>'+tempAry[1]+'</td><td>'+tempAry[2]+'</td><td>'+tempAry[3]+'</td></tr>'
+			}
+			
+			//判断审批意见
+
+			var opinion = strDom ? strDom :'<tr><td colspan="4" style="text-align: center;">暂无</td></tr>';
+			me.$('.last-options').html( opinion );
+			
 		},
 		//获取全部订单数据
 		getOrderInfo:function( callback ){
@@ -342,7 +373,7 @@ define( function(require, exports, module){
 		actionAgreeEve: function(){
             var me = this;
 
-            if( me.attrs.options.currentTask == 'finance' ){
+            if( me.attrs.options.currentTask == 'finance' && !me.attrs.orderData.order.receivedPayDate){
                me.setMoneyTime(function(){
 					me.replyOptions();
 			   });

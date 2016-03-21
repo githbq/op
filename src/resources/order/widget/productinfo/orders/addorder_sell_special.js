@@ -24,7 +24,7 @@ define(function (require, exports, module) {
             n.visible = false;
         });
         controller(terminalDataItems, 'purchaseAmount_input_3', function (n) {
-            n.visible = true;
+            n.visible = false;
         });
         controller(terminalDataItems, 'purchaseAmount_1', function (n) {
             n.visible = false;
@@ -49,7 +49,7 @@ define(function (require, exports, module) {
             n.value = true;
         });
         controller(terminalDataItems, 'purchaseAmount_3', function (n) {
-            n.visible = false;
+            n.visible = true;
         });
 
         controller(terminalDataItems, 'businesscard', function (n) {
@@ -92,6 +92,10 @@ define(function (require, exports, module) {
         controller(tableDataItems, 'check', function (n) {
             n.value = '7';
             n.on('setFieldValue', function ($ele, value, data, me) {
+                debugger
+                if(me.__refs.terminalInfo.o_getFieldData('allreadonly').allreadonly===true){//只读不走逻辑
+                    return ;
+                }
                 if (responseData && responseData.data && responseData.data.subOrders) {
                     $(responseData.data.subOrders).each(function (j, m) {
                         var checkbox = me.$('input[type=checkbox][data-name=check][value=' + m.subOrder.productId + ']');

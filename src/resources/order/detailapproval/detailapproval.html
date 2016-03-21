@@ -15,8 +15,19 @@
 		</div>
 		<div>
 			<hr/>
-			<h4 style="font-weight: bold; font-size: 18px; padding-top: 8px; padding-bottom: 8px;">上一审批意见</h4>
-			<p class="last-options"></p>
+			<h4 style="font-weight: bold; font-size: 18px; padding-top: 8px; padding-bottom: 8px;">审批意见</h4>
+			<table >
+			<tr><th>审批人</th><th>审批时间</th><th>审批结果</th><th>审批意见</th></tr>
+			<tbody class="last-options">
+			 
+			</tbody>
+			</table>
+			<p class="receivedPayDate" style="display: none; padding:10px 0px; font-size:18px;">
+				<label for="">
+					<span>实际到款时间 :</span>
+					<span class="receivedPayDate-text"></span>
+				</label>
+			</p>
 		</div>
 		<div class="state state-refuse ">
 			<hr/>
@@ -37,7 +48,7 @@
 			</p>
 			<p>
 			<h3 style="font-size:18px;">审批意见</h3>
-			<textarea ce-model="comment" cols="60" rows="5" style=" margin:10px;esize: none;word-wrap: break-word;outline: none; border: 1px solid #d9d9d9;-webkit-border-radius: 3px; -moz-border-radius: 3px;border-radius: 3px;"></textarea>
+			<textarea ce-model="comment"  maxlength=100 cols="60" rows="5" style=" margin:10px;esize: none;word-wrap: break-word;outline: none; border: 1px solid #d9d9d9;-webkit-border-radius: 3px; -moz-border-radius: 3px;border-radius: 3px;"></textarea>
 			</p>
 			<p class="actions">
 				<button class="u-btn-blue action-agree"> 同意 </button>

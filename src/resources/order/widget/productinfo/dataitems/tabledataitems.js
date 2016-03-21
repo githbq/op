@@ -112,7 +112,10 @@ define(function (require, exports, module) {
                             key: 'change',
                             value: function (e) {
                                 var me = this;
+                                var isreadony=me.__refs.terminalInfo.o_getFieldData('allreadonly').allreadonly === true;
+
                                 var $dom = $(e.target);
+                                var condition=$dom.parents('tr').find('input[data-name=check]').is(':checked');
                                 switch (me.o_getFieldValue($dom.attr('data-name'))) {
                                     case '1':
                                     {
@@ -135,7 +138,7 @@ define(function (require, exports, module) {
                                     case '3':
                                     {
                                         //折扣
-                                        me.o_setValue({name: 'purchaseAmount_' + n.id, value: me.o_getFieldValue('productAmount_' + n.id) || '0', readonly: false});
+                                        me.o_setValue({name: 'purchaseAmount_' + n.id, value: me.o_getFieldValue('productAmount_' + n.id) || '0', readonly:condition? isreadony:true});
                                     }
                                         ;
                                         break;

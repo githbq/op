@@ -55,8 +55,29 @@ define(function (require, exports, module) {
                     var me = this;
                     var $dom = $(e.target);
                     var checked = $dom.is(':checked');
-                    var allreadonly = me.o_getFieldData('allreadonly').allreadonly;
+                    var isReadonly = me.o_getFieldData('allreadonly').allreadonly === true;
                     priceComput.call(me, e);
+                    for (var i in me.dataDic) {
+                        if (me.dataDic.hasOwnProperty(i)) {
+                            if ((i.toString().indexOf('_3') > 0) && i.toString().toLowerCase().indexOf('wrapper') < 0) {
+                                if (checked && me.dataDic[i].old_readonly === undefined) {
+                                    me.dataDic[i].old_readonly = !!me.dataDic[i].readonly;
+                                }
+                                me.dataDic[i].readonly = !checked ? true : ( me.dataDic[i].old_readonly === true ? isReadonly : false);
+                                me.o_setValue(me.dataDic[i]);
+                                if (i.toString().indexOf('type_') == 0) {
+                                    var $type = me.o_data_getField(me.dataDic[i]);
+                                    $type && $type.length > 0 && ($type.change());
+                                }
+                                if (i == 'purchaseAmount_input_3' && !me.dataDic[i].readonly) {//服务费合同金额
+                                    if (me.o_getFieldValue('useCRM')) {
+                                        me.dataDic[i].readonly = true;
+                                        me.o_setValue(me.dataDic[i]);
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
                 }]
         }));
@@ -68,29 +89,47 @@ define(function (require, exports, module) {
         });
         //使用销客终端复选框
         dataItems.push(new DataItem({
-            name: 'useCRM',
-            events: [
-                {
-                    key: 'change', value: function (e) {
-                    var me = this;
-                    var $dom = $(e.target);
+                name: 'useCRM',
+                events: [
+                    {
+                        key: 'change', value: function (e) {
+                        var me = this;
+                        var $dom = $(e.target);
+                        var checked = $dom.is(':checked');
+                        var isReadonly = me.o_getFieldData('allreadonly').allreadonly === true;
 
-                    var isReadonly = me.o_getFieldData('allreadonly').allreadonly === true;
+                        if ($dom.is(':checked')) {//选中的话 终端为0
+                            me.o_setValue({name: 'productAmount_3', value: '0'});
+                            me.o_setValue({name: 'purchaseAmount_input_3', value: '0', readonly: true});
+                            me.o_setValue({name: 'purchaseAmount_3', value: '0'});
+                            var id = $dom.val();
+                            priceComput.call(this, e);
 
-                    if ($dom.is(':checked')) {//选中的话 终端为0
-                        //me.o_setValue({name: 'productAmount_3', value: '0'});
-                        me.o_setValue({name: 'purchaseAmount_input_3', value: '0', readonly: true});
-                        me.o_setValue({name: 'purchaseAmount_3', value: '0'});
-                        var id = $dom.val();
-                        priceComput.call(this, e);
-
-                    } else {
-                        me.o_setValue({name: 'purchaseAmount_input_3', readonly: isReadonly});
-                        me.o_data_getField({name: 'purchaseCount_3'}).change();//服务费
+                        } else {
+                            me.o_setValue({name: 'purchaseAmount_input_3', readonly:me.o_getFieldValue('useFX')?isReadonly:true });
+                            me.o_data_getField({name: 'purchaseCount_3'}).change();//服务费
+                        }
+                        for (var i in me.dataDic) {
+                            if (me.dataDic.hasOwnProperty(i)) {
+                                if ((i.toString().indexOf('_1') > 0 || i.toString().indexOf('_8') > 0) && i.toString().toLowerCase().indexOf('wrapper') < 0) {
+                                    if (checked && me.dataDic[i].old_readonly === undefined) {
+                                        me.dataDic[i].old_readonly = !!me.dataDic[i].readonly;
+                                    }
+                                    me.dataDic[i].readonly = !checked ? true : ( me.dataDic[i].old_readonly === true ? isReadonly : false);
+                                    me.o_setValue(me.dataDic[i]);
+                                    if (i.toString().indexOf('type_') == 0) {
+                                        var $type = me.o_data_getField(me.dataDic[i]);
+                                        $type && $type.length > 0 && ($type.change());
+                                    }
+                                }
+                            }
+                        }
                     }
-                }
-                }]
-        }));
+                    }
+                ]
+            }
+        ))
+        ;
         dataItems[dataItems.length - 1].on('setFieldValue', function ($ele, value, data) {
             setTimeout(function () {
                 $ele.change();
@@ -112,7 +151,7 @@ define(function (require, exports, module) {
                         var allreadonly = me.o_getFieldData('allreadonly').allreadonly;
                         var $dom = $(e.target);
                         if ($dom.val() && parseFloat($dom.val()) <= 0) {
-                            if (n == '3' && (me.o_getFieldValue('isrenew')|| me.o_getFieldValue('isadd'))) {//增购续费 服务人数可为0
+                            if (n == '3' && (me.o_getFieldValue('isrenew') || me.o_getFieldValue('isadd'))) {//增购续费 服务人数可为0
                             } else {
                                 util.showToast('服务人数与终端数量必须大于0');
                                 $dom.val('');
@@ -133,11 +172,6 @@ define(function (require, exports, module) {
                         } else {
                             $dom.val($dom.val().replace(/[^\.\d]/g, ''));
                             me.o_field_getData($dom).__silent = false;
-                            //if (me.o_getFieldValue('useCRM')) {//如果选了CRM 服务费价格一定0
-                            //    me.o_data_getField({'name': 'useCRM'}).change();
-                            //    return;
-                            //}
-                            debugger
                             if ($dom.val() && !allreadonly) {
                                 me.attrs.apiPool.api_getServicePrice({
                                     data: {enterpriseId: me.o_getFieldValue('enterpriseId'), personCount: $dom.val()}, success: function (response) {
@@ -145,7 +179,7 @@ define(function (require, exports, module) {
                                         if (response.success) {
                                             if (me.o_getFieldValue('useCRM')) {
                                                 me.o_setValue({name: 'purchaseAmount_' + n, value: '0'});
-                                                me.o_setValue({name: 'purchaseAmount_input_' + n, value: '0', readonly: true});
+                                                me.o_setValue({name: 'purchaseAmount_input_' + n, value: '0'});
                                             } else {
                                                 me.o_setValue({name: 'purchaseAmount_' + n, value: response.model});
                                                 me.o_setValue({name: 'purchaseAmount_input_' + n, value: response.model, readonly: allreadonly});
@@ -167,6 +201,9 @@ define(function (require, exports, module) {
                                 me.o_setValue({name: 'productAmount_' + n, value: '0'});
                                 changeForGetPrice.call(me, e);
                                 me.o_setValue({name: 'purchaseAmount_input_' + n, readonly: allreadonly});
+                                if(n==3){
+                                    me.o_setValue({name: 'purchaseAmount_input_' + n, readonly: (me.o_getFieldValue('useCRM') ||  !me.o_getFieldValue('useFX'))});
+                                }
                             }
                         }
                     }
@@ -254,6 +291,11 @@ define(function (require, exports, module) {
                     {
                         key: 'change', value: function (e) {
                         var me = this;
+                        var isReadonly = me.o_getFieldData('allreadonly').allreadonly === true;
+                        var condition = me.o_getFieldValue('useCRM');
+                        if (n == 3) {
+                            condition = me.o_getFieldValue('useFX') && !me.o_getFieldValue('useCRM');
+                        }
                         var typeValue = me.o_getFieldValue('type_' + n);
                         var data = me.o_getFieldData('type_' + n);
                         switch (typeValue.toString()) {
@@ -261,21 +303,20 @@ define(function (require, exports, module) {
                             case '2':
                             {
                                 me.o_setValue({name: 'purchaseAmount_' + n, value: 0});
-                                me.o_setValue({name: 'purchaseAmount_input_' + n, value: 0, readonly: false});
+                                me.o_setValue({name: 'purchaseAmount_input_' + n, value: 0, readonly: true});
                                 me.o_setValue({name: 'discount_' + n, value: '0'});
                             }
                                 ;
                                 break;
                             case '3':
                             {
-
                                 if (data.__editChange === false) {
                                     data.__editChange = true;
                                     me.o_setValue({name: 'purchaseAmount_' + n});
-                                    me.o_setValue({name: 'purchaseAmount_input_' + n, readonly: false});
+                                    me.o_setValue({name: 'purchaseAmount_input_' + n, readonly: condition ? isReadonly : true});
                                 } else {
                                     me.o_setValue({name: 'purchaseAmount_' + n, value: me.o_getFieldValue('purchaseAmount_' + n)});
-                                    me.o_setValue({name: 'purchaseAmount_input_' + n, value: me.o_getFieldValue('purchaseAmount_' + n), readonly: false})
+                                    me.o_setValue({name: 'purchaseAmount_input_' + n, value: me.o_getFieldValue('purchaseAmount_' + n), readonly: condition ? isReadonly : true})
                                 }
                             }
                                 ;
@@ -285,10 +326,10 @@ define(function (require, exports, module) {
                                 if (data.__editChange === false) {
                                     data.__editChange = true;
                                     me.o_setValue({name: 'purchaseAmount_' + n});
-                                    me.o_setValue({name: 'purchaseAmount_input_' + n, readonly: false});
+                                    me.o_setValue({name: 'purchaseAmount_input_' + n, readonly: condition ? isReadonly : true});
                                 } else {
                                     me.o_setValue({name: 'purchaseAmount_' + n, value: me.o_getFieldValue('purchaseAmount_' + n)});
-                                    me.o_setValue({name: 'purchaseAmount_input_' + n, value: me.o_getFieldValue('purchaseAmount_' + n), readonly: false})
+                                    me.o_setValue({name: 'purchaseAmount_input_' + n, value: me.o_getFieldValue('purchaseAmount_' + n), readonly: condition ? isReadonly : true})
                                 }
                             }
                                 ;
@@ -334,7 +375,7 @@ define(function (require, exports, module) {
                 {
                     var isReadonly = $(e.target).is('[readonly],[disabled]');
                     if (id == '3' && me.o_getFieldValue('useCRM')) {
-                        me.o_setValue({name: 'purchaseAmount_input_' + id, value: me.o_getFieldValue('purchaseAmount_input_' + id)});
+                        me.o_setValue({name: 'purchaseAmount_input_' + id, readonly: true, value: me.o_getFieldValue('purchaseAmount_input_' + id)});
                     } else {
                         me.o_setValue({name: 'purchaseAmount_input_' + id, value: me.o_getFieldValue('purchaseAmount_input_' + id), readonly: isReadonly});
                     }
@@ -424,4 +465,5 @@ define(function (require, exports, module) {
         return dataItems;
     }
 
-});
+})
+;

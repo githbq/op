@@ -106,7 +106,7 @@ define( function( require, exports, module ) {
 		   var id = $(e.currentTarget).attr('data-id')||'';
 		   var enterpriseId = $(e.currentTarget).attr('data-enterpriseId')||'';
            var orderType = $(e.currentTarget).attr('data-orderType')||'';
-           var opinion = $(e.currentTarget).attr('data-opinion')||'';
+           var opinion = '';
            var isTp = $(e.currentTarget).attr('data-isTp')||'';
            var ea = $(e.currentTarget).attr('data-ea')||'';
 		   var contractNo = $(e.currentTarget).attr('data-contractNo')||'';
@@ -123,19 +123,22 @@ define( function( require, exports, module ) {
 	   orderDelEve:function(e){
 		   var me = this;
 		   var id = $(e.currentTarget).attr('data-id');
-		   util.api({
-                'url':'/odr/deleteOrder',
-                'data':{
-					'orderId':id
-				},
-                'success': function( data ){
-                    console.warn( data );
-                    if( data.success ){
-					   util.showTip('订单删除成功！')
-                       me.searchEve();
-                    }
-                }
-            });
+		   var bool = confirm('确定要删除该订单吗?');
+		   if(bool){
+			    util.api({
+					'url':'/odr/deleteOrder',
+					'data':{
+						'orderId':id
+					},
+					'success': function( data ){
+						console.warn( data );
+						if( data.success ){
+						   util.showTip('订单删除成功！')
+						   me.searchEve();
+						}
+					}
+				});
+		   }
 	   },
         //导出excel
         exportEve: function(e){
