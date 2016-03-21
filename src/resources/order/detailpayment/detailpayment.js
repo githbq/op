@@ -217,7 +217,7 @@ define( function(require, exports, module){
 			var optionsList = me.attrs.orderData.order.rejectReason ? me.attrs.orderData.order.rejectReason.split('<+>'): [];
 			for(var i = 0; i<optionsList.length; i++){
 				var tempAry = optionsList[i].split('<->');
-				tempAry[2] = (tempAry[2]='true') ? '同意':'驳回';
+				tempAry[2] = (tempAry[2]=='true') ? '同意':'驳回';
 				strDom+='<tr><td>'+tempAry[0]+'</td><td>'+tempAry[1]+'</td><td>'+tempAry[2]+'</td><td>'+tempAry[3]+'</td></tr>'
 			}
 			
