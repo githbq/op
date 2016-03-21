@@ -90,7 +90,7 @@
 </div>
 
 <!---->
-<input id="key" type="hidden" value="${token}" /></div>
+<input id="key" type="hidden" value="${token}"/>
 
 <!--Tip 提示-->
 <script type="text/template" id="g-tip">
@@ -131,5 +131,4 @@
 </script>
 </body>
 </html>
-
 

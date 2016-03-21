@@ -176,7 +176,7 @@ define( function( require, exports, module ) {
                     endAppStartTime: endAppStartTime
                 },
                 beforeSend: function() {
-                    me.$tbody.html( '<tr><td colspan="11"><p class="info">加载中...</p></td></tr>' );
+                    me.$tbody.html( '<tr><td colspan="9"><p class="info">加载中...</p></td></tr>' );
                 },
                 success: function( data ) {
 

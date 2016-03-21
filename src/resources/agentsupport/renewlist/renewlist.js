@@ -108,21 +108,26 @@ define( function( require, exports, module ) {
             var $target = $( e.currentTarget );
             var inid = $target.attr('data-inid');
 
-            util.api({
-                'url': '~/op/api/approval/withdrawapproval',
-                'data':{
-                    'processInstanceId': inid
-                },
-                'success': function( data ){
-                    console.warn( data );
-                    if( data.success ){
-                        util.showTip('撤销成功');
-                        me.getList();
+            var bool = confirm("是否确认撤销此条审批?");
+
+            if( bool ){
+                util.api({
+                    'url': '~/op/api/approval/withdrawapproval',
+                    'data':{
+                        'processInstanceId': inid
+                    },
+                    'success': function( data ){
+                        console.warn( data );
+                        if( data.success ){
+                            util.showTip('撤销成功');
+                            me.getList();
+                        }
                     }
-                }
-            })
+                });
+            }
         },
 
+        //搜索列表
         searchEve: function(){
             var me = this;
             me.pagination.setPage( 0,false );

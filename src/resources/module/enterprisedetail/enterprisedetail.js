@@ -210,8 +210,6 @@ define( function(require, exports, module){
 			'#cQQ': 'cQQ',
 			'#remark': 'remark',
 			'#tbProduct': 'tbProduct',
-			///'#sProductName': 'sProductName',
-			///'#sProductStatus': 'spstatus',
 			'#tbAgent tbody': 'tbAgent',
 			'#sAgentId': 'sAgentId',
 			'#sAgentName': 'sAgentName',
@@ -247,8 +245,6 @@ define( function(require, exports, module){
 			'#yingxiaoAdd': 'yingxiaoAdd',	     //营销版终端扩容
 			
 			'#sActivity': 'sActivity',
-			///'#sActiveRemark': 'sActiveRemark',
-			///'#sdProductModule': 'sdProductModule',
 			'#sProductModule': 'sProductModule',
 			'#sdELC': 'sdELC',
 			'#sdELUC': 'sdELUC',
@@ -325,54 +321,14 @@ define( function(require, exports, module){
 			'.companyGateKeyword':'setcompanyGatekeyword',
 			'.companyGateRemark':'setcompanyGateRemark',
 			'.upload':'saveEve',
-
-
-			///'.status-disabled':'statusDisabled',
-			///'.contractCopy-link':'contractCopyLink',
-			///'.img-contractCopy' :'imgContractCopy',
-			///'.contractCopy-hide' :'contractCopyHide',
-			///'.contract-link':'contractLink',
-			///'.img-contract' :'imgContract',
-			///'.contract-hide' :'contractHide',
-			///'.select-disabled':'selectDisabled',
-			///'.state-current':'stateCurrent',
-			///'.start-time-ht':'startTimeHt',
-			///'.end-time-ht':'endTimeHt',
-			///'.contractprice': 'contractprice',       //合同金额
-			///'.deviceamount': 'deviceamount',          	//终端数量
-			///'.marketingAccountAmount':'marketingAccountAmount',
-			///'.useBusinessCard':'useBusinessCard',
-			///'.card-price':'cardPrice',
-
-			///'.fn-buy':'fnBuy',
-
-			///'.show-type':'showType',
-			///'.contract': 'contract',
-			///'.contractCopy':'contractCopy',
-			///'.contract-free':'contractFree',
-			///'.look-contract-free':'lookContractFree',
-			///'.img-contract-free':'imgContractFree',
-			///'.contract-hide-free':'contractHideFree',
-			///'.contractCopy-free':'contractCopyFree',
-			///'.look-contractCopy-free':'lookContractCopyFree',
-			///'.img-contractCopy-free':'imgContractCopyFree',
-			///'.contractCopy-hide-free':'contractCopyHideFree',
-			///'.start-time-ht-free':'startTimeHtFree',
-			///'.end-time-ht-free':'endTimeHtFree',
-			///'.fn-buy-free': 'fnBuyFree',
-
-
-
 			'#creatorName':'creatorName',
 			'#createTime':'createTime',
-			///'#tabs li'   :'tabsList',
 			
 			'#crmInfoState':'crmInfoState'    //crm控制信息状态
 		},
 		events: {
 			'click .accordian h4': 'showAccordian',
 			'click #btnSaveBasic': 'saveBasicEve',
-			///'click #tbProduct em': 'changeProductEve',
 			'click #tbAgent em': 'changeAgentEve',
 			'click #btnSBAgentSearch': 'loadAgents',
 			'click #sBtnChangeTrial': 'changeTrial',
@@ -380,9 +336,6 @@ define( function(require, exports, module){
 			'click #sBtnChangeStatistics': 'changeStatistics',
 			'click #sBtnChangeStatisticsagent': 'changeStatisticsagent',
 
-			///'click #sBtnActive': 'active',
-			///'click #sBtnRemove': 'uninstall',
-			///'click #sBtnChangeModule': 'changeModule',
 			'click #sBtnChangeFunctions': 'changeFunctions',
 
 			'click #sBtnMarketingStop': 'stopMarketing',
@@ -410,8 +363,6 @@ define( function(require, exports, module){
 
 			'click .upload':'saveFn',				  			//资料审核提交
 
-			///'click .fn-buy':'fnBuyEve',
-
 			'click .addTraining': 'addTrainingEve',             //添加培训记录
 			'click .edittraining': 'editTrainingEve',           //编辑培训记录
 			'click .searchTraining': 'searchTraining',
@@ -420,8 +371,6 @@ define( function(require, exports, module){
 			'click .callback-actionoff': 'callbackOffEve',    	//电话回访失败
 			'click .verificationaction-on': 'veriOnEve',      	//资料审核成功
 			'click .verificationaction-off': 'veriOffEve',	  	//资料审核失败
-
-			///'click .fn-buy-free': 'fnBuyFreeEve',               //营销版办公版增购tab切换
 
 			'click .savemonitoring': 'saveMonitoringEve',       //保存监控信息
 
@@ -1942,6 +1891,8 @@ define( function(require, exports, module){
 						console.warn( data );
 						if( data.success ){
 							util.showTip('CRM信息控制变更成功！');
+							me.hide();
+							me.trigger('refresh');
 							//me.#crmInfoState.val();
 						}
 					}
@@ -2092,6 +2043,7 @@ define( function(require, exports, module){
 		/**
 		 *
 		 * 使用情况
+		 * 显示使用情况
 		 */
 		showOperations: function() {
 			var me = this;
@@ -2101,13 +2053,6 @@ define( function(require, exports, module){
 			
 			me.attrs.freeIncreaseContractRequired = '';
 			
-			//判断是否开通来显示增购部分是否可以显示
-			if(me.attrs.runStatus==2){
-				me.$('.approval-box').show();
-			}else{
-				me.$('.approval-box').hide();
-			}
-
 			/***
 			 *
 			 * 签约到期时间( 付费版 )   如果是 9999-12-31   则显示永久
@@ -2167,581 +2112,7 @@ define( function(require, exports, module){
 				me.loadOperations();
 			}
 			
-			//代理商普通员工可操作增购扩容
-			//me.addBuyDataInit();
 		},
-
-		//----删除开始
-		///addBuyDataInit:function(){
-			///var me = this;
-			
-			///me.$statusDisabled.removeAttr('disabled');
-			///me.$statusDisabled.val('');
-			///me.$stateCurrent.show();
-			
-			///me.$('.useBusinessCard').removeAttr('disabled');
-			
-			///me.$contractCopyHide.show();
-			///me.$contractCopyLink.hide();
-			///me.$cardPrice.hide();
-			///me.$contractCopyLink.attr('href', '');
-			///me.$imgContractCopy.attr('src', '');
-			///me.$contractHide.show();
-			///me.$contractLink.hide();
-			///me.$contractLink.attr('href', '');
-			///me.$imgContract.attr('src', '');
-			
-			///me.$contractCopyHideFree.show();
-			///me.$lookContractCopyFree.hide();
-			///me.$lookContractCopyFree.attr('href', '');
-			///me.$imgContractCopyFree.attr('src', '');
-			///me.$contractHideFree.show();
-			///me.$lookContractFree.hide();
-			///me.$lookContractFree.attr('href', '');
-			///me.$imgContractFree.attr('src', '');
-			
-			///me.model.set('discountAdd','');
-			///me.model.set('isPaidAdd','0');
-			///me.model.set('useBusinessCardAdd','0');
-			/*
-			me.$startTimeHt.datetimepicker( {
-                format: 'Y/m/d',
-                onShow: function() {
-                    var maxDate = me.$endTimeHt.val() ? me.$endTimeHt.val() : false;
-                    this.setOptions({
-                        maxDate: maxDate
-                    });
-                },
-                timepicker: false
-            } );
-			*/
-
-			/*
-            me.$endTimeHt.datetimepicker( {
-                format: 'Y/m/d',
-                onShow: function() {
-                    var minDate = me.$startTimeHt.val() ? me.$startTimeHt.val() : false;
-                    this.setOptions({
-                        minDate: minDate
-                    });
-                },
-                timepicker: false
-            } );
-			*/
-
-			/*
-			me.$startTimeHtFree.datetimepicker( {
-                format: 'Y/m/d',
-                onShow: function() {
-                    var maxDate = me.$endTimeHtFree.val() ? me.$endTimeHtFree.val() : false;
-                    this.setOptions({
-                        maxDate: maxDate
-                    });
-                },
-                timepicker: false
-            } );
-			*/
-
-			/**
-            me.$endTimeHtFree.datetimepicker( {
-                format: 'Y/m/d',
-                onShow: function() {
-                    var minDate = me.$startTimeHtFree.val() ? me.$startTimeHtFree.val() : false;
-                    this.setOptions({
-                        minDate: minDate
-                    });
-                },
-                timepicker: false
-            } );
-			*/
-			
-			/*
-			me.$tabsList.on('click',function(){
-				var $this = $(this);
-				var $t = $this.index();
-				me.$('#tabs li').removeClass();
-				me.$(this).addClass('current');
-				me.$('.content-box .content-info').css('display','none');
-				me.$('.content-box .content-info').eq($t).css('display','block');
-			});
-			*/
-
-			//var me = this;
-	
-			
-			//合同金额改变
-			/*
-			me.$contractprice.on('focusout',function(){
-				me.model.set('cardPriceAdd',parseFloat(me.model.get('cardPriceAdd'))?parseFloat(me.model.get('cardPriceAdd')):'');
-				me.getdiscount();
-			});
-			*/
-
-			/*
-			me.$deviceamount.on('focusout',function(){
-				var buyCount = me.model.get('marketingAccountAmountAdd')?parseInt(me.model.get('marketingAccountAmountAdd')):0;
-				me.model.set('accountTotalAmountAdd',parseInt(me.model.get('accountTotalAmountAdd'))?parseInt(me.model.get('accountTotalAmountAdd')):'');
-				//if(buyCount>0){
-					me.model.set('marketingAccountAmountAdd',parseInt(me.model.get('marketingAccountAmountAdd'))?parseInt(me.model.get('marketingAccountAmountAdd')):'');
-					me.getFreeNum();
-				//}
-				
-			});
-			*/
-
-			//营销版数量改变
-			/*
-			me.$marketingAccountAmount.on('focusout',function(){
-				me.getFreeNum();
-				me.getdiscount();
-			});
-			*/
-			
-			//合同开始时间
-			/*
-			me.$startTimeHt.on('focusout',function(){
-				me.getdiscount();
-			});
-			*/
-			
-			//合同介绍时间
-			/*
-			me.$endTimeHt.on('focusout',function(){
-				me.getdiscount();
-			});
-			*/
-
-			//是否使用名片
-
-			/***
-			me.$useBusinessCard.on('change',function(){
-				me.getdiscount();
-			});
-			***/
-
-			/***
-			me.$contract.on('change',function(){
-				var fileExtension =me.$contract[0].files[0].name.split('.').pop().toLowerCase();
-				if(fileExtension=='jpg'||fileExtension=='gif'||fileExtension=='png'||fileExtension=='jpeg'){
-					me.$fnBuy.attr('disabled','disabled');
-					me.$fnBuy.text('文件上传...');
-				
-					uploader.send({
-						'url': '/op/api/file/uploadsinglefileandcheck',
-						'files': me.$contract[0].files,
-						'options':{
-							'limittype':'IMAGE'
-						},
-						'success': function( response ){
-							
-							me.model.set('contractAdd', response.value.model.path );
-							me.model.set('contractFileNameAdd', response.value.model.FileName );
-							me.$contractLink.show();
-							me.$contractHide.hide();
-							me.$contractLink.attr('href', '/op/api/file/previewimage' + '?filePath=' + response.value.model.path);
-							me.$imgContract.attr('src', '/op/api/file/previewimage' + '?filePath=' + response.value.model.path);
-							me.$fnBuy.removeAttr('disabled');
-							me.$fnBuy.text('申请增购');
-							
-						},
-						'error':function(response){
-							me.$fnBuy.removeAttr('disabled');
-							me.$fnBuy.text('申请增购');
-							me.$contract.val('');
-							return false;
-						}
-					})
-				}else{
-					me.$contract.val('');
-					util.showToast('请上传图片格式不正确(.jpg,.png,.gif)！');
-					return false;
-				}
-				
-			});
-			***/
-
-			/***
-			me.$contractCopy.on('change',function(){
-				var fileExtension =me.$contractCopy[0].files[0].name.split('.').pop().toLowerCase();
-				if(fileExtension=='jpg'||fileExtension=='gif'||fileExtension=='png'||fileExtension=='jpeg'){
-					me.$fnBuy.attr('disabled','disabled');
-					me.$fnBuy.text('文件上传...');
-					
-					uploader.send({
-						'url': '/op/api/file/uploadsinglefileandcheck',
-						'files': me.$contractCopy[0].files,
-						'options':{
-							'limittype':'IMAGE'
-						},
-						'success': function( response ){	
-							console.warn( response );
-							me.model.set('contractCopyAdd', response.value.model.path );
-							me.model.set('contractCopyFileNameAdd', response.value.model.FileName );
-							me.$contractCopyLink.show();
-							me.$contractCopyHide.hide();
-							me.$contractCopyLink.attr('href', '/op/api/file/previewimage' + '?filePath=' + response.value.model.path);
-							me.$imgContractCopy.attr('src', '/op/api/file/previewimage' + '?filePath=' + response.value.model.path);
-							me.$fnBuy.removeAttr('disabled');
-							me.$fnBuy.text('申请增购');
-						},
-						'error':function(response){
-							me.$fnBuy.removeAttr('disabled');
-							me.$fnBuy.text('申请增购');
-							me.$contractCopy.val('');
-							return false;
-						}
-					})
-				}else{
-					me.$contractCopy.val('');
-					util.showToast('请上传图片格式不正确(.jpg,.png,.gif)！');
-					return false;
-				}
-				
-			});
-			***/
-
-			/***
-			me.$contractFree.on('change',function(){
-				var fileExtension =me.$contractFree[0].files[0].name.split('.').pop().toLowerCase();
-				if(fileExtension=='jpg'||fileExtension=='gif'||fileExtension=='png'||fileExtension=='jpeg'){
-					me.$fnBuyFree.attr('disabled','disabled');
-					me.$fnBuyFree.text('文件上传...');
-				
-					uploader.send({
-						'url': '/op/api/file/uploadsinglefileandcheck',
-						'files': me.$contractFree[0].files,
-						'options':{
-							'limittype':'IMAGE'
-						},
-						'success': function( response ){
-							
-							me.model.set('contractFree', response.value.model.path );
-							me.model.set('contractFileNameFree', response.value.model.FileName );
-							me.$lookContractFree.show();
-							me.$contractHideFree.hide();
-							me.$lookContractFree.attr('href', '/op/api/file/previewimage' + '?filePath=' + response.value.model.path);
-							me.$imgContractFree.attr('src', '/op/api/file/previewimage' + '?filePath=' + response.value.model.path);
-							me.$fnBuyFree.removeAttr('disabled');
-							me.$fnBuyFree.text('申请增购');
-							
-						},
-						'error':function(response){
-							me.$fnBuyFree.removeAttr('disabled');
-							me.$fnBuyFree.text('申请增购');
-							me.$contractFree.val('');
-							return false;
-						}
-					})
-				}else{
-					me.$contractFree.val('');
-					util.showToast('请上传图片格式不正确(.jpg,.png,.gif)！');
-					return false;
-				}
-				
-			});
-			***/
-
-			/*
-			me.$contractCopyFree.on('change',function(){
-				var fileExtension =me.$contractCopyFree[0].files[0].name.split('.').pop().toLowerCase();
-				if(fileExtension=='jpg'||fileExtension=='gif'||fileExtension=='png'||fileExtension=='jpeg'){
-					me.$fnBuyFree.attr('disabled','disabled');
-					me.$fnBuyFree.text('文件上传...');
-					
-					uploader.send({
-						'url': '/op/api/file/uploadsinglefileandcheck',
-						'files': me.$contractCopyFree[0].files,
-						'options':{
-							'limittype':'IMAGE'
-						},
-						'success': function( response ){	
-							console.warn( response );
-							me.model.set('contractCopyFree', response.value.model.path );
-							me.model.set('contractCopyFileNameFree', response.value.model.FileName );
-							me.$lookContractCopyFree.show();
-							me.$contractCopyHideFree.hide();
-							me.$lookContractCopyFree.attr('href', '/op/api/file/previewimage' + '?filePath=' + response.value.model.path);
-							me.$imgContractCopyFree.attr('src', '/op/api/file/previewimage' + '?filePath=' + response.value.model.path);
-							me.$fnBuyFree.removeAttr('disabled');
-							me.$fnBuyFree.text('申请增购');
-						},
-						'error':function(response){
-							me.$fnBuyFree.removeAttr('disabled');
-							me.$fnBuyFree.text('申请增购');
-							me.$contractCopyFree.val('');
-							return false;
-						}
-					})
-				}else{
-					me.$contractCopyFree.val('');
-					util.showToast('请上传图片格式不正确(.jpg,.png,.gif)！');
-					return false;
-				}
-				
-			});
-			*/
-
-			///if(me.attrs.isPay==1 && me.attrs.freeIncreaseContractRequired){
-
-			///	me.$('.check-hide').show();
-			///}else{
-			///	me.$('.check-hide').hide();
-			///}
-		///},
-		//获取赠送数量
-		///
-		///getFreeNum: function(){
-		///	var me = this;
-		///
-		///	var buyCount = me.model.get('marketingAccountAmountAdd')?parseInt(me.model.get('marketingAccountAmountAdd')):0;
-		///	var	sumNum =  me.$deviceamount.val()?parseInt(me.$deviceamount.val()):0;
-		///	if(sumNum>0&&sumNum<buyCount){
-		///		util.showToast('营销版数量不能大于销客终端数量');
-		///		me.model.set('marketingAccountAmountAdd','');
-		///		return false;
-		///	}
- 
-			/*if(buyCount>0){
-				me.model.set('isPaidAdd','1');
-			}else{
-				me.model.set('isPaidAdd','0');
-			})*/
-		///},
-		//获取折扣
-		/*
-		getdiscount: function(){
-			var me = this;
-			var contractStartTime = new Date( me.$startTimeHt.val() ).getTime()||'' ,
-				contractEndTime = new Date( me.$endTimeHt.val() ).getTime()||'',
-				contractPrice = me.model.get('contractPriceAdd'),
-				accountAmount = accountAmount = me.model.get('marketingAccountAmountAdd')?parseInt(me.model.get('marketingAccountAmountAdd')):0,
-				buyBusinessCard = me.model.get('useBusinessCardAdd');
-			me.model.set('discountAdd', '0');
-			if( contractStartTime && contractEndTime && buyBusinessCard =='1'){
-				util.api({
-					'url':'/enterprise/getbusinesscardprice',
-					'data':{
-						'contractStartTime':contractStartTime,
-						'contractEndTime':contractEndTime
-					},
-					'success': function( data ){
-						if( data.success ){
-							
-							me.model.set('cardPriceAdd', data.value.model);
-							me.$cardPrice.show();
-							console.log(data);
-							return false;
-						}
-					}
-				});
-			}
-
-			if( contractStartTime && contractEndTime && accountAmount && contractPrice && buyBusinessCard ){
-				me.$fnBuy.attr('disabled','disabled');
-				me.$fnBuy.text('折扣计算中...');
-				me.discountxhr && me.discountxhr.abort();
-				me.discountxhr = util.api({
-					url:'/enterprise/getdiscount',
-					'data':{
-						'contractStartTime': contractStartTime,
-						'contractEndTime': contractEndTime,
-						'accountAmount': accountAmount,
-						'contractPrice': contractPrice,
-						'buyBusinessCard':buyBusinessCard
-					},
-					'success': function( data ){
-						console.warn( data );
-						if( data.success ){
-							if(data.value.model.toFixed(1)<0){
-								util.showToast('计算折扣小于0,请重新调整金额');
-								return false;
-							}
-							me.model.set('discountAdd', (data.value.model.toFixed(1)));
-							me.$fnBuy.removeAttr('disabled');
-							me.$fnBuy.text('申请增购');
-							
-						}else{
-							me.$fnBuy.removeAttr('disabled');
-							me.$fnBuy.text('申请增购');
-						}
-					}
-				})
-			}
-		},		
-		*/
-
-		//增购扩容
-		/*
-		fnBuyEve:function(){
-			var  me = this;
-			var objDate = {};
-			
-			var state = true;
-			me.$('.check-empty').each(function(){
-				var $this = $( this );
-				var attr = $this.attr('ce-model');
-				if( !me.model.get(attr) ){
-					util.warnInput( $this );
-					state = false;
-				}else{
-					util.unWarnInput( $this );
-				}
-			});
-			if( !me.model.get('contractAdd')){
-				util.warnInput( $('.contract') );
-				state = false;
-			}else{
-				util.unWarnInput( $('.contract') );
-			}
-
-			if( !me.$startTimeHt.val() ){
-				util.warnInput( $('.start-time-ht') );
-				state = false;
-			}else{
-				util.unWarnInput( $('.start-time-ht') );
-			}
-
-			if( !me.$endTimeHt.val() ){
-				util.warnInput( $('.end-time-ht') );
-				state = false;
-			}else{
-				util.unWarnInput( $('.end-time-ht'));
-			}
-			if( !state ){
-				util.showToast('填写信息不完整！');
-				return false;
-			}
-			objDate['enterpriseId'] = me.model.attrs.enterpriseId;
-			objDate['accountTotalAmount']=me.model.get('accountTotalAmountAdd');
-			objDate['marketingAccountAmount']=me.model.get('marketingAccountAmountAdd');
-			var tempNum = me.model.get('marketingAccountAmountAdd')?parseInt(me.model.get('marketingAccountAmountAdd')):0;
-			if(tempNum == 0){
-				me.model.set('discountAdd', '1');
-				me.model.set('contractPriceAdd','0');
-			}else{
-				if( !me.model.get('invoiceTitleAdd')){
-					util.warnInput( $('.invoiceTitleAdd') );
-					state = false;
-				}else{
-					util.unWarnInput( $('.invoiceTitleAdd') );
-				}
-			}
-			
-			objDate['storageTotalSpace']=me.model.get('storageTotalSpaceAdd');
-			objDate['contract']=me.model.get('contractAdd')||'';
-			objDate['contractFileName']=me.model.get('contractFileNameAdd')||'';
-			objDate['contractCopy']=me.model.get('contractCopyAdd')||'';
-			objDate['contractCopyFileName']=me.model.get('contractCopyFileNameAdd')||'';
-			objDate['contractPrice'] = me.model.get('contractPriceAdd')||'';
-			objDate['discount'] = me.model.get('discountAdd')||'';
-			objDate['invoiceTitle'] = me.model.get('invoiceTitleAdd')||'';
-			objDate['useBusinessCard'] = me.model.get('useBusinessCardAdd')||'';
-			
-			if(objDate['marketingAccountAmount']){
-				objDate['contractType'] = 1;
-			}else{
-				objDate['contractType'] = 0;
-			}
-			//objDate['contractPrice'] = me.model.get('contractPriceAdd')||'';
-			objDate['contractStartTime'] = new Date( me.$startTimeHt.val() ).getTime()||'';
-			objDate['contractEndTime'] = new Date( me.$endTimeHt.val() ).getTime();
-			
-			util.api({
-                    'url':'/enterprise/increaseenterpriseaccount',
-                    'data':objDate,
-					'button': {
-						'el': me.$fnBuy,
-						'text':'提交中......'
-					},
-                    'success':function( data ){
-                        if( data.success ){
-                            util.showTip('申请提交成功！');
-                            me.hide();
-                        }
-                    }
-                })
-			
-		},
-		*/
-		//增购办公版
-		/*
-		fnBuyFreeEve:function(){
-			var  me = this;
-			var objDate = {};
-		
-			if(!parseInt(me.model.get('freeAccountTotalAmount')) || parseInt(me.model.get('freeAccountTotalAmount'))<1){
-				util.showToast('增购办公版数量不能小于等于0！');
-				return false;
-			}
-			if(!parseFloat(me.model.get('freeStorageTotalSpace')) || parseFloat(me.model.get('freeStorageTotalSpace'))<0){
-				util.showToast('增购空间数量不能小于等于0！');
-				return false;
-			}
-
-			if(me.attrs.isPay==1 && me.attrs.freeIncreaseContractRequired){
-
-				var state = true;
-				if( !me.model.get('contractFree')){
-					util.warnInput( $('.contract-free') );
-					state = false;
-				}else{
-					util.unWarnInput( $('.contract-free') );
-				}
-				if( !me.$startTimeHtFree.val() ){
-					util.warnInput( $('.start-time-ht-free') );
-					state = false;
-				}else{
-					util.unWarnInput( $('.start-time-ht-free') );
-				}
-
-				if( !me.$endTimeHtFree.val() ){
-					util.warnInput( $('.end-time-ht-free') );
-					state = false;
-				}else{
-					util.unWarnInput( $('.end-time-ht-free'));
-				}
-				if( !me.$('.invoiceTitleAddFree').val() ){
-					util.warnInput( $('.invoiceTitleAddFree') );
-					state = false;
-				}else{
-					util.unWarnInput( $('.invoiceTitleAddFree'));
-				}
-				if( !state ){
-					util.showToast('填写信息不完整！');
-					return false;
-				}
-			}
-			
-			objDate['enterpriseId'] = me.model.attrs.enterpriseId;
-			objDate['accountTotalAmount'] = me.model.get('freeAccountTotalAmount');
-			objDate['storageTotalSpace'] = me.model.get('freeStorageTotalSpace');
-			objDate['contract'] = me.model.get('contractFree');
-			objDate['contractFileName'] = me.model.get('contractFileNameFree');
-			objDate['contractCopy'] = me.model.get('contractCopyFree');
-			objDate['contractCopyFileName'] = me.model.get('contractCopyFileName');
-			objDate['invoiceTitle'] = me.model.get('invoiceTitleAddFree');
-			objDate['contractStartTime'] = me.$startTimeHtFree.val()? new Date( me.$startTimeHtFree.val() ).getTime():'';
-			objDate['contractEndTime'] = me.$endTimeHtFree.val()?new Date( me.$endTimeHtFree.val() ).getTime():'';
-			
-			util.api({
-				'url': '/enterprise/increaseenterpriseaccountfree',
-				'data': objDate,
-				'button': {
-					'el': me.$('.fn-buy-free'),
-					'text':'提交中......'
-				},
-				'success': function( data ) {
-
-					if ( data.success ) {
-						util.showTip('申请提交成功！');
-						me.hide();
-					}
-				}
-			});
-			
-		},
-		*/
-		//----删除结束
 
 		loadOperations: function() {
 			var me = this;

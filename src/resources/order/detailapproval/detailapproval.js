@@ -99,14 +99,14 @@ define( function(require, exports, module){
 					$.when( me.getOrderDetail(), me.getEnterpriseInfo()).done(function(){
 						//备注信息
 						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData,
-							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
 
 						//setOrderInfo--订单信息
 						me.setOrderInfo();
 
 						//基本信息
 						me.attrs.basicCommon = new BasicInfo( { 'wrapper':me.$view.find('.common--basic'),'data':me.attrs.enterpriseData.enterprise,
-							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
 					});
 
 					break;
@@ -115,14 +115,14 @@ define( function(require, exports, module){
 					$.when( me.getOrderDetail(), me.getEnterpriseInfo()).done(function(){
 						//备注信息
 						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData,
-							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
 
 						//setOrderInfo--订单信息
 						me.setOrderInfo();
 
 						//基本信息
 						me.attrs.basicCommon = new BasicInfo( { 'wrapper':me.$view.find('.common--basic'),'data':me.attrs.enterpriseData.enterprise,
-							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
 					});
 
 					break;
@@ -131,13 +131,13 @@ define( function(require, exports, module){
 					$.when( me.getOrderDetail(), me.getEnterpriseInfo()).done(function(){
 						//备注信息
 						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData,
-							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
 
 						//setOrderInfo--订单信息
 						me.setOrderInfo();
 						//基本信息
 						me.attrs.basicCommon = new BasicInfo( { 'wrapper':me.$view.find('.common--basic'),'data':me.attrs.enterpriseData.enterprise,
-							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
 					});
 
 
@@ -148,13 +148,13 @@ define( function(require, exports, module){
 
 						//备注信息
 						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData,
-							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
 
 						//setOrderInfo--订单信息
 						me.setOrderInfo();
 						//基本信息
 						me.attrs.basicCommon = new BasicInfo( { 'wrapper':me.$view.find('.common--basic'),'data':me.attrs.enterpriseData.enterprise,
-							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
 					});
 
 					break;
@@ -305,6 +305,7 @@ define( function(require, exports, module){
 					if( data.success ){
 						me.attrs.enterpriseData = data.value.model;
 						$.extend(true, me.attrs.allData, me.attrs.enterpriseData );
+						
 						//callback && callback();
 					}
 				}
@@ -320,7 +321,7 @@ define( function(require, exports, module){
 				'success': function( data ){
 					if( data.success ){
 						me.attrs.orderData = data.value.model;
-
+						me.setOptions();
 						me.attrs.allData.orderEntity = me.attrs.orderData;
 						//$.extend(true, me.attrs.allData, me.attrs.orderData );
 						//callback && callback();
@@ -351,6 +352,7 @@ define( function(require, exports, module){
 		 setOrderInfo:function(){
 			 var  me = this;
 			 var payInfoReadonly = !me.attrs.options.editFlag;
+			 var allReadonly = !me.attrs.options.editFlag;
 			var productData = me.attrs.orderData;
 			var edit = false;
 			 productData.enterpriseExtend = me.attrs.enterpriseData.enterpriseExtend ? me.attrs.enterpriseData.enterpriseExtend:null;
@@ -373,7 +375,8 @@ define( function(require, exports, module){
 			}
 			if(me.attrs.options.rejectsFrom && (me.attrs.options.rejectsFrom == 2 || me.attrs.options.rejectsFrom == 3 ) && me.attrs.options.editFlag){
 				payInfoReadonly = false;
-				me.attrs.moneyEdit = false
+				me.attrs.moneyEdit = true
+				allReadonly = true;
 			}
 			/*if( me.attrs.options.editFlag ){
 				edit = true;
@@ -383,7 +386,7 @@ define( function(require, exports, module){
 			 me.attrs.prodeuctObj =  productinfo.showProductInfo( {terminalInfo:{$view:me.$view.find('.common-terminalinfo')},
 					 tableInfo:{$view:me.$view.find('.common-tableinfo')},
 					 formInfo:{$view:me.$view.find('.common-forminfo')}}
-				 ,tempOrderType ,{'edit':true,'payInfoReadonly':payInfoReadonly,'enterpriseId':me.attrs.options.enterpriseId,'readonly': !me.attrs.options.editFlag,'data':productData } );
+				 ,tempOrderType ,{'edit':true,'payInfoReadonly':payInfoReadonly,'enterpriseId':me.attrs.options.enterpriseId,'readonly': allReadonly,'data':productData } );
 
 			 //发票信息
 			 me.attrs.invoiceCommon = new InvoiceInfo( { 'wrapper':me.$view.find('.common--invioce'),'data':me.attrs.orderData,
@@ -399,17 +402,31 @@ define( function(require, exports, module){
 				me.$('.state-refuse').show();
 			}
 			me.$('.currentTask-'+me.attrs.options.currentTask).show();
-			//判断审批意见
-			var opinion = me.attrs.options.opinion ? me.attrs.options.opinion :'暂无';
-			me.$('.last-options').text(opinion);
 			
 			//设置是否可以编辑
 			me.attrs.moneyEdit = me.attrs.options.editFlag;
 			//财务驳回只能部分编辑和小助手第二次驳回
 			if(me.attrs.options.rejectsFrom && (me.attrs.options.rejectsFrom == 2 || me.attrs.options.rejectsFrom == 3 ) && me.attrs.options.editFlag){
-				me.attrs.moneyEdit = false;;
+				me.attrs.moneyEdit = true;;
 			}
 
+		},
+		//设置审批意见
+		setOptions:function(){
+			var me = this,strDom = '';
+			
+			var optionsList = me.attrs.orderData.order.rejectReason ? me.attrs.orderData.order.rejectReason.split('<+>'): [];
+			for(var i = 0; i<optionsList.length; i++){
+				var tempAry = optionsList[i].split('<->');
+				tempAry[2] = (tempAry[2]=='true') ? '同意':'驳回';
+				strDom+='<tr><td>'+tempAry[0]+'</td><td>'+tempAry[1]+'</td><td>'+tempAry[2]+'</td><td>'+tempAry[3]+'</td></tr>'
+			}
+			
+			//判断审批意见
+
+			var opinion = strDom ? strDom :'<tr><td colspan="4" style="text-align: center;">暂无</td></tr>';
+			me.$('.last-options').html( opinion );
+			
 		},
 		//获取全部订单数据
 		getOrderInfo:function( callback ){

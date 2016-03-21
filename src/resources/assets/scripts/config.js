@@ -83,9 +83,10 @@
 
     //审批节点
     IBSS.TaskMap = {
-    	'finance': '财务人员',
-    	'support': '小助手',
-    	'agent': '代理商'
+    	'finance': '待财务确认到款审核',
+    	'support': '待小助手开通审核',
+    	'support2': '待小助手最后确认审核',
+    	'agent': '代理商节点'
     };
 
 	/*
