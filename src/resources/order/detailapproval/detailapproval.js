@@ -431,6 +431,7 @@ define( function(require, exports, module){
 			if(receivedPayDate){
 				me.$('.receivedPayDate').show();
 				me.$('.receivedPayDate-text').text(receivedPayDate);
+				me.$('.currentTask-finance').hide();
 			}
 			
 		},
@@ -705,7 +706,7 @@ define( function(require, exports, module){
 		actionAgreeEve: function(){
             var me = this;
 
-            if( me.attrs.options.currentTask == 'finance' ){
+            if( me.attrs.options.currentTask == 'finance' && !me.attrs.orderData.order.receivedPayDate ){
                me.setMoneyTime(function(){
 					me.replyOptions();
 			   });
