@@ -127,6 +127,7 @@ define( function( require, exports, module ) {
             }
         },
 
+        //搜索列表
         searchEve: function(){
             var me = this;
             me.pagination.setPage( 0,false );
