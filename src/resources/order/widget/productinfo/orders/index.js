@@ -139,7 +139,6 @@ define(function (require, exports, module) {
                                 switch (kv.productKey) {
                                     case 'buytype':
                                     {
-                                        debugger
                                         controller(items, 'type_' + subOrder.productId, function (item) {
                                             item.__editChange = false;
                                             item.value = kv.productValue;
@@ -432,11 +431,10 @@ define(function (require, exports, module) {
                                         data.subOrders.push({
                                             subOrder: {
                                                 productId: b,
-                                                purchaseCount: 1,
+                                                purchaseCount: 999999,
                                                 purchaseAmount: 0,
                                                 startTime: fromData['startTime_1'],
                                                 endTime: fromData['endTime_1'],
-
                                                 productAmount: 0,
                                                 discount: 0,
                                                 currPayAmount: 0
