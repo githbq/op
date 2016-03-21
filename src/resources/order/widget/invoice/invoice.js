@@ -277,7 +277,11 @@ define(function( require , exports , module ){
 			var cooperationUnit = "";
 			if( me.attrs.type != 17 ){
 				isCooperation = me.$('[name="team"]:checked').val();
-				cooperationUnit = me.model.get('cooperationUnit');
+				
+				if( isCooperation == 1 ){
+					cooperationUnit = me.model.get('cooperationUnit');
+				}
+				
 				if( isCooperation == 1 && !cooperationUnit ){
 					util.showToast('请填写合作单部门员工');
 					return false;
