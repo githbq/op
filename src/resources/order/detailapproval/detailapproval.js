@@ -375,7 +375,7 @@ define( function(require, exports, module){
 			}
 			if(me.attrs.options.rejectsFrom && (me.attrs.options.rejectsFrom == 2 || me.attrs.options.rejectsFrom == 3 ) && me.attrs.options.editFlag){
 				payInfoReadonly = false;
-				me.attrs.moneyEdit = true
+				//me.attrs.moneyEdit = false
 				allReadonly = true;
 			}
 			/*if( me.attrs.options.editFlag ){
@@ -390,7 +390,7 @@ define( function(require, exports, module){
 
 			 //发票信息
 			 me.attrs.invoiceCommon = new InvoiceInfo( { 'wrapper':me.$view.find('.common--invioce'),'data':me.attrs.orderData,
-				 'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
+				 'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
 
 		 },
 		//设置自己部分的显示和隐藏：
@@ -407,7 +407,7 @@ define( function(require, exports, module){
 			me.attrs.moneyEdit = me.attrs.options.editFlag;
 			//财务驳回只能部分编辑和小助手第二次驳回
 			if(me.attrs.options.rejectsFrom && (me.attrs.options.rejectsFrom == 2 || me.attrs.options.rejectsFrom == 3 ) && me.attrs.options.editFlag){
-				me.attrs.moneyEdit = true;;
+				me.attrs.moneyEdit = false;;
 			}
 
 		},
@@ -423,9 +423,10 @@ define( function(require, exports, module){
 			}
 			
 			//判断审批意见
-
 			var opinion = strDom ? strDom :'<tr><td colspan="4" style="text-align: center;">暂无</td></tr>';
 			me.$('.last-options').html( opinion );
+			
+			//设置到款 
 			
 		},
 		//获取全部订单数据
