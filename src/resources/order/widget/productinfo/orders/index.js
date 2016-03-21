@@ -15,7 +15,7 @@ define(function (require, exports, module) {
                 }
             });
             controller(terminalDataItems, 'isedit', function (item) {
-                if(responseData) {
+                if (responseData) {
                     item.value = responseData.edit;
                 }
             });
@@ -110,6 +110,10 @@ define(function (require, exports, module) {
                                 setValue(dataDic, j + '_' + subOrder.productId, subOrder[j]);
                             }
                         }
+                        var items=tableDataItems;
+                        if($.inArray(n.subOrder.productId.toString(),['1','2','3','8'])>=0){
+                            items=terminalDataItems;
+                        }
                         if (subOrder.productId == '1') {//选中CRM
                             useCRM = true;
                         }
@@ -132,15 +136,13 @@ define(function (require, exports, module) {
                         }
                         if (n.productExtends) {//有拓展属性
                             $(n.productExtends).each(function (index, kv) {
-                                switch (kv.key) {
+                                switch (kv.productKey) {
                                     case 'buytype':
                                     {
-                                        controller(terminalDataItems, 'type_' + subOrder.productId, function (item) {
-                                        });
-                                        setValue(dataDic, 'type_' + subOrder.productId, kv.value, function (item) {
-                                            item.on('setFieldValue', function ($ele, value, data) {
-                                                data.__editChange = false;
-                                            })
+                                        debugger
+                                        controller(items, 'type_' + subOrder.productId, function (item) {
+                                            item.__editChange = false;
+                                            item.value = kv.productValue;
                                         });
                                     }
                                         ;
@@ -181,7 +183,6 @@ define(function (require, exports, module) {
                     $(terminalDataItems).each(function (i, n) {
                         if (n.name.toLowerCase().indexOf('wrapper') < 0 && n.name.toLowerCase().indexOf('image') < 0) {//包裹者不设
                             n.readonly = true;
-
                         }
                     })
                     ;

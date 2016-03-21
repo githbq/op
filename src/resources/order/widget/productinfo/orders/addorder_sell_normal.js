@@ -28,6 +28,9 @@ define(function (require, exports, module) {
             n.visible = false;
         });
         controller(terminalDataItems, 'purchaseAmount_input_3', function (n) {
+            n.visible = false;
+        });
+        controller(terminalDataItems, 'purchaseAmount_3', function (n) {
             n.visible = true;
         });
         controller(terminalDataItems, 'purchaseAmount_1', function (n) {
@@ -53,10 +56,6 @@ define(function (require, exports, module) {
             n.readonly = true;
 
         });
-        controller(terminalDataItems, 'purchaseAmount_3', function (n) {
-            n.visible = false;
-        });
-
         controller(terminalDataItems, 'businesscard', function (n) {
             n.visible = false;
         });
@@ -77,7 +76,7 @@ define(function (require, exports, module) {
 
         //增购逻辑
         var hasCRM = false;
-        if (responseData && responseData.data&& responseData.data.subOrders) {
+        if (responseData && responseData.data && responseData.data.subOrders) {
             $(responseData.data.subOrders).each(function (j, m) {
                 if (m.subOrder.productId == '1') {
                     hasCRM = true;
@@ -89,8 +88,8 @@ define(function (require, exports, module) {
         });
         controller(tableDataItems, 'check', function (n) {
             n.value = '7';
-            n.on('setFieldValue', function ($ele, value, data,me) {
-                if (responseData && responseData.data&& responseData.data.subOrders) {
+            n.on('setFieldValue', function ($ele, value, data, me) {
+                if (responseData && responseData.data && responseData.data.subOrders) {
                     $(responseData.data.subOrders).each(function (j, m) {
                         var checkbox = me.$('input[type=checkbox][data-name=check][value=' + m.subOrder.productId + ']');
                         if (checkbox.length > 0) {//如果存在此纪录 则隐藏 且取消勾选
@@ -100,7 +99,7 @@ define(function (require, exports, module) {
                     });
                     //一个也没有就隐藏
                     if (me.$('.tableinfo tbody tr:not([hidetr])').length == 0) {
-                        me.o_setValue({name:'tablelist',visible:false});
+                        me.o_setValue({name: 'tablelist', visible: false});
                     }
                 }
             });
@@ -118,19 +117,19 @@ define(function (require, exports, module) {
 
             });
             controller(terminalDataItems, 'kunbangWrapper', function (n) {
-                n.visible=true;
+                n.visible = true;
             });
             controller(terminalDataItems, 'useCRM', function (n) {
                 n.visible = false;
-                n.value=true;
-                n.readonly=true;
+                n.value = true;
+                n.readonly = true;
             });
             controller(terminalDataItems, 'businesscard', function (n) {
                 n.visible = true;
             });
         }
         //增购逻辑END
-        controller(terminalDataItems,'isadd',function(n){
+        controller(terminalDataItems, 'isadd', function (n) {
             n.value = true;
         });
 
