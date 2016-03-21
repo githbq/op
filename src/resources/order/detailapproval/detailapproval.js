@@ -99,14 +99,14 @@ define( function(require, exports, module){
 					$.when( me.getOrderDetail(), me.getEnterpriseInfo()).done(function(){
 						//备注信息
 						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData,
-							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
 
 						//setOrderInfo--订单信息
 						me.setOrderInfo();
 
 						//基本信息
 						me.attrs.basicCommon = new BasicInfo( { 'wrapper':me.$view.find('.common--basic'),'data':me.attrs.enterpriseData.enterprise,
-							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
 					});
 
 					break;
@@ -115,14 +115,14 @@ define( function(require, exports, module){
 					$.when( me.getOrderDetail(), me.getEnterpriseInfo()).done(function(){
 						//备注信息
 						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData,
-							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
 
 						//setOrderInfo--订单信息
 						me.setOrderInfo();
 
 						//基本信息
 						me.attrs.basicCommon = new BasicInfo( { 'wrapper':me.$view.find('.common--basic'),'data':me.attrs.enterpriseData.enterprise,
-							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
 					});
 
 					break;
@@ -131,13 +131,13 @@ define( function(require, exports, module){
 					$.when( me.getOrderDetail(), me.getEnterpriseInfo()).done(function(){
 						//备注信息
 						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData,
-							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
 
 						//setOrderInfo--订单信息
 						me.setOrderInfo();
 						//基本信息
 						me.attrs.basicCommon = new BasicInfo( { 'wrapper':me.$view.find('.common--basic'),'data':me.attrs.enterpriseData.enterprise,
-							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
 					});
 
 
@@ -148,13 +148,13 @@ define( function(require, exports, module){
 
 						//备注信息
 						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData,
-							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
 
 						//setOrderInfo--订单信息
 						me.setOrderInfo();
 						//基本信息
 						me.attrs.basicCommon = new BasicInfo( { 'wrapper':me.$view.find('.common--basic'),'data':me.attrs.enterpriseData.enterprise,
-							'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
 					});
 
 					break;
