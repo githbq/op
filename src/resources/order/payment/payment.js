@@ -41,8 +41,7 @@ define( function( require, exports, module ) {
 		getReceiveOrder:function(){
 			var me = this;
 			return util.api({
-					'url':'/odr/orderId/paidInfo',
-					'data':{'orderId':me.attrs.id},
+					'url':'/odr/'+me.attrs.id+'/paidInfo',
 					'success': function( data ){
 
 						if( data.success ){

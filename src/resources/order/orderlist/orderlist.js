@@ -106,7 +106,7 @@ define( function( require, exports, module ) {
 		   var id = $(e.currentTarget).attr('data-id')||'';
 		   var enterpriseId = $(e.currentTarget).attr('data-enterpriseId')||'';
            var orderType = $(e.currentTarget).attr('data-orderType')||'';
-           var opinion = $(e.currentTarget).attr('data-opinion')||'';
+           var opinion = '';
            var isTp = $(e.currentTarget).attr('data-isTp')||'';
            var ea = $(e.currentTarget).attr('data-ea')||'';
 		   var contractNo = $(e.currentTarget).attr('data-contractNo')||'';
