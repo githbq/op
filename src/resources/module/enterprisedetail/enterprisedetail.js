@@ -217,32 +217,32 @@ define( function(require, exports, module){
 			'#sTrialTime': 'sTrialTime',
 			'#sTrialAmount': 'sTrialAmount',
 			'#tbOperation tbody': 'tbOperation',
-			'#sdXKET': 'sdXKET',
-			'#sdPayImd': 'sdPayImd',
+			///'#sdXKET': 'sdXKET',
+			///'#sdPayImd': 'sdPayImd',
 			'#sdXKDC': 'sdXKDC',
 			'#yingxiaoSum': 'yingxiaoSum',
 			'#yingxiaoUsed': 'yingxiaoUsed',
 			'#sdXKDUC': 'sdXKDUC',
-			'#sdBCET': 'sdBCET',
-			'#sdBCDC': 'sdBCDC',
-			'#sdBCDUC': 'sdBCDUC',
-			'#sdSmC': 'sdSmC',
-			'#sdSmUC': 'sdSmUC',
+			///'#sdBCET': 'sdBCET',
+			///'#sdBCDC': 'sdBCDC',
+			///'#sdBCDUC': 'sdBCDUC',
+			///'#sdSmC': 'sdSmC',
+			///'#sdSmUC': 'sdSmUC',
 			'#sdSC': 'sdSC',
 			'#sdSUC': 'sdSUC',
 			
-			'#sXKDC': 'sXKDC',         		//销客终端总量
-			'#sXKET': 'sXKET',         		//签约到期时间
-			'#yxEndInput': 'yxEndInput',    //营销版到期时间
-			'#sBCDC': 'sBCDC',
-			'#sBCET': 'sBCET',
-			'#sSms': 'sSms',
-			'#sStorage': 'sStorage',
+			///'#sXKDC': 'sXKDC',         		//销客终端总量
+			///'#sXKET': 'sXKET',         		//签约到期时间
+			///'#yxEndInput': 'yxEndInput',    	//营销版到期时间
+			///'#sBCDC': 'sBCDC',
+			///'#sBCET': 'sBCET',
+			///'#sSms': 'sSms',
+			///'#sStorage': 'sStorage',
 			
-			'#sDevice': 'sDevice',     			 //销客终端扩容
+			///'#sDevice': 'sDevice',     			 //销客终端扩容
 
-			'#yingxiao': 'yingxiao',             //营销版终端总量
-			'#yingxiaoAdd': 'yingxiaoAdd',	     //营销版终端扩容
+			///'#yingxiao': 'yingxiao',             //营销版终端总量
+			///'#yingxiaoAdd': 'yingxiaoAdd',	     //营销版终端扩容
 			
 			'#sActivity': 'sActivity',
 			'#sProductModule': 'sProductModule',
@@ -321,8 +321,8 @@ define( function(require, exports, module){
 			'.companyGateKeyword':'setcompanyGatekeyword',
 			'.companyGateRemark':'setcompanyGateRemark',
 			'.upload':'saveEve',
-			'#creatorName':'creatorName',
-			'#createTime':'createTime',
+			///'#creatorName':'creatorName',
+			//'#createTime':'createTime',
 			
 			'#crmInfoState':'crmInfoState'    //crm控制信息状态
 		},
@@ -798,14 +798,21 @@ define( function(require, exports, module){
 		 */
 		initializeDatepickers: function() {
 			var me = this;
+
+			/*
 			me.$sXKET.datetimepicker( {
 				format: 'Y/m/d',
 				timepicker: false
 			} );
+			*/
+
+			/*
 			me.$sBCET.datetimepicker( {
 				format: 'Y/m/d',
 				timepicker: false
 			} );
+			*/
+
 			me.$sbLogST.datetimepicker( {
 				format: 'Y/m/d',
 				onShow: function() {
@@ -869,10 +876,12 @@ define( function(require, exports, module){
 				timepicker: false
 			} );
 
+			/*
 			me.$yxEndInput.datetimepicker({
 				format: 'Y/m/d',
 				timepicker: false
 			});
+			*/
 
 			me.$('#trainstarttime').datetimepicker({
 				format:'Y/m/d',
@@ -908,6 +917,7 @@ define( function(require, exports, module){
 			me.$hetongfbinfo.hide();
 		},
 
+		//显示
 		show: function( id , status ){
 			var me = this;
 			me.enterpriseAccount = '';
@@ -1007,7 +1017,7 @@ define( function(require, exports, module){
 					'enterpriseId': id
 				},
 				'success': function( data ){
-					
+					console.warn( 'enterpriseinfo' );
 					console.warn( data );
 					if( data.success ){
 						me.attrs.runStatus = data.value.model.runStatus;
@@ -1066,12 +1076,12 @@ define( function(require, exports, module){
 						me.$kcMobile.val( model.keyContactPhone );
 						me.$kcEmail.val( model.keyContactEmail );
 						me.$remark.val( model.remark );
-						///me.$sProductName.val( model.productName );
-						me.$spstatus.val( util.findEnumsText('ENT_LST_PSTS', model.runStatus) );
+						//me.$spstatus.val( util.findEnumsText('ENT_LST_PSTS', model.runStatus) );
 						me.$sAgentId.val( model.agentId );
 						me.$sAgentName.val( model.agentName );
 
 						//签约到期时间
+						/*
 						var endtimestr;
 						if( model.endTime){
 							endtimestr = new Date( model.endTime )._format( 'yyyy-MM-dd' );
@@ -1082,8 +1092,10 @@ define( function(require, exports, module){
 							endtimestr = '永久';
 						}
 						me.$sdXKET.val(endtimestr);
+						*/
 
 						//营销版到期时间
+						/*
 						if( model.paidVersionExpireTime ){
 
 							if( new Date().getTime() > parseInt( model.paidVersionExpireTime ) ){
@@ -1093,19 +1105,20 @@ define( function(require, exports, module){
 							}
 
 						}
+						*/
 
-						me.$sdPayImd.val( model.firstPayTime ? new Date( model.firstPayTime )._format( 'yyyy-MM-dd' ) : '未知' );
+						///me.$sdPayImd.val( model.firstPayTime ? new Date( model.firstPayTime )._format( 'yyyy-MM-dd' ) : '未知' );
 						me.$sdXKDC.val( model.accountTotalAmount );
 						me.$sdXKDUC.val( model.accountUsedAmount + '/' + model.accountAvailableAmount || '' );
 
 						me.$yingxiaoSum.val( model.marketingAccountAmount );
 						me.$yingxiaoUsed.val( model.marketingAccountUsedAmount + '/' + model.marketingAccountAvailableAmount );
 
-						me.$sdBCET.val( model.baichuanEndTime ? new Date( model.baichuanEndTime )._format( 'yyyy-MM-dd' ) : '永久' );
-						me.$sdBCDC.val( model.baichuanTotalAmount || 0 );
-						me.$sdBCDUC.val( model.baichuanUsedAmount || 0 );
-						me.$sdSmC.val( model.smsTotalAmount );
-						me.$sdSmUC.val( model.smsUsedAmount );
+						///me.$sdBCET.val( model.baichuanEndTime ? new Date( model.baichuanEndTime )._format( 'yyyy-MM-dd' ) : '永久' );
+						///me.$sdBCDC.val( model.baichuanTotalAmount || 0 );
+						///me.$sdBCDUC.val( model.baichuanUsedAmount || 0 );
+						///me.$sdSmC.val( model.smsTotalAmount );
+						///me.$sdSmUC.val( model.smsUsedAmount );
 						me.$sdSC.val( model.storageTotalSpace );
 						me.$sdSUC.val( model.storageUsedSpace );
 						me.$sActivity.val( model.activityStr );
@@ -1127,10 +1140,10 @@ define( function(require, exports, module){
 						me.$cardUseNum.val( model.businessCardUsedAmount ? model.businessCardUsedAmount:0 );
 						
 						//提交人
-						me.$creatorName.val( model.createrName );
+						///me.$creatorName.val( model.createrName );
 
 						//开通时间
-						me.$createTime.val( model.createTime ? new Date( model.createTime )._format('yyyy-MM-dd hh:mm') : '' );
+						//me.$createTime.val( model.createTime ? new Date( model.createTime )._format('yyyy-MM-dd hh:mm') : '' );
 
 
 						/**
@@ -1322,10 +1335,6 @@ define( function(require, exports, module){
 					console.log('operations');
 					this.showOperations();
 					break;
-				///case 'modules':
-				///	console.log('modules');
-				///	this.showModules();
-				///	break;
 				case 'functions':
 					console.log('functions');
 					this.showFunctions();
@@ -2040,6 +2049,10 @@ define( function(require, exports, module){
 			window.open( url );
 		},
 
+
+
+
+
 		/**
 		 *
 		 * 使用情况
@@ -2056,7 +2069,7 @@ define( function(require, exports, module){
 			/***
 			 *
 			 * 签约到期时间( 付费版 )   如果是 9999-12-31   则显示永久
-			 * 营销版到期时间( 免费版 ) 如果是 小于当前日期 则不显示
+			 * 营销版到期时间( 免费版 ) 如果是 小于当前日期 则不显示    
 			 * 
 			 * 设置的时候
 			 * 服务支持人员         可以设置 签约到期时间 也可以设置 营销版到期时间
@@ -2084,8 +2097,10 @@ define( function(require, exports, module){
 			};
 
 			if( checkIsAdmin() ){
-				me.$('#tbOperation .isadmin').show();
-				me.$('#tbOperation input').removeAttr('disabled');
+				me.$('#tbOperation .isadmin').removeAttr('disabled');
+				//me.$('#tbOperation input').removeAttr('disabled');
+			} else {
+				me.$('#tbOperation .isadmin').attr('disabled','disabled');
 			}
 
 
@@ -2150,17 +2165,6 @@ define( function(require, exports, module){
 			});
 		},
 
-		/*
-		showModules: function() {
-			if ( this.model.attrs.runStatus == 2 ) {
-				$( '#tbProductModule' ).css( 'display', 'block' );
-				this.generateSelect( 'PRODUCT_MODULE', this.$sProductModule );
-				this.modules.isInitialized = true;
-			} else {
-				$( '#tbProductModule' ).css( 'display', 'none' );
-			}
-		},
-		*/
 		/**
 		 * 显示功能限制 并拉取相应的数据
 		 *
@@ -2467,19 +2471,19 @@ define( function(require, exports, module){
 			});
 		},
 		clearStatisticsForm: function() {
-			//this.$sXKDC.val( '' );
-			this.$sXKET.val( '' );
-			this.$yxEndInput.val( '' );
-			this.$sBCDC.val( '' );
-			this.$sBCET.val( '' );
-			this.$sSms.val( '' );
-			this.$sStorage.val( '' );
-			//this.$sDevice.val( '' );
+			///this.$sXKDC.val( '' );
+			///this.$sXKET.val( '' );
+			///this.$yxEndInput.val( '' );
+			///this.$sBCDC.val( '' );
+			///this.$sBCET.val( '' );
+			///this.$sSms.val( '' );
+			///this.$sStorage.val( '' );
+			///this.$sDevice.val( '' );
 
-			this.$sXKDC.val('');
-			this.$sDevice.val('');
-			this.$yingxiao.val('');	
-			this.$yingxiaoAdd.val('');	
+			///this.$sXKDC.val('');
+			///this.$sDevice.val('');
+			///this.$yingxiao.val('');	
+			///this.$yingxiaoAdd.val('');	
 			
 			this.$cardStartTime.val('');
 			this.$cardEndTime.val('');
@@ -2490,6 +2494,7 @@ define( function(require, exports, module){
 		changeStatistics: function() {
 			var me = this;
 
+			/*
 			if( me.$sXKDC.val() && me.$sDevice.val() ){
 				util.showToast('销客终端总量 和 销客终端扩容信息仅能填写一个!');
 				return false;
@@ -2525,16 +2530,17 @@ define( function(require, exports, module){
 			 *
 			 * 判断
 			 */
+			/*
 			if( data.marketingEndTime && ( me.$yingxiaoSum.val() == 0 ) && (data.marketingAccountAmount == '') && (data.increaseMarketingAmount == '') ){
 				util.showTip('请填写营销版终端总量或营销版终端扩容个数');
 				return false;
 			}
-
+			///???
 			if( (data.marketingAccountAmount || data.increaseMarketingAmount) && ( me.$('#yxEndTime').val() == '' ) && (!data.marketingEndTime) ){
 				util.showTip('请选择营销版到期时间');
 				return false;
 			}
-
+			*/
 
 			/**
 			 *
@@ -2542,7 +2548,7 @@ define( function(require, exports, module){
 			 * 如果是进行提示
 			 *
 			 */
-			 
+			 /*
 			function checkCancel( callback ){
 				
 				if( data.marketingAccountAmount || data.increaseMarketingAmount ){
@@ -2586,10 +2592,12 @@ define( function(require, exports, module){
 			}
 
 			checkCancel( sendChange );
+			*/
 		},
 		changeStatisticsagent: function(){
 			var me = this;
 
+			/*
 			if( me.$sXKDC.val() && me.$sDevice.val() ){
 				util.showToast('销客终端总量 和 销客终端扩容信息仅能填写一个!');
 				return false;
@@ -2633,6 +2641,7 @@ define( function(require, exports, module){
 				});
 			}
 			sendChange();
+			*/
 		},
 		/**
          *

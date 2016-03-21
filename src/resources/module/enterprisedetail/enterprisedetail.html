@@ -335,12 +335,17 @@
 				</div>
 			</div>
 		</section>
+		
+
+
+
 
 		<!--使用情况-->
 		<section class="accordian collapse f1 f2 f3 f4" id="operationssection" data-target="operations">
 			<h4><span class="arraw"></span>使用情况</h4>
 			<div class="content">
 				<p>
+					<!--
 					<label class="hw">
 						<span>签约到期时间</span>
 						<input id="sdXKET" disabled="disabled" class="g-ipt ipt-m" type="text">
@@ -350,7 +355,8 @@
 						<span>营销版到期时间</span>
 						<input id="yxEndTime" disabled="disabled" class="g-ipt ipt-m" type="text">
 					</label>
-					
+					-->
+
 					<label class="hw">
 						<span>销客终端总量</span>
 						<input id="sdXKDC" disabled="disabled" class="g-ipt ipt-m" type="text">
@@ -362,58 +368,99 @@
 					</label>
 					
 					<label class="hw">
-						<span>营销版总量</span>
+						<span>CRM总量</span>
 						<input id="yingxiaoSum" disabled="disabled" class="g-ipt ipt-m" type="text">
 					</label>
 					<label class="hw">
-						<span>营销版<br>已用量/未用量</span>
+						<span>CRM<br>已用量/未用量</span>
 						<input id="yingxiaoUsed" disabled="disabled" class="g-ipt ipt-m" type="text">
 					</label>
-
+					
+					<!--
 					<label class="hw">
 						<span>首次缴费</span>
 						<input id="sdPayImd" disabled="disabled" class="g-ipt ipt-m" type="text">
 					</label>
-					
-					<label class="hw off">
+					-->
+					<!--
+					<label class="hw">
 						<span>百川截止时间</span>
 						<input id="sdBCET" disabled="disabled" class="g-ipt ipt-m" type="text">
 					</label><br />
-					<label class="hw off">
+					-->
+					<!--
+					<label class="hw">
 						<span>百川终端总量</span>
 						<input id="sdBCDC" disabled="disabled" class="g-ipt ipt-m" type="text">
 					</label>
-					<label class="hw off">
+					-->
+					<!--
+					<label class="hw">
 						<span>百川终端已用量</span>
 						<input id="sdBCDUC" disabled="disabled" class="g-ipt ipt-m" type="text">
 					</label>
-					<label class="hw off">
+					-->
+					<!--
+					<label class="hw">
 						<span>短信总量</span>
 						<input id="sdSmC" disabled="disabled" class="g-ipt ipt-m" type="text">
 					</label>
-					<label class="hw off">
+					-->
+					<!--
+					<label class="hw">
 						<span>短信已用量</span>
 						<input id="sdSmUC" disabled="disabled" class="g-ipt ipt-m" type="text">
 					</label>
-					<label class="hw off">
+					-->
+
+					<label class="hw">
 						<span>空间总量(GB)</span>
 						<input id="sdSC" disabled="disabled" class="g-ipt ipt-m" type="text">
 					</label>
-					<label class="hw off">
+					<label class="hw">
 						<span>空间已用量(GB)</span>
 						<input id="sdSUC" disabled="disabled" class="g-ipt ipt-m" type="text">
 					</label>
-
+					<label class="hw">
+						<span>存储扩容(GB)</span>
+						<input type="text" class="g-ipt ipt-m">
+					</label>
+					<label class="hw">
+						<span>群人数上限(人)</span>
+						<input type="text" class="g-ipt ipt-m">
+					</label>
+					<label>
+						<span>视频参与人数上限(人)</span>
+						<input type="text" class="g-ipt ipt-m">
+						<span>(最多可添加20人)</span>
+					</label>
+					<label class="hw">
+						<span>CRM上级可见数据范围</span>
+						<select name="" class="g-ipt ipt-m">
+							<option value="">所有下级数据</option>
+							<option value="">直属下级数据</option>
+						</select>
+					</label>
+					<label class="hw">
+						<span>WEB扫码授权</span>
+						<select name="" class="g-ipt ipt-m">
+							<option value="">未授权</option>
+							<option value="">已授权</option>
+						</select>
+					</label>
+					<!--
 					<label class="hw">
 						<span>提交人</span>
 						<input id="creatorName" type="text" disabled="disabled" class="g-ipt ipt-m" >
 					</label>
-					
+					-->
+					<!--
 					<label>
 						<span>提交时间</span>
 						<input id="createTime" type="text" disabled="disabled" class="g-ipt ipt-m" style="width:126px;">
 					</label>
-					
+					-->
+					<!--
 					<label class="hw">
 						<span>是否付费</span>
 						<select ce-model="isPayed" disabled="disabled">
@@ -428,58 +475,83 @@
 							<option value="1">是</option>
 						</select>
 					</label>
+					-->
 				</p>
 
 				<div id="tbOperation" class="tb">
-					<p class="off isadmin">
-
-						<label class="hw off">
+					<p>
+						
+						<!--
+						<label class="hw">
 							<span>签约到期时间</span>
 							<input id="sXKET" class="g-ipt ipt-m" type="text">
 						</label>
-						
-						<label class="hw off">
+						-->
+
+						<!--
+						<label class="hw">
 							<span>营销版到期时间</span>
 							<input id="yxEndInput" class="g-ipt ipt-m" type="text">
 						</label>
-						
-						<label class="hw off">
+						-->
+
+						<!--
+						<label class="hw">
 							<span>百川终端总量(个)</span>
 							<input id="sBCDC" class="g-ipt ipt-m" type="text">
 						</label>
-						<label class="hw off">
+						-->
+						
+						<!--
+						<label class="hw">
 							<span>百川时间延期至</span>
 							<input id="sBCET" class="g-ipt ipt-m" type="text">
 						</label>
-						<label class="hw off">
+						-->
+
+						<!--
+						<label class="hw">
 							<span>短信充值(条)</span>
 							<input id="sSms" class="g-ipt ipt-m" type="text">
 						</label>
-						<label class="hw off">
+						-->
+						
+						<!--
+						<label class="hw">
 							<span>存储扩容(GB)</span>
 							<input id="sStorage" class="g-ipt ipt-m" type="text">
 						</label> <br>
-						
-						<label class="hw off">
+						-->
+
+						<!--
+						<label class="hw">
 							<span>销客终端总量(个)</span>
 							<input id="sXKDC" class="g-ipt ipt-m" type="text" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
 						</label>
-						<label class="hw off">
+						-->
+						
+						<!--
+						<label class="hw">
 							<span>销客终端扩容(个)</span>
 							<input id="sDevice" class="g-ipt ipt-m" type="text" onkeyup="this.value=this.value.replace(/[^\-\d]/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
 						</label> <br>
-						<label class="hw off">
+						-->
+						
+						<!--
+						<label class="hw">
 							<span>营销版终端总量(个)</span>
 							<input id="yingxiao" type="text" class="g-ipt ipt-m" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
 						</label>
-						<label class="hw off">
+						-->
+						
+						<!--
+						<label class="hw">
 							<span>营销版终端扩容(个)</span>
 							<input id="yingxiaoAdd" class="g-ipt ipt-m" type="text" onkeyup="this.value=this.value.replace(/[^\-\d]/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
 						</label>
+						-->
+
 					</p>
-					<!--<p class="tr isadmin" style="display:none;">
-						<button class="btn-blue" id="sBtnChangeStatisticsagent">保存</button>
-					</p>-->
 					<p class="tr off">
 						<button class="btn-blue" id="sBtnChangeStatistics" data-permissions="F008023 F008028 F008029 F008030 F008031 F008032 F008033 F008034 F008035">保存</button>
 					</p>
@@ -498,10 +570,14 @@
 					</table>
 					<div class="pager"></div>
 				</div>
-				
+
 			</div>
 		</section>
 		
+
+
+
+
 		<!--培训信息-->
 		<section class="accordian collapse f1 f2 f3 f4" id="training" data-target="training">
 			<h4><span class="arraw"></span>培训信息</h4>
