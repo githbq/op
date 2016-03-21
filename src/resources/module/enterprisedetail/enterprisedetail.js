@@ -2094,6 +2094,7 @@ define( function(require, exports, module){
 		/**
 		 *
 		 * 使用情况
+		 * 显示使用情况
 		 */
 		showOperations: function() {
 			var me = this;
@@ -2103,12 +2104,14 @@ define( function(require, exports, module){
 			
 			me.attrs.freeIncreaseContractRequired = '';
 			
-			//判断是否开通来显示增购部分是否可以显示
-			if(me.attrs.runStatus==2){
-				me.$('.approval-box').show();
-			}else{
-				me.$('.approval-box').hide();
-			}
+			///
+			/// 判断是否开通来显示增购部分是否可以显示
+			/// if(me.attrs.runStatus==2){
+			///	 me.$('.approval-box').show();
+			/// }else{
+			///	 me.$('.approval-box').hide();
+			/// }
+			///
 
 			/***
 			 *
