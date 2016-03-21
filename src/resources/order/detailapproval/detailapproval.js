@@ -426,7 +426,12 @@ define( function(require, exports, module){
 			var opinion = strDom ? strDom :'<tr><td colspan="4" style="text-align: center;">暂无</td></tr>';
 			me.$('.last-options').html( opinion );
 			
-			//设置到款 
+			//设置到款时间 receivedPayDate
+			var receivedPayDate = me.attrs.orderData.order.receivedPayDate ? new Date( me.attrs.orderData.order.receivedPayDate  )._format("yyyy-MM-dd"):'';
+			if(receivedPayDate){
+				me.$('.receivedPayDate').show();
+				me.$('.receivedPayDate-text').text(receivedPayDate);
+			}
 			
 		},
 		//获取全部订单数据

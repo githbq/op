@@ -208,6 +208,13 @@ define( function(require, exports, module){
 			//判断审批意见
 			//var opinion = me.attrs.options.opinion ? me.attrs.options.opinion :'暂无';
 			//me.$('.last-options').text(opinion);
+			
+			//设置到款时间 receivedPayDate
+			var receivedPayDate = me.attrs.orderData.order.receivedPayDate ? new Date( me.attrs.orderData.order.receivedPayDate  )._format("yyyy-MM-dd"):'';
+			if(receivedPayDate){
+				me.$('.receivedPayDate').show();
+				me.$('.receivedPayDate-text').text(receivedPayDate);
+			}
 
 		},
 		//设置审批意见
