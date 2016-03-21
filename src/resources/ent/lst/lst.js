@@ -61,6 +61,10 @@ define( function( require, exports, module ) {
             console.log( id );
             location.hash = "order/newmarketying/againMarkey/" + id + '/' + account;
         });
+		//刷新列表
+        entDetail.on('refresh',function(){
+            entList.search();
+        });
 
        entDetail.on('employeeDetail',function(ea,phone){
             employeeDetail.show(ea,phone);

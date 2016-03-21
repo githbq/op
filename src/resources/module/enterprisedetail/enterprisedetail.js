@@ -1942,6 +1942,8 @@ define( function(require, exports, module){
 						console.warn( data );
 						if( data.success ){
 							util.showTip('CRM信息控制变更成功！');
+							me.hide();
+							me.trigger('refresh');
 							//me.#crmInfoState.val();
 						}
 					}
