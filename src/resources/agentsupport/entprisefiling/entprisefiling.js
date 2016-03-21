@@ -332,6 +332,7 @@ define( function( require, exports, module ) {
 				},
 				'success': function( data ){
 					if( data.success ){
+						IBSS.tempEnterprise.enterpriseaccount = enterpriseAccount;
 						if( val == 'newOffice' ){
 							location.hash = '#order/newmarketying/releateOffice';
 						}else{

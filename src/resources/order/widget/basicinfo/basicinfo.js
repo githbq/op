@@ -108,6 +108,8 @@ define(function(require, exports, module){
 			IBSS.tempEnterprise['representative'] && me.$('.keyContactName').attr('disabled','disabled');
 			IBSS.tempEnterprise['source'] && me.$('.e-source').attr('disabled','disabled');
 			IBSS.tempEnterprise['industry']&& me.$('.e-industry').attr('disabled','disabled');
+			IBSS.tempEnterprise['enterpriseaccount'] && me.model.set('enterpriseaccount',IBSS.tempEnterprise['enterpriseaccount']);
+			IBSS.tempEnterprise['enterpriseaccount']&& me.$('.enterpriseaccount').attr('disabled','disabled');
 		
 			me.model.set('enterpriseFilingId', IBSS.tempEnterprise['id']);
 
