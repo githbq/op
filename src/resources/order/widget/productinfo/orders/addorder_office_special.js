@@ -64,28 +64,7 @@ define(function (require, exports, module) {
                 }
             });
         }
-        controller(tableDataItems, 'tablelist', function (n) {
-            n.visible = true;
-        });
-        controller(tableDataItems, 'check', function (n) {
-            n.value = '7';
-            n.on('setFieldValue', function ($ele, value, data, me) {
-                var isreadonly=me.__refs.terminalInfo.o_getFieldData('allreadonly').allreadonly===true;
-                if (responseData && responseData.data && responseData.data.subOrders) {
-                    $(responseData.data.subOrders).each(function (j, m) {
-                        var checkbox = me.$('input[type=checkbox][data-name=check][value=' + m.subOrder.productId + ']');
-                        if (checkbox.length > 0 && !isreadonly) {//如果存在此纪录 则隐藏 且取消勾选
-                            checkbox.prop('checked', false).attr('checked', false);
-                            checkbox.parents('tr').attr('hidetr', 'hidetr').hide();
-                        }
-                    });
-                    //一个也没有就隐藏
-                    if (me.$('.tableinfo tbody tr:not([hidetr])').length == 0) {
-                        me.o_setValue({name:'tablelist',visible:false});
-                    }
-                }
-            });
-        });
+        common.setAddOrderLogic(controller, terminalDataItems, tableDataItems, formDataItems, 6, responseData);
         //增购逻辑END
 
         controller(terminalDataItems,'isadd',function(n){

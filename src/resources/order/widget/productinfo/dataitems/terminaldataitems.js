@@ -99,7 +99,6 @@ define(function (require, exports, module) {
                         var isReadonly = me.o_getFieldData('allreadonly').allreadonly === true;
 
                         if ($dom.is(':checked')) {//选中的话 终端为0
-                            me.o_setValue({name: 'productAmount_3', value: '0'});
                             me.o_setValue({name: 'purchaseAmount_input_3', value: '0', readonly: true});
                             me.o_setValue({name: 'purchaseAmount_3', value: '0'});
                             var id = $dom.val();
