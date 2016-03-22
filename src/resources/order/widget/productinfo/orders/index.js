@@ -438,7 +438,7 @@ define(function (require, exports, module) {
 
                         var subOrder = {
                             productId: n,
-                            purchaseCount: fromData['purchaseCount_' + n] || 1,
+                            purchaseCount: fromData['purchaseCount_' + n] || 999999,
                             purchaseAmount: fromData['purchaseAmount_' + n] || 0,
                             startTime: fromData['startTime_' + n] || new Date().getTime(),
                             endTime: fromData['endTime_' + n] || new Date().getTime(),

@@ -1,23 +1,21 @@
 /*
-* 逻辑管道
-* */
-define(function(require,exports,module){
+ * 逻辑管道
+ * */
+define(function (require, exports, module) {
 
-    var Logic=MClass(M.Model).inclunde({
-    });
+    var relativeEnum={
+        or:'or'
+    };
+    var Logic = MClass(M.Model).inclunde({});
 
-
-
-
-
-
-
-
-
-
-
-
-
+    var arr = [
+        {
+            key: '',
+            value: function () {
+            },
+            relative: relativeEnum.or
+        }
+    ]
 
 
 });
