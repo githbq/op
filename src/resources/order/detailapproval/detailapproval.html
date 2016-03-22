@@ -42,7 +42,7 @@
 			<p class="currentTask-finance" style="display: none;">
 				<label for="">
 					<span>实际到款时间 </span>
-					<input type="text"  class="money-time">
+					<input type="text"  class="money-time"  onblur="this.value= this.value.match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/) ? this.value:''">
 				</label>
 	
 			</p>
