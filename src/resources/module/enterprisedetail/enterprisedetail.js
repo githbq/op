@@ -324,7 +324,7 @@ define( function(require, exports, module){
 			///'#creatorName':'creatorName',
 			//'#createTime':'createTime',
 			
-			'#crmInfoState':'crmInfoState'    //crm控制信息状态
+			///'#crmInfoState':'crmInfoState'    //crm控制信息状态
 		},
 		events: {
 			'click .accordian h4': 'showAccordian',
@@ -374,8 +374,8 @@ define( function(require, exports, module){
 
 			'click .savemonitoring': 'saveMonitoringEve',       //保存监控信息
 
-			'click .employee-detail':'employeeDetailEve',
-			'click #crmInfoChange':'crmInfoChangeEve'
+			'click .employee-detail':'employeeDetailEve'
+			///'click #crmInfoChange':'crmInfoChangeEve'
 		}, 
 
 		uploadzzEve: function(){
@@ -1378,9 +1378,12 @@ define( function(require, exports, module){
 				case 'monitoring':
 					this.showMonitoring();  //企业监控
 					break;
+				/*
 				case 'crmInfo':
 					this.showCrmInfo();  //企业监控
 					break;
+				*/
+
 				default:
 					break;
 			}
@@ -1904,6 +1907,7 @@ define( function(require, exports, module){
 		 *
 		 * 显示CRM信息控制
 		 */
+		/*
 		showCrmInfo: function(){
 			console.log('monitoring');
 			var me = this;
@@ -1919,14 +1923,20 @@ define( function(require, exports, module){
 					console.warn( data );
 					if( data.success ){
 						me.attrs.oldFlag = data.value.model;
+<<<<<<< HEAD
 						var tempCrm = data.value.model||'';
 						me.$('#crmInfoState').val(tempCrm);
+=======
+						///me.$('#crmInfoState').val(data.value.model);
+>>>>>>> 82cd77097bffb49cc9b5fe17c17d09cae9b53fe1
 						//me.#crmInfoState.val();
 					}
 				}
 			});
 
 		},
+		*/
+		/*
 		crmInfoChangeEve:function(){
 			var me = this;
 			var temp = me.$('#crmInfoState').val();
@@ -1949,6 +1959,7 @@ define( function(require, exports, module){
 				});
 			}
 		},
+		*/
 
 		//load企业监控日志
 		loadMonitoringLog: function(){
