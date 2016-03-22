@@ -1923,18 +1923,15 @@ define( function(require, exports, module){
 					console.warn( data );
 					if( data.success ){
 						me.attrs.oldFlag = data.value.model;
-<<<<<<< HEAD
-						var tempCrm = data.value.model||'';
-						me.$('#crmInfoState').val(tempCrm);
-=======
 						///me.$('#crmInfoState').val(data.value.model);
->>>>>>> 82cd77097bffb49cc9b5fe17c17d09cae9b53fe1
+
 						//me.#crmInfoState.val();
 					}
 				}
 			});
 
 		},
+		
 		*/
 		/*
 		crmInfoChangeEve:function(){
