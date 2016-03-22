@@ -1919,7 +1919,8 @@ define( function(require, exports, module){
 					console.warn( data );
 					if( data.success ){
 						me.attrs.oldFlag = data.value.model;
-						me.$('#crmInfoState').val(data.value.model);
+						var tempCrm = data.value.model||'';
+						me.$('#crmInfoState').val(tempCrm);
 						//me.#crmInfoState.val();
 					}
 				}

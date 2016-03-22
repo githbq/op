@@ -64,6 +64,13 @@ define(function(require, exports, module){
 						"<input type='checkbox' name='system' checked='checked'   disabled='disabled' />捆绑报数系统</td> </tr>";
 
 						break;
+					case "Service_Fee":
+						
+						strDom += " <tr> <td>"+obj['appName']+"(人)：</td><td>"+obj['quota']+"</td>" +
+						" <td>开始时间：</td><td>——</td> <td>结束时间：</td><td >——</td>" +
+						" </tr>";
+
+						break;
 					default:
 						var strartTime = "",endTime = "";
 						strartTime =  new Date( obj['startDate']  )._format('yyyy/MM/dd');
