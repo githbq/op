@@ -2118,6 +2118,13 @@ define( function(require, exports, module){
 			
 			me.attrs.freeIncreaseContractRequired = '';
 			
+			if( me.model.get('marketingAccountAmount') == 0 ){
+
+				me.$('.crmvisible').hide();
+			} else {
+
+				me.$('.crmvisible').show();
+			}
 			/***
 			 *
 			 * 签约到期时间( 付费版 )   如果是 9999-12-31   则显示永久

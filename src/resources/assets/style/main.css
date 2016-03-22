@@ -6537,3 +6537,7 @@ em {
 .m-invoice .nsrzimg {
   display: none;
 }
+.m-invoice img {
+  display: inline-block;
+  width: 300px;
+}
