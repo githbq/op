@@ -472,7 +472,7 @@ define( function(require, exports, module){
 			}
 
 			//检测自订单是否小于7折
-			if(me.attrs.options.isTp == '0'){
+			if( !me.attrs.options.isTp || me.attrs.options.isTp == '0'){
 				if(!me.checkDiscount(temp.subOrders)){
 					util.showToast('子产品折扣低于8折，必须申请特批');
 					return false;
