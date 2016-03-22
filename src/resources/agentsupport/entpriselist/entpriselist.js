@@ -189,7 +189,7 @@ define( function( require, exports, module ) {
                                 if( item.enterprise.appstarttime ){
                                     item.createtimestr = new Date( item.enterprise.appstarttime )._format("yyyy-MM-dd");
                                 } else {
-                                    item.createtimestr = "—— ——";
+                                    item.createtimestr = "——";
                                 }
                                 
                                 item.runstatusstr = EntStatusMap[item.enterprise.runstatus];
@@ -201,6 +201,15 @@ define( function( require, exports, module ) {
                                 }else if( item.protectionWhiteListStatus == 2){
                                     item.authStr = "部分授权" 
                                 }
+
+                                if( !item.cRMVisible ){
+                                    item.crmvisible = "——";
+                                }else if( item.cRMVisible == 1 ){
+                                    item.crmvisible = "所有下级可见";
+                                }else if( item.cRMVisible == 2 ){
+                                    item.crmvisible = "直属下级可见";
+                                }
+                                
                             });
                         } else {
                             me.$tbody.html("<tr><td colspan='9'><p class='info'>暂无数据</p></td></tr>")

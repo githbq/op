@@ -266,7 +266,7 @@ define( function(require, exports, module){
                                 if( item.enterprise.appstarttime ){
                                     item.createtimestr = new Date( item.enterprise.appstarttime )._format("yyyy-MM-dd");
                                 } else {
-                                    item.createtimestr = "—— ——";
+                                    item.createtimestr = "——";
                                 }
                                 
                                 item.runstatusstr = EntStatusMap[item.enterprise.runstatus];
@@ -280,7 +280,7 @@ define( function(require, exports, module){
                                 }
 
                                 if( !item.cRMVisible ){
-                                    item.crmvisible = "—— ——";
+                                    item.crmvisible = "——";
                                 }else if( item.cRMVisible == 1 ){
                                     item.crmvisible = "所有下级可见";
                                 }else if( item.cRMVisible == 2 ){
