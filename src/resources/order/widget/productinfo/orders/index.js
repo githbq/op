@@ -231,7 +231,6 @@ define(function (require, exports, module) {
                             me.o_setValue({name: 'tablelist', visible: false});
                         }
                         if (isreadonly) {
-                            alert(ids.toString())
                             me.o_setValue({name: 'check', value: ids}, true);
                         }
                     }

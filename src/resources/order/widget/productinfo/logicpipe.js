@@ -11,11 +11,25 @@ define(function (require, exports, module) {
     var arr = [
         {
             key: '',
+            value: function (result) {
+            }
+        },
+        {
+            key: '',
             value: function () {
-            },
-            relative: relativeEnum.or
+            }
+        },
+        {
+            key: '',
+            value: function () {
+            }
+        },
+        {
+            key: '',
+            value: function () {
+            }
         }
-    ]
+    ];
 
 
 });
