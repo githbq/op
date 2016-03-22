@@ -174,12 +174,12 @@ define(function (require, exports, module) {
             o_fields: [{key: '', value: {}}],
             o_validate: function () {
                 var me = this;
-                 me.errors = [];
+                me.errors = [];
                 me.o_eachFields(function ($ele, data) {
                     if ($ele && $ele.length > 0 && data.visible !== false && $ele.is(':visible')) { //可见且dom存在
                         var tempErrors = me.o_validateField($ele);
                         if (tempErrors && tempErrors.length > 0) {
-                            me.errors =  me.errors.concat(tempErrors);
+                            me.errors = me.errors.concat(tempErrors);
                         }
                     }
                 });
@@ -456,8 +456,10 @@ define(function (require, exports, module) {
                 } else {//无DOM的数据
                     $.extend(data, obj);
                 }
-                me.trigger('setValue', $field, data);
-                data.trigger('setValue', $field, data);
+                if (silent !== true) {
+                    me.trigger('setValue', $field, data);
+                    data.trigger('setValue', $field, data);
+                }
                 if (first) {
                     data.__inited = true;
                 }
@@ -473,8 +475,10 @@ define(function (require, exports, module) {
                     value = me.i_getFunctionPipe('i_setValueWhere', 'Default')[0]($ele, value);
                     //!silent && $ele.change();
                     data.value = value;
-                    me.trigger('setFieldValue', $ele, value, data,me);
-                    data.trigger('setFieldValue', $ele, value, data,me);
+                    if (silent !== true) {
+                        me.trigger('setFieldValue', $ele, value, data, me);
+                        data.trigger('setFieldValue', $ele, value, data, me);
+                    }
                 }
             },
             i_setValueWhereInputRadio: function (next, $ele, value) {

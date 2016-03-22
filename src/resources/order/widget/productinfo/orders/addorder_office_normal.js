@@ -14,27 +14,27 @@ define(function (require, exports, module) {
         }
     };
     //转换输入值
-    exports.transferDataItem = function (terminalDataItems, tableDataItems, formDataItems,controller,responseData) {//转换数据项
+    exports.transferDataItem = function (terminalDataItems, tableDataItems, formDataItems, controller, responseData) {//转换数据项
         controller(terminalDataItems, 'useFX', function (n) {
-            n.visible=false;
+            n.visible = false;
         });
         //工资助手强制
-        common.setGZHelper(controller,terminalDataItems,tableDataItems,formDataItems);
+        common.setGZHelper(controller, terminalDataItems, tableDataItems, formDataItems);
         //工资助手强制 end
-        controller(terminalDataItems,'typewrapper_3',function(n){
+        controller(terminalDataItems, 'typewrapper_3', function (n) {
             n.visible = false;
         });
-        controller(terminalDataItems,'purchaseAmount_input_3',function(n){
+        controller(terminalDataItems, 'purchaseAmount_input_3', function (n) {
             n.visible = false;
         });
-        controller(terminalDataItems,'purchaseAmount_3',function(n){
+        controller(terminalDataItems, 'purchaseAmount_3', function (n) {
             n.visible = true;
         });
-        controller(terminalDataItems,'businesscard',function(n){
+        controller(terminalDataItems, 'businesscard', function (n) {
             n.visible = false;
         });
 
-        controller(formDataItems,'payStatus_select',function(n){
+        controller(formDataItems, 'payStatus_select', function (n) {
             n.visible = false;
         });
         controller(terminalDataItems, 'useCRMWrapper', function (n) {
@@ -45,52 +45,28 @@ define(function (require, exports, module) {
             n.visible = false;
             n.value = false;
         });
-        common.setNotable(controller,terminalDataItems,tableDataItems,formDataItems);
-      var arr=['currPayAmount_1', 'currPayAmount_2', 'currPayAmount_3', 'currPayAmount_4', 'currPayAmount_5', 'currPayAmount_7', 'currPayAmount_8'];
-        $(arr).each(function(i,b){
-            controller(formDataItems,b,function(n){
+        common.setNotable(controller, terminalDataItems, tableDataItems, formDataItems);
+        var arr = ['currPayAmount_1', 'currPayAmount_2', 'currPayAmount_3', 'currPayAmount_4', 'currPayAmount_5', 'currPayAmount_7', 'currPayAmount_8'];
+        $(arr).each(function (i, b) {
+            controller(formDataItems, b, function (n) {
                 n.visible = false;
             });
         });
-        common.setCommonData(controller, terminalDataItems, tableDataItems, formDataItems,5,responseData);
-
+        common.setCommonData(controller, terminalDataItems, tableDataItems, formDataItems, 5, responseData);
 
 
         //增购逻辑
         var hasCRM = false;
-        if (responseData && responseData.data&& responseData.data.subOrders) {
+        if (responseData && responseData.data && responseData.data.subOrders) {
             $(responseData.data.subOrders).each(function (j, m) {
                 if (m.subOrder.productId == '1') {
                     hasCRM = true;
                 }
             });
         }
-        controller(tableDataItems, 'tablelist', function (n) {
-            n.visible = true;
-        });
-        controller(tableDataItems, 'check', function (n) {
-            n.value = '7';
-            n.on('setFieldValue', function ($ele, value, data,me) {
-                if(me.__refs.terminalInfo.o_getFieldData('allreadonly').allreadonly===true){//只读不走逻辑
-                    return ;
-                }
-                if (responseData && responseData.data&& responseData.data.subOrders) {
-                    $(responseData.data.subOrders).each(function (j, m) {
-                        var checkbox = me.$('input[type=checkbox][data-name=check][value=' + m.subOrder.productId + ']');
-                        if (checkbox.length > 0) {//如果存在此纪录 则隐藏 且取消勾选
-                            checkbox.prop('checked', false).attr('checked', false);
-                            checkbox.parents('tr').attr('hidetr', 'hidetr').hide();
-                        }
-                    });
-                    //一个也没有就隐藏
-                    if (me.$('.tableinfo tbody tr:not([hidetr])').length == 0) {
-                       me.o_setValue({name:'tablelist',visible:false});
-                    }
-                }
-            });
-        });
+        common.setAddOrderLogic(controller, terminalDataItems, tableDataItems, formDataItems, 5, responseData);
         //增购逻辑END
-        controller(terminalDataItems,'isadd',function(n){
+        controller(terminalDataItems, 'isadd', function (n) {
             n.value = true;
         });
         return {terminalDataItems: terminalDataItems, tableDataItems: tableDataItems, formDataItems: formDataItems};
