@@ -260,34 +260,37 @@ define( function(require, exports, module){
 
                     if ( data.success ) {
                         me.pagination.setTotalSize( data.value.model.itemCount );
-                        me.list.reload( data.value.model.content, function( item ) {
-                            
-                            if( item.enterprise.appstarttime ){
-                                item.createtimestr = new Date( item.enterprise.appstarttime )._format("yyyy-MM-dd");
-                            } else {
-                                item.createtimestr = "—— ——";
-                            }
-                            
-                            item.runstatusstr = EntStatusMap[item.enterprise.runstatus];
+                        if( data.value.model.content.length > 0 ){
+                            me.list.reload( data.value.model.content, function( item ) {
+                                
+                                if( item.enterprise.appstarttime ){
+                                    item.createtimestr = new Date( item.enterprise.appstarttime )._format("yyyy-MM-dd");
+                                } else {
+                                    item.createtimestr = "—— ——";
+                                }
+                                
+                                item.runstatusstr = EntStatusMap[item.enterprise.runstatus];
 
-                            if( item.protectionWhiteListStatus == 0 ){
-                                item.authStr = "全部授权" 
-                            }else if( item.protectionWhiteListStatus == 1){
-                                item.authStr = "未授权" 
-                            }else if( item.protectionWhiteListStatus == 2){
-                                item.authStr = "部分授权" 
-                            }
+                                if( item.protectionWhiteListStatus == 0 ){
+                                    item.authStr = "全部授权" 
+                                }else if( item.protectionWhiteListStatus == 1){
+                                    item.authStr = "未授权" 
+                                }else if( item.protectionWhiteListStatus == 2){
+                                    item.authStr = "部分授权" 
+                                }
 
-                            if( !item.cRMVisible ){
-                                item.crmvisible = "—— ——";
-                            }else if( item.cRMVisible == 1 ){
-                                item.crmvisible = "所有下级可见";
-                            }else if( item.cRMVisible == 2 ){
-                                item.crmvisible = "直属下级可见";
-                            }
-                        });
-                        me.clearSelect();
-                    }
+                                if( !item.cRMVisible ){
+                                    item.crmvisible = "—— ——";
+                                }else if( item.cRMVisible == 1 ){
+                                    item.crmvisible = "所有下级可见";
+                                }else if( item.cRMVisible == 2 ){
+                                    item.crmvisible = "直属下级可见";
+                                }
+                            });
+                            me.clearSelect();
+                        } else {
+                            me.$tbody.html("<tr><td colspan='10'><p class='info'>暂无数据</p></td></tr>")
+                        }
                 },
                 error: function() {
                     me.$tbody.html( '<tr><td colspan="11"><p class="info">数据加载失败</p></td></tr>' );
