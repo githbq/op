@@ -6528,6 +6528,7 @@ em {
 }
 .m-invoice .teaminfo {
   display: none;
+  width: 210px;
 }
 .m-invoice .roleinfo b {
   padding: 0 6px;
@@ -6535,4 +6536,8 @@ em {
 .m-invoice .yyzzimg,
 .m-invoice .nsrzimg {
   display: none;
+}
+.m-invoice img {
+  display: inline-block;
+  width: 300px;
 }

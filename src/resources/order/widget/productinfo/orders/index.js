@@ -110,9 +110,9 @@ define(function (require, exports, module) {
                                 setValue(dataDic, j + '_' + subOrder.productId, subOrder[j]);
                             }
                         }
-                        var items=tableDataItems;
-                        if($.inArray(n.subOrder.productId.toString(),['1','2','3','8'])>=0){
-                            items=terminalDataItems;
+                        var items = tableDataItems;
+                        if ($.inArray(n.subOrder.productId.toString(), ['1', '2', '3', '8']) >= 0) {
+                            items = terminalDataItems;
                         }
                         if (subOrder.productId == '1') {//选中CRM
                             useCRM = true;
@@ -208,7 +208,34 @@ define(function (require, exports, module) {
 
         //设置增购逻辑
         exports.setAddOrderLogic = function (controller, terminalDataItems, tableDataItems, formDataItems, type, responseData) {
-
+            controller(tableDataItems, 'tablelist', function (n) {
+                n.visible = true;
+            });
+            controller(tableDataItems, 'check', function (n) {
+                n.value = '7';
+                n.on('setFieldValue', function ($ele, value, data, me) {
+                    var isreadonly = me.__refs.terminalInfo.o_getFieldData('allreadonly').allreadonly === true;
+                    if (responseData && responseData.data && responseData.data.subOrders) {
+                        var ids = [];
+                        $(responseData.data.subOrders).each(function (j, m) {
+                            var checkbox = me.$('input[type=checkbox][data-name=check][value=' + m.subOrder.productId + ']');
+                            if (checkbox.length > 0 && !isreadonly) {//如果存在此纪录 则隐藏 且取消勾选
+                                checkbox.prop('checked', false).attr('checked', false);
+                                checkbox.parents('tr').attr('hidetr', 'hidetr').hide();
+                            } else {
+                                ids.push(m.subOrder.productId);
+                            }
+                        });
+                        //一个也没有就隐藏
+                        if (me.$('.tableinfo tbody tr:not([hidetr])').length == 0) {
+                            me.o_setValue({name: 'tablelist', visible: false});
+                        }
+                        if (isreadonly) {
+                            me.o_setValue({name: 'check', value: ids}, true);
+                        }
+                    }
+                });
+            });
         };
 
         function setValue(dataDic, key, value, callback) {
@@ -410,7 +437,7 @@ define(function (require, exports, module) {
 
                         var subOrder = {
                             productId: n,
-                            purchaseCount: fromData['purchaseCount_' + n] || 1,
+                            purchaseCount: fromData['purchaseCount_' + n] || 999999,
                             purchaseAmount: fromData['purchaseAmount_' + n] || 0,
                             startTime: fromData['startTime_' + n] || new Date().getTime(),
                             endTime: fromData['endTime_' + n] || new Date().getTime(),
