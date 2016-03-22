@@ -16,7 +16,7 @@
 <script type="text/template" id="trProduct">
 <% _.each( content, function( item, index ) { %>
 	<p>
-		<span><%=item.appName && item.appName%>(配额: <%=item.quota && item.quota%>)</span>
+		<span><%=item.appName && item.appName%> (配额: <%=item.quota && item.quota%>) </span>
 		<span> 开始时间: <%=item.startDate && new Date( item.startDate )._format('yyyy年MM月dd日')%></span>
 		<span> 结束时间: <%=item.endDate && new Date( item.endDate )._format('yyyy年MM月dd日')%></span>
 	</p>

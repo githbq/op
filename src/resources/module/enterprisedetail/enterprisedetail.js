@@ -1476,7 +1476,36 @@ define( function(require, exports, module){
 					console.warn( data );
 					if( data.success ) {
 						if ( data.value.model.length > 0 ) {
-							me.$tbProduct.html( me.tplProduct( { content: data.value.model } ) );
+
+							var strDom = "";
+							_.map( data.value.model, function( obj ){
+
+								switch( obj["code"] )
+								{
+									case "FX_Terminal":
+										var strartTime = "",endTime = "";
+										strartTime =  new Date( obj['startDate']  )._format('yyyy/MM/dd');
+										endTime = new Date( obj['endDate']  )._format('yyyy/MM/dd');
+										strDom += " <p> <span>"+obj['appName']+"(个)："+obj['quota']+"</span>" +
+										" <span>开始时间："+ strartTime +"</span> <span>结束时间："+endTime+"</span> </p>";
+										break;
+									case "CRM":
+										var strartTime = "",endTime = "";
+										strartTime =  new Date( obj['startDate']  )._format('yyyy/MM/dd');
+										endTime = new Date( obj['endDate']  )._format('yyyy/MM/dd');
+										strDom += " <p> <span>"+obj['appName']+"(个)："+obj['quota']+"</span>" +
+										" <span>开始时间："+ strartTime +"</span> <span>结束时间："+endTime+"</span>" +
+										"</p>";
+										break;
+									default:
+										var strartTime = "",endTime = "";
+										strartTime =  new Date( obj['startDate']  )._format('yyyy/MM/dd');
+										endTime = new Date( obj['endDate']  )._format('yyyy/MM/dd');
+										strDom += " <p> <span>"+obj['appName']+"</span> <span>开始时间："+ strartTime +"</span> <span>结束时间："+endTime+"</span></p>";
+								}
+							});
+
+							me.$tbProduct.html( strDom );
 						} else {
 							me.$tbProduct.html( '<p class="info">暂无数据</p>' );
 						}
@@ -2207,6 +2236,7 @@ define( function(require, exports, module){
 				'success': function( data ){
 					if( data.success ){
 						util.showTip('修改成功!');
+						me.getEnterprise( me.model.attrs.enterpriseId );
 					}
 				}
 			});
