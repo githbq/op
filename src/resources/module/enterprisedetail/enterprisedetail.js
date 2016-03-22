@@ -1931,6 +1931,7 @@ define( function(require, exports, module){
 			});
 
 		},
+		
 		*/
 		/*
 		crmInfoChangeEve:function(){

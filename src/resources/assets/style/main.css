@@ -6414,7 +6414,6 @@ em {
   border: 1px solid #eee;
 }
 .productinfo .product-image {
-  width: 300px;
   height: 300px;
 }
 .productinfo .error {
@@ -6539,5 +6538,5 @@ em {
 }
 .m-invoice img {
   display: inline-block;
-  width: 300px;
+  height: 300px;
 }
