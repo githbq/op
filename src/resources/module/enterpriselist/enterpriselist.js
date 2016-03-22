@@ -291,6 +291,7 @@ define( function(require, exports, module){
                         } else {
                             me.$tbody.html("<tr><td colspan='10'><p class='info'>暂无数据</p></td></tr>")
                         }
+                    }
                 },
                 error: function() {
                     me.$tbody.html( '<tr><td colspan="11"><p class="info">数据加载失败</p></td></tr>' );
