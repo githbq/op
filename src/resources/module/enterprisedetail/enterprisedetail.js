@@ -217,32 +217,32 @@ define( function(require, exports, module){
 			'#sTrialTime': 'sTrialTime',
 			'#sTrialAmount': 'sTrialAmount',
 			'#tbOperation tbody': 'tbOperation',
-			'#sdXKET': 'sdXKET',
-			'#sdPayImd': 'sdPayImd',
+			///'#sdXKET': 'sdXKET',
+			///'#sdPayImd': 'sdPayImd',
 			'#sdXKDC': 'sdXKDC',
 			'#yingxiaoSum': 'yingxiaoSum',
 			'#yingxiaoUsed': 'yingxiaoUsed',
 			'#sdXKDUC': 'sdXKDUC',
-			'#sdBCET': 'sdBCET',
-			'#sdBCDC': 'sdBCDC',
-			'#sdBCDUC': 'sdBCDUC',
-			'#sdSmC': 'sdSmC',
-			'#sdSmUC': 'sdSmUC',
+			///'#sdBCET': 'sdBCET',
+			///'#sdBCDC': 'sdBCDC',
+			///'#sdBCDUC': 'sdBCDUC',
+			///'#sdSmC': 'sdSmC',
+			///'#sdSmUC': 'sdSmUC',
 			'#sdSC': 'sdSC',
 			'#sdSUC': 'sdSUC',
 			
-			'#sXKDC': 'sXKDC',         		//销客终端总量
-			'#sXKET': 'sXKET',         		//签约到期时间
-			'#yxEndInput': 'yxEndInput',    //营销版到期时间
-			'#sBCDC': 'sBCDC',
-			'#sBCET': 'sBCET',
-			'#sSms': 'sSms',
-			'#sStorage': 'sStorage',
+			///'#sXKDC': 'sXKDC',         		//销客终端总量
+			///'#sXKET': 'sXKET',         		//签约到期时间
+			///'#yxEndInput': 'yxEndInput',    	//营销版到期时间
+			///'#sBCDC': 'sBCDC',
+			///'#sBCET': 'sBCET',
+			///'#sSms': 'sSms',
+			///'#sStorage': 'sStorage',
 			
-			'#sDevice': 'sDevice',     			 //销客终端扩容
+			///'#sDevice': 'sDevice',     			 //销客终端扩容
 
-			'#yingxiao': 'yingxiao',             //营销版终端总量
-			'#yingxiaoAdd': 'yingxiaoAdd',	     //营销版终端扩容
+			///'#yingxiao': 'yingxiao',             //营销版终端总量
+			///'#yingxiaoAdd': 'yingxiaoAdd',	     //营销版终端扩容
 			
 			'#sActivity': 'sActivity',
 			'#sProductModule': 'sProductModule',
@@ -321,10 +321,10 @@ define( function(require, exports, module){
 			'.companyGateKeyword':'setcompanyGatekeyword',
 			'.companyGateRemark':'setcompanyGateRemark',
 			'.upload':'saveEve',
-			'#creatorName':'creatorName',
-			'#createTime':'createTime',
+			///'#creatorName':'creatorName',
+			//'#createTime':'createTime',
 			
-			'#crmInfoState':'crmInfoState'    //crm控制信息状态
+			///'#crmInfoState':'crmInfoState'    //crm控制信息状态
 		},
 		events: {
 			'click .accordian h4': 'showAccordian',
@@ -374,8 +374,8 @@ define( function(require, exports, module){
 
 			'click .savemonitoring': 'saveMonitoringEve',       //保存监控信息
 
-			'click .employee-detail':'employeeDetailEve',
-			'click #crmInfoChange':'crmInfoChangeEve'
+			'click .employee-detail':'employeeDetailEve'
+			///'click #crmInfoChange':'crmInfoChangeEve'
 		}, 
 
 		uploadzzEve: function(){
@@ -600,6 +600,7 @@ define( function(require, exports, module){
 
 			me.operations = {
 				isInitializes: false,
+				initialInfo:{},
 				pagination: null
 			};
 
@@ -798,14 +799,21 @@ define( function(require, exports, module){
 		 */
 		initializeDatepickers: function() {
 			var me = this;
+
+			/*
 			me.$sXKET.datetimepicker( {
 				format: 'Y/m/d',
 				timepicker: false
 			} );
+			*/
+
+			/*
 			me.$sBCET.datetimepicker( {
 				format: 'Y/m/d',
 				timepicker: false
 			} );
+			*/
+
 			me.$sbLogST.datetimepicker( {
 				format: 'Y/m/d',
 				onShow: function() {
@@ -869,10 +877,12 @@ define( function(require, exports, module){
 				timepicker: false
 			} );
 
+			/*
 			me.$yxEndInput.datetimepicker({
 				format: 'Y/m/d',
 				timepicker: false
 			});
+			*/
 
 			me.$('#trainstarttime').datetimepicker({
 				format:'Y/m/d',
@@ -908,6 +918,7 @@ define( function(require, exports, module){
 			me.$hetongfbinfo.hide();
 		},
 
+		//显示
 		show: function( id , status ){
 			var me = this;
 			me.enterpriseAccount = '';
@@ -1007,13 +1018,23 @@ define( function(require, exports, module){
 					'enterpriseId': id
 				},
 				'success': function( data ){
-					
+					console.warn( 'enterpriseinfo' );
 					console.warn( data );
 					if( data.success ){
 						me.attrs.runStatus = data.value.model.runStatus;
 						var model = data.value.model;
 						///me.product.isInitialized = false;
 						me.model.load( model );
+
+						//初始化 使用情况的缓存
+						me.operations.initialInfo = {
+							'accountTotalAmount': model.accountTotalAmount,
+							'groupNumLimit': model.groupNumLimit,
+							'videoNumLimit': model.videoNumLimit,
+							'crmVisibleRange': model.crmVisibleRange,
+							'webSanCodeAuth': model.webSanCodeAuth
+						};
+
 						me.$name.val( model.enterpriseName );
 						me.$account.val( model.enterpriseAccount );
 						me.enterpriseAccount = model.enterpriseAccount;
@@ -1066,12 +1087,12 @@ define( function(require, exports, module){
 						me.$kcMobile.val( model.keyContactPhone );
 						me.$kcEmail.val( model.keyContactEmail );
 						me.$remark.val( model.remark );
-						///me.$sProductName.val( model.productName );
-						me.$spstatus.val( util.findEnumsText('ENT_LST_PSTS', model.runStatus) );
+						//me.$spstatus.val( util.findEnumsText('ENT_LST_PSTS', model.runStatus) );
 						me.$sAgentId.val( model.agentId );
 						me.$sAgentName.val( model.agentName );
 
 						//签约到期时间
+						/*
 						var endtimestr;
 						if( model.endTime){
 							endtimestr = new Date( model.endTime )._format( 'yyyy-MM-dd' );
@@ -1082,8 +1103,10 @@ define( function(require, exports, module){
 							endtimestr = '永久';
 						}
 						me.$sdXKET.val(endtimestr);
+						*/
 
 						//营销版到期时间
+						/*
 						if( model.paidVersionExpireTime ){
 
 							if( new Date().getTime() > parseInt( model.paidVersionExpireTime ) ){
@@ -1093,19 +1116,20 @@ define( function(require, exports, module){
 							}
 
 						}
+						*/
 
-						me.$sdPayImd.val( model.firstPayTime ? new Date( model.firstPayTime )._format( 'yyyy-MM-dd' ) : '未知' );
+						///me.$sdPayImd.val( model.firstPayTime ? new Date( model.firstPayTime )._format( 'yyyy-MM-dd' ) : '未知' );
 						me.$sdXKDC.val( model.accountTotalAmount );
 						me.$sdXKDUC.val( model.accountUsedAmount + '/' + model.accountAvailableAmount || '' );
 
 						me.$yingxiaoSum.val( model.marketingAccountAmount );
 						me.$yingxiaoUsed.val( model.marketingAccountUsedAmount + '/' + model.marketingAccountAvailableAmount );
 
-						me.$sdBCET.val( model.baichuanEndTime ? new Date( model.baichuanEndTime )._format( 'yyyy-MM-dd' ) : '永久' );
-						me.$sdBCDC.val( model.baichuanTotalAmount || 0 );
-						me.$sdBCDUC.val( model.baichuanUsedAmount || 0 );
-						me.$sdSmC.val( model.smsTotalAmount );
-						me.$sdSmUC.val( model.smsUsedAmount );
+						///me.$sdBCET.val( model.baichuanEndTime ? new Date( model.baichuanEndTime )._format( 'yyyy-MM-dd' ) : '永久' );
+						///me.$sdBCDC.val( model.baichuanTotalAmount || 0 );
+						///me.$sdBCDUC.val( model.baichuanUsedAmount || 0 );
+						///me.$sdSmC.val( model.smsTotalAmount );
+						///me.$sdSmUC.val( model.smsUsedAmount );
 						me.$sdSC.val( model.storageTotalSpace );
 						me.$sdSUC.val( model.storageUsedSpace );
 						me.$sActivity.val( model.activityStr );
@@ -1127,10 +1151,10 @@ define( function(require, exports, module){
 						me.$cardUseNum.val( model.businessCardUsedAmount ? model.businessCardUsedAmount:0 );
 						
 						//提交人
-						me.$creatorName.val( model.createrName );
+						///me.$creatorName.val( model.createrName );
 
 						//开通时间
-						me.$createTime.val( model.createTime ? new Date( model.createTime )._format('yyyy-MM-dd hh:mm') : '' );
+						//me.$createTime.val( model.createTime ? new Date( model.createTime )._format('yyyy-MM-dd hh:mm') : '' );
 
 
 						/**
@@ -1322,10 +1346,6 @@ define( function(require, exports, module){
 					console.log('operations');
 					this.showOperations();
 					break;
-				///case 'modules':
-				///	console.log('modules');
-				///	this.showModules();
-				///	break;
 				case 'functions':
 					console.log('functions');
 					this.showFunctions();
@@ -1358,9 +1378,12 @@ define( function(require, exports, module){
 				case 'monitoring':
 					this.showMonitoring();  //企业监控
 					break;
+				/*
 				case 'crmInfo':
 					this.showCrmInfo();  //企业监控
 					break;
+				*/
+
 				default:
 					break;
 			}
@@ -1456,7 +1479,36 @@ define( function(require, exports, module){
 					console.warn( data );
 					if( data.success ) {
 						if ( data.value.model.length > 0 ) {
-							me.$tbProduct.html( me.tplProduct( { content: data.value.model } ) );
+
+							var strDom = "";
+							_.map( data.value.model, function( obj ){
+
+								switch( obj["code"] )
+								{
+									case "FX_Terminal":
+										var strartTime = "",endTime = "";
+										strartTime =  new Date( obj['startDate']  )._format('yyyy/MM/dd');
+										endTime = new Date( obj['endDate']  )._format('yyyy/MM/dd');
+										strDom += " <p> <span>"+obj['appName']+"(个)："+obj['quota']+"</span>" +
+										" <span>开始时间："+ strartTime +"</span> <span>结束时间："+endTime+"</span> </p>";
+										break;
+									case "CRM":
+										var strartTime = "",endTime = "";
+										strartTime =  new Date( obj['startDate']  )._format('yyyy/MM/dd');
+										endTime = new Date( obj['endDate']  )._format('yyyy/MM/dd');
+										strDom += " <p> <span>"+obj['appName']+"(个)："+obj['quota']+"</span>" +
+										" <span>开始时间："+ strartTime +"</span> <span>结束时间："+endTime+"</span>" +
+										"</p>";
+										break;
+									default:
+										var strartTime = "",endTime = "";
+										strartTime =  new Date( obj['startDate']  )._format('yyyy/MM/dd');
+										endTime = new Date( obj['endDate']  )._format('yyyy/MM/dd');
+										strDom += " <p> <span>"+obj['appName']+"</span> <span>开始时间："+ strartTime +"</span> <span>结束时间："+endTime+"</span></p>";
+								}
+							});
+
+							me.$tbProduct.html( strDom );
 						} else {
 							me.$tbProduct.html( '<p class="info">暂无数据</p>' );
 						}
@@ -1855,6 +1907,7 @@ define( function(require, exports, module){
 		 *
 		 * 显示CRM信息控制
 		 */
+		/*
 		showCrmInfo: function(){
 			console.log('monitoring');
 			var me = this;
@@ -1870,13 +1923,20 @@ define( function(require, exports, module){
 					console.warn( data );
 					if( data.success ){
 						me.attrs.oldFlag = data.value.model;
-						me.$('#crmInfoState').val(data.value.model);
+<<<<<<< HEAD
+						var tempCrm = data.value.model||'';
+						me.$('#crmInfoState').val(tempCrm);
+=======
+						///me.$('#crmInfoState').val(data.value.model);
+>>>>>>> 82cd77097bffb49cc9b5fe17c17d09cae9b53fe1
 						//me.#crmInfoState.val();
 					}
 				}
 			});
 
 		},
+		*/
+		/*
 		crmInfoChangeEve:function(){
 			var me = this;
 			var temp = me.$('#crmInfoState').val();
@@ -1899,6 +1959,7 @@ define( function(require, exports, module){
 				});
 			}
 		},
+		*/
 
 		//load企业监控日志
 		loadMonitoringLog: function(){
@@ -2040,6 +2101,10 @@ define( function(require, exports, module){
 			window.open( url );
 		},
 
+
+
+
+
 		/**
 		 *
 		 * 使用情况
@@ -2049,14 +2114,14 @@ define( function(require, exports, module){
 			var me = this;
 			
 			
-			me._usestatus = 0;     //状态值
+			///me._usestatus = 0;     //状态值
 			
 			me.attrs.freeIncreaseContractRequired = '';
 			
 			/***
 			 *
 			 * 签约到期时间( 付费版 )   如果是 9999-12-31   则显示永久
-			 * 营销版到期时间( 免费版 ) 如果是 小于当前日期 则不显示
+			 * 营销版到期时间( 免费版 ) 如果是 小于当前日期 则不显示    
 			 * 
 			 * 设置的时候
 			 * 服务支持人员         可以设置 签约到期时间 也可以设置 营销版到期时间
@@ -2067,6 +2132,7 @@ define( function(require, exports, module){
 			* 代理商用户
 			* 根据是否是管理员 显示相关信息
 			*/
+			/*
 			function checkIsAdmin(){
 
 				if( me.attrs.isAgent == true ){
@@ -2084,17 +2150,24 @@ define( function(require, exports, module){
 			};
 
 			if( checkIsAdmin() ){
-				me.$('#tbOperation .isadmin').show();
-				me.$('#tbOperation input').removeAttr('disabled');
+				me.$('#tbOperation .isadmin').removeAttr('disabled');
+				//me.$('#tbOperation input').removeAttr('disabled');
+			} else {
+				me.$('#tbOperation .isadmin').attr('disabled','disabled');
 			}
-
+			*/
 
 			/**
 			 *
 			 * 清空数据
 			 */
-			me.$('#tbOperation input').val('');
+			///me.$('#tbOperation input').val('');
 
+			me.model.load( me.operations.initialInfo );
+			/**
+			 *
+			 * 加载列表数据
+			 */
 			if( me.operations.pagination ){
 
 				me.operations.pagination.setPage(0,true);
@@ -2114,6 +2187,10 @@ define( function(require, exports, module){
 			
 		},
 
+		/*
+		 *
+		 * 加载使用情况列表
+		 */
 		loadOperations: function() {
 			var me = this;
 			var data = {
@@ -2150,17 +2227,134 @@ define( function(require, exports, module){
 			});
 		},
 
-		/*
-		showModules: function() {
-			if ( this.model.attrs.runStatus == 2 ) {
-				$( '#tbProductModule' ).css( 'display', 'block' );
-				this.generateSelect( 'PRODUCT_MODULE', this.$sProductModule );
-				this.modules.isInitialized = true;
-			} else {
-				$( '#tbProductModule' ).css( 'display', 'none' );
+		//修改使用情况信息
+		changeStatistics: function() {
+			var me = this;
+
+			console.log('changeStatistics');
+
+			var data = {
+				'accountAmount': me.$sdXKDC.val(),  //逍客终端总量
+				'expandStorageSpace': me.$('#expandStorageSpace').val(),
+				'groupNumLimit': me.model.get('groupNumLimit'),
+				'videoNumLimit': me.model.get('videoNumLimit'),
+				'crmVisibleRange': me.model.get('crmvisiblerange'),
+				'webSanCodeAuth': me.model.get('webSanCodeAuth')
 			}
+
+			util.api({
+				'url':'/enterprise/changeconfig',
+				'data': data,
+				'success': function( data ){
+					if( data.success ){
+						util.showTip('修改成功!');
+						me.getEnterprise( me.model.attrs.enterpriseId );
+					}
+				}
+			});
+
+
+			/*
+			if( me.$sXKDC.val() && me.$sDevice.val() ){
+				util.showToast('销客终端总量 和 销客终端扩容信息仅能填写一个!');
+				return false;
+			}
+			
+			if( me.$yingxiao.val() && me.$yingxiaoAdd.val() ){
+				util.showToast('营销终端总量 和 营销终端扩容信息仅能填写一个');
+				return false;
+			}
+			
+
+			var data = {
+				enterpriseId: me.model.attrs.id,
+				accountAmount:  me.$sXKDC.val(),				//销客终端总量
+				increaseAmount:	me.$sDevice.val(),				//销客终端扩容
+				marketingAccountAmount: me.$yingxiao.val(),		//营销终端总量
+				increaseMarketingAmount: me.$yingxiaoAdd.val(), //营销终端扩容
+				baichuanAccountAmount: me.$sBCDC.val(), 		//百川终端总量
+				rechargeSmsAmount: me.$sSms.val(),      		//短信充值条数
+				expandStorageSpace: me.$sStorage.val() 			//存储扩容
+			};
+			if ( me.$sXKET.val() ) {
+				data.productEndTime = new Date( me.$sXKET.val() ).getTime();
+			}
+			if ( me.$sBCET.val() ) {
+				data.baichuanEndTime = new Date( me.$sBCET.val() ).getTime();
+			}
+			if ( me.$yxEndInput.val() ){
+				data.marketingEndTime = new Date( me.$yxEndInput.val() ).getTime();
+			}
+			
+			/**
+			 *
+			 * 判断
+			 */
+			/*
+			if( data.marketingEndTime && ( me.$yingxiaoSum.val() == 0 ) && (data.marketingAccountAmount == '') && (data.increaseMarketingAmount == '') ){
+				util.showTip('请填写营销版终端总量或营销版终端扩容个数');
+				return false;
+			}
+			///???
+			if( (data.marketingAccountAmount || data.increaseMarketingAmount) && ( me.$('#yxEndTime').val() == '' ) && (!data.marketingEndTime) ){
+				util.showTip('请选择营销版到期时间');
+				return false;
+			}
+			*/
+
+			/**
+			 *
+			 * 营销版本 和 营销版增购 有值时 判断是否是永久试用版
+			 * 如果是进行提示
+			 *
+			 */
+			 /*
+			function checkCancel( callback ){
+				
+				if( data.marketingAccountAmount || data.increaseMarketingAmount ){
+
+					if( me.model.get('permanentTrial') == 1 ){
+						if( confirm("是否取消永久试用的资格?") ){
+							callback && callback();
+						}else{
+							return;
+						}
+					}else{
+						callback && callback();
+					}
+				}else{ 
+
+					callback && callback();
+				}
+			}
+			
+			
+			//发送变更信息
+			function sendChange(){
+				me.$schangeStatis.attr('disabled','disabled').addClass('disabled').text('保存中');
+
+				util.api({
+					url: '/enterprise/changeconfig',
+					data: data,
+					success: function( data ) {
+						if( data.success ) {
+							util.showTip( '修改成功' );
+						}
+					},
+					complete: function(){
+						me.$schangeStatis.removeAttr('disabled').removeClass('disabled').text('保存');
+						me.clearStatisticsForm();
+						me.getEnterprise( me.model.attrs.enterpriseId ,function(){
+							me.showOperations();
+						});
+					}
+				});
+			}
+
+			checkCancel( sendChange );
+			*/
 		},
-		*/
+
 		/**
 		 * 显示功能限制 并拉取相应的数据
 		 *
@@ -2467,126 +2661,26 @@ define( function(require, exports, module){
 			});
 		},
 		clearStatisticsForm: function() {
-			//this.$sXKDC.val( '' );
-			this.$sXKET.val( '' );
-			this.$yxEndInput.val( '' );
-			this.$sBCDC.val( '' );
-			this.$sBCET.val( '' );
-			this.$sSms.val( '' );
-			this.$sStorage.val( '' );
-			//this.$sDevice.val( '' );
+			///this.$sXKDC.val( '' );
+			///this.$sXKET.val( '' );
+			///this.$yxEndInput.val( '' );
+			///this.$sBCDC.val( '' );
+			///this.$sBCET.val( '' );
+			///this.$sSms.val( '' );
+			///this.$sStorage.val( '' );
+			///this.$sDevice.val( '' );
 
-			this.$sXKDC.val('');
-			this.$sDevice.val('');
-			this.$yingxiao.val('');	
-			this.$yingxiaoAdd.val('');	
+			///this.$sXKDC.val('');
+			///this.$sDevice.val('');
+			///this.$yingxiao.val('');	
+			///this.$yingxiaoAdd.val('');	
 			
 			this.$cardStartTime.val('');
 			this.$cardEndTime.val('');
 
 		},
 
-		//修改使用情况信息
-		changeStatistics: function() {
-			var me = this;
-
-			if( me.$sXKDC.val() && me.$sDevice.val() ){
-				util.showToast('销客终端总量 和 销客终端扩容信息仅能填写一个!');
-				return false;
-			}
-			
-			if( me.$yingxiao.val() && me.$yingxiaoAdd.val() ){
-				util.showToast('营销终端总量 和 营销终端扩容信息仅能填写一个');
-				return false;
-			}
-			
-
-			var data = {
-				enterpriseId: me.model.attrs.id,
-				accountAmount:  me.$sXKDC.val(),				//销客终端总量
-				increaseAmount:	me.$sDevice.val(),				//销客终端扩容
-				marketingAccountAmount: me.$yingxiao.val(),		//营销终端总量
-				increaseMarketingAmount: me.$yingxiaoAdd.val(), //营销终端扩容
-				baichuanAccountAmount: me.$sBCDC.val(), 		//百川终端总量
-				rechargeSmsAmount: me.$sSms.val(),      		//短信充值条数
-				expandStorageSpace: me.$sStorage.val() 			//存储扩容
-			};
-			if ( me.$sXKET.val() ) {
-				data.productEndTime = new Date( me.$sXKET.val() ).getTime();
-			}
-			if ( me.$sBCET.val() ) {
-				data.baichuanEndTime = new Date( me.$sBCET.val() ).getTime();
-			}
-			if ( me.$yxEndInput.val() ){
-				data.marketingEndTime = new Date( me.$yxEndInput.val() ).getTime();
-			}
-			
-			/**
-			 *
-			 * 判断
-			 */
-			if( data.marketingEndTime && ( me.$yingxiaoSum.val() == 0 ) && (data.marketingAccountAmount == '') && (data.increaseMarketingAmount == '') ){
-				util.showTip('请填写营销版终端总量或营销版终端扩容个数');
-				return false;
-			}
-
-			if( (data.marketingAccountAmount || data.increaseMarketingAmount) && ( me.$('#yxEndTime').val() == '' ) && (!data.marketingEndTime) ){
-				util.showTip('请选择营销版到期时间');
-				return false;
-			}
-
-
-			/**
-			 *
-			 * 营销版本 和 营销版增购 有值时 判断是否是永久试用版
-			 * 如果是进行提示
-			 *
-			 */
-			 
-			function checkCancel( callback ){
-				
-				if( data.marketingAccountAmount || data.increaseMarketingAmount ){
-
-					if( me.model.get('permanentTrial') == 1 ){
-						if( confirm("是否取消永久试用的资格?") ){
-							callback && callback();
-						}else{
-							return;
-						}
-					}else{
-						callback && callback();
-					}
-				}else{ 
-
-					callback && callback();
-				}
-			}
-			
-			
-			//发送变更信息
-			function sendChange(){
-				me.$schangeStatis.attr('disabled','disabled').addClass('disabled').text('保存中');
-
-				util.api({
-					url: '/enterprise/changeconfig',
-					data: data,
-					success: function( data ) {
-						if( data.success ) {
-							util.showTip( '修改成功' );
-						}
-					},
-					complete: function(){
-						me.$schangeStatis.removeAttr('disabled').removeClass('disabled').text('保存');
-						me.clearStatisticsForm();
-						me.getEnterprise( me.model.attrs.enterpriseId ,function(){
-							me.showOperations();
-						});
-					}
-				});
-			}
-
-			checkCancel( sendChange );
-		},
+		/*
 		changeStatisticsagent: function(){
 			var me = this;
 
@@ -2634,6 +2728,8 @@ define( function(require, exports, module){
 			}
 			sendChange();
 		},
+		*/
+
 		/**
          *
          * 开通企业

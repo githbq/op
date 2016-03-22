@@ -281,18 +281,18 @@ define( function( require, exports, module ) {
 
             detailApproval = new DetailApproval();
             var data = {
-                'id' : detail.orderId || '',
-                'enterpriseId': detail.enterpriseId || '', 
+                'id' : detail.orderId,
+                'enterpriseId': detail.enterpriseId, 
                 'editFlag': detail.canEdit,
-                'orderType': detail.orderType || '',
-                'opinion': detail.lastAssigneeOpinion || '',
-                'isTp': detail.isTp || '',
-                'state': state || '',
-                'ea': detail.enterpriseAccount || '',
-                'currentTask': detail.currentTask || '',
-                'processInstanceId': detail.processInstanceId || '',
+                'orderType': detail.orderType,
+                'opinion': detail.lastAssigneeOpinion,
+                'isTp': detail.isTp,
+                'state': state,
+                'ea': detail.enterpriseAccount,
+                'currentTask': detail.currentTask,
+                'processInstanceId': detail.processInstanceId,
                 'contractNo': detail.contractNo,
-                'rejectsFrom': detail.rejectsFrom || ''
+                'rejectsFrom': detail.rejectsFrom
             }
 
             if( data.orderType != 17 ){

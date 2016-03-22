@@ -25,16 +25,16 @@ define( function(require, exports, module){
 			console.log( detail )
 
 			var data = {
-				'id' : detail.orderId || '',
-                'enterpriseId': detail.enterpriseId || '', 
-                'editFlag': detail.canEdit || '',
-                'orderType': detail.orderType || '',
-                'opinion': detail.lastAssigneeOpinion || '',
-                'isTp': detail.isTp || '',
-                'state': state || '',
-                'ea': detail.enterpriseAccount || '',
-                'currentTask': detail.currentTash || '',
-                'processInstanceId': detail.processInstanceId || '',
+				'id' : detail.orderId,
+                'enterpriseId': detail.enterpriseId, 
+                'editFlag': false,                          	//detail.canEdit || '',
+                'orderType': detail.orderType,
+                'opinion': detail.lastAssigneeOpinion,
+                'isTp': detail.isTp,
+                'state': state,
+                'ea': detail.enterpriseAccount,
+                'currentTask': detail.currentTash,
+                'processInstanceId': detail.processInstanceId,
                 'contractNo': detail.contractNo
 			};
 

@@ -123,7 +123,7 @@ define( function( require, exports, module ) {
 	   orderDelEve:function(e){
 		   var me = this;
 		   var id = $(e.currentTarget).attr('data-id');
-		   var bool = confirm('确定要删除该订单吗?')
+		   var bool = confirm('确定要删除该订单吗?');
 		   if(bool){
 			    util.api({
 					'url':'/odr/deleteOrder',

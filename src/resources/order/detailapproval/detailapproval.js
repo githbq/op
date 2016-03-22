@@ -431,6 +431,7 @@ define( function(require, exports, module){
 			if(receivedPayDate){
 				me.$('.receivedPayDate').show();
 				me.$('.receivedPayDate-text').text(receivedPayDate);
+				me.$('.currentTask-finance').hide();
 			}
 			
 		},
@@ -471,7 +472,7 @@ define( function(require, exports, module){
 			}
 
 			//检测自订单是否小于7折
-			if(me.attrs.options.isTp == '0'){
+			if( !me.attrs.options.isTp || me.attrs.options.isTp == '0'){
 				if(!me.checkDiscount(temp.subOrders)){
 					util.showToast('子产品折扣低于8折，必须申请特批');
 					return false;
@@ -705,7 +706,7 @@ define( function(require, exports, module){
 		actionAgreeEve: function(){
             var me = this;
 
-            if( me.attrs.options.currentTask == 'finance' ){
+            if( me.attrs.options.currentTask == 'finance' && !me.attrs.orderData.order.receivedPayDate ){
                me.setMoneyTime(function(){
 					me.replyOptions();
 			   });
