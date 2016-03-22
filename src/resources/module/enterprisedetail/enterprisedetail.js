@@ -2062,7 +2062,7 @@ define( function(require, exports, module){
 			var me = this;
 			
 			
-			me._usestatus = 0;     //状态值
+			///me._usestatus = 0;     //状态值
 			
 			me.attrs.freeIncreaseContractRequired = '';
 			
@@ -2108,8 +2108,13 @@ define( function(require, exports, module){
 			 *
 			 * 清空数据
 			 */
-			me.$('#tbOperation input').val('');
+			///me.$('#tbOperation input').val('');
 
+
+			/**
+			 *
+			 * 加载列表数据
+			 */
 			if( me.operations.pagination ){
 
 				me.operations.pagination.setPage(0,true);
@@ -2129,6 +2134,10 @@ define( function(require, exports, module){
 			
 		},
 
+		/*
+		 *
+		 * 加载使用情况列表
+		 */
 		loadOperations: function() {
 			var me = this;
 			var data = {
@@ -2163,6 +2172,112 @@ define( function(require, exports, module){
 					}
 				}
 			});
+		},
+
+		//修改使用情况信息
+		changeStatistics: function() {
+			var me = this;
+
+			console.log('changeStatistics');
+			/*
+			if( me.$sXKDC.val() && me.$sDevice.val() ){
+				util.showToast('销客终端总量 和 销客终端扩容信息仅能填写一个!');
+				return false;
+			}
+			
+			if( me.$yingxiao.val() && me.$yingxiaoAdd.val() ){
+				util.showToast('营销终端总量 和 营销终端扩容信息仅能填写一个');
+				return false;
+			}
+			
+
+			var data = {
+				enterpriseId: me.model.attrs.id,
+				accountAmount:  me.$sXKDC.val(),				//销客终端总量
+				increaseAmount:	me.$sDevice.val(),				//销客终端扩容
+				marketingAccountAmount: me.$yingxiao.val(),		//营销终端总量
+				increaseMarketingAmount: me.$yingxiaoAdd.val(), //营销终端扩容
+				baichuanAccountAmount: me.$sBCDC.val(), 		//百川终端总量
+				rechargeSmsAmount: me.$sSms.val(),      		//短信充值条数
+				expandStorageSpace: me.$sStorage.val() 			//存储扩容
+			};
+			if ( me.$sXKET.val() ) {
+				data.productEndTime = new Date( me.$sXKET.val() ).getTime();
+			}
+			if ( me.$sBCET.val() ) {
+				data.baichuanEndTime = new Date( me.$sBCET.val() ).getTime();
+			}
+			if ( me.$yxEndInput.val() ){
+				data.marketingEndTime = new Date( me.$yxEndInput.val() ).getTime();
+			}
+			
+			/**
+			 *
+			 * 判断
+			 */
+			/*
+			if( data.marketingEndTime && ( me.$yingxiaoSum.val() == 0 ) && (data.marketingAccountAmount == '') && (data.increaseMarketingAmount == '') ){
+				util.showTip('请填写营销版终端总量或营销版终端扩容个数');
+				return false;
+			}
+			///???
+			if( (data.marketingAccountAmount || data.increaseMarketingAmount) && ( me.$('#yxEndTime').val() == '' ) && (!data.marketingEndTime) ){
+				util.showTip('请选择营销版到期时间');
+				return false;
+			}
+			*/
+
+			/**
+			 *
+			 * 营销版本 和 营销版增购 有值时 判断是否是永久试用版
+			 * 如果是进行提示
+			 *
+			 */
+			 /*
+			function checkCancel( callback ){
+				
+				if( data.marketingAccountAmount || data.increaseMarketingAmount ){
+
+					if( me.model.get('permanentTrial') == 1 ){
+						if( confirm("是否取消永久试用的资格?") ){
+							callback && callback();
+						}else{
+							return;
+						}
+					}else{
+						callback && callback();
+					}
+				}else{ 
+
+					callback && callback();
+				}
+			}
+			
+			
+			//发送变更信息
+			function sendChange(){
+				me.$schangeStatis.attr('disabled','disabled').addClass('disabled').text('保存中');
+
+				util.api({
+					url: '/enterprise/changeconfig',
+					data: data,
+					success: function( data ) {
+						if( data.success ) {
+							util.showTip( '修改成功' );
+						}
+					},
+					complete: function(){
+						me.$schangeStatis.removeAttr('disabled').removeClass('disabled').text('保存');
+						me.clearStatisticsForm();
+						me.getEnterprise( me.model.attrs.enterpriseId ,function(){
+							me.showOperations();
+						});
+					}
+				});
+			}
+
+			checkCancel( sendChange );
+			*/
 		},
 
 		/**
@@ -2490,114 +2605,10 @@ define( function(require, exports, module){
 
 		},
 
-		//修改使用情况信息
-		changeStatistics: function() {
-			var me = this;
-
-			/*
-			if( me.$sXKDC.val() && me.$sDevice.val() ){
-				util.showToast('销客终端总量 和 销客终端扩容信息仅能填写一个!');
-				return false;
-			}
-			
-			if( me.$yingxiao.val() && me.$yingxiaoAdd.val() ){
-				util.showToast('营销终端总量 和 营销终端扩容信息仅能填写一个');
-				return false;
-			}
-			
-
-			var data = {
-				enterpriseId: me.model.attrs.id,
-				accountAmount:  me.$sXKDC.val(),				//销客终端总量
-				increaseAmount:	me.$sDevice.val(),				//销客终端扩容
-				marketingAccountAmount: me.$yingxiao.val(),		//营销终端总量
-				increaseMarketingAmount: me.$yingxiaoAdd.val(), //营销终端扩容
-				baichuanAccountAmount: me.$sBCDC.val(), 		//百川终端总量
-				rechargeSmsAmount: me.$sSms.val(),      		//短信充值条数
-				expandStorageSpace: me.$sStorage.val() 			//存储扩容
-			};
-			if ( me.$sXKET.val() ) {
-				data.productEndTime = new Date( me.$sXKET.val() ).getTime();
-			}
-			if ( me.$sBCET.val() ) {
-				data.baichuanEndTime = new Date( me.$sBCET.val() ).getTime();
-			}
-			if ( me.$yxEndInput.val() ){
-				data.marketingEndTime = new Date( me.$yxEndInput.val() ).getTime();
-			}
-			
-			/**
-			 *
-			 * 判断
-			 */
-			/*
-			if( data.marketingEndTime && ( me.$yingxiaoSum.val() == 0 ) && (data.marketingAccountAmount == '') && (data.increaseMarketingAmount == '') ){
-				util.showTip('请填写营销版终端总量或营销版终端扩容个数');
-				return false;
-			}
-			///???
-			if( (data.marketingAccountAmount || data.increaseMarketingAmount) && ( me.$('#yxEndTime').val() == '' ) && (!data.marketingEndTime) ){
-				util.showTip('请选择营销版到期时间');
-				return false;
-			}
-			*/
-
-			/**
-			 *
-			 * 营销版本 和 营销版增购 有值时 判断是否是永久试用版
-			 * 如果是进行提示
-			 *
-			 */
-			 /*
-			function checkCancel( callback ){
-				
-				if( data.marketingAccountAmount || data.increaseMarketingAmount ){
-
-					if( me.model.get('permanentTrial') == 1 ){
-						if( confirm("是否取消永久试用的资格?") ){
-							callback && callback();
-						}else{
-							return;
-						}
-					}else{
-						callback && callback();
-					}
-				}else{ 
-
-					callback && callback();
-				}
-			}
-			
-			
-			//发送变更信息
-			function sendChange(){
-				me.$schangeStatis.attr('disabled','disabled').addClass('disabled').text('保存中');
-
-				util.api({
-					url: '/enterprise/changeconfig',
-					data: data,
-					success: function( data ) {
-						if( data.success ) {
-							util.showTip( '修改成功' );
-						}
-					},
-					complete: function(){
-						me.$schangeStatis.removeAttr('disabled').removeClass('disabled').text('保存');
-						me.clearStatisticsForm();
-						me.getEnterprise( me.model.attrs.enterpriseId ,function(){
-							me.showOperations();
-						});
-					}
-				});
-			}
-
-			checkCancel( sendChange );
-			*/
-		},
+		/*
 		changeStatisticsagent: function(){
 			var me = this;
 
-			/*
 			if( me.$sXKDC.val() && me.$sDevice.val() ){
 				util.showToast('销客终端总量 和 销客终端扩容信息仅能填写一个!');
 				return false;
@@ -2641,8 +2652,9 @@ define( function(require, exports, module){
 				});
 			}
 			sendChange();
-			*/
 		},
+		*/
+
 		/**
          *
          * 开通企业

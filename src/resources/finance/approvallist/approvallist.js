@@ -26,7 +26,7 @@ define( function(require, exports, module){
             var data = {
                 'id' : detail.orderId || '',
                 'enterpriseId': detail.enterpriseId || '', 
-                'editFlag': detail.canEdit,
+                'editFlag': false,//detail.canEdit,
                 'orderType': detail.orderType || '',
                 'opinion': detail.lastAssigneeOpinion || '',
                 'isTp': detail.isTp || '',
