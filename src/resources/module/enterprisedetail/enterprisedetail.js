@@ -600,6 +600,7 @@ define( function(require, exports, module){
 
 			me.operations = {
 				isInitializes: false,
+				initialInfo:{},
 				pagination: null
 			};
 
@@ -1024,6 +1025,16 @@ define( function(require, exports, module){
 						var model = data.value.model;
 						///me.product.isInitialized = false;
 						me.model.load( model );
+
+						//初始化 使用情况的缓存
+						me.operations.initialInfo = {
+							'accountTotalAmount': model.accountTotalAmount,
+							'groupNumLimit': model.groupNumLimit,
+							'videoNumLimit': model.videoNumLimit,
+							'crmVisibleRange': model.crmVisibleRange,
+							'webSanCodeAuth': model.webSanCodeAuth
+						};
+
 						me.$name.val( model.enterpriseName );
 						me.$account.val( model.enterpriseAccount );
 						me.enterpriseAccount = model.enterpriseAccount;
@@ -2080,6 +2091,7 @@ define( function(require, exports, module){
 			* 代理商用户
 			* 根据是否是管理员 显示相关信息
 			*/
+			/*
 			function checkIsAdmin(){
 
 				if( me.attrs.isAgent == true ){
@@ -2102,7 +2114,7 @@ define( function(require, exports, module){
 			} else {
 				me.$('#tbOperation .isadmin').attr('disabled','disabled');
 			}
-
+			*/
 
 			/**
 			 *
@@ -2110,7 +2122,7 @@ define( function(require, exports, module){
 			 */
 			///me.$('#tbOperation input').val('');
 
-
+			me.model.load( me.operations.initialInfo );
 			/**
 			 *
 			 * 加载列表数据
@@ -2179,6 +2191,27 @@ define( function(require, exports, module){
 			var me = this;
 
 			console.log('changeStatistics');
+
+			var data = {
+				'accountAmount': me.$sdXKDC.val(),  //逍客终端总量
+				'expandStorageSpace': me.$('#expandStorageSpace').val(),
+				'groupNumLimit': me.model.get('groupNumLimit'),
+				'videoNumLimit': me.model.get('videoNumLimit'),
+				'crmVisibleRange': me.model.get('crmvisiblerange'),
+				'webSanCodeAuth': me.model.get('webSanCodeAuth')
+			}
+
+			util.api({
+				'url':'/enterprise/changeconfig',
+				'data': data,
+				'success': function( data ){
+					if( data.success ){
+						util.showTip('修改成功!');
+					}
+				}
+			});
+
+
 			/*
 			if( me.$sXKDC.val() && me.$sDevice.val() ){
 				util.showToast('销客终端总量 和 销客终端扩容信息仅能填写一个!');
