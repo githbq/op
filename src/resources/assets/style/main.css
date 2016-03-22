@@ -6528,6 +6528,7 @@ em {
 }
 .m-invoice .teaminfo {
   display: none;
+  width: 210px;
 }
 .m-invoice .roleinfo b {
   padding: 0 6px;
