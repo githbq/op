@@ -279,16 +279,16 @@ define(function (require, exports, module) {
                 contractPrice: formInfoData.contractPrice,
                 sealName: formInfoData.sealName,
                 contract: contractData.contract,
-                contractFileName: contractData.contractFileName.substr(-20,20),
+                contractFileName: (contractData.contractFileName||'').substr(-20,20),
                 contractCopy: contractCopyData.contractCopy,
-                contractCopyFileName: contractCopyData.contractCopyFileName.substr(-20,20)
+                contractCopyFileName: (contractCopyData.contractCopyFileName||'').substr(-20,20)
             };
             //门头照片
             var companyGatePictureData = $.parseJSON(formInfoData.companyGatePicture || '{}');
             var useBusinessCart = terminalInfo.o_getFieldData('businesscard').visible && terminalInfo.o_getFieldValue('useCRM') ? 1 : 0;//名片可见 CRM已勾选
             data.enterpriseExtend = {
                 companyGatePicture: companyGatePictureData.companyGatePicture,
-                companyGatePictureFileName: companyGatePictureData.companyGatePictureFileName.substr(-20,20),
+                companyGatePictureFileName: (companyGatePictureData.companyGatePictureFileName||'').substr(-20,20),
                 companyGateKeyword: formInfoData.companyGateKeyword,
                 companyGateRemark: formInfoData.companyGateRemark,
                 useBusinessCard: useBusinessCart,
