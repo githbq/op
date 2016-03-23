@@ -74,8 +74,8 @@
 	</p>
 	<p>
 		<label for="">
-			<span>是否首面签约</span>
-			<select name="" ce-model="isfirstmeetingsign" class="edit-flag">
+			<span>是否首面签约 <b class="check-edit">*</b></span>
+			<select name="" ce-model="isfirstmeetingsign" class="required-basic  edit-flag">
 				<option value="">请选择</option>
 				<option value="1">是</option>
 				<option value="0">否</option>
@@ -101,7 +101,7 @@
 		</label>
 		<label for="">
 			<span>成交周期(天)<b class="check-edit">*</b></span>
-			<input type="text" ce-model="dealdays" class="required-basic edit-flag" placeholder="请填写数字" onchange="this.value=this.value.replace(/\D/g,'')">
+			<input type="text" ce-model="dealdays" class="required-basic edit-flag" placeholder="请填写数字" onchange="this.value=this.value.replace(/\D/g,'')"  >
 		</label>
 	</p>
 	<p>
