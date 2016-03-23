@@ -105,6 +105,7 @@ define(function (require, exports, module) {
                     $ele.on('change', function (e) {
                         var $dom = $(e.target);
                         $dom.val($dom.val().replace(/[^\.\d]/g, ''));
+                        $dom.val($dom.val().match(/^[+-]?\d+(\.\d+)?$/) ?$dom.val():'');
                     })
                 }
                 return next($ele);
