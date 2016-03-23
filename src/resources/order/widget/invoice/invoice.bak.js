@@ -15,13 +15,12 @@ define(function( require , exports , module ){
 		},
 
 		events: {
-			///'click [name="invoice"]': 'invoiceEve',
-			///'click [name="intype"]': 'intypeEve',
+			'click [name="invoice"]': 'invoiceEve',
+			'click [name="intype"]': 'intypeEve',
 			'click [name="team"]': 'teamEve'
 		},
 
 		//发票点击事件
-		/*
 		invoiceEve: function( e ){
 			var me = this;
 			var target = $( e.currentTarget ).attr('data-target');
@@ -29,9 +28,8 @@ define(function( require , exports , module ){
 			console.log( target );
 			me.$('.'+target).show().siblings().hide();
 		},
-		*/
+
 		//类型点击事件
-		/*
 		intypeEve: function( e ){
 			var me = this;
 			var target = $( e.currentTarget ).attr('data-target');
@@ -39,7 +37,6 @@ define(function( require , exports , module ){
 			console.log( target );
 			me.$('.'+target).show().siblings().hide();
 		},
-		*/
 
 		//选择合作单
 		teamEve: function( e ){
@@ -67,8 +64,8 @@ define(function( require , exports , module ){
 			console.warn('invoice init');
 			console.warn( attrs );
 			
-			///初始化事件
-			///this.initEvents();
+			//初始化事件
+			this.initEvents();
 			this.render();
 
 			//设置数据 显示数据
@@ -76,10 +73,9 @@ define(function( require , exports , module ){
 				
 				me.model.load( attrs.data.order );
 				
-				if( attrs.data.order && ( attrs.data.order.discount || attrs.data.order.discount == 0 ) ){
+				if( attrs.data.order && attrs.data.order.discount ){
 					me.setDiscount( attrs.data.order.discount );
 				}
-				/*
 				if( attrs.data.invoice ){
 
 					me.model.load( attrs.data.invoice );
@@ -101,7 +97,7 @@ define(function( require , exports , module ){
 				}else{
 					me.$('[name="invoice"]').eq(1).trigger('click');
 				}
-				*/
+				
 				if( attrs.data.order.isCooperation == 1 ){
 
 					me.$('[name="team"]').eq(1).trigger('click');
@@ -123,7 +119,6 @@ define(function( require , exports , module ){
 		},
 
 		//初始化事件
-		/*
 		initEvents: function(){
 			var me = this;
 
@@ -162,7 +157,7 @@ define(function( require , exports , module ){
 				})
 			});
 		},
-		*/
+
 		render: function(){
 			this.attrs['wrapper'].html( this.$view );
 
@@ -182,7 +177,6 @@ define(function( require , exports , module ){
 			//进行表单验证
 
 			//获取发票类型
-			/*
 			var intype = me.$('[name="intype"]:checked').val();
 			var invoice = me.$('[name="invoice"]:checked').val();
 
@@ -278,7 +272,7 @@ define(function( require , exports , module ){
 			}else{
 				invoiceinfo = me.model.all();
 			}
-			*/
+
 			var isCooperation = "";
 			var cooperationUnit = "";
 			if( me.attrs.type != 17 ){
@@ -295,7 +289,7 @@ define(function( require , exports , module ){
 			}
 
 			return {
-				//'invoice': invoiceinfo,
+				'invoice': invoiceinfo,
 				'order':{
 					'isCooperation': isCooperation,   //是否合作单
 					'cooperationUnit': cooperationUnit,     //部门员工      
