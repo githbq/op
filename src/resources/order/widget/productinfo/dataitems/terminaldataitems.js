@@ -115,6 +115,9 @@ define(function (require, exports, module) {
                                         me.dataDic[i].old_readonly = !!me.dataDic[i].readonly;
                                     }
                                     me.dataDic[i].readonly = !checked ? true : ( me.dataDic[i].old_readonly === true ? isReadonly : false);
+                                    if (me.dataDic[i].__force) {
+                                        me.dataDic[i].readonly = true;
+                                    }
                                     me.o_setValue(me.dataDic[i]);
                                     if (i.toString().indexOf('type_') == 0) {
                                         var $type = me.o_data_getField(me.dataDic[i]);
@@ -244,9 +247,9 @@ define(function (require, exports, module) {
                         }
                     }]
                 })
-                    //.on('setFieldValue', function ($ele, value, data, me) {
-                    //  //alert(value)
-                    //})
+                //.on('setFieldValue', function ($ele, value, data, me) {
+                //  //alert(value)
+                //})
             );
             dataItems.push(new DataItem({
                 name: 'endTime_' + n,
