@@ -1482,29 +1482,33 @@ define( function(require, exports, module){
 
 							var strDom = "";
 							_.map( data.value.model, function( obj ){
+								var startTime ="——",
+									endTime = "——";
+								if( obj['startDate'] ){
+									startTime = new Date( obj['startDate'] )._format('yyyy/MM/dd');
+								}
+								if( obj['endDate'] ){
+									endTime = new Date( obj['endDate'] )._format('yyyy/MM/dd');
+								}
 
 								switch( obj["code"] )
 								{
 									case "FX_Terminal":
-										var strartTime = "",endTime = "";
-										strartTime =  new Date( obj['startDate']  )._format('yyyy/MM/dd');
-										endTime = new Date( obj['endDate']  )._format('yyyy/MM/dd');
 										strDom += " <p> <span>"+obj['appName']+"(个)："+obj['quota']+"</span>" +
-										" <span>开始时间："+ strartTime +"</span> <span>结束时间："+endTime+"</span> </p>";
+										" <span>开始时间："+ startTime +"</span> <span>结束时间："+endTime+"</span> </p>";
 										break;
 									case "CRM":
-										var strartTime = "",endTime = "";
-										strartTime =  new Date( obj['startDate']  )._format('yyyy/MM/dd');
-										endTime = new Date( obj['endDate']  )._format('yyyy/MM/dd');
 										strDom += " <p> <span>"+obj['appName']+"(个)："+obj['quota']+"</span>" +
-										" <span>开始时间："+ strartTime +"</span> <span>结束时间："+endTime+"</span>" +
+										" <span>开始时间："+ startTime +"</span> <span>结束时间："+endTime+"</span>" +
 										"</p>";
 										break;
+									case "Service_Fee":
+										strDom += " <p> <span>"+obj['appName']+"(人)："+obj['quota']+"</span>" +
+										" <span>开始时间："+ startTime +"</span> <span>结束时间："+endTime+"</span>" +
+										" </p>";
+										break;
 									default:
-										var strartTime = "",endTime = "";
-										strartTime =  new Date( obj['startDate']  )._format('yyyy/MM/dd');
-										endTime = new Date( obj['endDate']  )._format('yyyy/MM/dd');
-										strDom += " <p> <span>"+obj['appName']+"</span> <span>开始时间："+ strartTime +"</span> <span>结束时间："+endTime+"</span></p>";
+										strDom += " <p> <span>"+obj['appName']+"</span> <span>开始时间："+ startTime +"</span> <span>结束时间："+endTime+"</span></p>";
 								}
 							});
 
