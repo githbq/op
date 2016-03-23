@@ -105,7 +105,7 @@ define(function (require, exports, module) {
                             priceComput.call(this, e);
 
                         } else {
-                            me.o_setValue({name: 'purchaseAmount_input_3', readonly:me.o_getFieldValue('useFX')?isReadonly:true });
+                            me.o_setValue({name: 'purchaseAmount_input_3', readonly: me.o_getFieldValue('useFX') ? isReadonly : true});
                             me.o_data_getField({name: 'purchaseCount_3'}).change();//服务费
                         }
                         for (var i in me.dataDic) {
@@ -200,8 +200,8 @@ define(function (require, exports, module) {
                                 me.o_setValue({name: 'productAmount_' + n, value: '0'});
                                 changeForGetPrice.call(me, e);
                                 me.o_setValue({name: 'purchaseAmount_input_' + n, readonly: allreadonly});
-                                if(n==3){
-                                    me.o_setValue({name: 'purchaseAmount_input_' + n, readonly: (me.o_getFieldValue('useCRM') ||  !me.o_getFieldValue('useFX'))});
+                                if (n == 3) {
+                                    me.o_setValue({name: 'purchaseAmount_input_' + n, readonly: (me.o_getFieldValue('useCRM') || !me.o_getFieldValue('useFX'))});
                                 }
                             }
                         }
@@ -232,18 +232,22 @@ define(function (require, exports, module) {
 
 
             dataItems.push(new DataItem({
-                name: 'startTime_' + n,
-                value: '',
-                validateOptions: helper.getValidateLogic(),
-                events: [{
-                    key: 'blur', value: function (e) {
-                        var me = this;
-                        setTimeout(function () {
-                            changeForGetPrice.call(me, e);
-                        }, 200);
-                    }
-                }]
-            }));
+                    name: 'startTime_' + n,
+                    value: '',
+                    validateOptions: helper.getValidateLogic(),
+                    events: [{
+                        key: 'blur', value: function (e) {
+                            var me = this;
+                            setTimeout(function () {
+                                changeForGetPrice.call(me, e);
+                            }, 200);
+                        }
+                    }]
+                })
+                    //.on('setFieldValue', function ($ele, value, data, me) {
+                    //  //alert(value)
+                    //})
+            );
             dataItems.push(new DataItem({
                 name: 'endTime_' + n,
                 value: '',

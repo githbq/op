@@ -55,7 +55,12 @@ define(function(require, exports, module){
 			}else{
 				me.$editUrl.hide();
 				me.$showUrl.show();
-				me.$('.approval-url').attr('href',approvedUrl);
+				if(approvedUrl.indexOf('http://')>-1){
+					me.$('.approval-url').attr('href',approvedUrl);
+				}else{
+					me.$('.approval-url').attr('href','http://'+approvedUrl);
+				}
+				
 			}
 		},
 		//检测是否可编辑

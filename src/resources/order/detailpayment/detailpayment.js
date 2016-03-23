@@ -86,7 +86,7 @@ define( function(require, exports, module){
 			me.setState();
 			me.sortType();
 			
-			DetailApproval.__super__.show.apply( this,arguments );
+			DetailApproval.__super__.show.call( this,true );
 		},
 		//根据定单类型区分设置
 		sortType:function(){
@@ -115,8 +115,7 @@ define( function(require, exports, module){
 			return  util.api({
 				'url':'~/op/api/order/enterprise/getEnterpriseInfo',
 				'data':{
-					'enterpriseId':me.attrs.options.enterpriseId,
-					'orderType':me.attrs.options.orderType
+					'orderId':me.attrs.options.id
 				},
 				'success': function( data ){
 					if( data.success ){
@@ -372,52 +371,53 @@ define( function(require, exports, module){
         //同意
 		actionAgreeEve: function(){
             var me = this;
-
-            if( me.attrs.options.currentTask == 'finance' && !me.attrs.orderData.order.receivedPayDate){
-               me.setMoneyTime(function(){
+			
+			var bool = confirm("确认同意此条审批吗?");
+			if( bool ){
+				 if( me.attrs.options.currentTask == 'finance' && !me.attrs.orderData.order.receivedPayDate){
+				   me.setMoneyTime(function(){
+						me.replyOptions();
+				   });
+				}else{
 					me.replyOptions();
-			   });
-            }else{
-				me.replyOptions();
+				}
 			}
-
         },
 		//批复审批
 		replyOptions:function(){
 		 	var me = this;
-			var bool = confirm("确认同意此条审批吗?");
-			if( bool ){
-				me.$actionReject.text('提交中....');
-				me.$actionReject.attr('disabled','disabled');
-				me.$actionResend.text('提交中....');
-				me.$actionResend.attr('disabled','disabled');
-				util.api({
-					'url': '~/op/api/approval/directapprove',
-					'data':{
-						'processInstanceId': me.attrs.options.processInstanceId,     //流程实例ID
-						'approved': true,                     //审批结果(通过/拒绝)
-						'opinion': me.model.get('comment')    //审批意见
-					},
-					'button': {
-						'el': me.$actionAgree,
-						'text':'提交中......'
-					},
-					success: function( data ){
-						console.warn( data );
-						if( data.success ){
-							util.showTip('批复成功');
-							me.hide();
-							me.trigger( 'saveSuccess');
-						}
-					},
-					complete: function(){
-						me.$actionReject.text('驳回');
-						me.$actionReject.removeAttr('disabled');
-						me.$actionResend.text('保存通过');
-						me.$actionResend.removeAttr('disabled');
+			
+			me.$actionReject.text('提交中....');
+			me.$actionReject.attr('disabled','disabled');
+			me.$actionResend.text('提交中....');
+			me.$actionResend.attr('disabled','disabled');
+			util.api({
+				'url': '~/op/api/approval/directapprove',
+				'data':{
+					'processInstanceId': me.attrs.options.processInstanceId,     //流程实例ID
+					'approved': true,                     //审批结果(通过/拒绝)
+					'opinion': me.model.get('comment')    //审批意见
+				},
+				'button': {
+					'el': me.$actionAgree,
+					'text':'提交中......'
+				},
+				success: function( data ){
+					console.warn( data );
+					if( data.success ){
+						util.showTip('批复成功');
+						me.hide();
+						me.trigger( 'saveSuccess');
 					}
-				})
-			}
+				},
+				complete: function(){
+					me.$actionReject.text('驳回');
+					me.$actionReject.removeAttr('disabled');
+					me.$actionResend.text('保存通过');
+					me.$actionResend.removeAttr('disabled');
+				}
+			})
+			
 		},
 		//设置到款时间
 		setMoneyTime:function( callback ){
