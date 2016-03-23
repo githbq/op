@@ -2243,7 +2243,8 @@ define( function(require, exports, module){
 				'groupNumLimit': me.model.get('groupNumLimit'),
 				'videoNumLimit': me.model.get('videoNumLimit'),
 				'crmVisibleRange': me.model.get('crmvisiblerange'),
-				'webSanCodeAuth': me.model.get('webSanCodeAuth')
+				'webSanCodeAuth': me.model.get('webSanCodeAuth'),
+				'enterpriseId': me.model.get('enterpriseId')
 			}
 
 			util.api({
