@@ -293,7 +293,9 @@ define( function( require, exports, module ) {
 							var tempObe = {"subOrder":{
 								"productId":1,
 								"startTime": data[i].startDate,
-								"endTime":data[i].endDate
+								"endTime":data[i].endDate,
+								"startTime_readonly":true,
+								"endTime_readonly":true
 							}}
 							subArry.push(tempObe)
 
