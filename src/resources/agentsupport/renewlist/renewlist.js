@@ -40,9 +40,11 @@ define( function( require, exports, module ) {
             me.on('empty:list',function(){
                 if( me.attrs.state == "wait" ){
                     trlength = 15;
-                }else if( me.attrs.state =="going" ){
+                }else if( me.attrs.state =="refuse" ){
                     trlength = 16;
                 }else if( me.attrs.state =="end" ){
+                    trlength = 15;
+                }else{
                     trlength = 15;
                 }
                 me.$tbody.html("<tr><td colspan='" + trlength + "'><p class='info'>暂无数据</p></td></tr>");
