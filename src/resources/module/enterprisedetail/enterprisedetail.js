@@ -1460,12 +1460,14 @@ define( function(require, exports, module){
 		showProductInfo: function() {
 			var me = this;
 
+			/*
 			if ( me.model.attrs.runStatus > 2 || me.attrs.isAgent == true) {
 				$('#tbProduct').css( 'display', 'none' );
 				return;
 			}
 			$('#tbProduct').css( 'display', 'block' );
-
+			*/
+			
 			console.log('product');
 			util.api({
 				'url':'/odr/queryProductVOList',
