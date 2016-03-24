@@ -358,6 +358,12 @@ define( function(require, exports, module){
 			 var allReadonly = !me.attrs.options.editFlag;
 			var productData = me.attrs.orderData;
 			var edit = false;
+			me.attrs.subData = {'subOrders':{}};
+			
+			//获取企业子产品开始时间不能编辑的子产品
+			me.getNeedDate();
+			$.extend(true, productData.subOrders, me.attrs.subData.subOrders );
+			
 			 productData.enterpriseExtend = me.attrs.enterpriseData.enterpriseExtend ? me.attrs.enterpriseData.enterpriseExtend:null;
 			 var tempOrderType = parseInt(me.attrs.options.orderType);
 			 switch( tempOrderType )
@@ -396,6 +402,112 @@ define( function(require, exports, module){
 				 'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
 
 		 },
+		 
+		 
+		 //转换为基本需要时间格式
+		getNeedDate:function(  ){
+			var me = this;
+			var subArry = [];
+			var sortDate = [];
+			var data = me.attrs.orderList.model||[];
+			
+			function crmSortDate(){
+				if( sortDate.length > 0 ){
+					sortDate.sort(function( a,b ){
+						return a-b;
+					});
+					var aryLen = sortDate.length-1;
+					var tempObe = {"subOrder":{
+							"productId":1,
+							"startTime": sortDate[0],
+							"endTime":sortDate[aryLen]
+						}}
+					subArry.push(tempObe)
+				}
+			}
+			
+			
+			var tempOrderType = parseInt(me.attrs.options.orderType);
+			 switch( tempOrderType )
+			{
+				case 5:case 6:case 7:case 8:
+					
+					
+					break;
+				case 9:case 10:case 11:case 12:
+				
+					function dateCompare(nowDate,endDate)
+					{
+						var arr=nowDate.split("/");
+						var starttime=new Date(arr[0],arr[1],arr[2]);
+						var starttimes=starttime.getTime();
+
+						var arrs=endDate.split("/");
+						var lktime=new Date(arrs[0],arrs[1],arrs[2]);
+						var lktimes=lktime.getTime();
+
+						if(starttimes>=lktimes)
+						{
+							return false;
+						}
+						return true;
+					}
+					_.map( data , function( obj , index){
+						switch( obj["code"] )
+						{
+							case "PK_Helper":
+								var nowDate = new Date( new Date().getTime() )._format('yyyy/MM/dd');
+								var endDate = new Date( obj["endDate"]  )._format('yyyy/MM/dd');
+								if( dateCompare(nowDate,endDate) ){
+									var tempObe = {"subOrder":{
+										"productId":4,
+										"startTime":obj["endDate"],
+										"startTime_readonly":true
+									}}
+									subArry.push(tempObe)
+								}
+
+								break;
+							case "Meeting_Helper":
+								var nowDate = new Date( new Date().getTime() )._format('yyyy/MM/dd');
+								var endDate = new Date( obj["endDate"]  )._format('yyyy/MM/dd');
+								if( dateCompare(nowDate,endDate) ){
+									var tempObe = {"subOrder":{
+										"productId":5,
+										"startTime":obj["endDate"],
+										"startTime_readonly":true
+									}}
+									subArry.push(tempObe)
+								}
+
+								break;
+							case "Salary_Helper":
+								var nowDate = new Date( new Date().getTime() )._format('yyyy/MM/dd');
+								var endDate = new Date( obj["endDate"]  )._format('yyyy/MM/dd');
+								if( dateCompare(nowDate,endDate) ){
+									var tempObe = {"subOrder":{
+										"productId":7,
+										"startTime":obj["endDate"],
+										"startTime_readonly":true
+									}}
+									subArry.push(tempObe)
+								}
+
+								break;
+							default:
+						}
+					});
+					me.attrs.subData =  {
+						'subOrders':subArry
+					}
+					
+					break;
+	
+				default:
+			}
+	
+		},
+		
 		//设置自己部分的显示和隐藏：
 		setState:function(){
 			var me = this;

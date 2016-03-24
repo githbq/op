@@ -41,7 +41,7 @@ define(function(require, exports, module){
 				}else{
 					me.$stageBox.show();
 					me.model.set("currPayAmount",'');
-					me.setSubers();
+					me.setSubers( );
 				}
 			})
 
@@ -73,7 +73,7 @@ define(function(require, exports, module){
 			if(me.attrs.dataDetail){
 				 me.$('.payStatus-select').val(me.attrs.dataDetail.order.payStatus)
 				if(me.attrs.dataDetail.order.payStatus==2){
-					me.setSubers();
+					me.setNewSubers();
 					me.setSubersMoney();
 					me.checkEdit();
 				}
@@ -96,6 +96,39 @@ define(function(require, exports, module){
 					}
 				});
 			});
+		},
+		setNewSubers:function(){
+			var me = this;
+			var strDom = '';
+			me.$stageBox.show();
+			me.$appBox.empty();
+			_.map( me.attrs.data.items , function( obj ){
+				_.map( me.attrs.dataDetail.subOrders , function( objCurrent){
+					var tempAcount = parseInt(obj.noChargeAmount)+parseInt( objCurrent.subOrder.currPayAmount);
+					if(obj.productId == objCurrent.subOrder.productId && tempAcount > 0 ){
+						strDom +="<div class='field_row'> <div class='field_row_head'> </div> " +
+						"<div class='field_wrapper'> <div class='field'> <label> " +
+						"<span class='label'>"+obj.productName+"(未收"+tempAcount+")</span> </label> " +
+						"<input  type='text' data-productId='"+obj.productId+"' class='sub-app edit-flag' /> </div> </div> </div>";
+					}	
+					
+					/*me.$view.find('.sub-app').each(function(){
+						var tempId = $(this).attr('data-productId');
+						tempId = parseInt(tempId);
+						if(obj.subOrder.productId == tempId){
+							$(this).val(obj.subOrder.currPayAmount)
+						}
+					});*/
+				});
+				/*if(obj.noChargeAmount > 0){
+					strDom +="<div class='field_row'> <div class='field_row_head'> </div> " +
+					"<div class='field_wrapper'> <div class='field'> <label> " +
+					"<span class='label'>"+obj.productName+"(未收"+obj.noChargeAmount+")</span> </label> " +
+					"<input  type='text' data-productId='"+obj.productId+"' class='sub-app edit-flag' /> </div> </div> </div>"
+				}*/
+			});
+			me.$appBox.html(strDom);
+			
 		},
 		//渲染显示子产品：
 		setSubers:function(){
