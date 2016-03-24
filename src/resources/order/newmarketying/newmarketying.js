@@ -254,7 +254,23 @@ define( function( require, exports, module ) {
 		getNeedDate:function(  ){
 			var me = this;
 			var subArry = [];
+			var sortDate = [];
 			var data = me.attrs.orderList.model||[];
+			
+			function crmSortDate(){
+				if( sortDate.length > 0 ){
+					sortDate.sort(function( a,b ){
+						return a-b;
+					});
+					var aryLen = sortDate.length-1;
+					var tempObe = {"subOrder":{
+							"productId":1,
+							"startTime": sortDate[0],
+							"endTime":sortDate[aryLen]
+						}}
+					subArry.push(tempObe)
+				}
+			}
 
 			if( me.attrs.typeFlag == 'addMarkey' || me.attrs.typeFlag == 'addOffice' ){
 				//增购营销版需要crm时间
@@ -290,13 +306,16 @@ define( function( require, exports, module ) {
 
 							break;
 						case "CRM":
-							var tempObe = {"subOrder":{
+						
+							sortDate.push( data[i].startDate );
+							sortDate.push( data[i].endDate );
+							/*var tempObe = {"subOrder":{
 								"productId":1,
 								"startTime": data[i].startDate,
 								"endTime":data[i].endDate,
 								"endTime_readonly":true
 							}}
-							subArry.push(tempObe)
+							subArry.push(tempObe)*/
 
 							break;
 						case "HR_Helper":
@@ -320,6 +339,9 @@ define( function( require, exports, module ) {
 						default:
 					}
 				}
+				//计算crm增购的时间最大范围
+				crmSortDate();
+				
 				me.attrs.subData =  {
 					'subOrders':subArry
 				}
