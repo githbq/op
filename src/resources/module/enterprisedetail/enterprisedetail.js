@@ -2242,12 +2242,12 @@ define( function(require, exports, module){
 			console.log('changeStatistics');
 
 			var data = {
-				'accountAmount': me.$sdXKDC.val(),  //逍客终端总量
-				'expandStorageSpace': me.$('#expandStorageSpace').val(),
-				'groupNumLimit': me.model.get('groupNumLimit'),
-				'videoNumLimit': me.model.get('videoNumLimit'),
-				'crmVisibleRange': me.model.get('crmvisiblerange'),
-				'webSanCodeAuth': me.model.get('webSanCodeAuth'),
+				'accountAmount': me.$sdXKDC.val(),  						//逍客终端总量
+				'expandStorageSpace': me.$('#expandStorageSpace').val(),	//存储扩容
+				'groupNumLimit': me.model.get('groupNumLimit'),             //群人数上限
+				'videoNumLimit': me.model.get('videoNumLimit'),             //视频参与人数上限
+				'crmVisibleRange': me.model.get('crmvisiblerange'),         //CRM上级可见数据范围
+				'webSanCodeAuth': me.model.get('webSanCodeAuth'),           //WEB扫码授权
 				'enterpriseId': me.model.get('enterpriseId')
 			}
 
