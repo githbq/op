@@ -95,7 +95,7 @@ define( function(require, exports, module){
 			
 			me._setTitle( orderTypeAry[me.attrs.options.orderType] );
 			
-			$.when( me.getOrderDetail(), me.getEnterpriseInfo(), me.setOrderList(),me.getReceiveOrder()).done(function(){
+			$.when( me.getOrderDetail()/*, me.getEnterpriseInfo()*/`, me.setOrderList(),me.getReceiveOrder()).done(function(){
 				//备注信息
 			
 				//setOrderInfo--订单信息
@@ -135,9 +135,13 @@ define( function(require, exports, module){
 				'data':{'orderId':me.attrs.options.id},
 				'success': function( data ){
 					if( data.success ){
-						me.attrs.orderData = data.value.model;
+						me.attrs.orderData = data.value.model.orderEntity;
+						me.attrs.enterpriseData.contract = data.value.model.contract ? data.value.model.contract :null;
+						me.attrs.enterpriseData.enterprise = data.value.model.enterprise ? data.value.model.enterprise :null;
+						me.attrs.enterpriseData.enterpriseExtend = data.value.model.enterpriseExtend ? data.value.model.enterpriseExtend :null;
 						me.setOptions();
-						me.attrs.allData.orderEntity = me.attrs.orderData;
+						//me.attrs.allData.orderEntity = me.attrs.orderData;
+						$.extend(true, me.attrs.allData, data.value.model );
 					}
 				}
 			})
