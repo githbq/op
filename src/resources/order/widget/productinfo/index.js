@@ -87,17 +87,25 @@ define(function (require, exports, module) {
             i_convertFieldWhereDatetime: function (next, $ele) {
                 if ($ele.is('input[datecontrol]:not([readonly])')) {
                     var me = this;
-                    var option = {format: 'Y/m/d', timepicker: false};
+                    var option = {dateFmt: 'yyyy/MM/dd'};
+                    if($ele.is('[maxdate]') && $ele.attr('maxdate')){
+                        option.maxDate=$ele.attr('maxdate');
+                    }
+                    if($ele.is('[mindate]') && $ele.attr('mindate')){
+                        option.minDate=$ele.attr('mindate');
+                    }
                     var config = $ele.attr('datecontrol') ? me.i_parseJSON($ele.attr('datecontrol')) : {};
                     $.extend(option, config);
                     //option.onClose=function(time,$ele){
                     //    $ele.change();
                     //    return true;
                     //};
-                    $ele.datetimepicker(option);
+                    $ele.off('click').on('click',function(){
+                        WdatePicker($.extend(option,config));
+                    });
                     return true;
                 }
-                return next($ele);
+                return next && next($ele);
             },
             i_convertFieldWhereNumber: function (next, $ele) {
 
@@ -515,6 +523,15 @@ define(function (require, exports, module) {
                         value = value || '';
                         $ele.val(value);
                     }
+
+                    var data=me.o_field_getData($ele);
+                    if(data.maxDate){
+                        $ele.attr('maxdate',new Date(data.maxDate)._format(format));
+                    }
+                    if(data.minDate){
+                        $ele.attr('mindate',new Date(data.minDate)._format(format));
+                    }
+                    me.i_convertFieldWhereDatetime(null,$ele);
                     return value;
                 }
                 return next($ele, value);

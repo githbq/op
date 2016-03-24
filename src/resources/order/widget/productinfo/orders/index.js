@@ -125,6 +125,18 @@ define(function (require, exports, module) {
                             dataDic['startTime_' + subOrder.productId].readonly = true;
                             dataDic['startTime_' + subOrder.productId].__force = true;
                         }
+                        if (subOrder['startTime_max'] === true ) {
+                            dataDic['startTime_' + subOrder.productId].maxDate =  dataDic['startTime_' + subOrder.productId].value;
+                        }
+                        if (subOrder['startTime_min'] === true ) {
+                            dataDic['startTime_' + subOrder.productId].minDate =  dataDic['startTime_' + subOrder.productId].value;
+                        }
+                        if (subOrder['endTime_max'] === true ) {
+                            dataDic['endTime_' + subOrder.productId].maxDate =  dataDic['endTime_' + subOrder.productId].value;
+                        }
+                        if (subOrder['endTime_min'] === true ) {
+                            dataDic['endTime_' + subOrder.productId].minDate =  dataDic['endTime_' + subOrder.productId].value;
+                        }
                         if (subOrder['endTime_readonly'] === true && dataDic['endTime_' + subOrder.productId]) {
                             dataDic['endTime_' + subOrder.productId].readonly = true;
                             dataDic['endTime_' + subOrder.productId].__force = true;
