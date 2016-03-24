@@ -2248,7 +2248,7 @@ define( function(require, exports, module){
 				'expandStorageSpace': me.$('#expandStorageSpace').val(),	//存储扩容
 				'groupNumLimit': me.model.get('groupNumLimit'),             //群人数上限
 				'videoNumLimit': me.model.get('videoNumLimit'),             //视频参与人数上限
-				'crmVisibleRange': me.model.get('crmvisiblerange'),         //CRM上级可见数据范围
+				'crmVisibleRange': me.model.get('crmVisibleRange'),         //CRM上级可见数据范围
 				'webSanCodeAuth': me.model.get('webSanCodeAuth'),           //WEB扫码授权
 				'enterpriseId': me.model.get('enterpriseId')
 			}
@@ -2259,8 +2259,12 @@ define( function(require, exports, module){
 				'success': function( data ){
 					if( data.success ){
 						util.showTip('修改成功!');
-						me.getEnterprise( me.model.attrs.enterpriseId );
+						//me.getEnterprise( me.model.attrs.enterpriseId );
+						me.trigger('refresh');
 					}
+				},
+				'complete': function( data ){
+					me.getEnterprise( me.model.attrs.enterpriseId );
 				}
 			});
 

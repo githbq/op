@@ -419,6 +419,11 @@ define( function( require, exports, module ) {
 		enterpriseAssign.on('success',function(){
 			entList.getList();
 		});
+        
+        //刷新列表
+        entDetail.on('refresh',function(){
+            entList.getList();
+        });
 
         //增购办公
         entList.on('zengbangong',function( id , account ){
