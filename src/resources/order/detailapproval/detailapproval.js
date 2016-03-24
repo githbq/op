@@ -96,7 +96,7 @@ define( function(require, exports, module){
 			{
 				case 1: case 13:
 					me._setTitle( orderTypeAry[me.attrs.options.orderType] );
-					$.when( me.getOrderDetail(), me.getEnterpriseInfo()).done(function(){
+					$.when( me.getOrderDetail()/*, me.getEnterpriseInfo()*/).done(function(){
 						//备注信息
 						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData,
 							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
@@ -112,7 +112,7 @@ define( function(require, exports, module){
 					break;
 				case 2: case 14:
 					me._setTitle( orderTypeAry[me.attrs.options.orderType] );
-					$.when( me.getOrderDetail(), me.getEnterpriseInfo()).done(function(){
+					$.when( me.getOrderDetail()/*, me.getEnterpriseInfo()*/).done(function(){
 						//备注信息
 						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData,
 							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
@@ -128,7 +128,7 @@ define( function(require, exports, module){
 					break;
 				case 3:case 15:
 					me._setTitle( orderTypeAry[me.attrs.options.orderType] );
-					$.when( me.getOrderDetail(), me.getEnterpriseInfo()).done(function(){
+					$.when( me.getOrderDetail()/*, me.getEnterpriseInfo()*/).done(function(){
 						//备注信息
 						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData,
 							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
@@ -144,7 +144,7 @@ define( function(require, exports, module){
 					break;
 				case 4:case 16:
 					me._setTitle( orderTypeAry[me.attrs.options.orderType] );
-					$.when( me.getOrderDetail(), me.getEnterpriseInfo()).done(function(){
+					$.when( me.getOrderDetail()/*, me.getEnterpriseInfo()*/).done(function(){
 
 						//备注信息
 						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData,
@@ -160,7 +160,7 @@ define( function(require, exports, module){
 					break;
 				case 5:
 					me._setTitle( orderTypeAry[me.attrs.options.orderType] );
-					$.when( me.getOrderDetail(), me.getEnterpriseInfo(), me.setOrderList()).done(function(){
+					$.when( me.getOrderDetail()/*, me.getEnterpriseInfo()*/, me.setOrderList()).done(function(){
 						//备注信息
 						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData,
 							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
@@ -176,7 +176,7 @@ define( function(require, exports, module){
 					break;
 				case 6:
 					me._setTitle( orderTypeAry[me.attrs.options.orderType] );
-					$.when( me.getOrderDetail(), me.getEnterpriseInfo(),me.setOrderList()).done(function(){
+					$.when( me.getOrderDetail()/*, me.getEnterpriseInfo()*/,me.setOrderList()).done(function(){
 						//备注信息
 						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData,
 							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
@@ -191,7 +191,7 @@ define( function(require, exports, module){
 					break;
 				case 7:
 					me._setTitle( orderTypeAry[me.attrs.options.orderType] );
-					$.when( me.getOrderDetail(), me.getEnterpriseInfo(),me.setOrderList()).done(function(){
+					$.when( me.getOrderDetail()/*, me.getEnterpriseInfo()*/,me.setOrderList()).done(function(){
 						//备注信息
 						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData,
 							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
@@ -207,7 +207,7 @@ define( function(require, exports, module){
 					break;
 				case 8:
 					me._setTitle( orderTypeAry[me.attrs.options.orderType] );
-					$.when( me.getOrderDetail(), me.getEnterpriseInfo(),me.setOrderList()).done(function(){
+					$.when( me.getOrderDetail()/*, me.getEnterpriseInfo()*/,me.setOrderList()).done(function(){
 						//备注信息
 						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData,
 							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
@@ -223,7 +223,7 @@ define( function(require, exports, module){
 					break;
 				case 9:
 					me._setTitle( orderTypeAry[me.attrs.options.orderType] );
-					$.when( me.getOrderDetail(), me.getEnterpriseInfo(),me.setOrderList()).done(function(){
+					$.when( me.getOrderDetail()/*, me.getEnterpriseInfo()*/,me.setOrderList()).done(function(){
 						//备注信息
 						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData,
 							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
@@ -239,7 +239,7 @@ define( function(require, exports, module){
 					break;
 				case 10:
 					me._setTitle( orderTypeAry[me.attrs.options.orderType] );
-					$.when( me.getOrderDetail(), me.getEnterpriseInfo(),me.setOrderList()).done(function(){
+					$.when( me.getOrderDetail()/*, me.getEnterpriseInfo()*/,me.setOrderList()).done(function(){
 						//备注信息
 						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData,
 							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
@@ -255,7 +255,7 @@ define( function(require, exports, module){
 					break;
 				case 11:
 					me._setTitle( orderTypeAry[me.attrs.options.orderType] );
-					$.when( me.getOrderDetail(), me.getEnterpriseInfo(),me.setOrderList()).done(function(){
+					$.when( me.getOrderDetail()/*, me.getEnterpriseInfo()*/,me.setOrderList()).done(function(){
 						//备注信息
 						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData,
 							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
@@ -272,7 +272,7 @@ define( function(require, exports, module){
 					break;
 				case 12:
 					me._setTitle( orderTypeAry[me.attrs.options.orderType] );
-					$.when( me.getOrderDetail(), me.getEnterpriseInfo(),me.setOrderList()).done(function(){
+					$.when( me.getOrderDetail()/*, me.getEnterpriseInfo()*/,me.setOrderList()).done(function(){
 						//备注信息
 						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData,
 							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
@@ -319,9 +319,13 @@ define( function(require, exports, module){
 				'data':{'orderId':me.attrs.options.id},
 				'success': function( data ){
 					if( data.success ){
-						me.attrs.orderData = data.value.model;
+						me.attrs.orderData = data.value.model.orderEntity;
+						me.attrs.enterpriseData.contract = data.value.model.contract ? data.value.model.contract :null;
+						me.attrs.enterpriseData.enterprise = data.value.model.enterprise ? data.value.model.enterprise :null;
+						me.attrs.enterpriseData.enterpriseExtend = data.value.model.enterpriseExtend ? data.value.model.enterpriseExtend :null;
 						me.setOptions();
-						me.attrs.allData.orderEntity = me.attrs.orderData;
+						//me.attrs.allData.orderEntity = me.attrs.orderData;
+						$.extend(true, me.attrs.allData, data.value.model );
 						//$.extend(true, me.attrs.allData, me.attrs.orderData );
 						//callback && callback();
 					}
@@ -426,7 +430,7 @@ define( function(require, exports, module){
 			me.$('.last-options').html( opinion );
 			
 			//设置到款时间 receivedPayDate
-			var receivedPayDate = me.attrs.orderData.order.receivedPayDate ? new Date( me.attrs.orderData.order.receivedPayDate  )._format("yyyy-MM-dd"):'';
+			var receivedPayDate = (me.attrs.orderData && me.attrs.orderData.orde && me.attrs.orderData.order.receivedPayDate)  ? new Date( me.attrs.orderData.order.receivedPayDate  )._format("yyyy-MM-dd"):'';
 			if(receivedPayDate){
 				me.$('.receivedPayDate').show();
 				me.$('.receivedPayDate-text').text(receivedPayDate);
