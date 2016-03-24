@@ -294,7 +294,6 @@ define( function( require, exports, module ) {
 								"productId":1,
 								"startTime": data[i].startDate,
 								"endTime":data[i].endDate,
-								"startTime_readonly":true,
 								"endTime_readonly":true
 							}}
 							subArry.push(tempObe)
