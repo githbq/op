@@ -95,7 +95,7 @@ define( function(require, exports, module){
 			
 			me._setTitle( orderTypeAry[me.attrs.options.orderType] );
 			
-			$.when( me.getOrderDetail()/*, me.getEnterpriseInfo()*/`, me.setOrderList(),me.getReceiveOrder()).done(function(){
+			$.when( me.getOrderDetail()/*, me.getEnterpriseInfo()*/, me.setOrderList(),me.getReceiveOrder()).done(function(){
 				//备注信息
 			
 				//setOrderInfo--订单信息
