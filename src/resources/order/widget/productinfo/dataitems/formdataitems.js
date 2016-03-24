@@ -135,6 +135,7 @@ define(function (require, exports, module) {
                                     {name: 'currPayAmount_' + n, visible: true}
                                 ]);
                             });
+                           me.o_data_getField({name:'currPayAmount_1'}).change();
                         }
                             ;
                             break;
@@ -153,6 +154,7 @@ define(function (require, exports, module) {
                             ;
                             break;
                     }
+
                 }
                 }
             ]

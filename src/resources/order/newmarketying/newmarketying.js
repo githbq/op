@@ -417,7 +417,7 @@ define( function( require, exports, module ) {
 				'success': function( data ){
 
 					if( data.success ){
-						me.attrs.complexDiscount = data.value.model;
+						me.attrs.complexDiscount = data.value.model||'';
 						callback && callback( data.value.model );
 					}else{
 						//callback && callback( );
@@ -577,6 +577,7 @@ define( function( require, exports, module ) {
 				}
 
 				//发票信息校验和取值
+				
 				if( me.attrs.invoiceSpecial.getInfo() ){
 					var temp  = me.attrs.invoiceSpecial.getInfo();
 					temp.invoice ? objData.orderEntity.invoice =temp.invoice : objData.orderEntity.invoice = null;

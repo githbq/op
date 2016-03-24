@@ -59,7 +59,8 @@ define( function( require, exports, module ) {
             'click .order-detail':'orderDetailEve',
 			'click .receive-money':'receiveMoneyEve',
 			'click .order-detailPay':'orderDetailPayEve',
-			'click .order-del':'orderDelEve'
+			'click .order-del':'orderDelEve',
+			'click .exportOrder':'exportEve'
         },
         elements:{
             'tbody': 'tbody',
@@ -171,7 +172,7 @@ define( function( require, exports, module ) {
 				
             }
             
-            window.open( IBSS.API_PATH + '/enterprisefiling/exportfiling?' + $.param( queryData ) );
+            window.open( IBSS.API_PATH + '/odr/exportOrder?' + $.param( queryData ) );
         },
 
         //获取备案企业列表

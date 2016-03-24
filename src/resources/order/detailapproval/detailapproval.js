@@ -604,9 +604,19 @@ define( function(require, exports, module){
 			console.log(me.attrs.allData)
 			//var tempData = {'orderId':me.attrs.options.id,'orderVO':me.attrs.allData};
 			me.attrs.allData.orderEntity.order.id = me.attrs.options.id;
+		
 			me.getOrderInfo(function(){
+				var tempUrl = '';
+				
+				switch( me.attrs.options.orderType ){
+					case 9:case 10:case 11:case 12:
+						tempUrl = '/odr/renew/update'
+						break;
+					default:
+						tempUrl = '/odr/updateOrderVO'
+				}
 				util.api({
-					'url':'/odr/updateOrderVO',
+					'url':tempUrl,
 					'data':JSON.stringify( me.attrs.allData ),
 					'contentType':'application/json;charset=UTF-8 ',
 					'success': function( data ){
@@ -626,8 +636,17 @@ define( function(require, exports, module){
 			var me = this;
 			me.attrs.allData.orderEntity.order.id = me.attrs.options.id;
 			me.getOrderInfo(function(){
+				var tempUrl = '';
+				
+				switch( me.attrs.options.orderType ){
+					case 9:case 10:case 11:case 12:
+						tempUrl = '/odr/renew/update'
+						break;
+					default:
+						tempUrl = '/odr/updateOrderVO'
+				}
 				util.api({
-					'url':'/odr/updateOrderVO',
+					'url':tempUrl,
 					'data':JSON.stringify( me.attrs.allData ),
 					'contentType':'application/json;charset=UTF-8 ',
 					'success': function( data ){
