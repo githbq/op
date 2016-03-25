@@ -8,7 +8,7 @@
 			<td><%=item.order.enterpriseAccount%></td>
 			<td><%=item.orderTypeStr%></td>
 			<td><%=item.account.name%></td>
-			<td><%=item.agent.name%></td>
+			<td><%=item.agent ? item.agent.name:''%></td>
 			<td><%=item.order.isTp ? '是':'否'%></td>
 			<td><%=item.order.isCooperation == 1 ? '是':'否'%></td>
 			<td><%=item.order.cooperationUnit ? item.order.cooperationUnit:'——'%></td>
