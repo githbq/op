@@ -41,11 +41,12 @@ define(function(require, exports, module){
 				}else{
 					me.$stageBox.show();
 					me.model.set("currPayAmount",'');
-					if(me.attrs.dataDetail){
+					/*if(me.attrs.dataDetail){
 						me.setNewSubers();
 					}else{
 						me.setSubers( );
-					}
+					}*/
+					me.setSubers( );
 					
 				}
 			})
@@ -78,7 +79,7 @@ define(function(require, exports, module){
 			if(me.attrs.dataDetail){
 				 me.$('.payStatus-select').val(me.attrs.dataDetail.order.payStatus)
 				if(me.attrs.dataDetail.order.payStatus==2){
-					me.setNewSubers();
+					me.setSubers();
 					me.setSubersMoney();
 					me.checkEdit();
 				}

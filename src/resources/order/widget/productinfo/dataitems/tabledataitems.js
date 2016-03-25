@@ -27,7 +27,7 @@ define(function (require, exports, module) {
                     value: function (e) {
                         var checked = $(e.target).is(':checked');
                         var me = this;
-                        var $checks = $('[data-name=check]');
+                        var $checks = $('[data-name=check]:visible');
                         $checks.each(function (i, n) {
                             var $check = $(n);
                             if (!$check.is('[readonly],[disabled]')) {
