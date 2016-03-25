@@ -211,6 +211,7 @@ define( function(require, exports, module){
 				me.$('.state-refuse').show();
 			}
 			me.$('.currentTask-'+me.attrs.options.currentTask).show();
+			me.$('.order-id').html( me.attrs.options.id );
 			//判断审批意见
 			//var opinion = me.attrs.options.opinion ? me.attrs.options.opinion :'暂无';
 			//me.$('.last-options').text(opinion);
