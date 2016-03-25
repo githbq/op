@@ -231,7 +231,7 @@ define(function (require, exports, module) {
                         var ids = [];
                         $(responseData.data.subOrders).each(function (j, m) {
                             var checkbox = me.$('input[type=checkbox][data-name=check][value=' + m.subOrder.productId + ']');
-                            if (checkbox.length > 0 && !isreadonly) {//如果存在此纪录 则隐藏 且取消勾选
+                            if (checkbox.length > 0 && !isreadonly && !responseData.refuse) {//如果存在此纪录 则隐藏 且取消勾选
                                 checkbox.prop('checked', false).attr('checked', false);
                                 checkbox.parents('tr').attr('hidetr', 'hidetr').hide();
                             } else {

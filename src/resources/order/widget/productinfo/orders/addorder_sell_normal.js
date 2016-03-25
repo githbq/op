@@ -88,7 +88,7 @@ define(function (require, exports, module) {
             });
         }
         common.setAddOrderLogic(controller, terminalDataItems, tableDataItems, formDataItems, 7, responseData);
-        if (responseData && ((!responseData.readonly && !hasCRM) || (hasCRM && responseData.readonly)) ){
+        if (responseData && ((!responseData.readonly && !hasCRM) || (hasCRM && responseData.readonly)) || (hasCRM && responseData.refuse)) {
             controller(terminalDataItems, 'type_8', function (n) {
                 n.visible = false;
             });
@@ -108,7 +108,7 @@ define(function (require, exports, module) {
                 n.value = true;
                 n.readonly = true;
             });
-            if ((hasBussinessCard && responseData.readonly) || ( !hasCRM && !responseData.readonly)) {
+            if ((hasBussinessCard && responseData.readonly) || ( !hasCRM && !responseData.readonly) || (responseData.refuse && hasBussinessCard)) {
                 controller(terminalDataItems, 'businesscard', function (n) {
                     n.visible = true;
                 });
