@@ -363,8 +363,6 @@ define( function(require, exports, module){
 			//获取企业子产品开始时间不能编辑的子产品
 			me.getNeedDate();
 			
-			
-			
 			 me.attrs.productData.enterpriseExtend = me.attrs.enterpriseData.enterpriseExtend ? me.attrs.enterpriseData.enterpriseExtend:null;
 			 var tempOrderType = parseInt(me.attrs.options.orderType);
 			 switch( tempOrderType )
@@ -443,9 +441,9 @@ define( function(require, exports, module){
 					//计算crm增购的时间最大范围
 					crmSortDate();
 					
-					me.attrs.subData =  {
+					/*me.attrs.subData =  {
 						'subOrders':subArry
-					}
+					}*/
 					for(var i =0;i<productData.subOrders.length;i++){
 									
 						if(productData.subOrders[i].subOrder.productId==1){
@@ -481,64 +479,64 @@ define( function(require, exports, module){
 								var nowDate = new Date( new Date().getTime() )._format('yyyy/MM/dd');
 								var endDate = new Date( obj["endDate"]  )._format('yyyy/MM/dd');
 								if( dateCompare(nowDate,endDate) ){
-									var tempObe = {"subOrder":{
+									/*var tempObe = {"subOrder":{
 										"productId":4,
 										"startTime":obj["endDate"],
 										"startTime_readonly":true
 									}}
-									subArry.push(tempObe)
-								}
-								for(var i =0;i<productData.subOrders.length;i++){
+									subArry.push(tempObe)*/
 									
-									if(productData.subOrders[i].subOrder.productId==4){
-										productData.subOrders[i].subOrder['startTime'] = obj["endDate"];
-										productData.subOrders[i].subOrder['startTime_readonly'] = true;
-										break;
+									for(var i =0;i<productData.subOrders.length;i++){
+										
+										if(productData.subOrders[i].subOrder.productId==4){
+											productData.subOrders[i].subOrder['startTime'] = obj["endDate"];
+											productData.subOrders[i].subOrder['startTime_readonly'] = true;
+											break;
+										}
 									}
 								}
 								
+						
 								break;
 							case "Meeting_Helper":
 								var nowDate = new Date( new Date().getTime() )._format('yyyy/MM/dd');
 								var endDate = new Date( obj["endDate"]  )._format('yyyy/MM/dd');
 								if( dateCompare(nowDate,endDate) ){
-									var tempObe = {"subOrder":{
+									/*var tempObe = {"subOrder":{
 										"productId":5,
 										"startTime":obj["endDate"],
 										"startTime_readonly":true
 									}}
-									subArry.push(tempObe)
-								}
-								
-								for(var i =0;i<productData.subOrders.length;i++){
+									subArry.push(tempObe)*/
+									for(var i =0;i<productData.subOrders.length;i++){
 									
-									if(productData.subOrders[i].subOrder.productId==5){
-										productData.subOrders[i].subOrder['startTime'] = obj["endDate"];
-										productData.subOrders[i].subOrder['startTime_readonly'] = true;
-										break;
+										if(productData.subOrders[i].subOrder.productId==5){
+											productData.subOrders[i].subOrder['startTime'] = obj["endDate"];
+											productData.subOrders[i].subOrder['startTime_readonly'] = true;
+											break;
+										}
 									}
 								}
-
 								break;
 							case "Salary_Helper":
 								var nowDate = new Date( new Date().getTime() )._format('yyyy/MM/dd');
 								var endDate = new Date( obj["endDate"]  )._format('yyyy/MM/dd');
 								if( dateCompare(nowDate,endDate) ){
-									var tempObe = {"subOrder":{
+									/*var tempObe = {"subOrder":{
 										"productId":7,
 										"startTime":obj["endDate"],
 										"startTime_readonly":true
 									}}
-									subArry.push(tempObe)
+									subArry.push(tempObe)*/
 									
 									for(var i =0;i<productData.subOrders.length;i++){
 									
-									if(productData.subOrders[i].subOrder.productId==7){
-										productData.subOrders[i].subOrder['startTime'] = obj["endDate"];
-										productData.subOrders[i].subOrder['startTime_readonly'] = true;
-										break;
+										if(productData.subOrders[i].subOrder.productId==7){
+											productData.subOrders[i].subOrder['startTime'] = obj["endDate"];
+											productData.subOrders[i].subOrder['startTime_readonly'] = true;
+											break;
+										}
 									}
-								}
 
 								}
 
@@ -546,9 +544,9 @@ define( function(require, exports, module){
 							default:
 						}
 					});
-					me.attrs.subData =  {
+					/*me.attrs.subData =  {
 						'subOrders':subArry
-					}
+					}*/
 					
 					break;
 	
