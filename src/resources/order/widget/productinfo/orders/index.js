@@ -11,7 +11,7 @@ define(function (require, exports, module) {
                     n.value = '增购';
                 }
                 else if ($.inArray(type, ['9', '10', '11', '12']) >= 0) {
-                    n.value = '续费';
+                    n.value = '增购';
                 }
             });
             controller(terminalDataItems, 'isedit', function (item) {
