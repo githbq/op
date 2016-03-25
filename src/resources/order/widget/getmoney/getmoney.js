@@ -41,7 +41,12 @@ define(function(require, exports, module){
 				}else{
 					me.$stageBox.show();
 					me.model.set("currPayAmount",'');
-					me.setSubers( );
+					if(me.attrs.dataDetail){
+						me.setNewSubers();
+					}else{
+						me.setSubers( );
+					}
+					
 				}
 			})
 
