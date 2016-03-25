@@ -411,7 +411,7 @@ define( function(require, exports, module){
 			var subArry = [];
 			var sortDate = [];
 			var data = me.attrs.orderList.model||[];
-			var productData = me.attrs.productData;
+			var productData = me.attrs.productData||[];
 			
 			function crmSortDate(){
 				if( sortDate.length > 0 ){
