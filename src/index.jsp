@@ -166,9 +166,9 @@
 <script type="text/javascript" src="resources/common/scripts/util.js"></script>
 <script type="text/javascript" src="resources/common/scripts/widget.js"></script>
 <script type="text/javascript" src="resources/common/widget/calendar/jquery.datetimepicker.js"></script>
-    <script type="text/javascript" src="resources/common/widget/my97datepicker/wdatepicker.js"></script>
-<!--endbuild-->
 
+<!--endbuild-->
+    <script type="text/javascript" src="resources/common/widget/my97datepicker/wdatepicker.js"></script>
 <!--build:app resources/assets/scripts/app.js-->
 <script type="text/javascript" src="resources/assets/scripts/config.js"></script>
 <script type="text/javascript" src="resources/assets/scripts/app.js"></script>
