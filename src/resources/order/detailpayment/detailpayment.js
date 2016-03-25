@@ -255,7 +255,7 @@ define( function(require, exports, module){
 				objData.orderEntity.order = tem.order;
 				objData.orderEntity.subOrders = tem.subOrders;
 				objData.orderEntity.order.contractNo = me.attrs.options.contractNo;
-				objData.orderEntity.order.oriOrderId = me.attrs.options.id;
+				objData.orderEntity.order.oriOrderId = me.attrs.orderData.order.oriOrderId;
 			}else{
 				return ;
 			}
