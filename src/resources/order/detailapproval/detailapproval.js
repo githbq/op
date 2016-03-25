@@ -361,7 +361,9 @@ define( function(require, exports, module){
 			me.attrs.subData = {'subOrders':{}};
 			
 			//获取企业子产品开始时间不能编辑的子产品
-			me.getNeedDate();
+			if(me.attrs.orderData.order.status==0){
+				me.getNeedDate();
+			}
 			
 			 me.attrs.productData.enterpriseExtend = me.attrs.enterpriseData.enterpriseExtend ? me.attrs.enterpriseData.enterpriseExtend:null;
 			 var tempOrderType = parseInt(me.attrs.options.orderType);
@@ -474,21 +476,22 @@ define( function(require, exports, module){
 								var nowDate = new Date( new Date().getTime() )._format('yyyy/MM/dd');
 								var endDate = new Date( obj["endDate"]  )._format('yyyy/MM/dd');
 								if( dateCompare(nowDate,endDate) ){
-									/*var tempObe = {"subOrder":{
+									var tempObe = {"subOrder":{
 										"productId":4,
 										"startTime":obj["endDate"],
+										"flag":true,
 										"startTime_readonly":true
 									}}
-									subArry.push(tempObe)*/
+									subArry.push(tempObe)
 									
-									for(var i =0;i<productData.subOrders.length;i++){
+									/*for(var i =0;i<productData.subOrders.length;i++){
 										
 										if(productData.subOrders[i].subOrder.productId==4){
 											productData.subOrders[i].subOrder['startTime'] = obj["endDate"];
 											productData.subOrders[i].subOrder['startTime_readonly'] = true;
 											break;
 										}
-									}
+									}*/
 								}
 								
 						
@@ -497,41 +500,43 @@ define( function(require, exports, module){
 								var nowDate = new Date( new Date().getTime() )._format('yyyy/MM/dd');
 								var endDate = new Date( obj["endDate"]  )._format('yyyy/MM/dd');
 								if( dateCompare(nowDate,endDate) ){
-									/*var tempObe = {"subOrder":{
+									var tempObe = {"subOrder":{
 										"productId":5,
 										"startTime":obj["endDate"],
+										"flag":true,
 										"startTime_readonly":true
 									}}
-									subArry.push(tempObe)*/
-									for(var i =0;i<productData.subOrders.length;i++){
+									subArry.push(tempObe)
+									/*for(var i =0;i<productData.subOrders.length;i++){
 									
 										if(productData.subOrders[i].subOrder.productId==5){
 											productData.subOrders[i].subOrder['startTime'] = obj["endDate"];
 											productData.subOrders[i].subOrder['startTime_readonly'] = true;
 											break;
 										}
-									}
+									}*/
 								}
 								break;
 							case "Salary_Helper":
 								var nowDate = new Date( new Date().getTime() )._format('yyyy/MM/dd');
 								var endDate = new Date( obj["endDate"]  )._format('yyyy/MM/dd');
 								if( dateCompare(nowDate,endDate) ){
-									/*var tempObe = {"subOrder":{
+									var tempObe = {"subOrder":{
 										"productId":7,
 										"startTime":obj["endDate"],
+										"flag":true,
 										"startTime_readonly":true
 									}}
-									subArry.push(tempObe)*/
+									subArry.push(tempObe)
 									
-									for(var i =0;i<productData.subOrders.length;i++){
+									/*for(var i =0;i<productData.subOrders.length;i++){
 									
 										if(productData.subOrders[i].subOrder.productId==7){
 											productData.subOrders[i].subOrder['startTime'] = obj["endDate"];
 											productData.subOrders[i].subOrder['startTime_readonly'] = true;
 											break;
 										}
-									}
+									}*/
 
 								}
 
@@ -539,9 +544,21 @@ define( function(require, exports, module){
 							default:
 						}
 					});
-					/*me.attrs.subData =  {
-						'subOrders':subArry
-					}*/
+					for(var j =0;j<subArry.length;j++){
+						for(var i =0;i<productData.subOrders.length;i++){
+							if(productData.subOrders[i].subOrder.productId==subArry[j].subOrder.productId){
+								productData.subOrders[i].subOrder['startTime'] = subArry[j].subOrder["startTime"];
+								productData.subOrders[i].subOrder['startTime_readonly'] = true;
+								subArry[j].subOrder["flag"]=false;
+							}
+						}
+					}
+					for(var a = 0; a<subArry.length;a++){
+						var arrlong =  productData.subOrders.length;
+						if(subArry[a].subOrder["flag"]){
+							productData.subOrders.push(subArry[a]);
+						}
+					}
 					
 					break;
 	

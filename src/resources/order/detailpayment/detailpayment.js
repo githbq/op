@@ -95,11 +95,13 @@ define( function(require, exports, module){
 			
 			me._setTitle( orderTypeAry[me.attrs.options.orderType] );
 			
-			$.when( me.getOrderDetail()/*, me.getEnterpriseInfo()*/, me.setOrderList(),me.getReceiveOrder()).done(function(){
+			$.when( me.getOrderDetail()/*, me.getEnterpriseInfo()*/, me.setOrderList()).done(function(){
 				//备注信息
-			
-				//setOrderInfo--订单信息
-				me.setOrderInfo();
+				me.getReceiveOrder(function(){
+					//setOrderInfo--订单信息
+					me.setOrderInfo();
+				})
+				
 
 				//基本信息
 				me.attrs.basicCommon = new OrderInfo( { 'wrapper':me.$view.find('.common--basic'),'data':me.attrs.orderList,
@@ -148,15 +150,16 @@ define( function(require, exports, module){
 
 		},
 		//当前订单合同信息
-		getReceiveOrder:function(){
+		getReceiveOrder:function( callback ){
 			var me = this;
+			var oldOrder = me.attrs.orderData.order.oriOrderId;
 			return util.api({
-					'url':'/odr/'+me.attrs.options.id+'/paidInfo',
+					'url':'/odr/'+oldOrder+'/paidInfo',
 					'success': function( data ){
 
 						if( data.success ){
 							me.attrs.receiveData = data.value.model;
-
+							callback && callback();
 						}
 					}
 				});
