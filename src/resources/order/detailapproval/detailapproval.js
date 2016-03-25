@@ -556,6 +556,7 @@ define( function(require, exports, module){
 					for(var a = 0; a<subArry.length;a++){
 						var arrlong =  productData.subOrders.length;
 						if(subArry[a].subOrder["flag"]){
+							subArry[a].subOrder["enabled"]=false;
 							productData.subOrders.push(subArry[a]);
 						}
 					}
