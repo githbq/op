@@ -88,7 +88,7 @@ define(function (require, exports, module) {
             });
         }
         common.setAddOrderLogic(controller, terminalDataItems, tableDataItems, formDataItems, 7, responseData);
-        if ((!responseData.readonly && !hasCRM) || (hasCRM && responseData.readonly)) {
+        if (responseData && ((!responseData.readonly && !hasCRM) || (hasCRM && responseData.readonly)) ){
             controller(terminalDataItems, 'type_8', function (n) {
                 n.visible = false;
             });

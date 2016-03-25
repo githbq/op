@@ -153,7 +153,7 @@ define(function (require, exports, module) {
                         var allreadonly = me.o_getFieldData('allreadonly').allreadonly;
                         var $dom = $(e.target);
                         if ($dom.val() && parseFloat($dom.val()) <= 0) {
-                            if (n == '3' && (me.o_getFieldValue('isrenew') || me.o_getFieldValue('isadd'))) {//增购续费 服务人数可为0
+                            if ((n == '3' || n=='1' )&& (me.o_getFieldValue('isrenew') || me.o_getFieldValue('isadd'))) {//增购续费 服务人数可为0
                             } else {
                                 util.showToast('服务人数与终端数量必须大于0');
                                 $dom.val('');

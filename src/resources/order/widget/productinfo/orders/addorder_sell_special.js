@@ -91,7 +91,7 @@ define(function (require, exports, module) {
             });
         }
         common.setAddOrderLogic(controller, terminalDataItems, tableDataItems, formDataItems, 8, responseData);
-        if ((!responseData.readonly && !hasCRM) || (hasCRM && responseData.readonly)) {
+        if (responseData && ((!responseData.readonly && !hasCRM) || (hasCRM && responseData.readonly)) ){
             controller(terminalDataItems, 'useFX', function (n) {
                 n.visible = true;
             });
