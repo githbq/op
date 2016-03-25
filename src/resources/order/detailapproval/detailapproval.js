@@ -419,8 +419,8 @@ define( function(require, exports, module){
 					var aryLen = sortDate.length-1;
 					var tempObe = {"subOrder":{
 							"productId":1,
-							"startTime": sortDate[0],
-							"endTime":sortDate[aryLen]
+							"startTime_min": sortDate[0],
+							"endTime_max":sortDate[aryLen]
 						}}
 					subArry.push(tempObe)
 				}
@@ -431,7 +431,19 @@ define( function(require, exports, module){
 			 switch( tempOrderType )
 			{
 				case 5:case 6:case 7:case 8:
+					for(var i = 0 ;i<data.length; i++ ){
+						
+						if( data[i].code == "CRM" ){
+							sortDate.push( data[i].startDate );
+							sortDate.push( data[i].endDate );
+						}
+					}
+					//计算crm增购的时间最大范围
+					crmSortDate();
 					
+					me.attrs.subData =  {
+						'subOrders':subArry
+					}
 					
 					break;
 				case 9:case 10:case 11:case 12:
