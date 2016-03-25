@@ -125,17 +125,17 @@ define(function (require, exports, module) {
                             dataDic['startTime_' + subOrder.productId].readonly = true;
                             dataDic['startTime_' + subOrder.productId].__force = true;
                         }
-                        if (subOrder['startTime_max'] === true ) {
-                            dataDic['startTime_' + subOrder.productId].maxDate =  dataDic['startTime_' + subOrder.productId].value;
+                        if (subOrder['startTime_max'] !== undefined) {
+                            dataDic['startTime_' + subOrder.productId].maxDate = subOrder['startTime_max'];
                         }
-                        if (subOrder['startTime_min'] === true ) {
-                            dataDic['startTime_' + subOrder.productId].minDate =  dataDic['startTime_' + subOrder.productId].value;
+                        if (subOrder['startTime_min'] !== undefined) {
+                            dataDic['startTime_' + subOrder.productId].minDate = subOrder['startTime_min'];
                         }
-                        if (subOrder['endTime_max'] === true ) {
-                            dataDic['endTime_' + subOrder.productId].maxDate =  dataDic['endTime_' + subOrder.productId].value;
+                        if (subOrder['endTime_max'] !== undefined) {
+                            dataDic['endTime_' + subOrder.productId].maxDate = subOrder['endTime_max'];
                         }
-                        if (subOrder['endTime_min'] === true ) {
-                            dataDic['endTime_' + subOrder.productId].minDate =  dataDic['endTime_' + subOrder.productId].value;
+                        if (subOrder['endTime_min'] !== undefined) {
+                            dataDic['endTime_' + subOrder.productId].minDate = subOrder['endTime_min'];
                         }
                         if (subOrder['endTime_readonly'] === true && dataDic['endTime_' + subOrder.productId]) {
                             dataDic['endTime_' + subOrder.productId].readonly = true;
@@ -291,16 +291,16 @@ define(function (require, exports, module) {
                 contractPrice: formInfoData.contractPrice,
                 sealName: formInfoData.sealName,
                 contract: contractData.contract,
-                contractFileName: (contractData.contractFileName||'').substr(-20,20),
+                contractFileName: (contractData.contractFileName || '').substr(-20, 20),
                 contractCopy: contractCopyData.contractCopy,
-                contractCopyFileName: (contractCopyData.contractCopyFileName||'').substr(-20,20)
+                contractCopyFileName: (contractCopyData.contractCopyFileName || '').substr(-20, 20)
             };
             //门头照片
             var companyGatePictureData = $.parseJSON(formInfoData.companyGatePicture || '{}');
             var useBusinessCart = terminalInfo.o_getFieldData('businesscard').visible && terminalInfo.o_getFieldValue('useCRM') ? 1 : 0;//名片可见 CRM已勾选
             data.enterpriseExtend = {
                 companyGatePicture: companyGatePictureData.companyGatePicture,
-                companyGatePictureFileName: (companyGatePictureData.companyGatePictureFileName||'').substr(-20,20),
+                companyGatePictureFileName: (companyGatePictureData.companyGatePictureFileName || '').substr(-20, 20),
                 companyGateKeyword: formInfoData.companyGateKeyword,
                 companyGateRemark: formInfoData.companyGateRemark,
                 useBusinessCard: useBusinessCart,
