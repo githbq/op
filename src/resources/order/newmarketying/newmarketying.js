@@ -265,7 +265,9 @@ define( function( require, exports, module ) {
 					var aryLen = sortDate.length-1;
 					var tempObe = {"subOrder":{
 							"productId":1,
+							"startTime":sortDate[0],
 							"startTime_min":sortDate[0],
+							"endTime":sortDate[aryLen],
 							"endTime_max":sortDate[aryLen]
 						}}
 					subArry.push(tempObe)
