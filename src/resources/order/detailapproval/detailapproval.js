@@ -416,13 +416,7 @@ define( function(require, exports, module){
 					sortDate.sort(function( a,b ){
 						return a-b;
 					});
-					var aryLen = sortDate.length-1;
-					var tempObe = {"subOrder":{
-							"productId":1,
-							"startTime_min": sortDate[0],
-							"endTime_max":sortDate[aryLen]
-						}}
-					subArry.push(tempObe)
+					
 				}
 			}
 			
@@ -448,6 +442,7 @@ define( function(require, exports, module){
 									
 						if(productData.subOrders[i].subOrder.productId==1){
 							productData.subOrders[i].subOrder['startTime_min'] = sortDate[0];
+							var aryLen = sortDate.length-1;
 							productData.subOrders[i].subOrder['endTime_max'] = sortDate[aryLen];
 							break;
 						}
