@@ -111,7 +111,8 @@ define( function( require, exports, module ) {
                     state.b = true;
                     checkState();
                 }
-            })
+            });
+
 			util.getEnums('ENT_LST_SOURCE',function(data){
                 if( data.success ){
 
@@ -317,8 +318,9 @@ define( function( require, exports, module ) {
 		//获取状态枚举值
         getEnums: function(){
             var me = this;
-            var industryList=[{'name':'请选择','value':''}],sourceList=[{'name':'请选择','value':''}];
+            //var industryList=[{'name':'请选择','value':''}],sourceList=[{'name':'请选择','value':''}];
 
+            /*
 			util.getEnums('INDUSTRY',function(data){
                 if( data.success ){
 
@@ -328,6 +330,9 @@ define( function( require, exports, module ) {
                     util.resetSelect( me.$industry, industryList );
                 }
             })
+            */
+            util.getIndustry( me.$industry );
+
 			util.getEnums('ENT_LST_SOURCE',function(data){
                 if( data.success ){
 
