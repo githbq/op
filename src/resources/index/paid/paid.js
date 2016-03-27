@@ -59,7 +59,7 @@ define( function( require, exports, module ) {
             } );
         },
         initializeSelect: function() {
-            this.generateSelect( 'INDUSTRY', this.$industry );
+            util.getIndustry( this.$industry );
             this.generateSelect( 'PRODUCT_MODULE', this.$pModule );
             this.generateSelect( 'ENT_LST_SOURCE', this.$source );
         },
