@@ -231,7 +231,7 @@ define( function( require, exports, module ) {
                 data.appStartTimeEnd = new Date( me.$atEnd.val() ).getTime();
             }
 
-            data.pageIndex = me.pagination.attr['pageNumber']; 
+            data.pageIndex = me.pagination.attr['pageNumber'] + 1; 
             data.pageSize = me.pagination.attr['pageSize'];
             data.activityYn = 1;
             

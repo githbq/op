@@ -187,16 +187,16 @@ define( function(require, exports, module){
 		 setOrderInfo:function(){
 			 var  me = this;
 			 //收尾款模块
-			 
-			me.attrs.getMoneyCommon = new GetMoney( { 'wrapper':me.$view.find('.common-product'),'data':me.attrs.receiveData,'editFlag':me.attrs.options.editFlag,
-			'type':me.attrs.options.orderType ,'dataDetail':me.attrs.orderData} );
-			
-			//设置是否可以编辑
+			 //设置是否可以编辑
 			me.attrs.moneyEdit = me.attrs.options.editFlag;
 			//财务驳回只能部分编辑和小助手第二次驳回
-			if(me.attrs.options.rejectsFrom && (me.attrs.options.rejectsFrom == 2 || me.attrs.options.rejectsFrom == 3 ) && me.attrs.options.editFlag){
-				me.attrs.moneyEdit = true;;
+			if(me.attrs.options.rejectsFrom &&  me.attrs.options.rejectsFrom == 3  && me.attrs.options.editFlag){
+				me.attrs.moneyEdit = false;;
 			}
+			me.attrs.getMoneyCommon = new GetMoney( { 'wrapper':me.$view.find('.common-product'),'data':me.attrs.receiveData,'editFlag':me.attrs.moneyEdit,
+			'type':me.attrs.options.orderType ,'dataDetail':me.attrs.orderData} );
+			
+			
 			 //发票信息
 			 me.attrs.invoiceCommon = new InvoiceInfo( { 'wrapper':me.$view.find('.common--invioce'),'data':me.attrs.orderData,
 				 'editFlag': me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
@@ -255,7 +255,7 @@ define( function(require, exports, module){
 				objData.orderEntity.order = tem.order;
 				objData.orderEntity.subOrders = tem.subOrders;
 				objData.orderEntity.order.contractNo = me.attrs.options.contractNo;
-				objData.orderEntity.order.oriOrderId = me.attrs.options.id;
+				objData.orderEntity.order.oriOrderId = me.attrs.orderData.order.oriOrderId;
 			}else{
 				return ;
 			}

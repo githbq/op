@@ -16,6 +16,7 @@ define( function(require, exports, module){
     //
     //  添加修改备案企业
     /////////////////
+	var industryMap = {};
 	var temObj={};
     var AddFiling = MClass( Slider ).include({
 
@@ -164,7 +165,20 @@ define( function(require, exports, module){
                     util.resetSelect( me.$firmStatus, statusList );
                 }
             })
-            util.getEnums('INDUSTRY',function(data){
+			
+			 util.getIndustry( me.$industry,function( data ){
+                if( data.success ){
+
+                    data.value.model.forEach(function( item, index){
+                       industryMap[ item.value ] = item.text;
+                    });
+                    
+                   // state.b = true;
+                   // checkState();
+                }
+            });
+			
+           /* util.getEnums('INDUSTRY',function(data){
                 if( data.success ){
 
                     data.value.model.forEach(function( item, index){
@@ -172,7 +186,7 @@ define( function(require, exports, module){
                     });
                     util.resetSelect( me.$industry, industryList );
                 }
-            })
+            })*/
             util.getEnums('ENT_LST_SOURCE',function(data){
                 if( data.success ){
                     console.log(data)

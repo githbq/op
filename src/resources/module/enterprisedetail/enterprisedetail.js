@@ -976,7 +976,9 @@ define( function(require, exports, module){
 				}
 			};
 
-			me.generateSelect( 'INDUSTRY', me.$aindustry , function(){ state.a = true; checkIsOk() });  		//行业信息
+			///me.generateSelect( 'INDUSTRY', me.$aindustry , function(){ state.a = true; checkIsOk() });  		//行业信息
+ 			util.getIndustry( me.$aindustry ,function(){ state.a = true; checkIsOk() });
+			
 			me.generateSelect( 'ENT_LST_SOURCE', me.$asource , function(){ state.b = true; checkIsOk() });      //来源信息
 			me.generateSelect( 'PROVINCE', me.$aprovince ,function(){ state.c = true; checkIsOk() });           //省和直辖市
 			me.generateSelect( 'GROUP_TYPE', me.$agroup ,function(){ state.d = true; checkIsOk() } );			//团队类型
