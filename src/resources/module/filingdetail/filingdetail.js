@@ -152,7 +152,7 @@ define( function(require, exports, module){
         getEnums: function(){
             var me = this;
             var statusList = [{'name':'请选择','value':'0'}],
-                industryList=[{'name':'请选择','value':''}],
+                ///industryList=[{'name':'请选择','value':''}],
                 sourceList=[{'name':'请选择','value':''}];
 
             util.getEnums('LEADS_STATUS',function(data){
@@ -164,6 +164,8 @@ define( function(require, exports, module){
                     util.resetSelect( me.$firmStatus, statusList );
                 }
             })
+
+            /*
             util.getEnums('INDUSTRY',function(data){
                 if( data.success ){
 
@@ -173,6 +175,10 @@ define( function(require, exports, module){
                     util.resetSelect( me.$industry, industryList );
                 }
             })
+            */
+            util.getIndustry( me.$industry );
+
+
             util.getEnums('ENT_LST_SOURCE',function(data){
                 if( data.success ){
                     console.log(data)
