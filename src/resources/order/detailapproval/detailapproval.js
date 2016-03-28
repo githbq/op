@@ -713,7 +713,7 @@ define( function(require, exports, module){
 							for(var key in tempObj){
 								me.attrs.allData.orderEntity.subOrders[j].subOrder[key] = tempObj[key];
 							}
-							tempObj['hasFlag']=true;
+							tempSubOrders[i].subOrder['hasFlag']=true;
 							if(tempExtends.length>0){
 								
 								if(me.attrs.allData.orderEntity.subOrders[j].productExtends.length>0){
@@ -733,7 +733,7 @@ define( function(require, exports, module){
 					}
 				}
 				for(var i=0;i<lengI;i++){
-					var tempObj = tempSubOrders[i].orderFlag=true;
+					var tempObj = tempSubOrders[i].subOrder;
 					if(!tempObj['hasFlag']){
 						me.attrs.allData.orderEntity.subOrders.push(tempSubOrders[i]);
 					}
