@@ -24,6 +24,17 @@ define( function(require, exports, module){
 		'营销版续费-普通','营销版续费-特批','关联自注册办公版-普通','关联自注册办公版-特批',
 		'关联自注册营销版-普通','关联自注册营销版-特批','收尾款'
 	];
+	
+	var productIdDic = {
+            '1': 'CRM',
+            '2': '销客终端',
+            '3': '服务',
+            '4': 'PK助手',
+            '5': '会议助手',
+            '6': 'HR助手',
+            '7': '工资助手',
+            '8':'名片'
+        }; 
 
     /////////////////
     //
@@ -687,7 +698,10 @@ define( function(require, exports, module){
 				var tempSubOrders = objData.orderEntity.subOrders;
 				objData.orderEntity.subOrders = null;
 				$.extend(true, me.attrs.allData, objData);
+				
+				
 				me.attrs.allData.orderEntity.subOrders = me.attrs.orderData.subOrders||[];
+				
 				var lengI = tempSubOrders.length;
 				var lengJ = me.attrs.allData.orderEntity.subOrders.length;
 				for(var i=0;i<lengI;i++){
@@ -699,13 +713,24 @@ define( function(require, exports, module){
 								me.attrs.allData.orderEntity.subOrders[j].subOrder[key] = tempObj[key];
 							}
 							tempObj['hasFlag']=true;
+							me.attrs.allData.orderEntity.subOrders[j].orderFlag = true;
 						}
 					}
 				}
 				for(var i=0;i<lengI;i++){
 					var tempObj = tempSubOrders[i].subOrder;
 					if(!tempObj['hasFlag']){
-						me.attrs.allData.orderEntity.subOrders.push({'subOrder':tempObj});
+						me.attrs.allData.orderEntity.subOrders.push({'subOrder':tempObj,'orderFlag':true});
+					}
+				}
+				var newLenth = me.attrs.allData.orderEntity.subOrders.length;
+				for(var a=0;a<newLenth;a++){
+					if(!me.attrs.allData.orderEntity.subOrders[a].orderFlag){
+						me.attrs.allData.orderEntity.subOrders[a]=null;
+						me.attrs.allData.orderEntity.subOrders.splice(a,1);
+						newLenth = me.attrs.allData.orderEntity.subOrders.length;
+						a++;
+						//delete me.attrs.allData.orderEntity.subOrders[a];
 					}
 				}
 
