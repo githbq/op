@@ -176,7 +176,7 @@ define( function(require, exports, module){
                 'url':'/accountprotectionwhitelist/changeenterpriseauth',
                 'data':{
                     'enterpriseAccouts': arrays.join(','),
-                    'isAuth': true
+                    'isAuth': false
                 },
                 'success': function( data ){
                     console.warn( data );
@@ -204,7 +204,7 @@ define( function(require, exports, module){
                 'url':'/accountprotectionwhitelist/changeenterpriseauth',
                 'data':{
                     'enterpriseAccouts': arrays.join(','),
-                    'isAuth': false
+                    'isAuth': true
                 },
                 'success': function( data ){
                     console.warn( data );

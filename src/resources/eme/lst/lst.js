@@ -229,7 +229,7 @@ define( function( require, exports, module ) {
                 'data':{
                     'enterpriseAccouts': sa.eids.join(','),
                     'employeeIds': sa.pids.join(','),
-                    'isAuth': true
+                    'isAuth': false
                 },
                 'success': function( data ){
                     if( data.success ){
@@ -256,7 +256,7 @@ define( function( require, exports, module ) {
                 'data':{
                     'enterpriseAccouts': sa.eids.join(','),
                     'employeeIds': sa.pids.join(','),
-                    'isAuth': false
+                    'isAuth': true
                 },
                 'success': function( data ){
                     if( data.success ){
