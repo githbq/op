@@ -224,6 +224,9 @@ define( function( require, exports, module ) {
                             item.statusStr = statusAry[approveStatus] ;
                             item.payStatusStr = item.order.payStatus ? payStatusAry[item.order.payStatus] :'';
 							item.isPayUpAryStr = item.order.isPayUp ? isPayUpAry[item.order.isPayUp]:'——';
+							if(item.order.orderType==17){
+								item.isPayUpAryStr = '——';
+							}
                             item.createTimeStr = new Date( item.order.createTime )._format('yyyy/MM/dd');
                             item.orderTypeStr = orderTypeAry[item.order.orderType];
 
