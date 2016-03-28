@@ -750,7 +750,7 @@ define( function(require, exports, module){
 					if( iDays > 90 ){
 						var productName = productIdDic[data[i].subOrder.productId];
 						
-						util.showToast(productName+'使用版时间不能超过90天！');
+						util.showToast(productName+'试用版时间不能超过90天！');
 						return false;
 						
 					}
