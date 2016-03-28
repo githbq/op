@@ -29,7 +29,8 @@ define( function( require, exports, module ) {
     var NewMarketing = MClass( M.Center ).include( {
         
         elements: {
-            '#tabs li'   :'tabsList'
+            '#tabs li'   :'tabsList',
+			'.common-add':'commonAdd'
         },
         events: {
 			'click .action-cancel': 'cancelEve',
@@ -637,6 +638,10 @@ define( function( require, exports, module ) {
 				util.api({
 					'url':me.attrs.url,
 					'data':JSON.stringify( objData ),
+					'button': {
+						'el': me.$commonAdd,
+						'text':'提交中......'
+					},
 					'contentType':'application/json;charset=UTF-8 ',
 					'success': function( data ){
 						if( data.success ){
