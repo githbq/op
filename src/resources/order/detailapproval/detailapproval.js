@@ -735,6 +735,7 @@ define( function(require, exports, module){
 				for(var i=0;i<lengI;i++){
 					var tempObj = tempSubOrders[i].subOrder;
 					if(!tempObj['hasFlag']){
+						tempSubOrders[i].orderFlag = true;
 						me.attrs.allData.orderEntity.subOrders.push(tempSubOrders[i]);
 					}
 				}
