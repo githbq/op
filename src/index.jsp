@@ -35,7 +35,7 @@
                     <li data-modulecode="ExportAgentAccountOpS"><a href="#index/agentexport">代理商员工导出</a></li>
                 </ul>
             </li>
-            <li>
+            <li data-modulecode="OrderOpS">
                 <a href="#order/orderlist">订单</a>
             </li>
 
@@ -47,7 +47,7 @@
                 </ul>
             </li>
 
-            <li data-modulecode="EnterpriseDayActivityOpS" class="zhichinav">
+            <li data-modulecode="EnterpriseDayActivityOpS">
                 <a href="#index/dayactive">企业日活跃</a>
             </li>
 
@@ -152,7 +152,7 @@
     IBSS.API_PATH = '/op/api/s';       //api路径
     IBSS.IS_DEVELOP = true;
     // IBSS.VERSION ='4.7.' + (new Date()).getTime();
- IBSS.VERSION ='1.0';
+    IBSS.VERSION ='1.0.1';
 </script>
 
 <!--build:common resources/common/scripts/common.js-->
@@ -168,7 +168,7 @@
 <script type="text/javascript" src="resources/common/widget/calendar/jquery.datetimepicker.js"></script>
 
 <!--endbuild-->
-    <script type="text/javascript" src="resources/common/widget/my97datepicker/wdatepicker.js"></script>
+<script type="text/javascript" src="resources/common/widget/my97datepicker/wdatepicker.js"></script>
 <!--build:app resources/assets/scripts/app.js-->
 <script type="text/javascript" src="resources/assets/scripts/config.js"></script>
 <script type="text/javascript" src="resources/assets/scripts/app.js"></script>
@@ -182,6 +182,10 @@
 
 </body>
 </html>
+
+
+
+
 
 
 
