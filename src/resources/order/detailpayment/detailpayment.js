@@ -284,6 +284,10 @@ define( function(require, exports, module){
 					'url':'/odr/balancePayment/update',
 					'data':JSON.stringify( me.attrs.allData ),
 					'contentType':'application/json;charset=UTF-8 ',
+					'button': {
+						'el': me.$actionSave,
+						'text':'提交中......'
+					},
 					'success': function( data ){
 						if( data.success ){
 							util.showTip('提交成功！');
@@ -305,6 +309,10 @@ define( function(require, exports, module){
 					'url':'/odr/balancePayment/update',
 					'data':JSON.stringify( me.attrs.allData ),
 					'contentType':'application/json;charset=UTF-8 ',
+					'button': {
+						'el': me.$actionSubmit,
+						'text':'提交中......'
+					},
 					'success': function( data ){
 						if( data.success ){
 							changeNode();
