@@ -280,6 +280,8 @@ define( function(require, exports, module){
 			
 			me.attrs.allData.orderEntity.order.id = me.attrs.options.id;
 			me.getOrderInfo(function(){
+				me.$actionSubmit.text('提交中....');
+				me.$actionSubmit.attr('disabled','disabled');
 				util.api({
 					'url':'/odr/balancePayment/update',
 					'data':JSON.stringify( me.attrs.allData ),
@@ -294,6 +296,10 @@ define( function(require, exports, module){
 							me.trigger( 'saveSuccess');
 							me.hide();
 						}
+					},
+					'complete': function(){
+						me.$actionSubmit.text('保存提交');
+						me.$actionSubmit.removeAttr('disabled');
 					}
 				})
 				
@@ -305,6 +311,8 @@ define( function(require, exports, module){
 			var me = this;
 			me.attrs.allData.orderEntity.order.id = me.attrs.options.id;
 			me.getOrderInfo(function(){
+				me.$actionSave.text('提交中....');
+				me.$actionSave.attr('disabled','disabled');
 				util.api({
 					'url':'/odr/balancePayment/update',
 					'data':JSON.stringify( me.attrs.allData ),
@@ -317,6 +325,10 @@ define( function(require, exports, module){
 						if( data.success ){
 							changeNode();
 						}
+					},
+					'complete': function(){
+						me.$actionSave.text('保存');
+						me.$actionSave.removeAttr('disabled');
 					}
 				})
 				
