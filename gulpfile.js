@@ -178,7 +178,7 @@ gulp.task('usemin', function() {
  * 文件md5戳处理
  */
 gulp.task('md5', function() {
-	return gulp.src(['dest/resources/**/*.js'], {//, 'dest/resources/**/*.html'
+	return gulp.src(['dest/resources/**/*.js','!dest/resources/common/widget/my97datepicker'], {//, 'dest/resources/**/*.html'
 			base: 'dest'
 		})
 		.pipe(rev())
