@@ -404,7 +404,6 @@ define( function(require, exports, module){
 
 		 },
 		 
-		 
 		 //转换为基本需要时间格式
 		getNeedDate:function(  ){
 			var me = this;
@@ -523,6 +522,30 @@ define( function(require, exports, module){
 								if( dateCompare(nowDate,endDate) ){
 									var tempObe = {"subOrder":{
 										"productId":7,
+										"startTime":obj["endDate"],
+										"flag":true,
+										"startTime_readonly":true
+									}}
+									subArry.push(tempObe)
+									
+									/*for(var i =0;i<productData.subOrders.length;i++){
+									
+										if(productData.subOrders[i].subOrder.productId==7){
+											productData.subOrders[i].subOrder['startTime'] = obj["endDate"];
+											productData.subOrders[i].subOrder['startTime_readonly'] = true;
+											break;
+										}
+									}*/
+
+								}
+
+								break;
+							case "Custom_Helper":
+								var nowDate = new Date( new Date().getTime() )._format('yyyy/MM/dd');
+								var endDate = new Date( obj["endDate"]  )._format('yyyy/MM/dd');
+								if( dateCompare(nowDate,endDate) ){
+									var tempObe = {"subOrder":{
+										"productId":12,
 										"startTime":obj["endDate"],
 										"flag":true,
 										"startTime_readonly":true
@@ -719,7 +742,7 @@ define( function(require, exports, module){
 			switch( me.attrs.options.orderType ){
 				case 1:case 2:case 3:case 4:case 13:case 14:case 15:case 16:
 					_.map( data , function( obj ){
-						if(obj.subOrder.productId ==1 || obj.subOrder.productId ==4  || obj.subOrder.productId ==5 ){
+						if(obj.subOrder.productId ==1 || obj.subOrder.productId ==4  || obj.subOrder.productId ==5 || obj.subOrder.productId ==12 ){
 							if( obj.subOrder.discount  &&  obj.subOrder.discount<8){
 								discoutFlag = false;
 								//util.showToast('子产品折扣低于8折，必须申请特批');
@@ -730,7 +753,7 @@ define( function(require, exports, module){
 					break;
 				default:
 					_.map( data , function( obj ){
-						if(obj.subOrder.productId ==1 || obj.subOrder.productId ==4  || obj.subOrder.productId ==7  || obj.subOrder.productId ==5 ){
+						if(obj.subOrder.productId ==1 || obj.subOrder.productId ==4  || obj.subOrder.productId ==7  || obj.subOrder.productId ==5 || obj.subOrder.productId ==12 ){
 							if( obj.subOrder.discount  &&  obj.subOrder.discount<8){
 								discoutFlag = false;
 							}
