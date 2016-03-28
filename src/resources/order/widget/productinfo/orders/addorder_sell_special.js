@@ -91,7 +91,7 @@ define(function (require, exports, module) {
             });
         }
         common.setAddOrderLogic(controller, terminalDataItems, tableDataItems, formDataItems, 8, responseData);
-        if (responseData && ((!responseData.readonly && !hasCRM) || (hasCRM && responseData.readonly)) ){
+        if (responseData && ((!responseData.readonly && !hasCRM) || (hasCRM && responseData.readonly)) || (hasCRM && responseData.refuse)) {
             controller(terminalDataItems, 'useFX', function (n) {
                 n.visible = true;
             });
@@ -115,7 +115,7 @@ define(function (require, exports, module) {
             controller(terminalDataItems, 'kunbangWrapper', function (n) {
                 n.visible = true;
             });
-            if ((hasBussinessCard && responseData.readonly) || ( !hasCRM && !responseData.readonly)) {
+            if ((hasBussinessCard && responseData.readonly) || ( !hasCRM && !responseData.readonly) || (responseData.refuse && hasBussinessCard)) {
                 controller(terminalDataItems, 'businesscard', function (n) {
                     n.visible = true;
                 });

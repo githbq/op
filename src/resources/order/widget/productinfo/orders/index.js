@@ -102,7 +102,9 @@ define(function (require, exports, module) {
                 var useFX = false;
                 $(subOrders).each(function (i, n) {
                     if (n.subOrder && n.subOrder.productId && n.subOrder.productId != 10 && n.subOrder.productId != 11) {//10为绑定百川  11为绑定报数系统
-                        checkids.push(n.subOrder.productId);
+                        if (n.subOrder.enabled !== false) {
+                            checkids.push(n.subOrder.productId);
+                        }
                         var subOrder = n.subOrder;
                         for (var j in subOrder) {
                             if (subOrder.hasOwnProperty(j)) {
@@ -231,7 +233,7 @@ define(function (require, exports, module) {
                         var ids = [];
                         $(responseData.data.subOrders).each(function (j, m) {
                             var checkbox = me.$('input[type=checkbox][data-name=check][value=' + m.subOrder.productId + ']');
-                            if (checkbox.length > 0 && !isreadonly) {//如果存在此纪录 则隐藏 且取消勾选
+                            if (checkbox.length > 0 && !isreadonly && !responseData.refuse) {//如果存在此纪录 则隐藏 且取消勾选
                                 checkbox.prop('checked', false).attr('checked', false);
                                 checkbox.parents('tr').attr('hidetr', 'hidetr').hide();
                             } else {

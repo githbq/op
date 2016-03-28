@@ -118,6 +118,16 @@ define(function (require, exports, module) {
                 }
                 return next($ele);
             },
+            i_convertFieldWhereInt: function (next, $ele) {
+
+                if ($ele.is('[data-type=int]')) {
+                    $ele.on('change', function (e) {
+                        var $dom = $(e.target);
+                        $dom.val($dom.val().replace(/[^\d]/g, ''));
+                    })
+                }
+                return next($ele);
+            },
             events: {},
             elements: {},
             i_silent: false,//安静.不触发事件

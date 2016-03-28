@@ -36,7 +36,7 @@
                     <li data-modulecode="EnterpriseFIlingOpenRequestOpA"><a href="#agentsupport/entprisereq">公开企业申请列表</a></li>
                 </ul>
             </li>
-            <li>
+            <li data-modulecode="OrderOpA">
                 <a href="#order/orderlist">订单</a>
             </li>
            <li data-modulecode="EnterpriseOpA"><a href="#agentsupport/entpriselist">企业</a></li>
@@ -103,7 +103,7 @@
         IBSS.API_PATH = '/op/api/a';       //api路径
         IBSS.IS_DEVELOP = true;
         // IBSS.VERSION ='4.7.' + (new Date()).getTime();
-        IBSS.VERSION ='5.1.2.20160219';
+        IBSS.VERSION ='1.0.1';
 </script>
 
 <!--build:common resources/common/scripts/common.js-->
@@ -119,7 +119,7 @@
 <script type="text/javascript" src="resources/common/widget/calendar/jquery.datetimepicker.js"></script>
 
 <!--endbuild-->
-    <script type="text/javascript" src="resources/common/widget/my97datepicker/wdatepicker.js"></script>
+<script type="text/javascript" src="resources/common/widget/my97datepicker/wdatepicker.js"></script>
 <!--build:app resources/assets/scripts/app.js-->
 <script type="text/javascript" src="resources/assets/scripts/config.js"></script>
 <script type="text/javascript" src="resources/assets/scripts/app.js"></script>

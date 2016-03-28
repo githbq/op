@@ -432,13 +432,15 @@ define('common/app', function(require, exports, module){
 			});
 
 			//特殊处理
-			for( var i = 0; i < IBSS.FUNCTIONS.length ; i++ ){
-				if( 'F008002' == IBSS.FUNCTIONS[i] ){
-					if( $('nav .zhichinav').length >0 ){
-						$('nav .zhichinav').hide();
-					}
-				}
-			}
+			/*
+			 *for( var i = 0; i < IBSS.FUNCTIONS.length ; i++ ){
+			 *	if( 'F008002' == IBSS.FUNCTIONS[i] ){
+			 *		if( $('nav .zhichinav').length >0 ){
+			 *			$('nav .zhichinav').hide();
+			 *		}
+			 *	}
+			 *}
+			 */
 		},
 
 		/**

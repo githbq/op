@@ -101,7 +101,12 @@ define( function(require, exports, module){
 			}
 
 			//获取行业列表
-			generate('INDUSTRY', me.$industry , 'i');
+			//generate('INDUSTRY', me.$industry , 'i');
+
+			util.getIndustry( me.$industry, function(){
+				state['i'] = true;
+				check();
+			})
 
 			//获取来源
 			generate('ENT_LST_SOURCE', me.$source , 'e');

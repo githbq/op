@@ -45,7 +45,7 @@ define(function(require, exports, module){
 		//数据渲染显示
 		setValue:function(){
 			var me = this;
-			var approvedUrl = me.attrs.data.order ? me.attrs.data.order.approvedUrl:'';
+			var approvedUrl = (me.attrs.data && me.attrs.data.order) ? me.attrs.data.order.approvedUrl:'';
 			me.model.set('approvedUrl',approvedUrl);
 			
 			if(me.attrs.editFlag){

@@ -81,7 +81,8 @@ define( function( require, exports, module ) {
             me.$aet.val( me.getDateString( -1 ) );
         },
         initializeSelect: function() {
-            this.generateSelect( 'INDUSTRY', this.$industry );
+            //this.generateSelect( 'INDUSTRY', this.$industry );
+            util.getIndustry( this.$industry );
             this.generateSelect( 'PRODUCT_MODULE', this.$pModule );
             this.generateSelect( 'ENT_LST_SOURCE', this.$source );
         },

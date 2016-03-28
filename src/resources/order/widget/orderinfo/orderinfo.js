@@ -48,16 +48,16 @@ define(function(require, exports, module){
 				{
 					case "FX_Terminal":
 						var strartTime = "",endTime = "";
-						strartTime =  new Date( obj['startDate']  )._format('yyyy/MM/dd');
-						endTime = new Date( obj['endDate']  )._format('yyyy/MM/dd');
+						strartTime = obj['startDate'] ? new Date( obj['startDate']  )._format('yyyy/MM/dd'):'——';
+						endTime = obj['endDate'] ? new Date( obj['endDate']  )._format('yyyy/MM/dd'):'——';
 						strDom += " <tr> <td>"+obj['appName']+"(个)：</td><td>"+obj['quota']+"</td>" +
 						" <td>开始时间：</td><td>"+ strartTime +"</td> <td>结束时间：</td><td >"+endTime+"</td> </tr>";
 
 						break;
 					case "CRM":
 						var strartTime = "",endTime = "";
-						strartTime =  new Date( obj['startDate']  )._format('yyyy/MM/dd');
-						endTime = new Date( obj['endDate']  )._format('yyyy/MM/dd');
+						strartTime = obj['startDate'] ? new Date( obj['startDate']  )._format('yyyy/MM/dd'):'——';
+						endTime = obj['endDate'] ? new Date( obj['endDate']  )._format('yyyy/MM/dd'):'——';
 						strDom += " <tr> <td>"+obj['appName']+"(个)：</td><td>"+obj['quota']+"</td>" +
 						" <td>开始时间：</td><td>"+ strartTime +"</td> <td>结束时间：</td><td >"+endTime+"</td>" +
 						" <td><input type='checkbox' name='baichuai' checked='checked' disabled='disabled' />捆绑纷享百川</td><td>" +
@@ -71,10 +71,13 @@ define(function(require, exports, module){
 						" </tr>";
 
 						break;
+					case "Number_System":case "FXBC":
+					
+						break;
 					default:
 						var strartTime = "",endTime = "";
-						strartTime =  new Date( obj['startDate']  )._format('yyyy/MM/dd');
-						endTime = new Date( obj['endDate']  )._format('yyyy/MM/dd');
+						strartTime = obj['startDate'] ? new Date( obj['startDate']  )._format('yyyy/MM/dd'):'——';
+						endTime = obj['endDate'] ? new Date( obj['endDate']  )._format('yyyy/MM/dd'):'——';
 						strDom += " <tr> <td colspan='2'>"+obj['appName']+"：</td> <td>开始时间：</td><td>"+ strartTime +"</td> <td>结束时间：</td><td >"+endTime+"</td></tr>";
 				}
 			});

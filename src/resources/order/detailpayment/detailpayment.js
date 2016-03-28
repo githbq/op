@@ -95,11 +95,13 @@ define( function(require, exports, module){
 			
 			me._setTitle( orderTypeAry[me.attrs.options.orderType] );
 			
-			$.when( me.getOrderDetail()/*, me.getEnterpriseInfo()*/, me.setOrderList(),me.getReceiveOrder()).done(function(){
+			$.when( me.getOrderDetail()/*, me.getEnterpriseInfo()*/, me.setOrderList()).done(function(){
 				//备注信息
-			
-				//setOrderInfo--订单信息
-				me.setOrderInfo();
+				me.getReceiveOrder(function(){
+					//setOrderInfo--订单信息
+					me.setOrderInfo();
+				})
+				
 
 				//基本信息
 				me.attrs.basicCommon = new OrderInfo( { 'wrapper':me.$view.find('.common--basic'),'data':me.attrs.orderList,
@@ -148,15 +150,16 @@ define( function(require, exports, module){
 
 		},
 		//当前订单合同信息
-		getReceiveOrder:function(){
+		getReceiveOrder:function( callback ){
 			var me = this;
+			var oldOrder = me.attrs.orderData.order.oriOrderId;
 			return util.api({
-					'url':'/odr/'+me.attrs.options.id+'/paidInfo',
+					'url':'/odr/'+oldOrder+'/paidInfo',
 					'success': function( data ){
 
 						if( data.success ){
 							me.attrs.receiveData = data.value.model;
-
+							callback && callback();
 						}
 					}
 				});
@@ -184,16 +187,16 @@ define( function(require, exports, module){
 		 setOrderInfo:function(){
 			 var  me = this;
 			 //收尾款模块
-			 
-			me.attrs.getMoneyCommon = new GetMoney( { 'wrapper':me.$view.find('.common-product'),'data':me.attrs.receiveData,'editFlag':me.attrs.options.editFlag,
-			'type':me.attrs.options.orderType ,'dataDetail':me.attrs.orderData} );
-			
-			//设置是否可以编辑
+			 //设置是否可以编辑
 			me.attrs.moneyEdit = me.attrs.options.editFlag;
 			//财务驳回只能部分编辑和小助手第二次驳回
-			if(me.attrs.options.rejectsFrom && (me.attrs.options.rejectsFrom == 2 || me.attrs.options.rejectsFrom == 3 ) && me.attrs.options.editFlag){
-				me.attrs.moneyEdit = true;;
+			if(me.attrs.options.rejectsFrom &&  me.attrs.options.rejectsFrom == 3  && me.attrs.options.editFlag){
+				me.attrs.moneyEdit = false;;
 			}
+			me.attrs.getMoneyCommon = new GetMoney( { 'wrapper':me.$view.find('.common-product'),'data':me.attrs.receiveData,'editFlag':me.attrs.moneyEdit,
+			'type':me.attrs.options.orderType ,'dataDetail':me.attrs.orderData} );
+			
+			
 			 //发票信息
 			 me.attrs.invoiceCommon = new InvoiceInfo( { 'wrapper':me.$view.find('.common--invioce'),'data':me.attrs.orderData,
 				 'editFlag': me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
@@ -208,6 +211,7 @@ define( function(require, exports, module){
 				me.$('.state-refuse').show();
 			}
 			me.$('.currentTask-'+me.attrs.options.currentTask).show();
+			me.$('.order-id').html( me.attrs.options.id );
 			//判断审批意见
 			//var opinion = me.attrs.options.opinion ? me.attrs.options.opinion :'暂无';
 			//me.$('.last-options').text(opinion);
@@ -251,7 +255,7 @@ define( function(require, exports, module){
 				objData.orderEntity.order = tem.order;
 				objData.orderEntity.subOrders = tem.subOrders;
 				objData.orderEntity.order.contractNo = me.attrs.options.contractNo;
-				objData.orderEntity.order.oriOrderId = me.attrs.options.id;
+				objData.orderEntity.order.oriOrderId = me.attrs.orderData.order.oriOrderId;
 			}else{
 				return ;
 			}
