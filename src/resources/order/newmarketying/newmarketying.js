@@ -24,7 +24,8 @@ define( function( require, exports, module ) {
             '5': '会议助手',
             '6': 'HR助手',
             '7': '工资助手',
-            '8':'名片'
+            '8':'名片',
+			'12':'自定义助手'
         }; 
     var NewMarketing = MClass( M.Center ).include( {
         
