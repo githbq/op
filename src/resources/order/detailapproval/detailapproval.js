@@ -740,15 +740,18 @@ define( function(require, exports, module){
 					}
 				}
 				var newLenth = me.attrs.allData.orderEntity.subOrders.length;
+				var temarry = [];
 				for(var a=0;a<newLenth;a++){
-					if(!me.attrs.allData.orderEntity.subOrders[a].orderFlag){
-						me.attrs.allData.orderEntity.subOrders[a]=null;
-						me.attrs.allData.orderEntity.subOrders.splice(a,1);
-						newLenth = me.attrs.allData.orderEntity.subOrders.length;
-						a++;
+					if(me.attrs.allData.orderEntity.subOrders[a].orderFlag){
+						//me.attrs.allData.orderEntity.subOrders[a]=null;
+						//me.attrs.allData.orderEntity.subOrders.splice(a,1);
+						//newLenth = me.attrs.allData.orderEntity.subOrders.length;
+						//a--;
+						temarry.push(me.attrs.allData.orderEntity.subOrders[a]);
 						//delete me.attrs.allData.orderEntity.subOrders[a];
 					}
 				}
+				me.attrs.allData.orderEntity.subOrders = temarry;
 
 				//调用回调
 				callback && callback();
