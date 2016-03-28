@@ -1,10 +1,11 @@
-var gulp = require('gulp'),
+var fs = require('fs'),
+	gulp = require('gulp'),
 	clean = require('gulp-clean'),
 	less = require('gulp-less'),
 	jshint = require('gulp-jshint'),
 	sequence = require('gulp-sequence'),
 	rev = require('gulp-rev'),
-	revCollector = require('gulp-rev-collector'),
+	collector = require('gulp-rev-collector'),
 	usemin = require('gulp-usemin'),
 	htmlmin = require('gulp-htmlmin'),
 	minifyHTML = require('gulp-minify-html'),
@@ -17,7 +18,6 @@ var gulp = require('gulp'),
  *
  * 清空文件夹
  */
-//todo 为什么return后就可以顺序执行了 而且不报错了
 gulp.task('clean', function() {
 	return gulp.src('dest')
 		.pipe(clean())
@@ -38,7 +38,7 @@ gulp.task('less', function() {
  * 复制所有文件
  */
 gulp.task('copy', function() {
-	return gulp.src(['src/**/*', '!src/**/*.less' , '!src/*.html' ], {
+	return gulp.src(['src/**/*', '!src/**/*.less'], {
 			'base': 'src'
 		})
 		.pipe(gulp.dest('dest/'));
@@ -74,10 +74,7 @@ gulp.task('minify-css', function() {
 		.pipe(minifyCSS({
 			keepSpecialComments: false
 		}))
-		.pipe(rev())
-		.pipe(gulp.dest('dest/resources/assets/style/'))
-		.pipe(rev.manifest())
-		.pipe(gulp.dest('dest/rev/css/'));
+		.pipe(gulp.dest('dest/resources/assets/style/'));
 });
 
 
@@ -171,10 +168,65 @@ gulp.task('usemin', function() {
 	return gulp.src(['dest/*.jsp', 'dest/*.html'])
 		.pipe(usemin({
 			css: [rev],
-			common: ['concat', rev],
-			app: ['concat', rev]
+			common: ['concat'],
+			app: ['concat']
 		}))
 		.pipe(gulp.dest('dest/'));
+});
+
+/**
+ * 文件md5戳处理
+ */
+gulp.task('md5', function() {
+	return gulp.src(['dest/resources/**/*.js'], {//, 'dest/resources/**/*.html'
+			base: 'dest'
+		})
+		.pipe(rev())
+		.pipe(gulp.dest('dest/'))
+		.pipe(rev.manifest())
+		.pipe(gulp.dest('dest/rev/module'));
+});
+
+gulp.task('collector', function() {
+	return gulp.src(['dest/rev/**/*.json', 'dest/*.html', 'dest/*.jsp'])
+		.pipe(collector({
+			replaceReved: true
+		}))
+		.pipe(gulp.dest('dest/'));
+});
+
+function rev2map() {
+	var map = [];
+	var manifest = require('./dest/rev/module/rev-manifest.json');
+	if (manifest) {
+		for (var key in manifest) {
+			map.push([key, manifest[key]]);
+		}
+	}
+	return map;
+}
+
+/**
+ * 更改seajs的map配置，映射带md5戳的文件
+ */
+gulp.task('seajs:map', function() {
+	var map = rev2map();
+	var dir = 'dest/resources/assets/scripts/';
+	var files = fs.readdirSync(dir);
+	files.forEach(function(file) {
+		var filename = dir + '/' + file;
+		var data = fs.readFileSync(filename, 'utf-8');
+		data = data.replace(/map\:\s*(\[\s*\/\*\$\{gulp\-replace\}\*\/\s*\])/gi, 'map:' + JSON.stringify(map));
+		fs.writeFileSync(filename, data, 'utf-8');
+	});
+});
+
+/**
+ * 清理临时文件
+ */
+gulp.task('clean:temp', function() {
+	return gulp.src(['dest/rev', 'dest/*.html'])
+		.pipe(clean());
 });
 
 
@@ -189,5 +241,20 @@ gulp.task('test', function() {
  * 默认任务
  */
 gulp.task('default', ['less']);
-
-gulp.task('release', sequence('clean', 'less', 'copy', 'minify-css', ['transport', 'transport:common', 'transport:module'], 'minify-js', 'usemin'/*, 'minify-html'*/));
+gulp.task('release', sequence(
+	'clean',
+	'less',
+	'copy', [
+		'transport',
+		'transport:common',
+		'transport:module'
+	],
+	'usemin',
+	'md5',
+	'seajs:map',
+	'collector',
+	/*'minify-html',*/
+	'minify-js',
+	'minify-css',
+	'clean:temp'
+));
