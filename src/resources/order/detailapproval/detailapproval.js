@@ -707,20 +707,35 @@ define( function(require, exports, module){
 				for(var i=0;i<lengI;i++){
 					for(var j=0;j<lengJ; j++){
 						var tempObj = tempSubOrders[i].subOrder;
+						var tempExtends = tempSubOrders[i].productExtends||[];
 						if(tempSubOrders[i].subOrder.productId == me.attrs.allData.orderEntity.subOrders[j].subOrder.productId ){
 							
 							for(var key in tempObj){
 								me.attrs.allData.orderEntity.subOrders[j].subOrder[key] = tempObj[key];
 							}
 							tempObj['hasFlag']=true;
+							if(tempExtends.length>0){
+								
+								if(me.attrs.allData.orderEntity.subOrders[j].productExtends.length>0){
+										for(var ke in tempExtends[0]){
+											me.attrs.allData.orderEntity.subOrders[j].productExtends[0][ke] = tempExtends[0][ke];
+										}
+								}else{
+									me.attrs.allData.orderEntity.subOrders[j].productExtends=[];
+									me.attrs.allData.orderEntity.subOrders[j].productExtends.push(tempExtends[0]) ;
+								}
+						
+							}
 							me.attrs.allData.orderEntity.subOrders[j].orderFlag = true;
+							
 						}
+						
 					}
 				}
 				for(var i=0;i<lengI;i++){
-					var tempObj = tempSubOrders[i].subOrder;
+					var tempObj = tempSubOrders[i].orderFlag=true;
 					if(!tempObj['hasFlag']){
-						me.attrs.allData.orderEntity.subOrders.push({'subOrder':tempObj,'orderFlag':true});
+						me.attrs.allData.orderEntity.subOrders.push(tempSubOrders[i]);
 					}
 				}
 				var newLenth = me.attrs.allData.orderEntity.subOrders.length;
