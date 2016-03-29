@@ -14,7 +14,6 @@ define( function(require, exports, module){
 	
 	var CustomHelper = MClass( Dialog ).include({
         defaultAttr:{
-            'class':'rolesDialog',
             'title': '分配部门',
             'width': 650
         },
@@ -29,7 +28,7 @@ define( function(require, exports, module){
             CustomHelper.__super__.init.apply(this,arguments);
             this.rTree = null;
         },
-        show: function(functions,opitons,types){
+        show: function(opitons){
             var me = this;
             CustomHelper.__super__.show.apply(this,arguments);
           

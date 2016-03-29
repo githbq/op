@@ -6,6 +6,8 @@ define( function( require, exports, module ) {
     //var Slider = require('common/widget/slider/slider');
     var DetailApproval = require('../detailapproval/detailapproval');
 	var DetailPayment = require('../detailpayment/detailpayment');
+	var CustomHelper = require('widget/customhelper/customhelper');
+
     var tem = $( require('./template.html') );
 
     var statusMap = {},industryMap = {},sourceMap = {};
@@ -60,7 +62,8 @@ define( function( require, exports, module ) {
 			'click .receive-money':'receiveMoneyEve',
 			'click .order-detailPay':'orderDetailPayEve',
 			'click .order-del':'orderDelEve',
-			'click .exportOrder':'exportEve'
+			'click .exportOrder':'exportEve',
+			'click .order-custom':'orderCustomEve'
         },
         elements:{
             'tbody': 'tbody',
@@ -100,6 +103,12 @@ define( function( require, exports, module ) {
 		   
            me.trigger('orderDetailPayment',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':false,'orderType':orderType,
                'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea,'processInstanceId':'','contractNo':contractNo} );
+	   },
+	   //联合跟进人
+	   orderCustomEve:function( e ){
+		   var me = this;
+		   var enterpriseId = $(e.currentTarget).attr('data-enterpriseId');
+		   me.trigger('orderCustom',{'enterpriseId':enterpriseId});
 	   },
 	   //收尾款
 	   receiveMoneyEve:function( e ){
@@ -254,6 +263,8 @@ define( function( require, exports, module ) {
         var orderList = new OrderList( {'view': $el.find('.m-orderlist')} );
         var detailApproval = null;
 		var detailPayment = null;
+		var CustomHelper = null;
+		
         orderList.on('orderDetail', function( options ){
             detailApproval = new DetailApproval();
             detailApproval.show( options );
@@ -261,6 +272,11 @@ define( function( require, exports, module ) {
 		 orderList.on('orderDetailPayment', function( options ){
             detailPayment = new DetailPayment();
             detailPayment.show( options );
+        })
+		
+		orderList.on('orderCustom', function( options ){
+            customHelper = new CustomHelper();
+            customHelper.show( options );
         })
 
     }
