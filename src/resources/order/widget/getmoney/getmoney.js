@@ -55,6 +55,15 @@ define(function(require, exports, module){
 			me.autoSelect.resetSelect(me.$('.bankno'));
 			//计算子菜单金额；
 			me.$view.on('focusout','.sub-app',function(){
+				var noChargeAmount = $(this).attr('data-noChargeAmount');
+				noChargeAmount = parseInt(noChargeAmount);
+				var currPay = parseInt($(this).val());
+				if(currPay > noChargeAmount){
+					$(this).val('');
+					util.showToast('填写金额超过未收金额！');
+					return false;
+				}
+
 				me.getAccount();
 			});
 
@@ -120,7 +129,7 @@ define(function(require, exports, module){
 						strDom +="<div class='field_row'> <div class='field_row_head'> </div> " +
 						"<div class='field_wrapper'> <div class='field'> <label> " +
 						"<span class='label'>"+obj.productName+"(未收"+tempAcount+")</span> </label> " +
-						"<input  type='text' data-productId='"+obj.productId+"' class='sub-app edit-flag' /> </div> </div> </div>";
+						"<input  type='text' data-noChargeAmount='"+tempAcount+"' data-productId='"+obj.productId+"' class='sub-app edit-flag' /> </div> </div> </div>";
 					}	
 					
 					/*me.$view.find('.sub-app').each(function(){
@@ -152,7 +161,7 @@ define(function(require, exports, module){
 					strDom +="<div class='field_row'> <div class='field_row_head'> </div> " +
 					"<div class='field_wrapper'> <div class='field'> <label> " +
 					"<span class='label'>"+obj.productName+"(未收"+obj.noChargeAmount+")</span> </label> " +
-					"<input  type='text' data-productId='"+obj.productId+"' class='sub-app edit-flag' /> </div> </div> </div>"
+					"<input  type='text' data-noChargeAmount='"+obj.noChargeAmount+"' data-productId='"+obj.productId+"' class='sub-app edit-flag' /> </div> </div> </div>"
 				}
 			});
 			me.$appBox.html(strDom);
