@@ -24,6 +24,17 @@ define( function(require, exports, module){
 		'营销版续费-普通','营销版续费-特批','关联自注册办公版-普通','关联自注册办公版-特批',
 		'关联自注册营销版-普通','关联自注册营销版-特批','收尾款'
 	];
+	
+	var productIdDic = {
+            '1': 'CRM',
+            '2': '销客终端',
+            '3': '服务',
+            '4': 'PK助手',
+            '5': '会议助手',
+            '6': 'HR助手',
+            '7': '工资助手',
+            '8':'名片'
+        }; 
 
     /////////////////
     //
@@ -684,8 +695,64 @@ define( function(require, exports, module){
 					objData.enterpriseExtend['businessLicense'] = objData.orderEntity.invoice['businessLicense'] ;
 					objData.enterpriseExtend['businessLicenseFileName'] = objData.orderEntity.invoice['businessLicenseFileName'];
 				}
-				$.extend(true, me.attrs.allData, objData );
+				var tempSubOrders = objData.orderEntity.subOrders;
+				objData.orderEntity.subOrders = null;
+				$.extend(true, me.attrs.allData, objData);
 				
+				
+				me.attrs.allData.orderEntity.subOrders = me.attrs.orderData.subOrders||[];
+				
+				var lengI = tempSubOrders.length;
+				var lengJ = me.attrs.allData.orderEntity.subOrders.length;
+				for(var i=0;i<lengI;i++){
+					for(var j=0;j<lengJ; j++){
+						var tempObj = tempSubOrders[i].subOrder;
+						var tempExtends = tempSubOrders[i].productExtends||[];
+						if(tempSubOrders[i].subOrder.productId == me.attrs.allData.orderEntity.subOrders[j].subOrder.productId ){
+							
+							for(var key in tempObj){
+								me.attrs.allData.orderEntity.subOrders[j].subOrder[key] = tempObj[key];
+							}
+							tempSubOrders[i].subOrder['hasFlag']=true;
+							if(tempExtends.length>0){
+								
+								if(me.attrs.allData.orderEntity.subOrders[j].productExtends.length>0){
+										for(var ke in tempExtends[0]){
+											me.attrs.allData.orderEntity.subOrders[j].productExtends[0][ke] = tempExtends[0][ke];
+										}
+								}else{
+									me.attrs.allData.orderEntity.subOrders[j].productExtends=[];
+									me.attrs.allData.orderEntity.subOrders[j].productExtends.push(tempExtends[0]) ;
+								}
+						
+							}
+							me.attrs.allData.orderEntity.subOrders[j].orderFlag = true;
+							
+						}
+						
+					}
+				}
+				for(var i=0;i<lengI;i++){
+					var tempObj = tempSubOrders[i].subOrder;
+					if(!tempObj['hasFlag']){
+						tempSubOrders[i].orderFlag = true;
+						me.attrs.allData.orderEntity.subOrders.push(tempSubOrders[i]);
+					}
+				}
+				var newLenth = me.attrs.allData.orderEntity.subOrders.length;
+				var temarry = [];
+				for(var a=0;a<newLenth;a++){
+					if(me.attrs.allData.orderEntity.subOrders[a].orderFlag){
+						//me.attrs.allData.orderEntity.subOrders[a]=null;
+						//me.attrs.allData.orderEntity.subOrders.splice(a,1);
+						//newLenth = me.attrs.allData.orderEntity.subOrders.length;
+						//a--;
+						temarry.push(me.attrs.allData.orderEntity.subOrders[a]);
+						//delete me.attrs.allData.orderEntity.subOrders[a];
+					}
+				}
+				me.attrs.allData.orderEntity.subOrders = temarry;
+
 				//调用回调
 				callback && callback();
 
@@ -702,7 +769,7 @@ define( function(require, exports, module){
 					if( iDays > 90 ){
 						var productName = productIdDic[data[i].subOrder.productId];
 						
-						util.showToast(productName+'使用版时间不能超过90天！');
+						util.showToast(productName+'试用版时间不能超过90天！');
 						return false;
 						
 					}
@@ -791,16 +858,26 @@ define( function(require, exports, module){
 					default:
 						tempUrl = '/odr/updateOrderVO'
 				}
+				me.$actionSubmit.text('提交中....');
+				me.$actionSubmit.attr('disabled','disabled');
 				util.api({
 					'url':tempUrl,
 					'data':JSON.stringify( me.attrs.allData ),
 					'contentType':'application/json;charset=UTF-8 ',
+					'button': {
+						'el': me.$actionSave,
+						'text':'提交中......'
+					},
 					'success': function( data ){
 						if( data.success ){
 							util.showTip('提交成功！');
 							me.trigger( 'saveSuccess');
 							me.hide();
 						}
+					},
+					'complete': function(){
+						me.$actionSubmit.text('保存提交');
+						me.$actionSubmit.removeAttr('disabled');
 					}
 				})
 				
@@ -821,14 +898,24 @@ define( function(require, exports, module){
 					default:
 						tempUrl = '/odr/updateOrderVO'
 				}
+				me.$actionSave.text('提交中....');
+				me.$actionSave.attr('disabled','disabled');
 				util.api({
 					'url':tempUrl,
 					'data':JSON.stringify( me.attrs.allData ),
 					'contentType':'application/json;charset=UTF-8 ',
+					'button': {
+						'el': me.$actionSubmit,
+						'text':'提交中......'
+					},
 					'success': function( data ){
 						if( data.success ){
 							changeNode();
 						}
+					},
+					'complete': function(){
+						me.$actionSave.text('保存');
+						me.$actionSave.removeAttr('disabled');
 					}
 				})
 				
