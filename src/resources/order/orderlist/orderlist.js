@@ -13,6 +13,7 @@ define( function( require, exports, module ) {
     var statusMap = {},industryMap = {},sourceMap = {};
 
     var statusAry = ['','待审核','已撤回','被驳回','已通过'];
+	var isPayUpAry = ['——','已付清','未付清'];
     var payStatusAry = ['','全款','分期','未付'];
     var orderTypeAry = ['','办公版新购-普通','办公版新购-特批','营销版新购-普通','营销版新购-特批','办公版增购-普通',
                         '办公版增购-特批','营销版增购-普通','营销版增购-特批','办公版续费-普通','办公版续费-特批',
@@ -175,6 +176,7 @@ define( function( require, exports, module ) {
 				'approveStatus': me.model.get('approveStatus'),
 				'payStatus': me.model.get('payStatus'),
 				'agent': me.model.get('agent'),
+				'isPayUp':me.model.get('isPayUp'),
 				'agentId': me.model.get('agentId'),
                 'putStartTime': putStartTime,
                 'putEndTime': putEndTime
@@ -212,6 +214,7 @@ define( function( require, exports, module ) {
 				'agent': me.model.get('agent'),
 				'agentId': me.model.get('agentId'),
                 'putStartTime': putStartTime,
+				'isPayUp':me.model.get('isPayUp'),
                 'putEndTime': putEndTime,
 				'pageIndex': me.pagination.attr['pageNumber']+1,
                 'pageSize': me.pagination.attr['pageSize']
@@ -229,6 +232,10 @@ define( function( require, exports, module ) {
 							//var approveStatus = item.approveStatus ? parseInt(item.approveStatus):0;
                             item.statusStr = statusAry[approveStatus] ;
                             item.payStatusStr = item.order.payStatus ? payStatusAry[item.order.payStatus] :'';
+							item.isPayUpAryStr = item.order.isPayUp ? isPayUpAry[item.order.isPayUp]:'——';
+							if(item.order.orderType==17){
+								item.isPayUpAryStr = '——';
+							}
                             item.createTimeStr = new Date( item.order.createTime )._format('yyyy/MM/dd');
                             item.orderTypeStr = orderTypeAry[item.order.orderType];
 

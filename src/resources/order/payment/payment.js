@@ -8,7 +8,8 @@ define( function( require, exports, module ) {
     var PayMent = MClass( M.Center ).include( {
         
         elements: {
-            '#tabs li'   :'tabsList'
+            '#tabs li'   :'tabsList',
+			'.common-add':'commonAdd'
         },
         events: {
 			'click .action-cancel': 'cancelEve',
@@ -101,6 +102,10 @@ define( function( require, exports, module ) {
 			util.api({
 				'url':'/odr/balancePayment/submit',
 				'data':JSON.stringify( objData ),
+				'button': {
+					'el': me.$commonAdd,
+					'text':'提交中......'
+				},
 				'contentType':'application/json;charset=UTF-8 ',
 				'success': function( data ){
 					if( data.success ){
