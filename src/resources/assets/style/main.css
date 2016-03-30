@@ -6540,3 +6540,20 @@ em {
   display: inline-block;
   height: 300px;
 }
+.custom-content .list {
+  margin: 0px 222px;
+  border: 1px solid #ccc;
+}
+.custom-content .list li a {
+  color: #333;
+  display: inherit;
+}
+.custom-content .list li a:hover {
+  background: #ccc;
+}
+.custom-content .custom-box .badge {
+  color: #333;
+  border: 1px solid #ccc;
+  padding: 3px 10px;
+  margin: 0 10px;
+}

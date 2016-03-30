@@ -6,7 +6,7 @@ define( function( require, exports, module ) {
     //var Slider = require('common/widget/slider/slider');
     var DetailApproval = require('../detailapproval/detailapproval');
 	var DetailPayment = require('../detailpayment/detailpayment');
-	var CustomHelper = require('widget/customhelper/customhelper');
+	var CustomHelper = require('../widget/customhelper/customhelper');
 
     var tem = $( require('./template.html') );
 
@@ -263,7 +263,7 @@ define( function( require, exports, module ) {
         var orderList = new OrderList( {'view': $el.find('.m-orderlist')} );
         var detailApproval = null;
 		var detailPayment = null;
-		var CustomHelper = null;
+		var customHelper = null;
 		
         orderList.on('orderDetail', function( options ){
             detailApproval = new DetailApproval();

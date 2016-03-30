@@ -1,24 +1,20 @@
 <div class="m-userinfo">
-	<div class="userinfo-content">
+	<div class="custom-content" style="text-align:center;">
 		<p>
-			<label>
-				自注册企业账号 &nbsp;&nbsp;
-				<input type="text" ce-model="enterpriseAccount" class="search-enterpriseAccount">
-			</label>
+			<div class="list-box" style="position:relative;">
+				联合跟进人&nbsp;&nbsp;
+				<input type="text"  class="custom-helper" onchange="this.value=this.value.replace(/(^\s*)|(\s*$)/g,'')" data-id="-1">
+				<button class="u-btn-blue action-add">添加</button>
+				<ul class="list" style="display:none;"></ul>
+			</div>
 		</p>
-		<p style="text-align:center;">
-			<label>
-				办公版开通
-				<input type="radio"  class="newOffice" name="newType" style="width:20px;" value='newOffice'>
-			</label>
-			&nbsp;&nbsp;&nbsp;&nbsp;
-			<label>
-				营销版开通 
-				<input type="radio"  class="newMarkey" name="newType" style="width:20px;" value='newMarkey'>
-			</label>
-		</p>
+		<p class="custom-box" style="line-height:20px; min-height: 20px; border:1px solid #ccc; margin:20px 40px;">
+		
+		</P>
+		
 		<p style="text-align:center">
-			<button class="u-btn-blue action-link">关联</button>
+			<button class="u-btn-blue action-save">保存</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<button class="u-btn-blue action-cancel">取消</button>
 		</p>
 		
 	</div>
