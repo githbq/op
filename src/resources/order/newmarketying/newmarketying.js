@@ -340,7 +340,7 @@ define( function( require, exports, module ) {
 							subArry.push(tempObe)
 
 							break;
-						case "Custom_Helper ":
+						case "Custom_Helper":
 							var tempObe = {"subOrder":{
 								"productId":12,
 								"startTime": data[i].startDate,
