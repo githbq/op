@@ -56,7 +56,7 @@ define( function(require, exports, module){
             //初始化时间控件
             me.$openstime.datetimepicker({format: 'Y/m/d',timepicker: false});
             me.$openetime.datetimepicker({format: 'Y/m/d',timepicker: false});
-
+            /*
             if( me.attrs['param'] && ( me.attrs['param'].length > 0 ) ){
                 var param = me.attrs['param'];
                 if( param.charAt(0) == 'p' ){
@@ -86,7 +86,7 @@ define( function(require, exports, module){
                     me.model.set('agentId',param);
                 }
             }
-
+            */
             //初始化
             me.initializeSelect();
         },
@@ -237,6 +237,11 @@ define( function(require, exports, module){
                 endAppStartTime = new Date( me.$openetime.val() ).getTime();
             }
 
+            var accountName = "";
+            if( me.attrs['param'] ){
+                accountName = me.attrs['param'];
+            }
+
             util.api({
                 url: '/enterprise/querypage',
                 data: {
@@ -251,7 +256,8 @@ define( function(require, exports, module){
                     city: me.model.get('city'),
                     tel: me.model.get('tel'),
                     fromAppStartTime: fromAppStartTime, 
-                    endAppStartTime: endAppStartTime
+                    endAppStartTime: endAppStartTime,
+                    'accountName': accountName
                 },
                 beforeSend: function() {
                     me.$tbody.html( '<tr><td colspan="10"><p class="info">加载中...</p></td></tr>' );
