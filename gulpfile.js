@@ -237,10 +237,20 @@ gulp.task('test', function() {
 		.pipe(jshint.reporter()); //输出检查结果
 });
 
+var paths = {
+	lesses: ['src/resources/**/**/*.less']
+
+};
+//文件监听 第二个参数为触发后会执行的任务
+gulp.task('watch', function () {
+	gulp.watch(paths.lesses, ['less']);
+});
+
+
 /*
  * 默认任务
  */
-gulp.task('default', ['less']);
+gulp.task('default', ['less','watch']);
 gulp.task('release', sequence(
 	'clean',
 	'less',
