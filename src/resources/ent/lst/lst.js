@@ -7,6 +7,7 @@ define( function( require, exports, module ) {
 
     //企业详情
     var EntDetail = require('module/enterprisedetail/enterprisedetail');
+	var CustomHelper = require('../../order/widget/customhelper/customhelper');
 
     //企业跟踪记录
     var EntTrace = require('module/enttrace/enttrace');
@@ -25,6 +26,7 @@ define( function( require, exports, module ) {
         var entTrace = new EntTrace();
         
         var employeeDetail = new EmployeeDetail();
+		var customHelper = null;
 
         //查看企业详情
         entList.on('detail',function( id , status ){
@@ -61,6 +63,13 @@ define( function( require, exports, module ) {
             console.log( id );
             location.hash = "order/newmarketying/againMarkey/" + id + '/' + account;
         });
+		//联合跟进人
+		 entList.on('orderCustom',function( options ){
+            
+            customHelper = new CustomHelper();
+             customHelper.show( options );
+        });
+		
 		//刷新列表
         entDetail.on('refresh',function(){
             entList.search();

@@ -413,9 +413,39 @@ define( function(require, exports, module){
 			 //发票信息
 			 me.attrs.invoiceCommon = new InvoiceInfo( { 'wrapper':me.$view.find('.common--invioce'),'data':me.attrs.orderData,
 				 'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
+				 
+			//获取联合跟进人
+			me.getCustomHelper();
 
 		 },
-		 
+		 //获取现有跟进人信息：
+		getCustomHelper:function(){
+			var me = this;
+			
+			util.api({
+				'url': '~/op/api/order/enterprise/getEnterprisePartners',
+				'data': {
+					'enterpriseId': me.attrs.options.enterpriseId
+				},
+				'success': function (data) {
+					console.warn(data);
+					if (data.success) {
+						
+						me.attrs.list = data.value.model;
+						me.$view.find('.helper-box').empty();
+						if(me.attrs.list.length==0){
+							me.$view.find('.helper-box').append(' <a class="badge" >暂无</a>');
+						}
+						var obj = me.attrs.list;
+						for(var i=0;i<obj.length;i++){
+							me.$view.find('.helper-box').append(' <a class="badge" data-id="'+obj[i].accountId+'" >'+obj[i].accountName+'&nbsp;&nbsp;&nbsp;</a>');
+						}
+						
+					}
+				}
+			})
+			
+		},
 		 
 		 //转换为基本需要时间格式
 		getNeedDate:function(  ){
@@ -460,6 +490,7 @@ define( function(require, exports, module){
 							productData.subOrders[i].subOrder['endTime_max'] = sortDate[aryLen];
 							break;
 						}
+						
 					}
 					//$.extend(true, productData.subOrders, me.attrs.subData.subOrders );
 					break;
