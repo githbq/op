@@ -11,7 +11,11 @@ define(function (require, exports, module) {
             '5': 'Meeting_Helper',
             '6': 'HR_Helper',
             '7': 'Salary_Helper',
-            '8': '名片'
+            '8': '名片',
+            '10': '百川',
+            '11': '报数',
+            '12': '自定义助手'
+
         };
         //订单类型
         dataItems.push(new DataItem({
@@ -84,6 +88,7 @@ define(function (require, exports, module) {
         var zhushous = [
             {id: 4, name: 'PK助手'},
             {id: 5, name: '会议助手'},
+            {id: 12, name: '自定义助手'},
             //{id: 6, name: 'HR助手'},
             {id: 7, name: '工资助手', options: {discount: {}}}
         ];
