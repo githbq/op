@@ -7,6 +7,7 @@ define( function( require, exports, module ) {
     var DetailApproval = require('../detailapproval/detailapproval');
 	var DetailPayment = require('../detailpayment/detailpayment');
 	var CustomHelper = require('../widget/customhelper/customhelper');
+	var BackMoney = require('../backmoney/backmoney');
 
     var tem = $( require('./template.html') );
 
@@ -64,7 +65,8 @@ define( function( require, exports, module ) {
 			'click .order-detailPay':'orderDetailPayEve',
 			'click .order-del':'orderDelEve',
 			'click .exportOrder':'exportEve',
-			'click .order-custom':'orderCustomEve'
+			'click .order-custom':'orderCustomEve',
+			'click .order-backmoney':'orderBackmoneyEve'
         },
         elements:{
             'tbody': 'tbody',
@@ -110,6 +112,23 @@ define( function( require, exports, module ) {
 		   var me = this;
 		   var enterpriseId = $(e.currentTarget).attr('data-enterpriseId');
 		   me.trigger('orderCustom',{'enterpriseId':enterpriseId});
+	   },
+	   //退款
+	   orderBackmoneyEve:function( e ){
+		   var me = this;
+		   
+		   var enterpriseId = $(e.currentTarget).attr('data-enterpriseId');
+		   var id = $(e.currentTarget).attr('data-id');
+           var enterpriseId = $(e.currentTarget).attr('data-enterpriseId');
+           var orderType = $(e.currentTarget).attr('data-orderType');
+           var opinion = $(e.currentTarget).attr('data-opinion');
+           var isTp = $(e.currentTarget).attr('data-isTp');
+           var ea = $(e.currentTarget).attr('data-ea');
+		   var contractNo = $(e.currentTarget).attr('data-contractNo');
+		   
+           me.trigger('orderBackmoney',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':false,'orderType':orderType,
+               'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea,'processInstanceId':'','contractNo':contractNo} );
+		   
 	   },
 	   //收尾款
 	   receiveMoneyEve:function( e ){
@@ -271,6 +290,7 @@ define( function( require, exports, module ) {
         var detailApproval = null;
 		var detailPayment = null;
 		var customHelper = null;
+		var backMoney = null;
 		
         orderList.on('orderDetail', function( options ){
             detailApproval = new DetailApproval();
@@ -284,6 +304,11 @@ define( function( require, exports, module ) {
 		orderList.on('orderCustom', function( options ){
             customHelper = new CustomHelper();
             customHelper.show( options );
+        })
+		
+		orderList.on('orderBackmoney', function( options ){
+            backMoney = new BackMoney();
+            backMoney.show( options );
         })
 
     }

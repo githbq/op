@@ -110,14 +110,30 @@ define( function(require, exports, module){
             CustomHelper.__super__.show.apply(this,arguments);
 			
 			var me = this;
-			me.attrs.list= [{'id':1,'name':'黎明'}];
+			me.attrs.list= [];
 			me.getCustomHelper();
           
         },
 		//获取现有跟进人信息：
 		getCustomHelper:function(){
 			var me = this;
+			
+			util.api({
+				'url': '~/op/api/order/enterprise/getEnterprisePartners',
+				'data': {
+					'enterpriseId': me.attrs.options.enterpriseId
+				},
+				'success': function (data) {
+					console.warn(data);
+					if (data.success) {
+						
+					
+					}
+				}
+			})
+			
 			me.showCustomHelper();
+			
 		},
 		//展示现有跟进人：
 		showCustomHelper:function(){

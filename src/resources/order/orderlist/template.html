@@ -44,6 +44,10 @@
 				<%}%>
                 
 				<a class="order-custom"  data-enterpriseId="<%=item.order.enterpriseId%>">联合跟进人</a>&nbsp;&nbsp;
+				
+				<a class="order-backmoney"  data-id="<%=item.order.id%>"  data-enterpriseId="<%=item.order.enterpriseId%>"
+					   data-orderType="<%=item.order.orderType%>" data-opinion="<%=item.order.rejectReason ?item.order.rejectReason :'' %>"
+					   data-isTp="<%=item.order.isTp%>"  data-ea="<%=item.order.enterpriseAccount%>" data-contractNo="<%=item.order.contractNo%>">退款</a>&nbsp;&nbsp;
 
 			</td>
 			<td></td>
