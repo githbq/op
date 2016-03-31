@@ -225,12 +225,18 @@ define(function (require, exports, module) {
             controller(tableDataItems, 'tablelist', function (n) {
                 n.visible = true;
             });
-            controller(tableDataItems, 'check', function (n) {
-                n.value = '7';
+            controller(tableDataItems, 'check', function (n) { 
                 n.on('setFieldValue', function ($ele, value, data, me) {
                     var isreadonly = me.__refs.terminalInfo.o_getFieldData('allreadonly').allreadonly === true;
                     if (responseData && responseData.data && responseData.data.subOrders) {
                         var ids = [];
+                        if(responseData.refuse){//被驳回前 要隐藏掉相关的子产品
+                            me.$('input[type=checkbox][data-name=check]').each(function(i,n){
+                                if(!$(n).is(':checked')){
+                                    $(n).parents('tr').hide();
+                                }
+                            });
+                        }
                         $(responseData.data.subOrders).each(function (j, m) {
                             var checkbox = me.$('input[type=checkbox][data-name=check][value=' + m.subOrder.productId + ']');
                             if (checkbox.length > 0 && !isreadonly && !responseData.refuse) {//如果存在此纪录 则隐藏 且取消勾选
