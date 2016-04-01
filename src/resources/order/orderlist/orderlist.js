@@ -235,6 +235,7 @@ define( function( require, exports, module ) {
                 'putStartTime': putStartTime,
 				'isPayUp':me.model.get('isPayUp'),
                 'putEndTime': putEndTime,
+				'hasProduct':me.model.get('hasProduct'),
 				'pageIndex': me.pagination.attr['pageNumber']+1,
                 'pageSize': me.pagination.attr['pageSize']
             }
