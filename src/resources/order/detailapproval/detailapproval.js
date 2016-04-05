@@ -33,7 +33,8 @@ define( function(require, exports, module){
             '5': '会议助手',
             '6': 'HR助手',
             '7': '工资助手',
-            '8':'名片'
+            '8':'名片',
+			'12':'自定义助手'	
         }; 
 
     /////////////////
@@ -552,6 +553,27 @@ define( function(require, exports, module){
 								}
 
 								break;
+							case "Custom_Helper":
+								var nowDate = new Date( new Date().getTime() )._format('yyyy/MM/dd');
+								var endDate = new Date( obj["endDate"]  )._format('yyyy/MM/dd');
+								if( dateCompare(nowDate,endDate) ){
+									var tempObe = {"subOrder":{
+										"productId":12,
+										"startTime":obj["endDate"],
+										"flag":true,
+										"startTime_readonly":true
+									}}
+									subArry.push(tempObe)
+									/*for(var i =0;i<productData.subOrders.length;i++){
+									
+										if(productData.subOrders[i].subOrder.productId==5){
+											productData.subOrders[i].subOrder['startTime'] = obj["endDate"];
+											productData.subOrders[i].subOrder['startTime_readonly'] = true;
+											break;
+										}
+									}*/
+								}
+								break;
 							default:
 						}
 					});
@@ -600,10 +622,15 @@ define( function(require, exports, module){
 		//设置审批意见
 		setOptions:function(){
 			var me = this,strDom = '';
+			var opinionObj = {'support':'小助手开通','support2':'小助手确认','finance':'财务','sup':'小助手'};
+			var personStr = "support,support2,finance,sup";
 			
 			var optionsList = me.attrs.orderData.order.rejectReason ? me.attrs.orderData.order.rejectReason.split('<+>'): [];
 			for(var i = 0; i<optionsList.length; i++){
 				var tempAry = optionsList[i].split('<->');
+				if(personStr.indexOf(tempAry[0])>-1){
+					tempAry[0] = opinionObj[tempAry[0]];
+				}
 				tempAry[2] = (tempAry[2]=='true') ? '同意':'驳回';
 				strDom+='<tr><td>'+tempAry[0]+'</td><td>'+tempAry[1]+'</td><td>'+tempAry[2]+'</td><td>'+tempAry[3]+'</td></tr>'
 			}
@@ -786,7 +813,7 @@ define( function(require, exports, module){
 			switch( me.attrs.options.orderType ){
 				case 1:case 2:case 3:case 4:case 13:case 14:case 15:case 16:
 					_.map( data , function( obj ){
-						if(obj.subOrder.productId ==1 || obj.subOrder.productId ==4  || obj.subOrder.productId ==5 ){
+						if(obj.subOrder.productId ==1 || obj.subOrder.productId ==4  || obj.subOrder.productId ==5 || obj.subOrder.productId ==12 ){
 							if( obj.subOrder.discount  &&  obj.subOrder.discount<8){
 								discoutFlag = false;
 								//util.showToast('子产品折扣低于8折，必须申请特批');
@@ -797,7 +824,7 @@ define( function(require, exports, module){
 					break;
 				default:
 					_.map( data , function( obj ){
-						if(obj.subOrder.productId ==1 || obj.subOrder.productId ==4  || obj.subOrder.productId ==7  || obj.subOrder.productId ==5 ){
+						if(obj.subOrder.productId ==1 || obj.subOrder.productId ==4  || obj.subOrder.productId ==7  || obj.subOrder.productId ==5 || obj.subOrder.productId ==12 ){
 							if( obj.subOrder.discount  &&  obj.subOrder.discount<8){
 								discoutFlag = false;
 							}

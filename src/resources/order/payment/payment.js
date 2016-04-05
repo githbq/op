@@ -99,6 +99,8 @@ define( function( require, exports, module ) {
 			objData.orderEntity.order['orderType'] = 17 ;
 			objData.enterprise.enterpriseId = me.attrs.enterpriseId;
 
+			me.$commonAdd.text('提交中....');
+			me.$commonAdd.attr('disabled','disabled');
 			util.api({
 				'url':'/odr/balancePayment/submit',
 				'data':JSON.stringify( objData ),
@@ -112,6 +114,10 @@ define( function( require, exports, module ) {
 						util.showTip('提交成功！')
 						location.hash = "#order/orderlist";
 					}
+				},
+				'complete': function(){
+					me.$commonAdd.text('提交');
+					me.$commonAdd.removeAttr('disabled');
 				}
 			});
 		},

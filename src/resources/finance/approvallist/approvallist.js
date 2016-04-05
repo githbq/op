@@ -13,7 +13,7 @@ define( function(require, exports, module){
 	exports.init = function(){
 		var $el = exports.$el;
 		
-		var approvalList = new OpenApprovalList( { 'wrapper':$el,'limits':true } );  	//
+		var approvalList = new OpenApprovalList( { 'wrapper':$el } );  	//
 		approvalList.render();
 
 

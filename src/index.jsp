@@ -46,10 +46,12 @@
                     <li data-modulecode="SelfRegisterOpS"><a href="#ent/ind">自注册</a></li>
                 </ul>
             </li>
-
+            
+            <!--
             <li data-modulecode="EnterpriseDayActivityOpS">
                 <a href="#index/dayactive">企业日活跃</a>
             </li>
+            -->
 
             <li data-modulecode="RealTimeActivityOpS MonthReportOpS PayedLifeCycleOpS SelfActivityAllOpS PeriodActivityAnalysisOpS DayActivityDetailOpS DayActivityAllOpS MonthActivityTeamAnalysisOpS MonthActivityAll">
                 <a class="nav-branch">活跃度</a>
@@ -152,7 +154,7 @@
     IBSS.API_PATH = '/op/api/s';       //api路径
     IBSS.IS_DEVELOP = true;
     // IBSS.VERSION ='4.7.' + (new Date()).getTime();
-    IBSS.VERSION ='1.0.5';
+    IBSS.VERSION ='1.0.6';
 </script>
 
 <!--build:common resources/common/scripts/common.js-->

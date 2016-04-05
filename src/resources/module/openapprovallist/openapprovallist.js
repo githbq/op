@@ -231,6 +231,9 @@ define( function(require, exports, module){
                 case 'end':
                     url = "/approval/getcompletedapprovalpage";
                 break;
+                case 'refuse':
+                    url = "/approval/getrefusedapprovalpage";
+                break;
                 case 'allReject':
                     url = "/approval/getallrefusedapprovalpage";
                 break;
