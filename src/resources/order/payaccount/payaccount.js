@@ -67,6 +67,7 @@ define(function (require, exports, module) {
                 'pageSize': me.pagination.attr['pageSize']
             };
             $.extend(data, me.model.all());
+            debugger
             util.api({
                 'url': '/ba/querylist',
                 'data': data,
