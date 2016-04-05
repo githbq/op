@@ -329,8 +329,8 @@ define(function (require, exports, module) {
                 }
             };
             if (options.data.startDate && options.data.endDate) {
-                if (options.data.startDate >= options.data.endDate) {
-                    util.showToast('开始日期必须小于结束日期');
+                if (options.data.startDate > options.data.endDate) {
+                    util.showToast('开始日期必须小于等于结束日期');
                     if(!me.o_getFieldData('startTime_' + id).__force){
                     me.o_setValue({name: 'startTime_' + id, value: ''});
                     }
