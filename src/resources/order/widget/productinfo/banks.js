@@ -141,19 +141,21 @@
     //    "110914627510801000223",
     //    "110914627510801000224"
     //];
-    var arr = [];
-    util.api({
-        'url': '/ba/querylist',
-        async: false,
-        'success': function (data) {
-            console.warn(data);
-            if (data.success) {
-                $(data.value.model.content).map(function (i, n) {
-                    arr.push(n.bankAccount);
-                })
+
+    module.exports = function (callback) {
+        util.api({
+            'url': '/ba/querylist',
+            'success': function (data) {
+                var arr = [];
+                console.warn(data);
+                if (data.success) {
+                    $(data.value.model.content).map(function (i, n) {
+                        arr.push(n.bankAccount);
+                    })
+                }
+                callback && callback(arr);
             }
-        }
-    });
-    module.exports = arr;
+        });
+    };
 });
 
