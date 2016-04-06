@@ -7,7 +7,7 @@ define(function(require, exports, module){
 	var Slider = require('common/widget/slider/slider');
 	var contentStr = require('./getmoney.html');
 	var AutoSelect = require('common/widget/autoselect/autoselect');
-	var banks = require('./banks');
+	var bankFunc = require('../productinfo/banks');
     
 	var AddEnt = MClass( M.Center ).include({
 		view: contentStr,
@@ -49,10 +49,13 @@ define(function(require, exports, module){
 					//me.setSubers( );
 					
 				}
-			})
+			});
 
-			me.autoSelect = new AutoSelect({data: banks});
-			me.autoSelect.resetSelect(me.$('.bankno'));
+			bankFunc(function(data){
+				me.autoSelect = new AutoSelect({data: data});
+				me.autoSelect.resetSelect(me.$('.bankno'));
+			});
+
 			//计算子菜单金额；
 			me.$view.on('focusout','.sub-app',function(){
 				var noChargeAmount = $(this).attr('data-noChargeAmount');

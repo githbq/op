@@ -39,8 +39,8 @@ gulp.task('less', function() {
  */
 gulp.task('copy', function() {
 	return gulp.src(['src/**/*', '!src/**/*.less'], {
-			'base': 'src'
-		})
+		'base': 'src'
+	})
 		.pipe(gulp.dest('dest/'));
 });
 
@@ -50,12 +50,12 @@ gulp.task('copy', function() {
  */
 gulp.task('minify-html', function() {
 	return gulp.src([
-			'dest/**/*.html',
-			'dest/**/*.jsp',
-			'!dest/resources/common/widget/editor/**/*.html'
-		], {
-			'base': 'dest'
-		})
+		'dest/**/*.html',
+		'dest/**/*.jsp',
+		'!dest/resources/common/widget/editor/**/*.html'
+	], {
+		'base': 'dest'
+	})
 		.pipe(htmlmin({
 			empty: true,
 			minifyCSS: true,
@@ -83,13 +83,13 @@ gulp.task('minify-css', function() {
  */
 gulp.task("transport", function() {
 	return gulp.src([
-			'dest/resources/**/*.js',
-			'!dest/resources/assets/scripts/config.js',
-			'!dest/resources/common/**/*.js',
-			'!dest/resources/module/**/*.js'
-		], {
-			'base': 'dest'
-		})
+		'dest/resources/**/*.js',
+		'!dest/resources/assets/scripts/config.js',
+		'!dest/resources/common/**/*.js',
+		'!dest/resources/module/**/*.js'
+	], {
+		'base': 'dest'
+	})
 		.pipe(transport({
 			dealIdCallback: function(id) {
 				return './' + id;
@@ -100,16 +100,16 @@ gulp.task("transport", function() {
 
 gulp.task("transport:common", function() {
 	return gulp.src([
-			'dest/resources/common/**/*.js',
-			'!dest/resources/common/scripts/**/*.js',
-			'!dest/resources/common/widget/audio-player/audio-player-noswfobject.js',
-			'!dest/resources/common/widget/audio-player/dewplayer/*.js',
-			'!dest/resources/common/widget/editor/**/*.js',
-			'!dest/resources/common/widget/calendar/*.js',
-			'!dest/resources/common/widget/chart/*.js',
-			'!dest/resources/common/widget/cropper/*.js',
-			'!dest/resources/common/widget/swfobject/*.js'
-		])
+		'dest/resources/common/**/*.js',
+		'!dest/resources/common/scripts/**/*.js',
+		'!dest/resources/common/widget/audio-player/audio-player-noswfobject.js',
+		'!dest/resources/common/widget/audio-player/dewplayer/*.js',
+		'!dest/resources/common/widget/editor/**/*.js',
+		'!dest/resources/common/widget/calendar/*.js',
+		'!dest/resources/common/widget/chart/*.js',
+		'!dest/resources/common/widget/cropper/*.js',
+		'!dest/resources/common/widget/swfobject/*.js'
+	])
 		.pipe(transport({
 			dealIdCallback: function(id) {
 				return 'common/' + id;
@@ -135,12 +135,12 @@ gulp.task("transport:module", function() {
  */
 gulp.task('minify-js', function() {
 	return gulp.src([
-			'dest/resources/**/*.js',
-			'!dest/resources/common/widget/echart/**/*.js',
-			'!dest/resources/common/widget/editor/**/*.js'
-		], {
-			'base': 'dest'
-		})
+		'dest/resources/**/*.js',
+		'!dest/resources/common/widget/echart/**/*.js',
+		'!dest/resources/common/widget/editor/**/*.js'
+	], {
+		'base': 'dest'
+	})
 		.pipe(uglify({
 			preserveComments: false,
 			mangle: false,
@@ -236,6 +236,7 @@ gulp.task('test', function() {
 		.pipe(jshint())
 		.pipe(jshint.reporter()); //输出检查结果
 });
+
 
 var paths = {
 	lesses: ['src/resources/**/**/*.less']

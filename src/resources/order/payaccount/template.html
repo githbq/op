@@ -1,0 +1,64 @@
+<script type="text/template" class="trTpl">
+    <% _.each(content,function(item){%>
+    <tr>
+        <td></td>
+        <td><%=item.bankAccount%></td>
+        <td><%=item.bankName%></td>
+        <td><%=item.receiveUnitName%></td>
+        <td><%=item.deptAgentName%></td>
+        <td><%=item.company%></td>
+        <td><%=item.department%></td>
+        <td><a data-id="<%=item.id%>" class="delete">删除</a>
+            <a data-id="<%=item.id%>" class="detail">编辑</a></td>
+        <td></td>
+    </tr>
+    <%}) %>
+</script>
+<script type="text/template" id="editPayAccount">
+    <div class="payaccount">
+        <p>
+            <label for="">
+                <span class="title"><b>*</b>收款账号： </span>
+                <input type="text" maxlength="50" data-required="收款账号不能为空" ce-model="bankAccount" name="bankAccount" class=" ">
+            </label>
+        </p>
+        <p>
+            <label for="">
+                <span class="title"><b>*</b>收款银行名称：</span>
+                <input name="bankName" maxlength="50" ce-model="bankName" data-required="收款银行不能为空"/>
+            </label>
+        </p>
+        <p>
+            <label for="">
+                <span class="title"><b>*</b>收款单位名称：</span>
+                <input name="receiveUnitName" maxlength="50" ce-model="receiveUnitName" data-required="收款单位不能为空"/>
+            </label>
+        </p>
+
+        <p>
+            <label for="">
+                <span class="title"><b>*</b>部门以及代理商名称： </span>
+                <input name="deptAgentName" maxlength="50" ce-model="deptAgentName" data-required="部门以及代理商不能为空"/>
+            </label>
+        </p>
+
+        <p>
+            <label for="">
+                <span class="title"><b>*</b>所属公司： </span>
+                <input type="text" maxlength="50" name="company" ce-model="company" data-required="所属公司不能为空">
+            </label>
+        </p>
+
+        <p>
+            <label for="">
+                <span class="title"><b>*</b>部门：</span>
+                <input type="text" maxlength="50" name="department" class="department" ce-model="department" data-required="部门不能为空">
+            </label>
+        </p>
+
+        <div class="button-container clearfix">
+            <button class="action-save btn-blue">确定</button>
+            <button class="action-cancel ">取消</button>
+        </div>
+    </div>
+</script>

@@ -1,7 +1,7 @@
 define(function( require , exports , module ){
 
 	var Invoice = require('../widget/invoice/invoice');
-	
+	var InvoiceDetail = require('../widget/invoicedetail/invoicedetail');
 
 	exports.init = function(){
 

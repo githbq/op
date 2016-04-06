@@ -26,10 +26,12 @@ define(function (require, exports, module) {
             $select.on('blur', function () {
                 var tempName = $(this).val(),
                     flag = false;
-                listObjet.length > 0 && listObjet.forEach(function (item) {
-                    if(typeof(item)=='string' && item==tempName){
-                        flag = true;
-                        return false;
+                listObjet.length > 0 && $(listObjet).each(function (i, item) {
+                    if (typeof(item) == 'string') {
+                        if (item == tempName) {
+                            flag = true;
+                            return false;
+                        }
                     }
                     else if (item.name == tempName) {
                         $select.attr({
@@ -39,7 +41,7 @@ define(function (require, exports, module) {
                         flag = true;
                         return false;
                     }
-                })
+                });
                 if (flag) {
                     return false;
                 }
@@ -56,7 +58,7 @@ define(function (require, exports, module) {
                     $select.autocomplete({
                         source: me.attrs.data
                     });
-                    listObjet=me.attrs.data;
+                    listObjet = me.attrs.data;
                 }
                 else {
                     util.api({
