@@ -1,3 +1,14 @@
-/**
- * Created by hubq on 2016/4/5.
- */
+define(function(require,exports,module){
+
+
+
+
+
+
+    exports.show=function(type,data){
+
+    }
+
+
+
+});
