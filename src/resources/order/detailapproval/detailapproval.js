@@ -24,6 +24,18 @@ define( function(require, exports, module){
 		'营销版续费-普通','营销版续费-特批','关联自注册办公版-普通','关联自注册办公版-特批',
 		'关联自注册营销版-普通','关联自注册营销版-特批','收尾款'
 	];
+	
+	var productIdDic = {
+            '1': 'CRM',
+            '2': '销客终端',
+            '3': '服务',
+            '4': 'PK助手',
+            '5': '会议助手',
+            '6': 'HR助手',
+            '7': '工资助手',
+            '8':'名片',
+			'12':'自定义助手'	
+        }; 
 
     /////////////////
     //
@@ -401,9 +413,39 @@ define( function(require, exports, module){
 			 //发票信息
 			 me.attrs.invoiceCommon = new InvoiceInfo( { 'wrapper':me.$view.find('.common--invioce'),'data':me.attrs.orderData,
 				 'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
+				 
+			//获取联合跟进人
+			me.getCustomHelper();
 
 		 },
-		 
+		 //获取现有跟进人信息：
+		getCustomHelper:function(){
+			var me = this;
+			
+			util.api({
+				'url': '~/op/api/order/enterprise/getEnterprisePartners',
+				'data': {
+					'enterpriseId': me.attrs.options.enterpriseId
+				},
+				'success': function (data) {
+					console.warn(data);
+					if (data.success) {
+						
+						me.attrs.list = data.value.model;
+						me.$view.find('.helper-box').empty();
+						if(me.attrs.list.length==0){
+							me.$view.find('.helper-box').append(' <a class="badge" >暂无</a>');
+						}
+						var obj = me.attrs.list;
+						for(var i=0;i<obj.length;i++){
+							me.$view.find('.helper-box').append(' <a class="badge" data-id="'+obj[i].accountId+'" >'+obj[i].accountName+'&nbsp;&nbsp;&nbsp;</a>');
+						}
+						
+					}
+				}
+			})
+			
+		},
 		 
 		 //转换为基本需要时间格式
 		getNeedDate:function(  ){
@@ -448,6 +490,7 @@ define( function(require, exports, module){
 							productData.subOrders[i].subOrder['endTime_max'] = sortDate[aryLen];
 							break;
 						}
+						
 					}
 					//$.extend(true, productData.subOrders, me.attrs.subData.subOrders );
 					break;
@@ -540,6 +583,27 @@ define( function(require, exports, module){
 
 								}
 
+								break;
+							case "Custom_Helper":
+								var nowDate = new Date( new Date().getTime() )._format('yyyy/MM/dd');
+								var endDate = new Date( obj["endDate"]  )._format('yyyy/MM/dd');
+								if( dateCompare(nowDate,endDate) ){
+									var tempObe = {"subOrder":{
+										"productId":12,
+										"startTime":obj["endDate"],
+										"flag":true,
+										"startTime_readonly":true
+									}}
+									subArry.push(tempObe)
+									/*for(var i =0;i<productData.subOrders.length;i++){
+									
+										if(productData.subOrders[i].subOrder.productId==5){
+											productData.subOrders[i].subOrder['startTime'] = obj["endDate"];
+											productData.subOrders[i].subOrder['startTime_readonly'] = true;
+											break;
+										}
+									}*/
+								}
 								break;
 							default:
 						}
@@ -684,8 +748,64 @@ define( function(require, exports, module){
 					objData.enterpriseExtend['businessLicense'] = objData.orderEntity.invoice['businessLicense'] ;
 					objData.enterpriseExtend['businessLicenseFileName'] = objData.orderEntity.invoice['businessLicenseFileName'];
 				}
-				$.extend(true, me.attrs.allData, objData );
+				var tempSubOrders = objData.orderEntity.subOrders;
+				objData.orderEntity.subOrders = null;
+				$.extend(true, me.attrs.allData, objData);
 				
+				
+				me.attrs.allData.orderEntity.subOrders = me.attrs.orderData.subOrders||[];
+				
+				var lengI = tempSubOrders.length;
+				var lengJ = me.attrs.allData.orderEntity.subOrders.length;
+				for(var i=0;i<lengI;i++){
+					for(var j=0;j<lengJ; j++){
+						var tempObj = tempSubOrders[i].subOrder;
+						var tempExtends = tempSubOrders[i].productExtends||[];
+						if(tempSubOrders[i].subOrder.productId == me.attrs.allData.orderEntity.subOrders[j].subOrder.productId ){
+							
+							for(var key in tempObj){
+								me.attrs.allData.orderEntity.subOrders[j].subOrder[key] = tempObj[key];
+							}
+							tempSubOrders[i].subOrder['hasFlag']=true;
+							if(tempExtends.length>0){
+								
+								if(me.attrs.allData.orderEntity.subOrders[j].productExtends.length>0){
+										for(var ke in tempExtends[0]){
+											me.attrs.allData.orderEntity.subOrders[j].productExtends[0][ke] = tempExtends[0][ke];
+										}
+								}else{
+									me.attrs.allData.orderEntity.subOrders[j].productExtends=[];
+									me.attrs.allData.orderEntity.subOrders[j].productExtends.push(tempExtends[0]) ;
+								}
+						
+							}
+							me.attrs.allData.orderEntity.subOrders[j].orderFlag = true;
+							
+						}
+						
+					}
+				}
+				for(var i=0;i<lengI;i++){
+					var tempObj = tempSubOrders[i].subOrder;
+					if(!tempObj['hasFlag']){
+						tempSubOrders[i].orderFlag = true;
+						me.attrs.allData.orderEntity.subOrders.push(tempSubOrders[i]);
+					}
+				}
+				var newLenth = me.attrs.allData.orderEntity.subOrders.length;
+				var temarry = [];
+				for(var a=0;a<newLenth;a++){
+					if(me.attrs.allData.orderEntity.subOrders[a].orderFlag){
+						//me.attrs.allData.orderEntity.subOrders[a]=null;
+						//me.attrs.allData.orderEntity.subOrders.splice(a,1);
+						//newLenth = me.attrs.allData.orderEntity.subOrders.length;
+						//a--;
+						temarry.push(me.attrs.allData.orderEntity.subOrders[a]);
+						//delete me.attrs.allData.orderEntity.subOrders[a];
+					}
+				}
+				me.attrs.allData.orderEntity.subOrders = temarry;
+
 				//调用回调
 				callback && callback();
 
@@ -702,7 +822,7 @@ define( function(require, exports, module){
 					if( iDays > 90 ){
 						var productName = productIdDic[data[i].subOrder.productId];
 						
-						util.showToast(productName+'使用版时间不能超过90天！');
+						util.showToast(productName+'试用版时间不能超过90天！');
 						return false;
 						
 					}
@@ -719,7 +839,7 @@ define( function(require, exports, module){
 			switch( me.attrs.options.orderType ){
 				case 1:case 2:case 3:case 4:case 13:case 14:case 15:case 16:
 					_.map( data , function( obj ){
-						if(obj.subOrder.productId ==1 || obj.subOrder.productId ==4  || obj.subOrder.productId ==5 ){
+						if(obj.subOrder.productId ==1 || obj.subOrder.productId ==4  || obj.subOrder.productId ==5 || obj.subOrder.productId ==12 ){
 							if( obj.subOrder.discount  &&  obj.subOrder.discount<8){
 								discoutFlag = false;
 								//util.showToast('子产品折扣低于8折，必须申请特批');
@@ -730,7 +850,7 @@ define( function(require, exports, module){
 					break;
 				default:
 					_.map( data , function( obj ){
-						if(obj.subOrder.productId ==1 || obj.subOrder.productId ==4  || obj.subOrder.productId ==7  || obj.subOrder.productId ==5 ){
+						if(obj.subOrder.productId ==1 || obj.subOrder.productId ==4  || obj.subOrder.productId ==7  || obj.subOrder.productId ==5 || obj.subOrder.productId ==12 ){
 							if( obj.subOrder.discount  &&  obj.subOrder.discount<8){
 								discoutFlag = false;
 							}
@@ -791,16 +911,26 @@ define( function(require, exports, module){
 					default:
 						tempUrl = '/odr/updateOrderVO'
 				}
+				me.$actionSubmit.text('提交中....');
+				me.$actionSubmit.attr('disabled','disabled');
 				util.api({
 					'url':tempUrl,
 					'data':JSON.stringify( me.attrs.allData ),
 					'contentType':'application/json;charset=UTF-8 ',
+					'button': {
+						'el': me.$actionSave,
+						'text':'提交中......'
+					},
 					'success': function( data ){
 						if( data.success ){
 							util.showTip('提交成功！');
 							me.trigger( 'saveSuccess');
 							me.hide();
 						}
+					},
+					'complete': function(){
+						me.$actionSubmit.text('保存提交');
+						me.$actionSubmit.removeAttr('disabled');
 					}
 				})
 				
@@ -821,14 +951,24 @@ define( function(require, exports, module){
 					default:
 						tempUrl = '/odr/updateOrderVO'
 				}
+				me.$actionSave.text('提交中....');
+				me.$actionSave.attr('disabled','disabled');
 				util.api({
 					'url':tempUrl,
 					'data':JSON.stringify( me.attrs.allData ),
 					'contentType':'application/json;charset=UTF-8 ',
+					'button': {
+						'el': me.$actionSubmit,
+						'text':'提交中......'
+					},
 					'success': function( data ){
 						if( data.success ){
 							changeNode();
 						}
+					},
+					'complete': function(){
+						me.$actionSave.text('保存');
+						me.$actionSave.removeAttr('disabled');
 					}
 				})
 				

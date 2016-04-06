@@ -107,13 +107,13 @@
         <div data-name="useCRMWrapper" data-productid="1" class="suborder crmwrapper">
             <div class="field_row field">
                 <div class="field">
-                    <label class="text_right"> <input class="field" type="checkbox" data-name="useCRM" value="1"/> <span class="label bold">CRM</span> </label>
+                    <label class="text_right"> <input class="field" type="checkbox" data-name="useCRM" value="1"/> <span class="label bold">CRM</span> </label><span style="color:red;">crm数量仅为该订单crm数量，不是crm总数量</span>
                 </div>
             </div>
             <div class="field_row" data-productid="1">
                 <div class="field_row_head">
                     <label>
-                        <span class="label bold">CRM终端总量(个)</span>
+                        <span class="label bold">CRM本次购买数量(个)</span>
                         <span class="red">*</span>
                     </label>
                 </div>
@@ -333,6 +333,21 @@
             <!--<td width="*"></td>-->
             <!--</tr>-->
             <tr class="suborder">
+                <td><input data-name="check" value="12" type="checkbox"/></td>
+                <td>自定义助手</td>
+                <td><input data-name="startTime_12" type="text" datecontrol="{'type':0}"/></td>
+                <td><input data-name="endTime_12" type="text" datecontrol="{'type':0}"/></td>
+                <td class="field_text" data-name="productAmount_12"></td>
+                <td data-name="table_type_wrapper">
+                    <label> <input data-name="type_12" value="1" type="radio" name="type_12"/>试用 </label>
+                    <label> <input data-name="type_12" value="2" type="radio" name="type_12"/>赠送 </label>
+                    <label> <input data-name="type_12" value="3" type="radio" name="type_12" checked="checked"/>折扣 </label>
+                </td>
+                <td><input type="text" data-type="number" data-name="purchaseAmount_12"/></td>
+                <td><span data-name="discount_12" class="field_text"></span></td>
+                <td width="*"></td>
+            </tr>
+            <tr class="suborder">
                 <td><input data-name="check" value="7" type="checkbox"/></td>
                 <td>工资助手</td>
                 <td><input data-name="startTime_7" type="text" datecontrol="{'type':0}"/></td>
@@ -437,6 +452,12 @@
                 </div>
                 <div class="field input-price">
                     <label>
+                        <span class="label">自定义助手</span>
+                    </label>
+                    <input type="text" data-type="number" class="fenqi" data-name="currPayAmount_12" data-id="12" value=""/>
+                </div>
+                <div class="field input-price">
+                    <label>
                         <span class="label">工资助手</span>
                     </label>
                     <input type="text" data-type="number" class="fenqi" data-name="currPayAmount_7" data-id="7" value=""/>
@@ -523,6 +544,7 @@
                     <input type="hidden" data-name="contract"/>
                     <input data-name="contract_file" type="file" class="" name="" accept="image/gif,image/jpeg,image/png"/>
                     <span class="supporttype">(支持png、jpg、gif)</span>
+                    <span class="uploadinfo"></span>
                 </div>
                 <div class="field image-field">
                     <a href="" target="_blank">
@@ -543,6 +565,7 @@
                     <input type="hidden" data-name="contractCopy"/>
                     <input data-name="contractCopy_file" type="file" class="" name="" accept="image/gif,image/jpeg,image/png"/>
                     <span class="supporttype">(支持png、jpg、gif)</span>
+                    <span class="uploadinfo"></span>
                 </div>
                 <div class="field image-field">
                     <a href="" target="_blank">
@@ -563,6 +586,7 @@
                     <input type="hidden" data-name="companyGatePicture"/>
                     <input data-name="companyGatePicture_file" type="file" class="" name="" accept="image/gif,image/jpeg,image/png"/>
                     <span class="supporttype">(支持png、jpg、gif)</span>
+                    <span class="uploadinfo"></span>
                 </div>
                 <div class="field image-field">
                     <a href="" target="_blank">

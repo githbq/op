@@ -100,7 +100,8 @@ define(function (require, exports, module) {
                                 {name: 'currPayAmount_4', value: '0', visible: false},
                                 {name: 'currPayAmount_5', value: '0', visible: false},
                                 {name: 'currPayAmount_7', value: '0', visible: false},
-                                {name: 'currPayAmount_8', value: '0', visible: false}
+                                {name: 'currPayAmount_8', value: '0', visible: false},
+                                {name: 'currPayAmount_12', value: '0', visible: false}
                             ]);
                             //全款
                         }
@@ -115,7 +116,8 @@ define(function (require, exports, module) {
                                 {name: 'currPayAmount_4', visible: false},
                                 {name: 'currPayAmount_5', visible: false},
                                 {name: 'currPayAmount_7', visible: false},
-                                {name: 'currPayAmount_8', visible: false}
+                                {name: 'currPayAmount_8', visible: false},
+                                {name: 'currPayAmount_12', visible: false}
                             ]);
                             var checkeds = me.__refs.tableInfo.o_getFieldValue('check').split(',');
                             if (me.__refs.terminalInfo.o_getFieldValue('useCRM') && me.__refs.terminalInfo.o_getFieldData('useCRMWrapper').visible) {//使用了销客终端 要加入服务费
@@ -135,7 +137,7 @@ define(function (require, exports, module) {
                                     {name: 'currPayAmount_' + n, visible: true}
                                 ]);
                             });
-                           me.o_data_getField({name:'currPayAmount_1'}).change();
+                            me.o_data_getField({name: 'currPayAmount_1'}).change();
                         }
                             ;
                             break;
@@ -148,6 +150,7 @@ define(function (require, exports, module) {
                                 {name: 'currPayAmount_5', value: '0', visible: false},
                                 {name: 'currPayAmount_7', value: '0', visible: false},
                                 {name: 'currPayAmount_8', value: '0', visible: false},
+                                {name: 'currPayAmount_12', value: '0', visible: false},
                                 {name: 'currPayAmount', value: '0'}
                             ]);
                         }
@@ -160,7 +163,7 @@ define(function (require, exports, module) {
             ]
 
         }));
-        var currPayIdArr = [3, 1, 8, 4, 5, 7];
+        var currPayIdArr = [3, 1, 8, 4, 5, 7,12];
         $(currPayIdArr).each(function (i, n) {
             (function (id) {
                 dataItems.push(new DataItem({
@@ -170,17 +173,17 @@ define(function (require, exports, module) {
                     events: [{
                         key: 'change', value: function (e) {
                             var me = this;
-                            var controll=me.__refs.tableInfo;
-                            if(id=='1' || id=='3' || id=='8'){
-                                controll=me.__refs.terminalInfo;
+                            var controll = me.__refs.tableInfo;
+                            if (id == '1' || id == '3' || id == '8') {
+                                controll = me.__refs.terminalInfo;
                             }
-                            var $dom=$(e.target);
+                            var $dom = $(e.target);
                             $dom.val($dom.val().replace(/[^\.\d]/g, ''));
 
                             var purchaseAmount = controll.o_getFieldValue('purchaseAmount_' + id);
                             if (!purchaseAmount) {
                                 $dom.val('');
-                            }else if($dom.val() && parseFloat(purchaseAmount)<parseFloat($dom.val())){
+                            } else if ($dom.val() && parseFloat(purchaseAmount) < parseFloat($dom.val())) {
                                 util.showToast('分期金额不能大于对应的合同金额');
                                 $dom.val(purchaseAmount);
                             }
@@ -274,16 +277,19 @@ define(function (require, exports, module) {
                     key: 'change',
                     value: function (e) {
                         var me = this;
+                        var $uploadinfo = $(e.target).parent().find('.uploadinfo');
+                        $uploadinfo.show().text('上传中...');
                         sendFile(e, function (response) {
+                            $uploadinfo.hide().text('');
                             me.o_setValue({name: 'contract', value: JSON.stringify({contract: response.value.model.path, contractFileName: response.value.model.FileName})});
                         });
                     }
                 }
             ],
-            validateOptions:{
-                required:{
-                    enable:true,value:true,handler:function(error, value, option, $ele){
-                        if(!this.o_getFieldValue('contract')){
+            validateOptions: {
+                required: {
+                    enable: true, value: true, handler: function (error, value, option, $ele) {
+                        if (!this.o_getFieldValue('contract')) {
                             return error = {field: $ele, name: 'required', option: option};
                         }
                         return false;
@@ -304,7 +310,10 @@ define(function (require, exports, module) {
                     key: 'change',
                     value: function (e) {
                         var me = this;
+                        var $uploadinfo = $(e.target).parent().find('.uploadinfo');
+                        $uploadinfo.show().text('上传中...');
                         sendFile(e, function (response) {
+                            $uploadinfo.hide().text('');
                             me.o_setValue({name: 'contractCopy', value: JSON.stringify({contractCopy: response.value.model.path, contractCopyFileName: response.value.model.FileName})});
                         });
                     }
@@ -325,7 +334,10 @@ define(function (require, exports, module) {
                     key: 'change',
                     value: function (e) {
                         var me = this;
+                        var $uploadinfo = $(e.target).parent().find('.uploadinfo');
+                        $uploadinfo.show().text('上传中...');
                         sendFile(e, function (response) {
+                            $uploadinfo.hide().text('');
                             me.o_setValue({name: 'companyGatePicture', value: JSON.stringify({companyGatePicture: response.value.model.path, companyGatePictureFileName: response.value.model.FileName})});
                         });
                     }

@@ -12,12 +12,9 @@ define( function(require, exports, module){
 	var Slider = require('common/widget/slider/slider');
 	 var AreaTree = require('module/areatree/areatree');
 
-	var contentStr = require('./detailpayment.html');
-	
+	var contentStr = require('./backmoney.html');
 	var OrderInfo = require('../widget/orderinfo/orderinfo');
-	var InvoiceInfo = require('../widget/invoice/invoice');
-	var GetMoney = require('../widget/getmoney/getmoney');
-
+	
 	var orderTypeAry = ['','办公版新购-普通','办公版新购-特批','营销版新购-普通','营销版新购-特批','办公版增购-普通',
 		'办公版增购-特批','营销版增购-普通','营销版增购-特批','办公版续费-普通','办公版续费-特批',
 		'营销版续费-普通','营销版续费-特批','关联自注册办公版-普通','关联自注册办公版-特批',
@@ -33,7 +30,8 @@ define( function(require, exports, module){
 		content: contentStr,
 
 		defaultAttr: {
-			'width': 1300
+			'width': 1300,
+			'title':'退款信息'
 		},
 		elements: {
 			'.action-save':'actionSave',
@@ -59,12 +57,7 @@ define( function(require, exports, module){
 			
 			//选择区域模块
 			me.$moneyTime.datetimepicker({'timepicker': false,'format':'Y/m/d'});
-            me.areaTree = new AreaTree();
-            me.areaTree.on('selectarea',function( treenodes ){
-                
-                me.$filingRegion.val( treenodes[0]['name'] ).attr('data-code', treenodes[0]['code'] );
-            });
-
+           
 		},
 
 		/**
@@ -76,12 +69,7 @@ define( function(require, exports, module){
 		show: function( options ){
 			var me = this;
 			me.attrs.options = options||{};
-			//me.attrs.options.isTp = 0;
-			//me.attrs.options.editFlag=true;
 			me.attrs.orderList = {};
-			me.attrs.enterpriseData = {};
-			me.attrs.receiveData = {};
-			me.attrs.allData = {'orderEntity':{},'contract':{},'enterpriseExtend':{},'enterprise':{}};
 			
 			me.setState();
 			me.sortType();
@@ -93,14 +81,11 @@ define( function(require, exports, module){
 			var me = this;
 			me.attrs.options.orderType = parseInt(me.attrs.options.orderType)
 			
-			me._setTitle( orderTypeAry[me.attrs.options.orderType] );
+			//me._setTitle( orderTypeAry[me.attrs.options.orderType] );
 			
-			$.when( me.getOrderDetail()/*, me.getEnterpriseInfo()*/, me.setOrderList()).done(function(){
-				//备注信息
-				me.getReceiveOrder(function(){
-					//setOrderInfo--订单信息
-					me.setOrderInfo();
-				})
+			$.when(  me.setOrderList()).done(function(){
+				
+				me.setOrderInfo();
 				
 
 				//基本信息
@@ -110,61 +95,7 @@ define( function(require, exports, module){
 
 
 		},
-		//获取企业基本信息
-		getEnterpriseInfo:function(  ){
-			var me = this;
 
-			return  util.api({
-				'url':'~/op/api/order/enterprise/getEnterpriseInfo',
-				'data':{
-					'orderId':me.attrs.options.id
-				},
-				'success': function( data ){
-					if( data.success ){
-						me.attrs.enterpriseData = data.value.model;
-						$.extend(true, me.attrs.allData, me.attrs.enterpriseData );
-						//callback && callback();
-					}
-				}
-			})
-		},
-		//获取订单详情
-		getOrderDetail:function( ){
-			var me = this;
-
-			return  util.api({
-				'url':'/odr/getOrderDetail',
-				'data':{'orderId':me.attrs.options.id},
-				'success': function( data ){
-					if( data.success ){
-						me.attrs.orderData = data.value.model.orderEntity;
-						me.attrs.enterpriseData.contract = data.value.model.contract ? data.value.model.contract :null;
-						me.attrs.enterpriseData.enterprise = data.value.model.enterprise ? data.value.model.enterprise :null;
-						me.attrs.enterpriseData.enterpriseExtend = data.value.model.enterpriseExtend ? data.value.model.enterpriseExtend :null;
-						me.setOptions();
-						//me.attrs.allData.orderEntity = me.attrs.orderData;
-						$.extend(true, me.attrs.allData, data.value.model );
-					}
-				}
-			})
-
-		},
-		//当前订单合同信息
-		getReceiveOrder:function( callback ){
-			var me = this;
-			var oldOrder = me.attrs.orderData.order.oriOrderId;
-			return util.api({
-					'url':'/odr/'+oldOrder+'/paidInfo',
-					'success': function( data ){
-
-						if( data.success ){
-							me.attrs.receiveData = data.value.model;
-							callback && callback();
-						}
-					}
-				});
-
-		},
 		//渲染订单和产品基础信息：
 		setOrderList:function( callback ){
 			var me = this;
@@ -193,45 +124,8 @@ define( function(require, exports, module){
 			if(me.attrs.options.rejectsFrom &&  me.attrs.options.rejectsFrom == 3  && me.attrs.options.editFlag){
 				me.attrs.moneyEdit = false;;
 			}
-			me.attrs.getMoneyCommon = new GetMoney( { 'wrapper':me.$view.find('.common-product'),'data':me.attrs.receiveData,'editFlag':me.attrs.moneyEdit,
-			'type':me.attrs.options.orderType ,'dataDetail':me.attrs.orderData} );
 			
-			
-			 //发票信息
-			 me.attrs.invoiceCommon = new InvoiceInfo( { 'wrapper':me.$view.find('.common--invioce'),'data':me.attrs.orderData,
-				 'editFlag': me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
-				 
-			me.getCustomHelper();
-
 		 },
-		  //获取现有跟进人信息：
-		getCustomHelper:function(){
-			var me = this;
-			
-			util.api({
-				'url': '~/op/api/order/enterprise/getEnterprisePartners',
-				'data': {
-					'enterpriseId': me.attrs.options.enterpriseId
-				},
-				'success': function (data) {
-					console.warn(data);
-					if (data.success) {
-						
-						me.attrs.list = data.value.model||[];
-						me.$view.find('.helper-box').empty();
-						var obj = me.attrs.list;
-						if(me.attrs.list.length==0){
-							me.$view.find('.helper-box').append(' <a class="badge" >暂无</a>');
-						}
-						for(var i=0;i<obj.length;i++){
-							me.$view.find('.helper-box').append(' <a class="badge" data-id="'+obj[i].accountId+'" >'+obj[i].accountName+'&nbsp;&nbsp;&nbsp;</a>');
-						}
-						
-					}
-				}
-			})
-			
-		},
 		//设置自己部分的显示和隐藏：
 		setState:function(){
 			var me = this;

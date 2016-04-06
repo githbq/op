@@ -24,12 +24,14 @@ define( function( require, exports, module ) {
             '5': '会议助手',
             '6': 'HR助手',
             '7': '工资助手',
-            '8':'名片'
+            '8':'名片',
+			'12':'自定义助手'
         }; 
     var NewMarketing = MClass( M.Center ).include( {
         
         elements: {
-            '#tabs li'   :'tabsList'
+            '#tabs li'   :'tabsList',
+			'.common-add':'commonAdd'
         },
         events: {
 			'click .action-cancel': 'cancelEve',
@@ -338,6 +340,15 @@ define( function( require, exports, module ) {
 							subArry.push(tempObe)
 
 							break;
+						case "Custom_Helper":
+							var tempObe = {"subOrder":{
+								"productId":12,
+								"startTime": data[i].startDate,
+								"endTime":data[i].endDate
+							}}
+							subArry.push(tempObe)
+
+							break;
 						default:
 					}
 				}
@@ -401,6 +412,19 @@ define( function( require, exports, module ) {
 							if( dateCompare(nowDate,endDate) ){
 								var tempObe = {"subOrder":{
 									"productId":7,
+									"startTime":obj["endDate"],
+									"startTime_readonly":true
+								}}
+								subArry.push(tempObe)
+							}
+
+							break;
+						case "Custom_Helper":
+							var nowDate = new Date( new Date().getTime() )._format('yyyy/MM/dd');
+							var endDate = new Date( obj["endDate"]  )._format('yyyy/MM/dd');
+							if( dateCompare(nowDate,endDate) ){
+								var tempObe = {"subOrder":{
+									"productId":12,
 									"startTime":obj["endDate"],
 									"startTime_readonly":true
 								}}
@@ -637,6 +661,10 @@ define( function( require, exports, module ) {
 				util.api({
 					'url':me.attrs.url,
 					'data':JSON.stringify( objData ),
+					'button': {
+						'el': me.$commonAdd,
+						'text':'提交中......'
+					},
 					'contentType':'application/json;charset=UTF-8 ',
 					'success': function( data ){
 						if( data.success ){
@@ -669,7 +697,7 @@ define( function( require, exports, module ) {
 			var discoutFlag = true;
 			if( me.attrs.typeFlag == 'newOffice' || me.attrs.typeFlag == 'newMarket'|| me.attrs.typeFlag == 'releateOffice'|| me.attrs.typeFlag == 'releateMarket' ){
 				_.map( data , function( obj ){
-					if(obj.subOrder.productId ==1 || obj.subOrder.productId ==4  || obj.subOrder.productId ==5 ){
+					if(obj.subOrder.productId ==1 || obj.subOrder.productId ==4  || obj.subOrder.productId ==5 || obj.subOrder.productId ==12){
 						if( obj.subOrder.discount  &&  obj.subOrder.discount<8){
 							discoutFlag = false;
 							//util.showToast('子产品折扣低于8折，必须申请特批');
@@ -679,7 +707,7 @@ define( function( require, exports, module ) {
 				});
 			}else{
 				_.map( data , function( obj ){
-					if(obj.subOrder.productId ==1 || obj.subOrder.productId ==4  || obj.subOrder.productId ==7  || obj.subOrder.productId ==5 ){
+					if(obj.subOrder.productId ==1 || obj.subOrder.productId ==4  || obj.subOrder.productId ==7  || obj.subOrder.productId ==5 || obj.subOrder.productId ==12 ){
 						if( obj.subOrder.discount  &&  obj.subOrder.discount<8){
 							discoutFlag = false;
 							//util.showToast('子产品折扣低于8折，必须申请特批');

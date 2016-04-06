@@ -36,7 +36,8 @@ define( function(require, exports, module){
             'click .info-renewyingxiao': function(e){ this.trigger('renewyingxiao',$(e.currentTarget).attr('data-id'), $(e.currentTarget).attr('data-account') )},  //续费营销版
             'click .selectall': 'selectAllEve',
             'click .auth': 'authEve',
-            'click .deauth': 'deauthEve'
+            'click .deauth': 'deauthEve',
+			'click .info-custom':function(e){ this.trigger('orderCustom',{'enterpriseId':$(e.currentTarget).attr('data-enterpriseId')} )},  //联合跟进人
         },
         
         init: function() {
@@ -56,7 +57,7 @@ define( function(require, exports, module){
             //初始化时间控件
             me.$openstime.datetimepicker({format: 'Y/m/d',timepicker: false});
             me.$openetime.datetimepicker({format: 'Y/m/d',timepicker: false});
-
+            /*
             if( me.attrs['param'] && ( me.attrs['param'].length > 0 ) ){
                 var param = me.attrs['param'];
                 if( param.charAt(0) == 'p' ){
@@ -86,7 +87,7 @@ define( function(require, exports, module){
                     me.model.set('agentId',param);
                 }
             }
-
+            */
             //初始化
             me.initializeSelect();
         },
@@ -176,7 +177,7 @@ define( function(require, exports, module){
                 'url':'/accountprotectionwhitelist/changeenterpriseauth',
                 'data':{
                     'enterpriseAccouts': arrays.join(','),
-                    'isAuth': true
+                    'isAuth': false
                 },
                 'success': function( data ){
                     console.warn( data );
@@ -204,7 +205,7 @@ define( function(require, exports, module){
                 'url':'/accountprotectionwhitelist/changeenterpriseauth',
                 'data':{
                     'enterpriseAccouts': arrays.join(','),
-                    'isAuth': false
+                    'isAuth': true
                 },
                 'success': function( data ){
                     console.warn( data );
@@ -237,6 +238,11 @@ define( function(require, exports, module){
                 endAppStartTime = new Date( me.$openetime.val() ).getTime();
             }
 
+            var accountName = "";
+            if( me.attrs['param'] ){
+                accountName = me.attrs['param'];
+            }
+
             util.api({
                 url: '/enterprise/querypage',
                 data: {
@@ -251,7 +257,8 @@ define( function(require, exports, module){
                     city: me.model.get('city'),
                     tel: me.model.get('tel'),
                     fromAppStartTime: fromAppStartTime, 
-                    endAppStartTime: endAppStartTime
+                    endAppStartTime: endAppStartTime,
+                    'accountName': accountName
                 },
                 beforeSend: function() {
                     me.$tbody.html( '<tr><td colspan="10"><p class="info">加载中...</p></td></tr>' );
@@ -298,6 +305,7 @@ define( function(require, exports, module){
                 }
             });
         },
+		
 
         //查看详情
         detailEve: function(e){

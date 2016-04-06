@@ -2,18 +2,15 @@
 
 	<div class="content-box" style="clear:both;">
 		<div class="m-addenterprise " style="width:1200px;">
-			<h4 style="font-weight: bold; font-size: 18px; padding-top: 8px; padding-bottom: 8px;">收尾款</h4>
-			<hr/>
+			<h4 style="font-weight: bold; font-size: 18px; padding-top: 8px; padding-bottom: 8px;">企业信息</h4>
 			<p style="line-height:40px;">订单号： <span class="order-id"></span></p>
 			<div class="common--basic"></div>
+			<hr/>
 			<h4 style="font-weight: bold; font-size: 18px; padding-top: 8px; padding-bottom: 8px;">产品信息</h4>
 			<div class="common-product productinfo"></div>
 			<div class="common--invioce"></div>
 		</div>
-		<div class="custom-box" style="height: 35px; ">
-			联合跟进人：<span class="helper-box"></span>
-		</div>
-		<div>
+		<div class="state state-process" style="display: none;">
 			<hr/>
 			<h4 style="font-weight: bold; font-size: 18px; padding-top: 8px; padding-bottom: 8px;">审批意见</h4>
 			<table >
@@ -35,6 +32,11 @@
 				<button class="  u-btn-blue action-submit">保存提交</button>
 				<button class="  u-btn-blue action-save">保存</button>
 			</p>
+		</div>
+		<div class="state clearfix">
+			
+			<button class="common-add btn-blue">提交</button>
+			<button class="action-cancel">取消</button>
 		</div>
 
 		<div class="approval-action state state-wait">

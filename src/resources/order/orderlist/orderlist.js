@@ -6,11 +6,15 @@ define( function( require, exports, module ) {
     //var Slider = require('common/widget/slider/slider');
     var DetailApproval = require('../detailapproval/detailapproval');
 	var DetailPayment = require('../detailpayment/detailpayment');
+	var CustomHelper = require('../widget/customhelper/customhelper');
+	var BackMoney = require('../backmoney/backmoney');
+
     var tem = $( require('./template.html') );
 
     var statusMap = {},industryMap = {},sourceMap = {};
 
     var statusAry = ['','待审核','已撤回','被驳回','已通过'];
+	var isPayUpAry = ['——','已付清','未付清'];
     var payStatusAry = ['','全款','分期','未付'];
     var orderTypeAry = ['','办公版新购-普通','办公版新购-特批','营销版新购-普通','营销版新购-特批','办公版增购-普通',
                         '办公版增购-特批','营销版增购-普通','营销版增购-特批','办公版续费-普通','办公版续费-特批',
@@ -60,7 +64,9 @@ define( function( require, exports, module ) {
 			'click .receive-money':'receiveMoneyEve',
 			'click .order-detailPay':'orderDetailPayEve',
 			'click .order-del':'orderDelEve',
-			'click .exportOrder':'exportEve'
+			'click .exportOrder':'exportEve',
+			'click .order-custom':'orderCustomEve',
+			'click .order-backmoney':'orderBackmoneyEve'
         },
         elements:{
             'tbody': 'tbody',
@@ -100,6 +106,29 @@ define( function( require, exports, module ) {
 		   
            me.trigger('orderDetailPayment',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':false,'orderType':orderType,
                'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea,'processInstanceId':'','contractNo':contractNo} );
+	   },
+	   //联合跟进人
+	   orderCustomEve:function( e ){
+		   var me = this;
+		   var enterpriseId = $(e.currentTarget).attr('data-enterpriseId');
+		   me.trigger('orderCustom',{'enterpriseId':enterpriseId});
+	   },
+	   //退款
+	   orderBackmoneyEve:function( e ){
+		   var me = this;
+		   
+		   var enterpriseId = $(e.currentTarget).attr('data-enterpriseId');
+		   var id = $(e.currentTarget).attr('data-id');
+           var enterpriseId = $(e.currentTarget).attr('data-enterpriseId');
+           var orderType = $(e.currentTarget).attr('data-orderType');
+           var opinion = $(e.currentTarget).attr('data-opinion');
+           var isTp = $(e.currentTarget).attr('data-isTp');
+           var ea = $(e.currentTarget).attr('data-ea');
+		   var contractNo = $(e.currentTarget).attr('data-contractNo');
+		   
+           me.trigger('orderBackmoney',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':false,'orderType':orderType,
+               'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea,'processInstanceId':'','contractNo':contractNo} );
+		   
 	   },
 	   //收尾款
 	   receiveMoneyEve:function( e ){
@@ -166,6 +195,7 @@ define( function( require, exports, module ) {
 				'approveStatus': me.model.get('approveStatus'),
 				'payStatus': me.model.get('payStatus'),
 				'agent': me.model.get('agent'),
+				'isPayUp':me.model.get('isPayUp'),
 				'agentId': me.model.get('agentId'),
                 'putStartTime': putStartTime,
                 'putEndTime': putEndTime
@@ -203,7 +233,9 @@ define( function( require, exports, module ) {
 				'agent': me.model.get('agent'),
 				'agentId': me.model.get('agentId'),
                 'putStartTime': putStartTime,
+				'isPayUp':me.model.get('isPayUp'),
                 'putEndTime': putEndTime,
+				'hasProduct':me.model.get('hasProduct'),
 				'pageIndex': me.pagination.attr['pageNumber']+1,
                 'pageSize': me.pagination.attr['pageSize']
             }
@@ -220,6 +252,10 @@ define( function( require, exports, module ) {
 							//var approveStatus = item.approveStatus ? parseInt(item.approveStatus):0;
                             item.statusStr = statusAry[approveStatus] ;
                             item.payStatusStr = item.order.payStatus ? payStatusAry[item.order.payStatus] :'';
+							item.isPayUpAryStr = item.order.isPayUp ? isPayUpAry[item.order.isPayUp]:'——';
+							if(item.order.orderType==17){
+								item.isPayUpAryStr = '——';
+							}
                             item.createTimeStr = new Date( item.order.createTime )._format('yyyy/MM/dd');
                             item.orderTypeStr = orderTypeAry[item.order.orderType];
 
@@ -254,6 +290,9 @@ define( function( require, exports, module ) {
         var orderList = new OrderList( {'view': $el.find('.m-orderlist')} );
         var detailApproval = null;
 		var detailPayment = null;
+		var customHelper = null;
+		var backMoney = null;
+		
         orderList.on('orderDetail', function( options ){
             detailApproval = new DetailApproval();
             detailApproval.show( options );
@@ -261,6 +300,16 @@ define( function( require, exports, module ) {
 		 orderList.on('orderDetailPayment', function( options ){
             detailPayment = new DetailPayment();
             detailPayment.show( options );
+        })
+		
+		orderList.on('orderCustom', function( options ){
+            customHelper = new CustomHelper();
+            customHelper.show( options );
+        })
+		
+		orderList.on('orderBackmoney', function( options ){
+            backMoney = new BackMoney();
+            backMoney.show( options );
         })
 
     }

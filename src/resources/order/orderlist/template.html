@@ -13,6 +13,7 @@
 			<td><%=item.order.isCooperation == 1 ? '是':'否'%></td>
 			<td><%=item.order.cooperationUnit ? item.order.cooperationUnit:'——'%></td>
 			<td><%=item.statusStr%></td>
+			<td><%=item.isPayUpAryStr%></td>
 			<td><%=item.payStatusStr%></td>
 			<td><%=item.createTimeStr%></td>
 			<td>
@@ -42,6 +43,11 @@
 				   data-isTp="<%=item.order.isTp%>"  data-ea="<%=item.order.enterpriseAccount%>" >查看</a>&nbsp;&nbsp;
 				<%}%>
                 
+				<a class="order-custom"  data-enterpriseId="<%=item.order.enterpriseId%>">联合跟进人</a>&nbsp;&nbsp;
+				
+				<a class="order-backmoney"  data-id="<%=item.order.id%>"  data-enterpriseId="<%=item.order.enterpriseId%>"
+					   data-orderType="<%=item.order.orderType%>" data-opinion="<%=item.order.rejectReason ?item.order.rejectReason :'' %>"
+					   data-isTp="<%=item.order.isTp%>"  data-ea="<%=item.order.enterpriseAccount%>" data-contractNo="<%=item.order.contractNo%>">退款</a>&nbsp;&nbsp;
 
 			</td>
 			<td></td>
