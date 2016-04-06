@@ -7,9 +7,10 @@ define(function (require, exports, module) {
     var Slider = require('common/widget/slider/slider');
     var RecorrectList = MClass(M.Center).include({
         events: {
+            'click .add': 'add',
             'click .search': 'search',
-            'click .detail': 'showDetail',
-            'click .delete': 'deleteDetail'
+            'click .detail': 'edit',
+            'click .delete': 'delete'
         },
         elements: {
             'tbody': 'tbody'
@@ -42,23 +43,28 @@ define(function (require, exports, module) {
             this.pagination.setPage(0, false);
             this.getList();
         },
-        showDetail: function (e) {
-            var id = $(e.currentTarget).attr('data-id');
-            this.trigger('detail', id);
+        add: function () {
+            this.trigger('edit');
         },
-        deleteDetail: function (e) {
+        edit: function (e) {
+            var id = $(e.currentTarget).attr('data-id');
+            this.trigger('edit', id);
+        },
+        delete: function (e) {
             var me = this;
             var id = $(e.currentTarget).attr('data-id');
-            util.api({
-                'url': '/ba/delete',
-                'data': data,
-                'success': function (data) {
-                    console.warn(data);
-                    if (data.success) {
-                        me.getList();
+            if (confirm('确定删除?')) {
+                util.api({
+                    'url': '/ba/delete',
+                    'data': {id:id},
+                    'success': function (data) {
+                        console.warn(data);
+                        if (data.success) {
+                            me.getList();
+                        }
                     }
-                }
-            });
+                });
+            }
         },
         getList: function () {
             var me = this;
@@ -67,9 +73,8 @@ define(function (require, exports, module) {
                 'pageSize': me.pagination.attr['pageSize']
             };
             $.extend(data, me.model.all());
-            debugger
             util.api({
-                'url': '/ba/querylist',
+                'url': '/ba/querypage',
                 'data': data,
                 beforeSend: function () {
                     me.$tbody.html('<tr><td colspan="9"><p class="info">加载中...</p></td></tr>');
@@ -93,7 +98,7 @@ define(function (require, exports, module) {
             if (collection.length > 0) {
                 htmlStr = me.trTpl({'content': collection});
             } else {
-                htmlStr = "<tr><td colspan='10'><p class='info'>暂无数据</p></td></tr>";
+                htmlStr = "<tr><td colspan='9'><p class='info'>暂无数据</p></td></tr>";
             }
             me.$tbody.html(htmlStr);
         }
@@ -104,14 +109,15 @@ define(function (require, exports, module) {
         content: tpl.filter('#editPayAccount').html(),
         defaultAttr: {
             'title': '账户信息',
-            'width': 900
+            'width': 500
         },
         elements: {},
         events: {
-            'click .action-cancel': 'cancel',
+            'click .action-cancel': 'hide',
             'click .action-save': 'save'
         },
         getInfoEve: function () {
+            debugger
             var me = this;
             if (!me.model.get('id')) {
                 return;
@@ -122,7 +128,7 @@ define(function (require, exports, module) {
                     'id': me.model.get('id')
                 },
                 'success': function (data) {
-                    if (!isNullObj(data.value.model)) {
+                    if (data.success) {
                         me.model.load(data.value.model);
                     } else {
                         util.showToast('未获取到相关信息，请手动补全！');
@@ -134,7 +140,7 @@ define(function (require, exports, module) {
         init: function () {
             EditPanel.__super__.init.apply(this, arguments);
         },
-        saveRecorrect: function () {
+        save: function () {
             this.update();
         },
         update: function () {
@@ -143,10 +149,11 @@ define(function (require, exports, module) {
                 return;
             } else {
                 if (confirm('确定提交?')) {
+                    debugger
                     var data = me.model.all();
                     util.api({
                         'url': me.model.get('id') ? '/ba/update' : '/ba/add',
-                        'data': data,
+                        'data': $.extend({isDeleted:0},data),
                         'success': function (data) {
                             console.warn(data);
                             if (data.success) {
@@ -175,7 +182,7 @@ define(function (require, exports, module) {
             var me = this;
             var arr = [];
             me.$("input[data-required],textarea[data-required]").each(function (i, n) {
-                if (!n.value) {
+                if (!$(n).val()) {
                     arr.push($(n).attr('data-required'));
                 }
             });
@@ -189,12 +196,12 @@ define(function (require, exports, module) {
 
     exports.init = function () {
         var $el = exports.$el;
-        var recorrectList = new RecorrectList({'view': $el.find('.list-content')});
+        var recorrectList = new RecorrectList({'view': $el.find('.u-tablelist')});
         recorrectList.search();
         var editPanel = null;
-        recorrectList.on('detail', function (id, status) {
+        recorrectList.on('edit', function (id) {
             editPanel = new EditPanel();
-            editPanel.show(id, status, true);
+            editPanel.show(id);
             editPanel.on('parentRefresh', function () {
                 recorrectList.search();
             });

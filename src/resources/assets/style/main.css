@@ -6540,3 +6540,14 @@ em {
   display: inline-block;
   height: 300px;
 }
+.payaccount p {
+  padding: 10px 10px;
+}
+.payaccount span.title {
+  display: inline-block;
+  width: 150px;
+  text-align: right;
+}
+.payaccount span.title b {
+  color: red;
+}

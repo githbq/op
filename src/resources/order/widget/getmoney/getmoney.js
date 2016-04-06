@@ -7,7 +7,7 @@ define(function(require, exports, module){
 	var Slider = require('common/widget/slider/slider');
 	var contentStr = require('./getmoney.html');
 	var AutoSelect = require('common/widget/autoselect/autoselect');
-	var banks = require('./banks');
+	var banks = require('../productinfo/banks');
     
 	var AddEnt = MClass( M.Center ).include({
 		view: contentStr,
