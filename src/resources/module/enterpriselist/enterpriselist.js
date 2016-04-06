@@ -36,8 +36,7 @@ define( function(require, exports, module){
             'click .info-renewyingxiao': function(e){ this.trigger('renewyingxiao',$(e.currentTarget).attr('data-id'), $(e.currentTarget).attr('data-account') )},  //续费营销版
             'click .selectall': 'selectAllEve',
             'click .auth': 'authEve',
-            'click .deauth': 'deauthEve',
-			'click .info-custom':function(e){ this.trigger('orderCustom',{'enterpriseId':$(e.currentTarget).attr('data-enterpriseId')} )},  //联合跟进人
+            'click .deauth': 'deauthEve'
         },
         
         init: function() {
@@ -256,6 +255,12 @@ define( function(require, exports, module){
                     province: me.model.get('province'),
                     city: me.model.get('city'),
                     tel: me.model.get('tel'),
+
+                    'hasProduct': me.model.get('hasProduct'),  //包含某种产品
+                    'vendorId': me.model.get('vendorId'),      //优惠码
+                    'isPresent': me.model.get('isPresent'),    //是否赠送办公版
+                    'isPay': me.model.get('isPay'),            //是否付费
+
                     fromAppStartTime: fromAppStartTime, 
                     endAppStartTime: endAppStartTime,
                     'accountName': accountName
@@ -270,13 +275,13 @@ define( function(require, exports, module){
                         if( data.value.model.content.length > 0 ){
                             me.list.reload( data.value.model.content, function( item ) {
                                 
-                                if( item.enterprise.appstarttime ){
-                                    item.createtimestr = new Date( item.enterprise.appstarttime )._format("yyyy-MM-dd");
+                                if( item.enterprise.appStartTime ){
+                                    item.createtimestr = new Date( item.enterprise.appStartTime )._format("yyyy-MM-dd");
                                 } else {
                                     item.createtimestr = "——";
                                 }
                                 
-                                item.runstatusstr = EntStatusMap[item.enterprise.runstatus];
+                                item.runstatusstr = EntStatusMap[item.enterprise.runStatus];
 
                                 if( item.protectionWhiteListStatus == 0 ){
                                     item.authStr = "全部授权" 
@@ -305,7 +310,6 @@ define( function(require, exports, module){
                 }
             });
         },
-		
 
         //查看详情
         detailEve: function(e){
