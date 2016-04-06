@@ -20,6 +20,9 @@ define(function (require, exports, module) {
         controller(terminalDataItems, 'type_8', function (n) {
             n.visible = false;
         });
+        controller(tableDataItems, 'table_type_wrapper', function (n) {
+            n.visible = true;
+        });
         controller(terminalDataItems, 'purchaseAmount_input_8', function (n) {
             n.visible = false;
         });
