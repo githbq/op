@@ -1,14 +1,11 @@
-define(function(require,exports,module){
+define(function (require, exports, module) {
+
+    var RefundInfo = require('./index');
 
 
-
-
-
-
-    exports.show=function(type,data){
+    exports.show = function (type, data) {
 
     }
-
 
 
 });
