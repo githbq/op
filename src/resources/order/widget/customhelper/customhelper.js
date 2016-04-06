@@ -188,6 +188,8 @@ define( function(require, exports, module){
 		actionSaveEve:function(){
 			var me = this;
 			
+			me.$('.action-save').text('提交中....');
+			me.$('.action-save').attr('disabled','disabled');
 
 			util.api({
 				'url': '~/op/api/order/enterprise/saveEnterprisePartners',
@@ -201,6 +203,10 @@ define( function(require, exports, module){
 						util.showTip('保存成功')
 						me.hide();
 					}
+				},
+				'complete': function(){
+					me.$('.action-save').text('保存');
+					me.$('.action-save').removeAttr('disabled');
 				}
 			});
 			

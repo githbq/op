@@ -151,6 +151,8 @@ define(function (require, exports, module) {
                     var data = me.model.all();
                     data.createTime = undefined;
                     data.updateTime=undefined;
+					me.$('.action-save').text('提交中....');
+					me.$('.action-save').attr('disabled','disabled');
                     util.api({
                         'url': me.model.get('id') ? '/ba/update' : '/ba/add',
                         'data': $.extend({isDeleted: 0}, data),
@@ -163,7 +165,11 @@ define(function (require, exports, module) {
                                     me.hide();
                                 }, 1000);
                             }
-                        }
+                        },
+						'complete': function(){
+							me.$('.action-save').text('确定');
+							me.$('.action-save').removeAttr('disabled');
+						}
                     })
                 }
             }
