@@ -141,19 +141,19 @@
     //    "110914627510801000223",
     //    "110914627510801000224"
     //];
-    var arr=[];
+    var arr = [];
     util.api({
         'url': '/ba/querylist',
-        async:false,
+        async: false,
         'success': function (data) {
             console.warn(data);
             if (data.success) {
-                arr=$(data.value.model.content).map(function(i,n){
-                   return n.bankAccount;
-               })
+                $(data.value.model.content).map(function (i, n) {
+                    arr.push(n.bankAccount);
+                })
             }
         }
     });
-    module.exports=arr;
+    module.exports = arr;
 });
 

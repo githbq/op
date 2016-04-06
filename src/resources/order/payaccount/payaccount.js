@@ -56,7 +56,7 @@ define(function (require, exports, module) {
             if (confirm('确定删除?')) {
                 util.api({
                     'url': '/ba/delete',
-                    'data': {id:id},
+                    'data': {id: id},
                     'success': function (data) {
                         console.warn(data);
                         if (data.success) {
@@ -117,7 +117,6 @@ define(function (require, exports, module) {
             'click .action-save': 'save'
         },
         getInfoEve: function () {
-            debugger
             var me = this;
             if (!me.model.get('id')) {
                 return;
@@ -149,11 +148,12 @@ define(function (require, exports, module) {
                 return;
             } else {
                 if (confirm('确定提交?')) {
-                    debugger
                     var data = me.model.all();
+                    data.createTime = undefined;
+                    data.updateTime=undefined;
                     util.api({
                         'url': me.model.get('id') ? '/ba/update' : '/ba/add',
-                        'data': $.extend({isDeleted:0},data),
+                        'data': $.extend({isDeleted: 0}, data),
                         'success': function (data) {
                             console.warn(data);
                             if (data.success) {
