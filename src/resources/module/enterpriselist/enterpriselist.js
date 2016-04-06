@@ -36,7 +36,8 @@ define( function(require, exports, module){
             'click .info-renewyingxiao': function(e){ this.trigger('renewyingxiao',$(e.currentTarget).attr('data-id'), $(e.currentTarget).attr('data-account') )},  //续费营销版
             'click .selectall': 'selectAllEve',
             'click .auth': 'authEve',
-            'click .deauth': 'deauthEve'
+            'click .deauth': 'deauthEve',
+			'click .info-custom':function(e){ this.trigger('orderCustom',{'enterpriseId':$(e.currentTarget).attr('data-enterpriseId')} )},  //联合跟进人
         },
         
         init: function() {

@@ -9,6 +9,7 @@ define( function( require, exports, module ) {
     var uploader = require('common/widget/upload').uploader;
     var InputHandler = require('common/widget/input-handler/inputhandler');
     var Select = require('common/widget/select/select');
+	var CustomHelper = require('../../order/widget/customhelper/customhelper');
 
     var tem = $( require('./template.html') );
 
@@ -43,7 +44,8 @@ define( function( require, exports, module ) {
             'click .info-renewbangong': function(e){ this.trigger('renewbangong',$(e.currentTarget).attr('data-id'), $(e.currentTarget).attr('data-account') )},    //续费办公版
             'click .info-renewyingxiao': function(e){ this.trigger('renewyingxiao',$(e.currentTarget).attr('data-id'), $(e.currentTarget).attr('data-account') )},  //续费营销版
             'click .info-trace': 'traceEve',
-            'click .info-enterpriseAssign': 'assignEve'
+            'click .info-enterpriseAssign': 'assignEve',
+			'click .info-custom':function(e){ this.trigger('orderCustom',{'enterpriseId':$(e.currentTarget).attr('data-enterpriseId')} )},  //联合跟进人
         },
         
         init: function() {
@@ -399,6 +401,8 @@ define( function( require, exports, module ) {
 		
         //分配详情
         var enterpriseAssign = new EnterpriseAssign();
+		
+		var customHelper = null;
 
         //企业跟踪记录
         var entTrace = new EntTrace();
@@ -454,6 +458,12 @@ define( function( require, exports, module ) {
             console.log('renewyingxiao');
             console.log( id );
             location.hash = "order/newmarketying/againMarkey/" + id + '/' + account;
+        });
+			//联合跟进人
+		 entList.on('orderCustom',function( options ){
+            
+            customHelper = new CustomHelper();
+             customHelper.show( options );
         });
     }
 } );
