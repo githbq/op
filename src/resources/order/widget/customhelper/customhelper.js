@@ -158,20 +158,26 @@ define( function(require, exports, module){
 		//添加跟进人：
 		actionAdd:function( e ){
 			var me = this;
-			if(me.$customHelper.val() && me.attrs.list.length<5){
-				var personObj={};
-				var accountId = me.$customHelper.attr('data-id');
-				for(var i=0;i<me.attrs.list.length;i++){
-					if(me.attrs.list[i].accountId==accountId){
-						util.showToast('跟进人已存在');
-						return false;
+			
+			if(me.$customHelper.val() ){
+				if( me.attrs.list.length<5 ){
+					var personObj={};
+					var accountId = me.$customHelper.attr('data-id');
+					for(var i=0;i<me.attrs.list.length;i++){
+						if(me.attrs.list[i].accountId==accountId){
+							util.showToast('跟进人已存在');
+							return false;
+						}
 					}
-				}
-	
-				personObj = {'id':'','epId':me.attrs.options.enterpriseId,'accountId':accountId,'accountName':me.$customHelper.val()}
+		
+					personObj = {'id':'','epId':me.attrs.options.enterpriseId,'accountId':accountId,'accountName':me.$customHelper.val()}
 
-				me.$view.find('.custom-box').append(' <a class="badge" data-id="'+accountId+'" >'+me.$customHelper.val()+' x </a>');
-				me.attrs.list.push(personObj);
+					me.$view.find('.custom-box').append(' <a class="badge" data-id="'+accountId+'" >'+me.$customHelper.val()+' x </a>');
+					me.attrs.list.push(personObj);
+				}else{
+					util.showToast('联合跟进人最多添加5个！');
+					return false;
+				}
 			}
 		},
 		actionCancelEve:function(){
@@ -182,10 +188,8 @@ define( function(require, exports, module){
 		actionSaveEve:function(){
 			var me = this;
 			
-			if(me.attrs.list.length<1){
-				util.showToast('请添加联合跟进人！');
-				return false;
-			}
+			me.$('.action-save').text('提交中....');
+			me.$('.action-save').attr('disabled','disabled');
 
 			util.api({
 				'url': '~/op/api/order/enterprise/saveEnterprisePartners',
@@ -199,6 +203,10 @@ define( function(require, exports, module){
 						util.showTip('保存成功')
 						me.hide();
 					}
+				},
+				'complete': function(){
+					me.$('.action-save').text('保存');
+					me.$('.action-save').removeAttr('disabled');
 				}
 			});
 			

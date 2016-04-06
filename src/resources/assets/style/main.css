@@ -6500,6 +6500,10 @@ em {
   margin: 0px 222px;
   border: 1px solid #ccc;
 }
+.custom-content .list li {
+  text-align: left;
+  padding: 0 5px;
+}
 .custom-content .list li a {
   color: #333;
   display: inherit;
