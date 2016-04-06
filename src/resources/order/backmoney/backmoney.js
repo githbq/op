@@ -12,7 +12,7 @@ define( function(require, exports, module){
 	var Slider = require('common/widget/slider/slider');
 	 var AreaTree = require('module/areatree/areatree');
 
-	var contentStr = require('./backMoney.html');
+	var contentStr = require('./backmoney.html');
 	var OrderInfo = require('../widget/orderinfo/orderinfo');
 	
 	var orderTypeAry = ['','办公版新购-普通','办公版新购-特批','营销版新购-普通','营销版新购-特批','办公版增购-普通',
