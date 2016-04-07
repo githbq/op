@@ -19,6 +19,7 @@ define(function (require, exports, module) {
             var me = this;
             PageClass.__super__.init.apply(this, arguments);
             setTimeout(function () {
+                alert(1)
                 if (!me.$('.bankno').is('[readonly],[disabled]')) {
                     bankFunc(function (data) {
                         me.autoSelect = new AutoSelect({data: data});
