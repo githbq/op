@@ -18,10 +18,12 @@ define(function (require, exports, module) {
         init: function () {
             var me = this;
             PageClass.__super__.init.apply(this, arguments);
-            bankFunc(function(data){
-                me.autoSelect = new AutoSelect({data: data});
-                me.autoSelect.resetSelect(me.$('.bankno'));
-            });
+            if (!me.$('.bankno').is('[readonly]')) {
+                bankFunc(function (data) {
+                    me.autoSelect = new AutoSelect({data: data});
+                    me.autoSelect.resetSelect(me.$('.bankno'));
+                });
+            }
         }
     });
     module.exports = PageClass;

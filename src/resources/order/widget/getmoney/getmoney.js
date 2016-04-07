@@ -51,11 +51,6 @@ define(function(require, exports, module){
 				}
 			});
 
-			bankFunc(function(data){
-				me.autoSelect = new AutoSelect({data: data});
-				me.autoSelect.resetSelect(me.$('.bankno'));
-			});
-
 			//计算子菜单金额；
 			me.$view.on('focusout','.sub-app',function(){
 				var noChargeAmount = $(this).attr('data-noChargeAmount');
@@ -194,7 +189,12 @@ define(function(require, exports, module){
 				me.$('.edit-flag').attr('disabled','disabled')
 				me.$('.check-edit').hide();
 			}
-			
+			if (!me.$('.bankno').is('[readonly]')) {
+				bankFunc(function (data) {
+					me.autoSelect = new AutoSelect({data: data});
+					me.autoSelect.resetSelect(me.$('.bankno'));
+				});
+			}
 		},
 		//对外获取文本框值
 		getValue:function(){
