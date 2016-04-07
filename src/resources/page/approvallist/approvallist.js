@@ -33,7 +33,7 @@ define( function(require, exports, module){
                 'isTp': detail.isTp,
                 'state': state,
                 'ea': detail.enterpriseAccount,
-                'currentTask': detail.currentTash,
+                'currentTask': detail.currentTask,
                 'processInstanceId': detail.processInstanceId,
                 'contractNo': detail.contractNo
 			};
