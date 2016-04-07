@@ -961,6 +961,12 @@ define( function(require, exports, module){
 				}
 				me.$actionSave.text('提交中....');
 				me.$actionSave.attr('disabled','disabled');
+				me.$actionAgreePass.text('提交中....');
+				me.$actionAgreePass.attr('disabled','disabled');
+				me.$actionAgree.text('提交中....');
+				me.$actionAgree.attr('disabled','disabled');
+				me.$actionReject.text('提交中....');
+				me.$actionReject.attr('disabled','disabled');
 				util.api({
 					'url':tempUrl,
 					'data':JSON.stringify( me.attrs.allData ),
@@ -974,9 +980,15 @@ define( function(require, exports, module){
 							changeNode();
 						}
 					},
-					'complete': function(){
+					'error': function(){
 						me.$actionSave.text('保存');
 						me.$actionSave.removeAttr('disabled');
+						me.$actionAgreePass.text('保存通过');
+						me.$actionAgreePass.removeAttr('disabled');
+						me.$actionReject.text('驳回');
+						me.$actionReject.removeAttr('disabled');
+						me.$actionAgree.text('同意');
+						me.$actionAgree.removeAttr('disabled');
 					}
 				})
 				
@@ -997,7 +1009,17 @@ define( function(require, exports, module){
 							me.trigger( 'saveSuccess');
                             me.hide();
                         }
-                    }
+                    },
+					'complete': function(){
+						me.$actionSave.text('保存');
+						me.$actionSave.removeAttr('disabled');
+						me.$actionAgreePass.text('保存通过');
+						me.$actionAgreePass.removeAttr('disabled');
+						me.$actionReject.text('驳回');
+						me.$actionReject.removeAttr('disabled');
+						me.$actionAgree.text('同意');
+						me.$actionAgree.removeAttr('disabled');
+					}
                 })
             };
 		},
@@ -1013,8 +1035,8 @@ define( function(require, exports, module){
             if( bool ){
 				me.$actionAgree.text('提交中....');
 				me.$actionAgree.attr('disabled','disabled');
-				me.$actionResend.text('提交中....');
-				me.$actionResend.attr('disabled','disabled');
+				me.$actionAgreePass.text('提交中....');
+				me.$actionAgreePass.attr('disabled','disabled');
                 util.api({
                     'url': '~/op/api/approval/directapprove',
                     'data':{
@@ -1037,8 +1059,8 @@ define( function(require, exports, module){
 					complete: function(){
 						me.$actionAgree.text('同意');
 						me.$actionAgree.removeAttr('disabled');
-						me.$actionResend.text('保存通过');
-						me.$actionResend.removeAttr('disabled');
+						me.$actionAgreePass.text('保存通过');
+						me.$actionAgreePass.removeAttr('disabled');
 					}
                 })
             }
