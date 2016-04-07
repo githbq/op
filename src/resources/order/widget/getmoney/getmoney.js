@@ -189,7 +189,7 @@ define(function(require, exports, module){
 				me.$('.edit-flag').attr('disabled','disabled')
 				me.$('.check-edit').hide();
 			}
-			if (!me.$('.bankno').is('[readonly]')) {
+			if (!me.$('.bankno').is('[readonly],[disabled]')) {
 				bankFunc(function (data) {
 					me.autoSelect = new AutoSelect({data: data});
 					me.autoSelect.resetSelect(me.$('.bankno'));
