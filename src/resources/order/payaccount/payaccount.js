@@ -160,10 +160,9 @@ define(function (require, exports, module) {
                             console.warn(data);
                             if (data.success) {
                                 util.showTip('操作成功');
-                                setTimeout(function () {
-                                    me.trigger('parentRefresh');
-                                    me.hide();
-                                }, 1000);
+								me.trigger('parentRefresh');
+								me.hide();
+                                
                             }
                         },
 						'complete': function(){

@@ -5662,10 +5662,14 @@ em {
 }
 .m-enterprisedetail #tbProduct p span {
   display: inline-block;
-  width: 200px;
+  width: 170px;
 }
 .m-enterprisedetail #tbProduct p.info {
   text-align: center;
+}
+.m-enterprisedetail #tbProduct .content-action {
+  text-align: right;
+  padding: 4px 0;
 }
 .m-training p {
   padding: 6px 0;

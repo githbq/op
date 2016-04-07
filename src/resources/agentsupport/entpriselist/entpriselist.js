@@ -8,9 +8,8 @@ define( function( require, exports, module ) {
     var EntTrace = require('module/enttrace/enttrace');                     //企业跟踪记录
     var uploader = require('common/widget/upload').uploader;
     var InputHandler = require('common/widget/input-handler/inputhandler');
-	var CustomHelper = require('../../order/widget/customhelper/customhelper');
-
     var Select = require('common/widget/select/select');
+	var CustomHelper = require('../../order/widget/customhelper/customhelper');
 
     var tem = $( require('./template.html') );
 
@@ -175,6 +174,12 @@ define( function( require, exports, module ) {
                     province: me.model.get('province'),
                     city: me.model.get('city'),
                     tel: me.model.get('tel'),
+
+                    'hasProduct': me.model.get('hasProduct'),  //包含某种产品
+                    'vendorId': me.model.get('vendorId'),      //优惠码
+                    'isPresent': me.model.get('isPresent'),    //是否赠送办公版
+                    'isPay': me.model.get('isPay'), 
+
                     fromAppStartTime: fromAppStartTime, 
                     endAppStartTime: endAppStartTime
                 },
@@ -189,13 +194,13 @@ define( function( require, exports, module ) {
                         if( data.value.model.content.length > 0 ){
                              me.list.reload( data.value.model.content, function( item ) {
                             
-                                if( item.enterprise.appstarttime ){
-                                    item.createtimestr = new Date( item.enterprise.appstarttime )._format("yyyy-MM-dd");
+                                if( item.enterprise.appStartTime ){
+                                    item.createtimestr = new Date( item.enterprise.appStartTime )._format("yyyy-MM-dd");
                                 } else {
                                     item.createtimestr = "——";
                                 }
                                 
-                                item.runstatusstr = EntStatusMap[item.enterprise.runstatus];
+                                item.runstatusstr = EntStatusMap[item.enterprise.runStatus];
 
                                 if( item.protectionWhiteListStatus == 0 ){
                                     item.authStr = "全部授权" 
@@ -448,17 +453,17 @@ define( function( require, exports, module ) {
             console.log( id );
             location.hash = "order/newmarketying/againOffice/" + id + '/' + account;
         });
-		//联合跟进人
-		 entList.on('orderCustom',function( options ){
-            
-            customHelper = new CustomHelper();
-             customHelper.show( options );
-        });
         //续费营销
         entList.on('renewyingxiao',function( id , account ){
             console.log('renewyingxiao');
             console.log( id );
             location.hash = "order/newmarketying/againMarkey/" + id + '/' + account;
+        });
+			//联合跟进人
+		 entList.on('orderCustom',function( options ){
+            
+            customHelper = new CustomHelper();
+             customHelper.show( options );
         });
     }
 } );

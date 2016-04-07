@@ -320,7 +320,7 @@ define( function(require, exports, module){
 			'#companyGateRemark':'getcompanyGateRemark',
 			'.companyGateKeyword':'setcompanyGatekeyword',
 			'.companyGateRemark':'setcompanyGateRemark',
-			'.upload':'saveEve',
+			'.upload':'saveEve'
 			///'#creatorName':'creatorName',
 			//'#createTime':'createTime',
 			
@@ -374,8 +374,11 @@ define( function(require, exports, module){
 
 			'click .savemonitoring': 'saveMonitoringEve',       //保存监控信息
 
-			'click .employee-detail':'employeeDetailEve'
+			'click .employee-detail':'employeeDetailEve',
 			///'click #crmInfoChange':'crmInfoChangeEve'
+
+			'click #openproduct': function(){ this.toggleProduct(1) },   //开启产品
+			'click #closeproduct': function(){ this.toggleProduct(2) }   //关闭产品														
 		}, 
 
 		uploadzzEve: function(){
@@ -1477,7 +1480,7 @@ define( function(require, exports, module){
 					'ea': me.model.get('enterpriseAccount')
 				},
 				'beforeSend': function(){
-					me.$tbProduct.html( '<p class="info">加载中...</p>' );
+					me.$tbProduct.find('.container').html( '<p class="info">加载中...</p>' );
 				},
 				'success': function( data ){
 					console.warn( data );
@@ -1495,31 +1498,80 @@ define( function(require, exports, module){
 									endTime = new Date( obj['endDate'] )._format('yyyy/MM/dd');
 								}
 
+								var enablestatus = "";
+								if( obj["isEnable"] == 1 ){
+									enablestatus = "已开启";
+								}else if( obj["isEnable"] == 2 ){
+									enablestatus = "已关闭";
+								}
+
 								switch( obj["code"] )
 								{
 									case "FX_Terminal":
 										strDom += " <p> <span>"+obj['appName']+"(个)："+obj['quota']+"</span>" +
-										" <span>开始时间："+ startTime +"</span> <span>结束时间："+endTime+"</span> </p>";
+										" <span>开始时间："+ startTime +"</span> <span>结束时间："+endTime+"</span></p>";
 										break;
 									case "CRM":
 										strDom += " <p> <span>"+obj['appName']+"(个)："+obj['quota']+"</span>" +
-										" <span>开始时间："+ startTime +"</span> <span>结束时间："+endTime+"</span>" +
-										"</p>";
+										" <span>开始时间："+ startTime +"</span> <span>结束时间："+endTime+"</span>" + enablestatus + "   <input type='checkbox' name='product' value='"+obj["appId"]+"'> </p>";
 										break;
 									case "Service_Fee":
 										strDom += " <p> <span>"+obj['appName']+"(人)："+obj['quota']+"</span>" +
-										" <span>开始时间："+ startTime +"</span> <span>结束时间："+endTime+"</span>" +
-										" </p>";
+										" <span>开始时间："+ startTime +"</span> <span>结束时间："+endTime+"</span></p>";
+										break;
+									case "HR_Helper":
+										strDom += " <p> <span>"+obj['appName']+"</span> <span>开始时间："+ startTime +"</span> <span>结束时间："+endTime+"</span> </p>";
+										break;
+									case "Business_Card":
+										strDom += " <p> <span>"+obj['appName']+"</span> <span>开始时间："+ startTime +"</span> <span>结束时间："+endTime+"</span> </p>";
+										break;
+									case "Custom_Helper":
+										strDom += " <p> <span>"+obj['appName']+"</span> <span>开始时间："+ startTime +"</span> <span>结束时间："+endTime+"</span> </p>";
 										break;
 									default:
-										strDom += " <p> <span>"+obj['appName']+"</span> <span>开始时间："+ startTime +"</span> <span>结束时间："+endTime+"</span></p>";
+										strDom += " <p> <span>"+obj['appName']+"</span> <span>开始时间："+ startTime +"</span> <span>结束时间："+endTime+"</span>"+ enablestatus + "   <input type='checkbox' name='product' value='"+obj["appId"]+"'> </p>";
 								}
 							});
 
-							me.$tbProduct.html( strDom );
+							me.$tbProduct.find('.container').html( strDom );
 						} else {
-							me.$tbProduct.html( '<p class="info">暂无数据</p>' );
+							me.$tbProduct.find('.container').html( '<p class="info">暂无数据</p>' );
 						}
+					}
+				}
+			})
+
+		},
+
+		//开启或产品
+		toggleProduct: function( isEnable ){
+			var me = this;
+			
+			var $input = me.$tbProduct.find('[name="product"]:checked');
+
+
+			if( $input.length <= 0 ){
+				util.showToast('请选择产品');
+				return false;
+			}
+
+			var ids = [];
+			$input.each(function( index, item ){
+				ids.push( $(item).val() );
+			});
+			console.log( ids );
+
+			util.api({
+				'url':"/app/setappsenablestatus",
+				'data':{
+					'fsEa': me.model.get('enterpriseAccount'),
+					'appIds': ids.join(','),
+					'isEnable': isEnable
+				},
+				'success': function( data ){
+					if( data.success ){
+						util.showTip('操作成功');
+						me.showProductInfo();
 					}
 				}
 			})
