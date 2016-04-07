@@ -74,7 +74,7 @@ define(function (require, exports, module) {
             n.value = type;
         });
         var transferedDataItems = controller.transferDataItem(terminalDataItems, tableDataItems, formDataItems, controlDataItems, result);//用控制器转换输入的数据项
-        var apiPool = {api_getServicePrice: api_getServicePrice, api_getCalculateSingle: api_getCalculateSingle};//API池
+        var apiPool = {api_getServicePrice: api_getServicePrice, api_getCalculateSingle: api_getCalculateSingle,api_checkContractNo:api_checkContractNo};//API池
         if (data.terminalInfo && data.terminalInfo.$view) {
             terminalInfo = new TerminalInfo({wrapperView: data.terminalInfo.$view, dataItems: transferedDataItems.terminalDataItems, apiPool: apiPool});
         }
@@ -140,8 +140,14 @@ define(function (require, exports, module) {
             url: '~/op/api/rebate/calculateSingle'
         }, options))
     }
-
-
+    /*
+    * 查询合同号是否可用
+    * */
+    function api_checkContractNo(options) {
+        connectApi($.extend({
+            url: '~/op/api/order/enterprise/getContract'
+        }, options))
+    }
     function connectApi(option) {
         util.api({
             'url': option.url,
@@ -149,6 +155,7 @@ define(function (require, exports, module) {
             'success': option.success
         })
     }
+
 
     //根据类型获取不同的订单控制器
     function getDataControllerByType(type) {

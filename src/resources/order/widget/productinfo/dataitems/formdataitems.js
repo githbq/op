@@ -20,6 +20,57 @@ define(function (require, exports, module) {
         dataItems.push(new DataItem({
             name: 'contractNo',
             value: '',
+            events: [
+                {
+                    key: 'change', value: function (e) {
+                    var me = this;
+                    me.attrs.apiPool.api_checkContractNo({
+                        data: {contractNo: me.o_getFieldValue('contractNo'), enterpriseId: me.__refs.terminalInfo.o_getFieldValue('enterpriseId')}, success: function (result) {
+                            if (result.success) {
+                                if (result.model) {
+                                    var model = result.model;
+                                    me.o_setValue({name: 'sealName', value: model.sealName});
+                                    me.o_setValue({name: 'contract', value: model.contract ? JSON.stringify({contract: model.contract, contractFileName: model.contractFileName}) : ''});
+                                    me.o_setValue({name: 'contractCopy', value: model.contractCopy ? JSON.stringify({contractCopy: model.contractCopy, contractCopyFileName: model.contractCopyFileName}) : ''});
+                                    me.o_setValue({name: 'companyGatePicture', value: model.companyGatePicture ? JSON.stringify({companyGatePicture: model.companyGatePicture, companyGatePictureFileName: model.companyGatePictureFileName}) : ""});
+                                    me.o_setValue({name: 'companyGateKeyword', value: model.companyGateKeyword});
+                                    me.o_setValue({name: 'companyGateRemark', value: model.companyGateRemark});
+                                    if (model.contract) {
+                                        me.o_setValue({name: 'contract-image', visible: true, attr: {src: '/op/api/file/previewimage?filePath=' + model.contract}});
+                                        me.o_data_getField({name: 'contract-image'}).parent('a').attr('href', '/op/api/file/previewimage?filePath=' + model.contract);
+                                    }
+                                    if (model.contractCopy) {
+                                        me.o_setValue({name: 'contractCopy-image', visible: true, attr: {src: '/op/api/file/previewimage?filePath=' + model.contractCopy}});
+                                        me.o_data_getField({name: 'contractCopy-image'}).parent('a').attr('href', '/op/api/file/previewimage?filePath=' + model.contractCopy);
+                                    }
+                                    if (model.companyGatePicture) {
+                                        me.o_setValue({name: 'companyGatePicture-image', visible: true, attr: {src: '/op/api/file/previewimage?filePath=' + model.companyGatePicture}});
+                                        me.o_data_getField({name: 'companyGatePicture-image'}).parent('a').attr('href', '/op/api/file/previewimage?filePath=' + contract.companyGatePicture);
+                                    }
+                                } else {
+                                    clear();
+                                }
+                            } else {
+                                clear();
+                            }
+
+                            function clear() {
+                                me.o_setValue({name: 'sealName', value: ''});
+                                me.o_setValue({name: 'contract', value: ''});
+                                me.o_setValue({name: 'contract', value: ''});
+                                me.o_setValue({name: 'contractCopy', value: ''});
+                                me.o_setValue({name: 'companyGatePicture', value: ''});
+                                me.o_setValue({name: 'companyGateKeyword', value: ''});
+                                me.o_setValue({name: 'companyGateRemark', value: ''});
+                                me.o_setValue({name: 'contract-image', visible: false});
+                                me.o_setValue({name: 'contractCopy-image', visible: false});
+                                me.o_setValue({name: 'companyGatePicture-image', visible: false});
+                            }
+                        }
+                    });
+                }
+                }
+            ],
             validateOptions: {
                 required: {
                     enable: true, value: true, message: '请填写合同号', handler: function (error, value, option, $ele) {
@@ -163,7 +214,7 @@ define(function (require, exports, module) {
             ]
 
         }));
-        var currPayIdArr = [3, 1, 8, 4, 5, 7,12];
+        var currPayIdArr = [3, 1, 8, 4, 5, 7, 12];
         $(currPayIdArr).each(function (i, n) {
             (function (id) {
                 dataItems.push(new DataItem({

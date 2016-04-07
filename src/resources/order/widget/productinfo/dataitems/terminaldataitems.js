@@ -41,7 +41,7 @@ define(function (require, exports, module) {
         //企业ID
         dataItems.push(new DataItem({
             name: 'enterpriseId',
-            value: 1
+            value: null
         }));
 
         //使用销客终端复选框

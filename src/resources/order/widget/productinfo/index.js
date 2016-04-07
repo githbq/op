@@ -482,6 +482,7 @@ define(function (require, exports, module) {
                 if (first) {
                     data.__inited = true;
                 }
+                return data;
             },
             o_setFieldValue: function ($ele, value, silent) {
                 var me = this;

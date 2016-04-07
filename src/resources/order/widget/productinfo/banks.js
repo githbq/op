@@ -144,7 +144,7 @@
 
     module.exports = function (callback) {
         util.api({
-            'url': '/ba/querylist',
+            'url': '~/op/api/ba/querylist',
             'success': function (data) {
                 var arr = [];
                 console.warn(data);
