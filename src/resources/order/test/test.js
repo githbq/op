@@ -8,11 +8,17 @@ define(function( require , exports , module ){
 		var $el = exports.$el;
 
 		
+		/*
 		var invoice = new Invoice( {'wrapper':$el.find('.invoicewrapper')} );
 
 		$el.on('click #getinfo', function(){
 
 			console.log( invoice.getInfo() );
 		});
+		*/
+
+		var invoicedetail = new InvoiceDetail();
+
+		invoicedetail.show();
 	}
 })

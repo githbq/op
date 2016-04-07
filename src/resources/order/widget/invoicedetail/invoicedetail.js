@@ -1,13 +1,13 @@
 define(function( require , exports , module ){
 
-	var template = require('./invoice.html'); 
+	var template = require('./invoicedetail.html'); 
 	var uploader = require('common/widget/upload').uploader;
-
+	var Slider = require('common/widget/slider/slider');
 
 	//订单模块
-	var Invoice = MClass( M.Center ).include({
+	var Invoice = MClass( Slider ).include({
 
-		view: template,
+		content: template,
 		
 		elements: {
 			'#businessLicense': 'businessLicense',
@@ -69,9 +69,10 @@ define(function( require , exports , module ){
 			
 			///初始化事件
 			///this.initEvents();
-			this.render();
+			//this.render();
 
 			//设置数据 显示数据
+			/*
 			if( attrs.data ){
 				
 				me.model.load( attrs.data.order );
@@ -101,7 +102,7 @@ define(function( require , exports , module ){
 				}else{
 					me.$('[name="invoice"]').eq(1).trigger('click');
 				}
-				*/
+				
 				if( attrs.data.order.isCooperation == 1 ){
 
 					me.$('[name="team"]').eq(1).trigger('click');
@@ -118,7 +119,7 @@ define(function( require , exports , module ){
 			if( attrs.type == 17 ){
 				me.$('.tidan').hide();
 			}
-
+			*/
 
 		},
 
@@ -163,6 +164,7 @@ define(function( require , exports , module ){
 			});
 		},
 		*/
+		/*
 		render: function(){
 			this.attrs['wrapper'].html( this.$view );
 
@@ -174,7 +176,7 @@ define(function( require , exports , module ){
 			this.model.set('departmentname', departmentname);
 			this.model.set('accountname', IBSS.role.name);
 		},
-
+		*/
 		//外部接口 获取当前数据信息
 		getInfo: function(){
 			var me = this;
