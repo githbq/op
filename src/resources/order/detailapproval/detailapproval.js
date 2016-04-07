@@ -54,6 +54,7 @@ define( function(require, exports, module){
 			'.action-agree':'actionAgree',
 			'.action-reject':'actionReject',
 			'.action-submit':'actionSubmit',
+			'.action-agree-pass':'actionAgreePass',
 			'.enterpriseAccount':'enterpriseAccount',
 			'.money-time':'moneyTime'
 		},
@@ -62,7 +63,8 @@ define( function(require, exports, module){
 			'click .action-submit':'actionSubmitEve',
 			'click .action-resend':'actionResendEve',
 			'click .action-agree':'actionAgreeEve',
-			'click .action-reject':'actionRejectEve'
+			'click .action-reject':'actionRejectEve',
+			'click .action-agree-pass':'actionAgreePassEve'
 		},
 
 		
@@ -118,7 +120,7 @@ define( function(require, exports, module){
 
 						//基本信息
 						me.attrs.basicCommon = new BasicInfo( { 'wrapper':me.$view.find('.common--basic'),'data':me.attrs.enterpriseData.enterprise,
-							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.basicInfoEdit,'type':me.attrs.options.orderType,'ea':me.attrs.options.ea} );
 					});
 
 					break;
@@ -127,14 +129,14 @@ define( function(require, exports, module){
 					$.when( me.getOrderDetail()/*, me.getEnterpriseInfo()*/).done(function(){
 						//备注信息
 						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData,
-							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.basicInfoEdit,'type':me.attrs.options.orderType} );
 
 						//setOrderInfo--订单信息
 						me.setOrderInfo();
 
 						//基本信息
 						me.attrs.basicCommon = new BasicInfo( { 'wrapper':me.$view.find('.common--basic'),'data':me.attrs.enterpriseData.enterprise,
-							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.basicInfoEdit,'type':me.attrs.options.orderType,'ea':me.attrs.options.ea} );
 					});
 
 					break;
@@ -149,7 +151,7 @@ define( function(require, exports, module){
 						me.setOrderInfo();
 						//基本信息
 						me.attrs.basicCommon = new BasicInfo( { 'wrapper':me.$view.find('.common--basic'),'data':me.attrs.enterpriseData.enterprise,
-							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.basicInfoEdit,'type':me.attrs.options.orderType,'ea':me.attrs.options.ea} );
 					});
 
 
@@ -160,13 +162,13 @@ define( function(require, exports, module){
 
 						//备注信息
 						me.attrs.explainCommon = new Explain( { 'wrapper':me.$view.find('.common--explain'),'data':me.attrs.orderData,
-							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType,'ea':me.attrs.options.ea} );
 
 						//setOrderInfo--订单信息
 						me.setOrderInfo();
 						//基本信息
 						me.attrs.basicCommon = new BasicInfo( { 'wrapper':me.$view.find('.common--basic'),'data':me.attrs.enterpriseData.enterprise,
-							'editFlag':me.attrs.moneyEdit,'type':me.attrs.options.orderType} );
+							'editFlag':me.attrs.basicInfoEdit,'type':me.attrs.options.orderType} );
 					});
 
 					break;
@@ -644,19 +646,30 @@ define( function(require, exports, module){
 			
 			//设置是否可以编辑
 			me.attrs.moneyEdit = me.attrs.options.editFlag;
+			me.attrs.basicInfoEdit = me.attrs.options.editFlag;
 			//财务驳回只能部分编辑和小助手第二次驳回
 			if(me.attrs.options.rejectsFrom && (me.attrs.options.rejectsFrom == 2 || me.attrs.options.rejectsFrom == 3 ) && me.attrs.options.editFlag){
 				me.attrs.moneyEdit = false;;
+			}
+			var typeString = '1,2,3,4,13,14,15,16';
+			if( me.attrs.options.currentTask == 'support' && typeString.indexOf(me.attrs.options.orderType)>-1 ){
+				me.attrs.basicInfoEdit = true;
+				me.$('.action-agree-pass').show();
 			}
 
 		},
 		//设置审批意见
 		setOptions:function(){
 			var me = this,strDom = '';
+			var opinionObj = {'support':'小助手开通','support2':'小助手确认','finance':'财务','sup':'小助手'};
+			var personStr = "support,support2,finance,sup";
 			
 			var optionsList = me.attrs.orderData.order.rejectReason ? me.attrs.orderData.order.rejectReason.split('<+>'): [];
 			for(var i = 0; i<optionsList.length; i++){
 				var tempAry = optionsList[i].split('<->');
+				if(personStr.indexOf(tempAry[0])>-1){
+					tempAry[0] = opinionObj[tempAry[0]];
+				}
 				tempAry[2] = (tempAry[2]=='true') ? '同意':'驳回';
 				strDom+='<tr><td>'+tempAry[0]+'</td><td>'+tempAry[1]+'</td><td>'+tempAry[2]+'</td><td>'+tempAry[3]+'</td></tr>'
 			}
@@ -953,6 +966,12 @@ define( function(require, exports, module){
 				}
 				me.$actionSave.text('提交中....');
 				me.$actionSave.attr('disabled','disabled');
+				me.$actionAgreePass.text('提交中....');
+				me.$actionAgreePass.attr('disabled','disabled');
+				me.$actionAgree.text('提交中....');
+				me.$actionAgree.attr('disabled','disabled');
+				me.$actionReject.text('提交中....');
+				me.$actionReject.attr('disabled','disabled');
 				util.api({
 					'url':tempUrl,
 					'data':JSON.stringify( me.attrs.allData ),
@@ -966,9 +985,15 @@ define( function(require, exports, module){
 							changeNode();
 						}
 					},
-					'complete': function(){
+					'error': function(){
 						me.$actionSave.text('保存');
 						me.$actionSave.removeAttr('disabled');
+						me.$actionAgreePass.text('保存通过');
+						me.$actionAgreePass.removeAttr('disabled');
+						me.$actionReject.text('驳回');
+						me.$actionReject.removeAttr('disabled');
+						me.$actionAgree.text('同意');
+						me.$actionAgree.removeAttr('disabled');
 					}
 				})
 				
@@ -989,7 +1014,17 @@ define( function(require, exports, module){
 							me.trigger( 'saveSuccess');
                             me.hide();
                         }
-                    }
+                    },
+					'complete': function(){
+						me.$actionSave.text('保存');
+						me.$actionSave.removeAttr('disabled');
+						me.$actionAgreePass.text('保存通过');
+						me.$actionAgreePass.removeAttr('disabled');
+						me.$actionReject.text('驳回');
+						me.$actionReject.removeAttr('disabled');
+						me.$actionAgree.text('同意');
+						me.$actionAgree.removeAttr('disabled');
+					}
                 })
             };
 		},
@@ -1005,8 +1040,8 @@ define( function(require, exports, module){
             if( bool ){
 				me.$actionAgree.text('提交中....');
 				me.$actionAgree.attr('disabled','disabled');
-				me.$actionResend.text('提交中....');
-				me.$actionResend.attr('disabled','disabled');
+				me.$actionAgreePass.text('提交中....');
+				me.$actionAgreePass.attr('disabled','disabled');
                 util.api({
                     'url': '~/op/api/approval/directapprove',
                     'data':{
@@ -1029,8 +1064,8 @@ define( function(require, exports, module){
 					complete: function(){
 						me.$actionAgree.text('同意');
 						me.$actionAgree.removeAttr('disabled');
-						me.$actionResend.text('保存通过');
-						me.$actionResend.removeAttr('disabled');
+						me.$actionAgreePass.text('保存通过');
+						me.$actionAgreePass.removeAttr('disabled');
 					}
                 })
             }
@@ -1053,6 +1088,14 @@ define( function(require, exports, module){
 			}
     
         },
+		//小助手报保存并通过
+		actionAgreePassEve:function(){
+			var me = this;
+			var bool = confirm("确认修改并通过此条审批吗?");
+			if(bool){
+				me.actionSubmitEve();
+			}
+		},
 		//批复审批
 		replyOptions:function(){
 		 	var me = this;

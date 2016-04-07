@@ -657,6 +657,9 @@ define( function( require, exports, module ) {
 				me.attrs.invoiceSpecial.setDiscount( me.attrs.complexDiscount );
 				objData.orderEntity.order['discount'] = me.attrs.complexDiscount ;
 				objData.contract['discount'] = me.attrs.complexDiscount ;
+				
+				me.$commonAdd.text('提交中....');
+				me.$commonAdd.attr('disabled','disabled');
 
 				util.api({
 					'url':me.attrs.url,
@@ -671,6 +674,10 @@ define( function( require, exports, module ) {
 							util.showTip('提交成功！')
 							location.hash = "#order/orderlist";
 						}
+					},
+					'complete': function(){
+						me.$commonAdd.text('提交');
+						me.$commonAdd.removeAttr('disabled');
 					}
 				})
 			});

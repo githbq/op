@@ -110,7 +110,6 @@ define(function(require, exports, module){
 			IBSS.tempEnterprise['industry']&& me.$('.e-industry').attr('disabled','disabled');
 			IBSS.tempEnterprise['enterpriseaccount'] && me.model.set('enterpriseaccount',IBSS.tempEnterprise['enterpriseaccount']);
 			IBSS.tempEnterprise['enterpriseaccount']&& me.$('.enterpriseaccount').attr('disabled','disabled');
-			debugger
 		
 			me.model.set('enterpriseFilingId', IBSS.tempEnterprise['id']);
 
@@ -119,6 +118,31 @@ define(function(require, exports, module){
 			}
 
 			IBSS.tempEnterprise['id'] && me.model.set('enterpriseFilingId', IBSS.tempEnterprise['id']);
+			
+			//代理商所属区域
+			if (me.attrs.ea ){
+				util.api({
+					'url': '~/op/api/region/getbyea',
+					'data':{'ea':me.attrs.ea},
+					'success': function( data ){
+						console.warn( data );
+						if( data.success ){
+							me.$('.proxy-area').val(data.value.model.name);
+						}
+					}
+				});
+			}else{
+				util.api({
+					'url': '~/op/api/region/getagentregion',
+					'success': function( data ){
+						console.warn( data );
+						if( data.success ){
+							me.$('.proxy-area').val(data.value.model.name);
+						}
+					}
+				});
+			}
+			
 		},
 		//获取枚举值
 		getEnums: function( callback ){

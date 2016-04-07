@@ -20,7 +20,9 @@ define(function (require, exports, module) {
         controller(terminalDataItems, 'useFX', function (n) {
             n.visible=false;
         });
-
+        controller(tableDataItems, 'table_type_wrapper', function (n) {
+            n.visible = true;
+        });
         controller(terminalDataItems, 'typewrapper_3', function (n) {
             n.visible = true;
         });

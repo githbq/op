@@ -24,16 +24,21 @@ define( function(require, exports, module){
 		approvalList.on('detail',function( detail, state ){
 			console.log( detail )
 
+			var editFlag = false;
+			if( state == "refuse" ){
+				editFlag = detail.canEdit;
+			}
+
 			var data = {
 				'id' : detail.orderId,
                 'enterpriseId': detail.enterpriseId, 
-                'editFlag': false,                          	//detail.canEdit || '',
+                'editFlag': editFlag,                          	//detail.canEdit || '',
                 'orderType': detail.orderType,
                 'opinion': detail.lastAssigneeOpinion,
                 'isTp': detail.isTp,
                 'state': state,
                 'ea': detail.enterpriseAccount,
-                'currentTask': detail.currentTash,
+                'currentTask': detail.currentTask,
                 'processInstanceId': detail.processInstanceId,
                 'contractNo': detail.contractNo
 			};
