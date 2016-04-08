@@ -58,6 +58,9 @@ define(function( require , exports , module ){
 		//确定
 		submitEve: function(){
 			var me = this;
+
+			console.log('确定')
+
 		},
 
 		//取消

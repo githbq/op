@@ -60,27 +60,27 @@
 		<section class="typea" style="display:block">
 			<p>
 				<span class="title">发票抬头 <b class="nsr">*</b></span>
-				<input type="text">
+				<input type="text" ce-model="invoiceHead">
 			</p>	
 			<p>
 				<span class="title">发票金额 <b class="nsr">*</b></span>
-				<input type="text" oninput="this.value=this.value.replace(/[^\.\d]/g,'')" maxlength="9">
+				<input type="text" oninput="this.value=this.value.replace(/[^\.\d]/g,'')" maxlength="9" ce-model="amount">
 			</p>
 			<p>
 				<span class="title">收件人姓名 <b class="nsr">*</b></span>
-				<input type="text">
+				<input type="text" ce-model="receiverName">
 			</p>
 			<p>
 				<span class="title">收件人电话 <b class="nsr">*</b></span>
-				<input type="text">
+				<input type="text" ce-model="receiverPhone">
 			</p>
 			<p>
 				<span class="title">收件人地址 <b class="nsr">*</b></span>
-				<input type="text">
+				<input type="text" ce-model="receiverAddress">
 			</p>
 			<p>
 				<span class="title">备注信息</span><br>
-				<textarea class="remark"></textarea>
+				<textarea class="remark" ce-model="remark"></textarea>
 			</p>
 		</section>
 
@@ -100,11 +100,11 @@
 			</p>
 			<p>
 				<span class="title">地址<b class="nsr">*</b></span> 
-				<input type="text" ce-model="address" name="dz"> 
+				<input type="text" ce-model="receiverAddress" name="dz"> 
 			</p>
 			<p>
 				<span class="title">电话<b class="nsr">*</b></span> 
-				<input type="text" ce-model="telephone" name="dh">
+				<input type="text" ce-model="receiverPhone" name="dh">
 			</p>
 			<p>
 				<span class="title">开户行<b class="nsr">*</b></span> <input type="text" ce-model="bankName" name="khh">
@@ -114,18 +114,19 @@
 			</p>
 			<p>
 				<span class="title">收件人姓名<b class="nsr">*</b></span>
-				<input type="text">
+				<input type="text" ce-model="receiverName">
 			</p>
 			<p>
 				<span class="title">收件人电话<b class="nsr">*</b></span>
-				<input type="text">
+				<input type="text" ce-model="receiverPhone">
 			</p>
 			<p>
 				<span class="title">收件人地址<b class="nsr"></b></span>
+				<input type="text" ce-model="receiverAddress">
 			</p>
 			<p>
 				<span class="title">备注信息</span><br>
-				<textarea class="remark"></textarea>
+				<textarea class="remark" ce-model="remark"></textarea>
 			</p>
 		</section>
 		
@@ -133,30 +134,31 @@
 		<section class="typec">
 			<p>
 				<span class="title">发票抬头 <b class="nsr">*</b> </span>
-				<input type="text">
+				<input type="text" ce-model="invoiceHead">
 			</p>
 			<p>
 				<span class="title">发票金额 <b class="nsr">*</b> </span>
-				<input type="text">
+				<input type="text" ce-model="amount">
 			</p>
 			<p>
 				<span class="title">审批连接 <b class="nsr">*</b></span>
-				<input type="text">
+				<input type="text" ce-model="approvalUrl">
 			</p>
 			<p>
 				<span class="title">收件人姓名 <b class="nsr">*</b></span>
-				<input type="text">
+				<input type="text" ce-model="receiverName">
 			</p>
 			<p>
 				<span class="title">收件人电话 <b class="nsr">*</b></span>
-				<input type="text">
+				<input type="text" ce-model="receiverPhone">
 			</p>
 			<p>
 				<span class="title">收件人地址 <b class="nsr">*</b></span>
+				<input type="text" ce-model="receiverAddress">
 			</p>
 			<p>
 				<span class="title">备注信息</span><br>
-				<textarea class="remark"></textarea>
+				<textarea class="remark" ce-model="remark"></textarea>
 			</p>
 		</section>
 		
@@ -164,51 +166,51 @@
 		<section class="typed">
 			<p>
 				<span class="title">发票金额<b class="nsr">*</b></span>
-				<input type="text">
+				<input type="text" ce-model="amount">
 			</p>
 			<p>
 				<span class="title">发票抬头<b class="nsr">*</b></span>
-				<input type="text">
+				<input type="text" ce-model="invoiceHead">
 			</p>
 			<p>
 				<span class="title">纳税人识别号<b class="nsr">*</b></span>
-				<input type="text">
+				<input type="text" ce-model="taxpayerIdentificationNo">
 			</p>
 			<p>
 				<span class="title">地址 <b class="nsr">*</b></span>
-				<input type="text">
+				<input type="text" ce-model="receiverAddress">
 			</p>
 			<p>
 				<span class="title">电话 <b class="nsr">*</b></span>
-				<input type="text">
+				<input type="text" ce-model="receiverPhone">
 			</p>
 			<p>
 				<span class="title">开户行 <b class="nsr">*</b></span>
-				<input type="text">
+				<input type="text" ce-model="bankName">
 			</p>
 			<p>
 				<span class="title">账号 <b class="nsr">*</b></span>
-				<input type="text">
+				<input type="text" ce-model="bankAccount">
 			</p>
 			<p>
 				<span class="title">审批链接 <b class="nsr">*</b></span>
-				<input type="text">
+				<input type="text" ce-model="approvalUrl">
 			</p>
 			<p>
 				<span class="title">收件人姓名 <b class="nsr">*</b></span>
-				<input type="text">
+				<input type="text" ce-model="receiverName">
 			</p>
 			<p>
 				<span class="title">收件人电话 <b class="nsr">*</b></span>
-				<input type="text">
+				<input type="text" ce-model="receiverPhone">
 			</p>
 			<p>
 				<span class="title">收件人地址 <b class="nsr">*</b></span>
-				<input type="text">
+				<input type="text" ce-model="receiverAddress">
 			</p>
 			<p>
 				<span class="title">备注信息</span><br>
-				<textarea class="remark"></textarea>
+				<textarea class="remark" ce-model="remark"></textarea>
 			</p>
 		</section>
 
