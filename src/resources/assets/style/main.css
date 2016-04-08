@@ -6535,6 +6535,7 @@ em {
 .m-invoicedetail b.nsr {
   color: red;
 }
+.m-invoicedetail .file,
 .m-invoicedetail .typea,
 .m-invoicedetail .typeb,
 .m-invoicedetail .typec,

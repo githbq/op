@@ -55,6 +55,7 @@ define(function( require , exports , module ){
 
 			if( invoice == 0 ){
 
+				me.$('.file').hide();
 				if( invoicetype == 0 ){
 					me.$('.typea').show().siblings().hide();
 				}else if( invoicetype == 1 ){
@@ -62,6 +63,7 @@ define(function( require , exports , module ){
 				}
 			}else if( invoice == 1 ){
 
+				me.$('.file').show();
 				if( invoicetype == 0 ){
 					me.$('.typec').show().siblings().hide();
 				}else if( invoicetype ==1 ){
