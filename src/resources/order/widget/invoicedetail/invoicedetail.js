@@ -53,21 +53,24 @@ define(function( require , exports , module ){
 			var invoice = me.$('[name="invoice"]:checked').val();
 			var invoicetype = me.$('[name="invoicetype"]:checked').val();
 
+			console.log( invoice );
 			if( invoice == 0 ){
 
-				me.$('.file').hide();
 				if( invoicetype == 0 ){
-					me.$('.typea').show().siblings().hide();
+					me.$('.file').hide();
+					me.$('.typea').show().siblings('section').hide();
 				}else if( invoicetype == 1 ){
-					me.$('.typeb').show().siblings().hide();
+					me.$('.file').show();
+					me.$('.typeb').show().siblings('section').hide();
 				}
 			}else if( invoice == 1 ){
 
-				me.$('.file').show();
 				if( invoicetype == 0 ){
-					me.$('.typec').show().siblings().hide();
+					me.$('.file').hide();
+					me.$('.typec').show().siblings('section').hide();
 				}else if( invoicetype ==1 ){
-					me.$('.typed').show().siblings().hide();
+					me.$('.file').show();
+					me.$('.typed').show().siblings('section').hide();
 				}
 			}
 		},
