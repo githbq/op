@@ -8,6 +8,7 @@ define( function( require, exports, module ) {
 	var DetailPayment = require('../detailpayment/detailpayment');
 	var CustomHelper = require('../widget/customhelper/customhelper');
 	var BackMoney = require('../backmoney/backmoney');
+	var InvoiceDetail = require('../widget/invoicedetail/invoicedetail');
 
     var tem = $( require('./template.html') );
 
@@ -66,7 +67,8 @@ define( function( require, exports, module ) {
 			'click .order-del':'orderDelEve',
 			'click .exportOrder':'exportEve',
 			'click .order-custom':'orderCustomEve',
-			'click .order-backmoney':'orderBackmoneyEve'
+			'click .order-backmoney':'orderBackmoneyEve',
+			'click .order-invoice':'orderInvoiceEve'
         },
         elements:{
             'tbody': 'tbody',
@@ -128,6 +130,16 @@ define( function( require, exports, module ) {
 		   
            me.trigger('orderBackmoney',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':false,'orderType':orderType,
                'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea,'processInstanceId':'','contractNo':contractNo} );
+		   
+	   },
+	   //发票
+	   orderInvoiceEve:function( e ){
+		   var me = this;
+		   
+		   var id = $(e.currentTarget).attr('data-id');
+         
+		   
+           me.trigger('orderInvoice', id );
 		   
 	   },
 	   //收尾款
@@ -291,7 +303,7 @@ define( function( require, exports, module ) {
         var detailApproval = null;
 		var detailPayment = null;
 		var customHelper = null;
-		var backMoney = null;
+		var backMoney = null, invioceDetail = null;
 		
         orderList.on('orderDetail', function( options ){
             detailApproval = new DetailApproval();
@@ -311,6 +323,10 @@ define( function( require, exports, module ) {
             backMoney = new BackMoney();
             backMoney.show( options );
         })
+		orderList.on('orderInvoice', function( id ){
+            invioceDetail = new InvoiceDetail();
+            invioceDetail.show( id );
+        });
 
     }
 } );
