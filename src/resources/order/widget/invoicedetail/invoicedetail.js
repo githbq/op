@@ -34,21 +34,21 @@ define(function( require , exports , module ){
 			var invoicetype = me.$('[name="invoicetype"]:checked').val();
 
 			console.log( invoice );
-			if( invoice == 0 ){
+			if( invoice == 1 ){
 
-				if( invoicetype == 0 ){
+				if( invoicetype == 1 ){
 					me.$('.file').hide();
 					me.$('.typea').show().siblings('section').hide();
-				}else if( invoicetype == 1 ){
+				}else if( invoicetype == 2 ){
 					me.$('.file').show();
 					me.$('.typeb').show().siblings('section').hide();
 				}
-			}else if( invoice == 1 ){
+			}else if( invoice == 2 ){
 
-				if( invoicetype == 0 ){
+				if( invoicetype == 1 ){
 					me.$('.file').hide();
 					me.$('.typec').show().siblings('section').hide();
-				}else if( invoicetype ==1 ){
+				}else if( invoicetype == 2 ){
 					me.$('.file').show();
 					me.$('.typed').show().siblings('section').hide();
 				}
@@ -60,7 +60,16 @@ define(function( require , exports , module ){
 			var me = this;
 
 			console.log('确定')
-
+			var info = me.getInfo();
+			util.api({
+				'url':'/odr/invoice/save',
+				'data': info,
+				'success': function( data ){
+					if( data.success ){
+						console.log('发票保存成功');
+					}
+				}
+			})
 		},
 
 		//取消
@@ -69,12 +78,7 @@ define(function( require , exports , module ){
 		},
 
 		/**
-		 *
-		 *  attrs
-		 *  wrapper 
-		 *  data
-		 *  editFlag
-		 *  type
+		 * init
 		 */
 		init: function( attrs ){
 			InvoiceDetail.__super__.init.apply( this, arguments );
@@ -124,6 +128,40 @@ define(function( require , exports , module ){
 			});
 		},
 
+		//显示
+		show: function( id ){
+			InvoiceDetail.__super__.show.apply( this, arguments );
+
+			console.log('id');
+			console.log( id );
+			var me = this;
+
+			me.orderId = id;
+
+			//
+			/*
+			util.api({
+				'url': '',
+				'data': {
+					''
+				},
+				'success': function( data ){
+
+				}
+			})
+			*/
+		},
+
+		//隐藏
+		hide: function( ){
+			InvoiceDetail.__super__.hide.apply( this, arguments );
+
+			var me = this;
+			me.model.clear();
+			//清除其他选项
+
+		},
+
 		//获取当前数据信息
 		getInfo: function(){
 			var me = this;
@@ -131,7 +169,13 @@ define(function( require , exports , module ){
 			var invoice = me.$('[name="invoice"]:checked').val();
 			var invoicetype = me.$('[name="invoicetype"]:checked').val();
 
-			
+			var model = me.model.all();
+
+			model.orderId = me.orderId;
+			model.invoiceProp = invoice;
+			model.invoiceType = invoicetype;
+
+			return model;
 		}
 	});
 

@@ -231,7 +231,7 @@ define( function(require, exports, module){
 			'#sdSC': 'sdSC',
 			'#sdSUC': 'sdSUC',
 			
-			///'#sXKDC': 'sXKDC',         		//销客终端总量
+			///'#sXKDC': 'sXKDC',         		//逍客终端总量
 			///'#sXKET': 'sXKET',         		//签约到期时间
 			///'#yxEndInput': 'yxEndInput',    	//营销版到期时间
 			///'#sBCDC': 'sBCDC',
@@ -239,7 +239,7 @@ define( function(require, exports, module){
 			///'#sSms': 'sSms',
 			///'#sStorage': 'sStorage',
 			
-			///'#sDevice': 'sDevice',     			 //销客终端扩容
+			///'#sDevice': 'sDevice',     			 //逍客终端扩容
 
 			///'#yingxiao': 'yingxiao',             //营销版终端总量
 			///'#yingxiaoAdd': 'yingxiaoAdd',	     //营销版终端扩容
@@ -2336,7 +2336,7 @@ define( function(require, exports, module){
 
 			/*
 			if( me.$sXKDC.val() && me.$sDevice.val() ){
-				util.showToast('销客终端总量 和 销客终端扩容信息仅能填写一个!');
+				util.showToast('逍客终端总量 和 逍客终端扩容信息仅能填写一个!');
 				return false;
 			}
 			
@@ -2348,8 +2348,8 @@ define( function(require, exports, module){
 
 			var data = {
 				enterpriseId: me.model.attrs.id,
-				accountAmount:  me.$sXKDC.val(),				//销客终端总量
-				increaseAmount:	me.$sDevice.val(),				//销客终端扩容
+				accountAmount:  me.$sXKDC.val(),				//逍客终端总量
+				increaseAmount:	me.$sDevice.val(),				//逍客终端扩容
 				marketingAccountAmount: me.$yingxiao.val(),		//营销终端总量
 				increaseMarketingAmount: me.$yingxiaoAdd.val(), //营销终端扩容
 				baichuanAccountAmount: me.$sBCDC.val(), 		//百川终端总量
@@ -2765,15 +2765,15 @@ define( function(require, exports, module){
 			var me = this;
 
 			if( me.$sXKDC.val() && me.$sDevice.val() ){
-				util.showToast('销客终端总量 和 销客终端扩容信息仅能填写一个!');
+				util.showToast('逍客终端总量 和 逍客终端扩容信息仅能填写一个!');
 				return false;
 			}
 			
 
 			var data = {
 				enterpriseId: me.model.attrs.id,
-				accountAmount:  me.$sXKDC.val(),				//销客终端总量
-				increaseAmount:	me.$sDevice.val(),				//销客终端扩容
+				accountAmount:  me.$sXKDC.val(),				//逍客终端总量
+				increaseAmount:	me.$sDevice.val(),				//逍客终端扩容
 				baichuanAccountAmount: me.$sBCDC.val(), 		//百川终端总量
 				rechargeSmsAmount: me.$sSms.val(),      		//短信充值条数
 				expandStorageSpace: me.$sStorage.val() 			//存储扩容
