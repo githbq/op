@@ -1043,6 +1043,17 @@ define( function(require, exports, module){
 						me.$name.val( model.enterpriseName );
 						me.$account.val( model.enterpriseAccount );
 						me.enterpriseAccount = model.enterpriseAccount;
+						//根据企业账号获取代理区域
+						util.api({
+							'url': '~/op/api/region/getbyea',
+							'data':{'ea':model.enterpriseAccount},
+							'success': function( data ){
+								console.warn( data );
+								if( data.success ){
+									me.$('.proxy-area').val(data.value.model.name);
+								}
+							}
+						});
 						me.$address.val( model.address );
 						me.$aindustry.val( model.industry );
 						me.$asource.val( model.source );
