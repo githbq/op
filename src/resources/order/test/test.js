@@ -2,6 +2,7 @@ define(function( require , exports , module ){
 
 	var Invoice = require('../widget/invoice/invoice');
 	var InvoiceDetail = require('../widget/invoicedetail/invoicedetail');
+	var InvoiceInfo = require('../widget/invoicedetail/invoiceinfo');
 
 	exports.init = function(){
 
@@ -18,7 +19,9 @@ define(function( require , exports , module ){
 		*/
 
 		var invoicedetail = new InvoiceDetail();
+		var invoiceinfo = new InvoiceInfo();
 
-		invoicedetail.show();
+		//invoicedetail.show();
+		invoiceinfo.show();
 	}
 })

@@ -5,9 +5,14 @@ define(function( require , exports , module ){
 	var Slider = require('common/widget/slider/slider');
 
 	//订单模块
-	var InvoiceDetail = MClass( M.Center ).include({
+	var InvoiceDetail = MClass( Slider ).include({
 
-		view: template,
+		content: template,
+
+		defaultAttr:{
+			'title':'发票',
+			'width': 600
+		},
 
 		elements: {
 			'#businessLicense': 'businessLicense',
@@ -16,7 +21,9 @@ define(function( require , exports , module ){
 
 		events: {
 			'click [name="invoice"]': 'typeEve',
-			'click [name="invoicetype"]': 'typeEve'
+			'click [name="invoicetype"]': 'typeEve',
+			'click .submit': 'submitEve',
+			'click .cancel': 'cancelEve'
 		},
 
 		//发票类型点击切换事件
@@ -48,6 +55,16 @@ define(function( require , exports , module ){
 			}
 		},
 
+		//确定
+		submitEve: function(){
+			var me = this;
+		},
+
+		//取消
+		cancelEve: function(){
+			var me = this;
+		},
+
 		/**
 		 *
 		 *  attrs
@@ -59,16 +76,12 @@ define(function( require , exports , module ){
 		init: function( attrs ){
 			InvoiceDetail.__super__.init.apply( this, arguments );
 			var me = this;
-
-			console.warn('invoice init');
-			console.warn( attrs );
-			if( me.attrs.wrapper ){
-				me.attrs.wrapper.html( me.$view );
-			}
+			
+			//初始化事件
+			me.initEvents();
 		},
 
 		//初始化事件
-		/*
 		initEvents: function(){
 			var me = this;
 
@@ -89,7 +102,7 @@ define(function( require , exports , module ){
 					}
 				})
 			});
-			//
+			
 			me.$qualification.on('change',function(){
 				console.log('change');
 				console.log( me.$qualification[0].files );
@@ -107,20 +120,7 @@ define(function( require , exports , module ){
 				})
 			});
 		},
-		*/
-		/*
-		render: function(){
-			this.attrs['wrapper'].html( this.$view );
 
-			var departmentname = '';
-			if( IBSS.role.department && IBSS.role.department.name ){
-				departmentname = IBSS.role.department.name;
-			}
-
-			this.model.set('departmentname', departmentname);
-			this.model.set('accountname', IBSS.role.name);
-		},
-		*/
 		//外部接口 获取当前数据信息
 		getInfo: function(){
 			var me = this;

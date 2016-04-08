@@ -6535,10 +6535,18 @@ em {
 .m-invoicedetail b.nsr {
   color: red;
 }
+.m-invoicedetail .remark {
+  width: 323px;
+  height: 80px;
+  padding: 5px;
+}
 .m-invoicedetail .file,
 .m-invoicedetail .typea,
 .m-invoicedetail .typeb,
 .m-invoicedetail .typec,
 .m-invoicedetail .typed {
   display: none;
+}
+.p-invoiceapply {
+  padding: 20px;
 }
