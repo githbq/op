@@ -139,17 +139,17 @@ define(function( require , exports , module ){
 			me.orderId = id;
 
 			//
-			/*
+			
 			util.api({
-				'url': '',
+				'url': '/odr/info',
 				'data': {
-					''
+					'id': id
 				},
 				'success': function( data ){
-
+					console.warn( data )
 				}
 			})
-			*/
+			
 		},
 
 		//隐藏
