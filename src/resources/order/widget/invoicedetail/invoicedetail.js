@@ -121,9 +121,12 @@ define(function( require , exports , module ){
 			});
 		},
 
-		//外部接口 获取当前数据信息
+		//获取当前数据信息
 		getInfo: function(){
 			var me = this;
+
+			var invoice = me.$('[name="invoice"]:checked').val();
+			var invoicetype = me.$('[name="invoicetype"]:checked').val();
 
 			
 		}
