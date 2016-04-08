@@ -9,14 +9,19 @@ define(function( require , exports , module ){
 
 		content: template,
 		
+		defaultAttr: {
+			'width': 600, 
+			'title': '发票申请信息'
+		},
+
 		elements: {
 			'#businessLicense': 'businessLicense',
 			'#qualification': 'qualification'
 		},
 
 		events: {
-			///'click [name="invoice"]': 'invoiceEve',
-			///'click [name="intype"]': 'intypeEve',
+			'click [name="invoice"]': 'typeEve',
+			'click [name="invoicetype"]': 'typeEve',
 			'click [name="team"]': 'teamEve'
 		},
 
@@ -40,6 +45,30 @@ define(function( require , exports , module ){
 			me.$('.'+target).show().siblings().hide();
 		},
 		*/
+
+		//发票类型点击切换事件
+		typeEve: function(){
+			var me = this;
+
+			var invoice = me.$('[name="invoice"]:checked').val();
+			var invoicetype = me.$('[name="invoicetype"]:checked').val();
+
+			if( invoice == 0 ){
+
+				if( invoicetype == 0 ){
+					me.$('.typea').show().siblings().hide();
+				}else if( invoicetype == 1 ){
+					me.$('.typeb').show().siblings().hide();
+				}
+			}else if( invoice == 1 ){
+
+				if( invoicetype == 0 ){
+					me.$('.typec').show().siblings().hide();
+				}else if( invoicetype ==1 ){
+					me.$('.typed').show().siblings().hide();
+				}
+			}
+		},
 
 		//选择合作单
 		teamEve: function( e ){

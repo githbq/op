@@ -6521,3 +6521,23 @@ em {
   padding: 3px 10px;
   margin: 0 10px;
 }
+.m-invoicedetail h4 {
+  font-weight: bold;
+  font-size: 18px;
+}
+.m-invoicedetail section > p {
+  padding: 3px 0;
+}
+.m-invoicedetail span.title {
+  display: inline-block;
+  width: 145px;
+}
+.m-invoicedetail b.nsr {
+  color: red;
+}
+.m-invoicedetail .typea,
+.m-invoicedetail .typeb,
+.m-invoicedetail .typec,
+.m-invoicedetail .typed {
+  display: none;
+}
