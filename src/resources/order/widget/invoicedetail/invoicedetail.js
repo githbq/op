@@ -57,12 +57,14 @@ define(function( require , exports , module ){
 		 *  type
 		 */
 		init: function( attrs ){
-			Invoice.__super__.init.apply( this, arguments );
+			InvoiceDetail.__super__.init.apply( this, arguments );
 			var me = this;
 
 			console.warn('invoice init');
 			console.warn( attrs );
-
+			if( me.attrs.wrapper ){
+				me.attrs.wrapper.html( me.$view );
+			}
 		},
 
 		//初始化事件
