@@ -21,7 +21,7 @@ define(function( require , exports , module ){
 		var invoicedetail = new InvoiceDetail();
 		var invoiceinfo = new InvoiceInfo();
 
-		//invoicedetail.show();
-		invoiceinfo.show();
+		invoicedetail.show();
+		//invoiceinfo.show();
 	}
 })

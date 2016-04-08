@@ -6540,6 +6540,10 @@ em {
   height: 80px;
   padding: 5px;
 }
+.m-invoicedetail .label label {
+  display: inline-block;
+  width: 120px;
+}
 .m-invoicedetail .file,
 .m-invoicedetail .typea,
 .m-invoicedetail .typeb,
