@@ -2460,7 +2460,7 @@ define( function(require, exports, module){
 			
 			util.api({
 				url: '/enterprise/queryenterpriseitemconfig',
-				data: { enterpriseId: this.model.attrs.id },
+				data: { enterpriseId: this.model.attrs.enterpriseId },
 				success: function( data ) {
 					if ( data.success ) {
 						var model = data.value.model;
@@ -2526,7 +2526,7 @@ define( function(require, exports, module){
 				data = {
 					pageIndex: me.card.pagination.attr['pageNumber'],
 					pageSize: me.card.pagination.attr['pageSize'],
-					enterpriseId: me.model.attrs.id
+					enterpriseId: me.model.attrs.enterpriseId
 				};
 			if ( me.$cardStartTime.val() ) {
 				data.timeBegin = new Date( me.$cardStartTime.val() ).getTime();
@@ -2611,7 +2611,7 @@ define( function(require, exports, module){
 				data = {
 					pageIndex: me.log.pagination.attr['pageNumber'],
 					pageSize: me.log.pagination.attr['pageSize'],
-					enterpriseId: me.model.attrs.id,
+					enterpriseId: me.model.attrs.enterpriseId,
 					type: me.$sbLogType.val()
 				};
 			if ( me.$sbLogST.val() ) {
@@ -2726,7 +2726,7 @@ define( function(require, exports, module){
 
 		changeTrial: function() {
 			var data = {
-				enterpriseId: this.model.attrs.id,
+				enterpriseId: this.model.attrs.enterpriseId,
 				endDay: new Date( this.$sTrialTime.val() ).getTime(),
 				trialEndAmount: this.$sTrialAmount.val()
 			};
@@ -2898,7 +2898,7 @@ define( function(require, exports, module){
 		},
 		changeFunctions: function() {
 			var me = this, data = {
-				enterpriseId: this.model.attrs.id,
+				enterpriseId: this.model.attrs.enterpriseId,
 				newExportAmountLocation: me.$sELC.val(),
 				newExportAmountPlan: me.$sEFC.val(),
 				newExportAmountFeedWork: me.$sECC.val(),
@@ -2931,7 +2931,7 @@ define( function(require, exports, module){
 		stopMarketing: function() {
 			util.api({
 				url: '/enterprise/disablemarketingstimulation',
-				data: { enterpriseId: this.model.attrs.id },
+				data: { enterpriseId: this.model.attrs.enterpriseId },
 				success: function( data ) {
 					if ( data.success ) {
 						util.showTip( '更新成功' );
@@ -2944,7 +2944,7 @@ define( function(require, exports, module){
 			var me = this,
 				data = {
 					year: me.$cardBuyYear.val( ),
-					enterpriseId: me.model.attrs.id
+					enterpriseId: me.model.attrs.enterpriseId
 				};
 				var  oldModifyTime  = me.model.attrs.updateTime;
 				data.oldModifyTime = oldModifyTime;
@@ -2965,7 +2965,7 @@ define( function(require, exports, module){
 				data = {
 					cardCount: me.$cardBuyNum.val(),
 					year: me.$cardBuyYear.val(),
-					enterpriseId: me.model.attrs.id
+					enterpriseId: me.model.attrs.enterpriseId
 				};
 				if(!me.$cardBuyNum.val()){
 					util.showToast( '请填写赠送张数！' );
@@ -3004,7 +3004,7 @@ define( function(require, exports, module){
 			}
 			util.api({
 				url: '/',
-				data: { enterpriseId: this.model.attrs.id },
+				data: { enterpriseId: this.model.attrs.enterpriseId },
 				success: function( data ) {
 					if ( data.success ) {
 						util.showTip( '密码重置成功' );
@@ -3020,7 +3020,7 @@ define( function(require, exports, module){
 			util.api({
 				url: '/enterprise/enableenterprise',
 				data: { 
-					enterpriseId: this.model.attrs.id,
+					enterpriseId: this.model.attrs.enterpriseId,
 					oldModifyTime: me.model.attrs.updateTime,
 					isEnabled: false 
 				},
@@ -3040,7 +3040,7 @@ define( function(require, exports, module){
 			util.api({
 				url: '/enterprise/enableenterprise',
 				data: {
-					enterpriseId: this.model.attrs.id,
+					enterpriseId: this.model.attrs.enterpriseId,
 					oldModifyTime: me.model.attrs.updateTime,
 					isEnabled: true 
 				},
