@@ -20,6 +20,10 @@ define(function(require, exports, module){
 		'4': {
 			text:'企业资料审核驳回',
 			url:'/op/a#agentsupport/entpriselist'
+		},
+		'5': {
+			text:'审批被驳回',
+			url:'/op/a#agentsupport/renewlist'
 		}
 	}
 
