@@ -4,7 +4,7 @@ define(function( require , exports , module ){
 	var uploader = require('common/widget/upload').uploader;
 	var Slider = require('common/widget/slider/slider');
 
-	//订单模块
+	//发票模块 提交编辑
 	var InvoiceDetail = MClass( Slider ).include({
 
 		content: template,

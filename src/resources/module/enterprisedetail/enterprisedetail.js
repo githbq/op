@@ -1293,10 +1293,13 @@ define( function(require, exports, module){
 			this.setState();
 		},
 
-		setState: function(){
+		//设置 dom 元素的显隐状态
+		//
+		setState: function( $el ){
 			var me = this;
 
 			console.log( me.attrs.isAgent );
+			var $view = $el || me.$view;
 
 			/**
 			 *
@@ -1311,12 +1314,12 @@ define( function(require, exports, module){
 			 */
 			if( me.attrs.isAgent === true ){
 
-				me.$view.find('.off').hide();
-				me.$view.find('input').attr('disabled','disabled');
-				me.$view.find('select').attr('disabled','disabled');
-				me.$view.find('textarea').attr('disabled','disabled');
+				$view.find('.off').hide();
+				$view.find('input').attr('disabled','disabled');
+				$view.find('select').attr('disabled','disabled');
+				$view.find('textarea').attr('disabled','disabled');
 			}else{
-				me.$view.find('.on').hide();
+				$view.find('.on').hide();
 				me.$asource.removeAttr('disabled');
 			}
 		},
@@ -1524,7 +1527,7 @@ define( function(require, exports, module){
 										break;
 									case "CRM":
 										strDom += " <p> <span>"+obj['appName']+"(个)："+obj['quota']+"</span>" +
-										" <span>开始时间："+ startTime +"</span> <span>结束时间："+endTime+"</span>" + enablestatus + "   <input type='checkbox' name='product' value='"+obj["appId"]+"'> </p>";
+										" <span>开始时间："+ startTime +"</span> <span>结束时间："+endTime+"</span>" + enablestatus + "   <input class='off' type='checkbox' name='product' value='"+obj["appId"]+"'> </p>";
 										break;
 									case "Service_Fee":
 										strDom += " <p> <span>"+obj['appName']+"(人)："+obj['quota']+"</span>" +
@@ -1540,11 +1543,12 @@ define( function(require, exports, module){
 										strDom += " <p> <span>"+obj['appName']+"</span> <span>开始时间："+ startTime +"</span> <span>结束时间："+endTime+"</span> </p>";
 										break;
 									default:
-										strDom += " <p> <span>"+obj['appName']+"</span> <span>开始时间："+ startTime +"</span> <span>结束时间："+endTime+"</span>"+ enablestatus + "   <input type='checkbox' name='product' value='"+obj["appId"]+"'> </p>";
+										strDom += " <p> <span>"+obj['appName']+"</span> <span>开始时间："+ startTime +"</span> <span>结束时间："+endTime+"</span>"+ enablestatus + "   <input class='off' type='checkbox' name='product' value='"+obj["appId"]+"'> </p>";
 								}
 							});
 
 							me.$tbProduct.find('.container').html( strDom );
+							me.setState( me.$tbProduct );
 						} else {
 							me.$tbProduct.find('.container').html( '<p class="info">暂无数据</p>' );
 						}
