@@ -740,7 +740,7 @@ define( function( require, exports, module ) {
 					location.hash = "#agentsupport/entprisefiling";
 					break;
 				default:
-				   location.hash = "#ent/lst";
+				   window.history.back();
 			}
 		}
     } );
