@@ -129,6 +129,7 @@ define(function( require , exports , module ){
 		},
 
 		//显示
+		//
 		show: function( id ){
 			InvoiceDetail.__super__.show.apply( this, arguments );
 
@@ -139,14 +140,16 @@ define(function( require , exports , module ){
 			me.orderId = id;
 
 			//
-			
 			util.api({
 				'url': '/odr/info',
 				'data': {
 					'id': id
 				},
 				'success': function( data ){
-					console.warn( data )
+					console.warn( data );
+					if( data.success ){
+						
+					}
 				}
 			})
 			
@@ -161,9 +164,8 @@ define(function( require , exports , module ){
 			//清除其他选项
 
 			//重置input选中状态
-			
-
-
+			me.$('[name="invoice"]').eq(0).trigger('click');
+			me.$('[name="invoicetype"]').eq(0).trigger('click');
 		},	
 
 		//获取当前数据信息
