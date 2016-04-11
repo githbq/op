@@ -175,12 +175,6 @@ define(function( require , exports , module ){
 			var invoice = me.$('[name="invoice"]:checked').val();
 			var invoicetype = me.$('[name="invoicetype"]:checked').val();
 
-			var model = me.model.all();
-
-			model.orderId = me.orderId;
-			model.invoiceProp = invoice;
-			model.invoiceType = invoicetype;
-
 			var info = {
 				"orderId": me.orderId,
   				"invoiceProp": invoice,

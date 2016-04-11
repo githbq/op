@@ -41,9 +41,114 @@
         <p><label><span>是否试用</span><select disabled="disabled" ce-model="istry"><option value="1">是</option><option value="0">否</option></select></label></p>
         <p class="trytimep"><label><span>试用截止时间</span><input type="text" disabled="disabled" ce-model="endtime"></label></p>
         <p class="tryboxp"><label><span>试用包</span><span ce-collection="trylist" class="trybox"><b><%=item%>天</b></span></p>
+
+        <div class="dtl">
+
+            <!--产品信息-->
+            <section class="accordian collapse f1 f2 f3 f4" data-target="product">
+                <h4><span class="arraw"></span>产品信息</h4>
+
+                <div class="content" id="tbProduct">
+                    <p class="content-action off">
+                        <button class="u-btn-blue" id="openproduct">开启</button>
+                        <button id="closeproduct">关闭</button>
+                    </p>
+                    <!--显示产品列表-->
+                    <div class="container">
+                        
+                    </div>
+                </div>
+            </section>
+
+            <!--使用情况-->
+            <section class="accordian collapse f1 f2 f3 f4" id="operationssection" data-target="operations">
+                <h4><span class="arraw"></span>使用情况</h4>
+                <div class="content">
+                    <p>
+                        <label class="hw">
+                            <span>逍客终端总量</span>
+                            <input id="sdXKDC" class="g-ipt ipt-m" type="text" oninput="this.value=this.value.replace(/[^\d]/g,'')">
+                        </label>
+                        
+                        <label class="hw">
+                            <span>逍客终端<br>已用量/未用量</span>
+                            <input id="sdXKDUC" disabled="disabled" class="g-ipt ipt-m" type="text">
+                        </label>
+                        
+                        <label class="hw">
+                            <span>CRM总量</span>
+                            <input id="yingxiaoSum" disabled="disabled" class="g-ipt ipt-m" type="text">
+                        </label>
+
+                        <label class="hw">
+                            <span>CRM<br>已用量/未用量</span>
+                            <input id="yingxiaoUsed" disabled="disabled" class="g-ipt ipt-m" type="text">
+                        </label>
+
+                        <label class="hw">
+                            <span>空间总量(GB)</span>
+                            <input id="sdSC" disabled="disabled" class="g-ipt ipt-m" type="text">
+                        </label>
+                        <label class="hw">
+                            <span>空间已用量(GB)</span>
+                            <input id="sdSUC" disabled="disabled" class="g-ipt ipt-m" type="text">
+                        </label>
+                        <label class="hw">
+                            <span>存储扩容(GB)</span>
+                            <input type="text" class="g-ipt ipt-m" oninput="this.value=this.value.replace(/[^\d]/g,'')" id="expandStorageSpace">
+                        </label>
+                        <label class="hw">
+                            <span>群人数上限(人)</span>
+                            <input type="text" class="g-ipt ipt-m" ce-model="groupNumLimit" oninput="this.value=this.value.replace(/[^\d]/g,'')">
+                        </label>
+                        <label>
+                            <span>视频参与人数上限(人)</span>
+                            <input type="text" class="g-ipt ipt-m" ce-model="videoNumLimit" oninput="this.value=this.value.replace(/[^\d]/g,'')">
+                            <span style="width:130px">(最多可添加20人)</span>
+                        </label>
+                        <label class="hw crmvisible">
+                            <span>CRM上级可见数据范围</span>
+                            <select name="" class="g-ipt ipt-m" ce-model="crmVisibleRange">
+                                <option value="">请选择</option>
+                                <option value="1">所有下级数据</option>
+                                <option value="2">直属下级数据</option>
+                            </select>
+                        </label>
+                        <label class="hw">
+                            <span>WEB扫码授权</span>
+                            <select name="" class="g-ipt ipt-m" ce-model="webSanCodeAuth">
+                                <option value="">请选择</option>
+                                <option value="0">全部授权</option>
+                                <option value="1">未授权</option>
+                                <!--<option value="2">部分授权</option>-->
+                            </select>
+                        </label>
+                    </p>
+
+                    <div id="tbOperation" class="tb">
+                        <p class="tr off">
+                            <button class="btn-blue" id="sBtnChangeStatistics" data-permissions="F008023 F008028 F008029 F008030 F008031 F008032 F008033 F008034 F008035">保存</button>
+                        </p>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>序号</th>
+                                    <th>扩容时间</th>
+                                    <th>扩容数量</th>
+                                    <th>操作人</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                        </table>
+                        <div class="pager"></div>
+                    </div>
+
+                </div>
+            </section>
+
+        </div>
     </div>
 </script>
 
- <!--
-<em class="accountdetail" data-runStatus="<%=value.enterprise  &&value.enterprise.runStatus%>" data-contactPhone="<%=value.enterprise &&value.enterprise.contactPhone%>" data-contactName="<%=value.enterprise &&value.enterprise.contactName%>" data-id="<%=value.id.employeeId%>" data-account="<%=value.enterprise && value.enterprise.enterpriseId%>">查看详情</em>
--->

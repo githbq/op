@@ -6530,7 +6530,7 @@ em {
 }
 .m-invoicedetail span.title {
   display: inline-block;
-  width: 145px;
+  width: 160px;
 }
 .m-invoicedetail b.nsr {
   color: red;
@@ -6550,6 +6550,10 @@ em {
 .m-invoicedetail .typec,
 .m-invoicedetail .typed {
   display: none;
+}
+.m-invoicedetail .detail-action {
+  text-align: right;
+  padding: 10px 0;
 }
 .p-invoiceapply {
   padding: 20px;
