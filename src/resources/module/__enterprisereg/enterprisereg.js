@@ -637,13 +637,13 @@ define( function(require, exports, module){
 			var sumCount = me.$deviceamount.val()?parseInt(model.get('accountTotalAmount')):0;
 			
 			if(sumCount==0){
-				util.showToast('请填写销客终端总量');
+				util.showToast('请填写逍客终端总量');
 				return false;
 			}
 			
 			/*
 			if(sumCount==0||sumCount>15){
-				util.showTip('请填写销客终端总量且上限为15');
+				util.showTip('请填写逍客终端总量且上限为15');
 				return false;
 			}
 			*/

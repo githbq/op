@@ -1,129 +1,94 @@
 define(function( require , exports , module ){
 
-	var template = require('./invoice.html'); 
+	var template = require('./invoicedetail.html'); 
 	var uploader = require('common/widget/upload').uploader;
+	var Slider = require('common/widget/slider/slider');
 
+	//发票模块 提交编辑
+	var InvoiceDetail = MClass( Slider ).include({
 
-	//订单模块
-	var Invoice = MClass( M.Center ).include({
+		content: template,
 
-		view: template,
-		
+		defaultAttr:{
+			'title':'发票',
+			'width': 600
+		},
+
 		elements: {
 			'#businessLicense': 'businessLicense',
 			'#qualification': 'qualification'
 		},
 
 		events: {
-			///'click [name="invoice"]': 'invoiceEve',
-			///'click [name="intype"]': 'intypeEve',
-			'click [name="team"]': 'teamEve'
+			'click [name="invoice"]': 'typeEve',
+			'click [name="invoicetype"]': 'typeEve',
+			'click .submit': 'submitEve',
+			'click .cancel': 'cancelEve'
 		},
 
-		//发票点击事件
-		/*
-		invoiceEve: function( e ){
+		//发票类型点击切换事件
+		typeEve: function(){
 			var me = this;
-			var target = $( e.currentTarget ).attr('data-target');
-			
-			console.log( target );
-			me.$('.'+target).show().siblings().hide();
-		},
-		*/
-		//类型点击事件
-		/*
-		intypeEve: function( e ){
-			var me = this;
-			var target = $( e.currentTarget ).attr('data-target');
 
-			console.log( target );
-			me.$('.'+target).show().siblings().hide();
-		},
-		*/
+			var invoice = me.$('[name="invoice"]:checked').val();
+			var invoicetype = me.$('[name="invoicetype"]:checked').val();
 
-		//选择合作单
-		teamEve: function( e ){
-			var me = this;
-			var value = $( e.currentTarget ).val();
-			if( value == '1' ){
-				me.$('.teaminfo').show();
-			} else {
-				me.$('.teaminfo').hide();
+			console.log( invoice );
+			if( invoice == 1 ){
+
+				if( invoicetype == 1 ){
+					me.$('.file').hide();
+					me.$('.typea').show().siblings('section').hide();
+				}else if( invoicetype == 2 ){
+					me.$('.file').show();
+					me.$('.typeb').show().siblings('section').hide();
+				}
+			}else if( invoice == 2 ){
+
+				if( invoicetype == 1 ){
+					me.$('.file').hide();
+					me.$('.typec').show().siblings('section').hide();
+				}else if( invoicetype == 2 ){
+					me.$('.file').show();
+					me.$('.typed').show().siblings('section').hide();
+				}
 			}
+		},
+
+		//确定
+		submitEve: function(){
+			var me = this;
+
+			console.log('确定')
+			var info = me.getInfo();
+			util.api({
+				'url':'/odr/invoice/save',
+				'data': info,
+				'success': function( data ){
+					if( data.success ){
+						console.log('发票保存成功');
+					}
+				}
+			})
+		},
+
+		//取消
+		cancelEve: function(){
+			var me = this;
 		},
 
 		/**
-		 *
-		 * attrs
-		 *  wrapper 
-		 *  data
-		 *  editFlag
-		 *  type
+		 * init
 		 */
 		init: function( attrs ){
-			Invoice.__super__.init.apply( this, arguments );
+			InvoiceDetail.__super__.init.apply( this, arguments );
 			var me = this;
-
-			console.warn('invoice init');
-			console.warn( attrs );
 			
-			///初始化事件
-			///this.initEvents();
-			this.render();
-
-			//设置数据 显示数据
-			if( attrs.data ){
-				
-				me.model.load( attrs.data.order );
-				
-				if( attrs.data.order && ( attrs.data.order.discount || attrs.data.order.discount == 0 ) ){
-					me.setDiscount( attrs.data.order.discount );
-				}
-				/*
-				if( attrs.data.invoice ){
-
-					me.model.load( attrs.data.invoice );
-					
-					if( attrs.data.invoice.invoiceType == 1 ){
-						me.$('[name="invoice"]').eq(0).trigger('click');
-						me.$('[name="intype"]').eq(0).trigger('click');
-
-
-						me.$('.yyzzimg').show().find('img').attr('src',"/op/api/file/previewimage?filePath="+attrs.data.invoice.businessLicense)
-
-					}else if( attrs.data.invoice.invoiceType == 2 ){
-						me.$('[name="invoice"]').eq(0).trigger('click');
-						me.$('[name="intype"]').eq(1).trigger('click');
-
-						me.$('.yyzzimg').show().find('img').attr('src',"/op/api/file/previewimage?filePath="+attrs.data.invoice.businessLicense)
-						me.$('.nsrzimg').show().find('img').attr('src',"/op/api/file/previewimage?filePath="+attrs.data.invoice.taxpayerQualification)
-					}
-				}else{
-					me.$('[name="invoice"]').eq(1).trigger('click');
-				}
-				*/
-				if( attrs.data.order.isCooperation == 1 ){
-
-					me.$('[name="team"]').eq(1).trigger('click');
-				}else{
-					me.$('[name="team"]').eq(0).trigger('click');
-				}
-
-				me.$('.roleinfo').hide();
-			}
-			if( attrs.editFlag == false ){
-				me.$('input,textarea').attr('disabled','disabled');
-				me.$('.nsr').hide();                     //隐藏必选*
-			}
-			if( attrs.type == 17 ){
-				me.$('.tidan').hide();
-			}
-
-
+			//初始化事件
+			me.initEvents();
 		},
 
 		//初始化事件
-		/*
 		initEvents: function(){
 			var me = this;
 
@@ -144,7 +109,7 @@ define(function( require , exports , module ){
 					}
 				})
 			});
-			//
+			
 			me.$qualification.on('change',function(){
 				console.log('change');
 				console.log( me.$qualification[0].files );
@@ -162,155 +127,83 @@ define(function( require , exports , module ){
 				})
 			});
 		},
-		*/
-		render: function(){
-			this.attrs['wrapper'].html( this.$view );
 
-			var departmentname = '';
-			if( IBSS.role.department && IBSS.role.department.name ){
-				departmentname = IBSS.role.department.name;
-			}
+		//显示
+		//
+		show: function( id ){
+			InvoiceDetail.__super__.show.apply( this, arguments );
 
-			this.model.set('departmentname', departmentname);
-			this.model.set('accountname', IBSS.role.name);
+			console.log('id');
+			console.log( id );
+			var me = this;
+
+			me.orderId = id;
+
+			//
+			util.api({
+				'url': '/odr/info',
+				'data': {
+					'id': id
+				},
+				'success': function( data ){
+					console.warn( data );
+					if( data.success ){
+						
+					}
+				}
+			})
+			
 		},
 
-		//外部接口 获取当前数据信息
+		//隐藏
+		hide: function( ){
+			InvoiceDetail.__super__.hide.apply( this, arguments );
+
+			var me = this;
+			me.model.clear();
+			//清除其他选项
+
+			//重置input选中状态
+			me.$('[name="invoice"]').eq(0).trigger('click');
+			me.$('[name="invoicetype"]').eq(0).trigger('click');
+		},	
+
+		//获取当前数据信息
 		getInfo: function(){
 			var me = this;
 
-			//进行表单验证
-
-			//获取发票类型
-			/*
-			var intype = me.$('[name="intype"]:checked').val();
 			var invoice = me.$('[name="invoice"]:checked').val();
+			var invoicetype = me.$('[name="invoicetype"]:checked').val();
 
-			var invoiceType;
-			if( invoice == '2' ){
+			var model = me.model.all();
 
-				invoiceType = 3;
-			}else if( invoice == '1' ){
+			model.orderId = me.orderId;
+			model.invoiceProp = invoice;
+			model.invoiceType = invoicetype;
 
-				if( intype == '1' ){
-					invoiceType = 1;
-				}else if( intype == '2' ){
-					invoiceType = 2;
-				}
+			var info = {
+				"orderId": me.orderId,
+  				"invoiceProp": invoice,
+  				"invoiceType": invoiceType,
+  				"amount": me.model.get('amount'),
+  				"invoiceHead": me.model.get('invoiceHead'),
+  				"businessLicenseFileName": me.model.get('businessLicenseFileName'),
+  				"businessLicense": me.model.get('businessLicense'),
+  				"taxpayerQualificationFileName": me.model.get('taxpayerQualificationFileName'),
+  				"taxpayerQualification": me.model.get('taxpayerQualification'),
+  				"taxpayerIdentificationNo": me.model.get('taxpayerIdentificationNo'),
+  				"receiverName": me.model.get('receiverName'),
+  				"receiverAddress": me.model.get('receiverAddress'),
+  				"receiverPhone": me.model.get('receiverPhone'),
+  				"bankName": me.model.get('bankName'),
+  				"bankAccount": me.model.get('bankAccount'),
+  				"approvalUrl": me.model.get('approvalUrl'),
+  				"remark": me.model.get('remark')
 			}
 
-			me.model.set('invoiceType',invoiceType);
-
-			switch( invoice ){
-				case '1':
-					switch( intype ){
-						case '1':
-							if( !me.model.get('businessLicense') ){
-								util.showToast('请选择营业执照');
-								return false;
-							}
-							if( !me.model.get('invoiceHead') ){
-								util.showToast('请填写发票抬头');
-								return false;
-							}
-							if( !me.model.get('amount') ){
-								util.showToast('请填写发票金额');
-								return false;
-							}
-						break;
-						case '2':
-							if( !me.model.get('businessLicense') ){
-								util.showToast('请选择营业执照');
-								return false;
-							}
-							if( !me.model.get('taxpayerQualification') ){
-								util.showToast('请选择一般纳税人资质证书');
-								return false;
-							}
-							if( !me.model.get('invoiceHead') ){
-								util.showToast('请填写发票抬头');
-								return false;
-							}
-							if( !me.model.get('amount') ){
-								util.showToast('请填写发票金额');
-								return false;
-							}
-							if( !me.model.get('taxpayerIdentificationNo') ){
-								util.showToast('请填写纳税人识别号');
-								return false;
-							}
-							if( !me.model.get('address') ){
-								util.showToast('请填写地址');
-								return false;
-							}
-							if( !me.model.get('telephone') ){
-								util.showToast('请填写电话');
-								return false;
-							}
-							if( !me.model.get('bankName') ){
-								util.showToast('请填写开户行');
-								return false;
-							}
-							if( !me.model.get('bankAccount') ){
-								util.showToast('请填写账号');
-								return false;
-							}
-						break;
-					}
-				break;
-				case '2':
-					if( !me.model.get('companyName') ){
-						util.showToast('请填写公司名称');
-						return false;
-					}
-					if( !me.model.get('amount') ){
-						util.showToast('请填写收据金额');
-						return false;
-					}
-				break;
-				case '3':
-				break;
-			}
-			
-			var invoiceinfo;
-			if( invoice == "3" ){
-				invoiceinfo = null;
-			}else{
-				invoiceinfo = me.model.all();
-			}
-			*/
-			var isCooperation = "";
-			var cooperationUnit = "";
-			if( me.attrs.type != 17 ){
-				isCooperation = me.$('[name="team"]:checked').val();
-				
-				if( isCooperation == 1 ){
-					cooperationUnit = me.model.get('cooperationUnit');
-				}
-				
-				if( isCooperation == 1 && !cooperationUnit ){
-					util.showToast('请填写合作单部门员工');
-					return false;
-				}
-			}
-
-			return {
-				//'invoice': invoiceinfo,
-				'order':{
-					'isCooperation': isCooperation,   //是否合作单
-					'cooperationUnit': cooperationUnit,     //部门员工      
-					'remark': me.model.get('remark')                        //备注
-				}
-			};
-		},
-
-		//设置折扣
-		setDiscount: function( number ){
-			var me = this;
-			me.$('.discount').text( number + '折' );
+			return info;
 		}
 	});
 
-
-	module.exports = Invoice;
+	module.exports = InvoiceDetail;
 })

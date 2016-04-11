@@ -182,9 +182,9 @@ define( function(require, exports, module){
 			}
 
 			//信息校验
-			//销客终端总量
+			//逍客终端总量
 			if( !model.get('accountTotalAmount') ){
-				util.showToast('请填写销客终端总量');
+				util.showToast('请填写逍客终端总量');
 				return;
 			}else if( isNaN( model.get('accountTotalAmount') ) ){
 				util.showToast('终端总量请填写数字');
@@ -283,12 +283,12 @@ define( function(require, exports, module){
 
 			var endTime;
 			if( !me.$endTime.val() ){
-				util.showToast('请选择销客截止日期');
+				util.showToast('请选择逍客截止日期');
 				return;
 			}else{
 				endTime = new Date( me.$endTime.val() ).getTime();
 				if ( isNaN(endTime) ){
-					util.showToast('请选择销客截止日期');
+					util.showToast('请选择逍客截止日期');
 					return;
 				} 
 				data.endTime = endTime;

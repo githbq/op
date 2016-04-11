@@ -14,6 +14,7 @@ define( function(require, exports, module){
 
 	var contentStr = require('./backmoney.html');
 	var OrderInfo = require('../widget/orderinfo/orderinfo');
+	var CotractMoney = require('../widget/cotractmoney/cotractmoney');
 	
 	var orderTypeAry = ['','办公版新购-普通','办公版新购-特批','营销版新购-普通','营销版新购-特批','办公版增购-普通',
 		'办公版增购-特批','营销版增购-普通','营销版增购-特批','办公版续费-普通','办公版续费-特批',
@@ -88,9 +89,12 @@ define( function(require, exports, module){
 				me.setOrderInfo();
 				
 
-				//基本信息
+				//企业信息
 				me.attrs.basicCommon = new OrderInfo( { 'wrapper':me.$view.find('.common--basic'),'data':me.attrs.orderList,
 					'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
+					
+				//合同付款信息
+				me.attrs.cotractMoney = new CotractMoney( { 'wrapper':me.$view.find('.common-product')} );
 			});
 
 

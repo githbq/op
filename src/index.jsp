@@ -62,7 +62,7 @@
                     <li data-modulecode="MonthReportOpS">
                         <a href="#index/rpt">月度报告</a>
                     </li>
-                   <!-- <li data-modulecode="PayedLifeCycleOpS">
+                    <!--<li data-modulecode="PayedLifeCycleOpS">
                         <a href="#index/paid">付费生命周期</a>
                     </li>-->
                     <li data-modulecode="SelfActivityAllOpS">
@@ -141,7 +141,7 @@
 </div>
 
 <!---->
-<input id="key" type="hidden" value="${token}" /></div>
+<input id="key" type="hidden" value="${token}"/>
 
 <!--Tip 提示-->
 <script type="text/template" id="g-tip">
@@ -168,8 +168,8 @@
 <script type="text/javascript" src="resources/common/scripts/util.js"></script>
 <script type="text/javascript" src="resources/common/scripts/widget.js"></script>
 <script type="text/javascript" src="resources/common/widget/calendar/jquery.datetimepicker.js"></script>
-
 <!--endbuild-->
+
 <script type="text/javascript" src="resources/common/widget/my97datepicker/wdatepicker.js"></script>
 <!--build:app resources/assets/scripts/app.js-->
 <script type="text/javascript" src="resources/assets/scripts/config.js"></script>
@@ -184,11 +184,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-

@@ -45,7 +45,7 @@ define( function(require, exports, module){
 			'#sdSC': 'sdSC',
 			'#sdSUC': 'sdSUC',
 			
-			'#sXKDC': 'sXKDC',         		//销客终端总量
+			'#sXKDC': 'sXKDC',         		//逍客终端总量
 			'#sXKET': 'sXKET',         		//签约到期时间
 			'#yxEndInput': 'yxEndInput',    //营销版到期时间
 			'#sBCDC': 'sBCDC',
@@ -53,7 +53,7 @@ define( function(require, exports, module){
 			'#sSms': 'sSms',
 			'#sStorage': 'sStorage',
 			
-			'#sDevice': 'sDevice',     //销客终端扩容
+			'#sDevice': 'sDevice',     //逍客终端扩容
 
 			'#yingxiao': 'yingxiao',             //营销版终端总量
 			'#yingxiaoAdd': 'yingxiaoAdd',	     //营销版终端扩容

@@ -206,7 +206,7 @@ define( function(require, exports, module){
 			var buyCount = me.model.get('marketingAccountAmount')?parseInt(me.model.get('marketingAccountAmount')):0;
 			var	sumNum =  me.$deviceamount.val()?parseInt(me.$deviceamount.val()):0;
 			if(sumNum>0&&sumNum<buyCount){
-				util.showToast('营销版数量不能大于销客终端数量');
+				util.showToast('营销版数量不能大于逍客终端数量');
 				me.model.set('marketingAccountAmount','');
 				return false;
 			}
@@ -779,12 +779,12 @@ define( function(require, exports, module){
 				var countNum = me.model.get('accountTotalAmount')?parseInt(me.model.get('accountTotalAmount')):0;
 				var singleNum = me.model.get('marketingAccountAmount')?parseInt(me.model.get('marketingAccountAmount')):0;
 				if(countNum==0 && singleNum==0){
-					util.showToast('销客终端数量与营销版数量不能同时为零！');
+					util.showToast('逍客终端数量与营销版数量不能同时为零！');
 					return false;
 				}
 				if(countNum!=0&&(countNum<singleNum)){
 					
-					util.showToast('营销版数量不能大于销客终端数量');
+					util.showToast('营销版数量不能大于逍客终端数量');
 					return false;
 				}
 				objDate['marketingAccountAmount']=me.model.get('marketingAccountAmount');
@@ -814,7 +814,7 @@ define( function(require, exports, module){
 				var countNum = me.model.get('accountTotalAmount')?parseInt(me.model.get('accountTotalAmount')):0;
 				/*
                 if(countNum==0||countNum>15){
-					util.showToast('销客终端数量不能为零且上限为15！');
+					util.showToast('逍客终端数量不能为零且上限为15！');
 					return false;
 				}
                 */

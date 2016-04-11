@@ -231,7 +231,7 @@ define( function(require, exports, module){
 			'#sdSC': 'sdSC',
 			'#sdSUC': 'sdSUC',
 			
-			///'#sXKDC': 'sXKDC',         		//销客终端总量
+			///'#sXKDC': 'sXKDC',         		//逍客终端总量
 			///'#sXKET': 'sXKET',         		//签约到期时间
 			///'#yxEndInput': 'yxEndInput',    	//营销版到期时间
 			///'#sBCDC': 'sBCDC',
@@ -239,7 +239,7 @@ define( function(require, exports, module){
 			///'#sSms': 'sSms',
 			///'#sStorage': 'sStorage',
 			
-			///'#sDevice': 'sDevice',     			 //销客终端扩容
+			///'#sDevice': 'sDevice',     			 //逍客终端扩容
 
 			///'#yingxiao': 'yingxiao',             //营销版终端总量
 			///'#yingxiaoAdd': 'yingxiaoAdd',	     //营销版终端扩容
@@ -1043,6 +1043,17 @@ define( function(require, exports, module){
 						me.$name.val( model.enterpriseName );
 						me.$account.val( model.enterpriseAccount );
 						me.enterpriseAccount = model.enterpriseAccount;
+						//根据企业账号获取代理区域
+						util.api({
+							'url': '~/op/api/region/getbyea',
+							'data':{'ea':model.enterpriseAccount},
+							'success': function( data ){
+								console.warn( data );
+								if( data.success ){
+									me.$('.proxy-area').val(data.value.model.name);
+								}
+							}
+						});
 						me.$address.val( model.address );
 						me.$aindustry.val( model.industry );
 						me.$asource.val( model.source );
@@ -1282,10 +1293,13 @@ define( function(require, exports, module){
 			this.setState();
 		},
 
-		setState: function(){
+		//设置 dom 元素的显隐状态
+		//
+		setState: function( $el ){
 			var me = this;
 
 			console.log( me.attrs.isAgent );
+			var $view = $el || me.$view;
 
 			/**
 			 *
@@ -1300,12 +1314,12 @@ define( function(require, exports, module){
 			 */
 			if( me.attrs.isAgent === true ){
 
-				me.$view.find('.off').hide();
-				me.$view.find('input').attr('disabled','disabled');
-				me.$view.find('select').attr('disabled','disabled');
-				me.$view.find('textarea').attr('disabled','disabled');
+				$view.find('.off').hide();
+				$view.find('input').attr('disabled','disabled');
+				$view.find('select').attr('disabled','disabled');
+				$view.find('textarea').attr('disabled','disabled');
 			}else{
-				me.$view.find('.on').hide();
+				$view.find('.on').hide();
 				me.$asource.removeAttr('disabled');
 			}
 		},
@@ -1513,7 +1527,7 @@ define( function(require, exports, module){
 										break;
 									case "CRM":
 										strDom += " <p> <span>"+obj['appName']+"(个)："+obj['quota']+"</span>" +
-										" <span>开始时间："+ startTime +"</span> <span>结束时间："+endTime+"</span>" + enablestatus + "   <input type='checkbox' name='product' value='"+obj["appId"]+"'> </p>";
+										" <span>开始时间："+ startTime +"</span> <span>结束时间："+endTime+"</span>" + enablestatus + "   <input class='off' type='checkbox' name='product' value='"+obj["appId"]+"'> </p>";
 										break;
 									case "Service_Fee":
 										strDom += " <p> <span>"+obj['appName']+"(人)："+obj['quota']+"</span>" +
@@ -1529,11 +1543,12 @@ define( function(require, exports, module){
 										strDom += " <p> <span>"+obj['appName']+"</span> <span>开始时间："+ startTime +"</span> <span>结束时间："+endTime+"</span> </p>";
 										break;
 									default:
-										strDom += " <p> <span>"+obj['appName']+"</span> <span>开始时间："+ startTime +"</span> <span>结束时间："+endTime+"</span>"+ enablestatus + "   <input type='checkbox' name='product' value='"+obj["appId"]+"'> </p>";
+										strDom += " <p> <span>"+obj['appName']+"</span> <span>开始时间："+ startTime +"</span> <span>结束时间："+endTime+"</span>"+ enablestatus + "   <input class='off' type='checkbox' name='product' value='"+obj["appId"]+"'> </p>";
 								}
 							});
 
 							me.$tbProduct.find('.container').html( strDom );
+							me.setState( me.$tbProduct );
 						} else {
 							me.$tbProduct.find('.container').html( '<p class="info">暂无数据</p>' );
 						}
@@ -2325,7 +2340,7 @@ define( function(require, exports, module){
 
 			/*
 			if( me.$sXKDC.val() && me.$sDevice.val() ){
-				util.showToast('销客终端总量 和 销客终端扩容信息仅能填写一个!');
+				util.showToast('逍客终端总量 和 逍客终端扩容信息仅能填写一个!');
 				return false;
 			}
 			
@@ -2337,8 +2352,8 @@ define( function(require, exports, module){
 
 			var data = {
 				enterpriseId: me.model.attrs.id,
-				accountAmount:  me.$sXKDC.val(),				//销客终端总量
-				increaseAmount:	me.$sDevice.val(),				//销客终端扩容
+				accountAmount:  me.$sXKDC.val(),				//逍客终端总量
+				increaseAmount:	me.$sDevice.val(),				//逍客终端扩容
 				marketingAccountAmount: me.$yingxiao.val(),		//营销终端总量
 				increaseMarketingAmount: me.$yingxiaoAdd.val(), //营销终端扩容
 				baichuanAccountAmount: me.$sBCDC.val(), 		//百川终端总量
@@ -2449,7 +2464,7 @@ define( function(require, exports, module){
 			
 			util.api({
 				url: '/enterprise/queryenterpriseitemconfig',
-				data: { enterpriseId: this.model.attrs.id },
+				data: { enterpriseId: this.model.attrs.enterpriseId },
 				success: function( data ) {
 					if ( data.success ) {
 						var model = data.value.model;
@@ -2515,7 +2530,7 @@ define( function(require, exports, module){
 				data = {
 					pageIndex: me.card.pagination.attr['pageNumber'],
 					pageSize: me.card.pagination.attr['pageSize'],
-					enterpriseId: me.model.attrs.id
+					enterpriseId: me.model.attrs.enterpriseId
 				};
 			if ( me.$cardStartTime.val() ) {
 				data.timeBegin = new Date( me.$cardStartTime.val() ).getTime();
@@ -2600,7 +2615,7 @@ define( function(require, exports, module){
 				data = {
 					pageIndex: me.log.pagination.attr['pageNumber'],
 					pageSize: me.log.pagination.attr['pageSize'],
-					enterpriseId: me.model.attrs.id,
+					enterpriseId: me.model.attrs.enterpriseId,
 					type: me.$sbLogType.val()
 				};
 			if ( me.$sbLogST.val() ) {
@@ -2715,7 +2730,7 @@ define( function(require, exports, module){
 
 		changeTrial: function() {
 			var data = {
-				enterpriseId: this.model.attrs.id,
+				enterpriseId: this.model.attrs.enterpriseId,
 				endDay: new Date( this.$sTrialTime.val() ).getTime(),
 				trialEndAmount: this.$sTrialAmount.val()
 			};
@@ -2754,15 +2769,15 @@ define( function(require, exports, module){
 			var me = this;
 
 			if( me.$sXKDC.val() && me.$sDevice.val() ){
-				util.showToast('销客终端总量 和 销客终端扩容信息仅能填写一个!');
+				util.showToast('逍客终端总量 和 逍客终端扩容信息仅能填写一个!');
 				return false;
 			}
 			
 
 			var data = {
 				enterpriseId: me.model.attrs.id,
-				accountAmount:  me.$sXKDC.val(),				//销客终端总量
-				increaseAmount:	me.$sDevice.val(),				//销客终端扩容
+				accountAmount:  me.$sXKDC.val(),				//逍客终端总量
+				increaseAmount:	me.$sDevice.val(),				//逍客终端扩容
 				baichuanAccountAmount: me.$sBCDC.val(), 		//百川终端总量
 				rechargeSmsAmount: me.$sSms.val(),      		//短信充值条数
 				expandStorageSpace: me.$sStorage.val() 			//存储扩容
@@ -2887,7 +2902,7 @@ define( function(require, exports, module){
 		},
 		changeFunctions: function() {
 			var me = this, data = {
-				enterpriseId: this.model.attrs.id,
+				enterpriseId: this.model.attrs.enterpriseId,
 				newExportAmountLocation: me.$sELC.val(),
 				newExportAmountPlan: me.$sEFC.val(),
 				newExportAmountFeedWork: me.$sECC.val(),
@@ -2920,7 +2935,7 @@ define( function(require, exports, module){
 		stopMarketing: function() {
 			util.api({
 				url: '/enterprise/disablemarketingstimulation',
-				data: { enterpriseId: this.model.attrs.id },
+				data: { enterpriseId: this.model.attrs.enterpriseId },
 				success: function( data ) {
 					if ( data.success ) {
 						util.showTip( '更新成功' );
@@ -2933,7 +2948,7 @@ define( function(require, exports, module){
 			var me = this,
 				data = {
 					year: me.$cardBuyYear.val( ),
-					enterpriseId: me.model.attrs.id
+					enterpriseId: me.model.attrs.enterpriseId
 				};
 				var  oldModifyTime  = me.model.attrs.updateTime;
 				data.oldModifyTime = oldModifyTime;
@@ -2954,7 +2969,7 @@ define( function(require, exports, module){
 				data = {
 					cardCount: me.$cardBuyNum.val(),
 					year: me.$cardBuyYear.val(),
-					enterpriseId: me.model.attrs.id
+					enterpriseId: me.model.attrs.enterpriseId
 				};
 				if(!me.$cardBuyNum.val()){
 					util.showToast( '请填写赠送张数！' );
@@ -2993,7 +3008,7 @@ define( function(require, exports, module){
 			}
 			util.api({
 				url: '/',
-				data: { enterpriseId: this.model.attrs.id },
+				data: { enterpriseId: this.model.attrs.enterpriseId },
 				success: function( data ) {
 					if ( data.success ) {
 						util.showTip( '密码重置成功' );
@@ -3009,7 +3024,7 @@ define( function(require, exports, module){
 			util.api({
 				url: '/enterprise/enableenterprise',
 				data: { 
-					enterpriseId: this.model.attrs.id,
+					enterpriseId: this.model.attrs.enterpriseId,
 					oldModifyTime: me.model.attrs.updateTime,
 					isEnabled: false 
 				},
@@ -3029,7 +3044,7 @@ define( function(require, exports, module){
 			util.api({
 				url: '/enterprise/enableenterprise',
 				data: {
-					enterpriseId: this.model.attrs.id,
+					enterpriseId: this.model.attrs.enterpriseId,
 					oldModifyTime: me.model.attrs.updateTime,
 					isEnabled: true 
 				},

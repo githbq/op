@@ -528,12 +528,12 @@ define( function( require, exports, module ) {
                 data.toEndTime = new Date( me.$otEnd.val() ).getTime();
             }
 
-            //销客用户总量启
+            //逍客用户总量启
             if ( me.$acBegin.val() ){
                 data.fromAccountTotalAmount = me.$acBegin.val(); 
             }
 
-            //销客用户总量止
+            //逍客用户总量止
             if ( me.$acEnd.val() ){
                 data.toAccountTotalAmount = me.$acEnd.val();
             }

@@ -82,9 +82,14 @@
 							<% } %>
 							<%if(item.auditStatus != "WAIT"){%>
 								<%if(item.active == "1"){%>
-								<a  class="change-status" data-permissions="F009001" data-id="<%=item.id%>"  data-status="0">&nbsp;&nbsp;停用</a>
+								<span >
+									<a  class="change-status" data-permissions="F009001" data-id="<%=item.id%>"  data-status="0">&nbsp;&nbsp;停用</a>
+								</span>
+								
 								<%}else if(item.active == "0"){%>
-								<a  class="change-status" data-permissions="F009001" data-id="<%=item.id%>" data-status="1">&nbsp;&nbsp;启用</a>
+								<span >
+									<a  class="change-status" data-permissions="F009001" data-id="<%=item.id%>" data-status="1">&nbsp;&nbsp;启用</a>
+								</span>
 								<%}%>
 							<%}%>
 						</td>

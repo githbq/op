@@ -119,7 +119,7 @@ define(function (require, exports, module) {
                         if (subOrder.productId == '1') {//选中CRM
                             useCRM = true;
                         }
-                        if (subOrder.productId == '2' || subOrder.productId == '3') {//选中销客终端
+                        if (subOrder.productId == '2' || subOrder.productId == '3') {//选中逍客终端
                             useFX = true;
                         }
 
@@ -166,7 +166,7 @@ define(function (require, exports, module) {
                         }
                     }
                 });
-                //使用销客终端 使用CRM 选中效果
+                //使用逍客终端 使用CRM 选中效果
                 controller(terminalDataItems, 'useCRM', function (item) {
                     if (item.visible !== false) {
                         item.value = useCRM;

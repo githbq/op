@@ -20,6 +20,10 @@ define(function(require, exports, module){
 		'4': {
 			text:'企业资料审核驳回',
 			url:'/op/a#agentsupport/entpriselist'
+		},
+		'5': {
+			text:'审批被驳回',
+			url:'/op/a#agentsupport/renewlist/refuse'  //'/op/a#agentsupport/renewlist'
 		}
 	}
 
@@ -69,7 +73,7 @@ define(function(require, exports, module){
 
 		//跳转
 		goEve: function( e ){
-
+			var me = this;
 
 			var $target = $( e.currentTarget );
 
@@ -82,6 +86,9 @@ define(function(require, exports, module){
 				'url': '~/g/api/message/read',
 				'data': {
 					'id': id
+				},
+				'success':function(){
+					me.getRemind();
 				}
 			});
 

@@ -232,10 +232,10 @@ define(function(require, exports, module){
 			var titleState = 0;
 			function changeTitle(){
 				if( titleState == 0 ){
-					document.title = "【新消息】汇聚-纷享销客畅享智慧工作";
+					document.title = "【新消息】汇聚-纷享逍客畅享智慧工作";
 					titleState = 1;
 				}else{
-					document.title = "【　　　】汇聚-纷享销客畅享智慧工作";
+					document.title = "【　　　】汇聚-纷享逍客畅享智慧工作";
 					titleState = 0;
 				}
 			}
@@ -244,7 +244,7 @@ define(function(require, exports, module){
 				
 				me.toastInterval = setInterval( changeTitle , 800 );
 			}else{
-				document.title = "汇聚-纷享销客畅享智慧工作";
+				document.title = "汇聚-纷享逍客畅享智慧工作";
 			}
 		},
 
