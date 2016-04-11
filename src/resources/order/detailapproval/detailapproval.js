@@ -649,10 +649,11 @@ define( function(require, exports, module){
 			me.attrs.basicInfoEdit = me.attrs.options.editFlag;
 			//财务驳回只能部分编辑和小助手第二次驳回
 			if(me.attrs.options.rejectsFrom && (me.attrs.options.rejectsFrom == 2 || me.attrs.options.rejectsFrom == 3 ) && me.attrs.options.editFlag){
-				me.attrs.moneyEdit = false;;
+				me.attrs.moneyEdit = false;
+				me.attrs.basicInfoEdit = false;
 			}
 			var typeString = '1,2,3,4,13,14,15,16';
-			if( me.attrs.options.currentTask == 'support' && typeString.indexOf(me.attrs.options.orderType)>-1 ){
+			if( me.attrs.options.currentTask == 'support' && typeString.indexOf(me.attrs.options.orderType)>-1){
 				me.attrs.basicInfoEdit = true;
 				me.$('.action-agree-pass').show();
 			}
