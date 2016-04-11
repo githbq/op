@@ -62,7 +62,7 @@
                     <li data-modulecode="MonthReportOpS">
                         <a href="#index/rpt">月度报告</a>
                     </li>
-                   <!-- <li data-modulecode="PayedLifeCycleOpS">
+                    <!--<li data-modulecode="PayedLifeCycleOpS">
                         <a href="#index/paid">付费生命周期</a>
                     </li>-->
                     <li data-modulecode="SelfActivityAllOpS">
@@ -141,7 +141,7 @@
 </div>
 
 <!---->
-<input id="key" type="hidden" value="${token}" /></div>
+<input id="key" type="hidden" value="${token}"/>
 
 <!--Tip 提示-->
 <script type="text/template" id="g-tip">
@@ -184,11 +184,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-
