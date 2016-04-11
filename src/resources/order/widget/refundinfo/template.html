@@ -1,15 +1,179 @@
 <script type="text/template" id="refundinfo">
     <div class="refundinfo">
-        <div class="field_row suborder" data-productid="3">
+        <div class="field_row suborder">
             <div class="field_row_head">
                 <label>
-                    <span class="label bold"><span class="field_text" data-name="keyword"></span>服务人数(个数)</span>
+                    <span class="label bold"><span class="field_text">退款信息</span></span>
+
+                </label>
+            </div>
+        </div>
+        <div class="field_row suborder">
+            <div class="field_row_head">
+                <label>
+                </label>
+            </div>
+            <div class="field_wrapper">
+                <div class="field">
+                    <span class="tipinfo" data-name="tipinfo">发票原件、拒收证明必须退回！邮寄地址：北京市海淀区知春路甲63号卫星大厦纷享逍客703，陈贞  电话010-51242540</span>
+                </div>
+            </div>
+        </div>
+        <% _.each(content,function( value ,index ){ %>
+        <div class="field_row suborder">
+            <div class="field_row_head">
+                <label>
+                    <span class="label"><span class="field_text"></span><%=value.title%>(元)</span></span>
                     <span class="red">*</span>
                 </label>
             </div>
             <div class="field_wrapper">
                 <div class="field">
-                    <input data-type="int" data-name="purchaseCount_3" type="text" class="" name=""/>
+                    <input data-type="int" data-name="<%=value.name%>" type="text"  name=""/>
+                </div>
+            </div>
+        </div>
+        <%})%>
+        <div class="field_row suborder">
+            <div class="field_row_head">
+                <label>
+                    <span class="label"><span class="field_text">退款原因</span></span>
+                    <span class="red">*</span>
+                </label>
+            </div>
+            <div class="field_wrapper">
+                <div class="field">
+                    <select name="" class="ipt-m">
+                        <option value="">请选择退款原因</option>
+                        <option value="">错误打款</option>
+                        <option value="">实际退款</option>
+                        <option value="">垫款未成交</option>
+                        <option value="">付款后追加折扣款退款</option>
+                        <option value="">其他(请在备注标明)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="field_row suborder">
+            <div class="field_row_head">
+                <label>
+                    <span class="label"><span class="field_text">退款原因</span></span>
+                    <span class="red">*</span>
+                </label>
+            </div>
+            <div class="field_wrapper">
+                <div class="field">
+                    <label><input type="radio" name="aaa"/><span>发票已认证</span></label>
+                    <label><input type="radio" name="aaa"/><span>发票未认证</span></label>
+                </div>
+            </div>
+        </div>
+        <div class="field_row suborder">
+            <div class="field_row_head">
+                <label>
+                    <span class="label"><span class="field_text">上传发票原件</span></span>
+                    <span class="red">*</span>
+                </label>
+            </div>
+            <div class="field_wrapper">
+                <div class="field">
+                    <input type="file" class="ipt-l" data-name="image1_file"/>
+                    <input type="hidden" data-name="image1"/>
+                </div>
+            </div>
+        </div>
+        <div class="field_row suborder">
+            <div class="field_row_head">
+                <label>
+                    <span class="label"><span class="field_text">拒收证明</span></span>
+                    <span class="red">*</span>
+                </label>
+            </div>
+            <div class="field_wrapper">
+                <div class="field">
+                    <input type="file"  class="ipt-l" data-name="image1_file"/>
+                    <input type="hidden" data-name="image1"/>
+                </div>
+            </div>
+        </div>
+        <div class="field_row suborder">
+            <div class="field_row_head">
+                <label>
+                    <span class="label"><span class="field_text">客户单位开具红字发票信息表（加盖公章、信息表必须有编码）</span></span>
+                    <span class="red">*</span>
+                </label>
+            </div>
+            <div class="field_wrapper">
+                <div class="field">
+                    <input type="file" class="ipt-l" data-name="image1_file"/>
+                    <input type="hidden" data-name="image1"/>
+                </div>
+            </div>
+        </div>
+        <div class="field_row suborder">
+            <div class="field_row_head">
+                <label>
+                    <span class="label"><span class="field_text">发票复印件（加盖发票专用章、公章、）</span></span>
+                    <span class="red">*</span>
+                </label>
+            </div>
+            <div class="field_wrapper">
+                <div class="field">
+                    <input type="file"  class="ipt-l" data-name="image1_file"/>
+                    <input type="hidden" data-name="image1"/>
+                </div>
+            </div>
+        </div>
+        <div class="field_row suborder">
+            <div class="field_row_head">
+                <label>
+                    <span class="label"><span class="field_text">退款审批连接</span></span>
+                    <span class="red">*</span>
+                </label>
+            </div>
+            <div class="field_wrapper">
+                <div class="field">
+                    <input type="text" class="ipt-l" name="" value="http://"/>
+                </div>
+            </div>
+        </div>
+        <div class="field_row suborder">
+            <div class="field_row_head">
+                <label>
+                    <span class="label"><span class="field_text">备注信息</span></span>
+                    <span class="red">*</span>
+                </label>
+            </div>
+            <div class="field_wrapper">
+                <div class="field">
+                    <textarea name="" class="ipt-l">
+
+                    </textarea>
+                </div>
+            </div>
+        </div>
+        <div class="field_row suborder" data-name="backtime_wrapper">
+            <div class="field_row_head">
+                <label>
+                    <span class="label"><span class="field_text">退款时间</span></span>
+                </label>
+            </div>
+            <div class="field_wrapper">
+                <div class="field">
+                 <span class="field_text" data-name="time"></span>
+                </div>
+            </div>
+        </div>
+        <div class="field_row suborder">
+            <div class="field_row_head">
+                <label>
+                    <span class="label"><span class="field_text">备注信息</span></span>
+                </label>
+            </div>
+            <div class="field_wrapper">
+                <div class="field">
+                    <span class="field_text" data-name="yijian">
+                    </span>
                 </div>
             </div>
         </div>

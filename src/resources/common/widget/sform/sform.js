@@ -88,11 +88,11 @@ define(function (require, exports, module) {
                 if ($ele.is('input[datecontrol]:not([readonly])')) {
                     var me = this;
                     var option = {dateFmt: 'yyyy/MM/dd'};
-                    if($ele.is('[maxdate]') && $ele.attr('maxdate')){
-                        option.maxDate=$ele.attr('maxdate');
+                    if ($ele.is('[maxdate]') && $ele.attr('maxdate')) {
+                        option.maxDate = $ele.attr('maxdate');
                     }
-                    if($ele.is('[mindate]') && $ele.attr('mindate')){
-                        option.minDate=$ele.attr('mindate');
+                    if ($ele.is('[mindate]') && $ele.attr('mindate')) {
+                        option.minDate = $ele.attr('mindate');
                     }
                     var config = $ele.attr('datecontrol') ? me.i_parseJSON($ele.attr('datecontrol')) : {};
                     $.extend(option, config);
@@ -100,8 +100,8 @@ define(function (require, exports, module) {
                     //    $ele.change();
                     //    return true;
                     //};
-                    $ele.off('click').on('click',function(){
-                        WdatePicker($.extend(option,config));
+                    $ele.off('click').on('click', function () {
+                        WdatePicker($.extend(option, config));
                     });
                     return true;
                 }
@@ -113,7 +113,7 @@ define(function (require, exports, module) {
                     $ele.on('change', function (e) {
                         var $dom = $(e.target);
                         $dom.val($dom.val().replace(/[^\.\d]/g, ''));
-                        $dom.val($dom.val().match(/^[+-]?\d+(\.\d+)?$/) ?$dom.val():'');
+                        $dom.val($dom.val().match(/^[+-]?\d+(\.\d+)?$/) ? $dom.val() : '');
                     })
                 }
                 return next($ele);
@@ -298,12 +298,12 @@ define(function (require, exports, module) {
                 wrapper.removeClass('wrapper-validate-error');
                 $ele.removeClass('validate-error');
             },
-            o_getValues: function () {
+            o_getValues: function (callback) {
                 var me = this;
                 var result = {};
                 me.o_eachFields(function ($ele, data) {
                     result[data.name] = me.o_getFieldValue(data.name);
-
+                    callback && callback($ele, data, result);
                 });
                 return result;
             },
@@ -534,14 +534,14 @@ define(function (require, exports, module) {
                         $ele.val(value);
                     }
 
-                    var data=me.o_field_getData($ele);
-                    if(data.maxDate){
-                        $ele.attr('maxdate',new Date(data.maxDate)._format(format));
+                    var data = me.o_field_getData($ele);
+                    if (data.maxDate) {
+                        $ele.attr('maxdate', new Date(data.maxDate)._format(format));
                     }
-                    if(data.minDate){
-                        $ele.attr('mindate',new Date(data.minDate)._format(format));
+                    if (data.minDate) {
+                        $ele.attr('mindate', new Date(data.minDate)._format(format));
                     }
-                    me.i_convertFieldWhereDatetime(null,$ele);
+                    me.i_convertFieldWhereDatetime(null, $ele);
                     return value;
                 }
                 return next($ele, value);

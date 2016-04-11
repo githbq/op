@@ -1,4 +1,4 @@
-<div class="p-renewlist p-list" js="true">
+<div class="invoiceapply p-list" js="true">
     <div class="u-tablelist m-approvallist">
         <div class="list-main">
             <div class="list-header">
@@ -16,23 +16,23 @@
                 <div class="list-bar-input">
                     <label for="">
                         订单号
-                        <input type="text" ce-model="orderId">
+                        <input type="text" data-name="orderId">
                     </label>
                     <label for="">
                         合同号
-                        <input type="text" ce-model="contractNo">
+                        <input type="text" data-name="contractNo">
                     </label>
                     <label for="">
                         企业名称
-                        <input type="text" ce-model="en">
+                        <input type="text" data-name="en">
                     </label>
                     <label for="">
                         企业账号
-                        <input type="text" ce-model="ea">
+                        <input type="text" data-name="ea">
                     </label>
                     <label for="">
                         订单类型
-                        <select name="orderType" ce-model="orderType">
+                        <select name="orderType" data-name="orderType">
                             <option value="">全部</option>
                             <option value="1">新增</option>
                             <option value="2">续费</option>
@@ -41,17 +41,12 @@
                         </select>
                     </label>
                     <label for="">
-                        特批单
-                        <select name="tpd" ce-model="isTp">
-                            <option value="">全部</option>
-                            <option value="1">是</option>
-                            <option value="0">否</option>
-                        </select>
+                        提单人
+                        <input type="text" data-name="ea">
                     </label>
-                    <!--
                     <label for="">
                         审核状态
-                        <select name="shzt" ce-model="">
+                        <select name="shzt" data-name="">
                             <option value="">全部</option>
                             <option value="1">待审批</option>
                             <option value="2">已通过</option>
@@ -59,26 +54,41 @@
                             <option value="4">撤回</option>
                         </select>
                     </label>
-                    -->
                     <label for="">
                         付费状态
-                        <select name="ffzt" ce-model="payStatus">
+                        <select name="ffzt" data-name="payStatus">
                             <option value="">全部</option>
                             <option value="1">全款</option>
                             <option value="2">分期</option>
                             <option value="3">未付款</option>
                         </select>
                     </label>
+                    <br/>
                     <label for="">
-                        提单日期 <input type="text" placeholder="开始时间" class="starttime"> ———— <input type="text" placeholder="结束时间" class="endtime">
+                        发票性质
+                        <select name="ffzt" data-name="payStatus">
+                            <option value="">全部</option>
+                            <option value="1">新增</option>
+                            <option value="2">续费</option>
+                            <option value="3">增购</option>
+                            <option value="4">收尾款</option>
+                        </select>
                     </label>
                     <label for="">
-                        代理商
-                        <input type="text" ce-model="agentName">
+                        发票类型
+                        <select name="ffzt" data-name="payStatus">
+                            <option value="">全部</option>
+                            <option value="1">普票</option>
+                            <option value="2">专票</option>
+                        </select>
                     </label>
                     <label for="">
-                        优惠码
-                        <input type="text" ce-model="agentId">
+                        发票申请日期
+                        <input type="text" data-name="ea">
+                    </label>
+                    ——
+                    <label for="">
+                        <input type="text" data-name="ea">
                     </label>
                 </div>
             </div>
