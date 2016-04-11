@@ -158,6 +158,10 @@ define( function(require, exports, module){
         },
 	    
         //
+		jumpEve:function(jump){
+			var me = this;
+			me.$view.find('.toggle b[data-state="'+jump+'"]').trigger("click");
+		},
         // 切换事件
         toggleEve: function( e ){
             var $target = $( e.currentTarget );

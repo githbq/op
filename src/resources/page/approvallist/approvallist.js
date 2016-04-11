@@ -10,12 +10,21 @@ define( function(require, exports, module){
 	var DetailApproval = require('../../order/detailapproval/detailapproval');
 	var DetailPayment = require('../../order/detailpayment/detailpayment');
 
-	exports.init = function(){
+	exports.init = function(param){
 		var $el = exports.$el;
+		
+		param = param || [];
+		console.log(param)
 		
 		var approvalList = new OpenApprovalList( { 'wrapper':$el,'limits':true  } );  	//
 		approvalList.render();
 		
+		approvalList.on('ceshi',function(jump){
+			approvalList.jumpEve(jump);
+		})
+		if(param.length>0){
+			approvalList.trigger('ceshi',param[0]);
+		}
 
 
 		var detailApproval,
