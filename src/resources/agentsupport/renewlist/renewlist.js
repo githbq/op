@@ -166,7 +166,10 @@ define( function( require, exports, module ) {
             var isCanEdit = $target.attr('data-edit')||'false';
             me.trigger( 'detailBind', id , eid , type , me.attrs.state,isCanEdit );
         },
-
+		jumpEve:function(jump){
+			var me = this;
+			me.$view.find('.toggle b[data-state="'+jump+'"]').trigger("click");
+		},
         toggleEve: function( e ){
             var $target = $( e.currentTarget );
             $target.addClass('active').siblings().removeClass('active');
@@ -266,12 +269,21 @@ define( function( require, exports, module ) {
 
     exports.init = function( param ) {
         var $el = exports.$el;
-
+		
+		param = param || [];
+		console.log(param)
         //审批列表
         var renewList = new OpenApprovalList( { 'view':$el.find('.m-approvallist') } );    //
 
         var detailApproval,
             detailPayment;
+		renewList.on('ceshi',function(jump){
+			renewList.jumpEve(jump);
+		})
+		if(param.length>0){
+			renewList.trigger('ceshi',param[0]);
+		}
+		
 
         renewList.on('detail',function( detail , state ){
             

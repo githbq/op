@@ -23,7 +23,7 @@ define(function(require, exports, module){
 		},
 		'5': {
 			text:'审批被驳回',
-			url:'/op/a#agentsupport/renewlist'  //'/op/a#agentsupport/renewlist'
+			url:'/op/a#agentsupport/renewlist/refuse'  //'/op/a#agentsupport/renewlist'
 		}
 	}
 
