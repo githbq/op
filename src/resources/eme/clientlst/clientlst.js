@@ -24,7 +24,7 @@ define( function( require, exports, module ) {
             })
         },
 
-        show: function( id , account,runstatus,contactphone,contactname,paystatus){
+        show: function( id , account , runstatus , contactphone , contactname , paystatus ){
             AccountDetail.__super__.show.apply( this, arguments );
             var me = this;
             

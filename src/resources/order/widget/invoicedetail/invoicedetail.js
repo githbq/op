@@ -4,7 +4,7 @@ define(function( require , exports , module ){
 	var uploader = require('common/widget/upload').uploader;
 	var Slider = require('common/widget/slider/slider');
 
-	//订单模块
+	//发票模块 提交编辑
 	var InvoiceDetail = MClass( Slider ).include({
 
 		content: template,
@@ -160,7 +160,11 @@ define(function( require , exports , module ){
 			me.model.clear();
 			//清除其他选项
 
-		},
+			//重置input选中状态
+			
+
+
+		},	
 
 		//获取当前数据信息
 		getInfo: function(){
@@ -175,7 +179,27 @@ define(function( require , exports , module ){
 			model.invoiceProp = invoice;
 			model.invoiceType = invoicetype;
 
-			return model;
+			var info = {
+				"orderId": me.orderId,
+  				"invoiceProp": invoice,
+  				"invoiceType": invoiceType,
+  				"amount": me.model.get('amount'),
+  				"invoiceHead": me.model.get('invoiceHead'),
+  				"businessLicenseFileName": me.model.get('businessLicenseFileName'),
+  				"businessLicense": me.model.get('businessLicense'),
+  				"taxpayerQualificationFileName": me.model.get('taxpayerQualificationFileName'),
+  				"taxpayerQualification": me.model.get('taxpayerQualification'),
+  				"taxpayerIdentificationNo": me.model.get('taxpayerIdentificationNo'),
+  				"receiverName": me.model.get('receiverName'),
+  				"receiverAddress": me.model.get('receiverAddress'),
+  				"receiverPhone": me.model.get('receiverPhone'),
+  				"bankName": me.model.get('bankName'),
+  				"bankAccount": me.model.get('bankAccount'),
+  				"approvalUrl": me.model.get('approvalUrl'),
+  				"remark": me.model.get('remark')
+			}
+
+			return info;
 		}
 	});
 

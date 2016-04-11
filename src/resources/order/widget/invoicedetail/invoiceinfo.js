@@ -3,7 +3,7 @@ define(function( require , exports , module ){
 	var template = require('./invoiceinfo.html'); 
 	var Slider = require('common/widget/slider/slider');
 
-	//订单模块
+	//发票模块 显示详细信息
 	var InvoiceInfo = MClass( Slider ).include({
 
 		content: template,
@@ -44,6 +44,22 @@ define(function( require , exports , module ){
 		//外部接口 获取当前数据信息
 		getInfo: function(){
 			var me = this;
+		},
+
+		//获取发票详情信息
+		show: function( id ){
+			InvoiceInfo.__super__.show.apply( this, arguments );
+			var me = this;
+
+			util.api({
+				'url':'/odr/invoice',
+				'data':{
+					'id': id
+				},
+				'success': function( data ){
+					console.warn( data );
+				}
+			})
 		}
 	});
 
