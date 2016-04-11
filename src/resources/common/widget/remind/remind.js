@@ -25,7 +25,7 @@ define(function(require, exports, module){
 			text:'审批被驳回',
 			url:'/op/index#page/approvallist/refuse'  //'/op/a#agentsupport/renewlist'
 		},
-		'5': {
+		'6': {
 			text:'审批被驳回',
 			url:'/op/a#agentsupport/renewlist/refuse'  //'/op/a#agentsupport/renewlist'
 		}
