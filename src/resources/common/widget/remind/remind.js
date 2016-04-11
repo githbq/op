@@ -89,10 +89,10 @@ define(function(require, exports, module){
 				},
 				'success':function(){
 					me.getRemind();
+					location.href = url;
 				}
 			});
-
-			location.href = url;
+			
 		},
 
 		show: function(){
