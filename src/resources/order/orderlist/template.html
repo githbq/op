@@ -42,11 +42,14 @@
 						data-orderType="<%=item.order.orderType%>" data-opinion="<%=item.order.rejectReason ?item.order.rejectReason :'' %>"
 				   data-isTp="<%=item.order.isTp%>"  data-ea="<%=item.order.enterpriseAccount%>" >查看</a>&nbsp;&nbsp;
 				<%}%>
-                
-				<a class="order-custom"  data-enterpriseId="<%=item.order.enterpriseId%>">联合跟进人</a>&nbsp;&nbsp;
 				
+                <%if(item.canEditPartner == 1||item.canEditPartner == "1"){%>
+					
+					<a class="order-custom"  data-enterpriseId="<%=item.order.enterpriseId%>">联合跟进人</a>&nbsp;&nbsp;
+				<%}else{%>
+					<a  style="color:#ccc;" data-id="<%=item.order.id%>">联合跟进人</a>&nbsp;&nbsp;
+				<%}%>
 				
-
 			</td>
 			<td></td>
 		</tr>
