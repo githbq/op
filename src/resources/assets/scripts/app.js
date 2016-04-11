@@ -151,10 +151,10 @@ define('common/app', function(require, exports, module){
 			
 			// 当前页面中切换
 			// 不刷新页面
-			if (this.curPage.path == this.path) {
+			/*if (this.curPage.path == this.path) {
 				this._swtich(this.param);
 				return;
-			}
+			}*/
 			
 			this._start();
 			this.singn = false;
