@@ -94,7 +94,7 @@ define( function(require, exports, module){
 					'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
 					
 				//合同付款信息
-				me.attrs.cotractMoney = new CotractMoney( { 'wrapper':me.$view.find('.common-product')} );
+				me.attrs.cotractMoney = new CotractMoney( { 'wrapper':me.$view.find('.common-product'),'orderId':me.attrs.options.id} );
 			});
 
 
