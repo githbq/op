@@ -312,12 +312,12 @@ define( function( require, exports, module ) {
 		 orderList.on('orderDetailPayment', function( options ){
             detailPayment = new DetailPayment();
             detailPayment.show( options );
-        })
+        });
 		
 		orderList.on('orderCustom', function( options ){
             customHelper = new CustomHelper();
             customHelper.show( options );
-        })
+        });
 		
 		orderList.on('orderBackmoney', function( options ){
             backMoney = new BackMoney();

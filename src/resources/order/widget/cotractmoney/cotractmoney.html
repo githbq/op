@@ -21,7 +21,7 @@
                     <label style="width:250px;">
                         <span class="label">合同总金额(元)：</span>
                     </label>
-					<span ce-model="amount"></span>
+					<span ce-model="contractPrice"></span>
                 </div>
             </div>
         </div>
@@ -33,10 +33,10 @@
                     <label style="width:250px;">
                         <span class="label">合同照片：</span>
                     </label>
-					<span >暂无</span>
-					<label style="width:250px;">
-                        <a href=""  target="_blank">
-							<img class=""/>
+					<span class="contract-info">暂无</span>
+					<label style="width:250px;" class="contract-box">
+                        <a href="" class="contract-link"  target="_blank">
+							<img src="" class="contract-img" style="width:250px; height:250px;"/>
 						</a>
                     </label>
                 </div>
@@ -50,10 +50,10 @@
                     <label style="width:250px;">
                         <span class="label">合同副本照片：</span>
                     </label>
-					<span >暂无</span>
-					<label style="width:250px;">
-                        <a href=""  target="_blank">
-							<img class=""/>
+					<span class="contractCopy-info">暂无</span>
+					<label style="width:250px;" class="contractCopy-box">
+                        <a href=""  class="contractCopy-link" target="_blank">
+							<img src="" class="contractCopy-img" style="width:250px; height:250px;"/>
 						</a>
                     </label>
                 </div>
@@ -67,7 +67,7 @@
                     <label style="width:250px;">
                         <span class="label">付款单位/个人名称：</span>
                     </label>
-					<span ce-model="amount"></span>
+					<span ce-model="payerName"></span>
                 </div>
             </div>
         </div>
@@ -79,7 +79,7 @@
                     <label style="width:250px;">
                         <span class="label">合同章名称：</span>
                     </label>
-					<span ce-model="amount"></span>
+					<span ce-model="sealName"></span>
                 </div>
             </div>
         </div>
@@ -108,7 +108,11 @@
                     <label style="width:250px;">
                         <span class="label">当前付费状态：</span>
                     </label>
-					<span ce-model="amount"></span>
+					<select name=""  ce-model="payStatus" disabled="disabled">
+						<option value="1">全款</option>
+						<option value="2">分期</option>
+						<option value="3">未付</option>
+					</select>
                 </div>
             </div>
         </div>
@@ -118,9 +122,9 @@
             <div class="field_wrapper">
                 <div class="field">
                     <label style="width:250px;">
-                        <span class="label">到款金额：</span>
+                        <span class="label">到款金额(财务确认)：</span>
                     </label>
-					<span ce-model="amount"></span>
+					<span ce-model="reciviedAmount"></span>
                 </div>
             </div>
         </div>
@@ -144,9 +148,9 @@
                     <label style="width:250px;">
                         <span class="label">收款账户：</span>
                     </label>
-					<span ce-model="amount">1</span>
-					<span ce-model="amount">2</span>
-					<span ce-model="amount">3</span>
+					<span ce-model="receiptsAccount"></span>
+					<!--<span ce-model="amount">2</span>
+					<span ce-model="amount">3</span>-->
                 </div>
             </div>
         </div>
