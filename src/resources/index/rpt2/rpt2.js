@@ -28,7 +28,7 @@ define(function (require, exports, module) {
             }
 
             var data = {type: me.$selectType.val(), date: new Date(me.$chooseDate.val() + " 00:00:00").getTime()};
-            window.open('/op/api/file/downloadfromhdfs?type='+data.type+'&date='+data.date,'_blank');//'hideiframe');
+            window.open('~/op/api/file/downloadfromhdfs?type='+data.type+'&date='+data.date,'hideiframe');//'hideiframe');
             //util.api({
             //    type:'get',
             //    url: '~/op/api/file/downloadfromhdfs',
