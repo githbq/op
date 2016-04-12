@@ -4,6 +4,16 @@ define(function( require , exports , module ){
 	var uploader = require('common/widget/upload').uploader;
 	var Slider = require('common/widget/slider/slider');
 
+	//付费状态map
+	var payStatusMap = {
+		'1': '全款',
+		'2': '分期',
+		'3': '未付'
+	}
+
+
+
+
 	//发票模块 提交编辑
 	var InvoiceDetail = MClass( Slider ).include({
 
@@ -63,7 +73,8 @@ define(function( require , exports , module ){
 			var info = me.getInfo();
 			util.api({
 				'url':'/odr/invoice/save',
-				'data': info,
+				'contentType':'application/json',
+				'data': JSON.stringify(info),
 				'success': function( data ){
 					if( data.success ){
 						console.log('发票保存成功');
@@ -130,7 +141,11 @@ define(function( require , exports , module ){
 
 		//显示
 		//
-		show: function( id ){
+		// @param id 			订单id 
+		// @param invoiceId     发票id    
+		// @param canEdit       是否可编辑
+		//
+		show: function( id, invoiceId, canEdit ){
 			InvoiceDetail.__super__.show.apply( this, arguments );
 
 			console.log('id');
@@ -138,21 +153,44 @@ define(function( require , exports , module ){
 			var me = this;
 
 			me.orderId = id;
+			me.invoiceId = invoiceId;
 
-			//
+			//查询订单概况
 			util.api({
-				'url': '/odr/info',
-				'data': {
-					'id': id
-				},
+				'url': '/odr/' + id + '/info',
 				'success': function( data ){
 					console.warn( data );
 					if( data.success ){
-						
+						data.value.model.hetongamount = data.value.model.amount;
+						delete data.value.model.amount;
+						data.value.model.payStatusStr = payStatusMap[data.value.model.payStatus];
+						delete data.value.model.payStatus;
+
+						me.model.load( data.value.model );
 					}
 				}
-			})
+			});
 			
+			//如果有发票id则 显示发票详情
+			if( invoiceId ){
+				
+				util.api({
+					'url':'/odr/invoice',
+					'data':{
+						'id': invoiceId
+					},
+					'success': function( data ){
+						if( data.success ){
+							
+						}
+					}
+				})
+			}
+
+			//是否可编辑
+			if( canEdit ){
+				
+			}
 		},
 
 		//隐藏
@@ -174,17 +212,55 @@ define(function( require , exports , module ){
 
 			var invoice = me.$('[name="invoice"]:checked').val();
 			var invoicetype = me.$('[name="invoicetype"]:checked').val();
+			
+			//信息检测
+			/*
+			if( !me.model.get('amount') ){
+				util.showToast('请填写发票金额!');
+				return false;
+			}
+			if( !me.model.get('invoiceHead') ){
+				util.showToast('请填写发票抬头!');
+				return false;
+			}
+			if( !me.model.get('businessLicense') ){
+				util.showToast('请选择营业执照');
+				return false;
+			}
+			if( !me.model.get('taxpayerQualification') ){
+				util.showToast('请选择资质证书');
+				return false;
+			}
+			if( !me.model.get('receiverName') ){
+				util.showToast('请填写收件人姓名');
+				return false;
+			}
+			if( !me.model.get('receiverPhone') ){
+				util.showToast('请填写收件人电话');
+				return false;
+			}
+			if( !me.model.get('receiverAddress') ){
+				util.showToast('请填写收件人地址');
+				return false;
+			}
+			if( !me.model.get('bankName') ){
+				util.showToast('请填写开户行');
+				return false;
+			}
+			if( !me.model.get('bankAccount') ){
+				util.showToast('请填写账号');
+				return false;
+			}
+			if( !me.model.get('approvalUrl') ){
 
-			var model = me.model.all();
-
-			model.orderId = me.orderId;
-			model.invoiceProp = invoice;
-			model.invoiceType = invoicetype;
+				return false;
+			}
+			*/
 
 			var info = {
 				"orderId": me.orderId,
   				"invoiceProp": invoice,
-  				"invoiceType": invoiceType,
+  				"invoiceType": invoicetype,
   				"amount": me.model.get('amount'),
   				"invoiceHead": me.model.get('invoiceHead'),
   				"businessLicenseFileName": me.model.get('businessLicenseFileName'),

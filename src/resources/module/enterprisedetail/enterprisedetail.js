@@ -2277,6 +2277,7 @@ define( function(require, exports, module){
 				pageSize: me.operations.pagination.attr['pageSize'],
 				enterpriseId: me.model.attrs.enterpriseId
 			};
+			
 			util.api({
 				url: '/enterprise/querypageenterpriseaccountincrement',
 				data: data,
