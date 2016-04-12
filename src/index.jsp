@@ -24,7 +24,7 @@
     </div>
     <nav>
         <ul class="nav-main clearfix">
-        
+
             <li data-modulecode="ComprehensiveQueryOpS PartnerOpS DemoAccountOpS QueryOpS ExportAgentAccountOpS">
                 <a class="nav-branch">查询</a>
                 <ul class="nav-sub">
@@ -46,7 +46,7 @@
                     <li data-modulecode="SelfRegisterOpS"><a href="#ent/ind">自注册</a></li>
                 </ul>
             </li>
-            
+
             <!--
             <li data-modulecode="EnterpriseDayActivityOpS">
                 <a href="#index/dayactive">企业日活跃</a>
@@ -61,6 +61,12 @@
                     </li>
                     <li data-modulecode="MonthReportOpS">
                         <a href="#index/rpt">月度报告</a>
+                    </li>
+                    <li data-modulecode="RealTimeActivityOpS">
+                    <a href="#index/lst2">实时2</a>
+                    </li>
+                    <li data-modulecode="MonthReportOpS">
+                    <a href="#index/rpt2">月度报告2</a>
                     </li>
                     <!--<li data-modulecode="PayedLifeCycleOpS">
                         <a href="#index/paid">付费生命周期</a>
