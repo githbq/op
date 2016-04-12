@@ -468,16 +468,22 @@ define( function( require, exports, module ) {
 						callback && callback( data.value.model );
 					}else{
 						//callback && callback( );
+						me.$commonAdd.text('提交');
+						me.$commonAdd.removeAttr('disabled');
 					}
 				},
 				'error':function(){
 					//callback && callback( );
+					me.$commonAdd.text('提交');
+					me.$commonAdd.removeAttr('disabled');
 				}
 			})
 		},
 		//获取全部订单数据
 		getOrderInfo:function(){
 			var me = this,objData  = { 'orderEntity':{}};
+			
+			
 
 			switch( me.attrs.typeFlag )
 			{
@@ -552,6 +558,7 @@ define( function( require, exports, module ) {
 					var tem ={'enterprise': me.attrs.basicCommon.getValue()} ;
 					tem.enterprise && $.extend(true, objData, tem );
 				}else{
+					
 					return ;
 				}
 
@@ -564,6 +571,8 @@ define( function( require, exports, module ) {
 					objData.orderEntity.subOrders = temp.subOrders;
 					if(temp.subOrders.length<1){
 						util.showToast('请至少选择一款子产品！');
+						me.$commonAdd.text('提交');
+						me.$commonAdd.removeAttr('disabled');
 						return false;
 					}
 					if(!me.checkUsedDate( temp.subOrders )){
@@ -613,12 +622,13 @@ define( function( require, exports, module ) {
 					}
 					//检测类型为使用时，时间是90天
 					if(!me.checkUsedDate( temp.subOrders )){
-					
+						
 						return false;
 					}
 					objData.orderEntity.subOrders = temp.subOrders;
 				
 				}else{
+					
 					util.showToast('产品信息填写不完整！');
 					return false;
 				}
@@ -652,15 +662,15 @@ define( function( require, exports, module ) {
 			//objData.enterpriseFilingId = objData.enterprise.enterpriseFilingId
 
 			//综合折扣
+			me.$commonAdd.text('提交中....');
+			me.$commonAdd.attr('disabled','disabled');
+			
 			me.getDiscount( objData.orderEntity.subOrders ,objData.orderEntity.order.amount , function(  ){
 
 				me.attrs.invoiceSpecial.setDiscount( me.attrs.complexDiscount );
 				objData.orderEntity.order['discount'] = me.attrs.complexDiscount ;
 				objData.contract['discount'] = me.attrs.complexDiscount ;
 				
-				me.$commonAdd.text('提交中....');
-				me.$commonAdd.attr('disabled','disabled');
-
 				util.api({
 					'url':me.attrs.url,
 					'data':JSON.stringify( objData ),
