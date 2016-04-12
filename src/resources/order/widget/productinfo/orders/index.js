@@ -415,6 +415,9 @@ define(function (require, exports, module) {
             controller(formDataItems, 'currPayAmount_8', function (n) {
                 n.readonly = isReadonly;
             });
+            controller(formDataItems, 'currPayAmount_12', function (n) {
+                n.readonly = isReadonly;
+            });
             controller(formDataItems, 'receiptsAccount', function (n) {
                 n.readonly = isReadonly;
             });
