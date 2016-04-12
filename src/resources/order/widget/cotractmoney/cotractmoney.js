@@ -91,6 +91,11 @@ define(function(require, exports, module){
 		showData:function(){
 			var me = this;
 			me.model.load( me.attrs.dataObj );
+			var payDate = me.attrs.dataObj.payDate?new Date( me.attrs.dataObj.payDate)._format('yyyy/MM/dd'):'';
+			var receivedPayDate = me.attrs.dataObj.receivedPayDate?new Date( me.attrs.dataObj.receivedPayDate )._format('yyyy/MM/dd'):'';
+			
+			me.model.set('payDate',payDate );
+			me.model.set('receivedPayDate',receivedPayDate );
 			if(me.attrs.dataObj.contract){
 				me.$('.contract-info').hide();
 				me.$('.contract-img').attr('src', '/op/api/file/previewimage' + '?filePath=' + me.attrs.dataObj.contract);

@@ -108,7 +108,11 @@
                     <label style="width:250px;">
                         <span class="label">当前付费状态：</span>
                     </label>
-					<span ce-model="amount"></span>
+					<select name=""  ce-model="payStatus" disabled="disabled">
+						<option value="1">全款</option>
+						<option value="2">分期</option>
+						<option value="3">未付</option>
+					</select>
                 </div>
             </div>
         </div>
@@ -118,9 +122,9 @@
             <div class="field_wrapper">
                 <div class="field">
                     <label style="width:250px;">
-                        <span class="label">到款金额：</span>
+                        <span class="label">到款金额(财务确认)：</span>
                     </label>
-					<span ce-model="amount"></span>
+					<span ce-model="reciviedAmount"></span>
                 </div>
             </div>
         </div>
