@@ -176,7 +176,7 @@ define(function (require, exports, module) {
                 data: data,
                 success: function (data) {
                     if (data.success) {
-                        if (data.value.model > 2000) {
+                        if (data.value.model > 10000) {
                             util.api({
                                 data: originData,
                                 url: '/query/act/generate2',
@@ -186,7 +186,7 @@ define(function (require, exports, module) {
                                     }
                                 }
                             })
-                        } else if (data.value.model <= 2000) {
+                        } else if (data.value.model <= 10000) {
                             window.open('/op/api/s/query/act/generate3?' + $.param(originData),'hideiframe');
                         }
                     }
