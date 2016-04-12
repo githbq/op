@@ -381,9 +381,9 @@ define(function (require, exports, module) {
 
         ///增购需要默认时间
         exports.setPayInfoReadonly = function (controller, terminalDataItems, tableDataItems, formDataItems, isReadonly) {
-            controller(formDataItems, 'contractNo', function (n) {
-                n.readonly = isReadonly;
-            });
+            //controller(formDataItems, 'contractNo', function (n) {
+            //    n.readonly = isReadonly;
+            //});
             //controller(formDataItems, 'contractPrice', function (n) {
             //    n.readonly = isReadonly;
             //});
