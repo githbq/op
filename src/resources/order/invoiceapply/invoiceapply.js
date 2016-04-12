@@ -81,6 +81,10 @@ define(function (require, exports, module) {
                 });
             }
         },
+        setState:function(){
+            var me=this;
+            me.$('span.state').hide();
+        },
         getList: function () {
             var me = this;
             var data = {
@@ -92,7 +96,6 @@ define(function (require, exports, module) {
                 'url': '/ba/querypage',
                 'data': data,
                 beforeSend: function () {
-                    debugger
                     me.$tbody.html('<tr><td colspan="'+me.$view.find('th').length+'"><p class="info">加载中...</p></td></tr>');
                 },
                 'success': function (data) {

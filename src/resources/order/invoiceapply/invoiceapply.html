@@ -3,10 +3,21 @@
         <div class="list-main">
             <div class="list-header">
                 <h3>
-                    <span class="title">发出的审批</span>
-		            <span class="toggle">
-		                <b data-state="wait" class="active">我的审批中<span class='state wait-approve'>0</span></b><b data-state="refuse">我的被驳回<span class='state refuse-approve'>0</span></b><b data-state="end">我的已审批<span class='state end-approve'>0</span></b>
-		            </span>
+                    <span class="title">发票申请</span>
+		            <!--<span class="toggle">-->
+		                <!--<b data-state="wait" class="active">待审批发票<span class='state wait-approve'>0</span></b>-->
+                        <!--<b data-state="refuse">已审批发票<span class='state refuse-approve'>0</span></b>-->
+                        <!--<b data-state="end">驳回发票<span class='state end-approve'>0</span></b>-->
+		            <!--</span>-->
+                    <span class="toggle">
+                         <b data-state="wait" class="active">我的待审批<span class='state wait-approve'>0</span></b>
+                         <b data-state="going">我的已审批未完成<span class='state going-approve'>0</span></b>
+                         <b data-state="end">我的已完成<span class='state end-approve'>0</span></b>
+                         <b data-state="refuse" class="limits-show">我的被驳回<span class="state refuse-approve"></span></b>
+                         <b data-state="allReject">被驳回(代理商)<span class='state allReject-approve'>0</span></b>
+                         <b data-state="allGoing">审批中(代理商)<span class='state allGoing-approve'>0</span></b>
+                         <b data-state="allEnd">已完成(代理商)<span class='state allEnd-approve'>0</span></b>
+                    </span>
                 </h3>
             </div>
             <div class="list-bar">
@@ -14,23 +25,23 @@
                     <button class="btn-blue btn-search">查询</button>
                 </div>
                 <div class="list-bar-input">
-                    <label for="">
+                    <label>
                         订单号
                         <input type="text" data-name="orderId">
                     </label>
-                    <label for="">
+                    <label>
                         合同号
                         <input type="text" data-name="contractNo">
                     </label>
-                    <label for="">
+                    <label>
                         企业名称
                         <input type="text" data-name="en">
                     </label>
-                    <label for="">
+                    <label>
                         企业账号
                         <input type="text" data-name="ea">
                     </label>
-                    <label for="">
+                    <label>
                         订单类型
                         <select name="orderType" data-name="orderType">
                             <option value="">全部</option>
@@ -40,11 +51,11 @@
                             <option value="4">收尾款</option>
                         </select>
                     </label>
-                    <label for="">
+                    <label>
                         提单人
                         <input type="text" data-name="ea">
                     </label>
-                    <label for="">
+                    <label>
                         审核状态
                         <select name="shzt" data-name="">
                             <option value="">全部</option>
@@ -54,7 +65,7 @@
                             <option value="4">撤回</option>
                         </select>
                     </label>
-                    <label for="">
+                    <label>
                         付费状态
                         <select name="ffzt" data-name="payStatus">
                             <option value="">全部</option>
@@ -64,7 +75,7 @@
                         </select>
                     </label>
                     <br/>
-                    <label for="">
+                    <label>
                         发票性质
                         <select name="ffzt" data-name="payStatus">
                             <option value="">全部</option>
@@ -74,7 +85,7 @@
                             <option value="4">收尾款</option>
                         </select>
                     </label>
-                    <label for="">
+                    <label>
                         发票类型
                         <select name="ffzt" data-name="payStatus">
                             <option value="">全部</option>
@@ -82,12 +93,12 @@
                             <option value="2">专票</option>
                         </select>
                     </label>
-                    <label for="">
+                    <label>
                         发票申请日期
                         <input type="text" data-name="ea">
                     </label>
                     ——
-                    <label for="">
+                    <label>
                         <input type="text" data-name="ea">
                     </label>
                 </div>

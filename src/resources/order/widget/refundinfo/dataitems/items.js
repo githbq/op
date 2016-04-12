@@ -29,36 +29,39 @@ define(function (require, exports, module) {
             }
         }));
 
+  var files=['invoice_original','reject_proof','red_invoice_info','invoice_copy'];
+        $(files).each(function(i,n){
 
-        //合同照片 文件框
-        dataItems.push(new DataItem({
-            name: 'contract_file',
-            events: [
-                {
-                    key: 'change',
-                    value: function (e) {
-                        var me = this;
-                        var $uploadinfo = $(e.target).parent().find('.uploadinfo');
-                        $uploadinfo.show().text('上传中...');
-                        sendFile(e, function (response) {
-                            $uploadinfo.hide().text('');
-                            me.o_setValue({name: 'contract', value: JSON.stringify({contract: response.value.model.path, contractFileName: response.value.model.FileName})});
-                        });
-                    }
-                }
-            ],
-            validateOptions: {
-                required: {
-                    enable: true, value: true, handler: function (error, value, option, $ele) {
-                        if (!this.o_getFieldValue('contract')) {
-                            return error = {field: $ele, name: 'required', option: option};
+            dataItems.push(new DataItem({
+                name: n+'_file',
+                visible:false,
+                events: [
+                    {
+                        key: 'change',
+                        value: function (e) {
+                            var me = this;
+                            var $uploadinfo = $(e.target).parent().find('.uploadinfo');
+                            $uploadinfo.show().text('上传中...');
+                            sendFile(e, function (response) {
+                                $uploadinfo.hide().text('');
+                                me.o_setValue({name: 'contract', value: JSON.stringify({contract: response.value.model.path, contractFileName: response.value.model.FileName})});
+                            });
                         }
-                        return false;
+                    }
+                ],
+                validateOptions: {
+                    required: {
+                        enable: true, value: true, handler: function (error, value, option, $ele) {
+                            if (!this.o_getFieldValue(n)) {
+                                return error = {field: $ele, name: 'required', option: option};
+                            }
+                            return false;
+                        }
                     }
                 }
-            }
-        }));
+            }));
 
+        });
          return dataItems;
     }
 });
