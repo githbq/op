@@ -1,37 +1,13 @@
 <div >
-    <div class="">
-		<h4 style="font-weight: bold; font-size: 18px; padding-top: 8px; padding-bottom: 8px;">合同信息</h4>
-        <div class="field_row">
+    <div class="invoiceType">
+		<h4 style="font-weight: bold; font-size: 18px; padding-top: 8px; padding-bottom: 8px;">发票信息</h4>
+		<div class="field_row invoiceType-special" >
             <div class="field_row_head">
             </div>
             <div class="field_wrapper">
                 <div class="field">
                     <label style="width:250px;">
-                        <span class="label">合同号：</span>
-                    </label>
-					<span ce-model="contractNo"></span>
-                </div>
-            </div>
-        </div>
-        <div class="field_row">
-            <div class="field_row_head">
-            </div>
-            <div class="field_wrapper">
-                <div class="field">
-                    <label style="width:250px;">
-                        <span class="label">合同总金额(元)：</span>
-                    </label>
-					<span ce-model="contractPrice"></span>
-                </div>
-            </div>
-        </div>
-        <div class="field_row">
-            <div class="field_row_head">
-            </div>
-            <div class="field_wrapper">
-                <div class="field">
-                    <label style="width:250px;">
-                        <span class="label">合同照片：</span>
+                        <span class="label">税务登记证正本/副本或三证合一的营业执照：</span>
                     </label>
 					<span class="contract-info">暂无</span>
 					<label style="width:250px;" class="contract-box">
@@ -42,32 +18,80 @@
                 </div>
             </div>
         </div>
-		<div class="field_row">
+		<div class="field_row invoiceType-special" >
             <div class="field_row_head">
             </div>
             <div class="field_wrapper">
                 <div class="field">
                     <label style="width:250px;">
-                        <span class="label">合同副本照片：</span>
+                        <span class="label">一般纳税人资质证书（或认定通知）：</span>
                     </label>
-					<span class="contractCopy-info">暂无</span>
-					<label style="width:250px;" class="contractCopy-box">
-                        <a href=""  class="contractCopy-link" target="_blank">
-							<img src="" class="contractCopy-img" style="width:250px; height:250px;"/>
+					<span class="contract-info">暂无</span>
+					<label style="width:250px;" class="contract-box">
+                        <a href="" class="contract-link"  target="_blank">
+							<img src="" class="contract-img" style="width:250px; height:250px;"/>
 						</a>
                     </label>
                 </div>
             </div>
         </div>
-		<div class="field_row">
+        <div class="field_row">
             <div class="field_row_head">
             </div>
             <div class="field_wrapper">
                 <div class="field">
                     <label style="width:250px;">
-                        <span class="label">付款单位/个人名称：</span>
+                        <span class="label">发票抬头：</span>
                     </label>
-					<span ce-model="payerName"></span>
+					<span ce-model="invoiceHead"></span>
+                </div>
+            </div>
+        </div>
+		<div class="field_row invoiceType-special">
+            <div class="field_row_head">
+            </div>
+            <div class="field_wrapper">
+                <div class="field">
+                    <label style="width:250px;">
+                        <span class="label">纳税人识别号：</span>
+                    </label>
+					<span ce-model="taxpayerIdentificationNo"></span>
+                </div>
+            </div>
+        </div>
+		<div class="field_row invoiceType-special">
+            <div class="field_row_head">
+            </div>
+            <div class="field_wrapper">
+                <div class="field">
+                    <label style="width:250px;">
+                        <span class="label">开户行：</span>
+                    </label>
+					<span ce-model="bankName"></span>
+                </div>
+            </div>
+        </div>
+		<div class="field_row invoiceType-special">
+            <div class="field_row_head">
+            </div>
+            <div class="field_wrapper">
+                <div class="field">
+                    <label style="width:250px;">
+                        <span class="label">账号：</span>
+                    </label>
+					<span ce-model="bankAccount"></span>
+                </div>
+            </div>
+        </div>
+        <div class="field_row">
+            <div class="field_row_head">
+            </div>
+            <div class="field_wrapper">
+                <div class="field">
+                    <label style="width:250px;">
+                        <span class="label">开票日期：</span>
+                    </label>
+					<span ce-model="invoiceDate"></span>
                 </div>
             </div>
         </div>
@@ -77,9 +101,9 @@
             <div class="field_wrapper">
                 <div class="field">
                     <label style="width:250px;">
-                        <span class="label">合同章名称：</span>
+                        <span class="label">发票号码：</span>
                     </label>
-					<span ce-model="sealName"></span>
+					<span ce-model="invoiceNo"></span>
                 </div>
             </div>
         </div>
@@ -89,99 +113,67 @@
             <div class="field_wrapper">
                 <div class="field">
                     <label style="width:250px;">
-                        <span class="label">已使用金额：</span>
+                        <span class="label">发票号码：</span>
                     </label>
-					<span ce-model="usedAmount"></span>
+					<span ce-model="invoiceNo"></span>
                 </div>
             </div>
         </div>
-        <div class="field_row sub-list-box">
-           <table class="sub-tab" style="border:none;">
-				<tbody></tbody>
-			</table>
+		<div class="field_row">
+            <div class="field_row_head">
+            </div>
+            <div class="field_wrapper">
+                <div class="field">
+                    <label style="width:250px;">
+                        <span class="label">发票性质：</span>
+                    </label>
+					<select name=""  ce-model="invoiceProp" disabled="disabled">
+						<option value="1">到款开票</option>
+						<option value="2">预开发票</option>
+					</select>
+                </div>
+            </div>
+        </div>
+		<div class="field_row">
+            <div class="field_row_head">
+            </div>
+            <div class="field_wrapper">
+                <div class="field">
+                    <label style="width:250px;">
+                        <span class="label">发票类型：</span>
+                    </label>
+					<select name=""  ce-model="invoiceType" disabled="disabled">
+						<option value="1">普通发票</option>
+						<option value="2">专用发票</option>
+					</select>
+                </div>
+            </div>
+        </div>
+		<div class="field_row">
+            <div class="field_row_head">
+            </div>
+            <div class="field_wrapper">
+                <div class="field">
+                    <label style="width:250px;">
+                        <span class="label">发票金额：</span>
+                    </label>
+					<span ce-model="amount"></span>
+                </div>
+            </div>
+        </div>
+		<div class="field_row">
+            <div class="field_row_head">
+            </div>
+            <div class="field_wrapper">
+                <div class="field">
+                    <label style="width:250px;">
+                        <span class="label">开票公司：</span>
+                    </label>
+					<span ce-model="invoiceCompany"></span>
+                </div>
+            </div>
         </div>
 		<hr/>
-		<h4 style="font-weight: bold; font-size: 18px; padding-top: 8px; padding-bottom: 8px;">付款信息</h4>
-		<div class="field_row">
-            <div class="field_row_head">
-            </div>
-            <div class="field_wrapper">
-                <div class="field">
-                    <label style="width:250px;">
-                        <span class="label">当前付费状态：</span>
-                    </label>
-					<select name=""  ce-model="payStatus" disabled="disabled">
-						<option value="1">全款</option>
-						<option value="2">分期</option>
-						<option value="3">未付</option>
-					</select>
-                </div>
-            </div>
-        </div>
-		<div class="field_row">
-            <div class="field_row_head">
-            </div>
-            <div class="field_wrapper">
-                <div class="field">
-                    <label style="width:250px;">
-                        <span class="label">到款金额(财务确认)：</span>
-                    </label>
-					<span ce-model="reciviedAmount"></span>
-                </div>
-            </div>
-        </div>
-		<div class="field_row">
-            <div class="field_row_head">
-            </div>
-            <div class="field_wrapper">
-                <div class="field">
-                    <label style="width:250px;">
-                        <span class="label">打款日期：</span>
-                    </label>
-					<span ce-model="payDate"></span>
-                </div>
-            </div>
-        </div>
-		<div class="field_row">
-            <div class="field_row_head">
-            </div>
-            <div class="field_wrapper">
-                <div class="field">
-                    <label style="width:250px;">
-                        <span class="label">收款账户：</span>
-                    </label>
-					<span ce-model="receiptsAccount"></span>
-					<!--<span ce-model="amount">2</span>
-					<span ce-model="amount">3</span>-->
-                </div>
-            </div>
-        </div>
-		<div class="field_row">
-            <div class="field_row_head">
-            </div>
-            <div class="field_wrapper">
-                <div class="field">
-                    <label style="width:250px;">
-                        <span class="label">实际到款日期：</span>
-                    </label>
-					<span ce-model="receivedPayDate"></span>
-                </div>
-            </div>
-        </div>
-		<div class="field_row">
-            <div class="field_row_head">
-            </div>
-            <div class="field_wrapper">
-                <div class="field">
-                    <label style="width:250px;">
-                        <span class="label">发票：</span>
-                    </label>
-					<select name=""  ce-model="hasInvoice" disabled="disabled">
-						<option value="1">已开</option>
-						<option value="0">未开</option>
-					</select>
-                </div>
-            </div>
-        </div>
+		
     </div>
 </div>

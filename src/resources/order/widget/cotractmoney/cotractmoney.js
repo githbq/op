@@ -10,7 +10,7 @@ define(function(require, exports, module){
 	var productIdDic = {
             '1': 'CRM',
             '2': '逍客终端',
-            '3': '服务',
+            '3': '培训服务费',
             '4': 'PK助手',
             '5': '会议助手',
             '6': 'HR助手',
@@ -77,6 +77,7 @@ define(function(require, exports, module){
 						me.attrs.dataObj.receiptsAccount = data.value.model.orderEntity.order.receiptsAccount;//收款账户
 						me.attrs.dataObj.payStatus = data.value.model.orderEntity.order.payStatus;//付费状态
 						me.attrs.dataObj.reciviedAmount = data.value.model.odrMnyVO.reciviedAmount  //财务确认收款
+						me.attrs.dataObj.hasInvoice =  me.attrs.hasInovice //是否开发票
 					}
 				}
 			})
@@ -86,6 +87,31 @@ define(function(require, exports, module){
 		showSubers:function(){
 			var me = this;
 			
+			var sublist = me.attrs.data.odrMnyVO.subOdrMnyVOs, strDom = '',serviceDom=''; usedAmound = 0,tempSublist = [];
+			me.attrs.refundVO={};
+			for(var i = 0; i<sublist.length; i++ ){
+				var tempId = parseInt(sublist[i].productId);
+				switch( tempId ){
+					case 3:
+						
+						serviceDom+=" <tr> <td>"+productIdDic[tempId]+"合同金额：</td><td class='money-box'>"+sublist[i].contractAmount+"</td>" +
+						" <td>非退款项</td><td></td></tr>"
+						break;
+					default:
+						strDom+=" <tr> <td>"+productIdDic[tempId]+"合同金额：</td><td class='money-box'>"+sublist[i].contractAmount+"</td>" +
+						" <td>已使用金额：</td><td class='money-box'>"+sublist[i].usedAmount+"</td></tr>"
+						usedAmound+=parseInt(sublist[i].usedAmount);
+						var backAmount = {};
+						var tempMoney  = parseInt(sublist[i].contractAmount) - parseInt(sublist[i].usedAmount);
+						backAmount.subRefund = {'productId':sublist[i].productId,'amount':tempMoney};
+						tempSublist.push( backAmount );
+				}
+			}
+			//组合传给退款的数据
+			me.attrs.refundVO.subRefunds = tempSublist;
+			strDom = serviceDom + strDom;
+			me.attrs.dataObj.usedAmount = usedAmound;
+			me.$('.sub-tab tbody').html(strDom);
 		},
 		//展示订单内容
 		showData:function(){
