@@ -10,10 +10,7 @@ define(function( require , exports , module ){
 		'2': '分期',
 		'3': '未付'
 	}
-
-
-
-
+	
 	//发票模块 提交编辑
 	var InvoiceDetail = MClass( Slider ).include({
 
