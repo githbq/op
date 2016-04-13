@@ -42,10 +42,11 @@ define(function (require, exports, module) {
                 var $template = $(me.i_getTemplateStr());
                 var nameDic = {};
                 $template.find('[' + me.i_attrName + ']').each(function (i, n) {
-                    var name = $(n).attr(me.i_attrName);
-                    me.i_init_FieldConvert($(n));//控件格式转换
+                    var $dom=$(n);
+                    var name = $dom.attr(me.i_attrName);
+                    me.i_init_FieldConvert($dom);//控件格式转换
                     if (name && !nameDic[name]) {//排除只有属性无值的情况
-                        var findItem = _.findWhere(data.dataItems, {name: $(n).attr(me.i_attrName)});
+                        var findItem = _.findWhere(data.dataItems, {name:$dom.attr(me.i_attrName)});
                         if (!findItem) {
                             data.dataItems.push(new DataItem({name: name, __auto: true}));
                         }
@@ -57,6 +58,15 @@ define(function (require, exports, module) {
                 me.wrapperView = data.wrapperView;
                 me.$view = me.view = $('<div>');
                 me.$view.html('').append($template);
+            },
+            i_inject_validate: function ($ele) {
+                var options ={};
+                //注入验证
+                var me = this;
+                if ($ele.is('[data-validate]') && $ele.attr('data-validate')) {
+                    options = me.i_parseJSON($ele.attr('data-validate'));
+                }
+                return options;
             },
             render: function () {
                 var me = this;
@@ -163,6 +173,7 @@ define(function (require, exports, module) {
                     me.i_initInnerEvent($field);
                     var fieldData = me.dataDic[n.value.__guid];
                     var config = $field && $field.length > 0 && $field.attr('data-config') && me.i_parseJSON($field.attr('data-config')) || {};
+                    config.validateOptions=me.i_inject_validate($field);
                     $.extend(config, fieldData);
                     me.dataDic[n.value.__guid] = config;
                     data.dataItems[config.__index] = config;
@@ -182,9 +193,13 @@ define(function (require, exports, module) {
             i_parseJSON: function (str) {
                 var me = this;
                 var data = {};
-                if (str) {
-                    str = str.replace(/[']/g, '"');
-                    data = $.parseJSON(str);
+                try {
+                    if (str) {
+                        str = str.replace(/[']/g, '"');
+                        data = $.parseJSON(str);
+                    }
+                } catch (e) {
+                    console.warn(e);
                 }
                 return data;
             },
