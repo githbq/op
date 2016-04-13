@@ -6530,7 +6530,7 @@ em {
 }
 .m-invoicedetail span.title {
   display: inline-block;
-  width: 160px;
+  width: 145px;
 }
 .m-invoicedetail b.nsr {
   color: red;
@@ -6551,10 +6551,188 @@ em {
 .m-invoicedetail .typed {
   display: none;
 }
-.m-invoicedetail .detail-action {
-  text-align: right;
-  padding: 10px 0;
+.invoiceapply .list-header {
+  text-align: center;
 }
-.p-invoiceapply {
-  padding: 20px;
+.invoiceapply .list-header .title {
+  float: left;
+}
+.invoiceapply .list-header .hide {
+  display: none;
+}
+.invoiceapply .list-header .toggle {
+  display: block;
+  width: 200px;
+  margin: 0 auto;
+}
+.invoiceapply .list-header .toggle b {
+  position: relative;
+  display: inline-block;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 10px;
+  border: 1px #ccc solid;
+  cursor: pointer;
+  background: #fefefe;
+}
+.invoiceapply .list-header .toggle b:first-child {
+  border-right: none;
+}
+.invoiceapply .list-header .toggle b.active {
+  background: #eee;
+}
+.invoiceapply .list-header .toggle b .wait-approve {
+  position: absolute;
+  top: -21px;
+  left: -19px;
+  border-radius: 50%;
+  width: 51px;
+  height: 29px;
+  background: #FEFFEC;
+  z-index: 99;
+}
+.invoiceapply .list-header .toggle b .refuse-approve {
+  position: absolute;
+  top: -21px;
+  left: -10px;
+  border-radius: 50%;
+  width: 51px;
+  height: 29px;
+  background: #FEFFEC;
+  z-index: 99;
+  display: none;
+  color: #ff0000;
+}
+.invoiceapply .list-header .toggle b .end-approve {
+  position: absolute;
+  top: -21px;
+  left: -10px;
+  border-radius: 50%;
+  width: 51px;
+  height: 29px;
+  background: #FEFFEC;
+  z-index: 99;
+  display: none;
+}
+.invoiceapply .list-header span.toggle-btn {
+  display: block;
+  width: 600px;
+  margin: 0 auto;
+}
+.p-act-lst .m-act-lst .list-bar div.active-list {
+  margin-right: 20px;
+}
+.p-act-lst .m-act-lst .list-bar div.active-list .fn-list {
+  text-align: right;
+  padding: 30px 10px;
+}
+.refundinfo {
+  width: 1300px;
+}
+.refundinfo .disabled,
+.refundinfo .readonly {
+  background-color: #ebebe4;
+  border: 1px solid #dedede;
+  color: #545454;
+}
+.refundinfo .fxwrapper,
+.refundinfo .crmwrapper {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border-top: 2px dashed #999999;
+}
+.refundinfo .uploadinfo {
+  color: green;
+  font-weight: bold;
+}
+.refundinfo .forminfo {
+  border-top: 2px dashed #999999;
+}
+.refundinfo .product-image {
+  height: 300px;
+}
+.refundinfo .error {
+  color: red;
+  display: none;
+}
+.refundinfo .validate-error {
+  border: 1px solid red;
+}
+.refundinfo .bold {
+  font-weight: bold;
+  color: black;
+}
+.refundinfo .ipt-l {
+  width: 500px;
+}
+.refundinfo .ipt-m {
+  width: 300px;
+}
+.refundinfo > div {
+  margin: 5px auto;
+}
+.refundinfo .red {
+  color: red;
+}
+.refundinfo .tipinfo {
+  color: #ff6600;
+}
+.refundinfo textarea {
+  width: 300px;
+  height: 100px;
+}
+.refundinfo .field_group {
+  margin: 0 auto;
+  width: 80%;
+  border: 1px solid #cccccc;
+  background-color: #f2f2f2;
+}
+.refundinfo .field_group .field_group_head {
+  width: 100px;
+}
+.refundinfo .text_right {
+  padding-left: 10px;
+  text-align: left;
+}
+.refundinfo .field_row {
+  overflow: hidden;
+  padding: 2px 0px;
+}
+.refundinfo .field_row > div {
+  float: left;
+}
+.refundinfo .field_row .input-price label {
+  width: 72px;
+}
+.refundinfo .field_row .text-price label {
+  width: 100px;
+}
+.refundinfo .field_row .typewrapper label {
+  width: 60px;
+}
+.refundinfo .field_row label {
+  display: inline-block;
+  width: 150px;
+  text-align: right;
+}
+.refundinfo .field_row label.date {
+  width: 120px;
+}
+.refundinfo .field_row label.text_right {
+  padding-left: 10px;
+  text-align: left;
+}
+.refundinfo .field_row div.field {
+  float: left;
+}
+.refundinfo .field_row div.field.image-field {
+  float: none;
+  margin-left: 150px;
+}
+.refundinfo .field_row .field_row_head {
+  padding-right: 20px;
+}
+.refundinfo table th,
+.refundinfo table td {
+  text-align: center;
 }
