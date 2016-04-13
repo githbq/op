@@ -21,25 +21,52 @@ define(function (require, exports, module) {
         func(find);
     }
 
+    var productIdDic = {
+        '1': 'CRM',
+        '2': '逍客终端',
+        '3': '服务',
+        '4': 'PK助手',
+        '5': '会议助手',
+        '6': 'HR助手',
+        '7': '工资助手',
+        '8': '名片',
+        '10': '百川',
+        '11': '报数',
+        '12': '自定义助手'
+    };
     exports.show = function (data, result) {
-        var templateData = {
-            content: [
-                {title: 'CRM申请退款金额', name: 'crm_amount', value:''},
-                {title: 'PK助手申请退款金额', name: 'pk_amount', value: ''},
-                {title: '会议助手申请退款金额', name: 'meeting_amount', value: ''},
-                {title: '自定义助手申请退款金额', name: 'custom_amount', value: ''},
-                {title: '工资助手申请退款金额', name: 'salary_amount', value: ''},
-                {title: '申请退款总金额', name: 'refund_amount', value: ''}
-            ]
-        };
+        //result = {
+        //    refund: {
+        //        orderId:'123',
+        //        amount:10086,
+        //        refundAmount:0,
+        //        refundReason:'退款原因',
+        //        approvedUrl:'http://www.baidu.common',
+        //        remark:'备注写什么'
+        //    }, subRefunds: [
+        //        {productId:4,amount:444,refundAmount:null},
+        //        {productId:5,amount:555,refundAmount:null},
+        //        {productId:6,amount:666,refundAmount:null},
+        //        {productId:7,amount:777,refundAmount:null}
+        //    ]
+        //};
+        //result.readonly=true;
+        var templateData = {content: []};
+        if (result && result.subRefunds) {
+            $(result.subRefunds).each(function (i, n) {
+                templateData.content.push({title: productIdDic[n.productId.toString()], name: 'refundAmount_' + n.productId, value: n.amount});
+            });
+        }
         var dataItems = require('./dataitems/items').getItems();
         var controller = getDataControllerByType(1);//根据类型获取控制器
         var transferedDataItems = controller.transferDataItem(dataItems, controlDataItems, result);//用控制器转换输入的数据项
         var refundInfo = new RefundInfo({templateData: templateData, wrapperView: data.$view, dataItems: transferedDataItems.dataItems, apiPool: {}});
         refundInfo.render();
-        return { getData: controller.transferResultData(refundInfo),validate:function(){
-            return refundInfo.o_validate();
-        }};
+        return {
+            getData: controller.transferResultData(refundInfo), validate: function () {
+                return refundInfo.o_validate();
+            }
+        };
     };
     //根据类型获取不同的订单控制器
     function getDataControllerByType(type) {

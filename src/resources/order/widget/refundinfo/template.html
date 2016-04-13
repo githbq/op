@@ -23,13 +23,13 @@
         <div class="field_row ">
             <div class="field_row_head">
                 <label>
-                    <span class="label"><span class="field_text"></span><%=value.title%>(元)</span></span>
+                    <span class="label"><span class="field_text"></span><%=value.title%>申请退款金额(元)</span></span>
                     <span class="red">*</span>
                 </label>
             </div>
             <div class="field_wrapper">
                 <div class="field">
-                    <input data-type="number" data-validate="{'required':{'enable':true,'value':true}}" data-name="<%=value.name%>" type="text"  name=""/>
+                    <input data-type="number" maxlength="9" data-validate="{'required':{'enable':true,'value':true}}" data-name="<%=value.name%>" type="text"  name=""/>
                 </div>
             </div>
         </div>
@@ -44,7 +44,7 @@
             </div>
             <div class="field_wrapper">
                 <div class="field">
-                    <input type="text"  data-validate="{'required':{'enable':true,'value':true}}" data-name="refundAmount" data-type="number" value=""/>
+                    <input type="text" maxlength="9"  data-validate="{'required':{'enable':true,'value':true}}" data-name="refundAmount" data-type="number" value=""/>
                 </div>
             </div>
         </div>
@@ -57,13 +57,13 @@
             </div>
             <div class="field_wrapper">
                 <div class="field">
-                    <select data-validate="{'required':{'enable':true,'value':true}}" data-name="refund_reason" class="ipt-m">
+                    <select data-validate="{'required':{'enable':true,'value':true}}" data-name="refundReason" class="ipt-m">
                         <option value="">请选择退款原因</option>
-                        <option value="">错误打款</option>
-                        <option value="">实际退款</option>
-                        <option value="">垫款未成交</option>
-                        <option value="">付款后追加折扣款退款</option>
-                        <option value="">其他(请在备注标明)</option>
+                        <option value="1">错误打款</option>
+                        <option value="2">实际退款</option>
+                        <option value="3">垫款未成交</option>
+                        <option value="4">付款后追加折扣款退款</option>
+                        <option value="5">其他(请在备注标明)</option>
                     </select>
                 </div>
             </div>
@@ -77,7 +77,7 @@
             </div>
             <div class="field_wrapper">
                 <div class="field">
-                    <input type="text"   data-validate="{'required':{'enable':true,'value':true}}" class="ipt-l" data-name="approved_url" value="http://"/>
+                    <input type="text"  maxlength="200"  data-validate="{'required':{'enable':true,'value':true}}" class="ipt-l" data-name="approvedUrl" value="http://"/>
                 </div>
             </div>
         </div>
@@ -89,7 +89,7 @@
             </div>
             <div class="field_wrapper">
                 <div class="field">
-                    <textarea data-name="remark" class="ipt-l">
+                    <textarea data-name="remark" class="ipt-l" maxlength="50">
 
                     </textarea>
                 </div>
