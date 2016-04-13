@@ -68,16 +68,18 @@ define(function( require , exports , module ){
 
 			console.log('确定')
 			var info = me.getInfo();
-			util.api({
-				'url':'/odr/invoice/save',
-				'contentType':'application/json',
-				'data': JSON.stringify(info),
-				'success': function( data ){
-					if( data.success ){
-						console.log('发票保存成功');
+			if( info ){
+				util.api({
+					'url':'/odr/invoice/save',
+					'contentType':'application/json',
+					'data': JSON.stringify(info),
+					'success': function( data ){
+						if( data.success ){
+							console.log('发票保存成功');
+						}
 					}
-				}
-			})
+				})
+			};
 		},
 
 		//取消
@@ -164,6 +166,7 @@ define(function( require , exports , module ){
 						delete data.value.model.payStatus;
 
 						me.model.load( data.value.model );
+						me.model.set('orderId',id);
 					}
 				}
 			});
@@ -211,21 +214,14 @@ define(function( require , exports , module ){
 			var invoicetype = me.$('[name="invoicetype"]:checked').val();
 			
 			//信息检测
-			/*
-			if( !me.model.get('amount') ){
-				util.showToast('请填写发票金额!');
-				return false;
-			}
+
+			//通用信息检测
 			if( !me.model.get('invoiceHead') ){
 				util.showToast('请填写发票抬头!');
 				return false;
 			}
-			if( !me.model.get('businessLicense') ){
-				util.showToast('请选择营业执照');
-				return false;
-			}
-			if( !me.model.get('taxpayerQualification') ){
-				util.showToast('请选择资质证书');
+			if( !me.model.get('amount') ){
+				util.showToast('请填写发票金额!');
 				return false;
 			}
 			if( !me.model.get('receiverName') ){
@@ -240,20 +236,37 @@ define(function( require , exports , module ){
 				util.showToast('请填写收件人地址');
 				return false;
 			}
-			if( !me.model.get('bankName') ){
-				util.showToast('请填写开户行');
-				return false;
-			}
-			if( !me.model.get('bankAccount') ){
-				util.showToast('请填写账号');
-				return false;
-			}
-			if( !me.model.get('approvalUrl') ){
 
-				return false;
+			//增值税专用发票信息检测
+			if( invoicetype == 2 ){
+				if( !me.model.get('businessLicense') ){
+					util.showToast('请选择营业执照');
+					return false;
+				}
+				if( !me.model.get('taxpayerQualification') ){
+					util.showToast('请选择资质证书');
+					return false;
+				}
+				if( !me.model.get('taxpayerIdentificationNo') ){
+					util.showToast('请填写纳税人识别号');
+					return false;
+				}
+				if( !me.model.get('bankName') ){
+					util.showToast('请填写开户行');
+					return false;
+				}
+				if( !me.model.get('bankAccount') ){
+					util.showToast('请填写账号');
+					return false;
+				}
 			}
-			*/
-
+			if( invoice == 2 ){
+				if( !me.model.get('approvalUrl') ){
+					util.showToast('请填写审批链接');
+					return false;
+				}
+			}
+			
 			var info = {
 				"orderId": me.orderId,
   				"invoiceProp": invoice,
