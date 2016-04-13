@@ -10,7 +10,7 @@ define(function (require, exports, module) {
             var type = $('#inputtype').val();
             if (type && parseInt(type)) {
                 debugger
-                result = refundinfo.show(parseInt(type), {$view: $el.find('.panel1')});
+                result = refundinfo.show( {$view: $el.find('.panel1')});
             }
         });
         $('#changeType').change(function () {
