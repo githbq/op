@@ -21,7 +21,7 @@ define(function (require, exports, module) {
         func(find);
     }
 
-    exports.show = function (type, data, result) {
+    exports.show = function (data, result) {
         var templateData = {
             content: [
                 {title: 'CRM申请退款金额', name: 'crm_amount', value:''},
