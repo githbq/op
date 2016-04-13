@@ -6,10 +6,11 @@ define(function (require, exports, module) {
         i_selector: '#refundinfo',
         i_getTemplateStr: function () {
             var me = this;
-            return $(tplStr).filter(me.i_selector).html();
+            return  _.template( $(tplStr).filter(me.i_selector).html())(me.templateData);
         },
-        init: function () {
+        init: function (data) {
             var me = this;
+            me.templateData=data.templateData;
             PageClass.__super__.init.apply(this, arguments);
         }
     });

@@ -73,6 +73,7 @@ define( function(require, exports, module){
 			me.attrs.options = options||{};
 			me.attrs.orderList = {};
 			me.attrs.hasInovice = 0;
+			me.attrs.invoiceData = [];
 			
 			me.setState();
 			me.sortType();
@@ -86,7 +87,7 @@ define( function(require, exports, module){
 			
 			//me._setTitle( orderTypeAry[me.attrs.options.orderType] );
 			
-			$.when(  me.setOrderList(),/* me.getInvoiceList() */).done(function(){
+			$.when(  me.setOrderList()/*, me.getInvoiceList() */).done(function(){
 				
 				me.setOrderInfo();
 				/*me.attrs.invoiceData =[

@@ -164,7 +164,7 @@ define( function( require, exports, module ) {
                             me.tree.expandAll( true );
                         }
                     }
-                })
+                });
             }
         });
 

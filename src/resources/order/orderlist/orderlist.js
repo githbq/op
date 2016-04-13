@@ -80,7 +80,7 @@ define( function( require, exports, module ) {
             this.pagination.setPage( 0,false );
             this.getList();
         },
-       //查看详情
+        //查看详情
        orderDetailEve:function( e ){
            var me = this;
 

@@ -1,3 +1,161 @@
-<div class="p-invoiceapply p-list" js="true">
- 
+<div class="invoiceapply p-list" js="true">
+    <div class="u-tablelist m-approvallist">
+        <div class="list-main">
+            <div class="list-header">
+                <h3>
+                    <span class="title">发票申请</span>
+		            <!--<span class="toggle">-->
+		                <!--<b data-state="wait" class="active">待审批发票<span class='state wait-approve'>0</span></b>-->
+                        <!--<b data-state="refuse">已审批发票<span class='state refuse-approve'>0</span></b>-->
+                        <!--<b data-state="end">驳回发票<span class='state end-approve'>0</span></b>-->
+		            <!--</span>-->
+                    <span class="toggle">
+                         <b data-state="wait" class="active">我的待审批<span class='state wait-approve'>0</span></b>
+                         <b data-state="going">我的已审批未完成<span class='state going-approve'>0</span></b>
+                         <b data-state="end">我的已完成<span class='state end-approve'>0</span></b>
+                         <b data-state="refuse" class="limits-show">我的被驳回<span class="state refuse-approve"></span></b>
+                         <b data-state="allReject">被驳回(代理商)<span class='state allReject-approve'>0</span></b>
+                         <b data-state="allGoing">审批中(代理商)<span class='state allGoing-approve'>0</span></b>
+                         <b data-state="allEnd">已完成(代理商)<span class='state allEnd-approve'>0</span></b>
+                    </span>
+                </h3>
+            </div>
+            <div class="list-bar">
+                <div class="list-bar-btns">
+                    <button class="btn-blue btn-search">查询</button>
+                </div>
+                <div class="list-bar-input">
+                    <label>
+                        订单号
+                        <input type="text" data-name="orderId">
+                    </label>
+                    <label>
+                        合同号
+                        <input type="text" data-name="contractNo">
+                    </label>
+                    <label>
+                        企业名称
+                        <input type="text" data-name="en">
+                    </label>
+                    <label>
+                        企业账号
+                        <input type="text" data-name="ea">
+                    </label>
+                    <label>
+                        订单类型
+                        <select name="orderType" data-name="orderType">
+                            <option value="">全部</option>
+                            <option value="1">新增</option>
+                            <option value="2">续费</option>
+                            <option value="3">增购</option>
+                            <option value="4">收尾款</option>
+                        </select>
+                    </label>
+                    <label>
+                        提单人
+                        <input type="text" data-name="ea">
+                    </label>
+                    <label>
+                        审核状态
+                        <select name="shzt" data-name="">
+                            <option value="">全部</option>
+                            <option value="1">待审批</option>
+                            <option value="2">已通过</option>
+                            <option value="3">驳回</option>
+                            <option value="4">撤回</option>
+                        </select>
+                    </label>
+                    <label>
+                        付费状态
+                        <select name="ffzt" data-name="payStatus">
+                            <option value="">全部</option>
+                            <option value="1">全款</option>
+                            <option value="2">分期</option>
+                            <option value="3">未付款</option>
+                        </select>
+                    </label>
+                    <br/>
+                    <label>
+                        发票性质
+                        <select name="ffzt" data-name="payStatus">
+                            <option value="">全部</option>
+                            <option value="1">新增</option>
+                            <option value="2">续费</option>
+                            <option value="3">增购</option>
+                            <option value="4">收尾款</option>
+                        </select>
+                    </label>
+                    <label>
+                        发票类型
+                        <select name="ffzt" data-name="payStatus">
+                            <option value="">全部</option>
+                            <option value="1">普票</option>
+                            <option value="2">专票</option>
+                        </select>
+                    </label>
+                    <label>
+                        发票申请日期
+                        <input type="text" data-name="ea">
+                    </label>
+                    ——
+                    <label>
+                        <input type="text" data-name="ea">
+                    </label>
+                </div>
+            </div>
+            <div class="list-content">
+                <table>
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th style="width:100px;">订单号</th>
+                        <th style="width:100px;">合同号</th>
+                        <th style="width:100px;">企业名称</th>
+                        <th style="width:100px;">账号</th>
+                        <th style="width:100px;">订单类型</th>
+                        <th style="width:100px;">提单人</th>
+                        <th style="width:100px;">代理商</th>
+                        <th style="width:100px;">特批单</th>
+                        <th style="width:100px;">合作单</th>
+                        <th style="width:100px;">合作人</th>
+                        <th style="width:100px;" class="state state-wait state-refuse">当前审批节点</th>
+                        <th style="width:100px;">付费状态</th>
+                        <th style="width:100px;">提单日期</th>
+                        <th style="width:100px;">操作</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody ce-collection="list">
+                    <tr>
+                        <td></td>
+                        <td><%=item.orderId%></td>
+                        <td><%=item.contractNo%></td>
+                        <td><%=item.enterpriseName%></td>
+                        <td><%=item.enterpriseAccount%></td>
+                        <td><%=IBSS.OrderTypeMap[item.orderType]%></td>
+                        <td><%=item.applicantName%></td>
+                        <td><%=item.agentName%></td>
+                        <td><%=item.isTp == "1" ? "是":"否"%></td>
+                        <td><%=item.isCooperationStr%></td>
+                        <td><%=item.cooperationUnit%></td>
+                        <th class="state state-wait state-refuse"><%=IBSS.TaskMap[item.currentTask]%></th>
+                        <td><%=IBSS.PayMap[item.payStatus]%></td>
+                        <td><%=item.applyTimeStr%></td>
+                        <td>
+                            <a class="detail" data-inid="<%=item.processInstanceId%>">
+                                查看
+                            </a>
+                            <% if( item.canCancel){ %>
+                            <a class="revoke" data-inid="<%=item.processInstanceId%>">撤销审批</a>
+                            <% } %>
+                        </td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="list-pager">
+        </div>
+    </div>
 </div>
