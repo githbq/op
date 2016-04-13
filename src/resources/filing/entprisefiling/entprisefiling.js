@@ -318,7 +318,7 @@ define( function( require, exports, module ) {
 		//获取状态枚举值
         getEnums: function(){
             var me = this;
-            //var industryList=[{'name':'请选择','value':''}],sourceList=[{'name':'请选择','value':''}];
+            var industryList=[{'name':'请选择','value':''}],sourceList=[{'name':'请选择','value':''}];
 
             /*
 			util.getEnums('INDUSTRY',function(data){
