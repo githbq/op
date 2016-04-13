@@ -15,6 +15,7 @@ define( function(require, exports, module){
 	var contentStr = require('./backmoney.html');
 	var OrderInfo = require('../widget/orderinfo/orderinfo');
 	var CotractMoney = require('../widget/cotractmoney/cotractmoney');
+	var InvoiceList = require('../widget/invoicelist/invoicelist');
 	
 	var orderTypeAry = ['','办公版新购-普通','办公版新购-特批','营销版新购-普通','营销版新购-特批','办公版增购-普通',
 		'办公版增购-特批','营销版增购-普通','营销版增购-特批','办公版续费-普通','办公版续费-特批',
@@ -71,6 +72,8 @@ define( function(require, exports, module){
 			var me = this;
 			me.attrs.options = options||{};
 			me.attrs.orderList = {};
+			me.attrs.hasInovice = 0;
+			me.attrs.invoiceData = [];
 			
 			me.setState();
 			me.sortType();
@@ -84,9 +87,70 @@ define( function(require, exports, module){
 			
 			//me._setTitle( orderTypeAry[me.attrs.options.orderType] );
 			
-			$.when(  me.setOrderList()).done(function(){
+			$.when(  me.setOrderList()/*, me.getInvoiceList() */).done(function(){
 				
 				me.setOrderInfo();
+				/*me.attrs.invoiceData =[
+				{
+						"id": "发票ID",
+		  "orderId": "订单号ID",
+		  "invoiceProp": "发票属性：1款到开票,2预开发票",
+		  "invoiceType": "发票类型 1：普通增值税发票 2：增值税专用发票",
+		  "amount": "合同金额",
+		  "invoiceHead": "发票抬头",
+		  "businessLicenseFileName": "税务登记正本/副本或三证合一的营业执照 文件名",
+		  "businessLicense": "税务登记正本/副本或三证合一的营业执照 照片",
+		  "taxpayerQualificationFileName": "一般纳税人资质证书(或认定通知) 文件名",
+		  "taxpayerQualification": "一般纳税人资质证书(或认定通知) 照片路径",
+		  "taxpayerIdentificationNo": "纳税人识别号",
+		  "receiverName": "收件人姓名",
+		  "receiverAddress": "收件人地址",
+		  "receiverPhone": "收件人电话",
+		  "bankName": "开户行",
+		  "bankAccount": "银行账号",
+		  "approvalUrl": "审批链接",
+		  "remark": "备注",
+		  "approvalStatus": "审批状态：0待审核 1审批通过 9被驳回",
+		  "invoiceStatus": "开票状态：0未开 1已开",
+		  "invoiceNo": "发票号",
+		  "invoiceCompany": "开票公司",
+		  "invoiceDate": "开票日期",
+		  "expressStatus": "快递状态：0未寄 1已寄",
+		  "expressName": "快递公司",
+		  "expressNo": "快递单号"
+				},{
+						"id": "发票ID",
+		  "orderId": "订单号ID",
+		  "invoiceProp": "发票属性：1款到开票,2预开发票",
+		  "invoiceType": "发票类型 1：普通增值税发票 2：增值税专用发票",
+		  "amount": "合同金额",
+		  "invoiceHead": "发票抬头",
+		  "businessLicenseFileName": "税务登记正本/副本或三证合一的营业执照 文件名",
+		  "businessLicense": "税务登记正本/副本或三证合一的营业执照 照片",
+		  "taxpayerQualificationFileName": "一般纳税人资质证书(或认定通知) 文件名",
+		  "taxpayerQualification": "一般纳税人资质证书(或认定通知) 照片路径",
+		  "taxpayerIdentificationNo": "纳税人识别号",
+		  "receiverName": "收件人姓名",
+		  "receiverAddress": "收件人地址",
+		  "receiverPhone": "收件人电话",
+		  "bankName": "开户行",
+		  "bankAccount": "银行账号",
+		  "approvalUrl": "审批链接",
+		  "remark": "备注",
+		  "approvalStatus": "审批状态：0待审核 1审批通过 9被驳回",
+		  "invoiceStatus": "开票状态：0未开 1已开",
+		  "invoiceNo": "发票号",
+		  "invoiceCompany": "开票公司",
+		  "invoiceDate": "开票日期",
+		  "expressStatus": "快递状态：0未寄 1已寄",
+		  "expressName": "快递公司",
+		  "expressNo": "快递单号"
+				}
+				];*/
+				if(me.attrs.invoiceData.length>0){
+					me.showInvoiceList()
+					me.attrs.hasInovice = 1; //有发票
+				}
 				
 
 				//企业信息
@@ -94,7 +158,7 @@ define( function(require, exports, module){
 					'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
 					
 				//合同付款信息
-				me.attrs.cotractMoney = new CotractMoney( { 'wrapper':me.$view.find('.common-product'),'orderId':me.attrs.options.id} );
+				me.attrs.cotractMoney = new CotractMoney( { 'wrapper':me.$view.find('.common-product'),'orderId':me.attrs.options.id,'hasInovice':me.attrs.hasInovice} );
 			});
 
 
@@ -118,8 +182,36 @@ define( function(require, exports, module){
 			});
 
 		},
+		//获取发票列表：
+		getInvoiceList:function(  ){
+			var me = this;
+
+			return util.api({
+					'url':'/odr/'+me.attrs.options.id+'/invoices ',
+					'success': function( data ){
+
+						if( data.success ){
+
+							me.attrs.invoiceData = data.model;
+							//callback && callback();
+						}
+					}
+			});
+
+		},
+		//循环展示发票
+		showInvoiceList:function(){
+			var me = this;
+			var tempLength = me.attrs.invoiceData.length;
+			for(var i = 0; i<tempLength; i++){
+				var tempClass = "invoice_"+i;
+				me.$view.find('.common--invioce').append('<div class="'+tempClass+'"></div>');
+				
+				new InvoiceList( { 'wrapper':me.$view.find('.'+tempClass+''),'dataObj':me.attrs.invoiceData[i]} );
+			}
+		},
 		//设置订单基本信息
-		 setOrderInfo:function(){
+		setOrderInfo:function(){
 			 var  me = this;
 			 //收尾款模块
 			 //设置是否可以编辑
@@ -129,7 +221,7 @@ define( function(require, exports, module){
 				me.attrs.moneyEdit = false;;
 			}
 			
-		 },
+		},
 		//设置自己部分的显示和隐藏：
 		setState:function(){
 			var me = this;
@@ -140,12 +232,10 @@ define( function(require, exports, module){
 			}
 			me.$('.currentTask-'+me.attrs.options.currentTask).show();
 			me.$('.order-id').html( me.attrs.options.id );
-			//判断审批意见
-			//var opinion = me.attrs.options.opinion ? me.attrs.options.opinion :'暂无';
-			//me.$('.last-options').text(opinion);
+		
 			
 			//设置到款时间 receivedPayDate
-			var receivedPayDate = (me.attrs.orderData && me.attrs.orderData.orde && me.attrs.orderData.order.receivedPayDate) ? new Date( me.attrs.orderData.order.receivedPayDate  )._format("yyyy-MM-dd"):'';
+			var receivedPayDate = (me.attrs.orderData && me.attrs.orderData.order && me.attrs.orderData.order.receivedPayDate) ? new Date( me.attrs.orderData.order.receivedPayDate  )._format("yyyy-MM-dd"):'';
 			if(receivedPayDate){
 				me.$('.receivedPayDate').show();
 				me.$('.receivedPayDate-text').text(receivedPayDate);
@@ -165,7 +255,6 @@ define( function(require, exports, module){
 			}
 			
 			//判断审批意见
-
 			var opinion = strDom ? strDom :'<tr><td colspan="4" style="text-align: center;">暂无</td></tr>';
 			me.$('.last-options').html( opinion );
 			
