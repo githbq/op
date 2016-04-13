@@ -260,13 +260,15 @@ define(function( require , exports , module ){
 					return false;
 				}
 			}
+
+			//预开发票信息检测
 			if( invoice == 2 ){
 				if( !me.model.get('approvalUrl') ){
 					util.showToast('请填写审批链接');
 					return false;
 				}
 			}
-			
+
 			var info = {
 				"orderId": me.orderId,
   				"invoiceProp": invoice,
