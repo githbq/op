@@ -75,16 +75,16 @@ define(function (require, exports, module) {
             data.applyDateStart = applyDateStart;
             data.applyDateEnd =  applyDateEnd;
 
+            //刷新审批列表
             util.api({
                 'url': url,
                 'data': data,
                 'success': function( data ){
                     if( data.success ){
                         console.warn( data );
-                        
                         me.pagination.setTotalSize( data.value.model.pageCount );
                         if( data.value.model.content.length > 0 ){
-
+                            me.list.reload( data.value.model.content );
                         } else {
                             me.$('tbody').html("<tr><td colspan='12'><p class='info'>暂无数据</p></td></tr>")
                         }
