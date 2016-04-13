@@ -3,9 +3,7 @@ define(function (require, exports, module) {
     var RefundInfo = require('./index');
     var DataItem = require('common/widget/sform/sform').PageDataClass;
     var orderControllerConfig = {
-        '1': require('./refunds/type1'),
-        '2': require('./refunds/type2'),
-        '3': require('./refunds/type3')
+        '1': require('./refunds/type1')
     };
 
     function controlDataItems(items, name, func) {
@@ -35,11 +33,13 @@ define(function (require, exports, module) {
             ]
         };
         var dataItems = require('./dataitems/items').getItems();
-        var controller = getDataControllerByType(type);//根据类型获取控制器
+        var controller = getDataControllerByType(1);//根据类型获取控制器
         var transferedDataItems = controller.transferDataItem(dataItems, controlDataItems, result);//用控制器转换输入的数据项
         var refundInfo = new RefundInfo({templateData: templateData, wrapperView: data.$view, dataItems: transferedDataItems.dataItems, apiPool: {}});
         refundInfo.render();
-        return { getData: controller.transferResultData(refundInfo)}
+        return { getData: controller.transferResultData(refundInfo),validate:function(){
+            return refundInfo.o_validate();
+        }};
     };
     //根据类型获取不同的订单控制器
     function getDataControllerByType(type) {

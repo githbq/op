@@ -20,27 +20,7 @@ define(function (require, exports, module) {
             }
         }
         ;
-        exports.hideBackTime=function(controller,dataItems, type, responseData){
-            controller(dataItems,'backtime_wrapper',function(item){
-                item.visible=false;
-            });
-        };
-        exports.showOriginFile=function(controller,dataItems, type, responseData){
-            var files=['invoice_original','reject_proof'];
-            $(files).each(function(i,n){
-                controller(dataItems,n,function(item){
-                    item.visible=true;
-                });
-            });
-        };
-        exports.showRedFile=function(controller,dataItems, type, responseData){
-            var files=['red_invoice_info','invoice_copy'];
-            $(files).each(function(i,n){
-                controller(dataItems,n,function(item){
-                    item.visible=true;
-                });
-            });
-        }
+
     }
 )
 ;

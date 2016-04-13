@@ -10,11 +10,12 @@
         <div class="field_row ">
             <div class="field_row_head">
                 <label>
+                    <span class="label"><span class="field_text">应退款金额(元)</span></span>
                 </label>
             </div>
             <div class="field_wrapper">
                 <div class="field">
-                    <span class="tipinfo" data-name="tipinfo">发票原件、拒收证明必须退回！邮寄地址：北京市海淀区知春路甲63号卫星大厦纷享逍客703，陈贞  电话010-51242540</span>
+                   <span class="field_text" data-name="amount"></span>
                 </div>
             </div>
         </div>
@@ -28,11 +29,25 @@
             </div>
             <div class="field_wrapper">
                 <div class="field">
-                    <input data-type="int" data-name="<%=value.name%>" type="text"  name=""/>
+                    <input data-type="number" data-validate="{'required':{'enable':true,'value':true}}" data-name="<%=value.name%>" type="text"  name=""/>
                 </div>
             </div>
         </div>
         <%})%>
+
+        <div class="field_row ">
+            <div class="field_row_head">
+                <label>
+                    <span class="label"><span class="field_text">申请退款总金额(元)</span></span>
+                    <span class="red">*</span>
+                </label>
+            </div>
+            <div class="field_wrapper">
+                <div class="field">
+                    <input type="text"  data-validate="{'required':{'enable':true,'value':true}}" data-name="refundAmount" data-type="number" value=""/>
+                </div>
+            </div>
+        </div>
         <div class="field_row ">
             <div class="field_row_head">
                 <label>
@@ -42,7 +57,7 @@
             </div>
             <div class="field_wrapper">
                 <div class="field">
-                    <select data-name="refund_reason" class="ipt-m">
+                    <select data-validate="{'required':{'enable':true,'value':true}}" data-name="refund_reason" class="ipt-m">
                         <option value="">请选择退款原因</option>
                         <option value="">错误打款</option>
                         <option value="">实际退款</option>
@@ -50,74 +65,6 @@
                         <option value="">付款后追加折扣款退款</option>
                         <option value="">其他(请在备注标明)</option>
                     </select>
-                </div>
-            </div>
-        </div>
-        <div class="field_row ">
-            <div class="field_wrapper">
-                <div class="field">
-                    <label><input type="radio" data-name="invoice_is_certify" name="invoice_is_certify"/><span>发票已认证</span></label>
-                    <label><input type="radio" data-name="invoice_is_certify" name="invoice_is_certify"/><span>发票未认证</span></label>
-                </div>
-            </div>
-        </div>
-        <div class="field_row field">
-            <div class="field_row_head">
-                <label>
-                    <span class="label"><span class="field_text">上传发票原件</span></span>
-                    <span class="red">*</span>
-                </label>
-            </div>
-            <div class="field_wrapper">
-                <div >
-                    <input type="file" class="ipt-l" data-name="invoice_original_file"/>
-                    <input type="hidden" data-name="invoice_original"/>
-                    <span class="uploadinfo"></span>
-                </div>
-            </div>
-        </div>
-        <div class="field_row field">
-            <div class="field_row_head">
-                <label>
-                    <span class="label"><span class="field_text">拒收证明</span></span>
-                    <span class="red">*</span>
-                </label>
-            </div>
-            <div class="field_wrapper">
-                <div>
-                    <input type="file"  class="ipt-l" data-name="reject_proof_file"/>
-                    <input type="hidden" data-name="reject_proof"/>
-                    <span class="uploadinfo"></span>
-                </div>
-            </div>
-        </div>
-        <div class="field_row field">
-            <div class="field_row_head">
-                <label>
-                    <span class="label"><span class="field_text">客户单位开具红字发票信息表（加盖公章、信息表必须有编码）</span></span>
-                    <span class="red">*</span>
-                </label>
-            </div>
-            <div class="field_wrapper">
-                <div>
-                    <input type="file" class="ipt-l" data-name="red_invoice_info_file"/>
-                    <input type="hidden" data-name="red_invoice_info"/>
-                    <span class="uploadinfo"></span>
-                </div>
-            </div>
-        </div>
-        <div class="field_row field">
-            <div class="field_row_head">
-                <label>
-                    <span class="label"><span class="field_text">发票复印件（加盖发票专用章、公章、）</span></span>
-                    <span class="red">*</span>
-                </label>
-            </div>
-            <div class="field_wrapper">
-                <div class="">
-                    <input type="file"  class="ipt-l" data-name="invoice_copy_file"/>
-                    <input type="hidden" data-name="invoice_copy"/>
-                    <span class="uploadinfo"></span>
                 </div>
             </div>
         </div>
@@ -130,7 +77,7 @@
             </div>
             <div class="field_wrapper">
                 <div class="field">
-                    <input type="text" class="ipt-l" data-name="approved_url" value="http://"/>
+                    <input type="text"   data-validate="{'required':{'enable':true,'value':true}}" class="ipt-l" data-name="approved_url" value="http://"/>
                 </div>
             </div>
         </div>
@@ -138,7 +85,6 @@
             <div class="field_row_head">
                 <label>
                     <span class="label"><span class="field_text">备注信息</span></span>
-                    <span class="red">*</span>
                 </label>
             </div>
             <div class="field_wrapper">
@@ -146,31 +92,6 @@
                     <textarea data-name="remark" class="ipt-l">
 
                     </textarea>
-                </div>
-            </div>
-        </div>
-        <div class="field_row " data-name="backtime_wrapper">
-            <div class="field_row_head">
-                <label>
-                    <span class="label"><span class="field_text">退款时间</span></span>
-                </label>
-            </div>
-            <div class="field_wrapper">
-                <div class="field">
-                 <span class="field_text" data-name="backtime"></span>
-                </div>
-            </div>
-        </div>
-        <div class="field_row ">
-            <div class="field_row_head">
-                <label>
-                    <span class="label"><span class="field_text">审批意见</span></span>
-                </label>
-            </div>
-            <div class="field_wrapper">
-                <div class="field">
-                    <span class="field_text" data-name="approvalOpinion">
-                    </span>
                 </div>
             </div>
         </div>
