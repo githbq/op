@@ -63,9 +63,9 @@ define(function (require, exports, module) {
                                 var $dom = $(e.target);
                                 var refundAmount = 0;
                                 setTimeout(function () {
-                                    if ($dom.val() && parseFloat($dom.val()) > me.o_getFieldData('amount_' + subRefund.productId).value) {
-                                        $dom.val(me.o_getFieldData('amount_' + subRefund.productId).value)
-                                    }
+                                    //if ($dom.val() && parseFloat($dom.val()) > me.o_getFieldData('amount_' + subRefund.productId).value) {
+                                    //    $dom.val(me.o_getFieldData('amount_' + subRefund.productId).value)
+                                    //}
                                     me.o_eachFields(function ($ele, data) {
                                         if (data.name.indexOf('refundAmount_') == 0 && $ele.val()) {
                                             refundAmount += parseFloat($ele.val());
