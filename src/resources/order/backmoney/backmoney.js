@@ -524,7 +524,7 @@ define( function(require, exports, module){
 				return false;
 			}
 			util.api({
-				'url': '/refund/setrefundtiem',
+				'url': '/refund/setrefundtime',
 				'data':{
 					'refundId': me.attrs.refundVO.refund.id,   //退款id
 					'refundTime':new Date( me.$moneyTime.val()  ).getTime()          //退款时间
