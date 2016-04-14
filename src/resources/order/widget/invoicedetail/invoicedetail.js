@@ -253,6 +253,10 @@ define(function( require , exports , module ){
 					}
 				});
 			});
+
+			if( (status != 1 ) || ( status != 9 ) || ( status != 0 ) ){
+				me.$('input,textarea').attr('disabled','disabled')
+			}
 		},
 
 		//隐藏
