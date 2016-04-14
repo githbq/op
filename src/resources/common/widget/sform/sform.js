@@ -570,7 +570,7 @@ define(function (require, exports, module) {
                 return next($ele, value);
             },
             i_setValueWhereDefault: function ($ele, value) {
-                $ele.val(value);
+                $ele.html(value);
                 return value;
             },
             o_setFieldAttr: function ($ele, value) {
