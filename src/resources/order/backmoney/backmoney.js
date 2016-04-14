@@ -94,63 +94,6 @@ define( function(require, exports, module){
 			$.when(  me.setOrderList(), me.getOrderBackMoneyInfo()).done(function(){
 				
 				me.setOrderInfo();
-				/*me.attrs.invoiceData =[
-				{
-						"id": "发票ID",
-		  "orderId": "订单号ID",
-		  "invoiceProp": "发票属性：1款到开票,2预开发票",
-		  "invoiceType": "发票类型 1：普通增值税发票 2：增值税专用发票",
-		  "amount": "合同金额",
-		  "invoiceHead": "发票抬头",
-		  "businessLicenseFileName": "税务登记正本/副本或三证合一的营业执照 文件名",
-		  "businessLicense": "税务登记正本/副本或三证合一的营业执照 照片",
-		  "taxpayerQualificationFileName": "一般纳税人资质证书(或认定通知) 文件名",
-		  "taxpayerQualification": "一般纳税人资质证书(或认定通知) 照片路径",
-		  "taxpayerIdentificationNo": "纳税人识别号",
-		  "receiverName": "收件人姓名",
-		  "receiverAddress": "收件人地址",
-		  "receiverPhone": "收件人电话",
-		  "bankName": "开户行",
-		  "bankAccount": "银行账号",
-		  "approvalUrl": "审批链接",
-		  "remark": "备注",
-		  "approvalStatus": "审批状态：0待审核 1审批通过 9被驳回",
-		  "invoiceStatus": "开票状态：0未开 1已开",
-		  "invoiceNo": "发票号",
-		  "invoiceCompany": "开票公司",
-		  "invoiceDate": "开票日期",
-		  "expressStatus": "快递状态：0未寄 1已寄",
-		  "expressName": "快递公司",
-		  "expressNo": "快递单号"
-				},{
-						"id": "发票ID",
-		  "orderId": "订单号ID",
-		  "invoiceProp": "发票属性：1款到开票,2预开发票",
-		  "invoiceType": "发票类型 1：普通增值税发票 2：增值税专用发票",
-		  "amount": "合同金额",
-		  "invoiceHead": "发票抬头",
-		  "businessLicenseFileName": "税务登记正本/副本或三证合一的营业执照 文件名",
-		  "businessLicense": "税务登记正本/副本或三证合一的营业执照 照片",
-		  "taxpayerQualificationFileName": "一般纳税人资质证书(或认定通知) 文件名",
-		  "taxpayerQualification": "一般纳税人资质证书(或认定通知) 照片路径",
-		  "taxpayerIdentificationNo": "纳税人识别号",
-		  "receiverName": "收件人姓名",
-		  "receiverAddress": "收件人地址",
-		  "receiverPhone": "收件人电话",
-		  "bankName": "开户行",
-		  "bankAccount": "银行账号",
-		  "approvalUrl": "审批链接",
-		  "remark": "备注",
-		  "approvalStatus": "审批状态：0待审核 1审批通过 9被驳回",
-		  "invoiceStatus": "开票状态：0未开 1已开",
-		  "invoiceNo": "发票号",
-		  "invoiceCompany": "开票公司",
-		  "invoiceDate": "开票日期",
-		  "expressStatus": "快递状态：0未寄 1已寄",
-		  "expressName": "快递公司",
-		  "expressNo": "快递单号"
-				}
-				];*/
 				
 				me.getInvoiceList( function(){
 					
@@ -321,6 +264,10 @@ define( function(require, exports, module){
 			
 		},
 
+<<<<<<< HEAD
+=======
+		//循环获取发票信息：
+>>>>>>> 6e3ad8d184192a2fcb9c9984a20afc989b63f846
 		getInvioceValue:function( callback ){
 			var me = this , objData = {};
 			me.attrs.refundInvoices = [];

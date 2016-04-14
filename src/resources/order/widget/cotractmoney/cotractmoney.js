@@ -97,7 +97,7 @@ define(function(require, exports, module){
 						serviceDom+=" <tr> <td>"+productIdDic[tempId]+"合同金额：</td><td class='money-box'>"+sublist[i].contractAmount+"</td>" +
 						" <td>非退款项</td><td></td></tr>"
 						break;
-					case 10: case 11:
+					case 10: case 11: case 2:
 						break;
 					default:
 						strDom+=" <tr> <td>"+productIdDic[tempId]+"合同金额：</td><td class='money-box'>"+sublist[i].contractAmount+"</td>" +
@@ -105,8 +105,11 @@ define(function(require, exports, module){
 						usedAmound+=parseInt(sublist[i].usedAmount);
 						var backAmount = {};
 						var tempMoney  = parseInt(sublist[i].contractAmount) - parseInt(sublist[i].usedAmount);
-						backAmount = {'productId':sublist[i].productId,'amount':tempMoney,'refundAmount':0};
-						tempSublist.push( backAmount );
+						if( tempMoney>0 ){
+							backAmount = {'productId':sublist[i].productId,'amount':tempMoney,'refundAmount':0};
+							tempSublist.push( backAmount );
+						}
+						
 				}
 			}
 			//组合传给退款的数据

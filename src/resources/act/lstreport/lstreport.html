@@ -20,7 +20,7 @@
 					<div class="list-bar-input active-list">
 					
 						<label><span>企业账号</span>
-							<input id="enterpriseAccount" type="text" class="g-ipt ipt-m enterpriseAccount" />
+							<input id="enterpriseAccount" type="text" class="g-ipt ipt-m enterpriseAccount"  onchange="this.value=this.value.replace(/(^\s*)|(\s*$)/g,'').toLowerCase( )"/>
 						</label>
 						<label><span>销售人员</span>
 							<input id="alCode" type="text" class="g-ipt ipt-m alName" />
