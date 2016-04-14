@@ -320,37 +320,7 @@ define( function(require, exports, module){
 			me.$('.last-options').html( opinion );
 			
 		},
-		//获取全部订单数据
-		/*getOrderInfo:function( callback ){
 
-			var me = this,objData  = { 'orderEntity':{}};
-
-			//获取普通订单信息
-			
-			//尾款订单数据
-			if( me.attrs.getMoneyCommon.getValue() ){
-				var tem = me.attrs.getMoneyCommon.getValue() ;
-				objData.orderEntity.order = tem.order;
-				objData.orderEntity.subOrders = tem.subOrders;
-				objData.orderEntity.order.contractNo = me.attrs.options.contractNo;
-				objData.orderEntity.order.oriOrderId = me.attrs.orderData.order.oriOrderId;
-			}else{
-				return ;
-			}
-
-			//发票信息校验和取值
-			if( me.attrs.invoiceCommon.getInfo() ){
-				var temp  = me.attrs.invoiceCommon.getInfo();
-				temp.invoice ? objData.orderEntity.invoice =temp.invoice : objData.orderEntity.invoice = null;
-				$.extend(true, objData.orderEntity.order, temp.order );
-			}else{
-				return ;
-			}
-			
-			$.extend(true, me.attrs.allData, objData );
-			callback && callback();
-		},*/
-		//循环获取发票信息：
 		getInvioceValue:function( callback ){
 			var me = this , objData = {};
 			me.attrs.refundInvoices = [];
@@ -399,28 +369,6 @@ define( function(require, exports, module){
 		//提交
 		commonAddEve:function(){
 			var me = this;
-			/*var data = {
-				"refund":{
-					'orderId':me.attrs.options.id,
-					'amount':200,
-					'refundAmount':200,
-					'accountId':2133,
-					'enterpriseId':120,
-					'refundReason':1,
-					'refundTime':1460563200000,
-					'approvedUrl':'dfdsfdsf',
-					'remark':'dsfdsf'
-					},
-				"subRefunds": [
-						{
-							"productId":1,//产品ID
-							"amount": 60.00,//应退总金额
-							"refundAmount": 2,//申请退款金额
-						  },
-						 
-					],
-				"refundInvoices":[]
-			}*/
 			
 			me.getInvioceValue( function(){ 
 				
@@ -457,14 +405,6 @@ define( function(require, exports, module){
 			var me = this;
 			console.log(me.attrs.allData)
 			
-<<<<<<< HEAD
-			me.attrs.allData.orderEntity.order.id = me.attrs.options.id;
-			me.getInvioceValue( function(){ 
-				me.$('.common-add').text('提交中....');
-				me.$('.common-add').attr('disabled','disabled');
-				util.api({
-					'url':'/odr/refund/save',
-=======
 			me.getInvioceValue( function(){ 
 				var tempUrl = me.attrs.options.newFirst ? '/odr/refund/save':'/odr/refund/update';
 				
@@ -472,20 +412,16 @@ define( function(require, exports, module){
 				me.$('.common-add').attr('disabled','disabled');
 				util.api({
 					'url':tempUrl,
->>>>>>> 768543cbc6ee90bbbebeaa92d3ceb79fa0a5033e
 					'data':JSON.stringify( me.attrs.refundVO ),
 					'contentType':'application/json;charset=UTF-8 ',
 					'success': function( data ){
 
 						if( data.success ){
-<<<<<<< HEAD
 
-=======
 							util.showTip('提交成功！');
 							me.trigger( 'saveSuccess');
 							me.hide();
->>>>>>> 768543cbc6ee90bbbebeaa92d3ceb79fa0a5033e
-							
+			
 						}
 					},
 					'complete': function(){
@@ -499,14 +435,7 @@ define( function(require, exports, module){
 		//保存提交
 		actionSubmitEve:function(){
 			var me = this;
-<<<<<<< HEAD
-			me.attrs.allData.orderEntity.order.id = me.attrs.options.id;
-			me.getInvioceValue( function(){ 
-				me.$('.common-add').text('提交中....');
-				me.$('.common-add').attr('disabled','disabled');
-				util.api({
-					'url':'/odr/refund/save',
-=======
+
 			
 			me.getInvioceValue( function(){ 
 				var tempUrl = me.attrs.options.newFirst ? '/odr/refund/save':'/odr/refund/update';
@@ -514,20 +443,15 @@ define( function(require, exports, module){
 				me.$('.common-add').attr('disabled','disabled');
 				util.api({
 					'url':tempUrl,
->>>>>>> 768543cbc6ee90bbbebeaa92d3ceb79fa0a5033e
 					'data':JSON.stringify( me.attrs.refundVO ),
 					'contentType':'application/json;charset=UTF-8 ',
 					'success': function( data ){
 
 						if( data.success ){
 
-<<<<<<< HEAD
-							
-=======
 							util.showTip('提交成功！');
 							me.trigger( 'saveSuccess');
 							me.hide();
->>>>>>> 768543cbc6ee90bbbebeaa92d3ceb79fa0a5033e
 						}
 					},
 					'complete': function(){
