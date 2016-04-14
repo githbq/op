@@ -53,7 +53,7 @@ define(function (require, exports, module) {
                         item.value = subRefund.amount;
                     });
                     controller(dataItems, 'refundAmount_' + subRefund.productId, function (item) {
-                        item.value = subRefund.refundAmout;
+                        item.value = subRefund.refundAmount;
                         if (responseData.readonly === true) {
                             item.readonly = true;
                         }
@@ -63,6 +63,9 @@ define(function (require, exports, module) {
                                 var $dom = $(e.target);
                                 var refundAmount = 0;
                                 setTimeout(function () {
+                                    if ($dom.val() && parseFloat($dom.val()) > me.o_getFieldData('amount_' + subRefund.productId).value) {
+                                        $dom.val(me.o_getFieldData('amount_' + subRefund.productId).value)
+                                    }
                                     me.o_eachFields(function ($ele, data) {
                                         if (data.name.indexOf('refundAmount_') == 0 && $ele.val()) {
                                             refundAmount += parseFloat($ele.val());
