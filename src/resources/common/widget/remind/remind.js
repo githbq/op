@@ -29,8 +29,12 @@ define(function(require, exports, module){
 			text:'审批被驳回',
 			url:'/op/a#agentsupport/renewlist/refuse'  //'/op/a#agentsupport/renewlist'
 		},
-        '6': {
-            text: "审批被驳回",
+        '7': {
+            text: "小助手退款被驳回",
+            url: "/op/index#page/approvallist/refuse"
+        },
+        '8': {
+            text: "代理商退款被驳回",
             url: "/op/a#agentsupport/renewlist/refuse"
         }
 	}
