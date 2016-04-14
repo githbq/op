@@ -116,6 +116,7 @@ define(function(require, exports, module){
 			me.attrs.refundVO.subRefunds = tempSublist;
 			strDom = serviceDom + strDom;
 			me.attrs.dataObj.usedAmount = usedAmound;
+			me.model.set('usedAmount',me.attrs.dataObj.usedAmount );
 			me.$('.sub-tab tbody').html(strDom);
 			
 			me.trigger('successData');
