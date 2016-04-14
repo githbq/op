@@ -5,6 +5,7 @@ define( function( require, exports, module ) {
 
     var Pagination = require('common/widget/pagination/pagination');
     var DetailApproval = require('../../order/detailapproval/detailapproval');
+	var BackMoney = require('../../order/backmoney/backmoney');
     var DetailPayment = require('../../order/detailpayment/detailpayment');
 
     /**
@@ -308,6 +309,14 @@ define( function( require, exports, module ) {
                 'contractNo': detail.contractNo,
                 'rejectsFrom': detail.rejectsFrom
             }
+			if( detail.approvalTypeId =='refundApproval' ){
+				detailApproval = new BackMoney();
+                detailApproval.show( data );
+                detailApproval.on('saveSuccess',function(){
+                    renewList.getList();
+                })
+				return false;
+			}
 
             if( data.orderType != 17 ){
 
