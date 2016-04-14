@@ -48,7 +48,6 @@ define(function( require , exports , module ){
 			var invoice = me.$('[name="invoice"]:checked').val();
 			var invoicetype = me.$('[name="invoicetype"]:checked').val();
 
-			console.log( invoice );
 			if( invoice == 1 ){
 
 				if( invoicetype == 1 ){
@@ -213,13 +212,28 @@ define(function( require , exports , module ){
 					'method':'get',
 					'success': function( data ){
 
-						console.warn( data );
 						if( data.success ){
-							
+							me.model.load( data.value.model );
+
+							if( data.value.model.invoiceProp == 1 ){
+								me.$('[name="invoice"]').eq(0).trigger('click');
+							}else{
+								me.$('[name="invoice"]').eq(1).trigger('click');
+							}
+
+							if( data.value.model.invoiceType == 1 ){
+								me.$('[name="invoicetype"]').eq(0).trigger('click');
+							}else{
+								me.$('[name="invoicetype"]').eq(1).trigger('click');
+							}
+							me.typeEve();
 						}
 					}
-				})
+				});
 			};
+
+			console.log('approvalStatus');
+			console.log( approvalStatus );
 
 			me.setState( approvalStatus );
 		},
@@ -233,9 +247,16 @@ define(function( require , exports , module ){
 			me.$('[data-state]').each(function(){
 				var $el = $( this );
 				var state = $el.attr('data-state').split('/\s+/');
-
-				
+				state.forEach(function( item , index ){
+					if( item == status ){
+						$el.show();
+					}
+				});
 			});
+
+			if( (status != 1 ) || ( status != 9 ) || ( status != 0 ) ){
+				me.$('input,textarea').attr('disabled','disabled')
+			}
 		},
 
 		//隐藏
