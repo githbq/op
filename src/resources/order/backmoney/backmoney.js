@@ -15,6 +15,7 @@ define( function(require, exports, module){
 	var contentStr = require('./backmoney.html');
 	var OrderInfo = require('../widget/orderinfo/orderinfo');
 	var CotractMoney = require('../widget/cotractmoney/cotractmoney');
+	var refundinfo = require('../widget/refundinfo/refundinfo');
 	var InvoiceList = require('../widget/invoicelist/invoicelist');
 	
 	var orderTypeAry = ['','办公版新购-普通','办公版新购-特批','营销版新购-普通','营销版新购-特批','办公版增购-普通',
@@ -49,7 +50,9 @@ define( function(require, exports, module){
 			'click .action-submit':'actionSubmitEve',
 			'click .action-resend':'actionResendEve',
 			'click .action-agree':'actionAgreeEve',
-			'click .action-reject':'actionRejectEve'
+			'click .action-reject':'actionRejectEve',
+			'click .common-add':'commonAddEve',
+			'click .action-cancel':'actionCancelEve'
 		},
 
 		
@@ -74,6 +77,7 @@ define( function(require, exports, module){
 			me.attrs.orderList = {};
 			me.attrs.hasInovice = 0;
 			me.attrs.invoiceData = [];
+			me.attrs.orderInfoValue = {};
 			
 			me.setState();
 			me.sortType();
@@ -87,7 +91,7 @@ define( function(require, exports, module){
 			
 			//me._setTitle( orderTypeAry[me.attrs.options.orderType] );
 			
-			$.when(  me.setOrderList()/*, me.getInvoiceList() */).done(function(){
+			$.when(  me.setOrderList(), me.getOrderBackMoneyInfo()).done(function(){
 				
 				me.setOrderInfo();
 				/*me.attrs.invoiceData =[
@@ -147,10 +151,16 @@ define( function(require, exports, module){
 		  "expressNo": "快递单号"
 				}
 				];*/
-				if(me.attrs.invoiceData.length>0){
-					me.showInvoiceList()
-					me.attrs.hasInovice = 1; //有发票
-				}
+				
+				me.getInvoiceList( function(){
+					
+					if(me.attrs.invoiceData.length>0){
+						me.showInvoiceList()
+						me.attrs.hasInovice = 1; //有发票
+					}
+					
+				} );
+				
 				
 
 				//企业信息
@@ -158,7 +168,20 @@ define( function(require, exports, module){
 					'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
 					
 				//合同付款信息
-				me.attrs.cotractMoney = new CotractMoney( { 'wrapper':me.$view.find('.common-product'),'orderId':me.attrs.options.id,'hasInovice':me.attrs.hasInovice} );
+				me.attrs.cotractMoney = new CotractMoney( { 'wrapper':me.$view.find('.common-product'),'orderId':me.attrs.options.id,'hasInovice':me.attrs.hasInovice, 'editFlag':me.attrs.options.editFlag} );
+				if(me.attrs.options.newFirst){
+					me.attrs.cotractMoney.on('successData',function(){
+						me.attrs.refundVO = me.attrs.cotractMoney.getVauel();
+						//退款信息
+						me.attrs.refundinfo =  refundinfo.show( {$view:me.$view.find('.common--meoney')}, me.attrs.refundVO ); 
+					})
+					
+				}else{
+					//退款信息
+					me.attrs.refundinfo =  refundinfo.show( {$view:me.$view.find('.common--meoney')}, me.attrs.refundVO ); 
+				}
+				
+				
 			});
 
 
@@ -182,8 +205,26 @@ define( function(require, exports, module){
 			});
 
 		},
+		//查询订单退款
+		getOrderBackMoneyInfo:function(   ){
+			var me = this;
+
+			 util.api({
+					'url':'/odr/refund/queryinfo',
+					'data':{'orderId':me.attrs.options.id },
+					'success': function( data ){
+
+						if( data.success ){
+
+							me.attrs.orderInfoValue = data.value;
+							me.attrs.refundVO = data.value.model ?  data.value.model:{'refund':{},'subRefunds':[]};
+						}
+					}
+			});
+
+		},
 		//获取发票列表：
-		getInvoiceList:function(  ){
+		getInvoiceList:function( callback  ){
 			var me = this;
 
 			return util.api({
@@ -193,7 +234,7 @@ define( function(require, exports, module){
 						if( data.success ){
 
 							me.attrs.invoiceData = data.model;
-							//callback && callback();
+							callback && callback();
 						}
 					}
 			});
@@ -203,11 +244,28 @@ define( function(require, exports, module){
 		showInvoiceList:function(){
 			var me = this;
 			var tempLength = me.attrs.invoiceData.length;
+			me.attrs.invioceAry = [];
 			for(var i = 0; i<tempLength; i++){
-				var tempClass = "invoice_"+i;
-				me.$view.find('.common--invioce').append('<div class="'+tempClass+'"></div>');
-				
-				new InvoiceList( { 'wrapper':me.$view.find('.'+tempClass+''),'dataObj':me.attrs.invoiceData[i]} );
+				if( me.attrs.orderInfoValue.model ){
+					for(var j = 0; j< me.attrs.orderInfoValue.model.refundInvoices.length; j++ ){
+						if( me.attrs.invoiceData[i].id ==  me.attrs.orderInfoValue.model.refundInvoices[j].invoiceId ){
+							var tempClass = "invoice_"+i;
+							me.$view.find('.common--invioce').append('<div class="'+tempClass+'"></div>');
+							var temp = {} ;
+							temp.filedData = me.attrs.orderInfoValue.model.refundInvoices[j];
+							temp[me.attrs.invoiceData[i].id] = new InvoiceList( { 'wrapper':me.$view.find('.'+tempClass+''),'dataObj':me.attrs.invoiceData[i] ,'filedData':me.attrs.orderInfoValue.model.refundInvoices[j],'id':me.attrs.invoiceData[i].id,'editFlag':me.attrs.options.editFlag } );
+							me.attrs.invioceAry.push( temp );
+							break;
+						}
+					}
+					
+				}else{
+					var tempClass = "invoice_"+i;
+					me.$view.find('.common--invioce').append('<div class="'+tempClass+'"></div>');
+					var temp = {} 
+					temp[me.attrs.invoiceData[i].id] = new InvoiceList( { 'wrapper':me.$view.find('.'+tempClass+''),'dataObj':me.attrs.invoiceData[i] ,'id':me.attrs.invoiceData[i].id,'editFlag':me.attrs.options.editFlag } );
+					me.attrs.invioceAry.push( temp );
+				}
 			}
 		},
 		//设置订单基本信息
@@ -227,7 +285,8 @@ define( function(require, exports, module){
 			var me = this;
 			me.$('.state').hide();
 			me.$('.state-'+me.attrs.options.state).show();
-			if(me.attrs.options.editFlag){
+			me.$('.state-'+me.attrs.options.newFirst).show();
+			if(me.attrs.options.editFlag && me.attrs.options.newFirst!='newFirst'){
 				me.$('.state-refuse').show();
 			}
 			me.$('.currentTask-'+me.attrs.options.currentTask).show();
@@ -289,7 +348,98 @@ define( function(require, exports, module){
 			$.extend(true, me.attrs.allData, objData );
 			callback && callback();
 		},
-		
+		//循环获取发票信息：
+		getInvioceValue:function( callback ){
+			var me = this , objData = {};
+			me.attrs.refundInvoices = [];
+			var tempLength = me.attrs.invoiceData.length;
+			for(var i =0; i<tempLength; i++ ){
+				var tempValue = me.attrs.invioceAry[i][me.attrs.invoiceData[i].id].getValue();
+				if( me.attrs.orderInfoValue.model ){
+					me.attrs.invioceAry[i].filedData
+					tempValue = $.extend(true, me.attrs.invioceAry[i].filedData, tempValue);
+					me.attrs.refundInvoices.push( tempValue );
+				}else{
+					me.attrs.refundInvoices.push( tempValue );
+				}
+			}
+			
+			//产品信息
+			if (me.attrs.refundinfo.validate()){
+				objData =  me.attrs.refundinfo.getData();
+				
+				me.attrs.refundVO = $.extend(true, me.attrs.refundVO.refund, objData.refund);
+				if(me.attrs.options.newFirst){
+					for(var i = 0; i< me.attrs.refundVO.subRefunds.length; i++){
+						for(var j = 0; j<objData.subRefunds.length; j++){
+							if(me.attrs.refundVO.subRefunds[i].productId == objData.subRefunds[j].productId ){
+								me.attrs.refundVO.subRefunds[i] = $.extend(true, me.attrs.refundVO.subRefunds[i],objData.subRefunds[j]);
+								break;
+							}
+						}
+					}
+				}
+				
+			}else{
+				util.showToast('产品信息填写不完整！');
+				return false;
+			}
+			me.attrs.refundVO.refundInvoices = me.attrs.refundInvoices;
+			callback && callback();
+		},
+		//提交
+		commonAddEve:function(){
+			var me = this;
+			/*var data = {
+				"refund":{
+					'orderId':me.attrs.options.id,
+					'amount':200,
+					'refundAmount':200,
+					'accountId':2133,
+					'enterpriseId':120,
+					'refundReason':1,
+					'refundTime':1460563200000,
+					'approvedUrl':'dfdsfdsf',
+					'remark':'dsfdsf'
+					},
+				"subRefunds": [
+						{
+							"productId":1,//产品ID
+							"amount": 60.00,//应退总金额
+							"refundAmount": 2,//申请退款金额
+						  },
+						 
+					],
+				"refundInvoices":[]
+			}*/
+			
+			me.getInvioceValue( function(){ 
+				me.$('.common-add').text('提交中....');
+				me.$('.common-add').attr('disabled','disabled');
+				util.api({
+					'url':'/odr/refund/save',
+					'data':JSON.stringify( me.attrs.refundVO ),
+					'contentType':'application/json;charset=UTF-8 ',
+					'success': function( data ){
+
+						if( data.success ){
+
+							
+						}
+					},
+					'complete': function(){
+						me.$('.common-add').text('提交');
+						me.$('.common-add').removeAttr('disabled');
+					}
+				});
+			});
+			
+		},
+		//取消
+		actionCancelEve:function(){
+			var me = this;
+			me.hide();
+		},
 		//保存
 		actionSaveEve:function(){
 			var me = this;
