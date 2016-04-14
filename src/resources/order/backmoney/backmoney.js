@@ -393,9 +393,7 @@ define( function(require, exports, module){
 
 						if( data.success ){
 
-							util.showTip('提交成功！');
-							me.trigger( 'saveSuccess');
-							me.hide();
+							changeNode();
 						}
 					},
 					'complete': function(){
@@ -415,10 +413,9 @@ define( function(require, exports, module){
                     },
                     'success':function( data ){
                         if( data.success ){
-                            util.showTip('保存提交发送成功');
-							
+                            util.showTip('提交成功！');
 							me.trigger( 'saveSuccess');
-                            me.hide();
+							me.hide();
                         }
                     }
                 })
