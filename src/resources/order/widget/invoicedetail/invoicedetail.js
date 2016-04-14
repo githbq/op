@@ -48,7 +48,6 @@ define(function( require , exports , module ){
 			var invoice = me.$('[name="invoice"]:checked').val();
 			var invoicetype = me.$('[name="invoicetype"]:checked').val();
 
-			console.log( invoice );
 			if( invoice == 1 ){
 
 				if( invoicetype == 1 ){
@@ -236,20 +235,12 @@ define(function( require , exports , module ){
 			console.log('approvalStatus');
 			console.log( approvalStatus );
 
-			var statusMap = {
-				'0': 'add',
-				'1': 'withdraw',
-				'9': 'refuse'
-			}
-			me.setState( statusMap[approvalStatus] );
+			me.setState( approvalStatus );
 		},
 
 		//根据显隐状态
 		setState: function( status ){
 			var me = this;
-
-			console.log('status');
-			console.log( status );
 
 			me.$('[data-state]').hide();
 			
