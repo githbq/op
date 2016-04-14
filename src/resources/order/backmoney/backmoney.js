@@ -168,11 +168,13 @@ define( function(require, exports, module){
 					'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
 					
 				//合同付款信息
+				me.attrs.refundVO.readonly = !me.attrs.options.editFlag;
 				me.attrs.cotractMoney = new CotractMoney( { 'wrapper':me.$view.find('.common-product'),'orderId':me.attrs.options.id,'hasInovice':me.attrs.hasInovice, 'editFlag':me.attrs.options.editFlag} );
 				if(me.attrs.options.newFirst){
 					me.attrs.cotractMoney.on('successData',function(){
 						me.attrs.refundVO = me.attrs.cotractMoney.getVauel();
 						//退款信息
+						
 						me.attrs.refundinfo =  refundinfo.show( {$view:me.$view.find('.common--meoney')}, me.attrs.refundVO ); 
 					})
 					
@@ -355,6 +357,11 @@ define( function(require, exports, module){
 			var tempLength = me.attrs.invoiceData.length;
 			for(var i =0; i<tempLength; i++ ){
 				var tempValue = me.attrs.invioceAry[i][me.attrs.invoiceData[i].id].getValue();
+				if(!tempValue){
+					util.showToast('发票信息不完整！');
+					return false;
+				
+				}
 				if( me.attrs.orderInfoValue.model ){
 					me.attrs.invioceAry[i].filedData
 					tempValue = $.extend(true, me.attrs.invioceAry[i].filedData, tempValue);
@@ -367,9 +374,9 @@ define( function(require, exports, module){
 			//产品信息
 			if (me.attrs.refundinfo.validate()){
 				objData =  me.attrs.refundinfo.getData();
-				
-				me.attrs.refundVO = $.extend(true, me.attrs.refundVO.refund, objData.refund);
-				if(me.attrs.options.newFirst){
+				objData.refund.orderId = me.attrs.options.id;
+				me.attrs.refundVO.refund = $.extend(true, me.attrs.refundVO.refund, objData.refund);
+				if(!me.attrs.options.newFirst){
 					for(var i = 0; i< me.attrs.refundVO.subRefunds.length; i++){
 						for(var j = 0; j<objData.subRefunds.length; j++){
 							if(me.attrs.refundVO.subRefunds[i].productId == objData.subRefunds[j].productId ){
@@ -378,10 +385,12 @@ define( function(require, exports, module){
 							}
 						}
 					}
+				}else{
+					me.attrs.refundVO.subRefunds = objData.subRefunds;
 				}
 				
 			}else{
-				util.showToast('产品信息填写不完整！');
+				util.showToast('退款信息填写不完整！');
 				return false;
 			}
 			me.attrs.refundVO.refundInvoices = me.attrs.refundInvoices;
@@ -414,6 +423,7 @@ define( function(require, exports, module){
 			}*/
 			
 			me.getInvioceValue( function(){ 
+				
 				me.$('.common-add').text('提交中....');
 				me.$('.common-add').attr('disabled','disabled');
 				util.api({
@@ -423,7 +433,9 @@ define( function(require, exports, module){
 					'success': function( data ){
 
 						if( data.success ){
-
+							util.showTip('提交成功！');
+							me.trigger( 'saveSuccess');
+							me.hide();
 							
 						}
 					},
@@ -445,18 +457,21 @@ define( function(require, exports, module){
 			var me = this;
 			console.log(me.attrs.allData)
 			
-			me.attrs.allData.orderEntity.order.id = me.attrs.options.id;
 			me.getInvioceValue( function(){ 
+				var tempUrl = me.attrs.options.newFirst ? '/odr/refund/save':'/odr/refund/update';
+				
 				me.$('.common-add').text('提交中....');
 				me.$('.common-add').attr('disabled','disabled');
 				util.api({
-					'url':'/odr/refund/save',
+					'url':tempUrl,
 					'data':JSON.stringify( me.attrs.refundVO ),
 					'contentType':'application/json;charset=UTF-8 ',
 					'success': function( data ){
 
 						if( data.success ){
-
+							util.showTip('提交成功！');
+							me.trigger( 'saveSuccess');
+							me.hide();
 							
 						}
 					},
@@ -471,19 +486,22 @@ define( function(require, exports, module){
 		//保存提交
 		actionSubmitEve:function(){
 			var me = this;
-			me.attrs.allData.orderEntity.order.id = me.attrs.options.id;
+			
 			me.getInvioceValue( function(){ 
+				var tempUrl = me.attrs.options.newFirst ? '/odr/refund/save':'/odr/refund/update';
 				me.$('.common-add').text('提交中....');
 				me.$('.common-add').attr('disabled','disabled');
 				util.api({
-					'url':'/odr/refund/save',
+					'url':tempUrl,
 					'data':JSON.stringify( me.attrs.refundVO ),
 					'contentType':'application/json;charset=UTF-8 ',
 					'success': function( data ){
 
 						if( data.success ){
 
-							
+							util.showTip('提交成功！');
+							me.trigger( 'saveSuccess');
+							me.hide();
 						}
 					},
 					'complete': function(){
