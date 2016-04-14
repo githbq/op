@@ -1,4 +1,4 @@
-define(function (require, module, exports) {
+define(function (require, exports,module) {
     /**
      * 加法运算，避免数据相加小数点后产生多位数和计算精度损失。
      *
