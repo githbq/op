@@ -3,6 +3,9 @@
 define(function (require, exports, module) {
 
     var Pagination = require('common/widget/pagination/pagination');
+    var InvoiceDetail = require('../widget/invoicedetail/invoicedetail');
+
+
 
     //代理商发票申请列表
     var InvoiceApplyAgent = MClass( M.Center ).include({
@@ -24,7 +27,8 @@ define(function (require, exports, module) {
             me.refresh();
         },
         events:{
-            'click .toggle b': 'switchEve'
+            'click .toggle b': 'switchEve',
+            'click .btn-search': 'searchEve'
         },
         switchEve: function( e ){
 
@@ -97,6 +101,14 @@ define(function (require, exports, module) {
     exports.init = function ( param ) {
         var $el = exports.$el;
 
-       var invoiceApplyAgent = new InvoiceApplyAgent( {'view':$el.find('.m-invoiceapplyagent')} )
+        var invoiceApplyAgent = new InvoiceApplyAgent( {'view':$el.find('.m-invoiceapplyagent')} );
+
+        //发票模块
+        var invoiceDetail = new InvoiceDetail();
+        
+
+
+
+
     }
 });
