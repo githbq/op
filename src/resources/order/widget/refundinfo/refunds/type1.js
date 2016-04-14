@@ -69,7 +69,7 @@ define(function (require, exports, module) {
                                     //}
                                     me.o_eachFields(function ($ele, data) {
                                         if (data.name.indexOf('refundAmount_') == 0 && $ele.val()) {
-                                            math.numAdd(refundAmount,$ele.val());
+                                            refundAmount=math.numAdd(refundAmount,$ele.val());
                                         }
                                     });
                                     me.o_setValue({name: 'refundAmount', value: refundAmount});
