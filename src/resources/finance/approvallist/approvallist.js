@@ -41,7 +41,7 @@ define( function(require, exports, module){
 				detailApproval = new BackMoney();
                 detailApproval.show( data );
                 detailApproval.on('saveSuccess',function(){
-                    renewList.getList();
+                    approvalList.getList();
                 })
 				return false;
 			}
