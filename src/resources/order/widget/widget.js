@@ -30,6 +30,7 @@ define(function (require, exports, module) {
                     break;
             }
         });
+        $el.find('#modulename').change();
     };
 
 
