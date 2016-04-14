@@ -106,9 +106,5 @@ define(function (require, exports, module) {
         //发票模块
         var invoiceDetail = new InvoiceDetail();
         
-
-
-
-
     }
 });

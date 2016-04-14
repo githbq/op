@@ -94,63 +94,6 @@ define( function(require, exports, module){
 			$.when(  me.setOrderList(), me.getOrderBackMoneyInfo()).done(function(){
 				
 				me.setOrderInfo();
-				/*me.attrs.invoiceData =[
-				{
-						"id": "发票ID",
-		  "orderId": "订单号ID",
-		  "invoiceProp": "发票属性：1款到开票,2预开发票",
-		  "invoiceType": "发票类型 1：普通增值税发票 2：增值税专用发票",
-		  "amount": "合同金额",
-		  "invoiceHead": "发票抬头",
-		  "businessLicenseFileName": "税务登记正本/副本或三证合一的营业执照 文件名",
-		  "businessLicense": "税务登记正本/副本或三证合一的营业执照 照片",
-		  "taxpayerQualificationFileName": "一般纳税人资质证书(或认定通知) 文件名",
-		  "taxpayerQualification": "一般纳税人资质证书(或认定通知) 照片路径",
-		  "taxpayerIdentificationNo": "纳税人识别号",
-		  "receiverName": "收件人姓名",
-		  "receiverAddress": "收件人地址",
-		  "receiverPhone": "收件人电话",
-		  "bankName": "开户行",
-		  "bankAccount": "银行账号",
-		  "approvalUrl": "审批链接",
-		  "remark": "备注",
-		  "approvalStatus": "审批状态：0待审核 1审批通过 9被驳回",
-		  "invoiceStatus": "开票状态：0未开 1已开",
-		  "invoiceNo": "发票号",
-		  "invoiceCompany": "开票公司",
-		  "invoiceDate": "开票日期",
-		  "expressStatus": "快递状态：0未寄 1已寄",
-		  "expressName": "快递公司",
-		  "expressNo": "快递单号"
-				},{
-						"id": "发票ID",
-		  "orderId": "订单号ID",
-		  "invoiceProp": "发票属性：1款到开票,2预开发票",
-		  "invoiceType": "发票类型 1：普通增值税发票 2：增值税专用发票",
-		  "amount": "合同金额",
-		  "invoiceHead": "发票抬头",
-		  "businessLicenseFileName": "税务登记正本/副本或三证合一的营业执照 文件名",
-		  "businessLicense": "税务登记正本/副本或三证合一的营业执照 照片",
-		  "taxpayerQualificationFileName": "一般纳税人资质证书(或认定通知) 文件名",
-		  "taxpayerQualification": "一般纳税人资质证书(或认定通知) 照片路径",
-		  "taxpayerIdentificationNo": "纳税人识别号",
-		  "receiverName": "收件人姓名",
-		  "receiverAddress": "收件人地址",
-		  "receiverPhone": "收件人电话",
-		  "bankName": "开户行",
-		  "bankAccount": "银行账号",
-		  "approvalUrl": "审批链接",
-		  "remark": "备注",
-		  "approvalStatus": "审批状态：0待审核 1审批通过 9被驳回",
-		  "invoiceStatus": "开票状态：0未开 1已开",
-		  "invoiceNo": "发票号",
-		  "invoiceCompany": "开票公司",
-		  "invoiceDate": "开票日期",
-		  "expressStatus": "快递状态：0未寄 1已寄",
-		  "expressName": "快递公司",
-		  "expressNo": "快递单号"
-				}
-				];*/
 				
 				me.getInvoiceList( function(){
 					
@@ -168,11 +111,13 @@ define( function(require, exports, module){
 					'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
 					
 				//合同付款信息
+				me.attrs.refundVO.readonly = !me.attrs.options.editFlag;
 				me.attrs.cotractMoney = new CotractMoney( { 'wrapper':me.$view.find('.common-product'),'orderId':me.attrs.options.id,'hasInovice':me.attrs.hasInovice, 'editFlag':me.attrs.options.editFlag} );
 				if(me.attrs.options.newFirst){
 					me.attrs.cotractMoney.on('successData',function(){
 						me.attrs.refundVO = me.attrs.cotractMoney.getVauel();
 						//退款信息
+						
 						me.attrs.refundinfo =  refundinfo.show( {$view:me.$view.find('.common--meoney')}, me.attrs.refundVO ); 
 					})
 					
@@ -318,36 +263,7 @@ define( function(require, exports, module){
 			me.$('.last-options').html( opinion );
 			
 		},
-		//获取全部订单数据
-		getOrderInfo:function( callback ){
 
-			var me = this,objData  = { 'orderEntity':{}};
-
-			//获取普通订单信息
-			
-			//尾款订单数据
-			if( me.attrs.getMoneyCommon.getValue() ){
-				var tem = me.attrs.getMoneyCommon.getValue() ;
-				objData.orderEntity.order = tem.order;
-				objData.orderEntity.subOrders = tem.subOrders;
-				objData.orderEntity.order.contractNo = me.attrs.options.contractNo;
-				objData.orderEntity.order.oriOrderId = me.attrs.orderData.order.oriOrderId;
-			}else{
-				return ;
-			}
-
-			//发票信息校验和取值
-			if( me.attrs.invoiceCommon.getInfo() ){
-				var temp  = me.attrs.invoiceCommon.getInfo();
-				temp.invoice ? objData.orderEntity.invoice =temp.invoice : objData.orderEntity.invoice = null;
-				$.extend(true, objData.orderEntity.order, temp.order );
-			}else{
-				return ;
-			}
-			
-			$.extend(true, me.attrs.allData, objData );
-			callback && callback();
-		},
 		//循环获取发票信息：
 		getInvioceValue:function( callback ){
 			var me = this , objData = {};
@@ -355,6 +271,11 @@ define( function(require, exports, module){
 			var tempLength = me.attrs.invoiceData.length;
 			for(var i =0; i<tempLength; i++ ){
 				var tempValue = me.attrs.invioceAry[i][me.attrs.invoiceData[i].id].getValue();
+				if(!tempValue){
+					util.showToast('发票信息不完整！');
+					return false;
+				
+				}
 				if( me.attrs.orderInfoValue.model ){
 					me.attrs.invioceAry[i].filedData
 					tempValue = $.extend(true, me.attrs.invioceAry[i].filedData, tempValue);
@@ -367,9 +288,9 @@ define( function(require, exports, module){
 			//产品信息
 			if (me.attrs.refundinfo.validate()){
 				objData =  me.attrs.refundinfo.getData();
-				
-				me.attrs.refundVO = $.extend(true, me.attrs.refundVO.refund, objData.refund);
-				if(me.attrs.options.newFirst){
+				objData.refund.orderId = me.attrs.options.id;
+				me.attrs.refundVO.refund = $.extend(true, me.attrs.refundVO.refund, objData.refund);
+				if(!me.attrs.options.newFirst){
 					for(var i = 0; i< me.attrs.refundVO.subRefunds.length; i++){
 						for(var j = 0; j<objData.subRefunds.length; j++){
 							if(me.attrs.refundVO.subRefunds[i].productId == objData.subRefunds[j].productId ){
@@ -378,10 +299,12 @@ define( function(require, exports, module){
 							}
 						}
 					}
+				}else{
+					me.attrs.refundVO.subRefunds = objData.subRefunds;
 				}
 				
 			}else{
-				util.showToast('产品信息填写不完整！');
+				util.showToast('退款信息填写不完整！');
 				return false;
 			}
 			me.attrs.refundVO.refundInvoices = me.attrs.refundInvoices;
@@ -390,30 +313,9 @@ define( function(require, exports, module){
 		//提交
 		commonAddEve:function(){
 			var me = this;
-			/*var data = {
-				"refund":{
-					'orderId':me.attrs.options.id,
-					'amount':200,
-					'refundAmount':200,
-					'accountId':2133,
-					'enterpriseId':120,
-					'refundReason':1,
-					'refundTime':1460563200000,
-					'approvedUrl':'dfdsfdsf',
-					'remark':'dsfdsf'
-					},
-				"subRefunds": [
-						{
-							"productId":1,//产品ID
-							"amount": 60.00,//应退总金额
-							"refundAmount": 2,//申请退款金额
-						  },
-						 
-					],
-				"refundInvoices":[]
-			}*/
 			
 			me.getInvioceValue( function(){ 
+				
 				me.$('.common-add').text('提交中....');
 				me.$('.common-add').attr('disabled','disabled');
 				util.api({
@@ -423,7 +325,9 @@ define( function(require, exports, module){
 					'success': function( data ){
 
 						if( data.success ){
-
+							util.showTip('提交成功！');
+							me.trigger( 'saveSuccess');
+							me.hide();
 							
 						}
 					},
@@ -445,60 +349,58 @@ define( function(require, exports, module){
 			var me = this;
 			console.log(me.attrs.allData)
 			
-			me.attrs.allData.orderEntity.order.id = me.attrs.options.id;
-			me.getOrderInfo(function(){
-				me.$actionSubmit.text('提交中....');
-				me.$actionSubmit.attr('disabled','disabled');
+			me.getInvioceValue( function(){ 
+				var tempUrl = me.attrs.options.newFirst ? '/odr/refund/save':'/odr/refund/update';
+				
+				me.$('.common-add').text('提交中....');
+				me.$('.common-add').attr('disabled','disabled');
 				util.api({
-					'url':'/odr/balancePayment/update',
-					'data':JSON.stringify( me.attrs.allData ),
+					'url':tempUrl,
+					'data':JSON.stringify( me.attrs.refundVO ),
 					'contentType':'application/json;charset=UTF-8 ',
-					'button': {
-						'el': me.$actionSave,
-						'text':'提交中......'
-					},
 					'success': function( data ){
+
 						if( data.success ){
 							util.showTip('提交成功！');
 							me.trigger( 'saveSuccess');
 							me.hide();
+							
 						}
 					},
 					'complete': function(){
-						me.$actionSubmit.text('保存提交');
-						me.$actionSubmit.removeAttr('disabled');
+						me.$('.common-add').text('提交');
+						me.$('.common-add').removeAttr('disabled');
 					}
-				})
-				
+				});
 			});
 			
 		},
 		//保存提交
 		actionSubmitEve:function(){
 			var me = this;
-			me.attrs.allData.orderEntity.order.id = me.attrs.options.id;
-			me.getOrderInfo(function(){
-				me.$actionSave.text('提交中....');
-				me.$actionSave.attr('disabled','disabled');
+			
+			me.getInvioceValue( function(){ 
+				var tempUrl = me.attrs.options.newFirst ? '/odr/refund/save':'/odr/refund/update';
+				me.$('.common-add').text('提交中....');
+				me.$('.common-add').attr('disabled','disabled');
 				util.api({
-					'url':'/odr/balancePayment/update',
-					'data':JSON.stringify( me.attrs.allData ),
+					'url':tempUrl,
+					'data':JSON.stringify( me.attrs.refundVO ),
 					'contentType':'application/json;charset=UTF-8 ',
-					'button': {
-						'el': me.$actionSubmit,
-						'text':'提交中......'
-					},
 					'success': function( data ){
+
 						if( data.success ){
-							changeNode();
+
+							util.showTip('提交成功！');
+							me.trigger( 'saveSuccess');
+							me.hide();
 						}
 					},
 					'complete': function(){
-						me.$actionSave.text('保存');
-						me.$actionSave.removeAttr('disabled');
+						me.$('.common-add').text('提交');
+						me.$('.common-add').removeAttr('disabled');
 					}
-				})
-				
+				});
 			});
 			 //移交至下一个节点
             function changeNode(){

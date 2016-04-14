@@ -14,7 +14,7 @@ define( function( require, exports, module ) {
 
     var statusMap = {},industryMap = {},sourceMap = {};
 
-    var statusAry = ['','待审核','已撤回','被驳回','已通过'];
+    var statusAry = ['','待审核','已撤回','被驳回','已通过','申请退款','退款成功','退款驳回','退款撤回'];
 	var isPayUpAry = ['——','已付清','未付清'];
     var payStatusAry = ['','全款','分期','未付'];
     var orderTypeAry = ['','办公版新购-普通','办公版新购-特批','营销版新购-普通','营销版新购-特批','办公版增购-普通',
