@@ -209,11 +209,12 @@ define(function(require, exports, module){
 		setFiledData:function(){
 			var me = this;
 			if( me.attrs.filedData.invoiceOriginal ){
+				me.model.set('invoiceOriginal', me.attrs.filedData.invoiceOriginal );
 				
 				me.$('.invoiceOriginal-box').show();
 				
-				me.$('.invoiceOriginal-link').attr('href', '/op/api/file/previewimage' + '?filePath=' + contractFilePath);
-				me.$('.invoiceOriginal-img').attr('src', '/op/api/file/previewimage' + '?filePath=' + contractFilePath);
+				me.$('.invoiceOriginal-link').attr('href', '/op/api/file/previewimage' + '?filePath=' + me.attrs.filedData.invoiceOriginal);
+				me.$('.invoiceOriginal-img').attr('src', '/op/api/file/previewimage' + '?filePath=' + me.attrs.filedData.invoiceOriginal);
 			}else{
 				me.$('.invoiceOriginal-box').hide();
 				me.$('.invoiceOriginal-link').attr('href', '');
@@ -223,8 +224,10 @@ define(function(require, exports, module){
 			if( me.attrs.filedData.rejectProof ){
 				me.$('.rejectProof-box').show();
 				
-				me.$('.rejectProof-link').attr('href', '/op/api/file/previewimage' + '?filePath=' + contractFilePath);
-				me.$('.rejectProof-img').attr('src', '/op/api/file/previewimage' + '?filePath=' + contractFilePath);
+				me.model.set('rejectProof', me.attrs.filedData.rejectProof );
+				
+				me.$('.rejectProof-link').attr('href', '/op/api/file/previewimage' + '?filePath=' + me.attrs.filedData.rejectProof);
+				me.$('.rejectProof-img').attr('src', '/op/api/file/previewimage' + '?filePath=' + me.attrs.filedData.rejectProof);
 			}else{
 				me.$('.rejectProof-box').hide();
 				me.$('.rejectProof-link').attr('href', '');
@@ -234,8 +237,10 @@ define(function(require, exports, module){
 			if( me.attrs.filedData.redInvoiceInfo ){
 				me.$('.redInvoiceInfo-box').show();
 				
-				me.$('.redInvoiceInfo-link').attr('href', '/op/api/file/previewimage' + '?filePath=' + contractFilePath);
-				me.$('.redInvoiceInfo-img').attr('src', '/op/api/file/previewimage' + '?filePath=' + contractFilePath);
+				me.model.set('redInvoiceInfo', me.attrs.filedData.redInvoiceInfo );
+				
+				me.$('.redInvoiceInfo-link').attr('href', '/op/api/file/previewimage' + '?filePath=' + me.attrs.filedData.redInvoiceInfo);
+				me.$('.redInvoiceInfo-img').attr('src', '/op/api/file/previewimage' + '?filePath=' + me.attrs.filedData.redInvoiceInfo);
 			}else{
 				me.$('.redInvoiceInfo-box').hide();
 				me.$('.redInvoiceInfo-link').attr('href', '');
@@ -245,8 +250,10 @@ define(function(require, exports, module){
 			if( me.attrs.filedData.invoiceCopy ){
 				me.$('.invoiceCopy-box').show();
 				
-				me.$('.invoiceCopy-link').attr('href', '/op/api/file/previewimage' + '?filePath=' + contractFilePath);
-				me.$('.invoiceCopy-img').attr('src', '/op/api/file/previewimage' + '?filePath=' + contractFilePath);
+				me.model.set('invoiceCopy', me.attrs.filedData.invoiceCopy );
+				
+				me.$('.invoiceCopy-link').attr('href', '/op/api/file/previewimage' + '?filePath=' + me.attrs.filedData.invoiceCopy);
+				me.$('.invoiceCopy-img').attr('src', '/op/api/file/previewimage' + '?filePath=' + me.attrs.filedData.invoiceCopy);
 			}else{
 				me.$('.invoiceCopy-box').hide();
 				me.$('.invoiceCopy-link').attr('href', '');
@@ -298,26 +305,26 @@ define(function(require, exports, module){
 			if( me.attrs.dataObj.invoiceType ==1 ){
 				
 				if( !me.model.get('invoiceOriginal') ){
-					util.warnInput( $('.invoiceOriginal') );
+					//util.warnInput( $('.invoiceOriginal') );
 					state = false;
 				}else{
-					util.unWarnInput( $('.minvoiceOriginal') );
+					//util.unWarnInput( $('.minvoiceOriginal') );
 				}
 				if( !me.model.get('rejectProof') ){
-					util.warnInput( $('.rejectProof') );
+					//util.warnInput( $('.rejectProof') );
 					state = false;
 				}else{
-					util.unWarnInput( $('.rejectProof') );
+					//util.unWarnInput( $('.rejectProof') );
 				}
 			}else if( me.attrs.dataObj.invoiceType ==2 && val ==1 ){
 				if( !me.model.get('redInvoiceInfo') ){
-					util.warnInput( $('.redInvoiceInfo') );
+					//util.warnInput( $('.redInvoiceInfo') );
 					state = false;
 				}else{
 					util.unWarnInput( $('.redInvoiceInfo') );
 				}
 				if( !me.model.get('invoiceCopy') ){
-					util.warnInput( $('.invoiceCopy') );
+					//util.warnInput( $('.invoiceCopy') );
 					state = false;
 				}else{
 					util.unWarnInput( $('.invoiceCopy') );
@@ -325,13 +332,13 @@ define(function(require, exports, module){
 				
 			}else if( me.attrs.dataObj.invoiceType ==2 && val ==0 ){
 				if( !me.model.get('invoiceOriginal') ){
-					util.warnInput( $('.invoiceOriginal') );
+					//util.warnInput( $('.invoiceOriginal') );
 					state = false;
 				}else{
 					util.unWarnInput( $('.minvoiceOriginal') );
 				}
 				if( !me.model.get('rejectProof') ){
-					util.warnInput( $('.rejectProof') );
+					//util.warnInput( $('.rejectProof') );
 					state = false;
 				}else{
 					util.unWarnInput( $('.rejectProof') );

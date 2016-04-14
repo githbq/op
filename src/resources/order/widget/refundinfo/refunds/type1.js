@@ -1,6 +1,7 @@
 define(function (require, exports, module) {
     //已开普票
     var common = require('./index');
+    var math= require('common/widget/math/math');
     //转换结果值
     exports.transferResultData = function (itemInfo) {
         return function () {
@@ -63,12 +64,12 @@ define(function (require, exports, module) {
                                 var $dom = $(e.target);
                                 var refundAmount = 0;
                                 setTimeout(function () {
-                                    if ($dom.val() && parseFloat($dom.val()) > me.o_getFieldData('amount_' + subRefund.productId).value) {
-                                        $dom.val(me.o_getFieldData('amount_' + subRefund.productId).value)
-                                    }
+                                    //if ($dom.val() && parseFloat($dom.val()) > me.o_getFieldData('amount_' + subRefund.productId).value) {
+                                    //    $dom.val(me.o_getFieldData('amount_' + subRefund.productId).value)
+                                    //}
                                     me.o_eachFields(function ($ele, data) {
                                         if (data.name.indexOf('refundAmount_') == 0 && $ele.val()) {
-                                            refundAmount += parseFloat($ele.val());
+                                            refundAmount=math.numAdd(refundAmount,$ele.val());
                                         }
                                     });
                                     me.o_setValue({name: 'refundAmount', value: refundAmount});

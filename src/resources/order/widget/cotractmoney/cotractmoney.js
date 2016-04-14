@@ -54,9 +54,9 @@ define(function(require, exports, module){
 			me.attrs['wrapper'].html( me.$view );
 			//获取合同等展示信息
 			$.when( me.getOrderDetail()).done(function(){
-				
-				me.showSubers();
 				me.showData();
+				me.showSubers();
+				
 			});
 			
 		},
@@ -97,7 +97,7 @@ define(function(require, exports, module){
 						serviceDom+=" <tr> <td>"+productIdDic[tempId]+"合同金额：</td><td class='money-box'>"+sublist[i].contractAmount+"</td>" +
 						" <td>非退款项</td><td></td></tr>"
 						break;
-					case 10: case 11:
+					case 10: case 11: case 2:
 						break;
 					default:
 						strDom+=" <tr> <td>"+productIdDic[tempId]+"合同金额：</td><td class='money-box'>"+sublist[i].contractAmount+"</td>" +
@@ -105,13 +105,15 @@ define(function(require, exports, module){
 						usedAmound+=parseInt(sublist[i].usedAmount);
 						var backAmount = {};
 						var tempMoney  = parseInt(sublist[i].contractAmount) - parseInt(sublist[i].usedAmount);
-						backAmount.subRefund = {'productId':sublist[i].productId,'amount':tempMoney,'refundAmount':0};
-						tempSublist.push( backAmount );
+						if( tempMoney>0 ){
+							backAmount = {'productId':sublist[i].productId,'amount':tempMoney,'refundAmount':0};
+							tempSublist.push( backAmount );
+						}
+						
 				}
 			}
 			//组合传给退款的数据
 			me.attrs.refundVO.subRefunds = tempSublist;
-			me.attrs.refundVO.refund = null;
 			strDom = serviceDom + strDom;
 			me.attrs.dataObj.usedAmount = usedAmound;
 			me.$('.sub-tab tbody').html(strDom);
