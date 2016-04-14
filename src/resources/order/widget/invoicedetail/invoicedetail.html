@@ -13,24 +13,29 @@
 		<p>
 			<span class="title">已开发票金额(元):</span> <span ce-model="invoiceAuditedAmount"></span>
 		</p>
+		<!--
 		<p>
 			<span class="title">已开发票审核中金额(元):</span> <span ce-model="invoiceAuditAmount"></span>
 		</p>
+		-->
 		<p>
 			<span class="title">未开发票金额(元):</span> <span ce-model="invoiceNoChargeAmount"></span>
 		</p>
 		<p>
-			<span class="title">已到款金额:</span> <span ce-model="auditedAmount"></span>
+			<span class="title">当前付费状态:</span> <span ce-model="payStatusStr"></span>
 		</p>
+		<p>
+			<span class="title">到款金额(财务确认到款):</span> <span ce-model="auditedAmount"></span>
+		</p>
+		<!--
 		<p>
 			<span class="title">财务审核中金额:</span> <span ce-model="auditAmount"></span>
 		</p>
+		-->
 		<p>
 			<span class="title">未收金额:</span> <span ce-model="noChargeAmount"></span>
 		</p>
-		<p>
-			<span class="title">当前付费状态:</span> <span ce-model="payStatusStr"></span>
-		</p>
+		
 	</section>
 	
 	<h4>发票申请信息</h4>
@@ -39,7 +44,7 @@
 		<p class="label">
 			<span class="title">发票性质 <b class="nsr">*</b></span>
 			<label> <input type="radio" name="invoice" checked="checked" value="1">到款发票</label>
-			<label> <input type="radio" name="invoice" value="2">预开发发票</label>
+			<label> <input type="radio" name="invoice" value="2">预开发票</label>
 		</p>
 		<p class="label">
 			<span class="title">发票类型 <b class="nsr">*</b></span>
@@ -102,14 +107,6 @@
 				<input type="text" ce-model="taxpayerIdentificationNo" name="nsrsbh" maxlength="30">
 			</p>
 			<p>
-				<span class="title">地址<b class="nsr">*</b></span> 
-				<input type="text" ce-model="receiverAddress" name="dz"> 
-			</p>
-			<p>
-				<span class="title">电话<b class="nsr">*</b></span> 
-				<input type="text" ce-model="receiverPhone" name="dh">
-			</p>
-			<p>
 				<span class="title">开户行<b class="nsr">*</b></span> <input type="text" ce-model="bankName" name="khh">
 			</p>
 			<p>
@@ -141,7 +138,7 @@
 			</p>
 			<p>
 				<span class="title">发票金额 <b class="nsr">*</b> </span>
-				<input type="text" ce-model="amount">
+				<input type="text" ce-model="amount" oninput="this.value=this.value.replace(/[^\.\d]/g,'')" maxlength="9">
 			</p>
 			<p>
 				<span class="title">审批连接 <b class="nsr">*</b></span>
@@ -169,7 +166,7 @@
 		<section class="typed">
 			<p>
 				<span class="title">发票金额<b class="nsr">*</b></span>
-				<input type="text" ce-model="amount">
+				<input type="text" ce-model="amount" oninput="this.value=this.value.replace(/[^\.\d]/g,'')" maxlength="9">
 			</p>
 			<p>
 				<span class="title">发票抬头<b class="nsr">*</b></span>
@@ -178,14 +175,6 @@
 			<p>
 				<span class="title">纳税人识别号<b class="nsr">*</b></span>
 				<input type="text" ce-model="taxpayerIdentificationNo">
-			</p>
-			<p>
-				<span class="title">地址 <b class="nsr">*</b></span>
-				<input type="text" ce-model="receiverAddress">
-			</p>
-			<p>
-				<span class="title">电话 <b class="nsr">*</b></span>
-				<input type="text" ce-model="receiverPhone">
 			</p>
 			<p>
 				<span class="title">开户行 <b class="nsr">*</b></span>

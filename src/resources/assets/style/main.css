@@ -6538,7 +6538,7 @@ em {
 }
 .m-invoicedetail span.title {
   display: inline-block;
-  width: 145px;
+  width: 160px;
 }
 .m-invoicedetail b.nsr {
   color: red;
@@ -6559,80 +6559,32 @@ em {
 .m-invoicedetail .typed {
   display: none;
 }
-.invoiceapply .list-header {
-  text-align: center;
+.m-invoicedetail .detail-action {
+  text-align: right;
+  padding: 10px 0;
 }
-.invoiceapply .list-header .title {
+.m-invoiceapplyagent .list-header .title {
+  display: inline-block;
   float: left;
 }
-.invoiceapply .list-header .hide {
-  display: none;
-}
-.invoiceapply .list-header .toggle {
+.m-invoiceapplyagent .list-header .toggle {
   display: block;
-  width: 200px;
-  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
-.invoiceapply .list-header .toggle b {
+.m-invoiceapplyagent .list-header .toggle b {
   position: relative;
   display: inline-block;
+  border: 1px solid #ccc;
   height: 30px;
   line-height: 30px;
-  padding: 0 10px;
-  border: 1px #ccc solid;
+  padding: 0 6px;
   cursor: pointer;
   background: #fefefe;
 }
-.invoiceapply .list-header .toggle b:first-child {
-  border-right: none;
-}
-.invoiceapply .list-header .toggle b.active {
+.m-invoiceapplyagent .list-header .toggle b.active {
   background: #eee;
-}
-.invoiceapply .list-header .toggle b .wait-approve {
-  position: absolute;
-  top: -21px;
-  left: -19px;
-  border-radius: 50%;
-  width: 51px;
-  height: 29px;
-  background: #FEFFEC;
-  z-index: 99;
-}
-.invoiceapply .list-header .toggle b .refuse-approve {
-  position: absolute;
-  top: -21px;
-  left: -10px;
-  border-radius: 50%;
-  width: 51px;
-  height: 29px;
-  background: #FEFFEC;
-  z-index: 99;
-  display: none;
-  color: #ff0000;
-}
-.invoiceapply .list-header .toggle b .end-approve {
-  position: absolute;
-  top: -21px;
-  left: -10px;
-  border-radius: 50%;
-  width: 51px;
-  height: 29px;
-  background: #FEFFEC;
-  z-index: 99;
-  display: none;
-}
-.invoiceapply .list-header span.toggle-btn {
-  display: block;
-  width: 600px;
-  margin: 0 auto;
-}
-.p-act-lst .m-act-lst .list-bar div.active-list {
-  margin-right: 20px;
-}
-.p-act-lst .m-act-lst .list-bar div.active-list .fn-list {
-  text-align: right;
-  padding: 30px 10px;
 }
 .refundinfo {
   width: 1300px;

@@ -97,21 +97,31 @@ define(function(require, exports, module){
 						serviceDom+=" <tr> <td>"+productIdDic[tempId]+"合同金额：</td><td class='money-box'>"+sublist[i].contractAmount+"</td>" +
 						" <td>非退款项</td><td></td></tr>"
 						break;
+					case 10: case 11:
+						break;
 					default:
 						strDom+=" <tr> <td>"+productIdDic[tempId]+"合同金额：</td><td class='money-box'>"+sublist[i].contractAmount+"</td>" +
 						" <td>已使用金额：</td><td class='money-box'>"+sublist[i].usedAmount+"</td></tr>"
 						usedAmound+=parseInt(sublist[i].usedAmount);
 						var backAmount = {};
 						var tempMoney  = parseInt(sublist[i].contractAmount) - parseInt(sublist[i].usedAmount);
-						backAmount.subRefund = {'productId':sublist[i].productId,'amount':tempMoney};
+						backAmount.subRefund = {'productId':sublist[i].productId,'amount':tempMoney,'refundAmount':0};
 						tempSublist.push( backAmount );
 				}
 			}
 			//组合传给退款的数据
 			me.attrs.refundVO.subRefunds = tempSublist;
+			me.attrs.refundVO.refund = null;
 			strDom = serviceDom + strDom;
 			me.attrs.dataObj.usedAmount = usedAmound;
 			me.$('.sub-tab tbody').html(strDom);
+			
+			me.trigger('successData');
+			
+		},
+		getVauel:function(){
+			var me = this;
+			return me.attrs.refundVO;
 		},
 		//展示订单内容
 		showData:function(){
