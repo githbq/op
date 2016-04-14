@@ -24,7 +24,8 @@ define(function (require, exports, module) {
             me.refresh();
         },
         events:{
-            'click .toggle b': 'switchEve'
+            'click .toggle b': 'switchEve',
+            'click .btn-search': 'searchEve'
         },
         switchEve: function( e ){
 
