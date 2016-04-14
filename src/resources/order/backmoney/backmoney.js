@@ -264,10 +264,7 @@ define( function(require, exports, module){
 			
 		},
 
-<<<<<<< HEAD
-=======
 		//循环获取发票信息：
->>>>>>> 6e3ad8d184192a2fcb9c9984a20afc989b63f846
 		getInvioceValue:function( callback ){
 			var me = this , objData = {};
 			me.attrs.refundInvoices = [];
