@@ -1,9 +1,8 @@
-//hubq
-
+//
 define(function (require, exports, module) {
 
     var Pagination = require('common/widget/pagination/pagination');
-    var InvoiceDetail = require('../widget/invoicedetail/invoicedetail');
+    var template = require('./invoiceapplylist.html');
 
     //付费状态map
     var PayStatusMap = {
@@ -27,6 +26,8 @@ define(function (require, exports, module) {
     //代理商发票申请列表
     var InvoiceApplyAgent = MClass( M.Center ).include({
         
+        view: template,
+
         init: function(){
             InvoiceApplyAgent.__super__.init.apply( this, arguments );
             var me = this;
@@ -43,11 +44,13 @@ define(function (require, exports, module) {
 
             me.refresh();
         },
+
         events:{
             'click .toggle b': 'switchEve',
             'click .btn-search': 'searchEve',
             'click .detail': 'detailEve'
         },
+        
         switchEve: function( e ){
 
             console.log('switchEve');
@@ -133,17 +136,8 @@ define(function (require, exports, module) {
             });
         }
     });
-
-    exports.init = function ( param ) {
-        var $el = exports.$el;
-
-        var invoiceApplyAgent = new InvoiceApplyAgent( {'view':$el.find('.m-invoiceapplyagent')} );
-
-        //发票模块
-        var invoiceDetail = new InvoiceDetail();
-
-        invoiceApplyAgent.on('detail',function( orderId, inid , approvalStatus ){
-            invoiceDetail.show( orderId, inid, approvalStatus );
-        })
-    }
+	
+	module.exports = InvoiceApplyAgent;
 });
+
+

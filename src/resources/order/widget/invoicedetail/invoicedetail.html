@@ -121,7 +121,7 @@
 				<input type="text" ce-model="receiverPhone">
 			</p>
 			<p>
-				<span class="title">收件人地址<b class="nsr"></b></span>
+				<span class="title">收件人地址<b class="nsr">*</b></span>
 				<input type="text" ce-model="receiverAddress">
 			</p>
 			<p>
@@ -205,10 +205,22 @@
 				<textarea class="remark" ce-model="remark"></textarea>
 			</p>
 		</section>
-
 	</section>
+	
+	<!--上级审批意见-->
+	<section data-state="refuse">
+		<p>上级审批意见</p>
+		<p>
+			
+		</p>
+	</section>
+	<!-- end -->
+
 	<p class="detail-action">
-		<button type="button" class="submit u-btn-blue">提交</button>
+		<button type="button" class="submit u-btn-blue" data-state="add">提交</button>
+		
+		<button type="button" class="save u-btn-blue" data-state="widthdraw refuse">保存</button>
+
 		<button type="button" class="cancel">取消</button>
 	</p>
 </form>
