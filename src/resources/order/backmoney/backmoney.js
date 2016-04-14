@@ -319,7 +319,7 @@ define( function(require, exports, module){
 			
 		},
 		//获取全部订单数据
-		getOrderInfo:function( callback ){
+		/*getOrderInfo:function( callback ){
 
 			var me = this,objData  = { 'orderEntity':{}};
 
@@ -347,7 +347,7 @@ define( function(require, exports, module){
 			
 			$.extend(true, me.attrs.allData, objData );
 			callback && callback();
-		},
+		},*/
 		//循环获取发票信息：
 		getInvioceValue:function( callback ){
 			var me = this , objData = {};
@@ -446,30 +446,25 @@ define( function(require, exports, module){
 			console.log(me.attrs.allData)
 			
 			me.attrs.allData.orderEntity.order.id = me.attrs.options.id;
-			me.getOrderInfo(function(){
-				me.$actionSubmit.text('提交中....');
-				me.$actionSubmit.attr('disabled','disabled');
+			me.getInvioceValue( function(){ 
+				me.$('.common-add').text('提交中....');
+				me.$('.common-add').attr('disabled','disabled');
 				util.api({
-					'url':'/odr/balancePayment/update',
-					'data':JSON.stringify( me.attrs.allData ),
+					'url':'/odr/refund/save',
+					'data':JSON.stringify( me.attrs.refundVO ),
 					'contentType':'application/json;charset=UTF-8 ',
-					'button': {
-						'el': me.$actionSave,
-						'text':'提交中......'
-					},
 					'success': function( data ){
+
 						if( data.success ){
-							util.showTip('提交成功！');
-							me.trigger( 'saveSuccess');
-							me.hide();
+
+							
 						}
 					},
 					'complete': function(){
-						me.$actionSubmit.text('保存提交');
-						me.$actionSubmit.removeAttr('disabled');
+						me.$('.common-add').text('提交');
+						me.$('.common-add').removeAttr('disabled');
 					}
-				})
-				
+				});
 			});
 			
 		},
@@ -477,28 +472,25 @@ define( function(require, exports, module){
 		actionSubmitEve:function(){
 			var me = this;
 			me.attrs.allData.orderEntity.order.id = me.attrs.options.id;
-			me.getOrderInfo(function(){
-				me.$actionSave.text('提交中....');
-				me.$actionSave.attr('disabled','disabled');
+			me.getInvioceValue( function(){ 
+				me.$('.common-add').text('提交中....');
+				me.$('.common-add').attr('disabled','disabled');
 				util.api({
-					'url':'/odr/balancePayment/update',
-					'data':JSON.stringify( me.attrs.allData ),
+					'url':'/odr/refund/save',
+					'data':JSON.stringify( me.attrs.refundVO ),
 					'contentType':'application/json;charset=UTF-8 ',
-					'button': {
-						'el': me.$actionSubmit,
-						'text':'提交中......'
-					},
 					'success': function( data ){
+
 						if( data.success ){
-							changeNode();
+
+							
 						}
 					},
 					'complete': function(){
-						me.$actionSave.text('保存');
-						me.$actionSave.removeAttr('disabled');
+						me.$('.common-add').text('提交');
+						me.$('.common-add').removeAttr('disabled');
 					}
-				})
-				
+				});
 			});
 			 //移交至下一个节点
             function changeNode(){
