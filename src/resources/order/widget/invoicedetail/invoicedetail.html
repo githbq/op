@@ -141,7 +141,7 @@
 			</p>
 			<p>
 				<span class="title">发票金额 <b class="nsr">*</b> </span>
-				<input type="text" ce-model="amount">
+				<input type="text" ce-model="amount" oninput="this.value=this.value.replace(/[^\.\d]/g,'')" maxlength="9">
 			</p>
 			<p>
 				<span class="title">审批连接 <b class="nsr">*</b></span>
@@ -169,7 +169,7 @@
 		<section class="typed">
 			<p>
 				<span class="title">发票金额<b class="nsr">*</b></span>
-				<input type="text" ce-model="amount">
+				<input type="text" ce-model="amount" oninput="this.value=this.value.replace(/[^\.\d]/g,'')" maxlength="9">
 			</p>
 			<p>
 				<span class="title">发票抬头<b class="nsr">*</b></span>
