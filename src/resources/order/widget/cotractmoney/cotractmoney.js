@@ -114,6 +114,9 @@ define(function(require, exports, module){
 			}
 			//组合传给退款的数据
 			me.attrs.refundVO.subRefunds = tempSublist;
+			me.attrs.refundVO.refund= {
+				'refundAmount':0
+			};
 			strDom = serviceDom + strDom;
 			me.attrs.dataObj.usedAmount = usedAmound;
 			me.model.set('usedAmount',me.attrs.dataObj.usedAmount );

@@ -38,11 +38,13 @@ define(function(require, exports, module){
 					me.$('.hascheck').show();
 					me.model.set('redInvoiceInfo','');
 					me.model.set('invoiceCopy','');
+					me.model.set('invoiceIsCertify',1);
 				}else if(val == 0){
 					me.$('.hascheck').hide()
 					me.$('.nocheck').show();
 					me.model.set('invoiceOriginal','');
 					me.model.set('rejectProof','')
+					me.model.set('invoiceIsCertify',0);
 				}
 			});
 			
@@ -194,13 +196,20 @@ define(function(require, exports, module){
 			
 			if(me.attrs.filedData){
 				me.setFiledData();
+				if(me.attrs.dataObj.invoiceType==2){
+					me.attrs.filedData.invoiceIsCertify ? me.model.set('invoiceIsCertify',me.attrs.filedData.invoiceIsCertify):me.$('input:radio[name="invoicetype"]').eq(0).attr("checked",true);
+				}
 			}else{
 				me.$('.hashide').hide();
+				if(me.attrs.dataObj.invoiceType==2){
+					me.$('input:radio[name="invoicetype"]').eq(0).attr("checked",true);
+				}
 			}
 			me.$('.hascheck').hide();
 			me.$('.nocheck').hide();
 			if( me.attrs.dataObj.invoiceType==1){
 				me.$('.hascheck').show();
+				
 			}else if(me.attrs.dataObj.invoiceType==2){
 				me.$('.nocheck').show();
 			}
@@ -329,8 +338,10 @@ define(function(require, exports, module){
 				}else{
 					util.unWarnInput( $('.invoiceCopy') );
 				}
+				me.model.set('invoiceIsCertify',1);
 				
 			}else if( me.attrs.dataObj.invoiceType ==2 && val ==0 ){
+				me.model.set('invoiceIsCertify',0);
 				if( !me.model.get('invoiceOriginal') ){
 					//util.warnInput( $('.invoiceOriginal') );
 					state = false;
