@@ -215,6 +215,7 @@ define(function( require , exports , module ){
 
 						if( data.success ){
 							me.model.load( data.value.model );
+
 							if( data.value.model.invoiceProp == 1 ){
 								me.$('[name="invoice"]').eq(0).trigger('click');
 							}else{
@@ -226,10 +227,14 @@ define(function( require , exports , module ){
 							}else{
 								me.$('[name="invoicetype"]').eq(1).trigger('click');
 							}
+							me.typeEve();
 						}
 					}
-				})
+				});
 			};
+
+			console.log('approvalStatus');
+			console.log( approvalStatus );
 
 			var statusMap = {
 				'0': 'add',
