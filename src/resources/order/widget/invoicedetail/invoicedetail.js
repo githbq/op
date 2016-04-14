@@ -213,28 +213,49 @@ define(function( require , exports , module ){
 					'method':'get',
 					'success': function( data ){
 
-						console.warn( data );
 						if( data.success ){
-							
+							me.model.load( data.value.model );
+							if( data.value.model.invoiceProp == 1 ){
+								me.$('[name="invoice"]').eq(0).trigger('click');
+							}else{
+								me.$('[name="invoice"]').eq(1).trigger('click');
+							}
+
+							if( data.value.model.invoiceType == 1 ){
+								me.$('[name="invoicetype"]').eq(0).trigger('click');
+							}else{
+								me.$('[name="invoicetype"]').eq(1).trigger('click');
+							}
 						}
 					}
 				})
 			};
 
-			me.setState( approvalStatus );
+			var statusMap = {
+				'0': 'add',
+				'1': 'withdraw',
+				'9': 'refuse'
+			}
+			me.setState( statusMap[approvalStatus] );
 		},
 
 		//根据显隐状态
 		setState: function( status ){
 			var me = this;
 
+			console.log('status');
+			console.log( status );
+
 			me.$('[data-state]').hide();
 			
 			me.$('[data-state]').each(function(){
 				var $el = $( this );
 				var state = $el.attr('data-state').split('/\s+/');
-
-				
+				state.forEach(function( item , index ){
+					if( item == status ){
+						$el.show();
+					}
+				});
 			});
 		},
 
