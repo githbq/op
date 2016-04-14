@@ -42,6 +42,10 @@ define(function (require, exports, module) {
                 me.refresh();
             }
 
+            if( me.attrs.wrapper ){
+                me.attrs.wrapper.html( me.$view );
+            }
+
             me.refresh();
         },
 
