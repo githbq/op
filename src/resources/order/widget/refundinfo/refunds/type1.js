@@ -53,7 +53,7 @@ define(function (require, exports, module) {
                         item.value = subRefund.amount;
                     });
                     controller(dataItems, 'refundAmount_' + subRefund.productId, function (item) {
-                        item.value = subRefund.refundAmout;
+                        item.value = subRefund.refundAmount;
                         if (responseData.readonly === true) {
                             item.readonly = true;
                         }
