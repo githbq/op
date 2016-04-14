@@ -12,6 +12,13 @@ define(function( require , exports , module ){
 	}
 	
 	//发票模块 提交编辑
+	/**
+	 *  发票详情
+     *  三种状态  
+     *  1 发票申请  
+     *  2 发票重新提交 
+	 *  3 发票查看
+	 */
 	var InvoiceDetail = MClass( Slider ).include({
 
 		content: template,
@@ -27,10 +34,11 @@ define(function( require , exports , module ){
 		},
 
 		events: {
-			'click [name="invoice"]': 'typeEve',
-			'click [name="invoicetype"]': 'typeEve',
-			'click .submit': 'submitEve',
-			'click .cancel': 'cancelEve'
+			'click [name="invoice"]': 'typeEve',               //
+			'click [name="invoicetype"]': 'typeEve',           //
+			'click .submit': 'submitEve',                      //申请提交
+			'click .save': 'saveEve',                          //重新保存
+			'click .cancel': 'cancelEve'                       //取消
 		},
 
 		//发票类型点击切换事件
@@ -62,7 +70,7 @@ define(function( require , exports , module ){
 			}
 		},
 
-		//确定
+		//申请提交
 		submitEve: function(){
 			var me = this;
 
@@ -84,9 +92,30 @@ define(function( require , exports , module ){
 			};
 		},
 
+		//重新保存
+		saveEve: function(){
+			var me = this;
+
+			var info = me.getInfo();
+			if( info ){
+				util.api({
+					'url':'',
+					'contentType': 'application/json',
+					'data': JSON.stringify(info),
+					'success': function( data ){
+						if( data.success ){
+							util.showTip('保存成功');
+							me.hide();
+						}
+					}
+				})
+			};
+		},
+
 		//取消
 		cancelEve: function(){
 			var me = this;
+			me.hide();
 		},
 
 		/**
@@ -140,13 +169,16 @@ define(function( require , exports , module ){
 			});
 		},
 
-		//显示
-		//
-		// @param id 			订单id 
-		// @param invoiceId     发票id    
-		// @param canEdit       是否可编辑
-		//
-		show: function( id, invoiceId, canEdit ){
+		// 显示
+		// @param id 					订单id 
+		// @param invoiceId     		发票id    
+		// @param approvalStatus     
+		//  0 提交        add   
+		//  1 撤回        withdraw
+		//	2 待审核      
+		//  3 审批通过    
+		//  9 被驳回      refuse 
+		show: function( id, invoiceId, approvalStatus ){
 			InvoiceDetail.__super__.show.apply( this, arguments );
 
 			console.log('id');
@@ -177,22 +209,33 @@ define(function( require , exports , module ){
 			if( invoiceId ){
 				
 				util.api({
-					'url':'/odr/invoice',
-					'data':{
-						'id': invoiceId
-					},
+					'url':'/odr/invoice/'+invoiceId,
+					'method':'get',
 					'success': function( data ){
+
+						console.warn( data );
 						if( data.success ){
 							
 						}
 					}
 				})
-			}
+			};
 
-			//是否可编辑
-			if( canEdit ){
+			me.setState( approvalStatus );
+		},
+
+		//根据显隐状态
+		setState: function( status ){
+			var me = this;
+
+			me.$('[data-state]').hide();
+			
+			me.$('[data-state]').each(function(){
+				var $el = $( this );
+				var state = $el.attr('data-state').split('/\s+/');
+
 				
-			}
+			});
 		},
 
 		//隐藏
