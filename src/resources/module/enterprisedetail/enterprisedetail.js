@@ -2312,6 +2312,10 @@ define( function(require, exports, module){
 			var me = this;
 
 			console.log('changeStatistics');
+			if( parseInt(me.model.get('groupNumLimit')) > 1000 ){
+				util.showToast( '群人数上限最多为1000' );
+				return false;
+			}
 
 			var data = {
 				'accountAmount': me.$sdXKDC.val(),  						//逍客终端总量

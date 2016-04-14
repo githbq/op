@@ -163,6 +163,7 @@ define( function(require, exports, module){
 
 							me.attrs.orderInfoValue = data.value;
 							me.attrs.refundVO = data.value.model ?  data.value.model:{'refund':{},'subRefunds':[]};
+							me.setOptions();
 						}
 					}
 			});
@@ -238,20 +239,12 @@ define( function(require, exports, module){
 			me.$('.order-id').html( me.attrs.options.id );
 		
 			
-			//设置到款时间 receivedPayDate
-			var receivedPayDate = (me.attrs.orderData && me.attrs.orderData.order && me.attrs.orderData.order.receivedPayDate) ? new Date( me.attrs.orderData.order.receivedPayDate  )._format("yyyy-MM-dd"):'';
-			if(receivedPayDate){
-				me.$('.receivedPayDate').show();
-				me.$('.receivedPayDate-text').text(receivedPayDate);
-				me.$('.currentTask-finance').hide();
-			}
-
 		},
 		//设置审批意见
 		setOptions:function(){
 			var me = this,strDom = '';
 			
-			var optionsList = me.attrs.orderData.order.rejectReason ? me.attrs.orderData.order.rejectReason.split('<+>'): [];
+			var optionsList = me.attrs.refundVO.refund.approvalInfo ? me.attrs.refundVO.refund.approvalInfo.split('<+>'): [];
 			for(var i = 0; i<optionsList.length; i++){
 				var tempAry = optionsList[i].split('<->');
 				tempAry[2] = (tempAry[2]=='true') ? '同意':'驳回';
@@ -262,6 +255,14 @@ define( function(require, exports, module){
 			var opinion = strDom ? strDom :'<tr><td colspan="4" style="text-align: center;">暂无</td></tr>';
 			me.$('.last-options').html( opinion );
 			
+			//设置到款时间 receivedPayDate
+			var receivedPayDate = (me.attrs.refundVO && me.attrs.refundVO.refund && me.attrs.refundVO.refund.refundTime ) ? new Date( me.attrs.refundVO.refund.refundTime  )._format("yyyy-MM-dd"):'';
+			if(receivedPayDate){
+				me.$('.receivedPayDate').show();
+				me.$('.receivedPayDate-text').text(receivedPayDate);
+				me.$('.currentTask-finance').hide();
+			}
+
 		},
 
 		//循环获取发票信息：
@@ -470,7 +471,7 @@ define( function(require, exports, module){
 			
 			var bool = confirm("确认同意此条审批吗?");
 			if( bool ){
-				 if( me.attrs.options.currentTask == 'finance' && !me.attrs.orderData.order.receivedPayDate){
+				 if( me.attrs.options.currentTask == 'finance' ){
 				   me.setMoneyTime(function(){
 						me.replyOptions();
 				   });
@@ -519,14 +520,14 @@ define( function(require, exports, module){
 		setMoneyTime:function( callback ){
 			var me = this;
 			if(!me.$moneyTime.val() ){
-				util.showToast('请填写到账时间！');
+				util.showToast('请填写退款时间！');
 				return false;
 			}
 			util.api({
-				'url': '/odr/setreceivedpaydate',
+				'url': '/refund/setrefundtiem',
 				'data':{
-					'orderId': me.attrs.options.id,   //流程实例ID
-					'receivedPayDate':new Date( me.$moneyTime.val()  ).getTime()          //审批结果(通过/拒绝)
+					'refundId': me.attrs.refundVO.refund.id,   //退款id
+					'refundTime':new Date( me.$moneyTime.val()  ).getTime()          //退款时间
 				},
 				success: function( data ){
 					console.warn( data );
