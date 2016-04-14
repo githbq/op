@@ -1,6 +1,6 @@
 define(function (require, exports, module) {
 
-    var productInfo = require('./productinfo/productinfo');
+    var refundinfo = require('./refundinfo/refundinfo');
 
     exports.init = function () {
         var me = this;
@@ -8,22 +8,16 @@ define(function (require, exports, module) {
         var result = null;
         $('.test').click(function () {
             var type = $('#inputtype').val();
-            if (type && parseInt(type))
-                result = productInfo.showProductInfo({
-                    terminalInfo: {$view: $el.find('.panel1')},
-                    tableInfo: {$view: $el.find('.panel2')},
-                    formInfo: {$view: $el.find('.panel3')}
-                }, parseInt(type));
+            if (type && parseInt(type)) {
+                debugger
+                result = refundinfo.show( {$view: $el.find('.panel1')},{});
+            }
         });
         $('#changeType').change(function () {
             if (!$(this).val()) {
                 return;
             }
-            result = productInfo.showProductInfo({
-                terminalInfo: {$view: $el.find('.panel1')},
-                tableInfo: {$view: $el.find('.panel2')},
-                formInfo: {$view: $el.find('.panel3')}
-            }, parseInt($(this).val()));
+            result = refundinfo.show(parseInt(type), {$view: $el.find('.panel1')});
 
         });
         $('.test2').click(function () {
@@ -42,10 +36,6 @@ define(function (require, exports, module) {
         //result.data
     }
 });
-
-
-
-
 
 
 //

@@ -80,7 +80,7 @@ define( function( require, exports, module ) {
             this.pagination.setPage( 0,false );
             this.getList();
         },
-       //查看详情
+        //查看详情
        orderDetailEve:function( e ){
            var me = this;
 
@@ -128,8 +128,8 @@ define( function( require, exports, module ) {
            var ea = $(e.currentTarget).attr('data-ea');
 		   var contractNo = $(e.currentTarget).attr('data-contractNo');
 		   
-           me.trigger('orderBackmoney',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':false,'orderType':orderType,
-               'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea,'processInstanceId':'','contractNo':contractNo} );
+           me.trigger('orderBackmoney',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':true,'orderType':orderType,
+               'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea,'processInstanceId':'','contractNo':contractNo,'newFirst':'newFirst'} );
 		   
 	   },
 	   //发票
@@ -312,12 +312,12 @@ define( function( require, exports, module ) {
 		 orderList.on('orderDetailPayment', function( options ){
             detailPayment = new DetailPayment();
             detailPayment.show( options );
-        })
+        });
 		
 		orderList.on('orderCustom', function( options ){
             customHelper = new CustomHelper();
             customHelper.show( options );
-        })
+        });
 		
 		orderList.on('orderBackmoney', function( options ){
             backMoney = new BackMoney();

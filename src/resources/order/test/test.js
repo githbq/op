@@ -4,11 +4,18 @@ define(function( require , exports , module ){
 	var InvoiceDetail = require('../widget/invoicedetail/invoicedetail');
 	var InvoiceInfo = require('../widget/invoicedetail/invoiceinfo');
 
+
+
 	exports.init = function(){
 
 		var $el = exports.$el;
 
+		var invoicedetail = new InvoiceDetail();
+		var invoiceinfo = new InvoiceInfo();
 		
+		$el.find('#getinfo').on('click',function(){
+			invoicedetail.show();
+		})
 		/*
 		var invoice = new Invoice( {'wrapper':$el.find('.invoicewrapper')} );
 
@@ -17,11 +24,6 @@ define(function( require , exports , module ){
 			console.log( invoice.getInfo() );
 		});
 		*/
-
-		var invoicedetail = new InvoiceDetail();
-		var invoiceinfo = new InvoiceInfo();
-
-		invoicedetail.show();
 		//invoiceinfo.show();
 	}
 })
