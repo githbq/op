@@ -94,63 +94,6 @@ define( function(require, exports, module){
 			$.when(  me.setOrderList(), me.getOrderBackMoneyInfo()).done(function(){
 				
 				me.setOrderInfo();
-				/*me.attrs.invoiceData =[
-				{
-						"id": "发票ID",
-		  "orderId": "订单号ID",
-		  "invoiceProp": "发票属性：1款到开票,2预开发票",
-		  "invoiceType": "发票类型 1：普通增值税发票 2：增值税专用发票",
-		  "amount": "合同金额",
-		  "invoiceHead": "发票抬头",
-		  "businessLicenseFileName": "税务登记正本/副本或三证合一的营业执照 文件名",
-		  "businessLicense": "税务登记正本/副本或三证合一的营业执照 照片",
-		  "taxpayerQualificationFileName": "一般纳税人资质证书(或认定通知) 文件名",
-		  "taxpayerQualification": "一般纳税人资质证书(或认定通知) 照片路径",
-		  "taxpayerIdentificationNo": "纳税人识别号",
-		  "receiverName": "收件人姓名",
-		  "receiverAddress": "收件人地址",
-		  "receiverPhone": "收件人电话",
-		  "bankName": "开户行",
-		  "bankAccount": "银行账号",
-		  "approvalUrl": "审批链接",
-		  "remark": "备注",
-		  "approvalStatus": "审批状态：0待审核 1审批通过 9被驳回",
-		  "invoiceStatus": "开票状态：0未开 1已开",
-		  "invoiceNo": "发票号",
-		  "invoiceCompany": "开票公司",
-		  "invoiceDate": "开票日期",
-		  "expressStatus": "快递状态：0未寄 1已寄",
-		  "expressName": "快递公司",
-		  "expressNo": "快递单号"
-				},{
-						"id": "发票ID",
-		  "orderId": "订单号ID",
-		  "invoiceProp": "发票属性：1款到开票,2预开发票",
-		  "invoiceType": "发票类型 1：普通增值税发票 2：增值税专用发票",
-		  "amount": "合同金额",
-		  "invoiceHead": "发票抬头",
-		  "businessLicenseFileName": "税务登记正本/副本或三证合一的营业执照 文件名",
-		  "businessLicense": "税务登记正本/副本或三证合一的营业执照 照片",
-		  "taxpayerQualificationFileName": "一般纳税人资质证书(或认定通知) 文件名",
-		  "taxpayerQualification": "一般纳税人资质证书(或认定通知) 照片路径",
-		  "taxpayerIdentificationNo": "纳税人识别号",
-		  "receiverName": "收件人姓名",
-		  "receiverAddress": "收件人地址",
-		  "receiverPhone": "收件人电话",
-		  "bankName": "开户行",
-		  "bankAccount": "银行账号",
-		  "approvalUrl": "审批链接",
-		  "remark": "备注",
-		  "approvalStatus": "审批状态：0待审核 1审批通过 9被驳回",
-		  "invoiceStatus": "开票状态：0未开 1已开",
-		  "invoiceNo": "发票号",
-		  "invoiceCompany": "开票公司",
-		  "invoiceDate": "开票日期",
-		  "expressStatus": "快递状态：0未寄 1已寄",
-		  "expressName": "快递公司",
-		  "expressNo": "快递单号"
-				}
-				];*/
 				
 				me.getInvoiceList( function(){
 					
@@ -320,36 +263,7 @@ define( function(require, exports, module){
 			me.$('.last-options').html( opinion );
 			
 		},
-		//获取全部订单数据
-		/*getOrderInfo:function( callback ){
 
-			var me = this,objData  = { 'orderEntity':{}};
-
-			//获取普通订单信息
-			
-			//尾款订单数据
-			if( me.attrs.getMoneyCommon.getValue() ){
-				var tem = me.attrs.getMoneyCommon.getValue() ;
-				objData.orderEntity.order = tem.order;
-				objData.orderEntity.subOrders = tem.subOrders;
-				objData.orderEntity.order.contractNo = me.attrs.options.contractNo;
-				objData.orderEntity.order.oriOrderId = me.attrs.orderData.order.oriOrderId;
-			}else{
-				return ;
-			}
-
-			//发票信息校验和取值
-			if( me.attrs.invoiceCommon.getInfo() ){
-				var temp  = me.attrs.invoiceCommon.getInfo();
-				temp.invoice ? objData.orderEntity.invoice =temp.invoice : objData.orderEntity.invoice = null;
-				$.extend(true, objData.orderEntity.order, temp.order );
-			}else{
-				return ;
-			}
-			
-			$.extend(true, me.attrs.allData, objData );
-			callback && callback();
-		},*/
 		//循环获取发票信息：
 		getInvioceValue:function( callback ){
 			var me = this , objData = {};
@@ -399,28 +313,6 @@ define( function(require, exports, module){
 		//提交
 		commonAddEve:function(){
 			var me = this;
-			/*var data = {
-				"refund":{
-					'orderId':me.attrs.options.id,
-					'amount':200,
-					'refundAmount':200,
-					'accountId':2133,
-					'enterpriseId':120,
-					'refundReason':1,
-					'refundTime':1460563200000,
-					'approvedUrl':'dfdsfdsf',
-					'remark':'dsfdsf'
-					},
-				"subRefunds": [
-						{
-							"productId":1,//产品ID
-							"amount": 60.00,//应退总金额
-							"refundAmount": 2,//申请退款金额
-						  },
-						 
-					],
-				"refundInvoices":[]
-			}*/
 			
 			me.getInvioceValue( function(){ 
 				

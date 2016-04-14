@@ -17,7 +17,7 @@
     			</label>
 				<label for="">
 					<span>企业账号</span>
-					<input type="text" ce-model="enterpriseAccount">
+					<input type="text" ce-model="enterpriseAccount" onchange="this.value=this.value.toLowerCase( )"> 
 				</label>
 				<label for="">
 					<span>企业名称</span>
@@ -33,7 +33,7 @@
 				</label>
 				<label for="">
 					<span>优惠码</span>
-					<input type="text" ce-model="vendorId">
+					<input type="text" ce-model="vendorId" maxlength=8>
 				</label>
 				<label for="">
 					<span>注册时间</span>

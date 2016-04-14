@@ -17,7 +17,7 @@
                     </label>
                     <label>
                         <span>企业帐号</span>
-                        <input id="eiAccount" class="g-ipt ipt-m" type="text" ce-model="ea"/>
+                        <input id="eiAccount" class="g-ipt ipt-m" type="text" ce-model="ea" onchange="this.value=this.value.replace(/(^\s*)|(\s*$)/g,'').toLowerCase( )"/>
                     </label>
                     <label>
                         <span>开通时间</span>
@@ -77,7 +77,7 @@
                     </label>
                     <label>
                         <span>优惠码</span>
-                        <input type="text" oninput="this.value=this.value.replace(/[^\.\d]/g,'')" ce-model="vendorId">
+                        <input type="text" oninput="this.value=this.value.replace(/[^\.\d]/g,'')" ce-model="vendorId" maxlength=8>
                     </label>
                     <label>
                         <span>是否赠送办公版</span>

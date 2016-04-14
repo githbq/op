@@ -17,7 +17,7 @@
 				<div class="list-bar-input active-list">
 					
 					<label><span>企业账号</span>
-						<input  ce-model="account" type="text" class="g-ipt ipt-m account" onchange="this.value=this.value.replace(/(^\s*)|(\s*$)/g,'')"/>
+						<input  ce-model="account" type="text" class="g-ipt ipt-m account" onchange="this.value=this.value.replace(/(^\s*)|(\s*$)/g,'').toLowerCase( )"/>
 					</label>
 					<label><span>销售人员</span>
 						<input ce-model="name" type="text" class="g-ipt ipt-m sellName" onchange="this.value=this.value.replace(/(^\s*)|(\s*$)/g,'')"/>
