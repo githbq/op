@@ -118,7 +118,7 @@ define(function(require, exports, module){
 				'refundAmount':0
 			};
 			strDom = serviceDom + strDom;
-			me.attrs.dataObj.usedAmount = usedAmound;
+			me.attrs.dataObj.usedAmount = usedAmound.toFixed(2);
 			me.model.set('usedAmount',me.attrs.dataObj.usedAmount );
 			me.$('.sub-tab tbody').html(strDom);
 			
