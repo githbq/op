@@ -102,9 +102,9 @@ define(function(require, exports, module){
 					default:
 						strDom+=" <tr> <td>"+productIdDic[tempId]+"合同金额：</td><td class='money-box'>"+sublist[i].contractAmount+"</td>" +
 						" <td>已使用金额：</td><td class='money-box'>"+sublist[i].usedAmount+"</td></tr>"
-						usedAmound+=parseInt(sublist[i].usedAmount);
+						usedAmound+=parseFloat(sublist[i].usedAmount);
 						var backAmount = {};
-						var tempMoney  = parseInt(sublist[i].contractAmount) - parseInt(sublist[i].usedAmount);
+						var tempMoney  = parseFloat(sublist[i].contractAmount) - parseFloat(sublist[i].usedAmount);
 						if( tempMoney>0 ){
 							backAmount = {'productId':sublist[i].productId,'amount':tempMoney,'refundAmount':0};
 							tempSublist.push( backAmount );
