@@ -5,12 +5,16 @@ define(function (require, exports, module) {
         var dataItems = [];
         var productIdDic = {
             '1': 'CRM',
-            '2': '销客终端',
+            '2': '逍客终端',
             '3': '服务',
             '4': 'PK_Helper',
             '5': 'Meeting_Helper',
             '6': 'HR_Helper',
-            '7': 'Salary_Helper'
+            '7': 'Salary_Helper',
+            '8': '名片',
+            '10': '百川',
+            '11': '报数',
+            '12': '自定义助手'
 
         };
         //订单类型
