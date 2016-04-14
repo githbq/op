@@ -197,7 +197,11 @@ define(function(require, exports, module){
 			if(me.attrs.filedData){
 				me.setFiledData();
 				if(me.attrs.dataObj.invoiceType==2){
-					me.attrs.filedData.invoiceIsCertify ? me.model.set('invoiceIsCertify',me.attrs.filedData.invoiceIsCertify):me.$('input:radio[name="invoicetype"]').eq(0).attr("checked",true);
+					if(me.attrs.filedData.invoiceIsCertify==0){
+						me.$('input:radio[name="invoicetype"]').eq(1).attr("checked",true);
+					}else{
+						me.$('input:radio[name="invoicetype"]').eq(0).attr("checked",true);
+					}
 				}
 			}else{
 				me.$('.hashide').hide();
