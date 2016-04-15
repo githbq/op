@@ -8,7 +8,6 @@ define(function (require, exports, module) {
      *@ Slider基类
      *
      */
-
     var Slider = MClass(M.Center).include({
 
         view: sliderTpl,
