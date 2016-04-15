@@ -53,9 +53,11 @@
 					
 					<a class="order-backmoney"  data-id="<%=item.order.id%>"  data-enterpriseId="<%=item.order.enterpriseId%>"
 					   data-orderType="<%=item.order.orderType%>" data-opinion="<%=item.order.rejectReason ?item.order.rejectReason :'' %>"
-					   data-isTp="<%=item.order.isTp%>"  data-ea="<%=item.order.enterpriseAccount%>" data-contractNo="<%=item.order.contractNo%>">退款</a>&nbsp;&nbsp;
+					   data-isTp="<%=item.order.isTp%>"  data-ea="<%=item.order.enterpriseAccount%>" data-contractNo="<%=item.order.contractNo%>" data-newFirst="newFirst">退款</a>&nbsp;&nbsp;
 				<%}else{%>
-					<a  style="color:#ccc;" >退款</a>&nbsp;&nbsp;
+					<a class="order-backmoney"  data-id="<%=item.order.id%>"  data-enterpriseId="<%=item.order.enterpriseId%>"
+					   data-orderType="<%=item.order.orderType%>" data-opinion="<%=item.order.rejectReason ?item.order.rejectReason :'' %>"
+					   data-isTp="<%=item.order.isTp%>"  data-ea="<%=item.order.enterpriseAccount%>" data-contractNo="<%=item.order.contractNo%>" data-newFirst="refund">退款</a>&nbsp;&nbsp;
 				<%}%>
 				<%if(item.canInvoice == 1||item.canInvoice == "1"){%>
 					
