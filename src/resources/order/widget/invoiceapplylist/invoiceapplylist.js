@@ -24,7 +24,7 @@ define(function (require, exports, module) {
     }
 
     //代理商发票申请列表
-    var InvoiceApplyAgent = MClass( M.Center ).include({
+    var InvoiceApplyList = MClass( M.Center ).include({
         
         view: template,
 
@@ -169,7 +169,7 @@ define(function (require, exports, module) {
         }
     });
 	
-	module.exports = InvoiceApplyAgent;
+	module.exports = InvoiceApplyList;
 });
 
 
