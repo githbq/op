@@ -19,7 +19,7 @@ define(function (require, exports, module) {
 
     //发票性质
     var InvoicePropMap = {
-        '1':'到款发票',
+        '1':'到款开票',
         '2':'预开发票'
     }
 

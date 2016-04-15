@@ -80,6 +80,10 @@ define(function( require , exports , module ){
 					'url':'/odr/invoice/save',
 					'contentType':'application/json',
 					'data': JSON.stringify(info),
+					'button':{
+                    	'text': '提交中',
+                    	'el': me.$('.submit')
+                	},
 					'success': function( data ){
 						if( data.success ){
 							console.log('发票保存成功');
@@ -105,6 +109,10 @@ define(function( require , exports , module ){
 					'url':'/odr/invoice/update',
 					'contentType': 'application/json',
 					'data': JSON.stringify(info),
+					'button':{
+						'text': '保存中',
+						'el': me.$('.save')
+					},
 					'success': function( data ){
 						if( data.success ){
 							util.showTip('保存成功');
