@@ -6744,6 +6744,10 @@ em {
   text-align: right;
   padding: 10px 0;
 }
+.m-invoiceapplydetail textarea {
+  width: 300px;
+  height: 50px;
+}
 .m-invoiceapplydetail img {
   width: 300px;
 }

@@ -2,9 +2,7 @@
  * Created by hubq on 2016/4/7.
  */
 define(function (require, exports, module) {
-    //"invoiceType": "发票类型 1：普通增值税发票 2：增值税专用发票",
-    //"invoiceProp": "发票属性：1款到开票,2预开发票"
-    //"invoiceType": "发票类型 1：普通增值税发票 2：增值税专用发票"
+
     var apiPool = {};
     //审批接口
     apiPool.directApprove = function (id, approved, comment, success) {
@@ -45,13 +43,14 @@ define(function (require, exports, module) {
             events: [{
                 key: 'click', value: function (e) {
                     var me = this;
-                    me.o_getFieldData('apiPool').updateInvoice({
+                    var data={
                         id: me.o_getFieldValue('invoiceId'),
-                        invoiceStatus: me.o_getFieldValue('invoiceStatus'),
-                        invoiceDate: me.o_getFieldValue('invoiceDate'),
-                        invoiceCompany: me.o_getFieldValue('invoiceCompany'),
-                        invoiceNo: me.o_getFieldValue('invoiceNo')
-                    }, function (result) {
+                        invoiceStatus: me.o_getFieldValue('invoiceStatus-input'),
+                        invoiceDate: me.o_getFieldValue('invoiceDate-input'),
+                        invoiceCompany: me.o_getFieldValue('invoiceCompany-input'),
+                        invoiceNo: me.o_getFieldValue('invoiceNo-input')
+                    };
+                    me.o_getFieldValue('apiPool').updateInvoice(data, function (result) {
                         if (result.success) {
                             util.showTip('保存成功');
                             me.trigger('close',true);
@@ -85,7 +84,7 @@ define(function (require, exports, module) {
         function refuseOrAgree(approved) {
             return function (e) {
                 var me = this;
-                me.o_getFieldData('apiPool').directApprove(me.o_getFieldValue('processInstanceId'), approved, me.o_getFieldValue('comment'), function (result) {
+                me.o_getFieldValue('apiPool').directApprove(me.o_getFieldValue('processInstanceId'), approved, me.o_getFieldValue('comment-input'), function (result) {
                     if (result.success) {
                         util.showTip('操作成功');
                         me.trigger('close',true);
