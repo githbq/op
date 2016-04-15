@@ -79,7 +79,7 @@ define(function (require, exports, module) {
                             me.trigger('close', true);
                         }
                     });
-                })
+                });
                 getUpdateInvoice(e);
             }
         }
