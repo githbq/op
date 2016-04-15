@@ -29,7 +29,7 @@ define(function (require, exports, module) {
         view: template,
 
         init: function(){
-            InvoiceApplyAgent.__super__.init.apply( this, arguments );
+            InvoiceApplyList.__super__.init.apply( this, arguments );
             var me = this;
             
             me.pagination = new Pagination({
