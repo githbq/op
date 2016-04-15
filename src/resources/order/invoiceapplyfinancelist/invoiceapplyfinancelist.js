@@ -48,7 +48,7 @@ define(function (require, exports, module) {
 
         financeDetail.on('editsuccess',function(){
             invoiceApplyList.refresh();
-        })
+        });
 
     }
 });
