@@ -191,6 +191,7 @@ define(function (require, exports, module) {
                                 item.payStatusStr = PayStatusMap[item.payStatus];
                                 item.invoiceTypeStr = InvoiceTypeMap[item.invoiceType];
                                 item.invoicePropStr = InvoicePropMap[item.invoiceProp];
+                                item.applyTimeStr = new Date( item.applyTime )._format('yyyy/MM/dd');
                             });
                             me.setState();
                         } else {

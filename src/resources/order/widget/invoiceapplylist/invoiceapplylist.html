@@ -120,7 +120,7 @@
                     <td><%=item.invoiceTypeStr%></td>
                     <td><%=item.invoicePropStr%></td>
                     <td><!--收款账户--></td>
-                    <td><!--发票申请日期--></td>
+                    <td><%=item.applyTimeStr%></td>
                     <td>
                         <% if( item.canCancel){ %>
                             <a class="revoke" data-insid="<%=item.processInstanceId%>" data-state="agent">撤回</a>
