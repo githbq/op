@@ -19,15 +19,19 @@ define(function (require, exports, module) {
 
     		FinanceDetail.__super__.init.apply( this, arguments );
     	},
-    	show: function(data){
+    	show: function(data,type){
     		var me = this;
+    		FinanceDetail.__super__.show.apply( this, arguments );
 
-
-    		detail.show( 1,{ $view: me.$view ,data:data },function( result ){
+    		detail.show( type,{ $view: me.$view ,data:data },function( result ){
     			result.instance.on('close',function( boo ){
     				me.hide();
     			})
     		} );
+    	},
+    	hide: function(){
+    		var me = this;
+    		FinanceDetail.__super__.hide.apply( this, arguments );
     	}
     });
 
@@ -37,8 +41,8 @@ define(function (require, exports, module) {
         var invoiceApplyList = new InvoiceApplyList( {'wrapper':$el ,'state':'finance'} );
         var financeDetail = new FinanceDetail();
 
-        invoiceApplyList.on('detail',function( orderId, inid , approvalStatus ,info ){
-            financeDetail.show(info);
+        invoiceApplyList.on('detail',function( orderId, inid , approvalStatus ,info ,type){
+            financeDetail.show(info,type);
         });
     }
 });

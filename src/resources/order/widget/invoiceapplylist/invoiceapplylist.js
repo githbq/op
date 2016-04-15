@@ -89,7 +89,29 @@ define(function (require, exports, module) {
             var info = me.list.find('invoiceId',inid);
             console.log( info );
 
-            me.trigger('detail' , info.orderId , inid , info.approvalStatus , info );
+            var type = me.$('.toggle b.active').attr('data-type');
+            var typestatus;
+
+            switch( type ){
+                
+                //待审核发票列表
+                case 'wait':
+                    typestatus = 1;
+                    break;
+                //已审核发票列表
+                case 'end':
+                    typestatus = 2;
+                    break;
+                //被驳回审核发票列表
+                case 'refuse':
+                    typestatus = 3;
+                    break;
+                default:
+                    break;
+            }
+
+
+            me.trigger('detail' , info.orderId , inid , info.approvalStatus , info , typestatus );
         },
 
         //信息撤回
