@@ -46,6 +46,7 @@ define(function (require, exports, module) {
                 me.attrs.wrapper.html( me.$view );
             }
 
+            console.log( me.attrs.state );
             me.refresh();
         },
 
@@ -88,7 +89,7 @@ define(function (require, exports, module) {
             var info = me.list.find('invoiceId',inid);
             console.log( info );
 
-            me.trigger('detail' , info.orderId , inid , info.approvalStatus );
+            me.trigger('detail' , info.orderId , inid , info.approvalStatus , info );
         },
 
         //信息撤回
@@ -169,6 +170,7 @@ define(function (require, exports, module) {
                                 item.invoiceTypeStr = InvoiceTypeMap[item.invoiceType];
                                 item.invoicePropStr = InvoicePropMap[item.invoiceProp];
                             });
+                            me.setState();
                         } else {
                             me.$('tbody').html("<tr><td colspan='12'><p class='info'>暂无数据</p></td></tr>");
                         }
