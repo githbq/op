@@ -199,6 +199,7 @@ define( function( require, exports, module ) {
                     console.warn( data );
                     if( data.success ){
                         me.collection.reload( data.value.model.content, function( item ){
+							item.creatorNameStr = item.creator ?(item.creator.name?item.creator.name:'——'):'——';
                             item.createTimeStr = new Date( item.createTime )._format('yyyy-MM-dd hh:mm');
                             item.statusStr = statusMap[ item.status ];
 							item.industryStr = industryMap[ item.industry ];
