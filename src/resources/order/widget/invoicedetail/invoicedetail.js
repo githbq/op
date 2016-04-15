@@ -213,6 +213,7 @@ define(function( require , exports , module ){
 
 						me.model.load( data.value.model );
 						me.model.set('orderId',id);
+						me.model.set('invoiceId',invoiceId);
 					}
 				}
 			});
@@ -369,6 +370,7 @@ define(function( require , exports , module ){
 
 			var info = {
 				"orderId": me.orderId,
+				"id": parseInt( me.model.get('invoiceId') ),
   				"invoiceProp": invoice,
   				"invoiceType": invoicetype,
   				"amount": me.model.get('amount'),
