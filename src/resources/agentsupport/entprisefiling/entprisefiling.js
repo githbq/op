@@ -190,6 +190,7 @@ define( function( require, exports, module ) {
 					'industry': me.model.get('industryList'),
 					'source': me.model.get('sourceList'),
                     'startTime': startTime,
+					'creatorName':me.model.get('creatorName'),
                     'endTime': endTime,
                     'pageIndex': me.pagination.attr['pageNumber'],
                     'pageSize': me.pagination.attr['pageSize']

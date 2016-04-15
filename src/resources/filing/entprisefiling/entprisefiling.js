@@ -166,6 +166,7 @@ define( function( require, exports, module ) {
     				'active': me.model.get('active'),
 					'industry': me.model.get('industryList'),
 					'source': me.model.get('sourceList'),
+					'creatorName': me.model.get('creatorName'),
     				'startTime': startTime,
     				'endTime': endTime,
     				'serviceTimeBegin': me.model.get('serviceTimeBegin'),

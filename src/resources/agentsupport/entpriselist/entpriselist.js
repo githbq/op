@@ -172,6 +172,8 @@ define( function( require, exports, module ) {
                     source: me.model.get('source'),
                     industry: me.model.get('industry'),
                     province: me.model.get('province'),
+					isLinkRegister: me.model.get('isLinkRegister'),
+					creatorName: me.model.get('creatorName'),
                     city: me.model.get('city'),
                     tel: me.model.get('tel'),
 

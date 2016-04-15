@@ -22,6 +22,10 @@
                     <span>企业帐号</span>
                     <input id="eiAccount" class="g-ipt ipt-m" type="text" ce-model="ea"/>
                 </label>
+				<label>
+					<span>创建人姓名</span>
+					<input id="creatorName" class="g-ipt ipt-m" type="text" ce-model="creatorName" />
+				</label>
                 <label>
                     <span>开通时间</span>
                     <input type="text" id="OpenSTime"> ---- <input type="text" id="OpenETime">
@@ -37,6 +41,14 @@
                         <option value="5">已删除</option>
                     </select>
                 </label>
+				<label>
+					<span>关联自注册</span>
+					<select ce-model="isLinkRegister">
+						<option value="">全部</option>
+						<option value="1">是</option>
+						<option value="2">否</option>
+					</select>
+				</label>
                 <label>
                     <span>来源</span>
                     <select id="eiSource" ce-model="source">

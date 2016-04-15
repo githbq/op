@@ -252,6 +252,8 @@ define( function(require, exports, module){
                     en: me.model.get('en'),
                     enterpriseStatus: me.model.get('enterpriseStatus'),
                     source: me.model.get('source'),
+					isLinkRegister: me.model.get('isLinkRegister'),
+					creatorName: me.model.get('creatorName'),
                     industry: me.model.get('industry'),
                     province: me.model.get('province'),
                     city: me.model.get('city'),
