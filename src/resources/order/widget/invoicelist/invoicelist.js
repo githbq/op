@@ -31,20 +31,33 @@ define(function(require, exports, module){
 			AddEnt.__super__.init.apply( this,arguments );
 			var me = this;
 			
-			me.$view.on('click input:radio[name="invoicetype"]', function(){
+			me.$view.on('click','.invoiceIsCertify-type', function(){
 				var val = me.$('input:radio[name="invoicetype"]:checked').val();
 				if(val == 1){
-					me.$('.nocheck').hide();
-					me.$('.hascheck').show();
+					me.$('.hascheck').hide()
+					me.$('.nocheck').show();
 					me.model.set('redInvoiceInfo','');
 					me.model.set('invoiceCopy','');
 					me.model.set('invoiceIsCertify',1);
+					me.$('.redInvoiceInfo-box').hide();
+					me.$('.redInvoiceInfo-link').attr('href', '');
+					me.$('.redInvoiceInfo-img').attr('src', '');
+					me.$('.invoiceCopy-box').hide();
+					me.$('.invoiceCopy-link').attr('href', '');
+					me.$('.invoiceCopy-img').attr('src', '');
 				}else if(val == 0){
-					me.$('.hascheck').hide()
-					me.$('.nocheck').show();
+					
+					me.$('.nocheck').hide();
+					me.$('.hascheck').show();
 					me.model.set('invoiceOriginal','');
 					me.model.set('rejectProof','')
 					me.model.set('invoiceIsCertify',0);
+					me.$('.invoiceOriginal-box').hide();
+					me.$('.invoiceOriginal-link').attr('href', '');
+					me.$('.invoiceOriginal-img').attr('src', '');
+					me.$('.rejectProof-box').hide();
+					me.$('.rejectProof-link').attr('href', '');
+					me.$('.rejectProof-img').attr('src', '');
 				}
 			});
 			
@@ -194,29 +207,46 @@ define(function(require, exports, module){
 			me.checkEdit(me.attrs.editFlag)
 			me.setValue();
 			
+			me.$('.hascheck').hide();
+			me.$('.nocheck').hide();
+			
 			if(me.attrs.filedData){
 				me.setFiledData();
 				if(me.attrs.dataObj.invoiceType==2){
+					me.$('.check-box').show();
+					
 					if(me.attrs.filedData.invoiceIsCertify==0){
+						me.$('.hascheck').show();
 						me.$('input:radio[name="invoicetype"]').eq(1).attr("checked",true);
+						me.model.set('invoiceIsCertify',0);
 					}else{
+						me.$('.nocheck').show();
 						me.$('input:radio[name="invoicetype"]').eq(0).attr("checked",true);
+						me.model.set('invoiceIsCertify',1);
 					}
-				}
-			}else{
-				me.$('.hashide').hide();
-				if(me.attrs.dataObj.invoiceType==2){
+				}else{
+					me.$('.check-box').hide();
+					me.$('.hascheck').show();
+					me.$('.check-box').show();
 					me.$('input:radio[name="invoicetype"]').eq(0).attr("checked",true);
 				}
-			}
-			me.$('.hascheck').hide();
-			me.$('.nocheck').hide();
-			if( me.attrs.dataObj.invoiceType==1){
-				me.$('.hascheck').show();
+			}else{
 				
-			}else if(me.attrs.dataObj.invoiceType==2){
-				me.$('.nocheck').show();
+				me.$('.hashide').hide();
+				
+				if(me.attrs.dataObj.invoiceType==2){
+					me.$('.check-box').show();
+					me.$('.nocheck').show();
+					me.$('input:radio[name="invoicetype"]').eq(0).attr("checked",true);
+					me.model.set('invoiceIsCertify',1);
+				}else{
+					me.model.set('invoiceIsCertify','');
+					me.$('.check-box').hide();
+					me.$('.hascheck').show();
+					me.$('.check-box').show();
+				}
 			}
+
 			
 		},
 		setFiledData:function(){
@@ -258,6 +288,7 @@ define(function(require, exports, module){
 				me.$('.redInvoiceInfo-box').hide();
 				me.$('.redInvoiceInfo-link').attr('href', '');
 				me.$('.redInvoiceInfo-img').attr('src', '');
+				
 			}
 			//显示合同副本
 			if( me.attrs.filedData.invoiceCopy ){

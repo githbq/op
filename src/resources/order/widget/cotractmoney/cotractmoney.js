@@ -95,13 +95,14 @@ define(function(require, exports, module){
 					case 3:
 						
 						serviceDom+=" <tr> <td>"+productIdDic[tempId]+"合同金额：</td><td class='money-box'>"+sublist[i].contractAmount+"</td>" +
-						" <td>非退款项</td><td></td></tr>"
+						" <td>非退款项</td><td></td></tr>";
+						usedAmound+=parseFloat(sublist[i].usedAmount);
 						break;
 					case 10: case 11: case 2:
 						break;
 					default:
 						strDom+=" <tr> <td>"+productIdDic[tempId]+"合同金额：</td><td class='money-box'>"+sublist[i].contractAmount+"</td>" +
-						" <td>已使用金额：</td><td class='money-box'>"+sublist[i].usedAmount+"</td></tr>"
+						" <td>已使用金额：</td><td class='money-box'>"+sublist[i].usedAmount+"</td></tr>";
 						usedAmound+=parseFloat(sublist[i].usedAmount);
 						var backAmount = {};
 						var tempMoney  = parseFloat(sublist[i].contractAmount) - parseFloat(sublist[i].usedAmount);
@@ -114,8 +115,11 @@ define(function(require, exports, module){
 			}
 			//组合传给退款的数据
 			me.attrs.refundVO.subRefunds = tempSublist;
+			var tempAmount = parseFloat(me.attrs.dataObj.reciviedAmount)- parseFloat(usedAmound);
+			tempAmount = tempAmount.toFixed(2);
 			me.attrs.refundVO.refund= {
-				'refundAmount':0
+				'refundAmount':0,
+				'amount':tempAmount
 			};
 			strDom = serviceDom + strDom;
 			me.attrs.dataObj.usedAmount = usedAmound.toFixed(2);
