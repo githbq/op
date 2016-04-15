@@ -579,7 +579,7 @@ define(function (require, exports, module) {
                 return next($ele, value);
             },
             i_setValueWhereDefault: function ($ele, value) {
-                if ($ele.is('select')) {
+                if ($ele.is('select,input,textarea')) {
                     $ele.val(value);
                 } else {
                     $ele.text(value);
