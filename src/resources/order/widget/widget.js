@@ -30,11 +30,12 @@ define(function (require, exports, module) {
                     break;
             }
         });
+        $el.find('#modulename').change();
     };
 
 
     function testInvoiceDetail() {
-        var refundinfo = require('./refundinfo/refundinfo');
+        var invoiceapplydetail = require('./invoiceapplydetail/invoiceapplydetail');
         var me = this;
         var $el = exports.$el;
         var result = null;
@@ -42,14 +43,14 @@ define(function (require, exports, module) {
             var type = $('#inputtype').val();
             if (type && parseInt(type)) {
                 debugger
-                result = refundinfo.show({$view: $el.find('.panel1')}, {});
+                result = invoiceapplydetail.show({$view: $el.find('.panel1')}, {});
             }
         });
         $('#changeType').off().change(function () {
             if (!$(this).val()) {
                 return;
             }
-            result = refundinfo.show(parseInt(type), {$view: $el.find('.panel1')});
+            result = invoiceapplydetail.show(parseInt(type), {$view: $el.find('.panel1')});
 
         });
         $('.test2').off().click(function () {

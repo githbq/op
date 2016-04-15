@@ -48,7 +48,6 @@ define(function( require , exports , module ){
 			var invoice = me.$('[name="invoice"]:checked').val();
 			var invoicetype = me.$('[name="invoicetype"]:checked').val();
 
-			console.log( invoice );
 			if( invoice == 1 ){
 
 				if( invoicetype == 1 ){
@@ -97,9 +96,13 @@ define(function( require , exports , module ){
 			var me = this;
 
 			var info = me.getInfo();
+
+			console.log('saveEve');
+			console.log(info)
+
 			if( info ){
 				util.api({
-					'url':'',
+					'url':'/odr/invoice/update',
 					'contentType': 'application/json',
 					'data': JSON.stringify(info),
 					'success': function( data ){
@@ -151,6 +154,7 @@ define(function( require , exports , module ){
 				})
 			});
 			
+			//
 			me.$qualification.on('change',function(){
 				console.log('change');
 				console.log( me.$qualification[0].files );
@@ -210,32 +214,67 @@ define(function( require , exports , module ){
 				
 				util.api({
 					'url':'/odr/invoice/'+invoiceId,
-					'method':'get',
 					'success': function( data ){
 
-						console.warn( data );
 						if( data.success ){
-							
+							me.model.load( data.value.model );
+
+							if( data.value.model.invoiceProp == 1 ){
+								me.$('[name="invoice"]').eq(0).trigger('click');
+							}else{
+								me.$('[name="invoice"]').eq(1).trigger('click');
+							}
+
+							if( data.value.model.invoiceType == 1 ){
+								me.$('[name="invoicetype"]').eq(0).trigger('click');
+							}else{
+								me.$('[name="invoicetype"]').eq(1).trigger('click');
+							}
+							me.typeEve();
+							me.setState( approvalStatus );
+
+							//
+							if( data.value.model.businessLicense ){
+								me.$('#bsimg').show().find('img').attr('src','/op/api/file/previewimage?filePath='+data.value.model.businessLicense);
+							}
+
+							//
+							if( data.value.model.taxpayerQualification ){
+								me.$('#qaimg').show().find('img').attr('src','/op/api/file/previewimage?filePath='+data.value.model.taxpayerQualification);
+							}
 						}
 					}
-				})
+				});
+			}else{
+				me.$('[name="invoice"]').eq(0).trigger('click');
+				me.$('[name="invoicetype"]').eq(0).trigger('click');
+				me.typeEve();
+				me.setState( approvalStatus );
 			};
-
-			me.setState( approvalStatus );
 		},
 
 		//根据显隐状态
 		setState: function( status ){
 			var me = this;
 
+			console.log( 'status' );
+			console.log( status );
+
 			me.$('[data-state]').hide();
 			
 			me.$('[data-state]').each(function(){
 				var $el = $( this );
-				var state = $el.attr('data-state').split('/\s+/');
-
-				
+				var state = $el.attr('data-state').split(/\s+/);
+				state.forEach(function( item , index ){
+					if( item == status ){
+						$el.show();
+					}
+				});
 			});
+
+			if( (status != 1 ) && ( status != 9 ) && ( status != 0 ) ){
+				me.$('input,textarea').attr('disabled','disabled')
+			}
 		},
 
 		//隐藏
@@ -244,11 +283,17 @@ define(function( require , exports , module ){
 
 			var me = this;
 			me.model.clear();
+			
 			//清除其他选项
+			me.$('input,textarea').removeAttr('disabled');
+
+			me.$('.imginfo').hide();
 
 			//重置input选中状态
 			me.$('[name="invoice"]').eq(0).trigger('click');
 			me.$('[name="invoicetype"]').eq(0).trigger('click');
+
+
 		},	
 
 		//获取当前数据信息

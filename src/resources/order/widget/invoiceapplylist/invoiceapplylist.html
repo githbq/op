@@ -2,7 +2,7 @@
     <div class="list-main">
         <div class="list-header">
             <h3>
-                <span class="title">发票申请</span>
+                <span class="title">发票审批</span>
 
                 <span class="toggle"><b class="active" data-type="wait">待审核发票</b><b data-type="end">已审核发票</b><b data-type="refuse">驳回发票</b></span>
             </h3>
@@ -106,6 +106,7 @@
                     <th style="width:100px;">收款账户</th>
                     <th style="width:100px;">发票申请日期</th>
                     <th style="width:100px;">操作</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody ce-collection="list">
@@ -124,7 +125,7 @@
                     <td><!--发票申请日期--></td>
                     <td>
                         <% if( item.canCancel){ %>
-                            <a class="revoke" data-inid="<%=item.invoiceId%>">撤回</a>
+                            <a class="revoke" data-insid="<%=item.processInstanceId%>">撤回</a>
                         <% } %>
                         <a class="detail" data-inid="<%=item.invoiceId%>">
                             查看

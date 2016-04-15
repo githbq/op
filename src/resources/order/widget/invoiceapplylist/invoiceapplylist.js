@@ -42,13 +42,18 @@ define(function (require, exports, module) {
                 me.refresh();
             }
 
+            if( me.attrs.wrapper ){
+                me.attrs.wrapper.html( me.$view );
+            }
+
             me.refresh();
         },
 
         events:{
             'click .toggle b': 'switchEve',
             'click .btn-search': 'searchEve',
-            'click .detail': 'detailEve'
+            'click .detail': 'detailEve',
+            'click .revoke': 'revokeEve'
         },
         
         switchEve: function( e ){
@@ -66,7 +71,7 @@ define(function (require, exports, module) {
         },
 
         //查看发票详情
-        detailEve: function(e){
+        detailEve: function( e ){
             var me = this;
 
             var inid = $(e.currentTarget).attr('data-inid');
@@ -75,6 +80,33 @@ define(function (require, exports, module) {
             console.log( info );
 
             me.trigger('detail' , info.orderId , inid , info.approvalStatus );
+        },
+
+        //信息撤回
+        revokeEve: function( e ){
+            var me = this;
+
+            var $target = $( e.currentTarget );
+            var insid = $target.attr('data-insid');
+
+            var bool = confirm("是否确认撤销此条审批?");
+
+            if( bool ){
+                util.api({
+                    'url': '~/op/api/approval/withdrawapproval',
+                    'data':{
+                        'processInstanceId': insid
+                    },
+                    'success': function( data ){
+                        console.warn( data );
+                        if( data.success ){
+                            util.showTip('撤销成功');
+                            me.refresh();
+                        }
+                    }
+                });
+            }
+
         },
 
         //刷新审批列表

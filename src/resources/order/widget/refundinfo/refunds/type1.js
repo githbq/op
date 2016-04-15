@@ -40,12 +40,10 @@ define(function (require, exports, module) {
                     }
                 }
             }
-            var amount = 0;
             if (responseData.subRefunds) {
                 var subRefunds = responseData.subRefunds;
                 for (var i = 0; i < subRefunds.length; i++) {
                     var subRefund = subRefunds[i];
-                    amount += subRefund.amount || 0;
                     controller(dataItems, 'productIds', function (item) {
                         item.value = item.value || [];
                         item.value.push(subRefund.productId);
@@ -80,9 +78,6 @@ define(function (require, exports, module) {
                     })
                 }
             }
-            controller(dataItems, 'amount', function (item) {
-                item.value = amount;
-            });
         }
         return {dataItems: dataItems};
     }

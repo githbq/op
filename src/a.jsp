@@ -39,7 +39,7 @@
             <li data-modulecode="OrderOpA">
                 <a href="#order/orderlist">订单</a>
             </li>
-           <li data-modulecode="EnterpriseOpA"><a href="#agentsupport/entpriselist">企业</a></li>
+            <li data-modulecode="EnterpriseOpA"><a href="#agentsupport/entpriselist">企业</a></li>
             <li data-modulecode="DayActivityDetailOpA DayActivityAllOpA SelfActivityAllOpA PeriodActivityAnalysisOpA PeriodActivityTeamAnalysisOpA MonthActivityTeamAnalysisOpA MonthActivityAllAnalysisOpA">
                 <a href="#index/detail">活跃度</a>
                 <ul class="nav-sub">
@@ -60,6 +60,10 @@
             </li>
             <li data-modulecode="ApprovalOpA">
                 <a href="#agentsupport/renewlist">我的审批</a>
+                <ul class="nav-sub">
+                    <li data-modulecode="ApprovalOpA"><a href="#agentsupport/renewlist">订单审批</a></li>
+                    <li><a href="#order/invoiceapplyagentlist">发票审批</a></li>
+                </ul>
             </li>
         </ul>
     </nav>
@@ -118,7 +122,9 @@
 <script type="text/javascript" src="resources/common/scripts/widget.js"></script>
 <script type="text/javascript" src="resources/common/widget/calendar/jquery.datetimepicker.js"></script>
 <!--endbuild-->
+
 <script type="text/javascript" src="resources/common/widget/my97datepicker/wdatepicker.js"></script>
+
 <!--build:app resources/assets/scripts/app.js-->
 <script type="text/javascript" src="resources/assets/scripts/config.js"></script>
 <script type="text/javascript" src="resources/assets/scripts/app.js"></script>
@@ -131,4 +137,5 @@
 </script>
 </body>
 </html>
+
 

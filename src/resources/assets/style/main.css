@@ -6619,35 +6619,22 @@ em {
 .m-invoicedetail .typea,
 .m-invoicedetail .typeb,
 .m-invoicedetail .typec,
-.m-invoicedetail .typed {
+.m-invoicedetail .typed,
+.m-invoicedetail .imginfo {
   display: none;
+}
+.m-invoicedetail .file img,
+.m-invoicedetail .typea img,
+.m-invoicedetail .typeb img,
+.m-invoicedetail .typec img,
+.m-invoicedetail .typed img,
+.m-invoicedetail .imginfo img {
+  display: block;
+  max-width: 400px;
 }
 .m-invoicedetail .detail-action {
   text-align: right;
   padding: 10px 0;
-}
-.m-invoiceapplyagent .list-header .title {
-  display: inline-block;
-  float: left;
-}
-.m-invoiceapplyagent .list-header .toggle {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-}
-.m-invoiceapplyagent .list-header .toggle b {
-  position: relative;
-  display: inline-block;
-  border: 1px solid #ccc;
-  height: 30px;
-  line-height: 30px;
-  padding: 0 6px;
-  cursor: pointer;
-  background: #fefefe;
-}
-.m-invoiceapplyagent .list-header .toggle b.active {
-  background: #eee;
 }
 .refundinfo {
   width: 1300px;
@@ -6758,4 +6745,65 @@ em {
 .refundinfo table th,
 .refundinfo table td {
   text-align: center;
+}
+.m-invoiceapplyagent .list-header .title {
+  display: inline-block;
+  float: left;
+}
+.m-invoiceapplyagent .list-header .toggle {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+.m-invoiceapplyagent .list-header .toggle b {
+  position: relative;
+  display: inline-block;
+  border: 1px solid #ccc;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 6px;
+  cursor: pointer;
+  background: #fefefe;
+}
+.m-invoiceapplyagent .list-header .toggle b.active {
+  background: #eee;
+}
+.m-invoiceapplydetail {
+  color: #333333;
+}
+.m-invoiceapplydetail h4 {
+  font-weight: bold;
+  font-size: 18px;
+}
+.m-invoiceapplydetail section > p {
+  padding: 3px 0;
+}
+.m-invoiceapplydetail span.title {
+  display: inline-block;
+  width: 160px;
+  text-align: right;
+}
+.m-invoiceapplydetail b.nsr {
+  color: red;
+}
+.m-invoiceapplydetail .remark {
+  width: 323px;
+  height: 80px;
+  padding: 5px;
+}
+.m-invoiceapplydetail .label label {
+  display: inline-block;
+  width: 120px;
+}
+.m-invoiceapplydetail .file,
+.m-invoiceapplydetail .typea,
+.m-invoiceapplydetail .typeb,
+.m-invoiceapplydetail .typec,
+.m-invoiceapplydetail .typed {
+  display: none;
+}
+.m-invoiceapplydetail .detail-action {
+  text-align: right;
+  padding: 10px 0;
 }
