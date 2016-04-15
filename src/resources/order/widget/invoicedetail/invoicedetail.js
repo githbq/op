@@ -96,6 +96,10 @@ define(function( require , exports , module ){
 			var me = this;
 
 			var info = me.getInfo();
+
+			console.log('saveEve');
+			console.log(info)
+
 			if( info ){
 				util.api({
 					'url':'/odr/invoice/update',
@@ -253,11 +257,14 @@ define(function( require , exports , module ){
 		setState: function( status ){
 			var me = this;
 
+			console.log( 'status' );
+			console.log( status );
+
 			me.$('[data-state]').hide();
 			
 			me.$('[data-state]').each(function(){
 				var $el = $( this );
-				var state = $el.attr('data-state').split('/\s+/');
+				var state = $el.attr('data-state').split(/\s+/);
 				state.forEach(function( item , index ){
 					if( item == status ){
 						$el.show();

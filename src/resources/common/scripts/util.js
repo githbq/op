@@ -333,7 +333,7 @@
 				if (!data.success) {
 
                     //截取20位
-                    if( data.message.length > 30 ){
+                    if( data.message && data.message.length > 30 ){
                         data.message = data.message.slice(0,30); 
                     }
 					
