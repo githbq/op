@@ -35,10 +35,11 @@
                     <img src="" alt="" data-name="contract">
                 </a>
             </p>
+
             <p>
                 <span class="title">合同副本照片</span>
                 <a href="#" data-name="contractCopy-a">
-                <img src="" alt="" data-name="contractCopy">
+                    <img src="" alt="" data-name="contractCopy">
                 </a>
             </p>
 
@@ -53,7 +54,7 @@
             </p>
         </section>
         <h4>付款信息</h4>
-        <section>
+        <section >
             <p>
                 <span class="title">当前付费状态</span>
                 <span data-name="payStatus"></span>
@@ -61,7 +62,7 @@
 
             <p>
                 <span class="title">到款金额(财务确认到款)</span>
-                <span data-name="auditedAmount">xxxxxx</span>元
+                <span data-name="auditedAmount"></span>元
             </p>
 
             <p>
@@ -76,27 +77,21 @@
 
             <p>
                 <span class="title">收款账户</span>
-                <span data-name="receiptsAccount">7508018800010748 中国光大银行北京中关村支行 纷享</span>
+                <span data-name="receiptsAccount"></span>
             </p>
 
             <p>
                 <span class="title">实际到款日期</span>
-                <span data-name="receivedPayDate">20150101</span>
+                <span data-name="receivedPayDate"></span>
             </p>
 
             <p>
                 <span class="title">付款单位/个人名称</span>
-                <span data-name="payerName">xxxxxx</span>
+                <span data-name="payerName"></span>
             </p>
         </section>
-
         <h4>发票信息</h4>
-        <section>
-            <p>
-                <span class="title">税务登记证正本/副本或三证合一的营业执照</span>
-                <img src="" alt="" data-name="businessLicenseFileName">
-            </p>
-
+        <section data-name="invoiceType-1"  data-config="{'visible':false}">
             <p>
                 <span class="title">发票抬头</span>
                 <span data-name="invoiceHead"></span>
@@ -117,10 +112,7 @@
                 <span data-name="invoiceProp">预开发票/到款开票</span>
             </p>
         </section>
-
-
-        <h4>发票信息</h4>
-        <section>
+        <section data-name="invoiceType-2"  data-config="{'visible':false}">
             <p>
                 <span class="title">税务登记证正本/副本或三证合一的营业执照</span>
                 <a href="#" data-name="businessLicenseFileName-a">
@@ -142,37 +134,26 @@
 
             <p>
                 <span class="title">纳税人识别号</span>
-                <span data-name="taxpayerIdentificationNo">xxxxxx</span>
+                <span data-name="taxpayerIdentificationNo"></span>
             </p>
-
-            <p>
-                <span class="title">地址</span>
-                <span data-name="receiverAddress">xxxxxx</span>
-            </p>
-
-            <p>
-                <span class="title">电话</span>
-                <span data-name="receiverPhone">xxxxxx</span>
-            </p>
-
             <p>
                 <span class="title">开户行</span>
-                <span data-name="bankName">xxxxxx</span>
+                <span data-name="bankName"></span>
             </p>
 
             <p>
                 <span class="title">账号</span>
-                <span data-name="bankAccount">xxxxxx</span>
+                <span data-name="bankAccount"></span>
             </p>
 
             <p>
                 <span class="title">发票类型</span>
-                <span data-name="invoiceType">专票</span>
+                <span data-name="invoiceType"></span>
             </p>
 
             <p>
                 <span class="title">发票性质</span>
-                <span data-name="invoiceProp">预开发票/到款开票</span>
+                <span data-name="invoiceProp"></span>
             </p>
         </section>
 
@@ -180,31 +161,31 @@
         <section data-name="kaiju">
             <p>
                 <span class="title">发票状态</span>
-                <select>
+                <select data-name="invoiceStatus-input">
                     <option value="0">未开</option>
                     <option value="1">已开</option>
                 </select>
             </p>
             <p>
                 <span class="title">开票日期</span>
-                <input type="text" datecontrol data-name="invoiceDate">
+                <input type="text" datecontrol data-name="invoiceDate-input">
             </p>
 
             <p>
                 <span class="title">发票号码</span>
-                <input type="text" data-name="invoiceNo">
+                <input type="text" data-name="invoiceNo-input">
             </p>
 
             <p>
                 <span class="title">开具公司</span>
-                <select data-name="invoiceCompany">
+                <select data-name="invoiceCompany-input">
                     <option value="1">纷扬</option>
                     <option value="2">纷享</option>
                 </select>
             </p>
             <p>
                 <span class="title">审批意见</span>
-                <textarea data-name="comment"></textarea>
+                <textarea data-name="comment-input"></textarea>
             </p>
 
             <p class="field">
