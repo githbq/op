@@ -25,6 +25,7 @@ define(function (require, exports, module) {
 
     		detail.show( type,{ $view: me.$view ,data:data },function( result ){
     			result.instance.on('close',function( boo ){
+                    me.trigger('editsuccess');
     				me.hide();
     			})
     		} );
@@ -44,5 +45,10 @@ define(function (require, exports, module) {
         invoiceApplyList.on('detail',function( orderId, inid , approvalStatus ,info ,type){
             financeDetail.show(info,type);
         });
+
+        financeDetail.on('editsuccess',function(){
+            invoiceApplyList.refresh();
+        })
+
     }
 });
