@@ -322,6 +322,9 @@ define( function( require, exports, module ) {
 		orderList.on('orderBackmoney', function( options ){
             backMoney = new BackMoney();
             backMoney.show( options );
+			backMoney.on('saveSuccess', function( ){
+				orderList.getList();
+			})
         })
 		orderList.on('orderInvoice', function( id ){
             invioceDetail = new InvoiceDetail();
