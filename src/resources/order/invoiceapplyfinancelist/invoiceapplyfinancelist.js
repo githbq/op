@@ -9,7 +9,7 @@ define(function (require, exports, module) {
 
 
     var FinanceDetail = MClass( Slider ).include({
-
+        content:"<div style='padding:20px;overflow:auto;' id='content'></div>",
     	defaultAttr:{
     		'title': '发票信息',
     		'width': '600'
@@ -23,7 +23,7 @@ define(function (require, exports, module) {
     		var me = this;
     		FinanceDetail.__super__.show.apply( this, arguments );
 
-    		detail.show( type,{ $view: me.$view ,data:data },function( result ){
+    		detail.show( type,{ $view: me.$view.find('#content') ,data:data },function( result ){
     			result.instance.on('close',function( boo ){
                     me.trigger('editsuccess');
     				me.hide();
