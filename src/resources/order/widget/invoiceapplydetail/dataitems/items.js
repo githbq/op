@@ -45,10 +45,10 @@ define(function (require, exports, module) {
                     var me = this;
                     var data={
                         id: me.o_getFieldValue('invoiceId'),
-                        invoiceStatus: me.o_getFieldValue('invoiceStatus-input'),
-                        invoiceDate: me.o_getFieldValue('invoiceDate-input'),
-                        invoiceCompany: me.o_getFieldValue('invoiceCompany-input'),
-                        invoiceNo: me.o_getFieldValue('invoiceNo-input')
+                        invoiceStatus: me.o_getFieldValue('invoiceStatus'),
+                        invoiceDate: me.o_getFieldValue('invoiceDate'),
+                        invoiceCompany: me.o_getFieldValue('invoiceCompany'),
+                        invoiceNo: me.o_getFieldValue('invoiceNo')
                     };
                     me.o_getFieldValue('apiPool').updateInvoice(data, function (result) {
                         if (result.success) {
@@ -84,7 +84,7 @@ define(function (require, exports, module) {
         function refuseOrAgree(approved) {
             return function (e) {
                 var me = this;
-                me.o_getFieldValue('apiPool').directApprove(me.o_getFieldValue('processInstanceId'), approved, me.o_getFieldValue('comment-input'), function (result) {
+                me.o_getFieldValue('apiPool').directApprove(me.o_getFieldValue('processInstanceId'), approved, me.o_getFieldValue('comment'), function (result) {
                     if (result.success) {
                         util.showTip('操作成功');
                         me.trigger('close',true);
