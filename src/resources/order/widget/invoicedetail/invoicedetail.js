@@ -98,7 +98,7 @@ define(function( require , exports , module ){
 			var info = me.getInfo();
 			if( info ){
 				util.api({
-					'url':'',
+					'url':'/odr/invoice/update',
 					'contentType': 'application/json',
 					'data': JSON.stringify(info),
 					'success': function( data ){
@@ -227,15 +227,16 @@ define(function( require , exports , module ){
 								me.$('[name="invoicetype"]').eq(1).trigger('click');
 							}
 							me.typeEve();
+							me.setState( approvalStatus );
 						}
 					}
 				});
+			}else{
+				me.$('[name="invoice"]').eq(0).trigger('click');
+				me.$('[name="invoicetype"]').eq(0).trigger('click');
+				me.typeEve();
+				me.setState( approvalStatus );
 			};
-
-			console.log('approvalStatus');
-			console.log( approvalStatus );
-
-			me.setState( approvalStatus );
 		},
 
 		//根据显隐状态
@@ -253,7 +254,7 @@ define(function( require , exports , module ){
 					}
 				});
 			});
-			
+
 			if( (status != 1 ) && ( status != 9 ) && ( status != 0 ) ){
 				me.$('input,textarea').attr('disabled','disabled')
 			}
@@ -268,10 +269,12 @@ define(function( require , exports , module ){
 			
 			//清除其他选项
 			me.$('input,textarea').removeAttr('disabled');
-			
+
 			//重置input选中状态
 			me.$('[name="invoice"]').eq(0).trigger('click');
 			me.$('[name="invoicetype"]').eq(0).trigger('click');
+
+
 		},	
 
 		//获取当前数据信息
