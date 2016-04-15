@@ -24,7 +24,7 @@ define(function( require , exports , module ){
 		content: template,
 
 		defaultAttr:{
-			'title':'发票',
+			'title':'发票申请信息',
 			'width': 600
 		},
 
