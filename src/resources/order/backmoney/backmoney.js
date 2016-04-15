@@ -77,6 +77,8 @@ define( function(require, exports, module){
 			me.attrs.orderList = {};
 			me.attrs.hasInovice = 0;
 			me.attrs.invoiceData = [];
+			me.attrs.invioceAry = [];
+			me.attrs.invioceIdAry = [];
 			me.attrs.orderInfoValue = {};
 			
 			me.setState();
@@ -202,6 +204,7 @@ define( function(require, exports, module){
 							temp.filedData = me.attrs.orderInfoValue.model.refundInvoices[j];
 							temp[me.attrs.invoiceData[i].id] = new InvoiceList( { 'wrapper':me.$view.find('.'+tempClass+''),'dataObj':me.attrs.invoiceData[i] ,'filedData':me.attrs.orderInfoValue.model.refundInvoices[j],'id':me.attrs.invoiceData[i].id,'editFlag':me.attrs.options.editFlag } );
 							me.attrs.invioceAry.push( temp );
+							me.attrs.invioceIdAry.push(me.attrs.invoiceData[i].id)
 							break;
 						}
 					}
@@ -213,6 +216,7 @@ define( function(require, exports, module){
 					var temp = {} 
 					temp[me.attrs.invoiceData[i].id] = new InvoiceList( { 'wrapper':me.$view.find('.'+tempClass+''),'dataObj':me.attrs.invoiceData[i] ,'id':me.attrs.invoiceData[i].id,'editFlag':me.attrs.options.editFlag } );
 					me.attrs.invioceAry.push( temp );
+					me.attrs.invioceIdAry.push( me.attrs.invoiceData[i].id )
 				}
 			}
 		},
@@ -271,16 +275,17 @@ define( function(require, exports, module){
 		getInvioceValue:function( callback ){
 			var me = this , objData = {};
 			me.attrs.refundInvoices = [];
-			var tempLength = me.attrs.invoiceData.length;
+			var tempLength =  me.attrs.invioceAry.length;
 			for(var i =0; i<tempLength; i++ ){
-				var tempValue = me.attrs.invioceAry[i][me.attrs.invoiceData[i].id].getValue();
+				var invoiceId = me.attrs.invioceIdAry[i];
+				var tempValue = me.attrs.invioceAry[i][invoiceId].getValue();
 				if(!tempValue){
 					util.showToast('发票信息不完整！');
 					return false;
 				
 				}
 				if( me.attrs.orderInfoValue.model ){
-					me.attrs.invioceAry[i].filedData
+					
 					tempValue = $.extend(true, me.attrs.invioceAry[i].filedData, tempValue);
 					me.attrs.refundInvoices.push( tempValue );
 				}else{
