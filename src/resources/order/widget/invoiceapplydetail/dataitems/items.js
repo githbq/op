@@ -20,19 +20,11 @@ define(function (require, exports, module) {
     apiPool.updateInvoice = function (data, success) {
         util.api({
             'url': '/odr/invoice/updateInvoice',
-            'data': data,
+            'data':JSON.stringify(data ),
+            'contentType':'application/json;charset=UTF-8 ',
             success: success
         })
     };
-    //获取发票详情
-    apiPool.updateInvoice = function (data, success) {
-        util.api({
-            'url': '/odr/invoice/' + data.id + '/detail',
-            'data': {},
-            success: success
-        })
-    };
-
     var DataItem = require('common/widget/sform/sform').PageDataClass;
     module.exports.getItems = function () {
         var dataItems = [];
@@ -72,15 +64,15 @@ define(function (require, exports, module) {
         function refuseOrAgree(approved) {
             return function (e) {
                 var me = this;
-                getUpdateInvoice(function (result, me) {
+                debugger
+                (getUpdateInvoice(function (result, me) {
                     me.o_getFieldValue('apiPool').directApprove(me.o_getFieldValue('processInstanceId'), approved, me.o_getFieldValue('comment'), function (result) {
                         if (result.success) {
                             util.showTip('操作成功');
                             me.trigger('close', true);
                         }
                     });
-                })
-                getUpdateInvoice(e);
+                })).call(me,e);
             }
         }
 
@@ -99,8 +91,6 @@ define(function (require, exports, module) {
                         if (callback) {
                             callback(result, me);
                         }
-                        util.showTip('保存成功');
-                        me.trigger('close', true);
                     }
                 })
             }
