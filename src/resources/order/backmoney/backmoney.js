@@ -99,7 +99,7 @@ define( function(require, exports, module){
 					
 					if(me.attrs.invoiceData.length>0){
 						me.showInvoiceList()
-						me.attrs.hasInovice = 1; //有发票
+						
 					}
 					
 				} );
@@ -192,9 +192,10 @@ define( function(require, exports, module){
 			var tempLength = me.attrs.invoiceData.length;
 			me.attrs.invioceAry = [];
 			for(var i = 0; i<tempLength; i++){
-				if( me.attrs.orderInfoValue.model ){
+				if( me.attrs.orderInfoValue.model && me.attrs.invoiceData[i].invoiceStatus == 1 ){
+					me.attrs.hasInovice = 1;
 					for(var j = 0; j< me.attrs.orderInfoValue.model.refundInvoices.length; j++ ){
-						if( me.attrs.invoiceData[i].id ==  me.attrs.orderInfoValue.model.refundInvoices[j].invoiceId ){
+						if( (me.attrs.invoiceData[i].id ==  me.attrs.orderInfoValue.model.refundInvoices[j].invoiceId )  ){
 							var tempClass = "invoice_"+i;
 							me.$view.find('.common--invioce').append('<div class="'+tempClass+'"></div>');
 							var temp = {} ;
@@ -205,7 +206,8 @@ define( function(require, exports, module){
 						}
 					}
 					
-				}else{
+				}else if( me.attrs.invoiceData[i].invoiceStatus == 1 ){
+					me.attrs.hasInovice = 1;
 					var tempClass = "invoice_"+i;
 					me.$view.find('.common--invioce').append('<div class="'+tempClass+'"></div>');
 					var temp = {} 
