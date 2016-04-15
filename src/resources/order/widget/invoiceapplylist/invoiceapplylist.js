@@ -185,7 +185,7 @@ define(function (require, exports, module) {
                 'success': function( data ){
                     if( data.success ){
                         console.warn( data );
-                        me.pagination.setTotalSize( data.value.model.pageCount );
+                        me.pagination.setTotalSize( data.value.model.itemCount );
                         if( data.value.model.content.length > 0 ){
                             me.list.reload( data.value.model.content , function( item ){
                                 item.payStatusStr = PayStatusMap[item.payStatus];
