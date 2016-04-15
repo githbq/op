@@ -35,11 +35,9 @@
                     </li>
                 </ul>
             </li>
-<<<<<<< HEAD
+
 			<li data-modulecode="BankOpF">
-=======
-            <li>
->>>>>>> 46f754da9801c2b017651a67d684578512432eb2
+
                 <a href="#order/payaccount">银行账户管理</a>
             </li>
         </ul>
