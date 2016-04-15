@@ -99,8 +99,6 @@ define(function (require, exports, module) {
                         if (callback) {
                             callback(result, me);
                         }
-                        util.showTip('保存成功');
-                        me.trigger('close', true);
                     }
                 })
             }
