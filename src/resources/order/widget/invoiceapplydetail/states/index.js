@@ -48,26 +48,32 @@ define(function (require, exports, module) {
             }
             if (responseData.contract) {
                 foreachSetValue(responseData.contract, controller, dataItems);
-                var contract='#';
+                var contract = '';
                 controller(dataItems, 'contract', function (item) {
                     if (item.value) {
                         item.attr = {src: '/op/api/file/previewimage?filePath=' + item.value};
-                        contract=item.attr.src;
+                        contract = item.attr.src;
                     }
                 });
 
                 controller(dataItems, 'contract-a', function (item) {
+                    if(!contract){
+                        item.visible=false;
+                    }
                     item.attr = {href: contract};
 
                 });
-                var contractCopy='#';
+                var contractCopy = '';
                 controller(dataItems, 'contractCopy', function (item) {
                     if (item.value) {
                         item.attr = {src: '/op/api/file/previewimage?filePath=' + item.value};
-                        contractCopy=item.attr.src;
+                        contractCopy = item.attr.src;
                     }
                 });
                 controller(dataItems, 'contractCopy-a', function (item) {
+                    if(contractCopy){
+                        item.visible=false;
+                    }
                     item.attr = {href: contractCopy};
                 });
 
@@ -77,24 +83,30 @@ define(function (require, exports, module) {
             }
             if (responseData.invoice) {
                 foreachSetValue(responseData.invoice, controller, dataItems);
-                var businessLicense='#';
+                var businessLicense = '';
                 controller(dataItems, 'businessLicense', function (item) {
                     if (item.value) {
                         item.attr = {src: '/op/api/file/previewimage?filePath=' + item.value};
-                        businessLicense=item.attr.src;
+                        businessLicense = item.attr.src;
                     }
                 });
                 controller(dataItems, 'businessLicense-a', function (item) {
+                    if (!businessLicense) {
+                        item.visible = false;
+                    }
                     item.attr = {href: businessLicense};
                 });
-                var taxpayerQualification ='#';
-                    controller(dataItems, 'taxpayerQualification', function (item) {
-                        if (item.value) {
-                            item.attr = {src: '/op/api/file/previewimage?filePath=' + item.value};
-                            taxpayerQualification = item.attr.src;
-                        }
-                    });
+                var taxpayerQualification = '';
+                controller(dataItems, 'taxpayerQualification', function (item) {
+                    if (item.value) {
+                        item.attr = {src: '/op/api/file/previewimage?filePath=' + item.value};
+                        taxpayerQualification = item.attr.src;
+                    }
+                });
                 controller(dataItems, 'taxpayerQualification-a', function (item) {
+                    if (!taxpayerQualification) {
+                        item.visible = false;
+                    }
                     item.attr = {href: taxpayerQualification};
                 });
             }
