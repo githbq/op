@@ -3,7 +3,10 @@ define(function (require, exports, module) {
     var Invoice = require('./index');
     var DataItem = require('common/widget/sform/sform').PageDataClass;
     var controllerConfig = {
-        '1': require('./states/type1')
+        '1': require('./states/type1'),
+        '2': require('./states/type2'),
+        '3': require('./states/type3')
+
     };
 
     function controlDataItems(items, name, func) {
@@ -20,19 +23,36 @@ define(function (require, exports, module) {
         }
         func(find);
     }
-    exports.show = function (data, result) {
 
-        var templateData = {content: []};
-        var dataItems = require('./dataitems/items').getItems();
-        var controller = getDataControllerByType(1);//根据类型获取控制器
-        var transferedDataItems = controller.transferDataItem(dataItems, controlDataItems, result);//用控制器转换输入的数据项
-        var invoice = new Invoice({templateData: templateData, wrapperView: data.$view, dataItems: transferedDataItems.dataItems, apiPool: {}});
-        invoice.render();
-        return {
-            getData: controller.transferResultData(invoice), validate: function () {
-                return invoice.o_validate();
+    exports.show = function (type,data) {
+        debugger
+        data.data.invoiceId = 66;
+        data.data.processInstanceId = "1110326";
+        util.api({
+            'url': '/odr/invoice/' + data.data.invoiceId + '/detail',
+            'data': {},
+            success: success
+        });
+        function success(result) {
+            debugger
+            var resultData = null;
+            if (result.success) {
+                resultData = result.model;
             }
-        };
+
+            resultData.invoiceId=data.data.invoiceId;
+            resultData.processInstanceId=data.data.processInstanceId;
+            var dataItems = require('./dataitems/items').getItems();
+            var controller = getDataControllerByType(type);//根据类型获取控制器
+            var transferedDataItems = controller.transferDataItem(dataItems, controlDataItems, resultData);//用控制器转换输入的数据项
+            var invoice = new Invoice({templateData: {}, wrapperView: data.$view, dataItems: transferedDataItems.dataItems, apiPool: {}});
+            invoice.render();
+            return {
+                getData: controller.transferResultData(invoice), validate: function () {
+                    return invoice.o_validate();
+                }
+            };
+        }
     };
     //根据类型获取不同的订单控制器
     function getDataControllerByType(type) {

@@ -543,10 +543,19 @@ define(function (require, exports, module) {
                         var configStr = $ele.attr('datecontrol');
                         var config = configStr && me.i_parseJSON(configStr) || {};
                         var format = config.format || "yyyy/MM/dd";
-                        $ele.val(new Date(value)._format(format));
+                        var str=new Date(value)._format(format);
+                        if($ele.is('input')){
+                        $ele.val(str);
+                        }else{
+                            $ele.text(str)
+                        }
                     } else {
                         value = value || '';
-                        $ele.val(value);
+                        if($ele.is('input')){
+                            $ele.val(value);
+                        }else{
+                            $ele.text(value)
+                        }
                     }
 
                     var data = me.o_field_getData($ele);
@@ -564,13 +573,13 @@ define(function (require, exports, module) {
             i_setValueWhereTextField: function (next, $ele, value) {
                 var me = this;
                 if ($ele.is(me.i_textFieldSelector)) {
-                    $ele.html(value);
+                    $ele.text(value);
                     return value;
                 }
                 return next($ele, value);
             },
             i_setValueWhereDefault: function ($ele, value) {
-                $ele.val(value);
+                $ele.text(value);
                 return value;
             },
             o_setFieldAttr: function ($ele, value) {
