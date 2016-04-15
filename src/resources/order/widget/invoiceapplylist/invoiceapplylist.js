@@ -49,6 +49,15 @@ define(function (require, exports, module) {
             me.refresh();
         },
 
+        //
+        setState: function(){
+            var me = this;
+
+            me.$('[data-state]').hide();
+
+            me.$('[data-state="' + me.attrs.state + '"]').show();
+        },
+
         events:{
             'click .toggle b': 'switchEve',
             'click .btn-search': 'searchEve',

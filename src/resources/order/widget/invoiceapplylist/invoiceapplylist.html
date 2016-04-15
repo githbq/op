@@ -125,7 +125,7 @@
                     <td><!--发票申请日期--></td>
                     <td>
                         <% if( item.canCancel){ %>
-                            <a class="revoke" data-insid="<%=item.processInstanceId%>" >撤回</a>
+                            <a class="revoke" data-insid="<%=item.processInstanceId%>" data-state="agent">撤回</a>
                         <% } %>
                         <a class="detail" data-inid="<%=item.invoiceId%>">
                             查看
