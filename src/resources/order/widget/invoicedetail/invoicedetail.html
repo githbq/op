@@ -78,7 +78,7 @@
 		<section class="typea" style="display:block">
 			<p>
 				<span class="title">发票抬头 <b class="nsr">*</b></span>
-				<input type="text" ce-model="invoiceHead">
+				<input type="text" ce-model="invoiceHead" maxlength=50>
 			</p>	
 			<p>
 				<span class="title">发票金额 <b class="nsr">*</b></span>
@@ -86,19 +86,19 @@
 			</p>
 			<p>
 				<span class="title">收件人姓名 <b class="nsr">*</b></span>
-				<input type="text" ce-model="receiverName">
+				<input type="text" ce-model="receiverName" maxlength=50>
 			</p>
 			<p>
 				<span class="title">收件人电话 <b class="nsr">*</b></span>
-				<input type="text" ce-model="receiverPhone">
+				<input type="text" ce-model="receiverPhone" oninput="this.value=this.value.replace(/[^\.\d]/g,'')" maxlength=50>
 			</p>
 			<p>
 				<span class="title">收件人地址 <b class="nsr">*</b></span>
-				<input type="text" ce-model="receiverAddress">
+				<input type="text" ce-model="receiverAddress" maxlength=50>
 			</p>
 			<p>
 				<span class="title">备注信息</span><br>
-				<textarea class="remark" ce-model="remark"></textarea>
+				<textarea class="remark" ce-model="remark" maxlength=100></textarea>
 			</p>
 		</section>
 
@@ -106,7 +106,7 @@
 		<section class="typeb">		
 			<p>
 				<span class="title">发票抬头<b class="nsr">*</b></span> 
-				<input type="text" ce-model="invoiceHead" name="fptt">
+				<input type="text" ce-model="invoiceHead" name="fptt" maxlength=50>
 			</p>
 			<p>
 				<span class="title">发票金额<b class="nsr">*</b></span> 
@@ -124,19 +124,19 @@
 			</p>
 			<p>
 				<span class="title">收件人姓名<b class="nsr">*</b></span>
-				<input type="text" ce-model="receiverName">
+				<input type="text" ce-model="receiverName" maxlength=50>
 			</p>
 			<p>
 				<span class="title">收件人电话<b class="nsr">*</b></span>
-				<input type="text" ce-model="receiverPhone">
+				<input type="text" ce-model="receiverPhone" oninput="this.value=this.value.replace(/[^\.\d]/g,'')" maxlength=50>
 			</p>
 			<p>
 				<span class="title">收件人地址<b class="nsr">*</b></span>
-				<input type="text" ce-model="receiverAddress">
+				<input type="text" ce-model="receiverAddress" maxlength=50>
 			</p>
 			<p>
 				<span class="title">备注信息</span><br>
-				<textarea class="remark" ce-model="remark"></textarea>
+				<textarea class="remark" ce-model="remark" maxlength=100></textarea>
 			</p>
 		</section>
 		
@@ -156,15 +156,15 @@
 			</p>
 			<p>
 				<span class="title">收件人姓名 <b class="nsr">*</b></span>
-				<input type="text" ce-model="receiverName">
+				<input type="text" ce-model="receiverName" maxlength=50>
 			</p>
 			<p>
 				<span class="title">收件人电话 <b class="nsr">*</b></span>
-				<input type="text" ce-model="receiverPhone">
+				<input type="text" ce-model="receiverPhone" oninput="this.value=this.value.replace(/[^\.\d]/g,'')" maxlength=50>
 			</p>
 			<p>
 				<span class="title">收件人地址 <b class="nsr">*</b></span>
-				<input type="text" ce-model="receiverAddress">
+				<input type="text" ce-model="receiverAddress"  maxlength=50>
 			</p>
 			<p>
 				<span class="title">备注信息</span><br>
@@ -180,11 +180,11 @@
 			</p>
 			<p>
 				<span class="title">发票抬头<b class="nsr">*</b></span>
-				<input type="text" ce-model="invoiceHead">
+				<input type="text" ce-model="invoiceHead"  maxlength=50>
 			</p>
 			<p>
 				<span class="title">纳税人识别号<b class="nsr">*</b></span>
-				<input type="text" ce-model="taxpayerIdentificationNo">
+				<input type="text" ce-model="taxpayerIdentificationNo"  maxlength=50>
 			</p>
 			<p>
 				<span class="title">开户行 <b class="nsr">*</b></span>
@@ -192,7 +192,7 @@
 			</p>
 			<p>
 				<span class="title">账号 <b class="nsr">*</b></span>
-				<input type="text" ce-model="bankAccount">
+				<input type="text" ce-model="bankAccount"  maxlength=50>
 			</p>
 			<p>
 				<span class="title">审批链接 <b class="nsr">*</b></span>
@@ -200,15 +200,15 @@
 			</p>
 			<p>
 				<span class="title">收件人姓名 <b class="nsr">*</b></span>
-				<input type="text" ce-model="receiverName">
+				<input type="text" ce-model="receiverName"  maxlength=50>
 			</p>
 			<p>
 				<span class="title">收件人电话 <b class="nsr">*</b></span>
-				<input type="text" ce-model="receiverPhone">
+				<input type="text" ce-model="receiverPhone"  oninput="this.value=this.value.replace(/[^\.\d]/g,'')" maxlength=50>
 			</p>
 			<p>
 				<span class="title">收件人地址 <b class="nsr">*</b></span>
-				<input type="text" ce-model="receiverAddress">
+				<input type="text" ce-model="receiverAddress"  maxlength=50>
 			</p>
 			<p>
 				<span class="title">备注信息</span><br>
