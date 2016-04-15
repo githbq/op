@@ -20,19 +20,11 @@ define(function (require, exports, module) {
     apiPool.updateInvoice = function (data, success) {
         util.api({
             'url': '/odr/invoice/updateInvoice',
-            'data': data,
+            'data':JSON.stringify(data ),
+            'contentType':'application/json;charset=UTF-8 ',
             success: success
         })
     };
-    //获取发票详情
-    apiPool.updateInvoice = function (data, success) {
-        util.api({
-            'url': '/odr/invoice/' + data.id + '/detail',
-            'data': {},
-            success: success
-        })
-    };
-
     var DataItem = require('common/widget/sform/sform').PageDataClass;
     module.exports.getItems = function () {
         var dataItems = [];
@@ -41,22 +33,10 @@ define(function (require, exports, module) {
         dataItems.push(new DataItem({
             name: 'save',
             events: [{
-                key: 'click', value: function (e) {
-                    var me = this;
-                    var data={
-                        id: me.o_getFieldValue('invoiceId'),
-                        invoiceStatus: me.o_getFieldValue('invoiceStatus'),
-                        invoiceDate: me.o_getFieldValue('invoiceDate'),
-                        invoiceCompany: me.o_getFieldValue('invoiceCompany'),
-                        invoiceNo: me.o_getFieldValue('invoiceNo')
-                    };
-                    me.o_getFieldValue('apiPool').updateInvoice(data, function (result) {
-                        if (result.success) {
-                            util.showTip('保存成功');
-                            me.trigger('close',true);
-                        }
-                    })
-                }
+                key: 'click', value: getUpdateInvoice(function (result, me) {
+                    util.showTip('保存成功');
+                    me.trigger('close', true);
+                })
             }]
         }));
         dataItems.push(new DataItem({
@@ -64,7 +44,7 @@ define(function (require, exports, module) {
             events: [{
                 key: 'click', value: function (e) {
                     var me = this;
-                    me.trigger('close',false);
+                    me.trigger('close', false);
                 }
             }]
         }));
@@ -84,14 +64,39 @@ define(function (require, exports, module) {
         function refuseOrAgree(approved) {
             return function (e) {
                 var me = this;
-                me.o_getFieldValue('apiPool').directApprove(me.o_getFieldValue('processInstanceId'), approved, me.o_getFieldValue('comment'), function (result) {
-                    if (result.success) {
-                        util.showTip('操作成功');
-                        me.trigger('close',true);
-                    }
-                });
+                debugger
+                (getUpdateInvoice(function (result, me) {
+                    me.o_getFieldValue('apiPool').directApprove(me.o_getFieldValue('processInstanceId'), approved, me.o_getFieldValue('comment'), function (result) {
+                        if (result.success) {
+                            util.showTip('操作成功');
+                            me.trigger('close', true);
+                        }
+                    });
+                })).call(me,e);
             }
         }
+
+        function getUpdateInvoice(callback) {
+            return function (e) {
+                var me = this;
+                var data = {
+                    id: me.o_getFieldValue('invoiceId'),
+                    invoiceStatus: me.o_getFieldValue('invoiceStatus'),
+                    invoiceDate: me.o_getFieldValue('invoiceDate'),
+                    invoiceCompany: me.o_getFieldValue('invoiceCompany'),
+                    invoiceNo: me.o_getFieldValue('invoiceNo')
+                };
+                me.o_getFieldValue('apiPool').updateInvoice(data, function (result) {
+                    if (result.success) {
+                        if (callback) {
+                            callback(result, me);
+                        }
+                    }
+                })
+            }
+
+        }
+
 
         return dataItems;
     }
