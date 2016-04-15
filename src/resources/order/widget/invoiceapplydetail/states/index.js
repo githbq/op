@@ -19,16 +19,16 @@ define(function (require, exports, module) {
         }
 
         exports.setKaijuReadonly = function () {
-            controller(dataItems, 'invoiceStatus-input', function (item) {
+            controller(dataItems, 'invoiceStatus', function (item) {
                 item.readonly = true;
             });
-            controller(dataItems, 'invoiceDate-input', function (item) {
+            controller(dataItems, 'invoiceDate', function (item) {
                 item.readonly = true;
             });
-            controller(dataItems, 'invoiceCompany-input', function (item) {
+            controller(dataItems, 'invoiceCompany', function (item) {
                 item.readonly = true;
             });
-            controller(dataItems, 'invoiceNo-input', function (item) {
+            controller(dataItems, 'invoiceNo', function (item) {
                 item.readonly = true;
             });
 

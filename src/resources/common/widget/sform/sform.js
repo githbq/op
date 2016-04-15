@@ -42,11 +42,11 @@ define(function (require, exports, module) {
                 var $template = $(me.i_getTemplateStr());
                 var nameDic = {};
                 $template.find('[' + me.i_attrName + ']').each(function (i, n) {
-                    var $dom=$(n);
+                    var $dom = $(n);
                     var name = $dom.attr(me.i_attrName);
                     me.i_init_FieldConvert($dom);//控件格式转换
                     if (name && !nameDic[name]) {//排除只有属性无值的情况
-                        var findItem = _.findWhere(data.dataItems, {name:$dom.attr(me.i_attrName)});
+                        var findItem = _.findWhere(data.dataItems, {name: $dom.attr(me.i_attrName)});
                         if (!findItem) {
                             data.dataItems.push(new DataItem({name: name, __auto: true}));
                         }
@@ -60,7 +60,7 @@ define(function (require, exports, module) {
                 me.$view.html('').append($template);
             },
             i_inject_validate: function ($ele) {
-                var options ={};
+                var options = {};
                 //注入验证
                 var me = this;
                 if ($ele.is('[data-validate]') && $ele.attr('data-validate')) {
@@ -173,7 +173,7 @@ define(function (require, exports, module) {
                     me.i_initInnerEvent($field);
                     var fieldData = me.dataDic[n.value.__guid];
                     var config = $field && $field.length > 0 && $field.attr('data-config') && me.i_parseJSON($field.attr('data-config')) || {};
-                    config.validateOptions=me.i_inject_validate($field);
+                    config.validateOptions = me.i_inject_validate($field);
                     $.extend(config, fieldData);
                     me.dataDic[n.value.__guid] = config;
                     data.dataItems[config.__index] = config;
@@ -543,17 +543,17 @@ define(function (require, exports, module) {
                         var configStr = $ele.attr('datecontrol');
                         var config = configStr && me.i_parseJSON(configStr) || {};
                         var format = config.format || "yyyy/MM/dd";
-                        var str=new Date(value)._format(format);
-                        if($ele.is('input')){
-                        $ele.val(str);
-                        }else{
+                        var str = new Date(value)._format(format);
+                        if ($ele.is('input')) {
+                            $ele.val(str);
+                        } else {
                             $ele.text(str)
                         }
                     } else {
                         value = value || '';
-                        if($ele.is('input')){
+                        if ($ele.is('input')) {
                             $ele.val(value);
-                        }else{
+                        } else {
                             $ele.text(value)
                         }
                     }
@@ -579,7 +579,11 @@ define(function (require, exports, module) {
                 return next($ele, value);
             },
             i_setValueWhereDefault: function ($ele, value) {
-                $ele.text(value);
+                if ($ele.is('select')) {
+                    $ele.val(value);
+                } else {
+                    $ele.text(value);
+                }
                 return value;
             },
             o_setFieldAttr: function ($ele, value) {

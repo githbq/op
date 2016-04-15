@@ -43,7 +43,7 @@ define(function (require, exports, module) {
             var controller = getDataControllerByType(type);//根据类型获取控制器
             var transferedDataItems = controller.transferDataItem(dataItems, controlDataItems, resultData);//用控制器转换输入的数据项
             var invoice = new Invoice({templateData: {}, wrapperView: data.$view, dataItems: transferedDataItems.dataItems, apiPool: {}});
-            invoice.o_setValue({name: 'invoiceType-' + data.data.invoiceType, visible: true});
+            invoice.o_setValue({name: 'invoiceType-' + resultData.invoice.invoiceType, visible: true});
             invoice.render();
             var returnData = {
                 instance: invoice,
