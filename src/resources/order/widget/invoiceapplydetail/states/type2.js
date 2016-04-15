@@ -11,7 +11,7 @@ define(function (require, exports, module) {
     };
     //转换输入值
     exports.transferDataItem = function (dataItems, controller, responseData,type) {//转换数据项
-        controller(dataItems,'save',function(item){
+        controller(dataItems,'refuse',function(item){
             item.visible=false;
         });
         common.setCommonData(dataItems,controller , responseData, type);
