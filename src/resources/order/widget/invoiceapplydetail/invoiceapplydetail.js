@@ -24,36 +24,34 @@ define(function (require, exports, module) {
         func(find);
     }
 
-    exports.show = function (type,data) {
-        debugger
-        data.data.invoiceId = 66;
-        data.data.processInstanceId = "1110326";
+    exports.show = function (type, data, func) {
+        //data.data.invoiceId = 66;
+        //data.data.processInstanceId = "1110326";
         util.api({
             'url': '/odr/invoice/' + data.data.invoiceId + '/detail',
             'data': {},
             success: success
         });
         function success(result) {
-            debugger
             var resultData = null;
             if (result.success) {
                 resultData = result.model;
             }
-
-            resultData.invoiceId=data.data.invoiceId;
-            resultData.processInstanceId=data.data.processInstanceId;
+            resultData.invoiceId = data.data.invoiceId;
+            resultData.processInstanceId = data.data.processInstanceId;
             var dataItems = require('./dataitems/items').getItems();
             var controller = getDataControllerByType(type);//根据类型获取控制器
             var transferedDataItems = controller.transferDataItem(dataItems, controlDataItems, resultData);//用控制器转换输入的数据项
             var invoice = new Invoice({templateData: {}, wrapperView: data.$view, dataItems: transferedDataItems.dataItems, apiPool: {}});
-            invoice.o_setValue({name:'invoiceType-'+data.data.invoiceType,visible:true});
+            invoice.o_setValue({name: 'invoiceType-' + data.data.invoiceType, visible: true});
             invoice.render();
-            return {
-                instance:invoice,
+            var returnData = {
+                instance: invoice,
                 getData: controller.transferResultData(invoice), validate: function () {
                     return invoice.o_validate();
                 }
             };
+            func && func(returnData);
         }
     };
     //根据类型获取不同的订单控制器
