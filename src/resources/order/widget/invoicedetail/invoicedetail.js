@@ -253,8 +253,8 @@ define(function( require , exports , module ){
 					}
 				});
 			});
-
-			if( (status != 1 ) || ( status != 9 ) || ( status != 0 ) ){
+			
+			if( (status != 1 ) && ( status != 9 ) && ( status != 0 ) ){
 				me.$('input,textarea').attr('disabled','disabled')
 			}
 		},
@@ -265,8 +265,10 @@ define(function( require , exports , module ){
 
 			var me = this;
 			me.model.clear();
+			
 			//清除其他选项
-
+			me.$('input,textarea').removeAttr('disabled');
+			
 			//重置input选中状态
 			me.$('[name="invoice"]').eq(0).trigger('click');
 			me.$('[name="invoicetype"]').eq(0).trigger('click');
