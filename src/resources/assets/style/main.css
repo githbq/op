@@ -6556,8 +6556,18 @@ em {
 .m-invoicedetail .typea,
 .m-invoicedetail .typeb,
 .m-invoicedetail .typec,
-.m-invoicedetail .typed {
+.m-invoicedetail .typed,
+.m-invoicedetail .imginfo {
   display: none;
+}
+.m-invoicedetail .file img,
+.m-invoicedetail .typea img,
+.m-invoicedetail .typeb img,
+.m-invoicedetail .typec img,
+.m-invoicedetail .typed img,
+.m-invoicedetail .imginfo img {
+  display: block;
+  max-width: 400px;
 }
 .m-invoicedetail .detail-action {
   text-align: right;

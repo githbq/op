@@ -150,6 +150,7 @@ define(function( require , exports , module ){
 				})
 			});
 			
+			//
 			me.$qualification.on('change',function(){
 				console.log('change');
 				console.log( me.$qualification[0].files );
@@ -209,7 +210,6 @@ define(function( require , exports , module ){
 				
 				util.api({
 					'url':'/odr/invoice/'+invoiceId,
-					'method':'get',
 					'success': function( data ){
 
 						if( data.success ){
@@ -228,6 +228,16 @@ define(function( require , exports , module ){
 							}
 							me.typeEve();
 							me.setState( approvalStatus );
+
+							//
+							if( data.value.model.businessLicense ){
+								me.$('#bsimg').show().find('img').attr('src','/op/api/file/previewimage?filePath='+data.value.model.businessLicense);
+							}
+
+							//
+							if( data.value.model.taxpayerQualification ){
+								me.$('#qaimg').show().find('img').attr('src','/op/api/file/previewimage?filePath='+data.value.model.taxpayerQualification);
+							}
 						}
 					}
 				});
@@ -269,6 +279,8 @@ define(function( require , exports , module ){
 			
 			//清除其他选项
 			me.$('input,textarea').removeAttr('disabled');
+
+			me.$('.imginfo').hide();
 
 			//重置input选中状态
 			me.$('[name="invoice"]').eq(0).trigger('click');
