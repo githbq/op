@@ -42,15 +42,23 @@ define(function (require, exports, module) {
         $('.test').off().click(function () {
             var type = $('#inputtype').val();
             if (type && parseInt(type)) {
-                debugger
-                result = invoiceapplydetail.show({$view: $el.find('.panel1')}, {});
+                var data = {
+                    invoiceId: 66,
+                    processInstanceId: "1110326"
+                };
+                result = invoiceapplydetail.show(type,{$view: $el.find('.panel1'),data:data});
             }
         });
         $('#changeType').off().change(function () {
+            var type = $('#inputtype').val();
             if (!$(this).val()) {
                 return;
             }
-            result = invoiceapplydetail.show(parseInt(type), {$view: $el.find('.panel1')});
+            var data = {
+                invoiceId: 66,
+                processInstanceId: "1110326"
+            };
+            result = invoiceapplydetail.show(type,{$view: $el.find('.panel1'),data:data});
 
         });
         $('.test2').off().click(function () {

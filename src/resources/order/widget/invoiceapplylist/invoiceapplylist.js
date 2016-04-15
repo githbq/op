@@ -24,12 +24,12 @@ define(function (require, exports, module) {
     }
 
     //代理商发票申请列表
-    var InvoiceApplyAgent = MClass( M.Center ).include({
+    var InvoiceApplyList = MClass( M.Center ).include({
         
         view: template,
 
         init: function(){
-            InvoiceApplyAgent.__super__.init.apply( this, arguments );
+            InvoiceApplyList.__super__.init.apply( this, arguments );
             var me = this;
             
             me.pagination = new Pagination({
@@ -46,7 +46,17 @@ define(function (require, exports, module) {
                 me.attrs.wrapper.html( me.$view );
             }
 
+            console.log( me.attrs.state );
             me.refresh();
+        },
+
+        //
+        setState: function(){
+            var me = this;
+
+            me.$('[data-state]').hide();
+
+            me.$('[data-state="' + me.attrs.state + '"]').show();
         },
 
         events:{
@@ -79,7 +89,29 @@ define(function (require, exports, module) {
             var info = me.list.find('invoiceId',inid);
             console.log( info );
 
-            me.trigger('detail' , info.orderId , inid , info.approvalStatus );
+            var type = me.$('.toggle b.active').attr('data-type');
+            var typestatus;
+
+            switch( type ){
+                
+                //待审核发票列表
+                case 'wait':
+                    typestatus = 1;
+                    break;
+                //已审核发票列表
+                case 'end':
+                    typestatus = 2;
+                    break;
+                //被驳回审核发票列表
+                case 'refuse':
+                    typestatus = 3;
+                    break;
+                default:
+                    break;
+            }
+
+
+            me.trigger('detail' , info.orderId , inid , info.approvalStatus , info , typestatus );
         },
 
         //信息撤回
@@ -160,6 +192,7 @@ define(function (require, exports, module) {
                                 item.invoiceTypeStr = InvoiceTypeMap[item.invoiceType];
                                 item.invoicePropStr = InvoicePropMap[item.invoiceProp];
                             });
+                            me.setState();
                         } else {
                             me.$('tbody').html("<tr><td colspan='12'><p class='info'>暂无数据</p></td></tr>");
                         }
@@ -169,7 +202,7 @@ define(function (require, exports, module) {
         }
     });
 	
-	module.exports = InvoiceApplyAgent;
+	module.exports = InvoiceApplyList;
 });
 
 

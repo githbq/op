@@ -14,6 +14,15 @@ define(function (require, exports, module) {
         controller(dataItems,'save',function(item){
             item.visible=false;
         });
+        controller(dataItems,'refuse',function(item){
+            item.visible=false;
+        });
+        controller(dataItems,'commentWrapper',function(item){
+            item.visible=true;
+        });
+        controller(dataItems,'kaiju',function(item){
+            item.visible=false;
+        });
         common.setCommonData(dataItems,controller , responseData, type);
         return {dataItems: dataItems};
     }

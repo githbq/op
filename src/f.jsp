@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>运营平台-支持人员</title>
+    <title>运营平台-财务人员</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <link rel="shortcut icon" href="//www.fxiaoke.com/favicon.ico" type="image/x-icon" />
     <!-- build:css resources/assets/style/main.css -->
@@ -26,8 +26,20 @@
         <ul class="nav-main clearfix">
             <li data-modulecode="ApprovalOpf">
                 <a href="#finance/approvallist">我的审批</a>
+                <ul class="nav-sub">
+                    <li data-modulecode="ApprovalOpf">
+                        <a href="#finance/approvallist">订单审批</a>
+                    </li>
+                    <li>
+                        <a href="#order/invoiceapplyfinancelist">发票审批</a>
+                    </li>
+                </ul>
             </li>
+<<<<<<< HEAD
 			<li data-modulecode="BankOpF">
+=======
+            <li>
+>>>>>>> 46f754da9801c2b017651a67d684578512432eb2
                 <a href="#order/payaccount">银行账户管理</a>
             </li>
         </ul>
@@ -88,7 +100,7 @@
 <script type="text/javascript" src="resources/common/widget/calendar/jquery.datetimepicker.js"></script>
 
 <!--endbuild-->
-    <script type="text/javascript" src="resources/common/widget/my97datepicker/wdatepicker.js"></script>
+<script type="text/javascript" src="resources/common/widget/my97datepicker/wdatepicker.js"></script>
 <!--build:app resources/assets/scripts/app.js-->
 <script type="text/javascript" src="resources/assets/scripts/config.js"></script>
 <script type="text/javascript" src="resources/assets/scripts/app.js"></script>
@@ -102,5 +114,4 @@
 
 </body>
 </html>
-
 
