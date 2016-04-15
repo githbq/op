@@ -20,8 +20,8 @@ define(function (require, exports, module) {
     apiPool.updateInvoice = function (data, success) {
         util.api({
             'url': '/odr/invoice/updateInvoice',
-            'data':JSON.stringify(data ),
-            'contentType':'application/json;charset=UTF-8 ',
+            'data': JSON.stringify(data),
+            'contentType': 'application/json;charset=UTF-8 ',
             success: success
         })
     };
@@ -33,10 +33,21 @@ define(function (require, exports, module) {
         dataItems.push(new DataItem({
             name: 'save',
             events: [{
-                key: 'click', value: getUpdateInvoice(function (result, me) {
-                    util.showTip('保存成功');
-                    me.trigger('close', true);
-                })
+                key: 'click', value: function (e) {
+                    var me = this;
+                    if (me.o_getFieldData('save').using || !confirm('确定保存?')) {
+                        return;
+                    }
+                    me.o_setValue({name: 'save', using: true});
+                    (getUpdateInvoice(function (result, me) {
+                        me.o_setValue({name: 'save', using: false});
+                        if (result.success) {
+                            util.showTip('保存成功');
+
+                            me.trigger('close', true);
+                        }
+                    })).call(this, e);
+                }
             }]
         }));
         dataItems.push(new DataItem({
@@ -64,15 +75,23 @@ define(function (require, exports, module) {
         function refuseOrAgree(approved) {
             return function (e) {
                 var me = this;
-                debugger
+                var $dom = $(e.target);
+                if (me.o_getFieldData($dom.attr('data-name')).using || !confirm('确定执行?')) {
+                    return;
+                }
+                me.o_setValue({name: $dom.attr('data-name'), using: true});
                 (getUpdateInvoice(function (result, me) {
+                    me.o_setValue({name: $dom.attr('data-name'), using: false});
+                    if (!result.success) {
+                        return
+                    }
                     me.o_getFieldValue('apiPool').directApprove(me.o_getFieldValue('processInstanceId'), approved, me.o_getFieldValue('comment'), function (result) {
                         if (result.success) {
                             util.showTip('操作成功');
                             me.trigger('close', true);
                         }
                     });
-                })).call(me,e);
+                })).call(me, e);
             }
         }
 
@@ -87,10 +106,8 @@ define(function (require, exports, module) {
                     invoiceNo: me.o_getFieldValue('invoiceNo')
                 };
                 me.o_getFieldValue('apiPool').updateInvoice(data, function (result) {
-                    if (result.success) {
-                        if (callback) {
-                            callback(result, me);
-                        }
+                    if (callback) {
+                        callback(result, me);
                     }
                 })
             }
