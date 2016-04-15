@@ -54,7 +54,7 @@ define(function (require, exports, module) {
                     }
                 });
                 controller(dataItems, 'contract-a', function (item) {
-                    item.attr = {href: '/op/api/file/previewimage?filePath=' + item.value};
+                    item.attr = {href: '/op/api/file/previewimage?filePath=' + responseData.contract.contract};
                 });
                 controller(dataItems, 'contractCopy', function (item) {
                     if (item.value) {
@@ -62,7 +62,7 @@ define(function (require, exports, module) {
                     }
                 });
                 controller(dataItems, 'contractCopy-a', function (item) {
-                    item.attr = {href: '/op/api/file/previewimage?filePath=' + item.value};
+                    item.attr = {href: '/op/api/file/previewimage?filePath=' + responseData.contract.contractCopy};
                 });
 
             }
@@ -77,7 +77,7 @@ define(function (require, exports, module) {
                     }
                 });
                 controller(dataItems, 'businessLicense-a', function (item) {
-                    item.attr = {href: '/op/api/file/previewimage?filePath=' + item.value};
+                    item.attr = {href: '/op/api/file/previewimage?filePath=' + responseData.invoice.businessLicense};
                 });
                 controller(dataItems, 'taxpayerQualificationFileName', function (item) {
                     if (item.value) {
@@ -85,7 +85,7 @@ define(function (require, exports, module) {
                     }
                 });
                 controller(dataItems, 'taxpayerQualificationFileName-a', function (item) {
-                    item.attr = {href: '/op/api/file/previewimage?filePath=' + item.value};
+                    item.attr = {href: '/op/api/file/previewimage?filePath=' + responseData.invoice.taxpayerQualificationFileName};
                 });
             }
         }
