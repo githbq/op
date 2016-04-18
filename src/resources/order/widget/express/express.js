@@ -23,6 +23,23 @@ define(function(require, exports, module){
 
 		init: function(){
 			ExpressInfo.__super__.init.apply( this, arguments );
+			this.setState();
+		},
+
+		setState: function(){
+			var me = this;
+
+			me.$('[data-state]').hide();
+			if( me.attrs.state ){
+				me.$('[data-state="'+me.attrs.state+'"]').show();
+			}
+
+			if( me.attrs.state == 'agent'){
+				me.$('input,select').attr('disabled','disabled');
+				me.$('.nsr').hide();
+			}else{
+				me.$('.nsr').show();
+			}
 		},
 
 		show: function( id ){
@@ -37,9 +54,17 @@ define(function(require, exports, module){
 					console.warn( data );
 					if( data.success ){
 						me.model.load( data.value.model );
+						me.model.set('invoiceDateStr', new Date( me.model.get('invoiceDate') )._format('yyyy/MM/dd') );
 					}
 				}  
 			})
+		},
+		hide: function(){
+			ExpressInfo.__super__.hide.apply( this, arguments );
+
+			var me = this;
+			me.model.clear();
+			//me.$('input,select').removeAttr('disabled');
 		},
 
 		//保存快递信息
@@ -60,20 +85,24 @@ define(function(require, exports, module){
 
 
 			//
-			/*
+			
 			util.api({
 				'url': '/odr/invoice/updateExpress',
-				'data': {
+				'contentType':'application/json',
+				'data': JSON.stringify({
 					'id': me.model.get('id'),
 					'expressStatus': me.model.get('expressStatus'),
 					'expressName': me.model.get('expressName'),
 					'expressNo': me.model.get('expressNo')
-				},
+				}),
 				'success': function( data ){
-					
+					if( data.success ){
+						util.showTip('修改成功');
+						me.hide();
+					}
 				}
 			});
-			*/
+			
 		}
 	})
 

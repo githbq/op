@@ -58,7 +58,7 @@
 			<span class="filetype">税务登记证正本/副本或三证合一的营业执照 <b class="nsr">*</b></span><br>
 			<input type="file" id="businessLicense" class="businessLicense"><span>(支持.png,.jpg,.gif格式)</span>
 		</p>
-		<p class="imginfo file" id="bsimg">
+		<p class="imginfo" id="bsimg">
 			<span>税务登记证正本/副本或三证合一的营业执照</span> <br>
 			<img src="">
 		</p>
@@ -67,7 +67,7 @@
 			<span class="filetype">一般纳税人资质证书(或认定通知) <b class="nsr">*</b></span><br>
 			<input type="file" id="qualification" class="qualification"><span>(支持.png,.jpg,.gif格式)</span>
 		</p>
-		<p class="imginfo file" id="qaimg">
+		<p class="imginfo" id="qaimg">
 			<span>一般纳税人资质证书(或认定通知)</span> <br>
 			<img src="">
 		</p>
@@ -216,9 +216,21 @@
 	</section>
 	
 	<!--上级审批意见-->
-	<section data-state="9">
+	<section data-state="3 9">
 		<p>审批意见</p>
-		<p ce-model="rejectReason" class="rejectreason"></p>
+		<table>
+            <thead>
+            <th style="width:100px;">操作人</th>
+            <th style="width:100px;">审批时间</th>
+            <th style="width:100px;">审批结果</th>
+            <th style="width:100px;">审批意见</th>
+            <th></th>
+            </thead>
+            <tbody class="rejectReason">
+				
+            </tbody>
+        </table>
+		<!--<p ce-model="rejectReason" class="rejectreason"></p>-->
 	</section>
 	<!-- end -->
 

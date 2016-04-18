@@ -17,15 +17,19 @@ define(function (require, exports, module) {
         var invoiceDetail = new InvoiceDetail();
 
         //快递模块
-        var expressDetail = new ExpressDetail();
+        var expressDetail = new ExpressDetail({'state':'agent'});
 
         //查看发票详情
         invoiceApplyList.on('detail', function( orderId, inid , approvalStatus , info ){
             invoiceDetail.show( orderId, inid, approvalStatus , info );
         });
         
+        expressDetail.on('editSuccess',function(){
+            invoiceApplyList.refresh();
+        })
+
         //查看快递详情
-        invoiceApplyList.on('expressdetail', function( id ){
+        invoiceApplyList.on('expressdetail', function( id , state ){
             console.log('expdetail' + id);
             expressDetail.show( id );
         });

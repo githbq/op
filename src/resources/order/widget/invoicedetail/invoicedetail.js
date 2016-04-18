@@ -10,6 +10,23 @@ define(function( require , exports , module ){
 		'2': '分期',
 		'3': '未付'
 	}
+
+
+	function getRejectReason( rejectReason ) {
+        var opinionObj = {'support': '小助手开通', 'support2': '小助手确认', 'finance': '财务', 'sup': '小助手'};
+        var personStr = "support,support2,finance,sup";
+        var strDom = '';
+        var optionsList = rejectReason ? rejectReason.split('<+>') : [];
+        for (var i = 0; i < optionsList.length; i++) {
+            var tempAry = optionsList[i].split('<->');
+            if (personStr.indexOf(tempAry[0]) > -1) {
+                tempAry[0] = opinionObj[tempAry[0]];
+            }
+            tempAry[2] = (tempAry[2] == 'true') ? '同意' : '驳回';
+            strDom += '<tr><td>' + tempAry[0] + '</td><td>' + tempAry[1] + '</td><td>' + tempAry[2] + '</td><td>' + tempAry[3] + '</td><td></td></tr>'
+        }
+        return strDom;
+    }
 	
 	//发票模块 提交编辑
 	var InvoiceDetail = MClass( Slider ).include({
@@ -129,6 +146,7 @@ define(function( require , exports , module ){
 
 							changeState(function(){
 								util.showTip('保存成功');
+								me.trigger('editSuccess')
 								me.hide();
 							});
 						}
@@ -271,6 +289,12 @@ define(function( require , exports , module ){
 								me.$('#qaimg').show().find('img').attr('src','/op/api/file/previewimage?filePath='+data.value.model.taxpayerQualification);
 							}
 
+							if( data.value.model.rejectReason ){
+								me.$('.rejectReason').html( getRejectReason( data.value.model.rejectReason ) );
+							}else{
+								me.$('.rejectReason').html('<tr><td colspan="5">暂无意见</td></tr>')
+							}
+
 							me.typeEve();
 							me.setState( approvalStatus );
 						}
@@ -301,11 +325,18 @@ define(function( require , exports , module ){
 						$el.show();
 					}
 				});
-			});
+			});	
 
-			if( (status != 1 ) && ( status != 9 ) && ( status != 0 ) ){
-				me.$('input,textarea').attr('disabled','disabled')
+			//
+			// 1 9  0 状态除外都disable
+			if( ( status != 1 ) && ( status != 9 ) && ( status != 0 ) ){
+				me.$('input,textarea').attr('disabled','disabled');
+				me.$('.nsr').hide();
+			}else{
+				me.$('.imginfo').hide();
+				me.$('.nsr').show();
 			}
+			//
 		},
 
 		//隐藏
@@ -317,7 +348,7 @@ define(function( require , exports , module ){
 			
 			//清除其他选项
 			me.$('input,textarea').removeAttr('disabled');
-
+			me.$('.rejectReason').html('');
 			me.$('.imginfo').hide();
 
 			//重置input选中状态
