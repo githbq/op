@@ -227,7 +227,7 @@ define(function(require, exports, module){
 				}else{
 					me.$('.check-box').hide();
 					me.$('.hascheck').show();
-		
+					me.model.set('invoiceIsCertify','');
 				}
 			}else{
 				
