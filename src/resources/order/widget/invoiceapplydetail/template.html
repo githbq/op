@@ -54,7 +54,7 @@
             </p>
         </section>
         <h4>付款信息</h4>
-        <section >
+        <section>
             <p>
                 <span class="title">当前付费状态:</span>
                 <span data-name="payStatus"></span>
@@ -91,7 +91,7 @@
             </p>
         </section>
         <h4>发票信息</h4>
-        <section data-name="invoiceType-1"  data-config="{'visible':false}">
+        <section data-name="invoiceType-1" data-config="{'visible':false}">
             <p>
                 <span class="title">发票抬头:</span>
                 <span data-name="invoiceHead"></span>
@@ -112,7 +112,7 @@
                 <span data-name="invoiceProp"></span>
             </p>
         </section>
-        <section data-name="invoiceType-2"  data-config="{'visible':false}">
+        <section data-name="invoiceType-2" data-config="{'visible':false}">
             <p>
                 <span class="title">税务登记证正本/副本或三证合一的营业执照:</span>
                 <a href="#" data-name="businessLicense-a" target="_blank">
@@ -128,14 +128,15 @@
             </p>
 
             <!--<p>-->
-                <!--<span class="title">公司名称</span>-->
-                <!--<span data-name="invoiceCompany"></span>-->
+            <!--<span class="title">公司名称</span>-->
+            <!--<span data-name="invoiceCompany"></span>-->
             <!--</p>-->
 
             <p>
                 <span class="title">纳税人识别号:</span>
                 <span data-name="taxpayerIdentificationNo"></span>
             </p>
+
             <p>
                 <span class="title">开户行:</span>
                 <span data-name="bankName"></span>
@@ -192,7 +193,7 @@
                 <button class="btn-blue" data-name="save">保存</button>
                 <button class="" data-name="cancel">取消</button>
             </p>
-            <p class="field"> 
+            <p class="field">
                 <button class="btn-blue" data-name="agree">同意</button>
                 <button class="" data-name="refuse">驳回</button>
             </p>
@@ -201,6 +202,18 @@
             <p>
                 <span class="title">上级审批意见</span>
                 <span data-name="upCommnet"></span>
+            <table>
+                <thead>
+                <th style="width:100px;">操作人</th>
+                <th style="width:100px;">审批时间</th>
+                <th style="width:100px;">审批结果</th>
+                <th style="width:100px;">审批意见</th>
+                <th></th>
+                </thead>
+                <tbody data-name="rejectReason">
+
+                </tbody>
+            </table>
             </p>
         </section>
     </form>

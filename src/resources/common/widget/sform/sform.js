@@ -582,7 +582,7 @@ define(function (require, exports, module) {
                 if ($ele.is('select,input,textarea')) {
                     $ele.val(value);
                 } else {
-                    $ele.text(value);
+                    $ele.html(value);
                 }
                 return value;
             },

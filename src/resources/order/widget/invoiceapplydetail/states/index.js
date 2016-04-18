@@ -16,9 +16,26 @@ define(function (require, exports, module) {
                     });
                 }
             }
+
         }
 
-        exports.setKaijuReadonly = function () {
+        function getRejectReason(rejectReason) {
+            var opinionObj = {'support': '小助手开通', 'support2': '小助手确认', 'finance': '财务', 'sup': '小助手'};
+            var personStr = "support,support2,finance,sup";
+            var strDom = '';
+            var optionsList = rejectReason ? rejectReason.split('<+>') : [];
+            for (var i = 0; i < optionsList.length; i++) {
+                var tempAry = optionsList[i].split('<->');
+                if (personStr.indexOf(tempAry[0]) > -1) {
+                    tempAry[0] = opinionObj[tempAry[0]];
+                }
+                tempAry[2] = (tempAry[2] == 'true') ? '同意' : '驳回';
+                strDom += '<tr><td>' + tempAry[0] + '</td><td>' + tempAry[1] + '</td><td>' + tempAry[2] + '</td><td>' + tempAry[3] + '</td><td></td></tr>'
+            }
+            return strDom;
+        }
+
+        exports.setKaijuReadonly = function (dataItems,controller , responseData, type) {
             controller(dataItems, 'invoiceStatus', function (item) {
                 item.readonly = true;
             });
@@ -31,8 +48,13 @@ define(function (require, exports, module) {
             controller(dataItems, 'invoiceNo', function (item) {
                 item.readonly = true;
             });
-
-        }
+            controller(dataItems, 'comment', function (item) {
+                item.readonly = true;
+            });
+            controller(dataItems, 'save', function (item) {
+                item.visible = false;
+            });
+        };
         exports.setCommonData = function (dataItems, controller, responseData, type) {
             if (!responseData) {
                 return;
@@ -57,8 +79,8 @@ define(function (require, exports, module) {
                 });
 
                 controller(dataItems, 'contract-a', function (item) {
-                    if(!contract){
-                        item.visible=false;
+                    if (!contract) {
+                        item.visible = false;
                     }
                     item.attr = {href: contract};
 
@@ -71,8 +93,8 @@ define(function (require, exports, module) {
                     }
                 });
                 controller(dataItems, 'contractCopy-a', function (item) {
-                    if(!contractCopy){
-                        item.visible=false;
+                    if (!contractCopy) {
+                        item.visible = false;
                     }
                     item.attr = {href: contractCopy};
                 });
@@ -109,6 +131,13 @@ define(function (require, exports, module) {
                     }
                     item.attr = {href: taxpayerQualification};
                 });
+
+
+                controller(dataItems, 'rejectReason', function (item) {
+                    item.value = getRejectReason(responseData.invoice.rejectReason);
+                });
+
+
             }
         }
         ;
