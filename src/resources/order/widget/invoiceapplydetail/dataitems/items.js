@@ -7,7 +7,7 @@ define(function (require, exports, module) {
     //审批接口
     apiPool.directApprove = function (id, approved, comment, success) {
         util.api({
-            'url': '~/op/api/approval/directapprove',
+            'url': '~/op/api/approval/directapprove',//directInvoiceApprove',
             'data': {
                 'processInstanceId': id,   //流程实例ID
                 'approved': approved,                  //审批结果(通过/拒绝)
