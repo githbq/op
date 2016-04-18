@@ -55,7 +55,7 @@
                     </select>
                 </label>
                 <label><span>剩余空间低于</span>
-                    <input id="qcSb" placeholder="G" type="text" class="g-ipt ipt-s" />
+                    <input id="qcSb" placeholder="G" type="text" class="g-ipt ipt-s" onchange="this.value=this.value.replace(/\D/g,'')" />
                 </label>
                 <div class="m-ih m-ih-space">
                     <div class="ih-cnt"><b class="ih-select"></b><span class="ih-clear" data-value="0">清除</span></div>
