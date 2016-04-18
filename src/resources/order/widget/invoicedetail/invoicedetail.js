@@ -108,7 +108,7 @@ define(function( require , exports , module ){
 			function changeState( callback ){
 
 				util.api({
-					'url':'~/op/api/approval/directapprove',
+					'url':'~/op/api/approval/directInvoiceApprove',
 					'data':{
 						'processInstanceId': me.processInstanceId, //实例id
 						'approved': true
