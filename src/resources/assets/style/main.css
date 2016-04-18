@@ -96,6 +96,10 @@
 .u-tablelist table td {
   /*.ellipsis();*/
   padding: 0 6px;
+  word-break: break-all;
+  /*支持IE，chrome，FF不支持*/
+  word-wrap: break-word;
+  /*支持IE，chrome，FF*/
 }
 .u-tablelist table tr {
   height: 40px;
