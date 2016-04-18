@@ -90,25 +90,20 @@ define( function(require, exports, module){
 		sortType:function(){
 			var me = this;
 			me.attrs.options.orderType = parseInt(me.attrs.options.orderType)
-			
-			//me._setTitle( orderTypeAry[me.attrs.options.orderType] );
-			
-			$.when(  me.setOrderList(), me.getOrderBackMoneyInfo(), me.getInvoiceList()).done(function(){
+	
+			$.when(  me.setOrderList(), me.getOrderBackMoneyInfo() ).then( function(result1,result2){
+
+				return  me.getInvoiceList()
 				
+			} ).done(function(){
+
 				me.setOrderInfo();
 				
-				/*me.getInvoiceList( function(){
-					
-					
-					
-				} );*/
 				if(me.attrs.invoiceData.length>0){
 					me.showInvoiceList()
 					
 				}
 				
-				
-
 				//企业信息
 				me.attrs.basicCommon = new OrderInfo( { 'wrapper':me.$view.find('.common--basic'),'data':me.attrs.orderList,
 					'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
