@@ -1037,6 +1037,9 @@ define( function(require, exports, module){
 							'groupNumLimit': model.groupNumLimit,
 							'videoNumLimit': model.videoNumLimit,
 							'crmVisibleRange': model.crmVisibleRange,
+							'editCustomerName': model.editCustomerName,
+							'setPersonalGoal': model.setPersonalGoal,
+							'discountAutoCalculated': model.discountAutoCalculated,
 							'webSanCodeAuth': model.webSanCodeAuth
 						};
 

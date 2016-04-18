@@ -94,15 +94,15 @@ define(function(require, exports, module){
 				switch( tempId ){
 					case 3:
 						
-						serviceDom+=" <tr> <td>"+productIdDic[tempId]+"合同金额：</td><td class='money-box'>"+sublist[i].contractAmount+"</td>" +
+						serviceDom+=" <tr> <td>"+productIdDic[tempId]+"合同金额(元)：</td><td class='money-box'>"+sublist[i].contractAmount+"</td>" +
 						" <td>非退款项</td><td></td></tr>";
 						usedAmound+=parseFloat(sublist[i].usedAmount);
 						break;
 					case 10: case 11: case 2:
 						break;
 					default:
-						strDom+=" <tr> <td>"+productIdDic[tempId]+"合同金额：</td><td class='money-box'>"+sublist[i].contractAmount+"</td>" +
-						" <td>已使用金额：</td><td class='money-box'>"+sublist[i].usedAmount+"</td></tr>";
+						strDom+=" <tr> <td>"+productIdDic[tempId]+"合同金额(元)：</td><td class='money-box'>"+sublist[i].contractAmount+"</td>" +
+						" <td>已使用金额(元)：</td><td class='money-box'>"+sublist[i].usedAmount+"</td></tr>";
 						usedAmound+=parseFloat(sublist[i].usedAmount);
 						var backAmount = {};
 						var tempMoney  = parseFloat(sublist[i].contractAmount) - parseFloat(sublist[i].usedAmount);
