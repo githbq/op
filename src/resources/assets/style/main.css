@@ -6576,8 +6576,18 @@ em {
   display: inline-block;
   width: 120px;
 }
+.m-express p {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
 .m-express .nsr {
   color: red;
+}
+.m-express .data-state {
+  display: none;
+}
+.m-express .express-action {
+  text-align: right;
 }
 .custom-content .list {
   margin: 0px 222px;

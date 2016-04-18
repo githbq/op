@@ -51,12 +51,22 @@ define(function (require, exports, module) {
         },
 
         //
+        //  第一层 根据当前模块状态 相应元素显示
+        //  第二层 根据当前内部状态 进行显隐控制
+        //
         setState: function(){
             var me = this;
 
             me.$('[data-state]').hide();
 
             me.$('[data-state="' + me.attrs.state + '"]').show();
+            
+            var currentType = me.$('.toggle b.active').attr('data-type');
+            if( currentType == "end" ){
+                me.$('.expressdetail').show();
+            } else {
+                me.$('.expressdetail').hide();
+            }
         },
 
         events:{
@@ -73,7 +83,8 @@ define(function (require, exports, module) {
 
             $( e.currentTarget ).addClass('active').siblings().removeClass('active');
             this.pagination.setPage(0,false);
-            this.refresh();
+
+            this.refresh( );
         },
 
         //搜寻列表
@@ -126,7 +137,7 @@ define(function (require, exports, module) {
 
             var inid = $( e.currentTarget ).attr('data-inid');
 
-            me.trigger('expressdetail',inid);
+            me.trigger( 'expressdetail', inid , me.attrs.state );
         },
 
         //信息撤回
@@ -153,11 +164,10 @@ define(function (require, exports, module) {
                     }
                 });
             }
-
         },
 
         //刷新审批列表
-        refresh: function(){
+        refresh: function(  ){
         	var me = this;
             
             var type = me.$('.toggle b.active').attr('data-type');
