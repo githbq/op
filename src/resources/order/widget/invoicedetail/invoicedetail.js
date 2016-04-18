@@ -325,16 +325,16 @@ define(function( require , exports , module ){
 						$el.show();
 					}
 				});
-			});
-
+			});	
 
 			//
-			if( (status != 1 ) && ( status != 9 ) && ( status != 0 ) ){
-				me.$('input,textarea').attr('disabled','disabled')
+			// 1 9  0 状态除外都disable
+			if( ( approvalStatus != 1 ) && ( approvalStatus != 9 ) && ( approvalStatus != 0 ) ){
+				me.$('input,textarea').attr('disabled','disabled');
+			}else{
+				me.$('.imginfo').hide();
 			}
-
 			//
-
 		},
 
 		//隐藏
