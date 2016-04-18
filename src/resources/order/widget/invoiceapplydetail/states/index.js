@@ -71,7 +71,7 @@ define(function (require, exports, module) {
                     }
                 });
                 controller(dataItems, 'contractCopy-a', function (item) {
-                    if(contractCopy){
+                    if(!contractCopy){
                         item.visible=false;
                     }
                     item.attr = {href: contractCopy};
