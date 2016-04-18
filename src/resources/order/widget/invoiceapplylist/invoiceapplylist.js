@@ -6,9 +6,9 @@ define(function (require, exports, module) {
 
     //付费状态map
     var PayStatusMap = {
-        '1': '分期',
-        '2': '未付',
-        '3': '全款'
+        '1': '全款',
+        '2': '分期',
+        '3': '未付'
     };
 
     //发票类型
@@ -180,11 +180,22 @@ define(function (require, exports, module) {
             var applyDateStart = '';
             var applyDateEnd = '';
 
+            //提单日期开始
+            if( me.$('#startTime').val() ){
+                applyDateStart = new Date( me.$('#startTime').val() ).getTime();
+            }
+
+            //提单日期结束
+            if( me.$('#endTime').val() ){
+                applyDateEnd = new Date( me.$('#endTime').val() ).getTime();
+            }
+
+
             var data = me.model.all();
             data.pageIndex = me.pagination.attr['pageNumber']; 
             data.pageSize = me.pagination.attr['pageSize'];
             data.applyDateStart = applyDateStart;
-            data.applyDateEnd =  applyDateEnd;
+            data.applyDateEnd = applyDateEnd;
 
             //刷新审批列表
             util.api({
