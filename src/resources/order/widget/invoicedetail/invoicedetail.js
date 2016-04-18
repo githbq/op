@@ -331,8 +331,10 @@ define(function( require , exports , module ){
 			// 1 9  0 状态除外都disable
 			if( ( status != 1 ) && ( status != 9 ) && ( status != 0 ) ){
 				me.$('input,textarea').attr('disabled','disabled');
+				me.$('.nsr').hide();
 			}else{
 				me.$('.imginfo').hide();
+				me.$('.nsr').show();
 			}
 			//
 		},
