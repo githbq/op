@@ -6500,6 +6500,15 @@ em {
 .payaccount span.title b {
   color: red;
 }
+.m-express h4 {
+  color: #666;
+  font-size: 18px;
+  padding: 10px 0;
+}
+.m-express .title {
+  display: inline-block;
+  width: 120px;
+}
 .custom-content .list {
   margin: 0px 222px;
   border: 1px solid #ccc;

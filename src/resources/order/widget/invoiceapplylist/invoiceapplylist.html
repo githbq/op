@@ -119,15 +119,20 @@
                     <td><%=item.payStatusStr%></td>
                     <td><%=item.invoiceTypeStr%></td>
                     <td><%=item.invoicePropStr%></td>
-                    <td><%=item.receiptsAccount%></td>
+                    <td><%=item.receiptAccount%></td>
                     <td><%=item.applyTimeStr%></td>
                     <td>
-                        <% if( item.canCancel){ %>
+                        <% if( item.canCancel ){ %>
                             <a class="revoke" data-insid="<%=item.processInstanceId%>" data-state="agent">撤回</a>
                         <% } %>
                         <a class="detail" data-inid="<%=item.invoiceId%>">
                             查看
                         </a>
+                        <!--
+                        <a class="expressdetail" data-inid="<%=item.invoiceId%>">
+                            快递
+                        </a>
+                        -->
                     </td>
                     <td></td>
                 </tr>
