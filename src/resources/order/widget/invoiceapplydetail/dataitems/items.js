@@ -28,7 +28,7 @@ define(function (require, exports, module) {
     var DataItem = require('common/widget/sform/sform').PageDataClass;
     module.exports.getItems = function () {
         var dataItems = [];
-        dataItems.push(new DataItem({name: 'enterpriseId', value: 'enterpriseId'}));
+        dataItems.push(new DataItem({name: 'enterpriseId', value: ''}));
         dataItems.push(new DataItem({name: 'apiPool', value: apiPool}));
         dataItems.push(new DataItem({
             name: 'save',
