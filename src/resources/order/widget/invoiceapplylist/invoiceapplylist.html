@@ -65,7 +65,7 @@
                     发票性质
                     <select name="ffzt" ce-model="invoiceProp">
                         <option value="">全部</option>
-                        <option value="1">到款发票</option>
+                        <option value="1">到款开票</option>
                         <option value="2">预开发票</option>
                     </select>
                 </label>
@@ -119,8 +119,8 @@
                     <td><%=item.payStatusStr%></td>
                     <td><%=item.invoiceTypeStr%></td>
                     <td><%=item.invoicePropStr%></td>
-                    <td><!--收款账户--></td>
-                    <td><!--发票申请日期--></td>
+                    <td><%=item.receiptsAccount%></td>
+                    <td><%=item.applyTimeStr%></td>
                     <td>
                         <% if( item.canCancel){ %>
                             <a class="revoke" data-insid="<%=item.processInstanceId%>" data-state="agent">撤回</a>
