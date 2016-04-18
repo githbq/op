@@ -12,13 +12,6 @@ define(function( require , exports , module ){
 	}
 	
 	//发票模块 提交编辑
-	/**
-	 *  发票详情
-     *  三种状态  
-     *  1 发票申请  
-     *  2 发票重新提交 
-	 *  3 发票查看
-	 */
 	var InvoiceDetail = MClass( Slider ).include({
 
 		content: template,
