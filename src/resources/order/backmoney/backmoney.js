@@ -101,7 +101,7 @@ define( function(require, exports, module){
 				
 				if(me.attrs.invoiceData.length>0){
 					me.showInvoiceList()
-					
+
 				}
 				
 				//企业信息

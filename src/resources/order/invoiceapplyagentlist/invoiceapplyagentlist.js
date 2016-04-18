@@ -9,7 +9,9 @@ define(function (require, exports, module) {
 
 
     exports.init = function ( param ) {
-        var $el = exports.$el;
+       var $el = exports.$el;
+		
+		param = param || [];
 
         var invoiceApplyList = new InvoiceApplyList( {'wrapper':$el ,'state':'agent'} );
 		
