@@ -1465,7 +1465,9 @@ define( function(require, exports, module){
 					console.warn( data );
 					if ( data.success ) {
 						util.showTip( '更新成功' );
+						
 						me.model.attrs.updateTime = data.value.model.modifytime;
+						me.trigger( 'refresh');
 					}
 				},
 				complete: function() {

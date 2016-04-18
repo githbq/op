@@ -31,6 +31,9 @@ define( function( require, exports, module ) {
         //查看企业详情
         entList.on('detail',function( id , status ){
             entDetail.show( id,status );
+			entDetail.on('refresh',function(){
+				entList.search();
+			});
         });
 
         //查看跟踪记录
