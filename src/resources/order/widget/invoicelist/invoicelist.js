@@ -227,8 +227,7 @@ define(function(require, exports, module){
 				}else{
 					me.$('.check-box').hide();
 					me.$('.hascheck').show();
-					me.$('.check-box').show();
-					me.$('input:radio[name="invoicetype"]').eq(0).attr("checked",true);
+		
 				}
 			}else{
 				
@@ -241,7 +240,6 @@ define(function(require, exports, module){
 					me.model.set('invoiceIsCertify',1);
 				}else{
 					me.model.set('invoiceIsCertify','');
-					me.$('.check-box').hide();
 					me.$('.hascheck').show();
 					me.$('.check-box').hide();
 				}
