@@ -331,7 +331,7 @@ define(function( require , exports , module ){
 			if( ( approvalStatus != 1 ) && ( approvalStatus != 9 ) && ( approvalStatus != 0 ) ){
 				me.$('input,textarea').attr('disabled','disabled');
 			}else{
-				me.$('.file').hide();
+				me.$('.imginfo').hide();
 			}
 			//
 		},
