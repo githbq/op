@@ -45,6 +45,7 @@ define(function(require, exports, module){
 		saveEve: function(){
 			var me = this;
 
+			console.log('saveEve');
 			//
 			/*
 			util.api({
