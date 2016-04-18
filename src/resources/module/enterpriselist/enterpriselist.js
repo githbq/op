@@ -276,7 +276,8 @@ define(function (require, exports, module) {
                 'accountName': accountName
             };
             if (exportFile === true) {
-                window.open(IBSS.API_PATH + '/enterprise/exportTrialData?' + $.param(data))
+                window.open(IBSS.API_PATH + '/enterprise/exportTrialData?' + $.param(data));
+                return;
             }
 
             util.api({
