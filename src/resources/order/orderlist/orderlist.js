@@ -336,6 +336,9 @@ define( function( require, exports, module ) {
 		orderList.on('orderInvoice', function( id ){
             invioceDetail = new InvoiceDetail();
             invioceDetail.show( id,null,0 );
+			invioceDetail.on('saveSuccess', function( ){
+				orderList.getList();
+			})
         });
 
     }
