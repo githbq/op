@@ -19,10 +19,12 @@ define(function (require, exports, module) {
         //快递模块
         var expressDetail = new ExpressDetail();
 
+        //查看发票详情
         invoiceApplyList.on('detail', function( orderId, inid , approvalStatus ){
             invoiceDetail.show( orderId, inid, approvalStatus );
         });
         
+        //查看快递详情
         invoiceApplyList.on('expressdetail', function( id ){
             console.log('expdetail' + id);
             expressDetail.show( id );
