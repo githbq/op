@@ -219,8 +219,14 @@ define(function( require , exports , module ){
 			var me = this;
 
 			me.orderId = id;
-			me.invoiceId = invoiceId;
-			me.processInstanceId = info.processInstanceId;   //实例ID
+
+			if( invoiceId ){
+				me.invoiceId = invoiceId;
+			}
+
+			if( info ){
+				me.processInstanceId = info.processInstanceId;   //实例ID
+			}
 
 			//查询订单概况
 			util.api({
