@@ -23,7 +23,7 @@ define(function (require, exports, module) {
             'data': JSON.stringify(data),
             'contentType': 'application/json;charset=UTF-8 ',
             success: success
-        })
+        });
     };
     var DataItem = require('common/widget/sform/sform').PageDataClass;
     module.exports.getItems = function () {
@@ -80,18 +80,26 @@ define(function (require, exports, module) {
                     return;
                 }
                 me.o_setValue({name: $dom.attr('data-name'), using: true});
-                (getUpdateInvoice(function (result, me) {
-                    me.o_setValue({name: $dom.attr('data-name'), using: false});
-                    if (!result.success) {
-                        return
-                    }
+                if (approved) {
+                    (getUpdateInvoice(function (result, me) {
+                        me.o_setValue({name: $dom.attr('data-name'), using: false});
+                        if (!result.success) {
+                            return
+                        }
+                        saveCommnet();
+                    })).call(me, e);
+                } else {
+                    saveCommnet();
+                }
+                function saveCommnet() {
                     me.o_getFieldValue('apiPool').directApprove(me.o_getFieldValue('processInstanceId'), approved, me.o_getFieldValue('comment'), function (result) {
                         if (result.success) {
                             util.showTip('操作成功');
                             me.trigger('doClose', true);
                         }
                     });
-                })).call(me, e);
+                }
+
             }
         }
 
