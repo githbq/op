@@ -30,6 +30,7 @@ define(function(require, exports, module){
 			ExpressInfo.__super__.show.apply( this, arguments );
 		
 			console.log( id );
+
 			util.api({
 				'url': '/odr/invoice/' + id,
 				'success': function( data ){
@@ -46,19 +47,30 @@ define(function(require, exports, module){
 			var me = this;
 
 			console.log('saveEve');
+
+			if( !me.model.get('expressName') ){
+				util.showToast('请填写快递公司');
+				return false;
+			}
+
+			if( !me.model.get('expressNo') ){
+				util.showToast('请填写快递单号');
+				return false;
+			}
+
+
 			//
 			/*
 			util.api({
 				'url': '/odr/invoice/updateExpress',
 				'data': {
-					'id': 
-					'expressStatus':
-					'expressName':
-					'invoice_company':
-					'expressNo':
+					'id': me.model.get('id'),
+					'expressStatus': me.model.get('expressStatus'),
+					'expressName': me.model.get('expressName'),
+					'expressNo': me.model.get('expressNo')
 				},
 				'success': function( data ){
-
+					
 				}
 			});
 			*/
