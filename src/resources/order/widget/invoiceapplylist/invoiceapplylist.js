@@ -81,6 +81,10 @@ define(function (require, exports, module) {
             this.pagination.setPage(0,false);
             this.refresh();
         },
+		jumpEve:function(jump){
+			var me = this;
+			me.$view.find('.toggle b[data-type="'+jump+'"]').trigger("click");
+		},
 
         //查看发票详情
         detailEve: function( e ){

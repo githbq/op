@@ -36,6 +36,14 @@ define(function(require, exports, module){
         '8': {
             text: "代理商退款被驳回",
             url: "/op/a#agentsupport/renewlist/refuse"
+        },
+        '9': {
+            text: "发票申请被驳回",//小助手
+            url: "/op/a#agentsupport/renewlist/refuse "
+        },
+        '10': {
+            text: "发票申请被驳回",
+            url: "/op/a#order/invoiceapplyagentlist/refuse"
         }
 	}
 
