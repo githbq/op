@@ -7,7 +7,7 @@ define(function (require, exports, module) {
     //审批接口
     apiPool.directApprove = function (id, approved, comment, success) {
         util.api({
-            'url': '~/op/api/approval/directapprove',
+            'url': '~/op/api/approval/directInvoiceApprove',//directInvoiceApprove',directapprove
             'data': {
                 'processInstanceId': id,   //流程实例ID
                 'approved': approved,                  //审批结果(通过/拒绝)
@@ -23,7 +23,7 @@ define(function (require, exports, module) {
             'data': JSON.stringify(data),
             'contentType': 'application/json;charset=UTF-8 ',
             success: success
-        })
+        });
     };
     var DataItem = require('common/widget/sform/sform').PageDataClass;
     module.exports.getItems = function () {
@@ -80,18 +80,26 @@ define(function (require, exports, module) {
                     return;
                 }
                 me.o_setValue({name: $dom.attr('data-name'), using: true});
-                (getUpdateInvoice(function (result, me) {
-                    me.o_setValue({name: $dom.attr('data-name'), using: false});
-                    if (!result.success) {
-                        return
-                    }
+                if (approved) {
+                    (getUpdateInvoice(function (result, me) {
+                        me.o_setValue({name: $dom.attr('data-name'), using: false});
+                        if (!result.success) {
+                            return
+                        }
+                        saveCommnet();
+                    })).call(me, e);
+                } else {
+                    saveCommnet();
+                }
+                function saveCommnet() {
                     me.o_getFieldValue('apiPool').directApprove(me.o_getFieldValue('processInstanceId'), approved, me.o_getFieldValue('comment'), function (result) {
                         if (result.success) {
                             util.showTip('操作成功');
                             me.trigger('doClose', true);
                         }
                     });
-                })).call(me, e);
+                }
+
             }
         }
 

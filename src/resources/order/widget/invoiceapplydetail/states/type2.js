@@ -15,6 +15,10 @@ define(function (require, exports, module) {
             item.visible=false;
         });
         common.setCommonData(dataItems,controller , responseData, type);
+        common.setKaijuReadonly(dataItems,controller , responseData, type);
+        controller(dataItems,'commentWrapper',function(item){
+            item.visible=true;
+        });
         return {dataItems: dataItems};
     }
 
