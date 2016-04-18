@@ -88,6 +88,7 @@ define(function( require , exports , module ){
 						if( data.success ){
 							console.log('发票保存成功');
 							util.showTip('发票提交成功');
+							me.trigger('saveSuccess');
 							me.hide();
 						}
 					}
