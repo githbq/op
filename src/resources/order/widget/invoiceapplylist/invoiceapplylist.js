@@ -72,6 +72,7 @@ define(function (require, exports, module) {
             console.log('switchEve');
 
             $( e.currentTarget ).addClass('active').siblings().removeClass('active');
+            this.pagination.setPage(0,false);
             this.refresh();
         },
 
