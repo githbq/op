@@ -320,7 +320,7 @@
 						<p>
 							<label>
 								<span>优惠码</span>
-								<input id="sbAgentId" type="text" class="g-ipt ipt-s"  onkeyup="this.value=this.value.replace(/[^\d]/g,'')" maxlength=8/>
+								<input id="sbAgentId" type="text" class="g-ipt ipt-s"  onchange="this.value=this.value.replace(/\D/g,'')" maxlength=8/>
 							</label>
 							<label>
 								<span>代理商名称</span>

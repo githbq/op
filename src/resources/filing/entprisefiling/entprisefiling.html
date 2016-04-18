@@ -26,7 +26,7 @@
 				</label>
 				<label for="">
 					<span>优惠码</span>
-					<input type="text" ce-model="vendorId" maxlength=8>
+					<input type="text" ce-model="vendorId" onchange="this.value=this.value.replace(/\D/g,'')" maxlength=8>
 				</label>
 				<label for="">
 					<span>服务时长</span><input type="text" ce-model="serviceTimeBegin">  --  <input type="text" ce-model="serviceTimeEnd">月

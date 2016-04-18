@@ -9,7 +9,7 @@
 					<button class="btn-blue btn-search">查询</button>
 				</div>
 				<div class="list-bar-input">
-					<label for=""> 优惠码 <input type="text" ce-model="promotionCode" maxlength=8> </label>
+					<label for=""> 优惠码 <input type="text" ce-model="promotionCode" onchange="this.value=this.value.replace(/\D/g,'')" maxlength=8> </label>
 					<label for=""> 代理商名称 <input type="text" class="select-options" ce-model="agentName"></select> </label>
 					<label for="">
 						角色

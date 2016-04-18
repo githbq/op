@@ -22,7 +22,7 @@
 						</select>
 					</label>
 					<label><span>优惠码</span>
-						<input id="alCode" type="text" class="g-ipt ipt-m" maxlength=8/>
+						<input id="alCode" type="text" onchange="this.value=this.value.replace(/\D/g,'')" class="g-ipt ipt-m" maxlength=8/>
 					</label>
 					<label><span>来源</span>
 						<select id="alSource">

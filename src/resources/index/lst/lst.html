@@ -22,7 +22,7 @@
 						</select>
 					</label>
 					<label><span>优惠码</span>
-						<input id="alCode" type="text" class="g-ipt ipt-m" />
+						<input id="alCode" type="text" onchange="this.value=this.value.replace(/\D/g,'')"  maxlength=8 class="g-ipt ipt-m" />
 					</label>
 					<label><span>付费状态</span>
 						<select id="alFStatus">

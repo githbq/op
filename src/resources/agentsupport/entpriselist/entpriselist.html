@@ -89,7 +89,7 @@
                     </label>
                     <label>
                         <span>优惠码</span>
-                        <input type="text" oninput="this.value=this.value.replace(/[^\.\d]/g,'')" ce-model="vendorId" maxlength=8>
+                        <input type="text" onchange="this.value=this.value.replace(/\D/g,'')" ce-model="vendorId" maxlength=8>
                     </label>
                     <label>
                         <span>是否赠送办公版</span>

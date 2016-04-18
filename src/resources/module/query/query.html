@@ -21,7 +21,7 @@
                     </select>
                 </label>
                 <label><span>优惠码</span>
-                    <input id="qcCode" type="text" class="g-ipt ipt-m" />
+                    <input id="qcCode" type="text" class="g-ipt ipt-m" onchange="this.value=this.value.replace(/\D/g,'')" maxlength=8 />
                 </label>
                 <label><span>付费状态</span>
                     <select id="qcFStatus">
