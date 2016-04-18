@@ -6576,6 +6576,9 @@ em {
   display: inline-block;
   width: 120px;
 }
+.m-express .nsr {
+  color: red;
+}
 .custom-content .list {
   margin: 0px 222px;
   border: 1px solid #ccc;
