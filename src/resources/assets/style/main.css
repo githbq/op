@@ -6652,12 +6652,6 @@ em {
   text-align: right;
   padding: 10px 0;
 }
-.m-invoicedetail .rejectreason {
-  background: #eee;
-  border: 1px #ccc solid;
-  height: 40px;
-  padding: 5px;
-}
 .refundinfo {
   width: 1300px;
 }
