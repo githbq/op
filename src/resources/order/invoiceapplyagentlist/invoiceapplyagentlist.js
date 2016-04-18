@@ -33,6 +33,10 @@ define(function (require, exports, module) {
             invoiceDetail.show( orderId, inid, approvalStatus , info );
         });
         
+        expressDetail.on('editSuccess',function(){
+            invoiceApplyList.refresh();
+        })
+
         //查看快递详情
         invoiceApplyList.on('expressdetail', function( id , state ){
             console.log('expdetail' + id);
