@@ -63,6 +63,7 @@ define(function (require, exports, module) {
             'click .toggle b': 'switchEve',
             'click .btn-search': 'searchEve',
             'click .detail': 'detailEve',
+            'click .expressdetail': 'expressDetailEve',
             'click .revoke': 'revokeEve'
         },
         
@@ -71,6 +72,7 @@ define(function (require, exports, module) {
             console.log('switchEve');
 
             $( e.currentTarget ).addClass('active').siblings().removeClass('active');
+            this.pagination.setPage(0,false);
             this.refresh();
         },
 
@@ -84,7 +86,7 @@ define(function (require, exports, module) {
         detailEve: function( e ){
             var me = this;
 
-            var inid = $(e.currentTarget).attr('data-inid');
+            var inid = $( e.currentTarget ).attr('data-inid');
 
             var info = me.list.find('invoiceId',inid);
             console.log( info );
@@ -112,6 +114,15 @@ define(function (require, exports, module) {
 
 
             me.trigger('detail' , info.orderId , inid , info.approvalStatus , info , typestatus );
+        },
+
+        //快递详情
+        expressDetailEve: function( e ){
+            var me = this;
+
+            var inid = $( e.currentTarget ).attr('data-inid');
+
+            me.trigger('expressdetail',inid);
         },
 
         //信息撤回
@@ -191,7 +202,7 @@ define(function (require, exports, module) {
                                 item.payStatusStr = PayStatusMap[item.payStatus];
                                 item.invoiceTypeStr = InvoiceTypeMap[item.invoiceType];
                                 item.invoicePropStr = InvoicePropMap[item.invoiceProp];
-                                item.applyTimeStr = new Date( item.applyTime )._format('yyyy/MM/dd');
+                                item.applyTimeStr = new Date( item.applyTime )._format('yyyy/MM/dd hh:mm:ss');
                             });
                             me.setState();
                         } else {

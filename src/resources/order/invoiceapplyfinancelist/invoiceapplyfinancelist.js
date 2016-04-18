@@ -6,6 +6,8 @@ define(function (require, exports, module) {
     var InvoiceApplyList = require('../widget/invoiceapplylist/invoiceapplylist');
     var Slider = require('common/widget/slider/slider');
     var detail = require('../widget/invoiceapplydetail/invoiceapplydetail');
+    var ExpressDetail = require('../widget/express/express');
+
 
 
     var FinanceDetail = MClass( Slider ).include({
@@ -24,7 +26,7 @@ define(function (require, exports, module) {
     		FinanceDetail.__super__.show.apply( this, arguments );
 
     		detail.show( type,{ $view: me.$view.find('#content') ,data:data },function( result ){
-    			result.instance.on('close',function( boo ){
+    			result.instance.on('doclose',function( boo ){
                     me.trigger('editsuccess');
     				me.hide();
     			})
@@ -39,8 +41,9 @@ define(function (require, exports, module) {
     exports.init = function ( param ) {
         var $el = exports.$el;
 
-        var invoiceApplyList = new InvoiceApplyList( {'wrapper':$el ,'state':'finance'} );
-        var financeDetail = new FinanceDetail();
+        var invoiceApplyList = new InvoiceApplyList( {'wrapper':$el ,'state':'finance'} );  //发票审批列表
+        var financeDetail = new FinanceDetail();   //发票详情
+        var expressDetail = new ExpressDetail();   //快递详情        
 
         invoiceApplyList.on('detail',function( orderId, inid , approvalStatus ,info ,type){
             financeDetail.show(info,type);
@@ -50,5 +53,9 @@ define(function (require, exports, module) {
             invoiceApplyList.refresh();
         });
 
+        //
+        invoiceApplyList.on('expressdetail',function( id ){
+            expressDetail.show( id );
+        })
     }
 });
