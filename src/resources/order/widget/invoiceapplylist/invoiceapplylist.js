@@ -180,6 +180,17 @@ define(function (require, exports, module) {
             var applyDateStart = '';
             var applyDateEnd = '';
 
+            //提单日期开始
+            if( me.$('#startTime').val() ){
+                applyDateStart = new Date( me.$('#startTime').val() ).getTime();
+            }
+
+            //提单日期结束
+            if( me.$('#endTime').val() ){
+                applyDateEnd = new Date( me.$('#endTime').val() ).getTime();
+            }
+
+
             var data = me.model.all();
             data.pageIndex = me.pagination.attr['pageNumber']; 
             data.pageSize = me.pagination.attr['pageSize'];
