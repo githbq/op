@@ -49,7 +49,7 @@ define(function (require, exports, module) {
                 item.readonly = true;
             });
             controller(dataItems, 'comment', function (item) {
-                item.readonly = true;
+                item.visible = false;
             });
             controller(dataItems, 'save', function (item) {
                 item.visible = false;
