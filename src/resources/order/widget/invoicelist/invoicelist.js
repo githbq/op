@@ -243,7 +243,7 @@ define(function(require, exports, module){
 					me.model.set('invoiceIsCertify','');
 					me.$('.check-box').hide();
 					me.$('.hascheck').show();
-					me.$('.check-box').show();
+					me.$('.check-box').hide();
 				}
 			}
 
@@ -308,6 +308,7 @@ define(function(require, exports, module){
 			var me = this;
 			me.model.load( me.attrs.dataObj );
 			me.model.set('invoiceId', me.attrs.dataObj.id );
+			me.model.set('invoiceDate', me.attrs.dataObj.invoiceDate? new Date( me.attrs.dataObj.invoiceDate )._format('yyyy/MM/dd'):'');
 			if(me.attrs.dataObj.invoiceType==1){
 				me.$('.check-box').hide();
 				me.$('.invoiceType-common').show();
