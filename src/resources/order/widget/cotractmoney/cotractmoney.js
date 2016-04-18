@@ -77,7 +77,7 @@ define(function(require, exports, module){
 						me.attrs.dataObj.receiptsAccount = data.value.model.orderEntity.order.receiptsAccount;//收款账户
 						me.attrs.dataObj.payStatus = data.value.model.orderEntity.order.payStatus;//付费状态
 						me.attrs.dataObj.reciviedAmount = data.value.model.odrMnyVO.reciviedAmount  //财务确认收款
-						me.attrs.dataObj.hasInvoice =  me.attrs.hasInovice //是否开发票
+						me.attrs.dataObj.hasInovice =  me.attrs.hasInovice //是否开发票
 					}
 				}
 			})
