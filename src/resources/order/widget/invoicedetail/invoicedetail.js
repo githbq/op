@@ -146,6 +146,7 @@ define(function( require , exports , module ){
 
 							changeState(function(){
 								util.showTip('保存成功');
+								me.trigger('editSuccess')
 								me.hide();
 							});
 						}
