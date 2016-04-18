@@ -93,18 +93,19 @@ define( function(require, exports, module){
 			
 			//me._setTitle( orderTypeAry[me.attrs.options.orderType] );
 			
-			$.when(  me.setOrderList(), me.getOrderBackMoneyInfo()).done(function(){
+			$.when(  me.setOrderList(), me.getOrderBackMoneyInfo(), me.getInvoiceList()).done(function(){
 				
 				me.setOrderInfo();
 				
-				me.getInvoiceList( function(){
+				/*me.getInvoiceList( function(){
 					
-					if(me.attrs.invoiceData.length>0){
-						me.showInvoiceList()
-						
-					}
 					
-				} );
+					
+				} );*/
+				if(me.attrs.invoiceData.length>0){
+					me.showInvoiceList()
+					
+				}
 				
 				
 
@@ -115,7 +116,7 @@ define( function(require, exports, module){
 				//合同付款信息
 				me.attrs.refundVO.readonly = !me.attrs.options.editFlag;
 				me.attrs.cotractMoney = new CotractMoney( { 'wrapper':me.$view.find('.common-product'),'orderId':me.attrs.options.id,'hasInovice':me.attrs.hasInovice, 'editFlag':me.attrs.options.editFlag} );
-				if(me.attrs.options.newFirst){
+				if(me.attrs.options.newFirst =='newFirst'){
 					me.attrs.cotractMoney.on('successData',function(){
 						me.attrs.refundVO = me.attrs.cotractMoney.getVauel();
 						//退款信息
@@ -156,7 +157,7 @@ define( function(require, exports, module){
 		getOrderBackMoneyInfo:function(   ){
 			var me = this;
 
-			 util.api({
+			return util.api({
 					'url':'/odr/refund/queryinfo',
 					'data':{'orderId':me.attrs.options.id },
 					'success': function( data ){
@@ -182,7 +183,7 @@ define( function(require, exports, module){
 						if( data.success ){
 
 							me.attrs.invoiceData = data.model;
-							callback && callback();
+							//callback && callback();
 						}
 					}
 			});
