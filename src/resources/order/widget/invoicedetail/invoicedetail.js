@@ -105,6 +105,23 @@ define(function( require , exports , module ){
 			console.log('saveEve');
 			console.log(info)
 
+			function changeState( callback ){
+
+				util.api({
+					'url':'~/op/api/approval/directapprove',
+					'data':{
+						'processInstanceId': me.processInstanceId, //实例id
+						'approved': true
+					},
+					'success': function( data ){
+						if( data.success ){
+							callback && callback();
+						}
+					}
+				})
+			};
+
+
 			if( info ){
 				util.api({
 					'url':'/odr/invoice/update',
@@ -116,8 +133,11 @@ define(function( require , exports , module ){
 					},
 					'success': function( data ){
 						if( data.success ){
-							util.showTip('保存成功');
-							me.hide();
+
+							changeState(function(){
+								util.showTip('保存成功');
+								me.hide();
+							});
 						}
 					}
 				})
@@ -191,7 +211,7 @@ define(function( require , exports , module ){
 		//	2 待审核      
 		//  3 审批通过    
 		//  9 被驳回      refuse 
-		show: function( id, invoiceId, approvalStatus ){
+		show: function( id, invoiceId, approvalStatus , info ){
 			InvoiceDetail.__super__.show.apply( this, arguments );
 
 			console.log('id');
@@ -200,6 +220,7 @@ define(function( require , exports , module ){
 
 			me.orderId = id;
 			me.invoiceId = invoiceId;
+			me.processInstanceId = info.processInstanceId;   //实例ID
 
 			//查询订单概况
 			util.api({
@@ -240,9 +261,7 @@ define(function( require , exports , module ){
 							}else{
 								me.$('[name="invoicetype"]').eq(1).trigger('click');
 							}
-							me.typeEve();
-							me.setState( approvalStatus );
-
+							
 							//
 							if( data.value.model.businessLicense ){
 								me.$('#bsimg').show().find('img').attr('src','/op/api/file/previewimage?filePath='+data.value.model.businessLicense);
@@ -252,6 +271,9 @@ define(function( require , exports , module ){
 							if( data.value.model.taxpayerQualification ){
 								me.$('#qaimg').show().find('img').attr('src','/op/api/file/previewimage?filePath='+data.value.model.taxpayerQualification);
 							}
+
+							me.typeEve();
+							me.setState( approvalStatus );
 						}
 					}
 				});
@@ -302,8 +324,6 @@ define(function( require , exports , module ){
 			//重置input选中状态
 			me.$('[name="invoice"]').eq(0).trigger('click');
 			me.$('[name="invoicetype"]').eq(0).trigger('click');
-
-
 		},	
 
 		//获取当前数据信息

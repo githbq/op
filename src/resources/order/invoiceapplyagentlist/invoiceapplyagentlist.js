@@ -20,8 +20,8 @@ define(function (require, exports, module) {
         var expressDetail = new ExpressDetail();
 
         //查看发票详情
-        invoiceApplyList.on('detail', function( orderId, inid , approvalStatus ){
-            invoiceDetail.show( orderId, inid, approvalStatus );
+        invoiceApplyList.on('detail', function( orderId, inid , approvalStatus , info ){
+            invoiceDetail.show( orderId, inid, approvalStatus , info );
         });
         
         //查看快递详情
