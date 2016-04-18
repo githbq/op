@@ -55,13 +55,13 @@
 					   data-orderType="<%=item.order.orderType%>" data-opinion="<%=item.order.rejectReason ?item.order.rejectReason :'' %>"
 					   data-isTp="<%=item.order.isTp%>"  data-ea="<%=item.order.enterpriseAccount%>" data-contractNo="<%=item.order.contractNo%>" data-newFirst="newFirst">退款</a>&nbsp;&nbsp;
 				<%}else{%>
-						<%if(item.order.orderType == 17 ){%>
-					
-							<a  style="color:#ccc;" >退款</a>&nbsp;&nbsp;
+						<%if(item.approveStatus == 5 || item.approveStatus == 6 || item.approveStatus == 7 ||item.approveStatus == 8  ){%>
+							<a class="order-backmoney"  data-id="<%=item.order.id%>"  data-enterpriseId="<%=item.order.enterpriseId%>"
+							   data-orderType="<%=item.order.orderType%>" data-opinion="<%=item.order.rejectReason ?item.order.rejectReason :'' %>"
+							   data-isTp="<%=item.order.isTp%>"  data-ea="<%=item.order.enterpriseAccount%>" data-contractNo="<%=item.order.contractNo%>" data-newFirst="refund">退款</a>&nbsp;&nbsp;
+							
 						<%}else{%>
-								<a class="order-backmoney"  data-id="<%=item.order.id%>"  data-enterpriseId="<%=item.order.enterpriseId%>"
-						   data-orderType="<%=item.order.orderType%>" data-opinion="<%=item.order.rejectReason ?item.order.rejectReason :'' %>"
-						   data-isTp="<%=item.order.isTp%>"  data-ea="<%=item.order.enterpriseAccount%>" data-contractNo="<%=item.order.contractNo%>" data-newFirst="refund">退款</a>&nbsp;&nbsp;
+							<a  style="color:#ccc;" >退款</a>&nbsp;&nbsp;
 						<%}%>
 				
 				<%}%>
