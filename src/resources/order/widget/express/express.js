@@ -46,6 +46,7 @@ define(function(require, exports, module){
 			var me = this;
 
 			//
+			/*
 			util.api({
 				'url': '/odr/invoice/updateExpress',
 				'data': {
@@ -59,7 +60,7 @@ define(function(require, exports, module){
 
 				}
 			});
-
+			*/
 		}
 	})
 
