@@ -192,7 +192,7 @@ define( function( require, exports, module ) {
                     'startTime': startTime,
 					'creatorName':me.model.get('creatorName'),
                     'endTime': endTime,
-                    'pageIndex': me.pagination.attr['pageNumber'],
+                    'pageIndex': me.pagination.attr['pageNumber']+1,
                     'pageSize': me.pagination.attr['pageSize']
                 },
                 'success': function( data ){

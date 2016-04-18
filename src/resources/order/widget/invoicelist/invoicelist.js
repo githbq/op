@@ -318,6 +318,20 @@ define(function(require, exports, module){
 				me.$('.invoiceType-common').hide();
 				me.$('.invoiceType-special').show();
 			}
+			if(me.attrs.dataObj.businessLicense){
+				me.$('.businessLicense-info').hide();
+				me.$('.businessLicense-img').attr('src', '/op/api/file/previewimage' + '?filePath=' + me.attrs.dataObj.businessLicense);
+				me.$('.businessLicense-link').attr('href', '/op/api/file/previewimage' + '?filePath=' + me.attrs.dataObj.businessLicense)
+			}else{
+				me.$('.contract-box').hide();
+			}
+			if(me.attrs.dataObj.taxpayerQualification){
+				me.$('.taxpayerQualification-info').hide();
+				me.$('.taxpayerQualification-img').attr('src', '/op/api/file/previewimage' + '?filePath=' + me.attrs.dataObj.taxpayerQualification);
+				me.$('.taxpayerQualification-link').attr('href', '/op/api/file/previewimage' + '?filePath=' + me.attrs.dataObj.taxpayerQualification)
+			}else{
+				me.$('.taxpayerQualification-box').hide();
+			}
 		},
 		//检测是否可编辑
 		checkEdit:function(editFlag){
