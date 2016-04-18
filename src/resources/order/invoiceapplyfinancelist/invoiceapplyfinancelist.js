@@ -24,7 +24,7 @@ define(function (require, exports, module) {
     		FinanceDetail.__super__.show.apply( this, arguments );
 
     		detail.show( type,{ $view: me.$view.find('#content') ,data:data },function( result ){
-    			result.instance.on('close',function( boo ){
+    			result.instance.on('doclose',function( boo ){
                     me.trigger('editsuccess');
     				me.hide();
     			})

@@ -28,7 +28,7 @@ define(function (require, exports, module) {
     var DataItem = require('common/widget/sform/sform').PageDataClass;
     module.exports.getItems = function () {
         var dataItems = [];
-        dataItems.push(new DataItem({name: 'enterpriseId', value: 'enterpriseId'}));
+        dataItems.push(new DataItem({name: 'enterpriseId', value: ''}));
         dataItems.push(new DataItem({name: 'apiPool', value: apiPool}));
         dataItems.push(new DataItem({
             name: 'save',
@@ -44,7 +44,7 @@ define(function (require, exports, module) {
                         if (result.success) {
                             util.showTip('保存成功');
 
-                            me.trigger('close', true);
+                            me.trigger('doClose', true);
                         }
                     })).call(this, e);
                 }
@@ -55,7 +55,7 @@ define(function (require, exports, module) {
             events: [{
                 key: 'click', value: function (e) {
                     var me = this;
-                    me.trigger('close', false);
+                    me.trigger('doClose', false);
                 }
             }]
         }));
@@ -88,7 +88,7 @@ define(function (require, exports, module) {
                     me.o_getFieldValue('apiPool').directApprove(me.o_getFieldValue('processInstanceId'), approved, me.o_getFieldValue('comment'), function (result) {
                         if (result.success) {
                             util.showTip('操作成功');
-                            me.trigger('close', true);
+                            me.trigger('doClose', true);
                         }
                     });
                 })).call(me, e);
