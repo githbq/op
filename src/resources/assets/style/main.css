@@ -6527,6 +6527,9 @@ em {
 .m-express .express-action {
   text-align: right;
 }
+.m-express .content p {
+  min-height: 22px;
+}
 .m-express .content p .title {
   display: block;
   float: left;
