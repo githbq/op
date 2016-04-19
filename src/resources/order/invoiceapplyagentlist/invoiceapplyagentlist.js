@@ -24,7 +24,7 @@ define(function (require, exports, module) {
             invoiceDetail.show( orderId, inid, approvalStatus , info );
         });
         
-        expressDetail.on('editSuccess',function(){
+        invoiceDetail.on('editSuccess',function(){
             invoiceApplyList.refresh();
         })
 
