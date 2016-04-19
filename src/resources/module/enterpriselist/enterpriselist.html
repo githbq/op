@@ -2,8 +2,10 @@
     <div class="list-main">
         <div class="list-header">
             <div class="header-opts">
+
                 <button class="u-btn-blue auth">授权</button>
                 <button class="deauth">取消授权</button>
+                <button class="export-file">导出企业试用应用列表</button>
             </div>
             <h3>
                 企业列表
@@ -80,7 +82,7 @@
                 </label>
                 <label>
                     <span>优惠码</span>
-                    <input type="text" oninput="this.value=this.value.replace(/[^\.\d]/g,'')" ce-model="vendorId">
+                    <input type="text" oninput="this.value=this.value.replace(/[^\.\d]/g,'')" ce-model="vendorId" >
                 </label>
                 <label>
                     <span>是否赠送办公版</span>

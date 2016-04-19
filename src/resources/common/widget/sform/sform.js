@@ -42,10 +42,11 @@ define(function (require, exports, module) {
                 var $template = $(me.i_getTemplateStr());
                 var nameDic = {};
                 $template.find('[' + me.i_attrName + ']').each(function (i, n) {
-                    var name = $(n).attr(me.i_attrName);
-                    me.i_init_FieldConvert($(n));//控件格式转换
+                    var $dom = $(n);
+                    var name = $dom.attr(me.i_attrName);
+                    me.i_init_FieldConvert($dom);//控件格式转换
                     if (name && !nameDic[name]) {//排除只有属性无值的情况
-                        var findItem = _.findWhere(data.dataItems, {name: $(n).attr(me.i_attrName)});
+                        var findItem = _.findWhere(data.dataItems, {name: $dom.attr(me.i_attrName)});
                         if (!findItem) {
                             data.dataItems.push(new DataItem({name: name, __auto: true}));
                         }
@@ -57,6 +58,15 @@ define(function (require, exports, module) {
                 me.wrapperView = data.wrapperView;
                 me.$view = me.view = $('<div>');
                 me.$view.html('').append($template);
+            },
+            i_inject_validate: function ($ele) {
+                var options = {};
+                //注入验证
+                var me = this;
+                if ($ele.is('[data-validate]') && $ele.attr('data-validate')) {
+                    options = me.i_parseJSON($ele.attr('data-validate'));
+                }
+                return options;
             },
             render: function () {
                 var me = this;
@@ -88,11 +98,11 @@ define(function (require, exports, module) {
                 if ($ele.is('input[datecontrol]:not([readonly])')) {
                     var me = this;
                     var option = {dateFmt: 'yyyy/MM/dd'};
-                    if($ele.is('[maxdate]') && $ele.attr('maxdate')){
-                        option.maxDate=$ele.attr('maxdate');
+                    if ($ele.is('[maxdate]') && $ele.attr('maxdate')) {
+                        option.maxDate = $ele.attr('maxdate');
                     }
-                    if($ele.is('[mindate]') && $ele.attr('mindate')){
-                        option.minDate=$ele.attr('mindate');
+                    if ($ele.is('[mindate]') && $ele.attr('mindate')) {
+                        option.minDate = $ele.attr('mindate');
                     }
                     var config = $ele.attr('datecontrol') ? me.i_parseJSON($ele.attr('datecontrol')) : {};
                     $.extend(option, config);
@@ -100,8 +110,8 @@ define(function (require, exports, module) {
                     //    $ele.change();
                     //    return true;
                     //};
-                    $ele.off('click').on('click',function(){
-                        WdatePicker($.extend(option,config));
+                    $ele.off('click').on('click', function () {
+                        WdatePicker($.extend(option, config));
                     });
                     return true;
                 }
@@ -113,7 +123,7 @@ define(function (require, exports, module) {
                     $ele.on('change', function (e) {
                         var $dom = $(e.target);
                         $dom.val($dom.val().replace(/[^\.\d]/g, ''));
-                        $dom.val($dom.val().match(/^[+-]?\d+(\.\d+)?$/) ?$dom.val():'');
+                        $dom.val($dom.val().match(/^[+-]?\d+(\.\d+)?$/) ? $dom.val() : '');
                     })
                 }
                 return next($ele);
@@ -163,6 +173,7 @@ define(function (require, exports, module) {
                     me.i_initInnerEvent($field);
                     var fieldData = me.dataDic[n.value.__guid];
                     var config = $field && $field.length > 0 && $field.attr('data-config') && me.i_parseJSON($field.attr('data-config')) || {};
+                    config.validateOptions = me.i_inject_validate($field);
                     $.extend(config, fieldData);
                     me.dataDic[n.value.__guid] = config;
                     data.dataItems[config.__index] = config;
@@ -182,9 +193,13 @@ define(function (require, exports, module) {
             i_parseJSON: function (str) {
                 var me = this;
                 var data = {};
-                if (str) {
-                    str = str.replace(/[']/g, '"');
-                    data = $.parseJSON(str);
+                try {
+                    if (str) {
+                        str = str.replace(/[']/g, '"');
+                        data = $.parseJSON(str);
+                    }
+                } catch (e) {
+                    console.warn(e);
                 }
                 return data;
             },
@@ -298,12 +313,12 @@ define(function (require, exports, module) {
                 wrapper.removeClass('wrapper-validate-error');
                 $ele.removeClass('validate-error');
             },
-            o_getValues: function () {
+            o_getValues: function (callback) {
                 var me = this;
                 var result = {};
                 me.o_eachFields(function ($ele, data) {
                     result[data.name] = me.o_getFieldValue(data.name);
-
+                    callback && callback($ele, data, result);
                 });
                 return result;
             },
@@ -528,20 +543,29 @@ define(function (require, exports, module) {
                         var configStr = $ele.attr('datecontrol');
                         var config = configStr && me.i_parseJSON(configStr) || {};
                         var format = config.format || "yyyy/MM/dd";
-                        $ele.val(new Date(value)._format(format));
+                        var str = new Date(value)._format(format);
+                        if ($ele.is('input')) {
+                            $ele.val(str);
+                        } else {
+                            $ele.text(str)
+                        }
                     } else {
                         value = value || '';
-                        $ele.val(value);
+                        if ($ele.is('input')) {
+                            $ele.val(value);
+                        } else {
+                            $ele.text(value)
+                        }
                     }
 
-                    var data=me.o_field_getData($ele);
-                    if(data.maxDate){
-                        $ele.attr('maxdate',new Date(data.maxDate)._format(format));
+                    var data = me.o_field_getData($ele);
+                    if (data.maxDate) {
+                        $ele.attr('maxdate', new Date(data.maxDate)._format(format));
                     }
-                    if(data.minDate){
-                        $ele.attr('mindate',new Date(data.minDate)._format(format));
+                    if (data.minDate) {
+                        $ele.attr('mindate', new Date(data.minDate)._format(format));
                     }
-                    me.i_convertFieldWhereDatetime(null,$ele);
+                    me.i_convertFieldWhereDatetime(null, $ele);
                     return value;
                 }
                 return next($ele, value);
@@ -549,13 +573,17 @@ define(function (require, exports, module) {
             i_setValueWhereTextField: function (next, $ele, value) {
                 var me = this;
                 if ($ele.is(me.i_textFieldSelector)) {
-                    $ele.html(value);
+                    $ele.text(value);
                     return value;
                 }
                 return next($ele, value);
             },
             i_setValueWhereDefault: function ($ele, value) {
-                $ele.val(value);
+                if ($ele.is('select,input,textarea')) {
+                    $ele.val(value);
+                } else {
+                    $ele.html(value);
+                }
                 return value;
             },
             o_setFieldAttr: function ($ele, value) {

@@ -96,6 +96,10 @@
 .u-tablelist table td {
   /*.ellipsis();*/
   padding: 0 6px;
+  word-break: break-all;
+  /*支持IE，chrome，FF不支持*/
+  word-wrap: break-word;
+  /*支持IE，chrome，FF*/
 }
 .u-tablelist table tr {
   height: 40px;
@@ -6563,6 +6567,28 @@ em {
 .payaccount span.title b {
   color: red;
 }
+.m-express h4 {
+  color: #666;
+  font-size: 18px;
+  padding: 10px 0;
+}
+.m-express .title {
+  display: inline-block;
+  width: 120px;
+}
+.m-express p {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+.m-express .nsr {
+  color: red;
+}
+.m-express .data-state {
+  display: none;
+}
+.m-express .express-action {
+  text-align: right;
+}
 .custom-content .list {
   margin: 0px 222px;
   border: 1px solid #ccc;
@@ -6584,6 +6610,14 @@ em {
   padding: 3px 10px;
   margin: 0 10px;
 }
+.sub-list-box table tr td {
+  width: 254px;
+  display: inline-block;
+  text-align: right;
+}
+.sub-list-box table tr td.money-box {
+  width: 60px;
+}
 .m-invoicedetail h4 {
   font-weight: bold;
   font-size: 18px;
@@ -6593,7 +6627,7 @@ em {
 }
 .m-invoicedetail span.title {
   display: inline-block;
-  width: 145px;
+  width: 160px;
 }
 .m-invoicedetail b.nsr {
   color: red;
@@ -6611,9 +6645,198 @@ em {
 .m-invoicedetail .typea,
 .m-invoicedetail .typeb,
 .m-invoicedetail .typec,
-.m-invoicedetail .typed {
+.m-invoicedetail .typed,
+.m-invoicedetail .imginfo {
   display: none;
 }
-.p-invoiceapply {
-  padding: 20px;
+.m-invoicedetail .file img,
+.m-invoicedetail .typea img,
+.m-invoicedetail .typeb img,
+.m-invoicedetail .typec img,
+.m-invoicedetail .typed img,
+.m-invoicedetail .imginfo img {
+  display: block;
+  max-width: 400px;
+}
+.m-invoicedetail .detail-action {
+  text-align: right;
+  padding: 10px 0;
+}
+.refundinfo {
+  width: 1300px;
+}
+.refundinfo .disabled,
+.refundinfo .readonly {
+  background-color: #ebebe4;
+  border: 1px solid #dedede;
+  color: #545454;
+}
+.refundinfo .fxwrapper,
+.refundinfo .crmwrapper {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border-top: 2px dashed #999999;
+}
+.refundinfo .uploadinfo {
+  color: green;
+  font-weight: bold;
+}
+.refundinfo .forminfo {
+  border-top: 2px dashed #999999;
+}
+.refundinfo .product-image {
+  height: 300px;
+}
+.refundinfo .error {
+  color: red;
+  display: none;
+}
+.refundinfo .validate-error {
+  border: 1px solid red;
+}
+.refundinfo .bold {
+  font-weight: bold;
+  color: black;
+}
+.refundinfo .ipt-l {
+  width: 500px;
+}
+.refundinfo .ipt-m {
+  width: 300px;
+}
+.refundinfo > div {
+  margin: 5px auto;
+}
+.refundinfo .red {
+  color: red;
+}
+.refundinfo .tipinfo {
+  color: #ff6600;
+}
+.refundinfo textarea {
+  width: 300px;
+  height: 100px;
+}
+.refundinfo .field_group {
+  margin: 0 auto;
+  width: 80%;
+  border: 1px solid #cccccc;
+  background-color: #f2f2f2;
+}
+.refundinfo .field_group .field_group_head {
+  width: 100px;
+}
+.refundinfo .text_right {
+  padding-left: 10px;
+  text-align: left;
+}
+.refundinfo .field_row {
+  overflow: hidden;
+  padding: 2px 0px;
+}
+.refundinfo .field_row > div {
+  float: left;
+}
+.refundinfo .field_row .input-price label {
+  width: 72px;
+}
+.refundinfo .field_row .text-price label {
+  width: 100px;
+}
+.refundinfo .field_row .typewrapper label {
+  width: 60px;
+}
+.refundinfo .field_row label {
+  display: inline-block;
+  width: 150px;
+  text-align: right;
+}
+.refundinfo .field_row label.date {
+  width: 120px;
+}
+.refundinfo .field_row label.text_right {
+  padding-left: 10px;
+  text-align: left;
+}
+.refundinfo .field_row div.field {
+  float: left;
+}
+.refundinfo .field_row div.field.image-field {
+  float: none;
+  margin-left: 150px;
+}
+.refundinfo .field_row .field_row_head {
+  padding-right: 20px;
+}
+.refundinfo table th,
+.refundinfo table td {
+  text-align: center;
+}
+.m-invoiceapplyagent .list-header .title {
+  display: inline-block;
+  float: left;
+}
+.m-invoiceapplyagent .list-header .toggle {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+.m-invoiceapplyagent .list-header .toggle b {
+  position: relative;
+  display: inline-block;
+  border: 1px solid #ccc;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 6px;
+  cursor: pointer;
+  background: #fefefe;
+}
+.m-invoiceapplyagent .list-header .toggle b.active {
+  background: #eee;
+}
+.m-invoiceapplydetail {
+  color: #333333;
+}
+.m-invoiceapplydetail h4 {
+  font-weight: bold;
+  font-size: 18px;
+}
+.m-invoiceapplydetail section > p {
+  padding: 3px 0;
+}
+.m-invoiceapplydetail span.title {
+  display: inline-block;
+  width: 160px;
+  text-align: right;
+}
+.m-invoiceapplydetail b.nsr {
+  color: red;
+}
+.m-invoiceapplydetail .remark {
+  width: 323px;
+  height: 80px;
+  padding: 5px;
+}
+.m-invoiceapplydetail .label label {
+  display: inline-block;
+  width: 120px;
+}
+.m-invoiceapplydetail .file,
+.m-invoiceapplydetail .typea,
+.m-invoiceapplydetail .typeb,
+.m-invoiceapplydetail .typec,
+.m-invoiceapplydetail .typed {
+  display: none;
+}
+.m-invoiceapplydetail .detail-action {
+  text-align: right;
+  padding: 10px 0;
+}
+.m-invoiceapplydetail textarea {
+  width: 300px;
+  height: 50px;
+}
+.m-invoiceapplydetail img {
+  width: 300px;
 }

@@ -15,6 +15,8 @@ define( function(require, exports, module){
 	var contentStr = require('./backmoney.html');
 	var OrderInfo = require('../widget/orderinfo/orderinfo');
 	var CotractMoney = require('../widget/cotractmoney/cotractmoney');
+	var refundinfo = require('../widget/refundinfo/refundinfo');
+	var InvoiceList = require('../widget/invoicelist/invoicelist');
 	
 	var orderTypeAry = ['','办公版新购-普通','办公版新购-特批','营销版新购-普通','营销版新购-特批','办公版增购-普通',
 		'办公版增购-特批','营销版增购-普通','营销版增购-特批','办公版续费-普通','办公版续费-特批',
@@ -48,7 +50,9 @@ define( function(require, exports, module){
 			'click .action-submit':'actionSubmitEve',
 			'click .action-resend':'actionResendEve',
 			'click .action-agree':'actionAgreeEve',
-			'click .action-reject':'actionRejectEve'
+			'click .action-reject':'actionRejectEve',
+			'click .common-add':'commonAddEve',
+			'click .action-cancel':'actionCancelEve'
 		},
 
 		
@@ -71,6 +75,9 @@ define( function(require, exports, module){
 			var me = this;
 			me.attrs.options = options||{};
 			me.attrs.orderList = {};
+			me.attrs.hasInovice = 0;
+			me.attrs.invoiceData = [];
+			me.attrs.orderInfoValue = {};
 			
 			me.setState();
 			me.sortType();
@@ -84,9 +91,19 @@ define( function(require, exports, module){
 			
 			//me._setTitle( orderTypeAry[me.attrs.options.orderType] );
 			
-			$.when(  me.setOrderList()).done(function(){
+			$.when(  me.setOrderList(), me.getOrderBackMoneyInfo()).done(function(){
 				
 				me.setOrderInfo();
+				
+				me.getInvoiceList( function(){
+					
+					if(me.attrs.invoiceData.length>0){
+						me.showInvoiceList()
+						me.attrs.hasInovice = 1; //有发票
+					}
+					
+				} );
+				
 				
 
 				//企业信息
@@ -94,7 +111,22 @@ define( function(require, exports, module){
 					'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
 					
 				//合同付款信息
-				me.attrs.cotractMoney = new CotractMoney( { 'wrapper':me.$view.find('.common-product')} );
+				me.attrs.refundVO.readonly = !me.attrs.options.editFlag;
+				me.attrs.cotractMoney = new CotractMoney( { 'wrapper':me.$view.find('.common-product'),'orderId':me.attrs.options.id,'hasInovice':me.attrs.hasInovice, 'editFlag':me.attrs.options.editFlag} );
+				if(me.attrs.options.newFirst){
+					me.attrs.cotractMoney.on('successData',function(){
+						me.attrs.refundVO = me.attrs.cotractMoney.getVauel();
+						//退款信息
+						
+						me.attrs.refundinfo =  refundinfo.show( {$view:me.$view.find('.common--meoney')}, me.attrs.refundVO ); 
+					})
+					
+				}else{
+					//退款信息
+					me.attrs.refundinfo =  refundinfo.show( {$view:me.$view.find('.common--meoney')}, me.attrs.refundVO ); 
+				}
+				
+				
 			});
 
 
@@ -118,8 +150,71 @@ define( function(require, exports, module){
 			});
 
 		},
+		//查询订单退款
+		getOrderBackMoneyInfo:function(   ){
+			var me = this;
+
+			 util.api({
+					'url':'/odr/refund/queryinfo',
+					'data':{'orderId':me.attrs.options.id },
+					'success': function( data ){
+
+						if( data.success ){
+
+							me.attrs.orderInfoValue = data.value;
+							me.attrs.refundVO = data.value.model ?  data.value.model:{'refund':{},'subRefunds':[]};
+						}
+					}
+			});
+
+		},
+		//获取发票列表：
+		getInvoiceList:function( callback  ){
+			var me = this;
+
+			return util.api({
+					'url':'/odr/'+me.attrs.options.id+'/invoices ',
+					'success': function( data ){
+
+						if( data.success ){
+
+							me.attrs.invoiceData = data.model;
+							callback && callback();
+						}
+					}
+			});
+
+		},
+		//循环展示发票
+		showInvoiceList:function(){
+			var me = this;
+			var tempLength = me.attrs.invoiceData.length;
+			me.attrs.invioceAry = [];
+			for(var i = 0; i<tempLength; i++){
+				if( me.attrs.orderInfoValue.model ){
+					for(var j = 0; j< me.attrs.orderInfoValue.model.refundInvoices.length; j++ ){
+						if( me.attrs.invoiceData[i].id ==  me.attrs.orderInfoValue.model.refundInvoices[j].invoiceId ){
+							var tempClass = "invoice_"+i;
+							me.$view.find('.common--invioce').append('<div class="'+tempClass+'"></div>');
+							var temp = {} ;
+							temp.filedData = me.attrs.orderInfoValue.model.refundInvoices[j];
+							temp[me.attrs.invoiceData[i].id] = new InvoiceList( { 'wrapper':me.$view.find('.'+tempClass+''),'dataObj':me.attrs.invoiceData[i] ,'filedData':me.attrs.orderInfoValue.model.refundInvoices[j],'id':me.attrs.invoiceData[i].id,'editFlag':me.attrs.options.editFlag } );
+							me.attrs.invioceAry.push( temp );
+							break;
+						}
+					}
+					
+				}else{
+					var tempClass = "invoice_"+i;
+					me.$view.find('.common--invioce').append('<div class="'+tempClass+'"></div>');
+					var temp = {} 
+					temp[me.attrs.invoiceData[i].id] = new InvoiceList( { 'wrapper':me.$view.find('.'+tempClass+''),'dataObj':me.attrs.invoiceData[i] ,'id':me.attrs.invoiceData[i].id,'editFlag':me.attrs.options.editFlag } );
+					me.attrs.invioceAry.push( temp );
+				}
+			}
+		},
 		//设置订单基本信息
-		 setOrderInfo:function(){
+		setOrderInfo:function(){
 			 var  me = this;
 			 //收尾款模块
 			 //设置是否可以编辑
@@ -129,23 +224,22 @@ define( function(require, exports, module){
 				me.attrs.moneyEdit = false;;
 			}
 			
-		 },
+		},
 		//设置自己部分的显示和隐藏：
 		setState:function(){
 			var me = this;
 			me.$('.state').hide();
 			me.$('.state-'+me.attrs.options.state).show();
-			if(me.attrs.options.editFlag){
+			me.$('.state-'+me.attrs.options.newFirst).show();
+			if(me.attrs.options.editFlag && me.attrs.options.newFirst!='newFirst'){
 				me.$('.state-refuse').show();
 			}
 			me.$('.currentTask-'+me.attrs.options.currentTask).show();
 			me.$('.order-id').html( me.attrs.options.id );
-			//判断审批意见
-			//var opinion = me.attrs.options.opinion ? me.attrs.options.opinion :'暂无';
-			//me.$('.last-options').text(opinion);
+		
 			
 			//设置到款时间 receivedPayDate
-			var receivedPayDate = (me.attrs.orderData && me.attrs.orderData.orde && me.attrs.orderData.order.receivedPayDate) ? new Date( me.attrs.orderData.order.receivedPayDate  )._format("yyyy-MM-dd"):'';
+			var receivedPayDate = (me.attrs.orderData && me.attrs.orderData.order && me.attrs.orderData.order.receivedPayDate) ? new Date( me.attrs.orderData.order.receivedPayDate  )._format("yyyy-MM-dd"):'';
 			if(receivedPayDate){
 				me.$('.receivedPayDate').show();
 				me.$('.receivedPayDate-text').text(receivedPayDate);
@@ -165,101 +259,148 @@ define( function(require, exports, module){
 			}
 			
 			//判断审批意见
-
 			var opinion = strDom ? strDom :'<tr><td colspan="4" style="text-align: center;">暂无</td></tr>';
 			me.$('.last-options').html( opinion );
 			
 		},
-		//获取全部订单数据
-		getOrderInfo:function( callback ){
 
-			var me = this,objData  = { 'orderEntity':{}};
-
-			//获取普通订单信息
-			
-			//尾款订单数据
-			if( me.attrs.getMoneyCommon.getValue() ){
-				var tem = me.attrs.getMoneyCommon.getValue() ;
-				objData.orderEntity.order = tem.order;
-				objData.orderEntity.subOrders = tem.subOrders;
-				objData.orderEntity.order.contractNo = me.attrs.options.contractNo;
-				objData.orderEntity.order.oriOrderId = me.attrs.orderData.order.oriOrderId;
-			}else{
-				return ;
-			}
-
-			//发票信息校验和取值
-			if( me.attrs.invoiceCommon.getInfo() ){
-				var temp  = me.attrs.invoiceCommon.getInfo();
-				temp.invoice ? objData.orderEntity.invoice =temp.invoice : objData.orderEntity.invoice = null;
-				$.extend(true, objData.orderEntity.order, temp.order );
-			}else{
-				return ;
+		//循环获取发票信息：
+		getInvioceValue:function( callback ){
+			var me = this , objData = {};
+			me.attrs.refundInvoices = [];
+			var tempLength = me.attrs.invoiceData.length;
+			for(var i =0; i<tempLength; i++ ){
+				var tempValue = me.attrs.invioceAry[i][me.attrs.invoiceData[i].id].getValue();
+				if(!tempValue){
+					util.showToast('发票信息不完整！');
+					return false;
+				
+				}
+				if( me.attrs.orderInfoValue.model ){
+					me.attrs.invioceAry[i].filedData
+					tempValue = $.extend(true, me.attrs.invioceAry[i].filedData, tempValue);
+					me.attrs.refundInvoices.push( tempValue );
+				}else{
+					me.attrs.refundInvoices.push( tempValue );
+				}
 			}
 			
-			$.extend(true, me.attrs.allData, objData );
+			//产品信息
+			if (me.attrs.refundinfo.validate()){
+				objData =  me.attrs.refundinfo.getData();
+				objData.refund.orderId = me.attrs.options.id;
+				me.attrs.refundVO.refund = $.extend(true, me.attrs.refundVO.refund, objData.refund);
+				if(!me.attrs.options.newFirst){
+					for(var i = 0; i< me.attrs.refundVO.subRefunds.length; i++){
+						for(var j = 0; j<objData.subRefunds.length; j++){
+							if(me.attrs.refundVO.subRefunds[i].productId == objData.subRefunds[j].productId ){
+								me.attrs.refundVO.subRefunds[i] = $.extend(true, me.attrs.refundVO.subRefunds[i],objData.subRefunds[j]);
+								break;
+							}
+						}
+					}
+				}else{
+					me.attrs.refundVO.subRefunds = objData.subRefunds;
+				}
+				
+			}else{
+				util.showToast('退款信息填写不完整！');
+				return false;
+			}
+			me.attrs.refundVO.refundInvoices = me.attrs.refundInvoices;
 			callback && callback();
 		},
-		
+		//提交
+		commonAddEve:function(){
+			var me = this;
+			
+			me.getInvioceValue( function(){ 
+				
+				me.$('.common-add').text('提交中....');
+				me.$('.common-add').attr('disabled','disabled');
+				util.api({
+					'url':'/odr/refund/save',
+					'data':JSON.stringify( me.attrs.refundVO ),
+					'contentType':'application/json;charset=UTF-8 ',
+					'success': function( data ){
+
+						if( data.success ){
+							util.showTip('提交成功！');
+							me.trigger( 'saveSuccess');
+							me.hide();
+							
+						}
+					},
+					'complete': function(){
+						me.$('.common-add').text('提交');
+						me.$('.common-add').removeAttr('disabled');
+					}
+				});
+			});
+			
+		},
+		//取消
+		actionCancelEve:function(){
+			var me = this;
+			me.hide();
+		},
 		//保存
 		actionSaveEve:function(){
 			var me = this;
 			console.log(me.attrs.allData)
 			
-			me.attrs.allData.orderEntity.order.id = me.attrs.options.id;
-			me.getOrderInfo(function(){
-				me.$actionSubmit.text('提交中....');
-				me.$actionSubmit.attr('disabled','disabled');
+			me.getInvioceValue( function(){ 
+				var tempUrl = me.attrs.options.newFirst ? '/odr/refund/save':'/odr/refund/update';
+				
+				me.$('.common-add').text('提交中....');
+				me.$('.common-add').attr('disabled','disabled');
 				util.api({
-					'url':'/odr/balancePayment/update',
-					'data':JSON.stringify( me.attrs.allData ),
+					'url':tempUrl,
+					'data':JSON.stringify( me.attrs.refundVO ),
 					'contentType':'application/json;charset=UTF-8 ',
-					'button': {
-						'el': me.$actionSave,
-						'text':'提交中......'
-					},
 					'success': function( data ){
+
 						if( data.success ){
 							util.showTip('提交成功！');
 							me.trigger( 'saveSuccess');
 							me.hide();
+							
 						}
 					},
 					'complete': function(){
-						me.$actionSubmit.text('保存提交');
-						me.$actionSubmit.removeAttr('disabled');
+						me.$('.common-add').text('提交');
+						me.$('.common-add').removeAttr('disabled');
 					}
-				})
-				
+				});
 			});
 			
 		},
 		//保存提交
 		actionSubmitEve:function(){
 			var me = this;
-			me.attrs.allData.orderEntity.order.id = me.attrs.options.id;
-			me.getOrderInfo(function(){
-				me.$actionSave.text('提交中....');
-				me.$actionSave.attr('disabled','disabled');
+			
+			me.getInvioceValue( function(){ 
+				var tempUrl = me.attrs.options.newFirst ? '/odr/refund/save':'/odr/refund/update';
+				me.$('.common-add').text('提交中....');
+				me.$('.common-add').attr('disabled','disabled');
 				util.api({
-					'url':'/odr/balancePayment/update',
-					'data':JSON.stringify( me.attrs.allData ),
+					'url':tempUrl,
+					'data':JSON.stringify( me.attrs.refundVO ),
 					'contentType':'application/json;charset=UTF-8 ',
-					'button': {
-						'el': me.$actionSubmit,
-						'text':'提交中......'
-					},
 					'success': function( data ){
+
 						if( data.success ){
-							changeNode();
+
+							util.showTip('提交成功！');
+							me.trigger( 'saveSuccess');
+							me.hide();
 						}
 					},
 					'complete': function(){
-						me.$actionSave.text('保存');
-						me.$actionSave.removeAttr('disabled');
+						me.$('.common-add').text('提交');
+						me.$('.common-add').removeAttr('disabled');
 					}
-				})
-				
+				});
 			});
 			 //移交至下一个节点
             function changeNode(){

@@ -14,7 +14,7 @@ define( function( require, exports, module ) {
 
     var statusMap = {},industryMap = {},sourceMap = {};
 
-    var statusAry = ['','待审核','已撤回','被驳回','已通过'];
+    var statusAry = ['','待审核','已撤回','被驳回','已通过','申请退款','退款成功','退款驳回','退款撤回'];
 	var isPayUpAry = ['——','已付清','未付清'];
     var payStatusAry = ['','全款','分期','未付'];
     var orderTypeAry = ['','办公版新购-普通','办公版新购-特批','营销版新购-普通','营销版新购-特批','办公版增购-普通',
@@ -80,7 +80,7 @@ define( function( require, exports, module ) {
             this.pagination.setPage( 0,false );
             this.getList();
         },
-       //查看详情
+        //查看详情
        orderDetailEve:function( e ){
            var me = this;
 
@@ -128,8 +128,8 @@ define( function( require, exports, module ) {
            var ea = $(e.currentTarget).attr('data-ea');
 		   var contractNo = $(e.currentTarget).attr('data-contractNo');
 		   
-           me.trigger('orderBackmoney',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':false,'orderType':orderType,
-               'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea,'processInstanceId':'','contractNo':contractNo} );
+           me.trigger('orderBackmoney',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':true,'orderType':orderType,
+               'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea,'processInstanceId':'','contractNo':contractNo,'newFirst':'newFirst'} );
 		   
 	   },
 	   //发票
@@ -312,12 +312,12 @@ define( function( require, exports, module ) {
 		 orderList.on('orderDetailPayment', function( options ){
             detailPayment = new DetailPayment();
             detailPayment.show( options );
-        })
+        });
 		
 		orderList.on('orderCustom', function( options ){
             customHelper = new CustomHelper();
             customHelper.show( options );
-        })
+        });
 		
 		orderList.on('orderBackmoney', function( options ){
             backMoney = new BackMoney();
@@ -325,7 +325,7 @@ define( function( require, exports, module ) {
         })
 		orderList.on('orderInvoice', function( id ){
             invioceDetail = new InvoiceDetail();
-            invioceDetail.show( id );
+            invioceDetail.show( id,null,0 );
         });
 
     }
