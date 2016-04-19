@@ -36,8 +36,10 @@ define(function(require, exports, module){
 				if(val == 1){
 					me.$('.hascheck').hide()
 					me.$('.nocheck').show();
-					me.model.set('redInvoiceInfo','');
-					me.model.set('invoiceCopy','');
+					me.model.set('redInvoiceInfo',null);
+					me.model.set('invoiceCopy',null);
+					me.model.set('redInvoiceInfoFileName',null);
+					me.model.set('invoiceCopyFileName',null);
 					me.model.set('invoiceIsCertify',1);
 					me.$('.redInvoiceInfo-box').hide();
 					me.$('.redInvoiceInfo-link').attr('href', '');
@@ -51,8 +53,10 @@ define(function(require, exports, module){
 					
 					me.$('.nocheck').hide();
 					me.$('.hascheck').show();
-					me.model.set('invoiceOriginal','');
-					me.model.set('rejectProof','')
+					me.model.set('invoiceOriginal',null);
+					me.model.set('rejectProof',null);
+					me.model.set('invoiceOriginalFileName',null);
+					me.model.set('rejectProofFileName',null);
 					me.model.set('invoiceIsCertify',0);
 					me.$('.invoiceOriginal-box').hide();
 					me.$('.invoiceOriginal-link').attr('href', '');
@@ -350,7 +354,18 @@ define(function(require, exports, module){
 		getValue:function(){
 			var me = this;
 			if(me.checkVaild()){
-				return me.model.all();
+				var tempData = {
+					'invoiceOriginal':me.model.get('invoiceOriginal'),
+					'invoiceOriginalFileName':me.model.get('invoiceOriginalFileName'),
+					'rejectProof':me.model.get('rejectProof'),
+					'rejectProofFileName':me.model.get('rejectProofFileName'),
+					'redInvoiceInfo':me.model.get('redInvoiceInfo'),
+					'redInvoiceInfoFileName':me.model.get('redInvoiceInfoFileName'),
+					'invoiceCopy':me.model.get('invoiceCopy'),
+					'invoiceCopyFileName':me.model.get('invoiceCopyFileName'),
+					'invoiceIsCertify':me.model.get('invoiceIsCertify')
+				};
+				return tempData
 
 			}
 			return false;
