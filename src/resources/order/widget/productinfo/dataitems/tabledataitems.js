@@ -91,6 +91,8 @@ define(function (require, exports, module) {
             {id: 4, name: 'PK助手'},
             {id: 5, name: '会议助手'},
             {id: 12, name: '自定义助手'},
+            {id: 15, name: '考试助手'},
+            {id: 14, name: '战报助手'},
             //{id: 6, name: 'HR助手'},
             {id: 7, name: '工资助手', options: {discount: {}}}
         ];
@@ -237,11 +239,6 @@ define(function (require, exports, module) {
             var startDate = null;
             var endDate = null;
             var productAmount = 0;//产品原价
-
-
-            if (me.__refs.terminalInfo.o_getFieldData('businesscard').visible && me.__refs.terminalInfo.o_getFieldValue('useCRM')) {
-                ids.push('8');
-            }
             if (me.__refs.terminalInfo.o_getFieldData('useCRMWrapper').visible && me.__refs.terminalInfo.o_getFieldValue('useCRM')) {
                 ids.push('1');
             }

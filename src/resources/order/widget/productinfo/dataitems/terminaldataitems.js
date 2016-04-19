@@ -404,13 +404,6 @@ define(function (require, exports, module) {
             name: 'useCRMWrapper',
             visible: false
         }));
-        //名片部分
-        dataItems.push(new DataItem({
-            name: 'businesscard',
-            visible: true
-        }));
-
-
         //价格计算
         function priceComput(e) {
             this.__refs.tableInfo.$('[data-name=check]:first').change();

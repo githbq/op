@@ -6412,6 +6412,12 @@ em {
   padding-bottom: 15px;
   border-top: 2px dashed #999999;
 }
+.productinfo .fxwrapper .bind label,
+.productinfo .crmwrapper .bind label {
+  padding-left: 10px;
+  width: 108px;
+  text-align: left;
+}
 .productinfo .uploadinfo {
   color: green;
   font-weight: bold;
@@ -6490,7 +6496,7 @@ em {
   text-align: right;
 }
 .productinfo .field_row label.date {
-  width: 120px;
+  width: 70px;
 }
 .productinfo .field_row label.text_right {
   padding-left: 10px;

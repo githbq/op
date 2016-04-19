@@ -151,8 +151,9 @@ define(function (require, exports, module) {
                                 {name: 'currPayAmount_4', value: '0', visible: false},
                                 {name: 'currPayAmount_5', value: '0', visible: false},
                                 {name: 'currPayAmount_7', value: '0', visible: false},
-                                {name: 'currPayAmount_8', value: '0', visible: false},
-                                {name: 'currPayAmount_12', value: '0', visible: false}
+                                {name: 'currPayAmount_12', value: '0', visible: false},
+                                {name: 'currPayAmount_14', value: '0', visible: false},
+                                {name: 'currPayAmount_15', value: '0', visible: false}
                             ]);
                             //全款
                         }
@@ -167,15 +168,13 @@ define(function (require, exports, module) {
                                 {name: 'currPayAmount_4', visible: false},
                                 {name: 'currPayAmount_5', visible: false},
                                 {name: 'currPayAmount_7', visible: false},
-                                {name: 'currPayAmount_8', visible: false},
-                                {name: 'currPayAmount_12', visible: false}
+                                {name: 'currPayAmount_12', visible: false},
+                                {name: 'currPayAmount_14', value: '0', visible: false},
+                                {name: 'currPayAmount_15', value: '0', visible: false}
                             ]);
                             var checkeds = me.__refs.tableInfo.o_getFieldValue('check').split(',');
                             if (me.__refs.terminalInfo.o_getFieldValue('useCRM') && me.__refs.terminalInfo.o_getFieldData('useCRMWrapper').visible) {//使用了逍客终端 要加入服务费
                                 checkeds.push('1');//CRM费用
-                                if (me.__refs.terminalInfo.o_getFieldData('businesscard').visible) {
-                                    checkeds.push('8');//名片费用
-                                }
                             }
                             if (me.__refs.terminalInfo.o_getFieldValue('useFX')) {//使用了逍客终端 要加入服务费
                                 checkeds.push('3');//服务费
@@ -200,8 +199,9 @@ define(function (require, exports, module) {
                                 {name: 'currPayAmount_4', value: '0', visible: false},
                                 {name: 'currPayAmount_5', value: '0', visible: false},
                                 {name: 'currPayAmount_7', value: '0', visible: false},
-                                {name: 'currPayAmount_8', value: '0', visible: false},
                                 {name: 'currPayAmount_12', value: '0', visible: false},
+                                {name: 'currPayAmount_14', value: '0', visible: false},
+                                {name: 'currPayAmount_15', value: '0', visible: false},
                                 {name: 'currPayAmount', value: '0'}
                             ]);
                         }
@@ -214,7 +214,7 @@ define(function (require, exports, module) {
             ]
 
         }));
-        var currPayIdArr = [3, 1, 8, 4, 5, 7, 12];
+        var currPayIdArr = [3, 1, 4, 5, 7, 12,15,14];
         $(currPayIdArr).each(function (i, n) {
             (function (id) {
                 dataItems.push(new DataItem({

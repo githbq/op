@@ -305,14 +305,15 @@ define(function (require, exports, module) {
             };
             //门头照片
             var companyGatePictureData = $.parseJSON(formInfoData.companyGatePicture || '{}');
-            var useBusinessCart = terminalInfo.o_getFieldData('businesscard').visible && terminalInfo.o_getFieldValue('useCRM') ? 1 : 0;//名片可见 CRM已勾选
+            var useBusinessCart = terminalInfo.o_getFieldData('kunban').visible && $.inArray('8',terminalInfo.o_getFieldValue('kunban').split(','))>=0 && terminalInfo.o_getFieldValue('useCRM') ? 1 : 0;//名片可见 CRM已勾选
             data.enterpriseExtend = {
                 companyGatePicture: companyGatePictureData.companyGatePicture,
                 companyGatePictureFileName: (companyGatePictureData.companyGatePictureFileName || '').substr(-20, 20),
                 companyGateKeyword: formInfoData.companyGateKeyword,
                 companyGateRemark: formInfoData.companyGateRemark,
-                useBusinessCard: useBusinessCart,
-                businessCardPrise: useBusinessCart ? terminalInfo.o_getFieldValue('purchaseAmount_8') : 0
+                useBusinessCard: useBusinessCart
+                //名片没这个了
+                //: useBusinessCart ? terminalInfo.o_getFieldValue('purchaseAmount_8') : 0
             };
             //订单主信息
             data.order = {
@@ -418,6 +419,12 @@ define(function (require, exports, module) {
             controller(formDataItems, 'currPayAmount_12', function (n) {
                 n.readonly = isReadonly;
             });
+            controller(formDataItems, 'currPayAmount_15', function (n) {
+                n.readonly = isReadonly;
+            });
+            controller(formDataItems, 'currPayAmount_14', function (n) {
+                n.readonly = isReadonly;
+            });
             controller(formDataItems, 'receiptsAccount', function (n) {
                 n.readonly = isReadonly;
             });
@@ -436,9 +443,6 @@ define(function (require, exports, module) {
             var formInfoData = formInfo.o_getValues();
             //suborders //////////////////////////////////////////
             var ids = tableInfoData.check.split(',');
-            if (terminalInfo.o_getFieldData('businesscard').visible && terminalInfo.o_getFieldValue('useCRM')) {
-                ids.push('8');
-            }
             if (terminalInfo.o_getFieldData('useCRMWrapper').visible && terminalInfo.o_getFieldValue('useCRM')) {
                 ids.push('1');
             }

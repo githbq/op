@@ -33,9 +33,6 @@ define(function (require, exports, module) {
             n.visible = false;
         });
 
-        controller(terminalDataItems, 'businesscard', function (n) {
-            n.visible = false;
-        });
         controller(formDataItems, 'payStatus_name', function (n) {
             n.visible = false;
         });
