@@ -363,7 +363,8 @@ define(function(require, exports, module){
 					'redInvoiceInfoFileName':me.model.get('redInvoiceInfoFileName'),
 					'invoiceCopy':me.model.get('invoiceCopy'),
 					'invoiceCopyFileName':me.model.get('invoiceCopyFileName'),
-					'invoiceIsCertify':me.model.get('invoiceIsCertify')
+					'invoiceIsCertify':me.model.get('invoiceIsCertify'),
+					'invoiceId':me.model.get('invoiceId')
 				};
 				return tempData
 
