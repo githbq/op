@@ -113,7 +113,7 @@ define(function (require, exports, module) {
 						}else{
 							item.value = 'http://'+responseData.invoice.approvalUrl;
 						}
-                        item.value = responseData.invoice.approvalUrl;
+                        //item.value = responseData.invoice.approvalUrl;
                         item.attr = {href: item.value};
                     }else{
                         item.visible=false;
