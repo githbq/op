@@ -309,7 +309,9 @@ define(function( require , exports , module ){
 			};
 		},
 
-		//根据显隐状态
+		//
+		// 根据当前状态设置显隐
+		//
 		setState: function( status ){
 			var me = this;
 
@@ -334,7 +336,6 @@ define(function( require , exports , module ){
 				me.$('input,textarea').attr('disabled','disabled');
 				me.$('.nsr').hide();
 			}else{
-				me.$('.imginfo').hide();
 				me.$('.nsr').show();
 			}
 			//
