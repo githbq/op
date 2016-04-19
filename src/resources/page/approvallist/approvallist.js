@@ -35,7 +35,7 @@ define( function(require, exports, module){
 			console.log( detail )
 
 			var editFlag = false;
-			if( state == "refuse" ){
+			if( state == "refuse" || state == "mygoing" ){
 				editFlag = detail.canEdit;
 			}
 
