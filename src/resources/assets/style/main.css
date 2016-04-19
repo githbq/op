@@ -6809,6 +6809,15 @@ em {
 .m-invoiceapplydetail {
   color: #333333;
 }
+.m-invoiceapplydetail .approval-table {
+  word-break: break-all;
+  /*支持IE，chrome，FF不支持*/
+  word-wrap: break-word;
+  /*支持IE，chrome，FF*/
+}
+.m-invoiceapplydetail .approval-table th {
+  text-align: center;
+}
 .m-invoiceapplydetail h4 {
   font-weight: bold;
   font-size: 18px;

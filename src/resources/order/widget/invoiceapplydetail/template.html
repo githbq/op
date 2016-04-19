@@ -106,6 +106,10 @@
                 <span class="title">发票金额:</span>
                 <span data-name="amount"></span>元
             </p>
+            <p>
+                <span class="title">审批链接:</span>
+                <a data-name="approvalUrl" target="blank"></a>
+            </p>
 
             <p>
                 <span class="title">发票性质:</span>
@@ -134,6 +138,10 @@
             <p>
                 <span class="title">发票金额:</span>
                 <span data-name="amount"></span>元
+            </p>
+            <p>
+                <span class="title">审批链接:</span>
+                <a data-name="approvalUrl" target="blank"></a>
             </p>
             <!--<p>-->
             <!--<span class="title">公司名称</span>-->
@@ -208,12 +216,12 @@
         </section>
         <section data-name="commentWrapper" data-config="{'visible':true}">
             <h4>审批意见</h4>
-            <table>
+            <table class="approval-table">
                 <thead>
                 <th style="width:100px;">操作人</th>
-                <th style="width:100px;">审批时间</th>
+                <th style="width:130px;">审批时间</th>
                 <th style="width:100px;">审批结果</th>
-                <th style="width:100px;">审批意见</th>
+                <th style="width:180px;">审批意见</th>
                 <th></th>
                 </thead>
                 <tbody data-name="rejectReason">
