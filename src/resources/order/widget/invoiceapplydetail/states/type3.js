@@ -23,9 +23,6 @@ define(function (require, exports, module) {
         controller(dataItems,'kaiju',function(item){
             item.visible=false;
         });
-        controller(dataItems,'commentWrapper',function(item){
-            item.visible=true;
-        });
         common.setCommonData(dataItems,controller , responseData, type);
         return {dataItems: dataItems};
     }
