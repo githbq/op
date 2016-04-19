@@ -397,8 +397,13 @@ define( function(require, exports, module){
 					break;
 				default:
 			}
-			if(me.attrs.options.rejectsFrom && (me.attrs.options.rejectsFrom == 2 || me.attrs.options.rejectsFrom == 3 ) && me.attrs.options.editFlag){
+			if(me.attrs.options.rejectsFrom && (me.attrs.options.rejectsFrom == 2 ) && me.attrs.options.editFlag){
 				payInfoReadonly = false;
+				//me.attrs.moneyEdit = false
+				allReadonly = true;
+			}
+			if(me.attrs.options.rejectsFrom && ( me.attrs.options.rejectsFrom == 3 ) && me.attrs.options.editFlag){
+				payInfoReadonly = true;
 				//me.attrs.moneyEdit = false
 				allReadonly = true;
 			}
