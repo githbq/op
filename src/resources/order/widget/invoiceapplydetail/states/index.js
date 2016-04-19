@@ -110,6 +110,8 @@ define(function (require, exports, module) {
                     if (responseData.invoice.approvalUrl) {
                         item.value = responseData.invoice.approvalUrl;
                         item.attr = {href: item.value};
+                    }else{
+                        item.visible=false;
                     }
                 });
                 controller(dataItems, 'businessLicense', function (item) {
