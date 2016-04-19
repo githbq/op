@@ -76,6 +76,11 @@ define(function (require, exports, module) {
             return function (e) {
                 var me = this;
                 var $dom = $(e.target);
+                if (approved === false && !me.o_getFieldValue('comment')) {
+
+                    util.showToast('驳回时必须填写审批意见!');
+                    return;
+                }
                 if (me.o_getFieldData($dom.attr('data-name')).using || !confirm('确定执行?')) {
                     return;
                 }
