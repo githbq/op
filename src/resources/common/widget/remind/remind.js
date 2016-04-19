@@ -39,7 +39,7 @@ define(function(require, exports, module){
         },
         '9': {
             text: "发票申请被驳回",//小助手
-            url: "/op/a#agentsupport/renewlist/refuse "
+            url: "/op/index#order/invoiceapplyagentlist/refuse "
         },
         '10': {
             text: "发票申请被驳回",
