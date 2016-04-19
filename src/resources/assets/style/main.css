@@ -6589,6 +6589,17 @@ em {
 .m-express .express-action {
   text-align: right;
 }
+.m-express .content p .title {
+  display: block;
+  float: left;
+  width: 100px;
+}
+.m-express .content p .value {
+  display: block;
+  width: 220px;
+  padding-left: 100px;
+  word-break: break-all;
+}
 .custom-content .list {
   margin: 0px 222px;
   border: 1px solid #ccc;
