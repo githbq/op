@@ -108,6 +108,11 @@ define(function (require, exports, module) {
                 var businessLicense = '';
                 controller(dataItems, 'approvalUrl', function (item) {
                     if (responseData.invoice.approvalUrl) {
+						if(responseData.invoice.approvalUrl.indexOf('http://')>-1){
+							item.value = responseData.invoice.approvalUrl;
+						}else{
+							item.value = 'http://'+responseData.invoice.approvalUrl;
+						}
                         item.value = responseData.invoice.approvalUrl;
                         item.attr = {href: item.value};
                     }else{
