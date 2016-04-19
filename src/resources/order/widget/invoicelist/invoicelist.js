@@ -42,9 +42,11 @@ define(function(require, exports, module){
 					me.$('.redInvoiceInfo-box').hide();
 					me.$('.redInvoiceInfo-link').attr('href', '');
 					me.$('.redInvoiceInfo-img').attr('src', '');
+					me.$('.redInvoiceInfo').val('');
 					me.$('.invoiceCopy-box').hide();
 					me.$('.invoiceCopy-link').attr('href', '');
 					me.$('.invoiceCopy-img').attr('src', '');
+					me.$('.invoiceCopy').val('');
 				}else if(val == 0){
 					
 					me.$('.nocheck').hide();
@@ -55,9 +57,11 @@ define(function(require, exports, module){
 					me.$('.invoiceOriginal-box').hide();
 					me.$('.invoiceOriginal-link').attr('href', '');
 					me.$('.invoiceOriginal-img').attr('src', '');
+					me.$('.invoiceOriginal').val('');
 					me.$('.rejectProof-box').hide();
 					me.$('.rejectProof-link').attr('href', '');
 					me.$('.rejectProof-img').attr('src', '');
+					me.$('.rejectProof').val('');
 				}
 			});
 			
