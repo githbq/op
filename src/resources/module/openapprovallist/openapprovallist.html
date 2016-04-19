@@ -4,7 +4,7 @@
             <h3>
                 <span class="title">审批</span>
                 <span class="toggle">
-                    <b data-state="wait" class="active">我的待审批<span class='state wait-approve'>0</span></b><b data-state="going">我的已审批未完成<span class='state going-approve'>0</span></b><b data-state="end">我的已完成<span class='state end-approve'>0</span></b><b data-state="refuse"  class="limits-show">我的被驳回<span class="state refuse-approve"></span></b><b data-state="allReject">被驳回(代理商)<span class='state allReject-approve'>0</span></b><b data-state="allGoing" >审批中(代理商)<span class='state allGoing-approve'>0</span></b><b data-state="allEnd">已完成(代理商)<span class='state allEnd-approve'>0</span></b>
+                    <b data-state="wait" class="active">我的待审批<span class='state wait-approve'>0</span></b><b data-state="going">我的已审批未完成<span class='state going-approve'>0</span></b><b data-state="end">我的已完成<span class='state end-approve'>0</span></b><b data-state="mygoing" class="limits-show">我的审批中<span class='state mygoing-approve'>0</span></b><b data-state="refuse" class="limits-show">我的被驳回<span class="state refuse-approve"></span></b><b data-state="allReject">被驳回(代理商)<span class='state allReject-approve'>0</span></b><b data-state="allGoing" >审批中(代理商)<span class='state allGoing-approve'>0</span></b><b data-state="allEnd">已完成(代理商)<span class='state allEnd-approve'>0</span></b>
                 </span>
             </h3>
         </div>
@@ -29,7 +29,7 @@
                     企业账号
                     <input type="text" ce-model="ea">
                 </label>
-                <label for="">
+                <label>
                     订单类型
                     <select name="orderType" ce-model="orderType">
                         <option value="">全部</option>
@@ -39,11 +39,11 @@
                         <option value="4">收尾款</option>
                     </select>
                 </label>
-                <label for="">
+                <label>
                     提单人
                     <input type="text" ce-model="applicantname">
                 </label>
-                <label for="">
+                <label>
                     特批单
                     <select name="tpd" ce-model="isTp">
                         <option value="">全部</option>
@@ -65,7 +65,7 @@
                 </label>
                 -->
 
-                <label for="">
+                <label>
                     付费状态
                     <select name="ffzt" ce-model="payStatus">
                         <option value="">全部</option>
@@ -74,14 +74,14 @@
                         <option value="3">未付</option>
                     </select>
                 </label>
-                <label for="">
+                <label>
                     提单日期 <input type="text" placeholder="开始时间" class="starttime"> ———— <input type="text" placeholder="结束时间" class="endtime">
                 </label>
-                <label for="">
+                <label>
                     代理商
                     <input type="text" ce-model="agentName">
                 </label>
-                <label for="">
+                <label>
                     优惠码
                     <input type="text" ce-model="agentId" onchange="this.value=this.value.replace(/\D/g,'')">
                 </label>
@@ -122,10 +122,13 @@
                         <td><%=item.isTp == "1" ? "是":"否"%></td>
                         <td><%=item.isCooperationStr%></td>
                         <td><%=item.cooperationUnit%></td>
-                        <th class="state state-wait state-going state-allGoing"><%=IBSS.TaskMap[item.currentTask]%></th>
+                        <th class="state state-wait state-going state-allGoing state-allGoing"><%=IBSS.TaskMap[item.currentTask]%></th>
                         <td><%=IBSS.PayMap[item.payStatus]%></td>
                         <td><%=item.applyTimeStr%></td>
                         <td>
+                            <% if( item.canCancel){ %>
+                                <a class="revoke state state-mygoing" data-inid="<%=item.processInstanceId%>">撤销审批</a>
+                            <% } %>
 							<a class="detail" data-inid="<%=item.processInstanceId%>">
 								查看
 							</a>

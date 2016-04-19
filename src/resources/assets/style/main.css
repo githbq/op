@@ -6101,6 +6101,7 @@ em {
 .m-approvallist .list-header .toggle b .end-approve,
 .m-approvallist .list-header .toggle b .allReject-approve,
 .m-approvallist .list-header .toggle b .allGoing-approve,
+.m-approvallist .list-header .toggle b .mygoing-approve,
 .m-approvallist .list-header .toggle b .allEnd-approve {
   position: absolute;
   top: -21px;
