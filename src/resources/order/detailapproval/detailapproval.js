@@ -34,7 +34,10 @@ define( function(require, exports, module){
             '6': 'HR助手',
             '7': '工资助手',
             '8':'名片',
-			'12':'自定义助手'	
+			'12':'自定义助手',
+			'13':'培训助手',
+			'14':'战报助手',	
+			'15':'考试助手'
         }; 
 
     /////////////////
@@ -597,14 +600,49 @@ define( function(require, exports, module){
 										"startTime_readonly":true
 									}}
 									subArry.push(tempObe)
-									/*for(var i =0;i<productData.subOrders.length;i++){
 									
-										if(productData.subOrders[i].subOrder.productId==5){
-											productData.subOrders[i].subOrder['startTime'] = obj["endDate"];
-											productData.subOrders[i].subOrder['startTime_readonly'] = true;
-											break;
-										}
-									}*/
+								}
+								break;
+							case "Train_Helper":
+								var nowDate = new Date( new Date().getTime() )._format('yyyy/MM/dd');
+								var endDate = new Date( obj["endDate"]  )._format('yyyy/MM/dd');
+								if( dateCompare(nowDate,endDate) ){
+									var tempObe = {"subOrder":{
+										"productId":13,
+										"startTime":obj["endDate"],
+										"flag":true,
+										"startTime_readonly":true
+									}}
+									subArry.push(tempObe)
+									
+								}
+								break;
+							case "Report_Helper":
+								var nowDate = new Date( new Date().getTime() )._format('yyyy/MM/dd');
+								var endDate = new Date( obj["endDate"]  )._format('yyyy/MM/dd');
+								if( dateCompare(nowDate,endDate) ){
+									var tempObe = {"subOrder":{
+										"productId":14,
+										"startTime":obj["endDate"],
+										"flag":true,
+										"startTime_readonly":true
+									}}
+									subArry.push(tempObe)
+									
+								}
+								break;
+							case "Exam_Helper":
+								var nowDate = new Date( new Date().getTime() )._format('yyyy/MM/dd');
+								var endDate = new Date( obj["endDate"]  )._format('yyyy/MM/dd');
+								if( dateCompare(nowDate,endDate) ){
+									var tempObe = {"subOrder":{
+										"productId":15,
+										"startTime":obj["endDate"],
+										"flag":true,
+										"startTime_readonly":true
+									}}
+									subArry.push(tempObe)
+									
 								}
 								break;
 							default:
@@ -853,7 +891,7 @@ define( function(require, exports, module){
 			switch( me.attrs.options.orderType ){
 				case 1:case 2:case 3:case 4:case 13:case 14:case 15:case 16:
 					_.map( data , function( obj ){
-						if(obj.subOrder.productId ==1 || obj.subOrder.productId ==4  || obj.subOrder.productId ==5 || obj.subOrder.productId ==12 ){
+						if(obj.subOrder.productId ==1 || obj.subOrder.productId ==4  || obj.subOrder.productId ==5 || obj.subOrder.productId ==12 || obj.subOrder.productId ==13 || obj.subOrder.productId ==14 || obj.subOrder.productId ==15){
 							if( obj.subOrder.discount  &&  obj.subOrder.discount<8){
 								discoutFlag = false;
 								//util.showToast('子产品折扣低于8折，必须申请特批');
@@ -864,7 +902,7 @@ define( function(require, exports, module){
 					break;
 				default:
 					_.map( data , function( obj ){
-						if(obj.subOrder.productId ==1 || obj.subOrder.productId ==4  || obj.subOrder.productId ==7  || obj.subOrder.productId ==5 || obj.subOrder.productId ==12 ){
+						if(obj.subOrder.productId ==1 || obj.subOrder.productId ==4  || obj.subOrder.productId ==7  || obj.subOrder.productId ==5 || obj.subOrder.productId ==12 || obj.subOrder.productId ==13 || obj.subOrder.productId ==14 || obj.subOrder.productId ==15 ){
 							if( obj.subOrder.discount  &&  obj.subOrder.discount<8){
 								discoutFlag = false;
 							}

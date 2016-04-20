@@ -16,7 +16,10 @@ define(function(require, exports, module){
             '6': 'HR助手',
             '7': '工资助手',
             '8':'名片',
-			'12':'自定义助手'	
+			'12':'自定义助手',
+			'13':'培训助手',
+			'14':'战报助手',	
+			'15':'考试助手'	
         }; 
 	
 	var AddEnt = MClass( M.Center ).include({
