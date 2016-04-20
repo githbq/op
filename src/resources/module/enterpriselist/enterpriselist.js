@@ -266,6 +266,7 @@ define(function (require, exports, module) {
                 city: me.model.get('city'),
                 tel: me.model.get('tel'),
 				'creatorName':me.model.get('creatorName'),
+				'isLinkRegister':me.model.get('isLinkRegister'),
                 'hasProduct': me.model.get('hasProduct'),  //包含某种产品
                 'vendorId': me.model.get('vendorId'),      //优惠码
                 'isPresent': me.model.get('isPresent'),    //是否赠送办公版
