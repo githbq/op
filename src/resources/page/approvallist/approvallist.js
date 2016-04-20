@@ -52,8 +52,14 @@ define( function(require, exports, module){
                 'processInstanceId': detail.processInstanceId,
                 'contractNo': detail.contractNo
 			};
-			
-
+			if( detail.approvalTypeId =='refundApproval' ){
+				detailApproval = new BackMoney();
+                detailApproval.show( data );
+                detailApproval.on('saveSuccess',function(){
+                    approvalList.getList();
+                })
+				return false;
+			}
 			if( data.orderType != 17 ){
 
 				detailApproval = new DetailApproval();
