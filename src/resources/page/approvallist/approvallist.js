@@ -50,10 +50,17 @@ define( function(require, exports, module){
                 'ea': detail.enterpriseAccount,
                 'currentTask': detail.currentTask,
                 'processInstanceId': detail.processInstanceId,
-                'contractNo': detail.contractNo
+                'contractNo': detail.contractNo,
+                'rejectsFrom': detail.rejectsFrom
 			};
-			
-
+			if( detail.approvalTypeId =='refundApproval' ){
+				detailApproval = new BackMoney();
+                detailApproval.show( data );
+                detailApproval.on('saveSuccess',function(){
+                    approvalList.getList();
+                })
+				return false;
+			}
 			if( data.orderType != 17 ){
 
 				detailApproval = new DetailApproval();
