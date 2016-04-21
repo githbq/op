@@ -152,7 +152,7 @@ define(function (require, exports, module) {
             }, 10);
 
         });
-        var typeIds = ['1', '3', '8', '16'];
+        var typeIds = ['1', '3', '8', '13', '16'];
 
         $(typeIds).each(function (i, n) {
             //服务人数
@@ -266,7 +266,11 @@ define(function (require, exports, module) {
                         key: 'blur', value: function (e) {
                             var me = this;
                             setTimeout(function () {
-                                changeForGetPrice.call(me, e);
+                                if (n == '13') {
+                                   me.o_data_getField({name:'purchaseCount_16'}).change();
+                                } else {
+                                    changeForGetPrice.call(me, e);
+                                }
                             }, 200);
                         }
                     }]
@@ -283,7 +287,11 @@ define(function (require, exports, module) {
                     key: 'blur', value: function (e) {
                         var me = this;
                         setTimeout(function () {
-                            changeForGetPrice.call(me, e);
+                            if (n == '13') {
+                                me.o_data_getField({name:'purchaseCount_16'}).change();
+                            } else {
+                                changeForGetPrice.call(me, e);
+                            }
                         }, 200)
                     }
                 }]
@@ -440,7 +448,7 @@ define(function (require, exports, module) {
             //    $dom.change();
             //}
             var sum = 1;
-            if (id == '1' || id=='16') {//针对CRM数量可改 针对培训助手流量数量可改
+            if (id == '1' || id == '16') {//针对CRM数量可改 针对培训助手流量数量可改
                 sum = me.o_getFieldValue('purchaseCount_' + id);
                 if (!sum) {
                     return;
@@ -461,7 +469,7 @@ define(function (require, exports, module) {
                         me.o_setValue({name: 'discount_' + id, value: responseData.model.rebate === null ? '' : responseData.model.rebate});
 
                         me.o_setValue({name: 'productAmount_' + id, value: responseData.model.amount});
-                        if (id == '8') {
+                        if (id == '16') {//培训助手
                             me.o_setValue({name: 'purchaseAmount_' + id, value: responseData.model.amount});
                         }
                         checkTypeForPrice.call(me, e, id);
@@ -485,11 +493,12 @@ define(function (require, exports, module) {
             else if (options.data.startDate && options.data.endDate) {
                 if (options.data.startDate >= options.data.endDate) {
                     util.showToast('开始日期必须小于结束日期');
+                    var newid = id;
                     if (id == '16') {//流量
-                        id = '13';
+                        newid = '13';
                     }
-                    me.o_setValue({name: 'startTime_' + id, value: ''});
-                    me.o_setValue({name: 'endTime_' + id, value: ''});
+                    me.o_setValue({name: 'startTime_' + newid, value: ''});
+                    me.o_setValue({name: 'endTime_' + newid, value: ''});
                 } else {
                     //document.title=Math.random();
                     me.attrs.apiPool.api_getCalculateSingle(options);
