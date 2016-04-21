@@ -70,12 +70,12 @@ define(function (require, exports, module) {
                                     $type && $type.length > 0 && ($type.change());
                                 }
                                 /* CRM与服务费不再关联
-                                //if (i == 'purchaseAmount_input_3' && !me.dataDic[i].readonly) {//服务费合同金额
-                                //    if (me.o_getFieldValue('useCRM')) {
-                                //        me.dataDic[i].readonly = true;
-                                //        me.o_setValue(me.dataDic[i]);
-                                //    }
-                                //}
+                                 //if (i == 'purchaseAmount_input_3' && !me.dataDic[i].readonly) {//服务费合同金额
+                                 //    if (me.o_getFieldValue('useCRM')) {
+                                 //        me.dataDic[i].readonly = true;
+                                 //        me.o_setValue(me.dataDic[i]);
+                                 //    }
+                                 //}
                                  */
                             }
                         }
@@ -100,17 +100,17 @@ define(function (require, exports, module) {
                         var checked = $dom.is(':checked');
                         var isReadonly = me.o_getFieldData('allreadonly').allreadonly === true;
                         /* CRM与服务费不再关联
-                        //if ($dom.is(':checked')) {//选中的话 终端为0
-                        //    me.o_setValue({name: 'purchaseAmount_input_3', value: '0', readonly: true});
-                        //    me.o_setValue({name: 'purchaseAmount_3', value: '0'});
-                        //    var id = $dom.val();
-                        //    priceComput.call(this, e);
-                        //
-                        //} else {
-                        //    me.o_setValue({name: 'purchaseAmount_input_3', readonly: me.o_getFieldValue('useFX') ? isReadonly : true});
-                        //    me.o_data_getField({name: 'purchaseCount_3'}).change();//服务费
-                        //}
-                        */
+                         //if ($dom.is(':checked')) {//选中的话 终端为0
+                         //    me.o_setValue({name: 'purchaseAmount_input_3', value: '0', readonly: true});
+                         //    me.o_setValue({name: 'purchaseAmount_3', value: '0'});
+                         //    var id = $dom.val();
+                         //    priceComput.call(this, e);
+                         //
+                         //} else {
+                         //    me.o_setValue({name: 'purchaseAmount_input_3', readonly: me.o_getFieldValue('useFX') ? isReadonly : true});
+                         //    me.o_data_getField({name: 'purchaseCount_3'}).change();//服务费
+                         //}
+                         */
                         for (var i in me.dataDic) {
                             if (me.dataDic.hasOwnProperty(i)) {
                                 if ((i.toString().indexOf('_1') > 0 || i.toString().indexOf('_8') > 0) && i.toString().toLowerCase().indexOf('wrapper') < 0) {
@@ -152,13 +152,19 @@ define(function (require, exports, module) {
                 __silent: true,
                 events: [{
                     key: 'change', value: function (e) {
+                        debugger
                         var me = this;
                         var allreadonly = me.o_getFieldData('allreadonly').allreadonly;
                         var $dom = $(e.target);
+                        if (n == '3' && !(parseFloat($dom.val()) > 5) && !(me.o_getFieldValue('isrenew') || me.o_getFieldValue('isadd'))) {
+                            util.showToast('服务人数必须大于等于6');
+                            $dom.val('');
+                            return;
+                        }
                         if ($dom.val() && parseFloat($dom.val()) <= 0) {
-                            if ((n == '3' || n=='1' )&& (me.o_getFieldValue('isrenew') || me.o_getFieldValue('isadd'))) {//增购续费 服务人数可为0
+                            if ((n == '3' || n == '1' ) && (me.o_getFieldValue('isrenew') || me.o_getFieldValue('isadd'))) {//增购续费 服务人数可为0
                             } else {
-                                util.showToast('服务人数与终端数量必须大于0');
+                                util.showToast('数量必须大于0');
                                 $dom.val('');
                                 return;
                             }
@@ -182,13 +188,13 @@ define(function (require, exports, module) {
                                     data: {enterpriseId: me.o_getFieldValue('enterpriseId'), personCount: $dom.val()}, success: function (response) {
                                         //{"login":true,"model":2000,"privilege":true,"success":true,"value":{"model":2000}}
                                         if (response.success) {
-                                            if (me.o_getFieldValue('useCRM')) {
-                                                me.o_setValue({name: 'purchaseAmount_' + n, value: '0'});
-                                                me.o_setValue({name: 'purchaseAmount_input_' + n, value: '0'});
-                                            } else {
-                                                me.o_setValue({name: 'purchaseAmount_' + n, value: response.model});
-                                                me.o_setValue({name: 'purchaseAmount_input_' + n, value: response.model, readonly: allreadonly});
-                                            }
+                                            //if (me.o_getFieldValue('useCRM')) {
+                                            //    me.o_setValue({name: 'purchaseAmount_' + n, value: '0'});
+                                            //    me.o_setValue({name: 'purchaseAmount_input_' + n, value: '0'});
+                                            //} else {
+                                            me.o_setValue({name: 'purchaseAmount_' + n, value: response.model});
+                                            me.o_setValue({name: 'purchaseAmount_input_' + n, value: response.model, readonly: allreadonly});
+                                            //}
 
                                             me.o_setValue({name: 'productAmount_' + n, value: response.model});
 
