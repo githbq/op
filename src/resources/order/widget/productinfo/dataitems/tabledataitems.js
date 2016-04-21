@@ -231,6 +231,7 @@ define(function (require, exports, module) {
 
         //价格计算
         function priceComput(e) {
+            debugger
             var me = this;
             var $dom = $(e.target);
             var data = null;
@@ -244,6 +245,12 @@ define(function (require, exports, module) {
             var productAmount = 0;//产品原价
             if (me.__refs.terminalInfo.o_getFieldData('useCRMWrapper').visible && me.__refs.terminalInfo.o_getFieldValue('useCRM')) {
                 ids.push('1');
+            }
+            if (me.__refs.terminalInfo.o_getFieldData('productTrainingWrapper').visible && me.__refs.terminalInfo.o_getFieldValue('useTrainning')) {
+                ids.push('13');
+            }
+            if (me.__refs.terminalInfo.o_getFieldData('productTimeLongWrapper').visible && me.__refs.terminalInfo.o_getFieldValue('useTrainning')) {
+                ids.push('16');
             }
 
             if (me.__refs.terminalInfo.o_getFieldValue('useFX')) {

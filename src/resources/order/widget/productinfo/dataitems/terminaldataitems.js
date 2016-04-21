@@ -152,7 +152,7 @@ define(function (require, exports, module) {
             }, 10);
 
         });
-        var typeIds = ['1', '3', '8', '13', '16'];
+        var typeIds = ['1', '3', '8', '16'];
 
         $(typeIds).each(function (i, n) {
             //服务人数
@@ -163,6 +163,7 @@ define(function (require, exports, module) {
                 __silent: true,
                 events: [{
                     key: 'change', value: function (e) {
+                        debugger
                         var me = this;
                         var allreadonly = me.o_getFieldData('allreadonly').allreadonly;
                         var $dom = $(e.target);
@@ -179,7 +180,10 @@ define(function (require, exports, module) {
                                 return;
                             }
                         }
-                        if (n != '3' && n != '16') {
+                        if (n == '16') {//是流量
+                            changeForGetPrice.call(me, e);
+                        }
+                        else if (n != '3') {
                             if (n == '1') {//CRM的数量变化还要计算一下原价
                                 if ($dom.val() && parseFloat($dom.val()) > parseFloat(me.o_getFieldValue('purchaseCount_2'))) {
                                     util.showToast('CRM终端总量需小于等于逍客终端总量');
@@ -190,7 +194,8 @@ define(function (require, exports, module) {
                                 checkTypeForPrice.call(me, e, n);
                                 priceComput.call(me, e);
                             }
-                        } else {
+                        }
+                        else {
                             $dom.val($dom.val().replace(/[^\.\d]/g, ''));
                             me.o_field_getData($dom).__silent = false;
                             if ($dom.val() && !allreadonly) {
@@ -435,13 +440,12 @@ define(function (require, exports, module) {
             //    $dom.change();
             //}
             var sum = 1;
-            if (id == '1') {//针对CRM数量可改
+            if (id == '1' || id=='16') {//针对CRM数量可改 针对培训助手流量数量可改
                 sum = me.o_getFieldValue('purchaseCount_' + id);
                 if (!sum) {
                     return;
                 }
             }
-
             var options = {
                 data: {
                     id: id,
@@ -465,6 +469,15 @@ define(function (require, exports, module) {
                     }
                 }
             };
+            if (id == '16') { //培训助手流量费
+                options.data.startDate = me.o_getFieldValue('startTime_13');
+                options.data.endDate = me.o_getFieldValue('endTime_13');
+                if (!(options.data.startDate && options.data.startDate)) {
+                    util.showToast('培训助手时间不能为空');
+                    $dom.val('');
+                    return;
+                }
+            }
             if (id == '3') {//服务人数不计算折扣
                 checkTypeForPrice.call(me, e, id);
                 priceComput.call(me, e);
@@ -472,6 +485,9 @@ define(function (require, exports, module) {
             else if (options.data.startDate && options.data.endDate) {
                 if (options.data.startDate >= options.data.endDate) {
                     util.showToast('开始日期必须小于结束日期');
+                    if (id == '16') {//流量
+                        id = '13';
+                    }
                     me.o_setValue({name: 'startTime_' + id, value: ''});
                     me.o_setValue({name: 'endTime_' + id, value: ''});
                 } else {
@@ -479,6 +495,7 @@ define(function (require, exports, module) {
                     me.attrs.apiPool.api_getCalculateSingle(options);
                 }
             }
+
         }
 
         return dataItems;
