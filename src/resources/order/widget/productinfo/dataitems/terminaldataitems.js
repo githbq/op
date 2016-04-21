@@ -266,12 +266,11 @@ define(function (require, exports, module) {
                         key: 'blur', value: function (e) {
                             var me = this;
                             setTimeout(function () {
+                                changeForGetPrice.call(me, e);
                                 if (n == '13') {
-                                   me.o_data_getField({name:'purchaseCount_16'}).change();
-                                } else {
-                                    changeForGetPrice.call(me, e);
+                                    me.o_data_getField({name:'purchaseCount_16'}).change();
                                 }
-                            }, 200);
+                            }, 200)
                         }
                     }]
                 })
@@ -287,10 +286,9 @@ define(function (require, exports, module) {
                     key: 'blur', value: function (e) {
                         var me = this;
                         setTimeout(function () {
+                            changeForGetPrice.call(me, e);
                             if (n == '13') {
                                 me.o_data_getField({name:'purchaseCount_16'}).change();
-                            } else {
-                                changeForGetPrice.call(me, e);
                             }
                         }, 200)
                     }
