@@ -44,45 +44,56 @@ define(function (require, exports, module) {
             value: null
         }));
 
-        //使用逍客终端复选框
-        dataItems.push(new DataItem({
-            name: 'useFX',
-            value: true,
-            readonly: true,
-            events: [
-                {
-                    key: 'change', value: function (e) {
-                    var me = this;
-                    var $dom = $(e.target);
-                    var checked = $dom.is(':checked');
-                    var isReadonly = me.o_getFieldData('allreadonly').allreadonly === true;
-                    priceComput.call(me, e);
-                    for (var i in me.dataDic) {
-                        if (me.dataDic.hasOwnProperty(i)) {
-                            if ((i.toString().indexOf('_3') > 0) && i.toString().toLowerCase().indexOf('wrapper') < 0) {
-                                if (checked && me.dataDic[i].old_readonly === undefined) {
-                                    me.dataDic[i].old_readonly = !!me.dataDic[i].readonly;
+        $(['useFX', 'useTrainning']).each(function (index, item) {
+            //使用逍客终端复选框
+            dataItems.push(new DataItem({
+                name: item,
+                value: true,
+                readonly: item == '13' ? false : true,
+                events: [
+                    {
+                        key: 'change', value: function (e) {
+                        var me = this;
+                        var $dom = $(e.target);
+                        var checked = $dom.is(':checked');
+                        var isReadonly = me.o_getFieldData('allreadonly').allreadonly === true;
+                        priceComput.call(me, e);
+                        for (var i in me.dataDic) {
+                            if (me.dataDic.hasOwnProperty(i)) {
+                                var refSuffixs = ['_3'];
+                                if (n == '13') {//培训助手
+                                    refSuffixs = ['_13','_16'];//流量
                                 }
-                                me.dataDic[i].readonly = !checked ? true : ( me.dataDic[i].old_readonly === true ? isReadonly : false);
-                                me.o_setValue(me.dataDic[i]);
-                                if (i.toString().indexOf('type_') == 0) {
-                                    var $type = me.o_data_getField(me.dataDic[i]);
-                                    $type && $type.length > 0 && ($type.change());
+                                if (!me.dataDic[i]) {
+                                    continue;
                                 }
-                                /* CRM与服务费不再关联
-                                //if (i == 'purchaseAmount_input_3' && !me.dataDic[i].readonly) {//服务费合同金额
-                                //    if (me.o_getFieldValue('useCRM')) {
-                                //        me.dataDic[i].readonly = true;
-                                //        me.o_setValue(me.dataDic[i]);
-                                //    }
-                                //}
-                                 */
+                                $(refSuffixs).each(function(j,m){
+                                if ((i.toString().indexOf(refSuffixs[j]) > 0) && i.toString().toLowerCase().indexOf('wrapper') < 0) {
+                                    if (checked && me.dataDic[i].old_readonly === undefined) {
+                                        me.dataDic[i].old_readonly = !!me.dataDic[i].readonly;
+                                    }
+                                    me.dataDic[i].readonly = !checked ? true : ( me.dataDic[i].old_readonly === true ? isReadonly : false);
+                                    me.o_setValue(me.dataDic[i]);
+                                    if (i.toString().indexOf('type_') == 0) {
+                                        var $type = me.o_data_getField(me.dataDic[i]);
+                                        $type && $type.length > 0 && ($type.change());
+                                    }
+                                    /* CRM与服务费不再关联
+                                     //if (i == 'purchaseAmount_input_3' && !me.dataDic[i].readonly) {//服务费合同金额
+                                     //    if (me.o_getFieldValue('useCRM')) {
+                                     //        me.dataDic[i].readonly = true;
+                                     //        me.o_setValue(me.dataDic[i]);
+                                     //    }
+                                     //}
+                                     */
+                                }
+                                });
                             }
                         }
                     }
-                }
-                }]
-        }));
+                    }]
+            }));
+        });
         dataItems[dataItems.length - 1].on('setFieldValue', function ($ele, value, data) {
             setTimeout(function () {
                 $ele.change();
@@ -100,17 +111,17 @@ define(function (require, exports, module) {
                         var checked = $dom.is(':checked');
                         var isReadonly = me.o_getFieldData('allreadonly').allreadonly === true;
                         /* CRM与服务费不再关联
-                        //if ($dom.is(':checked')) {//选中的话 终端为0
-                        //    me.o_setValue({name: 'purchaseAmount_input_3', value: '0', readonly: true});
-                        //    me.o_setValue({name: 'purchaseAmount_3', value: '0'});
-                        //    var id = $dom.val();
-                        //    priceComput.call(this, e);
-                        //
-                        //} else {
-                        //    me.o_setValue({name: 'purchaseAmount_input_3', readonly: me.o_getFieldValue('useFX') ? isReadonly : true});
-                        //    me.o_data_getField({name: 'purchaseCount_3'}).change();//服务费
-                        //}
-                        */
+                         //if ($dom.is(':checked')) {//选中的话 终端为0
+                         //    me.o_setValue({name: 'purchaseAmount_input_3', value: '0', readonly: true});
+                         //    me.o_setValue({name: 'purchaseAmount_3', value: '0'});
+                         //    var id = $dom.val();
+                         //    priceComput.call(this, e);
+                         //
+                         //} else {
+                         //    me.o_setValue({name: 'purchaseAmount_input_3', readonly: me.o_getFieldValue('useFX') ? isReadonly : true});
+                         //    me.o_data_getField({name: 'purchaseCount_3'}).change();//服务费
+                         //}
+                         */
                         for (var i in me.dataDic) {
                             if (me.dataDic.hasOwnProperty(i)) {
                                 if ((i.toString().indexOf('_1') > 0 || i.toString().indexOf('_8') > 0) && i.toString().toLowerCase().indexOf('wrapper') < 0) {
@@ -141,7 +152,7 @@ define(function (require, exports, module) {
             }, 10);
 
         });
-        var typeIds = ['1', '3', '8'];
+        var typeIds = ['1', '3', '8','13'];
 
         $(typeIds).each(function (i, n) {
             //服务人数
@@ -156,7 +167,7 @@ define(function (require, exports, module) {
                         var allreadonly = me.o_getFieldData('allreadonly').allreadonly;
                         var $dom = $(e.target);
                         if ($dom.val() && parseFloat($dom.val()) <= 0) {
-                            if ((n == '3' || n=='1' )&& (me.o_getFieldValue('isrenew') || me.o_getFieldValue('isadd'))) {//增购续费 服务人数可为0
+                            if ((n == '3' || n == '1' ) && (me.o_getFieldValue('isrenew') || me.o_getFieldValue('isadd'))) {//增购续费 服务人数可为0
                             } else {
                                 util.showToast('服务人数与终端数量必须大于0');
                                 $dom.val('');

@@ -17,7 +17,8 @@ define(function (require, exports, module) {
             '12': '自定义助手',
             '13':'培训助手',
             '14':'战报助手',
-            '15':'考试助手'
+            '15':'考试助手',
+            '16':'培训助手时长'
         };
         //订单类型
         dataItems.push(new DataItem({
@@ -93,6 +94,8 @@ define(function (require, exports, module) {
             {id: 12, name: '自定义助手'},
             {id: 15, name: '考试助手'},
             {id: 14, name: '战报助手'},
+            {id: 13, name: '培训助手'},
+            {id: 16, name: '培训助手时长'},
             //{id: 6, name: 'HR助手'},
             {id: 7, name: '工资助手', options: {discount: {}}}
         ];

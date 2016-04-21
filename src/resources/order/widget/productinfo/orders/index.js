@@ -225,14 +225,17 @@ define(function (require, exports, module) {
             controller(tableDataItems, 'tablelist', function (n) {
                 n.visible = true;
             });
-            controller(tableDataItems, 'check', function (n) { 
+            controller(tableDataItems, 'productTrainingWrapper', function (n) {
+                n.visible = false;
+            });
+            controller(tableDataItems, 'check', function (n) {
                 n.on('setFieldValue', function ($ele, value, data, me) {
                     var isreadonly = me.__refs.terminalInfo.o_getFieldData('allreadonly').allreadonly === true;
                     if (responseData && responseData.data && responseData.data.subOrders) {
                         var ids = [];
-                        if(responseData.refuse){//被驳回前 要隐藏掉相关的子产品
-                            me.$('input[type=checkbox][data-name=check]').each(function(i,n){
-                                if(!$(n).is(':checked')){
+                        if (responseData.refuse) {//被驳回前 要隐藏掉相关的子产品
+                            me.$('input[type=checkbox][data-name=check]').each(function (i, n) {
+                                if (!$(n).is(':checked')) {
                                     $(n).parents('tr').hide();
                                 }
                             });
@@ -305,7 +308,7 @@ define(function (require, exports, module) {
             };
             //门头照片
             var companyGatePictureData = $.parseJSON(formInfoData.companyGatePicture || '{}');
-            var useBusinessCart = terminalInfo.o_getFieldData('kunban').visible && $.inArray('8',terminalInfo.o_getFieldValue('kunban').split(','))>=0 && terminalInfo.o_getFieldValue('useCRM') ? 1 : 0;//名片可见 CRM已勾选
+            var useBusinessCart = terminalInfo.o_getFieldData('kunban').visible && $.inArray('8', terminalInfo.o_getFieldValue('kunban').split(',')) >= 0 && terminalInfo.o_getFieldValue('useCRM') ? 1 : 0;//名片可见 CRM已勾选
             data.enterpriseExtend = {
                 companyGatePicture: companyGatePictureData.companyGatePicture,
                 companyGatePictureFileName: (companyGatePictureData.companyGatePictureFileName || '').substr(-20, 20),
@@ -425,6 +428,12 @@ define(function (require, exports, module) {
             controller(formDataItems, 'currPayAmount_14', function (n) {
                 n.readonly = isReadonly;
             });
+            controller(formDataItems, 'currPayAmount_13', function (n) {
+                n.readonly = isReadonly;
+            });
+            controller(formDataItems, 'currPayAmount_16', function (n) {
+                n.readonly = isReadonly;
+            });
             controller(formDataItems, 'receiptsAccount', function (n) {
                 n.readonly = isReadonly;
             });
@@ -450,6 +459,16 @@ define(function (require, exports, module) {
                 ids.push('2');
                 ids.push('3');
             }
+
+            if (terminalInfo.o_getFieldValue('useTrainning')) {// 培训助手
+                if (terminalInfo.o_getFieldData('productTrainingWrapper').visible) {//培训助手
+                    ids.push('13');
+                }
+                if (terminalInfo.o_getFieldData('productTimeLongWrapper').visible) {//流量时长
+                    ids.push('16');
+                }
+            }
+
             $(ids).each(function (i, n) {
                     if (!n) {
                         return;
@@ -472,10 +491,9 @@ define(function (require, exports, module) {
                             discount: fromData['discount_' + n] || 0,
                             currPayAmount: formInfoData['currPayAmount_' + n] || 0
                         };
-                        //if (n == '3') {
-                        //    subOrder.startTime = fromData['startTime_2'];
-                        //    subOrder.endTime = fromData['endTime_2'];
-                        //}
+                        if (n == '16') {
+                            subOrder.give_count=fromData['give_count_16'];
+                        }
                         var productExtends = [];
                         if (n == '1') {
                             if (terminalInfo.o_getFieldValue('kunbang') && terminalInfo.o_data_getField({name: 'kunbang'}).is(':visible')) {
