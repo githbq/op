@@ -152,7 +152,7 @@ define(function (require, exports, module) {
             }, 10);
 
         });
-        var typeIds = ['1', '3', '8','13'];
+        var typeIds = ['1', '3', '8','13','16'];
 
         $(typeIds).each(function (i, n) {
             //服务人数
@@ -174,7 +174,7 @@ define(function (require, exports, module) {
                                 return;
                             }
                         }
-                        if (n != '3' || n!='') {
+                        if (n != '3' && n!='16') {
                             if (n == '1') {//CRM的数量变化还要计算一下原价
                                 if ($dom.val() && parseFloat($dom.val()) > parseFloat(me.o_getFieldValue('purchaseCount_2'))) {
                                     util.showToast('CRM终端总量需小于等于逍客终端总量');
