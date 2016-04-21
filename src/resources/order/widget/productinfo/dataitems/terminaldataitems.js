@@ -208,7 +208,7 @@ define(function (require, exports, module) {
                                             //    me.o_setValue({name: 'purchaseAmount_input_' + n, value: '0'});
                                             //} else {
                                             me.o_setValue({name: 'purchaseAmount_' + n, value: response.model});
-                                            me.o_setValue({name: 'purchaseAmount_input_' + n, value: response.model, readonly: allreadonly});
+                                            me.o_setValue({name: 'purchaseAmount_input_' + n, value: response.model});
                                             //}
 
                                             me.o_setValue({name: 'productAmount_' + n, value: response.model});
