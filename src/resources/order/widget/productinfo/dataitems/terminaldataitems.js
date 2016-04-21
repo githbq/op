@@ -166,15 +166,15 @@ define(function (require, exports, module) {
                         var me = this;
                         var allreadonly = me.o_getFieldData('allreadonly').allreadonly;
                         var $dom = $(e.target);
+                        if (n == '3' && !(parseFloat($dom.val()) > 5) && !(me.o_getFieldValue('isrenew') || me.o_getFieldValue('isadd'))) {
+                            util.showToast('服务人数必须大于等于6');
+                            $dom.val('');
+                            return;
+                        }
                         if ($dom.val() && parseFloat($dom.val()) <= 0) {
                             if ((n == '3' || n == '1' ) && (me.o_getFieldValue('isrenew') || me.o_getFieldValue('isadd'))) {//增购续费 服务人数可为0
-                                $dom.val('0');
                             } else {
-                                if (n == 3 && !parseFloat($dom.val()) > 5) {
-                                    util.showToast('服务人数必须大于等于6');
-                                } else {
-                                    util.showToast('终端数量必须大于0');
-                                }
+                                util.showToast('数量必须大于0');
                                 $dom.val('');
                                 return;
                             }
