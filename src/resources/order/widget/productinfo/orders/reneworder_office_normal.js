@@ -18,6 +18,9 @@ define(function (require, exports, module) {
         controller(terminalDataItems, 'type_13', function (n) {
             n.visible=false;
         });
+        controller(terminalDataItems, 'purchaseAmount_13', function (n) {
+            n.visible=false;
+        });
         controller(terminalDataItems,'useFX',function(n){
             n.value = false;
             n.readonly=false;

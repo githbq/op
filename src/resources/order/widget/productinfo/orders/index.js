@@ -222,12 +222,13 @@ define(function (require, exports, module) {
 
         //设置增购逻辑
         exports.setAddOrderLogic = function (controller, terminalDataItems, tableDataItems, formDataItems, type, responseData) {
-            controller(tableDataItems, 'tablelist', function (n) {
-                n.visible = true;
-            });
             controller(tableDataItems, 'productTrainingWrapper', function (n) {
                 n.visible = false;
             });
+            controller(tableDataItems, 'tablelist', function (n) {
+                n.visible = true;
+            });
+
             controller(tableDataItems, 'check', function (n) {
                 n.on('setFieldValue', function ($ele, value, data, me) {
                     var isreadonly = me.__refs.terminalInfo.o_getFieldData('allreadonly').allreadonly === true;

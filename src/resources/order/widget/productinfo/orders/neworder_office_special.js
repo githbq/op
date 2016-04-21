@@ -20,6 +20,9 @@ define(function (require, exports, module) {
         controller(terminalDataItems, 'useFX', function (n) {
             n.visible=false;
         });
+        controller(terminalDataItems, 'type_13', function (n) {
+            n.visible=true;
+        });
         controller(terminalDataItems, 'useCRM', function (n) {
             n.visible=false;
         });

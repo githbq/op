@@ -48,8 +48,8 @@ define(function (require, exports, module) {
             //使用逍客终端复选框
             dataItems.push(new DataItem({
                 name: item,
-                value: true,
-                readonly: item == '13' ? false : true,
+                value: item == 'useTrainning' ? false : true,
+                readonly:item == 'useTrainning' ? false : true,
                 events: [
                     {
                         key: 'change', value: function (e) {
@@ -61,7 +61,7 @@ define(function (require, exports, module) {
                         for (var i in me.dataDic) {
                             if (me.dataDic.hasOwnProperty(i)) {
                                 var refSuffixs = ['_3'];
-                                if (n == '13') {//培训助手
+                                if (item == 'useTrainning') {//培训助手
                                     refSuffixs = ['_13','_16'];//流量
                                 }
                                 if (!me.dataDic[i]) {
@@ -307,6 +307,7 @@ define(function (require, exports, module) {
             dataItems.push(new DataItem({
                 name: 'type_' + n,
                 value: n == '8' ? '4' : '3',
+                visible:n=='13'?false:true,
                 events: [
                     {
                         key: 'change', value: function (e) {
