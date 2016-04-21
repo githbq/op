@@ -47,8 +47,8 @@ define(function (require, exports, module) {
             //使用逍客终端复选框
             dataItems.push(new DataItem({
                 name: item,
-                value: true,
-                readonly: true,
+                value: item=='useTrainning'?false: true,
+                readonly:item=='useTrainning'?false: true,
                 events: [
                     {
                         key: 'change', value: function (e) {
@@ -59,10 +59,11 @@ define(function (require, exports, module) {
                         priceComput.call(me, e);
                         for (var i in me.dataDic) {
                             if (me.dataDic.hasOwnProperty(i)) {
-                                var findIndex = '_3';
-                                if (n == 'useTrainning') {
-                                    findIndex = '_16';
+                                var findIndexs = ['_3'];
+                                if (item == 'useTrainning') {
+                                    findIndexs = ['_16','_13'];
                                 }
+                                $(findIndexs).each(function(j,findIndex){
                                 if ((i.toString().indexOf(findIndex) > 0) && i.toString().toLowerCase().indexOf('wrapper') < 0) {
                                     if (checked && me.dataDic[i].old_readonly === undefined) {
                                         me.dataDic[i].old_readonly = !!me.dataDic[i].readonly;
@@ -70,11 +71,11 @@ define(function (require, exports, module) {
                                     me.dataDic[i].readonly = !checked ? true : ( me.dataDic[i].old_readonly === true ? isReadonly : false);
                                     me.o_setValue(me.dataDic[i]);
                                     if (i.toString().indexOf('type_') == 0) {
-                                        debugger
                                         var $type = me.o_data_getField(me.dataDic[i]);
                                         $type && $type.length > 0 && ($type.change());
                                     }
                                 }
+                                });
                             }
                         }
                     }
@@ -97,21 +98,9 @@ define(function (require, exports, module) {
                         var $dom = $(e.target);
                         var checked = $dom.is(':checked');
                         var isReadonly = me.o_getFieldData('allreadonly').allreadonly === true;
-                        /* CRM与服务费不再关联
-                         //if ($dom.is(':checked')) {//选中的话 终端为0
-                         //    me.o_setValue({name: 'purchaseAmount_input_3', value: '0', readonly: true});
-                         //    me.o_setValue({name: 'purchaseAmount_3', value: '0'});
-                         //    var id = $dom.val();
-                         //    priceComput.call(this, e);
-                         //
-                         //} else {
-                         //    me.o_setValue({name: 'purchaseAmount_input_3', readonly: me.o_getFieldValue('useFX') ? isReadonly : true});
-                         //    me.o_data_getField({name: 'purchaseCount_3'}).change();//服务费
-                         //}
-                         */
                         for (var i in me.dataDic) {
                             if (me.dataDic.hasOwnProperty(i)) {
-                                if ((i.toString().indexOf('_1') > 0  && i.toString().toLowerCase().indexOf('wrapper') < 0) {
+                                if (i.toString().indexOf('_1') > 0 && i.toString().toLowerCase().indexOf('wrapper') < 0) {
                                     if (checked && me.dataDic[i].old_readonly === undefined) {
                                         me.dataDic[i].old_readonly = !!me.dataDic[i].readonly;
                                     }
@@ -139,7 +128,7 @@ define(function (require, exports, module) {
             }, 10);
 
         });
-        var typeIds = ['1', '3', '13'];
+        var typeIds = ['1', '3', '13','16'];
 
         $(typeIds).each(function (i, n) {
             //服务人数
@@ -167,6 +156,10 @@ define(function (require, exports, module) {
                                 return;
                             }
                         }
+                        if(n=='16'){
+                            changeForGetPrice.call(me, e);
+                            return ;
+                        }
                         if (n != '3') {
                             if (n == '1') {//CRM的数量变化还要计算一下原价
                                 if ($dom.val() && parseFloat($dom.val()) > parseFloat(me.o_getFieldValue('purchaseCount_2'))) {
@@ -184,16 +177,9 @@ define(function (require, exports, module) {
                             if ($dom.val() && !allreadonly) {
                                 me.attrs.apiPool.api_getServicePrice({
                                     data: {enterpriseId: me.o_getFieldValue('enterpriseId'), personCount: $dom.val()}, success: function (response) {
-                                        //{"login":true,"model":2000,"privilege":true,"success":true,"value":{"model":2000}}
                                         if (response.success) {
-                                            //if (me.o_getFieldValue('useCRM')) {
-                                            //    me.o_setValue({name: 'purchaseAmount_' + n, value: '0'});
-                                            //    me.o_setValue({name: 'purchaseAmount_input_' + n, value: '0'});
-                                            //} else {
                                             me.o_setValue({name: 'purchaseAmount_' + n, value: response.model});
                                             me.o_setValue({name: 'purchaseAmount_input_' + n, value: response.model});
-                                            //}
-
                                             me.o_setValue({name: 'productAmount_' + n, value: response.model});
 
                                         } else {
@@ -211,7 +197,10 @@ define(function (require, exports, module) {
                                 changeForGetPrice.call(me, e);
                                 me.o_setValue({name: 'purchaseAmount_input_' + n, readonly: allreadonly});
                                 if (n == 3) {
-                                    me.o_setValue({name: 'purchaseAmount_input_' + n, readonly:me.o_getFieldValue('useFX')?allreadonly:true});
+                                    me.o_setValue({name: 'purchaseAmount_input_' + n, readonly: me.o_getFieldValue('useFX') ? allreadonly : true});
+                                }
+                                if (n == 13) {
+                                    me.o_setValue({name: 'purchaseAmount_input_13', readonly: me.o_getFieldValue('useTrainning') ? allreadonly : true});
                                 }
                             }
                         }
@@ -335,7 +324,7 @@ define(function (require, exports, module) {
                                 if (data.__editChange === false) {
                                     data.__editChange = true;
                                     me.o_setValue({name: 'purchaseAmount_' + n});
-                                    me.o_setValue({name: 'purchaseAmount_input_' + n, readonly: condition ? isReadonly : true});
+                                    me.o_setValue({name: 'purchaseAmount_input_' + n, readonly:  isReadonly });
                                 } else {
                                     me.o_setValue({name: 'purchaseAmount_' + n, value: me.o_getFieldValue('purchaseAmount_' + n)});
                                     me.o_setValue({name: 'purchaseAmount_input_' + n, value: me.o_getFieldValue('purchaseAmount_' + n), readonly: isReadonly})
@@ -418,12 +407,13 @@ define(function (require, exports, module) {
             //    $dom.change();
             //}
             var sum = 1;
-            if (id == '1') {//针对CRM数量可改
+            if (id == '1' || id=='16') {//针对CRM数量可改
                 sum = me.o_getFieldValue('purchaseCount_' + id);
                 if (!sum) {
                     return;
                 }
             }
+
 
             var options = {
                 data: {
@@ -440,14 +430,18 @@ define(function (require, exports, module) {
                         me.o_setValue({name: 'discount_' + id, value: responseData.model.rebate === null ? '' : responseData.model.rebate});
 
                         me.o_setValue({name: 'productAmount_' + id, value: responseData.model.amount});
-                        if (id == '8') {
-                            me.o_setValue({name: 'purchaseAmount_' + id, value: responseData.model.amount});
+                        if(id=='16'){
+                            me.o_setValue({name: 'purchaseAmount_16', value: responseData.model.amount});
                         }
                         checkTypeForPrice.call(me, e, id);
                         priceComput.call(me, e);
                     }
                 }
             };
+            if(id=='16'){
+                options.data.startDate=me.o_getFieldValue('startTime_13');
+                options.data.endDate=me.o_getFieldValue('endTime_13');
+            }
             if (id == '3') {//服务人数不计算折扣
                 checkTypeForPrice.call(me, e, id);
                 priceComput.call(me, e);
@@ -458,9 +452,13 @@ define(function (require, exports, module) {
                     me.o_setValue({name: 'startTime_' + id, value: ''});
                     me.o_setValue({name: 'endTime_' + id, value: ''});
                 } else {
-                    //document.title=Math.random();
                     me.attrs.apiPool.api_getCalculateSingle(options);
                 }
+            }else if(id=='16'){//流量
+                util.showToast('开始日期必须小于结束日期');
+                $dom.val('');
+                me.o_setFieldValue({name:'productAmount_16',value:''});
+                me.o_setFieldValue({name:'purchaseAmount_16',value:''});
             }
         }
 

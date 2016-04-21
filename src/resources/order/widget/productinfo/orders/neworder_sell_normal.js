@@ -23,12 +23,6 @@ define(function (require, exports, module) {
         controller(terminalDataItems, 'type_13', function (n) {
             n.visible=false;
         });
-        controller(terminalDataItems, 'type_8', function (n) {
-            n.visible = false;
-        });
-        controller(terminalDataItems, 'purchaseAmount_input_8', function (n) {
-            n.visible = false;
-        });
         controller(terminalDataItems, 'purchaseAmount_input_3', function (n) {
             n.visible = false;
         });

@@ -32,9 +32,6 @@ define(function (require, exports, module) {
         controller(tableDataItems, 'type_7', function (n) {
             n.visible = false;
         });
-        controller(terminalDataItems, 'purchaseAmount_input_8', function (n) {
-            n.visible = false;
-        });
         controller(terminalDataItems, 'purchaseAmount_input_3', function (n) {
             n.visible = true;
         });

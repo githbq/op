@@ -309,13 +309,12 @@ define(function (require, exports, module) {
             };
             //门头照片
             var companyGatePictureData = $.parseJSON(formInfoData.companyGatePicture || '{}');
-            var useBusinessCart = terminalInfo.o_getFieldData('kunban').visible && $.inArray('8', terminalInfo.o_getFieldValue('kunban').split(',')) >= 0 && terminalInfo.o_getFieldValue('useCRM') ? 1 : 0;//名片可见 CRM已勾选
             data.enterpriseExtend = {
                 companyGatePicture: companyGatePictureData.companyGatePicture,
                 companyGatePictureFileName: (companyGatePictureData.companyGatePictureFileName || '').substr(-20, 20),
                 companyGateKeyword: formInfoData.companyGateKeyword,
-                companyGateRemark: formInfoData.companyGateRemark,
-                useBusinessCard: useBusinessCart
+                companyGateRemark: formInfoData.companyGateRemark//,
+              //  useBusinessCard: useBusinessCart
                 //名片没这个了
                 //: useBusinessCart ? terminalInfo.o_getFieldValue('purchaseAmount_8') : 0
             };
@@ -477,7 +476,7 @@ define(function (require, exports, module) {
                     if ($.inArray(n, ids) >= 0) {
                         var fromData = tableInfoData;
                         var controler = tableInfo;
-                        if (n == '1' || n == '2' || n == '3' || n == '8') {
+                        if (n == '1' || n == '2' || n == '3' || n == '13' || n == '16') {
                             fromData = terminalInfoData;
                             controler = terminalInfo;
                         }
