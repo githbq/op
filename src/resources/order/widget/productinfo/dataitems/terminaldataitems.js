@@ -214,7 +214,7 @@ define(function (require, exports, module) {
                                 changeForGetPrice.call(me, e);
                                 me.o_setValue({name: 'purchaseAmount_input_' + n, readonly: allreadonly});
                                 if (n == 3) {
-                                    me.o_setValue({name: 'purchaseAmount_input_' + n, readonly: (me.o_getFieldValue('useCRM') || !me.o_getFieldValue('useFX'))});
+                                    me.o_setValue({name: 'purchaseAmount_input_' + n, readonly:me.o_getFieldValue('useFX')?allreadonly:true});
                                 }
                             }
                         }
