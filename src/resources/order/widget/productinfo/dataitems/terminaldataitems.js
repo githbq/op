@@ -43,47 +43,44 @@ define(function (require, exports, module) {
             name: 'enterpriseId',
             value: null
         }));
-
-        //使用逍客终端复选框
-        dataItems.push(new DataItem({
-            name: 'useFX',
-            value: true,
-            readonly: true,
-            events: [
-                {
-                    key: 'change', value: function (e) {
-                    var me = this;
-                    var $dom = $(e.target);
-                    var checked = $dom.is(':checked');
-                    var isReadonly = me.o_getFieldData('allreadonly').allreadonly === true;
-                    priceComput.call(me, e);
-                    for (var i in me.dataDic) {
-                        if (me.dataDic.hasOwnProperty(i)) {
-                            if ((i.toString().indexOf('_3') > 0) && i.toString().toLowerCase().indexOf('wrapper') < 0) {
-                                if (checked && me.dataDic[i].old_readonly === undefined) {
-                                    me.dataDic[i].old_readonly = !!me.dataDic[i].readonly;
+        $(['useFX', 'useTrainning']).each(function (index, item) {
+            //使用逍客终端复选框
+            dataItems.push(new DataItem({
+                name: item,
+                value: true,
+                readonly: true,
+                events: [
+                    {
+                        key: 'change', value: function (e) {
+                        var me = this;
+                        var $dom = $(e.target);
+                        var checked = $dom.is(':checked');
+                        var isReadonly = me.o_getFieldData('allreadonly').allreadonly === true;
+                        priceComput.call(me, e);
+                        for (var i in me.dataDic) {
+                            if (me.dataDic.hasOwnProperty(i)) {
+                                var findIndex = '_3';
+                                if (n == 'useTrainning') {
+                                    findIndex = '_16';
                                 }
-                                me.dataDic[i].readonly = !checked ? true : ( me.dataDic[i].old_readonly === true ? isReadonly : false);
-                                me.o_setValue(me.dataDic[i]);
-                                if (i.toString().indexOf('type_') == 0) {
-                                    debugger
-                                    var $type = me.o_data_getField(me.dataDic[i]);
-                                    $type && $type.length > 0 && ($type.change());
+                                if ((i.toString().indexOf(findIndex) > 0) && i.toString().toLowerCase().indexOf('wrapper') < 0) {
+                                    if (checked && me.dataDic[i].old_readonly === undefined) {
+                                        me.dataDic[i].old_readonly = !!me.dataDic[i].readonly;
+                                    }
+                                    me.dataDic[i].readonly = !checked ? true : ( me.dataDic[i].old_readonly === true ? isReadonly : false);
+                                    me.o_setValue(me.dataDic[i]);
+                                    if (i.toString().indexOf('type_') == 0) {
+                                        debugger
+                                        var $type = me.o_data_getField(me.dataDic[i]);
+                                        $type && $type.length > 0 && ($type.change());
+                                    }
                                 }
-                                /* CRM与服务费不再关联
-                                 //if (i == 'purchaseAmount_input_3' && !me.dataDic[i].readonly) {//服务费合同金额
-                                 //    if (me.o_getFieldValue('useCRM')) {
-                                 //        me.dataDic[i].readonly = true;
-                                 //        me.o_setValue(me.dataDic[i]);
-                                 //    }
-                                 //}
-                                 */
                             }
                         }
                     }
-                }
-                }]
-        }));
+                    }]
+            }));
+        });
         dataItems[dataItems.length - 1].on('setFieldValue', function ($ele, value, data) {
             setTimeout(function () {
                 $ele.change();
@@ -114,7 +111,7 @@ define(function (require, exports, module) {
                          */
                         for (var i in me.dataDic) {
                             if (me.dataDic.hasOwnProperty(i)) {
-                                if ((i.toString().indexOf('_1') > 0 || i.toString().indexOf('_8') > 0) && i.toString().toLowerCase().indexOf('wrapper') < 0) {
+                                if ((i.toString().indexOf('_1') > 0  && i.toString().toLowerCase().indexOf('wrapper') < 0) {
                                     if (checked && me.dataDic[i].old_readonly === undefined) {
                                         me.dataDic[i].old_readonly = !!me.dataDic[i].readonly;
                                     }
@@ -142,7 +139,7 @@ define(function (require, exports, module) {
             }, 10);
 
         });
-        var typeIds = ['1', '3', '8'];
+        var typeIds = ['1', '3', '13'];
 
         $(typeIds).each(function (i, n) {
             //服务人数
@@ -214,7 +211,7 @@ define(function (require, exports, module) {
                                 changeForGetPrice.call(me, e);
                                 me.o_setValue({name: 'purchaseAmount_input_' + n, readonly: allreadonly});
                                 if (n == 3) {
-                                    me.o_setValue({name: 'purchaseAmount_input_' + n, readonly: (me.o_getFieldValue('useCRM') || !me.o_getFieldValue('useFX'))});
+                                    me.o_setValue({name: 'purchaseAmount_input_' + n, readonly: !me.o_getFieldValue('useFX')});
                                 }
                             }
                         }
@@ -302,7 +299,7 @@ define(function (require, exports, module) {
             //服务费 1试用 2赠送 3折扣 的容器
             dataItems.push(new DataItem({
                 name: 'type_' + n,
-                value: n == '8' ? '4' : '3',
+                value: '3',
                 events: [
                     {
                         key: 'change', value: function (e) {
@@ -394,6 +391,7 @@ define(function (require, exports, module) {
             }
 
         }
+
         //CRM部分
         dataItems.push(new DataItem({
             name: 'useCRMWrapper',
