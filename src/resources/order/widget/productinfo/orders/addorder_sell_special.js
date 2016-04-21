@@ -17,14 +17,9 @@ define(function (require, exports, module) {
 
     //转换输入值
     exports.transferDataItem = function (terminalDataItems, tableDataItems, formDataItems, controller, responseData) {//转换数据项
-        controller(terminalDataItems, 'type_8', function (n) {
-            n.visible = false;
-        });
+
         controller(tableDataItems, 'table_type_wrapper', function (n) {
             n.visible = true;
-        });
-        controller(terminalDataItems, 'purchaseAmount_input_8', function (n) {
-            n.visible = false;
         });
         controller(terminalDataItems, 'purchaseAmount_input_3', function (n) {
             n.visible = true;
@@ -95,14 +90,8 @@ define(function (require, exports, module) {
             controller(terminalDataItems, 'useFX', function (n) {
                 n.visible = true;
             });
-            controller(terminalDataItems, 'typewrapper_8', function (n) {
-                n.visible = true;
-            });
             controller(terminalDataItems, 'typewrapper_1', function (n) {
                 n.visible = true;
-            });
-            controller(terminalDataItems, 'purchaseAmount_input_8', function (n) {
-                n.visible = false;
             });
             controller(terminalDataItems, 'useCRMWrapper', function (n) {
                 n.visible = true;

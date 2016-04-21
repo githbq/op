@@ -21,12 +21,6 @@ define(function (require, exports, module) {
         controller(terminalDataItems, 'discount_1', function (n) {
             n.visible = true;
         });
-        controller(terminalDataItems, 'type_8', function (n) {
-            n.visible = false;
-        });
-        controller(terminalDataItems, 'purchaseAmount_input_8', function (n) {
-            n.visible = false;
-        });
         controller(terminalDataItems, 'purchaseAmount_input_3', function (n) {
             n.visible = false;
         });
@@ -86,12 +80,7 @@ define(function (require, exports, module) {
         }
         common.setAddOrderLogic(controller, terminalDataItems, tableDataItems, formDataItems, 7, responseData);
         if (responseData && ((!responseData.readonly && !hasCRM) || (hasCRM && responseData.readonly)) || (hasCRM && responseData.refuse)) {
-            controller(terminalDataItems, 'type_8', function (n) {
-                n.visible = false;
-            });
-            controller(terminalDataItems, 'purchaseAmount_input_8', function (n) {
-                n.visible = false;
-            });
+
 
             controller(terminalDataItems, 'useCRMWrapper', function (n) {
                 n.visible = true;

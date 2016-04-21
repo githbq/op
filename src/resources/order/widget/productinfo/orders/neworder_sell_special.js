@@ -23,9 +23,6 @@ define(function (require, exports, module) {
         controller(terminalDataItems, 'type_13', function (n) {
             n.visible=true;
         });
-        controller(terminalDataItems, 'typewrapper_8', function (n) {
-            n.visible = true;
-        });
         controller(terminalDataItems, 'typewrapper_1', function (n) {
             n.visible = true;
         });

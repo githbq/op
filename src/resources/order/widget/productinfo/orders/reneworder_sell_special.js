@@ -24,17 +24,8 @@ define(function (require, exports, module) {
             n.value = false;
             n.readonly=false;
         });
-        controller(terminalDataItems, 'type_8', function (n) {
-            n.visible = false;
-        });
-        controller(terminalDataItems, 'typewrapper_8', function (n) {
-            n.visible = true;
-        });
         controller(terminalDataItems, 'typewrapper_1', function (n) {
             n.visible = true;
-        });
-        controller(terminalDataItems, 'purchaseAmount_input_8', function (n) {
-            n.visible = false;
         });
         controller(terminalDataItems, 'purchaseAmount_input_3', function (n) {
             n.visible = true;
