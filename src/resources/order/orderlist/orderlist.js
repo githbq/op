@@ -127,10 +127,17 @@ define( function( require, exports, module ) {
            var isTp = $(e.currentTarget).attr('data-isTp');
            var ea = $(e.currentTarget).attr('data-ea');
 		   var contractNo = $(e.currentTarget).attr('data-contractNo');
-		   
-           me.trigger('orderBackmoney',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':true,'orderType':orderType,
+		   var  newFirst = $(e.currentTarget).attr('data-newFirst');
+		   if( newFirst == 'newFirst' ){
+			    me.trigger('orderBackmoney',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':true,'orderType':orderType,
                'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea,'processInstanceId':'','contractNo':contractNo,'newFirst':'newFirst'} );
+		   }else{
+			  me.trigger('orderBackmoney',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':false,'orderType':orderType,
+               'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea,'processInstanceId':'','contractNo':contractNo} );
 		   
+		   }
+		   
+
 	   },
 	   //发票
 	   orderInvoiceEve:function( e ){
@@ -322,10 +329,16 @@ define( function( require, exports, module ) {
 		orderList.on('orderBackmoney', function( options ){
             backMoney = new BackMoney();
             backMoney.show( options );
+			backMoney.on('saveSuccess', function( ){
+				orderList.getList();
+			})
         })
 		orderList.on('orderInvoice', function( id ){
             invioceDetail = new InvoiceDetail();
             invioceDetail.show( id,null,0 );
+			invioceDetail.on('saveSuccess', function( ){
+				orderList.getList();
+			})
         });
 
     }

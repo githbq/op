@@ -166,6 +166,7 @@ define( function( require, exports, module ) {
     				'active': me.model.get('active'),
 					'industry': me.model.get('industryList'),
 					'source': me.model.get('sourceList'),
+					'creatorName': me.model.get('creatorName'),
     				'startTime': startTime,
     				'endTime': endTime,
     				'serviceTimeBegin': me.model.get('serviceTimeBegin'),
@@ -178,6 +179,7 @@ define( function( require, exports, module ) {
                     if( data.success ){
                         me.pagination.setTotalSize( data.value.model.itemCount );
                         me.collection.reload( data.value.model.content,function( item ){
+							item.creatorNameStr = item.creator ?(item.creator.name?item.creator.name:'——'):'——';
                             item.statusStr = statusMap[item.status];
 							item.industryStr = industryMap[ item.industry ];
 							item.sourceStr = sourceMap[ item.source ];	

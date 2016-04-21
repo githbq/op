@@ -9,9 +9,18 @@ define(function (require, exports, module) {
 
 
     exports.init = function ( param ) {
-        var $el = exports.$el;
+       var $el = exports.$el;
+		
+		param = param || [];
 
         var invoiceApplyList = new InvoiceApplyList( {'wrapper':$el ,'state':'agent'} );
+		
+		invoiceApplyList.on('refuse',function(jump){
+			invoiceApplyList.jumpEve(jump);
+		})
+		if(param.length>0){
+			invoiceApplyList.trigger('refuse',param[0]);
+		}
 
         //发票模块
         var invoiceDetail = new InvoiceDetail();

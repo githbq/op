@@ -27,7 +27,7 @@ define(function (require, exports, module) {
             n.visible = false;
         });
         controller(terminalDataItems, 'purchaseAmount_input_3', function (n) {
-            n.visible = false;
+            n.visible = true;
         });
         controller(terminalDataItems, 'purchaseAmount_1', function (n) {
             n.visible = false;
@@ -52,7 +52,7 @@ define(function (require, exports, module) {
             n.value = true;
         });
         controller(terminalDataItems, 'purchaseAmount_3', function (n) {
-            n.visible = true;
+            n.visible = false;
         });
 
         controller(formDataItems, 'payStatus_name', function (n) {

@@ -53,7 +53,7 @@ define(function (require, exports, module) {
         //
         //  第一层 根据当前模块状态 相应元素显示
         //  第二层 根据当前内部状态 进行显隐控制
-        //
+        //  
         setState: function(){
             var me = this;
 
@@ -92,6 +92,10 @@ define(function (require, exports, module) {
             this.pagination.setPage(0,false);
             this.refresh();
         },
+		jumpEve:function(jump){
+			var me = this;
+			me.$view.find('.toggle b[data-type="'+jump+'"]').trigger("click");
+		},
 
         //查看发票详情
         detailEve: function( e ){

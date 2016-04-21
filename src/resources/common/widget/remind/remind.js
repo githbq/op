@@ -22,16 +22,28 @@ define(function(require, exports, module){
 			url:'/op/a#agentsupport/entpriselist'
 		},
 		'5': {
-			text:'审批被驳回',
+			text:'普通审批被驳回',
 			url:'/op/index#page/approvallist/refuse'  //'/op/a#agentsupport/renewlist'
 		},
 		'6': {
-			text:'审批被驳回',
+			text:'普通审批被驳回',
 			url:'/op/a#agentsupport/renewlist/refuse'  //'/op/a#agentsupport/renewlist'
 		},
-        '6': {
-            text: "审批被驳回",
+        '7': {
+            text: "小助手退款被驳回",
+            url: "/op/index#page/approvallist/refuse"
+        },
+        '8': {
+            text: "代理商退款被驳回",
             url: "/op/a#agentsupport/renewlist/refuse"
+        },
+        '9': {
+            text: "发票申请被驳回",//小助手
+            url: "/op/index#order/invoiceapplyagentlist/refuse"
+        },
+        '10': {
+            text: "发票申请被驳回",
+            url: "/op/a#order/invoiceapplyagentlist/refuse"
         }
 	}
 

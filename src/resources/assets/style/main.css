@@ -6164,6 +6164,7 @@ em {
 .m-approvallist .list-header .toggle b .end-approve,
 .m-approvallist .list-header .toggle b .allReject-approve,
 .m-approvallist .list-header .toggle b .allGoing-approve,
+.m-approvallist .list-header .toggle b .mygoing-approve,
 .m-approvallist .list-header .toggle b .allEnd-approve {
   position: absolute;
   top: -21px;
@@ -6607,6 +6608,20 @@ em {
 .m-express .express-action {
   text-align: right;
 }
+.m-express .content p {
+  min-height: 22px;
+}
+.m-express .content p .title {
+  display: block;
+  float: left;
+  width: 100px;
+}
+.m-express .content p .value {
+  display: block;
+  width: 220px;
+  padding-left: 100px;
+  word-break: break-all;
+}
 .custom-content .list {
   margin: 0px 222px;
   border: 1px solid #ccc;
@@ -6815,6 +6830,15 @@ em {
 }
 .m-invoiceapplydetail {
   color: #333333;
+}
+.m-invoiceapplydetail .approval-table {
+  word-break: break-all;
+  /*支持IE，chrome，FF不支持*/
+  word-wrap: break-word;
+  /*支持IE，chrome，FF*/
+}
+.m-invoiceapplydetail .approval-table th {
+  text-align: center;
 }
 .m-invoiceapplydetail h4 {
   font-weight: bold;

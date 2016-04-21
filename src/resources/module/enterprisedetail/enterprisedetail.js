@@ -1037,6 +1037,9 @@ define( function(require, exports, module){
 							'groupNumLimit': model.groupNumLimit,
 							'videoNumLimit': model.videoNumLimit,
 							'crmVisibleRange': model.crmVisibleRange,
+							'editCustomerName': model.editCustomerName,
+							'setPersonalGoal': model.setPersonalGoal,
+							'discountAutoCalculated': model.discountAutoCalculated,
 							'webSanCodeAuth': model.webSanCodeAuth
 						};
 
@@ -1462,7 +1465,9 @@ define( function(require, exports, module){
 					console.warn( data );
 					if ( data.success ) {
 						util.showTip( '更新成功' );
+						
 						me.model.attrs.updateTime = data.value.model.modifytime;
+						me.trigger( 'refresh');
 					}
 				},
 				complete: function() {
@@ -2312,6 +2317,10 @@ define( function(require, exports, module){
 			var me = this;
 
 			console.log('changeStatistics');
+			if( parseInt(me.model.get('groupNumLimit')) > 1000 ){
+				util.showToast( '群人数上限最多为1000' );
+				return false;
+			}
 
 			var data = {
 				'accountAmount': me.$sdXKDC.val(),  						//逍客终端总量
@@ -2319,6 +2328,9 @@ define( function(require, exports, module){
 				'groupNumLimit': me.model.get('groupNumLimit'),             //群人数上限
 				'videoNumLimit': me.model.get('videoNumLimit'),             //视频参与人数上限
 				'crmVisibleRange': me.model.get('crmVisibleRange'),         //CRM上级可见数据范围
+				'editCustomerName': me.model.get('editCustomerName'),         //允许负责人修改客户名称
+				'setPersonalGoal': me.model.get('setPersonalGoal'),         //允许个人设置目标
+				'discountAutoCalculated': me.model.get('discountAutoCalculated'),         //折扣是否自动计算
 				'webSanCodeAuth': me.model.get('webSanCodeAuth'),           //WEB扫码授权
 				'enterpriseId': me.model.get('enterpriseId')
 			}

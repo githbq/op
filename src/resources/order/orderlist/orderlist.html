@@ -41,6 +41,7 @@
                     <span>应用类型</span>
                     <select name="" ce-model="hasProduct">
                         <option value="">全部</option>
+						<option value="1">CRM</option>
                         <option value="4">PK助手</option>
                         <option value="7">工资助手</option>
 						<option value="5">会议助手</option>
@@ -105,8 +106,9 @@
     				<span>优惠码</span>
     				<input type="text" ce-model="agentId" onchange="this.value=this.value.replace(/\D/g,'')"  maxlength=8>
     			</label>
-    			
+    			<p style="color:#ff5511; text-align:right;">到款之日起三个月可以开发票，超过三个月不允许开发票</p>
     		</div>
+			
     	</div>
     	<div class="list-content" style="overflow:auto;">
     		<table>

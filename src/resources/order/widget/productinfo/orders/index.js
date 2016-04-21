@@ -113,7 +113,7 @@ define(function (require, exports, module) {
                             }
                         }
                         var items = tableDataItems;
-                        if ($.inArray(n.subOrder.productId.toString(), ['1', '2', '3', '8']) >= 0) {
+                        if ($.inArray(n.subOrder.productId.toString(), ['1', '2', '3','13']) >= 0) {
                             items = terminalDataItems;
                         }
                         if (subOrder.productId == '1') {//选中CRM

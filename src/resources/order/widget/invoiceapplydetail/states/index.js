@@ -35,7 +35,7 @@ define(function (require, exports, module) {
             return strDom;
         }
 
-        exports.setKaijuReadonly = function (dataItems,controller , responseData, type) {
+        exports.setKaijuReadonly = function (dataItems, controller, responseData, type) {
             controller(dataItems, 'invoiceStatus', function (item) {
                 item.readonly = true;
             });
@@ -106,6 +106,19 @@ define(function (require, exports, module) {
             if (responseData.invoice) {
                 foreachSetValue(responseData.invoice, controller, dataItems);
                 var businessLicense = '';
+                controller(dataItems, 'approvalUrl', function (item) {
+                    if (responseData.invoice.approvalUrl) {
+						if(responseData.invoice.approvalUrl.indexOf('http://')>-1){
+							item.value = responseData.invoice.approvalUrl;
+						}else{
+							item.value = 'http://'+responseData.invoice.approvalUrl;
+						}
+                        //item.value = responseData.invoice.approvalUrl;
+                        item.attr = {href: item.value};
+                    }else{
+                        item.visible=false;
+                    }
+                });
                 controller(dataItems, 'businessLicense', function (item) {
                     if (item.value) {
                         item.attr = {src: '/op/api/file/previewimage?filePath=' + item.value};

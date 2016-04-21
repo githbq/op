@@ -49,6 +49,29 @@
 				<%}else{%>
 					<a  style="color:#ccc;" data-id="<%=item.order.id%>">联合跟进人</a>&nbsp;&nbsp;
 				<%}%>
+				<%if(item.canRefund == 1||item.canRefund == "1"){%>
+					
+					<a class="order-backmoney"  data-id="<%=item.order.id%>"  data-enterpriseId="<%=item.order.enterpriseId%>"
+					   data-orderType="<%=item.order.orderType%>" data-opinion="<%=item.order.rejectReason ?item.order.rejectReason :'' %>"
+					   data-isTp="<%=item.order.isTp%>"  data-ea="<%=item.order.enterpriseAccount%>" data-contractNo="<%=item.order.contractNo%>" data-newFirst="newFirst">退款</a>&nbsp;&nbsp;
+				<%}else{%>
+						<%if(item.approveStatus == 5 || item.approveStatus == 6 || item.approveStatus == 7 ||item.approveStatus == 8  ){%>
+							<a class="order-backmoney"  data-id="<%=item.order.id%>"  data-enterpriseId="<%=item.order.enterpriseId%>"
+							   data-orderType="<%=item.order.orderType%>" data-opinion="<%=item.order.rejectReason ?item.order.rejectReason :'' %>"
+							   data-isTp="<%=item.order.isTp%>"  data-ea="<%=item.order.enterpriseAccount%>" data-contractNo="<%=item.order.contractNo%>" data-newFirst="refund">退款</a>&nbsp;&nbsp;
+							
+						<%}else{%>
+							<a  style="color:#ccc;" >退款</a>&nbsp;&nbsp;
+						<%}%>
+				
+				<%}%>
+				<%if(item.canInvoice == 1||item.canInvoice == "1"){%>
+					
+					<a class="order-invoice"  data-id="<%=item.order.id%>">发票</a>&nbsp;&nbsp;
+				<%}else{%>
+					<a  style="color:#ccc;" >发票</a>&nbsp;&nbsp;
+				<%}%>
+				
 				
 			</td>
 			<td></td>

@@ -58,7 +58,7 @@
                 
                 <label>
                     <span>优惠码</span>
-                    <input id="qcCode" ce-model="promotionCode" type="text" class="g-ipt ipt-m" disabled="disabled"/>
+                    <input id="qcCode" ce-model="promotionCode"  onchange="this.value=this.value.replace(/\D/g,'')" type="text" class="g-ipt ipt-m" disabled="disabled"/>
                 </label>
                 
                 <label>

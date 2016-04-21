@@ -17,12 +17,16 @@
 					<input type="text" ce-model="enterpriseName">
 				</label>
 				<label for="">
+    				<span>创建人姓名</span>
+    				<input type="text" ce-model="creatorName">
+    			</label>
+				<label for="">
 					<span>申请时间</span>
 					<input type="text" class="startTime">  到  <input type="text" class="endTime">
 				</label>
 				<label for="">
 					<span>优惠码</span>
-					<input type="text" ce-model="vendorId" maxlength=8>
+					<input type="text" ce-model="vendorId" onchange="this.value=this.value.replace(/\D/g,'')" maxlength=8>
 				</label>
 				<label for="">
 					<span>服务时长</span><input type="text" ce-model="serviceTimeBegin">  --  <input type="text" ce-model="serviceTimeEnd">月
@@ -56,6 +60,7 @@
 						<th></th>
 						<th style="width:10px;"></th>
 						<th style="width:110px;">企业</th>
+						<th style="width:100px;">创建人</th>
 						<th style="width:110px;">代理商</th>
 						<th style="width:110px;">企业状态</th>
 						<th style="width:120px;">行业</th>

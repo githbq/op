@@ -4,6 +4,7 @@
 			<td></td>
 			<td><input type="checkbox" data-id="<%=item.id%>" class="open-input"></td>
 			<td><%=item.enterpriseName%></td>
+			<td><%=item.creatorNameStr%></td>
 			<td><%=item.vendorName%></td>
 			<td><%=item.statusStr%></td>
 			<td><%=item.industryStr%></td>
@@ -146,7 +147,7 @@
 	          </label>
 	          <label for="">
 	              <span>优惠码</span>
-	              <input type="text" ce-model="vendorId" maxlength=8>
+	              <input type="text" ce-model="vendorId" onchange="this.value=this.value.replace(/\D/g,'')" maxlength=8>
 	          </label>
 	      </div>
 	      <div class="list-bar-btns">

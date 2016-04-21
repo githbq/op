@@ -54,7 +54,11 @@ define(function(require, exports, module){
 					console.warn( data );
 					if( data.success ){
 						me.model.load( data.value.model );
-						me.model.set('invoiceDateStr', new Date( me.model.get('invoiceDate') )._format('yyyy/MM/dd') );
+						if( me.model.get('invoiceDate') ){
+							me.model.set('invoiceDateStr', new Date( me.model.get('invoiceDate') )._format('yyyy/MM/dd') );
+						} else {
+							me.model.set('invoiceDateStr', '');
+						}
 					}
 				}  
 			})

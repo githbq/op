@@ -77,6 +77,8 @@ define( function(require, exports, module){
 			me.attrs.orderList = {};
 			me.attrs.hasInovice = 0;
 			me.attrs.invoiceData = [];
+			me.attrs.invioceAry = [];
+			me.attrs.invioceIdAry = [];
 			me.attrs.orderInfoValue = {};
 			
 			me.setState();
@@ -88,24 +90,20 @@ define( function(require, exports, module){
 		sortType:function(){
 			var me = this;
 			me.attrs.options.orderType = parseInt(me.attrs.options.orderType)
-			
-			//me._setTitle( orderTypeAry[me.attrs.options.orderType] );
-			
-			$.when(  me.setOrderList(), me.getOrderBackMoneyInfo()).done(function(){
+	
+			$.when(  me.setOrderList(), me.getOrderBackMoneyInfo() ).then( function(result1,result2){
+
+				return  me.getInvoiceList()
 				
+			} ).done(function(){
+
 				me.setOrderInfo();
 				
-				me.getInvoiceList( function(){
-					
-					if(me.attrs.invoiceData.length>0){
-						me.showInvoiceList()
-						me.attrs.hasInovice = 1; //有发票
-					}
-					
-				} );
-				
-				
+				if(me.attrs.invoiceData.length>0){
+					me.showInvoiceList()
 
+				}
+				
 				//企业信息
 				me.attrs.basicCommon = new OrderInfo( { 'wrapper':me.$view.find('.common--basic'),'data':me.attrs.orderList,
 					'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
@@ -113,7 +111,7 @@ define( function(require, exports, module){
 				//合同付款信息
 				me.attrs.refundVO.readonly = !me.attrs.options.editFlag;
 				me.attrs.cotractMoney = new CotractMoney( { 'wrapper':me.$view.find('.common-product'),'orderId':me.attrs.options.id,'hasInovice':me.attrs.hasInovice, 'editFlag':me.attrs.options.editFlag} );
-				if(me.attrs.options.newFirst){
+				if(me.attrs.options.newFirst =='newFirst'){
 					me.attrs.cotractMoney.on('successData',function(){
 						me.attrs.refundVO = me.attrs.cotractMoney.getVauel();
 						//退款信息
@@ -154,7 +152,7 @@ define( function(require, exports, module){
 		getOrderBackMoneyInfo:function(   ){
 			var me = this;
 
-			 util.api({
+			return util.api({
 					'url':'/odr/refund/queryinfo',
 					'data':{'orderId':me.attrs.options.id },
 					'success': function( data ){
@@ -163,6 +161,7 @@ define( function(require, exports, module){
 
 							me.attrs.orderInfoValue = data.value;
 							me.attrs.refundVO = data.value.model ?  data.value.model:{'refund':{},'subRefunds':[]};
+							me.setOptions();
 						}
 					}
 			});
@@ -179,7 +178,7 @@ define( function(require, exports, module){
 						if( data.success ){
 
 							me.attrs.invoiceData = data.model;
-							callback && callback();
+							//callback && callback();
 						}
 					}
 			});
@@ -191,25 +190,29 @@ define( function(require, exports, module){
 			var tempLength = me.attrs.invoiceData.length;
 			me.attrs.invioceAry = [];
 			for(var i = 0; i<tempLength; i++){
-				if( me.attrs.orderInfoValue.model ){
+				if( me.attrs.orderInfoValue.model && me.attrs.invoiceData[i].invoiceStatus == 1 ){
+					me.attrs.hasInovice = 1;
 					for(var j = 0; j< me.attrs.orderInfoValue.model.refundInvoices.length; j++ ){
-						if( me.attrs.invoiceData[i].id ==  me.attrs.orderInfoValue.model.refundInvoices[j].invoiceId ){
+						if( (me.attrs.invoiceData[i].id ==  me.attrs.orderInfoValue.model.refundInvoices[j].invoiceId )  ){
 							var tempClass = "invoice_"+i;
 							me.$view.find('.common--invioce').append('<div class="'+tempClass+'"></div>');
 							var temp = {} ;
 							temp.filedData = me.attrs.orderInfoValue.model.refundInvoices[j];
 							temp[me.attrs.invoiceData[i].id] = new InvoiceList( { 'wrapper':me.$view.find('.'+tempClass+''),'dataObj':me.attrs.invoiceData[i] ,'filedData':me.attrs.orderInfoValue.model.refundInvoices[j],'id':me.attrs.invoiceData[i].id,'editFlag':me.attrs.options.editFlag } );
 							me.attrs.invioceAry.push( temp );
+							me.attrs.invioceIdAry.push(me.attrs.invoiceData[i].id)
 							break;
 						}
 					}
 					
-				}else{
+				}else if( me.attrs.invoiceData[i].invoiceStatus == 1 ){
+					me.attrs.hasInovice = 1;
 					var tempClass = "invoice_"+i;
 					me.$view.find('.common--invioce').append('<div class="'+tempClass+'"></div>');
 					var temp = {} 
 					temp[me.attrs.invoiceData[i].id] = new InvoiceList( { 'wrapper':me.$view.find('.'+tempClass+''),'dataObj':me.attrs.invoiceData[i] ,'id':me.attrs.invoiceData[i].id,'editFlag':me.attrs.options.editFlag } );
 					me.attrs.invioceAry.push( temp );
+					me.attrs.invioceIdAry.push( me.attrs.invoiceData[i].id )
 				}
 			}
 		},
@@ -238,20 +241,12 @@ define( function(require, exports, module){
 			me.$('.order-id').html( me.attrs.options.id );
 		
 			
-			//设置到款时间 receivedPayDate
-			var receivedPayDate = (me.attrs.orderData && me.attrs.orderData.order && me.attrs.orderData.order.receivedPayDate) ? new Date( me.attrs.orderData.order.receivedPayDate  )._format("yyyy-MM-dd"):'';
-			if(receivedPayDate){
-				me.$('.receivedPayDate').show();
-				me.$('.receivedPayDate-text').text(receivedPayDate);
-				me.$('.currentTask-finance').hide();
-			}
-
 		},
 		//设置审批意见
 		setOptions:function(){
 			var me = this,strDom = '';
 			
-			var optionsList = me.attrs.orderData.order.rejectReason ? me.attrs.orderData.order.rejectReason.split('<+>'): [];
+			var optionsList = me.attrs.refundVO.refund.approvalInfo ? me.attrs.refundVO.refund.approvalInfo.split('<+>'): [];
 			for(var i = 0; i<optionsList.length; i++){
 				var tempAry = optionsList[i].split('<->');
 				tempAry[2] = (tempAry[2]=='true') ? '同意':'驳回';
@@ -262,22 +257,31 @@ define( function(require, exports, module){
 			var opinion = strDom ? strDom :'<tr><td colspan="4" style="text-align: center;">暂无</td></tr>';
 			me.$('.last-options').html( opinion );
 			
+			//设置到款时间 receivedPayDate
+			var receivedPayDate = (me.attrs.refundVO && me.attrs.refundVO.refund && me.attrs.refundVO.refund.refundTime ) ? new Date( me.attrs.refundVO.refund.refundTime  )._format("yyyy-MM-dd"):'';
+			if(receivedPayDate){
+				me.$('.receivedPayDate').show();
+				me.$('.receivedPayDate-text').text(receivedPayDate);
+				me.$('.currentTask-finance').hide();
+			}
+
 		},
 
 		//循环获取发票信息：
 		getInvioceValue:function( callback ){
 			var me = this , objData = {};
 			me.attrs.refundInvoices = [];
-			var tempLength = me.attrs.invoiceData.length;
+			var tempLength =  me.attrs.invioceAry.length;
 			for(var i =0; i<tempLength; i++ ){
-				var tempValue = me.attrs.invioceAry[i][me.attrs.invoiceData[i].id].getValue();
+				var invoiceId = me.attrs.invioceIdAry[i];
+				var tempValue = me.attrs.invioceAry[i][invoiceId].getValue();
 				if(!tempValue){
 					util.showToast('发票信息不完整！');
 					return false;
 				
 				}
 				if( me.attrs.orderInfoValue.model ){
-					me.attrs.invioceAry[i].filedData
+					
 					tempValue = $.extend(true, me.attrs.invioceAry[i].filedData, tempValue);
 					me.attrs.refundInvoices.push( tempValue );
 				}else{
@@ -361,10 +365,11 @@ define( function(require, exports, module){
 					'success': function( data ){
 
 						if( data.success ){
+
 							util.showTip('提交成功！');
 							me.trigger( 'saveSuccess');
 							me.hide();
-							
+			
 						}
 					},
 					'complete': function(){
@@ -378,6 +383,7 @@ define( function(require, exports, module){
 		//保存提交
 		actionSubmitEve:function(){
 			var me = this;
+
 			
 			me.getInvioceValue( function(){ 
 				var tempUrl = me.attrs.options.newFirst ? '/odr/refund/save':'/odr/refund/update';
@@ -391,9 +397,7 @@ define( function(require, exports, module){
 
 						if( data.success ){
 
-							util.showTip('提交成功！');
-							me.trigger( 'saveSuccess');
-							me.hide();
+							changeNode();
 						}
 					},
 					'complete': function(){
@@ -413,10 +417,9 @@ define( function(require, exports, module){
                     },
                     'success':function( data ){
                         if( data.success ){
-                            util.showTip('保存提交发送成功');
-							
+                            util.showTip('提交成功！');
 							me.trigger( 'saveSuccess');
-                            me.hide();
+							me.hide();
                         }
                     }
                 })
@@ -471,7 +474,7 @@ define( function(require, exports, module){
 			
 			var bool = confirm("确认同意此条审批吗?");
 			if( bool ){
-				 if( me.attrs.options.currentTask == 'finance' && !me.attrs.orderData.order.receivedPayDate){
+				 if( me.attrs.options.currentTask == 'finance' ){
 				   me.setMoneyTime(function(){
 						me.replyOptions();
 				   });
@@ -520,14 +523,14 @@ define( function(require, exports, module){
 		setMoneyTime:function( callback ){
 			var me = this;
 			if(!me.$moneyTime.val() ){
-				util.showToast('请填写到账时间！');
+				util.showToast('请填写退款时间！');
 				return false;
 			}
 			util.api({
-				'url': '/odr/setreceivedpaydate',
+				'url': '/odr/refund/setrefundtime',
 				'data':{
-					'orderId': me.attrs.options.id,   //流程实例ID
-					'receivedPayDate':new Date( me.$moneyTime.val()  ).getTime()          //审批结果(通过/拒绝)
+					'refundId': me.attrs.refundVO.refund.id,   //退款id
+					'refundTime':new Date( me.$moneyTime.val()  ).getTime()          //退款时间
 				},
 				success: function( data ){
 					console.warn( data );

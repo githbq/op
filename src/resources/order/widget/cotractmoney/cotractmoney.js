@@ -80,7 +80,7 @@ define(function(require, exports, module){
 						me.attrs.dataObj.receiptsAccount = data.value.model.orderEntity.order.receiptsAccount;//收款账户
 						me.attrs.dataObj.payStatus = data.value.model.orderEntity.order.payStatus;//付费状态
 						me.attrs.dataObj.reciviedAmount = data.value.model.odrMnyVO.reciviedAmount  //财务确认收款
-						me.attrs.dataObj.hasInvoice =  me.attrs.hasInovice //是否开发票
+						me.attrs.dataObj.hasInovice =  me.attrs.hasInovice //是否开发票
 					}
 				}
 			})
@@ -97,17 +97,18 @@ define(function(require, exports, module){
 				switch( tempId ){
 					case 3:
 						
-						serviceDom+=" <tr> <td>"+productIdDic[tempId]+"合同金额：</td><td class='money-box'>"+sublist[i].contractAmount+"</td>" +
-						" <td>非退款项</td><td></td></tr>"
+						serviceDom+=" <tr> <td>"+productIdDic[tempId]+"合同金额(元)：</td><td class='money-box'>"+sublist[i].contractAmount+"</td>" +
+						" <td>非退款项</td><td></td></tr>";
+						usedAmound+=parseFloat(sublist[i].usedAmount);
 						break;
 					case 10: case 11: case 2:
 						break;
 					default:
-						strDom+=" <tr> <td>"+productIdDic[tempId]+"合同金额：</td><td class='money-box'>"+sublist[i].contractAmount+"</td>" +
-						" <td>已使用金额：</td><td class='money-box'>"+sublist[i].usedAmount+"</td></tr>"
-						usedAmound+=parseInt(sublist[i].usedAmount);
+						strDom+=" <tr> <td>"+productIdDic[tempId]+"合同金额(元)：</td><td class='money-box'>"+sublist[i].contractAmount+"</td>" +
+						" <td>已使用金额(元)：</td><td class='money-box'>"+sublist[i].usedAmount+"</td></tr>";
+						usedAmound+=parseFloat(sublist[i].usedAmount);
 						var backAmount = {};
-						var tempMoney  = parseInt(sublist[i].contractAmount) - parseInt(sublist[i].usedAmount);
+						var tempMoney  = parseFloat(sublist[i].contractAmount) - parseFloat(sublist[i].usedAmount);
 						if( tempMoney>0 ){
 							backAmount = {'productId':sublist[i].productId,'amount':tempMoney,'refundAmount':0};
 							tempSublist.push( backAmount );
@@ -117,8 +118,15 @@ define(function(require, exports, module){
 			}
 			//组合传给退款的数据
 			me.attrs.refundVO.subRefunds = tempSublist;
+			var tempAmount = parseFloat(me.attrs.dataObj.reciviedAmount)- parseFloat(usedAmound);
+			tempAmount = tempAmount.toFixed(2);
+			me.attrs.refundVO.refund= {
+				'refundAmount':0,
+				'amount':tempAmount
+			};
 			strDom = serviceDom + strDom;
-			me.attrs.dataObj.usedAmount = usedAmound;
+			me.attrs.dataObj.usedAmount = usedAmound.toFixed(2);
+			me.model.set('usedAmount',me.attrs.dataObj.usedAmount );
 			me.$('.sub-tab tbody').html(strDom);
 			
 			me.trigger('successData');

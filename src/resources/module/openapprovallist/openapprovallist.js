@@ -89,6 +89,7 @@ define( function(require, exports, module){
         events: {
             'click .btn-search': 'searchEve',       //查询
             'click .detail': 'detailEve',           //详情
+            'click .revoke': 'revokeEve',           //撤销审批
             'click .toggle b': 'toggleEve'          //切换
         },
 
@@ -156,7 +157,30 @@ define( function(require, exports, module){
          
             me.trigger( 'detail', detail, me.attrs['state'] );
         },
-	    
+	    revokeEve: function( e ){
+            var me = this;
+
+            var $target = $( e.currentTarget );
+            var inid = $target.attr('data-inid');
+
+            var bool = confirm("是否确认撤销此条审批?");
+
+            if( bool ){
+                util.api({
+                    'url': '~/op/api/approval/withdrawapproval',
+                    'data':{
+                        'processInstanceId': inid
+                    },
+                    'success': function( data ){
+                        console.warn( data );
+                        if( data.success ){
+                            util.showTip('撤销成功');
+                            me.getList();
+                        }
+                    }
+                });
+            }
+        },
         //
 		jumpEve:function(jump){
 			var me = this;
@@ -246,6 +270,9 @@ define( function(require, exports, module){
                 break;
 				case 'allEnd':
                     url = "/approval/getallcompletedapprovalpage";
+                break;
+                case 'mygoing':
+                    url = "/approval/getongoingapprovalbyapplicant";
                 break;
             };
 

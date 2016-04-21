@@ -35,7 +35,9 @@
                     </li>
                 </ul>
             </li>
-            <li>
+
+			<li data-modulecode="BankOpF">
+
                 <a href="#order/payaccount">银行账户管理</a>
             </li>
         </ul>
@@ -80,7 +82,7 @@
     IBSS.API_PATH = '/op/api/f';       //api路径
     IBSS.IS_DEVELOP = true;
     // IBSS.VERSION ='4.7.' + (new Date()).getTime();
-    IBSS.VERSION ='1.0.6';
+    IBSS.VERSION ='1.1';
 </script>
 
 <!--build:common resources/common/scripts/common.js-->

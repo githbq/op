@@ -246,6 +246,7 @@ define(function( require , exports , module ){
 					console.warn( data );
 					if( data.success ){
 						data.value.model.hetongamount = data.value.model.amount;
+						me.attrs.getData = data.value.model;
 						delete data.value.model.amount;
 						data.value.model.payStatusStr = payStatusMap[data.value.model.payStatus];
 						delete data.value.model.payStatus;
@@ -308,7 +309,9 @@ define(function( require , exports , module ){
 			};
 		},
 
-		//根据显隐状态
+		//
+		// 根据当前状态设置显隐
+		//
 		setState: function( status ){
 			var me = this;
 
@@ -333,7 +336,6 @@ define(function( require , exports , module ){
 				me.$('input,textarea').attr('disabled','disabled');
 				me.$('.nsr').hide();
 			}else{
-				me.$('.imginfo').hide();
 				me.$('.nsr').show();
 			}
 			//
@@ -438,6 +440,13 @@ define(function( require , exports , module ){
   				"bankAccount": me.model.get('bankAccount'),
   				"approvalUrl": me.model.get('approvalUrl'),
   				"remark": me.model.get('remark')
+			}
+			if( parseFloat(info.amount) > parseFloat(me.attrs.getData.invoiceNoChargeAmount)){
+				var bool = confirm("发票金额超过未开发票金额，确定要提交吗?");
+				if(bool){
+					return info;
+				}
+				return false;
 			}
 
 			return info;
