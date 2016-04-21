@@ -47,8 +47,8 @@ define(function (require, exports, module) {
             //使用逍客终端复选框
             dataItems.push(new DataItem({
                 name: item,
-                value: item=='useTrainning'?false: true,
-                readonly:item=='useTrainning'?false: true,
+                value: item == 'useTrainning' ? false : true,
+                readonly: item == 'useTrainning' ? false : true,
                 events: [
                     {
                         key: 'change', value: function (e) {
@@ -61,20 +61,21 @@ define(function (require, exports, module) {
                             if (me.dataDic.hasOwnProperty(i)) {
                                 var findIndexs = ['_3'];
                                 if (item == 'useTrainning') {
-                                    findIndexs = ['_16','_13'];
+                                    findIndexs = ['_16', '_13'];
                                 }
-                                $(findIndexs).each(function(j,findIndex){
-                                if ((i.toString().indexOf(findIndex) > 0) && i.toString().toLowerCase().indexOf('wrapper') < 0) {
-                                    if (checked && me.dataDic[i].old_readonly === undefined) {
-                                        me.dataDic[i].old_readonly = !!me.dataDic[i].readonly;
+                                $(findIndexs).each(function (j, findIndex) {
+                                    if ((i.toString().indexOf(findIndex) > 0) && i.toString().toLowerCase().indexOf('wrapper') < 0) {
+                                        if (checked && me.dataDic[i].old_readonly === undefined) {
+                                            me.dataDic[i].old_readonly = !!me.dataDic[i].readonly;
+                                        }
+                                        me.dataDic[i].readonly = !checked ? true : ( me.dataDic[i].old_readonly === true ? isReadonly : false);
+                                        me.o_setValue(me.dataDic[i]);
+                                        if (i.toString().indexOf('type_') == 0) {
+                                            var $type = me.o_data_getField(me.dataDic[i]);
+                                            debugger
+                                            $type && $type.length > 0 && ($type.change());
+                                        }
                                     }
-                                    me.dataDic[i].readonly = !checked ? true : ( me.dataDic[i].old_readonly === true ? isReadonly : false);
-                                    me.o_setValue(me.dataDic[i]);
-                                    if (i.toString().indexOf('type_') == 0) {
-                                        var $type = me.o_data_getField(me.dataDic[i]);
-                                        $type && $type.length > 0 && ($type.change());
-                                    }
-                                }
                                 });
                             }
                         }
@@ -128,7 +129,7 @@ define(function (require, exports, module) {
             }, 10);
 
         });
-        var typeIds = ['1', '3', '13','16'];
+        var typeIds = ['1', '3', '13', '16'];
 
         $(typeIds).each(function (i, n) {
             //服务人数
@@ -156,9 +157,9 @@ define(function (require, exports, module) {
                                 return;
                             }
                         }
-                        if(n=='16'){
+                        if (n == '16') {
                             changeForGetPrice.call(me, e);
-                            return ;
+                            return;
                         }
                         if (n != '3') {
                             if (n == '1') {//CRM的数量变化还要计算一下原价
@@ -292,10 +293,21 @@ define(function (require, exports, module) {
                 events: [
                     {
                         key: 'change', value: function (e) {
+
                         var me = this;
                         var isReadonly = me.o_getFieldData('allreadonly').allreadonly === true;
                         var typeValue = me.o_getFieldValue('type_' + n);
                         var data = me.o_getFieldData('type_' + n);
+                        var condition = isReadonly;
+                        if (n == 1 && me.o_getFieldValue('useCRM')) {
+                            condition = true;
+                        }
+                        if (n == 3 && me.o_getFieldValue('useFX')) {
+                            condition = true;
+                        }
+                        if (n == 13 && me.o_getFieldValue('useTrainning')) {
+                            condition = true;
+                        }
                         switch (typeValue.toString()) {
                             case '1':
                             case '2':
@@ -307,27 +319,15 @@ define(function (require, exports, module) {
                                 ;
                                 break;
                             case '3':
-                            {
-                                if (data.__editChange === false) {
-                                    data.__editChange = true;
-                                    me.o_setValue({name: 'purchaseAmount_' + n});
-                                    me.o_setValue({name: 'purchaseAmount_input_' + n, readonly: isReadonly});
-                                } else {
-                                    me.o_setValue({name: 'purchaseAmount_' + n, value: me.o_getFieldValue('purchaseAmount_' + n)});
-                                    me.o_setValue({name: 'purchaseAmount_input_' + n, value: me.o_getFieldValue('purchaseAmount_' + n), readonly: isReadonly})
-                                }
-                            }
-                                ;
-                                break;
                             case '4':
                             {
                                 if (data.__editChange === false) {
                                     data.__editChange = true;
                                     me.o_setValue({name: 'purchaseAmount_' + n});
-                                    me.o_setValue({name: 'purchaseAmount_input_' + n, readonly:  isReadonly });
+                                    me.o_setValue({name: 'purchaseAmount_input_' + n, readonly: condition ? isReadonly : true});
                                 } else {
                                     me.o_setValue({name: 'purchaseAmount_' + n, value: me.o_getFieldValue('purchaseAmount_' + n)});
-                                    me.o_setValue({name: 'purchaseAmount_input_' + n, value: me.o_getFieldValue('purchaseAmount_' + n), readonly: isReadonly})
+                                    me.o_setValue({name: 'purchaseAmount_input_' + n, value: me.o_getFieldValue('purchaseAmount_' + n), readonly: condition ? isReadonly : true})
                                 }
                             }
                                 ;
@@ -358,7 +358,18 @@ define(function (require, exports, module) {
         function checkTypeForPrice(e, id) {
 
             var me = this;
+            var isReadonly = $(e.target).is('[readonly],[disabled]');
             var typeValue = me.o_getFieldValue('type_' + id);
+            var condition = isReadonly;
+            if (id == 1 && me.o_getFieldValue('useCRM')) {
+                condition = true;
+            }
+            if (id == 3 && me.o_getFieldValue('useFX')) {
+                condition = true;
+            }
+            if (id == 13 && me.o_getFieldValue('useTrainning')) {
+                condition = true;
+            }
             switch (typeValue.toString()) {
                 case '1':
                 case '2':
@@ -371,8 +382,8 @@ define(function (require, exports, module) {
                 case '4':
                 case '3':
                 {
-                    var isReadonly = $(e.target).is('[readonly],[disabled]');
-                    me.o_setValue({name: 'purchaseAmount_input_' + id, value: me.o_getFieldValue('purchaseAmount_input_' + id), readonly: isReadonly});
+
+                    me.o_setValue({name: 'purchaseAmount_input_' + id, value: me.o_getFieldValue('purchaseAmount_input_' + id), readonly: condition?isReadonly:true});
                     me.o_setValue({name: 'purchaseAmount' + id, value: me.o_getFieldValue('purchaseAmount_input_' + id)});
                 }
                     ;
@@ -407,7 +418,7 @@ define(function (require, exports, module) {
             //    $dom.change();
             //}
             var sum = 1;
-            if (id == '1' || id=='16') {//针对CRM数量可改
+            if (id == '1' || id == '16') {//针对CRM数量可改
                 sum = me.o_getFieldValue('purchaseCount_' + id);
                 if (!sum) {
                     return;
@@ -430,7 +441,7 @@ define(function (require, exports, module) {
                         me.o_setValue({name: 'discount_' + id, value: responseData.model.rebate === null ? '' : responseData.model.rebate});
 
                         me.o_setValue({name: 'productAmount_' + id, value: responseData.model.amount});
-                        if(id=='16'){
+                        if (id == '16') {
                             me.o_setValue({name: 'purchaseAmount_16', value: responseData.model.amount});
                         }
                         checkTypeForPrice.call(me, e, id);
@@ -438,9 +449,9 @@ define(function (require, exports, module) {
                     }
                 }
             };
-            if(id=='16'){
-                options.data.startDate=me.o_getFieldValue('startTime_13');
-                options.data.endDate=me.o_getFieldValue('endTime_13');
+            if (id == '16') {
+                options.data.startDate = me.o_getFieldValue('startTime_13');
+                options.data.endDate = me.o_getFieldValue('endTime_13');
             }
             if (id == '3') {//服务人数不计算折扣
                 checkTypeForPrice.call(me, e, id);
@@ -454,11 +465,11 @@ define(function (require, exports, module) {
                 } else {
                     me.attrs.apiPool.api_getCalculateSingle(options);
                 }
-            }else if(id=='16'){//流量
+            } else if (id == '16') {//流量
                 util.showToast('开始日期必须小于结束日期');
                 $dom.val('');
-                me.o_setFieldValue({name:'productAmount_16',value:''});
-                me.o_setFieldValue({name:'purchaseAmount_16',value:''});
+                me.o_setFieldValue({name: 'productAmount_16', value: ''});
+                me.o_setFieldValue({name: 'purchaseAmount_16', value: ''});
             }
         }
 
