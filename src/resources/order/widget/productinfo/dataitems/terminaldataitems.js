@@ -182,13 +182,13 @@ define(function (require, exports, module) {
                                     data: {enterpriseId: me.o_getFieldValue('enterpriseId'), personCount: $dom.val()}, success: function (response) {
                                         //{"login":true,"model":2000,"privilege":true,"success":true,"value":{"model":2000}}
                                         if (response.success) {
-                                            if (me.o_getFieldValue('useCRM')) {
-                                                me.o_setValue({name: 'purchaseAmount_' + n, value: '0'});
-                                                me.o_setValue({name: 'purchaseAmount_input_' + n, value: '0'});
-                                            } else {
+                                            //if (me.o_getFieldValue('useCRM')) {
+                                            //    me.o_setValue({name: 'purchaseAmount_' + n, value: '0'});
+                                            //    me.o_setValue({name: 'purchaseAmount_input_' + n, value: '0'});
+                                            //} else {
                                                 me.o_setValue({name: 'purchaseAmount_' + n, value: response.model});
                                                 me.o_setValue({name: 'purchaseAmount_input_' + n, value: response.model, readonly: allreadonly});
-                                            }
+                                            //}
 
                                             me.o_setValue({name: 'productAmount_' + n, value: response.model});
 
