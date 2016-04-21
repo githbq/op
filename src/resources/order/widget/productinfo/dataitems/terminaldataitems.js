@@ -49,7 +49,7 @@ define(function (require, exports, module) {
             dataItems.push(new DataItem({
                 name: item,
                 value: item == 'useTrainning' ? false : true,
-                readonly:item == 'useTrainning' ? false : true,
+                readonly: item == 'useTrainning' ? false : true,
                 events: [
                     {
                         key: 'change', value: function (e) {
@@ -62,31 +62,31 @@ define(function (require, exports, module) {
                             if (me.dataDic.hasOwnProperty(i)) {
                                 var refSuffixs = ['_3'];
                                 if (item == 'useTrainning') {//培训助手
-                                    refSuffixs = ['_13','_16'];//流量
+                                    refSuffixs = ['_13', '_16'];//流量
                                 }
                                 if (!me.dataDic[i]) {
                                     continue;
                                 }
-                                $(refSuffixs).each(function(j,m){
-                                if ((i.toString().indexOf(refSuffixs[j]) > 0) && i.toString().toLowerCase().indexOf('wrapper') < 0) {
-                                    if (checked && me.dataDic[i].old_readonly === undefined) {
-                                        me.dataDic[i].old_readonly = !!me.dataDic[i].readonly;
+                                $(refSuffixs).each(function (j, m) {
+                                    if ((i.toString().indexOf(refSuffixs[j]) > 0) && i.toString().toLowerCase().indexOf('wrapper') < 0) {
+                                        if (checked && me.dataDic[i].old_readonly === undefined) {
+                                            me.dataDic[i].old_readonly = !!me.dataDic[i].readonly;
+                                        }
+                                        me.dataDic[i].readonly = !checked ? true : ( me.dataDic[i].old_readonly === true ? isReadonly : false);
+                                        me.o_setValue(me.dataDic[i]);
+                                        if (i.toString().indexOf('type_') == 0) {
+                                            var $type = me.o_data_getField(me.dataDic[i]);
+                                            $type && $type.length > 0 && ($type.change());
+                                        }
+                                        /* CRM与服务费不再关联
+                                         //if (i == 'purchaseAmount_input_3' && !me.dataDic[i].readonly) {//服务费合同金额
+                                         //    if (me.o_getFieldValue('useCRM')) {
+                                         //        me.dataDic[i].readonly = true;
+                                         //        me.o_setValue(me.dataDic[i]);
+                                         //    }
+                                         //}
+                                         */
                                     }
-                                    me.dataDic[i].readonly = !checked ? true : ( me.dataDic[i].old_readonly === true ? isReadonly : false);
-                                    me.o_setValue(me.dataDic[i]);
-                                    if (i.toString().indexOf('type_') == 0) {
-                                        var $type = me.o_data_getField(me.dataDic[i]);
-                                        $type && $type.length > 0 && ($type.change());
-                                    }
-                                    /* CRM与服务费不再关联
-                                     //if (i == 'purchaseAmount_input_3' && !me.dataDic[i].readonly) {//服务费合同金额
-                                     //    if (me.o_getFieldValue('useCRM')) {
-                                     //        me.dataDic[i].readonly = true;
-                                     //        me.o_setValue(me.dataDic[i]);
-                                     //    }
-                                     //}
-                                     */
-                                }
                                 });
                             }
                         }
@@ -152,7 +152,7 @@ define(function (require, exports, module) {
             }, 10);
 
         });
-        var typeIds = ['1', '3', '8','13','16'];
+        var typeIds = ['1', '3', '8', '13', '16'];
 
         $(typeIds).each(function (i, n) {
             //服务人数
@@ -168,13 +168,18 @@ define(function (require, exports, module) {
                         var $dom = $(e.target);
                         if ($dom.val() && parseFloat($dom.val()) <= 0) {
                             if ((n == '3' || n == '1' ) && (me.o_getFieldValue('isrenew') || me.o_getFieldValue('isadd'))) {//增购续费 服务人数可为0
+                                $dom.val('0');
                             } else {
-                                util.showToast('服务人数与终端数量必须大于0');
+                                if (n == 3 && !parseFloat($dom.val()) > 5) {
+                                    util.showToast('服务人数必须大于等于6');
+                                } else {
+                                    util.showToast('终端数量必须大于0');
+                                }
                                 $dom.val('');
                                 return;
                             }
                         }
-                        if (n != '3' && n!='16') {
+                        if (n != '3' && n != '16') {
                             if (n == '1') {//CRM的数量变化还要计算一下原价
                                 if ($dom.val() && parseFloat($dom.val()) > parseFloat(me.o_getFieldValue('purchaseCount_2'))) {
                                     util.showToast('CRM终端总量需小于等于逍客终端总量');
@@ -197,8 +202,8 @@ define(function (require, exports, module) {
                                             //    me.o_setValue({name: 'purchaseAmount_' + n, value: '0'});
                                             //    me.o_setValue({name: 'purchaseAmount_input_' + n, value: '0'});
                                             //} else {
-                                                me.o_setValue({name: 'purchaseAmount_' + n, value: response.model});
-                                                me.o_setValue({name: 'purchaseAmount_input_' + n, value: response.model, readonly: allreadonly});
+                                            me.o_setValue({name: 'purchaseAmount_' + n, value: response.model});
+                                            me.o_setValue({name: 'purchaseAmount_input_' + n, value: response.model, readonly: allreadonly});
                                             //}
 
                                             me.o_setValue({name: 'productAmount_' + n, value: response.model});
@@ -307,7 +312,7 @@ define(function (require, exports, module) {
             dataItems.push(new DataItem({
                 name: 'type_' + n,
                 value: n == '8' ? '4' : '3',
-                visible:n=='13'?false:true,
+                visible: n == '13' ? false : true,
                 events: [
                     {
                         key: 'change', value: function (e) {
