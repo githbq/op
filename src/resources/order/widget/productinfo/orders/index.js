@@ -100,8 +100,9 @@ define(function (require, exports, module) {
                 }
                 var useCRM = false;
                 var useFX = false;
+                var useTrainning=false;
                 $(subOrders).each(function (i, n) {
-                    if (n.subOrder && n.subOrder.productId && n.subOrder.productId != 10 && n.subOrder.productId != 11) {//10为绑定百川  11为绑定报数系统
+                    if (n.subOrder && n.subOrder.productId && n.subOrder.productId != 10 && n.subOrder.productId != 11&& n.subOrder.productId != 8) {//10为绑定百川  11为绑定报数系统
                         if (n.subOrder.enabled !== false) {
                             checkids.push(n.subOrder.productId);
                         }
@@ -122,7 +123,9 @@ define(function (require, exports, module) {
                         if (subOrder.productId == '2' || subOrder.productId == '3') {//选中逍客终端
                             useFX = true;
                         }
-
+                        if (subOrder.productId == '13') {//选中培训助手
+                            useTrainning = true;
+                        }
                         if (subOrder['startTime_readonly'] === true && dataDic['startTime_' + subOrder.productId]) {
                             dataDic['startTime_' + subOrder.productId].readonly = true;
                             dataDic['startTime_' + subOrder.productId].__force = true;
@@ -168,13 +171,18 @@ define(function (require, exports, module) {
                 });
                 //使用逍客终端 使用CRM 选中效果
                 controller(terminalDataItems, 'useCRM', function (item) {
-                    if (item.visible !== false) {
+                   // if (item.visible !== false) {
                         item.value = useCRM;
-                    }
+                    //}
                 });
                 controller(terminalDataItems, 'useFX', function (item) {
-                    if (item.visible !== false) {
+                    //if (item.visible !== false) {
                         item.value = useFX;
+                    //}
+                });
+                controller(terminalDataItems, 'useTrainning', function (item) {
+                    if (item.visible !== false) {
+                        item.value = useTrainning;
                     }
                 });
                 controller(tableDataItems, 'check', function (item) {

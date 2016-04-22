@@ -72,7 +72,6 @@ define(function (require, exports, module) {
                                         me.o_setValue(me.dataDic[i]);
                                         if (i.toString().indexOf('type_') == 0) {
                                             var $type = me.o_data_getField(me.dataDic[i]);
-                                            debugger
                                             $type && $type.length > 0 && ($type.change());
                                         }
                                     }
@@ -101,7 +100,7 @@ define(function (require, exports, module) {
                         var isReadonly = me.o_getFieldData('allreadonly').allreadonly === true;
                         for (var i in me.dataDic) {
                             if (me.dataDic.hasOwnProperty(i)) {
-                                if (i.toString().indexOf('_1') > 0 && i.toString().toLowerCase().indexOf('wrapper') < 0) {
+                                if (/(_1)$/.test(i.toString()) && i.toString().toLowerCase().indexOf('wrapper') < 0) {
                                     if (checked && me.dataDic[i].old_readonly === undefined) {
                                         me.dataDic[i].old_readonly = !!me.dataDic[i].readonly;
                                     }
@@ -140,7 +139,6 @@ define(function (require, exports, module) {
                 __silent: true,
                 events: [{
                     key: 'change', value: function (e) {
-                        debugger
                         var me = this;
                         var allreadonly = me.o_getFieldData('allreadonly').allreadonly;
                         var $dom = $(e.target);
@@ -383,7 +381,7 @@ define(function (require, exports, module) {
                 case '3':
                 {
 
-                    me.o_setValue({name: 'purchaseAmount_input_' + id, value: me.o_getFieldValue('purchaseAmount_input_' + id), readonly: condition?isReadonly:true});
+                    me.o_setValue({name: 'purchaseAmount_input_' + id, value: me.o_getFieldValue('purchaseAmount_input_' + id), readonly: condition ? isReadonly : true});
                     me.o_setValue({name: 'purchaseAmount' + id, value: me.o_getFieldValue('purchaseAmount_input_' + id)});
                 }
                     ;

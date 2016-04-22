@@ -94,8 +94,8 @@ define(function (require, exports, module) {
             {id: 12, name: '自定义助手'},
             {id: 15, name: '考试助手'},
             {id: 14, name: '战报助手'},
-            {id: 13, name: '培训助手'},
-            {id: 16, name: '培训助手时长'},
+            //{id: 13, name: '培训助手'},
+            //{id: 16, name: '培训助手时长'},
             //{id: 6, name: 'HR助手'},
             {id: 7, name: '工资助手', options: {discount: {}}}
         ];
@@ -231,7 +231,6 @@ define(function (require, exports, module) {
 
         //价格计算
         function priceComput(e) {
-            debugger
             var me = this;
             var $dom = $(e.target);
             var data = null;
@@ -243,13 +242,13 @@ define(function (require, exports, module) {
             var startDate = null;
             var endDate = null;
             var productAmount = 0;//产品原价
-            if (me.__refs.terminalInfo.o_getFieldData('useCRMWrapper').visible && me.__refs.terminalInfo.o_getFieldValue('useCRM')) {
+            if (me.__refs.terminalInfo.o_getFieldData('useCRMWrapper').visible!==false && me.__refs.terminalInfo.o_getFieldValue('useCRM')) {
                 ids.push('1');
             }
-            if (me.__refs.terminalInfo.o_getFieldData('productTrainingWrapper').visible && me.__refs.terminalInfo.o_getFieldValue('useTrainning')) {
+            if (me.__refs.terminalInfo.o_getFieldData('productTrainingWrapper').visible!==false && me.__refs.terminalInfo.o_getFieldValue('useTrainning')) {
                 ids.push('13');
             }
-            if (me.__refs.terminalInfo.o_getFieldData('productTimeLongWrapper').visible && me.__refs.terminalInfo.o_getFieldValue('useTrainning')) {
+            if (me.__refs.terminalInfo.o_getFieldData('productTimeLongWrapper').visible!==false && me.__refs.terminalInfo.o_getFieldValue('useTrainning')) {
                 ids.push('16');
             }
 
