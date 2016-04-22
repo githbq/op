@@ -176,6 +176,7 @@ define(function (require, exports, module) {
                                 {name: 'currPayAmount_13', value: '0', visible: false},
                                 {name: 'currPayAmount_16', value: '0', visible: false}
                             ]);
+                            debugger
                             var checkeds = me.__refs.tableInfo.o_getFieldValue('check').split(',');
                             if (me.__refs.terminalInfo.o_getFieldValue('useCRM') && me.__refs.terminalInfo.o_getFieldData('useCRMWrapper').visible) {//使用了逍客终端 要加入服务费
                                 checkeds.push('1');//CRM费用
@@ -183,6 +184,15 @@ define(function (require, exports, module) {
                             if (me.__refs.terminalInfo.o_getFieldValue('useFX')) {//使用了逍客终端 要加入服务费
                                 checkeds.push('3');//服务费
                             }
+                            if (me.__refs.terminalInfo.o_getFieldValue('useTrainning')) {//使用服务费
+                                if(me.__refs.terminalInfo.o_getFieldData('productTrainingWrapper').visible!==false){
+                                    checkeds.push('13');//培训费
+                                }
+                                if(me.__refs.terminalInfo.o_getFieldData('productTimeLongWrapper').visible!==false){
+                                    checkeds.push('16');//流量费
+                                }
+                            }
+
                             if (data.__editChanged === false) {
                                 data.__editChanged = true;
                             }
@@ -231,7 +241,7 @@ define(function (require, exports, module) {
                         key: 'change', value: function (e) {
                             var me = this;
                             var controll = me.__refs.tableInfo;
-                            if (id == '1' || id == '3' || id == '8') {
+                            if (id == '1' || id == '3' || id == '13' || id == '16') {
                                 controll = me.__refs.terminalInfo;
                             }
                             var $dom = $(e.target);

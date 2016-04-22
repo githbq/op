@@ -74,14 +74,10 @@ define(function (require, exports, module) {
 
         //增购逻辑
         var hasCRM = false;
-        var hasBussinessCard = false;
         if (responseData && responseData.data && responseData.data.subOrders) {
             $(responseData.data.subOrders).each(function (j, m) {
                 if (m.subOrder.productId == '1') {
                     hasCRM = true;
-                }
-                if (m.subOrder.productId == '8') {
-                    hasBussinessCard = true;
                 }
             });
         }
@@ -104,12 +100,8 @@ define(function (require, exports, module) {
             controller(terminalDataItems, 'kunbangWrapper', function (n) {
                 n.visible = true;
             });
-            if ((hasBussinessCard && responseData.readonly) || ( !hasCRM && !responseData.readonly) || (responseData.refuse && hasBussinessCard)) {
-                controller(terminalDataItems, 'businesscard', function (n) {
-                    n.visible = true;
-                });
-            }
         }
+
         controller(terminalDataItems, 'isadd', function (n) {
             n.value = true;
         });

@@ -100,9 +100,9 @@ define(function (require, exports, module) {
                 }
                 var useCRM = false;
                 var useFX = false;
-                var useTrainning=false;
+                var useTrainning = false;
                 $(subOrders).each(function (i, n) {
-                    if (n.subOrder && n.subOrder.productId && n.subOrder.productId != 10 && n.subOrder.productId != 11&& n.subOrder.productId != 8) {//10为绑定百川  11为绑定报数系统
+                    if (n.subOrder && n.subOrder.productId && n.subOrder.productId != 10 && n.subOrder.productId != 11 && n.subOrder.productId != 8) {//10为绑定百川  11为绑定报数系统
                         if (n.subOrder.enabled !== false) {
                             checkids.push(n.subOrder.productId);
                         }
@@ -114,7 +114,7 @@ define(function (require, exports, module) {
                             }
                         }
                         var items = tableDataItems;
-                        if ($.inArray(n.subOrder.productId.toString(), ['1', '2', '3','13']) >= 0) {
+                        if ($.inArray(n.subOrder.productId.toString(), ['1', '2', '3', '13']) >= 0) {
                             items = terminalDataItems;
                         }
                         if (subOrder.productId == '1') {//选中CRM
@@ -171,13 +171,13 @@ define(function (require, exports, module) {
                 });
                 //使用逍客终端 使用CRM 选中效果
                 controller(terminalDataItems, 'useCRM', function (item) {
-                   // if (item.visible !== false) {
-                        item.value = useCRM;
+                    // if (item.visible !== false) {
+                    item.value = useCRM;
                     //}
                 });
                 controller(terminalDataItems, 'useFX', function (item) {
                     //if (item.visible !== false) {
-                        item.value = useFX;
+                    item.value = useFX;
                     //}
                 });
                 controller(terminalDataItems, 'useTrainning', function (item) {
@@ -221,22 +221,30 @@ define(function (require, exports, module) {
                 if (responseData && responseData.payInfoReadonly !== undefined) {//支付信息只读
                     exports.setPayInfoReadonly(controller, terminalDataItems, tableDataItems, formDataItems, responseData.payInfoReadonly);
                 }
-
             }
-
-
         }
         ;
 
         //设置增购逻辑
         exports.setAddOrderLogic = function (controller, terminalDataItems, tableDataItems, formDataItems, type, responseData) {
+            var hasTrainning = false;
+            $(responseData.data.subOrders).each(function (j, m) {
+                if (m.subOrder.productId == '13') {
+                    hasTrainning = true;
+                }
+            });
+            if (responseData && hasTrainning) {
+                controller(terminalDataItems, 'productTrainingWrapper', function (n) {
+                    n.visible = false;
+                });
+            }
+
             controller(tableDataItems, 'productTrainingWrapper', function (n) {
                 n.visible = false;
             });
             controller(tableDataItems, 'tablelist', function (n) {
                 n.visible = true;
             });
-
             controller(tableDataItems, 'check', function (n) {
                 n.on('setFieldValue', function ($ele, value, data, me) {
                     var isreadonly = me.__refs.terminalInfo.o_getFieldData('allreadonly').allreadonly === true;
@@ -322,7 +330,7 @@ define(function (require, exports, module) {
                 companyGatePictureFileName: (companyGatePictureData.companyGatePictureFileName || '').substr(-20, 20),
                 companyGateKeyword: formInfoData.companyGateKeyword,
                 companyGateRemark: formInfoData.companyGateRemark//,
-              //  useBusinessCard: useBusinessCart
+                //  useBusinessCard: useBusinessCart
                 //名片没这个了
                 //: useBusinessCart ? terminalInfo.o_getFieldValue('purchaseAmount_8') : 0
             };
@@ -497,7 +505,7 @@ define(function (require, exports, module) {
                             currPayAmount: formInfoData['currPayAmount_' + n] || 0
                         };
                         if (n == '16') {
-                            subOrder.give_count=fromData['give_count_16'];
+                            subOrder.give_count = fromData['give_count_16'];
                         }
                         var productExtends = [];
                         if (n == '1') {
