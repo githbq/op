@@ -66,6 +66,7 @@ define(function (require, exports, module) {
                                 me.dataDic[i].readonly = !checked ? true : ( me.dataDic[i].old_readonly === true ? isReadonly : false);
                                 me.o_setValue(me.dataDic[i]);
                                 if (i.toString().indexOf('type_') == 0) {
+                                    debugger
                                     var $type = me.o_data_getField(me.dataDic[i]);
                                     $type && $type.length > 0 && ($type.change());
                                 }
@@ -193,7 +194,7 @@ define(function (require, exports, module) {
                                             //    me.o_setValue({name: 'purchaseAmount_input_' + n, value: '0'});
                                             //} else {
                                             me.o_setValue({name: 'purchaseAmount_' + n, value: response.model});
-                                            me.o_setValue({name: 'purchaseAmount_input_' + n, value: response.model, readonly: allreadonly});
+                                            me.o_setValue({name: 'purchaseAmount_input_' + n, value: response.model});
                                             //}
 
                                             me.o_setValue({name: 'productAmount_' + n, value: response.model});
@@ -213,7 +214,7 @@ define(function (require, exports, module) {
                                 changeForGetPrice.call(me, e);
                                 me.o_setValue({name: 'purchaseAmount_input_' + n, readonly: allreadonly});
                                 if (n == 3) {
-                                    me.o_setValue({name: 'purchaseAmount_input_' + n, readonly: (me.o_getFieldValue('useCRM') || !me.o_getFieldValue('useFX'))});
+                                    me.o_setValue({name: 'purchaseAmount_input_' + n, readonly:me.o_getFieldValue('useFX')?allreadonly:true});
                                 }
                             }
                         }
@@ -307,10 +308,6 @@ define(function (require, exports, module) {
                         key: 'change', value: function (e) {
                         var me = this;
                         var isReadonly = me.o_getFieldData('allreadonly').allreadonly === true;
-                        var condition = me.o_getFieldValue('useCRM');
-                        if (n == 3) {
-                            condition = me.o_getFieldValue('useFX') && !me.o_getFieldValue('useCRM');
-                        }
                         var typeValue = me.o_getFieldValue('type_' + n);
                         var data = me.o_getFieldData('type_' + n);
                         switch (typeValue.toString()) {
@@ -328,10 +325,10 @@ define(function (require, exports, module) {
                                 if (data.__editChange === false) {
                                     data.__editChange = true;
                                     me.o_setValue({name: 'purchaseAmount_' + n});
-                                    me.o_setValue({name: 'purchaseAmount_input_' + n, readonly: condition ? isReadonly : true});
+                                    me.o_setValue({name: 'purchaseAmount_input_' + n, readonly: isReadonly});
                                 } else {
                                     me.o_setValue({name: 'purchaseAmount_' + n, value: me.o_getFieldValue('purchaseAmount_' + n)});
-                                    me.o_setValue({name: 'purchaseAmount_input_' + n, value: me.o_getFieldValue('purchaseAmount_' + n), readonly: condition ? isReadonly : true})
+                                    me.o_setValue({name: 'purchaseAmount_input_' + n, value: me.o_getFieldValue('purchaseAmount_' + n), readonly: isReadonly})
                                 }
                             }
                                 ;
@@ -344,7 +341,7 @@ define(function (require, exports, module) {
                                     me.o_setValue({name: 'purchaseAmount_input_' + n, readonly: condition ? isReadonly : true});
                                 } else {
                                     me.o_setValue({name: 'purchaseAmount_' + n, value: me.o_getFieldValue('purchaseAmount_' + n)});
-                                    me.o_setValue({name: 'purchaseAmount_input_' + n, value: me.o_getFieldValue('purchaseAmount_' + n), readonly: condition ? isReadonly : true})
+                                    me.o_setValue({name: 'purchaseAmount_input_' + n, value: me.o_getFieldValue('purchaseAmount_' + n), readonly: isReadonly})
                                 }
                             }
                                 ;
@@ -389,11 +386,7 @@ define(function (require, exports, module) {
                 case '3':
                 {
                     var isReadonly = $(e.target).is('[readonly],[disabled]');
-                    if (id == '3' && me.o_getFieldValue('useCRM')) {
-                        me.o_setValue({name: 'purchaseAmount_input_' + id, readonly: true, value: me.o_getFieldValue('purchaseAmount_input_' + id)});
-                    } else {
-                        me.o_setValue({name: 'purchaseAmount_input_' + id, value: me.o_getFieldValue('purchaseAmount_input_' + id), readonly: isReadonly});
-                    }
+                    me.o_setValue({name: 'purchaseAmount_input_' + id, value: me.o_getFieldValue('purchaseAmount_input_' + id), readonly: isReadonly});
                     me.o_setValue({name: 'purchaseAmount' + id, value: me.o_getFieldValue('purchaseAmount_input_' + id)});
                 }
                     ;
@@ -401,10 +394,6 @@ define(function (require, exports, module) {
             }
 
         }
-
-        var numberIds = ['2', '3', '8'];
-
-
         //CRM部分
         dataItems.push(new DataItem({
             name: 'useCRMWrapper',
