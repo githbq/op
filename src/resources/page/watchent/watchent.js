@@ -251,7 +251,7 @@ define( function( require, exports, module ) {
 								item.activityYnStr = huoyueMap[item.activityYn];
 							});
 						}
-					}
+					} 
 				})
 			}else if(IBSS.FUNCTIONS.indexOf('F008061') != -1){
 				util.api({
