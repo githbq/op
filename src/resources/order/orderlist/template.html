@@ -37,7 +37,11 @@
 					<a class="order-detailPay" data-id="<%=item.order.id%>"  data-enterpriseId="<%=item.order.enterpriseId%>"
 						data-orderType="<%=item.order.orderType%>" data-opinion="<%=item.order.rejectReason ?item.order.rejectReason :'' %>"
 				   data-isTp="<%=item.order.isTp%>"  data-ea="<%=item.order.enterpriseAccount%>" data-contractNo="<%=item.order.contractNo%>" >查看</a>&nbsp;&nbsp;
-				<%}else{%>
+				<%}else if(item.order.orderType ==18){%>
+					<a class="order-onlinepay" data-id="<%=item.order.id%>"  data-enterpriseId="<%=item.order.enterpriseId%>"
+						data-orderType="<%=item.order.orderType%>" data-opinion="<%=item.order.rejectReason ?item.order.rejectReason :'' %>"
+				   data-isTp="<%=item.order.isTp%>"  data-ea="<%=item.order.enterpriseAccount%>" data-contractNo="<%=item.order.contractNo%>" >查看</a>&nbsp;&nbsp;
+				<%} else {%>
 					<a class="order-detail" data-id="<%=item.order.id%>"  data-enterpriseId="<%=item.order.enterpriseId%>"
 						data-orderType="<%=item.order.orderType%>" data-opinion="<%=item.order.rejectReason ?item.order.rejectReason :'' %>"
 				   data-isTp="<%=item.order.isTp%>"  data-ea="<%=item.order.enterpriseAccount%>" >查看</a>&nbsp;&nbsp;
