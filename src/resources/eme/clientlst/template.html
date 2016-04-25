@@ -20,7 +20,7 @@
 
 
 <script type="text/template" id="accountDetail">
-    <div class="m-accountdetail">
+    <div class="m-accountdetail m-enterprisedetail">
 		<p><label><span>管理员姓名</span><input type="text" disabled="disabled" ce-model="contactname"></label></p>
 		<p><label><span>管理员电话</span><input type="text" disabled="disabled" ce-model="contactphone"></label></p>
         <p><label><span>开通状态</span>
@@ -42,17 +42,14 @@
         <p class="trytimep"><label><span>试用截止时间</span><input type="text" disabled="disabled" ce-model="endtime"></label></p>
         <p class="tryboxp"><label><span>试用包</span><span ce-collection="trylist" class="trybox"><b><%=item%>天</b></span></p>
 
-        <!--
+        
         <div class="dtl">
 
             <section class="accordian collapse f1 f2 f3 f4" data-target="product">
                 <h4><span class="arraw"></span>产品信息</h4>
 
                 <div class="content" id="tbProduct">
-                    <p class="content-action off">
-                        <button class="u-btn-blue" id="openproduct">开启</button>
-                        <button id="closeproduct">关闭</button>
-                    </p>
+                    
                     <div class="container">
                         
                     </div>
@@ -147,7 +144,7 @@
             </section>
 
         </div>
-        -->
+     
     </div>
 </script>
 

@@ -44,7 +44,7 @@ define( function( require, exports, module ) {
                 case 'product':
                     this.showProductInfo();
                     break;
-                case 'operationssection':
+                case 'operations':
                     this.showOperations();
                     break;
                 default:
@@ -102,16 +102,16 @@ define( function( require, exports, module ) {
                                         " <span>开始时间："+ startTime +"</span> <span>结束时间："+endTime+"</span></p>";
                                         break;
                                     case "HR_Helper":
-                                        strDom += " <p> <span>"+obj['appName']+"</span> <span>开始时间："+ startTime +"</span> <span>结束时间："+endTime+"</span> </p>";
+                                        strDom += " <p> <span>"+obj['appName']+"：</span> <span>开始时间："+ startTime +"</span> <span>结束时间："+endTime+"</span> </p>";
                                         break;
                                     case "Business_Card":
-                                        strDom += " <p> <span>"+obj['appName']+"</span> <span>开始时间："+ startTime +"</span> <span>结束时间："+endTime+"</span> </p>";
+                                        strDom += " <p> <span>"+obj['appName']+":</span> <span>开始时间："+ startTime +"</span> <span>结束时间："+endTime+"</span> </p>";
                                         break;
                                     case "Custom_Helper":
-                                        strDom += " <p> <span>"+obj['appName']+"</span> <span>开始时间："+ startTime +"</span> <span>结束时间："+endTime+"</span> </p>";
+                                        strDom += " <p> <span>"+obj['appName']+":</span> <span>开始时间："+ startTime +"</span> <span>结束时间："+endTime+"</span> </p>";
                                         break;
                                     default:
-                                        strDom += " <p> <span>"+obj['appName']+"</span> <span>开始时间："+ startTime +"</span> <span>结束时间："+endTime+"</span>"+ enablestatus + "   <input class='off' type='checkbox' name='product' value='"+obj["appId"]+"'> </p>";
+                                        strDom += " <p> <span>"+obj['appName']+":</span> <span>开始时间："+ startTime +"</span> <span>结束时间："+endTime+"</span>"+ enablestatus + "   <input class='off' type='checkbox' name='product' value='"+obj["appId"]+"'> </p>";
                                 }
                             });
 
@@ -127,86 +127,136 @@ define( function( require, exports, module ) {
 
         showOperations: function(){
             var me = this;
-            
-            
-            ///me._usestatus = 0;     //状态值
-            me.attrs.freeIncreaseContractRequired = '';
-            
-            if( me.model.get('marketingAccountAmount') == 0 ){
+			
+			me.getEnterprise(function(){
+				        ///me._usestatus = 0;     //状态值
+				me.attrs.freeIncreaseContractRequired = '';
+				
+				if( me.model.get('marketingAccountAmount') == 0 ){
 
-                me.$('.crmvisible').hide();
-            } else {
+					me.$('.crmvisible').hide();
+				} else {
 
-                me.$('.crmvisible').show();
-            }
-            /***
-             *
-             * 签约到期时间( 付费版 )   如果是 9999-12-31   则显示永久
-             * 营销版到期时间( 免费版 ) 如果是 小于当前日期 则不显示    
-             * 
-             * 设置的时候
-             * 服务支持人员         可以设置 签约到期时间 也可以设置 营销版到期时间
-             * 代理商内部管理员   只可以设置 签约到期时间
-             */
+					me.$('.crmvisible').show();
+				}
+				/***
+				 *
+				 * 签约到期时间( 付费版 )   如果是 9999-12-31   则显示永久
+				 * 营销版到期时间( 免费版 ) 如果是 小于当前日期 则不显示    
+				 * 
+				 * 设置的时候
+				 * 服务支持人员         可以设置 签约到期时间 也可以设置 营销版到期时间
+				 * 代理商内部管理员   只可以设置 签约到期时间
+				 */
 
-            /*
-            * 代理商用户
-            * 根据是否是管理员 显示相关信息
-            */
-            /*
-            function checkIsAdmin(){
+				/*
+				* 代理商用户
+				* 根据是否是管理员 显示相关信息
+				*/
+				/*
+				function checkIsAdmin(){
 
-                if( me.attrs.isAgent == true ){
-                    
-                    for( var i = 0; i < IBSS.FUNCTIONS.length; i++ ){
-                        if( 'F009001' == IBSS.FUNCTIONS[i] ){
-                            return true;
-                        }
-                    }
-                    return false;
-                }else{
+					if( me.attrs.isAgent == true ){
+						
+						for( var i = 0; i < IBSS.FUNCTIONS.length; i++ ){
+							if( 'F009001' == IBSS.FUNCTIONS[i] ){
+								return true;
+							}
+						}
+						return false;
+					}else{
 
-                    return false;
-                }
-            };
+						return false;
+					}
+				};
 
-            if( checkIsAdmin() ){
-                me.$('#tbOperation .isadmin').removeAttr('disabled');
-                //me.$('#tbOperation input').removeAttr('disabled');
-            } else {
-                me.$('#tbOperation .isadmin').attr('disabled','disabled');
-            }
-            */
+				if( checkIsAdmin() ){
+					me.$('#tbOperation .isadmin').removeAttr('disabled');
+					//me.$('#tbOperation input').removeAttr('disabled');
+				} else {
+					me.$('#tbOperation .isadmin').attr('disabled','disabled');
+				}
+				*/
 
-            /**
-             *
-             * 清空数据
-             */
-            ///me.$('#tbOperation input').val('');
+				/**
+				 *
+				 * 清空数据
+				 */
+				///me.$('#tbOperation input').val('');
 
-            me.model.load( me.operations.initialInfo );
-            /**
-             *
-             * 加载列表数据
-             */
-            if( me.operations.pagination ){
+				me.model.load( me.operations.initialInfo );
+				/**
+				 *
+				 * 加载列表数据
+				 */
+				if( me.operations.pagination ){
 
-                me.operations.pagination.setPage(0,true);
+					me.operations.pagination.setPage(0,true);
 
-            } else {
-                me.operations.pagination = new Pagination({
-                    wrapper: me.$view.find('#tbOperation .pager'),
-                    pageSize: 10,
-                    pageNumber: 0
-                });
-                me.operations.pagination.render();
-                me.operations.pagination.onChange = function() {
-                    me.loadOperations();
-                };
-                me.loadOperations();
-            }
-            
+				} else {
+					me.operations.pagination = new Pagination({
+						wrapper: me.$view.find('#tbOperation .pager'),
+						pageSize: 10,
+						pageNumber: 0
+					});
+					me.operations.pagination.render();
+					me.operations.pagination.onChange = function() {
+						me.loadOperations();
+					};
+					me.loadOperations();
+				}
+			});
+           
         },
+		//获取企业详情
+		getEnterprise: function( id ,callback ){
+			var me = this;
+			
+
+			util.api({
+				'url':'/enterprise/getenterprise',
+				'data':{
+					'enterpriseId': me.model.get('account')
+				},
+				'success': function( data ){
+					console.warn( 'enterpriseinfo' );
+					console.warn( data );
+					if( data.success ){
+						me.attrs.runStatus = data.value.model.runStatus;
+						var model = data.value.model;
+						///me.product.isInitialized = false;
+						me.model.load( model );
+						
+						me.$sdXKDC.val( model.accountTotalAmount );
+						me.$sdXKDUC.val( model.accountUsedAmount + '/' + model.accountAvailableAmount || '' );
+						me.$yingxiaoSum.val( model.marketingAccountAmount );
+						me.$yingxiaoUsed.val( model.marketingAccountUsedAmount + '/' + model.marketingAccountAvailableAmount );
+						me.$sdSC.val( model.storageTotalSpace );
+						me.$sdSUC.val( model.storageUsedSpace );
+						
+						
+						
+
+						//初始化 使用情况的缓存
+						me.operations.initialInfo = {
+							'accountTotalAmount': model.accountTotalAmount,
+							'groupNumLimit': model.groupNumLimit,
+							'videoNumLimit': model.videoNumLimit,
+							'crmVisibleRange': model.crmVisibleRange,
+							'editCustomerName': model.editCustomerName,
+							'setPersonalGoal': model.setPersonalGoal,
+							'discountAutoCalculated': model.discountAutoCalculated,
+							'webSanCodeAuth': model.webSanCodeAuth
+						};
+
+				
+						//调用回调
+						callback && callback();
+						
+					}
+				}
+			})
+		},
 
         /*
          *
@@ -315,7 +365,14 @@ define( function( require, exports, module ) {
         
         hide: function(){
             var me = this;
-            me.model.clear();
+           me.model.clear();
+			me.$( '.accordian' ).addClass( 'collapse' );
+			me.$( '.accordian .content' ).removeAttr( 'style' );
+
+			me.$('.sectiona input').val('');
+			me.$('.sectiona select').val('');
+			me.$('.sectiona textarea').val('');
+
             me.$('.trybox').empty();
             AccountDetail.__super__.hide.apply( this, arguments );
         }
