@@ -616,9 +616,6 @@ define(function (require, exports, module) {
                 var me = this;
                 value = value === undefined ? false : value;
                 this.o_field_getData($ele).readonly = value;
-                if ($ele.is('[data-name=endTime_13]')) {
-                    debugger
-                }
                 if (!$ele.is('.field_text')) {
                     if (value) {
                         $ele.addClass('readonly', 'readonly').attr('readonly', 'readonly').attr('disabled', 'disabled');
