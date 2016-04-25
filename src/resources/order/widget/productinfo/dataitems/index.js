@@ -23,6 +23,10 @@ define(function (require, exports, module) {
                         $checkbox = $ele.parents('.suborder:last').find('input[type=checkbox]:first');
                         id = $checkbox.val();
                     }
+                    if ($ele.parents('[data-productid]').attr('data-productid') == '13') {
+                        $checkbox = $('[data-name=useTrainning]');
+                        id = '13';
+                    }
                     if ($checkbox && id && $checkbox.length > 0) {
                         if ($checkbox.is(':checked')) {
                             if (me.o_data_getField({name: 'type_' + id}).length > 0 && me.o_data_getField({name: 'type_' + id}).is(':visible')) {
