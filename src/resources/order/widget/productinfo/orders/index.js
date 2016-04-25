@@ -465,7 +465,7 @@ define(function (require, exports, module) {
             var formInfoData = formInfo.o_getValues();
             //suborders //////////////////////////////////////////
             var ids = tableInfoData.check.split(',');
-            if (terminalInfo.o_getFieldData('useCRMWrapper').visible && terminalInfo.o_getFieldValue('useCRM')) {
+            if (terminalInfo.o_getFieldData('useCRMWrapper').visible!==false && terminalInfo.o_getFieldValue('useCRM')) {
                 ids.push('1');
             }
             if (terminalInfo.o_getFieldValue('useFX')) {
@@ -474,10 +474,10 @@ define(function (require, exports, module) {
             }
 
             if (terminalInfo.o_getFieldValue('useTrainning')) {// 培训助手
-                if (terminalInfo.o_getFieldData('productTrainingWrapper').visible) {//培训助手
+                if (terminalInfo.o_getFieldData('productTrainingWrapper').visible!==false) {//培训助手
                     ids.push('13');
                 }
-                if (terminalInfo.o_getFieldData('productTimeLongWrapper').visible) {//流量时长
+                if (terminalInfo.o_getFieldData('productTimeLongWrapper').visible!==false) {//流量时长
                     ids.push('16');
                 }
             }
