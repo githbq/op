@@ -21,6 +21,14 @@ define( function( require, exports, module ) {
         events: {
             'click .accordian h4': 'showAccordian'
         },  
+		elements:{
+			'#sdXKDC': 'sdXKDC',
+			'#sdXKDUC': 'sdXKDUC',
+			'#yingxiaoSum': 'yingxiaoSum',
+			'#yingxiaoUsed': 'yingxiaoUsed',
+			'#sdSC': 'sdSC',
+			'#sdSUC': 'sdSUC',
+		},
 
         //
         showAccordian: function( e ){
@@ -233,8 +241,6 @@ define( function( require, exports, module ) {
 						me.$yingxiaoUsed.val( model.marketingAccountUsedAmount + '/' + model.marketingAccountAvailableAmount );
 						me.$sdSC.val( model.storageTotalSpace );
 						me.$sdSUC.val( model.storageUsedSpace );
-						
-						
 						
 
 						//初始化 使用情况的缓存
