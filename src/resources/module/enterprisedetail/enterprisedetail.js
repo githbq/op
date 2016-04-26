@@ -1865,7 +1865,7 @@ define( function(require, exports, module){
 			var me = this, data = {
 				id: me.$('#sbAgentId').val(),
 				name: me.$('#sbAgentName').val(),
-				pageIndex: me.agent.pagination.attr['pageNumber'],
+				pageIndex: me.agent.pagination.attr['pageNumber']+1,
 				pageSize: me.agent.pagination.attr['pageSize']
 			};
 			util.api({
