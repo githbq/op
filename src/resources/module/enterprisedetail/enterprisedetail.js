@@ -1089,7 +1089,7 @@ define( function(require, exports, module){
 						me.$('#presentOfficeEdition').val(model.presentOfficeEdition);
 						me.$hasSales.val( model.isSaleTeam ? 'true' : 'false' );
 						me.$isMettingSale.val( model.isWillPin ? 'true' : 'false' );
-						me.$isFirstView.val( model.isFirstmettingSign ? 'true': 'false' );
+						me.$isFirstView.val( model.isFirstmeetingSign ? 'true': 'false' );
 						me.$isStranger.val( model.isStrangerVisits ? 'true': 'false' );
 						me.$city.val( model.city );
 						//me.$isFastSign.val( model.isFastSign ? 'true': 'false' );
