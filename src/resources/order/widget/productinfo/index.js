@@ -504,6 +504,9 @@ define(function (require, exports, module) {
             i_setValueWhereInputRadio: function (next, $ele, value) {
                 var me = this;
                 //考虑复选框情况
+                if($ele.is('[data-name=useFX]')){
+                    debugger
+                }
                 if ($ele.is('input[type=radio]') || $ele.is('input[type=checkbox]')) {
                     if (typeof(value) == 'boolean') {
                         $ele.prop('checked', value);
