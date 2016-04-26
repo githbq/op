@@ -25,8 +25,8 @@ define( function( require, exports, module ) {
 
             var me = this;
     	    
-            me.$startTime.datetimepicker({'timepicker': false,'format':'Y-m-d'});
-            me.$endTime.datetimepicker({'timepicker': false,'format':'Y-m-d'});
+            me.$startTime.datetimepicker({'timepicker': false,'format':'Y/m/d'});
+            me.$endTime.datetimepicker({'timepicker': false,'format':'Y/m/d'});
 
             me.pagination = new Pagination({
                 'wrapper': me.$view.find('.list-pager'),
