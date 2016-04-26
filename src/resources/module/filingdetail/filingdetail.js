@@ -326,7 +326,7 @@ define( function(require, exports, module){
             var me = this;
 			me.$stateInfo.css({'display':'block'});
 			var clientNum = data.value.model.accountAmount||'',
-			kpPhone = data.value.model.representative_phone||'',
+			kpPhone = data.value.model.representativePhone||'',
 			companyNum = data.value.model.employeeNumber||'';
 			var tempTime = data.value.model.visitTime?data.value.model.visitTime:new Date().getTime();
 			var visiteTime = new Date( tempTime)._format('yyyy/MM/dd');
