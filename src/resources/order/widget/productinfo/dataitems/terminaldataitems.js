@@ -45,7 +45,7 @@ define(function (require, exports, module) {
         }));
         //赠送流量时长
         dataItems.push(new DataItem({
-            name: 'give_count_16',
+            name: 'giveCount_16',
             value: '0'
         }));
         $(['useFX', 'useTrainning']).each(function (index, item) {

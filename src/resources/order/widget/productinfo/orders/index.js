@@ -505,7 +505,7 @@ define(function (require, exports, module) {
                             currPayAmount: formInfoData['currPayAmount_' + n] || 0
                         };
                         if (n == '16') {
-                            subOrder.give_count = fromData['give_count_16'];
+                            subOrder.giveCount = fromData['giveCount_16'];
                         }
                         var productExtends = [];
                         if (n == '1') {
