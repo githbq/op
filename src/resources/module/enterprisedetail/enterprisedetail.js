@@ -2133,7 +2133,7 @@ define( function(require, exports, module){
 			util.api({
 				'url':'/enterprise/querytraining',
 				'data':{
-					'pageIndex': me.training.pagination.attr['pageNumber'], 
+					'pageIndex': me.training.pagination.attr['pageNumber']+1, 
 					'pageSize': me.training.pagination.attr['pageSize'], 
 					'trainingName': me.$('#trainname').val(), 
 					'trainingStrartDate': starttime,

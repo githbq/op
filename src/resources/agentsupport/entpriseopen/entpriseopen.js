@@ -102,7 +102,7 @@ define( function( require, exports, module ) {
 						  'active': 1,
 						  'startTime': startTime,
 						  'endTime': endTime,
-						  'pageIndex': me.pagination.attr['pageNumber'],
+						  'pageIndex': me.pagination.attr['pageNumber']+1,
 						  'pageSize': '10'
 					  },
 					  'success': function( data ){
