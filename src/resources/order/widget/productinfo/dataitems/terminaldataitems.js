@@ -43,6 +43,11 @@ define(function (require, exports, module) {
             name: 'enterpriseId',
             value: null
         }));
+        //赠送流量时长
+        dataItems.push(new DataItem({
+            name: 'give_count_16',
+            value: '0'
+        }));
         $(['useFX', 'useTrainning']).each(function (index, item) {
             //使用逍客终端复选框
             dataItems.push(new DataItem({
