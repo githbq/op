@@ -185,7 +185,7 @@ define( function(require, exports, module){
                 'url': '/agent/queryaccountpage',
                 'data': {
                     'pageSize': me.pagination.attr['pageSize'],
-                    'pageIndex': me.pagination.attr['pageNumber'],
+                    'pageIndex': me.pagination.attr['pageNumber']+1,
                     'agentId': me.model.get('agentId'),
                     'name': me.model.get('name'),
                     'status': me.model.get('status'),
