@@ -145,7 +145,7 @@ define( function( require, exports, module ) {
     		util.api({
     			'url':'/enterprise/queryindpage',
     			'data':{
-    				'pageIndex': me.pagination.attr['pageNumber'],
+    				'pageIndex': me.pagination.attr['pageNumber']+1,
     				'pageSize': me.pagination.attr['pageSize'],
     				'enterpriseName': me.model.get('enterpriseName'),
     				'enterpriseAccount': me.model.get('enterpriseAccount'),
