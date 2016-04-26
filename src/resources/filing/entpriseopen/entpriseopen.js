@@ -146,7 +146,7 @@ define( function( require, exports, module ) {
 						'enterpriseName': me.model.get('enterpriseName'),
 						'startTime': startTime,
 						'endTime': endTime,
-						'pageIndex': me.pagination.attr['pageNumber'],
+						'pageIndex': me.pagination.attr['pageNumber']+1,
 						'pageSize': '10'
 					},
 					'success': function( data ){
@@ -239,7 +239,7 @@ define( function( require, exports, module ) {
                 'data': {
 					'id':me.$('#eiCode').val(),
 					'name':me.$('#eiName').val(),
-					'pageIndex': me.pagination.attr['pageNumber'],
+					'pageIndex': me.pagination.attr['pageNumber']+1,
                     'pageSize': me.pagination.attr['pageSize']
 				},
                 'success': function( data ){
