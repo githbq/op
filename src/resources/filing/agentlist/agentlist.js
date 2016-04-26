@@ -132,7 +132,7 @@ define( function(require, exports, module){
 					'province': me.model.get('city'),
 					'name': me.model.get('name'),
 					'status': me.model.get('status'),
-					'pageIndex': me.pagination.attr['pageNumber'],
+					'pageIndex': me.pagination.attr['pageNumber']+1,
 					'pageSize': me.pagination.attr['pageSize']
 				},
 				beforeSend: function(){

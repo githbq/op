@@ -70,7 +70,7 @@ define( function(require, exports, module){
 					'agentName':me.model.get('agentName'),
 					'name': me.model.get('name'),
 					'role': me.model.get('role'),
-					'pageIndex': me.pagination.attr['pageNumber'],
+					'pageIndex': me.pagination.attr['pageNumber']+1,
 					'pageSize': me.pagination.attr['pageSize']
 				},
 				beforeSend: function(){
