@@ -86,9 +86,9 @@
             -->
 
 
-            <li data-modulecode="ApprovalAccountOpC">
+            <!--<li data-modulecode="ApprovalAccountOpC">
                 <a href="#filing/approvalwait">待审批用户</a>
-            </li>
+            </li>-->
             
 
             <li data-modulecode="SelfRegisterOpC">
