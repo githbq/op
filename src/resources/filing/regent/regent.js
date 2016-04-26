@@ -164,7 +164,7 @@ define( function( require, exports, module ) {
     						item.sourceStr = sMap[item.source];
     						item.provinceStr = pMap[item.province];
     						item.statusStr = uMap[item.status];
-    						item.registerTimeStr = new Date( item.registerTime )._format('yyyy-MM-dd hh:mm');
+    						item.registerTimeStr = new Date( item.createtime )._format('yyyy-MM-dd hh:mm');
     					});
     				}
     			}

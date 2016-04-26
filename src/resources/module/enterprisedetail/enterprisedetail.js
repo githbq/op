@@ -554,6 +554,7 @@ define( function(require, exports, module){
 				},
 				'success': function( data ){
 					if( data.success ){
+						me.$smsName.val( value );
 						util.showTip('修改成功')
 					}
 				}
@@ -2494,7 +2495,9 @@ define( function(require, exports, module){
 						me.$sdEAUC.val( model['Used.ExportAmountFeedApprove'] );        //导出审批汇总已用
 						me.$sdUFS.val( model['Config.UploadFileSizeLimit'] );           //上传文件大小限制
 						console.warn( model['Config.isAllowDangerOperate'] );
-						me.$sdActionDanger.val( model['Config.isAllowDangerOperate'] );  //是否允许危险操作
+						var temp =  model['Config.IsAllowDangerOperate'] == '1' ? '是' : '否' 
+						me.$sdActionDanger.val(temp );
+						
 					}
 				}
 			});
