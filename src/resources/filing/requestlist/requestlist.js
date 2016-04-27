@@ -132,7 +132,7 @@ define( function( require, exports, module ) {
                     'startTime': startTime,
                     'endTime': endTime,
                     'openBatch': me.model.get('openBatch'),
-    				'pageIndex': me.pagination.attr['pageNumber'],
+    				'pageIndex': me.pagination.attr['pageNumber']+1,
     				'pageSize': me.pagination.attr['pageSize']
     			},
     			'success': function( data ){
