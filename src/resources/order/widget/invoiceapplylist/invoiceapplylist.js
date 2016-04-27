@@ -95,6 +95,7 @@ define(function (require, exports, module) {
 		jumpEve:function(jump){
 			var me = this;
 			me.$view.find('.toggle b[data-type="'+jump+'"]').trigger("click");
+			me.refresh();
 		},
 
         //查看发票详情
