@@ -4,7 +4,7 @@ define(function (require, exports, module) {
     var tpl = $(require('./template.html'));
 
     function doDownFile(url,$button,$tips,callback) {
-        $button.addClass('disable');
+        $button.addClass('disabled');
         $button.attr('disabled','disabled');
         $tips.text('正在生成文件...请耐心等待');
         function downFile() {
@@ -13,7 +13,7 @@ define(function (require, exports, module) {
                 .success(function (result) {
                     if(result.success){
                     $tips.text('');
-                    $button.removeClass('disable');
+                    $button.removeClass('disabled');
                     $button.removeAttr('disabled');
                     window.open(url, 'hideiframe');
                     }else{
@@ -180,7 +180,7 @@ define(function (require, exports, module) {
             }
             me.$result.html('');
             me.$search.attr('disabled', 'disabled');
-            me.$search.addClass('disable');
+            me.$search.addClass('disabled');
             var originData = data;
             util.api({
                 url: '/query/act/count2',
@@ -207,7 +207,7 @@ define(function (require, exports, module) {
                     }
                 },
                 complete: function () {
-                    me.$search.removeClass('disable');
+                    me.$search.removeClass('disabled');
                     me.$search.removeAttr('disabled');
                 }
             });
@@ -240,7 +240,7 @@ define(function (require, exports, module) {
             var $generate = me.$result.find('#btnGenerate'),
                 $download = me.$result.find('#btnDownload'),
                 $console = me.$result.find('#console');
-            $generate.addClass('disable');
+            $generate.addClass('disabled');
             if($generate.is('[disabled]')){
                 return ;
             }
@@ -260,7 +260,7 @@ define(function (require, exports, module) {
                     }
                 },
                 complete: function () {
-                    $generate.removeClass('disable');
+                    $generate.removeClass('disabled');
                     $generate.removeAttr('disabled');
                 }
             });
