@@ -2308,6 +2308,10 @@ define(function (require, exports, module) {
                 ///me.$('#tbOperation input').val('');
 
             me.model.load(me.operations.initialInfo);
+
+            if(me.operations.trainHelperTotalCapacity!==undefined){
+                me.model.set('trainHelperUsedCapacityStr',me.operations.trainHelperTotalCapacity+'/'+(me.operations.trainHelperTotalCapacity-me.operations.trainHelperTotalCapacity))
+            }
             /**
              *
              * 加载列表数据
