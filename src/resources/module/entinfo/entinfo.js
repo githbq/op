@@ -43,9 +43,9 @@ define( function(require, exports, module){
 
 
                     me.model.load( data.value.model );
-                    me.model.set('validateCodeExpirationStr', new Date( me.model.get('validateCodeExpiration') )._format('yyyy-MM-dd hh:mm') );
-                    me.model.set('activeTimeStr', new Date( me.model.get('activeTime') )._format('yyyy-MM-dd hh:mm') );
-                    me.model.set('registerTimeStr', new Date( me.model.get('registerTime') )._format('yyyy-MM-dd hh:mm') );
+                    me.model.set('validateCodeExpirationStr', me.model.get('validatecodeexpiration') ? new Date( me.model.get('validatecodeexpiration') )._format('yyyy-MM-dd hh:mm'):'' );
+                    me.model.set('activeTimeStr', me.model.get('launchtime') ? new Date( me.model.get('launchtime') )._format('yyyy-MM-dd hh:mm'):'' );
+                    me.model.set('registerTimeStr', me.model.get('createtime') ?new Date( me.model.get('createtime') )._format('yyyy-MM-dd hh:mm'):'' );
                     me.model.set('sourceStr', sMap[ me.model.get('source') ]);
                     me.model.set('statusStr', uMap[ me.model.get('status') ]);
                     me.model.set('provinceStr', pMap[ me.model.get('province') ]);

@@ -263,9 +263,14 @@ define(function(require, exports, module){
 			me.$('.required-basic').each(function(){
 				var $this = $( this );
 				var attr = $this.attr('ce-model');
-				if( me.model.get(attr)==='' || me.model.get(attr)=== undefined ||  me.model.get(attr) === null ){
-					util.warnInput( $this );
-					state = false;
+				if( me.model.get(attr)==='' || me.model.get(attr)=== undefined ){
+					if(me.model.get(attr) ==='0'){
+						
+					}else{
+						util.warnInput( $this );
+						state = false;
+					}
+					
 				}else{
 					util.unWarnInput( $this );
 				}
