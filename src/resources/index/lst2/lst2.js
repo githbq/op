@@ -195,20 +195,19 @@ define(function (require, exports, module) {
                                 success: function (data) {
                                     if (data.success) {
                                         doDownFile('/op/api/s/query/act/downloadhdfs?path=' + data.model.gPath,me.$search,me.$tips,function(){
-
+                                            me.$search.removeClass('disabled');
+                                            me.$search.removeAttr('disabled');
                                             me.getList();
                                         });
                                     }
                                 }
                             })
                         } else if (data.value.model <= 10000) {
+                            me.$search.removeClass('disabled');
+                            me.$search.removeAttr('disabled');
                             window.open('/op/api/s/query/act/generate3?' + $.param(originData),'hideiframe');
                         }
                     }
-                },
-                complete: function () {
-                    me.$search.removeClass('disabled');
-                    me.$search.removeAttr('disabled');
                 }
             });
         },
