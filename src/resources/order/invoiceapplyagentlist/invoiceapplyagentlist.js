@@ -19,7 +19,7 @@ define(function (require, exports, module) {
 			invoiceApplyList.jumpEve(jump);
 		})
 		if(param.length>0){
-			invoiceApplyList.trigger('refuse',param[0]);
+			invoiceApplyList.trigger('refuse','refuse');
 		}
 
         //发票模块
