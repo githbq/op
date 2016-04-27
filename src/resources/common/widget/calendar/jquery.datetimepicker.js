@@ -665,9 +665,11 @@
 							datetimepicker.data('changed',true);
 							_xdsoft_datetime.setCurrentTime(0);
 							datetimepicker.trigger('afterOpen.xdsoft');
+							return false;
 						}).on('dblclick.xdsoft',function(){
 							input.val( _xdsoft_datetime.str() );
 							datetimepicker.trigger('close.xdsoft');
+						return false;
 						});
 				mounth_picker
 					.find('.xdsoft_prev,.xdsoft_next')
@@ -889,6 +891,7 @@
 						setTimeout(function(){
 							timerclick = 0;
 						},200);
+						return false;
 					});
 
 				timebox
@@ -911,6 +914,7 @@
 						datetimepicker.data('changed',true);
 						datetimepicker.trigger('xchange.xdsoft');
 						datetimepicker.trigger('changedatetime.xdsoft');
+						return false;
 					});
 
 				datetimepicker.mousewheel&&datepicker.mousewheel(function(event, delta, deltaX, deltaY) {
