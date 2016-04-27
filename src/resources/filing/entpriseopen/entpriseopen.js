@@ -27,7 +27,7 @@ define( function( require, exports, module ) {
             me.pagination = new Pagination({
     			'wrapper': me.$view.find('.list-pager'),
     			'pageNumber': 0,
-    			'pageSize': 20
+    			'pageSize': 10
     		});
     		me.pagination.render();
     		me.pagination.onChange = function(){

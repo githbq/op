@@ -284,6 +284,10 @@ define( function(require, exports, module){
 							}else{
 								me.model.set('permissions', 1 );
 							}
+							var tempEnd = data.value.model.agent.validTimeEnd ? new Date( data.value.model.agent.validTimeEnd )._format('yyyy/MM/dd'):'';
+							var tempStart = data.value.model.agent.validTimeStart ? new Date( data.value.model.agent.validTimeStart )._format('yyyy/MM/dd'):'';
+							 me.$starttime.val(tempStart);
+							 me.$endtime.val(tempEnd);
 							if(!data.value.model.dept){
 								me.$('.edit-box').hide();
 							}else{

@@ -5440,12 +5440,7 @@ em {
 .m-filinglist .filing-check {
   display: none;
 }
-.m-filinglist [data-status="1"] .open-input,
-.m-filinglist [data-status="6"] .open-input,
-.m-filinglist [data-status="7"] .open-input,
-.m-filinglist [data-status="8"] .open-input,
-.m-filinglist [data-status="9"] .open-input,
-.m-filinglist [data-status="10"] .open-input {
+.m-filinglist [data-status="1"] .open-input {
   display: inline-block;
 }
 .m-filinglist [data-status="4"] .filing-check {
