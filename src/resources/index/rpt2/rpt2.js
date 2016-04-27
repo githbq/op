@@ -28,7 +28,20 @@ define(function (require, exports, module) {
             }
 
             var data = {type: me.$selectType.val(), date: new Date(me.$chooseDate.val() + " 00:00:00").getTime()};
-            window.open('~/op/api/file/downloadfromhdfs?type='+data.type+'&date='+data.date,'hideiframe');//'hideiframe');
+          //  window.open( IBSS.API_PATH +'/file/downloadfromhdfs?type='+data.type+'&date='+data.date,'hideiframe');
+            util.api({
+                type:'get',
+                data:data,
+                url: '~/op/api/file/downloadfromhdfs',
+                data: data,
+                success: function (data) {
+                    if (data.success) {
+                        me.load();
+                    }
+                }
+            });
+
+
             //util.api({
             //    type:'get',
             //    url: '~/op/api/file/downloadfromhdfs',
