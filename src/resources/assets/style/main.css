@@ -5015,7 +5015,7 @@ em {
 .p-indexact-lst .m-act-lst .list-bar .list-bar-btns button:last-child {
   margin-right: 0;
 }
-.p-indexact-lst .m-act-lst .list-bar .list-bar-btns button.disable {
+.p-indexact-lst .m-act-lst .list-bar .list-bar-btns button.disabled {
   opacity: 0.3;
 }
 .p-indexact-lst .m-act-lst .list-bar .list-bar-entry {
@@ -5056,7 +5056,7 @@ em {
 .p-indexact-lst .m-act-lst .list-content p.btns button.invisiable {
   display: none;
 }
-.p-indexact-lst .m-act-lst .list-content p.btns button.disable {
+.p-indexact-lst .m-act-lst .list-content p.btns button.disabled {
   opacity: 0.3;
 }
 .p-indexact-lst .m-act-lst .list-content p .hl {
