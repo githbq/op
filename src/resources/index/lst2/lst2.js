@@ -1,13 +1,14 @@
 define(function (require, exports, module) {
     var IBSS = window.IBSS;
-
+    var Pagination = require('common/widget/pagination/pagination');
     var tpl = $(require('./template.html'));
 
-    function doDownFile(url,$button,$tips) {
+    function doDownFile(url,$button,$tips,callback) {
         $button.addClass('disable');
         $button.attr('disabled','disabled');
         $tips.text('正在生成文件...请耐心等待');
         function downFile() {
+            callback && callback();
             $.ajax({type:'POST',url: url})
                 .success(function (result) {
                     if(result.success){
@@ -41,7 +42,7 @@ define(function (require, exports, module) {
             '#alListType': 'listType',
             '#alList': 'list',
             '#btnSearch': 'search',
-            '.list-content': 'result',
+            '.result': 'result',
             '.tips':'tips'
         },
         events: {
@@ -55,8 +56,18 @@ define(function (require, exports, module) {
             ActLst.__super__.init.apply(this, arguments);
             var me = this;
             me.initializeDatepicker();
-            me.collection = new M.Collection;
             me.initializeSelect();
+            me.pagination = new Pagination({
+                'wrapper': me.$view.find('.list-pager'),
+                'pageSize': 20,
+                'pageNumber': 0
+            });
+            me.pagination.render();
+            me.pagination.onChange = function () {
+                me.getList();
+            };
+
+            me.collection = new M.Collection;
         },
         initializeDatepicker: function () {
             var me = this;
@@ -177,12 +188,16 @@ define(function (require, exports, module) {
                 success: function (data) {
                     if (data.success) {
                         if (data.value.model > 10000) {
+
                             util.api({
                                 data: originData,
                                 url: '/query/act/generate2',
                                 success: function (data) {
                                     if (data.success) {
-                                        doDownFile('/op/api/s/query/act/downloadhdfs?path=' + data.model.gPath,me.$search,me.$tips);
+                                        doDownFile('/op/api/s/query/act/downloadhdfs?path=' + data.model.gPath,me.$search,me.$tips,function(){
+
+                                            me.getList();
+                                        });
                                     }
                                 }
                             })
@@ -226,6 +241,9 @@ define(function (require, exports, module) {
                 $download = me.$result.find('#btnDownload'),
                 $console = me.$result.find('#console');
             $generate.addClass('disable');
+            if($generate.is('[disabled]')){
+                return ;
+            }
             $generate.attr('disabled', 'disabled');
             $download.addClass('invisiable');
             util.api({
@@ -266,6 +284,41 @@ define(function (require, exports, module) {
                 return base + offset * 24 * 3600 * 1000;
             }
             return base;
+        },
+        getList: function () {
+            var me = this;
+            me.$('.u-tablelist tbody tr').remove();
+            $.extend(data, me.model.all());
+            util.api({
+                'url': '/query/act/sparktask',
+                'data': {},
+                beforeSend: function () {
+                    me.$('.u-tablelist tbody tr').html('<tr><td colspan="9"><p class="info">加载中...</p></td></tr>');
+                },
+                'success': function (data) {
+                    console.warn(data);
+                    if (data.success) {
+                        me.pagination.setTotalSize(data.value.model.itemCount);
+                        me.collection.reload(data.value.model.content, function (item) {
+
+                        });
+                        me.renderList();
+                    }
+                }
+            })
+        },
+        trTpl: _.template(tpl.filter('.trTpl').html()),
+        renderList: function () {
+            var me = this;
+            var collection = me.collection.all();
+            var htmlStr = '';
+
+            if (collection.length > 0) {
+                htmlStr = me.trTpl({'content': collection});
+            } else {
+                htmlStr = '<tr><td colspan="'+me.$('.list-content th').length+'"><p class="info">暂无数据</p></td></tr>';
+            }
+            me.$('.list-content tbody').html(htmlStr);
         }
     });
 
