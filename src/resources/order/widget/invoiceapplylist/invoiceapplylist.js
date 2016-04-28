@@ -95,7 +95,7 @@ define(function (require, exports, module) {
 		jumpEve:function(jump){
 			var me = this;
 			me.$view.find('.toggle b[data-type="'+jump+'"]').trigger("click");
-			me.refresh();
+			me.refresh('refuse');
 		},
 
         //查看发票详情
@@ -168,10 +168,15 @@ define(function (require, exports, module) {
         },
 
         //刷新审批列表
-        refresh: function(  ){
+        refresh: function( param ){
         	var me = this;
             
-            var type = me.$('.toggle b.active').attr('data-type');
+			if( param ){
+				var type = param;
+			}else{
+				 var type = me.$('.toggle b.active').attr('data-type');
+			}
+           
             var url;
 
             switch( type ){
