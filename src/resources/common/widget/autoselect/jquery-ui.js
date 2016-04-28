@@ -1450,7 +1450,7 @@ var menu = $.widget( "ui.menu", {
 						}
 					}
 				}
-				event.stopPropagation();
+				///event.stopPropagation();
 			},
 			"mouseenter .ui-menu-item": function( event ) {
 				// Ignore mouse events while typeahead is active, see #10458.
