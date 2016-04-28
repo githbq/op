@@ -33,7 +33,7 @@
                 <ul class="nav-sub">
                     <li data-modulecode="EnterpriseFIlingOpA"><a href="#agentsupport/entprisefiling">备案企业列表</a></li>
                     <li data-modulecode="EnterpriseFIlingOpenOpA"><a href="#agentsupport/entpriseopen">已公开列表</a></li>
-                    <li data-modulecode="EnterpriseFIlingOpenRequestOpA"><a href="#agentsupport/entprisereq">公开企业申请列表</a></li>
+                    <!--<li data-modulecode="EnterpriseFIlingOpenRequestOpA"><a href="#agentsupport/entprisereq">公开企业申请列表</a></li>-->
                 </ul>
             </li>
             <li data-modulecode="OrderOpA">

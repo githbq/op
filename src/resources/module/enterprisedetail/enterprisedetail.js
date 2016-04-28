@@ -2691,7 +2691,7 @@ define(function (require, exports, module) {
             console.log('log log log');
             var me = this,
                 data = {
-                    pageIndex: me.log.pagination.attr['pageNumber'],
+                    pageIndex: me.log.pagination.attr['pageNumber']+1,
                     pageSize: me.log.pagination.attr['pageSize'],
                     enterpriseId: me.model.attrs.enterpriseId,
                     type: me.$sbLogType.val()
@@ -2713,7 +2713,7 @@ define(function (require, exports, module) {
                         me.log.pagination.setTotalSize(data.model.itemCount);
                         if (data.model.content.length > 0) {
                             data.model.content.forEach(function (item) {
-                                item.createTimeStr = new Date(item.createTime)._format('yyyy-MM-dd hh:mm');
+                                item.createTimeStr = new Date(item.createtime)._format('yyyy-MM-dd hh:mm');
                                 item.typeStr = util.findEnumsText('ENTERPRISE_LOG_TYPE', item.type);
                             });
                             me.$tbLog.html(me.tplLog({content: data.model.content}));
