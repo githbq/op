@@ -521,7 +521,9 @@ define(function (require, exports, module) {
                 'success': function (data) {
                     console.warn(data)
                     if (data.success) {
+						me.$smsWh.val(data.value.model);
                         util.showTip('分配成功');
+						me.hide();
                     }
                 }
             })
@@ -540,6 +542,8 @@ define(function (require, exports, module) {
                     console.warn(data)
                     if (data.success) {
                         util.showTip('回收成功');
+						me.$smsWh.val('');
+						me.hide();
                     }
                 }
             })
