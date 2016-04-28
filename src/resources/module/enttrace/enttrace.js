@@ -103,7 +103,7 @@ define( function(require, exports, module){
                 'data':{
                     'enterpriseId': me.model.get('enterpriseId'),
                     'pageSize': me.model.get('pageSize'),
-                    'pageIndex': me.model.get('pageNumber')
+                    'pageIndex': me.model.get('pageNumber')+1
                 },
                 'beforeSend': function(){
                      me.$contentmain.html('<p class="info">加载中......</p>');

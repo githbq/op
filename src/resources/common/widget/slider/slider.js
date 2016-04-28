@@ -16,7 +16,7 @@ define(function(require, exports, module){
 	 */
 	var $body = $('body');
 	$body.on('click',function(e){
-		if ($(e.target).closest('.m-slider').length == 0) {
+		if ($(e.target).closest('.m-slider,.ui-autocomplete').length == 0) {
 			for( var key in Slider.widgets ){
 				Slider.widgets[key].hide();
 			}
