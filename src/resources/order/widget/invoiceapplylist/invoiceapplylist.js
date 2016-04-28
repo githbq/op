@@ -47,7 +47,7 @@ define(function (require, exports, module) {
             }
 
             console.log( me.attrs.state );
-            me.refresh();
+            //me.refresh();
         },
 
         //
@@ -98,7 +98,7 @@ define(function (require, exports, module) {
 			me.$view.find('.toggle b[data-type="'+jump+'"]').addClass('active').siblings().removeClass('active');
 			
             me.pagination.setPage(0,false);
-            me.refresh('refuse');
+            me.refresh();
 		},
 
         //查看发票详情
@@ -174,11 +174,8 @@ define(function (require, exports, module) {
         refresh: function( param ){
         	var me = this;
             
-			if( param ){
-				var type = param;
-			}else{
-				 var type = me.$('.toggle b.active').attr('data-type');
-			}
+			
+			var type = me.$('.toggle b.active').attr('data-type');
            
             var url;
 

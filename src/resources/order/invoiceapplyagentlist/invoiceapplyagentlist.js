@@ -20,6 +20,8 @@ define(function (require, exports, module) {
 		})
 		if(param.length>0){
 			invoiceApplyList.trigger('refuse','refuse');
+		}else{
+			invoiceApplyList.refresh();
 		}
 
         //发票模块
