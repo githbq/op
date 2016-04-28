@@ -1800,7 +1800,7 @@ define(function (require, exports, module) {
                         me.$('#phonecallbackselect').val(data.value.model['returnVisitCheck']);
                         me.$('#cheatstatus').val(data.value.model['cheatType']);
                         me.$('#returnVisitCheckName').val(data.value.model['returnVisitCheckAccount'] && data.value.model['returnVisitCheckAccount']['name']);
-                        me.$('#returnVisitCheckTimeStr').val(data.value.model['returnVisitCheckTime'] && new Date(data.value.model['returnVisitCheckTime'])._format('yyyy-MM-dd hh:mm'));
+                        me.$('#returnVisitCheckTimeStr').val(data.value.model['returnvisitCheckTime'] && new Date(data.value.model['returnvisitCheckTime'])._format('yyyy-MM-dd hh:mm'));
                         me.$('#returnVisitCheckStr').text(util.findEnumsText('RETURN_VISIT_CHECK', data.value.model['returnVisitCheck']));
                     }
                 }

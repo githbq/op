@@ -161,7 +161,7 @@ define( function(require, exports, module){
                         me.pagination.setTotalSize( data.value.model.itemCount );
                         me.collection.reload( data.value.model.content,function( item ){
                             item.typeStr = logMap[item.type];
-                            item.createTimeStr =  item.creator.lastTryUpdatePswTime ? new Date( item.creator.lastTryUpdatePswTime)._format('yyyy-MM-dd hh:mm'):'';
+                            item.createTimeStr =  item.createTime ? new Date( item.createTime)._format('yyyy-MM-dd hh:mm'):'';
                         });
                     }
                 }
