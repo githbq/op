@@ -21,7 +21,7 @@ define( function(require, exports, module){
         
         defaultModel: {
             'enterpriseId': null,
-            'pageNumber': 0,
+            'pageNumber': 1,
             'pageSize': 6,
             'pageCount': 0
         },
@@ -103,7 +103,7 @@ define( function(require, exports, module){
                 'data':{
                     'enterpriseId': me.model.get('enterpriseId'),
                     'pageSize': me.model.get('pageSize'),
-                    'pageIndex': me.model.get('pageNumber')+1
+                    'pageIndex': me.model.get('pageNumber')
                 },
                 'beforeSend': function(){
                      me.$contentmain.html('<p class="info">加载中......</p>');
@@ -141,7 +141,7 @@ define( function(require, exports, module){
         renderMore: function(){
             var me = this;
 
-            if( (me.model.get('pageNumber') + 1) >= me.model.get('pageCount') ){
+            if( (me.model.get('pageNumber') + 1) > me.model.get('pageCount') ){
                 me.$contentmore.hide();
             }else{
                 me.$contentmore.show();
