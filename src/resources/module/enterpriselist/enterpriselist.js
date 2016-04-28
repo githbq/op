@@ -288,10 +288,9 @@ define(function (require, exports, module) {
                     me.$tbody.html('<tr><td colspan="10"><p class="info">加载中...</p></td></tr>');
                 },
                 success: function (data) {
-
                     if (data.success) {
-                        me.pagination.setTotalSize(data.value.model.itemCount);
                         if (data.value.model.content.length > 0) {
+                            me.pagination.setTotalSize(data.value.model.itemCount);
                             me.list.reload(data.value.model.content, function (item) {
 
                                 if (item.enterprise.appStartTime) {
