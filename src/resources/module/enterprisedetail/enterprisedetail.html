@@ -431,6 +431,15 @@
 						<input id="sdSUC" disabled="disabled" class="g-ipt ipt-m" type="text">
 					</label>
 					<label class="hw">
+						<span>培训助手流量总量(小时)</span>
+						<input id="trainHelperTotalCapacity"  class="g-ipt ipt-m" type="text">
+					</label>
+					<label class="hw">
+						<span>培训助手流量<br>已用量/未用量</span>
+						<input id="trainHelperUsedCapacityStr" disabled="disabled" class="g-ipt ipt-m" type="text">
+					</label>
+
+					<label class="hw">
 						<span>存储扩容(GB)</span>
 						<input type="text" class="g-ipt ipt-m" oninput="this.value=this.value.replace(/[^\d]/g,'')" id="expandStorageSpace">
 					</label>
@@ -625,9 +634,9 @@
 					<label>
 						<span>培训开始时间</span><input type="text" class="g-ipt ipt-m" id="trainstarttime"> 
 					</label>
-					<label>
+					<!--<label>
 						<span>结束时间</span><input class="g-ipt ipt-m" type="text" id="trainendtime">
-					</label>
+					</label>-->
 					<label>
 						<span>培训师</span><input type="text" class="g-ipt ipt-m" id="trainer">
 					</label>
@@ -637,7 +646,7 @@
 				</p>
 				<p class="training-action">
 					<button class="addTraining" data-permissions="F009039 F008063">+添加培训记录</button>
-					<button class="u-btn-blue searchTraining" data-permissions="F009041">查询</button>
+					<button class="u-btn-blue searchTraining" data-permissions="F009041 F008065">查询</button>
 				</p>
 				<table>
 
