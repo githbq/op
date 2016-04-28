@@ -629,13 +629,15 @@ define(function (require, exports, module) {
             o_setFieldVisible: function ($ele, value) {
                 var me = this;
                 if (value != undefined) {
-                    var wrapper = this.o_field_getWrapper($ele);
+                    $ele.each(function(i,n){
+                    var wrapper = me.o_field_getWrapper($(n));
                     if (!value) {
                         wrapper.hide();
                     } else {
                         wrapper.show();
                     }
-                    this.o_field_getData($ele).visible = value;
+                    me.o_field_getData($(n)).visible = value;
+                    })
                 }
             }
             ,
