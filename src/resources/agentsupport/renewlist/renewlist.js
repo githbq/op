@@ -169,16 +169,10 @@ define( function( require, exports, module ) {
         },
 		jumpEve:function(jump){
 			var me = this;
-			me.$view.find('.toggle b[data-state="'+jump+'"]').trigger("click");
-			var state = $target.attr('data-state');
-
-            if( state == this.attrs.state ){
-                return;
-            }
-
-            this.attrs.state = state;
-            this.setState();
-            this.searchEve();
+			me.$view.find('.toggle b[data-state="'+jump+'"]').addClass('active').siblings().removeClass('active');
+			me.attrs.state = jump;
+            me.setState();
+            me.searchEve();
 		},
         toggleEve: function( e ){
             var $target = $( e.currentTarget );

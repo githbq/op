@@ -94,8 +94,11 @@ define(function (require, exports, module) {
         },
 		jumpEve:function(jump){
 			var me = this;
-			me.$view.find('.toggle b[data-type="'+jump+'"]').trigger("click");
-			me.refresh('refuse');
+			
+			me.$view.find('.toggle b[data-type="'+jump+'"]').addClass('active').siblings().removeClass('active');
+			
+            me.pagination.setPage(0,false);
+            me.refresh('refuse');
 		},
 
         //查看发票详情
