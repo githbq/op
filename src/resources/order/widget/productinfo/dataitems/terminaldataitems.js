@@ -443,8 +443,8 @@ define(function (require, exports, module) {
             var options = {
                 data: {
                     id: id,
-                    startDate: me.o_getFieldValue('startTime_' + id)+1,
-                    endDate: me.o_getFieldValue('endTime_' + id)+2,
+                    startDate: me.o_getFieldValue('startTime_' + id),
+                    endDate: me.o_getFieldValue('endTime_' + id),
                     sum: sum,
                     contractAmount: me.o_getFieldValue('purchaseAmount_' + id) || 0,
                     orderType: me.o_getFieldValue('orderType')
@@ -477,6 +477,8 @@ define(function (require, exports, module) {
                     me.o_setValue({name: 'startTime_' + id, value: ''});
                     me.o_setValue({name: 'endTime_' + id, value: ''});
                 } else {
+                    options.data.startDate+=1;
+                    options.data.endDate+=2;
                     me.attrs.apiPool.api_getCalculateSingle(options);
                 }
             }else if(id=='16'){
