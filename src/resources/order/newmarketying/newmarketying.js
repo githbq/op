@@ -714,7 +714,8 @@ define( function( require, exports, module ) {
 			var discoutFlag = true;
 			if( me.attrs.typeFlag == 'newOffice' || me.attrs.typeFlag == 'newMarket'|| me.attrs.typeFlag == 'releateOffice'|| me.attrs.typeFlag == 'releateMarket' ){
 				_.map( data , function( obj ){
-					if(obj.subOrder.productId ==1 || obj.subOrder.productId ==4  || obj.subOrder.productId ==5 || obj.subOrder.productId ==12){
+					debugger
+					if($.inArray(parseInt(obj.subOrder.productId),[1,4,5,7,12])>=0){
 						if( obj.subOrder.discount  &&  obj.subOrder.discount<8 &&me.attrs.typeFlag != 'newOffice' && obj.subOrder.productId!=7){  //新购 工资助手不参与折扣计算
 							discoutFlag = false;
 							//util.showToast('子产品折扣低于8折，必须申请特批');
@@ -724,7 +725,7 @@ define( function( require, exports, module ) {
 				});
 			}else{
 				_.map( data , function( obj ){
-					if(obj.subOrder.productId ==1 || obj.subOrder.productId ==4  || obj.subOrder.productId ==7  || obj.subOrder.productId ==5 || obj.subOrder.productId ==12 ){
+					if($.inArray(parseInt(obj.subOrder.productId),[1,4,5,7,12])>=0){
 						if( obj.subOrder.discount  &&  obj.subOrder.discount<8){
 							discoutFlag = false;
 							//util.showToast('子产品折扣低于8折，必须申请特批');
