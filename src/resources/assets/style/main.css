@@ -5015,7 +5015,7 @@ em {
 .p-indexact-lst .m-act-lst .list-bar .list-bar-btns button:last-child {
   margin-right: 0;
 }
-.p-indexact-lst .m-act-lst .list-bar .list-bar-btns button.disabled {
+.p-indexact-lst .m-act-lst .list-bar .list-bar-btns button.disable {
   opacity: 0.3;
 }
 .p-indexact-lst .m-act-lst .list-bar .list-bar-entry {
@@ -5056,7 +5056,7 @@ em {
 .p-indexact-lst .m-act-lst .list-content p.btns button.invisiable {
   display: none;
 }
-.p-indexact-lst .m-act-lst .list-content p.btns button.disabled {
+.p-indexact-lst .m-act-lst .list-content p.btns button.disable {
   opacity: 0.3;
 }
 .p-indexact-lst .m-act-lst .list-content p .hl {
@@ -6396,6 +6396,9 @@ em {
 .productinfo {
   width: 1300px;
 }
+.productinfo .num-input {
+  width: 80px;
+}
 .productinfo .disabled,
 .productinfo .readonly {
   background-color: #ebebe4;
@@ -6406,6 +6409,18 @@ em {
 .productinfo .crmwrapper {
   padding-top: 15px;
   padding-bottom: 15px;
+  border-top: 2px dashed #999999;
+}
+.productinfo .fxwrapper .bind label,
+.productinfo .crmwrapper .bind label {
+  padding-left: 10px;
+  width: 108px;
+  text-align: left;
+}
+.productinfo .m-datetime {
+  width: 80px;
+}
+.productinfo .dashed-border {
   border-top: 2px dashed #999999;
 }
 .productinfo .uploadinfo {
@@ -6482,11 +6497,14 @@ em {
 }
 .productinfo .field_row label {
   display: inline-block;
-  width: 150px;
+  width: 120px;
   text-align: right;
 }
+.productinfo .field_row label.long {
+  width: 150px;
+}
 .productinfo .field_row label.date {
-  width: 120px;
+  width: 70px;
 }
 .productinfo .field_row label.text_right {
   padding-left: 10px;
@@ -6501,6 +6519,9 @@ em {
 }
 .productinfo .field_row .field_row_head {
   padding-right: 20px;
+}
+.productinfo .field_row .field_wrapper {
+  padding-left: 20px;
 }
 .productinfo table th,
 .productinfo table td {

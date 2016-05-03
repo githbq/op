@@ -715,7 +715,7 @@ define( function( require, exports, module ) {
 			if( me.attrs.typeFlag == 'newOffice' || me.attrs.typeFlag == 'newMarket'|| me.attrs.typeFlag == 'releateOffice'|| me.attrs.typeFlag == 'releateMarket' ){
 				_.map( data , function( obj ){
 					if(obj.subOrder.productId ==1 || obj.subOrder.productId ==4  || obj.subOrder.productId ==5 || obj.subOrder.productId ==12){
-						if( obj.subOrder.discount  &&  obj.subOrder.discount<8){
+						if( obj.subOrder.discount  &&  obj.subOrder.discount<8 &&me.attrs.typeFlag != 'newOffice' && obj.subOrder.productId!=7){  //新购 工资助手不参与折扣计算
 							discoutFlag = false;
 							//util.showToast('子产品折扣低于8折，必须申请特批');
 							//return false;
