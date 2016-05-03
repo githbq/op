@@ -133,7 +133,7 @@ define(function (require, exports, module) {
                         if (subOrder.productId == '2' || subOrder.productId == '3') {//选中逍客终端
                             useFX = true;
                         }
-                        if (subOrder.productId == '13') {//选中培训助手
+                        if (subOrder.productId == '13' || subOrder.productId == '16') {//选中培训助手
                             useTrainning = true;
                         }
                         if (subOrder['startTime_readonly'] === true && dataDic['startTime_' + subOrder.productId]) {

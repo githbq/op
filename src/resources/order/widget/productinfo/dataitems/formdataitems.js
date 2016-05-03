@@ -250,6 +250,7 @@ define(function (require, exports, module) {
                             if (!purchaseAmount) {
                                 $dom.val('');
                             } else if ($dom.val() && parseFloat(purchaseAmount) < parseFloat($dom.val())) {
+                                debugger
                                 util.showToast('分期金额不能大于对应的合同金额');
                                 $dom.val(purchaseAmount);
                             }

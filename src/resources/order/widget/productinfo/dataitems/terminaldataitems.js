@@ -80,9 +80,9 @@ define(function (require, exports, module) {
                                             var $type = me.o_data_getField(me.dataDic[i]);
                                             $type && $type.length > 0 && ($type.change());
                                         }
-                                        if(!checked && !(me.o_getFieldValue('purchaseCount'+findIndex)) ){
-                                            me.o_setValue({name:'purchaseAmount'+findIndex,value:0});
-                                            me.o_setValue({name:'productAmount'+findIndex,value:0});
+                                        if (!checked && !(me.o_getFieldValue('purchaseCount' + findIndex))) {
+                                            me.o_setValue({name: 'purchaseAmount' + findIndex, value: 0});
+                                            me.o_setValue({name: 'productAmount' + findIndex, value: 0});
                                         }
                                     }
                                 });
@@ -164,9 +164,9 @@ define(function (require, exports, module) {
                                 $dom.val('');
                                 return;
                             }
-                        }else{
-                            me.o_setValue({name:'purchaseAmount_'+n,value:0});
-                            me.o_setValue({name:'productAmount_'+n,value:0});
+                        } else {
+                            me.o_setValue({name: 'purchaseAmount_' + n, value: 0});
+                            me.o_setValue({name: 'productAmount_' + n, value: 0});
                         }
                         if (n == '16') {
                             debugger
@@ -422,6 +422,7 @@ define(function (require, exports, module) {
         }
 
         function changeForGetPrice(e, change) {
+            debugger
             var me = this;
             var $dom = $(e.target);
             var id = $dom.parents('[data-productid]').attr('data-productid');
@@ -435,7 +436,7 @@ define(function (require, exports, module) {
                 if (!sum) {
                     checkTypeForPrice.call(me, e, id);
                     priceComput.call(me, e);
-                     return;
+                    return;
                 }
             }
 
@@ -477,15 +478,15 @@ define(function (require, exports, module) {
                     me.o_setValue({name: 'startTime_' + id, value: ''});
                     me.o_setValue({name: 'endTime_' + id, value: ''});
                 } else {
-                    options.data.startDate+=1;
-                    options.data.endDate+=2;
+                    options.data.startDate += 1;
+                    options.data.endDate += 2;
                     me.attrs.apiPool.api_getCalculateSingle(options);
                 }
-            }else if(id=='16'){
-                util.showToast('培训助手时间不能为空');
-                me.o_setValue({name: 'purchaseCount_16', value:0});
-                me.o_setValue({name: 'purchaseAmount_16', value:0});
-                me.o_setValue({name: 'productAmount_16', value:0});
+            } else if (id == '16' || id == '13') {
+                me.o_setValue({name: 'purchaseCount_16', value:''});
+                me.o_setValue({name: 'purchaseAmount_16', value: 0});
+                me.o_setValue({name: 'productAmount_16', value: 0});
+                me.o_data_getField({name: 'purchaseCount_16'}).change();
             }
         }
 

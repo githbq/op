@@ -14,22 +14,25 @@ define( function( require, exports, module ) {
 						'againOffice-common','againOffice-special',
 						'againMarkey-common','againMarkey-special',
 						'releateOffice-common','releateOffice-special',
-						'releateMarket-common','releateMarket-special',
+						'releateMarket-common','releateMarket-special'
 					];
 	var productIdDic = {
-            '1': 'CRM',
-            '2': '逍客终端',
-            '3': '服务',
-            '4': 'PK助手',
-            '5': '会议助手',
-            '6': 'HR助手',
-            '7': '工资助手',
-            '8':'名片',
-			'12':'自定义助手',
-			'13':'培训助手',
-			'14':'战报助手',	
-			'15':'考试助手'
-        }; 
+		'1': 'CRM',
+		'2': '逍客终端',
+		'3': '服务',
+		'4': 'PK_Helper',
+		'5': 'Meeting_Helper',
+		'6': 'HR_Helper',
+		'7': 'Salary_Helper',
+		'8': '名片',
+		'10': '百川',
+		'11': '报数',
+		'12': '自定义助手',
+		'13':'培训助手',
+		'14':'战报助手',
+		'15':'考试助手',
+		'16':'培训助手购买流量'
+	};
     var NewMarketing = MClass( M.Center ).include( {
         
         elements: {
