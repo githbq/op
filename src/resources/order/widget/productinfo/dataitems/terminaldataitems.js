@@ -80,8 +80,9 @@ define(function (require, exports, module) {
                                             var $type = me.o_data_getField(me.dataDic[i]);
                                             $type && $type.length > 0 && ($type.change());
                                         }
-                                        if(!checked && !(me.o_getFieldValue('purchaseCount'+findIndex)) && (i.toString().indexOf('purchaseAmout_')==0 ||i.toString().indexOf('productAmout_')==0)){
-                                            me.o_setValue({name:i.toString(),value:0});
+                                        if(!checked && !(me.o_getFieldValue('purchaseCount'+findIndex)) ){
+                                            me.o_setValue({name:'purchaseAmount'+findIndex,value:0});
+                                            me.o_setValue({name:'productAmount'+findIndex,value:0});
                                         }
                                     }
                                 });
