@@ -19,7 +19,7 @@ define(function (require, exports, module) {
             n.visible=false;
         });
         controller(terminalDataItems, 'purchaseAmount_13', function (n) {
-            n.visible=false;
+            n.visible = false;
         });
         controller(terminalDataItems,'useFX',function(n){
             n.value = false;
