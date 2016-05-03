@@ -73,11 +73,15 @@ define(function (require, exports, module) {
                                         if (checked && me.dataDic[i].old_readonly === undefined) {
                                             me.dataDic[i].old_readonly = !!me.dataDic[i].readonly;
                                         }
+
                                         me.dataDic[i].readonly = !checked ? true : ( me.dataDic[i].old_readonly === true ? isReadonly : false);
                                         me.o_setValue(me.dataDic[i]);
                                         if (i.toString().indexOf('type_') == 0) {
                                             var $type = me.o_data_getField(me.dataDic[i]);
                                             $type && $type.length > 0 && ($type.change());
+                                        }
+                                        if(i.toString().indexOf('purchaseAmout_')==0 ||i.toString().indexOf('productAmout_')==0){
+                                            me.o_setValue({name:i.toString(),value:0});
                                         }
                                     }
                                 });
