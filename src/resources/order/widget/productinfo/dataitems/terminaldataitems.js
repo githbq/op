@@ -80,7 +80,7 @@ define(function (require, exports, module) {
                                             var $type = me.o_data_getField(me.dataDic[i]);
                                             $type && $type.length > 0 && ($type.change());
                                         }
-                                        if(i.toString().indexOf('purchaseAmout_')==0 ||i.toString().indexOf('productAmout_')==0){
+                                        if(!checked && !(me.o_getFieldValue('purchaseCount'+findIndex)) && (i.toString().indexOf('purchaseAmout_')==0 ||i.toString().indexOf('productAmout_')==0)){
                                             me.o_setValue({name:i.toString(),value:0});
                                         }
                                     }
@@ -168,6 +168,7 @@ define(function (require, exports, module) {
                             me.o_setValue({name:'productAmount_'+n,value:0});
                         }
                         if (n == '16') {
+                            debugger
                             changeForGetPrice.call(me, e);
                             return;
                         }
@@ -477,6 +478,11 @@ define(function (require, exports, module) {
                 } else {
                     me.attrs.apiPool.api_getCalculateSingle(options);
                 }
+            }else if(id=='16'){
+                util.showToast('培训助手时间不能为空');
+                me.o_setValue({name: 'purchaseCount_16', value:0});
+                me.o_setValue({name: 'purchaseAmount_16', value:0});
+                me.o_setValue({name: 'productAmount_16', value:0});
             }
         }
 
