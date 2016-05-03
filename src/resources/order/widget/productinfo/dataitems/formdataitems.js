@@ -255,9 +255,9 @@ define(function (require, exports, module) {
                                 $dom.val(purchaseAmount);
                             }
                             var currPayAmount = 0;
-                            me.$('.fenqi:visible').each(function (i, n) {
-                                if ($(n).val()) {
-                                    currPayAmount += math.numAdd(currPayAmount, $(n).val());
+                            me.$('.fenqi:visible').each(function (j, m) {
+                                if ($(m).val()) {
+                                    currPayAmount = math.numAdd(currPayAmount, $(m).val());
                                 }
                             });
                             me.o_setValue({name: 'currPayAmount', value: currPayAmount});
