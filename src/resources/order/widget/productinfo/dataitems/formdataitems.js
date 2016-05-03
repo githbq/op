@@ -1,7 +1,7 @@
 define(function (require, exports, module) {
     var DataItem = require('../index').PageDataClass;
     var uploader = require('common/widget/upload').uploader;
-
+    var math = require('common/widget/math/math');
     module.exports.getItems = function () {
         var dataItems = [];
 
@@ -185,10 +185,10 @@ define(function (require, exports, module) {
                                 checkeds.push('3');//服务费
                             }
                             if (me.__refs.terminalInfo.o_getFieldValue('useTrainning')) {//使用服务费
-                                if(me.__refs.terminalInfo.o_getFieldData('productTrainingWrapper').visible!==false){
+                                if (me.__refs.terminalInfo.o_getFieldData('productTrainingWrapper').visible !== false) {
                                     checkeds.push('13');//培训费
                                 }
-                                if(me.__refs.terminalInfo.o_getFieldData('productTimeLongWrapper').visible!==false){
+                                if (me.__refs.terminalInfo.o_getFieldData('productTimeLongWrapper').visible !== false) {
                                     checkeds.push('16');//流量费
                                 }
                             }
@@ -230,7 +230,7 @@ define(function (require, exports, module) {
             ]
 
         }));
-        var currPayIdArr = [3, 1, 4, 5, 7, 12,15,14,13,16];
+        var currPayIdArr = [3, 1, 4, 5, 7, 12, 15, 14, 13, 16];
         $(currPayIdArr).each(function (i, n) {
             (function (id) {
                 dataItems.push(new DataItem({
@@ -257,7 +257,7 @@ define(function (require, exports, module) {
                             var currPayAmount = 0;
                             me.$('.fenqi:visible').each(function (i, n) {
                                 if ($(n).val()) {
-                                    currPayAmount += parseFloat($(n).val());
+                                    currPayAmount += math.numAdd(currPayAmount, $(n).val());
                                 }
                             });
                             me.o_setValue({name: 'currPayAmount', value: currPayAmount});
