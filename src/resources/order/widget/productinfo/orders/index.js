@@ -238,6 +238,7 @@ define(function (require, exports, module) {
         //设置增购逻辑
         exports.setAddOrderLogic = function (controller, terminalDataItems, tableDataItems, formDataItems, type, responseData) {
             var hasTrainning = false;
+            debugger
             $(responseData.data.subOrders).each(function (j, m) {
                 if (m.subOrder.productId == '13') {
                     hasTrainning = true;

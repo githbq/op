@@ -443,8 +443,8 @@ define(function (require, exports, module) {
             var options = {
                 data: {
                     id: id,
-                    startDate: me.o_getFieldValue('startTime_' + id),
-                    endDate: me.o_getFieldValue('endTime_' + id),
+                    startDate: me.o_getFieldValue('startTime_' + id)+1,
+                    endDate: me.o_getFieldValue('endTime_' + id)+2,
                     sum: sum,
                     contractAmount: me.o_getFieldValue('purchaseAmount_' + id) || 0,
                     orderType: me.o_getFieldValue('orderType')
