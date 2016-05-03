@@ -246,7 +246,8 @@ define(function (require, exports, module) {
                             var $dom = $(e.target);
                             $dom.val($dom.val().replace(/[^\.\d]/g, ''));
 
-                            var purchaseAmount = controll.o_getFieldValue('purchaseAmount_' + id);
+                            var purchaseAmount = controll.o_getFieldValue('purchaseAmount_input_' + id);
+                            controll.o_setValue({name:'purchaseAmount_'+id,value:purchaseAmount});//值再一次同步
                             if (!purchaseAmount) {
                                 $dom.val('');
                             } else if ($dom.val() && parseFloat(purchaseAmount) < parseFloat($dom.val())) {

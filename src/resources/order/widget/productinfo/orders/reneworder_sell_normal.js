@@ -37,6 +37,9 @@ define(function (require, exports, module) {
             n.visible = true;
 
         });
+        controller(terminalDataItems, 'kunbangWrapper', function (n) {
+            n.visible = true;
+        });
         controller(terminalDataItems, 'useCRM', function (n) {
             n.visible = true;
             n.value=false;

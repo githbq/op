@@ -33,6 +33,9 @@ define(function (require, exports, module) {
         controller(terminalDataItems, 'purchaseAmount_input_1', function (n) {
             n.visible = true;
         });
+        controller(terminalDataItems, 'kunbangWrapper', function (n) {
+            n.visible = true;
+        });
         controller(terminalDataItems, 'purchaseAmount_1', function (n) {
             n.visible = false;
         });
