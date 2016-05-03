@@ -83,6 +83,7 @@ define(function (require, exports, module) {
                                         if (!checked && !(me.o_getFieldValue('purchaseCount' + findIndex))) {
                                             me.o_setValue({name: 'purchaseAmount' + findIndex, value: 0});
                                             me.o_setValue({name: 'productAmount' + findIndex, value: 0});
+                                            me.o_setValue({name: 'discount' + findIndex, value: 0});
                                         }
                                     }
                                 });
@@ -465,8 +466,8 @@ define(function (require, exports, module) {
                 }
             };
             if (id == '16') {
-                options.data.startDate = me.o_getFieldValue('startTime_13');
-                options.data.endDate = me.o_getFieldValue('endTime_13');
+                options.data.startDate = me.o_getFieldValue('startTime_13')||new Date().getTime();
+                options.data.endDate = me.o_getFieldValue('endTime_13')||new Date().getTime()+2;
             }
             if (id == '3') {//服务人数不计算折扣
                 checkTypeForPrice.call(me, e, id);
@@ -482,12 +483,13 @@ define(function (require, exports, module) {
                     options.data.endDate += 2;
                     me.attrs.apiPool.api_getCalculateSingle(options);
                 }
-            } else if (id == '16' || id == '13') {
-                me.o_setValue({name: 'purchaseCount_16', value:''});
-                me.o_setValue({name: 'purchaseAmount_16', value: 0});
-                me.o_setValue({name: 'productAmount_16', value: 0});
-                me.o_data_getField({name: 'purchaseCount_16'}).change();
             }
+            //else if (id == '16' || id == '13') {
+            //    me.o_setValue({name: 'purchaseCount_16', value:''});
+            //    me.o_setValue({name: 'purchaseAmount_16', value: 0});
+            //    me.o_setValue({name: 'productAmount_16', value: 0});
+            //    me.o_data_getField({name: 'purchaseCount_16'}).change();
+            //}
         }
 
         return dataItems;
