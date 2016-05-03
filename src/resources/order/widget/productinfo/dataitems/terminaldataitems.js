@@ -466,18 +466,13 @@ define(function (require, exports, module) {
                 priceComput.call(me, e);
             }
             else if (options.data.startDate && options.data.endDate) {
-                if (options.data.startDate >= options.data.endDate) {
-                    util.showToast('开始日期必须小于结束日期');
+                if (options.data.startDate > options.data.endDate) {
+                    util.showToast('开始日期必须小于等于结束日期');
                     me.o_setValue({name: 'startTime_' + id, value: ''});
                     me.o_setValue({name: 'endTime_' + id, value: ''});
                 } else {
                     me.attrs.apiPool.api_getCalculateSingle(options);
                 }
-            } else if (id == '16') {//流量
-                util.showToast('开始日期必须小于结束日期');
-                $dom.val('');
-                me.o_setFieldValue({name: 'productAmount_16', value: ''});
-                me.o_setFieldValue({name: 'purchaseAmount_16', value: ''});
             }
         }
 
