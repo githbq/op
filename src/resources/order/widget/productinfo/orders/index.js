@@ -110,6 +110,7 @@ define(function (require, exports, module) {
                 controller(terminalDataItems, 'useTrainning', function (item) {
                     useTrainning=item.value;
                 });
+                debugger
                 $(subOrders).each(function (i, n) {
                     if (n.subOrder && n.subOrder.productId && n.subOrder.productId != 10 && n.subOrder.productId != 11 && n.subOrder.productId != 8) {//10为绑定百川  11为绑定报数系统
                         if (n.subOrder.enabled !== false) {

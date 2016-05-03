@@ -565,6 +565,9 @@ define(function (require, exports, module) {
                 return next($ele, value);
             },
             i_setValueWhereDefault: function ($ele, value) {
+                if($ele.attr('data-name')=='currPayAmount_16'){
+                    debugger
+                }
                 $ele.val(value);
                 return value;
             },

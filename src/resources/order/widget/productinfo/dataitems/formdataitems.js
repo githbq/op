@@ -161,8 +161,8 @@ define(function (require, exports, module) {
                         }
                             ;
                             break;
-                        case '2':
-                        {//分期
+                        case '2':{
+
                             me.o_setValues([
                                 {name: 'currPayAmount'},
                                 {name: 'currPayAmount_3', visible: false},
@@ -171,12 +171,11 @@ define(function (require, exports, module) {
                                 {name: 'currPayAmount_5', visible: false},
                                 {name: 'currPayAmount_7', visible: false},
                                 {name: 'currPayAmount_12', visible: false},
-                                {name: 'currPayAmount_14', value: '0', visible: false},
-                                {name: 'currPayAmount_15', value: '0', visible: false},
-                                {name: 'currPayAmount_13', value: '0', visible: false},
-                                {name: 'currPayAmount_16', value: '0', visible: false}
+                                {name: 'currPayAmount_14', visible: false},
+                                {name: 'currPayAmount_15', visible: false},
+                                {name: 'currPayAmount_13', visible: false},
+                                {name: 'currPayAmount_16', visible: false}
                             ]);
-                            debugger
                             var checkeds = me.__refs.tableInfo.o_getFieldValue('check').split(',');
                             if (me.__refs.terminalInfo.o_getFieldValue('useCRM') && me.__refs.terminalInfo.o_getFieldData('useCRMWrapper').visible) {//使用了逍客终端 要加入服务费
                                 checkeds.push('1');//CRM费用
