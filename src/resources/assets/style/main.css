@@ -6422,6 +6422,9 @@ em {
   width: 108px;
   text-align: left;
 }
+.productinfo .m-datetime {
+  width: 80px;
+}
 .productinfo .dashed-border {
   border-top: 2px dashed #999999;
 }

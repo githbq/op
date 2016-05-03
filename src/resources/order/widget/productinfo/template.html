@@ -25,14 +25,14 @@
                     <!--<label>-->
                     <!--<span class="label">开始日期</span>-->
                     <!--</label>-->
-                    <!--<input data-name="startTime_2" datecontrol="{'type':0,'comment':'type为0表示开始时间'}" type="text" class="startTime" name="startTime"/>-->
+                    <!--<input data-name="startTime_2" datecontrol="{'type':0,'comment':'type为0表示开始时间'}" type="text" class="m-datetime" name="startTime"/>-->
 
                     <!--</div>-->
                     <!--<div class="field">-->
                     <!--<label>-->
                     <!--<span class="label">结束日期</span>-->
                     <!--</label>-->
-                    <!--<input data-name="endTime_2" type="text" datecontrol="{'type':0,'comment':'type为1表示结束时间'}" class="startTime" name="startTime"/>-->
+                    <!--<input data-name="endTime_2" type="text" datecontrol="{'type':0,'comment':'type为1表示结束时间'}" class="m-datetime" name="startTime"/>-->
                     <!--</div>-->
 
                     <div class="field_row suborder" data-productid="3">
@@ -128,14 +128,14 @@
                             <label class="date">
                                 <span class="label ">开始日期</span>
                             </label>
-                            <input data-name="startTime_1" datecontrol="{'type':0,'comment':'type为0表示开始时间'}" onblur="this.value= this.value.match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/) ? this.value:''" type="text" class="startTime" name="startTime"/>
+                            <input data-name="startTime_1" datecontrol="{'type':0,'comment':'type为0表示开始时间'}" onblur="this.value= this.value.match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/) ? this.value:''" type="text" class="m-datetime" name="startTime"/>
 
                         </div>
                         <div class="field ">
                             <label class="date">
                                 <span class="label">结束日期</span>
                             </label>
-                            <input data-name="endTime_1" type="text" datecontrol="{'type':0,'comment':'type为1表示结束时间'}" class="startTime" name="startTime" onblur="this.value= this.value.match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/) ? this.value:''"/>
+                            <input data-name="endTime_1" type="text" datecontrol="{'type':0,'comment':'type为1表示结束时间'}" class="m-datetime" name="startTime" onblur="this.value= this.value.match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/) ? this.value:''"/>
                         </div>
                         <div class="field bind" data-name="kunbangWrapper" data-config="{'visible':false}">
                             <label>
@@ -207,14 +207,16 @@
                             <div class="field">
                                 <label>
                                     <span class="label">开始日期</span>
+                                    <span class="red">*</span>
                                 </label>
-                                <input data-name="startTime_13" datecontrol="{'type':0,'comment':'type为0表示开始时间'}" type="text" class="startTime" name="startTime"/>
+                                <input data-name="startTime_13" datecontrol="{'type':0,'comment':'type为0表示开始时间'}" type="text" class="m-datetime" name="startTime"/>
                             </div>
                             <div class="field">
                                 <label>
                                     <span class="label">结束日期</span>
+                                    <span class="red">*</span>
                                 </label>
-                                <input data-name="endTime_13" type="text" datecontrol="{'type':0,'comment':'type为1表示结束时间'}" class="startTime" name="startTime"/>
+                                <input data-name="endTime_13" type="text" datecontrol="{'type':0,'comment':'type为1表示结束时间'}" class="m-datetime" name="startTime"/>
                             </div>
                             <div class="field text-price">
                                 <label>

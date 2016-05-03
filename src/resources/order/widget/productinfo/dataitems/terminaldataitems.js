@@ -159,6 +159,9 @@ define(function (require, exports, module) {
                                 $dom.val('');
                                 return;
                             }
+                        }else{
+                            me.o_setValue({name:'purchaseAmount_'+n,value:0});
+                            me.o_setValue({name:'productAmount_'+n,value:0});
                         }
                         if (n == '16') {
                             changeForGetPrice.call(me, e);
@@ -424,7 +427,9 @@ define(function (require, exports, module) {
             if (id == '1' || id == '16') {//针对CRM数量可改
                 sum = me.o_getFieldValue('purchaseCount_' + id);
                 if (!sum) {
-                    return;
+                    checkTypeForPrice.call(me, e, id);
+                    priceComput.call(me, e);
+                     return;
                 }
             }
 
