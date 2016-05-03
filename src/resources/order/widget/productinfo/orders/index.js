@@ -100,15 +100,15 @@ define(function (require, exports, module) {
                 }
                 var useCRM = false;
                 controller(terminalDataItems, 'useCRM', function (item) {
-                    useCRM=item.value;
+                    useCRM = item.value;
                 });
                 var useFX = false;
                 controller(terminalDataItems, 'useFX', function (item) {
-                    useFX=item.value;
+                    useFX = item.value;
                 });
                 var useTrainning = false;
                 controller(terminalDataItems, 'useTrainning', function (item) {
-                    useTrainning=item.value;
+                    useTrainning = item.value;
                 });
                 debugger
                 $(subOrders).each(function (i, n) {
@@ -124,7 +124,7 @@ define(function (require, exports, module) {
                             }
                         }
                         var items = tableDataItems;
-                        if ($.inArray(n.subOrder.productId.toString(), ['1', '2', '3', '13','16']) >= 0) {
+                        if ($.inArray(n.subOrder.productId.toString(), ['1', '2', '3', '13', '16']) >= 0) {
                             items = terminalDataItems;
                         }
                         if (subOrder.productId == '1') {//选中CRM
@@ -248,6 +248,11 @@ define(function (require, exports, module) {
                 controller(terminalDataItems, 'productTrainingWrapper', function (n) {
                     n.visible = false;
                 });
+                if (responseData.readonly || resonseData.responseData.refuse) {
+                    controller(terminalDataItems, 'useTrainning', function (n) {
+                        n.value = true;
+                    });
+                }
             }
 
             controller(tableDataItems, 'productTrainingWrapper', function (n) {
@@ -476,7 +481,7 @@ define(function (require, exports, module) {
             var formInfoData = formInfo.o_getValues();
             //suborders //////////////////////////////////////////
             var ids = tableInfoData.check.split(',');
-            if (terminalInfo.o_getFieldData('useCRMWrapper').visible!==false && terminalInfo.o_getFieldValue('useCRM')) {
+            if (terminalInfo.o_getFieldData('useCRMWrapper').visible !== false && terminalInfo.o_getFieldValue('useCRM')) {
                 ids.push('1');
             }
             if (terminalInfo.o_getFieldValue('useFX')) {
@@ -485,10 +490,10 @@ define(function (require, exports, module) {
             }
 
             if (terminalInfo.o_getFieldValue('useTrainning')) {// 培训助手
-                if (terminalInfo.o_getFieldData('productTrainingWrapper').visible!==false) {//培训助手
+                if (terminalInfo.o_getFieldData('productTrainingWrapper').visible !== false) {//培训助手
                     ids.push('13');
                 }
-                if (terminalInfo.o_getFieldData('productTimeLongWrapper').visible!==false) {//流量时长
+                if (terminalInfo.o_getFieldData('productTimeLongWrapper').visible !== false) {//流量时长
                     ids.push('16');
                 }
             }
