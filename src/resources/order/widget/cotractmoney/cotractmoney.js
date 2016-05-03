@@ -6,22 +6,25 @@ define(function(require, exports, module){
 	
 	var Slider = require('common/widget/slider/slider');
 	var contentStr = require('./cotractmoney.html');
-	
-	var productIdDic = {
-            '1': 'CRM',
-            '2': '逍客终端',
-            '3': '培训服务费',
-            '4': 'PK助手',
-            '5': '会议助手',
-            '6': 'HR助手',
-            '7': '工资助手',
-            '8':'名片',
-			'12':'自定义助手',
+
+		var productIdDic = {
+			'1': 'CRM',
+			'2': '逍客终端',
+			'3': '服务',
+			'4': 'PK助手',
+			'5': '会议助手',
+			'6': 'HR助手',
+			'7': '工资助手',
+			'8': '名片',
+			'10': '百川',
+			'11': '报数',
+			'12': '自定义助手',
 			'13':'培训助手',
-			'14':'战报助手',	
-			'15':'考试助手'	
-        }; 
-	
+			'14':'战报助手',
+			'15':'考试助手',
+			'16':'培训助手购买流量'
+		};
+
 	var AddEnt = MClass( M.Center ).include({
 		view: contentStr,
 		/*
