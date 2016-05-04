@@ -1027,11 +1027,11 @@ define(function (require, exports, module) {
                 checkIsOk()
             }); //日志类型
 
-            me.generateSelect('RETURN_VISIT_CHECK', me.$('#phonecallbackselect'), function () {
+            me.generateSelect('RETURN_VISIT_CHECK', me.$('#returnvisitCheck'), function () {
                 state.j = true;
                 checkIsOk()
             });       //电话回访状态
-            me.generateSelect('ENTERPRISE_CHEAT_TYPE', me.$('#cheatstatus'), function () {
+            me.generateSelect('ENTERPRISE_CHEAT_TYPE', me.$('#cheatType'), function () {
                 state.k = true;
                 checkIsOk()
             });             //作弊情况
@@ -1801,9 +1801,9 @@ define(function (require, exports, module) {
 
                     if (data.success) {
 
-                        me.$('#phonecallbackselect').val(data.value.model['returnVisitCheck']);
-                        me.$('#cheatstatus').val(data.value.model['cheatType']);
-                        me.$('#returnVisitCheckName').val(data.value.model['returnVisitCheckAccount'] && data.value.model['returnVisitCheckAccount']['name']);
+                        me.$('#returnvisitCheck').val(data.value.model['returnVisitCheck']);
+                        me.$('#cheatType').val(data.value.model['cheatType']);
+                        me.$('#returnVisitCheckAccountName').val(data.value.model['returnVisitCheckAccount'] && data.value.model['returnVisitCheckAccount']['name']);
                         me.$('#returnVisitCheckTimeStr').val(data.value.model['returnvisitCheckTime'] && new Date(data.value.model['returnvisitCheckTime'])._format('yyyy-MM-dd hh:mm'));
                         me.$('#returnVisitCheckStr').text(util.findEnumsText('RETURN_VISIT_CHECK', data.value.model['returnVisitCheck']));
                     }
@@ -1850,8 +1850,8 @@ define(function (require, exports, module) {
                 'url': '/enterprise/checkreturnvisit',
                 'data': {
                     'enterpriseId': me.model.attrs['enterpriseId'],
-                    'cheatType': me.$('#cheatstatus').val(),
-                    'returnVisitCheck': me.$('#phonecallbackselect').val()
+                    'cheatType': me.$('#cheatType').val(),
+                    'returnVisitCheck': me.$('#returnvisitCheck').val()
                 },
                 'success': function (data) {
                     if (data.success) {
