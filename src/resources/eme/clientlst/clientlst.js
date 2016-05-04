@@ -67,7 +67,7 @@ define( function( require, exports, module ) {
             util.api({
                 'url':'/odr/queryProductVOList',
                 'data': {
-                    'ea': me.model.get('account')
+                    'ea': me.model.get('enterpriseaccount')
                 },
                 'beforeSend': function(){
                     me.$('#tbOperation').find('.container').html( '<p class="info">加载中...</p>' );
@@ -320,7 +320,7 @@ define( function( require, exports, module ) {
             };
         },
 
-        show: function( id , account , runstatus , contactphone , contactname , paystatus ){
+        show: function( id , account , runstatus , contactphone , contactname , paystatus ,enterpriseaccount){
             AccountDetail.__super__.show.apply( this, arguments );
             var me = this;
             
@@ -329,7 +329,7 @@ define( function( require, exports, module ) {
             me.model.set('contactphone',contactphone);
             me.model.set('contactname',contactname);
 			me.model.set('paystatus',paystatus);
-
+            me.model.set('enterpriseaccount',enterpriseaccount);
             util.api({
                 'url': '/employee/edition',
                 'data': {
@@ -420,13 +420,14 @@ define( function( require, exports, module ) {
             var me = this;
 
             var id = $( e.currentTarget ).attr('data-id'),
+                enterpriseaccount = $( e.currentTarget ).attr('data-enterpriseaccount'),
                 account = $( e.currentTarget ).attr('data-account'),
                 runstatus = $( e.currentTarget ).attr('data-runstatus'),
                 contactphone = $( e.currentTarget ).attr('data-contactphone'),
                 contactname = $( e.currentTarget ).attr('data-contactname'),
 				paystatus = $( e.currentTarget ).attr('data-paystatus');
 
-            me.trigger('accountdetail', id , account,runstatus,contactphone,contactname,paystatus);
+            me.trigger('accountdetail', id , account,runstatus,contactphone,contactname,paystatus,enterpriseaccount);
         },
         search: function() {
             this.pagination.attr['pageNumber'] = 0;
@@ -484,8 +485,8 @@ define( function( require, exports, module ) {
  
         var accountDetail = new AccountDetail();
 
-        employeeDataTable.on('accountdetail',function( id , account,runstatus,contactphone,contactname,paystatus ){
-            accountDetail.show( id , account,runstatus,contactphone,contactname ,paystatus);
+        employeeDataTable.on('accountdetail',function( id , account,runstatus,contactphone,contactname,paystatus,enterpriseaccount ){
+            accountDetail.show( id , account,runstatus,contactphone,contactname ,paystatus,enterpriseaccount);
         });
     }
 } );
