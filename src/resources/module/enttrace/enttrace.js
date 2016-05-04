@@ -8,6 +8,9 @@ define( function(require, exports, module){
     var contentStr = require('./enttrace.html');
     var tem = $( require('./template.html') );
 
+    /*
+     * 企业跟踪记录
+     */
     var EntTrace = MClass( Slider ).include({
         
         content: contentStr,
