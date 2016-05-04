@@ -100,21 +100,9 @@ define(function (require, exports, module) {
                         var $dom = $(e.target);
                         var checked = $dom.is(':checked');
                         var isReadonly = me.o_getFieldData('allreadonly').allreadonly === true;
-                        /* CRM与服务费不再关联
-                         //if ($dom.is(':checked')) {//选中的话 终端为0
-                         //    me.o_setValue({name: 'purchaseAmount_input_3', value: '0', readonly: true});
-                         //    me.o_setValue({name: 'purchaseAmount_3', value: '0'});
-                         //    var id = $dom.val();
-                         //    priceComput.call(this, e);
-                         //
-                         //} else {
-                         //    me.o_setValue({name: 'purchaseAmount_input_3', readonly: me.o_getFieldValue('useFX') ? isReadonly : true});
-                         //    me.o_data_getField({name: 'purchaseCount_3'}).change();//服务费
-                         //}
-                         */
                         for (var i in me.dataDic) {
                             if (me.dataDic.hasOwnProperty(i)) {
-                                if ((i.toString().indexOf('_1') > 0 || i.toString().indexOf('_8') > 0) && i.toString().toLowerCase().indexOf('wrapper') < 0) {
+                                if ((  /(_8)$/.test(i.toString()) || /(_1)$/.test(i.toString()) ) && i.toString().toLowerCase().indexOf('wrapper') < 0) {
                                     if (checked && me.dataDic[i].old_readonly === undefined) {
                                         me.dataDic[i].old_readonly = !!me.dataDic[i].readonly;
                                     }
@@ -214,7 +202,7 @@ define(function (require, exports, module) {
                                 changeForGetPrice.call(me, e);
                                 me.o_setValue({name: 'purchaseAmount_input_' + n, readonly: allreadonly});
                                 if (n == 3) {
-                                    me.o_setValue({name: 'purchaseAmount_input_' + n, readonly:me.o_getFieldValue('useFX')?allreadonly:true});
+                                    me.o_setValue({name: 'purchaseAmount_input_' + n, readonly: me.o_getFieldValue('useFX') ? allreadonly : true});
                                 }
                             }
                         }
@@ -394,6 +382,7 @@ define(function (require, exports, module) {
             }
 
         }
+
         //CRM部分
         dataItems.push(new DataItem({
             name: 'useCRMWrapper',
