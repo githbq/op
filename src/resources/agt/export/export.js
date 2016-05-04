@@ -26,8 +26,8 @@ define( function(require, exports, module){
 					'timeBegin': startTime,
 					'timeEnd': endTime
 				} );
-			console.log( param )
-			//window.open( IBSS.API_PATH + '/agent/exporttoexcel?' + param );
+			//console.log( param )
+			window.open( IBSS.API_PATH + '/agent/exporttoexcel?' + param );
 		});
 	}
 });
