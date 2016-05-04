@@ -42,7 +42,8 @@ define( function(require, exports, module){
 			'.action-reject':'actionReject',
 			'.action-submit':'actionSubmit',
 			'.enterpriseAccount':'enterpriseAccount',
-			'.money-time':'moneyTime'
+			'.money-time':'moneyTime',
+			'.receivedPayNum':'receivedPayNum'
 		},
 		events:{
 			'click .action-save':'actionSaveEve',
@@ -248,11 +249,16 @@ define( function(require, exports, module){
 			
 			//设置到款时间 receivedPayDate
 			var receivedPayDate = (me.attrs.orderData && me.attrs.orderData.order && me.attrs.orderData.order.receivedPayDate) ? new Date( me.attrs.orderData.order.receivedPayDate  )._format("yyyy-MM-dd"):'';
+			//设置到款编号
+			var receivedPayNum= (me.attrs.orderData && me.attrs.orderData.order && me.attrs.orderData.order.receivedPayNum)?me.attrs.orderData.order.receivedPayNum:'';
+
 			if(receivedPayDate){
 				me.$('.receivedPayDate').show();
 				me.$('.receivedPayDate-text').text(receivedPayDate);
+				me.$('.receivedPayNum-text').text(receivedPayNum);
 				me.$('.currentTask-finance').hide();
 			}
+
 
 		},
 		//设置审批意见
@@ -493,6 +499,7 @@ define( function(require, exports, module){
 				'url': '/odr/setreceivedpaydate',
 				'data':{
 					'orderId': me.attrs.options.id,   //流程实例ID
+					'receivedPayNum':me.$receivedPayNum.val(),
 					'receivedPayDate':new Date( me.$moneyTime.val()  ).getTime()          //审批结果(通过/拒绝)
 				},
 				success: function( data ){
