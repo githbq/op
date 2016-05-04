@@ -155,7 +155,8 @@ define(function (require, exports, module) {
                                 {name: 'currPayAmount_14', value: '0', visible: false},
                                 {name: 'currPayAmount_15', value: '0', visible: false},
                                 {name: 'currPayAmount_13', value: '0', visible: false},
-                                {name: 'currPayAmount_16', value: '0', visible: false}
+                                {name: 'currPayAmount_16', value: '0', visible: false},
+                                {name: 'currPayAmount_17', value: '0', visible: false}
                             ]);
                             //全款
                         }
@@ -174,7 +175,8 @@ define(function (require, exports, module) {
                                 {name: 'currPayAmount_14', visible: false},
                                 {name: 'currPayAmount_15', visible: false},
                                 {name: 'currPayAmount_13', visible: false},
-                                {name: 'currPayAmount_16', visible: false}
+                                {name: 'currPayAmount_16', visible: false},
+                                {name: 'currPayAmount_17', visible: false}
                             ]);
                             var checkeds = me.__refs.tableInfo.o_getFieldValue('check').split(',');
                             if (me.__refs.terminalInfo.o_getFieldValue('useCRM') && me.__refs.terminalInfo.o_getFieldData('useCRMWrapper').visible) {//使用了逍客终端 要加入服务费
@@ -217,6 +219,7 @@ define(function (require, exports, module) {
                                 {name: 'currPayAmount_15', value: '0', visible: false},
                                 {name: 'currPayAmount_13', value: '0', visible: false},
                                 {name: 'currPayAmount_16', value: '0', visible: false},
+                                {name: 'currPayAmount_17', value: '0', visible: false},
                                 {name: 'currPayAmount', value: '0'}
                             ]);
                         }
@@ -229,7 +232,7 @@ define(function (require, exports, module) {
             ]
 
         }));
-        var currPayIdArr = [3, 1, 4, 5, 7, 12, 15, 14, 13, 16];
+        var currPayIdArr = [3, 1, 4, 5, 7, 12, 15, 14, 13, 16,17];
         $(currPayIdArr).each(function (i, n) {
             (function (id) {
                 dataItems.push(new DataItem({

@@ -18,7 +18,8 @@ define(function (require, exports, module) {
             '13':'培训助手',
             '14':'战报助手',
             '15':'考试助手',
-            '16':'培训助手购买流量'
+            '16':'培训助手购买流量',
+            '17':'项目管理'
         };
         //订单类型
         dataItems.push(new DataItem({
@@ -97,7 +98,8 @@ define(function (require, exports, module) {
             //{id: 13, name: '培训助手'},
             //{id: 16, name: '培训助手时长'},
             //{id: 6, name: 'HR助手'},
-            {id: 7, name: '工资助手', options: {discount: {}}}
+            {id: 7, name: '工资助手', options: {discount: {}}},
+            {id: 17, name: '项目管理'}
         ];
         var getPriceEvents = [{
             key: 'change', value: changeForGetPrice

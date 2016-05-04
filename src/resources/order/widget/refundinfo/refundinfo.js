@@ -36,7 +36,8 @@ define(function (require, exports, module) {
         '13':'培训助手',
         '14':'战报助手',
         '15':'考试助手',
-        '16':'培训助手购买流量'
+        '16':'培训助手购买流量',
+        '17':'项目管理'
     };
     exports.show = function (data, result) {
         //result = {
