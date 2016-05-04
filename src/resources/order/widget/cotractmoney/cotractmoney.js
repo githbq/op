@@ -86,23 +86,27 @@ define(function(require, exports, module){
 		//子产品退款和使用
 		showSubers:function(){
 			var me = this;
-			
-			var sublist = me.attrs.data.odrMnyVO.subOdrMnyVOs, strDom = '',serviceDom=''; usedAmound = 0,tempSublist = [];
+			var strDoms=[];
+			var serviceDoms=[];
+			var sublist = me.attrs.data.odrMnyVO.subOdrMnyVOs,usedAmound = 0,tempSublist = [];
 			me.attrs.refundVO={};
 			for(var i = 0; i<sublist.length; i++ ){
 				var tempId = parseInt(sublist[i].productId);
 				switch( tempId ){
 					case 3:
-						
-						serviceDom+=" <tr> <td>"+productIdDic[tempId]+"合同金额(元)：</td><td class='money-box'>"+sublist[i].contractAmount+"</td>" +
-						" <td>非退款项</td><td></td></tr>";
+						serviceDoms.push('<label style="width:250px;"> <span class="label">'+productIdDic[tempId]+'已使用金额(元)：</span> </label><span class="w-len">'+sublist[i].contractAmount+'</span><span class="w-len">非退款项</span>');
+						//serviceDom+=" <tr> <td>"+productIdDic[tempId]+"合同金额(元)：</td><td class='money-box'>"+sublist[i].contractAmount+"</td>" +
+						//" <td>非退款项</td><td></td></tr>";
 						usedAmound+=parseFloat(sublist[i].usedAmount);
 						break;
 					case 10: case 11: case 2:
 						break;
 					default:
-						strDom+=" <tr> <td>"+productIdDic[tempId]+"合同金额(元)：</td><td class='money-box'>"+sublist[i].contractAmount+"</td>" +
-						" <td>已使用金额(元)：</td><td class='money-box'>"+sublist[i].usedAmount+"</td></tr>";
+						//strDom+=" <tr> <td>"+productIdDic[tempId]+"合同金额(元)：</td><td class='money-box'>"+sublist[i].contractAmount+"</td>" +
+						//" <td>已使用金额(元)：</td><td class='money-box'>"+sublist[i].usedAmount+"</td></tr>";
+
+						strDoms.push('<label style="width:250px;"> <span class="label">'+productIdDic[tempId]+'已使用金额(元)：</span> </label> <span class="w-len">'+sublist[i].contractAmount+'</span><span class="w-len">'+sublist[i].usedAmount+'</span>');
+
 						usedAmound+=parseFloat(sublist[i].usedAmount);
 						var backAmount = {};
 						var tempMoney  = parseFloat(sublist[i].contractAmount) - parseFloat(sublist[i].usedAmount);
@@ -121,11 +125,10 @@ define(function(require, exports, module){
 				'refundAmount':0,
 				'amount':tempAmount
 			};
-			strDom = serviceDom + strDom;
 			me.attrs.dataObj.usedAmount = usedAmound.toFixed(2);
 			me.model.set('usedAmount',me.attrs.dataObj.usedAmount );
-			me.$('.sub-tab tbody').html(strDom);
-			
+			//me.$('.sub-tab tbody').html(strDom);
+			me.$('.sub-tab-money').html(serviceDoms.concat(strDoms).join('<br/>'));
 			me.trigger('successData');
 			
 		},

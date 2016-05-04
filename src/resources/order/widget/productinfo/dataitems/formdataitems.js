@@ -171,9 +171,9 @@ define(function (require, exports, module) {
                                 {name: 'currPayAmount_12', visible: false}
                             ]);
                             var checkeds = me.__refs.tableInfo.o_getFieldValue('check').split(',');
-                            if (me.__refs.terminalInfo.o_getFieldValue('useCRM') && me.__refs.terminalInfo.o_getFieldData('useCRMWrapper').visible) {//使用了逍客终端 要加入服务费
+                            if (me.__refs.terminalInfo.o_getFieldValue('useCRM') && me.__refs.terminalInfo.o_getFieldData('useCRMWrapper').visible!==false) {//使用了逍客终端 要加入服务费
                                 checkeds.push('1');//CRM费用
-                                if (me.__refs.terminalInfo.o_getFieldData('businesscard').visible) {
+                                if (me.__refs.terminalInfo.o_getFieldData('businesscard').visible!==false) {
                                     checkeds.push('8');//名片费用
                                 }
                             }
