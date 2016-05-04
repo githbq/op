@@ -6646,13 +6646,18 @@ em {
   padding: 3px 10px;
   margin: 0 10px;
 }
-.sub-list-box table tr td {
+.sub-tab-money table tr td {
   width: 254px;
   display: inline-block;
   text-align: right;
 }
-.sub-list-box table tr td.money-box {
+.sub-tab-money table tr td.money-box {
   width: 60px;
+}
+.sub-tab-money span.w-len {
+  width: 150px;
+  text-align: left;
+  display: inline-block;
 }
 .m-invoicedetail h4 {
   font-weight: bold;

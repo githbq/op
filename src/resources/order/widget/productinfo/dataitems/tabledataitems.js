@@ -297,10 +297,10 @@ define(function (require, exports, module) {
             me.__refs.formInfo.o_setValue({name: 'productAmount', value: productAmount});
             //console.log('合同总金额之表格部分计算结果2:' + me.o_getFieldValue('order_amount'));
             //console.log('原价总金额之表格部分计算结果:' + me.o_getFieldValue('order_amount'));
-            if (me.__refs.formInfo.o_getFieldData('payStatus_name').visible || me.__refs.formInfo.o_getFieldValue('payStatus_select') == '1') {
+            if (me.__refs.formInfo.o_getFieldData('payStatus_name').visible!==false || me.__refs.formInfo.o_getFieldValue('payStatus_select') == '1') {
                 me.__refs.formInfo.o_setValue({name: 'currPayAmount', value: order_amount});
             }
-            if (me.__refs.formInfo.o_getFieldData('payStatus_select').visible) {
+            if (me.__refs.formInfo.o_getFieldData('payStatus_select').visible!==false) {
                 me.__refs.formInfo.o_data_getField({name: 'payStatus_select'}).change();
             }
 
