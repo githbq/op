@@ -788,7 +788,7 @@ define( function(require, exports, module){
 							tempSubOrders[i].subOrder['hasFlag']=true;
 							if(tempExtends.length>0){
 								
-								if(me.attrs.allData.orderEntity.subOrders[j].productExtends.length>0){
+								if(me.attrs.allData.orderEntity.subOrders[j].productExtends && me.attrs.allData.orderEntity.subOrders[j].productExtends.length>0){
 										for(var ke in tempExtends[0]){
 											me.attrs.allData.orderEntity.subOrders[j].productExtends[0][ke] = tempExtends[0][ke];
 										}
