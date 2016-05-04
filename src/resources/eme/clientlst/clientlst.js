@@ -27,7 +27,7 @@ define( function( require, exports, module ) {
 			'#yingxiaoSum': 'yingxiaoSum',
 			'#yingxiaoUsed': 'yingxiaoUsed',
 			'#sdSC': 'sdSC',
-			'#sdSUC': 'sdSUC',
+			'#sdSUC': 'sdSUC'
 		},
 
         //

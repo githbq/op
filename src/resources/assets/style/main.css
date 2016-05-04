@@ -6466,6 +6466,15 @@ em {
 .productinfo .red {
   color: red;
 }
+.productinfo .forminfo .input-price-wrapper {
+  overflow: hidden;
+}
+.productinfo .forminfo label {
+  width: 200px;
+}
+.productinfo .forminfo .input-price {
+  float: left;
+}
 .productinfo .field_group {
   margin: 0 auto;
   width: 80%;
