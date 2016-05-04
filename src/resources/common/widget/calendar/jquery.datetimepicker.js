@@ -567,6 +567,8 @@
 					.append(mounth_picker)
 					.append(calendar);
 
+				//阻止冒泡
+				datetimepicker.on('click mousedown',function(){ return false });
 				$('body').append(datetimepicker);
 
 				var _xdsoft_datetime = new function() {
@@ -693,6 +695,7 @@
 								stop = true;
 								$([document.body,window]).off('mouseup.xdsoft',arguments_callee2);
 							});
+							return false;
 						});
 
 				timepicker
