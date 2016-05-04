@@ -75,6 +75,9 @@ define(function (require, exports, module) {
                                         }
 
                                         me.dataDic[i].readonly = !checked ? true : ( me.dataDic[i].old_readonly === true ? isReadonly : false);
+                                        if (me.dataDic[i].__force) {
+                                            me.dataDic[i].readonly = true;
+                                        }
                                         me.o_setValue(me.dataDic[i]);
                                         if (i.toString().indexOf('type_') == 0) {
                                             var $type = me.o_data_getField(me.dataDic[i]);
@@ -467,8 +470,8 @@ define(function (require, exports, module) {
                 }
             };
             if (id == '16') {
-                options.data.startDate = me.o_getFieldValue('startTime_13')||new Date().getTime();
-                options.data.endDate = me.o_getFieldValue('endTime_13')||new Date().getTime()+2;
+                options.data.startDate = me.o_getFieldValue('startTime_13') || new Date().getTime();
+                options.data.endDate = me.o_getFieldValue('endTime_13') || new Date().getTime() + 2;
             }
             if (id == '3') {//服务人数不计算折扣
                 checkTypeForPrice.call(me, e, id);
