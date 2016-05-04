@@ -287,6 +287,7 @@ define(function (require, exports, module) {
                 visible: false,
                 attr: {maxlength: 9}
             }));
+
             //服务费 1试用 2赠送 3折扣 的容器
             dataItems.push(new DataItem({
                 name: 'type_' + n,
@@ -294,10 +295,18 @@ define(function (require, exports, module) {
                 events: [
                     {
                         key: 'change', value: function (e) {
+
                         var me = this;
                         var isReadonly = me.o_getFieldData('allreadonly').allreadonly === true;
                         var typeValue = me.o_getFieldValue('type_' + n);
                         var data = me.o_getFieldData('type_' + n);
+                        var condition = isReadonly;
+                        if (n == 1 && me.o_getFieldValue('useCRM')) {
+                            condition = true;
+                        }
+                        if (n == 3 && me.o_getFieldValue('useFX')) {
+                            condition = true;
+                        }
                         switch (typeValue.toString()) {
                             case '1':
                             case '2':
@@ -309,18 +318,6 @@ define(function (require, exports, module) {
                                 ;
                                 break;
                             case '3':
-                            {
-                                if (data.__editChange === false) {
-                                    data.__editChange = true;
-                                    me.o_setValue({name: 'purchaseAmount_' + n});
-                                    me.o_setValue({name: 'purchaseAmount_input_' + n, readonly: isReadonly});
-                                } else {
-                                    me.o_setValue({name: 'purchaseAmount_' + n, value: me.o_getFieldValue('purchaseAmount_' + n)});
-                                    me.o_setValue({name: 'purchaseAmount_input_' + n, value: me.o_getFieldValue('purchaseAmount_' + n), readonly: isReadonly})
-                                }
-                            }
-                                ;
-                                break;
                             case '4':
                             {
                                 if (data.__editChange === false) {
@@ -328,8 +325,8 @@ define(function (require, exports, module) {
                                     me.o_setValue({name: 'purchaseAmount_' + n});
                                     me.o_setValue({name: 'purchaseAmount_input_' + n, readonly: condition ? isReadonly : true});
                                 } else {
-                                    me.o_setValue({name: 'purchaseAmount_' + n, value: me.o_getFieldValue('purchaseAmount_' + n)});
-                                    me.o_setValue({name: 'purchaseAmount_input_' + n, value: me.o_getFieldValue('purchaseAmount_' + n), readonly: isReadonly})
+                                    me.o_setValue({name: 'purchaseAmount_' + n, value: me.o_getFieldValue('purchaseAmount_input_' + n)});
+                                    me.o_setValue({name: 'purchaseAmount_input_' + n, value: me.o_getFieldValue('purchaseAmount_input_' + n), readonly: condition ? isReadonly : true})
                                 }
                             }
                                 ;
