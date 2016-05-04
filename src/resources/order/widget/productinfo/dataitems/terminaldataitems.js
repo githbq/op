@@ -406,13 +406,14 @@ define(function (require, exports, module) {
             //    $dom.change();
             //}
             var sum = 1;
-            if (id == '1') {//针对CRM数量可改
+            if (id == '1' || id == '16') {//针对CRM数量可改
                 sum = me.o_getFieldValue('purchaseCount_' + id);
                 if (!sum) {
+                    checkTypeForPrice.call(me, e, id);
+                    priceComput.call(me, e);
                     return;
                 }
             }
-
             var options = {
                 data: {
                     id: id,
