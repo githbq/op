@@ -6894,3 +6894,50 @@ em {
 .m-invoiceapplydetail img {
   width: 300px;
 }
+.order-content span.m-len {
+  display: inline-block;
+  text-align: right;
+  width: 150px;
+}
+.order-content .red {
+  color: red;
+}
+.m-deailbind .left-info {
+  float: left;
+}
+.m-deailbind .right-info {
+  float: right;
+  border-left: 1px solid #ccc;
+  padding-left: 10px;
+}
+.m-deailbind label textarea {
+  width: 169px;
+  height: 80px;
+  padding: 10px;
+}
+.order-content span.m-len {
+  display: inline-block;
+  text-align: right;
+  width: 150px;
+}
+.order-content .red {
+  color: red;
+}
+.m-deailbind .left-info {
+  float: left;
+}
+.m-deailbind .right-info {
+  float: right;
+  border-left: 1px solid #ccc;
+  padding-left: 10px;
+}
+.m-deailbind label textarea {
+  width: 169px;
+  height: 80px;
+  padding: 10px;
+}
+.m-deailbind span.m-len {
+  display: inline-block;
+  text-align: right;
+  width: 150px;
+}
