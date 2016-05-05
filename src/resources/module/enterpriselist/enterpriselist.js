@@ -318,7 +318,6 @@ define(function (require, exports, module) {
                             });
                             me.clearSelect();
                         } else {
-                            alert(1)
                             me.pagination.setPage(0, false);
                             me.$tbody.html("<tr><td colspan='10'><p class='info'>暂无数据</p></td></tr>")
                         }
