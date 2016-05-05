@@ -70,6 +70,9 @@ define( function( require, exports, module ) {
 		 entList.on('orderCustom',function( options ){
             
             customHelper = new CustomHelper();
+             customHelper.on('refresh',function(){
+                 entList.search();
+             });
              customHelper.show( options );
         });
 		

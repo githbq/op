@@ -205,6 +205,7 @@ define( function(require, exports, module){
 					}
 				},
 				'complete': function(){
+					me.trigger('refresh');
 					me.$('.action-save').text('保存');
 					me.$('.action-save').removeAttr('disabled');
 				}
