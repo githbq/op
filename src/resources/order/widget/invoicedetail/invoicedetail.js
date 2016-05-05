@@ -51,7 +51,9 @@ define(function( require , exports , module ){
 			'click .cancel': 'cancelEve'                       //取消
 		},
 
-		//发票类型点击切换事件
+		// 发票类型点击切换事件
+		// 因为input点击事件有时不会触发
+		// 需要读取信息然后控制显隐
 		typeEve: function(){
 			var me = this;
 
@@ -62,18 +64,22 @@ define(function( require , exports , module ){
 
 				if( invoicetype == 1 ){
 					me.$('.file').hide();
+					me.$('.imginfo').hide();
 					me.$('.typea').show().siblings('section').hide();
 				}else if( invoicetype == 2 ){
 					me.$('.file').show();
+					me.$('.imginfo').show();
 					me.$('.typeb').show().siblings('section').hide();
 				}
 			}else if( invoice == 2 ){
 
 				if( invoicetype == 1 ){
 					me.$('.file').hide();
+					me.$('.imginfo').hide();
 					me.$('.typec').show().siblings('section').hide();
 				}else if( invoicetype == 2 ){
 					me.$('.file').show();
+					me.$('.imginfo').show();
 					me.$('.typed').show().siblings('section').hide();
 				}
 			}
@@ -216,7 +222,7 @@ define(function( require , exports , module ){
 		// 显示
 		// @param id 					订单id 
 		// @param invoiceId     		发票id    
-		// @param approvalStatus     
+		// @param approvalStatus        发票状态
 		//  0 提交        add   
 		//  1 撤回        withdraw
 		//	2 待审核      
