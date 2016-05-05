@@ -171,7 +171,7 @@ define( function( require, exports, module ) {
     				'endTime': endTime,
     				'serviceTimeBegin': me.model.get('serviceTimeBegin'),
     				'serviceTimeEnd': me.model.get('serviceTimeEnd'),
-    				'pageIndex': me.pagination.attr['pageNumber'],
+    				'pageIndex': me.pagination.attr['pageNumber']+1,
     				'pageSize': me.pagination.attr['pageSize']
     			},
     			'success': function( data ){

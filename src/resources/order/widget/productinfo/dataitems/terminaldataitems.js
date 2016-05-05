@@ -100,21 +100,9 @@ define(function (require, exports, module) {
                         var $dom = $(e.target);
                         var checked = $dom.is(':checked');
                         var isReadonly = me.o_getFieldData('allreadonly').allreadonly === true;
-                        /* CRM与服务费不再关联
-                         //if ($dom.is(':checked')) {//选中的话 终端为0
-                         //    me.o_setValue({name: 'purchaseAmount_input_3', value: '0', readonly: true});
-                         //    me.o_setValue({name: 'purchaseAmount_3', value: '0'});
-                         //    var id = $dom.val();
-                         //    priceComput.call(this, e);
-                         //
-                         //} else {
-                         //    me.o_setValue({name: 'purchaseAmount_input_3', readonly: me.o_getFieldValue('useFX') ? isReadonly : true});
-                         //    me.o_data_getField({name: 'purchaseCount_3'}).change();//服务费
-                         //}
-                         */
                         for (var i in me.dataDic) {
                             if (me.dataDic.hasOwnProperty(i)) {
-                                if ((i.toString().indexOf('_1') > 0 || i.toString().indexOf('_8') > 0) && i.toString().toLowerCase().indexOf('wrapper') < 0) {
+                                if ((  /(_8)$/.test(i.toString()) || /(_1)$/.test(i.toString()) ) && i.toString().toLowerCase().indexOf('wrapper') < 0) {
                                     if (checked && me.dataDic[i].old_readonly === undefined) {
                                         me.dataDic[i].old_readonly = !!me.dataDic[i].readonly;
                                     }
@@ -214,7 +202,7 @@ define(function (require, exports, module) {
                                 changeForGetPrice.call(me, e);
                                 me.o_setValue({name: 'purchaseAmount_input_' + n, readonly: allreadonly});
                                 if (n == 3) {
-                                    me.o_setValue({name: 'purchaseAmount_input_' + n, readonly:me.o_getFieldValue('useFX')?allreadonly:true});
+                                    me.o_setValue({name: 'purchaseAmount_input_' + n, readonly: me.o_getFieldValue('useFX') ? allreadonly : true});
                                 }
                             }
                         }
@@ -299,6 +287,7 @@ define(function (require, exports, module) {
                 visible: false,
                 attr: {maxlength: 9}
             }));
+
             //服务费 1试用 2赠送 3折扣 的容器
             dataItems.push(new DataItem({
                 name: 'type_' + n,
@@ -306,10 +295,18 @@ define(function (require, exports, module) {
                 events: [
                     {
                         key: 'change', value: function (e) {
+
                         var me = this;
                         var isReadonly = me.o_getFieldData('allreadonly').allreadonly === true;
                         var typeValue = me.o_getFieldValue('type_' + n);
                         var data = me.o_getFieldData('type_' + n);
+                        var condition = isReadonly;
+                        if (n == 1 && me.o_getFieldValue('useCRM')) {
+                            condition = true;
+                        }
+                        if (n == 3 && me.o_getFieldValue('useFX')) {
+                            condition = true;
+                        }
                         switch (typeValue.toString()) {
                             case '1':
                             case '2':
@@ -321,18 +318,6 @@ define(function (require, exports, module) {
                                 ;
                                 break;
                             case '3':
-                            {
-                                if (data.__editChange === false) {
-                                    data.__editChange = true;
-                                    me.o_setValue({name: 'purchaseAmount_' + n});
-                                    me.o_setValue({name: 'purchaseAmount_input_' + n, readonly: isReadonly});
-                                } else {
-                                    me.o_setValue({name: 'purchaseAmount_' + n, value: me.o_getFieldValue('purchaseAmount_' + n)});
-                                    me.o_setValue({name: 'purchaseAmount_input_' + n, value: me.o_getFieldValue('purchaseAmount_' + n), readonly: isReadonly})
-                                }
-                            }
-                                ;
-                                break;
                             case '4':
                             {
                                 if (data.__editChange === false) {
@@ -340,8 +325,8 @@ define(function (require, exports, module) {
                                     me.o_setValue({name: 'purchaseAmount_' + n});
                                     me.o_setValue({name: 'purchaseAmount_input_' + n, readonly: condition ? isReadonly : true});
                                 } else {
-                                    me.o_setValue({name: 'purchaseAmount_' + n, value: me.o_getFieldValue('purchaseAmount_' + n)});
-                                    me.o_setValue({name: 'purchaseAmount_input_' + n, value: me.o_getFieldValue('purchaseAmount_' + n), readonly: isReadonly})
+                                    me.o_setValue({name: 'purchaseAmount_' + n, value: me.o_getFieldValue('purchaseAmount_input_' + n)});
+                                    me.o_setValue({name: 'purchaseAmount_input_' + n, value: me.o_getFieldValue('purchaseAmount_input_' + n), readonly: condition ? isReadonly : true})
                                 }
                             }
                                 ;
@@ -394,6 +379,7 @@ define(function (require, exports, module) {
             }
 
         }
+
         //CRM部分
         dataItems.push(new DataItem({
             name: 'useCRMWrapper',
@@ -420,13 +406,14 @@ define(function (require, exports, module) {
             //    $dom.change();
             //}
             var sum = 1;
-            if (id == '1') {//针对CRM数量可改
+            if (id == '1' || id == '16') {//针对CRM数量可改
                 sum = me.o_getFieldValue('purchaseCount_' + id);
                 if (!sum) {
+                    checkTypeForPrice.call(me, e, id);
+                    priceComput.call(me, e);
                     return;
                 }
             }
-
             var options = {
                 data: {
                     id: id,

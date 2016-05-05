@@ -77,11 +77,7 @@
 
     //获取token信息
     var _token = $('#key').val();
-
-
-
-
-
+   
     /**
      *@description工具类对象
      */    

@@ -107,6 +107,7 @@ define(function (require, exports, module) {
                 foreachSetValue(responseData.invoice, controller, dataItems);
                 var businessLicense = '';
                 controller(dataItems, 'approvalUrl', function (item) {
+                    debugger
                     if (responseData.invoice.approvalUrl) {
 						if(responseData.invoice.approvalUrl.indexOf('http://')>-1){
 							item.value = responseData.invoice.approvalUrl;

@@ -24,14 +24,14 @@
     </div>
     <nav>
         <ul class="nav-main clearfix">
-
+        
             <li data-modulecode="ComprehensiveQueryOpS PartnerOpS DemoAccountOpS QueryOpS ExportAgentAccountOpS">
                 <a class="nav-branch">查询</a>
                 <ul class="nav-sub">
                     <li data-modulecode="ComprehensiveQueryOpS"><a href="#qry/cmp">综合查询</a></li>
                     <li data-modulecode="PartnerOpS"><a href="#qry/partner">合作伙伴</a></li>
                     <li data-modulecode="DemoAccountOpS"><a href="#qry/exp">演示帐号</a></li>
-                   <!-- <li data-modulecode="QueryOpS"><a href="#qry/cyc">查一查</a></li>-->
+                    <!--<li data-modulecode="QueryOpS"><a href="#qry/cyc">查一查</a></li>-->
                     <li data-modulecode="ExportAgentAccountOpS"><a href="#index/agentexport">代理商员工导出</a></li>
                 </ul>
             </li>
@@ -46,7 +46,7 @@
                     <li data-modulecode="SelfRegisterOpS"><a href="#ent/ind">自注册</a></li>
                 </ul>
             </li>
-
+            
             <!--
             <li data-modulecode="EnterpriseDayActivityOpS">
                 <a href="#index/dayactive">企业日活跃</a>
@@ -63,10 +63,10 @@
                         <a href="#index/rpt">月度报告</a>
                     </li>-->
                     <li data-modulecode="RealTimeActivityOpS">
-                    <a href="#index/lst2">实时2</a>
+                        <a href="#index/lst2">实时2</a>
                     </li>
                     <li data-modulecode="MonthReportOpS">
-                    <a href="#index/rpt2">月度报告2</a>
+                        <a href="#index/rpt2">月度报告2</a>
                     </li>
                     <!--<li data-modulecode="PayedLifeCycleOpS">
                         <a href="#index/paid">付费生命周期</a>
@@ -112,7 +112,7 @@
                     <li data-modulecode="AccountRegisterLimitOpS"><a href="#eme/loginlimit">账号注册上限</a></li>
                 </ul>
             </li>
-           <li data-modulecode="ApprovalOpS">
+             <li data-modulecode="ApprovalOpS">
                 <a href="#page/approvallist">我的审批</a>
                 <ul class="nav-sub">
                     <li data-modulecode="ApprovalOpS"><a href="#page/approvallist">订单审批</a></li>
@@ -194,3 +194,4 @@
 
 </body>
 </html>
+

@@ -132,7 +132,7 @@ define( function( require, exports, module ) {
     		util.api({
     			'url':'/enterprise/queryindpage',
     			'data':{
-    				'pageIndex': me.pagination.attr['pageNumber'],
+    				'pageIndex': me.pagination.attr['pageNumber']+1,
     				'pageSize': me.pagination.attr['pageSize'],
     				'enterpriseName': me.model.get('enterpriseName'),
     				'enterpriseAccount': me.model.get('enterpriseAccount'),
@@ -151,7 +151,7 @@ define( function( require, exports, module ) {
     						item.sourceStr = sMap[item.source];
     						item.provinceStr = pMap[item.province];
     						item.statusStr = uMap[item.status];
-    						item.registerTimeStr = new Date( item.registerTime )._format('yyyy-MM-dd hh:mm');
+    						item.registerTimeStr = new Date( item.createtime )._format('yyyy-MM-dd hh:mm');
     					});
     				}
     			}

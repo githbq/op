@@ -2,14 +2,14 @@
     <% _.each(content,function(item){%>
         <tr>
             <td> </td>
-            <td><%=item.name%></td>
-            <td><%=item.account%></td>
+            <td><%=item.enterprisename%></td>
+            <td><%=item.enterpriseaccount%></td>
             <td><%=item.sourceStr%></td>
             <td><%=item.statusStr%></td>
             <td><%=item.provinceStr%></td>
             <td><%=item.registerTimeStr%></td>
             <td><%=item.vendorName%></td>
-            <td><a data-id="<%=item.id%>" class="detail" data-permissions="F008010">详情</a></td>
+            <td><a data-id="<%=item.enterpriseregistrationid%>" class="detail" data-permissions="F008010">详情</a></td>
             <td> </td>
         </tr>
     <%}) %>

@@ -14,9 +14,9 @@ define( function(require, exports, module){
 	var UserDetail = require('module/agentuser/agentuser');
 
 	var auditStatusMap = {
-        'WAIT': '待审核',
-        'SUCCESS': '审核成功',
-        'FALSE': '审核失败'
+        '0': '待审核',
+        '1': '审核成功',
+        '2': '审核失败'
     };
 
 	/**
@@ -92,7 +92,7 @@ define( function(require, exports, module){
 	            'url': '/agent/queryaccountpage',
 	            'data': {
 	                'pageSize': me.pagination.attr['pageSize'],
-	                'pageIndex': me.pagination.attr['pageNumber'],
+	                'pageIndex': me.pagination.attr['pageNumber']+1,
 	                'agentId': '',
 	                'agentName': me.model.get('agentName'),
 	                'name': me.model.get('name'),
@@ -115,7 +115,7 @@ define( function(require, exports, module){
 	                            item.statusStr = "已启用";
 	                        }
 
-	                        if( item.auditStatus ){
+	                        if( item.auditStatus != undefined){
 	                            item.auditStatusStr = auditStatusMap[item.auditStatus];
 	                        }
 	                        if( me.attrs.state && me.attrs.state == 'am'){

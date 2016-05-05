@@ -69,7 +69,7 @@
                 <ul class="nav-sub">
                     <li data-modulecode="EnterpriseFIlingOpC"><a href="#filing/entprisefiling">备案企业列表</a></li>
                     <li data-modulecode="EnterpriseFIlingOpenOpC"><a href="#filing/entpriseopen">公开企业列表</a></li>
-                    <li data-modulecode="EnterpriseFIlingOpenRequestOpC"><a href="#filing/requestlist">公开企业申请</a></li>
+                    <!--<li data-modulecode="EnterpriseFIlingOpenRequestOpC"><a href="#filing/requestlist">公开企业申请</a></li>-->
                 </ul>
             </li>
             
@@ -86,22 +86,22 @@
             -->
 
 
-            <li data-modulecode="ApprovalAccountOpC">
+            <!--<li data-modulecode="ApprovalAccountOpC">
                 <a href="#filing/approvalwait">待审批用户</a>
-            </li>
+            </li>-->
             
 
             <li data-modulecode="SelfRegisterOpC">
                 <a href="#filing/regent">自注册企业</a>
             </li>
             
-            <li data-modulecode="SalesFunnelModelOpC">
+            <!-- <li data-modulecode="SalesFunnelModelOpC">
                 <a href="#filing/funnellist">销售漏斗</a>
                 <ul class="nav-sub">
                     <li><a href="#filing/funnellist">销售漏斗</a></li>
-                   <!-- <li><a href="#filing/funneladdlist">增值漏斗</a></li>-->
+                   <li><a href="#filing/funneladdlist">增值漏斗</a></li>
                 </ul>
-            </li>
+            </li>-->
         </ul>
     </nav>
 </header>
