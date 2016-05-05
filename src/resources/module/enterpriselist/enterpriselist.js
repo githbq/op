@@ -280,7 +280,6 @@ define(function (require, exports, module) {
                 window.open(IBSS.API_PATH + '/enterprise/exportTrialData?' + $.param(data));
                 return;
             }
-
             util.api({
                 url: '/enterprise/querypage',
                 data: data,
@@ -289,8 +288,8 @@ define(function (require, exports, module) {
                 },
                 success: function (data) {
                     if (data.success) {
+                        me.pagination.setTotalSize(data.value.model.itemCount);
                         if (data.value.model.content.length > 0) {
-                            me.pagination.setTotalSize(data.value.model.itemCount);
                             me.list.reload(data.value.model.content, function (item) {
 
                                 if (item.enterprise.appStartTime) {
@@ -319,6 +318,8 @@ define(function (require, exports, module) {
                             });
                             me.clearSelect();
                         } else {
+                            alert(1)
+                            me.pagination.setPage(0, false);
                             me.$tbody.html("<tr><td colspan='10'><p class='info'>暂无数据</p></td></tr>")
                         }
                     }

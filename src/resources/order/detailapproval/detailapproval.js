@@ -652,6 +652,8 @@ define( function(require, exports, module){
 			//设置是否可以编辑
 			me.attrs.moneyEdit = me.attrs.options.editFlag;
 			me.attrs.basicInfoEdit = me.attrs.options.editFlag;
+			////财务驳回rejectsFrom只有为3的不让修改 add by hubq
+			//if(me.attrs.options.rejectsFrom && (me.attrs.options.rejectsFrom == 3 ) && me.attrs.options.editFlag){
 			//财务驳回只能部分编辑和小助手第二次驳回
 			if(me.attrs.options.rejectsFrom && (me.attrs.options.rejectsFrom == 2 || me.attrs.options.rejectsFrom == 3 ) && me.attrs.options.editFlag){
 				me.attrs.moneyEdit = false;
@@ -913,7 +915,7 @@ define( function(require, exports, module){
 						me.attrs.complexDiscount = data.value.model;
 						callback && callback( data.value.model );
 					}
-				},
+				}
 			})
 		},
 		//保存
@@ -928,10 +930,10 @@ define( function(require, exports, module){
 				
 				switch( me.attrs.options.orderType ){
 					case 9:case 10:case 11:case 12:
-						tempUrl = '/odr/renew/update'
+						tempUrl = '/odr/renew/update';
 						break;
 					default:
-						tempUrl = '/odr/updateOrderVO'
+						tempUrl = '/odr/updateOrderVO';
 				}
 				me.$actionSubmit.text('提交中....');
 				me.$actionSubmit.attr('disabled','disabled');
