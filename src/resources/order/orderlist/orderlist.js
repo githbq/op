@@ -323,6 +323,9 @@ define( function( require, exports, module ) {
 		
 		orderList.on('orderCustom', function( options ){
             customHelper = new CustomHelper();
+            customHelper.on('refresh',function(){
+                orderList.searchEve();
+            });
             customHelper.show( options );
         });
 		
