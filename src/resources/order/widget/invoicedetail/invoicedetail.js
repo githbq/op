@@ -288,14 +288,14 @@ define(function( require , exports , module ){
 							
 							//
 							if( data.value.model.businessLicense ){
-								me.$('#bsimg').show().find('img').attr('src','/op/api/file/previewimage?filePath='+data.value.model.businessLicense);
+								me.$('#bsimg').show().attr('src','/op/api/file/previewimage?filePath='+data.value.model.businessLicense);
 							}else{
 								me.$('#bsimg').hide();
 							}
 
 							//
 							if( data.value.model.taxpayerQualification ){
-								me.$('#qaimg').show().find('img').attr('src','/op/api/file/previewimage?filePath='+data.value.model.taxpayerQualification);
+								me.$('#qaimg').show().attr('src','/op/api/file/previewimage?filePath='+data.value.model.taxpayerQualification);
 							}else{
 								me.$('#bsimg').hide();
 							}
