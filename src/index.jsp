@@ -114,12 +114,10 @@
             </li>
              <li data-modulecode="ApprovalOpS">
                 <a href="#page/approvallist">我的审批</a>
-                <!--
                 <ul class="nav-sub">
                     <li data-modulecode="ApprovalOpS"><a href="#page/approvallist">订单审批</a></li>
                     <li><a href="#order/invoiceapplyagentlist">发票审批</a></li>
                 </ul>
-                -->
             </li>
             <li data-modulecode="SupervisionOpS">
                 <a href="#page/watchent">企业监察</a>
