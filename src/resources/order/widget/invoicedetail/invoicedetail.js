@@ -263,7 +263,8 @@ define(function( require , exports , module ){
 					}
 				}
 			});
-			
+			me.$('#bsimg').hide();
+			me.$('#qaimg').hide();
 			//如果有发票id则 显示发票详情
 			if( invoiceId ){
 				
@@ -289,15 +290,11 @@ define(function( require , exports , module ){
 							//
 							if( data.value.model.businessLicense ){
 								me.$('#bsimg').show().attr('src','/op/api/file/previewimage?filePath='+data.value.model.businessLicense);
-							}else{
-								me.$('#bsimg').hide();
 							}
 
 							//
 							if( data.value.model.taxpayerQualification ){
 								me.$('#qaimg').show().attr('src','/op/api/file/previewimage?filePath='+data.value.model.taxpayerQualification);
-							}else{
-								me.$('#bsimg').hide();
 							}
 
 							if( data.value.model.rejectReason ){
