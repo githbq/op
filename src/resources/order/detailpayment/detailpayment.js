@@ -247,18 +247,7 @@ define( function(require, exports, module){
 			//var opinion = me.attrs.options.opinion ? me.attrs.options.opinion :'暂无';
 			//me.$('.last-options').text(opinion);
 			
-			//设置到款时间 receivedPayDate
-			var receivedPayDate = (me.attrs.orderData && me.attrs.orderData.order && me.attrs.orderData.order.receivedPayDate) ? new Date( me.attrs.orderData.order.receivedPayDate  )._format("yyyy-MM-dd"):'';
-			//设置到款编号
-			var receivedPayNum= (me.attrs.orderData && me.attrs.orderData.order && me.attrs.orderData.order.receivedPayNum)?me.attrs.orderData.order.receivedPayNum:'';
-
-			if(receivedPayDate){
-				me.$('.receivedPayDate').show();
-				me.$('.receivedPayDate-text').text(receivedPayDate);
-				me.$('.receivedPayNum-text').text(receivedPayNum);
-				me.$('.currentTask-finance').hide();
-			}
-
+			
 
 		},
 		//设置审批意见
@@ -281,6 +270,19 @@ define( function(require, exports, module){
 
 			var opinion = strDom ? strDom :'<tr><td colspan="4" style="text-align: center;">暂无</td></tr>';
 			me.$('.last-options').html( opinion );
+			
+			//设置到款时间 receivedPayDate
+			var receivedPayDate = (me.attrs.orderData && me.attrs.orderData.order && me.attrs.orderData.order.receivedPayDate) ? new Date( me.attrs.orderData.order.receivedPayDate  )._format("yyyy-MM-dd"):'';
+			//设置到款编号
+			var receivedPayNum= (me.attrs.orderData && me.attrs.orderData.order && me.attrs.orderData.order.receivedPayNum)?me.attrs.orderData.order.receivedPayNum:'';
+
+			if(receivedPayDate){
+				me.$('.receivedPayDate').show();
+				me.$('.receivedPayDate-text').text(receivedPayDate);
+				me.$('.receivedPayNum-text').text(receivedPayNum);
+				me.$('.currentTask-finance').hide();
+			}
+
 			
 		},
 		//获取全部订单数据
