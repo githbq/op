@@ -514,8 +514,8 @@ define(function (require, exports, module) {
                             productId: n,
                             purchaseCount: fromData['purchaseCount_' + n] || 999999,
                             purchaseAmount: fromData['purchaseAmount_' + n] || 0,
-                            startTime: fromData['startTime_' + n] || new Date().getTime(),
-                            endTime: fromData['endTime_' + n] || new Date().getTime(),
+                            startTime:(fromData['startTime_' + n] || new Date().getTime())+1,
+                            endTime: (fromData['endTime_' + n] || new Date().getTime())+2,
                             productAmount: fromData['productAmount_' + n] || 0,
                             discount: fromData['discount_' + n] || 0,
                             currPayAmount: formInfoData['currPayAmount_' + n] || 0
@@ -534,8 +534,8 @@ define(function (require, exports, module) {
                                                 productId: b,
                                                 purchaseCount: 999999,
                                                 purchaseAmount: 0,
-                                                startTime: fromData['startTime_1'],
-                                                endTime: fromData['endTime_1'],
+                                                startTime: fromData['startTime_1']+1,
+                                                endTime: fromData['endTime_1']+2,
                                                 productAmount: 0,
                                                 discount: 0,
                                                 currPayAmount: 0
