@@ -118,12 +118,18 @@ define(function (require, exports, module) {
                 return next && next($ele);
             },
             i_convertFieldWhereNumber: function (next, $ele) {
-
                 if ($ele.is('[data-type=number]')) {
                     $ele.on('change', function (e) {
                         var $dom = $(e.target);
                         $dom.val($dom.val().replace(/[^\.\d]/g, ''));
                         $dom.val($dom.val().match(/^[+-]?\d+(\.\d+)?$/) ? $dom.val() : '');
+                        if($dom.val()){
+                            var little=($dom.attr('data-little') && parseInt($dom.attr('data-little') )*10)||100;
+                            try{
+                                var convertNum=Math.floor(parseFloat($dom.val())*little)/little;
+                                $dom.val(convertNum);
+                            }catch(e){}
+                        }
                     })
                 }
                 return next($ele);
@@ -629,13 +635,15 @@ define(function (require, exports, module) {
             o_setFieldVisible: function ($ele, value) {
                 var me = this;
                 if (value != undefined) {
-                    var wrapper = this.o_field_getWrapper($ele);
+                    $ele.each(function(i,n){
+                    var wrapper = me.o_field_getWrapper($(n));
                     if (!value) {
                         wrapper.hide();
                     } else {
                         wrapper.show();
                     }
-                    this.o_field_getData($ele).visible = value;
+                    me.o_field_getData($(n)).visible = value;
+                    })
                 }
             }
             ,

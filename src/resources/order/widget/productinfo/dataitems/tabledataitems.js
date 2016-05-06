@@ -18,7 +18,8 @@ define(function (require, exports, module) {
             '13':'培训助手',
             '14':'战报助手',
             '15':'考试助手',
-            '16':'培训助手时长'
+            '16':'培训助手购买流量',
+            '17':'项目管理'
         };
         //订单类型
         dataItems.push(new DataItem({
@@ -97,7 +98,8 @@ define(function (require, exports, module) {
             //{id: 13, name: '培训助手'},
             //{id: 16, name: '培训助手时长'},
             //{id: 6, name: 'HR助手'},
-            {id: 7, name: '工资助手', options: {discount: {}}}
+            {id: 7, name: '工资助手', options: {discount: {}}},
+            {id: 17, name: '项目管理'}
         ];
         var getPriceEvents = [{
             key: 'change', value: changeForGetPrice
@@ -295,10 +297,10 @@ define(function (require, exports, module) {
             me.__refs.formInfo.o_setValue({name: 'productAmount', value: productAmount});
             //console.log('合同总金额之表格部分计算结果2:' + me.o_getFieldValue('order_amount'));
             //console.log('原价总金额之表格部分计算结果:' + me.o_getFieldValue('order_amount'));
-            if (me.__refs.formInfo.o_getFieldData('payStatus_name').visible || me.__refs.formInfo.o_getFieldValue('payStatus_select') == '1') {
+            if (me.__refs.formInfo.o_getFieldData('payStatus_name').visible!==false || me.__refs.formInfo.o_getFieldValue('payStatus_select') == '1') {
                 me.__refs.formInfo.o_setValue({name: 'currPayAmount', value: order_amount});
             }
-            if (me.__refs.formInfo.o_getFieldData('payStatus_select').visible) {
+            if (me.__refs.formInfo.o_getFieldData('payStatus_select').visible!==false) {
                 me.__refs.formInfo.o_data_getField({name: 'payStatus_select'}).change();
             }
 
@@ -349,6 +351,8 @@ define(function (require, exports, module) {
                     me.o_setValue({name: 'productAmount_' + id, value: ''});
                 } else {
                     if (me.o_getFieldValue('purchaseAmount_' + id) && me.o_getFieldData('endTime_' + id).readonly != true) {
+                        options.data.startDate+=1;
+                        options.data.endDate+=2;
                         me.attrs.apiPool.api_getCalculateSingle(options);
                     }
                 }

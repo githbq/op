@@ -7,8 +7,8 @@ define( function(require, exports, module){
 			$endTime = $el.find('.endTime'),
 			$download = $el.find('.download');
 
-		$startTime.datetimepicker( {timepicker: false,format:'Y-m-d'} );
-		$endTime.datetimepicker( {timepicker: false,format:'Y-m-d'} );
+		$startTime.datetimepicker( {timepicker: false,format:'Y/m/d'} );
+		$endTime.datetimepicker( {timepicker: false,format:'Y/m/d'} );
 
 		$download.on('click',function(){
 
@@ -26,7 +26,7 @@ define( function(require, exports, module){
 					'timeBegin': startTime,
 					'timeEnd': endTime
 				} );
-
+			//console.log( param )
 			window.open( IBSS.API_PATH + '/agent/exporttoexcel?' + param );
 		});
 	}

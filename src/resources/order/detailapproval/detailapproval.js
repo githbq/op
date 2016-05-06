@@ -37,7 +37,9 @@ define( function(require, exports, module){
 			'12':'自定义助手',
 			'13':'培训助手',
 			'14':'战报助手',	
-			'15':'考试助手'
+			'15':'考试助手',
+		    '16':'培训助手流量费用',
+		    '17':'项目管理'
         }; 
 
     /////////////////
@@ -59,7 +61,8 @@ define( function(require, exports, module){
 			'.action-submit':'actionSubmit',
 			'.action-agree-pass':'actionAgreePass',
 			'.enterpriseAccount':'enterpriseAccount',
-			'.money-time':'moneyTime'
+			'.money-time':'moneyTime',
+			'.receivedPayNum':'receivedPayNum'
 		},
 		events:{
 			'click .action-save':'actionSaveEve',
@@ -82,7 +85,6 @@ define( function(require, exports, module){
                 
                 me.$filingRegion.val( treenodes[0]['name'] ).attr('data-code', treenodes[0]['code'] );
             });
-
 		},
 
 		/**
@@ -690,6 +692,8 @@ define( function(require, exports, module){
 			//设置是否可以编辑
 			me.attrs.moneyEdit = me.attrs.options.editFlag;
 			me.attrs.basicInfoEdit = me.attrs.options.editFlag;
+			////财务驳回rejectsFrom只有为3的不让修改 add by hubq
+			//if(me.attrs.options.rejectsFrom && (me.attrs.options.rejectsFrom == 3 ) && me.attrs.options.editFlag){
 			//财务驳回只能部分编辑和小助手第二次驳回
 			if(me.attrs.options.rejectsFrom && (me.attrs.options.rejectsFrom == 2 || me.attrs.options.rejectsFrom == 3 ) && me.attrs.options.editFlag){
 				me.attrs.moneyEdit = false;
@@ -721,15 +725,18 @@ define( function(require, exports, module){
 			//判断审批意见
 			var opinion = strDom ? strDom :'<tr><td colspan="4" style="text-align: center;">暂无</td></tr>';
 			me.$('.last-options').html( opinion );
-			
+
 			//设置到款时间 receivedPayDate
 			var receivedPayDate = (me.attrs.orderData && me.attrs.orderData.order && me.attrs.orderData.order.receivedPayDate)  ? new Date( me.attrs.orderData.order.receivedPayDate  )._format("yyyy-MM-dd"):'';
+			//设置到款编号
+			var receivedPayNum= (me.attrs.orderData && me.attrs.orderData.order && me.attrs.orderData.order.receivedPayNum)?me.attrs.orderData.order.receivedPayNum:'';
+
 			if(receivedPayDate){
 				me.$('.receivedPayDate').show();
 				me.$('.receivedPayDate-text').text(receivedPayDate);
+				me.$('.receivedPayNum-text').text(receivedPayNum);
 				me.$('.currentTask-finance').hide();
 			}
-			
 		},
 		//获取全部订单数据
 		getOrderInfo:function( callback ){
@@ -826,7 +833,7 @@ define( function(require, exports, module){
 							tempSubOrders[i].subOrder['hasFlag']=true;
 							if(tempExtends.length>0){
 								
-								if(me.attrs.allData.orderEntity.subOrders[j].productExtends.length>0){
+								if(me.attrs.allData.orderEntity.subOrders[j].productExtends && me.attrs.allData.orderEntity.subOrders[j].productExtends.length>0){
 										for(var ke in tempExtends[0]){
 											me.attrs.allData.orderEntity.subOrders[j].productExtends[0][ke] = tempExtends[0][ke];
 										}
@@ -948,7 +955,7 @@ define( function(require, exports, module){
 						me.attrs.complexDiscount = data.value.model;
 						callback && callback( data.value.model );
 					}
-				},
+				}
 			})
 		},
 		//保存
@@ -963,10 +970,10 @@ define( function(require, exports, module){
 				
 				switch( me.attrs.options.orderType ){
 					case 9:case 10:case 11:case 12:
-						tempUrl = '/odr/renew/update'
+						tempUrl = '/odr/renew/update';
 						break;
 					default:
-						tempUrl = '/odr/updateOrderVO'
+						tempUrl = '/odr/updateOrderVO';
 				}
 				me.$actionSubmit.text('提交中....');
 				me.$actionSubmit.attr('disabled','disabled');
@@ -1187,6 +1194,7 @@ define( function(require, exports, module){
 				'url': '/odr/setreceivedpaydate',
 				'data':{
 					'orderId': me.attrs.options.id,   //流程实例ID
+					'receivedPayNum':me.$receivedPayNum.val(),
 					'receivedPayDate':new Date( me.$moneyTime.val()  ).getTime()          //审批结果(通过/拒绝)
 				},
 				success: function( data ){

@@ -1,7 +1,7 @@
 define(function (require, exports, module) {
     var DataItem = require('../index').PageDataClass;
     var uploader = require('common/widget/upload').uploader;
-
+    var math = require('common/widget/math/math');
     module.exports.getItems = function () {
         var dataItems = [];
 
@@ -155,14 +155,15 @@ define(function (require, exports, module) {
                                 {name: 'currPayAmount_14', value: '0', visible: false},
                                 {name: 'currPayAmount_15', value: '0', visible: false},
                                 {name: 'currPayAmount_13', value: '0', visible: false},
-                                {name: 'currPayAmount_16', value: '0', visible: false}
+                                {name: 'currPayAmount_16', value: '0', visible: false},
+                                {name: 'currPayAmount_17', value: '0', visible: false}
                             ]);
                             //全款
                         }
                             ;
                             break;
-                        case '2':
-                        {//分期
+                        case '2':{
+
                             me.o_setValues([
                                 {name: 'currPayAmount'},
                                 {name: 'currPayAmount_3', visible: false},
@@ -171,24 +172,24 @@ define(function (require, exports, module) {
                                 {name: 'currPayAmount_5', visible: false},
                                 {name: 'currPayAmount_7', visible: false},
                                 {name: 'currPayAmount_12', visible: false},
-                                {name: 'currPayAmount_14', value: '0', visible: false},
-                                {name: 'currPayAmount_15', value: '0', visible: false},
-                                {name: 'currPayAmount_13', value: '0', visible: false},
-                                {name: 'currPayAmount_16', value: '0', visible: false}
+                                {name: 'currPayAmount_14', visible: false},
+                                {name: 'currPayAmount_15', visible: false},
+                                {name: 'currPayAmount_13', visible: false},
+                                {name: 'currPayAmount_16', visible: false},
+                                {name: 'currPayAmount_17', visible: false}
                             ]);
-                            debugger
                             var checkeds = me.__refs.tableInfo.o_getFieldValue('check').split(',');
-                            if (me.__refs.terminalInfo.o_getFieldValue('useCRM') && me.__refs.terminalInfo.o_getFieldData('useCRMWrapper').visible) {//使用了逍客终端 要加入服务费
+                            if (me.__refs.terminalInfo.o_getFieldValue('useCRM') && me.__refs.terminalInfo.o_getFieldData('useCRMWrapper').visible!==false) {//使用了逍客终端 要加入服务费
                                 checkeds.push('1');//CRM费用
                             }
                             if (me.__refs.terminalInfo.o_getFieldValue('useFX')) {//使用了逍客终端 要加入服务费
                                 checkeds.push('3');//服务费
                             }
                             if (me.__refs.terminalInfo.o_getFieldValue('useTrainning')) {//使用服务费
-                                if(me.__refs.terminalInfo.o_getFieldData('productTrainingWrapper').visible!==false){
+                                if (me.__refs.terminalInfo.o_getFieldData('productTrainingWrapper').visible !== false) {
                                     checkeds.push('13');//培训费
                                 }
-                                if(me.__refs.terminalInfo.o_getFieldData('productTimeLongWrapper').visible!==false){
+                                if (me.__refs.terminalInfo.o_getFieldData('productTimeLongWrapper').visible !== false) {
                                     checkeds.push('16');//流量费
                                 }
                             }
@@ -218,6 +219,7 @@ define(function (require, exports, module) {
                                 {name: 'currPayAmount_15', value: '0', visible: false},
                                 {name: 'currPayAmount_13', value: '0', visible: false},
                                 {name: 'currPayAmount_16', value: '0', visible: false},
+                                {name: 'currPayAmount_17', value: '0', visible: false},
                                 {name: 'currPayAmount', value: '0'}
                             ]);
                         }
@@ -230,7 +232,7 @@ define(function (require, exports, module) {
             ]
 
         }));
-        var currPayIdArr = [3, 1, 4, 5, 7, 12,15,14,13,16];
+        var currPayIdArr = [3, 1, 4, 5, 7, 12, 15, 14, 13, 16,17];
         $(currPayIdArr).each(function (i, n) {
             (function (id) {
                 dataItems.push(new DataItem({
@@ -247,17 +249,19 @@ define(function (require, exports, module) {
                             var $dom = $(e.target);
                             $dom.val($dom.val().replace(/[^\.\d]/g, ''));
 
-                            var purchaseAmount = controll.o_getFieldValue('purchaseAmount_' + id);
+                            var purchaseAmount = controll.o_getFieldValue('purchaseAmount_input_' + id);
+                            controll.o_setValue({name:'purchaseAmount_'+id,value:purchaseAmount});//值再一次同步
                             if (!purchaseAmount) {
                                 $dom.val('');
                             } else if ($dom.val() && parseFloat(purchaseAmount) < parseFloat($dom.val())) {
+                                debugger
                                 util.showToast('分期金额不能大于对应的合同金额');
                                 $dom.val(purchaseAmount);
                             }
                             var currPayAmount = 0;
-                            me.$('.fenqi:visible').each(function (i, n) {
-                                if ($(n).val()) {
-                                    currPayAmount += parseFloat($(n).val());
+                            me.$('.fenqi:visible').each(function (j, m) {
+                                if ($(m).val()) {
+                                    currPayAmount = math.numAdd(currPayAmount, $(m).val());
                                 }
                             });
                             me.o_setValue({name: 'currPayAmount', value: currPayAmount});

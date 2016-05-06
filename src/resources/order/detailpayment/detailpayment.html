@@ -24,8 +24,13 @@
 			</table>
 			<p class="receivedPayDate" style="display: none;">
 				<label for="">
-					<span>实际到款时间 :</span>
+					<span class="m-len">实际到款时间 :</span>
 					<span class="receivedPayDate-text"></span>
+				</label>
+				<br/>
+				<label for="">
+					<span class="m-len">到款编号 : </span>
+					<span class="receivedPayNum-text"></span>
 				</label>
 			</p>
 		</div>
@@ -41,10 +46,14 @@
 			<hr/>
 			<p class="currentTask-finance" style="display: none;">
 				<label for="">
-					<span>实际到款时间 </span>
+					<span class="m-len">实际到款时间<span class="red">*</span></span>
 					<input type="text"  class="money-time">
 				</label>
-	
+				<br/>
+				<label for="">
+					<span class="m-len">到款编号</span>
+					<input type="text" class="receivedPayNum" maxlength="50">
+				</label>
 			</p>
 			<p>
 			<h3 style="font-size:18px;">审批意见</h3>

@@ -11,6 +11,10 @@ define(function (require, exports, module) {
 
 
                     }
+                    if ($ele.attr('data-name') == 'purchaseCount_16') {
+                        //培训助手购买流量不验证
+                        return false;
+                    }
                     if ($ele.is('[readonly],[disabled]')) {
                         return false;
                     }

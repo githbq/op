@@ -73,11 +73,20 @@ define(function (require, exports, module) {
                                         if (checked && me.dataDic[i].old_readonly === undefined) {
                                             me.dataDic[i].old_readonly = !!me.dataDic[i].readonly;
                                         }
+
                                         me.dataDic[i].readonly = !checked ? true : ( me.dataDic[i].old_readonly === true ? isReadonly : false);
+                                        if (me.dataDic[i].__force) {
+                                            me.dataDic[i].readonly = true;
+                                        }
                                         me.o_setValue(me.dataDic[i]);
                                         if (i.toString().indexOf('type_') == 0) {
                                             var $type = me.o_data_getField(me.dataDic[i]);
                                             $type && $type.length > 0 && ($type.change());
+                                        }
+                                        if (!checked && !(me.o_getFieldValue('purchaseCount' + findIndex))) {
+                                            me.o_setValue({name: 'purchaseAmount' + findIndex, value: 0});
+                                            me.o_setValue({name: 'productAmount' + findIndex, value: 0});
+                                            me.o_setValue({name: 'discount' + findIndex, value: 0});
                                         }
                                     }
                                 });
@@ -159,8 +168,12 @@ define(function (require, exports, module) {
                                 $dom.val('');
                                 return;
                             }
+                        } else {
+                            me.o_setValue({name: 'purchaseAmount_' + n, value: 0});
+                            me.o_setValue({name: 'productAmount_' + n, value: 0});
                         }
                         if (n == '16') {
+                            debugger
                             changeForGetPrice.call(me, e);
                             return;
                         }
@@ -178,6 +191,7 @@ define(function (require, exports, module) {
                         } else {
                             $dom.val($dom.val().replace(/[^\.\d]/g, ''));
                             me.o_field_getData($dom).__silent = false;
+                            debugger
                             if ($dom.val() && !allreadonly) {
                                 me.attrs.apiPool.api_getServicePrice({
                                     data: {enterpriseId: me.o_getFieldValue('enterpriseId'), personCount: $dom.val()}, success: function (response) {
@@ -329,8 +343,8 @@ define(function (require, exports, module) {
                                     me.o_setValue({name: 'purchaseAmount_' + n});
                                     me.o_setValue({name: 'purchaseAmount_input_' + n, readonly: condition ? isReadonly : true});
                                 } else {
-                                    me.o_setValue({name: 'purchaseAmount_' + n, value: me.o_getFieldValue('purchaseAmount_' + n)});
-                                    me.o_setValue({name: 'purchaseAmount_input_' + n, value: me.o_getFieldValue('purchaseAmount_' + n), readonly: condition ? isReadonly : true})
+                                    me.o_setValue({name: 'purchaseAmount_' + n, value: me.o_getFieldValue('purchaseAmount_input_' + n)});
+                                    me.o_setValue({name: 'purchaseAmount_input_' + n, value: me.o_getFieldValue('purchaseAmount_input_' + n), readonly: condition ? isReadonly : true})
                                 }
                             }
                                 ;
@@ -413,6 +427,7 @@ define(function (require, exports, module) {
         }
 
         function changeForGetPrice(e, change) {
+            debugger
             var me = this;
             var $dom = $(e.target);
             var id = $dom.parents('[data-productid]').attr('data-productid');
@@ -424,6 +439,8 @@ define(function (require, exports, module) {
             if (id == '1' || id == '16') {//针对CRM数量可改
                 sum = me.o_getFieldValue('purchaseCount_' + id);
                 if (!sum) {
+                    checkTypeForPrice.call(me, e, id);
+                    priceComput.call(me, e);
                     return;
                 }
             }
@@ -453,27 +470,30 @@ define(function (require, exports, module) {
                 }
             };
             if (id == '16') {
-                options.data.startDate = me.o_getFieldValue('startTime_13');
-                options.data.endDate = me.o_getFieldValue('endTime_13');
+                options.data.startDate = me.o_getFieldValue('startTime_13') || new Date().getTime();
+                options.data.endDate = me.o_getFieldValue('endTime_13') || new Date().getTime() + 2;
             }
             if (id == '3') {//服务人数不计算折扣
                 checkTypeForPrice.call(me, e, id);
                 priceComput.call(me, e);
             }
             else if (options.data.startDate && options.data.endDate) {
-                if (options.data.startDate >= options.data.endDate) {
-                    util.showToast('开始日期必须小于结束日期');
+                if (options.data.startDate > options.data.endDate) {
+                    util.showToast('开始日期必须小于等于结束日期');
                     me.o_setValue({name: 'startTime_' + id, value: ''});
                     me.o_setValue({name: 'endTime_' + id, value: ''});
                 } else {
+                    options.data.startDate += 1;
+                    options.data.endDate += 2;
                     me.attrs.apiPool.api_getCalculateSingle(options);
                 }
-            } else if (id == '16') {//流量
-                util.showToast('开始日期必须小于结束日期');
-                $dom.val('');
-                me.o_setFieldValue({name: 'productAmount_16', value: ''});
-                me.o_setFieldValue({name: 'purchaseAmount_16', value: ''});
             }
+            //else if (id == '16' || id == '13') {
+            //    me.o_setValue({name: 'purchaseCount_16', value:''});
+            //    me.o_setValue({name: 'purchaseAmount_16', value: 0});
+            //    me.o_setValue({name: 'productAmount_16', value: 0});
+            //    me.o_data_getField({name: 'purchaseCount_16'}).change();
+            //}
         }
 
         return dataItems;

@@ -90,7 +90,7 @@ define( function(require, exports, module){
 			util.api({
 				'url':'/channel/querychannellist',
 				'data':{
-					'pageIndex': me.pagination.attr['pageNumber'],
+					'pageIndex': me.pagination.attr['pageNumber']+1,
 					'pageSize': me.pagination.attr['pageSize'],
 					'name': me.model.get('name')
 				},

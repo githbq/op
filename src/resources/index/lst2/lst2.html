@@ -1,75 +1,101 @@
 <div class="p-list p-indexact-lst" js="true" cache="false">
-	<div class="m-list m-act-lst u-tablelist">
-		<iframe style="width:1px;height:1px;visibility:hidden;position:absolute" name="hideiframe" id="hideiframe" src="" frameborder="0"></iframe>
-		<div class="list-main">
-			<div class="list-header">
-				<h3>活跃度查询</h3>
-			</div>
-			<div class="list-bar">
-				<div class="list-bar-btns">
-					<button id="btnClear" data-permissions="F008083">清空</button>
-					<button id="btnReset" data-permissions="F008082">重置</button>
-					<button id="btnSearch" class="btn-blue btn-search" data-permissions="F008081">查询</button>
-				</div>
-				<div class="list-bar-input">
-					<label><span>行业</span>
-						<select id="alIndustry">
-							<option value="">全部</option>
-						</select>
-					</label>
-					<label><span>产品模块</span>
-						<select id="alPModule">
-							<option value="">全部</option>
-						</select>
-					</label>
-					<label><span>优惠码</span>
-						<input id="alCode" type="text" class="g-ipt ipt-m" onchange="this.value=this.value.replace(/\D/g,'')" maxlength=8 />
-					</label>
-					<label><span>付费状态</span>
-						<select id="alFStatus">
-							<option value="">全部</option>
-							<option value="true">是</option>
-							<option value="false">否</option>
-						</select>
-					</label>
-					<label><span>来源</span>
-						<select id="alSource">
-							<option value="">全部</option>
-						</select>
-					</label>
-					<label class="sp">
-						<label>
-							<span>活跃时间</span>
-							<input id="alAST" type="text" class="g-ipt ipt-l" />
-						</label>
-						<label>
-							<span>-</span>
-							<input id="alAET" type="text" class="g-ipt ipt-l" />
-						</label>
-					</label>
-					<label class="sp">
-						<label>
-							<span>开通时间</span>
-							<input id="alCST" type="text" class="g-ipt ipt-l" />
-						</label>
-						<label>
-							<span>-</span>
-							<input id="alCET" type="text" class="g-ipt ipt-l" />
-						</label>
-					</label>
-					<br />
-					<label><span>企业帐号或Id</span>
-						<select id="alListType">
-							<option value="1">帐号</option>
-							<option value="2">Id</option>
-						</select>
-					</label><br />
-					<textarea class="act-lst-tr" id="alList" ></textarea><br />
-					<p class="tips"></p>
-				</div>
-			</div>
-			<div class="list-content">
-			</div>
-		</div>
-	</div>
+    <div class="m-list m-act-lst u-tablelist">
+        <iframe style="width:1px;height:1px;visibility:hidden;position:absolute" name="hideiframe" id="hideiframe" src="" frameborder="0"></iframe>
+        <div class="list-main">
+            <div class="list-header">
+                <h3>活跃度查询</h3>
+            </div>
+            <div class="list-bar">
+                <div class="list-bar-btns">
+                    <button id="btnClear" data-permissions="F008083">清空</button>
+                    <button id="btnReset" data-permissions="F008082">重置</button>
+                    <button id="btnSearch" class="btn-blue btn-search" data-permissions="F008081">查询</button>
+                </div>
+                <div class="list-bar-input">
+                    <label><span>行业</span>
+                        <select id="alIndustry">
+                            <option value="">全部</option>
+                        </select>
+                    </label>
+                    <label><span>产品模块</span>
+                        <select id="alPModule">
+                            <option value="">全部</option>
+                        </select>
+                    </label>
+                    <label><span>优惠码</span>
+                        <input id="alCode" type="text" class="g-ipt ipt-m" onchange="this.value=this.value.replace(/\D/g,'')" maxlength=8/>
+                    </label>
+                    <label><span>付费状态</span>
+                        <select id="alFStatus">
+                            <option value="">全部</option>
+                            <option value="true">是</option>
+                            <option value="false">否</option>
+                        </select>
+                    </label>
+                    <label><span>来源</span>
+                        <select id="alSource">
+                            <option value="">全部</option>
+                        </select>
+                    </label>
+                    <label class="sp">
+                        <label>
+                            <span>活跃时间</span>
+                            <input id="alAST" type="text" class="g-ipt ipt-l"/>
+                        </label>
+                        <label>
+                            <span>-</span>
+                            <input id="alAET" type="text" class="g-ipt ipt-l"/>
+                        </label>
+                    </label>
+                    <label class="sp">
+                        <label>
+                            <span>开通时间</span>
+                            <input id="alCST" type="text" class="g-ipt ipt-l"/>
+                        </label>
+                        <label>
+                            <span>-</span>
+                            <input id="alCET" type="text" class="g-ipt ipt-l"/>
+                        </label>
+                    </label>
+                    <br/>
+                    <label><span>企业帐号或Id</span>
+                        <select id="alListType">
+                            <option value="1">帐号</option>
+                            <option value="2">Id</option>
+                        </select>
+                    </label><br/>
+                    <textarea class="act-lst-tr" id="alList"></textarea><br/>
+
+                    <p class="tips"></p>
+                </div>
+            </div>
+            <div class="result"></div>
+            <div class="m-list m-act-rpt u-tablelist">
+                <div class="list-main">
+                    <div class="list-header">
+                        <h3>企业列表</h3>
+                    </div>
+                </div>
+                <div class="list-content">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th data-name="id">ID</th>
+                            <th data-name="taskName">任务名称</th>
+                            <th data-name="status">任务状态</th>
+                            <th data-name="createTime">任务创建时间</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="list-pager">
+
+            </div>
+        </div>
+    </div>
 </div>

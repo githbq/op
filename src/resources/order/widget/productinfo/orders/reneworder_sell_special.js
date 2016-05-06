@@ -27,10 +27,16 @@ define(function (require, exports, module) {
         controller(terminalDataItems, 'typewrapper_1', function (n) {
             n.visible = true;
         });
+        controller(terminalDataItems, 'purchaseAmount_13', function (n) {
+            n.visible = false;
+        });
         controller(terminalDataItems, 'purchaseAmount_input_3', function (n) {
             n.visible = true;
         });
         controller(terminalDataItems, 'purchaseAmount_input_1', function (n) {
+            n.visible = true;
+        });
+        controller(terminalDataItems, 'kunbangWrapper', function (n) {
             n.visible = true;
         });
         controller(terminalDataItems, 'purchaseAmount_1', function (n) {
@@ -59,6 +65,9 @@ define(function (require, exports, module) {
         });
         controller(tableDataItems,'type_7',function(n){
             n.value = '3';
+        });
+        controller(terminalDataItems, 'type_13', function (n) {
+            n.visible=true;
         });
         common.setNoGZHelper(controller,terminalDataItems, tableDataItems, formDataItems);
         common.setCommonData(controller, terminalDataItems, tableDataItems, formDataItems,12,responseData);

@@ -24,6 +24,9 @@ define(function (require, exports, module) {
         controller(terminalDataItems, 'useCRM', function (n) {
             n.visible=false;
         });
+        controller(terminalDataItems, 'giveCount_16', function (n) {
+            n.value=1000;
+        });
         controller(terminalDataItems, 'typewrapper_3', function (n) {
             n.visible = false;
         });

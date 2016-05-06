@@ -58,16 +58,16 @@
                     <select id="returnBackStatus" ce-model="returnVisitCheck">
                     </select>
                 </label>
-                <!--
+                
                 <label>
-                    <span>付费状态</span>
+                    <span>是否付费</span>
                     <select ce-model="isPayed">
                         <option value="">全部</option>
                         <option value="1">是</option>
                         <option value="0">否</option>
                     </select>
                 </label>
-                -->
+                
                 <label data-permissions="F008004 F008126">
                     <span>是否分配</span>
                     <select ce-model="isSupervised">
@@ -76,7 +76,7 @@
                         <option value="0">否</option>
                     </select>
                 </label>
-                <!--
+            
                 <label>
                     <span>是否赠送办公版</span>
                     <select ce-model="presentOfficeEdition">
@@ -85,7 +85,7 @@
                         <option value="0">否</option>
                     </select>
                 </label>
-                -->
+                
                 <br>
                 <label>
                     <span>企业帐号</span>
@@ -110,6 +110,7 @@
     					<th>企业名称</th>
     					<th style="width:110px;">企业账号</th>
     					<th style="width:110px;">代理商</th>
+						<th style="width:110px;">是否付费</th>
 						<th style="width:110px;">风险天数</th>
 						<th style="width:110px;">监察人员</th>
                         <th style="width:110px;">销售人员</th>
@@ -126,6 +127,7 @@
 						<td> <%=item.enterpriseName%> </td>
 						<td> <%=item.enterpriseAccount%> </td>
 						<td> <%=item.agentName%></td>
+						<td> <%=item.isPayed==1 ? '是':'否'%></td>
 						<td> <%=item.cheatDayCount%> </td>
 						<td> <%=item.superviseAccountName%> </td>
                         <td> <%=item.createrName%></td>

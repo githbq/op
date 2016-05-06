@@ -58,7 +58,8 @@ define( function( require, exports, module ) {
 						}
 
                         me.model.set('callbackTimeStr', new Date( data.value.model.callbackTime )._format('yyyy-MM-dd hh:mm') );
-						me.model.set('appStartTime', new Date( data.value.model.appStartTime )._format('yyyy-MM-dd hh:mm'));
+						var appStartTimeStr = data.value.model.appStartTime ? new Date( data.value.model.appStartTime )._format('yyyy-MM-dd hh:mm'):'';
+						me.model.set('appStartTime', appStartTimeStr);
 
                         /*
 						if(data.value.model.status == '2'){

@@ -14,22 +14,26 @@ define( function( require, exports, module ) {
 						'againOffice-common','againOffice-special',
 						'againMarkey-common','againMarkey-special',
 						'releateOffice-common','releateOffice-special',
-						'releateMarket-common','releateMarket-special',
+						'releateMarket-common','releateMarket-special'
 					];
 	var productIdDic = {
-            '1': 'CRM',
-            '2': '逍客终端',
-            '3': '服务',
-            '4': 'PK助手',
-            '5': '会议助手',
-            '6': 'HR助手',
-            '7': '工资助手',
-            '8':'名片',
-			'12':'自定义助手',
-			'13':'培训助手',
-			'14':'战报助手',	
-			'15':'考试助手'
-        }; 
+		'1': 'CRM',
+		'2': '逍客终端',
+		'3': '服务',
+		'4': 'PK_Helper',
+		'5': 'Meeting_Helper',
+		'6': 'HR_Helper',
+		'7': 'Salary_Helper',
+		'8': '名片',
+		'10': '百川',
+		'11': '报数',
+		'12': '自定义助手',
+		'13':'培训助手',
+		'14':'战报助手',
+		'15':'考试助手',
+		'16':'培训助手购买流量',
+		'17':'项目管理'
+	};
     var NewMarketing = MClass( M.Center ).include( {
         
         elements: {
@@ -782,9 +786,9 @@ define( function( require, exports, module ) {
 			var me = this;
 			var discoutFlag = true;
 			if( me.attrs.typeFlag == 'newOffice' || me.attrs.typeFlag == 'newMarket'|| me.attrs.typeFlag == 'releateOffice'|| me.attrs.typeFlag == 'releateMarket' ){
-				_.map( data , function( obj ){
-					if(obj.subOrder.productId ==1 || obj.subOrder.productId ==4  || obj.subOrder.productId ==5 || obj.subOrder.productId ==12 || obj.subOrder.productId ==13 || obj.subOrder.productId ==14 || obj.subOrder.productId ==15){
-						if( obj.subOrder.discount  &&  obj.subOrder.discount<8){
+				_.map( data , function( obj ){ 
+                    if($.inArray(parseInt(obj.subOrder.productId),[1,4,5,7,12,14,15])>=0){
+						if( obj.subOrder.discount  &&  obj.subOrder.discount<8 &&me.attrs.typeFlag != 'newOffice' && obj.subOrder.productId!=7){  //新购 工资助手不参与折扣计算
 							discoutFlag = false;
 							//util.showToast('子产品折扣低于8折，必须申请特批');
 							//return false;

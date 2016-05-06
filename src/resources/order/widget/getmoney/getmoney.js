@@ -3,7 +3,7 @@
  * @html h5.html
  */
 define(function(require, exports, module){
-	
+	var math=require('common/widget/math/math');
 	var Slider = require('common/widget/slider/slider');
 	var contentStr = require('./getmoney.html');
 	var AutoSelect = require('common/widget/autoselect/autoselect');
@@ -54,8 +54,8 @@ define(function(require, exports, module){
 			//计算子菜单金额；
 			me.$view.on('focusout','.sub-app',function(){
 				var noChargeAmount = $(this).attr('data-noChargeAmount');
-				noChargeAmount = parseInt(noChargeAmount);
-				var currPay = parseInt($(this).val());
+				noChargeAmount = parseFloat(noChargeAmount);
+				var currPay = parseFloat($(this).val());
 				if(currPay > noChargeAmount){
 					$(this).val('');
 					util.showToast('填写金额超过未收金额！');
@@ -108,7 +108,7 @@ define(function(require, exports, module){
 			_.map( me.attrs.dataDetail.subOrders , function( obj){
 				me.$view.find('.sub-app').each(function(){
 					var tempId = $(this).attr('data-productId');
-					tempId = parseInt(tempId);
+					tempId = parseFloat(tempId);
 					if(obj.subOrder.productId == tempId){
 						$(this).val(obj.subOrder.currPayAmount)
 					}
@@ -122,7 +122,7 @@ define(function(require, exports, module){
 			me.$appBox.empty();
 			_.map( me.attrs.data.items , function( obj ){
 				_.map( me.attrs.dataDetail.subOrders , function( objCurrent){
-					var tempAcount = parseInt(obj.noChargeAmount)+parseInt( objCurrent.subOrder.currPayAmount);
+					var tempAcount = parseFloat(obj.noChargeAmount)+parseFloat( objCurrent.subOrder.currPayAmount);
 					if(obj.productId == objCurrent.subOrder.productId && tempAcount > 0 ){
 						strDom +="<div class='field_row'> <div class='field_row_head'> </div> " +
 						"<div class='field_wrapper'> <div class='field'> <label> " +
@@ -132,7 +132,7 @@ define(function(require, exports, module){
 					
 					/*me.$view.find('.sub-app').each(function(){
 						var tempId = $(this).attr('data-productId');
-						tempId = parseInt(tempId);
+						tempId = parseFloat(tempId);
 						if(obj.subOrder.productId == tempId){
 							$(this).val(obj.subOrder.currPayAmount)
 						}
@@ -173,7 +173,7 @@ define(function(require, exports, module){
 				var sum = 0;
 				me.$view.find('.sub-app').each(function(){
 					if($(this).val()){
-						sum +=parseInt($(this).val());
+						sum=math.numAdd(sum,parseFloat($(this).val()));
 					}
 				});
 				me.model.set("currPayAmount",sum);

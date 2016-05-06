@@ -44,7 +44,7 @@ define(function (require, exports, module) {
         var invoiceApplyList = new InvoiceApplyList( {'wrapper':$el ,'state':'finance'} );  //发票审批列表
         var financeDetail = new FinanceDetail();   //发票详情
         var expressDetail = new ExpressDetail({'state':'finance'});   //快递详情        
-
+		invoiceApplyList.refresh();
         invoiceApplyList.on('detail',function( orderId, inid , approvalStatus ,info ,type){
             financeDetail.show(info,type);
         });

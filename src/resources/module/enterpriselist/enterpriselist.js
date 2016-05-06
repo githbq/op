@@ -280,7 +280,6 @@ define(function (require, exports, module) {
                 window.open(IBSS.API_PATH + '/enterprise/exportTrialData?' + $.param(data));
                 return;
             }
-
             util.api({
                 url: '/enterprise/querypage',
                 data: data,
@@ -288,7 +287,6 @@ define(function (require, exports, module) {
                     me.$tbody.html('<tr><td colspan="10"><p class="info">加载中...</p></td></tr>');
                 },
                 success: function (data) {
-
                     if (data.success) {
                         me.pagination.setTotalSize(data.value.model.itemCount);
                         if (data.value.model.content.length > 0) {
@@ -320,6 +318,7 @@ define(function (require, exports, module) {
                             });
                             me.clearSelect();
                         } else {
+                            me.pagination.setPage(0, false);
                             me.$tbody.html("<tr><td colspan='10'><p class='info'>暂无数据</p></td></tr>")
                         }
                     }

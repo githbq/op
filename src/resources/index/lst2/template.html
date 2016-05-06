@@ -13,3 +13,16 @@
 <p>生成报告开始时间: <span class="hl"><%=value.dst%></span></p>
 <p>生成报告结束时间: <span class="hl"><%=value.dct%></span></p>
 </script>
+
+<script type="text/template" class="trTpl">
+    <% _.each(content,function(item){%>
+    <tr>
+        <td></td>
+        <td><%=item.id%></td>
+        <td><%=item.taskName%></td>
+        <td><%=item.status%></td>
+        <td><%=item.createTime%></td>
+        <td></td>
+    </tr>
+    <%}) %>
+</script>

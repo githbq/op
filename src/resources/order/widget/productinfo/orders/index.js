@@ -100,16 +100,17 @@ define(function (require, exports, module) {
                 }
                 var useCRM = false;
                 controller(terminalDataItems, 'useCRM', function (item) {
-                    useCRM=item.value;
+                    useCRM = item.value;
                 });
                 var useFX = false;
                 controller(terminalDataItems, 'useFX', function (item) {
-                    useFX=item.value;
+                    useFX = item.value;
                 });
                 var useTrainning = false;
                 controller(terminalDataItems, 'useTrainning', function (item) {
-                    useTrainning=item.value;
+                    useTrainning = item.value;
                 });
+                debugger
                 $(subOrders).each(function (i, n) {
                     if (n.subOrder && n.subOrder.productId && n.subOrder.productId != 10 && n.subOrder.productId != 11 && n.subOrder.productId != 8) {//10为绑定百川  11为绑定报数系统
                         if (n.subOrder.enabled !== false) {
@@ -123,7 +124,7 @@ define(function (require, exports, module) {
                             }
                         }
                         var items = tableDataItems;
-                        if ($.inArray(n.subOrder.productId.toString(), ['1', '2', '3', '13']) >= 0) {
+                        if ($.inArray(n.subOrder.productId.toString(), ['1', '2', '3', '13', '16']) >= 0) {
                             items = terminalDataItems;
                         }
                         if (subOrder.productId == '1') {//选中CRM
@@ -132,7 +133,7 @@ define(function (require, exports, module) {
                         if (subOrder.productId == '2' || subOrder.productId == '3') {//选中逍客终端
                             useFX = true;
                         }
-                        if (subOrder.productId == '13') {//选中培训助手
+                        if (subOrder.productId == '13' || subOrder.productId == '16') {//选中培训助手
                             useTrainning = true;
                         }
                         if (subOrder['startTime_readonly'] === true && dataDic['startTime_' + subOrder.productId]) {
@@ -237,6 +238,7 @@ define(function (require, exports, module) {
         //设置增购逻辑
         exports.setAddOrderLogic = function (controller, terminalDataItems, tableDataItems, formDataItems, type, responseData) {
             var hasTrainning = false;
+            debugger
             $(responseData.data.subOrders).each(function (j, m) {
                 if (m.subOrder.productId == '13') {
                     hasTrainning = true;
@@ -246,6 +248,11 @@ define(function (require, exports, module) {
                 controller(terminalDataItems, 'productTrainingWrapper', function (n) {
                     n.visible = false;
                 });
+                if (responseData.readonly || resonseData.responseData.refuse) {
+                    controller(terminalDataItems, 'useTrainning', function (n) {
+                        n.value = true;
+                    });
+                }
             }
 
             controller(tableDataItems, 'productTrainingWrapper', function (n) {
@@ -474,7 +481,7 @@ define(function (require, exports, module) {
             var formInfoData = formInfo.o_getValues();
             //suborders //////////////////////////////////////////
             var ids = tableInfoData.check.split(',');
-            if (terminalInfo.o_getFieldData('useCRMWrapper').visible!==false && terminalInfo.o_getFieldValue('useCRM')) {
+            if (terminalInfo.o_getFieldData('useCRMWrapper').visible !== false && terminalInfo.o_getFieldValue('useCRM')) {
                 ids.push('1');
             }
             if (terminalInfo.o_getFieldValue('useFX')) {
@@ -483,10 +490,10 @@ define(function (require, exports, module) {
             }
 
             if (terminalInfo.o_getFieldValue('useTrainning')) {// 培训助手
-                if (terminalInfo.o_getFieldData('productTrainingWrapper').visible!==false) {//培训助手
+                if (terminalInfo.o_getFieldData('productTrainingWrapper').visible !== false) {//培训助手
                     ids.push('13');
                 }
-                if (terminalInfo.o_getFieldData('productTimeLongWrapper').visible!==false) {//流量时长
+                if (terminalInfo.o_getFieldData('productTimeLongWrapper').visible !== false) {//流量时长
                     ids.push('16');
                 }
             }
@@ -507,8 +514,8 @@ define(function (require, exports, module) {
                             productId: n,
                             purchaseCount: fromData['purchaseCount_' + n] || 999999,
                             purchaseAmount: fromData['purchaseAmount_' + n] || 0,
-                            startTime: fromData['startTime_' + n] || new Date().getTime(),
-                            endTime: fromData['endTime_' + n] || new Date().getTime(),
+                            startTime:(fromData['startTime_' + n] || new Date().getTime())+1,
+                            endTime: (fromData['endTime_' + n] || new Date().getTime())+2,
                             productAmount: fromData['productAmount_' + n] || 0,
                             discount: fromData['discount_' + n] || 0,
                             currPayAmount: formInfoData['currPayAmount_' + n] || 0
@@ -527,8 +534,8 @@ define(function (require, exports, module) {
                                                 productId: b,
                                                 purchaseCount: 999999,
                                                 purchaseAmount: 0,
-                                                startTime: fromData['startTime_1'],
-                                                endTime: fromData['endTime_1'],
+                                                startTime: fromData['startTime_1']+1,
+                                                endTime: fromData['endTime_1']+2,
                                                 productAmount: 0,
                                                 discount: 0,
                                                 currPayAmount: 0

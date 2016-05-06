@@ -169,6 +169,9 @@ define( function( require, exports, module ) {
         },
 		jumpEve:function(jump){
 			var me = this;
+			me.attrs.state = jump;
+            me.setState();
+            me.searchEve();
 			me.$view.find('.toggle b[data-state="'+jump+'"]').trigger("click");
 		},
         toggleEve: function( e ){

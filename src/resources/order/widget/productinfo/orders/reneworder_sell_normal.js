@@ -37,6 +37,9 @@ define(function (require, exports, module) {
             n.visible = true;
 
         });
+        controller(terminalDataItems, 'kunbangWrapper', function (n) {
+            n.visible = true;
+        });
         controller(terminalDataItems, 'useCRM', function (n) {
             n.visible = true;
             n.value=false;
@@ -55,6 +58,13 @@ define(function (require, exports, module) {
         });
         controller(tableDataItems,'type_7',function(n){
             n.value = '3';
+        });
+        controller(terminalDataItems, 'type_13', function (n) {
+            n.visible=true;
+        });
+
+        controller(terminalDataItems, 'purchaseAmount_13', function (n) {
+            n.visible = false;
         });
         common.setNoGZHelper(controller,terminalDataItems, tableDataItems, formDataItems);
         common.setCommonData(controller, terminalDataItems, tableDataItems, formDataItems,11,responseData);

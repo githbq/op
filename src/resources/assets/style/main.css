@@ -5015,7 +5015,7 @@ em {
 .p-indexact-lst .m-act-lst .list-bar .list-bar-btns button:last-child {
   margin-right: 0;
 }
-.p-indexact-lst .m-act-lst .list-bar .list-bar-btns button.disable {
+.p-indexact-lst .m-act-lst .list-bar .list-bar-btns button.disabled {
   opacity: 0.3;
 }
 .p-indexact-lst .m-act-lst .list-bar .list-bar-entry {
@@ -5056,7 +5056,7 @@ em {
 .p-indexact-lst .m-act-lst .list-content p.btns button.invisiable {
   display: none;
 }
-.p-indexact-lst .m-act-lst .list-content p.btns button.disable {
+.p-indexact-lst .m-act-lst .list-content p.btns button.disabled {
   opacity: 0.3;
 }
 .p-indexact-lst .m-act-lst .list-content p .hl {
@@ -5440,12 +5440,7 @@ em {
 .m-filinglist .filing-check {
   display: none;
 }
-.m-filinglist [data-status="1"] .open-input,
-.m-filinglist [data-status="6"] .open-input,
-.m-filinglist [data-status="7"] .open-input,
-.m-filinglist [data-status="8"] .open-input,
-.m-filinglist [data-status="9"] .open-input,
-.m-filinglist [data-status="10"] .open-input {
+.m-filinglist [data-status="1"] .open-input {
   display: inline-block;
 }
 .m-filinglist [data-status="4"] .filing-check {
@@ -6422,6 +6417,9 @@ em {
   width: 108px;
   text-align: left;
 }
+.productinfo .m-datetime {
+  width: 80px;
+}
 .productinfo .dashed-border {
   border-top: 2px dashed #999999;
 }
@@ -6467,6 +6465,15 @@ em {
 }
 .productinfo .red {
   color: red;
+}
+.productinfo .forminfo .input-price-wrapper {
+  overflow: hidden;
+}
+.productinfo .forminfo label {
+  width: 200px;
+}
+.productinfo .forminfo .input-price {
+  float: left;
 }
 .productinfo .field_group {
   margin: 0 auto;
@@ -6642,14 +6649,6 @@ em {
   border: 1px solid #ccc;
   padding: 3px 10px;
   margin: 0 10px;
-}
-.sub-list-box table tr td {
-  width: 254px;
-  display: inline-block;
-  text-align: right;
-}
-.sub-list-box table tr td.money-box {
-  width: 60px;
 }
 .m-invoicedetail h4 {
   font-weight: bold;
@@ -6881,4 +6880,56 @@ em {
 }
 .m-invoiceapplydetail img {
   width: 300px;
+}
+.w-len {
+  display: inline-block;
+  width: 150px;
+  text-align: left;
+}
+.order-content span.m-len {
+  display: inline-block;
+  text-align: right;
+  width: 150px;
+}
+.order-content .red {
+  color: red;
+}
+.m-deailbind .left-info {
+  float: left;
+}
+.m-deailbind .right-info {
+  float: right;
+  border-left: 1px solid #ccc;
+  padding-left: 10px;
+}
+.m-deailbind label textarea {
+  width: 169px;
+  height: 80px;
+  padding: 10px;
+}
+.order-content span.m-len {
+  display: inline-block;
+  text-align: right;
+  width: 150px;
+}
+.order-content .red {
+  color: red;
+}
+.m-deailbind .left-info {
+  float: left;
+}
+.m-deailbind .right-info {
+  float: right;
+  border-left: 1px solid #ccc;
+  padding-left: 10px;
+}
+.m-deailbind label textarea {
+  width: 169px;
+  height: 80px;
+  padding: 10px;
+}
+.m-deailbind span.m-len {
+  display: inline-block;
+  text-align: right;
+  width: 150px;
 }

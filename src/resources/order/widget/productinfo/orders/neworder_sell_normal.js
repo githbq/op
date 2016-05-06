@@ -20,10 +20,16 @@ define(function (require, exports, module) {
         controller(terminalDataItems, 'useFX', function (n) {
             n.visible=false;
         });
+        controller(terminalDataItems, 'giveCount_16', function (n) {
+            n.value=1000;
+        });
         controller(terminalDataItems, 'type_13', function (n) {
             n.visible=false;
         });
         controller(terminalDataItems, 'purchaseAmount_input_3', function (n) {
+            n.visible = false;
+        });
+        controller(terminalDataItems, 'purchaseAmount_13', function (n) {
             n.visible = false;
         });
         controller(terminalDataItems, 'purchaseAmount_input_1', function (n) {
