@@ -125,7 +125,7 @@ define( function( require, exports, module ) {
                     if ( data.success ) {
                         me.pagination.setTotalSize( data.value.model.itemCount );
                         me.collection.reload( data.value.model.content, function( item ) {
-                            item.displayCreateTime = new Date( item.createTime )._format( "yyyy-MM-dd hh:mm" );
+                            item.displayCreateTime = new Date( item.createtime )._format( "yyyy-MM-dd hh:mm" );
                         } );
                         var content = me.collection.all();
                         if ( content.length > 0 ) {
