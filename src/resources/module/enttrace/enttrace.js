@@ -8,6 +8,9 @@ define( function(require, exports, module){
     var contentStr = require('./enttrace.html');
     var tem = $( require('./template.html') );
 
+    /*
+     * 企业跟踪记录
+     */
     var EntTrace = MClass( Slider ).include({
         
         content: contentStr,
@@ -21,7 +24,7 @@ define( function(require, exports, module){
         
         defaultModel: {
             'enterpriseId': null,
-            'pageNumber': 0,
+            'pageNumber': 1,
             'pageSize': 6,
             'pageCount': 0
         },
@@ -141,7 +144,7 @@ define( function(require, exports, module){
         renderMore: function(){
             var me = this;
 
-            if( (me.model.get('pageNumber') + 1) >= me.model.get('pageCount') ){
+            if( (me.model.get('pageNumber') + 1) > me.model.get('pageCount') ){
                 me.$contentmore.hide();
             }else{
                 me.$contentmore.show();

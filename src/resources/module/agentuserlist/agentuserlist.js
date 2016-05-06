@@ -12,13 +12,18 @@ define( function(require, exports, module){
 	var contentStr = require('./agentuserlist.html');
 
 
+    //var auditStatusMap = {
+    //    'WAIT': '待审核',
+    //    'SUCCESS': '审核成功',
+    //    'FALSE': '审核失败'
+    //};
     var auditStatusMap = {
-        'WAIT': '待审核',
-        'SUCCESS': '审核成功',
-        'FALSE': '审核失败'
+        '0': '待审核',
+        '1': '审核成功',
+        '2': '审核失败'
     };
-    
-   /**
+
+    /**
      *
      * 用户列表
      */
@@ -185,7 +190,7 @@ define( function(require, exports, module){
                 'url': '/agent/queryaccountpage',
                 'data': {
                     'pageSize': me.pagination.attr['pageSize'],
-                    'pageIndex': me.pagination.attr['pageNumber'],
+                    'pageIndex': me.pagination.attr['pageNumber']+1,
                     'agentId': me.model.get('agentId'),
                     'name': me.model.get('name'),
                     'status': me.model.get('status'),

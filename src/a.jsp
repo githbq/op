@@ -20,7 +20,7 @@
         <div class="person-loginout">
             <a href="#page/changepwd" data-permissions="F009079">修改密码</a>
             <a href="#page/setleader">设置上级</a>
-            <a href="#page/setuser">用户列表</a>
+            <%--<a href="#page/setuser">用户列表</a>--%>
             <a href="#agentsupport/backquestion" data-permissions="F009080">反馈</a>
             <a href="/logout?from=/op/a" data-permissions="F009081">退出</a>
         </div>
@@ -33,7 +33,7 @@
                 <ul class="nav-sub">
                     <li data-modulecode="EnterpriseFIlingOpA"><a href="#agentsupport/entprisefiling">备案企业列表</a></li>
                     <li data-modulecode="EnterpriseFIlingOpenOpA"><a href="#agentsupport/entpriseopen">已公开列表</a></li>
-                    <li data-modulecode="EnterpriseFIlingOpenRequestOpA"><a href="#agentsupport/entprisereq">公开企业申请列表</a></li>
+                    <!--<li data-modulecode="EnterpriseFIlingOpenRequestOpA"><a href="#agentsupport/entprisereq">公开企业申请列表</a></li>-->
                 </ul>
             </li>
             <li data-modulecode="OrderOpA">

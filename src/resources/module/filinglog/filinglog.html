@@ -14,21 +14,23 @@
         </div>
         <div class="list-bar">
           <div class="list-bar-input">
+		  <div class="list-bar-btns">
+				  <button class="search btn-blue">查询</button>
+			  </div>  
               <label for="">
                   <span>类别</span>
                   <select ce-model="type" class="type"></select>
               </label>
               <label for="">
                   <span>创建时间</span><input type="text" class="stime">    到    <input type="text" class="etime">
-              </label>
+              </label><br/>
               <label class="vendorLabel">
                   <span>优惠码</span>
                   <input type="text" ce-model="vendorId">
               </label>
+			   
           </div>
-          <div class="list-bar-btns">
-              <button class="search btn-blue">查询</button>
-          </div>  
+         
         </div>
         <div class="list-content">
             <table>

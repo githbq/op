@@ -6,9 +6,9 @@ define( function(require, exports, module){
 		UserDetail = require('module/agentuser/agentuser');
 
     var auditStatusMap = {
-        'WAIT': '待审核',
-        'SUCCESS': '审核成功',
-        'FALSE': '审核失败'
+        '0': '待审核',
+        '1': '审核成功',
+        '2': '审核失败'
     };
 
 	var AgtList = MClass( M.Center ).include({
@@ -70,7 +70,7 @@ define( function(require, exports, module){
 					'agentName':me.model.get('agentName'),
 					'name': me.model.get('name'),
 					'role': me.model.get('role'),
-					'pageIndex': me.pagination.attr['pageNumber'],
+					'pageIndex': me.pagination.attr['pageNumber']+1,
 					'pageSize': me.pagination.attr['pageSize']
 				},
 				beforeSend: function(){
