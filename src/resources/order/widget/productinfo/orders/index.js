@@ -1,7 +1,7 @@
 define(function (require, exports, module) {
 
         exports.setCommonData = function (controller, terminalDataItems, tableDataItems, formDataItems, type, responseData) {
-            debugger
+            
             type = type.toString();
             controller(terminalDataItems, 'keyword', function (n) {
                 if ($.inArray(type, ['1', '2', '3', '4']) >= 0) {
@@ -22,6 +22,7 @@ define(function (require, exports, module) {
             controller(terminalDataItems, 'allreadonly', function (item) {
                 item.allreadonly = false;
             });
+            
             var bigArr = terminalDataItems.concat(tableDataItems).concat(formDataItems);
             if (responseData) {
                 var dataDic = toNameDictionary(bigArr);
@@ -110,7 +111,7 @@ define(function (require, exports, module) {
                 controller(terminalDataItems, 'useTrainning', function (item) {
                     useTrainning = item.value;
                 });
-                debugger
+                
                 $(subOrders).each(function (i, n) {
                     if (n.subOrder && n.subOrder.productId && n.subOrder.productId != 10 && n.subOrder.productId != 11 && n.subOrder.productId != 8) {//10为绑定百川  11为绑定报数系统
                         if (n.subOrder.enabled !== false) {
@@ -179,6 +180,7 @@ define(function (require, exports, module) {
                         }
                     }
                 });
+                
                 //使用逍客终端 使用CRM 选中效果
                 controller(terminalDataItems, 'useCRM', function (item) {
                     // if (item.visible !== false) {
@@ -238,7 +240,7 @@ define(function (require, exports, module) {
         //设置增购逻辑
         exports.setAddOrderLogic = function (controller, terminalDataItems, tableDataItems, formDataItems, type, responseData) {
             var hasTrainning = false;
-            debugger
+            
             $(responseData.data.subOrders).each(function (j, m) {
                 if (m.subOrder.productId == '13') {
                     hasTrainning = true;
@@ -324,7 +326,7 @@ define(function (require, exports, module) {
         }
 
         exports.setOtherData = function (terminalInfo, tableInfo, formInfo, data) {
-            debugger
+            
             var terminalInfoData = terminalInfo.o_getValues();
             var tableInfoData = tableInfo.o_getValues();
             var formInfoData = formInfo.o_getValues();
@@ -475,7 +477,7 @@ define(function (require, exports, module) {
         };
         //转换输入值
         exports.setSuborders = function (terminalInfo, tableInfo, formInfo, data) {
-            debugger
+            
             var terminalInfoData = terminalInfo.o_getValues();
             var tableInfoData = tableInfo.o_getValues();
             var formInfoData = formInfo.o_getValues();

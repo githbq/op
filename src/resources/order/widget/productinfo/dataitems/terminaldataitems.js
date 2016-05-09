@@ -3,6 +3,13 @@ define(function (require, exports, module) {
     var helper = require('./index');
     module.exports.getItems = function () {
         var dataItems = [];
+        dataItems.push(new DataItem(
+                {
+                    name: 'discount_16',
+                    value: ''
+                }
+            )
+        );
         //终端总个数
         dataItems.push(new DataItem({
             name: 'purchaseCount_2',

@@ -565,7 +565,7 @@ define(function (require, exports, module) {
                 return next($ele, value);
             },
             i_setValueWhereDefault: function ($ele, value) {
-                if($ele.attr('data-name')=='purchaseAmount_input_1'){
+                if($ele.attr('data-name')=='discount_16'){
                     debugger
                 }
                 $ele.val(value);
@@ -627,7 +627,7 @@ define(function (require, exports, module) {
             o_setFieldReadonly: function ($ele, value) {
                 var me = this;
                 value = value === undefined ? false : value;
-                this.o_field_getData($ele).readonly = value;
+                me.o_field_getData($ele).readonly = value;
                 if (!$ele.is('.field_text')) {
                     if (value) {
                         $ele.addClass('readonly', 'readonly').attr('readonly', 'readonly').attr('disabled', 'disabled');
