@@ -250,7 +250,7 @@ define(function (require, exports, module) {
                 controller(terminalDataItems, 'productTrainingWrapper', function (n) {
                     n.visible = false;
                 });
-                if (responseData.readonly || resonseData.responseData.refuse) {
+                if (responseData.readonly || responseData.refuse) {
                     controller(terminalDataItems, 'useTrainning', function (n) {
                         n.value = true;
                     });
