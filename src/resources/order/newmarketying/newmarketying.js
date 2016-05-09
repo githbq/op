@@ -77,6 +77,8 @@ define( function( require, exports, module ) {
 
 			me.attrs.id = me.attrs.enterpriseId||'';
 			me.attrs.account= me.attrs.account||'54976';
+			me.attrs.old_CRMAmount = 0; 
+			me.attrs.old_FXAmount = 0;
 			me.attrs.subData = {}
 			me.checkType();
         },
@@ -232,7 +234,7 @@ define( function( require, exports, module ) {
 			me.attrs.prodeuctObj =  productinfo.showProductInfo( {terminalInfo:{$view:me.$view.find('.'+me.attrs.showType+'-terminalinfo')},
 					tableInfo:{$view:me.$view.find('.'+me.attrs.showType+'-tableinfo')},
 					formInfo:{$view:me.$view.find('.'+me.attrs.showType+'-forminfo')}}
-			,tempOrderType,{'enterpriseId':me.attrs.id,'data':me.attrs.subData ,'readonly':false} );
+			,tempOrderType,{'enterpriseId':me.attrs.id,'data':me.attrs.subData ,'readonly':false, 'old_CRMAmount':me.attrs.old_CRMAmount,'old_FXAmount':me.attrs.old_FXAmount } );
 
 		},
 		//设置订单文字
@@ -317,6 +319,7 @@ define( function( require, exports, module ) {
 
 							break;
 						case "CRM":
+							me.attrs.old_CRMAmount = data[i].quota||0;
 						
 							sortDate.push( data[i].startDate );
 							sortDate.push( data[i].endDate );
@@ -381,6 +384,10 @@ define( function( require, exports, module ) {
 								"endTime":data[i].endDate
 							}}
 							subArry.push(tempObe)
+
+							break;
+						case "FX_Terminal":
+							me.attrs.old_FXAmount = data[i].quota||0;
 
 							break;
 						default:
@@ -503,6 +510,14 @@ define( function( require, exports, module ) {
 								}}
 								subArry.push(tempObe)
 							}
+
+							break;
+						case "CRM":
+							me.attrs.old_CRMAmount = data[i].quota||0;
+						
+							break;
+						case "FX_Terminal":
+							me.attrs.old_FXAmount = data[i].quota||0;
 
 							break;
 						default:
