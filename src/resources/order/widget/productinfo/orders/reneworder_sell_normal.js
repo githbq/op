@@ -60,7 +60,7 @@ define(function (require, exports, module) {
             n.value = '3';
         });
         controller(terminalDataItems, 'type_13', function (n) {
-            n.visible=true;
+            n.visible=false;
         });
 
         controller(terminalDataItems, 'purchaseAmount_13', function (n) {

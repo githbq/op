@@ -10,6 +10,13 @@ define(function (require, exports, module) {
                 }
             )
         );
+        dataItems.push(new DataItem(
+                {
+                    name: 'discount_13',
+                    value: ''
+                }
+            )
+        );
         //终端总个数
         dataItems.push(new DataItem({
             name: 'purchaseCount_2',
