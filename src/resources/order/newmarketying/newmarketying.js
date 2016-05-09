@@ -386,6 +386,15 @@ define( function( require, exports, module ) {
 							subArry.push(tempObe)
 
 							break;
+						case "Project_Manage":
+							var tempObe = {"subOrder":{
+								"productId":17,
+								"startTime": data[i].startDate,
+								"endTime":data[i].endDate
+							}}
+							subArry.push(tempObe)
+
+							break;
 						case "FX_Terminal":
 							me.attrs.old_FXAmount = data[i].quota||0;
 
@@ -505,6 +514,19 @@ define( function( require, exports, module ) {
 							if( dateCompare(nowDate,endDate) ){
 								var tempObe = {"subOrder":{
 									"productId":15,
+									"startTime":obj["endDate"],
+									"startTime_readonly":true
+								}}
+								subArry.push(tempObe)
+							}
+
+							break;
+						case "Project_Manage":
+							var nowDate = new Date( new Date().getTime() )._format('yyyy/MM/dd');
+							var endDate = new Date( obj["endDate"]  )._format('yyyy/MM/dd');
+							if( dateCompare(nowDate,endDate) ){
+								var tempObe = {"subOrder":{
+									"productId":17,
 									"startTime":obj["endDate"],
 									"startTime_readonly":true
 								}}
@@ -802,7 +824,7 @@ define( function( require, exports, module ) {
 			var discoutFlag = true;
 			if( me.attrs.typeFlag == 'newOffice' || me.attrs.typeFlag == 'newMarket'|| me.attrs.typeFlag == 'releateOffice'|| me.attrs.typeFlag == 'releateMarket' ){
 				_.map( data , function( obj ){ 
-                    if($.inArray(parseInt(obj.subOrder.productId),[1,4,5,7,12,14,15])>=0){
+                    if($.inArray(parseInt(obj.subOrder.productId),[1,4,5,7,12,14,15,17])>=0){
 						if( obj.subOrder.discount  &&  obj.subOrder.discount<8 &&me.attrs.typeFlag != 'newOffice' && obj.subOrder.productId!=7){  //新购 工资助手不参与折扣计算
 							discoutFlag = false;
 							//util.showToast('子产品折扣低于8折，必须申请特批');
@@ -812,7 +834,7 @@ define( function( require, exports, module ) {
 				});
 			}else{
 				_.map( data , function( obj ){
-					if(obj.subOrder.productId ==1 || obj.subOrder.productId ==4  || obj.subOrder.productId ==7  || obj.subOrder.productId ==5 || obj.subOrder.productId ==12 || obj.subOrder.productId ==13 || obj.subOrder.productId ==14 || obj.subOrder.productId ==15 ){
+					if(obj.subOrder.productId ==1 || obj.subOrder.productId ==4  || obj.subOrder.productId ==7  || obj.subOrder.productId ==5 || obj.subOrder.productId ==12 || obj.subOrder.productId ==13 || obj.subOrder.productId ==14 || obj.subOrder.productId ==15 || obj.subOrder.productId ==17 ){
 						if( obj.subOrder.discount  &&  obj.subOrder.discount<8){
 							discoutFlag = false;
 							//util.showToast('子产品折扣低于8折，必须申请特批');

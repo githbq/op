@@ -657,6 +657,20 @@ define( function(require, exports, module){
 									
 								}
 								break;
+							case "Project_Manage":
+								var nowDate = new Date( new Date().getTime() )._format('yyyy/MM/dd');
+								var endDate = new Date( obj["endDate"]  )._format('yyyy/MM/dd');
+								if( dateCompare(nowDate,endDate) ){
+									var tempObe = {"subOrder":{
+										"productId":17,
+										"startTime":obj["endDate"],
+										"flag":true,
+										"startTime_readonly":true
+									}}
+									subArry.push(tempObe)
+									
+								}
+								break;
 							case "CRM":
 								me.attrs.old_CRMAmount = data[i].quota||0;
 							
@@ -916,7 +930,7 @@ define( function(require, exports, module){
 			switch( me.attrs.options.orderType ){
 				case 1:case 2:case 3:case 4:case 13:case 14:case 15:case 16:
 					_.map( data , function( obj ){
-						if(obj.subOrder.productId ==1 || obj.subOrder.productId ==4  || obj.subOrder.productId ==5 || obj.subOrder.productId ==12 || obj.subOrder.productId ==13 || obj.subOrder.productId ==14 || obj.subOrder.productId ==15){
+						if(obj.subOrder.productId ==1 || obj.subOrder.productId ==4  || obj.subOrder.productId ==5 || obj.subOrder.productId ==12 || obj.subOrder.productId ==13 || obj.subOrder.productId ==14 || obj.subOrder.productId ==15 || obj.subOrder.productId ==17){
 							if( obj.subOrder.discount  &&  obj.subOrder.discount<8){
 								discoutFlag = false;
 								//util.showToast('子产品折扣低于8折，必须申请特批');
@@ -927,7 +941,7 @@ define( function(require, exports, module){
 					break;
 				default:
 					_.map( data , function( obj ){
-						if(obj.subOrder.productId ==1 || obj.subOrder.productId ==4  || obj.subOrder.productId ==7  || obj.subOrder.productId ==5 || obj.subOrder.productId ==12 || obj.subOrder.productId ==13 || obj.subOrder.productId ==14 || obj.subOrder.productId ==15 ){
+						if(obj.subOrder.productId ==1 || obj.subOrder.productId ==4  || obj.subOrder.productId ==7  || obj.subOrder.productId ==5 || obj.subOrder.productId ==12 || obj.subOrder.productId ==13 || obj.subOrder.productId ==14 || obj.subOrder.productId ==15 || obj.subOrder.productId ==17 ){
 							if( obj.subOrder.discount  &&  obj.subOrder.discount<8){
 								discoutFlag = false;
 							}
