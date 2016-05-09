@@ -193,7 +193,7 @@ define(function (require, exports, module) {
                         }
                         if (n != '3') {
                             if (n == '1') {//CRM的数量变化还要计算一下原价
-                                if ($dom.val() && parseFloat($dom.val()) > parseFloat(me.o_getFieldValue('purchaseCount_2'))) {
+                                if ($dom.val() && parseInt($dom.val()) > parseInt(me.o_getFieldValue('purchaseCount_2'))) {
                                     util.showToast('CRM终端总量需小于等于逍客终端总量');
                                     $dom.val(me.o_getFieldValue('purchaseCount_2'));
                                 }
