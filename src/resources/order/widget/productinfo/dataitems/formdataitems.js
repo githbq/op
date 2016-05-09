@@ -162,7 +162,8 @@ define(function (require, exports, module) {
                         }
                             ;
                             break;
-                        case '2':{
+                        case '2':
+                        {
 
                             me.o_setValues([
                                 {name: 'currPayAmount'},
@@ -179,7 +180,7 @@ define(function (require, exports, module) {
                                 {name: 'currPayAmount_17', visible: false}
                             ]);
                             var checkeds = me.__refs.tableInfo.o_getFieldValue('check').split(',');
-                            if (me.__refs.terminalInfo.o_getFieldValue('useCRM') && me.__refs.terminalInfo.o_getFieldData('useCRMWrapper').visible!==false) {//使用了逍客终端 要加入服务费
+                            if (me.__refs.terminalInfo.o_getFieldValue('useCRM') && me.__refs.terminalInfo.o_getFieldData('useCRMWrapper').visible !== false) {//使用了逍客终端 要加入服务费
                                 checkeds.push('1');//CRM费用
                             }
                             if (me.__refs.terminalInfo.o_getFieldValue('useFX')) {//使用了逍客终端 要加入服务费
@@ -232,7 +233,7 @@ define(function (require, exports, module) {
             ]
 
         }));
-        var currPayIdArr = [3, 1, 4, 5, 7, 12, 15, 14, 13, 16,17];
+        var currPayIdArr = [3, 1, 4, 5, 7, 12, 15, 14, 13, 16, 17];
         $(currPayIdArr).each(function (i, n) {
             (function (id) {
                 dataItems.push(new DataItem({
@@ -248,9 +249,13 @@ define(function (require, exports, module) {
                             }
                             var $dom = $(e.target);
                             $dom.val($dom.val().replace(/[^\.\d]/g, ''));
-
-                            var purchaseAmount = controll.o_getFieldValue('purchaseAmount_input_' + id);
-                            controll.o_setValue({name:'purchaseAmount_'+id,value:purchaseAmount});//值再一次同步
+                            var purchaseAmount = '';
+                            if (controll === me.__refs.terminalInfo) {
+                                purchaseAmount = controll.o_getFieldValue('purchaseAmount_input_' + id);
+                            } else {
+                                purchaseAmount = controll.o_getFieldValue('purchaseAmount_' + id);
+                            }
+                            controll.o_setValue({name: 'purchaseAmount_' + id, value: purchaseAmount});//值再一次同步
                             if (!purchaseAmount) {
                                 $dom.val('');
                             } else if ($dom.val() && parseFloat(purchaseAmount) < parseFloat($dom.val())) {
