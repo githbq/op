@@ -59,19 +59,20 @@ define(function( require , exports , module ){
 				'success': function( data ){
 					console.warn( data );
 					if( data.success ){
+						var strToObj = $.parseJSON( data.value.model.orderExtends[0].value);
+						var typeStr = {'1':'支付宝','2':'微信','3':'其他'};
 						me.attrs.dataObj.orderid = me.attrs.options.id||'';
-						me.attrs.dataObj.enterpriseAccount = data.value.model.odrOrder.enterpriseAccount||'';
-						me.attrs.dataObj.enterpriseName = data.value.model.odrOrder.enterpriseName||'';
-						me.attrs.dataObj.payAccount = data.value.model.odrOnlineOrderRecord.payType +"——"+ data.value.model.odrOnlineOrderRecord.payNo;
-						me.attrs.dataObj.purchaseAmount = data.value.model.odrSubOrder.purchaseAmount||'';
-						me.attrs.dataObj.purchaseCount = data.value.model.odrSubOrder.purchaseCount||'';
-						me.attrs.dataObj.payTime = data.value.model.odrOnlineOrderRecord.payTime ? new Date( data.value.model.odrOnlineOrderRecord.payTime )._format('yyyy-MM-dd hh:mm'):'';
-						me.attrs.dataObj.payStatus =  data.value.model.odrOrder.payStatus||'';
+						me.attrs.dataObj.enterpriseAccount = data.value.model.order.enterpriseAccount||'';
+						me.attrs.dataObj.enterpriseName = data.value.model.order.enterpriseName||'';
+						me.attrs.dataObj.payAccount = typeStr[strToObj.payType] +"——"+ strToObj.payAccount;
+						me.attrs.dataObj.purchaseAmount = strToObj.purchaseAmount||'';
+						me.attrs.dataObj.purchaseCount = strToObj.purchaseCount||'';
+						me.attrs.dataObj.payTime = strToObj.payTime ? new Date( parseInt(strToObj.payTime) )._format('yyyy-MM-dd hh:mm'):'';
+						me.attrs.dataObj.payStatus =  data.value.model.order.payStatus||'';
 						me.model.load( me.attrs.dataObj  )
 					}
 				}
 			});
-			
 			
 		},
 
