@@ -486,7 +486,8 @@ define( function(require, exports, module){
 					for(var i = 0 ;i<data.length; i++ ){
 						
 						if( data[i].code == "CRM" ){
-							me.attrs.old_CRMAmount = data[i].quota||0;
+							var crmNum = data[i].quota ? parseInt(data[i].quota):0;
+							me.attrs.old_CRMAmount += crmNum;
 							sortDate.push( data[i].startDate );
 							sortDate.push( data[i].endDate );
 						}else if( data[i].code == "FX_Terminal" ){
@@ -672,11 +673,12 @@ define( function(require, exports, module){
 								}
 								break;
 							case "CRM":
-								me.attrs.old_CRMAmount = data[i].quota||0;
+								var crmNum = obj["quota"] ? parseInt(obj["quota"]) : 0;
+								me.attrs.old_CRMAmount += crmNum;
 							
 								break;
 							case "FX_Terminal":
-								me.attrs.old_FXAmount = data[i].quota||0;
+								me.attrs.old_FXAmount = obj["quota"]||0;
 
 								break;
 							default:
