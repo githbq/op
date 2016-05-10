@@ -201,7 +201,7 @@
                 <div class="field_row_head userxk" data-name="useTrainningWrapper">
                     <label class="text_right long"> <input type="checkbox" data-name="useTrainning" value="13"/> <span class="label bold">培训助手</span> </label>
                 </div>
-                <div class="field_row_wrapper " >
+                <div class="field_row_wrapper ">
                     <div class="field_row suborder" data-productid="13" data-name="productTrainingWrapper">
                         <div class="field_wrapper">
                             <div class="field">
@@ -265,13 +265,13 @@
                                 <label>
                                     <span class="label">赠送流量(小时)</span>
                                 </label>
-                                <input data-name="giveCount_16" data-type="number" type="text" class="giveCount num-input" />
+                                <input data-name="giveCount_16" data-type="number" type="text" class="giveCount num-input"/>
                             </div>
                             <div class="field">
                                 <label>
                                     <span class="label">购买流量(小时)</span>
                                 </label>
-                                <input data-name="purchaseCount_16" data-type="number" type="text" class=" num-input" />
+                                <input data-name="purchaseCount_16" data-type="number" type="text" class=" num-input"/>
                             </div>
                             <div class="field">
                                 <label>
@@ -287,7 +287,7 @@
                                 <span class="field_text" data-name="purchaseAmount_16"></span>
                                 <span>元</span>
                             </div>
-                            <input type="hidden" data-name="discount_16" />
+                            <input type="hidden" data-name="discount_16"/>
 
                         </div>
                     </div>
@@ -392,21 +392,21 @@
                     <td><span data-name="discount_17" class="field_text"></span></td>
                     <td width="*"></td>
                 </tr>
-                <tr class="suborder">
-                    <td><input data-name="check" value="15" type="checkbox"/></td>
-                    <td>考试助手</td>
-                    <td><input data-name="startTime_15" type="text" datecontrol="{'type':0}"/></td>
-                    <td><input data-name="endTime_15" type="text" datecontrol="{'type':0}"/></td>
-                    <td class="field_text" data-name="productAmount_15"></td>
-                    <td data-name="table_type_wrapper">
-                        <label> <input data-name="type_15" value="1" type="radio" name="type_15"/>试用 </label>
-                        <label> <input data-name="type_15" value="2" type="radio" name="type_15"/>赠送 </label>
-                        <label> <input data-name="type_15" value="3" type="radio" name="type_15" checked="checked"/>折扣 </label>
-                    </td>
-                    <td><input type="text" data-type="number" data-name="purchaseAmount_15"/></td>
-                    <td><span data-name="discount_15" class="field_text"></span></td>
-                    <td width="*"></td>
-                </tr>
+                <!--<tr class="suborder">-->
+                <!--<td><input data-name="check" value="15" type="checkbox"/></td>-->
+                <!--<td>考试助手</td>-->
+                <!--<td><input data-name="startTime_15" type="text" datecontrol="{'type':0}"/></td>-->
+                <!--<td><input data-name="endTime_15" type="text" datecontrol="{'type':0}"/></td>-->
+                <!--<td class="field_text" data-name="productAmount_15"></td>-->
+                <!--<td data-name="table_type_wrapper">-->
+                <!--<label> <input data-name="type_15" value="1" type="radio" name="type_15"/>试用 </label>-->
+                <!--<label> <input data-name="type_15" value="2" type="radio" name="type_15"/>赠送 </label>-->
+                <!--<label> <input data-name="type_15" value="3" type="radio" name="type_15" checked="checked"/>折扣 </label>-->
+                <!--</td>-->
+                <!--<td><input type="text" data-type="number" data-name="purchaseAmount_15"/></td>-->
+                <!--<td><span data-name="discount_15" class="field_text"></span></td>-->
+                <!--<td width="*"></td>-->
+                <!--</tr>-->
                 <tr class="suborder">
                     <td><input data-name="check" value="14" type="checkbox"/></td>
                     <td>战报助手</td>
@@ -496,49 +496,51 @@
                     </select>
                     </span>
                     </div>
-                    <div class="field input-price">
+                    <div class="input-price-wrapper">
+                        <div class="field input-price">
                             <span class="label">服务费</span>
-                        <input type="text" data-type="number" class="fenqi" data-name="currPayAmount_3" data-id="3" value=""/>
-                    </div>
-                    <div class="field input-price">
+                            <input type="text" data-type="number" class="fenqi" data-name="currPayAmount_3" data-id="3" value=""/>
+                        </div>
+                        <div class="field input-price">
                             <span class="label">CRM</span>
-                        <input type="text" data-type="number" class="fenqi" data-name="currPayAmount_1" data-id="1" value=""/>
-                    </div>
-                    <div class="field input-price">
+                            <input type="text" data-type="number" class="fenqi" data-name="currPayAmount_1" data-id="1" value=""/>
+                        </div>
+                        <div class="field input-price">
                             <span class="label">培训助手</span>
-                        <input type="text" data-type="number" class="fenqi" data-name="currPayAmount_13" data-id="13" value=""/>
-                    </div>
-                    <div class="field input-price">
+                            <input type="text" data-type="number" class="fenqi" data-name="currPayAmount_13" data-id="13" value=""/>
+                        </div>
+                        <div class="field input-price">
                             <span class="label">培训助手流量费</span>
-                        <input type="text" data-type="number" class="fenqi" data-name="currPayAmount_16" data-id="16" value=""/>
-                    </div>
-                    <div class="field input-price">
+                            <input type="text" data-type="number" class="fenqi" data-name="currPayAmount_16" data-id="16" value=""/>
+                        </div>
+                        <div class="field input-price">
                             <span class="label">PK助手</span>
-                        <input type="text" data-type="number" class="fenqi" data-name="currPayAmount_4" data-id="4" value=""/>
-                    </div>
-                    <div class="field input-price">
+                            <input type="text" data-type="number" class="fenqi" data-name="currPayAmount_4" data-id="4" value=""/>
+                        </div>
+                        <div class="field input-price">
                             <span class="label">会议助手</span>
-                        <input type="text" data-type="number" class="fenqi" data-name="currPayAmount_5" data-id="5" value=""/>
-                    </div>
-                    <div class="field input-price">
+                            <input type="text" data-type="number" class="fenqi" data-name="currPayAmount_5" data-id="5" value=""/>
+                        </div>
+                        <div class="field input-price">
                             <span class="label">自定义助手</span>
-                        <input type="text" data-type="number" class="fenqi" data-name="currPayAmount_12" data-id="12" value=""/>
-                    </div>
-                    <div class="field input-price">
-                        <span class="label">项目管理</span>
-                        <input type="text" data-type="number" class="fenqi" data-name="currPayAmount_17" data-id="17" value=""/>
-                    </div>
-                    <div class="field input-price">
-                            <span class="label">考试助手</span>
-                        <input type="text" data-type="number" class="fenqi" data-name="currPayAmount_15" data-id="15" value=""/>
-                    </div>
-                    <div class="field input-price">
+                            <input type="text" data-type="number" class="fenqi" data-name="currPayAmount_12" data-id="12" value=""/>
+                        </div>
+                        <div class="field input-price">
+                            <span class="label">项目管理</span>
+                            <input type="text" data-type="number" class="fenqi" data-name="currPayAmount_17" data-id="17" value=""/>
+                        </div>
+                        <!--<div class="field input-price">-->
+                        <!--<span class="label">考试助手</span>-->
+                        <!--<input type="text" data-type="number" class="fenqi" data-name="currPayAmount_15" data-id="15" value=""/>-->
+                        <!--</div>-->
+                        <div class="field input-price">
                             <span class="label">战报助手</span>
-                        <input type="text" data-type="number" class="fenqi" data-name="currPayAmount_14" data-id="14" value=""/>
-                    </div>
-                    <div class="field input-price">
+                            <input type="text" data-type="number" class="fenqi" data-name="currPayAmount_14" data-id="14" value=""/>
+                        </div>
+                        <div class="field input-price">
                             <span class="label">工资助手</span>
-                        <input type="text" data-type="number" class="fenqi" data-name="currPayAmount_7" data-id="7" value=""/>
+                            <input type="text" data-type="number" class="fenqi" data-name="currPayAmount_7" data-id="7" value=""/>
+                        </div>
                     </div>
                 </div>
             </div>

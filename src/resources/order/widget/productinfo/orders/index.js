@@ -530,8 +530,12 @@ define(function (require, exports, module) {
                             discount: fromData['discount_' + n] || 0,
                             currPayAmount: formInfoData['currPayAmount_' + n] || 0
                         };
+
                         if (n == '16') {
                             subOrder.giveCount = fromData['giveCount_16'];
+                            if(!fromData['purchaseCount_' + n]){
+                                subOrder.purchaseCount=0;
+                            }
                         }
                         var productExtends = [];
                         if (n == '1') {
