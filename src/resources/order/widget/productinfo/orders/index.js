@@ -390,6 +390,9 @@ define(function (require, exports, module) {
             controller(formDataItems, 'payStatus_select', function (n) {
                 n.readonly = isReadonly;
             });
+            controller(formDataItems, 'comType', function (n) {
+                n.readonly = isReadonly;
+            });
             controller(formDataItems, 'payDate', function (n) {
                 n.readonly = isReadonly;
             });
