@@ -234,7 +234,7 @@ define( function( require, exports, module ) {
 			me.attrs.prodeuctObj =  productinfo.showProductInfo( {terminalInfo:{$view:me.$view.find('.'+me.attrs.showType+'-terminalinfo')},
 					tableInfo:{$view:me.$view.find('.'+me.attrs.showType+'-tableinfo')},
 					formInfo:{$view:me.$view.find('.'+me.attrs.showType+'-forminfo')}}
-			,tempOrderType,{'enterpriseId':me.attrs.id,'data':me.attrs.subData ,'readonly':false, 'old_CRMAmount':me.attrs.old_CRMAmount,'old_FXAmount':me.attrs.old_FXAmount } );
+			,tempOrderType,{'enterpriseId':me.attrs.id,'data':me.attrs.subData ,'readonly':false, 'old_CRMCount':me.attrs.old_CRMAmount,'old_FXCount':me.attrs.old_FXAmount } );
 
 		},
 		//设置订单文字

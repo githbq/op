@@ -422,7 +422,7 @@ define( function(require, exports, module){
 			 me.attrs.prodeuctObj =  productinfo.showProductInfo( {terminalInfo:{$view:me.$view.find('.common-terminalinfo')},
 					 tableInfo:{$view:me.$view.find('.common-tableinfo')},
 					 formInfo:{$view:me.$view.find('.common-forminfo')}}
-				 ,tempOrderType ,{'edit':true,'payInfoReadonly':payInfoReadonly,'enterpriseId':me.attrs.options.enterpriseId,'readonly': allReadonly,'data':me.attrs.productData,'refuse':me.attrs.options.editFlag,'old_CRMAmount':me.attrs.old_CRMAmount,'old_FXAmount':me.attrs.old_FXAmount } );
+				 ,tempOrderType ,{'edit':true,'payInfoReadonly':payInfoReadonly,'enterpriseId':me.attrs.options.enterpriseId,'readonly': allReadonly,'data':me.attrs.productData,'refuse':me.attrs.options.editFlag,'old_CRMCount':me.attrs.old_CRMAmount,'old_FXCount':me.attrs.old_FXAmount } );
 
 			 //发票信息
 			 me.attrs.invoiceCommon = new InvoiceInfo( { 'wrapper':me.$view.find('.common--invioce'),'data':me.attrs.orderData,
