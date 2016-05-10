@@ -357,6 +357,11 @@ define(function (require, exports, module) {
                     me.o_setValue({name: 'purchaseAmount_' + id, value: 0, readonly: true});
                     me.o_setValue({name: 'purchaseAmount_input_' + id, value: 0, readonly: true});
                     me.o_setValue({name: 'discount_' + id, value: ''});
+                    //2016-5-10  联动分期
+                    if (me.__refs.formInfo.o_getFieldValue('payStatus_select') == '2') {
+                        me.__refs.formInfo.o_setValue({name: 'currPayAmount_' + n, value: '0'});
+                        me.__refs.formInfo.o_data_getField({name: 'currPayAmount_' + n}).change();
+                    }
                 }
                     ;
                     break;
