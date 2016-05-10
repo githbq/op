@@ -45,11 +45,12 @@ define(function (require, exports, module) {
                 n.visible = false;
             });
         });
-
+        common.setRenewLogic(controller, terminalDataItems, tableDataItems, formDataItems);
         common.setCommonData(controller, terminalDataItems, tableDataItems, formDataItems,9,responseData);
         controller(terminalDataItems,'isrenew',function(n){
             n.value = true;
         });
+
         return {terminalDataItems: terminalDataItems, tableDataItems: tableDataItems, formDataItems: formDataItems};
     }
 

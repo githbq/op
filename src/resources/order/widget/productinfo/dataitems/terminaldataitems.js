@@ -176,7 +176,7 @@ define(function (require, exports, module) {
                             return;
                         }
                         if ($dom.val() && parseFloat($dom.val()) <= 0) {
-                            if ((n == '3' || n == '1' ) && (me.o_getFieldValue('isrenew') || me.o_getFieldValue('isadd'))) {//增购续费 服务人数可为0
+                            if (n == '16' || (n == '3' || n == '1') && (me.o_getFieldValue('isrenew') || me.o_getFieldValue('isadd'))) {//增购续费 服务人数可为0
                             } else {
                                 util.showToast('数量必须大于0');
                                 $dom.val('');
@@ -194,8 +194,10 @@ define(function (require, exports, module) {
                         if (n != '3') {
                             if (n == '1') {//CRM的数量变化还要计算一下原价
                                 if ($dom.val() && parseInt($dom.val()) > parseInt(me.o_getFieldValue('purchaseCount_2'))) {
-                                    util.showToast('CRM终端总量需小于等于逍客终端总量');
-                                    $dom.val(me.o_getFieldValue('purchaseCount_2'));
+                                    if (!(me.o_getFieldValue('isrenew') || me.o_getFieldValue('isadd'))) {//加入 续费与 增购 与销客终端总量无关性逻辑
+                                        util.showToast('CRM终端总量需小于等于逍客终端总量');
+                                        $dom.val(me.o_getFieldValue('purchaseCount_2'));
+                                    }
                                 }
                                 changeForGetPrice.call(me, e);
                             } else {
@@ -348,10 +350,10 @@ define(function (require, exports, module) {
                                 me.o_setValue({name: 'discount_' + n, value: '0'});
                                 debugger
                                 //折扣类型 联动分期  2016-5-10 by hbq
-                                var payStatueData=me.__refs.formInfo.o_getFieldData('payStatus_select');
-                                if(payStatueData.visible===true && me.__refs.formInfo.o_getFieldValue('payStatus_select')=='2'){
-                                    me.__refs.formInfo.o_setValue({name:'currPayAmount_'+n.id,value:'0'});
-                                    me.__refs.formInfo.o_data_getField('currPayAmount_'+n.id).change();
+                                var payStatueData = me.__refs.formInfo.o_getFieldData('payStatus_select');
+                                if (payStatueData.visible === true && me.__refs.formInfo.o_getFieldValue('payStatus_select') == '2') {
+                                    me.__refs.formInfo.o_setValue({name: 'currPayAmount_' + n.id, value: '0'});
+                                    me.__refs.formInfo.o_data_getField('currPayAmount_' + n.id).change();
                                 }
                             }
                                 ;
@@ -416,10 +418,10 @@ define(function (require, exports, module) {
                     me.o_setValue({name: 'purchaseAmount_input_' + id, value: 0, readonly: true});
 
                     //折扣类型 联动分期  2016-5-10 by hbq
-                    var payStatueData=me.__refs.formInfo.o_getFieldData('payStatus_select');
-                    if(payStatueData.visible===true && me.__refs.formInfo.o_getFieldValue('payStatus_select')=='2'){
-                        me.__refs.formInfo.o_setValue({name:'currPayAmount_'+id,value:'0'});
-                        me.__refs.formInfo.o_data_getField('currPayAmount_'+id).change();
+                    var payStatueData = me.__refs.formInfo.o_getFieldData('payStatus_select');
+                    if (payStatueData.visible === true && me.__refs.formInfo.o_getFieldValue('payStatus_select') == '2') {
+                        me.__refs.formInfo.o_setValue({name: 'currPayAmount_' + id, value: '0'});
+                        me.__refs.formInfo.o_data_getField('currPayAmount_' + id).change();
                     }
                 }
                     ;

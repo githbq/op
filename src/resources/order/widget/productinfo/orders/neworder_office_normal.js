@@ -52,7 +52,6 @@ define(function (require, exports, module) {
                 n.visible = false;
             });
         });
-
         common.setCommonData(controller, terminalDataItems, tableDataItems, formDataItems, 1, responseData);
         return {terminalDataItems: terminalDataItems, tableDataItems: tableDataItems, formDataItems: formDataItems};
     }

@@ -483,7 +483,7 @@ define(function (require, exports, module) {
                 }
                 if (silent !== true) {
                     me.trigger('setValue', $field, data);
-                    data.trigger('setValue', $field, data);
+                    data.trigger('setValue', $field, data,me);
                 }
                 if (first) {
                     data.__inited = true;

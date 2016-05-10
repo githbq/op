@@ -48,10 +48,12 @@ define(function (require, exports, module) {
         controller(tableDataItems, 'table_type_wrapper', function (n) {
             n.visible = true;
         });
+        common.setRenewLogic(controller, terminalDataItems, tableDataItems, formDataItems);
         common.setCommonData(controller, terminalDataItems, tableDataItems, formDataItems,10,responseData);
         controller(terminalDataItems,'isrenew',function(n){
             n.value = true;
         });
+
         return {terminalDataItems: terminalDataItems, tableDataItems: tableDataItems, formDataItems: formDataItems};
     }
 

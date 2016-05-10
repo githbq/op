@@ -1,7 +1,7 @@
 define(function (require, exports, module) {
 
         exports.setCommonData = function (controller, terminalDataItems, tableDataItems, formDataItems, type, responseData) {
-            
+
             type = type.toString();
             controller(terminalDataItems, 'keyword', function (n) {
                 if ($.inArray(type, ['1', '2', '3', '4']) >= 0) {
@@ -22,16 +22,16 @@ define(function (require, exports, module) {
             controller(terminalDataItems, 'allreadonly', function (item) {
                 item.allreadonly = false;
             });
-            
+
             var bigArr = terminalDataItems.concat(tableDataItems).concat(formDataItems);
             if (responseData) {
                 //历史CRM终端总量
-                controller(terminalDataItems, 'old_CRMAmount', function (item) {
-                    item.value = responseData.old_CRMAmount;
+                controller(terminalDataItems, 'old_CRMCount ', function (item) {
+                    item.value = responseData.old_CRMCount;
                 });
                 //历史销客终端总量
-                controller(terminalDataItems, 'old_FXAmount', function (item) {
-                        item.value = responseData.old_FXAmount;
+                controller(terminalDataItems, 'old_FXCount', function (item) {
+                    item.value = responseData.old_FXCount;
                 });
                 var dataDic = toNameDictionary(bigArr);
                 var order, contract, enterpriseExtend, subOrders;
@@ -119,7 +119,7 @@ define(function (require, exports, module) {
                 controller(terminalDataItems, 'useTrainning', function (item) {
                     useTrainning = item.value;
                 });
-                
+
                 $(subOrders).each(function (i, n) {
                     if (n.subOrder && n.subOrder.productId && n.subOrder.productId != 10 && n.subOrder.productId != 11 && n.subOrder.productId != 8) {//10为绑定百川  11为绑定报数系统
                         if (n.subOrder.enabled !== false) {
@@ -188,7 +188,7 @@ define(function (require, exports, module) {
                         }
                     }
                 });
-                
+
                 //使用逍客终端 使用CRM 选中效果
                 controller(terminalDataItems, 'useCRM', function (item) {
                     // if (item.visible !== false) {
@@ -245,10 +245,40 @@ define(function (require, exports, module) {
         }
         ;
 
+        function CRMNewLogic(controller, terminalDataItems, tableDataItems, formDataItems, type, responseData){
+            //终端总个数
+            controller(terminalDataItems, 'purchaseCount_2', function (n) {
+                n.value = 0;
+            });
+            //终端总个数
+            controller(terminalDataItems, 'purchaseCount_1', function (n) {
+                n.on('setValue', function ($field, data,me) {
+                    $field.on('change', function () {
+                        var old_CRMCount = me.o_getFieldData('old_CRMCount');
+                        var old_FXCount = me.o_getFieldData('old_FXCount');
+                        setTimeout(function () {
+                            if ($field.val() && old_CRMCount !== undefined && old_FXCount !== undefined) {
+                                var newFXCount = (old_CRMCount.value || 0) + parseInt($field.val()) - (old_FXCount.value || 0);
+                                if (newFXCount >= 0) {
+                                    me.o_setValue({name: 'purchaseCount_2', value: newFXCount});
+                                }
+                            } else {
+                                me.o_setValue({name: 'purchaseCount_2', value: '0'});
+                            }
+                        }, 100);
+                    })
+                });
+
+            });
+        }
+        //设置续费逻辑
+        exports.setRenewLogic = function (controller, terminalDataItems, tableDataItems, formDataItems, type, responseData) {
+            CRMNewLogic(controller, terminalDataItems, tableDataItems, formDataItems, type, responseData);
+        };
         //设置增购逻辑
         exports.setAddOrderLogic = function (controller, terminalDataItems, tableDataItems, formDataItems, type, responseData) {
             var hasTrainning = false;
-            
+
             $(responseData.data.subOrders).each(function (j, m) {
                 if (m.subOrder.productId == '13') {
                     hasTrainning = true;
@@ -264,7 +294,7 @@ define(function (require, exports, module) {
                     });
                 }
             }
-
+            CRMNewLogic(controller, terminalDataItems, tableDataItems, formDataItems, type, responseData);
             controller(tableDataItems, 'productTrainingWrapper', function (n) {
                 n.visible = false;
             });
@@ -334,7 +364,7 @@ define(function (require, exports, module) {
         }
 
         exports.setOtherData = function (terminalInfo, tableInfo, formInfo, data) {
-            
+
             var terminalInfoData = terminalInfo.o_getValues();
             var tableInfoData = tableInfo.o_getValues();
             var formInfoData = formInfo.o_getValues();
@@ -485,7 +515,7 @@ define(function (require, exports, module) {
         };
         //转换输入值
         exports.setSuborders = function (terminalInfo, tableInfo, formInfo, data) {
-            
+
             var terminalInfoData = terminalInfo.o_getValues();
             var tableInfoData = tableInfo.o_getValues();
             var formInfoData = formInfo.o_getValues();
@@ -524,8 +554,8 @@ define(function (require, exports, module) {
                             productId: n,
                             purchaseCount: fromData['purchaseCount_' + n] || 999999,
                             purchaseAmount: fromData['purchaseAmount_' + n] || 0,
-                            startTime:(fromData['startTime_' + n] || new Date().getTime())+1,
-                            endTime: (fromData['endTime_' + n] || new Date().getTime())+2,
+                            startTime: (fromData['startTime_' + n] || new Date().getTime()) + 1,
+                            endTime: (fromData['endTime_' + n] || new Date().getTime()) + 2,
                             productAmount: fromData['productAmount_' + n] || 0,
                             discount: fromData['discount_' + n] || 0,
                             currPayAmount: formInfoData['currPayAmount_' + n] || 0
@@ -533,8 +563,8 @@ define(function (require, exports, module) {
 
                         if (n == '16') {
                             subOrder.giveCount = fromData['giveCount_16'];
-                            if(!fromData['purchaseCount_' + n]){
-                                subOrder.purchaseCount=0;
+                            if (!fromData['purchaseCount_' + n]) {
+                                subOrder.purchaseCount = 0;
                             }
                         }
                         var productExtends = [];
@@ -548,8 +578,8 @@ define(function (require, exports, module) {
                                                 productId: b,
                                                 purchaseCount: 999999,
                                                 purchaseAmount: 0,
-                                                startTime: fromData['startTime_1']+1,
-                                                endTime: fromData['endTime_1']+2,
+                                                startTime: fromData['startTime_1'] + 1,
+                                                endTime: fromData['endTime_1'] + 2,
                                                 productAmount: 0,
                                                 discount: 0,
                                                 currPayAmount: 0
