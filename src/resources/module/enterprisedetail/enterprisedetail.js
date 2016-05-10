@@ -1590,7 +1590,7 @@ define(function (require, exports, module) {
                                         strDom += " <p> <span>" + obj['appName'] + "</span> <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span> </p>";
                                         break;
                                     default:
-                                        strDom += " <p> <span>" + obj['appName'] + "</span> <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span>" + enablestatus + "   <input class='off' type='checkbox' name='product' value='" + obj["appId"] + "'> </p>";
+                                        strDom += " <p> <span>" + obj['appName'] + "</span> <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span>" + enablestatus + "   <input class='off' type='checkbox' name='product' value='" + obj["appId"] + "' typeid='"+obj["quotaType"]+"'> </p>";
                                 }
                             });
 
@@ -1620,9 +1620,9 @@ define(function (require, exports, module) {
             var ids = [];
 			var arrTypeOne = [],arrTypeTwo = [];
             $input.each(function (index, item) {
-				if( $(item).attr('typeId')==1 ){
+				if( $(item).attr('typeid')==1 ){
 					arrTypeOne.push($(item).val());
-				}else if( $(item).attr('typeId') == 2 ){
+				}else if( $(item).attr('typeid') == 2 ){
 					arrTypeTwo.push($(item).val());
 				}
                 //ids.push($(item).val());
@@ -1636,8 +1636,8 @@ define(function (require, exports, module) {
 			}
 			if(arrTypeTwo.length>0){
 				//var tempOne ={};
-				objTwo.quotaType = 1;
-				objTwo.appIds = arrTypeOne.join(',');
+				objTwo.quotaType = 2;
+				objTwo.appIds = arrTypeTwo.join(',');
 				arrList.push(objTwo);
 			}
             console.log(ids);
