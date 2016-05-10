@@ -26,7 +26,7 @@ define(function (require, exports, module) {
             var bigArr = terminalDataItems.concat(tableDataItems).concat(formDataItems);
             if (responseData) {
                 //历史CRM终端总量
-                controller(terminalDataItems, 'old_CRMCount ', function (item) {
+                controller(terminalDataItems, 'old_CRMCount', function (item) {
                     item.value = responseData.old_CRMCount;
                 });
                 //历史销客终端总量
