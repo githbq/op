@@ -8,9 +8,9 @@ define( function(require, exports, module){
 		
     var Tem = $( require('./template.html') );
 	var auditStatusMap = {
-        'WAIT': '待审核',
-        'SUCCESS': '审核成功',
-        'FAILS': '审核失败'
+        '0': '待审核',
+        '1': '审核成功',
+        '2': '审核失败'
     };
 
 	//用户列表

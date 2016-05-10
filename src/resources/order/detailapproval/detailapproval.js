@@ -422,7 +422,7 @@ define( function(require, exports, module){
 			 me.attrs.prodeuctObj =  productinfo.showProductInfo( {terminalInfo:{$view:me.$view.find('.common-terminalinfo')},
 					 tableInfo:{$view:me.$view.find('.common-tableinfo')},
 					 formInfo:{$view:me.$view.find('.common-forminfo')}}
-				 ,tempOrderType ,{'edit':true,'payInfoReadonly':payInfoReadonly,'enterpriseId':me.attrs.options.enterpriseId,'readonly': allReadonly,'data':me.attrs.productData,'refuse':me.attrs.options.editFlag,'old_CRMAmount':me.attrs.old_CRMAmount,'old_FXAmount':me.attrs.old_FXAmount } );
+				 ,tempOrderType ,{'edit':true,'payInfoReadonly':payInfoReadonly,'enterpriseId':me.attrs.options.enterpriseId,'readonly': allReadonly,'data':me.attrs.productData,'refuse':me.attrs.options.editFlag,'old_CRMCount':me.attrs.old_CRMAmount,'old_FXCount':me.attrs.old_FXAmount } );
 
 			 //发票信息
 			 me.attrs.invoiceCommon = new InvoiceInfo( { 'wrapper':me.$view.find('.common--invioce'),'data':me.attrs.orderData,
@@ -486,7 +486,8 @@ define( function(require, exports, module){
 					for(var i = 0 ;i<data.length; i++ ){
 						
 						if( data[i].code == "CRM" ){
-							me.attrs.old_CRMAmount = data[i].quota||0;
+							var crmNum = data[i].quota ? parseInt(data[i].quota):0;
+							me.attrs.old_CRMAmount += crmNum;
 							sortDate.push( data[i].startDate );
 							sortDate.push( data[i].endDate );
 						}else if( data[i].code == "FX_Terminal" ){
@@ -657,12 +658,27 @@ define( function(require, exports, module){
 									
 								}
 								break;
+							case "Project_Manage":
+								var nowDate = new Date( new Date().getTime() )._format('yyyy/MM/dd');
+								var endDate = new Date( obj["endDate"]  )._format('yyyy/MM/dd');
+								if( dateCompare(nowDate,endDate) ){
+									var tempObe = {"subOrder":{
+										"productId":17,
+										"startTime":obj["endDate"],
+										"flag":true,
+										"startTime_readonly":true
+									}}
+									subArry.push(tempObe)
+									
+								}
+								break;
 							case "CRM":
-								me.attrs.old_CRMAmount = data[i].quota||0;
+								var crmNum = obj["quota"] ? parseInt(obj["quota"]) : 0;
+								me.attrs.old_CRMAmount += crmNum;
 							
 								break;
 							case "FX_Terminal":
-								me.attrs.old_FXAmount = data[i].quota||0;
+								me.attrs.old_FXAmount = obj["quota"]||0;
 
 								break;
 							default:
@@ -916,7 +932,7 @@ define( function(require, exports, module){
 			switch( me.attrs.options.orderType ){
 				case 1:case 2:case 3:case 4:case 13:case 14:case 15:case 16:
 					_.map( data , function( obj ){
-						if(obj.subOrder.productId ==1 || obj.subOrder.productId ==4  || obj.subOrder.productId ==5 || obj.subOrder.productId ==12 || obj.subOrder.productId ==13 || obj.subOrder.productId ==14 || obj.subOrder.productId ==15){
+						if(obj.subOrder.productId ==1 || obj.subOrder.productId ==4  || obj.subOrder.productId ==5 || obj.subOrder.productId ==12 || obj.subOrder.productId ==13 || obj.subOrder.productId ==14 || obj.subOrder.productId ==15 || obj.subOrder.productId ==17){
 							if( obj.subOrder.discount  &&  obj.subOrder.discount<8){
 								discoutFlag = false;
 								//util.showToast('子产品折扣低于8折，必须申请特批');
@@ -927,7 +943,7 @@ define( function(require, exports, module){
 					break;
 				default:
 					_.map( data , function( obj ){
-						if(obj.subOrder.productId ==1 || obj.subOrder.productId ==4  || obj.subOrder.productId ==7  || obj.subOrder.productId ==5 || obj.subOrder.productId ==12 || obj.subOrder.productId ==13 || obj.subOrder.productId ==14 || obj.subOrder.productId ==15 ){
+						if(obj.subOrder.productId ==1 || obj.subOrder.productId ==4  || obj.subOrder.productId ==7  || obj.subOrder.productId ==5 || obj.subOrder.productId ==12 || obj.subOrder.productId ==13 || obj.subOrder.productId ==14 || obj.subOrder.productId ==15 || obj.subOrder.productId ==17 ){
 							if( obj.subOrder.discount  &&  obj.subOrder.discount<8){
 								discoutFlag = false;
 							}

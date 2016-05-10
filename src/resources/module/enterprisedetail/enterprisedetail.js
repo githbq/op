@@ -1590,7 +1590,7 @@ define(function (require, exports, module) {
                                         strDom += " <p> <span>" + obj['appName'] + "</span> <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span> </p>";
                                         break;
                                     default:
-                                        strDom += " <p> <span>" + obj['appName'] + "</span> <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span>" + enablestatus + "   <input class='off' type='checkbox' name='product' value='" + obj["appId"] + "'> </p>";
+                                        strDom += " <p> <span>" + obj['appName'] + "</span> <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span>" + enablestatus + "   <input class='off' type='checkbox' name='product' value='" + obj["appId"] + "' typeid='"+obj["quotaType"]+"'> </p>";
                                 }
                             });
 
@@ -1618,16 +1618,35 @@ define(function (require, exports, module) {
             }
 
             var ids = [];
+			var arrTypeOne = [],arrTypeTwo = [];
             $input.each(function (index, item) {
-                ids.push($(item).val());
+				if( $(item).attr('typeid')==1 ){
+					arrTypeOne.push($(item).val());
+				}else if( $(item).attr('typeid') == 2 ){
+					arrTypeTwo.push($(item).val());
+				}
+                //ids.push($(item).val());
             });
+			var objOne ={}, objTwo ={}, arrList = [];
+			if(arrTypeOne.length>0){
+				//var tempOne ={};
+				objOne.quotaType = 1;
+				objOne.appIds = arrTypeOne.join(',');
+				arrList.push(objOne);
+			}
+			if(arrTypeTwo.length>0){
+				//var tempOne ={};
+				objTwo.quotaType = 2;
+				objTwo.appIds = arrTypeTwo.join(',');
+				arrList.push(objTwo);
+			}
             console.log(ids);
 
             util.api({
                 'url': "/app/setappsenablestatus",
                 'data': {
                     'fsEa': me.model.get('enterpriseAccount'),
-                    'appIds': ids.join(','),
+                    'json': JSON.stringify( arrList ),
                     'isEnable': isEnable
                 },
                 'success': function (data) {
