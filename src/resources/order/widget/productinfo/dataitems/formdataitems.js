@@ -37,6 +37,8 @@ define(function (require, exports, module) {
                         }
                         me.o_setValue({name: 'agentCurrPayAmount', visible: true, value: servicePrice});
                     }
+                    //重新计算价格
+                    me.__refs.tableInfo.$('[data-name=check]:first').change();
                 }
             }]
         }).on('setFieldValue', function ($ele, value, data, me) {

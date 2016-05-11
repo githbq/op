@@ -122,7 +122,7 @@ define(function (require, exports, module) {
                             }
                         }
                         var items = tableDataItems;
-                        if ($.inArray(n.subOrder.productId.toString(), ['1', '2', '3','13']) >= 0) {
+                        if ($.inArray(n.subOrder.productId.toString(), ['1', '2', '3', '13']) >= 0) {
                             items = terminalDataItems;
                         }
                         if (subOrder.productId == '1') {//选中CRM
@@ -232,46 +232,28 @@ define(function (require, exports, module) {
         exports.setRenewLogic = function (controller, terminalDataItems, tableDataItems, formDataItems, type, responseData) {
             CRMNewLogic(controller, terminalDataItems, tableDataItems, formDataItems, type, responseData);
         };
-        function CRMNewLogic(controller, terminalDataItems, tableDataItems, formDataItems, type, responseData){
+        function CRMNewLogic(controller, terminalDataItems, tableDataItems, formDataItems, type, responseData) {
             //终端总个数
             controller(terminalDataItems, 'purchaseCount_2', function (n) {
                 n.value = 0;
             });
-            //终端总个数
-            controller(terminalDataItems, 'purchaseCount_1', function (n) {
-                n.on('setValue', function ($field, data,me) {
-                    $field.on('change', function () {
-                        var old_CRMCount = me.o_getFieldData('old_CRMCount');
-                        var old_FXCount = me.o_getFieldData('old_FXCount');
-                        setTimeout(function () {
-                            if ($field.val() && old_CRMCount !== undefined && old_FXCount !== undefined) {
-                                var newFXCount = (old_CRMCount.value || 0) + parseInt($field.val()) - (old_FXCount.value || 0);
-                                if (newFXCount >= 0) {
-                                    me.o_setValue({name: 'purchaseCount_2', value: newFXCount});
-                                }
-                            } else {
-                                me.o_setValue({name: 'purchaseCount_2', value: '0'});
-                            }
-                        }, 100);
-                    })
-                });
 
-            });
         }
+
         //设置增购逻辑
         exports.setAddOrderLogic = function (controller, terminalDataItems, tableDataItems, formDataItems, type, responseData) {
             CRMNewLogic(controller, terminalDataItems, tableDataItems, formDataItems, type, responseData);
             controller(tableDataItems, 'tablelist', function (n) {
                 n.visible = true;
             });
-            controller(tableDataItems, 'check', function (n) { 
+            controller(tableDataItems, 'check', function (n) {
                 n.on('setFieldValue', function ($ele, value, data, me) {
                     var isreadonly = me.__refs.terminalInfo.o_getFieldData('allreadonly').allreadonly === true;
                     if (responseData && responseData.data && responseData.data.subOrders) {
                         var ids = [];
-                        if(responseData.refuse){//被驳回前 要隐藏掉相关的子产品
-                            me.$('input[type=checkbox][data-name=check]').each(function(i,n){
-                                if(!$(n).is(':checked')){
+                        if (responseData.refuse) {//被驳回前 要隐藏掉相关的子产品
+                            me.$('input[type=checkbox][data-name=check]').each(function (i, n) {
+                                if (!$(n).is(':checked')) {
                                     $(n).parents('tr').hide();
                                 }
                             });
@@ -363,11 +345,11 @@ define(function (require, exports, module) {
                 contractNo: formInfoData.contractNo,
                 amount: formInfoData.contractPrice,
                 productAmount: formInfoData.productAmount,
-                agentCurrPayAmount:formInfoData.agentCurrPayAmount,//代理商金额
-                orderAssigned:formInfoData.orderAssigned//订单标记
+                agentCurrPayAmount: formInfoData.agentCurrPayAmount,//代理商金额
+                orderAssigned: formInfoData.orderAssigned//订单标记
             };
-            if(formInfoData.orderAssigned==1){ //标记为1 为直销此时没有代理商金额
-                data.order.agentCurrPayAmount=0;
+            if (formInfoData.orderAssigned == 1) { //标记为1 为直销此时没有代理商金额
+                data.order.agentCurrPayAmount = 0;
             }
 
         };

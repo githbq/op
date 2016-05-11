@@ -6,9 +6,9 @@ define(function (require, exports, module) {
         //终端总个数
         dataItems.push(new DataItem({
             name: 'purchaseCount_2',
-            value: '0',
+            value: '1000',
             readonly: true,
-            visible:true
+            visible: true
             //,validateOptions: {
             //    required: {
             //        enable: true, value: true, message: '', handler: function (error, value, option, $ele) {
@@ -67,18 +67,9 @@ define(function (require, exports, module) {
                                 me.dataDic[i].readonly = !checked ? true : ( me.dataDic[i].old_readonly === true ? isReadonly : false);
                                 me.o_setValue(me.dataDic[i]);
                                 if (i.toString().indexOf('type_') == 0) {
-                                    debugger
                                     var $type = me.o_data_getField(me.dataDic[i]);
                                     $type && $type.length > 0 && ($type.change());
                                 }
-                                /* CRM与服务费不再关联
-                                 //if (i == 'purchaseAmount_input_3' && !me.dataDic[i].readonly) {//服务费合同金额
-                                 //    if (me.o_getFieldValue('useCRM')) {
-                                 //        me.dataDic[i].readonly = true;
-                                 //        me.o_setValue(me.dataDic[i]);
-                                 //    }
-                                 //}
-                                 */
                             }
                         }
                     }
@@ -144,8 +135,27 @@ define(function (require, exports, module) {
                     key: 'change', value: function (e) {
                         debugger
                         var me = this;
-                        var allreadonly = me.o_getFieldData('allreadonly').allreadonly;
                         var $dom = $(e.target);
+
+                        //数量控制
+                        if (n == 1) {
+                            var old_CRMCount = me.o_getFieldData('old_CRMCount');
+                            var old_FXCount = me.o_getFieldData('old_FXCount');
+                            setTimeout(function () {
+                                if ($dom.val() && old_CRMCount !== undefined && old_FXCount !== undefined) {
+                                    var newFXCount = (old_CRMCount.value || 0) + parseInt($dom.val()) - (old_FXCount.value || 0);
+                                    if (newFXCount >= 0) {
+                                        me.o_setValue({name: 'purchaseCount_2', value: newFXCount});
+                                    }
+                                } else {
+                                    me.o_setValue({name: 'purchaseCount_2', value: '0'});
+                                }
+                            }, 100);
+                        }
+                        //end数量控制
+
+                        var allreadonly = me.o_getFieldData('allreadonly').allreadonly;
+
                         if (n == '3' && !(parseFloat($dom.val()) > 5) && !(me.o_getFieldValue('isrenew') || me.o_getFieldValue('isadd'))) {
                             util.showToast('服务人数必须大于等于6');
                             $dom.val('');
@@ -184,6 +194,9 @@ define(function (require, exports, module) {
                                             //} else {
                                             me.o_setValue({name: 'purchaseAmount_' + n, value: response.model});
                                             me.o_setValue({name: 'purchaseAmount_input_' + n, value: response.model});
+                                            if (n == 3) {//服务费与代理商
+                                                me.__refs.formInfo.o_setValue({name: 'agentCurrPayAmount', value: response.model});
+                                            }
                                             //}
 
                                             me.o_setValue({name: 'productAmount_' + n, value: response.model});
@@ -227,6 +240,9 @@ define(function (require, exports, module) {
                         var $dom = $(e.target);
                         me.o_setValue({name: 'purchaseAmount_' + n, value: $dom.val()});
                         var id = $dom.parents('[data-productid]').attr('data-productid');
+                        if (n === 3) {//服务费与代理商
+                            me.__refs.formInfo.o_setValue({name: 'agentCurrPayAmount', value: $dom.val()});
+                        }
                         changeForGetPrice.call(me, e, false);
                     }
                 }]
@@ -424,9 +440,10 @@ define(function (require, exports, module) {
                     sum: sum,
                     contractAmount: me.o_getFieldValue('purchaseAmount_' + id) || 0,
                     orderType: me.o_getFieldValue('orderType'),
-                    hasPurchaseCount:me.o_getFieldValue('old_CRMCount')
+                    hasPurchaseCount: me.o_getFieldValue('old_CRMCount') || 0
                 },
                 success: function (responseData) {
+                    debugger
                     if (responseData.success) {
                         //{"amount":200,"rebate":1.7000000000000002}
                         me.o_setValue({name: 'discount_' + id, value: responseData.model.rebate === null ? '' : responseData.model.rebate});
