@@ -1180,9 +1180,14 @@ define(function (require, exports, module) {
                          */
 
                         ///me.$sdPayImd.val( model.firstPayTime ? new Date( model.firstPayTime )._format( 'yyyy-MM-dd' ) : '未知' );
-                        me.$sdXKDC.val(model.accountTotalAmount);
+                      
                         me.$sdXKDUC.val(model.accountUsedAmount + '/' + model.accountAvailableAmount || '');
-
+						var tempmarketingAccountAmount = model.marketingAccountAmount
+						if( model.marketingAccountAmount && parseInt(model.marketingAccountAmount)>1000 ){
+							me.$sdXKDC.val(model.marketingAccountAmount);
+						}else{
+							me.$sdXKDC.val(model.accountTotalAmount);
+						}	  
                         me.$yingxiaoSum.val(model.marketingAccountAmount);
                         me.$yingxiaoUsed.val(model.marketingAccountUsedAmount + '/' + model.marketingAccountAvailableAmount);
 
@@ -1569,8 +1574,8 @@ define(function (require, exports, module) {
 
                                 switch (obj["code"]) {
                                     case "FX_Terminal":
-                                        strDom += " <p> <span>" + obj['appName'] + "(个)：" + obj['quota'] + "</span>" +
-                                        " <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span></p>";
+                                        /*strDom += " <p> <span>" + obj['appName'] + "(个)：" + obj['quota'] + "</span>" +
+                                        " <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span></p>";*/
                                         break;
                                     case "CRM":
                                         strDom += " <p> <span>" + obj['appName'] + "(个)：" + obj['quota'] + "</span>" +
@@ -2383,15 +2388,23 @@ define(function (require, exports, module) {
         //修改使用情况信息
         changeStatistics: function () {
             var me = this;
+			var temAccout = 0;
 
             console.log('changeStatistics');
             if (parseInt(me.model.get('groupNumLimit')) > 1000) {
                 util.showToast('群人数上限最多为1000');
                 return false;
             }
+			if(me.$('#yingxiaoSum').val() && parseInt(me.$('#yingxiaoSum').val())>1000 ){
+				util.showToast('逍客终端总量不能小于CRM总量');
+                return false;
+				//temAccout = me.$('#yingxiaoSum').val();
+			}else{
+				temAccout = me.$sdXKDC.val();
+			}
 
             var data = {
-                'accountAmount': me.$sdXKDC.val(),  						//逍客终端总量
+                'accountAmount': temAccout,  						//逍客终端总量
                 'expandStorageSpace': me.$('#expandStorageSpace').val(),	//存储扩容
                 'groupNumLimit': me.model.get('groupNumLimit'),             //群人数上限
                 'videoNumLimit': me.model.get('videoNumLimit'),             //视频参与人数上限
