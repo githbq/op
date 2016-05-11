@@ -6,8 +6,9 @@ define(function (require, exports, module) {
         //终端总个数
         dataItems.push(new DataItem({
             name: 'purchaseCount_2',
-            value: '1000',
-            readonly: true
+            value: '0',
+            readonly: true,
+            visible:true
             //,validateOptions: {
             //    required: {
             //        enable: true, value: true, message: '', handler: function (error, value, option, $ele) {
