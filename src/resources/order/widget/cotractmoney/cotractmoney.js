@@ -104,7 +104,13 @@ define(function (require, exports, module) {
                         //" <td>非退款项</td><td></td></tr>";
                         usedAmound+=parseFloat(sublist[i].usedAmount);
                         break;
-                    case 10: case 11: case 2:
+					case 16:
+                        serviceDoms.push('<label style="width:250px;"> <span class="label">'+productIdDic[tempId]+'已使用金额(元)：</span> </label><span class="w-len">'+sublist[i].contractAmount+'</span><span class="w-len">非退款项</span>');
+                        //serviceDom+=" <tr> <td>"+productIdDic[tempId]+"合同金额(元)：</td><td class='money-box'>"+sublist[i].contractAmount+"</td>" +
+                        //" <td>非退款项</td><td></td></tr>";
+                        usedAmound+=parseFloat(sublist[i].usedAmount);
+                        break;
+                    case 10: case 11: case 2: case 8:
                     break;
                     default:
                         //strDom+=" <tr> <td>"+productIdDic[tempId]+"合同金额(元)：</td><td class='money-box'>"+sublist[i].contractAmount+"</td>" +
