@@ -228,9 +228,39 @@ define(function (require, exports, module) {
 
         }
         ;
+        //设置续费逻辑
+        exports.setRenewLogic = function (controller, terminalDataItems, tableDataItems, formDataItems, type, responseData) {
+            CRMNewLogic(controller, terminalDataItems, tableDataItems, formDataItems, type, responseData);
+        };
+        function CRMNewLogic(controller, terminalDataItems, tableDataItems, formDataItems, type, responseData){
+            //终端总个数
+            controller(terminalDataItems, 'purchaseCount_2', function (n) {
+                n.value = 0;
+            });
+            //终端总个数
+            controller(terminalDataItems, 'purchaseCount_1', function (n) {
+                n.on('setValue', function ($field, data,me) {
+                    $field.on('change', function () {
+                        var old_CRMCount = me.o_getFieldData('old_CRMCount');
+                        var old_FXCount = me.o_getFieldData('old_FXCount');
+                        setTimeout(function () {
+                            if ($field.val() && old_CRMCount !== undefined && old_FXCount !== undefined) {
+                                var newFXCount = (old_CRMCount.value || 0) + parseInt($field.val()) - (old_FXCount.value || 0);
+                                if (newFXCount >= 0) {
+                                    me.o_setValue({name: 'purchaseCount_2', value: newFXCount});
+                                }
+                            } else {
+                                me.o_setValue({name: 'purchaseCount_2', value: '0'});
+                            }
+                        }, 100);
+                    })
+                });
 
+            });
+        }
         //设置增购逻辑
         exports.setAddOrderLogic = function (controller, terminalDataItems, tableDataItems, formDataItems, type, responseData) {
+            CRMNewLogic(controller, terminalDataItems, tableDataItems, formDataItems, type, responseData);
             controller(tableDataItems, 'tablelist', function (n) {
                 n.visible = true;
             });
