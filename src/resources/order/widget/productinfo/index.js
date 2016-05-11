@@ -518,8 +518,8 @@ define(function (require, exports, module) {
                         $ele.prop('checked', value);
                         //!silent && $ele.change();
                     } else {
-                        value = value || '';
-                        var items = $.isArray(value) ? value : value.split(',');
+                        value = value===undefined?'':value;
+                        var items = $.isArray(value) ? value : value.toString().split(',');
                         $(items).each(function (i, n) {
                             $ele.filter('[value=' + n + ']').attr('data-checked', '1');
                         });
