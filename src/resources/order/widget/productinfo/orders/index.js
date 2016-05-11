@@ -26,6 +26,15 @@ define(function (require, exports, module) {
             if (responseData) {
                 var dataDic = toNameDictionary(bigArr);
                 var order, contract, enterpriseExtend, subOrders;
+
+                //历史CRM终端总量
+                controller(terminalDataItems, 'old_CRMCount', function (item) {
+                    item.value = responseData.old_CRMCount;
+                });
+                //历史销客终端总量
+                controller(terminalDataItems, 'old_FXCount', function (item) {
+                    item.value = responseData.old_FXCount;
+                });
                 if (responseData.data) {
                     order = responseData.data.order;
                     contract = responseData.data.contract;
