@@ -95,6 +95,8 @@ define( function(require, exports, module){
 			//me.attrs.options.editFlag=true;
 			me.attrs.orderList = {};
 			me.attrs.enterpriseData = {};
+			me.attrs.old_CRMAmount = 0; 
+			me.attrs.old_FXAmount = 0;
 			me.attrs.allData = {'orderEntity':{},'contract':{},'enterpriseExtend':{},'enterprise':{}};
 			me.$('.enterpriseAccount').attr('disable','disable');
 			me.setState();
@@ -415,7 +417,7 @@ define( function(require, exports, module){
 			 me.attrs.prodeuctObj =  productinfo.showProductInfo( {terminalInfo:{$view:me.$view.find('.common-terminalinfo')},
 					 tableInfo:{$view:me.$view.find('.common-tableinfo')},
 					 formInfo:{$view:me.$view.find('.common-forminfo')}}
-				 ,tempOrderType ,{'edit':true,'payInfoReadonly':payInfoReadonly,'enterpriseId':me.attrs.options.enterpriseId,'readonly': allReadonly,'data':me.attrs.productData,'refuse':me.attrs.options.editFlag} );
+				 ,tempOrderType ,{'edit':true,'payInfoReadonly':payInfoReadonly,'enterpriseId':me.attrs.options.enterpriseId,'readonly': allReadonly,'data':me.attrs.productData,'refuse':me.attrs.options.editFlag ,'old_CRMCount':me.attrs.old_CRMAmount,'old_FXCount':me.attrs.old_FXAmount } );
 
 			 //发票信息
 			 me.attrs.invoiceCommon = new InvoiceInfo( { 'wrapper':me.$view.find('.common--invioce'),'data':me.attrs.orderData,
@@ -479,8 +481,12 @@ define( function(require, exports, module){
 					for(var i = 0 ;i<data.length; i++ ){
 						
 						if( data[i].code == "CRM" ){
+							var crmNum = data[i].quota ? parseInt(data[i].quota):0;
+							me.attrs.old_CRMAmount += crmNum;
 							sortDate.push( data[i].startDate );
 							sortDate.push( data[i].endDate );
+						}else if( data[i].code == "FX_Terminal" ){
+							me.attrs.old_FXAmount = data[i].quota||0;
 						}
 					}
 					//计算crm增购的时间最大范围
@@ -611,6 +617,15 @@ define( function(require, exports, module){
 										}
 									}*/
 								}
+								break;
+							case "CRM":
+								var crmNum = obj["quota"] ? parseInt(obj["quota"]) : 0;
+								me.attrs.old_CRMAmount += crmNum;
+							
+								break;
+							case "FX_Terminal":
+								me.attrs.old_FXAmount = obj["quota"]||0;
+
 								break;
 							default:
 						}

@@ -15,7 +15,33 @@ define(function (require, exports, module) {
                 'success': callback
             })
         }
-
+        dataItems.push(new DataItem({
+            name: 'agentCurrPayAmount',
+            readonly: true
+        }));
+        dataItems.push(new DataItem({
+            name: 'orderAssigned',
+            value: '1',
+            events: [{
+                key: 'change', value: function (e) {
+                    var $dom = $(e.target);
+                    var me = this;
+                    if (me.o_getFieldValue('orderAssigned') == '1') {
+                        me.o_setValue({name: 'agentCurrPayAmount', visible: false, value: ''});
+                    } else {
+                        var servicePrice = 0;
+                        if (me.o_getFieldData('currPayAmount_3').visible == true) {
+                            servicePrice = me.o_getFieldValue('currPayAmount_3');
+                        } else {
+                            servicePrice = me.__refs.terminalInfo.o_getFieldValue('purchaseAmount_3');
+                        }
+                        me.o_setValue({name: 'agentCurrPayAmount', visible: true, value: servicePrice});
+                    }
+                }
+            }]
+        }).on('setFieldValue', function ($ele, value, data, me) {
+                $ele.change();
+            }));
         //合同号
         dataItems.push(new DataItem({
             name: 'contractNo',

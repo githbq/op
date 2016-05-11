@@ -6,8 +6,9 @@ define(function (require, exports, module) {
         //终端总个数
         dataItems.push(new DataItem({
             name: 'purchaseCount_2',
-            value: '1000',
-            readonly: true
+            value: '0',
+            readonly: true,
+            visible:true
             //,validateOptions: {
             //    required: {
             //        enable: true, value: true, message: '', handler: function (error, value, option, $ele) {
@@ -314,6 +315,7 @@ define(function (require, exports, module) {
                                 me.o_setValue({name: 'purchaseAmount_' + n, value: 0});
                                 me.o_setValue({name: 'purchaseAmount_input_' + n, value: 0, readonly: true});
                                 me.o_setValue({name: 'discount_' + n, value: '0'});
+
                             }
                                 ;
                                 break;
@@ -421,7 +423,8 @@ define(function (require, exports, module) {
                     endDate: me.o_getFieldValue('endTime_' + id),
                     sum: sum,
                     contractAmount: me.o_getFieldValue('purchaseAmount_' + id) || 0,
-                    orderType: me.o_getFieldValue('orderType')
+                    orderType: me.o_getFieldValue('orderType'),
+                    hasPurchaseCount:me.o_getFieldValue('old_CRMCount')
                 },
                 success: function (responseData) {
                     if (responseData.success) {

@@ -383,6 +383,26 @@
                 <div class="field_wrapper">
                     <div class="field">
                         <label>
+                            <span class="label">直销</span>
+                            <input data-name="orderAssigned" type="radio" value="1" class="ipt-s" name="orderAssigned"/>
+                        </label>
+                        <label>
+                            <span class="label">代理商</span>
+                            <input data-name="orderAssigned" type="radio" value="2" class="ipt-s" name="orderAssigned"/>
+                        </label>
+                        <label>
+                            <span class="label">联营公司</span>
+                            <input data-name="orderAssigned" type="radio" value="3" class="ipt-s" name="orderAssigned"/>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="field_row">
+                <div class="field_row_head">
+                </div>
+                <div class="field_wrapper">
+                    <div class="field">
+                        <label>
                             <span class="label">合同号</span>
                             <span class="red">*</span>
                         </label>
@@ -476,7 +496,20 @@
                 <div class="field_wrapper">
                     <div class="field">
                         <label>
-                            <span class="label">本次到款金额(元)</span>
+                            <span class="label">代理商本次到款金额(元)</span>
+                            <span class="red">*</span>
+                        </label>
+                        <input data-name="agentCurrPayAmount" data-type="number" type="text" class="" name=""/>
+                    </div>
+                </div>
+            </div>
+            <div class="field_row">
+                <div class="field_row_head">
+                </div>
+                <div class="field_wrapper">
+                    <div class="field">
+                        <label>
+                            <span class="label">总部本次到款金额(元)</span>
                             <span class="red">*</span>
                         </label>
                         <input data-name="currPayAmount" data-type="number" type="text" class="" name=""/>
@@ -489,7 +522,7 @@
                 <div class="field_wrapper">
                     <div class="field">
                         <label>
-                            <span class="label">打款日期</span>
+                            <span class="label">总部打款日期</span>
                             <span class="red">*</span>
                         </label>
                         <input data-name="payDate" datecontrol type="text" class="" onblur="this.value= this.value.match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/) ? this.value:''" name=""/>
@@ -503,7 +536,7 @@
 
                     <div class="field">
                         <label>
-                            <span class="label">收款账户</span>
+                            <span class="label">总部打款账户</span>
                             <span class="red">*</span>
                         </label>
                         <input data-name="receiptsAccount" type="text" class="ipt-l bankno" name=""/>
