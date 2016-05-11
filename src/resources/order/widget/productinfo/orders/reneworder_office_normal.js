@@ -45,7 +45,7 @@ define(function (require, exports, module) {
                 n.visible = false;
             });
         });
-        common.setRenewLogic(controller, terminalDataItems, tableDataItems, formDataItems);
+        common.setRenewLogic(controller, terminalDataItems, tableDataItems, formDataItems,9,responseData);
         common.setCommonData(controller, terminalDataItems, tableDataItems, formDataItems,9,responseData);
         controller(terminalDataItems,'isrenew',function(n){
             n.value = true;

@@ -70,7 +70,7 @@ define(function (require, exports, module) {
             n.visible=true;
         });
         common.setNoGZHelper(controller,terminalDataItems, tableDataItems, formDataItems);
-        common.setRenewLogic(controller, terminalDataItems, tableDataItems, formDataItems);
+        common.setRenewLogic(controller, terminalDataItems, tableDataItems, formDataItems,12,responseData);
         common.setCommonData(controller, terminalDataItems, tableDataItems, formDataItems,12,responseData);
         controller(terminalDataItems,'isrenew',function(n){
             n.value = true;
