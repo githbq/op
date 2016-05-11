@@ -1183,7 +1183,7 @@ define(function (require, exports, module) {
                       
                         me.$sdXKDUC.val(model.accountUsedAmount + '/' + model.accountAvailableAmount || '');
 						var tempmarketingAccountAmount = model.marketingAccountAmount
-						if( model.marketingAccountAmount && parseInt(model.marketingAccountAmount)> parseInt(model.accountTotalAmount) ){
+						if( model.marketingAccountAmount && parseInt(model.marketingAccountAmount)> parseInt (model.accountTotalAmount) ){
 							me.$sdXKDC.val(model.marketingAccountAmount);
 						}else{
 							me.$sdXKDC.val(model.accountTotalAmount);
