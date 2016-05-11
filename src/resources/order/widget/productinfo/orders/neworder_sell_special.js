@@ -74,6 +74,9 @@ define(function (require, exports, module) {
         controller(tableDataItems, 'table_type_wrapper', function (n) {
             n.visible = true;
         });
+        controller(terminalDataItems,'isnew',function(n){
+            n.value = true;
+        });
         //工资助手强制
         common.setGZHelper(controller,terminalDataItems,tableDataItems,formDataItems);
         //工资助手强制 end

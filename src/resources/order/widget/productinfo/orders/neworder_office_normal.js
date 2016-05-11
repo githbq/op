@@ -47,7 +47,9 @@ define(function (require, exports, module) {
                 n.visible = false;
             });
         });
-
+        controller(terminalDataItems,'isnew',function(n){
+            n.value = true;
+        });
         common.setCommonData(controller, terminalDataItems, tableDataItems, formDataItems, 1, responseData);
         return {terminalDataItems: terminalDataItems, tableDataItems: tableDataItems, formDataItems: formDataItems};
     }
