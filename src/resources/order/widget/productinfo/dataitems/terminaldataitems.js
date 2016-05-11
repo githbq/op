@@ -139,11 +139,14 @@ define(function (require, exports, module) {
 
                         //数量控制
                         if (n == 1) {
-                            if(me.o_getFieldValue('isnew')){//新购逻辑
-                                if($dom.val() && parseInt($dom.val())<=1000){
-                                    return ;
-                                }else if(!$dom.val()){
-                                    return ;
+                            if (me.o_getFieldValue('isnew')) {//新购逻辑
+                                if ($dom.val()) {
+                                    if (parseInt($dom.val()) <= 1000) {
+                                        me.o_setValue({name: 'purchaseCount_2', value:1000});
+                                        return;
+                                    }
+                                } else if (!$dom.val()) {
+                                    return;
                                 }
 
                             }
