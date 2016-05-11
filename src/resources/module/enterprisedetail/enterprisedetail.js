@@ -1183,7 +1183,7 @@ define(function (require, exports, module) {
                       
                         me.$sdXKDUC.val(model.accountUsedAmount + '/' + model.accountAvailableAmount || '');
 						var tempmarketingAccountAmount = model.marketingAccountAmount
-						if( model.marketingAccountAmount && parseInt(model.marketingAccountAmount)>1000 ){
+						if( model.marketingAccountAmount && parseInt(model.marketingAccountAmount)> parseInt(model.accountTotalAmount) ){
 							me.$sdXKDC.val(model.marketingAccountAmount);
 						}else{
 							me.$sdXKDC.val(model.accountTotalAmount);
@@ -2395,7 +2395,7 @@ define(function (require, exports, module) {
                 util.showToast('群人数上限最多为1000');
                 return false;
             }
-			if(me.$('#yingxiaoSum').val() && parseInt(me.$('#yingxiaoSum').val())>1000 ){
+			if(me.$('#yingxiaoSum').val() && parseInt(me.$('#yingxiaoSum').val())> parseInt(me.$sdXKDC.val())){
 				util.showToast('逍客终端总量不能小于CRM总量');
                 return false;
 				//temAccout = me.$('#yingxiaoSum').val();
