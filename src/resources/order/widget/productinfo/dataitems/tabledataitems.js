@@ -227,7 +227,8 @@ define(function (require, exports, module) {
             var me = this;
             var ids = this.o_getFieldValue('check').split(',');
 
-            var order_amount = 0;
+            var order_amount = 0;//合同总金额
+            var curPayAmount = 0;//本次到款总金额
             var smallStartDate = 0;
             var maxEndDate = 0;
             var startDate = null;
@@ -246,7 +247,7 @@ define(function (require, exports, module) {
                 ids.push('3');
             }
 
-
+            debugger
             $(ids).each(function (i, n) {
                 var id = n;
                 checkTypeForPrice.call(me, e, id);
@@ -269,9 +270,11 @@ define(function (require, exports, module) {
                 var purchaseModule = me.o_getFieldData('purchaseAmount_' + id) ? me : me.__refs.terminalInfo;
                 purchaseModule.__refs.terminalInfo.o_setValue({name: 'purchaseAmount_' + id, allow: true});
                 purchaseModule.o_setValue({name: 'purchaseAmount_' + id, allow: true});
-
-                if (id == 3 && me.__refs.formInfo.o_getFieldValue('orderAssigned')==1) {//只有直销 服务费才加入总金额计算
-                    order_amount += parseFloat(purchaseModule.o_getFieldValue('purchaseAmount_' + id) || 0);
+                order_amount += parseFloat(purchaseModule.o_getFieldValue('purchaseAmount_' + id) || 0);
+                if (id == 3 && me.__refs.formInfo.o_getFieldValue('orderAssigned') == 1) {//只有直销 服务费才加入到款总金额计算
+                    curPayAmount += parseFloat(purchaseModule.o_getFieldValue('purchaseAmount_' + id) || 0);
+                }else if(id!=3){
+                    curPayAmount += parseFloat(purchaseModule.o_getFieldValue('purchaseAmount_' + id) || 0);
                 }
                 productAmount += parseFloat(purchaseModule.o_getFieldValue('productAmount_' + id) || 0);
 
@@ -287,14 +290,15 @@ define(function (require, exports, module) {
             //console.log('合同总金额之表格部分计算结果2:' + me.o_getFieldValue('order_amount'));
             //console.log('原价总金额之表格部分计算结果:' + me.o_getFieldValue('order_amount'));
             if (me.__refs.formInfo.o_getFieldData('payStatus_name').visible !== false || me.__refs.formInfo.o_getFieldValue('payStatus_select') == '1') {
-                me.__refs.formInfo.o_setValue({name: 'currPayAmount', value: order_amount});
+                me.__refs.formInfo.o_setValue({name: 'currPayAmount', value: curPayAmount});
             }
             if (me.__refs.formInfo.o_getFieldData('payStatus_select').visible !== false) {
                 me.__refs.formInfo.o_data_getField({name: 'payStatus_select'}).change();
             }
 
         }
-        exports.priceComput=priceComput;
+
+        exports.priceComput = priceComput;
         function changeForGetPrice(e, change) {
             var me = this;
             var $dom = $(e.target);

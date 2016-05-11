@@ -15,6 +15,7 @@ define(function (require, exports, module) {
                 'success': callback
             })
         }
+
         dataItems.push(new DataItem({
             name: 'agentCurrPayAmount',
             readonly: true
@@ -199,9 +200,9 @@ define(function (require, exports, module) {
                                 {name: 'currPayAmount_12', visible: false}
                             ]);
                             var checkeds = me.__refs.tableInfo.o_getFieldValue('check').split(',');
-                            if (me.__refs.terminalInfo.o_getFieldValue('useCRM') && me.__refs.terminalInfo.o_getFieldData('useCRMWrapper').visible!==false) {//使用了逍客终端 要加入服务费
+                            if (me.__refs.terminalInfo.o_getFieldValue('useCRM') && me.__refs.terminalInfo.o_getFieldData('useCRMWrapper').visible !== false) {//使用了逍客终端 要加入服务费
                                 checkeds.push('1');//CRM费用
-                                if (me.__refs.terminalInfo.o_getFieldData('businesscard').visible!==false) {
+                                if (me.__refs.terminalInfo.o_getFieldData('businesscard').visible !== false) {
                                     checkeds.push('8');//名片费用
                                 }
                             }
@@ -267,13 +268,20 @@ define(function (require, exports, module) {
                                 $dom.val(purchaseAmount);
                             }
                             var currPayAmount = 0;
+                            var agentCurrPayAmount = 0;
                             me.$('.fenqi:visible').each(function (i, n) {
-                                if ($(n).val()) {
-                                    currPayAmount += parseFloat($(n).val());
+                                if ($(n).is('[data-name=currPayAmount_3]')) { //服务费
+                                    agentCurrPayAmount = parseFloat($(n).val() || 0);
+                                    if (me.__refs.formInfo.o_getFieldValue('orderAssigned') == 1) {//只有直销时才算入总部到款价
+                                        currPayAmount += parseFloat($(n).val() || 0);
+                                    }
+                                } else {
+                                    currPayAmount += parseFloat($(n).val() || 0);
                                 }
+
                             });
                             me.o_setValue({name: 'currPayAmount', value: currPayAmount});
-
+                            me.o_setValue({name: 'agentCurrPayAmount', value: agentCurrPayAmount});
                         }
                     }]
                 }));

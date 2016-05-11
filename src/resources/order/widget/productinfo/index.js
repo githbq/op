@@ -475,9 +475,6 @@ define(function (require, exports, module) {
                 } else {//无DOM的数据
                     $.extend(data, obj);
                 }
-                if(obj.name=='purchaseCount_1'){
-                    debugger
-                }
                 if (silent !== true) {
                     me.trigger('setValue', $field, data,me);
                     data.trigger('setValue', $field, data,me);
