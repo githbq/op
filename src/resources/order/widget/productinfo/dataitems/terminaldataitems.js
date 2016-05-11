@@ -139,6 +139,14 @@ define(function (require, exports, module) {
 
                         //数量控制
                         if (n == 1) {
+                            if(me.o_getFieldValue('isnew')){//新购逻辑
+                                if($dom.val() && parseInt($dom.val())<=1000){
+                                    return ;
+                                }else if(!$dom.val()){
+                                    return ;
+                                }
+
+                            }
                             var old_CRMCount = me.o_getFieldData('old_CRMCount');
                             var old_FXCount = me.o_getFieldData('old_FXCount');
                             setTimeout(function () {
