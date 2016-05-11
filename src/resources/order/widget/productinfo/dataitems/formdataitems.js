@@ -170,6 +170,7 @@ define(function (require, exports, module) {
                     var $dom = $(e.target);
                     var data = me.o_getFieldData('payStatus_select');
                     me.o_setValue({name: 'payStatus', value: $dom.val()});
+                    debugger
                     switch ($dom.val()) {
                         case '1':
                         {
