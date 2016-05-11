@@ -170,12 +170,17 @@ define(function (require, exports, module) {
                     var $dom = $(e.target);
                     var data = me.o_getFieldData('payStatus_select');
                     me.o_setValue({name: 'payStatus', value: $dom.val()});
-                    debugger
                     switch ($dom.val()) {
                         case '1':
                         {
+                            var servicePrice=me.__refs.terminalInfo.o_getFieldValue('purchaseAmount_3');
+                            var contractPrice= me.o_getFieldValue('contractPrice');
+                            var currPayAmount=contractPrice;
+                            if(me.o_getFieldValue('orderAssigned')!=1){
+                                currPayAmount=(contractPrice?parseFloat(contractPrice):0)- (servicePrice?parseFloat(servicePrice):0)
+                            }
                             me.o_setValues([
-                                {name: 'currPayAmount', value: me.o_getFieldValue('contractPrice')},
+                                {name: 'currPayAmount', value:currPayAmount    },
                                 {name: 'currPayAmount_3', value: '0', visible: false},
                                 {name: 'currPayAmount_1', value: '0', visible: false},
                                 {name: 'currPayAmount_4', value: '0', visible: false},
@@ -185,6 +190,7 @@ define(function (require, exports, module) {
                                 {name: 'currPayAmount_12', value: '0', visible: false}
                             ]);
                             //全款
+
                         }
                             ;
                             break;
@@ -232,7 +238,8 @@ define(function (require, exports, module) {
                                 {name: 'currPayAmount_7', value: '0', visible: false},
                                 {name: 'currPayAmount_8', value: '0', visible: false},
                                 {name: 'currPayAmount_12', value: '0', visible: false},
-                                {name: 'currPayAmount', value: '0'}
+                                {name: 'currPayAmount', value: '0'},
+                                {name: 'agentCurrPayAmount', value: '0'}
                             ]);
                         }
                             ;
