@@ -312,7 +312,8 @@ define(function (require, exports, module) {
                     endDate: me.o_getFieldValue('endTime_' + id),
                     sum: 1,
                     contractAmount: me.o_getFieldValue('purchaseAmount_' + id),
-                    orderType: me.o_getFieldValue('orderType')
+                    orderType: me.o_getFieldValue('orderType'),
+                    hasPurchaseCount:me.__refs.terminalInfo.o_getFieldValue('old_CRMCount')
                 },
                 success: function (responseData) {
                     console.warn(responseData);

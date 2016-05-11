@@ -323,8 +323,13 @@ define(function (require, exports, module) {
                 payerName: formInfoData.payerName,
                 contractNo: formInfoData.contractNo,
                 amount: formInfoData.contractPrice,
-                productAmount: formInfoData.productAmount
+                productAmount: formInfoData.productAmount,
+                agentCurrPayAmount:formInfoData.agentCurrPayAmount,//代理商金额
+                orderAssigned:formInfoData.orderAssigned//订单标记
             };
+            if(formInfoData.orderAssigned==1){ //标记为1 为直销此时没有代理商金额
+                data.order.agentCurrPayAmount=0;
+            }
 
         };
 
@@ -390,7 +395,7 @@ define(function (require, exports, module) {
             controller(formDataItems, 'payStatus_select', function (n) {
                 n.readonly = isReadonly;
             });
-            controller(formDataItems, 'comType', function (n) {
+            controller(formDataItems, 'orderAssigned', function (n) {
                 n.readonly = isReadonly;
             });
             controller(formDataItems, 'payDate', function (n) {

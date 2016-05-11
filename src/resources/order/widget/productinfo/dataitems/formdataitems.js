@@ -16,18 +16,18 @@ define(function (require, exports, module) {
             })
         }
         dataItems.push(new DataItem({
-            name: 'currPayAmount_agent',
+            name: 'agentCurrPayAmount',
             readonly: true
         }));
         dataItems.push(new DataItem({
-            name: 'comType',
+            name: 'orderAssigned',
             value: '1',
             events: [{
                 key: 'change', value: function (e) {
                     var $dom = $(e.target);
                     var me = this;
-                    if (me.o_getFieldValue('comType') == '1') {
-                        me.o_setValue({name: 'currPayAmount_agent', visible: false, value: ''});
+                    if (me.o_getFieldValue('orderAssigned') == '1') {
+                        me.o_setValue({name: 'agentCurrPayAmount', visible: false, value: ''});
                     } else {
                         var servicePrice = 0;
                         if (me.o_getFieldData('currPayAmount_3').visible == true) {
@@ -35,7 +35,7 @@ define(function (require, exports, module) {
                         } else {
                             servicePrice = me.__refs.terminalInfo.o_getFieldValue('purchaseAmount_3');
                         }
-                        me.o_setValue({name: 'currPayAmount_agent', visible: true, value: servicePrice});
+                        me.o_setValue({name: 'agentCurrPayAmount', visible: true, value: servicePrice});
                     }
                 }
             }]
