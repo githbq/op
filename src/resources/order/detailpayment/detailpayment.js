@@ -139,6 +139,7 @@ define( function(require, exports, module){
 				'success': function( data ){
 					if( data.success ){
 						me.attrs.orderData = data.value.model.orderEntity;
+						me.attrs.orderAssigned  = (data.value.model.orderEntity && data.value.model.orderEntity.order && data.value.model.orderEntity.order.orderAssigned ) ? data.value.model.orderEntity.order.orderAssigned : 1;
 						me.attrs.enterpriseData.contract = data.value.model.contract ? data.value.model.contract :null;
 						me.attrs.enterpriseData.enterprise = data.value.model.enterprise ? data.value.model.enterprise :null;
 						me.attrs.enterpriseData.enterpriseExtend = data.value.model.enterpriseExtend ? data.value.model.enterpriseExtend :null;
@@ -160,6 +161,18 @@ define( function(require, exports, module){
 
 						if( data.success ){
 							me.attrs.receiveData = data.value.model;
+							
+							if( me.attrs.orderAssigned != 1 && me.attrs.receiveData.noChargeAmount ){
+								
+								for(var i = 0;i<me.attrs.receiveData.items.length; i++){
+									
+									if(me.attrs.receiveData.items[i]['productId'] == 3 ){
+										me.attrs.receiveData.noChargeAmount = parseFloat( me.attrs.receiveData.noChargeAmount ) - parseFloat(me.attrs.receiveData.items[i]['noChargeAmount']);
+										me.attrs.receiveData.items.splice(i,1);
+										break;
+									}
+								}
+							}
 							callback && callback();
 						}
 					}

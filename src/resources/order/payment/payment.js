@@ -29,14 +29,25 @@ define( function( require, exports, module ) {
 			var me = this;
 			me.$('.order-id').text(me.attrs.id)
 			
-			$.when( me.setOrderList(), me.getReceiveOrder() ).done(function(){
+			//获取订单详情
+			 util.api({
+				'url':'/odr/getOrderDetail',
+				'data':{'orderId':me.attrs.id},
+				'success': function( data ){
+					if( data.success ){
+						me.attrs.orderAssigned  = (data.value.model.orderEntity && data.value.model.orderEntity.order && data.value.model.orderEntity.order.orderAssigned ) ? data.value.model.orderEntity.order.orderAssigned : 1;
+			
+						$.when( me.setOrderList(), me.getReceiveOrder() ).done(function(){
 						
-				me.attrs.invoiceCommon = new InvoiceInfo( { 'wrapper':me.$view.find('.common-invioce'),'data':null,'editFlag':true,'type':17 } );
-				me.attrs.basicCommon = new OrderInfo( { 'wrapper':me.$view.find('.common-basic'),'data':me.attrs.orderList,'editFlag':true,'type':17} );
-				me.attrs.getMoney = new GetMoney( { 'wrapper':me.$view.find('.common-product'),'data':me.attrs.receiveData,'editFlag':true,'type':17,'showType':true} );
-
+							me.attrs.invoiceCommon = new InvoiceInfo( { 'wrapper':me.$view.find('.common-invioce'),'data':null,'editFlag':true,'type':17 } );
+							me.attrs.basicCommon = new OrderInfo( { 'wrapper':me.$view.find('.common-basic'),'data':me.attrs.orderList,'editFlag':true,'type':17} );
+							me.attrs.getMoney = new GetMoney( { 'wrapper':me.$view.find('.common-product'),'data':me.attrs.receiveData,'editFlag':true,'type':17,'showType':true} );
+						});
+					
+					}
+				}
 			});
-		
+
 		},
 		//当前订单合同信息
 		getReceiveOrder:function(){
@@ -47,7 +58,18 @@ define( function( require, exports, module ) {
 
 						if( data.success ){
 							me.attrs.receiveData = data.value.model;
-
+							
+							if( me.attrs.orderAssigned != 1 && me.attrs.receiveData.noChargeAmount ){
+								
+								for(var i = 0;i<me.attrs.receiveData.items.length; i++){
+									
+									if(me.attrs.receiveData.items[i]['productId'] == 3 ){
+										me.attrs.receiveData.noChargeAmount = parseFloat( me.attrs.receiveData.noChargeAmount ) - parseFloat(me.attrs.receiveData.items[i]['noChargeAmount']);
+										me.attrs.receiveData.items.splice(i,1);
+										break;
+									}
+								}
+							}
 						}
 					}
 				});
