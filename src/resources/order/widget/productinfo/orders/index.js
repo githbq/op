@@ -497,6 +497,7 @@ define(function (require, exports, module) {
                             discount: fromData['discount_' + n] || 0,
                             currPayAmount: formInfoData['currPayAmount_' + n] || 0
                         };
+
                         //if (n == '3') {
                         //    subOrder.startTime = fromData['startTime_2'];
                         //    subOrder.endTime = fromData['endTime_2'];

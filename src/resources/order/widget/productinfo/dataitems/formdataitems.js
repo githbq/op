@@ -223,9 +223,15 @@ define(function (require, exports, module) {
                                 data.__editChanged = true;
                             }
                             $(checkeds).each(function (i, n) {
-                                me.o_setValues([
-                                    {name: 'currPayAmount_' + n, visible: true}
-                                ]);
+                                if (!(n == 3 && me.o_getFieldValue('orderAssigned') != 1)) { //非直销的情况下 服务费是不参与分期的
+                                    me.o_setValues([
+                                        {name: 'currPayAmount_' + n, visible: true}
+                                    ]);
+                                } else {
+                                    me.o_setValues([
+                                        {name: 'currPayAmount_' + n, visible: false, value: 0}
+                                    ]);
+                                }
                             });
                             me.o_data_getField({name: 'currPayAmount_1'}).change();
                         }
@@ -244,6 +250,12 @@ define(function (require, exports, module) {
                                 {name: 'currPayAmount', value: '0'},
                                 {name: 'agentCurrPayAmount', value: '0'}
                             ]);
+                            if (me.o_getFieldValue('orderAssigned') != 1) {//非直销的情况下 代理商金额始终等于服务费
+                                me.o_setValues([
+                                    {name: 'agentCurrPayAmount', value: me.__refs.terminalInfo.o_getFieldValue('purchaseAmount_3')}
+                                ])
+                                ;
+                            }
                         }
                             ;
                             break;
@@ -264,9 +276,9 @@ define(function (require, exports, module) {
                     events: [{
                         key: 'change', value: function (e) {
                             var me = this;
-                            if(me.o_getFieldValue('payStatus_select')!=2){
+                            if (me.o_getFieldValue('payStatus_select') != 2) {
                                 //非状态2 不做任何操作
-                                return ;
+                                return;
                             }
                             var controll = me.__refs.tableInfo;
                             if (id == '1' || id == '3' || id == '8') {
@@ -283,12 +295,14 @@ define(function (require, exports, module) {
                                 $dom.val(purchaseAmount);
                             }
                             var currPayAmount = 0;
-                            var agentCurrPayAmount = 0;
-                            me.$('.fenqi:visible').each(function (i, n) {
+                            var agentCurrPayAmount =0;
+                            me.$('.fenqi').each(function (i, n) {
                                 if ($(n).is('[data-name=currPayAmount_3]')) { //服务费
                                     agentCurrPayAmount = parseFloat($(n).val() || 0);
                                     if (me.__refs.formInfo.o_getFieldValue('orderAssigned') == 1) {//只有直销时才算入总部到款价
                                         currPayAmount += parseFloat($(n).val() || 0);
+                                    }else{
+                                        agentCurrPayAmount =me.__refs.terminalInfo.o_getFieldValue('purchaseAmount_3');
                                     }
                                 } else {
                                     currPayAmount += parseFloat($(n).val() || 0);
