@@ -67,6 +67,7 @@ define( function( require, exports, module ) {
 										//me.attrs.receiveData.noChargeAmount = parseFloat( me.attrs.receiveData.noChargeAmount ) - parseFloat(me.attrs.receiveData.items[i]['noChargeAmount']);
 										me.attrs.receiveData.items.splice(i,1);
 										break;
+										
 									}
 								}  
 							}
