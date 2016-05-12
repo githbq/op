@@ -73,6 +73,8 @@ define(function (require, exports, module) {
                             me.o_setValue({name: 'purchaseAmount_' + id, readonly: readonly});
                             if (!checked) {
                                 me.__refs.formInfo.o_setValue({name: 'currPayAmount_' + id, value: 0});
+                                me.o_setValue({name: 'purchaseAmount_' + id, value: 0});
+                                me.o_setValue({name: 'discount_'+id, value:''});
                             }
                         }
                         priceComput.call(this, e);
