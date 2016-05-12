@@ -72,7 +72,6 @@ define(function (require, exports, module) {
                             me.o_setValue({name: 'type_' + id, readonly: readonly});
                             me.o_setValue({name: 'purchaseAmount_' + id, readonly: readonly});
                             if (!checked) {
-                                me.__refs.formInfo.o_setValue({name: 'purchaseAmount_' + id, value: 0});
                                 me.__refs.formInfo.o_setValue({name: 'currPayAmount_' + id, value: 0});
                             }
                         }
