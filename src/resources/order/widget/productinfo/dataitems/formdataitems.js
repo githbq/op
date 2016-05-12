@@ -177,9 +177,9 @@ define(function (require, exports, module) {
                             var contractPrice = me.o_getFieldValue('contractPrice');
                             var currPayAmount = contractPrice;
 
-                            if (me.o_getFieldValue('orderAssigned') != 1) {
-                                currPayAmount = (contractPrice ? parseFloat(contractPrice) : 0) - (servicePrice ? parseFloat(servicePrice) : 0)
-                            }
+                            //if (me.o_getFieldValue('orderAssigned') != 1) {
+                            //    currPayAmount = (contractPrice ? parseFloat(contractPrice) : 0) - (servicePrice ? parseFloat(servicePrice) : 0)
+                            //}
                             me.o_setValues([
                                 {name: 'currPayAmount', value: currPayAmount},
                                 {name: 'agentCurrPayAmount', value: servicePrice},

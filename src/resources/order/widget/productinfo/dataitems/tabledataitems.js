@@ -71,6 +71,9 @@ define(function (require, exports, module) {
                             }
                             me.o_setValue({name: 'type_' + id, readonly: readonly});
                             me.o_setValue({name: 'purchaseAmount_' + id, readonly: readonly});
+                            if (!checked) {
+                                me.o_setValue({name: 'purchaseAmount_' + id, value: 0});
+                            }
                         }
                         priceComput.call(this, e);
                     }
@@ -234,7 +237,7 @@ define(function (require, exports, module) {
             var startDate = null;
             var endDate = null;
             var productAmount = 0;//产品原价
-            var payStatus=me.__refs.formInfo.o_getFieldValue('payStatus_select');
+            var payStatus = me.__refs.formInfo.o_getFieldValue('payStatus_select');
 
             if (me.__refs.terminalInfo.o_getFieldData('businesscard').visible !== false && me.__refs.terminalInfo.o_getFieldValue('useCRM')) {
                 ids.push('8');
@@ -269,21 +272,28 @@ define(function (require, exports, module) {
                 var purchaseModule = me.o_getFieldData('purchaseAmount_' + id) ? me : me.__refs.terminalInfo;
                 purchaseModule.__refs.terminalInfo.o_setValue({name: 'purchaseAmount_' + id, allow: true});
                 purchaseModule.o_setValue({name: 'purchaseAmount_' + id, allow: true});
-                order_amount += parseFloat(purchaseModule.o_getFieldValue('purchaseAmount_' + id) || 0);
+
                 if (id == 3 && me.__refs.formInfo.o_getFieldValue('orderAssigned') == 1) {//只有直销 服务费才加入到款总金额计算
                     curPayAmount += parseFloat(purchaseModule.o_getFieldValue('purchaseAmount_' + id) || 0);
                 } else if (id != 3) {
                     curPayAmount += parseFloat(purchaseModule.o_getFieldValue('purchaseAmount_' + id) || 0);
                 }
+
+                if (id == 3 && me.__refs.formInfo.o_getFieldValue('orderAssigned') != 1) {//如果不是直销   服务是不计入合同总金额
+                } else {
+                    order_amount += parseFloat(purchaseModule.o_getFieldValue('purchaseAmount_' + id) || 0);
+                }
+
+
                 productAmount += parseFloat(purchaseModule.o_getFieldValue('productAmount_' + id) || 0);
-                if(payStatus==2){
-                   var curPayAmountItem=me.__refs.formInfo.o_getFieldValue('currPayAmount_'+id);
-                    var purchaseAmountItem=purchaseModule.o_getFieldValue('purchaseAmount_' + id);
-                    var curPayAmountItemResult=curPayAmountItem;
-                    if(purchaseAmountItem && curPayAmountItem &&  parseFloat(purchaseAmountItem)< parseFloat(curPayAmountItem)){
-                        curPayAmountItemResult=purchaseAmountItem;
+                if (payStatus == 2) {
+                    var curPayAmountItem = me.__refs.formInfo.o_getFieldValue('currPayAmount_' + id);
+                    var purchaseAmountItem = purchaseModule.o_getFieldValue('purchaseAmount_' + id);
+                    var curPayAmountItemResult = curPayAmountItem;
+                    if (purchaseAmountItem && curPayAmountItem && parseFloat(purchaseAmountItem) < parseFloat(curPayAmountItem)) {
+                        curPayAmountItemResult = purchaseAmountItem;
                     }
-                    me.__refs.formInfo.o_setValue({name:'currPayAmount_'+id,value:curPayAmountItemResult});
+                    me.__refs.formInfo.o_setValue({name: 'currPayAmount_' + id, value: curPayAmountItemResult});
                 }
             });
             //me.__refs.terminalInfo.o_setValue({name: 'startTime_2', value: smallStartDate ? smallStartDate : null});
