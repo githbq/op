@@ -264,6 +264,10 @@ define(function (require, exports, module) {
                     events: [{
                         key: 'change', value: function (e) {
                             var me = this;
+                            if(me.o_getFieldValue('payStatus_select')!=2){
+                                //非状态2 不做任何操作
+                                return ;
+                            }
                             var controll = me.__refs.tableInfo;
                             if (id == '1' || id == '3' || id == '8') {
                                 controll = me.__refs.terminalInfo;
