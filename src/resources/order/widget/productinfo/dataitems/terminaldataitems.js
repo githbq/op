@@ -63,6 +63,7 @@ define(function (require, exports, module) {
                         me.o_setValue({name: 'purchaseCount_3', value: 0});
                         me.o_setValue({name: 'productAmount_3', value: 0});
                         me.o_setValue({name: 'discount_3', value:''});
+                        me.__refs.formInfo.o_setValue({name:'agentCurrPayAmount',value:'0'});
                     }
                     var isReadonly = me.o_getFieldData('allreadonly').allreadonly === true;
                     priceComput.call(me, e);
