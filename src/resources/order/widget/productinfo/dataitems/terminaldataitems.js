@@ -56,6 +56,9 @@ define(function (require, exports, module) {
                     var me = this;
                     var $dom = $(e.target);
                     var checked = $dom.is(':checked');
+                    if (!checked) {
+                        me.__refs.formInfo.o_setValue({name: 'currPayAmount_3', value: 0});
+                    }
                     var isReadonly = me.o_getFieldData('allreadonly').allreadonly === true;
                     priceComput.call(me, e);
                     for (var i in me.dataDic) {
@@ -82,7 +85,7 @@ define(function (require, exports, module) {
             }, 10);
 
         });
-        //使用逍客终端复选框
+        //使用CRM复选框
         dataItems.push(new DataItem({
                 name: 'useCRM',
                 events: [
@@ -91,6 +94,11 @@ define(function (require, exports, module) {
                         var me = this;
                         var $dom = $(e.target);
                         var checked = $dom.is(':checked');
+
+                        if (!checked) {
+                            me.o_setValue({name: 'purchaseAmount_8', value: 0});
+                            me.o_setValue({name: 'currPayAmount_1', value: 0});
+                        }
                         var isReadonly = me.o_getFieldData('allreadonly').allreadonly === true;
                         for (var i in me.dataDic) {
                             if (me.dataDic.hasOwnProperty(i)) {
