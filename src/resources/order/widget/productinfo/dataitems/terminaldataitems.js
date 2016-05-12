@@ -58,6 +58,10 @@ define(function (require, exports, module) {
                     var checked = $dom.is(':checked');
                     if (!checked) {
                         me.__refs.formInfo.o_setValue({name: 'currPayAmount_3', value: 0});
+                        me.o_setValue({name: 'purchaseAmount_input_3', value: 0});
+                        me.o_setValue({name: 'purchaseAmount_3', value: 0});
+                        me.o_setValue({name: 'purchaseCount_3', value: 0});
+                        me.o_setValue({name: 'productAmount_3', value: 0});
                     }
                     var isReadonly = me.o_getFieldData('allreadonly').allreadonly === true;
                     priceComput.call(me, e);
@@ -97,7 +101,13 @@ define(function (require, exports, module) {
 
                         if (!checked) {
                             me.o_setValue({name: 'purchaseAmount_8', value: 0});
+                            me.o_setValue({name: 'purchaseAmount_input_8', value: 0});
+                            me.o_setValue({name: 'purchaseAmount_input_1', value: 0});
+                            me.o_setValue({name: 'purchaseAmount_1', value: 0});
                             me.o_setValue({name: 'currPayAmount_1', value: 0});
+                            me.o_setValue({name: 'currPayAmount_8', value: 0});
+                            me.o_setValue({name: 'purchaseCount_1', value: 0});
+                            me.o_setValue({name: 'purchaseCount_8', value: 0});
                         }
                         var isReadonly = me.o_getFieldData('allreadonly').allreadonly === true;
                         for (var i in me.dataDic) {
