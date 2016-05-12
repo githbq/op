@@ -68,7 +68,7 @@ define( function( require, exports, module ) {
 										me.attrs.receiveData.items.splice(i,1);
 										break;
 									}
-								}
+								}  
 							}
 						}
 					}
