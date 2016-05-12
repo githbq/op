@@ -360,7 +360,12 @@ define(function (require, exports, module) {
                                 me.o_setValue({name: 'purchaseAmount_' + n, value: 0});
                                 me.o_setValue({name: 'purchaseAmount_input_' + n, value: 0, readonly: true});
                                 me.o_setValue({name: 'discount_' + n, value: '0'});
-
+                                //折扣类型 联动分期  2016-5-10 by hbq
+                                var payStatueData=me.__refs.formInfo.o_getFieldData('payStatus_select');
+                                if(payStatueData.visible===true && me.__refs.formInfo.o_getFieldValue('payStatus_select')=='2'){
+                                    me.__refs.formInfo.o_setValue({name:'currPayAmount_'+ n.id,value:'0'});
+                                    me.__refs.formInfo.o_data_getField('currPayAmount_'+n.id).change();
+                                }
                             }
                                 ;
                                 break;
@@ -411,6 +416,12 @@ define(function (require, exports, module) {
                 {
                     me.o_setValue({name: 'purchaseAmount_' + id, value: 0});
                     me.o_setValue({name: 'purchaseAmount_input_' + id, value: 0, readonly: true});
+                    //折扣类型 联动分期  2016-5-10 by hbq
+                    var payStatueData=me.__refs.formInfo.o_getFieldData('payStatus_select');
+                    if(payStatueData.visible===true && me.__refs.formInfo.o_getFieldValue('payStatus_select')=='2'){
+                        me.__refs.formInfo.o_setValue({name:'currPayAmount_'+ n.id,value:'0'});
+                        me.__refs.formInfo.o_data_getField('currPayAmount_'+n.id).change();
+                    }
                 }
                     ;
                     break;

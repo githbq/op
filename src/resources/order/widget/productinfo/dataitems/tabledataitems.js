@@ -126,20 +126,18 @@ define(function (require, exports, module) {
                                 var condition = $dom.parents('tr').find('input[data-name=check]').is(':checked');
                                 switch (me.o_getFieldValue($dom.attr('data-name'))) {
                                     case '1':
-                                    {
-                                        //试用
-                                        me.o_setValue({name: 'purchaseAmount_' + n.id, value: '0', readonly: true});
-                                        //清空折扣
-                                        me.o_setValue({name: 'discount_' + n.id, value: '', readonly: true});
-                                    }
-                                        ;
-                                        break;
                                     case '2':
                                     {
                                         //赠送
                                         me.o_setValue({name: 'purchaseAmount_' + n.id, value: '0', readonly: true});
                                         //清空折扣
                                         me.o_setValue({name: 'discount_' + n.id, value: '', readonly: true});
+                                        //折扣类型 联动分期  2016-5-10 by hbq
+                                        var payStatueData=me.__refs.formInfo.o_getFieldData('payStatus_select');
+                                        if(payStatueData.visible===true && me.__refs.formInfo.o_getFieldValue('payStatus_select')=='2'){
+                                            me.__refs.formInfo.o_setValue({name:'currPayAmount_'+ n.id,value:'0'});
+                                            me.__refs.formInfo.o_data_getField('currPayAmount_'+n.id).change();
+                                        }
                                     }
                                         ;
                                         break;
@@ -380,6 +378,12 @@ define(function (require, exports, module) {
                     me.o_setValue({name: 'purchaseAmount_' + id, value: 0, readonly: true});
                     me.o_setValue({name: 'purchaseAmount_input_' + id, value: 0, readonly: true});
                     me.o_setValue({name: 'discount_' + id, value: ''});
+                    //折扣类型 联动分期  2016-5-10 by hbq
+                    var payStatueData=me.__refs.formInfo.o_getFieldData('payStatus_select');
+                    if(payStatueData.visible===true && me.__refs.formInfo.o_getFieldValue('payStatus_select')=='2'){
+                        me.__refs.formInfo.o_setValue({name:'currPayAmount_'+ n.id,value:'0'});
+                        me.__refs.formInfo.o_data_getField('currPayAmount_'+n.id).change();
+                    }
                 }
                     ;
                     break;
