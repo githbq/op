@@ -6468,6 +6468,9 @@ em {
 }
 .productinfo .forminfo .input-price-wrapper {
   overflow: hidden;
+  float: left;
+  height: auto;
+  max-width: 1000px;
 }
 .productinfo .forminfo .field_row label {
   width: 150px;
