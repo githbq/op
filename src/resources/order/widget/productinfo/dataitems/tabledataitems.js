@@ -383,8 +383,8 @@ define(function (require, exports, module) {
                     //折扣类型 联动分期  2016-5-10 by hbq
                     var payStatueData=me.__refs.formInfo.o_getFieldData('payStatus_select');
                     if(payStatueData.visible===true && me.__refs.formInfo.o_getFieldValue('payStatus_select')=='2'){
-                        me.__refs.formInfo.o_setValue({name:'currPayAmount_'+ n.id,value:'0'});
-                        me.__refs.formInfo.o_data_getField('currPayAmount_'+n.id).change();
+                        me.__refs.formInfo.o_setValue({name:'currPayAmount_'+ id,value:'0'});
+                        me.__refs.formInfo.o_data_getField('currPayAmount_'+id).change();
                     }
                 }
                     ;
