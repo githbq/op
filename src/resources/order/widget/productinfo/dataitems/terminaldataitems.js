@@ -8,7 +8,7 @@ define(function (require, exports, module) {
             name: 'purchaseCount_2',
             value: '1000',
             readonly: true,
-            visible: true
+            visible: false
             //,validateOptions: {
             //    required: {
             //        enable: true, value: true, message: '', handler: function (error, value, option, $ele) {
@@ -139,11 +139,14 @@ define(function (require, exports, module) {
 
                         //数量控制
                         if (n == 1) {
-                            if(me.o_getFieldValue('isnew')){//新购逻辑
-                                if($dom.val() && parseInt($dom.val())<=1000){
-                                    return ;
-                                }else if(!$dom.val()){
-                                    return ;
+                            if (me.o_getFieldValue('isnew')) {//新购逻辑
+                                if ($dom.val()) {
+                                    if (parseInt($dom.val()) <= 1000) {
+                                        me.o_setValue({name: 'purchaseCount_2', value:1000});
+                                        return;
+                                    }
+                                } else if (!$dom.val()) {
+                                    return;
                                 }
 
                             }
@@ -451,7 +454,6 @@ define(function (require, exports, module) {
                     hasPurchaseCount: me.o_getFieldValue('old_CRMCount') || 0
                 },
                 success: function (responseData) {
-                    debugger
                     if (responseData.success) {
                         //{"amount":200,"rebate":1.7000000000000002}
                         me.o_setValue({name: 'discount_' + id, value: responseData.model.rebate === null ? '' : responseData.model.rebate});

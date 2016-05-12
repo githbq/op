@@ -247,7 +247,6 @@ define(function (require, exports, module) {
                 ids.push('3');
             }
 
-            debugger
             $(ids).each(function (i, n) {
                 var id = n;
                 checkTypeForPrice.call(me, e, id);
@@ -273,7 +272,7 @@ define(function (require, exports, module) {
                 order_amount += parseFloat(purchaseModule.o_getFieldValue('purchaseAmount_' + id) || 0);
                 if (id == 3 && me.__refs.formInfo.o_getFieldValue('orderAssigned') == 1) {//只有直销 服务费才加入到款总金额计算
                     curPayAmount += parseFloat(purchaseModule.o_getFieldValue('purchaseAmount_' + id) || 0);
-                }else if(id!=3){
+                } else if (id != 3) {
                     curPayAmount += parseFloat(purchaseModule.o_getFieldValue('purchaseAmount_' + id) || 0);
                 }
                 productAmount += parseFloat(purchaseModule.o_getFieldValue('productAmount_' + id) || 0);
@@ -293,7 +292,9 @@ define(function (require, exports, module) {
                 me.__refs.formInfo.o_setValue({name: 'currPayAmount', value: curPayAmount});
             }
             if (me.__refs.formInfo.o_getFieldData('payStatus_select').visible !== false) {
-                me.__refs.formInfo.o_data_getField({name: 'payStatus_select'}).change();
+                setTimeout(function () {
+                    me.__refs.formInfo.o_data_getField({name: 'payStatus_select'}).change();
+                }, 20);
             }
 
         }
