@@ -116,6 +116,7 @@ define(function (require, exports, module) {
                             me.o_setValue({name: 'purchaseCount_8', value: 0});
                         }
                         var isReadonly = me.o_getFieldData('allreadonly').allreadonly === true;
+                        priceComput.call(me, e);
                         for (var i in me.dataDic) {
                             if (me.dataDic.hasOwnProperty(i)) {
                                 if ((  /(_8)$/.test(i.toString()) || /(_1)$/.test(i.toString()) ) && i.toString().toLowerCase().indexOf('wrapper') < 0) {
