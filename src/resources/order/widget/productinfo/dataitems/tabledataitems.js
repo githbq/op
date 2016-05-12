@@ -234,7 +234,7 @@ define(function (require, exports, module) {
             var startDate = null;
             var endDate = null;
             var productAmount = 0;//产品原价
-
+            var payStatus=me.__refs.formInfo.o_getFieldValue('payStatus_select');
 
             if (me.__refs.terminalInfo.o_getFieldData('businesscard').visible !== false && me.__refs.terminalInfo.o_getFieldValue('useCRM')) {
                 ids.push('8');
@@ -276,7 +276,15 @@ define(function (require, exports, module) {
                     curPayAmount += parseFloat(purchaseModule.o_getFieldValue('purchaseAmount_' + id) || 0);
                 }
                 productAmount += parseFloat(purchaseModule.o_getFieldValue('productAmount_' + id) || 0);
-
+                if(payStatus==2){
+                   var curPayAmountItem=me.__refs.formInfo.o_getFieldValue('currPayAmount_'+id);
+                    var purchaseAmountItem=purchaseModule.o_getFieldValue('purchaseAmount_' + id);
+                    var curPayAmountItemResult=curPayAmountItem;
+                    if(purchaseAmountItem && curPayAmountItem &&  parseFloat(purchaseAmountItem)< parseFloat(curPayAmountItem)){
+                        curPayAmountItemResult=purchaseAmountItem;
+                    }
+                    me.__refs.formInfo.o_setValue({name:'currPayAmount_'+id,value:curPayAmountItemResult});
+                }
             });
             //me.__refs.terminalInfo.o_setValue({name: 'startTime_2', value: smallStartDate ? smallStartDate : null});
 

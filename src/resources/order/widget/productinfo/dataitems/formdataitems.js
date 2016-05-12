@@ -173,16 +173,16 @@ define(function (require, exports, module) {
                     switch ($dom.val()) {
                         case '1':
                         {
-                            var servicePrice=me.__refs.terminalInfo.o_getFieldValue('purchaseAmount_3');
-                            var contractPrice= me.o_getFieldValue('contractPrice');
-                            var currPayAmount=contractPrice;
-                            
-                            if(me.o_getFieldValue('orderAssigned')!=1){
-                                currPayAmount=(contractPrice?parseFloat(contractPrice):0)- (servicePrice?parseFloat(servicePrice):0)
+                            var servicePrice = me.__refs.terminalInfo.o_getFieldValue('purchaseAmount_3');
+                            var contractPrice = me.o_getFieldValue('contractPrice');
+                            var currPayAmount = contractPrice;
+
+                            if (me.o_getFieldValue('orderAssigned') != 1) {
+                                currPayAmount = (contractPrice ? parseFloat(contractPrice) : 0) - (servicePrice ? parseFloat(servicePrice) : 0)
                             }
                             me.o_setValues([
-                                {name: 'currPayAmount', value:currPayAmount    },
-                                {name: 'agentCurrPayAmount', value:servicePrice    },
+                                {name: 'currPayAmount', value: currPayAmount},
+                                {name: 'agentCurrPayAmount', value: servicePrice},
                                 {name: 'currPayAmount_3', value: '0', visible: false},
                                 {name: 'currPayAmount_1', value: '0', visible: false},
                                 {name: 'currPayAmount_4', value: '0', visible: false},
@@ -295,7 +295,9 @@ define(function (require, exports, module) {
                             me.o_setValue({name: 'agentCurrPayAmount', value: agentCurrPayAmount});
                         }
                     }]
-                }));
+                }).on('setValue', function ($field, data, me) {
+                        $field.change();
+                    }));
             })(n);
         });
         //本次到款金额
