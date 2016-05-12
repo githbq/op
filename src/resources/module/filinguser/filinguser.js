@@ -300,7 +300,7 @@ define( function(require, exports, module){
                 },
                 'success': function( data ){
                     if( data.success ){
-						util.showTip('修改成功');
+						util.showTip('修改成功 ');
                         me.trigger('update');
                         me.hide();
                     }
