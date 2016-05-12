@@ -210,6 +210,7 @@ define( function(require, exports, module){
                 },
                 'success': function( data ){
                     if( data.success ){
+						util.showTip('添加用户成功');
                         me.trigger('update');
                         me.hide();
                     }
@@ -299,6 +300,7 @@ define( function(require, exports, module){
                 },
                 'success': function( data ){
                     if( data.success ){
+						util.showTip('修改成功');
                         me.trigger('update');
                         me.hide();
                     }
