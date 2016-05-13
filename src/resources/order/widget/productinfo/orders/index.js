@@ -280,7 +280,7 @@ define(function (require, exports, module) {
             var hasTrainning = false;
 
             $(responseData.data.subOrders).each(function (j, m) {
-                if (m.subOrder.productId == '13') {
+                if (m.subOrder.productId == '13' || m.subOrder.productId == '16' ) {
                     hasTrainning = true;
                 }
             });
