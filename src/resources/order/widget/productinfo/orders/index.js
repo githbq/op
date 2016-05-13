@@ -495,7 +495,7 @@ define(function (require, exports, module) {
                             endTime: fromData['endTime_' + n] || new Date().getTime(),
                             productAmount: fromData['productAmount_' + n] || 0,
                             discount: fromData['discount_' + n] || 0,
-                            currPayAmount: formInfoData['currPayAmount_' + n] || 0
+                            currPayAmount:formInfo.o_getFieldValue('payStatus_select')!='2'?0:( formInfoData['currPayAmount_' + n] || 0)
                         };
 
                         //if (n == '3') {
