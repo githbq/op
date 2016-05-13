@@ -72,6 +72,16 @@
 			<img src="" id="qaimg">
 		</p>
 
+		<p class="file">
+			<span class="filetype">加盖财务章的开票信息 <b class="nsr">*</b></span><br>
+			<input type="file" id="financeinfo" class="financeinfo"><span>(支持.png,.jpg,.gif格式)</span>
+		</p>
+
+		<p class="imginfo">
+			<!--加盖财务章的开票信息-->
+			<img src="" id="financeimg">
+		</p>
+
 		<!--增值税普通发票-->
 		<section class="typea" style="display:block">
 			<p>
@@ -120,16 +130,24 @@
 			<p>
 				<span class="title">账号<b class="nsr">*</b></span> <input type="text" ce-model="bankAccount" name="zhanghao" oninput="this.value=this.value.replace(/[^\d]/g,'')" maxlength="20">
 			</p>
+
 			<p>
-				<span class="title">收件人姓名<b class="nsr">*</b></span>
+				<span class="title">发票地址<b class="nsr">*</b></span><input type="text">
+			</p>
+			<p>
+				<span class="title">发票电话<b class="nsr">*</b></span><input type="text">
+			</p>
+
+			<p>
+				<span class="title">发票收件人姓名<b class="nsr">*</b></span>
 				<input type="text" ce-model="receiverName" maxlength=50>
 			</p>
 			<p>
-				<span class="title">收件人电话<b class="nsr">*</b></span>
+				<span class="title">发票收件人电话<b class="nsr">*</b></span>
 				<input type="text" ce-model="receiverPhone" oninput="this.value=this.value.replace(/[^\.\d]/g,'')" maxlength=50>
 			</p>
 			<p>
-				<span class="title">收件人地址<b class="nsr">*</b></span>
+				<span class="title">发票收件人地址<b class="nsr">*</b></span>
 				<input type="text" ce-model="receiverAddress" maxlength=50>
 			</p>
 			<p>
@@ -196,6 +214,14 @@
 				<span class="title">审批链接 <b class="nsr">*</b></span>
 				<input type="text" ce-model="approvalUrl">
 			</p>
+			
+			<p>
+				<span class="title">发票地址<b class="nsr">*</b></span><input type="text">
+			</p>
+			<p>
+				<span class="title">发票电话<b class="nsr">*</b></span><input type="text">
+			</p>
+
 			<p>
 				<span class="title">收件人姓名 <b class="nsr">*</b></span>
 				<input type="text" ce-model="receiverName"  maxlength=50>
@@ -213,6 +239,7 @@
 				<textarea class="remark" ce-model="remark"></textarea>
 			</p>
 		</section>
+
 	</section>
 	
 	<!--上级审批意见-->
