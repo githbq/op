@@ -179,6 +179,7 @@ define(function(require, exports, module){
 				});
 				me.model.set("currPayAmount",sum);
 			}
+			
 		},
 		//检测是否可编辑
 		checkEdit:function(editFlag){
