@@ -175,7 +175,7 @@ define(function (require, exports, module) {
                         servicePrice = me.__refs.terminalInfo.o_getFieldValue('purchaseAmount_3');
                     }
                     var contractPrice = me.o_getFieldValue('contractPrice');
-                    var currPayAmount = contractPrice;
+                    var currPayAmount = contractPrice - servicePrice;
                     switch ($dom.val()) {
                         case '1':
                         {
