@@ -21,12 +21,6 @@ define(function (require, exports, module) {
         controller(terminalDataItems, 'discount_1', function (n) {
             n.visible = true;
         });
-        controller(terminalDataItems, 'type_8', function (n) {
-            n.visible = false;
-        });
-        controller(terminalDataItems, 'purchaseAmount_input_8', function (n) {
-            n.visible = false;
-        });
         controller(terminalDataItems, 'purchaseAmount_input_3', function (n) {
             n.visible = false;
         });
@@ -56,9 +50,6 @@ define(function (require, exports, module) {
             n.readonly = true;
 
         });
-        controller(terminalDataItems, 'businesscard', function (n) {
-            n.visible = false;
-        });
         controller(formDataItems, 'payStatus_name', function (n) {
             n.visible = true;
         });
@@ -76,25 +67,16 @@ define(function (require, exports, module) {
 
         //增购逻辑
         var hasCRM = false;
-        var hasBussinessCard = false;
         if (responseData && responseData.data && responseData.data.subOrders) {
             $(responseData.data.subOrders).each(function (j, m) {
                 if (m.subOrder.productId == '1') {
                     hasCRM = true;
                 }
-                if (m.subOrder.productId == '8') {
-                    hasBussinessCard = true;
-                }
             });
         }
         common.setAddOrderLogic(controller, terminalDataItems, tableDataItems, formDataItems, 7, responseData);
         if (responseData && ((!responseData.readonly && !hasCRM) || (hasCRM && responseData.readonly)) || (hasCRM && responseData.refuse)) {
-            controller(terminalDataItems, 'type_8', function (n) {
-                n.visible = false;
-            });
-            controller(terminalDataItems, 'purchaseAmount_input_8', function (n) {
-                n.visible = false;
-            });
+
 
             controller(terminalDataItems, 'useCRMWrapper', function (n) {
                 n.visible = true;
@@ -108,11 +90,6 @@ define(function (require, exports, module) {
                 n.value = true;
                 n.readonly = true;
             });
-            if ((hasBussinessCard && responseData.readonly) || ( !hasCRM && !responseData.readonly) || (responseData.refuse && hasBussinessCard)) {
-                controller(terminalDataItems, 'businesscard', function (n) {
-                    n.visible = true;
-                });
-            }
         }
         //增购逻辑END
         controller(terminalDataItems, 'isadd', function (n) {

@@ -18,13 +18,21 @@ define(function (require, exports, module) {
         controller(terminalDataItems, 'useFX', function (n) {
             n.visible=false;
         });
+        controller(terminalDataItems, 'type_13', function (n) {
+            n.visible=false;
+        });
         controller(terminalDataItems, 'useCRM', function (n) {
             n.visible=false;
+        });
+        controller(terminalDataItems, 'giveCount_16', function (n) {
+            n.value=1000;
         });
         controller(terminalDataItems, 'typewrapper_3', function (n) {
             n.visible = false;
         });
-
+        controller(terminalDataItems, 'purchaseAmount_13', function (n) {
+            n.visible = false;
+        });
         controller(terminalDataItems, 'purchaseAmount_input_3', function (n) {
             n.visible = false;
         });
@@ -32,16 +40,13 @@ define(function (require, exports, module) {
         controller(terminalDataItems, 'purchaseAmount_3', function (n) {
             n.visible = true;
         });
-        controller(terminalDataItems, 'businesscard', function (n) {
-            n.visible = false;
-        });
         controller(formDataItems, 'payStatus_select', function (n) {
             n.visible = false;
         });
         //工资助手强制
         common.setGZHelper(controller, terminalDataItems, tableDataItems, formDataItems);
         //工资助手强制 end
-        var arr = ['currPayAmount_1', 'currPayAmount_2', 'currPayAmount_3', 'currPayAmount_4', 'currPayAmount_5', 'currPayAmount_7', 'currPayAmount_8'];
+        var arr = ['currPayAmount_1', 'currPayAmount_2', 'currPayAmount_3', 'currPayAmount_4', 'currPayAmount_5', 'currPayAmount_7', 'currPayAmount_13', 'currPayAmount_14', 'currPayAmount_15', 'currPayAmount_16'];
         $(arr).each(function (i, b) {
             controller(formDataItems, b, function (n) {
                 n.visible = false;

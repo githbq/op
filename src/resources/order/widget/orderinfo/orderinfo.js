@@ -61,7 +61,8 @@ define(function(require, exports, module){
 						strDom += " <tr> <td>"+obj['appName']+"(个)：</td><td>"+obj['quota']+"</td>" +
 						" <td>开始时间：</td><td>"+ strartTime +"</td> <td>结束时间：</td><td >"+endTime+"</td>" +
 						" <td><input type='checkbox' name='baichuai' checked='checked' disabled='disabled' />捆绑纷享百川</td><td>" +
-						"<input type='checkbox' name='system' checked='checked'   disabled='disabled' />捆绑报数系统</td> </tr>";
+						"<input type='checkbox' name='system' checked='checked'   disabled='disabled' />捆绑报数系统</td> </tr>" +
+						" <td><input type='checkbox' name='mingpian' checked='checked' disabled='disabled' />捆绑名片</td><td>" ;
 
 						break;
 					case "Service_Fee":

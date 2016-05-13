@@ -260,10 +260,7 @@ define( function(require, exports, module){
 			//var opinion = me.attrs.options.opinion ? me.attrs.options.opinion :'暂无';
 			//me.$('.last-options').text(opinion);
 			
-			
-
-
-		},
+					},
 		//设置审批意见
 		setOptions:function(){
 			var me = this,strDom = '';

@@ -14,19 +14,26 @@ define( function( require, exports, module ) {
 						'againOffice-common','againOffice-special',
 						'againMarkey-common','againMarkey-special',
 						'releateOffice-common','releateOffice-special',
-						'releateMarket-common','releateMarket-special',
+						'releateMarket-common','releateMarket-special'
 					];
 	var productIdDic = {
-            '1': 'CRM',
-            '2': '逍客终端',
-            '3': '服务',
-            '4': 'PK助手',
-            '5': '会议助手',
-            '6': 'HR助手',
-            '7': '工资助手',
-            '8':'名片',
-			'12':'自定义助手'
-        }; 
+		'1': 'CRM',
+		'2': '逍客终端',
+		'3': '服务',
+		'4': 'PK_Helper',
+		'5': 'Meeting_Helper',
+		'6': 'HR_Helper',
+		'7': 'Salary_Helper',
+		'8': '名片',
+		'10': '百川',
+		'11': '报数',
+		'12': '自定义助手',
+		'13':'培训助手',
+		'14':'战报助手',
+		'15':'考试助手',
+		'16':'培训助手购买流量',
+		'17':'项目管理'
+	};
     var NewMarketing = MClass( M.Center ).include( {
         
         elements: {
@@ -72,6 +79,8 @@ define( function( require, exports, module ) {
 
 			me.attrs.id = me.attrs.enterpriseId||'';
 			me.attrs.account= me.attrs.account||'54976';
+			me.attrs.old_CRMAmount = 0; 
+			me.attrs.old_FXAmount = 0;
 			me.attrs.subData = {}
 			me.checkType();
         },
@@ -353,6 +362,42 @@ define( function( require, exports, module ) {
 							subArry.push(tempObe)
 
 							break;
+						case "Train_Helper":
+							var tempObe = {"subOrder":{
+								"productId":13,
+								"startTime": data[i].startDate,
+								"endTime":data[i].endDate
+							}}
+							subArry.push(tempObe)
+
+							break;
+						case "Report_Helper":
+							var tempObe = {"subOrder":{
+								"productId":14,
+								"startTime": data[i].startDate,
+								"endTime":data[i].endDate
+							}}
+							subArry.push(tempObe)
+
+							break;
+						case "Exam_Helper":
+							var tempObe = {"subOrder":{
+								"productId":15,
+								"startTime": data[i].startDate,
+								"endTime":data[i].endDate
+							}}
+							subArry.push(tempObe)
+
+							break;
+						case "Project_Manage":
+							var tempObe = {"subOrder":{
+								"productId":17,
+								"startTime": data[i].startDate,
+								"endTime":data[i].endDate
+							}}
+							subArry.push(tempObe)
+
+							break;
 						case "FX_Terminal":
 							me.attrs.old_FXAmount = data[i].quota||0;
 
@@ -433,6 +478,58 @@ define( function( require, exports, module ) {
 							if( dateCompare(nowDate,endDate) ){
 								var tempObe = {"subOrder":{
 									"productId":12,
+									"startTime":obj["endDate"],
+									"startTime_readonly":true
+								}}
+								subArry.push(tempObe)
+							}
+
+							break;
+						case "Train_Helper":
+							var nowDate = new Date( new Date().getTime() )._format('yyyy/MM/dd');
+							var endDate = new Date( obj["endDate"]  )._format('yyyy/MM/dd');
+							if( dateCompare(nowDate,endDate) ){
+								var tempObe = {"subOrder":{
+									"productId":13,
+									"startTime":obj["endDate"],
+									"startTime_readonly":true
+								}}
+								subArry.push(tempObe)
+							}
+
+							break;
+						case "Report_Helper":
+							var nowDate = new Date( new Date().getTime() )._format('yyyy/MM/dd');
+							var endDate = new Date( obj["endDate"]  )._format('yyyy/MM/dd');
+							if( dateCompare(nowDate,endDate) ){
+								var tempObe = {"subOrder":{
+									"productId":14,
+									"startTime":obj["endDate"],
+									"startTime_readonly":true
+								}}
+								subArry.push(tempObe)
+							}
+
+							break;
+						case "Exam_Helper":
+							var nowDate = new Date( new Date().getTime() )._format('yyyy/MM/dd');
+							var endDate = new Date( obj["endDate"]  )._format('yyyy/MM/dd');
+							if( dateCompare(nowDate,endDate) ){
+								var tempObe = {"subOrder":{
+									"productId":15,
+									"startTime":obj["endDate"],
+									"startTime_readonly":true
+								}}
+								subArry.push(tempObe)
+							}
+
+							break;
+						case "Project_Manage":
+							var nowDate = new Date( new Date().getTime() )._format('yyyy/MM/dd');
+							var endDate = new Date( obj["endDate"]  )._format('yyyy/MM/dd');
+							if( dateCompare(nowDate,endDate) ){
+								var tempObe = {"subOrder":{
+									"productId":17,
 									"startTime":obj["endDate"],
 									"startTime_readonly":true
 								}}
@@ -730,9 +827,8 @@ define( function( require, exports, module ) {
 			var me = this;
 			var discoutFlag = true;
 			if( me.attrs.typeFlag == 'newOffice' || me.attrs.typeFlag == 'newMarket'|| me.attrs.typeFlag == 'releateOffice'|| me.attrs.typeFlag == 'releateMarket' ){
-				_.map( data , function( obj ){
-					debugger
-					if($.inArray(parseInt(obj.subOrder.productId),[1,4,5,7,12])>=0){
+				_.map( data , function( obj ){ 
+                    if($.inArray(parseInt(obj.subOrder.productId),[1,4,5,7,12,14,15,17])>=0){
 						if( obj.subOrder.discount  &&  obj.subOrder.discount<8 &&me.attrs.typeFlag != 'newOffice' && obj.subOrder.productId!=7){  //新购 工资助手不参与折扣计算
 							discoutFlag = false;
 							//util.showToast('子产品折扣低于8折，必须申请特批');
@@ -742,7 +838,7 @@ define( function( require, exports, module ) {
 				});
 			}else{
 				_.map( data , function( obj ){
-					if($.inArray(parseInt(obj.subOrder.productId),[1,4,5,7,12])>=0){
+					if(obj.subOrder.productId ==1 || obj.subOrder.productId ==4  || obj.subOrder.productId ==7  || obj.subOrder.productId ==5 || obj.subOrder.productId ==12 || obj.subOrder.productId ==13 || obj.subOrder.productId ==14 || obj.subOrder.productId ==15 || obj.subOrder.productId ==17 ){
 						if( obj.subOrder.discount  &&  obj.subOrder.discount<8){
 							discoutFlag = false;
 							//util.showToast('子产品折扣低于8折，必须申请特批');

@@ -9,6 +9,7 @@ define( function( require, exports, module ) {
 	var CustomHelper = require('../widget/customhelper/customhelper');
 	var BackMoney = require('../backmoney/backmoney');
 	var InvoiceDetail = require('../widget/invoicedetail/invoicedetail');
+	var OnlinePay = require('../widget/onlinepay/onlinepay');
 
     var tem = $( require('./template.html') );
 
@@ -67,7 +68,8 @@ define( function( require, exports, module ) {
 			'click .order-del':'orderDelEve',
 			'click .exportOrder':'exportEve',
 			'click .order-custom':'orderCustomEve',
-			'click .order-backmoney':'orderBackmoneyEve',
+			'click .order-backmoney':'orderBackmoneyEve', 
+			'click .order-onlinepay':'orderOnlinePay',  //查看线上支付情况
 			'click .order-invoice':'orderInvoiceEve'
         },
         elements:{
@@ -108,6 +110,15 @@ define( function( require, exports, module ) {
 		   
            me.trigger('orderDetailPayment',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':false,'orderType':orderType,
                'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea,'processInstanceId':'','contractNo':contractNo} );
+	   },
+	   //查看线上支付情况
+	   orderOnlinePay:function( e ){
+		   var me = this;
+
+           var id = $(e.currentTarget).attr('data-id');
+         
+		   
+           me.trigger('orderOnlinePay',{ 'id' :id } );
 	   },
 	   //联合跟进人
 	   orderCustomEve:function( e ){
@@ -310,7 +321,7 @@ define( function( require, exports, module ) {
         var detailApproval = null;
 		var detailPayment = null;
 		var customHelper = null;
-		var backMoney = null, invioceDetail = null;
+		var backMoney = null, invioceDetail = null ,onlinePay = null;
 		
         orderList.on('orderDetail', function( options ){
             detailApproval = new DetailApproval();
@@ -319,6 +330,10 @@ define( function( require, exports, module ) {
 		 orderList.on('orderDetailPayment', function( options ){
             detailPayment = new DetailPayment();
             detailPayment.show( options );
+        });
+		 orderList.on('orderOnlinePay', function( options ){
+            onlinePay = new OnlinePay();
+            onlinePay.show( options );
         });
 		
 		orderList.on('orderCustom', function( options ){

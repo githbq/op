@@ -26,6 +26,9 @@ define(function (require, exports, module) {
         controller(terminalDataItems, 'typewrapper_3', function (n) {
             n.visible = true;
         });
+        controller(terminalDataItems, 'type_13', function (n) {
+            n.visible = true;
+        });
         controller(terminalDataItems, 'purchaseAmount_input_3', function (n) {
             n.visible = true;
         });
@@ -33,9 +36,6 @@ define(function (require, exports, module) {
             n.visible = false;
         });
 
-        controller(terminalDataItems, 'businesscard', function (n) {
-            n.visible = false;
-        });
         controller(formDataItems, 'payStatus_name', function (n) {
             n.visible = false;
         });

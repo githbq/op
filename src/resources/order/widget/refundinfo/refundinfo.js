@@ -32,7 +32,12 @@ define(function (require, exports, module) {
         '8': '名片',
         '10': '百川',
         '11': '报数',
-        '12': '自定义助手'
+        '12': '自定义助手',
+        '13':'培训助手',
+        '14':'战报助手',
+        '15':'考试助手',
+        '16':'培训助手购买流量',
+        '17':'项目管理'
     };
     exports.show = function (data, result) {
         //result = {
