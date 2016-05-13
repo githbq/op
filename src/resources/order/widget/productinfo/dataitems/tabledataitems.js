@@ -279,10 +279,10 @@ define(function (require, exports, module) {
                     curPayAmount += parseFloat(purchaseModule.o_getFieldValue('purchaseAmount_' + id) || 0);
                 }
 
-                if (id == 3 && me.__refs.formInfo.o_getFieldValue('orderAssigned') != 1) {//如果不是直销   服务是不计入合同总金额
-                } else {
+                //if (id == 3 && me.__refs.formInfo.o_getFieldValue('orderAssigned') != 1) {//如果不是直销   服务是不计入合同总金额
+                //} else {
                     order_amount += parseFloat(purchaseModule.o_getFieldValue('purchaseAmount_' + id) || 0);
-                }
+                //}
 
 
                 productAmount += parseFloat(purchaseModule.o_getFieldValue('productAmount_' + id) || 0);
