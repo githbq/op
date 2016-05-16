@@ -41,7 +41,7 @@ define(function( require , exports , module ){
 		elements: {
 			'#businessLicense': 'businessLicense',
 			'#qualification': 'qualification',
-			'#financeinfo': 'financeinfo'
+			'#financefile': 'financefile'
 		},
 
 		events: {
@@ -231,18 +231,21 @@ define(function( require , exports , module ){
 				})
 			});
 
-			me.$financeinfo.on('change',function(){
+			//
+			me.$financefile.on('change',function(){
 				uploader.send({
-					'url': '/',
-					'files':
+					'url': '/op/api/file/uploadsinglefileandcheck',
+					'files': me.$financefile[0].files,
 					'options':{
 						'limittype':'IMAGE'
 					},
 					'success': function( response ){
-						
+						console.warn( response );
+						//me.model.set('', response.value.model.path );
+						//me.model.set('', response.value.model.FileName );
 					}
 				})
-			})
+			});
 		},
 
 		// 显示
