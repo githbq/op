@@ -241,8 +241,8 @@ define(function( require , exports , module ){
 					},
 					'success': function( response ){
 						console.warn( response );
-						//me.model.set('', response.value.model.path );
-						//me.model.set('', response.value.model.FileName );
+						me.model.set('stampimage', response.value.model.path );
+						me.model.set('stampimageFileName', response.value.model.FileName );
 					}
 				})
 			});
@@ -324,7 +324,7 @@ define(function( require , exports , module ){
 							}
 
 							//加盖财务章 开票信息
-
+							
 
 							if( data.value.model.rejectReason ){
 								me.$('.rejectReason').html( getRejectReason( data.value.model.rejectReason ) );
@@ -442,6 +442,10 @@ define(function( require , exports , module ){
 					util.showToast('请选择资质证书');
 					return false;
 				}
+				if( !me.model.get('stampimage') ){
+					util.showToast('加盖财务章的开票信息');
+					return false;
+				}
 				if( !me.model.get('taxpayerIdentificationNo') ){
 					util.showToast('请填写纳税人识别号');
 					return false;
@@ -452,6 +456,14 @@ define(function( require , exports , module ){
 				}
 				if( !me.model.get('bankAccount') ){
 					util.showToast('请填写账号');
+					return false;
+				}
+				if( !me.model.get('address')){
+					util.showToast('发票地址');
+					return false;
+				}
+				if( !me.model.get('phone')){
+					util.showToast('发票电话');
 					return false;
 				}
 			}
@@ -475,6 +487,10 @@ define(function( require , exports , module ){
   				"businessLicense": me.model.get('businessLicense'),
   				"taxpayerQualificationFileName": me.model.get('taxpayerQualificationFileName'),
   				"taxpayerQualification": me.model.get('taxpayerQualification'),
+  				'stampimage': me.model.get('stampimage'),
+  				'stampimageFileName': me.model.get('stampimageFileName'),
+  				'address': me.model.get('address'),
+  				'phone': me.model.get('phone'),
   				"taxpayerIdentificationNo": me.model.get('taxpayerIdentificationNo'),
   				"receiverName": me.model.get('receiverName'),
   				"receiverAddress": me.model.get('receiverAddress'),
