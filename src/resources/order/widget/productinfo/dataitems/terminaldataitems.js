@@ -299,9 +299,6 @@ define(function (require, exports, module) {
                         }
                     }]
                 })
-                //.on('setFieldValue', function ($ele, value, data, me) {
-                //  //alert(value)
-                //})
             );
             dataItems.push(new DataItem({
                 name: 'endTime_' + n,

@@ -222,10 +222,7 @@ define(function (require, exports, module) {
                 if (responseData && responseData.payInfoReadonly !== undefined) {//支付信息只读
                     exports.setPayInfoReadonly(controller, terminalDataItems, tableDataItems, formDataItems, responseData.payInfoReadonly);
                 }
-
             }
-
-
         }
         ;
         //设置续费逻辑
@@ -245,6 +242,15 @@ define(function (require, exports, module) {
             CRMNewLogic(controller, terminalDataItems, tableDataItems, formDataItems, type, responseData);
             controller(tableDataItems, 'tablelist', function (n) {
                 n.visible = true;
+            });
+            controller(tableDataItems, 'startTime_7', function (n) {
+                n.value = '';
+            });
+            controller(tableDataItems, 'endTime_7', function (n) {
+                n.value = '';
+            });
+            controller(tableDataItems,'type_7',function(n){
+                n.value = '3';
             });
             controller(tableDataItems, 'check', function (n) {
                 n.on('setFieldValue', function ($ele, value, data, me) {
@@ -495,7 +501,7 @@ define(function (require, exports, module) {
                             endTime: fromData['endTime_' + n] || new Date().getTime(),
                             productAmount: fromData['productAmount_' + n] || 0,
                             discount: fromData['discount_' + n] || 0,
-                            currPayAmount:formInfo.o_getFieldValue('payStatus_select')!='2'?0:( formInfoData['currPayAmount_' + n] || 0)
+                            currPayAmount: formInfo.o_getFieldValue('payStatus_select') != '2' ? 0 : ( formInfoData['currPayAmount_' + n] || 0)
                         };
 
                         //if (n == '3') {

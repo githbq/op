@@ -123,7 +123,6 @@ define(function (require, exports, module) {
                             value: function (e) {
                                 var me = this;
                                 var isreadony = me.__refs.terminalInfo.o_getFieldData('allreadonly').allreadonly === true;
-
                                 var $dom = $(e.target);
                                 var condition = $dom.parents('tr').find('input[data-name=check]').is(':checked');
                                 switch (me.o_getFieldValue($dom.attr('data-name'))) {
