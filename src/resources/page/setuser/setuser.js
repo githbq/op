@@ -125,7 +125,9 @@ define( function(require, exports, module){
 						me.list.reload( data.value.model.content , function( item ){
 							if( item.auditStatus ){
                                 item.auditStatusStr = auditStatusMap[item.auditStatus];
-                            }
+                            }else if( item.auditStatus ==0 ){
+								 item.auditStatusStr = auditStatusMap[item.auditStatus];
+							}
                             if( item.agentAdmin ){
 
                             	//编辑自己的信息( 审核中 和 停用的状态的员工无法进入页面 所以自己的只可能是启用的状态 )
@@ -141,7 +143,7 @@ define( function(require, exports, module){
 
                             //其他普通用户 处于审核状态只可以看
                             }else{
-                            	if( item.auditStatus == 'WAIT' ){
+                            	if( item.auditStatus == '0' ){
 
                             		item.status = 'userdetail';
                             	}else if( item.active ){
