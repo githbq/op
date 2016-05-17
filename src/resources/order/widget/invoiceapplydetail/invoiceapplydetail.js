@@ -5,8 +5,8 @@ define(function (require, exports, module) {
     var controllerConfig = {
         '1': require('./states/type1'),
         '2': require('./states/type2'),
-        '3': require('./states/type3')
-
+        '3': require('./states/type3'),
+        '4': require('./states/type4')
     };
 
     function controlDataItems(items, name, func) {
