@@ -125,8 +125,8 @@ define( function(require, exports, module){
 						me.list.reload( data.value.model.content , function( item ){
 							if( item.auditStatus ){
                                 item.auditStatusStr = auditStatusMap[item.auditStatus];
-                            }else if( item.auditStatus ==0 ){
-								 item.auditStatusStr = auditStatusMap[item.auditStatus];
+                            }else{
+								item.auditStatusStr = "待审核";
 							}
                             if( item.agentAdmin ){
 
