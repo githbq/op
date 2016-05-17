@@ -169,7 +169,7 @@ define(function (require, exports, module) {
                                 if ($dom.val()) {
                                     if (parseInt($dom.val()) <= 1000) {
                                         me.o_setValue({name: 'purchaseCount_2', value:1000});
-                                        return;
+                                        //return;
                                     }
                                 } else if (!$dom.val()) {
                                     return;
