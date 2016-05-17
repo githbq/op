@@ -449,16 +449,16 @@ define(function (require, exports, module) {
                 if (value) {
                     var isArray = $.isArray(value);
                     for (var i in value) {
-                        if ((value[i] !== null && value[i] !== undefined) && value[i].__enabled === false) {
-                            break;
-                        }
-                        var data = null;
-                        var field = null;
-                        var valueObj = null;
-                        if (isArray) { //数组传递复杂数据
-                            me.o_setValue(value[i], silent, first);
-                        } else {//对象传递简单值
-                            me.o_setValue({name: i, value: value[i]});
+                        if (value[i].__enabled !== false) {
+                            var data = null;
+                            var field = null;
+                            var valueObj = null;
+                            if (isArray) { //数组传递复杂数据
+                                me.o_setValue(value[i], silent, first);
+                            } else {//对象传递简单值
+                                me.o_setValue({name: i, value: value[i]});
+                            }
+
                         }
 
                     }
