@@ -181,7 +181,7 @@
 <!--endbuild-->
 
 <script type="text/javascript" src="resources/common/widget/my97datepicker/wdatepicker.js"></script>
-<!--build:app resources/assets/scripts/app.js-->
+<!--build:app resources/assets/scripts/main.js-->
 <script type="text/javascript" src="resources/assets/scripts/config.js"></script>
 <script type="text/javascript" src="resources/assets/scripts/app.js"></script>
 <!--endbuild-->
@@ -194,4 +194,5 @@
 
 </body>
 </html>
+
 

@@ -36,8 +36,7 @@
                 </ul>
             </li>
 
-			<li data-modulecode="BankOpF">
-
+            <li data-modulecode="BankOpF">
                 <a href="#order/payaccount">银行账户管理</a>
             </li>
         </ul>
@@ -99,7 +98,7 @@
 
 <!--endbuild-->
 <script type="text/javascript" src="resources/common/widget/my97datepicker/wdatepicker.js"></script>
-<!--build:app resources/assets/scripts/app.js-->
+<!--build:app resources/assets/scripts/main.js-->
 <script type="text/javascript" src="resources/assets/scripts/config.js"></script>
 <script type="text/javascript" src="resources/assets/scripts/app.js"></script>
 <!--endbuild-->
@@ -112,4 +111,6 @@
 
 </body>
 </html>
+
+
 

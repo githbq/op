@@ -86,7 +86,7 @@
             -->
 
 
-            <!--<li data-modulecode="ApprovalAccountOpC">
+           <!-- <li data-modulecode="ApprovalAccountOpC">
                 <a href="#filing/approvalwait">待审批用户</a>
             </li>-->
             
@@ -161,7 +161,7 @@
 
 <!--endbuild-->
 <script type="text/javascript" src="resources/common/widget/my97datepicker/wdatepicker.js"></script>
-<!--build:app resources/assets/scripts/app.js-->
+<!--build:app resources/assets/scripts/main.js-->
 <script type="text/javascript" src="resources/assets/scripts/config.js"></script>
 <script type="text/javascript" src="resources/assets/scripts/app.js"></script>
 <!--endbuild-->
@@ -174,5 +174,6 @@
 
 </body>
 </html>
+
 
 
