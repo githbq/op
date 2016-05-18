@@ -3,7 +3,7 @@
  * 企业列表
  */
 
-define(function (require, exports, module) {
+define(function(require, exports, module) {
 
     var Pagination = require('common/widget/pagination/pagination');
 
@@ -18,42 +18,42 @@ define(function (require, exports, module) {
         view: viewStr,
 
         elements: {
-            '#OpenSTime': 'openstime',      //开通开始时间
-            '#OpenETime': 'openetime',      //开通结束时间
-            '#eiSource': 'source',          //来源
-            '#eiProvince': 'province',      //省市
-            '#eiIndustry': 'industry',      //行业
-            'tbody': 'tbody'                //
+            '#OpenSTime': 'openstime', //开通开始时间
+            '#OpenETime': 'openetime', //开通结束时间
+            '#eiSource': 'source', //来源
+            '#eiProvince': 'province', //省市
+            '#eiIndustry': 'industry', //行业
+            'tbody': 'tbody' //
         },
 
         events: {
-            'click .export-file': function () {
+            'click .export-file': function() {
                 this.getList(true);
             },
             'click #btnSearch': 'search',
             'click .info-detail': 'detailEve',
             'click .info-trace': 'traceEve',
-            'click .info-zengbangong': function (e) {
+            'click .info-zengbangong': function(e) {
                 this.trigger('zengbangong', $(e.currentTarget).attr('data-id'), $(e.currentTarget).attr('data-account'))
-            },      //增购办公版
-            'click .info-zengyingxiao': function (e) {
+            }, //增购办公版
+            'click .info-zengyingxiao': function(e) {
                 this.trigger('zengyingxiao', $(e.currentTarget).attr('data-id'), $(e.currentTarget).attr('data-account'))
-            },    //增购营销版
-            'click .info-renewbangong': function (e) {
+            }, //增购营销版
+            'click .info-renewbangong': function(e) {
                 this.trigger('renewbangong', $(e.currentTarget).attr('data-id'), $(e.currentTarget).attr('data-account'))
-            },    //续费办公版
-            'click .info-renewyingxiao': function (e) {
+            }, //续费办公版
+            'click .info-renewyingxiao': function(e) {
                 this.trigger('renewyingxiao', $(e.currentTarget).attr('data-id'), $(e.currentTarget).attr('data-account'))
-            },  //续费营销版
+            }, //续费营销版
             'click .selectall': 'selectAllEve',
             'click .auth': 'authEve',
             'click .deauth': 'deauthEve',
-            'click .info-custom': function (e) {
-                this.trigger('orderCustom', {'enterpriseId': $(e.currentTarget).attr('data-enterpriseId')})
-            },  //联合跟进人
+            'click .info-custom': function(e) {
+                this.trigger('orderCustom', { 'enterpriseId': $(e.currentTarget).attr('data-enterpriseId') })
+            }, //联合跟进人
         },
 
-        init: function () {
+        init: function() {
             EntLst.__super__.init.apply(this, arguments);
             var me = this;
 
@@ -63,13 +63,13 @@ define(function (require, exports, module) {
                 pageNumber: 0
             });
             me.pagination.render();
-            me.pagination.onChange = function () {
+            me.pagination.onChange = function() {
                 me.getList();
             }
 
             //初始化时间控件
-            me.$openstime.datetimepicker({format: 'Y/m/d', timepicker: false});
-            me.$openetime.datetimepicker({format: 'Y/m/d', timepicker: false});
+            me.$openstime.datetimepicker({ format: 'Y/m/d', timepicker: false });
+            me.$openetime.datetimepicker({ format: 'Y/m/d', timepicker: false });
             /*
              if( me.attrs['param'] && ( me.attrs['param'].length > 0 ) ){
              var param = me.attrs['param'];
@@ -106,31 +106,31 @@ define(function (require, exports, module) {
         },
 
         //初始化枚举选择
-        initializeSelect: function () {
+        initializeSelect: function() {
             var me = this;
 
             var state = 0;
 
 
             //
-            util.getIndustry(me.$industry, function () {
+            util.getIndustry(me.$industry, function() {
 
                 state = state + 1;
                 if (state >= 3) {
                     me.getList();
                 }
             });
-            generateSelect('ENT_LST_SOURCE', this.$source);                     //来源
-            generateSelect('PROVINCE', this.$province);                         //省市
+            generateSelect('ENT_LST_SOURCE', this.$source); //来源
+            generateSelect('PROVINCE', this.$province); //省市
 
 
             function generateSelect(name, $select) {
-                util.getEnums(name, function (data) {
+                util.getEnums(name, function(data) {
 
                     var items = data.value.model;
                     var options = "";
 
-                    items.forEach(function (item, index) {
+                    items.forEach(function(item, index) {
                         options += '<option value="' + item.value + '" title="' + item.text + '">' + item.text + '</option>';
                     });
 
@@ -145,29 +145,29 @@ define(function (require, exports, module) {
         },
 
         //选择全部
-        selectAllEve: function (e) {
+        selectAllEve: function(e) {
             var me = this;
 
             var bool = $(e.currentTarget).prop('checked');
 
-            me.$('.selectitem').each(function (index, item) {
+            me.$('.selectitem').each(function(index, item) {
                 item.checked = bool
             });
         },
 
         //清除所有选择
-        clearSelect: function () {
-            this.$('.selectitem').each(function (index, item) {
+        clearSelect: function() {
+            this.$('.selectitem').each(function(index, item) {
                 item.checked = false;
             });
             this.$('.selectall').prop('checked', false);
         },
 
         //获取选中的数组
-        getSelect: function () {
+        getSelect: function() {
             var me = this
             var array = [];
-            me.$('.selectitem').each(function (index, item) {
+            me.$('.selectitem').each(function(index, item) {
                 if (item.checked) {
                     array.push($(item).val());
                 }
@@ -176,7 +176,7 @@ define(function (require, exports, module) {
         },
 
         //授权
-        authEve: function () {
+        authEve: function() {
             var me = this;
             var arrays = me.getSelect();
 
@@ -191,7 +191,7 @@ define(function (require, exports, module) {
                     'enterpriseAccouts': arrays.join(','),
                     'isAuth': false
                 },
-                'success': function (data) {
+                'success': function(data) {
                     console.warn(data);
                     if (data.success) {
                         util.showTip('授权成功');
@@ -202,7 +202,7 @@ define(function (require, exports, module) {
         },
 
         //取消授权
-        deauthEve: function () {
+        deauthEve: function() {
             var me = this;
             var arrays = me.getSelect();
             console.log('deauth');
@@ -219,7 +219,7 @@ define(function (require, exports, module) {
                     'enterpriseAccouts': arrays.join(','),
                     'isAuth': true
                 },
-                'success': function (data) {
+                'success': function(data) {
                     console.warn(data);
                     if (data.success) {
                         util.showTip('取消授权成功');
@@ -230,13 +230,13 @@ define(function (require, exports, module) {
         },
 
         //默认置为第一页 搜索
-        search: function () {
+        search: function() {
             this.pagination.setPage(0, false);
             this.getList();
         },
 
         //获取数据
-        getList: function (exportFile) {
+        getList: function(exportFile) {
             var me = this;
 
             var fromAppStartTime = '';
@@ -265,13 +265,13 @@ define(function (require, exports, module) {
                 province: me.model.get('province'),
                 city: me.model.get('city'),
                 tel: me.model.get('tel'),
-				'creatorName':me.model.get('creatorName'),
-				'isLinkRegister':me.model.get('isLinkRegister'),
-                'hasProduct': me.model.get('hasProduct'),  //包含某种产品
-                'vendorId': me.model.get('vendorId'),      //优惠码
-                'isPresent': me.model.get('isPresent'),    //是否赠送办公版
-                'isPay': me.model.get('isPay'),            //是否付费
-
+                'creatorName': me.model.get('creatorName'),
+                'isLinkRegister': me.model.get('isLinkRegister'),
+                'hasProduct': me.model.get('hasProduct'), //包含某种产品
+                'vendorId': me.model.get('vendorId'), //优惠码
+                'isPresent': me.model.get('isPresent'), //是否赠送办公版
+                'isPay': me.model.get('isPay'), //是否付费
+                'isChepEnt': me.model.get('isChepEnt'), //是否是优惠企业
                 fromAppStartTime: fromAppStartTime,
                 endAppStartTime: endAppStartTime,
                 'accountName': accountName
@@ -283,14 +283,14 @@ define(function (require, exports, module) {
             util.api({
                 url: '/enterprise/querypage',
                 data: data,
-                beforeSend: function () {
+                beforeSend: function() {
                     me.$tbody.html('<tr><td colspan="10"><p class="info">加载中...</p></td></tr>');
                 },
-                success: function (data) {
+                success: function(data) {
                     if (data.success) {
                         me.pagination.setTotalSize(data.value.model.itemCount);
                         if (data.value.model.content.length > 0) {
-                            me.list.reload(data.value.model.content, function (item) {
+                            me.list.reload(data.value.model.content, function(item) {
 
                                 if (item.enterprise.appStartTime) {
                                     item.createtimestr = new Date(item.enterprise.appStartTime)._format("yyyy-MM-dd");
@@ -323,28 +323,28 @@ define(function (require, exports, module) {
                         }
                     }
                 },
-                error: function () {
+                error: function() {
                     me.$tbody.html('<tr><td colspan="11"><p class="info">数据加载失败</p></td></tr>');
                 }
             });
         },
 
         //查看详情
-        detailEve: function (e) {
+        detailEve: function(e) {
             var id = $(e.currentTarget).attr('data-id'),
                 status = $(e.currentTarget).attr('data-status');
             this.trigger('detail', id, status);
         },
 
         //企业跟踪记录
-        traceEve: function (e) {
+        traceEve: function(e) {
             var id = $(e.currentTarget).attr('data-id');
 
             this.trigger('trace', id);
         },
 
         //渲染至页面
-        render: function () {
+        render: function() {
             this.attrs['wrapper'].html(this.$view);
         }
 

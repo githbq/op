@@ -6947,3 +6947,101 @@ em {
   text-align: right;
   width: 150px;
 }
+#privilege {
+  height: 1000px;
+}
+#privilege input {
+  padding: 0;
+  margin: 0;
+}
+#privilege button,
+#privilege label {
+  font-size: 14px;
+  color: black;
+  margin-left: 50px;
+}
+#privilege button {
+  background: #EBEBEB;
+}
+#privilege .name {
+  display: inline-block;
+  width: 250px;
+  height: 25px;
+  border: 1px solid grey;
+  margin: 0;
+  padding: 0;
+  border-radius: none;
+}
+#privilege #OpenSTime,
+#privilege #OpenETime {
+  width: 80px;
+  height: 25px;
+}
+#privilege .status {
+  width: 80px;
+  height: 25px;
+}
+#privilege .search {
+  width: 100px;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+#privilege #list {
+  width: 80%;
+  margin-top: 50px;
+}
+#privilege #list th,
+#privilege #list td {
+  border: 1px solid #797979;
+  text-align: center;
+  height: 30px;
+}
+#privilege #list td {
+  font-size: 14px;
+  color: black;
+}
+#privilege #list th {
+  font-size: 14px;
+  color: black;
+  font-weight: bold;
+}
+#privilege #list a {
+  color: #0000FF;
+}
+#privilege .head {
+  margin-top: 20px;
+}
+#privilege .new {
+  float: right;
+  margin-right: 30px;
+}
+.m-slider {
+  color: black;
+}
+.m-slider ul {
+  display: inline-block;
+  width: 500px;
+  height: 450px;
+  margin-bottom: 30px;
+}
+.m-slider ul li {
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.m-slider ul li .cliName {
+  margin-right: 50px;
+}
+.m-slider textarea {
+  width: 600px;
+  height: 200px;
+}
+.m-slider .submit,
+.m-slider .cancel {
+  width: 100px;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-top: 20px;
+  text-align: center;
+  background: #EBEBEB;
+}
