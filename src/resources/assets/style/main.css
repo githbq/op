@@ -789,7 +789,7 @@ body::-webkit-scrollbar-corner {
   height: 14px;
   overflow: hidden;
   vertical-align: middle;
-  background: url("/op/resources/common/images/bg-ck.png") no-repeat;
+  background: url("../../common/images/bg-ck.png") no-repeat;
   cursor: pointer;
 }
 .g-ck-active {
@@ -908,7 +908,7 @@ body::-webkit-scrollbar-corner {
   top: 0;
   right: 0;
   bottom: 0;
-  background: url("/op/resources/common/images/loading.gif") no-repeat center center rgba(255, 255, 255, 0.8);
+  background: url("../../common/images/loading.gif") no-repeat center center rgba(255, 255, 255, 0.8);
   z-index: 100001;
   text-align: center;
   line-height: 50px;
@@ -952,7 +952,7 @@ body::-webkit-scrollbar-corner {
   width: 20px;
   height: 20px;
   vertical-align: middle;
-  background: url("/op/resources/common/images/spr-ico.png") no-repeat;
+  background: url("../../common/images/spr-ico.png") no-repeat;
 }
 .ico-add {
   background-position: 0 -20px;
@@ -1048,10 +1048,10 @@ button:active {
   height: 16px;
 }
 .i-edit {
-  background: url("/op/resources/common/images/edit.png") no-repeat center top;
+  background: url("../../common/images/edit.png") no-repeat center top;
 }
 .i-delete {
-  background: url("/op/resources/common/images/delete.png") no-repeat center top;
+  background: url("../../common/images/delete.png") no-repeat center top;
 }
 /*
  *基础样式
@@ -1265,7 +1265,7 @@ textarea:focus {
   height: 28px;
   overflow: hidden;
   border-radius: 2px;
-  background: url("/op/resources/common/images/sel-aw.gif") no-repeat right top;
+  background: url("../../common/images/sel-aw.gif") no-repeat right top;
   cursor: pointer;
 }
 .g-select select {
@@ -1350,7 +1350,7 @@ audio.fn-hide-abs {
   display: inline-block;
   width: 16px;
   height: 16px;
-  background: url("/op/resources/common/images/create-session.png") no-repeat center center;
+  background: url("../../common/images/create-session.png") no-repeat center center;
   vertical-align: middle;
   margin-bottom: 2px;
   margin-right: 3px;
@@ -1398,7 +1398,7 @@ audio.fn-hide-abs {
   display: block;
 }
 .m-kf .kf-session .session-list section.loading {
-  background: url("/op/resources/common/images/loading.gif") no-repeat center center;
+  background: url("../../common/images/loading.gif") no-repeat center center;
 }
 .m-kf .kf-session .session-list section.loading ul {
   display: none;
@@ -1745,7 +1745,7 @@ audio.fn-hide-abs {
   height: 36px;
   display: inline-block;
   float: left;
-  background: url("/op/resources/common/images/kf/file-type.png") no-repeat -120px 0;
+  background: url("../../common/images/kf/file-type.png") no-repeat -120px 0;
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-content .content-info .document .section-msg .msg .dc {
   margin-left: 40px;
@@ -1854,7 +1854,7 @@ audio.fn-hide-abs {
   bottom: 0;
   z-index: 1;
   background-color: rgba(255, 255, 255, 0.8);
-  background-image: url("/op/resources/common/images/loading.gif");
+  background-image: url("../../common/images/loading.gif");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 16px 16px;
@@ -1872,7 +1872,7 @@ audio.fn-hide-abs {
   float: left;
   position: relative;
   cursor: pointer;
-  background: url("/op/resources/common/images/kf/kf_bar.png") no-repeat;
+  background: url("../../common/images/kf/kf_bar.png") no-repeat;
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar > span > input {
   position: absolute;
@@ -1976,193 +1976,193 @@ audio.fn-hide-abs {
   border: 1px #ccc solid;
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-ok {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_ok.png");
+  background-image: url("../../common/images/kf/cookie/cookie_ok.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-buhao {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_buhao.png");
+  background-image: url("../../common/images/kf/cookie/cookie_buhao.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-zan {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_zan.png");
+  background-image: url("../../common/images/kf/cookie/cookie_zan.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-paishou {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_paishou.png");
+  background-image: url("../../common/images/kf/cookie/cookie_paishou.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-ye {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_ye.png");
+  background-image: url("../../common/images/kf/cookie/cookie_ye.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-woshou {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_woshou.png");
+  background-image: url("../../common/images/kf/cookie/cookie_woshou.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-baituo {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_baituo.png");
+  background-image: url("../../common/images/kf/cookie/cookie_baituo.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-dabian {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_dabian.png");
+  background-image: url("../../common/images/kf/cookie/cookie_dabian.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-weixiao {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_weixiao.png");
+  background-image: url("../../common/images/kf/cookie/cookie_weixiao.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-piezui {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_piezui.png");
+  background-image: url("../../common/images/kf/cookie/cookie_piezui.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-se {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_se.png");
+  background-image: url("../../common/images/kf/cookie/cookie_se.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-fadai {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_fadai.png");
+  background-image: url("../../common/images/kf/cookie/cookie_fadai.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-deyi {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_deyi.png");
+  background-image: url("../../common/images/kf/cookie/cookie_deyi.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-liulei {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_liulei.png");
+  background-image: url("../../common/images/kf/cookie/cookie_liulei.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-haixiu {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_haixiu.png");
+  background-image: url("../../common/images/kf/cookie/cookie_haixiu.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-bizui {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_bizui.png");
+  background-image: url("../../common/images/kf/cookie/cookie_bizui.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-shui {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_shui.png");
+  background-image: url("../../common/images/kf/cookie/cookie_shui.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-daku {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_daku.png");
+  background-image: url("../../common/images/kf/cookie/cookie_daku.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-ganga {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_ganga.png");
+  background-image: url("../../common/images/kf/cookie/cookie_ganga.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-fennu {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_fennu.png");
+  background-image: url("../../common/images/kf/cookie/cookie_fennu.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-tiaopi {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_tiaopi.png");
+  background-image: url("../../common/images/kf/cookie/cookie_tiaopi.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-ciya {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_ciya.png");
+  background-image: url("../../common/images/kf/cookie/cookie_ciya.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-jingya {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_jingya.png");
+  background-image: url("../../common/images/kf/cookie/cookie_jingya.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-nanguo {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_nanguo.png");
+  background-image: url("../../common/images/kf/cookie/cookie_nanguo.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-ku {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_ku.png");
+  background-image: url("../../common/images/kf/cookie/cookie_ku.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-lenghan {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_lenghan.png");
+  background-image: url("../../common/images/kf/cookie/cookie_lenghan.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-zhuakuang {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_zhuakuang.png");
+  background-image: url("../../common/images/kf/cookie/cookie_zhuakuang.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-tu {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_tu.png");
+  background-image: url("../../common/images/kf/cookie/cookie_tu.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-touxiao {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_touxiao.png");
+  background-image: url("../../common/images/kf/cookie/cookie_touxiao.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-yukuai {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_yukuai.png");
+  background-image: url("../../common/images/kf/cookie/cookie_yukuai.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-baiyan {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_baiyan.png");
+  background-image: url("../../common/images/kf/cookie/cookie_baiyan.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-aoman {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_aoman.png");
+  background-image: url("../../common/images/kf/cookie/cookie_aoman.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-jie {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_jie.png");
+  background-image: url("../../common/images/kf/cookie/cookie_jie.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-kun {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_kun.png");
+  background-image: url("../../common/images/kf/cookie/cookie_kun.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-jingkong {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_jingkong.png");
+  background-image: url("../../common/images/kf/cookie/cookie_jingkong.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-liuhan {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_liuhan.png");
+  background-image: url("../../common/images/kf/cookie/cookie_liuhan.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-hanxiao {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_hanxiao.png");
+  background-image: url("../../common/images/kf/cookie/cookie_hanxiao.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-youxian {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_youxian.png");
+  background-image: url("../../common/images/kf/cookie/cookie_youxian.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-fendou {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_fendou.png");
+  background-image: url("../../common/images/kf/cookie/cookie_fendou.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-zhouma {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_zhouma.png");
+  background-image: url("../../common/images/kf/cookie/cookie_zhouma.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-yiwen {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_yiwen.png");
+  background-image: url("../../common/images/kf/cookie/cookie_yiwen.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-xu {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_xu.png");
+  background-image: url("../../common/images/kf/cookie/cookie_xu.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-yun {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_yun.png");
+  background-image: url("../../common/images/kf/cookie/cookie_yun.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-fengle {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_fengle.png");
+  background-image: url("../../common/images/kf/cookie/cookie_fengle.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-shuai {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_shuai.png");
+  background-image: url("../../common/images/kf/cookie/cookie_shuai.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-kulou {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_kulou.png");
+  background-image: url("../../common/images/kf/cookie/cookie_kulou.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-qiaoda {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_qiaoda.png");
+  background-image: url("../../common/images/kf/cookie/cookie_qiaoda.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-zaijian {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_zaijian.png");
+  background-image: url("../../common/images/kf/cookie/cookie_zaijian.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-cahan {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_cahan.png");
+  background-image: url("../../common/images/kf/cookie/cookie_cahan.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-koubi {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_koubi.png");
+  background-image: url("../../common/images/kf/cookie/cookie_koubi.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-guzhang {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_guzhang.png");
+  background-image: url("../../common/images/kf/cookie/cookie_guzhang.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-qiudale {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_qiudale.png");
+  background-image: url("../../common/images/kf/cookie/cookie_qiudale.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-huaixiao {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_huaixiao.png");
+  background-image: url("../../common/images/kf/cookie/cookie_huaixiao.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-zuohengheng {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_zuohengheng.png");
+  background-image: url("../../common/images/kf/cookie/cookie_zuohengheng.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-youhengheng {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_youhengheng.png");
+  background-image: url("../../common/images/kf/cookie/cookie_youhengheng.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-haqian {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_haqian.png");
+  background-image: url("../../common/images/kf/cookie/cookie_haqian.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-bishi {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_bishi.png");
+  background-image: url("../../common/images/kf/cookie/cookie_bishi.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-weiqu {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_weiqu.png");
+  background-image: url("../../common/images/kf/cookie/cookie_weiqu.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-kuaikule {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_kuaikule.png");
+  background-image: url("../../common/images/kf/cookie/cookie_kuaikule.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-yinxian {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_yinxian.png");
+  background-image: url("../../common/images/kf/cookie/cookie_yinxian.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-qinqin {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_qinqin.png");
+  background-image: url("../../common/images/kf/cookie/cookie_qinqin.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-xia {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_xia.png");
+  background-image: url("../../common/images/kf/cookie/cookie_xia.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-cookie .bq-kelian {
-  background-image: url("/op/resources/common/images/kf/cookie/cookie_kelian.png");
+  background-image: url("../../common/images/kf/cookie/cookie_kelian.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-emotion {
   width: 315px;
@@ -2182,52 +2182,52 @@ audio.fn-hide-abs {
   border: 1px #ccc solid;
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-emotion .emotion-a {
-  background-image: url("/op/resources/common/images/kf/FSB-0/0.png");
+  background-image: url("../../common/images/kf/FSB-0/0.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-emotion .emotion-b {
-  background-image: url("/op/resources/common/images/kf/FSB-0/1.png");
+  background-image: url("../../common/images/kf/FSB-0/1.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-emotion .emotion-c {
-  background-image: url("/op/resources/common/images/kf/FSB-0/2.png");
+  background-image: url("../../common/images/kf/FSB-0/2.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-emotion .emotion-d {
-  background-image: url("/op/resources/common/images/kf/FSB-0/3.png");
+  background-image: url("../../common/images/kf/FSB-0/3.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-emotion .emotion-e {
-  background-image: url("/op/resources/common/images/kf/FSB-0/4.png");
+  background-image: url("../../common/images/kf/FSB-0/4.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-emotion .emotion-f {
-  background-image: url("/op/resources/common/images/kf/FSB-0/5.png");
+  background-image: url("../../common/images/kf/FSB-0/5.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-emotion .emotion-g {
-  background-image: url("/op/resources/common/images/kf/FSB-0/6.png");
+  background-image: url("../../common/images/kf/FSB-0/6.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-emotion .emotion-h {
-  background-image: url("/op/resources/common/images/kf/FSB-0/7.png");
+  background-image: url("../../common/images/kf/FSB-0/7.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-emotion .emotion-i {
-  background-image: url("/op/resources/common/images/kf/FSB-0/8.png");
+  background-image: url("../../common/images/kf/FSB-0/8.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-emotion .emotion-j {
-  background-image: url("/op/resources/common/images/kf/FSB-0/9.png");
+  background-image: url("../../common/images/kf/FSB-0/9.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-emotion .emotion-k {
-  background-image: url("/op/resources/common/images/kf/FSB-0/10.png");
+  background-image: url("../../common/images/kf/FSB-0/10.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-emotion .emotion-l {
-  background-image: url("/op/resources/common/images/kf/FSB-0/11.png");
+  background-image: url("../../common/images/kf/FSB-0/11.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-emotion .emotion-m {
-  background-image: url("/op/resources/common/images/kf/FSB-0/12.png");
+  background-image: url("../../common/images/kf/FSB-0/12.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-emotion .emotion-n {
-  background-image: url("/op/resources/common/images/kf/FSB-0/13.png");
+  background-image: url("../../common/images/kf/FSB-0/13.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-emotion .emotion-o {
-  background-image: url("/op/resources/common/images/kf/FSB-0/14.png");
+  background-image: url("../../common/images/kf/FSB-0/14.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-bq .bq-content .content-main .main-emotion .emotion-p {
-  background-image: url("/op/resources/common/images/kf/FSB-0/15.png");
+  background-image: url("../../common/images/kf/FSB-0/15.png");
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-bar .bar-fastreply {
   background-position: -99px -35px;
@@ -2306,7 +2306,7 @@ audio.fn-hide-abs {
   height: 29px;
   position: relative;
   cursor: pointer;
-  background: url("/op/resources/common/images/kf/kf_bar.png") no-repeat;
+  background: url("../../common/images/kf/kf_bar.png") no-repeat;
   background-position: -131px -3px;
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-area {
@@ -2329,7 +2329,7 @@ audio.fn-hide-abs {
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-area .area-media > section .media-ico {
   width: 20px;
   height: 20px;
-  background-image: url("/op/resources/common/images/kf/acc_icon.png");
+  background-image: url("../../common/images/kf/acc_icon.png");
   background-repeat: no-repeat;
 }
 .m-kf .kf-connect-wrapper .kf-connect .connect-send .send-area .area-media > section .media-icofile {
@@ -2396,7 +2396,7 @@ audio.fn-hide-abs {
   height: 20px;
   margin-left: 10px;
   margin-right: 10px;
-  background-image: url("/op/resources/common/images/kf/acc_icon.png");
+  background-image: url("../../common/images/kf/acc_icon.png");
   background-repeat: no-repeat;
   background-position: 1px -56px;
 }
@@ -3736,7 +3736,7 @@ audio.fn-hide-abs {
   width: 20px;
   height: 25px;
   border-left: 1px #eee solid;
-  background: url('/op/resources/assets/images/vector.png') no-repeat center 9px;
+  background: url('images/vector.png') no-repeat center 9px;
   background-size: 16px;
 }
 .m-select .select-list {
@@ -3791,7 +3791,7 @@ audio.fn-hide-abs {
   width: 20px;
   height: 25px;
   border-left: 1px #eee solid;
-  background: url('/op/resources/assets/images/vector.png') no-repeat center 9px;
+  background: url('images/vector.png') no-repeat center 9px;
   background-size: 16px;
 }
 .m-ih .ih-sl {
@@ -4689,7 +4689,7 @@ audio.fn-hide-abs {
 }
 .m-ztree {
   line-height: 51px;
-  background: url("/op/resources/common/images/widget/ztree/bg.png") repeat -1px 0;
+  background: url("../../common/images/widget/ztree/bg.png") repeat -1px 0;
   margin-top: -1px;
   overflow: hidden;
 }
@@ -4723,7 +4723,7 @@ audio.fn-hide-abs {
 .m-ztree li span.button.switch {
   width: 19px;
   height: 19px;
-  background: url("/op/resources/common/images/widget/ztree/ico.png") no-repeat;
+  background: url("../../common/images/widget/ztree/ico.png") no-repeat;
   position: absolute;
   left: 25px;
   top: 16px;
@@ -4753,15 +4753,15 @@ audio.fn-hide-abs {
 }
 .m-ztree li span.button.checkbox_true_full,
 .m-ztree li span.button.checkbox_true_full_focus {
-  background: url("/op/resources/common/images/widget/ztree/bg-check.png") no-repeat -1px 0;
+  background: url("../../common/images/widget/ztree/bg-check.png") no-repeat -1px 0;
 }
 .m-ztree li span.button.checkbox_true_part,
 .m-ztree li span.button.checkbox_true_part_focus {
-  background: url("/op/resources/common/images/widget/ztree/bg-check.png") no-repeat 0 -20px;
+  background: url("../../common/images/widget/ztree/bg-check.png") no-repeat 0 -20px;
 }
 .m-ztree li span.button.radio_true_full,
 .m-ztree li span.button.radio_true_full_focus {
-  background: url("/op/resources/common/images/widget/ztree/bg-check.png") no-repeat -1px 0;
+  background: url("../../common/images/widget/ztree/bg-check.png") no-repeat -1px 0;
 }
 .m-ztree li .save-nm,
 .m-ztree li .cancel-nm {
