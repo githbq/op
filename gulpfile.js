@@ -44,6 +44,40 @@ gulp.task('copy', function() {
 		.pipe(gulp.dest('dest/'));
 });
 
+/**
+ *
+ * html 压缩
+ */
+gulp.task('minify-html', function() {
+	return gulp.src([
+		'dest/**/*.html',
+		'dest/**/*.jsp',
+		'!dest/resources/common/widget/editor/**/*.html'
+	], {
+		'base': 'dest'
+	})
+		.pipe(htmlmin({
+			empty: true,
+			minifyCSS: true,
+			minifyJS: true,
+			removeComments: true,
+			collapseWhitespace: true
+		}))
+		.pipe(gulp.dest('dest/'));
+});
+
+/**
+ * css 压缩
+ */
+gulp.task('minify-css', function() {
+	return gulp.src(['dest/resources/assets/style/*.css'])
+		.pipe(minifyCSS({
+			keepSpecialComments: false
+		}))
+		.pipe(gulp.dest('dest/resources/assets/style/'));
+});
+
+
 /*
  * @desc Transport JS
  */
@@ -105,55 +139,6 @@ gulp.task("transport:page",function(){
 });
 
 /**
- * Replaces references to non-optimized scripts or stylesheets into a set of HTML files (or any templates/views).
- */
-gulp.task('usemin', function() {
-	return gulp.src(['dest/*.jsp', 'dest/*.html'])
-		.pipe(usemin({
-			css: [rev],
-			common: ['concat'],
-			app: ['concat']
-		}))
-		.pipe(gulp.dest('dest/'));
-});
-
-/**
- *
- * html 压缩
- */
-gulp.task('minify-html', function() {
-	return gulp.src([
-		'dest/**/*.html',
-		'dest/**/*.jsp',
-		'!dest/resources/common/widget/editor/**/*.html'
-	], {
-		'base': 'dest'
-	})
-		.pipe(htmlmin({
-			empty: true,
-			minifyCSS: true,
-			minifyJS: true,
-			removeComments: true,
-			collapseWhitespace: true
-		}))
-		.pipe(gulp.dest('dest/'));
-});
-
-/**
- * css 压缩
- */
-gulp.task('minify-css', function() {
-	return gulp.src(['dest/resources/assets/style/*.css'])
-		.pipe(minifyCSS({
-			keepSpecialComments: false
-		}))
-		.pipe(gulp.dest('dest/resources/assets/style/'));
-});
-
-
-
-
-/**
  *
  * js压缩
  */
@@ -191,7 +176,6 @@ gulp.task('concat', function() {
 gulp.task('usemin', function() {
 	return gulp.src(['dest/*.jsp', 'dest/*.html'])
 		.pipe(usemin({
-			css: [rev],
 			common: ['concat'],
 			app: ['concat']
 		}))
@@ -202,7 +186,7 @@ gulp.task('usemin', function() {
  * 文件md5戳处理
  */
 gulp.task('md5', function() {
-	return gulp.src(['dest/resources/**/*.js','!dest/resources/common/widget/my97datepicker/**/*.*'], {//, 'dest/resources/**/*.html'
+	return gulp.src(['dest/resources/**/*.js','dest/resources/assets/style/main.css','!dest/resources/common/widget/my97datepicker/**/*.*'], {//, 'dest/resources/**/*.html'
 			base: 'dest'
 		})
 		.pipe(rev())
@@ -212,7 +196,7 @@ gulp.task('md5', function() {
 });
 
 gulp.task('collector', function() {
-	return gulp.src(['dest/rev/**/*.json', 'dest/*.html', 'dest/*.jsp'])
+	return gulp.src(['dest/rev/**/*.json', 'dest/*.html', 'dest/*.jsp', 'dest/resources.js'])
 		.pipe(collector({
 			replaceReved: true
 		}))
