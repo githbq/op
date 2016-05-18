@@ -44,40 +44,6 @@ gulp.task('copy', function() {
 		.pipe(gulp.dest('dest/'));
 });
 
-/**
- *
- * html 压缩
- */
-gulp.task('minify-html', function() {
-	return gulp.src([
-		'dest/**/*.html',
-		'dest/**/*.jsp',
-		'!dest/resources/common/widget/editor/**/*.html'
-	], {
-		'base': 'dest'
-	})
-		.pipe(htmlmin({
-			empty: true,
-			minifyCSS: true,
-			minifyJS: true,
-			removeComments: true,
-			collapseWhitespace: true
-		}))
-		.pipe(gulp.dest('dest/'));
-});
-
-/**
- * css 压缩
- */
-gulp.task('minify-css', function() {
-	return gulp.src(['dest/resources/assets/style/*.css'])
-		.pipe(minifyCSS({
-			keepSpecialComments: false
-		}))
-		.pipe(gulp.dest('dest/resources/assets/style/'));
-});
-
-
 /*
  * @desc Transport JS
  */
@@ -137,6 +103,55 @@ gulp.task("transport:page",function(){
 		}))
 		.pipe(gulp.dest('dest/resources/page/'));
 });
+
+/**
+ * Replaces references to non-optimized scripts or stylesheets into a set of HTML files (or any templates/views).
+ */
+gulp.task('usemin', function() {
+	return gulp.src(['dest/*.jsp', 'dest/*.html'])
+		.pipe(usemin({
+			css: [rev],
+			common: ['concat'],
+			app: ['concat']
+		}))
+		.pipe(gulp.dest('dest/'));
+});
+
+/**
+ *
+ * html 压缩
+ */
+gulp.task('minify-html', function() {
+	return gulp.src([
+		'dest/**/*.html',
+		'dest/**/*.jsp',
+		'!dest/resources/common/widget/editor/**/*.html'
+	], {
+		'base': 'dest'
+	})
+		.pipe(htmlmin({
+			empty: true,
+			minifyCSS: true,
+			minifyJS: true,
+			removeComments: true,
+			collapseWhitespace: true
+		}))
+		.pipe(gulp.dest('dest/'));
+});
+
+/**
+ * css 压缩
+ */
+gulp.task('minify-css', function() {
+	return gulp.src(['dest/resources/assets/style/*.css'])
+		.pipe(minifyCSS({
+			keepSpecialComments: false
+		}))
+		.pipe(gulp.dest('dest/resources/assets/style/'));
+});
+
+
+
 
 /**
  *
