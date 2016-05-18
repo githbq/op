@@ -46,6 +46,11 @@ define(function (require, exports, module) {
         var expressDetail = new ExpressDetail({'state':'finance'});   //快递详情        
 		invoiceApplyList.refresh();
         invoiceApplyList.on('detail',function( orderId, inid , approvalStatus ,info ,type){
+
+            if( type == 2 && info.notRefundStatus == false ){
+                type = 4;
+            }
+
             financeDetail.show(info,type);
         });
 
