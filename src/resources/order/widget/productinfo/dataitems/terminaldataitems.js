@@ -123,13 +123,14 @@ define(function (require, exports, module) {
                     }
                     }]
             }));
-        });
-        dataItems[dataItems.length - 1].on('setFieldValue', function ($ele, value, data) {
-            setTimeout(function () {
-                $ele.change();
-            }, 10);
+            dataItems[dataItems.length - 1].on('setFieldValue', function ($ele, value, data) {
+                setTimeout(function () {
+                    $ele.change();
+                }, 10);
 
+            });
         });
+
 
 
         //使用CRM复选框
@@ -141,27 +142,22 @@ define(function (require, exports, module) {
                         var me = this;
                         var $dom = $(e.target);
                         var checked = $dom.is(':checked');
-
                         if (!checked) {
-                            me.o_setValue({name: 'purchaseAmount_8', value: 0});
-                            me.o_setValue({name: 'purchaseAmount_input_8', value: 0});
                             me.o_setValue({name: 'purchaseAmount_input_1', value: 0});
                             me.o_setValue({name: 'purchaseAmount_1', value: 0});
                             me.o_setValue({name: 'productAmount_1', value: 0});
                             me.o_setValue({name: 'productAmount_1', value: 0});
                             me.o_setValue({name: 'discount_1', value: ''});
-                            me.o_setValue({name: 'discount_8', value: ''});
                             me.o_setValue({name: 'purchaseAmount_input_1', value: 0});
                             me.__refs.formInfo.o_setValue({name: 'currPayAmount_1', value: 0});
-                            me.__refs.formInfo.o_setValue({name: 'currPayAmount_8', value: 0});
                             me.o_setValue({name: 'purchaseCount_1', value: 0});
-                            me.o_setValue({name: 'purchaseCount_8', value: 0});
+
                         }
                         var isReadonly = me.o_getFieldData('allreadonly').allreadonly === true;
                         priceComput.call(me, e);
                         for (var i in me.dataDic) {
                             if (me.dataDic.hasOwnProperty(i)) {
-                           
+
 
                                 if (/(_1)$/.test(i.toString()) && i.toString().toLowerCase().indexOf('wrapper') < 0) {
                                     if (checked && me.dataDic[i].old_readonly === undefined) {
@@ -189,9 +185,8 @@ define(function (require, exports, module) {
             setTimeout(function () {
                 $ele.change();
             }, 10);
-
         });
-      
+
         var typeIds = ['1', '3', '13', '16'];
 
         var typeIds = ['1', '3', '13', '16'];
@@ -244,7 +239,7 @@ define(function (require, exports, module) {
                             return;
                         }
                         if ($dom.val() && parseFloat($dom.val()) <= 0) {
-                            
+
 
                             if (n == '16' || (n == '3' || n == '1') && (me.o_getFieldValue('isrenew') || me.o_getFieldValue('isadd'))) {//增购续费 服务人数可为0
                             } else {
@@ -257,7 +252,6 @@ define(function (require, exports, module) {
                             me.o_setValue({name: 'productAmount_' + n, value: 0});
                         }
                         if (n == '16') {
-                            debugger
                             changeForGetPrice.call(me, e);
                             return;
                         }
@@ -275,7 +269,7 @@ define(function (require, exports, module) {
                         } else {
                             $dom.val($dom.val().replace(/[^\.\d]/g, ''));
                             me.o_field_getData($dom).__silent = false;
-                       
+
                             if ($dom.val() && !allreadonly) {
                                 me.attrs.apiPool.api_getServicePrice({
                                     data: {enterpriseId: me.o_getFieldValue('enterpriseId'), personCount: $dom.val()}, success: function (response) {
@@ -528,7 +522,6 @@ define(function (require, exports, module) {
         }
 
         function changeForGetPrice(e, change) {
-            debugger
             var me = this;
             var $dom = $(e.target);
             var id = $dom.parents('[data-productid]').attr('data-productid');
@@ -537,7 +530,7 @@ define(function (require, exports, module) {
             //    $dom.change();
             //}
             var sum = 1;
-            if (id == '1'|| id == '16') {//针对CRM数量可改
+            if (id == '1' || id == '16') {//针对CRM数量可改
                 sum = me.o_getFieldValue('purchaseCount_' + id);
                 if (!sum) {
                     checkTypeForPrice.call(me, e, id);
@@ -564,7 +557,7 @@ define(function (require, exports, module) {
                         me.o_setValue({name: 'discount_' + id, value: responseData.model.rebate === null ? '' : responseData.model.rebate});
 
                         me.o_setValue({name: 'productAmount_' + id, value: responseData.model.amount});
-                        
+
 
                         if (id == '16') {
                             me.o_setValue({name: 'purchaseAmount_16', value: responseData.model.amount});
