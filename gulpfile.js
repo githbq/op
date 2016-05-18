@@ -128,6 +128,15 @@ gulp.task("transport:module", function() {
 		.pipe(gulp.dest('dest/resources/module/'));
 });
 
+gulp.task("transport:page",function(){
+	return gulp.src(['dest/resources/page/**/*.js'])
+		.pipe(transport({
+			dealIdCallback: function(id){
+				return 'page/' + id;
+			}
+		}))
+		.pipe(gulp.dest('dest/resources/page/'));
+});
 
 /**
  *
@@ -256,9 +265,10 @@ gulp.task('release', sequence(
 	'clean',
 	'less',
 	'copy', [
-		'transport',
+		//'transport',
 		'transport:common',
-		'transport:module'
+		'transport:module',
+		'transport:page'
 	],
 	'usemin',
 	'md5',
