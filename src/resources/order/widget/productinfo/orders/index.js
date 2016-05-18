@@ -135,6 +135,7 @@ define(function (require, exports, module) {
                             }
                         }
                         var items = tableDataItems;
+                      
 
                         if ($.inArray(n.subOrder.productId.toString(), ['1', '2', '3', '13', '16']) >= 0) {
                             items = terminalDataItems;
@@ -281,12 +282,10 @@ define(function (require, exports, module) {
 
         //设置增购逻辑
         exports.setAddOrderLogic = function (controller, terminalDataItems, tableDataItems, formDataItems, type, responseData) {
-
-            CRMNewLogic(controller, terminalDataItems, tableDataItems, formDataItems, type, responseData);
             var hasTrainning = false;
 
             $(responseData.data.subOrders).each(function (j, m) {
-                if (m.subOrder.productId == '13') {
+                if (m.subOrder.productId == '13' || m.subOrder.productId == '16' ) {
                     hasTrainning = true;
                 }
             });
@@ -511,7 +510,7 @@ define(function (require, exports, module) {
             controller(formDataItems, 'currPayAmount_7', function (n) {
                 n.readonly = isReadonly;
             });
-
+              
             controller(formDataItems, 'currPayAmount_12', function (n) {
                 n.readonly = isReadonly;
             });

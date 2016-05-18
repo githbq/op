@@ -161,6 +161,7 @@ define(function (require, exports, module) {
                         priceComput.call(me, e);
                         for (var i in me.dataDic) {
                             if (me.dataDic.hasOwnProperty(i)) {
+                           
 
                                 if (/(_1)$/.test(i.toString()) && i.toString().toLowerCase().indexOf('wrapper') < 0) {
                                     if (checked && me.dataDic[i].old_readonly === undefined) {
@@ -190,6 +191,8 @@ define(function (require, exports, module) {
             }, 10);
 
         });
+      
+        var typeIds = ['1', '3', '13', '16'];
 
         var typeIds = ['1', '3', '13', '16'];
 
@@ -241,6 +244,7 @@ define(function (require, exports, module) {
                             return;
                         }
                         if ($dom.val() && parseFloat($dom.val()) <= 0) {
+                            
 
                             if (n == '16' || (n == '3' || n == '1') && (me.o_getFieldValue('isrenew') || me.o_getFieldValue('isadd'))) {//增购续费 服务人数可为0
                             } else {
@@ -271,7 +275,7 @@ define(function (require, exports, module) {
                         } else {
                             $dom.val($dom.val().replace(/[^\.\d]/g, ''));
                             me.o_field_getData($dom).__silent = false;
-                            debugger
+                       
                             if ($dom.val() && !allreadonly) {
                                 me.attrs.apiPool.api_getServicePrice({
                                     data: {enterpriseId: me.o_getFieldValue('enterpriseId'), personCount: $dom.val()}, success: function (response) {
@@ -560,6 +564,7 @@ define(function (require, exports, module) {
                         me.o_setValue({name: 'discount_' + id, value: responseData.model.rebate === null ? '' : responseData.model.rebate});
 
                         me.o_setValue({name: 'productAmount_' + id, value: responseData.model.amount});
+                        
 
                         if (id == '16') {
                             me.o_setValue({name: 'purchaseAmount_16', value: responseData.model.amount});

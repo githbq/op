@@ -221,6 +221,7 @@ define(function (require, exports, module) {
                                 {name: 'currPayAmount_17', visible: false}
                             ]);
                             var checkeds = me.__refs.tableInfo.o_getFieldValue('check').split(',');
+                              
                             if (me.__refs.terminalInfo.o_getFieldValue('useCRM') && me.__refs.terminalInfo.o_getFieldData('useCRMWrapper').visible !== false) {//使用了逍客终端 要加入服务费
                                 checkeds.push('1');//CRM费用 
                             }
@@ -262,6 +263,7 @@ define(function (require, exports, module) {
                                 {name: 'currPayAmount_4', value: '0', visible: false},
                                 {name: 'currPayAmount_5', value: '0', visible: false},
                                 {name: 'currPayAmount_7', value: '0', visible: false},
+                             
                                 {name: 'currPayAmount_12', value: '0', visible: false},
                                 {name: 'currPayAmount_14', value: '0', visible: false},
                                 {name: 'currPayAmount_15', value: '0', visible: false},
@@ -288,6 +290,7 @@ define(function (require, exports, module) {
 
         }));
         
+        
         var currPayIdArr = [3, 1, 4, 5, 7, 12, 15, 14, 13, 16, 17];
         $(currPayIdArr).each(function (i, n) {
             (function (id) {
@@ -303,6 +306,7 @@ define(function (require, exports, module) {
                                 return;
                             }
                             var controll = me.__refs.tableInfo;
+                      
                           
                             if (id == '1' || id == '3' || id == '13' || id == '16') {
                                 controll = me.__refs.terminalInfo;

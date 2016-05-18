@@ -483,6 +483,7 @@ define(function (require, exports, module) {
                     $.extend(data, obj);
                 }
                 if (silent !== true) {
+              
                     me.trigger('setValue', $field, data, me);
                     data.trigger('setValue', $field, data, me);
                 }
