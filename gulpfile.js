@@ -176,7 +176,6 @@ gulp.task('concat', function() {
 gulp.task('usemin', function() {
 	return gulp.src(['dest/*.jsp', 'dest/*.html'])
 		.pipe(usemin({
-			css: [rev],
 			common: ['concat'],
 			app: ['concat']
 		}))
@@ -187,7 +186,7 @@ gulp.task('usemin', function() {
  * 文件md5戳处理
  */
 gulp.task('md5', function() {
-	return gulp.src(['dest/resources/**/*.js','!dest/resources/common/widget/my97datepicker/**/*.*'], {//, 'dest/resources/**/*.html'
+	return gulp.src(['dest/resources/**/*.js','dest/resources/assets/style/main.css','!dest/resources/common/widget/my97datepicker/**/*.*'], {//, 'dest/resources/**/*.html'
 			base: 'dest'
 		})
 		.pipe(rev())
@@ -197,7 +196,7 @@ gulp.task('md5', function() {
 });
 
 gulp.task('collector', function() {
-	return gulp.src(['dest/rev/**/*.json', 'dest/*.html', 'dest/*.jsp'])
+	return gulp.src(['dest/rev/**/*.json', 'dest/*.html', 'dest/*.jsp', 'dest/resources.js'])
 		.pipe(collector({
 			replaceReved: true
 		}))
