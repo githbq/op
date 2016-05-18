@@ -57,8 +57,7 @@ define(function (require, exports, module) {
             n.visible = false;
         });
         common.setNotable(controller, terminalDataItems, tableDataItems, formDataItems);
-        //工资助手强制
-        common.setGZHelper(controller, terminalDataItems, tableDataItems, formDataItems);
+
         //增购默认时间
         common.setAddOrderTime(controller, terminalDataItems, tableDataItems, formDataItems);
 

@@ -25,7 +25,7 @@ define(function (require, exports, module) {
 
             var bigArr = terminalDataItems.concat(tableDataItems).concat(formDataItems);
             if (responseData) {
-                 
+
                 var dataDic = toNameDictionary(bigArr);
                 var order, contract, enterpriseExtend, subOrders;
 
@@ -122,7 +122,7 @@ define(function (require, exports, module) {
                     useTrainning = item.value;
                 });
 
-                $(subOrders).each(function (i, n) { 
+                $(subOrders).each(function (i, n) {
                     if (n.subOrder && n.subOrder.productId && n.subOrder.productId != 10 && n.subOrder.productId != 11 && n.subOrder.productId != 8) {//10为绑定百川  11为绑定报数系统
                         if (n.subOrder.enabled !== false) {
                             checkids.push(n.subOrder.productId);
@@ -135,7 +135,7 @@ define(function (require, exports, module) {
                             }
                         }
                         var items = tableDataItems;
-                     
+
                         if ($.inArray(n.subOrder.productId.toString(), ['1', '2', '3', '13', '16']) >= 0) {
                             items = terminalDataItems;
                         }
@@ -205,7 +205,7 @@ define(function (require, exports, module) {
                 });
                 controller(terminalDataItems, 'useTrainning', function (item) {
                     if (item.visible !== false) {
-                  
+
                         item.value = useTrainning;
                     }
                 });
@@ -247,16 +247,19 @@ define(function (require, exports, module) {
                 }
             }
         }
-        ;
 
-        function CRMNewLogic(controller, terminalDataItems, tableDataItems, formDataItems, type, responseData){
+        //设置续费逻辑
+        exports.setRenewLogic = function (controller, terminalDataItems, tableDataItems, formDataItems, type, responseData) {
+            CRMNewLogic(controller, terminalDataItems, tableDataItems, formDataItems, type, responseData);
+        };
+        function CRMNewLogic(controller, terminalDataItems, tableDataItems, formDataItems, type, responseData) {
             //终端总个数
             controller(terminalDataItems, 'purchaseCount_2', function (n) {
                 n.value = 0;
             });
             //终端总个数
             controller(terminalDataItems, 'purchaseCount_1', function (n) {
-                n.on('setValue', function ($field, data,me) {
+                n.on('setValue', function ($field, data, me) {
                     $field.on('change', function () {
                         var old_CRMCount = me.o_getFieldData('old_CRMCount');
                         var old_FXCount = me.o_getFieldData('old_FXCount');
@@ -275,24 +278,12 @@ define(function (require, exports, module) {
 
             });
         }
- 
-        //设置续费逻辑
-        exports.setRenewLogic = function (controller, terminalDataItems, tableDataItems, formDataItems, type, responseData) {
-            CRMNewLogic(controller, terminalDataItems, tableDataItems, formDataItems, type, responseData);
-        };
-        function CRMNewLogic(controller, terminalDataItems, tableDataItems, formDataItems, type, responseData) {
-            //终端总个数
-            controller(terminalDataItems, 'purchaseCount_2', function (n) {
-                n.value = 0;
-            });
-
-        }
 
         //设置增购逻辑
         exports.setAddOrderLogic = function (controller, terminalDataItems, tableDataItems, formDataItems, type, responseData) {
-  var hasTrainning = false;
+
             CRMNewLogic(controller, terminalDataItems, tableDataItems, formDataItems, type, responseData);
-   var hasTrainning = false;
+            var hasTrainning = false;
 
             $(responseData.data.subOrders).each(function (j, m) {
                 if (m.subOrder.productId == '13') {
@@ -312,8 +303,18 @@ define(function (require, exports, module) {
             CRMNewLogic(controller, terminalDataItems, tableDataItems, formDataItems, type, responseData);
             controller(tableDataItems, 'productTrainingWrapper', function (n) {
                 n.visible = false;
-            });            controller(tableDataItems, 'tablelist', function (n) {
+            });
+            controller(tableDataItems, 'tablelist', function (n) {
                 n.visible = true;
+            });
+            controller(tableDataItems, 'startTime_7', function (n) {
+                n.value = '';
+            });
+            controller(tableDataItems, 'endTime_7', function (n) {
+                n.value = '';
+            });
+            controller(tableDataItems, 'type_7', function (n) {
+                n.value = '3';
             });
             controller(tableDataItems, 'check', function (n) {
                 n.on('setFieldValue', function ($ele, value, data, me) {
@@ -510,6 +511,7 @@ define(function (require, exports, module) {
             controller(formDataItems, 'currPayAmount_7', function (n) {
                 n.readonly = isReadonly;
             });
+
             controller(formDataItems, 'currPayAmount_12', function (n) {
                 n.readonly = isReadonly;
             });
@@ -583,9 +585,9 @@ define(function (require, exports, module) {
                             endTime: (fromData['endTime_' + n] || new Date().getTime()) + 2,
                             productAmount: fromData['productAmount_' + n] || 0,
                             discount: fromData['discount_' + n] || 0,
-                            currPayAmount: formInfoData['currPayAmount_' + n] || 0
+                            currPayAmount: formInfo.o_getFieldValue('payStatus_select') != '2' ? 0 : ( formInfoData['currPayAmount_' + n] || 0)
                         };
- 
+
                         if (n == '16') {
                             subOrder.giveCount = fromData['giveCount_16'];
                             if (!fromData['purchaseCount_' + n]) {
@@ -602,7 +604,7 @@ define(function (require, exports, module) {
                                             subOrder: {
                                                 productId: b,
                                                 purchaseCount: 999999,
-                                                purchaseAmount: 0, 
+                                                purchaseAmount: 0,
                                                 startTime: fromData['startTime_1'] + 1,
                                                 endTime: fromData['endTime_1'] + 2,
                                                 productAmount: 0,

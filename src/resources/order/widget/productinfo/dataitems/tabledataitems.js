@@ -132,7 +132,6 @@ define(function (require, exports, module) {
                             value: function (e) {
                                 var me = this;
                                 var isreadony = me.__refs.terminalInfo.o_getFieldData('allreadonly').allreadonly === true;
-
                                 var $dom = $(e.target);
                                 var condition = $dom.parents('tr').find('input[data-name=check]').is(':checked');
                                 switch (me.o_getFieldValue($dom.attr('data-name'))) {
@@ -292,10 +291,10 @@ define(function (require, exports, module) {
                     curPayAmount += parseFloat(purchaseModule.o_getFieldValue('purchaseAmount_' + id) || 0);
                 }
 
-                if (id == 3 && me.__refs.formInfo.o_getFieldValue('orderAssigned') != 1) {//如果不是直销   服务是不计入合同总金额
-                } else {
+                //if (id == 3 && me.__refs.formInfo.o_getFieldValue('orderAssigned') != 1) {//如果不是直销   服务是不计入合同总金额
+                //} else {
                     order_amount += parseFloat(purchaseModule.o_getFieldValue('purchaseAmount_' + id) || 0);
-                }
+                //}
 
 
                 productAmount += parseFloat(purchaseModule.o_getFieldValue('productAmount_' + id) || 0);
@@ -348,7 +347,7 @@ define(function (require, exports, module) {
                     sum: 1,
                     contractAmount: me.o_getFieldValue('purchaseAmount_' + id),
                     orderType: me.o_getFieldValue('orderType'),
-                    hasPurchaseCount: me.__refs.terminalInfo.o_getFieldValue('old_CRMCount') || 0
+                    hasPurchaseCount: me.__refs.terminalInfo.o_getFieldValue('old_CRMCount') || '0'
                 },
                 success: function (responseData) {
                     console.warn(responseData);

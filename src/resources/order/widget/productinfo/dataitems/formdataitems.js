@@ -176,6 +176,9 @@ define(function (require, exports, module) {
                     }
                     var contractPrice = me.o_getFieldValue('contractPrice');
                     var currPayAmount = contractPrice;
+                    if (me.__refs.formInfo.o_getFieldValue('orderAssigned') != 1) {//如果不是直销   服务是不计入合同总金额
+                        currPayAmount = contractPrice - servicePrice;
+                    }
                     switch ($dom.val()) {
                         case '1':
                         {
