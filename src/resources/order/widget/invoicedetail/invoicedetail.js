@@ -324,7 +324,9 @@ define(function( require , exports , module ){
 							}
 
 							//加盖财务章 开票信息
-							
+							if( data.value.model.stampimage ){
+								me.$('#financeimg').show().attr('src','/op/api/file/previewimage?filePath='+data.value.model.stampimage);
+							}
 
 							if( data.value.model.rejectReason ){
 								me.$('.rejectReason').html( getRejectReason( data.value.model.rejectReason ) );
