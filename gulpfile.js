@@ -11,6 +11,8 @@ var fs = require('fs'),
 	minifyHTML = require('gulp-minify-html'),
 	minifyCSS = require('gulp-minify-css'),
 	uglify = require('gulp-uglify'),
+	rename = require('gulp-rename'),
+	cmdJst = require('gulp-cmd-jst'),
 	concat = require('gulp-concat'),
 	transport = require('gulp-cmd-transit');
 
@@ -39,8 +41,8 @@ gulp.task('less', function() {
  */
 gulp.task('copy', function() {
 	return gulp.src(['src/**/*', '!src/**/*.less'], {
-		'base': 'src'
-	})
+			'base': 'src'
+		})
 		.pipe(gulp.dest('dest/'));
 });
 
@@ -50,12 +52,12 @@ gulp.task('copy', function() {
  */
 gulp.task('minify-html', function() {
 	return gulp.src([
-		'dest/**/*.html',
-		'dest/**/*.jsp',
-		'!dest/resources/common/widget/editor/**/*.html'
-	], {
-		'base': 'dest'
-	})
+			'dest/**/*.html',
+			'dest/**/*.jsp',
+			'!dest/resources/common/widget/editor/**/*.html'
+		], {
+			'base': 'dest'
+		})
 		.pipe(htmlmin({
 			empty: true,
 			minifyCSS: true,
@@ -83,13 +85,13 @@ gulp.task('minify-css', function() {
  */
 gulp.task("transport", function() {
 	return gulp.src([
-		'dest/resources/**/*.js',
-		'!dest/resources/assets/scripts/config.js',
-		'!dest/resources/common/**/*.js',
-		'!dest/resources/module/**/*.js'
-	], {
-		'base': 'dest'
-	})
+			'dest/resources/**/*.js',
+			'!dest/resources/assets/scripts/config.js',
+			'!dest/resources/common/**/*.js',
+			'!dest/resources/module/**/*.js'
+		], {
+			'base': 'dest'
+		})
 		.pipe(transport({
 			dealIdCallback: function(id) {
 				return './' + id;
@@ -100,16 +102,16 @@ gulp.task("transport", function() {
 
 gulp.task("transport:common", function() {
 	return gulp.src([
-		'dest/resources/common/**/*.js',
-		'!dest/resources/common/scripts/**/*.js',
-		'!dest/resources/common/widget/audio-player/audio-player-noswfobject.js',
-		'!dest/resources/common/widget/audio-player/dewplayer/*.js',
-		'!dest/resources/common/widget/editor/**/*.js',
-		'!dest/resources/common/widget/calendar/*.js',
-		'!dest/resources/common/widget/chart/*.js',
-		'!dest/resources/common/widget/cropper/*.js',
-		'!dest/resources/common/widget/swfobject/*.js'
-	])
+			'dest/resources/common/**/*.js',
+			'!dest/resources/common/scripts/**/*.js',
+			'!dest/resources/common/widget/audio-player/audio-player-noswfobject.js',
+			'!dest/resources/common/widget/audio-player/dewplayer/*.js',
+			'!dest/resources/common/widget/editor/**/*.js',
+			'!dest/resources/common/widget/calendar/*.js',
+			'!dest/resources/common/widget/chart/*.js',
+			'!dest/resources/common/widget/cropper/*.js',
+			'!dest/resources/common/widget/swfobject/*.js'
+		])
 		.pipe(transport({
 			dealIdCallback: function(id) {
 				return 'common/' + id;
@@ -135,12 +137,12 @@ gulp.task("transport:module", function() {
  */
 gulp.task('minify-js', function() {
 	return gulp.src([
-		'dest/resources/**/*.js',
-		'!dest/resources/common/widget/echart/**/*.js',
-		'!dest/resources/common/widget/editor/**/*.js'
-	], {
-		'base': 'dest'
-	})
+			'dest/resources/**/*.js',
+			'!dest/resources/common/widget/echart/**/*.js',
+			'!dest/resources/common/widget/editor/**/*.js'
+		], {
+			'base': 'dest'
+		})
 		.pipe(uglify({
 			preserveComments: false,
 			mangle: false,
@@ -161,6 +163,110 @@ gulp.task('concat', function() {
 	return;
 });
 
+gulp.task('jst.html', function() {
+	var rx_escapable = /[\\\"\u0000-\u001f\u007f-\u009f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,
+		meta = { // table of character substitutions
+			'\b': '\\b',
+			'\t': '\\t',
+			'\n': '\\n',
+			'\f': '\\f',
+			'\r': '\\r',
+			'"': '\\"',
+			'\\': '\\\\'
+		},
+		quote = function(string) {
+			// If the string contains no control characters, no quote characters, and no
+			// backslash characters, then we can safely slap some quotes around it.
+			// Otherwise we must also replace the offending characters with safe escape
+			// sequences.
+			rx_escapable.lastIndex = 0;
+			if (rx_escapable.test(string)) {
+				return '"' + string.replace(rx_escapable, function(a) {
+					var c = meta[a];
+					if (typeof c === 'string') {
+						return c;
+					} else {
+						return '\\u' + ('0000' + a.charCodeAt(0).toString(16)).slice(-4);
+					}
+				}) + '"';
+			} else {
+				return '"' + string + '"';
+			}
+		};
+
+	function unixy(uri) {
+		return uri.replace(/\\/g, '/');
+	}
+
+
+	var parser = function(filename, file) {
+		var content = [
+			'define(function(require, exports, module) {',
+			'    module.exports=' + quote(file).replace(/\s+/g, ' ') + ';',
+			'});'
+		].join('\n');
+		fs.writeFileSync(filename + '.js', content, 'utf-8');
+	};
+
+	var handle = function(dir) {
+		var files = fs.readdirSync(dir);
+		if (!files || !files.length) return;
+
+		files.forEach(function(filename) {
+			var path = dir + '/' + filename;
+			var stats = fs.statSync(path);
+
+			if (stats.isFile()) {
+				if (/\.html$/.test(filename)) {
+					return parser(path, fs.readFileSync(path, 'utf-8'));
+				}
+			}
+
+			if (stats.isDirectory()) {
+				handle(path);
+			}
+		});
+	};
+
+	handle('src/resources');
+});
+
+gulp.task('jst', function() {
+	/*var onError = function(err) {
+	    plugins.notify.onError({
+	        title: "Gulp",
+	        subtitle: "Failure!",
+	        message: "html error: <%= error.message %>",
+	        sound: "Beep"
+	    })(err);
+	    this.emit('end');
+	};*/
+	return gulp.src('src/resources/**/*.html')
+		/*.pipe(plugins.plumber({
+		    errorHandler: onError
+		}))*/
+		.pipe(cmdJst({
+			templateSettings: {
+				evaluate: /##([\s\S]+?)##/g,
+				interpolate: /\{\{(.+?)\}\}/g,
+				escape: /\{\{\{\{-([\s\S]+?)\}\}\}\}/g
+			},
+			/*processName: function(filename) {
+			    var moudle = filename.slice(0, filename.indexOf('/'))
+			    return moudle + '-' + filename.slice(filename.lastIndexOf('/') + 1, filename.lastIndexOf('.'));
+			},*/
+			processContent: function(src) {
+				return src.replace(/(^\s+|\s+$)/gm, '');
+			},
+			prettify: true,
+			cmd: true
+		}))
+		.pipe(rename({
+			suffix: '.html'
+		}))
+		.pipe(gulp.dest('src/resources/'))
+});
+
 /**
  * Replaces references to non-optimized scripts or stylesheets into a set of HTML files (or any templates/views).
  */
@@ -178,7 +284,7 @@ gulp.task('usemin', function() {
  * 文件md5戳处理
  */
 gulp.task('md5', function() {
-	return gulp.src(['dest/resources/**/*.js','!dest/resources/common/widget/my97datepicker/**/*.*'], {//, 'dest/resources/**/*.html'
+	return gulp.src(['dest/resources/**/*.js', '!dest/resources/common/widget/my97datepicker/**/*.*'], { //, 'dest/resources/**/*.html'
 			base: 'dest'
 		})
 		.pipe(rev())
@@ -243,17 +349,19 @@ var paths = {
 
 };
 //文件监听 第二个参数为触发后会执行的任务
-gulp.task('watch', function () {
+gulp.task('watch', function() {
 	gulp.watch(paths.lesses, ['less']);
+	gulp.watch(['src/resources/**/*.html'], ['jst.html']);
 });
 
 
 /*
  * 默认任务
  */
-gulp.task('default', ['less','watch']);
+gulp.task('default', ['less', 'watch']);
 gulp.task('release', sequence(
 	'clean',
+	'jst.html',
 	'less',
 	'copy', [
 		'transport',

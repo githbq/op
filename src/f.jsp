@@ -91,8 +91,8 @@
 <script type="text/javascript" src="resources/common/scripts/lib/backbone-1.1.2.js"></script>
 <script type="text/javascript" src="resources/common/scripts/lib/seajs-2.3.0.js"></script>
 <script type="text/javascript" src="resources/common/scripts/lib/seajs-css.js"></script>
-<script type="text/javascript" src="resources/common/scripts/lib/seajs-text.js"></script>
-<script type="text/javascript" src="resources/common/scripts/lib/seajs-preload.js"></script>
+<!-- <script type="text/javascript" src="resources/common/scripts/lib/seajs-text.js"></script>
+ --><script type="text/javascript" src="resources/common/scripts/lib/seajs-preload.js"></script>
 <script type="text/javascript" src="resources/common/scripts/util.js"></script>
 <script type="text/javascript" src="resources/common/scripts/widget.js"></script>
 <script type="text/javascript" src="resources/common/widget/calendar/jquery.datetimepicker.js"></script>
