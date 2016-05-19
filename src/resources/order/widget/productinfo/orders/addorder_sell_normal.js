@@ -63,7 +63,7 @@ define(function (require, exports, module) {
 
         common.setCommonData(controller, terminalDataItems, tableDataItems, formDataItems, 7, responseData);
 
-
+        common.setAddOrderLogic(controller, terminalDataItems, tableDataItems, formDataItems, 7, responseData);
         //增购逻辑
         var hasCRM = false;
         if (responseData && responseData.data && responseData.data.subOrders) {
@@ -73,7 +73,7 @@ define(function (require, exports, module) {
                 }
             });
         }
-        common.setAddOrderLogic(controller, terminalDataItems, tableDataItems, formDataItems, 7, responseData);
+
         if (responseData && ((!responseData.readonly && !hasCRM) || (hasCRM && responseData.readonly)) || (hasCRM && responseData.refuse)) {
 
 

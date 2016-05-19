@@ -71,6 +71,7 @@ define(function (require, exports, module) {
         //        n.visible = false;
         //    });
         //});
+        common.setAddOrderLogic(controller, terminalDataItems, tableDataItems, formDataItems, 8, responseData);
         common.setCommonData(controller, terminalDataItems, tableDataItems, formDataItems, 8, responseData);
 
         //增购逻辑
@@ -82,7 +83,7 @@ define(function (require, exports, module) {
                 }
             });
         }
-        common.setAddOrderLogic(controller, terminalDataItems, tableDataItems, formDataItems, 8, responseData);
+
         if (responseData && ((!responseData.readonly && !hasCRM) || (hasCRM && responseData.readonly)) || (hasCRM && responseData.refuse)) {
             controller(terminalDataItems, 'useFX', function (n) {
                 n.visible = true;
