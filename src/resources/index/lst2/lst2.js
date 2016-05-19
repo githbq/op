@@ -187,7 +187,7 @@ define(function (require, exports, module) {
                 data: data,
                 success: function (data) {
                     if (data.success) {
-                        if (data.value.model > 10000) {
+                        if (data.value.model == 1) {
 
                             util.api({
                                 data: originData,
