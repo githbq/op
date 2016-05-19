@@ -59,19 +59,22 @@ define(function (require, exports, module) {
             if (!responseData) {
                 return;
             }
-            /*
-            controller(dataItems, 'invoiceAddress', function (item) {
-                if( responseData.invoiceAddress ){
-                    item.value = responseData.invoiceId;
+
+            controller(dataItems, 'address', function (item) {
+                if( responseData.invoice.address ){
+                    item.value = responseData.invoice.address;
                 }else{
                     item.visible = false;
                 }
-                
             });
-                controller(dataItems, 'invoiceTele', function (item) {
-                item.value = responseData.invoiceId;
+            controller(dataItems, 'phone', function (item) {
+                if( responseData.invoice.phone ){
+                    item.value = responseData.invoice.phone;
+                }else{
+                    item.visible = false;
+                }
             });
-			*/
+
             controller(dataItems, 'invoiceId', function (item) {
                 item.value = responseData.invoiceId;
             });
@@ -98,7 +101,6 @@ define(function (require, exports, module) {
                     item.attr = {href: contract};
 
                 });
-                
                 
                 var contractCopy = '';
                 controller(dataItems, 'contractCopy', function (item) {
@@ -147,6 +149,21 @@ define(function (require, exports, module) {
                     }
                     item.attr = {href: businessLicense};
                 });
+                
+                var stampimage = '';
+                controller(dataItems, 'stampimage', function(item){
+                    if(item.value){
+                        item.attr = {src:'/op/api/file/previewimage?filePath=' + item.value};
+                        stampimage = item.attr.src;
+                    }
+                })
+                controller(dataItems, 'stampimage-a', function(item){
+                    if(!stampimage){
+                        item.visible = false;
+                    }
+                    item.attr = {href: stampimage};
+                });
+
                 var taxpayerQualification = '';
                 controller(dataItems, 'taxpayerQualification', function (item) {
                     if (item.value) {
