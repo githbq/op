@@ -8,9 +8,9 @@ define( function(require, exports, module){
 		
     var Tem = $( require('./template.html') );
 	var auditStatusMap = {
-        'WAIT': '待审核',
-        'SUCCESS': '审核成功',
-        'FAILS': '审核失败'
+        '0': '待审核',
+        '1': '审核成功',
+        '2': '审核失败'
     };
 
 	//用户列表
@@ -125,7 +125,9 @@ define( function(require, exports, module){
 						me.list.reload( data.value.model.content , function( item ){
 							if( item.auditStatus ){
                                 item.auditStatusStr = auditStatusMap[item.auditStatus];
-                            }
+                            }else{
+								item.auditStatusStr = "待审核";
+							}
                             if( item.agentAdmin ){
 
                             	//编辑自己的信息( 审核中 和 停用的状态的员工无法进入页面 所以自己的只可能是启用的状态 )
@@ -141,7 +143,7 @@ define( function(require, exports, module){
 
                             //其他普通用户 处于审核状态只可以看
                             }else{
-                            	if( item.auditStatus == 'WAIT' ){
+                            	if( item.auditStatus == '0' ){
 
                             		item.status = 'userdetail';
                             	}else if( item.active ){

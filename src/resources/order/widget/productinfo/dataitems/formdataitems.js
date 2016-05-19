@@ -16,6 +16,35 @@ define(function (require, exports, module) {
             })
         }
 
+        dataItems.push(new DataItem({
+            name: 'agentCurrPayAmount',
+            readonly: true
+        }));
+        dataItems.push(new DataItem({
+            name: 'orderAssigned',
+            value: '1',
+            events: [{
+                key: 'change', value: function (e) {
+                    var $dom = $(e.target);
+                    var me = this;
+                    if (me.o_getFieldValue('orderAssigned') == '1') {
+                        me.o_setValue({name: 'agentCurrPayAmount', visible: false, value: ''});
+                    } else {
+                        var servicePrice = 0;
+                        if (me.o_getFieldData('currPayAmount_3').visible == true) {
+                            servicePrice = me.o_getFieldValue('currPayAmount_3');
+                        } else {
+                            servicePrice = me.__refs.terminalInfo.o_getFieldValue('purchaseAmount_3');
+                        }
+                        me.o_setValue({name: 'agentCurrPayAmount', visible: true, value: servicePrice});
+                    }
+                    //重新计算价格
+                    me.__refs.tableInfo.$('[data-name=check]:first').change();
+                }
+            }]
+        }).on('setFieldValue', function ($ele, value, data, me) {
+                $ele.change();
+            }));
         //合同号
         dataItems.push(new DataItem({
             name: 'contractNo',
@@ -141,11 +170,21 @@ define(function (require, exports, module) {
                     var $dom = $(e.target);
                     var data = me.o_getFieldData('payStatus_select');
                     me.o_setValue({name: 'payStatus', value: $dom.val()});
+                    var servicePrice = 0;
+                    if (me.__refs.terminalInfo.o_getFieldValue('useFX')) {
+                        servicePrice = me.__refs.terminalInfo.o_getFieldValue('purchaseAmount_3');
+                    }
+                    var contractPrice = me.o_getFieldValue('contractPrice');
+                    var currPayAmount = contractPrice;
+                    if (me.__refs.formInfo.o_getFieldValue('orderAssigned') != 1) {//如果不是直销   服务是不计入合同总金额
+                        currPayAmount = contractPrice - servicePrice;
+                    }
                     switch ($dom.val()) {
                         case '1':
                         {
                             me.o_setValues([
-                                {name: 'currPayAmount', value: me.o_getFieldValue('contractPrice')},
+                                {name: 'currPayAmount', value: currPayAmount},
+                                {name: 'agentCurrPayAmount', value: servicePrice},
                                 {name: 'currPayAmount_3', value: '0', visible: false},
                                 {name: 'currPayAmount_1', value: '0', visible: false},
                                 {name: 'currPayAmount_4', value: '0', visible: false},
@@ -155,6 +194,7 @@ define(function (require, exports, module) {
                                 {name: 'currPayAmount_12', value: '0', visible: false}
                             ]);
                             //全款
+
                         }
                             ;
                             break;
@@ -162,6 +202,7 @@ define(function (require, exports, module) {
                         {//分期
                             me.o_setValues([
                                 {name: 'currPayAmount'},
+                                {name: 'agentCurrPayAmount', value: servicePrice},
                                 {name: 'currPayAmount_3', visible: false},
                                 {name: 'currPayAmount_1', visible: false},
                                 {name: 'currPayAmount_4', visible: false},
@@ -171,9 +212,9 @@ define(function (require, exports, module) {
                                 {name: 'currPayAmount_12', visible: false}
                             ]);
                             var checkeds = me.__refs.tableInfo.o_getFieldValue('check').split(',');
-                            if (me.__refs.terminalInfo.o_getFieldValue('useCRM') && me.__refs.terminalInfo.o_getFieldData('useCRMWrapper').visible!==false) {//使用了逍客终端 要加入服务费
+                            if (me.__refs.terminalInfo.o_getFieldValue('useCRM') && me.__refs.terminalInfo.o_getFieldData('useCRMWrapper').visible !== false) {//使用了逍客终端 要加入服务费
                                 checkeds.push('1');//CRM费用
-                                if (me.__refs.terminalInfo.o_getFieldData('businesscard').visible!==false) {
+                                if (me.__refs.terminalInfo.o_getFieldData('businesscard').visible !== false) {
                                     checkeds.push('8');//名片费用
                                 }
                             }
@@ -184,9 +225,15 @@ define(function (require, exports, module) {
                                 data.__editChanged = true;
                             }
                             $(checkeds).each(function (i, n) {
-                                me.o_setValues([
-                                    {name: 'currPayAmount_' + n, visible: true}
-                                ]);
+                                if (!(n == 3 && me.o_getFieldValue('orderAssigned') != 1)) { //非直销的情况下 服务费是不参与分期的
+                                    me.o_setValues([
+                                        {name: 'currPayAmount_' + n, visible: true}
+                                    ]);
+                                } else {
+                                    me.o_setValues([
+                                        {name: 'currPayAmount_' + n, visible: false, value: 0}
+                                    ]);
+                                }
                             });
                             me.o_data_getField({name: 'currPayAmount_1'}).change();
                         }
@@ -202,8 +249,15 @@ define(function (require, exports, module) {
                                 {name: 'currPayAmount_7', value: '0', visible: false},
                                 {name: 'currPayAmount_8', value: '0', visible: false},
                                 {name: 'currPayAmount_12', value: '0', visible: false},
-                                {name: 'currPayAmount', value: '0'}
+                                {name: 'currPayAmount', value: '0'},
+                                {name: 'agentCurrPayAmount', value: '0'}
                             ]);
+                            if (me.o_getFieldValue('orderAssigned') != 1) {//非直销的情况下 代理商金额始终等于服务费
+                                me.o_setValues([
+                                    {name: 'agentCurrPayAmount', value: servicePrice}
+                                ])
+                                ;
+                            }
                         }
                             ;
                             break;
@@ -224,6 +278,10 @@ define(function (require, exports, module) {
                     events: [{
                         key: 'change', value: function (e) {
                             var me = this;
+                            if (me.o_getFieldValue('payStatus_select') != 2) {
+                                //非状态2 不做任何操作
+                                return;
+                            }
                             var controll = me.__refs.tableInfo;
                             if (id == '1' || id == '3' || id == '8') {
                                 controll = me.__refs.terminalInfo;
@@ -239,16 +297,27 @@ define(function (require, exports, module) {
                                 $dom.val(purchaseAmount);
                             }
                             var currPayAmount = 0;
-                            me.$('.fenqi:visible').each(function (i, n) {
-                                if ($(n).val()) {
-                                    currPayAmount += parseFloat($(n).val());
+                            var agentCurrPayAmount = 0;
+                            me.$('.fenqi').each(function (i, n) {
+                                if ($(n).is('[data-name=currPayAmount_3]')) { //服务费
+                                    agentCurrPayAmount = parseFloat($(n).val() || 0);
+                                    if (me.__refs.formInfo.o_getFieldValue('orderAssigned') == 1) {//只有直销时才算入总部到款价
+                                        currPayAmount += parseFloat($(n).val() || 0);
+                                    } else {
+                                        agentCurrPayAmount = me.__refs.terminalInfo.o_getFieldValue('purchaseAmount_3');
+                                    }
+                                } else {
+                                    currPayAmount += parseFloat($(n).val() || 0);
                                 }
+
                             });
                             me.o_setValue({name: 'currPayAmount', value: currPayAmount});
-
+                            me.o_setValue({name: 'agentCurrPayAmount', value: agentCurrPayAmount});
                         }
                     }]
-                }));
+                }).on('setValue', function ($field, data, me) {
+                        $field.change();
+                    }));
             })(n);
         });
         //本次到款金额

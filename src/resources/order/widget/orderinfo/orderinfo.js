@@ -47,11 +47,11 @@ define(function(require, exports, module){
 				switch( obj["code"] )
 				{
 					case "FX_Terminal":
-						var strartTime = "",endTime = "";
+						/*var strartTime = "",endTime = "";
 						strartTime = obj['startDate'] ? new Date( obj['startDate']  )._format('yyyy/MM/dd'):'——';
 						endTime = obj['endDate'] ? new Date( obj['endDate']  )._format('yyyy/MM/dd'):'——';
 						strDom += " <tr> <td>"+obj['appName']+"(个)：</td><td>"+obj['quota']+"</td>" +
-						" <td>开始时间：</td><td>"+ strartTime +"</td> <td>结束时间：</td><td >"+endTime+"</td> </tr>";
+						" <td>开始时间：</td><td>"+ strartTime +"</td> <td>结束时间：</td><td >"+endTime+"</td> </tr>";*/
 
 						break;
 					case "CRM":

@@ -6468,9 +6468,12 @@ em {
 }
 .productinfo .forminfo .input-price-wrapper {
   overflow: hidden;
+  float: left;
+  height: auto;
+  max-width: 1000px;
 }
-.productinfo .forminfo label {
-  width: 200px;
+.productinfo .forminfo .field_row label {
+  width: 170px;
 }
 .productinfo .forminfo .input-price {
   float: left;
@@ -6496,7 +6499,10 @@ em {
   float: left;
 }
 .productinfo .field_row .input-price label {
-  width: 72px;
+  width: 85px;
+}
+.productinfo .field_row .fenqi {
+  width: 80px;
 }
 .productinfo .field_row .text-price label {
   width: 100px;

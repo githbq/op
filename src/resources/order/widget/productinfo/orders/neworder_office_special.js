@@ -49,7 +49,9 @@ define(function (require, exports, module) {
         common.setGZHelper(controller,terminalDataItems,tableDataItems,formDataItems);
         //工资助手强制 end
 
-
+        controller(terminalDataItems,'isnew',function(n){
+            n.value = true;
+        });
         common.setCommonData(controller, terminalDataItems, tableDataItems, formDataItems,2,responseData);
         return {terminalDataItems: terminalDataItems, tableDataItems: tableDataItems, formDataItems: formDataItems};
     }

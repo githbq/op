@@ -78,7 +78,8 @@ define(function(require, exports, module){
 		},
 		//数据渲染显示
 		setValue:function(){
-			var me = this;
+			var me = this; 
+			me.attrs.data.agentCurrPayAmount = me.attrs.data.agentCurrPayAmount ? me.attrs.data.agentCurrPayAmount : 0;
 			me.model.load( me.attrs.data )
 			if(me.attrs.showType){
 				me.model.set("currPayAmount",me.attrs.data.noChargeAmount);
@@ -178,6 +179,7 @@ define(function(require, exports, module){
 				});
 				me.model.set("currPayAmount",sum);
 			}
+			
 		},
 		//检测是否可编辑
 		checkEdit:function(editFlag){

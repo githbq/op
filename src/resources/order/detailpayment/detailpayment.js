@@ -139,6 +139,7 @@ define( function(require, exports, module){
 				'success': function( data ){
 					if( data.success ){
 						me.attrs.orderData = data.value.model.orderEntity;
+						me.attrs.orderAssigned  = (data.value.model.orderEntity && data.value.model.orderEntity.order && data.value.model.orderEntity.order.orderAssigned ) ? data.value.model.orderEntity.order.orderAssigned : 1;
 						me.attrs.enterpriseData.contract = data.value.model.contract ? data.value.model.contract :null;
 						me.attrs.enterpriseData.enterprise = data.value.model.enterprise ? data.value.model.enterprise :null;
 						me.attrs.enterpriseData.enterpriseExtend = data.value.model.enterpriseExtend ? data.value.model.enterpriseExtend :null;
@@ -160,6 +161,18 @@ define( function(require, exports, module){
 
 						if( data.success ){
 							me.attrs.receiveData = data.value.model;
+							
+							if( me.attrs.orderAssigned != 1 && me.attrs.receiveData.noChargeAmount ){
+								
+								for(var i = 0;i<me.attrs.receiveData.items.length; i++){
+									
+									if(me.attrs.receiveData.items[i]['productId'] == 3 ){
+										//me.attrs.receiveData.noChargeAmount = parseFloat( me.attrs.receiveData.noChargeAmount ) - parseFloat(me.attrs.receiveData.items[i]['noChargeAmount']);
+										me.attrs.receiveData.items.splice(i,1);
+										break;
+									} 
+								}   
+							}
 							callback && callback();
 						}
 					}
@@ -247,17 +260,7 @@ define( function(require, exports, module){
 			//var opinion = me.attrs.options.opinion ? me.attrs.options.opinion :'暂无';
 			//me.$('.last-options').text(opinion);
 			
-			//设置到款时间 receivedPayDate
-			var receivedPayDate = (me.attrs.orderData && me.attrs.orderData.order && me.attrs.orderData.order.receivedPayDate) ? new Date( me.attrs.orderData.order.receivedPayDate  )._format("yyyy-MM-dd"):'';
-			//设置到款编号
-			var receivedPayNum= (me.attrs.orderData && me.attrs.orderData.order && me.attrs.orderData.order.receivedPayNum)?me.attrs.orderData.order.receivedPayNum:'';
-
-			if(receivedPayDate){
-				me.$('.receivedPayDate').show();
-				me.$('.receivedPayDate-text').text(receivedPayDate);
-				me.$('.receivedPayNum-text').text(receivedPayNum);
-				me.$('.currentTask-finance').hide();
-			}
+			
 
 
 		},
@@ -281,6 +284,18 @@ define( function(require, exports, module){
 
 			var opinion = strDom ? strDom :'<tr><td colspan="4" style="text-align: center;">暂无</td></tr>';
 			me.$('.last-options').html( opinion );
+			
+			//设置到款时间 receivedPayDate
+			var receivedPayDate = (me.attrs.orderData && me.attrs.orderData.order && me.attrs.orderData.order.receivedPayDate) ? new Date( me.attrs.orderData.order.receivedPayDate  )._format("yyyy-MM-dd"):'';
+			//设置到款编号
+			var receivedPayNum= (me.attrs.orderData && me.attrs.orderData.order && me.attrs.orderData.order.receivedPayNum)?me.attrs.orderData.order.receivedPayNum:'未填写';
+
+			if(receivedPayDate){
+				me.$('.receivedPayDate').show();
+				me.$('.receivedPayDate-text').text(receivedPayDate);
+				me.$('.receivedPayNum-text').text(receivedPayNum);
+				me.$('.currentTask-finance').hide();
+			}
 			
 		},
 		//获取全部订单数据

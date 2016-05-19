@@ -71,6 +71,11 @@ define(function (require, exports, module) {
                             }
                             me.o_setValue({name: 'type_' + id, readonly: readonly});
                             me.o_setValue({name: 'purchaseAmount_' + id, readonly: readonly});
+                            if (!checked) {
+                                me.__refs.formInfo.o_setValue({name: 'currPayAmount_' + id, value: 0});
+                                me.o_setValue({name: 'purchaseAmount_' + id, value: 0});
+                                me.o_setValue({name: 'discount_'+id, value:''});
+                            }
                         }
                         priceComput.call(this, e);
                     }
@@ -117,33 +122,30 @@ define(function (require, exports, module) {
                             key: 'change',
                             value: function (e) {
                                 var me = this;
-                                var isreadony=me.__refs.terminalInfo.o_getFieldData('allreadonly').allreadonly === true;
-
+                                var isreadony = me.__refs.terminalInfo.o_getFieldData('allreadonly').allreadonly === true;
                                 var $dom = $(e.target);
-                                var condition=$dom.parents('tr').find('input[data-name=check]').is(':checked');
+                                var condition = $dom.parents('tr').find('input[data-name=check]').is(':checked');
                                 switch (me.o_getFieldValue($dom.attr('data-name'))) {
                                     case '1':
-                                    {
-                                        //试用
-                                        me.o_setValue({name: 'purchaseAmount_' + n.id, value: '0', readonly: true});
-                                        //清空折扣
-                                        me.o_setValue({name: 'discount_' + n.id, value: '', readonly: true});
-                                    }
-                                        ;
-                                        break;
                                     case '2':
                                     {
                                         //赠送
                                         me.o_setValue({name: 'purchaseAmount_' + n.id, value: '0', readonly: true});
                                         //清空折扣
                                         me.o_setValue({name: 'discount_' + n.id, value: '', readonly: true});
+                                        //折扣类型 联动分期  2016-5-10 by hbq
+                                        var payStatueData=me.__refs.formInfo.o_getFieldData('payStatus_select');
+                                        if(payStatueData.visible===true && me.__refs.formInfo.o_getFieldValue('payStatus_select')=='2'){
+                                            me.__refs.formInfo.o_setValue({name:'currPayAmount_'+ n.id,value:'0'});
+                                            me.__refs.formInfo.o_data_getField('currPayAmount_'+n.id).change();
+                                        }
                                     }
                                         ;
                                         break;
                                     case '3':
                                     {
                                         //折扣
-                                        me.o_setValue({name: 'purchaseAmount_' + n.id, value: me.o_getFieldValue('productAmount_' + n.id) || '0', readonly:condition? isreadony:true});
+                                        me.o_setValue({name: 'purchaseAmount_' + n.id, value: me.o_getFieldValue('productAmount_' + n.id) || '0', readonly: condition ? isreadony : true});
                                     }
                                         ;
                                         break;
@@ -225,29 +227,27 @@ define(function (require, exports, module) {
         //价格计算
         function priceComput(e) {
             var me = this;
-            var $dom = $(e.target);
-            var data = null;
             var ids = this.o_getFieldValue('check').split(',');
 
-            var order_amount = 0;
+            var order_amount = 0;//合同总金额
+            var curPayAmount = 0;//本次到款总金额
             var smallStartDate = 0;
             var maxEndDate = 0;
             var startDate = null;
             var endDate = null;
             var productAmount = 0;//产品原价
+            var payStatus = me.__refs.formInfo.o_getFieldValue('payStatus_select');
 
-
-            if (me.__refs.terminalInfo.o_getFieldData('businesscard').visible!==false && me.__refs.terminalInfo.o_getFieldValue('useCRM')) {
+            if (me.__refs.terminalInfo.o_getFieldData('businesscard').visible !== false && me.__refs.terminalInfo.o_getFieldValue('useCRM')) {
                 ids.push('8');
             }
-            if (me.__refs.terminalInfo.o_getFieldData('useCRMWrapper').visible!==false && me.__refs.terminalInfo.o_getFieldValue('useCRM')) {
+            if (me.__refs.terminalInfo.o_getFieldData('useCRMWrapper').visible !== false && me.__refs.terminalInfo.o_getFieldValue('useCRM')) {
                 ids.push('1');
             }
 
             if (me.__refs.terminalInfo.o_getFieldValue('useFX')) {
                 ids.push('3');
             }
-
 
             $(ids).each(function (i, n) {
                 var id = n;
@@ -272,30 +272,51 @@ define(function (require, exports, module) {
                 purchaseModule.__refs.terminalInfo.o_setValue({name: 'purchaseAmount_' + id, allow: true});
                 purchaseModule.o_setValue({name: 'purchaseAmount_' + id, allow: true});
 
+                if (id == 3 && me.__refs.formInfo.o_getFieldValue('orderAssigned') == 1) {//只有直销 服务费才加入到款总金额计算
+                    curPayAmount += parseFloat(purchaseModule.o_getFieldValue('purchaseAmount_' + id) || 0);
+                } else if (id != 3) {
+                    curPayAmount += parseFloat(purchaseModule.o_getFieldValue('purchaseAmount_' + id) || 0);
+                }
 
-                order_amount += parseFloat(purchaseModule.o_getFieldValue('purchaseAmount_' + id) || 0);
+                //if (id == 3 && me.__refs.formInfo.o_getFieldValue('orderAssigned') != 1) {//如果不是直销   服务是不计入合同总金额
+                //} else {
+                    order_amount += parseFloat(purchaseModule.o_getFieldValue('purchaseAmount_' + id) || 0);
+                //}
+
+
                 productAmount += parseFloat(purchaseModule.o_getFieldValue('productAmount_' + id) || 0);
-
+                if (payStatus == 2) {
+                    var curPayAmountItem = me.__refs.formInfo.o_getFieldValue('currPayAmount_' + id);
+                    var purchaseAmountItem = purchaseModule.o_getFieldValue('purchaseAmount_' + id);
+                    var curPayAmountItemResult = curPayAmountItem;
+                    if (purchaseAmountItem && curPayAmountItem && parseFloat(purchaseAmountItem) < parseFloat(curPayAmountItem)) {
+                        curPayAmountItemResult = purchaseAmountItem;
+                    }
+                    me.__refs.formInfo.o_setValue({name: 'currPayAmount_' + id, value: curPayAmountItemResult});
+                }
             });
             //me.__refs.terminalInfo.o_setValue({name: 'startTime_2', value: smallStartDate ? smallStartDate : null});
 
             //me.__refs.terminalInfo.o_setValue({name: 'endTime_2', value: maxEndDate ? maxEndDate : null});
             //console.log('合同总金额之表格部分计算结果1:' + me.o_getFieldValue('order_amount'));
 
-
+            debugger
             me.__refs.formInfo.o_setValue({name: 'contractPrice', value: order_amount});
             me.__refs.formInfo.o_setValue({name: 'productAmount', value: productAmount});
             //console.log('合同总金额之表格部分计算结果2:' + me.o_getFieldValue('order_amount'));
             //console.log('原价总金额之表格部分计算结果:' + me.o_getFieldValue('order_amount'));
-            if (me.__refs.formInfo.o_getFieldData('payStatus_name').visible!==false || me.__refs.formInfo.o_getFieldValue('payStatus_select') == '1') {
-                me.__refs.formInfo.o_setValue({name: 'currPayAmount', value: order_amount});
+            if (me.__refs.formInfo.o_getFieldData('payStatus_name').visible !== false || me.__refs.formInfo.o_getFieldValue('payStatus_select') == '1') {
+                me.__refs.formInfo.o_setValue({name: 'currPayAmount', value: curPayAmount});
             }
-            if (me.__refs.formInfo.o_getFieldData('payStatus_select').visible!==false) {
-                me.__refs.formInfo.o_data_getField({name: 'payStatus_select'}).change();
+            if (me.__refs.formInfo.o_getFieldData('payStatus_select').visible !== false) {
+                setTimeout(function () {
+                    me.__refs.formInfo.o_data_getField({name: 'payStatus_select'}).change();
+                }, 20);
             }
 
         }
 
+        exports.priceComput = priceComput;
         function changeForGetPrice(e, change) {
             var me = this;
             var $dom = $(e.target);
@@ -312,7 +333,8 @@ define(function (require, exports, module) {
                     endDate: me.o_getFieldValue('endTime_' + id),
                     sum: 1,
                     contractAmount: me.o_getFieldValue('purchaseAmount_' + id),
-                    orderType: me.o_getFieldValue('orderType')
+                    orderType: me.o_getFieldValue('orderType'),
+                    hasPurchaseCount: me.__refs.terminalInfo.o_getFieldValue('old_CRMCount') || 0
                 },
                 success: function (responseData) {
                     console.warn(responseData);
@@ -331,10 +353,10 @@ define(function (require, exports, module) {
             if (options.data.startDate && options.data.endDate) {
                 if (options.data.startDate > options.data.endDate) {
                     util.showToast('开始日期必须小于等于结束日期');
-                    if(!me.o_getFieldData('startTime_' + id).__force){
-                    me.o_setValue({name: 'startTime_' + id, value: ''});
+                    if (!me.o_getFieldData('startTime_' + id).__force) {
+                        me.o_setValue({name: 'startTime_' + id, value: ''});
                     }
-                    if(!me.o_getFieldData('endTime_' + id).__force){
+                    if (!me.o_getFieldData('endTime_' + id).__force) {
                         me.o_setValue({name: 'endTime_' + id, value: ''});
                     }
                     me.o_setValue({name: 'discount_' + id, value: ''});
@@ -357,6 +379,12 @@ define(function (require, exports, module) {
                     me.o_setValue({name: 'purchaseAmount_' + id, value: 0, readonly: true});
                     me.o_setValue({name: 'purchaseAmount_input_' + id, value: 0, readonly: true});
                     me.o_setValue({name: 'discount_' + id, value: ''});
+                    //折扣类型 联动分期  2016-5-10 by hbq
+                    var payStatueData=me.__refs.formInfo.o_getFieldData('payStatus_select');
+                    if(payStatueData.visible===true && me.__refs.formInfo.o_getFieldValue('payStatus_select')=='2'){
+                        me.__refs.formInfo.o_setValue({name:'currPayAmount_'+ id,value:'0'});
+                        me.__refs.formInfo.o_data_getField('currPayAmount_'+id).change();
+                    }
                 }
                     ;
                     break;

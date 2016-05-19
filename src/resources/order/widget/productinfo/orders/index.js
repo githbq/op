@@ -26,6 +26,15 @@ define(function (require, exports, module) {
             if (responseData) {
                 var dataDic = toNameDictionary(bigArr);
                 var order, contract, enterpriseExtend, subOrders;
+
+                //历史CRM终端总量
+                controller(terminalDataItems, 'old_CRMCount', function (item) {
+                    item.value = responseData.old_CRMCount;
+                });
+                //历史销客终端总量
+                controller(terminalDataItems, 'old_FXCount', function (item) {
+                    item.value = responseData.old_FXCount;
+                });
                 if (responseData.data) {
                     order = responseData.data.order;
                     contract = responseData.data.contract;
@@ -113,7 +122,7 @@ define(function (require, exports, module) {
                             }
                         }
                         var items = tableDataItems;
-                        if ($.inArray(n.subOrder.productId.toString(), ['1', '2', '3','13']) >= 0) {
+                        if ($.inArray(n.subOrder.productId.toString(), ['1', '2', '3', '13']) >= 0) {
                             items = terminalDataItems;
                         }
                         if (subOrder.productId == '1') {//选中CRM
@@ -213,26 +222,44 @@ define(function (require, exports, module) {
                 if (responseData && responseData.payInfoReadonly !== undefined) {//支付信息只读
                     exports.setPayInfoReadonly(controller, terminalDataItems, tableDataItems, formDataItems, responseData.payInfoReadonly);
                 }
-
             }
-
-
         }
         ;
+        //设置续费逻辑
+        exports.setRenewLogic = function (controller, terminalDataItems, tableDataItems, formDataItems, type, responseData) {
+            CRMNewLogic(controller, terminalDataItems, tableDataItems, formDataItems, type, responseData);
+        };
+        function CRMNewLogic(controller, terminalDataItems, tableDataItems, formDataItems, type, responseData) {
+            //终端总个数
+            controller(terminalDataItems, 'purchaseCount_2', function (n) {
+                n.value = 0;
+            });
+
+        }
 
         //设置增购逻辑
         exports.setAddOrderLogic = function (controller, terminalDataItems, tableDataItems, formDataItems, type, responseData) {
+            CRMNewLogic(controller, terminalDataItems, tableDataItems, formDataItems, type, responseData);
             controller(tableDataItems, 'tablelist', function (n) {
                 n.visible = true;
             });
-            controller(tableDataItems, 'check', function (n) { 
+            controller(tableDataItems, 'startTime_7', function (n) {
+                n.value = '';
+            });
+            controller(tableDataItems, 'endTime_7', function (n) {
+                n.value = '';
+            });
+            controller(tableDataItems,'type_7',function(n){
+                n.value = '3';
+            });
+            controller(tableDataItems, 'check', function (n) {
                 n.on('setFieldValue', function ($ele, value, data, me) {
                     var isreadonly = me.__refs.terminalInfo.o_getFieldData('allreadonly').allreadonly === true;
                     if (responseData && responseData.data && responseData.data.subOrders) {
                         var ids = [];
-                        if(responseData.refuse){//被驳回前 要隐藏掉相关的子产品
-                            me.$('input[type=checkbox][data-name=check]').each(function(i,n){
-                                if(!$(n).is(':checked')){
+                        if (responseData.refuse) {//被驳回前 要隐藏掉相关的子产品
+                            me.$('input[type=checkbox][data-name=check]').each(function (i, n) {
+                                if (!$(n).is(':checked')) {
                                     $(n).parents('tr').hide();
                                 }
                             });
@@ -323,8 +350,13 @@ define(function (require, exports, module) {
                 payerName: formInfoData.payerName,
                 contractNo: formInfoData.contractNo,
                 amount: formInfoData.contractPrice,
-                productAmount: formInfoData.productAmount
+                productAmount: formInfoData.productAmount,
+                agentCurrPayAmount: formInfoData.agentCurrPayAmount,//代理商金额
+                orderAssigned: formInfoData.orderAssigned//订单标记
             };
+            if (formInfoData.orderAssigned == 1) { //标记为1 为直销此时没有代理商金额
+                data.order.agentCurrPayAmount = 0;
+            }
 
         };
 
@@ -388,6 +420,9 @@ define(function (require, exports, module) {
             //    n.readonly = isReadonly;
             //});
             controller(formDataItems, 'payStatus_select', function (n) {
+                n.readonly = isReadonly;
+            });
+            controller(formDataItems, 'orderAssigned', function (n) {
                 n.readonly = isReadonly;
             });
             controller(formDataItems, 'payDate', function (n) {
@@ -466,8 +501,9 @@ define(function (require, exports, module) {
                             endTime: fromData['endTime_' + n] || new Date().getTime(),
                             productAmount: fromData['productAmount_' + n] || 0,
                             discount: fromData['discount_' + n] || 0,
-                            currPayAmount: formInfoData['currPayAmount_' + n] || 0
+                            currPayAmount: formInfo.o_getFieldValue('payStatus_select') != '2' ? 0 : ( formInfoData['currPayAmount_' + n] || 0)
                         };
+
                         //if (n == '3') {
                         //    subOrder.startTime = fromData['startTime_2'];
                         //    subOrder.endTime = fromData['endTime_2'];

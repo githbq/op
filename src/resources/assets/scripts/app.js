@@ -7,6 +7,7 @@ define('common/app', function(require, exports, module){
 		IBSS = win.IBSS;
 	
 	var Remind = require('common/widget/remind/remind');
+	var DownFile = require('module/downfile/downfile');
 
 	
     /**
@@ -619,6 +620,11 @@ define('common/app', function(require, exports, module){
 					location.href = $this.parent('li').find('li a[href]').eq(0).attr('href');
 				}
 			});
+			
+			//
+			$('.down-file').on('click',function(e){
+				me.trigger('downFile');
+			});
 		}
     });
 
@@ -633,6 +639,7 @@ define('common/app', function(require, exports, module){
 			var spa = new Spa();
 			IBSS.tpl = spa.curPage;     // 当前页面信息
             IBSS.tplEvent = spa;        // 页面路由
+			var downFile = null;
 			
 			if (IBSS.IS_DEVELOP) {
 				IBSS.loadNum = spa.loadNum + 1;    // 便与开发模式下查看信息
@@ -642,6 +649,11 @@ define('common/app', function(require, exports, module){
 			spa.getAccount( bool ,function(){
 				Backbone.history.start();   // 开启路由
 			});
+			
+			spa.on('downFile',function(){
+				downFile = new DownFile();
+				downFile.show( );
+			})
 		}
     };
 	
