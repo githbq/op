@@ -190,7 +190,7 @@ define( function(require, exports, module){
 			var tempLength = me.attrs.invoiceData.length;
 			me.attrs.invioceAry = [];
 			for(var i = 0; i<tempLength; i++){
-				if( me.attrs.orderInfoValue.model && me.attrs.invoiceData[i].invoiceStatus != 0 ){
+				if( me.attrs.orderInfoValue.model && (me.attrs.invoiceData[i].invoiceStatus == 1 || me.attrs.invoiceData[i].invoiceStatus == 2|| me.attrs.invoiceData[i].invoiceStatus == 3 )){
 					me.attrs.hasInovice = 1;
 					for(var j = 0; j< me.attrs.orderInfoValue.model.refundInvoices.length; j++ ){
 						if( (me.attrs.invoiceData[i].id ==  me.attrs.orderInfoValue.model.refundInvoices[j].invoiceId )  ){
@@ -205,7 +205,7 @@ define( function(require, exports, module){
 						}
 					}
 					
-				}else if( me.attrs.invoiceData[i].invoiceStatus != 0 ){
+				}else if( me.attrs.invoiceData[i].invoiceStatus == 1 ||  me.attrs.invoiceData[i].invoiceStatus == 2 ||  me.attrs.invoiceData[i].invoiceStatus == 3){
 					me.attrs.hasInovice = 1;
 					var tempClass = "invoice_"+i;
 					me.$view.find('.common--invioce').append('<div class="'+tempClass+'"></div>');
