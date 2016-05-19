@@ -50,6 +50,8 @@ define(function (require, exports, module) {
                 n.visible = false;
             });
         });
+        //增购默认时间
+        common.setAddOrderTime(controller, terminalDataItems, tableDataItems, formDataItems);
         common.setCommonData(controller, terminalDataItems, tableDataItems, formDataItems, 5, responseData);
 
 

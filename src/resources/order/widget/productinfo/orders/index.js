@@ -243,15 +243,7 @@ define(function (require, exports, module) {
             controller(tableDataItems, 'tablelist', function (n) {
                 n.visible = true;
             });
-            controller(tableDataItems, 'startTime_7', function (n) {
-                n.value = '';
-            });
-            controller(tableDataItems, 'endTime_7', function (n) {
-                n.value = '';
-            });
-            controller(tableDataItems,'type_7',function(n){
-                n.value = '3';
-            });
+
             controller(tableDataItems, 'check', function (n) {
                 n.on('setFieldValue', function ($ele, value, data, me) {
                     var isreadonly = me.__refs.terminalInfo.o_getFieldData('allreadonly').allreadonly === true;
@@ -408,6 +400,15 @@ define(function (require, exports, module) {
             });
             controller(terminalDataItems, 'startTime_1', function (n) {
                 n.readonly = true;
+            });
+            controller(tableDataItems, 'startTime_7', function (n) {
+                n.value = '';
+            });
+            controller(tableDataItems, 'endTime_7', function (n) {
+                n.value = '';
+            });
+            controller(tableDataItems,'type_7',function(n){
+                n.value = '3';
             });
         };
 
