@@ -215,6 +215,7 @@ define( function(require, exports, module){
 					me.attrs.invioceIdAry.push( me.attrs.invoiceData[i].id )
 				}
 			}
+			
 		},
 		//设置订单基本信息
 		setOrderInfo:function(){
