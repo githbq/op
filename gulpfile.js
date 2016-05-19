@@ -130,6 +130,15 @@ gulp.task("transport:module", function() {
 		.pipe(gulp.dest('dest/resources/module/'));
 });
 
+gulp.task("transport:page",function(){
+	return gulp.src(['dest/resources/page/**/*.js'])
+		.pipe(transport({
+			dealIdCallback: function(id){
+				return 'page/' + id;
+			}
+		}))
+		.pipe(gulp.dest('dest/resources/page/'));
+});
 
 /**
  *
@@ -273,7 +282,6 @@ gulp.task('jst', function() {
 gulp.task('usemin', function() {
 	return gulp.src(['dest/*.jsp', 'dest/*.html'])
 		.pipe(usemin({
-			css: [rev],
 			common: ['concat'],
 			app: ['concat']
 		}))
@@ -284,7 +292,11 @@ gulp.task('usemin', function() {
  * 文件md5戳处理
  */
 gulp.task('md5', function() {
+<<<<<<< HEAD
 	return gulp.src(['dest/resources/**/*.js', '!dest/resources/common/widget/my97datepicker/**/*.*'], { //, 'dest/resources/**/*.html'
+=======
+	return gulp.src(['dest/resources/**/*.js','dest/resources/assets/style/main.css','!dest/resources/common/widget/my97datepicker/**/*.*'], {//, 'dest/resources/**/*.html'
+>>>>>>> 04b2f5b95e4524cbc9a73cd87ebc7e2f1c608a88
 			base: 'dest'
 		})
 		.pipe(rev())
@@ -294,7 +306,7 @@ gulp.task('md5', function() {
 });
 
 gulp.task('collector', function() {
-	return gulp.src(['dest/rev/**/*.json', 'dest/*.html', 'dest/*.jsp'])
+	return gulp.src(['dest/rev/**/*.json', 'dest/*.html', 'dest/*.jsp', 'dest/resources.js'])
 		.pipe(collector({
 			replaceReved: true
 		}))
@@ -364,9 +376,10 @@ gulp.task('release', sequence(
 	'jst.html',
 	'less',
 	'copy', [
-		'transport',
+		//'transport',
 		'transport:common',
-		'transport:module'
+		'transport:module',
+		'transport:page'
 	],
 	'usemin',
 	'md5',

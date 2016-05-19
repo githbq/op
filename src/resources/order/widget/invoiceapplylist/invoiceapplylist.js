@@ -13,7 +13,7 @@ define(function (require, exports, module) {
 
     //发票类型
     var InvoiceTypeMap = {
-        '1':'普通增值税发票',
+        '1':'增值税普通发票',
         '2':'增值税专用发票'
     }
 

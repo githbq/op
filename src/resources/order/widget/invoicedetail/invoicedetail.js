@@ -40,7 +40,8 @@ define(function( require , exports , module ){
 
 		elements: {
 			'#businessLicense': 'businessLicense',
-			'#qualification': 'qualification'
+			'#qualification': 'qualification',
+			'#financefile': 'financefile'
 		},
 
 		events: {
@@ -51,6 +52,8 @@ define(function( require , exports , module ){
 			'click .cancel': 'cancelEve'                       //取消
 		},
 
+		// 第二层 不同类型的发票类型 显隐控制
+		// 
 		// 发票类型点击切换事件
 		// 因为input点击事件有时不会触发
 		// 需要读取信息然后控制显隐
@@ -60,26 +63,36 @@ define(function( require , exports , module ){
 			var invoice = me.$('[name="invoice"]:checked').val();
 			var invoicetype = me.$('[name="invoicetype"]:checked').val();
 
+			//到款发票
 			if( invoice == 1 ){
 
+				//增值税普通发票
 				if( invoicetype == 1 ){
 					me.$('.file').hide();
 					me.$('.imginfo').hide();
+
 					me.$('.typea').show().siblings('section').hide();
+				//增值税专用发票
 				}else if( invoicetype == 2 ){
 					me.$('.file').show();
 					me.$('.imginfo').show();
+
 					me.$('.typeb').show().siblings('section').hide();
 				}
+			//预开发票
 			}else if( invoice == 2 ){
-
+				
+				//增值税普通发票
 				if( invoicetype == 1 ){
 					me.$('.file').hide();
 					me.$('.imginfo').hide();
+
 					me.$('.typec').show().siblings('section').hide();
+				//增值税专用发票
 				}else if( invoicetype == 2 ){
 					me.$('.file').show();
 					me.$('.imginfo').show();
+
 					me.$('.typed').show().siblings('section').hide();
 				}
 			}
@@ -217,17 +230,28 @@ define(function( require , exports , module ){
 					}
 				})
 			});
+
+			//
+			me.$financefile.on('change',function(){
+				uploader.send({
+					'url': '/op/api/file/uploadsinglefileandcheck',
+					'files': me.$financefile[0].files,
+					'options':{
+						'limittype':'IMAGE'
+					},
+					'success': function( response ){
+						console.warn( response );
+						me.model.set('stampimage', response.value.model.path );
+						me.model.set('stampimageFileName', response.value.model.FileName );
+					}
+				})
+			});
 		},
 
 		// 显示
 		// @param id 					订单id 
 		// @param invoiceId     		发票id    
 		// @param approvalStatus        发票状态
-		//  0 提交        add   
-		//  1 撤回        withdraw
-		//	2 待审核      
-		//  3 审批通过    
-		//  9 被驳回      refuse 
 		show: function( id, invoiceId, approvalStatus , info ){
 			InvoiceDetail.__super__.show.apply( this, arguments );
 
@@ -265,6 +289,8 @@ define(function( require , exports , module ){
 			});
 			me.$('#bsimg').hide();
 			me.$('#qaimg').hide();
+			me.$('#financeimg').hide();
+
 			//如果有发票id则 显示发票详情
 			if( invoiceId ){
 				
@@ -297,6 +323,9 @@ define(function( require , exports , module ){
 								me.$('#qaimg').show().attr('src','/op/api/file/previewimage?filePath='+data.value.model.taxpayerQualification);
 							}
 
+							//加盖财务章 开票信息
+							
+
 							if( data.value.model.rejectReason ){
 								me.$('.rejectReason').html( getRejectReason( data.value.model.rejectReason ) );
 							}else{
@@ -316,9 +345,15 @@ define(function( require , exports , module ){
 			};
 		},
 
-		//
-		// 根据当前状态设置显隐
-		//
+
+
+		//  第一层
+		//  根据当前状态设置显隐
+		//  0 提交        add   
+		//  1 撤回        withdraw
+		//	2 待审核      
+		//  3 审批通过    
+		//  9 被驳回      refuse
 		setState: function( status ){
 			var me = this;
 
@@ -337,7 +372,7 @@ define(function( require , exports , module ){
 				});
 			});	
 
-			//
+			
 			// 1 9  0 状态除外都disable
 			if( ( status != 1 ) && ( status != 9 ) && ( status != 0 ) ){
 				me.$('input,textarea').attr('disabled','disabled');
@@ -349,6 +384,7 @@ define(function( require , exports , module ){
 		},
 
 		//隐藏
+		//默认图片信息是隐藏的
 		hide: function( ){
 			InvoiceDetail.__super__.hide.apply( this, arguments );
 
@@ -406,6 +442,10 @@ define(function( require , exports , module ){
 					util.showToast('请选择资质证书');
 					return false;
 				}
+				if( !me.model.get('stampimage') ){
+					util.showToast('加盖财务章的开票信息');
+					return false;
+				}
 				if( !me.model.get('taxpayerIdentificationNo') ){
 					util.showToast('请填写纳税人识别号');
 					return false;
@@ -416,6 +456,14 @@ define(function( require , exports , module ){
 				}
 				if( !me.model.get('bankAccount') ){
 					util.showToast('请填写账号');
+					return false;
+				}
+				if( !me.model.get('address')){
+					util.showToast('发票地址');
+					return false;
+				}
+				if( !me.model.get('phone')){
+					util.showToast('发票电话');
 					return false;
 				}
 			}
@@ -439,6 +487,10 @@ define(function( require , exports , module ){
   				"businessLicense": me.model.get('businessLicense'),
   				"taxpayerQualificationFileName": me.model.get('taxpayerQualificationFileName'),
   				"taxpayerQualification": me.model.get('taxpayerQualification'),
+  				'stampimage': me.model.get('stampimage'),
+  				'stampimageFileName': me.model.get('stampimageFileName'),
+  				'address': me.model.get('address'),
+  				'phone': me.model.get('phone'),
   				"taxpayerIdentificationNo": me.model.get('taxpayerIdentificationNo'),
   				"receiverName": me.model.get('receiverName'),
   				"receiverAddress": me.model.get('receiverAddress'),

@@ -129,7 +129,14 @@
                     <img src="" alt="" data-name="taxpayerQualification">
                 </a>
             </p>
-
+			<!--
+            <p>
+                <span class="title">加盖财务章的开票信息 :</span>
+                <a href="#" data-name="caiwuzhang-a" target="_blank">
+                    <img src="" alt="" data-name="caiwuzhang">
+                </a>
+            </p>
+			-->
             <p>
                 <span class="title">发票抬头:</span>
                 <span data-name="invoiceHead"></span>
@@ -173,6 +180,16 @@
                 <span class="title">发票性质:</span>
                 <span data-name="invoiceProp"></span>
             </p>
+			<!--
+            <p>
+                <span class="title">发票地址:</span>
+                <span data-name="invoiceAddress"></span>
+            </p>
+            <p>
+                <span class="title">发票电话</span>
+                <span data-name="invoiceTele"></span>
+            </p>
+			-->
         </section>
 
         <h4>开具发票信息</h4>
@@ -180,8 +197,9 @@
             <p>
                 <span class="title">发票状态:</span>
                 <select data-name="invoiceStatus">
-                    <option value="0">未开</option>
                     <option value="1">已开</option>
+                    <option value="2">红字</option>
+                    <option value="3">作废</option>
                 </select>
             </p>
             <p>
