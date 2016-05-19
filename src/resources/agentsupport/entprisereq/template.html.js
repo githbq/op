@@ -1,0 +1,3 @@
+define(function(require, exports, module) {
+    module.exports="<script type=\"text/template\" id=\"reqlist\">\n <% _.each(content,function(item){ %>\n <tr>\n <td></td>\n <td><%=item.enterpriseFilingName%></td>\n <td><%=item.requestStatusStr%></td>\n <td><%=item.createTimeStr%></td>\n <td><%=item.filingStatusStr%></td>\n <td><a data-id=\"<%=item.id%>\" class=\"requestdetail\" data-permissions=\"F009049\">查看</a></td>\n <td></td>\n </tr>\n <% }) %>\n</script>\n";
+});

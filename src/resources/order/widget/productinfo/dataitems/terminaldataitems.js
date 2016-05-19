@@ -57,7 +57,6 @@ define(function (require, exports, module) {
                     var $dom = $(e.target);
                     var checked = $dom.is(':checked');
                     if (!checked) {
-                        me.__refs.formInfo.o_setValue({name: 'currPayAmount_3', value: 0});
                         me.o_setValue({name: 'purchaseAmount_input_3', value: 0});
                         me.o_setValue({name: 'purchaseAmount_3', value: 0});
                         me.o_setValue({name: 'purchaseCount_3', value: 0});
@@ -469,7 +468,7 @@ define(function (require, exports, module) {
             //    $dom.change();
             //}
             var sum = 1;
-            if (id == '1' || id == '16') {//针对CRM数量可改
+            if (id == '1') {//针对CRM数量可改
                 sum = me.o_getFieldValue('purchaseCount_' + id);
                 if (!sum) {
                     checkTypeForPrice.call(me, e, id);
@@ -483,9 +482,9 @@ define(function (require, exports, module) {
                     startDate: me.o_getFieldValue('startTime_' + id),
                     endDate: me.o_getFieldValue('endTime_' + id),
                     sum: sum,
-                    contractAmount: me.o_getFieldValue('purchaseAmount_' + id) || 0,
+                    contractAmount: me.o_getFieldValue('purchaseAmount_' + id) || '0',
                     orderType: me.o_getFieldValue('orderType'),
-                    hasPurchaseCount: me.o_getFieldValue('old_CRMCount') || 0
+                    hasPurchaseCount: me.o_getFieldValue('old_CRMCount') || '0'
                 },
                 success: function (responseData) {
                     if (responseData.success) {
@@ -510,7 +509,7 @@ define(function (require, exports, module) {
                     util.showToast('开始日期必须小于结束日期');
                     me.o_setValue({name: 'startTime_' + id, value: ''});
                     me.o_setValue({name: 'endTime_' + id, value: ''});
-                } else {
+                } else if(me.o_getFieldValue('allreadonly')!==true){
                     //document.title=Math.random();
                     me.attrs.apiPool.api_getCalculateSingle(options);
                 }

@@ -52,6 +52,8 @@ define(function (require, exports, module) {
             n.value = false;
         });
         common.setNotable(controller,terminalDataItems,tableDataItems,formDataItems);
+        //增购默认时间
+        common.setAddOrderTime(controller, terminalDataItems, tableDataItems, formDataItems);
         common.setCommonData(controller, terminalDataItems, tableDataItems, formDataItems,6,responseData);
         //增购逻辑
         var hasCRM = false;
