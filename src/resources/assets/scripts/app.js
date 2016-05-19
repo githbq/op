@@ -263,7 +263,36 @@ define('common/app', function(require, exports, module){
 			// 页面载入中
 			// 只用于请求html 文件的全局loading ui展现
 			IBSS.trigger('load');
-			
+			require.async(that.path+'.html',function(response){
+				var $el = $(response);
+					
+					that.singn = true;  // 已经存在于当前页面了
+
+					// 内容添加到页面中去
+					$('#con').append($el);
+
+					// 重新记录当前页面
+					// undersorce 不支持深复制， 手动清空events
+					that.curPage._events = null;
+					_.extend(that.curPage, {
+						path: that.path,
+						$el: $el,
+						cache: ($el.attr('cache') == 'true'),   // 页面缓存
+						_needDeps: false,
+						_depsComplete: false,
+						widget: []
+						// lightNav: ($el.attr('lightnav') == 'true')
+					}, Backbone.Events);
+					
+					// 页面载入结束
+					// 清空载入效果ui
+					IBSS.trigger( 'loaded', $el );
+					IBSS.trigger('switched');   // 全局执行switched 事件
+					
+					// 请求依赖文件
+					that._getDeps($el);	
+			})
+			/*
 			that.xhr = util.ajax({
 				url:      that.path + '.html',
 				dataType: 'html',
@@ -302,7 +331,8 @@ define('common/app', function(require, exports, module){
 				error: function() {
 					// TODO 404 page
 				}
-			});		
+			});	
+			*/	
 		},
 		
 		/**

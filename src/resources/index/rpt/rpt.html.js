@@ -1,0 +1,3 @@
+define(function(require, exports, module) {
+    module.exports="<div class=\"p-list p-indexact-rpt\" js=\"true\">\r\n <div class=\"m-list m-act-rpt u-tablelist\">\r\n <div class=\"list-main\">\r\n <div class=\"list-header\">\r\n <h3>企业列表</h3>\r\n </div>\r\n </div>\r\n <div class=\"list-content\">\r\n <table>\r\n <thead>\r\n <tr>\r\n <th></th>\r\n <th>月份</th>\r\n <th>整月版</th>\r\n <th>工作日版</th>\r\n <th></th>\r\n </tr>\r\n </thead>\r\n <tbody></tbody>\r\n </table>\r\n </div>\r\n </div>\r\n</div>";
+});
