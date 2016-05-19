@@ -292,11 +292,9 @@ gulp.task('usemin', function() {
  * 文件md5戳处理
  */
 gulp.task('md5', function() {
-<<<<<<< HEAD
-	return gulp.src(['dest/resources/**/*.js', '!dest/resources/common/widget/my97datepicker/**/*.*'], { //, 'dest/resources/**/*.html'
-=======
+
 	return gulp.src(['dest/resources/**/*.js','dest/resources/assets/style/main.css','!dest/resources/common/widget/my97datepicker/**/*.*'], {//, 'dest/resources/**/*.html'
->>>>>>> 04b2f5b95e4524cbc9a73cd87ebc7e2f1c608a88
+
 			base: 'dest'
 		})
 		.pipe(rev())
