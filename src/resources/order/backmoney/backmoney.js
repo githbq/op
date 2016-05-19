@@ -190,7 +190,7 @@ define( function(require, exports, module){
 			var tempLength = me.attrs.invoiceData.length;
 			me.attrs.invioceAry = [];
 			for(var i = 0; i<tempLength; i++){
-				if( me.attrs.orderInfoValue.model && me.attrs.invoiceData[i].invoiceStatus == 1 ){
+				if( me.attrs.orderInfoValue.model && (me.attrs.invoiceData[i].invoiceStatus == 1 || me.attrs.invoiceData[i].invoiceStatus == 2|| me.attrs.invoiceData[i].invoiceStatus == 3 )){
 					me.attrs.hasInovice = 1;
 					for(var j = 0; j< me.attrs.orderInfoValue.model.refundInvoices.length; j++ ){
 						if( (me.attrs.invoiceData[i].id ==  me.attrs.orderInfoValue.model.refundInvoices[j].invoiceId )  ){
@@ -205,7 +205,7 @@ define( function(require, exports, module){
 						}
 					}
 					
-				}else if( me.attrs.invoiceData[i].invoiceStatus == 1 ){
+				}else if( me.attrs.invoiceData[i].invoiceStatus == 1 ||  me.attrs.invoiceData[i].invoiceStatus == 2 ||  me.attrs.invoiceData[i].invoiceStatus == 3){
 					me.attrs.hasInovice = 1;
 					var tempClass = "invoice_"+i;
 					me.$view.find('.common--invioce').append('<div class="'+tempClass+'"></div>');
@@ -245,17 +245,24 @@ define( function(require, exports, module){
 		//设置审批意见
 		setOptions:function(){
 			var me = this,strDom = '';
-			
+			var opinionObj = {'support':'小助手开通','support2':'小助手确认','finance':'财务','sup':'小助手'};
+			var personStr = "support,support2,finance,sup";
+			 
 			var optionsList = me.attrs.refundVO.refund.approvalInfo ? me.attrs.refundVO.refund.approvalInfo.split('<+>'): [];
 			for(var i = 0; i<optionsList.length; i++){
 				var tempAry = optionsList[i].split('<->');
+				if(personStr.indexOf(tempAry[0])>-1){
+					tempAry[0] = opinionObj[tempAry[0]];
+				}
 				tempAry[2] = (tempAry[2]=='true') ? '同意':'驳回';
 				strDom+='<tr><td>'+tempAry[0]+'</td><td>'+tempAry[1]+'</td><td>'+tempAry[2]+'</td><td>'+tempAry[3]+'</td></tr>'
 			}
 			
 			//判断审批意见
+
 			var opinion = strDom ? strDom :'<tr><td colspan="4" style="text-align: center;">暂无</td></tr>';
 			me.$('.last-options').html( opinion );
+		
 			
 			//设置到款时间 receivedPayDate
 			var receivedPayDate = (me.attrs.refundVO && me.attrs.refundVO.refund && me.attrs.refundVO.refund.refundTime ) ? new Date( me.attrs.refundVO.refund.refundTime  )._format("yyyy-MM-dd"):'';
