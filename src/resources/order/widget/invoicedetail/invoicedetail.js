@@ -397,6 +397,7 @@ define(function( require , exports , module ){
 			me.$('input,textarea').removeAttr('disabled');
 			me.$('.rejectReason').html('');
 			me.$('.imginfo').hide();
+			me.$('input[type="file"]').val('');
 
 			//重置input选中状态
 			me.$('[name="invoice"]').eq(0).trigger('click');
