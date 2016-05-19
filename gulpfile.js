@@ -11,8 +11,8 @@ var fs = require('fs'),
 	minifyHTML = require('gulp-minify-html'),
 	minifyCSS = require('gulp-minify-css'),
 	uglify = require('gulp-uglify'),
-	rename = require('gulp-rename'),
-	cmdJst = require('gulp-cmd-jst'),
+	//rename = require('gulp-rename'),
+	//cmdJst = require('gulp-cmd-jst'),
 	concat = require('gulp-concat'),
 	transport = require('gulp-cmd-transit');
 
