@@ -59,6 +59,19 @@ define(function (require, exports, module) {
             if (!responseData) {
                 return;
             }
+            /*
+            controller(dataItems, 'invoiceAddress', function (item) {
+                if( responseData.invoiceAddress ){
+                    item.value = responseData.invoiceId;
+                }else{
+                    item.visible = false;
+                }
+                
+            });
+                controller(dataItems, 'invoiceTele', function (item) {
+                item.value = responseData.invoiceId;
+            });
+			*/
             controller(dataItems, 'invoiceId', function (item) {
                 item.value = responseData.invoiceId;
             });
@@ -85,6 +98,8 @@ define(function (require, exports, module) {
                     item.attr = {href: contract};
 
                 });
+                
+                
                 var contractCopy = '';
                 controller(dataItems, 'contractCopy', function (item) {
                     if (item.value) {
