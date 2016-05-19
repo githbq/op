@@ -57,7 +57,6 @@ define(function (require, exports, module) {
                     var $dom = $(e.target);
                     var checked = $dom.is(':checked');
                     if (!checked) {
-                        me.__refs.formInfo.o_setValue({name: 'currPayAmount_3', value: 0});
                         me.o_setValue({name: 'purchaseAmount_input_3', value: 0});
                         me.o_setValue({name: 'purchaseAmount_3', value: 0});
                         me.o_setValue({name: 'purchaseCount_3', value: 0});
