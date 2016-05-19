@@ -183,6 +183,11 @@ define(function (require, exports, module) {
                     item.value = getRejectReason(responseData.invoice.rejectReason);
                 });
 
+                controller(dataItems, 'invoiceStatus', function(item){
+                    if(!item.value){
+                        item.value=1;
+                    }
+                });
 
             }
         }
