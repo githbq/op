@@ -20,7 +20,7 @@ define(function (require, exports, module) {
                 }
             });
             controller(terminalDataItems, 'isrefuse', function (item) {
-                if (responseData.refuse) {
+                if (responseData && responseData.refuse) {
                     item.value = true;
                 }
             });
