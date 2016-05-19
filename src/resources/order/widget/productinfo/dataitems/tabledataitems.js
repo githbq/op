@@ -74,7 +74,7 @@ define(function (require, exports, module) {
                             if (!checked) {
                                 me.__refs.formInfo.o_setValue({name: 'currPayAmount_' + id, value: 0});
                                 me.o_setValue({name: 'purchaseAmount_' + id, value: 0});
-                                me.o_setValue({name: 'discount_'+id, value:''});
+                                me.o_setValue({name: 'discount_' + id, value: ''});
                             }
                         }
                         priceComput.call(this, e);
@@ -134,10 +134,10 @@ define(function (require, exports, module) {
                                         //清空折扣
                                         me.o_setValue({name: 'discount_' + n.id, value: '', readonly: true});
                                         //折扣类型 联动分期  2016-5-10 by hbq
-                                        var payStatueData=me.__refs.formInfo.o_getFieldData('payStatus_select');
-                                        if(payStatueData.visible===true && me.__refs.formInfo.o_getFieldValue('payStatus_select')=='2'){
-                                            me.__refs.formInfo.o_setValue({name:'currPayAmount_'+ n.id,value:'0'});
-                                            me.__refs.formInfo.o_data_getField('currPayAmount_'+n.id).change();
+                                        var payStatueData = me.__refs.formInfo.o_getFieldData('payStatus_select');
+                                        if (payStatueData.visible === true && me.__refs.formInfo.o_getFieldValue('payStatus_select') == '2') {
+                                            me.__refs.formInfo.o_setValue({name: 'currPayAmount_' + n.id, value: '0'});
+                                            me.__refs.formInfo.o_data_getField('currPayAmount_' + n.id).change();
                                         }
                                     }
                                         ;
@@ -280,7 +280,7 @@ define(function (require, exports, module) {
 
                 //if (id == 3 && me.__refs.formInfo.o_getFieldValue('orderAssigned') != 1) {//如果不是直销   服务是不计入合同总金额
                 //} else {
-                    order_amount += parseFloat(purchaseModule.o_getFieldValue('purchaseAmount_' + id) || 0);
+                order_amount += parseFloat(purchaseModule.o_getFieldValue('purchaseAmount_' + id) || 0);
                 //}
 
 
@@ -363,7 +363,9 @@ define(function (require, exports, module) {
                     me.o_setValue({name: 'productAmount_' + id, value: ''});
                 } else {
                     if (me.o_getFieldValue('purchaseAmount_' + id) && me.o_getFieldData('endTime_' + id).readonly != true) {
-                        me.attrs.apiPool.api_getCalculateSingle(options);
+                        if (me.__refs.terminalInfo.o_getFieldValue('allreadonly') !== true) {
+                            me.attrs.apiPool.api_getCalculateSingle(options);
+                        }
                     }
                 }
             }
@@ -380,10 +382,10 @@ define(function (require, exports, module) {
                     me.o_setValue({name: 'purchaseAmount_input_' + id, value: 0, readonly: true});
                     me.o_setValue({name: 'discount_' + id, value: ''});
                     //折扣类型 联动分期  2016-5-10 by hbq
-                    var payStatueData=me.__refs.formInfo.o_getFieldData('payStatus_select');
-                    if(payStatueData.visible===true && me.__refs.formInfo.o_getFieldValue('payStatus_select')=='2'){
-                        me.__refs.formInfo.o_setValue({name:'currPayAmount_'+ id,value:'0'});
-                        me.__refs.formInfo.o_data_getField('currPayAmount_'+id).change();
+                    var payStatueData = me.__refs.formInfo.o_getFieldData('payStatus_select');
+                    if (payStatueData.visible === true && me.__refs.formInfo.o_getFieldValue('payStatus_select') == '2') {
+                        me.__refs.formInfo.o_setValue({name: 'currPayAmount_' + id, value: '0'});
+                        me.__refs.formInfo.o_data_getField('currPayAmount_' + id).change();
                     }
                 }
                     ;

@@ -19,6 +19,11 @@ define(function (require, exports, module) {
                     item.value = responseData.edit;
                 }
             });
+            controller(terminalDataItems, 'isrefuse', function (item) {
+                if (responseData.refuse) {
+                    item.value = true;
+                }
+            });
             controller(terminalDataItems, 'allreadonly', function (item) {
                 item.allreadonly = false;
             });
@@ -201,6 +206,7 @@ define(function (require, exports, module) {
 
                     controller(terminalDataItems, 'allreadonly', function (item) {
                         item.allreadonly = true;
+                        item.value=true;
                     });
                     $(terminalDataItems).each(function (i, n) {
                         if (n.name.toLowerCase().indexOf('wrapper') < 0 && n.name.toLowerCase().indexOf('image') < 0) {//包裹者不设

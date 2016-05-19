@@ -510,7 +510,7 @@ define(function (require, exports, module) {
                     util.showToast('开始日期必须小于结束日期');
                     me.o_setValue({name: 'startTime_' + id, value: ''});
                     me.o_setValue({name: 'endTime_' + id, value: ''});
-                } else {
+                } else if(me.o_getFieldValue('allreadonly')!==true){
                     //document.title=Math.random();
                     me.attrs.apiPool.api_getCalculateSingle(options);
                 }
