@@ -1,3 +1,3 @@
 define(function(require, exports, module) {
-    module.exports="<script type=\"text/template\" id=\"trPdtLst\">\n <% _.each(content,function( value ,index ){ %>\n <tr>\n <td></td>\n <td><%=value.id%></td>\n <td><%=value.name%></td>\n <td><%=value.deviceMaxCount%></td>\n <td><%=value.textMessageCount %></td>\n <td><%=value.textMessageMethod%></td>\n <td><%=value.storage%></td>\n <td><%=value.freeStr%></td>\n <td></td>\n </tr>\n <% }) %>\n</script>\n";
+    module.exports="<script type=\"text/template\" id=\"trPdtLst\">\r\n <% _.each(content,function( value ,index ){ %>\r\n <tr>\r\n <td></td>\r\n <td><%=value.id%></td>\r\n <td><%=value.name%></td>\r\n <td><%=value.deviceMaxCount%></td>\r\n <td><%=value.textMessageCount %></td>\r\n <td><%=value.textMessageMethod%></td>\r\n <td><%=value.storage%></td>\r\n <td><%=value.freeStr%></td>\r\n <td></td>\r\n </tr>\r\n <% }) %>\r\n</script>\r\n";
 });
