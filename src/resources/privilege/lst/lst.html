@@ -2,98 +2,100 @@
     <div id="privilege">
         <div class="head">
             <label>优惠方案名称
-                <input type="text" value="" class="name">
+                <input type="text" class="name" placeholder="请输入方案名称">
             </label>
             <label><span>创建时间</span>
-                <input type="text" id="OpenSTime">———
-                <input type="text" id="OpenETime">
+                <input type="text" id="OpenSTime" placeholder="开始时间">———
+                <input type="text" id="OpenETime" placeholder="结束时间">
             </label>
             <label>
                 <span>状态</span>
                 <select name="" class="status">
                     <option value="">全部</option>
-                    <option value="1">启用</option>
-                    <option value="2">禁用</option>
+                    <option value="1">开启</option>
+                    <option value="0">关闭</option>
                 </select>
             </label>
             <button type="button" class="search">查询</button>
             <button type="button" class="new">新建优惠方案</button>
         </div>
-
         <div id="listContainer">
         </div>
     </div>
-    <div class="m-slider" style="z-index:100;width:680px;display:block;right:0;">
+    <div class="m-slider" style="z-index:100;width:680px;display:block;right:-680px;">
         <div class="slider-header">
             <span class="header-close">x</span>
             <p class="header-title">优惠方案</p>
         </div>
         <div class="slider-body">
             <hr></hr>
-            <p>
-                <label for="">
-                    <span>优惠方案名称<span style="color:red;margin-left:50px">*</span></span>
-                    <input type="text" placeholder="最多20个字" style="width:340px">
-                </label>
-            </p>
-            <hr></hr>
-            <p>
-                <label for="">
-                    <span><b>优惠产品</b><span style="color:red;margin-right:50px;">*</span></span>
-                    <span>至少选择一个产品</span>
-                </label>
-            </p>
-            <ul style="display: inline-block;">
-                <li><span style="margin-right:65px;">产品名称</span><span>赠送时长</span></li>
-                <li>
-                    <input type="checkbox"></input><span class="cliName" style="margin-right:60px">PK助手 </span>
-                    <input type="text"></input>个月</li>
-                </li>
-                <li>
-                    <input type="checkbox"></input><span class="cliName">会议助手</span>
-                    <input type="text"></input>个月</li>
-                </li>
-                <li>
-                    <input type="checkbox"></input><span class="cliName" style="margin-right:35px;">自定义助手</span>
-                    <input type="text"></input>个月</li>
-                </li>
-                <li>
-                    <input type="checkbox"></input><span class="cliName">考试助手</span>
-                    <input type="text"></input>个月</li>
-                </li>
-                <li>
-                    <input type="checkbox"></input><span class="cliName">战报助手</span>
-                    <input type="text"></input>个月</li>
-                </li>
-                <li>
-                    <input type="checkbox"></input><span class="cliName">工资助手</span>
-                    <input type="text"></input>个月</li>
-                </li>
-                <li>
-                    <input type="checkbox"></input><span class="cliName">项目管理</span>
-                    <input type="text"></input>个月</li>
-                </li>
-                <li>
-                    <input type="checkbox"></input><span class="cliName">存储空间</span> 赠送空间量(G)
-                    <input type="text"></input>
-                </li>
-                <li>
-                    <input type="checkbox"></input><span class="cliName">名片扫描</span>
-                    <input type="radio"></input> <span>赠送数量(张)</span>
-                    <input style="margin-right:40px"></input>
-                    <input type="radio"></input><span>不限</span></li>
-            </ul>
-            <hr></hr>
-            <label for="" style="margin-top:10px;display: inline-block;margin-bottom:20px">优惠介绍</label> <b style="color:red;margin-left:50px;">*</b>
-            <div style="text-align: center">
-                <textarea name="">最多100字</textarea>
-                <button type="button" class="submit">提交</button>
-                <button type="button" class="cancel">钱取消</button>
-            </div>
+            <form id="form">
+                <p>
+                    <label for="">
+                        <span>优惠方案名称<span style="color:red;margin-left:50px">*</span></span>
+                        <input type="text" placeholder="最多20个字" style="width:340px" id="chpPlanName" required maxlength="20">
+                    </label>
+                </p>
+                <hr></hr>
+                <p>
+                    <label for="">
+                        <span><b>优惠产品</b><span style="color:red;margin-right:50px;">*</span></span>
+                        <span>至少选择一个产品</span>
+                    </label>
+                </p>
+                <ul style="display: inline-block;">
+                    <li><span style="margin-right:65px;">产品名称</span><span>赠送时长</span></li>
+                    <li>
+                        <input type="checkbox" data-id="4"></input><span class="cliName" style="margin-right:60px">PK助手 </span>
+                        <input type="text"></input>个月</li>
+                    </li>
+                    <li>
+                        <input type="checkbox" data-id="5"></input><span class="cliName">会议助手</span>
+                        <input type="text"></input>个月</li>
+                    </li>
+                    <li>
+                        <input type="checkbox" data-id="12"></input><span class="cliName" style="margin-right:35px;">自定义助手</span>
+                        <input type="text"></input>个月</li>
+                    </li>
+                    <li>
+                        <input type="checkbox" data-id="15"></input><span class="cliName">考试助手</span>
+                        <input type="text"></input>个月</li>
+                    </li>
+                    <li>
+                        <input type="checkbox" data-id="14"></input><span class="cliName">战报助手</span>
+                        <input type="text"></input>个月</li>
+                    </li>
+                    <li>
+                        <input type="checkbox" data-id="7"></input><span class="cliName">工资助手</span>
+                        <input type="text"></input>个月</li>
+                    </li>
+                    <li>
+                        <input type="checkbox" data-id="17"></input><span class="cliName">项目管理</span>
+                        <input type="text"></input>个月</li>
+                    </li>
+                    <li>
+                        <input type="checkbox" data-id="18"></input><span class="cliName">存储空间</span> 赠送空间量(G)
+                        <input type="text"></input>
+                    </li>
+                    <li>
+                        <input type="checkbox" data-id="8"></input><span class="cliName">名片扫描</span>
+                        <input type="radio" name="alterative" id="count"></input> <span>赠送数量(张)</span>
+                        <input style="margin-right:40px"></input>
+                        <input type="radio" id="noLimit" name="alterative"></input><span>不限</span>
+                    </li>
+                </ul>
+                <hr></hr>
+                <label for="" style="margin-top:10px;display: inline-block;margin-bottom:20px">优惠介绍</label> <b style="color:red;margin-left:50px;">*</b>
+                <div style="text-align: center">
+                    <textarea id="content" required maxlength="100">最多100字</textarea>
+                    <button type="button" class="submit">提交</button>
+                    <button type="button" class="cancel">取消</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
-<script type="text/template" id="list">
+<script type="text/template" id="planList">
     <table style="border-top:none" id="list">
         <thead>
             <tr>
@@ -104,21 +106,21 @@
             </tr>
         </thead>
         <tbody>
-            <% _.each(tbody,function(item,index){%>
-                <tr>
+            <% _.each(model.content,function(item,index){%>
+                <tr data-id=<%=item.id%>>
                     <td>
                         <%=item.name%>
                     </td>
                     <td>
-                        <%=item.date%>
+                        <%=item.create_time%>
                     </td>
                     <td>
-                        <%=item.status%>
+                        <%=(item.status?"停用":"启用")%>
                     </td>
                     <td>
-                        <a>删除</a>
-                        <a>查看</a>
-                        <a>停用</a>
+                        <a href="javascript:void(0)" class="delete" data-name=<%=item.id%>>删除</a>
+                        <a href="javascript:void(0)" class="view" data-name=<%=item.id%>>查看</a>
+                        <a href="javascript:void(0)" class="disable" data-name=<%=item.id%>><%=(item.status?"启用":"停用")%></a>
                     </td>
                 </tr>
                 <%})%>
