@@ -1,5 +1,5 @@
 /**
- *  优惠码助手前端展现逻辑
+  优惠码助手前端展现逻辑
 
  
    1.输入优惠方案名称，选择创建的截止时间，选择状态然后点击查询按钮就会从后端请求数据,然后填充到下面的列表中，方案包括‘优惠方案名称’和‘创建时间’，‘状态’，3个字段。
@@ -12,17 +12,19 @@
 
    5.当点击新建优惠方案时，会弹出右侧的浮框，，然后用户填写响应的项目。
 
-   优惠方案名称为必填项，最多为20个字。
+   6.优惠方案名称为必填项，最多为20个字。
 
-   优惠产品项目中，至少选择一个项目，不允许空着，优惠
+   7.优惠产品项目中，至少选择一个项目，不允许空着，优惠
 
-  三个操作是在每一个优惠方案中都有的，当方案名称状态是启用时，后面的按钮状态为停用状态，当方案的状态是停用状态，后部的操作按钮是启用状态;
+   8.三个操作是在每一个优惠方案中都有的，当方案名称状态是启用时，后面的按钮状态为停用状态，当方案的状态是停用状态，后部的操作按钮是启用状态;
  */
 
 
-window.upId = null;
+window.upId = null; //用来保存方案id;
 
 define(function(require, exports, module) {
+
+    var Pagination = require('common/widget/pagination/pagination'); //分页组件
 
     exports.init = function(param) {
 
@@ -39,25 +41,96 @@ define(function(require, exports, module) {
                 me.newPlan();
             },
 
-            bindSearch: function() { //查询优惠方案列表   // 明天问问桂新接口的问题
+            bindSearch: function() { //查询优惠方案列表
                 var me = this;
                 $(".search").click(function() {
                     util.api({
                         url: '/api/coupon/packages',
                         type: 'POST',
                         data: me.getSearchData(),
+                        beforeSend: function() {
+
+                            $("#listContainer").html('<tr><td colspan="10"><p class="info">加载中...</p></td></tr>')
+                        },
                         dataType: 'json',
                         success: function(resp) {
+
                             if (resp.success == true) {
 
                                 $.each(resp.model.content, function(index, value) {
                                     value.create_time = me.transformTtoDate(value.create_time);
                                 });
-                                me.reload(resp);
-                                me.delete();
-                                me.viewProject();
-                                me.deactive();
+
+                                me.pagination = new Pagination({
+                                    wrapper: $('.p-list .list-pager'),
+                                    pageSize: resp.model.pageSize,
+                                    totalSize: resp.model.itemCount
+                                });
+
+                                me.pagination.render();
+
+
+                                /**
+                                 *@ desc 切换分页时发送当前的查询条件，以便后台知道是在同一个查询条件下进行的页数的切换。并且向后台发送当前点击的页数
+                                 *
+                                 */
+
+                                me.pagination.onChange = function() {
+
+                                    var pageIndex = me.pagination.attr['pageNumber'] + 1;
+
+
+                                    /**
+                                     * @ queryData type{Object}
+                                     *
+                                     */
+                                    var queryData = me.getSearchData();
+                                    queryData.pageIndex = pageIndex;
+
+                                    util.api({
+                                        url: '/api/coupon/queryPage',
+                                        type: 'POST',
+                                        data: queryData,
+                                        beforeSend: function() {
+
+                                            $("#listContainer").html('<tr><td colspan="10"><p class="info">加载中...</p></td></tr>') //数据请求回来前的显示
+                                        },
+                                        dataType: 'json',
+                                        success: function(resp) {
+
+                                            if (resp.success == true) {
+
+                                                me.reload(resp);
+                                                me.delete();
+                                                me.viewProject();
+                                                me.deactive();
+
+                                            } else {
+
+                                                me.pagination.setPage(0, false);
+                                                $("#listContainer").html("<tr><td colspan='10'><p class='info'>暂无数据</p></td></tr>"); //没有数据时的显示
+                                            }
+
+                                        },
+                                        error: function() {
+
+                                            $("#listContainer").html('<tr><td colspan="11"><p class="info">数据加载失败</p></td></tr>'); //数据加载失败时的显示
+                                        }
+                                    });
+                                };
+                                me.reload(resp); //渲染数据进列表
+                                me.delete(); //绑订删除事件
+                                me.viewProject(); //绑定查看事件
+                                me.deactive(); //切换停用还是启用的状态
+                            } else {
+
+                                me.pagination.setPage(0, false);
+                                $("#listContainer").html("<tr><td colspan='10'><p class='info'>暂无数据</p></td></tr>");
+
                             }
+                        },
+                        error: function() {
+                            $("#listContainer").html('<tr><td colspan="11"><p class="info">数据加载失败</p></td></tr>');
                         }
                     });
                 });
@@ -307,8 +380,6 @@ define(function(require, exports, module) {
             inputingCheckout: function(obj) {
                 var me = this;
 
-
-
                 //方案名称输入验证
 
                 var chpValue = $("#chpPlanName").val();
@@ -372,6 +443,6 @@ define(function(require, exports, module) {
                 });
             }
         };
-        var list = new List();
+        var list = new List(); //实例化List类;
     };
 });
