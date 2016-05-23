@@ -19,7 +19,6 @@
    8.三个操作是在每一个优惠方案中都有的，当方案名称状态是启用时，后面的按钮状态为停用状态，当方案的状态是停用状态，后部的操作按钮是启用状态;
  */
 
-
 window.upId = null; //用来保存方案id;
 
 define(function(require, exports, module) {
@@ -45,7 +44,7 @@ define(function(require, exports, module) {
                 var me = this;
                 $(".search").click(function() {
                     util.api({
-                        url: '/api/coupon/packages',
+                        url: '~/op/api/coupon/packages/querypage',
                         type: 'POST',
                         data: me.getSearchData(),
                         beforeSend: function() {
@@ -58,7 +57,7 @@ define(function(require, exports, module) {
                             if (resp.success == true) {
 
                                 $.each(resp.model.content, function(index, value) {
-                                    value.create_time = me.transformTtoDate(value.create_time);
+                                    value.createTime = me.transformTtoDate(value.createTime);
                                 });
 
                                 me.pagination = new Pagination({
@@ -88,7 +87,7 @@ define(function(require, exports, module) {
                                     queryData.pageIndex = pageIndex;
 
                                     util.api({
-                                        url: '/api/coupon/queryPage',
+                                        url: '~/op/api/coupon/packages/querypage',
                                         type: 'POST',
                                         data: queryData,
                                         beforeSend: function() {
@@ -184,10 +183,12 @@ define(function(require, exports, module) {
             getSearchData: function() { //收集方案列表的筛选信息
                 var obj = {};
                 obj.name = $(".name").val();
-                obj.startAt = new Date($("#OpenSTime").val()).getTime();
-                obj.endAt = new Date($("#OpenETime").val()).getTime();
+                obj.startAt = "";
+                obj.endAt = "";
                 obj.status = $(".status").val();
                 obj.type = "";
+                obj.pageSize = 20;
+                obj.pageIndex = 1;
                 return obj;
             },
 
@@ -196,7 +197,7 @@ define(function(require, exports, module) {
                 $('.delete').click(function() {
                     var _this = $(this);
                     var id = $(this).attr('data-name');
-                    var url = '/api/coupon/packages/' + id + '/delete';
+                    var url = '~/op/api/coupon/packages/' + id + '/delete';
                     util.api({
                         url: url,
                         type: 'POST',
@@ -212,14 +213,11 @@ define(function(require, exports, module) {
             viewProject: function() { //  查询优惠套餐详情
                 var me = this;
                 $(".view").click(function(e) {
-                    var obj = {};
                     var id = $(this).attr('data-name');
-                    obj.id = id;
-                    var url = '/api/coupon/packages/' + id + '/info';
+                    var url = '~/op/api/coupon/packages/' + id + '/info';
                     util.api({
                         url: url,
                         type: 'POST',
-                        data: obj,
                         dataType: 'json',
                         success: function(resp) { //传回指定的方案的各种指标然后弹出右拉框，然后填充到右拉框中。
 
@@ -260,7 +258,7 @@ define(function(require, exports, module) {
 
                     var id = $(this).attr('data-name'); //禁用某个方案时，把需要禁用的方案的名称和筛选数据传给后台，然后拿到状态已经改变后的数据渲染，同时要把当前操作中的禁用和启用状态相互颠倒；
 
-                    var url = '/api/coupon/packages/' + id + '/' + status;
+                    var url = '~/op/api/coupon/packages/' + id + '/' + status;
                     util.api({
                         url: url,
                         type: 'POST',
@@ -301,9 +299,10 @@ define(function(require, exports, module) {
                 }
 
                 util.api({
-                    url: '/api/coupon/packages/save', //点击提交按钮时的更新或者新建方案
+                    url: '~/op/api/coupon/packages/save', //点击提交按钮时的更新或者新建方案
                     type: 'POST',
-                    data: obj,
+                    data: JSON.stringify(obj),
+                    contentType: 'application/json;charset=UTF-8',
                     dataType: 'json',
                     success: function(resp) {}
                 });
