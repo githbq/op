@@ -173,6 +173,7 @@ define(function(require, exports, module) {
 
                     var judgeObject = { a: false, b: false, c: false }
 
+
                     me.inputingCheckout(judgeObject);
 
                     if (judgeObject.a == true && judgeObject.b == true && judgeObject.c == true) {
@@ -379,9 +380,10 @@ define(function(require, exports, module) {
                         } else {
                             var obj = {};
                             obj.productId = "8";
+                            obj.productName = $(this).next('.cliName').html();
 
                             if ($('#count').is(':checked')) {
-                                obj.quota = $(this).siblings('input').val();
+                                obj.quota = $("#numberCount").val();
 
                             } else {
                                 obj.quota = '-1';
@@ -434,7 +436,9 @@ define(function(require, exports, module) {
                         if ($(this).attr('data-id') == '8') {
 
                             if ($("#count").is(':checked')) {
-                                if ($("#count").next('input').val() && (isNaN($("#count").next('input').val()) == false)) {
+
+
+                                if ($('#numberCount').val() != "" && (isNaN(parseInt($('#numberCount').val())) == false)) {
                                     obj.c = true;
 
                                 }
