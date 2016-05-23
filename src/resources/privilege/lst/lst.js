@@ -258,14 +258,15 @@ define(function(require, exports, module) {
 
                     var id = $(this).attr('data-name'); //禁用某个方案时，把需要禁用的方案的名称和筛选数据传给后台，然后拿到状态已经改变后的数据渲染，同时要把当前操作中的禁用和启用状态相互颠倒；
 
-                    var url = '~/op/api/coupon/packages/' + id + '/' + status;
+                    var url = '~/op/api/coupon/packages/' + id + '/' + 'status';
                     util.api({
                         url: url,
                         type: 'POST',
+                        data: { status: status },
+                        dataType: 'json',
                         success: function(resp) {
 
                             if (resp.success == true) {
-
                                 var str = (status == 1 ? "停用" : "启用");
                                 $(this).parent().prev('th').text(str); //用户改变方案状态时，实时的在列表中展现出来。
                             }
