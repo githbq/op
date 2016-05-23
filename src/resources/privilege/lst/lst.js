@@ -38,6 +38,14 @@ define(function(require, exports, module) {
                 me.initDateWidget();
                 me.closePlan();
                 me.newPlan();
+
+                me.pagination = new Pagination({
+                    wrapper: $('.p-list .list-pager'),
+                    pageSize: 20,
+                    totalSize: 0
+                });
+
+                me.pagination.render();
             },
 
             bindSearch: function() { //查询优惠方案列表
@@ -60,14 +68,8 @@ define(function(require, exports, module) {
                                     value.createTime = me.transformTtoDate(value.createTime);
                                 });
 
-                                me.pagination = new Pagination({
-                                    wrapper: $('.p-list .list-pager'),
-                                    pageSize: resp.model.pageSize,
-                                    totalSize: resp.model.itemCount
-                                });
 
-                                me.pagination.render();
-
+                                me.pagination.setTotalSize(resp.model.itemCount);
 
                                 /**
                                  *@ desc 切换分页时发送当前的查询条件，以便后台知道是在同一个查询条件下进行的页数的切换。并且向后台发送当前点击的页数
@@ -142,8 +144,11 @@ define(function(require, exports, module) {
 
             closePlan: function() { //点击优惠方案右上部的叉号时，关闭右划出框
 
+
                 $('.header-close').click(function() {
                     $(".m-slider").animate({ "display": "none", "right": (-680) }, { "speed": 1000 });
+
+
                 });
             },
             newPlan: function() { // 点击新建优惠方案时弹出右划出框
@@ -183,8 +188,8 @@ define(function(require, exports, module) {
             getSearchData: function() { //收集方案列表的筛选信息
                 var obj = {};
                 obj.name = $(".name").val();
-                obj.startAt = "";
-                obj.endAt = "";
+                obj.startAt = $("#OpenSTime").val() ? new Date($("#OpenSTime").val()).getTime() : "";
+                obj.endAt = $("#OpenETime").val() ? new Date($("#OpenETime").val()).getTime() : "";
                 obj.status = $(".status").val();
                 obj.type = "";
                 obj.pageSize = 20;
@@ -264,11 +269,12 @@ define(function(require, exports, module) {
                         type: 'POST',
                         data: { status: status },
                         dataType: 'json',
+
                         success: function(resp) {
 
                             if (resp.success == true) {
-                                var str = (status == 1 ? "停用" : "启用");
-                                $(this).parent().prev('th').text(str); //用户改变方案状态时，实时的在列表中展现出来。
+
+                                $('.search').trigger('click');
                             }
                         }
                     });
@@ -305,7 +311,16 @@ define(function(require, exports, module) {
                     data: JSON.stringify(obj),
                     contentType: 'application/json;charset=UTF-8',
                     dataType: 'json',
-                    success: function(resp) {}
+                    success: function(resp) {
+                        if (resp.success == true) {
+
+                            $(".header-close").trigger('click');
+
+                            alert("提交成功");
+
+                            $(".search").trigger("click");
+                        }
+                    }
                 });
             },
 
@@ -329,18 +344,18 @@ define(function(require, exports, module) {
                     if ($(this).attr('data-id') == id) {
                         if (id == 8) {
                             if (quota == -1) {
-                                $(this).attr('checked', 'checked').siblings('#noLimit').attr('checked', 'checked');
+                                $(this).prop('checked', 'checked').siblings('#noLimit').prop('checked', 'checked');
 
                             } else {
 
-                                $(this).attr('checked', 'checked').siblings('input').val(quota);
+                                $(this).prop('checked', 'checked').siblings('input').val(quota);
 
-                                $('#count').attr('checked', 'checked');
+                                $('#count').prop('checked', 'checked');
                             }
 
                         } else {
 
-                            $(this).attr('checked', 'checked').siblings('input').val(quota);
+                            $(this).prop('checked', 'checked').siblings('input').val(quota);
                         }
                     }
                 });

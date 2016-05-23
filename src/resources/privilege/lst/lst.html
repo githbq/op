@@ -117,12 +117,12 @@
                         <%=item.createTime%>
                     </td>
                     <td>
-                        <%=(item.status?"停用":"启用")%>
+                        <%=(!item.status?"停用":"启用")%>
                     </td>
                     <td>
                         <a href="javascript:void(0)" class="delete" data-name=<%=item.id%>>删除</a>
                         <a href="javascript:void(0)" class="view" data-name=<%=item.id%>>查看</a>
-                        <a href="javascript:void(0)" class="disable" data-name=<%=item.id%>><%=(item.status?"启用":"停用")%></a>
+                        <a href="javascript:void(0)" class="disable" data-name=<%=item.id%>><%=(!item.status?"启用":"停用")%></a>
                     </td>
                 </tr>
                 <%})%>
