@@ -235,9 +235,9 @@ define(function(require, exports, module) {
 
                                     for (var m = 0; m < array.length; m++) { //各种产品助手的匹配
 
-                                        if (resp.model.items[i].product_id == array[m]) {
+                                        if (resp.model.items[i].productId == array[m]) {
 
-                                            me.match(resp.model.items[i].product_id, resp.model.items[i].quota);
+                                            me.match(resp.model.items[i].productId, resp.model.items[i].quota);
                                         }
                                     }
                                 }
@@ -356,12 +356,13 @@ define(function(require, exports, module) {
 
                         if ($(this).attr('data-id') != '8') {
                             var obj = {};
-                            obj.product_Id = $(this).attr('data-id');
+                            obj.productId = $(this).attr('data-id');
+                            obj.productName = $(this).html();
                             obj.quota = $(this).siblings('input').val();
                             dataArray.push(obj);
                         } else {
                             var obj = {};
-                            obj.product_Id = "8";
+                            obj.productId = "8";
 
                             if ($('#count').is(':checked')) {
                                 console.log($("#count").next('input').val());
