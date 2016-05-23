@@ -357,7 +357,7 @@ define(function(require, exports, module) {
                         if ($(this).attr('data-id') != '8') {
                             var obj = {};
                             obj.productId = $(this).attr('data-id');
-                            obj.productName = $(this).html();
+                            obj.productName = $(this).next('.cliName').html();
                             obj.quota = $(this).siblings('input').val();
                             dataArray.push(obj);
                         } else {
@@ -365,7 +365,6 @@ define(function(require, exports, module) {
                             obj.productId = "8";
 
                             if ($('#count').is(':checked')) {
-                                console.log($("#count").next('input').val());
                                 obj.quota = $(this).siblings('input').val();
 
                             } else {
