@@ -32,9 +32,10 @@ define(function(require, exports, module) {
 
             bindSearch: function() { //查询优惠方案列表
                 var me = this;
-                flag = true;
-                $(".search").click(function() {
 
+
+                $(".search").click(function() {
+                    flag = true;
                     $(".header-close").trigger('click'); //关闭右框;
                     util.api({
                         url: '~/op/api/coupon/packages/querypage',
@@ -128,6 +129,18 @@ define(function(require, exports, module) {
 
                 $("#OpenSTime,#OpenETime").datetimepicker({ format: 'Y/m/d', timepicker: false }); //初始化日期插件
 
+
+                $("#OpenETime").datetimepicker({
+                    format: 'Y/m/d',
+                    onShow: function() {
+                        var minDate = $("#OpenSTime").val() ? $("#OpenSTime").val() : false;
+                        this.setOptions({
+                            minDate: minDate
+                        });
+                    },
+                    timepicker: false
+                });
+
                 $(".search").trigger('click');
             },
 
@@ -160,7 +173,7 @@ define(function(require, exports, module) {
 
                 $(".slider-body .submit").click(function() { //新建方案时不用传递方案id 参数
 
-                    var judgeObject = { a: false, b: false, c: false }
+                    var judgeObject = { a: true, b: true, c: true }
 
 
                     me.inputingCheckout(judgeObject);
@@ -176,7 +189,6 @@ define(function(require, exports, module) {
             },
 
             getSearchData: function() { //收集方案列表的筛选信息
-
                 var me = this;
                 var obj = {};
                 obj.name = $(".name").val();
@@ -185,6 +197,7 @@ define(function(require, exports, module) {
                 obj.status = $(".status").val();
                 obj.type = "";
                 obj.pageSize = 20;
+
                 if (flag == true) {
 
                     obj.pageIndex = 1;
@@ -193,6 +206,7 @@ define(function(require, exports, module) {
                     obj.pageIndex = me.pagination.attr['pageNumber'] + 1;
                 }
                 return obj;
+                console.log(obj);
             },
 
             delete: function(e) { //点击方案的删除链接
@@ -214,11 +228,6 @@ define(function(require, exports, module) {
                             success: function(resp) {
                                 if (resp.success == true) { //后台返回true 时,说明后台删除成功;前端要重新渲染页面
                                     $('.search').trigger('click');
-
-                                    window.setTimeout(function() {
-
-                                        alert("删除成功");
-                                    }, 200);
                                 }
                             }
                         });
@@ -327,7 +336,7 @@ define(function(require, exports, module) {
 
                             $(".header-close").trigger('click');
 
-                            alert("提交成功");
+                            util.showToast("提交成功");
 
                             $(".search").trigger("click");
                         }
@@ -412,14 +421,14 @@ define(function(require, exports, module) {
                 var chpValue = $("#chpPlanName").val();
 
                 if (chpValue == "") {
-                    alert("请重新输入，方案不能为空");
+                    util.showToast("请重新输入，方案不能为空");
                 } else if (chpValue.length > 20) {
 
 
-                    alert("方案名称最多20字")
+                    util.showToast("方案名称最多20字")
                 } else {
 
-                    obj.a = true;
+
                 }
 
 
@@ -428,18 +437,22 @@ define(function(require, exports, module) {
                 var conValue = $("#content").val();
 
                 if (conValue == "") {
-                    alert("请重新输入，优惠介绍不能为空");
+                    util.showToast("请重新输入，优惠介绍不能为空");
                 } else if (conValue.length > 100) {
 
-                    alert("优惠介绍最多100字");
+                    util.showToast("优惠介绍最多100字");
                 } else {
 
-                    obj.b = true
+
                 }
 
                 //产品选择验证
 
                 $("input[type=checkbox]").each(function(index, value) {
+                    if (obj.c == false) {
+                        return;
+
+                    }
 
                     if ($(this).is(':checked')) {
 
@@ -447,24 +460,21 @@ define(function(require, exports, module) {
 
                             if ($("#count").is(':checked')) {
 
-
                                 if ($('#numberCount').val() != "" && (isNaN($('#numberCount').val()) == false && ($('#numberCount').val() <= 999999))) {
 
-                                    obj.c = true;
-
                                 } else {
-
-                                    alert("请输入名片扫描配额，最大值为999999张");
+                                    obj.c = false;
+                                    util.showToast("请输入名片扫描配额，最大值为999999张");
                                     return;
                                 }
 
                             } else if ($("#noLimit").is(':checked')) {
 
-                                obj.c = true;
 
                             } else {
 
-                                alert("请输入名片扫描配额，最大值为999999张");
+                                obj.c = false;
+                                util.showToast("请输入名片扫描配额，最大值为999999张");
                                 return;
 
                             }
@@ -475,12 +485,11 @@ define(function(require, exports, module) {
                                 if ($(this).siblings('input').val() != "" && (isNaN($(this).siblings('input').val()) == false && ($(this).siblings('input').val() <= 10000))) {
 
 
-                                    obj.c = true;
-
-
                                 } else {
 
-                                    alert("请输入赠送空间量，最大值为10000G");
+                                    obj.c = false;
+
+                                    util.showToast("请输入赠送空间量，最大值为10000G");
                                     return;
 
                                 }
@@ -488,12 +497,11 @@ define(function(require, exports, module) {
 
                                 if ($(this).siblings('input').val() != "" && (isNaN($(this).siblings('input').val()) == false && ($(this).siblings('input').val() <= 999999))) {
 
-                                    obj.c = true;
 
                                 } else {
 
-                                    debugger;
-                                    alert("请输入赠送时长，最大为999999天");
+                                    obj.c = false;
+                                    util.showToast("请输入赠送时长，最大为999999天");
                                     return;
 
                                 }
@@ -509,7 +517,7 @@ define(function(require, exports, module) {
 
                 } else {
 
-                    alert("请至少选择一个产品");
+                    util.showToast("请至少选择一个产品");
                     return;
                 }
 
