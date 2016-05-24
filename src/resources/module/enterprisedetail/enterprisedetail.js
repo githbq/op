@@ -1377,7 +1377,7 @@ define(function(require, exports, module) {
             }
         },
 
-        showNumber() {
+        showNumber:function() {
 
             console.log(999);
 
