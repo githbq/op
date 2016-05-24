@@ -6947,8 +6947,12 @@ em {
   text-align: right;
   width: 150px;
 }
+.p-coupon {
+  background: #f8f8f8;
+}
 #privilege {
   cursor: pointer;
+  background: #F6F6F6;
 }
 #privilege input {
   padding: 0;
@@ -6967,10 +6971,11 @@ em {
   display: inline-block;
   width: 250px;
   height: 25px;
-  border: 1px solid grey;
+  border: 1px solid #deded;
   margin: 0;
   padding: 0;
   border-radius: none;
+  color: black;
 }
 #privilege #OpenSTime,
 #privilege #OpenETime {
@@ -6988,32 +6993,38 @@ em {
 }
 #privilege #list {
   cursor: default;
-  width: 80%;
+  width: 100%;
   margin-top: 50px;
+  background: #FFFFFF;
+  color: #666666;
 }
 #privilege #list th,
 #privilege #list td {
-  border: 1px solid #797979;
+  border: 1px solid #EEEEEE;
   text-align: center;
-  height: 30px;
+  height: 40px;
 }
 #privilege #list td {
   font-size: 14px;
-  color: black;
+  color: #666666;
 }
 #privilege #list th {
   font-size: 14px;
-  color: black;
+  color: #666666;
   font-weight: bold;
 }
 #privilege #list a {
-  color: #0000FF;
+  color: #2896f0F;
+}
+#privilege #list tr:nth-child(even) {
+  background: #FAFAFA;
 }
 #privilege #list tr:hover {
   background-color: #EBEBEB;
 }
 #privilege .head {
   margin-top: 20px;
+  background: #F6F6F6;
 }
 #privilege .new {
   margin-left: 25px;

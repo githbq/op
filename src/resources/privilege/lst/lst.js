@@ -32,96 +32,10 @@ define(function(require, exports, module) {
 
             bindSearch: function() { //查询优惠方案列表
                 var me = this;
-
-
                 $(".search").click(function() {
                     flag = true;
-                    $(".header-close").trigger('click'); //关闭右框;
-                    util.api({
-                        url: '~/op/api/coupon/packages/querypage',
-                        type: 'POST',
-                        data: me.getSearchData(),
-                        beforeSend: function() {
+                    me.getData();
 
-                            $("#listContainer").html('<tr><td colspan="10"><p class="info">加载中...</p></td></tr>')
-                        },
-                        dataType: 'json',
-                        success: function(resp) {
-
-                            if (resp.success == true) {
-
-                                $.each(resp.model.content, function(index, value) {
-                                    value.createTime = me.transformTtoDate(value.createTime);
-                                });
-
-
-                                me.pagination.setTotalSize(resp.model.itemCount);
-
-                                /**
-                                 *@ desc 切换分页时发送当前的查询条件，以便后台知道是在同一个查询条件下进行的页数的切换。并且向后台发送当前点击的页数
-                                 *
-                                 */
-
-                                me.pagination.onChange = function() {
-
-                                    var pageIndex = me.pagination.attr['pageNumber'] + 1;
-
-                                    /**
-                                     * @ queryData type{Object}
-                                     *
-                                     */
-                                    var queryData = me.getSearchData();
-                                    queryData.pageIndex = pageIndex;
-
-                                    util.api({
-                                        url: '~/op/api/coupon/packages/querypage',
-                                        type: 'POST',
-                                        data: queryData,
-                                        beforeSend: function() {
-
-                                            $("#listContainer").html('<tr><td colspan="10"><p class="info">加载中...</p></td></tr>') //数据请求回来前的显示
-                                        },
-                                        dataType: 'json',
-                                        success: function(resp) {
-
-                                            if (resp.success == true) {
-
-                                                $.each(resp.model.content, function(index, value) {
-                                                    value.createTime = me.transformTtoDate(value.createTime);
-                                                });
-                                                me.reload(resp);
-                                                me.delete();
-                                                me.viewProject();
-                                                me.deactive();
-
-                                            } else {
-
-                                                me.pagination.setPage(0, false);
-                                                $("#listContainer").html("<tr><td colspan='10'><p class='info'>暂无数据</p></td></tr>"); //没有数据时的显示
-                                            }
-
-                                        },
-                                        error: function() {
-
-                                            $("#listContainer").html('<tr><td colspan="11"><p class="info">数据加载失败</p></td></tr>'); //数据加载失败时的显示
-                                        }
-                                    });
-                                };
-                                me.reload(resp); //渲染数据进列表
-                                me.delete(); //绑订删除事件
-                                me.viewProject(); //绑定查看事件
-                                me.deactive(); //切换停用还是启用的状态
-                            } else {
-
-                                me.pagination.setPage(0, false);
-                                $("#listContainer").html("<tr><td colspan='10'><p class='info'>暂无数据</p></td></tr>");
-
-                            }
-                        },
-                        error: function() {
-                            $("#listContainer").html('<tr><td colspan="11"><p class="info">数据加载失败</p></td></tr>');
-                        }
-                    });
                 });
             },
 
@@ -227,7 +141,7 @@ define(function(require, exports, module) {
                             dataType: 'json',
                             success: function(resp) {
                                 if (resp.success == true) { //后台返回true 时,说明后台删除成功;前端要重新渲染页面
-                                    $('.search').trigger('click');
+                                    me.getData();
                                 }
                             }
                         });
@@ -294,7 +208,7 @@ define(function(require, exports, module) {
 
                             if (resp.success == true) {
 
-                                $('.search').trigger('click');
+                                me.getData();
                             }
                         }
                     });
@@ -337,8 +251,7 @@ define(function(require, exports, module) {
                             $(".header-close").trigger('click');
 
                             util.showToast("提交成功");
-
-                            $(".search").trigger("click");
+                            me.getData();
                         }
                     }
                 });
@@ -521,7 +434,98 @@ define(function(require, exports, module) {
                     return;
                 }
 
+            },
+            getData: function() {
+                var me = this;
+
+                $(".header-close").trigger('click'); //关闭右框;
+                util.api({
+                    url: '~/op/api/coupon/packages/querypage',
+                    type: 'POST',
+                    data: me.getSearchData(),
+                    beforeSend: function() {
+
+                        $("#listContainer").html('<tr><td colspan="10"><p class="info">加载中...</p></td></tr>')
+                    },
+                    dataType: 'json',
+                    success: function(resp) {
+
+                        if (resp.success == true) {
+
+                            $.each(resp.model.content, function(index, value) {
+                                value.createTime = me.transformTtoDate(value.createTime);
+                            });
+
+
+                            me.pagination.setTotalSize(resp.model.itemCount);
+
+                            /**
+                             *@ desc 切换分页时发送当前的查询条件，以便后台知道是在同一个查询条件下进行的页数的切换。并且向后台发送当前点击的页数
+                             *
+                             */
+
+                            me.pagination.onChange = function() {
+
+                                var pageIndex = me.pagination.attr['pageNumber'] + 1;
+
+                                /**
+                                 * @ queryData type{Object}
+                                 *8
+                                 */
+                                var queryData = me.getSearchData();
+                                queryData.pageIndex = pageIndex;
+
+                                util.api({
+                                    url: '~/op/api/coupon/packages/querypage',
+                                    type: 'POST',
+                                    data: queryData,
+                                    beforeSend: function() {
+
+                                        $("#listContainer").html('<tr><td colspan="10"><p class="info">加载中...</p></td></tr>') //数据请求回来前的显示
+                                    },
+                                    dataType: 'json',
+                                    success: function(resp) {
+
+                                        if (resp.success == true) {
+
+                                            $.each(resp.model.content, function(index, value) {
+                                                value.createTime = me.transformTtoDate(value.createTime);
+                                            });
+                                            me.reload(resp);
+                                            me.delete();
+                                            me.viewProject();
+                                            me.deactive();
+
+                                        } else {
+
+                                            me.pagination.setPage(0, false);
+                                            $("#listContainer").html("<tr><td colspan='10'><p class='info'>暂无数据</p></td></tr>"); //没有数据时的显示
+                                        }
+
+                                    },
+                                    error: function() {
+
+                                        $("#listContainer").html('<tr><td colspan="11"><p class="info">数据加载失败</p></td></tr>'); //数据加载失败时的显示
+                                    }
+                                });
+                            };
+                            me.reload(resp); //渲染数据进列表
+                            me.delete(); //绑订删除事件
+                            me.viewProject(); //绑定查看事件
+                            me.deactive(); //切换停用还是启用的状态
+                        } else {
+
+                            me.pagination.setPage(0, false);
+                            $("#listContainer").html("<tr><td colspan='10'><p class='info'>暂无数据</p></td></tr>");
+
+                        }
+                    },
+                    error: function() {
+                        $("#listContainer").html('<tr><td colspan="11"><p class="info">数据加载失败</p></td></tr>');
+                    }
+                });
             }
+
         };
         var list = new List(); //实例化List类;
     };
