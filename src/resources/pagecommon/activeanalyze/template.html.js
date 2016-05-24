@@ -1,0 +1,3 @@
+define(function(require, exports, module) {
+    module.exports="<script type=\"text/template\" id=\"activeAnalyzeList\">\r\n\t<% _.each(content,function(item){ %>\r\n\t\t<tr>\r\n\t\t\t<td></td>\r\n\t\t\t<td><%=item.eaName%></td>\r\n\t\t\t<td><%=item.openTime%></td>\r\n\t\t\t<td><%=item.periodActualLaunchCount%></td>\r\n\t\t\t<td><%=item.periodActivityCount%></td>\r\n\t\t\t<td></td>\r\n\t\t</tr>\r\n\t<% }) %>\r\n</script>\r\n\r\n";
+});

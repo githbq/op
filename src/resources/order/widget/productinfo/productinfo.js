@@ -74,7 +74,7 @@ define(function (require, exports, module) {
             n.value = type;
         });
         var transferedDataItems = controller.transferDataItem(terminalDataItems, tableDataItems, formDataItems, controlDataItems, result);//用控制器转换输入的数据项
-        var apiPool = {api_getServicePrice: api_getServicePrice, api_getCalculateSingle: api_getCalculateSingle,api_checkContractNo:api_checkContractNo};//API池
+        var apiPool = {api_getServicePrice: api_getServicePrice, api_getCalculateSingle: api_getCalculateSingle, api_checkContractNo: api_checkContractNo};//API池
         if (data.terminalInfo && data.terminalInfo.$view) {
             terminalInfo = new TerminalInfo({wrapperView: data.terminalInfo.$view, dataItems: transferedDataItems.terminalDataItems, apiPool: apiPool});
         }
@@ -99,16 +99,16 @@ define(function (require, exports, module) {
             formInfo.$('span.red').remove();
         }
         refs.validate = function () {
-            var flag1=terminalInfo.o_validate();
-            var flag2=tableInfo.o_validate();
-            var flag3=formInfo.o_validate();
-            return flag1&&flag2&&flag3;
+            var flag1 = terminalInfo.o_validate();
+            var flag2 = tableInfo.o_validate();
+            var flag3 = formInfo.o_validate();
+            return flag1 && flag2 && flag3;
         };
         return refs;
     };
 
     function afterRender(type, terminalInfo, tableInfo, formInfo) {
-        if (parseInt(type) <= 8) {
+        if (parseInt(type) <= 4) {
             //续费不让修改
             tableInfo.$('input[value=7]').attr('disabled', 'disabled');
         }
@@ -140,14 +140,16 @@ define(function (require, exports, module) {
             url: '~/op/api/rebate/calculateSingle'
         }, options))
     }
+
     /*
-    * 查询合同号是否可用
-    * */
+     * 查询合同号是否可用
+     * */
     function api_checkContractNo(options) {
         connectApi($.extend({
             url: '~/op/api/order/enterprise/getContract'
         }, options))
     }
+
     function connectApi(option) {
         util.api({
             'url': option.url,

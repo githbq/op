@@ -19,6 +19,11 @@ define(function (require, exports, module) {
                     item.value = responseData.edit;
                 }
             });
+            controller(terminalDataItems, 'isrefuse', function (item) {
+                if (responseData && responseData.refuse) {
+                    item.value = true;
+                }
+            });
             controller(terminalDataItems, 'allreadonly', function (item) {
                 item.allreadonly = false;
             });
@@ -201,6 +206,7 @@ define(function (require, exports, module) {
 
                     controller(terminalDataItems, 'allreadonly', function (item) {
                         item.allreadonly = true;
+                        item.value=true;
                     });
                     $(terminalDataItems).each(function (i, n) {
                         if (n.name.toLowerCase().indexOf('wrapper') < 0 && n.name.toLowerCase().indexOf('image') < 0) {//包裹者不设
@@ -222,10 +228,7 @@ define(function (require, exports, module) {
                 if (responseData && responseData.payInfoReadonly !== undefined) {//支付信息只读
                     exports.setPayInfoReadonly(controller, terminalDataItems, tableDataItems, formDataItems, responseData.payInfoReadonly);
                 }
-
             }
-
-
         }
         ;
         //设置续费逻辑
@@ -246,6 +249,7 @@ define(function (require, exports, module) {
             controller(tableDataItems, 'tablelist', function (n) {
                 n.visible = true;
             });
+
             controller(tableDataItems, 'check', function (n) {
                 n.on('setFieldValue', function ($ele, value, data, me) {
                     var isreadonly = me.__refs.terminalInfo.o_getFieldData('allreadonly').allreadonly === true;
@@ -403,6 +407,15 @@ define(function (require, exports, module) {
             controller(terminalDataItems, 'startTime_1', function (n) {
                 n.readonly = true;
             });
+            controller(tableDataItems, 'startTime_7', function (n) {
+                n.value = '';
+            });
+            controller(tableDataItems, 'endTime_7', function (n) {
+                n.value = '';
+            });
+            controller(tableDataItems,'type_7',function(n){
+                n.value = '3';
+            });
         };
 
         ///增购需要默认时间
@@ -426,9 +439,6 @@ define(function (require, exports, module) {
             //    n.readonly = isReadonly;
             //});
             //////////////////////
-            controller(formDataItems, 'currPayAmount_3', function (n) {
-                n.readonly = isReadonly;
-            });
             controller(formDataItems, 'currPayAmount_1', function (n) {
                 n.readonly = isReadonly;
             });
@@ -495,7 +505,7 @@ define(function (require, exports, module) {
                             endTime: fromData['endTime_' + n] || new Date().getTime(),
                             productAmount: fromData['productAmount_' + n] || 0,
                             discount: fromData['discount_' + n] || 0,
-                            currPayAmount: formInfoData['currPayAmount_' + n] || 0
+                            currPayAmount: formInfo.o_getFieldValue('payStatus_select') != '2' ? 0 : ( formInfoData['currPayAmount_' + n] || 0)
                         };
 
                         //if (n == '3') {

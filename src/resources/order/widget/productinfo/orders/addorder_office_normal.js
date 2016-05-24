@@ -15,12 +15,10 @@ define(function (require, exports, module) {
     };
     //转换输入值
     exports.transferDataItem = function (terminalDataItems, tableDataItems, formDataItems, controller, responseData) {//转换数据项
+
         controller(terminalDataItems, 'useFX', function (n) {
             n.visible = false;
         });
-        //工资助手强制
-        common.setGZHelper(controller, terminalDataItems, tableDataItems, formDataItems);
-        //工资助手强制 end
         controller(terminalDataItems, 'typewrapper_3', function (n) {
             n.visible = false;
         });
@@ -46,12 +44,14 @@ define(function (require, exports, module) {
             n.value = false;
         });
         common.setNotable(controller, terminalDataItems, tableDataItems, formDataItems);
-        var arr = ['currPayAmount_1', 'currPayAmount_2', 'currPayAmount_3', 'currPayAmount_4', 'currPayAmount_5', 'currPayAmount_7', 'currPayAmount_8'];
+        var arr = ['currPayAmount_1', 'currPayAmount_2', 'currPayAmount_4', 'currPayAmount_5', 'currPayAmount_7', 'currPayAmount_8'];
         $(arr).each(function (i, b) {
             controller(formDataItems, b, function (n) {
                 n.visible = false;
             });
         });
+        //增购默认时间
+        common.setAddOrderTime(controller, terminalDataItems, tableDataItems, formDataItems);
         common.setCommonData(controller, terminalDataItems, tableDataItems, formDataItems, 5, responseData);
 
 
