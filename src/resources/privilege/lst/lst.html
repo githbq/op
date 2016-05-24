@@ -5,8 +5,8 @@
                 <input type="text" class="name" placeholder="请输入方案名称">
             </label>
             <label><span>创建时间</span>
-                <input type="text" id="OpenSTime" placeholder="开始时间">———
-                <input type="text" id="OpenETime" placeholder="结束时间">
+                <input type="text" id="OpenSTime" placeholder="开始时间" oninput="this.value=''">———
+                <input type="text" id="OpenETime" placeholder="结束时间" oninput="this.value=''">
             </label>
             <label>
                 <span>状态</span>
@@ -122,7 +122,7 @@
                     <td>
                         <a href="javascript:void(0)" class="delete" data-name=<%=item.id%>>删除</a>
                         <a href="javascript:void(0)" class="view" data-name=<%=item.id%>>查看</a>
-                        <a href="javascript:void(0)" class="disable" data-name=<%=item.id%>><%=(!item.status?"启用":"停用")%></a>
+                        <a href="javascript:void(0)" class="aldisable" data-name=<%=item.id%>><%=(!item.status?"启用":"停用")%></a>
                     </td>
                 </tr>
                 <%})%>

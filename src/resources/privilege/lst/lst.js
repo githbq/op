@@ -1,3 +1,6 @@
+var flag = false;
+
+
 window.upId = null; //用来保存方案id;
 
 define(function(require, exports, module) {
@@ -29,7 +32,10 @@ define(function(require, exports, module) {
 
             bindSearch: function() { //查询优惠方案列表
                 var me = this;
+                flag = true;
                 $(".search").click(function() {
+
+                    $(".header-close").trigger('click'); //关闭右框;
                     util.api({
                         url: '~/op/api/coupon/packages/querypage',
                         type: 'POST',
@@ -58,7 +64,6 @@ define(function(require, exports, module) {
                                 me.pagination.onChange = function() {
 
                                     var pageIndex = me.pagination.attr['pageNumber'] + 1;
-
 
                                     /**
                                      * @ queryData type{Object}
@@ -171,6 +176,8 @@ define(function(require, exports, module) {
             },
 
             getSearchData: function() { //收集方案列表的筛选信息
+
+                var me = this;
                 var obj = {};
                 obj.name = $(".name").val();
                 obj.startAt = $("#OpenSTime").val() ? new Date($("#OpenSTime").val()).getTime() : "";
@@ -178,27 +185,45 @@ define(function(require, exports, module) {
                 obj.status = $(".status").val();
                 obj.type = "";
                 obj.pageSize = 20;
-                obj.pageIndex = 1;
+                if (flag == true) {
+
+                    obj.pageIndex = 1;
+                } else {
+
+                    obj.pageIndex = me.pagination.attr['pageNumber'] + 1;
+                }
                 return obj;
             },
 
             delete: function(e) { //点击方案的删除链接
                 var me = this;
+                flag = false;
                 $('.delete').click(function() {
+
+                    var r = confirm("删除此条方案");
+
                     var _this = $(this);
                     var id = $(this).attr('data-name');
                     var url = '~/op/api/coupon/packages/' + id + '/delete';
-                    util.api({
-                        url: url,
-                        type: 'POST',
-                        dataType: 'json',
-                        success: function(resp) {
-                            if (resp.success == true) { //后台返回true 时,说明后台删除成功;前端要重新渲染页面
-                                $('.search').trigger('click');
-                                alert("删除成功");
+
+                    if (r == true) {
+                        util.api({
+                            url: url,
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function(resp) {
+                                if (resp.success == true) { //后台返回true 时,说明后台删除成功;前端要重新渲染页面
+                                    $('.search').trigger('click');
+
+                                    window.setTimeout(function() {
+
+                                        alert("删除成功");
+                                    }, 200);
+                                }
                             }
-                        }
-                    });
+                        });
+
+                    }
                 });
             },
             viewProject: function() { //  查询优惠套餐详情
@@ -239,7 +264,7 @@ define(function(require, exports, module) {
             },
             deactive: function() { //更新产品启停状态
                 var me = this;
-                $(".disable").click(function(e) {
+                $(".aldisable").click(function(e) {
 
                     var status = null;
 
@@ -429,8 +454,8 @@ define(function(require, exports, module) {
 
                                 } else {
 
-                                    alert("请输入名片扫描配额");
-
+                                    alert("请输入名片扫描配额，最大值为999999张");
+                                    return;
                                 }
 
                             } else if ($("#noLimit").is(':checked')) {
@@ -439,7 +464,8 @@ define(function(require, exports, module) {
 
                             } else {
 
-                                alert("名片扫描输入错误");
+                                alert("请输入名片扫描配额，最大值为999999张");
+                                return;
 
                             }
                         } else {
@@ -454,7 +480,8 @@ define(function(require, exports, module) {
 
                                 } else {
 
-                                    alert("存储空间输入错误，最大值为10000G");
+                                    alert("请输入赠送空间量，最大值为10000G");
+                                    return;
 
                                 }
                             } else {
@@ -465,7 +492,10 @@ define(function(require, exports, module) {
 
                                 } else {
 
-                                    alert("赠送时长输入错误，最大为999999个月")
+                                    debugger;
+                                    alert("请输入赠送时长，最大为999999天");
+                                    return;
+
                                 }
 
                             }
@@ -480,6 +510,7 @@ define(function(require, exports, module) {
                 } else {
 
                     alert("请至少选择一个产品");
+                    return;
                 }
 
             }
