@@ -7015,8 +7015,7 @@ em {
   margin-top: 20px;
 }
 #privilege .new {
-  float: right;
-  margin-right: 30px;
+  margin-left: 25px;
 }
 .m-slider {
   color: black;
@@ -7046,7 +7045,8 @@ em {
   margin-right: 50px;
   margin-top: 20px;
   text-align: center;
-  background: #EBEBEB;
+  background: #2896F0;
+  color: white;
 }
 .p-list .list-pager {
   border-radius: 3px;

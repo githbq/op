@@ -1,24 +1,3 @@
-/**
-  优惠码助手前端展现逻辑
-
-
-   1.输入优惠方案名称，选择创建的截止时间，选择状态然后点击查询按钮就会从后端请求数据,然后填充到下面的列表中，方案包括‘优惠方案名称’和‘创建时间’，‘状态’，3个字段。
-
-   2.当点击删除时给后端一个状态和当前的筛选条件，让他把指定的方案删除掉，然后从后端返回的方案中拿取数据，重新渲染列表
-
-   3.当点击查看按钮时，弹出右画框，然后按照用户当初添加发方案时来展示，同时允许用户进行编辑允许提交。
-
-   4.点击停用或者启用按钮时,给后端一个状态让后端把相应的方案状态改为索请求的值，然后返回给前端，渲染到列表中。
-
-   5.当点击新建优惠方案时，会弹出右侧的浮框，，然后用户填写响应的项目。
-
-   6.优惠方案名称为必填项，最多为20个字。
-
-   7.优惠产品项目中，至少选择一个项目，不允许空着，优惠
-
-   8.三个操作是在每一个优惠方案中都有的，当方案名称状态是启用时，后面的按钮状态为停用状态，当方案的状态是停用状态，后部的操作按钮是启用状态;
- */
-
 window.upId = null; //用来保存方案id;
 
 define(function(require, exports, module) {
@@ -101,6 +80,9 @@ define(function(require, exports, module) {
 
                                             if (resp.success == true) {
 
+                                                $.each(resp.model.content, function(index, value) {
+                                                    value.createTime = me.transformTtoDate(value.createTime);
+                                                });
                                                 me.reload(resp);
                                                 me.delete();
                                                 me.viewProject();
@@ -140,6 +122,8 @@ define(function(require, exports, module) {
             initDateWidget: function() { //  初始化日期插件
 
                 $("#OpenSTime,#OpenETime").datetimepicker({ format: 'Y/m/d', timepicker: false }); //初始化日期插件
+
+                $(".search").trigger('click');
             },
 
             closePlan: function() { //点击优惠方案右上部的叉号时，关闭右划出框
@@ -210,7 +194,8 @@ define(function(require, exports, module) {
                         dataType: 'json',
                         success: function(resp) {
                             if (resp.success == true) { //后台返回true 时,说明后台删除成功;前端要重新渲染页面
-                                $(_this).parent().parent().css("display", 'none');
+                                $('.search').trigger('click');
+                                alert("删除成功");
                             }
                         }
                     });
@@ -438,8 +423,13 @@ define(function(require, exports, module) {
                             if ($("#count").is(':checked')) {
 
 
-                                if ($('#numberCount').val() != "" && (isNaN(parseInt($('#numberCount').val())) == false)) {
+                                if ($('#numberCount').val() != "" && (isNaN($('#numberCount').val()) == false && ($('#numberCount').val() <= 999999))) {
+
                                     obj.c = true;
+
+                                } else {
+
+                                    alert("请输入名片扫描配额");
 
                                 }
 
@@ -447,12 +437,36 @@ define(function(require, exports, module) {
 
                                 obj.c = true;
 
+                            } else {
+
+                                alert("名片扫描输入错误");
+
                             }
                         } else {
 
-                            if ($(this).siblings('input').val() && (isNaN($(this).siblings('input').val()) == false)) {
+                            if ($(this).attr('data-id') == '18') {
 
-                                obj.c = true;
+                                if ($(this).siblings('input').val() != "" && (isNaN($(this).siblings('input').val()) == false && ($(this).siblings('input').val() <= 10000))) {
+
+
+                                    obj.c = true;
+
+
+                                } else {
+
+                                    alert("存储空间输入错误，最大值为10000G");
+
+                                }
+                            } else {
+
+                                if ($(this).siblings('input').val() != "" && (isNaN($(this).siblings('input').val()) == false && ($(this).siblings('input').val() <= 999999))) {
+
+                                    obj.c = true;
+
+                                } else {
+
+                                    alert("赠送时长输入错误，最大为999999个月")
+                                }
 
                             }
 
@@ -460,6 +474,14 @@ define(function(require, exports, module) {
 
                     }
                 });
+
+                if ($("input[name=checkBox]").is(":checked")) {
+
+                } else {
+
+                    alert("请至少选择一个产品");
+                }
+
             }
         };
         var list = new List(); //实例化List类;

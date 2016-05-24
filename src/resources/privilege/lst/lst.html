@@ -12,8 +12,8 @@
                 <span>状态</span>
                 <select name="" class="status">
                     <option value="">全部</option>
-                    <option value="1">开启</option>
-                    <option value="0">关闭</option>
+                    <option value="1">启用</option>
+                    <option value="0">停用</option>
                 </select>
             </label>
             <button type="button" class="search">查询</button>
@@ -48,41 +48,41 @@
                 <ul style="display: inline-block;">
                     <li><span style="margin-right:65px;">产品名称</span><span>赠送时长</span></li>
                     <li>
-                        <input type="checkbox" data-id="4"></input><span class="cliName" style="margin-right:60px">PK助手 </span>
-                        <input type="text"></input>个月</li>
+                        <input type="checkbox" data-id="4" name="checkBox"></input><span class="cliName" style="margin-right:60px">PK助手 </span>
+                        <input type="text" oninput="this.value=this.value.replace(/\D/g, '')"></input>个月</li>
                     </li>
                     <li>
-                        <input type="checkbox" data-id="5"></input><span class="cliName">会议助手</span>
-                        <input type="text"></input>个月</li>
+                        <input type="checkbox" data-id="5" name="checkBox"></input><span class="cliName">会议助手</span>
+                        <input type="text" oninput="this.value=this.value.replace(/\D/g, '')"></input>个月</li>
                     </li>
                     <li>
-                        <input type="checkbox" data-id="12"></input><span class="cliName" style="margin-right:35px;">自定义助手</span>
-                        <input type="text"></input>个月</li>
+                        <input type="checkbox" data-id="12" name="checkBox"></input><span class="cliName" style="margin-right:35px;">自定义助手</span>
+                        <input type="text" oninput="this.value=this.value.replace(/\D/g, '')"></input>个月</li>
                     </li>
                     <li>
-                        <input type="checkbox" data-id="15"></input><span class="cliName">考试助手</span>
-                        <input type="text"></input>个月</li>
+                        <input type="checkbox" data-id="15" name="checkBox"></input><span class="cliName">考试助手</span>
+                        <input type="text" oninput="this.value=this.value.replace(/\D/g, '')"></input>个月</li>
                     </li>
                     <li>
-                        <input type="checkbox" data-id="14"></input><span class="cliName">战报助手</span>
-                        <input type="text"></input>个月</li>
+                        <input type="checkbox" data-id="14" name="checkBox"></input><span class="cliName">战报助手</span>
+                        <input type="text" oninput="this.value=this.value.replace(/\D/g, '')"></input>个月</li>
                     </li>
                     <li>
-                        <input type="checkbox" data-id="7"></input><span class="cliName">工资助手</span>
-                        <input type="text"></input>个月</li>
+                        <input type="checkbox" data-id="7" name="checkBox"></input><span class="cliName">工资助手</span>
+                        <input type="text" oninput="this.value=this.value.replace(/\D/g, '')"></input>个月</li>
                     </li>
                     <li>
-                        <input type="checkbox" data-id="17"></input><span class="cliName">项目管理</span>
-                        <input type="text"></input>个月</li>
+                        <input type="checkbox" data-id="17" name="checkBox"></input><span class="cliName">项目管理</span>
+                        <input type="text" oninput="this.value=this.value.replace(/\D/g, '')"></input>个月</li>
                     </li>
                     <li>
-                        <input type="checkbox" data-id="18"></input><span class="cliName">存储空间</span> 赠送空间量(G)
-                        <input type="text"></input>
+                        <input type="checkbox" data-id="18" name="checkBox"></input><span class="cliName">存储空间</span> 赠送空间量(G)
+                        <input type="text" id="space" oninput="this.value=this.value.replace(/\D/g, '')"></input>
                     </li>
                     <li>
-                        <input type="checkbox" data-id="8"></input><span class="cliName">名片扫描</span>
+                        <input type="checkbox" data-id="8" name="checkBox"></input><span class="cliName">名片扫描</span>
                         <input type="radio" name="alterative" id="count"></input> <span>赠送数量(张)</span>
-                        <input style="margin-right:40px" id="numberCount"></input>
+                        <input style="margin-right:40px" id="numberCount" oninput="this.value=this.value.replace(/\D/g, '')"></input>
                         <input type="radio" id="noLimit" name="alterative"></input><span>不限</span>
                     </li>
                 </ul>
