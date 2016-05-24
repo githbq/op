@@ -293,7 +293,7 @@ gulp.task('usemin', function() {
  */
 gulp.task('md5', function() {
 
-	return gulp.src(['dest/resources/**/*.js','dest/resources/assets/style/main.css','!dest/resources/common/widget/my97datepicker/**/*.*'], {//, 'dest/resources/**/*.html'
+	return gulp.src(['dest/resources/**/*.js','dest/resources/assets/style/main.css','dest/resources/**/*.html','!dest/resources/common/widget/my97datepicker/**/*.*'], {//, 
 
 			base: 'dest'
 		})
