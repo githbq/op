@@ -2243,7 +2243,7 @@ define(function (require, exports, module) {
             if (me.$actStartTime.val()) {
                 startTime = new Date(me.$actStartTime.val()).getTime();
             }else{
-				util.showToast('请选择开始时间');
+				util.showToast('请选择开始时间。');
                 return false;
 			}
             if (me.$actEndTime.val()) {
