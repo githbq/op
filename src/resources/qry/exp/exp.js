@@ -8,6 +8,7 @@ define( function( require, exports, module ) {
         elements: {
             '#source': 'source',
             '#province': 'province',
+            '#city': 'city',
             '#cst': 'cst',
             '#cet': 'cet',
             '#btnSearch': 'search',
@@ -50,7 +51,6 @@ define( function( require, exports, module ) {
             me.$cet.val( me.getDateString( -1 ) );
         },
         initializeSelect: function() {
-            this.generateSelect( 'PROVINCE', this.$province );
             this.generateSelect( 'DEMO_SOURCE', this.$source );
         },
         generateSelect: function( name, $select, callback ) {
@@ -67,7 +67,8 @@ define( function( require, exports, module ) {
             var me = this;
             var data = {
                 source: me.$source.val(),
-                province: me.$province.val()
+                province: me.$province.val(),
+                city: me.$city.val()
             };
             if ( me.$cst.val() ) {
                 data.startTime = new Date( me.$cst.val() ).getTime();
@@ -81,7 +82,7 @@ define( function( require, exports, module ) {
             util.api({
                 url: '/query/getdemoaccountrecordcount',
                 data: data,
-                success: function( data ) {
+                success: function( data ) {console.log(data);
                     if ( data.success ) {
                         var model = data.value.model;
                         model.dst = new Date( model.startTime )._format( 'yyyy-MM-dd hh:mm:ss' );
@@ -99,7 +100,8 @@ define( function( require, exports, module ) {
             var me = this;
             var data = {
                 source: me.$source.val(),
-                province: me.$province.val()
+                province: me.$province.val(),
+                city: me.$city.val()
             };
             if ( me.$cst.val() ) {
                 data.startTime = new Date( me.$cst.val() ).getTime();
