@@ -15,6 +15,7 @@ var fs = require('fs'),
 	//cmdJst = require('gulp-cmd-jst'),
 	concat = require('gulp-concat'),
 	transport = require('gulp-cmd-transit');
+    var ngAnnotate = require('gulp-ng-annotate');
 
 /**
  *
@@ -276,6 +277,16 @@ gulp.task('jst', function() {
 		.pipe(gulp.dest('src/resources/'))
 });
 
+/*
+* angularjs自动依赖声明
+* */
+gulp.task('ngAnnotate',function(){
+	console.log('------执行angularjs自动注入');
+	return gulp.src(paths.jses)
+		.pipe(ngAnnotate())
+		.pipe(gulp.dest('src/resources/'));
+});
+
 /**
  * Replaces references to non-optimized scripts or stylesheets into a set of HTML files (or any templates/views).
  */
@@ -353,13 +364,15 @@ gulp.task('test', function() {
 		.pipe(jshint.reporter()); //输出检查结果
 });
 
-
+//默认路径
 var paths = {
-	lesses: ['src/resources/**/**/*.less']
+	lesses: ['src/resources/**/**/*.less'],
+	jses:['src/resources/**/*.js']
 
 };
 //文件监听 第二个参数为触发后会执行的任务
 gulp.task('watch', function() {
+	//gulp.watch(paths.jses, ['ngAnnotate']);
 	gulp.watch(paths.lesses, ['less']);
 	gulp.watch(['src/resources/**/*.html'], ['jst.html']);
 });
@@ -368,11 +381,12 @@ gulp.task('watch', function() {
 /*
  * 默认任务
  */
-gulp.task('default', ['less', 'watch']);
+gulp.task('default', ['less','ngAnnotate','watch']);
 gulp.task('release', sequence(
 	'clean',
 	'jst.html',
 	'less',
+	'ngAnnotate',
 	'copy', [
 		//'transport',
 		'transport:common',

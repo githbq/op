@@ -1,0 +1,14 @@
+<div class="p-list p-qry-partner" js="true">
+    <div>
+        <form name="myForm" ng-submit="save()">
+            <input name="personEmail" required type="email" ng-model="person.email"/>
+            <span ng-show="!myForm.personEmail.$valid">有错</span>
+            <span ng-show="myForm.personEmail.$error.required">必填</span>
+            <span ng-show="myform.personEmail.$error.email">email 地址不对</span>
+            <input name="personName" required/>
+
+            <input type="submit" ng-disabled="myForm.$invalid"/>
+        </form>
+    </div>
+
+</div>
