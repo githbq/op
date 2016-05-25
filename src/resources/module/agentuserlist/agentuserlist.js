@@ -123,7 +123,7 @@ define( function(require, exports, module){
 				me.$changeStatus.attr('disabled','disabled');
 				
 				util.api({
-					url: '/agent/changeaccountactive',
+					url: '/channel/changeaccountactive',
 					data: {
 						'accountId':accountId,
 						'active':active
