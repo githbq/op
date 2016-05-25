@@ -44,17 +44,6 @@ define(function(require, exports, module) {
                 $("#OpenSTime,#OpenETime").datetimepicker({ format: 'Y/m/d', timepicker: false }); //初始化日期插件
 
 
-                $("#OpenETime").datetimepicker({
-                    format: 'Y/m/d',
-                    onShow: function() {
-                        var minDate = $("#OpenSTime").val() ? $("#OpenSTime").val() : false;
-                        this.setOptions({
-                            minDate: minDate
-                        });
-                    },
-                    timepicker: false
-                });
-
                 $(".search").trigger('click');
             },
 
