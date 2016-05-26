@@ -1,19 +1,47 @@
-define( function( require, exports, module ) {
-    require('./directives.js');
-    exports.init = function() {
-        var $el = exports.$el;
+define(function (require, exports, module) {
+    var myApp = angular.module('formApp',['ngMessages']);
+    myApp.controller('testFormController', ["$scope", function ($scope) {
 
-        var myApp=angular.module('orderApp',['app.directives']);
-        myApp.controller('testController',["$scope", function($scope){
+        $scope.data={a:1,b:2,c:3};
 
+        $scope.value = '测试使用' + Math.random();
+        $scope.clickMe = function () {
+            $scope.clicked = true;
+        };
+        $scope.getFormStatus = function(){
+            alert('in');
+            debugger
+            console.log($scope.form);
+        }
+    }]);
 
-            $scope.value='测试使用'+Math.random();
-            $scope.clickMe=function(){
-                alert(1);
-                $scope.clicked=true;
+    myApp.controller('testFormsController', ["$scope", function ($scope) {
+
+        $scope.formList=[
+            {
+                name:'form1',
+                data:{a:'1',b:'2',c:'3'}
+            },
+            {
+                name:'form2',
+                data:{a:'11',b:'22',c:'33'}
+            },
+            {
+                name:'form3',
+                data:{a:'1111',b:'2222',c:'3333'}
             }
-        }]);
-        angular.bootstrap($el.get(0),['orderApp']);
+        ];
+
+
+        $scope.getFormStatus = function(){
+            alert('in');
+            debugger
+            console.log($scope.form);
+        }
+    }]);
+    exports.init = function () {
+        var $el = exports.$el;
+        angular.bootstrap($el.get(0), ['formApp']);
     };
 
-} );
+});
