@@ -1,0 +1,3 @@
+define(function(require, exports, module) {
+    module.exports="<div class=\"m-pdtlist u-tablelist\">\n <div class=\"list-main\">\n <div class=\"list-header\">\n <h3>产品列表</h3>\n </div>\n <div class=\"list-content\">\n <table>\n <thead>\n <tr>\n <th></th>\n <th>产品名称</th>\n <th style=\"width:160px;\">终端上限</th>\n <th style=\"width:160px;\">短信赠送条数</th>\n <th style=\"width:160px;\">短信赠送频率</th>\n <th style=\"width:160px;\">空间数量</th>\n <th style=\"width:60px;\">是否免费</th>\n <th style=\"width:220px;\"></th>\n <th></th>\n </tr>\n </thead>\n <tbody>\n <!--content-->\n </tbody>\n </table>\n </div>\n </div>\n <div class=\"list-pager\"></div>\n</div>\n";
+});

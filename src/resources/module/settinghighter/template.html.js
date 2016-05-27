@@ -1,0 +1,3 @@
+define(function(require, exports, module) {
+    module.exports="<div class=\"m-setleader\">\n\t<p class=\"title\">\n\t\t<label for=\"\">\n\t\t\t姓名&nbsp;&nbsp;&nbsp;&nbsp;<input type=\"text\" ce-model=\"nameHighter\">\n\t\t</label>\n\t\t<button class=\"btn-blue search\">查询</button>\n\t</p>\n\n\t<ul ce-collection=\"list\"><li data-id=\"<%=item.id%>\" data-name=\"<%=item.name%>\" class=\"person-detail\">\n\t\t\t<p><span>名字：</span><%=item.name%></p>\n\t\t\t<p><span>邮箱地址：</span><%=item.email%></p>\n\t\t\t<!--<p><span>手机：</span><%=item.mobile%></p>\n\t\t\t<p><span>办公电话：</span><%=item.phone%></p>--></li ></ul>\n</div>\n\n\n";
+});

@@ -1,0 +1,3 @@
+define(function(require, exports, module) {
+    module.exports="<script type=\"text/template\" id=\"trPdtLst\">\n <% _.each(content,function( value ,index ){ %>\n <tr>\n <td></td>\n <td><%=value.id%></td>\n <td><%=value.name%></td>\n <td><%=value.deviceMaxCount%></td>\n <td><%=value.textMessageCount %></td>\n <td><%=value.textMessageMethod%></td>\n <td><%=value.storage%></td>\n <td><%=value.freeStr%></td>\n <td></td>\n </tr>\n <% }) %>\n</script>\n";
+});
