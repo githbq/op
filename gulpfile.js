@@ -382,7 +382,7 @@ gulp.task('watch', function () {
 /*
  * 默认任务
  */
-gulp.task('default', ['less', 'ngAnnotate', 'watch']);
+gulp.task('default', ['jst.html','less', 'ngAnnotate', 'watch']);
 gulp.task('release', sequence(
     'clean',
     'jst.html',

@@ -1,13 +1,13 @@
 define(function (require, exports, module) {
     var app = angular.module('app.services', []);
-    app.factory('serviceB', function($http) { // injectables go here
+    app.factory('serviceB', ["$http", function($http) { // injectables go here
         var self = this; // Save reference
         self.a=1;
          return {a:self.a,b:2,c:3};
-    });
+    }]);
 
 
-    app.service('serviceA', function($http) { // injectables go here
+    app.service('serviceA', ["$http", function($http) { // injectables go here
         var self = this; // Save reference
         self.data = {a:11,b:22,c:33};
         self.a=1;
@@ -16,11 +16,11 @@ define(function (require, exports, module) {
         self.get = function() {
             return self.data;
         }
-    });
+    }]);
 
     app.provider('serviceC', function() {
         this.a='123';
-        this.$get = function($http) { // injectables go here
+        this.$get = ["$http", function($http) { // injectables go here
             var self = this;
             var service = {
                 a:self.a,
@@ -28,7 +28,7 @@ define(function (require, exports, module) {
                 c:3
             };
             return service;
-        }
+        }]
     });
 
     module.exports=app;
