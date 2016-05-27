@@ -1,7 +1,7 @@
 <div class="p-list p-qry-partner" js="true">
     <div>
         测试angularjs的使用
-        <div ng-controller="testController">
+        <div ngzxxx-controller="testController">
             {{value}}
             <button ng-click="clickMe()" ng-disabled="clicked">点我啊</button>
 
@@ -10,5 +10,60 @@
         </div>
 
     </div>
+    <hr/>
+    <b>父子控制器案例</b>
 
+    <div>
+        <div ng-controller="parentController">
+            <input type="text" ng-model="value.A"/>
+            <input type="text" ng-model="value.B"/>
+            <button ng-click="clickMe()" ng-disabled="clicked">点我parent啊</button>
+            <div ng-controller="childController">
+                <input type="text" ng-model="value.A"/>
+                <input type="text" ng-model="value.B"/>
+                <button ng-click="clickMe()" ng-disabled="clicked">点我child啊</button>
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <b>服务案例</b>
+
+    <div>
+        <div ng-controller="service1Controller">
+            <input type="text" ng-model="a"/>
+            <input type="text" ng-model="b"/>
+            <input type="text" ng-model="c"/>
+            <button ng-click="clickMe()" ng-disabled="clicked">点我</button>
+        </div>
+        <div ng-controller="service2Controller">
+            <input type="text" ng-model="a"/>
+            <input type="text" ng-model="b"/>
+            <input type="text" ng-model="c"/>
+            <button ng-click="clickMe()" ng-disabled="clicked">点我</button>
+        </div>
+    </div>
+    <hr/>
+    <b>事件广播</b>
+
+    <div>
+        <div ng-controller="event1Controller">
+            <input type="text" ng-model="a"/>
+            <input type="text" ng-model="b"/>
+            <input type="text" ng-model="c"/>
+            <div ng-controller="event1ChildController">
+                <input type="text" ng-model="a"/>
+                <input type="text" ng-model="b"/>
+                <input type="text" ng-model="c"/>
+                <button ng-click="clickMe()" ng-disabled="clicked">event1ChildController点我</button>
+            </div>
+            <button ng-click="clickMe()" ng-disabled="clicked">event1Controller点我</button>
+        </div>
+        <div ng-controller="event2Controller">
+            <input type="text" ng-model="a"/>
+            <input type="text" ng-model="b"/>
+            <input type="text" ng-model="c"/>
+            <button ng-click="clickMe()" ng-disabled="clicked">event2Controller点我</button>
+        </div>
+    </div>
+    <hr/>
 </div>

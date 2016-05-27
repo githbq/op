@@ -1,5 +1,11 @@
 define(function (require, exports, module) {
     var myApp = angular.module('formApp',['ngMessages']);
+
+
+    myApp.controller('testRepeatController',function($scope){
+
+        $scope.list=[1,2,3,4,1,2,3,4];
+    });
     myApp.controller('testFormController', ["$scope", function ($scope) {
 
         $scope.data={a:1,b:2,c:3};

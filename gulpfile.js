@@ -17,7 +17,7 @@ var fs = require('fs'),
     transport = require('gulp-cmd-transit');
 var ngAnnotate = require('gulp-ng-annotate');
 
-require('./gulps/angular');
+//require('./gulps/gulp-angular');
 /**
  *
  * 清空文件夹

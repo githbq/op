@@ -1,4 +1,12 @@
 <div class="p-list p-qry-partner" js="true">
+    <hr/>
+    <b>测试repeat</b>
+    <div ng-controller="testRepeatController" >
+          <div ng-repeat="li in list track by $index">
+              {{li}}
+          </div>
+    </div>
+    <hr/>
     <div ng-controller="testFormsController" >
         testFormsController
         <div ng-repeat="form in formList" style="border:1px solid red;margin-top:20px;">
