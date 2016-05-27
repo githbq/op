@@ -239,7 +239,7 @@ define(function(require, exports, module) {
 
                             $(".header-close").trigger('click');
 
-                            util.showToast("提交成功");
+                            util.showTip("提交成功");
                             me.getData();
                         }
                     }
