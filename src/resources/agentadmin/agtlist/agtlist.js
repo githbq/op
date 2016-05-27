@@ -6,8 +6,9 @@ define( function(require, exports, module){
 		Dialog = require('common/widget/dialog/dialog'),
 		Slider = require('common/widget/slider/slider'),
 		DepartmentModel = require('module/departmentmodel/departmentmodel'),
-
-		UserList = require('module/agentuserlist/agentuserlist'),
+   
+   
+		UserList = require('module/amagentuserlist/amagentuserlist'),
 		UserInfo = require('module/agentuser/agentuser'),
 		AgtList = require('module/agentlist/agentlist'),
 		AreaTree = require('module/areatree/areatree');
