@@ -1,0 +1,3 @@
+define(function(require, exports, module) {
+    module.exports="<div class=\"m-enttrace\">\r\n\t\r\n\t<div class=\"sendcontent\">\r\n\t</div>\r\n\t<div class=\"tracecontent\">\r\n\t\t<table>\r\n\t\t\t<thead>\r\n\t\t\t\t<tr>\r\n\t\t\t\t\t\r\n\t\t\t\t\t<th>文件名</th>\r\n\t\t\t\t\t<th>创建时间</th>\r\n\t\t\t\t\t<th>文件类型</th>\r\n\t\t\t\t\t<th>下载状态</th>\r\n\t\t\t\t\t<th>操作</th>\r\n\t\t\t\t</tr>\r\n\t\t\t</thead>\r\n\t\t\t<tbody>\r\n\t\t\t\t\r\n\t\t\t</tbody>\r\n\t\t</table>\r\n\t\t<div class=\"content-more\">加载更多</div>\r\n\t\t<p style=\"margin: 10px;text-align: center;\"><button class=\"clear-all\" >清空数据</button></p>\r\n\t</div>\r\n\t\r\n</div>\r\n\r\n";
+});
