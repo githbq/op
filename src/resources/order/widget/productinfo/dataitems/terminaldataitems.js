@@ -248,7 +248,8 @@ define(function (require, exports, module) {
                                 return;
                             }
                         } else {
-                            me.o_setValue({name: 'purchaseAmount_' + n, value: 0});
+                            //me.o_setValue({name: 'purchaseAmount_' + n, value: 0});
+                            //me.o_setValue({name: 'purchaseAmount_input_' + n, value: 0});
                             me.o_setValue({name: 'productAmount_' + n, value: 0});
                         }
                         if (n == '16') {
@@ -546,7 +547,7 @@ define(function (require, exports, module) {
                     startDate: me.o_getFieldValue('startTime_' + id),
                     endDate: me.o_getFieldValue('endTime_' + id),
                     sum: sum,
-                    contractAmount: me.o_getFieldValue('purchaseAmount_' + id) || '0',
+                    contractAmount: me.o_getFieldValue('purchaseAmount_' + id)|| me.o_getFieldValue('purchaseAmount_input_' + id) || '0',
 
                     orderType: me.o_getFieldValue('orderType'),
                     hasPurchaseCount: me.o_getFieldValue('old_CRMCount') || '0'
