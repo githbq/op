@@ -271,7 +271,7 @@ define(function(require, exports, module) {
                 'vendorId': me.model.get('vendorId'), //优惠码
                 'isPresent': me.model.get('isPresent'), //是否赠送办公版
                 'isPay': me.model.get('isPay'), //是否付费
-                'isChepEnt': me.model.get('isChepEnt'), //是否是优惠企业
+                'isCoupon': me.model.get('isCoupon'), //是否是优惠企业
                 fromAppStartTime: fromAppStartTime,
                 endAppStartTime: endAppStartTime,
                 'accountName': accountName

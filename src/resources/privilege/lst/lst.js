@@ -182,7 +182,7 @@ define(function(require, exports, module) {
 
                     var statusStr = $(this).text();
 
-                    status = (statusStr == "启用" ? 1 : 0);
+                    status = (statusStr == "启用" ? 1 : 2);
 
                     var id = $(this).attr('data-name'); //禁用某个方案时，把需要禁用的方案的名称和筛选数据传给后台，然后拿到状态已经改变后的数据渲染，同时要把当前操作中的禁用和启用状态相互颠倒；
 
