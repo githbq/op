@@ -600,7 +600,7 @@ define(function (require, exports, module) {
                         };
 
                         if (n == '16') {
-                            subOrder.giveCount = fromData['giveCount_16'];
+                            subOrder.giveCount = fromData['giveCount_16']||0;
                             if (!fromData['purchaseCount_' + n]) {
                                 subOrder.purchaseCount = 0;
                             }
