@@ -137,9 +137,9 @@
                         <%=item.createTime%>
                     </td>
                     <td>
-                        <%if(item.type===1){%>
+                        <%if(item.type===2){%>
                         <%="优惠码"%>
-                        <%}else if(item.type===2){%>
+                        <%}else if(item.type===1){%>
                         <%="优惠助手"%>
                         <%}else if(item.type===3){%>
                         <%="优惠码/优惠助手"%>
@@ -151,7 +151,7 @@
                     <td>
                         <a href="javascript:void(0)" class="delete" data-name=<%=item.id%>>删除</a>
                         <a href="javascript:void(0)" class="view" data-name=<%=item.id%>>查看</a>
-                        <a href="javascript:void(0)" class="aldisable" data-name=<%=item.id%>><%=(item.status==1?"启用":"停用")%></a>
+                        <a href="javascript:void(0)" class="aldisable" data-name=<%=item.id%>><%=(item.status==2?"启用":"停用")%></a>
                     </td>
                 </tr>
                 <%})%>

@@ -6986,6 +6986,10 @@ em {
   width: 80px;
   height: 25px;
 }
+#privilege .type {
+  width: 120px;
+  height: 25px;
+}
 #privilege .search {
   width: 100px;
   margin-left: 50px;
@@ -7049,6 +7053,12 @@ em {
 .m-slider textarea {
   width: 600px;
   height: 200px;
+}
+.m-slider p {
+  margin-top: 15px;
+}
+.m-slider select {
+  height: 25px;
 }
 .m-slider .submit,
 .m-slider .cancel {
