@@ -31,11 +31,7 @@ define(function (require, exports, module) {
                         me.o_setValue({name: 'agentCurrPayAmount', visible: false, value: ''});
                     } else {
                         var servicePrice = 0;
-                        if (me.o_getFieldData('currPayAmount_3').visible == true) {
-                            servicePrice = me.o_getFieldValue('currPayAmount_3');
-                        } else {
-                            servicePrice = me.__refs.terminalInfo.o_getFieldValue('purchaseAmount_3');
-                        }
+                        servicePrice = me.__refs.terminalInfo.o_getFieldValue('purchaseAmount_3');
                         me.o_setValue({name: 'agentCurrPayAmount', visible: true, value: servicePrice});
                     }
                     //重新计算价格
@@ -185,7 +181,6 @@ define(function (require, exports, module) {
                             me.o_setValues([
                                 {name: 'currPayAmount', value: currPayAmount},
                                 {name: 'agentCurrPayAmount', value: servicePrice},
-                                {name: 'currPayAmount_3', value: '0', visible: false},
                                 {name: 'currPayAmount_1', value: '0', visible: false},
                                 {name: 'currPayAmount_4', value: '0', visible: false},
                                 {name: 'currPayAmount_5', value: '0', visible: false},
@@ -208,7 +203,6 @@ define(function (require, exports, module) {
                             me.o_setValues([
                                 {name: 'currPayAmount'},
                                 {name: 'agentCurrPayAmount', value: servicePrice},
-                                {name: 'currPayAmount_3', visible: false},
                                 {name: 'currPayAmount_1', visible: false},
                                 {name: 'currPayAmount_4', visible: false},
                                 {name: 'currPayAmount_5', visible: false},
@@ -258,7 +252,6 @@ define(function (require, exports, module) {
                         case '3':
                         {  //未付
                             me.o_setValues([
-                                {name: 'currPayAmount_3', value: '0', visible: false},
                                 {name: 'currPayAmount_1', value: '0', visible: false},
                                 {name: 'currPayAmount_4', value: '0', visible: false},
                                 {name: 'currPayAmount_5', value: '0', visible: false},
@@ -330,18 +323,13 @@ define(function (require, exports, module) {
                             var currPayAmount = 0;
                             
                             var agentCurrPayAmount = 0;
+                            if (me.__refs.formInfo.o_getFieldValue('orderAssigned') == 1) {//只有直销时才算入总部到款价
+                                currPayAmount += parseFloat(me.__refs.terminalInfo.o_getFieldValue('purchaseAmount_3') || 0);
+                            } else {
+                                agentCurrPayAmount = me.__refs.terminalInfo.o_getFieldValue('purchaseAmount_3');
+                            }
                             me.$('.fenqi').each(function (i, n) {
-                                if ($(n).is('[data-name=currPayAmount_3]')) { //服务费
-                                    agentCurrPayAmount = parseFloat($(n).val() || 0);
-                                    if (me.__refs.formInfo.o_getFieldValue('orderAssigned') == 1) {//只有直销时才算入总部到款价
-                                        currPayAmount += parseFloat($(n).val() || 0);
-                                    } else {
-                                        agentCurrPayAmount = me.__refs.terminalInfo.o_getFieldValue('purchaseAmount_3');
-                                    }
-                                } else {
-                                    currPayAmount += parseFloat($(n).val() || 0);
-                                }
-
+                                currPayAmount += parseFloat($(n).val() || 0);
                             });
                             me.o_setValue({name: 'currPayAmount', value: currPayAmount});
                             me.o_setValue({name: 'agentCurrPayAmount', value: agentCurrPayAmount});

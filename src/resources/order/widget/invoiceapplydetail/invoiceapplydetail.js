@@ -40,6 +40,11 @@ define(function (require, exports, module) {
             resultData.invoiceId = data.data.invoiceId;
             resultData.processInstanceId = data.data.processInstanceId;
             var dataItems = require('./dataitems/items').getItems();
+
+            if( type == 2 && resultData.notRefundStatus == false ){
+                type = 4;
+            }
+            
             var controller = getDataControllerByType(type);//根据类型获取控制器
             var transferedDataItems = controller.transferDataItem(dataItems, controlDataItems, resultData);//用控制器转换输入的数据项
             var invoice = new Invoice({templateData: {}, wrapperView: data.$view, dataItems: transferedDataItems.dataItems, apiPool: {}});

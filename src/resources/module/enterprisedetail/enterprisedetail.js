@@ -2261,10 +2261,16 @@ define(function (require, exports, module) {
 
             if (me.$actStartTime.val()) {
                 startTime = new Date(me.$actStartTime.val()).getTime();
-            }
+            }else{
+				util.showToast('请选择开始时间。');
+                return false;
+			}
             if (me.$actEndTime.val()) {
                 endTime = new Date(me.$actEndTime.val()).getTime();
-            }
+            }else{
+				util.showToast('请选择结束时间');
+                return false;
+			}
             var url = IBSS.API_PATH + '/query/act/detail/generate?' + $.param({'enterpriseId': me.model.attrs.enterpriseId, 'timeStart': startTime, 'timeEnd': endTime})
             window.open(url);
         },

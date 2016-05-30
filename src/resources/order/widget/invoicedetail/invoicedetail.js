@@ -324,7 +324,9 @@ define(function( require , exports , module ){
 							}
 
 							//加盖财务章 开票信息
-							
+							if( data.value.model.stampimage ){
+								me.$('#financeimg').show().attr('src','/op/api/file/previewimage?filePath='+data.value.model.stampimage);
+							}
 
 							if( data.value.model.rejectReason ){
 								me.$('.rejectReason').html( getRejectReason( data.value.model.rejectReason ) );
@@ -395,6 +397,7 @@ define(function( require , exports , module ){
 			me.$('input,textarea').removeAttr('disabled');
 			me.$('.rejectReason').html('');
 			me.$('.imginfo').hide();
+			me.$('input[type="file"]').val('');
 
 			//重置input选中状态
 			me.$('[name="invoice"]').eq(0).trigger('click');

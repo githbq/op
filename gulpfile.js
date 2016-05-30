@@ -368,7 +368,7 @@ gulp.task('watch', function() {
 /*
  * 默认任务
  */
-gulp.task('default', ['less', 'watch']);
+gulp.task('default', ['jst.html','less', 'watch']);
 gulp.task('release', sequence(
 	'clean',
 	'jst.html',
