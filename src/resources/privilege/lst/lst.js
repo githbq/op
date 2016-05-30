@@ -71,6 +71,8 @@ define(function(require, exports, module) {
                     $(".slider-body input").removeAttr("checked");
 
                     $(".slider-body input,.slider-body textarea").val('');
+
+                    $(".slider-body select").val(1);
                 });
 
 
@@ -83,7 +85,6 @@ define(function(require, exports, module) {
 
                     if (judgeObject.a == true && judgeObject.b == true && judgeObject.c == true) {
 
-                        console.log(window.upId);
                         me.sendData(window.upId);
                         window.upId = null;
                     }
@@ -98,9 +99,9 @@ define(function(require, exports, module) {
                 obj.startAt = $("#OpenSTime").val() ? new Date($("#OpenSTime").val()).getTime() : "";
                 obj.endAt = $("#OpenETime").val() ? new Date($("#OpenETime").val()).getTime() : "";
                 obj.status = $(".status").val();
-                obj.type = "";
+                obj.type = $(".type").val();
                 obj.pageSize = 20;
-
+                console.log(obj)
                 if (flag == true) {
 
                     obj.pageIndex = 1;
@@ -109,7 +110,7 @@ define(function(require, exports, module) {
                     obj.pageIndex = me.pagination.attr['pageNumber'] + 1;
                 }
                 return obj;
-                console.log(obj);
+                
             },
 
             delete: function(e) { //点击方案的删除链接
@@ -148,7 +149,7 @@ define(function(require, exports, module) {
                         type: 'POST',
                         dataType: 'json',
                         success: function(resp) { //传回指定的方案的各种指标然后弹出右拉框，然后填充到右拉框中。
-
+                            console.log(resp)
                             if (resp.success == true) {
 
                                 window.upId = resp.model.id;
@@ -156,6 +157,7 @@ define(function(require, exports, module) {
                                 $(".new").trigger("click"); //弹出右拉框
                                 $('#chpPlanName').val(resp.model.name); //填充右拉框中的优惠方案名称
                                 $("#content").val(resp.model.description); //填充优惠介绍
+                                $('#type').val(resp.model.type);//方案下拉框选择
 
                                 var array = [4, 5, 12, 15, 14, 7, 17, 18, 8]; //各种产品的id 按页面展现顺序
 
@@ -218,10 +220,9 @@ define(function(require, exports, module) {
                 var me = this;
                 var obj = {};
                 obj.name = $('#chpPlanName').val();
-                obj.description = $("#content").val(); //保存或者新建方案时，提交给后台的方案信息：
-                obj.type = "";
+                obj.description = $("#content").val(); 
+                obj.type = $('#type').val();//保存或者新建方案时，提交给后台的方案信息：
                 obj.items = me.getProIfo();
-                console.log(me.getProIfo());
                 if (!id) {
                     obj.id = "";
                 } else {

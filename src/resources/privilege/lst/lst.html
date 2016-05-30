@@ -16,6 +16,15 @@
                     <option value="0">停用</option>
                 </select>
             </label>
+            <label>
+                <span>使用类型</span>
+                <select name="" class="type">
+                    <option value="">全部</option>
+                    <option value="1">优惠码</option>
+                    <option value="2">优惠助手</option>
+                    <option value="3">优惠码/优惠助手</option>
+                </select>
+            </label>
             <button type="button" class="search">查询</button>
             <button type="button" class="new">新建优惠方案</button>
         </div>
@@ -36,6 +45,16 @@
                     <label for="">
                         <span>优惠方案名称<span style="color:red;margin-left:50px">*</span></span>
                         <input type="text" placeholder="最多20个字" style="width:340px" id="chpPlanName" required maxlength="20">
+                    </label>
+                </p>
+                <p>
+                    <label for="">
+                        <span>使用类型<span style="color:red;margin-left:50px">*</span></span>
+                        <select id="type">
+                            <option value="1">优惠码</option>
+                            <option value="2">优惠助手</option>
+                            <option value="3">优惠码/优惠助手</option>
+                        </select>
                     </label>
                 </p>
                 <hr></hr>
@@ -103,6 +122,7 @@
             <tr>
                 <th>优惠方案名称</th>
                 <th>创建时间</th>
+                <th>使用类型</th>
                 <th>状态</th>
                 <th>操作</th>
             </tr>
@@ -115,6 +135,15 @@
                     </td>
                     <td>
                         <%=item.createTime%>
+                    </td>
+                    <td>
+                        <%if(item.type===1){%>
+                        <%="优惠码"%>
+                        <%}else if(item.type===2){%>
+                        <%="优惠助手"%>
+                        <%}else if(item.type===3){%>
+                        <%="优惠码/优惠助手"%>
+                        <%}%>
                     </td>
                     <td>
                         <%=(!item.status?"停用":"启用")%>
