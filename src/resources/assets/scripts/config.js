@@ -113,7 +113,8 @@
 		paths: {
 			'common': IBSS.COMMON_PATH,
 			'module': IBSS.BASE_PATH + '/module',
-			'page': IBSS.BASE_PATH + '/page'
+			'page': IBSS.BASE_PATH + '/page',
+			'plugin':IBSS.COMMON_PATH+'/scripts/plugin'
 		},
 		debug : IBSS.IS_DEVELOP							// 开发模式下开启debug
 	});

@@ -102,6 +102,7 @@ define(function (require, exports, module) {
         }]);
         //end 事件监听案例
         angular.bootstrap($el.get(0), ['orderApp']);
+
     };
 
 });
