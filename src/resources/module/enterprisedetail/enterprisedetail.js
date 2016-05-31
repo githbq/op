@@ -231,18 +231,18 @@ define(function(require, exports, module) {
             '#sdSC': 'sdSC',
             '#sdSUC': 'sdSUC',
 
-            ///'#sXKDC': 'sXKDC',         		//逍客终端总量
-            ///'#sXKET': 'sXKET',         		//签约到期时间
-            ///'#yxEndInput': 'yxEndInput',    	//营销版到期时间
+            ///'#sXKDC': 'sXKDC',               //逍客终端总量
+            ///'#sXKET': 'sXKET',               //签约到期时间
+            ///'#yxEndInput': 'yxEndInput',     //营销版到期时间
             ///'#sBCDC': 'sBCDC',
             ///'#sBCET': 'sBCET',
             ///'#sSms': 'sSms',
             ///'#sStorage': 'sStorage',
 
-            ///'#sDevice': 'sDevice',     			 //逍客终端扩容
+            ///'#sDevice': 'sDevice',                //逍客终端扩容
 
             ///'#yingxiao': 'yingxiao',             //营销版终端总量
-            ///'#yingxiaoAdd': 'yingxiaoAdd',	     //营销版终端扩容
+            ///'#yingxiaoAdd': 'yingxiaoAdd',        //营销版终端扩容
 
             '#sActivity': 'sActivity',
             '#sProductModule': 'sProductModule',
@@ -382,7 +382,7 @@ define(function(require, exports, module) {
             }, //开启产品
             'click #closeproduct': function() {
                     this.toggleProduct(2)
-                } //关闭产品														
+                } //关闭产品                                                        
         },
 
         uploadzzEve: function() {
@@ -620,7 +620,7 @@ define(function(require, exports, module) {
 
             /*
              * me.modules = {
-             *	isInitializes: false
+             *  isInitializes: false
              * };
              */
 
@@ -990,7 +990,7 @@ define(function(require, exports, module) {
                 }
             };
 
-            ///me.generateSelect( 'INDUSTRY', me.$aindustry , function(){ state.a = true; checkIsOk() });  		//行业信息
+            ///me.generateSelect( 'INDUSTRY', me.$aindustry , function(){ state.a = true; checkIsOk() });       //行业信息
             util.getIndustry(me.$aindustry, function() {
                 state.a = true;
                 checkIsOk()
@@ -1174,7 +1174,7 @@ define(function(require, exports, module) {
                          if( model.paidVersionExpireTime ){
 
                          if( new Date().getTime() > parseInt( model.paidVersionExpireTime ) ){
-                         me.$('#yxEndTime').val('');								
+                         me.$('#yxEndTime').val('');                                
                          }else{
                          me.$('#yxEndTime').val( new Date( model.paidVersionExpireTime )._format( 'yyyy-MM-dd' ) );
                          }
@@ -1367,7 +1367,7 @@ define(function(require, exports, module) {
              */
             if (me.attrs.isAgent === true) {
 
-                $view.find('.off').hide();
+                // $view.find('.off').hide();
                 $view.find('input').attr('disabled', 'disabled');
                 $view.find('select').attr('disabled', 'disabled');
                 $view.find('textarea').attr('disabled', 'disabled');
@@ -1377,12 +1377,22 @@ define(function(require, exports, module) {
             }
         },
 
-        showNumber:function() {
+        showNumber: function() {
+            var me = this;
+            var eId = me.model.attrs.enterpriseId
 
-            console.log(999);
-
-
-
+            console.log(eId);
+            var url = '/enterprise/' + eId + '/yesterdaylogincount';
+            util.api({
+                url: url,
+                type: 'POST',
+                dataType: "json",
+                success: function(resp) {
+                    if (resp.success) {
+                        $('#peopleNumber').html(resp.model);
+                    }
+                }
+            });
         },
 
         /**
@@ -1504,7 +1514,7 @@ define(function(require, exports, module) {
                 //autoclaveDays: this.$hpDays.val(),
                 isReferral: this.$isIntro.val(), //是否转介绍
                 isPayed: this.$isPayed.val(), //是否付费
-                //isEndlessTrial: this.$('#isEndlessTrial').val(),			//是否永久试用
+                //isEndlessTrial: this.$('#isEndlessTrial').val(),          //是否永久试用
 
                 //企业负责人
                 keyContactName: this.$kcName.val(), //企业负责人姓名                         
@@ -2460,13 +2470,13 @@ define(function(require, exports, module) {
 
              var data = {
              enterpriseId: me.model.attrs.id,
-             accountAmount:  me.$sXKDC.val(),				//逍客终端总量
-             increaseAmount:	me.$sDevice.val(),				//逍客终端扩容
-             marketingAccountAmount: me.$yingxiao.val(),		//营销终端总量
+             accountAmount:  me.$sXKDC.val(),               //逍客终端总量
+             increaseAmount:    me.$sDevice.val(),              //逍客终端扩容
+             marketingAccountAmount: me.$yingxiao.val(),        //营销终端总量
              increaseMarketingAmount: me.$yingxiaoAdd.val(), //营销终端扩容
-             baichuanAccountAmount: me.$sBCDC.val(), 		//百川终端总量
-             rechargeSmsAmount: me.$sSms.val(),      		//短信充值条数
-             expandStorageSpace: me.$sStorage.val() 			//存储扩容
+             baichuanAccountAmount: me.$sBCDC.val(),        //百川终端总量
+             rechargeSmsAmount: me.$sSms.val(),             //短信充值条数
+             expandStorageSpace: me.$sStorage.val()             //存储扩容
              };
              if ( me.$sXKET.val() ) {
              data.productEndTime = new Date( me.$sXKET.val() ).getTime();
@@ -2867,8 +2877,8 @@ define(function(require, exports, module) {
 
             ///this.$sXKDC.val('');
             ///this.$sDevice.val('');
-            ///this.$yingxiao.val('');	
-            ///this.$yingxiaoAdd.val('');	
+            ///this.$yingxiao.val('');  
+            ///this.$yingxiaoAdd.val('');   
 
             this.$cardStartTime.val('');
             this.$cardEndTime.val('');
@@ -2887,11 +2897,11 @@ define(function(require, exports, module) {
 
          var data = {
          enterpriseId: me.model.attrs.id,
-         accountAmount:  me.$sXKDC.val(),				//逍客终端总量
-         increaseAmount:	me.$sDevice.val(),				//逍客终端扩容
-         baichuanAccountAmount: me.$sBCDC.val(), 		//百川终端总量
-         rechargeSmsAmount: me.$sSms.val(),      		//短信充值条数
-         expandStorageSpace: me.$sStorage.val() 			//存储扩容
+         accountAmount:  me.$sXKDC.val(),               //逍客终端总量
+         increaseAmount:    me.$sDevice.val(),              //逍客终端扩容
+         baichuanAccountAmount: me.$sBCDC.val(),        //百川终端总量
+         rechargeSmsAmount: me.$sSms.val(),             //短信充值条数
+         expandStorageSpace: me.$sStorage.val()             //存储扩容
          };
          if ( me.$sXKET.val() ) {
          data.productEndTime = new Date( me.$sXKET.val() ).getTime();
