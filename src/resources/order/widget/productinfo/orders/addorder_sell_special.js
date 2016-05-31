@@ -62,7 +62,7 @@ define(function (require, exports, module) {
         controller(formDataItems, 'payStatus_select', function (n) {
             n.visible = true;
         });
-        controller(formDataItems, 'discount_1', function (n) {
+        controller(terminalDataItems, 'discount_1', function (n) {
             n.visible = true;
         });
         common.setNotable(controller, terminalDataItems, tableDataItems, formDataItems);

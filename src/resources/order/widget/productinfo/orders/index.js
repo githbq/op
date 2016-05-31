@@ -140,7 +140,7 @@ define(function (require, exports, module) {
                             }
                         }
                         var items = tableDataItems;
-                      
+
 
                         if ($.inArray(n.subOrder.productId.toString(), ['1', '2', '3', '13', '16']) >= 0) {
                             items = terminalDataItems;
@@ -174,6 +174,8 @@ define(function (require, exports, module) {
                             dataDic['endTime_' + subOrder.productId].readonly = true;
                             dataDic['endTime_' + subOrder.productId].__force = true;
                         }
+
+
                         if (subOrder.currPayAmount !== undefined && subOrder.currPayAmount !== null) {
                             controller(formDataItems, 'currPayAmount_' + subOrder.productId, function (item) {
                                 item.value = subOrder.currPayAmount.toString();
@@ -230,7 +232,7 @@ define(function (require, exports, module) {
 
                     controller(terminalDataItems, 'allreadonly', function (item) {
                         item.allreadonly = true;
-                        item.value=true;
+                        item.value = true;
                     });
                     $(terminalDataItems).each(function (i, n) {
                         if (n.name.toLowerCase().indexOf('wrapper') < 0 && n.name.toLowerCase().indexOf('image') < 0) {//包裹者不设
@@ -291,7 +293,7 @@ define(function (require, exports, module) {
             var hasTrainning = false;
 
             $(responseData.data.subOrders).each(function (j, m) {
-                if (m.subOrder.productId == '13' || m.subOrder.productId == '16' ) {
+                if (m.subOrder.productId == '13' || m.subOrder.productId == '16') {
                     hasTrainning = true;
                 }
             });
@@ -484,7 +486,7 @@ define(function (require, exports, module) {
             controller(tableDataItems, 'endTime_7', function (n) {
                 n.value = '';
             });
-            controller(tableDataItems,'type_7',function(n){
+            controller(tableDataItems, 'type_7', function (n) {
                 n.value = '3';
             });
         };
@@ -525,7 +527,7 @@ define(function (require, exports, module) {
             controller(formDataItems, 'currPayAmount_7', function (n) {
                 n.readonly = isReadonly;
             });
-              
+
             controller(formDataItems, 'currPayAmount_12', function (n) {
                 n.readonly = isReadonly;
             });
@@ -602,7 +604,7 @@ define(function (require, exports, module) {
                         };
 
                         if (n == '16') {
-                            subOrder.giveCount = fromData['giveCount_16']||0;
+                            subOrder.giveCount = fromData['giveCount_16'] || 0;
                             if (!fromData['purchaseCount_' + n]) {
                                 subOrder.purchaseCount = 0;
                             }
