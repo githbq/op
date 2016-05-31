@@ -3736,7 +3736,7 @@ audio.fn-hide-abs {
   width: 20px;
   height: 25px;
   border-left: 1px #eee solid;
-  background: url('images/vector.png') no-repeat center 9px;
+  background: url('../images/vector.png') no-repeat center 9px;
   background-size: 16px;
 }
 .m-select .select-list {
@@ -3791,7 +3791,7 @@ audio.fn-hide-abs {
   width: 20px;
   height: 25px;
   border-left: 1px #eee solid;
-  background: url('images/vector.png') no-repeat center 9px;
+  background: url('../images/vector.png') no-repeat center 9px;
   background-size: 16px;
 }
 .m-ih .ih-sl {

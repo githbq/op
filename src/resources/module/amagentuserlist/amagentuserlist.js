@@ -9,7 +9,7 @@ define( function(require, exports, module){
 
     var Slider = require("common/widget/slider/slider");
     var Pagination = require("common/widget/pagination/pagination");
-	var contentStr = require('./agentuserlist.html');
+	var contentStr = require('./amagentuserlist.html');
 
 
     //var auditStatusMap = {
@@ -122,8 +122,9 @@ define( function(require, exports, module){
 
 				me.$changeStatus.attr('disabled','disabled');
 				
+				
 				util.api({
-					url: '/channel/changeaccountactive',
+					url: '/agent/changeaccountactive',
 					data: {
 						'accountId':accountId,
 						'active':active
