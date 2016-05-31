@@ -15,11 +15,11 @@ define(function (require, exports, module) {
             '10': '百川',
             '11': '报数',
             '12': '自定义助手',
-            '13':'培训助手',
-            '14':'战报助手',
-            '15':'考试助手',
-            '16':'培训助手购买流量',
-            '17':'项目管理'
+            '13': '培训助手',
+            '14': '战报助手',
+            '15': '考试助手',
+            '16': '培训助手购买流量',
+            '17': '项目管理'
         };
         //订单类型
         dataItems.push(new DataItem({
@@ -251,10 +251,10 @@ define(function (require, exports, module) {
             if (me.__refs.terminalInfo.o_getFieldData('useCRMWrapper').visible !== false && me.__refs.terminalInfo.o_getFieldValue('useCRM')) {
                 ids.push('1');
             }
-            if (me.__refs.terminalInfo.o_getFieldData('productTrainingWrapper').visible!==false && me.__refs.terminalInfo.o_getFieldValue('useTrainning')) {
+            if (me.__refs.terminalInfo.o_getFieldData('productTrainingWrapper').visible !== false && me.__refs.terminalInfo.o_getFieldValue('useTrainning')) {
                 ids.push('13');
             }
-            if (me.__refs.terminalInfo.o_getFieldData('productTimeLongWrapper').visible!==false && me.__refs.terminalInfo.o_getFieldValue('useTrainning')) {
+            if (me.__refs.terminalInfo.o_getFieldData('productTimeLongWrapper').visible !== false && me.__refs.terminalInfo.o_getFieldValue('useTrainning')) {
                 ids.push('16');
             }
 
@@ -301,7 +301,7 @@ define(function (require, exports, module) {
                 if (payStatus == 2) {
                     var curPayAmountItem = me.__refs.formInfo.o_getFieldValue('currPayAmount_' + id);
                     var purchaseAmountItem = purchaseModule.o_getFieldValue('purchaseAmount_' + id);
-                    var curPayAmountItemResult=curPayAmountItem;
+                    var curPayAmountItemResult = curPayAmountItem;
                     if (purchaseAmountItem && curPayAmountItem && parseFloat(purchaseAmountItem) < parseFloat(curPayAmountItem)) {
                         curPayAmountItemResult = purchaseAmountItem;
                     }
@@ -375,11 +375,12 @@ define(function (require, exports, module) {
                     me.o_setValue({name: 'productAmount_' + id, value: ''});
                 } else {
                     if (me.o_getFieldValue('purchaseAmount_' + id) && me.o_getFieldData('endTime_' + id).readonly != true) {
-                                              options.data.startDate+=1;
-                        options.data.endDate+=2;  if (me.__refs.terminalInfo.o_getFieldValue('allreadonly') !== true) {
+                        options.data.startDate += 1;
+                        options.data.endDate += 2;
+                        if (me.__refs.terminalInfo.o_getFieldValue('allreadonly') !== true) {
                             me.attrs.apiPool.api_getCalculateSingle(options);
                         }
-                     
+
                     }
                 }
             }
