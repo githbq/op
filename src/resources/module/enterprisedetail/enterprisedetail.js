@@ -1367,7 +1367,7 @@ define(function(require, exports, module) {
              */
             if (me.attrs.isAgent === true) {
 
-                $view.find('.off').hide();
+                // $view.find('.off').hide();
                 $view.find('input').attr('disabled', 'disabled');
                 $view.find('select').attr('disabled', 'disabled');
                 $view.find('textarea').attr('disabled', 'disabled');
@@ -1380,14 +1380,16 @@ define(function(require, exports, module) {
         showNumber: function() {
             var me = this;
             var eId = me.model.attrs.enterpriseId
-            var url = '/enterprise/a/' + eId + '/logincount';
+
+            console.log(eId);
+            var url = '/enterprise/' + eId + '/yesterdaylogincount';
             util.api({
                 url: url,
                 type: 'POST',
                 dataType: "json",
                 success: function(resp) {
                     if (resp.success) {
-                        $('#peopleNumber').html(resp.model.count);
+                        $('#peopleNumber').html(resp.model);
                     }
                 }
             });
