@@ -309,7 +309,7 @@ define(function (require, exports, module) {
                             $dom.val($dom.val().replace(/[^\.\d]/g, ''));
 
                             if (controll === me.__refs.terminalInfo) {
-                                purchaseAmount = controll.o_getFieldData('purchaseAmount_input_' + id);
+                                purchaseAmount = controll.o_getFieldData('purchaseAmount_' + id).value;
                             } else {
                                 purchaseAmount = controll.o_getFieldValue('purchaseAmount_' + id);
                             }
