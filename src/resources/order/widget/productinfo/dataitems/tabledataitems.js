@@ -299,7 +299,7 @@ define(function (require, exports, module) {
 
                 productAmount += parseFloat(purchaseModule.o_getFieldValue('productAmount_' + id) || 0);
                 if (payStatus == 2) {
-                    var curPayAmountItem = me.__refs.formInfo.o_getFieldValue('currPayAmount_' + id)||'0';
+                    var curPayAmountItem = me.__refs.formInfo.o_getFieldData('currPayAmount_' + id).value||'0';
                     var purchaseAmountItem = purchaseModule.o_getFieldValue('purchaseAmount_' + id);
                     var curPayAmountItemResult = curPayAmountItem;
                     if (purchaseAmountItem && curPayAmountItem && parseFloat(purchaseAmountItem) < parseFloat(curPayAmountItem)) {
