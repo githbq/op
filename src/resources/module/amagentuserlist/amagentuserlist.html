@@ -1,0 +1,96 @@
+ <div class="m-userlist u-tablelist">
+    <section>
+    	<h4>代理商</h4>
+    	<p ce-model="agentName"></p>
+    </section>
+	<div class="list-header">
+		<div class="header-opts">	
+			<button class="addUser state state-am" data-permissions="F010002">添加用户</button>
+		</div>
+		
+		<h3>查询条件</h3>
+	</div>
+
+	<div class="list-bar">
+		<div class="list-bar-btns">
+			<button class="btn-blue btn-search" data-permissions="F010003 F011006">查询</button>
+		</div>
+		<div class="list-bar-input">
+			<label for=""> <span>姓名</span> <input type="text" ce-model="name"> </label>
+			<label for=""> <span>角色</span> <input type="text" value="代理商用户" disabled> </label>
+			<label for="">
+				<span>状态</span>
+				<select ce-model="status">
+					<option value="">全部</option>
+					<option value="1">已启用</option>
+					<option value="0">已停用</option>
+				</select>
+			</label>
+			<label class="">
+				<span>审核状态</span>
+				<select ce-model="auditStatus">
+					<option value="">全部</option>
+					<option value="0">待审核</option>
+					<option value="1">审核成功</option>
+					<option value="2">审核失败</option>
+				</select>
+			</label>
+			<label for=""> <span>登录名</span> <input type="text" ce-model="loginName"></label>
+			<label for=""> <span>工作邮箱</span> <input type="text" ce-model="email"></label>
+			<br>
+			<label for=""> 
+				<span>登录时间</span>
+				<input type="text" ce-model="startTime" class="list-starttime"> 到 <input type="text" ce-model="endTime" class="list-endtime">
+			</label>
+		</div>
+	</div>
+
+	<div class="list-content">
+		<table>
+			<thead>
+				<tr>
+					<th></th>
+					<th style="width:80px;">姓名</th>
+					<th>登录账号</th>
+					<th style="width:150px;">工作邮箱</th>
+					<th style="width:80px;">状态</th>
+					<th style="width:80px;">审核状态</th>
+					<th style="width:110px;">登录时间</th>
+					<th style="width:85px;text-align:center">操作</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody ce-collection="list">
+				<tr>
+					<td></td>
+					<td><%=item.name%></td>
+					<td><%=item.username%></td>
+					<td><%=item.email%></td>
+					<td><%=item.statusStr%></td>
+					<td>
+						<%=item.auditStatusStr%>
+					</td>
+					<td><%=item.lastLoginTimeStr%></td>
+					<td>
+						<a data-id="<%=item.id%>" class="user-detail" data-permissions="F010009 F011009">查看</a>
+						<% if( item.auditStatus == 'WAIT'){ %>
+						<a data-id="<%=item.id%>" data-permissions="F011071" class="user-approval state">审核</a>
+						<% } %>
+						<a data-id="<%=item.id%>" data-name="<%=item.name%>" class="user-reset state state-am" data-permissions="F010005">重置密码</a>
+						<%if(item.auditStatus != "WAIT"){%>
+							<%if(item.active == "1"){%>
+							<a  class="change-status" data-permissions="F010" data-id="<%=item.id%>"  data-status="0" data-permissions="F010006">&nbsp;&nbsp;停用</a>
+							<%}else if(item.active == "0"){%>
+							<a  class="change-status" data-permissions="F010" data-id="<%=item.id%>" data-status="1" data-permissions="F010006">&nbsp;&nbsp;启用</a>
+							<%}%>
+						<%}%>
+					</td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="list-pager">
+	</div>
+</div>
