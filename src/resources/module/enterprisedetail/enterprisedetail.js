@@ -1367,7 +1367,7 @@ define(function(require, exports, module) {
              */
             if (me.attrs.isAgent === true) {
 
-                // $view.find('.off').hide();
+                $view.find('.off').hide();
                 $view.find('input').attr('disabled', 'disabled');
                 $view.find('select').attr('disabled', 'disabled');
                 $view.find('textarea').attr('disabled', 'disabled');
