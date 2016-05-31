@@ -556,7 +556,6 @@ define(function (require, exports, module) {
         };
         //转换输入值
         exports.setSuborders = function (terminalInfo, tableInfo, formInfo, data) {
-
             var terminalInfoData = terminalInfo.o_getValues();
             var tableInfoData = tableInfo.o_getValues();
             var formInfoData = formInfo.o_getValues();
