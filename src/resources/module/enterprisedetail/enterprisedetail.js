@@ -2270,9 +2270,13 @@ define(function(require, exports, module) {
          */
         actDownloadEve: function(e) {
             var me = this;
-
-            var startTime = '',
-                endTime = '';
+            function GetDateStr(AddDayCount) {
+                var dd = new Date();
+                dd.setDate(dd.getDate()+AddDayCount);//获取AddDayCount天后的日期
+                return dd.getTime();
+            }
+            var startTime = GetDateStr(-91);
+             var   endTime = GetDateStr(-1);
 
             if (me.$actStartTime.val()) {
                 startTime = new Date(me.$actStartTime.val()).getTime();
@@ -2282,6 +2286,7 @@ define(function(require, exports, module) {
             }
             var url = IBSS.API_PATH + '/query/act/detail/generate?' + $.param({ 'enterpriseId': me.model.attrs.enterpriseId, 'timeStart': startTime, 'timeEnd': endTime })
             window.open(url);
+
         },
 
 
