@@ -1,0 +1,27 @@
+{
+    "success": true,
+    "model": {
+        "id": 1,
+        "name": "方案名称，最多20字",
+        "type": "1优惠助手，2优惠码，3优惠助手或优惠码 ",
+        "description": "优惠介绍",
+        "status": 1,
+        "items": [{
+            "product_id": 15,
+            "product_name": "考试助手",
+            "quota": 6
+        }, {
+            "product_id": 5,
+            "product_name": "会议助手",
+            "quota": 3
+        }, {
+            "product_id": 18,
+            "product_name": "存储空间",
+            "quota": 9
+        }, {
+            "product_id": 8,
+            "product_name": "名片扫描",
+            "quota":-1
+        }]
+    }
+}

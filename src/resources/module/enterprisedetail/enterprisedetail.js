@@ -2,7 +2,7 @@
  *
  * 企业详情
  */
-define(function (require, exports, module) {
+define(function(require, exports, module) {
 
     var Slider = require('common/widget/slider/slider');
 
@@ -12,8 +12,8 @@ define(function (require, exports, module) {
     var tpl = $(require('./template.html'));
     var uploader = require('common/widget/upload').uploader;
 
-    var buyMap = new Object({'1': '赠送', '2': '购买充值'});
-    var carMap = new Object({'0': '未开通服务', '1': '限量购买', '2': '不限量使用'});
+    var buyMap = new Object({ '1': '赠送', '2': '购买充值' });
+    var carMap = new Object({ '0': '未开通服务', '1': '限量购买', '2': '不限量使用' });
 
     //添加编辑培训信息
     var TrainingDialog = MClass(Dialog).include({
@@ -30,17 +30,17 @@ define(function (require, exports, module) {
         elements: {
             '.trainingDate': 'trainingDate'
         },
-        init: function () {
+        init: function() {
             var me = this;
 
             TrainingDialog.__super__.init.apply(this, arguments);
 
-            me.$trainingDate.datetimepicker({'timepicker': false, 'format': 'Y/m/d'});
+            me.$trainingDate.datetimepicker({ 'timepicker': false, 'format': 'Y/m/d' });
 
             me.setState();
         },
 
-        setState: function () {
+        setState: function() {
             var me = this;
 
             if (me.attrs.state) {
@@ -49,7 +49,7 @@ define(function (require, exports, module) {
             }
         },
 
-        addEve: function () {
+        addEve: function() {
             var me = this;
 
             //各种校验
@@ -67,7 +67,7 @@ define(function (require, exports, module) {
             util.api({
                 'url': '/enterprise/addtraining',
                 'data': data,
-                'success': function (data) {
+                'success': function(data) {
                     console.warn(data);
                     if (data.success) {
                         me.hide();
@@ -78,7 +78,7 @@ define(function (require, exports, module) {
             })
         },
 
-        verify: function () {
+        verify: function() {
             var me = this;
 
             if (!me.model.get('trainingName')) {
@@ -101,7 +101,7 @@ define(function (require, exports, module) {
             return true;
         },
 
-        saveEve: function () {
+        saveEve: function() {
             var me = this;
 
             //各种校验
@@ -120,7 +120,7 @@ define(function (require, exports, module) {
             util.api({
                 'url': '/enterprise/updatetraining',
                 'data': data,
-                'success': function (data) {
+                'success': function(data) {
                     console.warn(data);
                     if (data.success) {
                         me.hide();
@@ -131,7 +131,7 @@ define(function (require, exports, module) {
             })
         },
 
-        show: function (enterpriseId, id) {
+        show: function(enterpriseId, id) {
             var me = this;
 
 
@@ -143,7 +143,7 @@ define(function (require, exports, module) {
                     'data': {
                         'id': id
                     },
-                    'success': function (data) {
+                    'success': function(data) {
                         if (data.success) {
                             me.model.load(data.value.model);
                             if (me.model.get('trainingDate')) {
@@ -157,7 +157,7 @@ define(function (require, exports, module) {
             TrainingDialog.__super__.show.apply(this, arguments);
         },
 
-        hide: function () {
+        hide: function() {
             var me = this;
 
             me.$trainingDate.val('');
@@ -295,22 +295,22 @@ define(function (require, exports, module) {
             '.card-buyYear': 'cardBuyYear',
             '.card-buyNum': 'cardBuyNum',
 
-            '#phonecallback': 'phonecallback',  //电话回访按钮
-            '#verification': 'verification',    //资料审核按钮
+            '#phonecallback': 'phonecallback', //电话回访按钮
+            '#verification': 'verification', //资料审核按钮
 
             '#yingyezhizhao': 'yingyezhizhao',
-            '#yingyezhizhaoinfo': 'yingyezhizhaoinfo',         //营业执照显示信息a标签
+            '#yingyezhizhaoinfo': 'yingyezhizhaoinfo', //营业执照显示信息a标签
 
-            '#hetongzhaopian': 'hetongzhaopian',        // 合同input
-            '#hetonginfo': 'hetonginfo',                // 合同图片显示a标签
+            '#hetongzhaopian': 'hetongzhaopian', // 合同input
+            '#hetonginfo': 'hetonginfo', // 合同图片显示a标签
             '#hetongnone': 'hetongnone',
 
-            '#hetongfbzhaopian': 'hetongfbzhaopian',    // 合同副本input
-            '#hetongfbinfo': 'hetongfbinfo',            // 合同副本
-            '#hetongfbnone': 'hetongfbnone',            // 
+            '#hetongfbzhaopian': 'hetongfbzhaopian', // 合同副本input
+            '#hetongfbinfo': 'hetongfbinfo', // 合同副本
+            '#hetongfbnone': 'hetongfbnone', // 
 
             '#mentou': 'mentou',
-            '#mentouinfo': 'mentouinfo',                // 门头信息显示a标签
+            '#mentouinfo': 'mentouinfo', // 门头信息显示a标签
 
             '#shenheresult': 'shenheresult',
             '#huifangresult': 'huifangresult',
@@ -321,8 +321,8 @@ define(function (require, exports, module) {
             '.companyGateKeyword': 'setcompanyGatekeyword',
             '.companyGateRemark': 'setcompanyGateRemark',
             '.upload': 'saveEve'
-            ///'#creatorName':'creatorName',
-            //'#createTime':'createTime',
+                ///'#creatorName':'creatorName',
+                //'#createTime':'createTime',
 
             ///'#crmInfoState':'crmInfoState'    //crm控制信息状态
         },
@@ -347,45 +347,45 @@ define(function (require, exports, module) {
             'click .rebackSms': 'rebackSms',
             'click .disSms': 'disSms',
             'click .modifySmsName': 'modifySmsName',
-            'click #actDownload': 'actDownloadEve',   		    //活跃度下载
+            'click #actDownload': 'actDownloadEve', //活跃度下载
             'click #btnCardList': 'searchCardList',
             'click #btnCardBuy': 'btnCardBuy',
             'click #btnCardSend': 'btnCardSend',
-            'click #btnSBAgentSearch': 'agentSearchEve',        //回访列表
+            'click #btnSBAgentSearch': 'agentSearchEve', //回访列表
 
-            'click #btnPhoneCallbackEve': 'phoneCallbackEve',   //电话回访
+            'click #btnPhoneCallbackEve': 'phoneCallbackEve', //电话回访
 
-            'click .uploadzz': 'uploadzzEve',  					//上传执照
-            'click .uploadmt': 'uploadmtEve',   				//上传门头信息
+            'click .uploadzz': 'uploadzzEve', //上传执照
+            'click .uploadmt': 'uploadmtEve', //上传门头信息
 
-            'click .callback-actionon': 'callbackOnEve',        //电话回访成功
-            'click .callback-actionoff': 'callbackOffEve',      //电话回访失败
+            'click .callback-actionon': 'callbackOnEve', //电话回访成功
+            'click .callback-actionoff': 'callbackOffEve', //电话回访失败
 
-            'click .upload': 'saveFn',				  			//资料审核提交
+            'click .upload': 'saveFn', //资料审核提交
 
-            'click .addTraining': 'addTrainingEve',             //添加培训记录
-            'click .edittraining': 'editTrainingEve',           //编辑培训记录
+            'click .addTraining': 'addTrainingEve', //添加培训记录
+            'click .edittraining': 'editTrainingEve', //编辑培训记录
             'click .searchTraining': 'searchTraining',
 
-            'click .callback-actionon': 'callbackOnEve',      	//电话回访成功
-            'click .callback-actionoff': 'callbackOffEve',    	//电话回访失败
-            'click .verificationaction-on': 'veriOnEve',      	//资料审核成功
-            'click .verificationaction-off': 'veriOffEve',	  	//资料审核失败
+            'click .callback-actionon': 'callbackOnEve', //电话回访成功
+            'click .callback-actionoff': 'callbackOffEve', //电话回访失败
+            'click .verificationaction-on': 'veriOnEve', //资料审核成功
+            'click .verificationaction-off': 'veriOffEve', //资料审核失败
 
-            'click .savemonitoring': 'saveMonitoringEve',       //保存监控信息
+            'click .savemonitoring': 'saveMonitoringEve', //保存监控信息
 
             'click .employee-detail': 'employeeDetailEve',
             ///'click #crmInfoChange':'crmInfoChangeEve'
 
-            'click #openproduct': function () {
+            'click #openproduct': function() {
                 this.toggleProduct(1)
-            },   //开启产品
-            'click #closeproduct': function () {
-                this.toggleProduct(2)
-            }   //关闭产品														
+            }, //开启产品
+            'click #closeproduct': function() {
+                    this.toggleProduct(2)
+                } //关闭产品														
         },
 
-        uploadzzEve: function () {
+        uploadzzEve: function() {
             var me = this;
 
             if (me.$yingyezhizhao[0].files.length <= 0) {
@@ -395,7 +395,7 @@ define(function (require, exports, module) {
             uploader.send({
                 'url': '/op/api/file/uploadsinglefile',
                 'files': me.$yingyezhizhao[0].files,
-                'success': function (response) {
+                'success': function(response) {
                     console.warn(response);
                     if (response.success) {
 
@@ -403,6 +403,7 @@ define(function (require, exports, module) {
                     }
                 }
             });
+
             function sendInfo(path, filename) {
                 util.api({
                     'url': '/enterprise/addenterpriselicense',
@@ -411,7 +412,7 @@ define(function (require, exports, module) {
                         'licensePath': path,
                         'licenseName': filename
                     },
-                    'success': function (data) {
+                    'success': function(data) {
                         if (data.success) {
                             util.showTip('上传成功 请等待审核');
                             me.showVerifiCation();
@@ -420,7 +421,7 @@ define(function (require, exports, module) {
                 })
             }
         },
-        uploadmtEve: function () {
+        uploadmtEve: function() {
             var me = this;
 
             if (me.$mentou[0].files.length <= 0) {
@@ -430,7 +431,7 @@ define(function (require, exports, module) {
             uploader.send({
                 'url': '/op/api/file/uploadsinglefile',
                 'files': me.$mentou[0].files,
-                'success': function (response) {
+                'success': function(response) {
                     console.warn(response);
                     if (response.success) {
 
@@ -438,6 +439,7 @@ define(function (require, exports, module) {
                     }
                 }
             })
+
             function sendInfo(path, filename) {
                 util.api({
                     'url': '/enterprise/addenterprisedoorhead',
@@ -446,7 +448,7 @@ define(function (require, exports, module) {
                         'doorheadPath': path,
                         'doorheadName': filename
                     },
-                    'success': function (data) {
+                    'success': function(data) {
                         if (data.success) {
                             util.showTip('上传成功 请等待审核');
                             me.showVerifiCation();
@@ -455,7 +457,7 @@ define(function (require, exports, module) {
                 })
             }
         },
-        saveFn: function () {
+        saveFn: function() {
 
             var me = this;
             var objData = {};
@@ -493,23 +495,23 @@ define(function (require, exports, module) {
                     'el': me.$saveEve,
                     'text': '提交中......'
                 },
-                'success': function (data) {
+                'success': function(data) {
                     console.warn(data);
                     if (data.success) {
                         util.showTip('保存成功 请等待审核');
-                        me.getEnterprise(objData['enterpriseId'], function () {
+                        me.getEnterprise(objData['enterpriseId'], function() {
                             me.showVerifiCation();
                         });
                     }
                 },
-                'complete': function () {
+                'complete': function() {
                     me.$saveEve.removeAttr('disabled');
                     me.$saveEve.text('保存');
                 }
             });
         },
         //分配短信尾号
-        disSms: function () {
+        disSms: function() {
             var me = this;
 
             util.api({
@@ -518,19 +520,19 @@ define(function (require, exports, module) {
                     'enterpriseId': me.model.attrs.enterpriseId,
                     'oldModifyTime': me.model.attrs.updateTime
                 },
-                'success': function (data) {
+                'success': function(data) {
                     console.warn(data)
                     if (data.success) {
-						me.$smsWh.val(data.value.model);
+                        me.$smsWh.val(data.value.model);
                         util.showTip('分配成功');
-						me.hide();
+                        me.hide();
                     }
                 }
             })
         },
 
         //收回短信尾号
-        rebackSms: function () {
+        rebackSms: function() {
             var me = this;
 
             util.api({
@@ -538,19 +540,19 @@ define(function (require, exports, module) {
                 'data': {
                     'enterpriseId': me.model.attrs.enterpriseId
                 },
-                'success': function (data) {
+                'success': function(data) {
                     console.warn(data)
                     if (data.success) {
                         util.showTip('回收成功');
-						me.$smsWh.val('');
-						me.hide();
+                        me.$smsWh.val('');
+                        me.hide();
                     }
                 }
             })
         },
 
         //修改企业简称
-        modifySmsName: function () {
+        modifySmsName: function() {
             var me = this;
             var value = me.$('.sms-newname').val();
 
@@ -560,7 +562,7 @@ define(function (require, exports, module) {
                     'enterpriseId': me.model.attrs.enterpriseId,
                     'shortName': value
                 },
-                'success': function (data) {
+                'success': function(data) {
                     if (data.success) {
                         me.$smsName.val(value);
                         util.showTip('修改成功')
@@ -575,9 +577,9 @@ define(function (require, exports, module) {
         tplLog: _.template(tpl.filter('#trLog').html()),
         tpCardList: _.template(tpl.filter('#trCardList').html()),
         tplCallBackList: _.template(tpl.filter('#callBackList').html()),
-        tplMonitorList: _.template(tpl.filter('#monitoringList').html()),      //监控列表
+        tplMonitorList: _.template(tpl.filter('#monitoringList').html()), //监控列表
 
-        init: function (attrs) {
+        init: function(attrs) {
             EntDetail.__super__.init.apply(this, arguments);
 
             var me = this;
@@ -640,14 +642,14 @@ define(function (require, exports, module) {
             me.training = {
                 isInitializes: false,
                 pagination: null,
-                addDialog: new TrainingDialog({'state': 'add'}),       //添加弹窗
-                editDialog: new TrainingDialog({'state': 'edit'})	   //编辑弹窗
+                addDialog: new TrainingDialog({ 'state': 'add' }), //添加弹窗
+                editDialog: new TrainingDialog({ 'state': 'edit' }) //编辑弹窗
             };
-            me.training.addDialog.on('addsuccess', function () {
+            me.training.addDialog.on('addsuccess', function() {
                 console.log('addsuccess');
                 me.loadTraining();
             });
-            me.training.editDialog.on('updatesuccess', function () {
+            me.training.editDialog.on('updatesuccess', function() {
                 console.log('updatesuccess');
                 me.loadTraining();
             });
@@ -666,7 +668,7 @@ define(function (require, exports, module) {
             me.initializeDatepickers();
 
             //门头照片
-            me.$mentou.on('change', function () {
+            me.$mentou.on('change', function() {
                 var fileExtension = me.$mentou[0].files[0].name.split('.').pop().toLowerCase();
                 if (fileExtension == 'jpg' || fileExtension == 'gif' || fileExtension == 'png' || fileExtension == 'jpeg') {
 
@@ -678,7 +680,7 @@ define(function (require, exports, module) {
                         'options': {
                             'limittype': 'IMAGE'
                         },
-                        'success': function (response) {
+                        'success': function(response) {
                             console.warn(response);
                             me.model.set('companyGatePicture', response.value.model.path);
                             me.model.set('companyGatePictureFileName', response.value.model.FileName);
@@ -687,7 +689,7 @@ define(function (require, exports, module) {
                             me.$saveEve.text('保存');
 
                         },
-                        'error': function (response) {
+                        'error': function(response) {
                             me.$saveEve.removeAttr('disabled');
                             me.$saveEve.text('保存');
                             me.$mentou.val('');
@@ -703,7 +705,7 @@ define(function (require, exports, module) {
             });
 
             //营业执照
-            me.$yingyezhizhao.on('change', function () {
+            me.$yingyezhizhao.on('change', function() {
                 var fileExtension = me.$yingyezhizhao[0].files[0].name.split('.').pop().toLowerCase();
                 if (fileExtension == 'jpg' || fileExtension == 'gif' || fileExtension == 'png' || fileExtension == 'jpeg') {
                     me.$saveEve.attr('disabled', 'disabled');
@@ -714,14 +716,14 @@ define(function (require, exports, module) {
                         'options': {
                             'limittype': 'IMAGE'
                         },
-                        'success': function (response) {
+                        'success': function(response) {
                             console.warn(response);
                             me.model.set('businessLicense', response.value.model.path);
                             me.model.set('businessLicenseFileName', response.value.model.FileName);
                             me.$saveEve.removeAttr('disabled');
                             me.$saveEve.text('保存');
                         },
-                        'error': function (response) {
+                        'error': function(response) {
                             me.$saveEve.removeAttr('disabled');
                             me.$saveEve.text('保存');
                             me.$mentou.val('');
@@ -737,7 +739,7 @@ define(function (require, exports, module) {
             });
 
             //合同照片
-            me.$hetongzhaopian.on('change', function () {
+            me.$hetongzhaopian.on('change', function() {
                 var fileExtension = me.$hetongzhaopian[0].files[0].name.split('.').pop().toLowerCase();
                 if (fileExtension == 'jpg' || fileExtension == 'gif' || fileExtension == 'png' || fileExtension == 'jpeg') {
                     me.$saveEve.attr('disabled', 'disabled');
@@ -748,14 +750,14 @@ define(function (require, exports, module) {
                         'options': {
                             'limittype': 'IMAGE'
                         },
-                        'success': function (response) {
+                        'success': function(response) {
                             console.warn(response);
                             me.model.set('contract', response.value.model.path);
                             me.model.set('contractFileName', response.value.model.FileName);
                             me.$saveEve.removeAttr('disabled');
                             me.$saveEve.text('保存');
                         },
-                        'error': function (response) {
+                        'error': function(response) {
                             me.$saveEve.removeAttr('disabled');
                             me.$saveEve.text('保存');
                             me.$mentou.val('');
@@ -770,7 +772,7 @@ define(function (require, exports, module) {
             });
 
             //合同副本照片
-            me.$hetongfbzhaopian.on('change', function () {
+            me.$hetongfbzhaopian.on('change', function() {
                 var fileExtension = me.$hetongfbzhaopian[0].files[0].name.split('.').pop().toLowerCase();
                 if (fileExtension == 'jpg' || fileExtension == 'gif' || fileExtension == 'png' || fileExtension == 'jpeg') {
                     me.$saveEve.attr('disabled', 'disabled');
@@ -781,14 +783,14 @@ define(function (require, exports, module) {
                         'options': {
                             'limittype': 'IMAGE'
                         },
-                        'success': function (response) {
+                        'success': function(response) {
                             console.warn(response);
                             me.model.set('contractCopy', response.value.model.path);
                             me.model.set('contractCopyFileName', response.value.model.FileName);
                             me.$saveEve.removeAttr('disabled');
                             me.$saveEve.text('保存');
                         },
-                        'error': function (response) {
+                        'error': function(response) {
                             me.$saveEve.removeAttr('disabled');
                             me.$saveEve.text('保存');
                             me.$mentou.val('');
@@ -809,7 +811,7 @@ define(function (require, exports, module) {
          *
          * 初始化日期选择
          */
-        initializeDatepickers: function () {
+        initializeDatepickers: function() {
             var me = this;
 
             /*
@@ -828,7 +830,7 @@ define(function (require, exports, module) {
 
             me.$sbLogST.datetimepicker({
                 format: 'Y/m/d',
-                onShow: function () {
+                onShow: function() {
                     var maxDate = me.$sbLogET.val() ? me.$sbLogET.val() : false;
                     this.setOptions({
                         maxDate: maxDate
@@ -838,7 +840,7 @@ define(function (require, exports, module) {
             });
             me.$sbLogET.datetimepicker({
                 format: 'Y/m/d',
-                onShow: function () {
+                onShow: function() {
                     var minDate = me.$sbLogST.val() ? me.$sbLogST.val() : false;
                     this.setOptions({
                         minDate: minDate
@@ -849,7 +851,7 @@ define(function (require, exports, module) {
 
             me.$actStartTime.datetimepicker({
                 format: 'Y/m/d',
-                onShow: function () {
+                onShow: function() {
                     var maxDate = me.$actEndTime.val() ? me.$actEndTime.val() : false;
                     this.setOptions({
                         maxDate: maxDate
@@ -860,7 +862,7 @@ define(function (require, exports, module) {
 
             me.$actEndTime.datetimepicker({
                 format: 'Y/m/d',
-                onShow: function () {
+                onShow: function() {
                     var minDate = me.$actStartTime.val() ? me.$actStartTime.val() : false;
                     this.setOptions({
                         minDate: minDate
@@ -870,7 +872,7 @@ define(function (require, exports, module) {
             });
             me.$cardStartTime.datetimepicker({
                 format: 'Y/m/d',
-                onShow: function () {
+                onShow: function() {
                     var maxDate = me.$cardEndTime.val() ? me.$cardEndTime.val() : false;
                     this.setOptions({
                         maxDate: maxDate
@@ -880,7 +882,7 @@ define(function (require, exports, module) {
             });
             me.$cardEndTime.datetimepicker({
                 format: 'Y/m/d',
-                onShow: function () {
+                onShow: function() {
                     var minDate = me.$cardStartTime.val() ? me.$cardStartTime.val() : false;
                     this.setOptions({
                         minDate: minDate
@@ -918,7 +920,7 @@ define(function (require, exports, module) {
         },
 
         //每次显示时清空一下缓存信息
-        clearinfo: function () {
+        clearinfo: function() {
             var me = this;
 
             //
@@ -931,7 +933,7 @@ define(function (require, exports, module) {
         },
 
         //显示
-        show: function (id, status) {
+        show: function(id, status) {
             var me = this;
             me.enterpriseAccount = '';
 
@@ -947,7 +949,7 @@ define(function (require, exports, module) {
          *
          * 隐藏slider
          */
-        hide: function () {
+        hide: function() {
             var me = this;
             me.model.clear();
             me.$('.accordian').addClass('collapse');
@@ -965,7 +967,7 @@ define(function (require, exports, module) {
          *  获取完枚举值后
          *  获取企业信息
          */
-        getEnums: function (id) {
+        getEnums: function(id) {
             var me = this;
 
             var state = {
@@ -989,64 +991,65 @@ define(function (require, exports, module) {
             };
 
             ///me.generateSelect( 'INDUSTRY', me.$aindustry , function(){ state.a = true; checkIsOk() });  		//行业信息
-            util.getIndustry(me.$aindustry, function () {
+            util.getIndustry(me.$aindustry, function() {
                 state.a = true;
                 checkIsOk()
             });
 
-            me.generateSelect('ENT_LST_SOURCE', me.$asource, function () {
+            me.generateSelect('ENT_LST_SOURCE', me.$asource, function() {
                 state.b = true;
                 checkIsOk()
-            });      //来源信息
-            me.generateSelect('PROVINCE', me.$aprovince, function () {
+            }); //来源信息
+            me.generateSelect('PROVINCE', me.$aprovince, function() {
                 state.c = true;
                 checkIsOk()
-            });           //省和直辖市
-            me.generateSelect('GROUP_TYPE', me.$agroup, function () {
+            }); //省和直辖市
+            me.generateSelect('GROUP_TYPE', me.$agroup, function() {
                 state.d = true;
                 checkIsOk()
-            });			//团队类型
-            me.generateSelect('KNOW_SOURCE', me.$aknow, function () {
+            }); //团队类型
+            me.generateSelect('KNOW_SOURCE', me.$aknow, function() {
                 state.e = true;
                 checkIsOk()
-            });            //了解渠道
-            me.generateSelect('REGISTER_MOTIVE', me.$aregister, function () {
+            }); //了解渠道
+            me.generateSelect('REGISTER_MOTIVE', me.$aregister, function() {
                 state.f = true;
                 checkIsOk()
-            });    //注册动机
-            me.generateSelect('CAMPANY_SCALE', me.$acompany, function () {
+            }); //注册动机
+            me.generateSelect('CAMPANY_SCALE', me.$acompany, function() {
                 state.g = true;
                 checkIsOk()
-            });      //公司规模
-            me.generateSelect('SALE_TEAM_SCALE', me.$asales, function () {
+            }); //公司规模
+            me.generateSelect('SALE_TEAM_SCALE', me.$asales, function() {
                 state.h = true;
                 checkIsOk()
-            });       //销售团队规模
-            me.generateSelect('ENTERPRISE_LOG_TYPE', me.$sbLogType, function () {
+            }); //销售团队规模
+            me.generateSelect('ENTERPRISE_LOG_TYPE', me.$sbLogType, function() {
                 state.i = true;
                 checkIsOk()
             }); //日志类型
 
-            me.generateSelect('RETURN_VISIT_CHECK', me.$('#returnvisitCheck'), function () {
+            me.generateSelect('RETURN_VISIT_CHECK', me.$('#returnvisitCheck'), function() {
                 state.j = true;
                 checkIsOk()
-            });       //电话回访状态
-            me.generateSelect('ENTERPRISE_CHEAT_TYPE', me.$('#cheatType'), function () {
+            }); //电话回访状态
+            me.generateSelect('ENTERPRISE_CHEAT_TYPE', me.$('#cheatType'), function() {
                 state.k = true;
                 checkIsOk()
-            });             //作弊情况
+            }); //作弊情况
             util.getEnums('INFORMATION_CHECK_STATUS');
         },
 
         //重置select枚举值
-        generateSelect: function (name, $select, callback) {
+        generateSelect: function(name, $select, callback) {
             var me = this;
             //var list = [{'name':'请选择','value':''}];
-            var list = [{'name': '请选择', 'value': ''}];
+            var list = [{ 'name': '请选择', 'value': '' }];
 
-            util.getEnums(name, function (data) {
-                var items = data.model, options = '<option value="">请选择</option>';
-                items.forEach(function (item, index) {
+            util.getEnums(name, function(data) {
+                var items = data.model,
+                    options = '<option value="">请选择</option>';
+                items.forEach(function(item, index) {
                     options += '<option value="' + item.value + '" title="' + item.text + '">' + item.text + '</option>';
                 })
                 $select.html(options);
@@ -1055,7 +1058,7 @@ define(function (require, exports, module) {
         },
 
         //获取企业详情
-        getEnterprise: function (id, callback) {
+        getEnterprise: function(id, callback) {
             var me = this;
 
 
@@ -1064,7 +1067,7 @@ define(function (require, exports, module) {
                 'data': {
                     'enterpriseId': id
                 },
-                'success': function (data) {
+                'success': function(data) {
                     console.warn('enterpriseinfo');
                     console.warn(data);
                     if (data.success) {
@@ -1091,8 +1094,8 @@ define(function (require, exports, module) {
                         //根据企业账号获取代理区域
                         util.api({
                             'url': '~/op/api/region/getbyea',
-                            'data': {'ea': model.enterpriseAccount},
-                            'success': function (data) {
+                            'data': { 'ea': model.enterpriseAccount },
+                            'success': function(data) {
                                 console.warn(data);
                                 if (data.success) {
                                     me.$('.proxy-area').val(data.value.model.name);
@@ -1180,14 +1183,14 @@ define(function (require, exports, module) {
                          */
 
                         ///me.$sdPayImd.val( model.firstPayTime ? new Date( model.firstPayTime )._format( 'yyyy-MM-dd' ) : '未知' );
-                      
+
                         me.$sdXKDUC.val(model.accountUsedAmount + '/' + model.accountAvailableAmount || '');
-						var tempmarketingAccountAmount = model.marketingAccountAmount
-						if( model.marketingAccountAmount && parseInt(model.marketingAccountAmount)> parseInt (model.accountTotalAmount) ){
-							me.$sdXKDC.val(model.marketingAccountAmount);
-						}else{
-							me.$sdXKDC.val(model.accountTotalAmount);
-						}	  
+                        var tempmarketingAccountAmount = model.marketingAccountAmount
+                        if (model.marketingAccountAmount && parseInt(model.marketingAccountAmount) > parseInt(model.accountTotalAmount)) {
+                            me.$sdXKDC.val(model.marketingAccountAmount);
+                        } else {
+                            me.$sdXKDC.val(model.accountTotalAmount);
+                        }
                         me.$yingxiaoSum.val(model.marketingAccountAmount);
                         me.$yingxiaoUsed.val(model.marketingAccountUsedAmount + '/' + model.marketingAccountAvailableAmount);
 
@@ -1227,14 +1230,13 @@ define(function (require, exports, module) {
                          *
                          * 审核成功的 不显示资料审核相关页面
                          */
-                        if (( model.informationCheck == 2 )) {
+                        if ((model.informationCheck == 2)) {
 
                             me.$('#verificationupload').hide();
                         } else if (me.attrs.isAgent == true) {
 
                             me.$('#verificationupload').show();
-                        }
-                        ;
+                        };
 
                         /**
                          *
@@ -1314,7 +1316,7 @@ define(function (require, exports, module) {
          *  根据状态信息相应类名显示
          *  f1待开通  f2已开通 f3已作废 f4已停用
          */
-        setVisibility: function () {
+        setVisibility: function() {
             var me = this;
             var status = this.model.attrs.runStatus;
             me.$('.f1,.f2,.f3,.f4').css('display', 'none');
@@ -1346,7 +1348,7 @@ define(function (require, exports, module) {
 
         //设置 dom 元素的显隐状态
         //
-        setState: function ($el) {
+        setState: function($el) {
             var me = this;
 
             console.log(me.attrs.isAgent);
@@ -1375,11 +1377,19 @@ define(function (require, exports, module) {
             }
         },
 
+        showNumber:function() {
+
+            console.log(999);
+
+
+
+        },
+
         /**
          *
          * 显示隐藏子菜单
          */
-        showAccordian: function (e) {
+        showAccordian: function(e) {
             var target = e.currentTarget,
                 $parent = $(target).parent();
             $content = $(target).next('.content');
@@ -1401,7 +1411,7 @@ define(function (require, exports, module) {
                     console.log('product');
                     this.showProductInfo();
                     break;
-                case 'verification':                    //资料审核
+                case 'verification': //资料审核
                     this.showVerifiCation();
                     break;
                 case 'agent':
@@ -1440,26 +1450,29 @@ define(function (require, exports, module) {
                     this.showCardList();
                     break;
                 case 'callback':
-                    this.showCallBack();  	//电话回访
+                    this.showCallBack(); //电话回访
                     break;
                 case 'training':
-                    this.showTraining();  	//显示培训详情
+                    this.showTraining(); //显示培训详情
                     break;
                 case 'monitoring':
-                    this.showMonitoring();  //企业监控
+                    this.showMonitoring(); //企业监控
                     break;
-                /*
-                 case 'crmInfo':
-                 this.showCrmInfo();  //企业监控
-                 break;
-                 */
+                case 'peopleNumber':
+                    this.showNumber();
+                    break;
+                    /*
+                     case 'crmInfo':
+                     this.showCrmInfo();  //企业监控
+                     break;
+                     */
 
                 default:
                     break;
             }
         },
 
-        saveBasicEve: function (e) {
+        saveBasicEve: function(e) {
 
             // disable buttons
             var me = this;
@@ -1468,47 +1481,47 @@ define(function (require, exports, module) {
             $target.addClass('disable');
 
             var data = {
-                enterpriseId: this.model.attrs.enterpriseId,  				//企业ID
-                enterpriseName: this.$name.val(),             				//企业名称
-                address: this.$address.val(),                 				//地址
-                industry: this.$aindustry.val(),                        	//行业
-                source: this.$asource.val(),                                //来源
-                isFreeGiven: this.$('#presentOfficeEdition').val(), 			//是否赠送办公版
-                groupType: this.$agroup.val(),                              //团队类型
-                knowSource: this.$aknow.val(),                              //了解渠道
-                registerMotive: this.$aregister.val(),                      //注册动机
-                companyScale: this.$acompany.val(),                         //公司规模
-                isSaleTeam: this.$hasSales.val(),                           //是否有销售团队
-                saleTeamScale: this.$asales.val(),                          //销售团队规模
-                isFirstMeetingSign: this.$isFirstView.val(),                //是否首面签约
-                isWillPin: this.$isMettingSale.val(),                       //是否会销
-                isStrangerVisits: this.$isStranger.val(),                   //是否陌拜
-                province: this.$aprovince.val(),                            //省市
-                city: this.$city.val(),                                     //城市
+                enterpriseId: this.model.attrs.enterpriseId, //企业ID
+                enterpriseName: this.$name.val(), //企业名称
+                address: this.$address.val(), //地址
+                industry: this.$aindustry.val(), //行业
+                source: this.$asource.val(), //来源
+                isFreeGiven: this.$('#presentOfficeEdition').val(), //是否赠送办公版
+                groupType: this.$agroup.val(), //团队类型
+                knowSource: this.$aknow.val(), //了解渠道
+                registerMotive: this.$aregister.val(), //注册动机
+                companyScale: this.$acompany.val(), //公司规模
+                isSaleTeam: this.$hasSales.val(), //是否有销售团队
+                saleTeamScale: this.$asales.val(), //销售团队规模
+                isFirstMeetingSign: this.$isFirstView.val(), //是否首面签约
+                isWillPin: this.$isMettingSale.val(), //是否会销
+                isStrangerVisits: this.$isStranger.val(), //是否陌拜
+                province: this.$aprovince.val(), //省市
+                city: this.$city.val(), //城市
                 //isFastSign: this.$isFastSign.val(),
-                dealDays: this.$dealDays.val(),                             //成交周期
+                dealDays: this.$dealDays.val(), //成交周期
                 //isAutoClave: this.$hp.val(),
                 //autoclaveDays: this.$hpDays.val(),
-                isReferral: this.$isIntro.val(),                            //是否转介绍
-                isPayed: this.$isPayed.val(),                               //是否付费
+                isReferral: this.$isIntro.val(), //是否转介绍
+                isPayed: this.$isPayed.val(), //是否付费
                 //isEndlessTrial: this.$('#isEndlessTrial').val(),			//是否永久试用
 
                 //企业负责人
-                keyContactName: this.$kcName.val(),                         //企业负责人姓名                         
-                keyContactPhone: this.$kcMobile.val(),                      //企业负责人电话
-                keyContactEmail: this.$kcEmail.val(),                       //企业负责人电子邮箱
+                keyContactName: this.$kcName.val(), //企业负责人姓名                         
+                keyContactPhone: this.$kcMobile.val(), //企业负责人电话
+                keyContactEmail: this.$kcEmail.val(), //企业负责人电子邮箱
 
                 //纷享平台管理员
-                contactName: this.$cName.val(),                             //姓名
-                contactPhone: this.$cMobile.val(),                          //电话
-                contactEmail: this.$cEmail.val(),                           //电子邮箱
-                contactIm: this.$cQQ.val(),                                 //常用QQ
-                remark: this.$remark.val()                                  //备注
+                contactName: this.$cName.val(), //姓名
+                contactPhone: this.$cMobile.val(), //电话
+                contactEmail: this.$cEmail.val(), //电子邮箱
+                contactIm: this.$cQQ.val(), //常用QQ
+                remark: this.$remark.val() //备注
             };
             util.api({
                 url: '/enterprise/updatebasics',
                 data: data,
-                success: function (data) {
+                success: function(data) {
 
                     console.warn(data);
                     if (data.success) {
@@ -1518,7 +1531,7 @@ define(function (require, exports, module) {
                         me.trigger('refresh');
                     }
                 },
-                complete: function () {
+                complete: function() {
                     $target.removeAttr('disabled');
                     $target.removeClass('disable');
                 }
@@ -1529,7 +1542,7 @@ define(function (require, exports, module) {
          *
          * 显示产品信息
          */
-        showProductInfo: function () {
+        showProductInfo: function() {
             var me = this;
 
             /*
@@ -1546,16 +1559,16 @@ define(function (require, exports, module) {
                 'data': {
                     'ea': me.model.get('enterpriseAccount')
                 },
-                'beforeSend': function () {
+                'beforeSend': function() {
                     me.$tbProduct.find('.container').html('<p class="info">加载中...</p>');
                 },
-                'success': function (data) {
+                'success': function(data) {
                     console.warn(data);
                     if (data.success) {
                         if (data.value.model.length > 0) {
 
                             var strDom = "";
-                            _.map(data.value.model, function (obj) {
+                            _.map(data.value.model, function(obj) {
                                 var startTime = "——",
                                     endTime = "——";
                                 if (obj['startDate']) {
@@ -1579,11 +1592,11 @@ define(function (require, exports, module) {
                                         break;
                                     case "CRM":
                                         strDom += " <p> <span>" + obj['appName'] + "(个)：" + obj['quota'] + "</span>" +
-                                        " <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span>" + enablestatus + "   <input class='off' type='checkbox' name='product' value='" + obj["appId"] + "'> </p>";
+                                            " <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span>" + enablestatus + "   <input class='off' type='checkbox' name='product' value='" + obj["appId"] + "'> </p>";
                                         break;
                                     case "Service_Fee":
                                         strDom += " <p> <span>" + obj['appName'] + "(人)：" + obj['quota'] + "</span>" +
-                                        " <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span></p>";
+                                            " <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span></p>";
                                         break;
                                     case "HR_Helper":
                                         strDom += " <p> <span>" + obj['appName'] + "</span> <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span> </p>";
@@ -1611,7 +1624,7 @@ define(function (require, exports, module) {
         },
 
         //开启或产品
-        toggleProduct: function (isEnable) {
+        toggleProduct: function(isEnable) {
             var me = this;
 
             var $input = me.$tbProduct.find('[name="product"]:checked');
@@ -1623,7 +1636,7 @@ define(function (require, exports, module) {
             }
 
             var ids = [];
-            $input.each(function (index, item) {
+            $input.each(function(index, item) {
                 ids.push($(item).val());
             });
             console.log(ids);
@@ -1635,7 +1648,7 @@ define(function (require, exports, module) {
                     'appIds': ids.join(','),
                     'isEnable': isEnable
                 },
-                'success': function (data) {
+                'success': function(data) {
                     if (data.success) {
                         util.showTip('操作成功');
                         me.showProductInfo();
@@ -1649,7 +1662,7 @@ define(function (require, exports, module) {
          *
          * 显示资料审核
          */
-        showVerifiCation: function (changeBool) {
+        showVerifiCation: function(changeBool) {
             var me = this;
             var changeBool = changeBool || false;
             //清空上传组件信息
@@ -1686,7 +1699,7 @@ define(function (require, exports, module) {
                 'data': {
                     'enterpriseId': me.model.attrs['enterpriseId']
                 },
-                'success': function (data) {
+                'success': function(data) {
                     console.warn(data);
                     if (data.success) {
 
@@ -1746,7 +1759,7 @@ define(function (require, exports, module) {
             });
         },
         //资料审核成功
-        veriOnEve: function () {
+        veriOnEve: function() {
             var me = this;
             console.log('on');
             util.api({
@@ -1756,14 +1769,14 @@ define(function (require, exports, module) {
                     'isCheckPassed': 2,
                     'informationCheckRemark': me.$('.approvalinfo').val()
                 },
-                'success': function (data) {
+                'success': function(data) {
                     console.warn(data);
                     me.showVerifiCation(true);
                 }
             })
         },
         //资料审核失败
-        veriOffEve: function () {
+        veriOffEve: function() {
             var me = this;
             console.log('off');
             util.api({
@@ -1773,14 +1786,14 @@ define(function (require, exports, module) {
                     'isCheckPassed': 3,
                     'informationCheckRemark': me.$('.approvalinfo').val()
                 },
-                'success': function (data) {
+                'success': function(data) {
                     console.warn(data);
                     me.showVerifiCation();
                 }
             })
         },
         //
-        agentSearchEve: function () {
+        agentSearchEve: function() {
             var me = this;
 
             me.agent.pagination && me.agent.pagination.setPage(0, true);
@@ -1790,7 +1803,7 @@ define(function (require, exports, module) {
          *
          * 电话回访
          */
-        showCallBack: function () {
+        showCallBack: function() {
             var me = this;
 
             /**
@@ -1802,7 +1815,7 @@ define(function (require, exports, module) {
                 'data': {
                     'enterpriseId': me.model.attrs['enterpriseId']
                 },
-                'success': function (data) {
+                'success': function(data) {
 
                     if (data.success) {
 
@@ -1819,7 +1832,7 @@ define(function (require, exports, module) {
             }
         },
 
-        loadCallBackList: function () {
+        loadCallBackList: function() {
 
             var me = this;
             me.$phonecallback.find('tbody').html('<tr><td colspan="4"><p class="info">加载中</p></td></tr>');
@@ -1829,18 +1842,18 @@ define(function (require, exports, module) {
                 'data': {
                     'enterpriseId': me.model.attrs['enterpriseId']
                 },
-                'success': function (data) {
+                'success': function(data) {
                     console.warn(data);
                     if (data.success) {
                         if (data.value.model.length > 0) {
-                            data.value.model.forEach(function (item) {
+                            data.value.model.forEach(function(item) {
                                 if (item.admin == '1') {
                                     item.adminStr = '是';
                                 } else {
                                     item.adminStr = '否';
                                 }
                             });
-                            me.$phonecallback.find('tbody').html(me.tplCallBackList({'content': data.value.model}));
+                            me.$phonecallback.find('tbody').html(me.tplCallBackList({ 'content': data.value.model }));
                         } else {
                             me.$phonecallback.find('tbody').html('<tr><td colspan="4"><p class="info">暂无数据</p></td></tr>')
                         }
@@ -1848,7 +1861,7 @@ define(function (require, exports, module) {
                 }
             })
         },
-        callbackOnEve: function () {
+        callbackOnEve: function() {
             var me = this;
 
             util.api({
@@ -1858,7 +1871,7 @@ define(function (require, exports, module) {
                     'cheatType': me.$('#cheatType').val(),
                     'returnVisitCheck': me.$('#returnvisitCheck').val()
                 },
-                'success': function (data) {
+                'success': function(data) {
                     if (data.success) {
                         me.showCallBack();
                     }
@@ -1866,7 +1879,7 @@ define(function (require, exports, module) {
             })
         },
 
-        employeeDetailEve: function (e) {
+        employeeDetailEve: function(e) {
             var ea = $(e.currentTarget).attr('data-ea');
             var phone = $(e.currentTarget).attr('data-phone');
             this.trigger('employeeDetail', ea, phone);
@@ -1876,7 +1889,7 @@ define(function (require, exports, module) {
          *
          * 显示代理商信息
          */
-        showAgentInfo: function () {
+        showAgentInfo: function() {
             var me = this;
 
             /*
@@ -1902,30 +1915,31 @@ define(function (require, exports, module) {
                     pageNumber: 0
                 });
                 me.agent.pagination.render();
-                me.agent.pagination.onChange = function () {
+                me.agent.pagination.onChange = function() {
                     me.loadAgents();
                 };
                 me.loadAgents();
             }
         },
-        loadAgents: function () {
-            var me = this, data = {
-                id: me.$('#sbAgentId').val(),
-                name: me.$('#sbAgentName').val(),
-                pageIndex: me.agent.pagination.attr['pageNumber'] + 1,
-                pageSize: me.agent.pagination.attr['pageSize']
-            };
+        loadAgents: function() {
+            var me = this,
+                data = {
+                    id: me.$('#sbAgentId').val(),
+                    name: me.$('#sbAgentName').val(),
+                    pageIndex: me.agent.pagination.attr['pageNumber'] + 1,
+                    pageSize: me.agent.pagination.attr['pageSize']
+                };
             util.api({
                 url: '/agent/querypage',
                 data: data,
-                success: function (data) {
+                success: function(data) {
                     if (data.success) {
                         me.agent.pagination.setTotalSize(data.model.itemCount);
-                        $(data.model.content).each(function (i, item) {
+                        $(data.model.content).each(function(i, item) {
                             item.provinceName = util.findEnumsText('PROVINCE', item.province);
                         });
                         if (data.model.content.length > 0) {
-                            me.$tbAgent.html(me.tplAgent({content: data.model.content}));
+                            me.$tbAgent.html(me.tplAgent({ content: data.model.content }));
                             IBSS.tplEvent.setPermissions(me.$tbAgent);
                         } else {
                             me.$tbAgent.html('<tr><td colspan="4"><p class="info">暂无数据</p></td></tr>');
@@ -1941,7 +1955,7 @@ define(function (require, exports, module) {
          *
          * 显示培训详情
          */
-        showTraining: function () {
+        showTraining: function() {
             var me = this;
 
 
@@ -1957,7 +1971,7 @@ define(function (require, exports, module) {
                     pageNumber: 0
                 });
                 me.training.pagination.render();
-                me.training.pagination.onChange = function () {
+                me.training.pagination.onChange = function() {
                     me.loadTraining();
                 };
                 me.loadTraining();
@@ -1967,13 +1981,13 @@ define(function (require, exports, module) {
          *
          * 显示企业监控详情
          */
-        showMonitoring: function () {
+        showMonitoring: function() {
             console.log('monitoring');
             var me = this;
 
-            me.$('#monitoringDay').val('');   	//安全监控天数
-            me.$('#monitoringSTime').val(''); 	//监控开始时间
-            me.$('#monitoringETime').val('');   //监控结束时间
+            me.$('#monitoringDay').val(''); //安全监控天数
+            me.$('#monitoringSTime').val(''); //监控开始时间
+            me.$('#monitoringETime').val(''); //监控结束时间
 
             function refreshstate() {
                 if (me.$('#monitoringIs').val() == 0) {
@@ -1986,17 +2000,17 @@ define(function (require, exports, module) {
             }
 
             if (!me.$('#monitoringSTime').is('[added]')) {
-                me.$('#monitoringSTime').on('blur', function () {
-                    setTimeout(function () {
+                me.$('#monitoringSTime').on('blur', function() {
+                    setTimeout(function() {
                         setMonitoringETime();
                     }, 100);
                 });
                 me.$('#monitoringSTime').attr('added', '1');
             }
             if (!me.$('#monitoringDay').is('[added]')) {
-                me.$('#monitoringDay').on('change', function () {
+                me.$('#monitoringDay').on('change', function() {
                     debugger
-                    me.$('#monitoringDay').val(me.$('#monitoringDay').val().replace(/[^\d]/g, ''));//数字限定
+                    me.$('#monitoringDay').val(me.$('#monitoringDay').val().replace(/[^\d]/g, '')); //数字限定
                     setMonitoringETime();
                 });
                 me.$('#monitoringDay').attr('added', '1');
@@ -2018,7 +2032,7 @@ define(function (require, exports, module) {
                 'data': {
                     'enterpriseId': me.model.attrs['enterpriseId']
                 },
-                'success': function (data) {
+                'success': function(data) {
                     console.warn(data);
                     if (data.success) {
 
@@ -2038,7 +2052,7 @@ define(function (require, exports, module) {
 
             } else {
 
-                me.$('#monitoringIs').on('change', function () {
+                me.$('#monitoringIs').on('change', function() {
                     refreshstate();
                 });
 
@@ -2048,7 +2062,7 @@ define(function (require, exports, module) {
                     pageNumber: 0
                 });
                 me.monitoring.pagination.render();
-                me.monitoring.pagination.onChange = function () {
+                me.monitoring.pagination.onChange = function() {
                     me.loadMonitoringLog();
                 };
                 me.loadMonitoringLog();
@@ -2111,7 +2125,7 @@ define(function (require, exports, module) {
          */
 
         //load企业监控日志
-        loadMonitoringLog: function () {
+        loadMonitoringLog: function() {
             var me = this;
 
             util.api({
@@ -2121,17 +2135,17 @@ define(function (require, exports, module) {
                     'pageSize': me.monitoring.pagination.attr['pageSize'],
                     'enterpriseId': me.model.get('enterpriseId')
                 },
-                'beforeSend': function () {
+                'beforeSend': function() {
                     me.$('#monitoring tbody').html('<tr><td colspan="4"><p class="info">加载中</p></td></tr>');
                 },
-                'success': function (data) {
+                'success': function(data) {
                     console.warn(data);
                     if (data.success) {
                         me.monitoring.pagination.setTotalSize(data.value.model.itemCount);
 
                         if (data.value.model.content.length > 0) {
 
-                            data.value.model.content.forEach(function (item) {
+                            data.value.model.content.forEach(function(item) {
                                 item.createTimeStr = new Date(item.createTime)._format('yyyy-MM-dd hh:mm');
                             });
                             me.$('#monitoring tbody').html(me.tplMonitorList(data.value.model));
@@ -2140,14 +2154,14 @@ define(function (require, exports, module) {
                         }
                     }
                 },
-                'error': function () {
+                'error': function() {
                     me.$('#monitoring tbody').html('<tr><td colspan="4"><p class="info">数据加载失败</p></td></tr>');
                 }
             })
         },
 
         //保存监控信息
-        saveMonitoringEve: function () {
+        saveMonitoringEve: function() {
             console.log(1)
             var me = this;
             util.api({
@@ -2157,9 +2171,9 @@ define(function (require, exports, module) {
                     'isMonitor': me.$('#monitoringIs').val(),
                     'monitorDay': me.$('#monitoringDay').val(),
                     'monitorStartTime': new Date(me.$('#monitoringSTime').val()).getTime()
-                    //'monitorEndTime': ''
+                        //'monitorEndTime': ''
                 },
-                'success': function (data) {
+                'success': function(data) {
                     console.warn(data);
                     if (data.success) {
                         me.showMonitoring();
@@ -2169,14 +2183,14 @@ define(function (require, exports, module) {
         },
 
         //添加培训详情
-        addTrainingEve: function () {
+        addTrainingEve: function() {
             var me = this;
 
             me.training.addDialog.show(me.model.get('enterpriseId'));
         },
 
         //编辑培训详情
-        editTrainingEve: function (e) {
+        editTrainingEve: function(e) {
             var me = this;
 
             var id = $(e.currentTarget).attr('data-id');
@@ -2184,12 +2198,12 @@ define(function (require, exports, module) {
             me.training.editDialog.show(me.model.get('enterpriseId'), id);
         },
 
-        searchTraining: function () {
+        searchTraining: function() {
             var me = this;
             me.training.pagination.setPage(0, true);
         },
 
-        loadTraining: function () {
+        loadTraining: function() {
             var me = this;
 
             var starttime = '',
@@ -2215,11 +2229,11 @@ define(function (require, exports, module) {
                     'trainingDescription:': me.$('#traindes').val(),
                     'enterpriseId': me.model.get('enterpriseId')
                 },
-                'success': function (data) {
+                'success': function(data) {
                     console.warn(data);
                     if (data.success) {
                         me.training.pagination.setTotalSize(data.value.model.itemCount);
-                        me.traininglist.reload(data.value.model.content, function (item) {
+                        me.traininglist.reload(data.value.model.content, function(item) {
                             item.trainingDateStr = new Date(item.trainingDate)._format('yyyy-MM-dd');
                         });
                         if (data.value.model.content.length <= 0) {
@@ -2234,7 +2248,7 @@ define(function (require, exports, module) {
          *
          * 活跃度下载
          */
-        actDownloadEve: function (e) {
+        actDownloadEve: function(e) {
             var me = this;
 
             var startTime = '',
@@ -2246,7 +2260,7 @@ define(function (require, exports, module) {
             if (me.$actEndTime.val()) {
                 endTime = new Date(me.$actEndTime.val()).getTime();
             }
-            var url = IBSS.API_PATH + '/query/act/detail/generate?' + $.param({'enterpriseId': me.model.attrs.enterpriseId, 'timeStart': startTime, 'timeEnd': endTime})
+            var url = IBSS.API_PATH + '/query/act/detail/generate?' + $.param({ 'enterpriseId': me.model.attrs.enterpriseId, 'timeStart': startTime, 'timeEnd': endTime })
             window.open(url);
         },
 
@@ -2256,7 +2270,7 @@ define(function (require, exports, module) {
          * 使用情况
          * 显示使用情况
          */
-        showOperations: function () {
+        showOperations: function() {
             var me = this;
 
 
@@ -2314,12 +2328,12 @@ define(function (require, exports, module) {
              *
              * 清空数据
              */
-                ///me.$('#tbOperation input').val('');
+            ///me.$('#tbOperation input').val('');
 
             me.model.load(me.operations.initialInfo);
 
-            if(me.operations.trainHelperTotalCapacity!==undefined){
-                me.model.set('trainHelperUsedCapacityStr',me.operations.trainHelperTotalCapacity+'/'+(me.operations.trainHelperTotalCapacity-me.operations.trainHelperTotalCapacity))
+            if (me.operations.trainHelperTotalCapacity !== undefined) {
+                me.model.set('trainHelperUsedCapacityStr', me.operations.trainHelperTotalCapacity + '/' + (me.operations.trainHelperTotalCapacity - me.operations.trainHelperTotalCapacity))
             }
             /**
              *
@@ -2336,7 +2350,7 @@ define(function (require, exports, module) {
                     pageNumber: 0
                 });
                 me.operations.pagination.render();
-                me.operations.pagination.onChange = function () {
+                me.operations.pagination.onChange = function() {
                     me.loadOperations();
                 };
                 me.loadOperations();
@@ -2348,7 +2362,7 @@ define(function (require, exports, module) {
          *
          * 加载使用情况列表
          */
-        loadOperations: function () {
+        loadOperations: function() {
             var me = this;
             var data = {
                 pageIndex: me.operations.pagination.attr['pageNumber'],
@@ -2359,11 +2373,11 @@ define(function (require, exports, module) {
             util.api({
                 url: '/enterprise/querypageenterpriseaccountincrement',
                 data: data,
-                success: function (data) {
+                success: function(data) {
 
                     if (data.success) {
                         me.operations.pagination.setTotalSize(data.model.page.itemCount);
-                        data.model.page && $(data.model.page.content).each(function (i, item) {
+                        data.model.page && $(data.model.page.content).each(function(i, item) {
                             item.ncreaseTime = new Date(item.ncreased)._format('yyyy-MM-dd hh:mm');
                         });
                         me.attrs.freeIncreaseContractRequired = data.model.freeIncreaseContractRequired;
@@ -2375,7 +2389,7 @@ define(function (require, exports, module) {
                             me.$('.check-hide').hide();
                         }
                         if (data.model.page && data.model.page.content && data.model.page.content.length > 0) {
-                            me.$tbOperation.html(me.tplOperation({content: data.model.page.content}));
+                            me.$tbOperation.html(me.tplOperation({ content: data.model.page.content }));
                         } else {
                             me.$tbOperation.html('<tr><td colspan="4"><p class="info">暂无数据</p></td></tr>');
                         }
@@ -2386,47 +2400,47 @@ define(function (require, exports, module) {
         },
 
         //修改使用情况信息
-        changeStatistics: function () {
+        changeStatistics: function() {
             var me = this;
-			var temAccout = 0;
+            var temAccout = 0;
 
             console.log('changeStatistics');
             if (parseInt(me.model.get('groupNumLimit')) > 1000) {
                 util.showToast('群人数上限最多为1000');
                 return false;
             }
-			if(me.$('#yingxiaoSum').val() && parseInt(me.$('#yingxiaoSum').val())> parseInt(me.$sdXKDC.val())){
-				util.showToast('逍客终端总量不能小于CRM总量');
+            if (me.$('#yingxiaoSum').val() && parseInt(me.$('#yingxiaoSum').val()) > parseInt(me.$sdXKDC.val())) {
+                util.showToast('逍客终端总量不能小于CRM总量');
                 return false;
-				//temAccout = me.$('#yingxiaoSum').val();
-			}else{
-				temAccout = me.$sdXKDC.val();
-			}
+                //temAccout = me.$('#yingxiaoSum').val();
+            } else {
+                temAccout = me.$sdXKDC.val();
+            }
 
             var data = {
-                'accountAmount': temAccout,  						//逍客终端总量
-                'expandStorageSpace': me.$('#expandStorageSpace').val(),	//存储扩容
-                'groupNumLimit': me.model.get('groupNumLimit'),             //群人数上限
-                'videoNumLimit': me.model.get('videoNumLimit'),             //视频参与人数上限
-                'crmVisibleRange': me.model.get('crmVisibleRange'),         //CRM上级可见数据范围
-                'editCustomerName': me.model.get('editCustomerName'),         //允许负责人修改客户名称
-                'setPersonalGoal': me.model.get('setPersonalGoal'),         //允许个人设置目标
-                'discountAutoCalculated': me.model.get('discountAutoCalculated'),         //折扣是否自动计算
-                'webSanCodeAuth': me.model.get('webSanCodeAuth'),           //WEB扫码授权
+                'accountAmount': temAccout, //逍客终端总量
+                'expandStorageSpace': me.$('#expandStorageSpace').val(), //存储扩容
+                'groupNumLimit': me.model.get('groupNumLimit'), //群人数上限
+                'videoNumLimit': me.model.get('videoNumLimit'), //视频参与人数上限
+                'crmVisibleRange': me.model.get('crmVisibleRange'), //CRM上级可见数据范围
+                'editCustomerName': me.model.get('editCustomerName'), //允许负责人修改客户名称
+                'setPersonalGoal': me.model.get('setPersonalGoal'), //允许个人设置目标
+                'discountAutoCalculated': me.model.get('discountAutoCalculated'), //折扣是否自动计算
+                'webSanCodeAuth': me.model.get('webSanCodeAuth'), //WEB扫码授权
                 'enterpriseId': me.model.get('enterpriseId')
             }
 
             util.api({
                 'url': '/enterprise/changeconfig',
                 'data': data,
-                'success': function (data) {
+                'success': function(data) {
                     if (data.success) {
                         util.showTip('修改成功!');
                         //me.getEnterprise( me.model.attrs.enterpriseId );
                         me.trigger('refresh');
                     }
                 },
-                'complete': function (data) {
+                'complete': function(data) {
                     me.getEnterprise(me.model.attrs.enterpriseId);
                 }
             });
@@ -2538,7 +2552,7 @@ define(function (require, exports, module) {
          *
          *
          */
-        showFunctions: function () {
+        showFunctions: function() {
             var me = this;
 
             //设置默认设置
@@ -2557,22 +2571,22 @@ define(function (require, exports, module) {
 
             util.api({
                 url: '/enterprise/queryenterpriseitemconfig',
-                data: {enterpriseId: this.model.attrs.enterpriseId},
-                success: function (data) {
+                data: { enterpriseId: this.model.attrs.enterpriseId },
+                success: function(data) {
                     if (data.success) {
                         var model = data.value.model;
                         console.warn(model);
                         me.$sdELC.val(model['Config.ExportAmountLocation']);
                         me.$sdELUC.val(model['Used.ExportAmountLocation']);
-                        me.$sdEFC.val(model['Config.ExportAmountPlan']);         //导出日志次数
-                        me.$sdEFUC.val(model['Used.ExportAmountPlan']);          //导出日志已用次数
-                        me.$sdECC.val(model['Config.ExportAmountFeedWork']);     //导出指令次数
-                        me.$sdECUC.val(model['Used.ExportAmountFeedWork']);      //导出指令已用次数
-                        me.$sdEMWC.val(model['Config.ExportAmountLeaveApplication']);  //导出月度考勤次数
-                        me.$sdEMWUC.val(model['Used.ExportAmountLeaveApplication']);  //导出月度考勤已用
-                        me.$sdEAC.val(model['Config.ExportAmountFeedApprove']);       //导出审批汇总次数
-                        me.$sdEAUC.val(model['Used.ExportAmountFeedApprove']);        //导出审批汇总已用
-                        me.$sdUFS.val(model['Config.UploadFileSizeLimit']);           //上传文件大小限制
+                        me.$sdEFC.val(model['Config.ExportAmountPlan']); //导出日志次数
+                        me.$sdEFUC.val(model['Used.ExportAmountPlan']); //导出日志已用次数
+                        me.$sdECC.val(model['Config.ExportAmountFeedWork']); //导出指令次数
+                        me.$sdECUC.val(model['Used.ExportAmountFeedWork']); //导出指令已用次数
+                        me.$sdEMWC.val(model['Config.ExportAmountLeaveApplication']); //导出月度考勤次数
+                        me.$sdEMWUC.val(model['Used.ExportAmountLeaveApplication']); //导出月度考勤已用
+                        me.$sdEAC.val(model['Config.ExportAmountFeedApprove']); //导出审批汇总次数
+                        me.$sdEAUC.val(model['Used.ExportAmountFeedApprove']); //导出审批汇总已用
+                        me.$sdUFS.val(model['Config.UploadFileSizeLimit']); //上传文件大小限制
                         console.warn(model['Config.isAllowDangerOperate']);
                         var temp = model['Config.IsAllowDangerOperate'] == '1' ? '是' : '否'
                         me.$sdActionDanger.val(temp);
@@ -2592,13 +2606,13 @@ define(function (require, exports, module) {
          *
          * 打开活跃度标签
          */
-        showActiveNess: function () {
+        showActiveNess: function() {
             var me = this;
 
             me.$actStartTime.val('').removeAttr('disabled');
             me.$actEndTime.val('').removeAttr('disabled');
         },
-        showCardList: function () {
+        showCardList: function() {
             var me = this;
 
             me.$cardStartTime.val('').removeAttr('disabled');
@@ -2614,13 +2628,13 @@ define(function (require, exports, module) {
                     pageNumber: 0
                 });
                 me.card.pagination.render();
-                me.card.pagination.onChange = function () {
+                me.card.pagination.onChange = function() {
                     me.loadCardList();
                 };
                 me.loadCardList();
             }
         },
-        loadCardList: function () {
+        loadCardList: function() {
             var me = this,
                 data = {
                     pageIndex: me.card.pagination.attr['pageNumber'],
@@ -2639,12 +2653,12 @@ define(function (require, exports, module) {
             util.api({
                 url: '/enterprise/querypagebusinesscardrecharge',
                 data: data,
-                success: function (data) {
+                success: function(data) {
                     if (data.success) {
                         me.card.pagination.setTotalSize(data.model.itemCount);
                         if (data.model.content.length > 0) {
                             var content = me.dataFormat(data.model.content)
-                            me.$tbCardList.html(me.tpCardList({content: content}));
+                            me.$tbCardList.html(me.tpCardList({ content: content }));
                         } else {
                             me.$tbCardList.html('<tr><td colspan="7"><p class="info">暂无数据</p></td></tr>');
                         }
@@ -2652,7 +2666,7 @@ define(function (require, exports, module) {
                 }
             });
         },
-        dataFormat: function (dataList) {
+        dataFormat: function(dataList) {
             for (var i = 0; i < dataList.length; i++) {
                 var item = dataList[i];
                 item.expireTime = new Date(item.expireTime)._format('yyyy-MM-dd');
@@ -2661,14 +2675,14 @@ define(function (require, exports, module) {
             }
             return dataList;
         },
-        showMarketing: function () {
+        showMarketing: function() {
             if (this.model.attrs.runStatus == 2) {
                 $('#tbMarketing').css('display', 'block');
             } else {
                 $('#tbMarketing').css('display', 'none');
             }
         },
-        showCustom: function () {
+        showCustom: function() {
             if (this.model.attrs.runStatus == 2) {
                 $('#tbCustom').css('display', 'block');
             } else {
@@ -2680,7 +2694,7 @@ define(function (require, exports, module) {
          *
          * 显示日志信息
          */
-        showLog: function () {
+        showLog: function() {
             var me = this;
 
             me.$sbLogType.val('');
@@ -2697,18 +2711,18 @@ define(function (require, exports, module) {
                     pageNumber: 0
                 });
                 me.log.pagination.render();
-                me.log.pagination.onChange = function () {
+                me.log.pagination.onChange = function() {
                     me.loadLog();
                 };
                 me.loadLog();
             }
         },
-        loadLog: function () {
+        loadLog: function() {
 
             console.log('log log log');
             var me = this,
                 data = {
-                    pageIndex: me.log.pagination.attr['pageNumber']+1,
+                    pageIndex: me.log.pagination.attr['pageNumber'] + 1,
                     pageSize: me.log.pagination.attr['pageSize'],
                     enterpriseId: me.model.attrs.enterpriseId,
                     type: me.$sbLogType.val()
@@ -2723,17 +2737,17 @@ define(function (require, exports, module) {
             util.api({
                 url: '/enterprise/querypageenterpriselog',
                 data: data,
-                success: function (data) {
+                success: function(data) {
 
                     console.warn(data);
                     if (data.success) {
                         me.log.pagination.setTotalSize(data.model.itemCount);
                         if (data.model.content.length > 0) {
-                            data.model.content.forEach(function (item) {
+                            data.model.content.forEach(function(item) {
                                 item.createTimeStr = new Date(item.createtime)._format('yyyy-MM-dd hh:mm');
                                 item.typeStr = util.findEnumsText('ENTERPRISE_LOG_TYPE', item.type);
                             });
-                            me.$tbLog.html(me.tplLog({content: data.model.content}));
+                            me.$tbLog.html(me.tplLog({ content: data.model.content }));
                         } else {
                             me.$tbLog.html('<tr><td colspan="5"><p class="info">暂无数据</p></td></tr>');
                         }
@@ -2741,11 +2755,11 @@ define(function (require, exports, module) {
                 }
             });
         },
-        searchLog: function () {
+        searchLog: function() {
             this.loadLog();
         },
 
-        searchAgent: function (e) {
+        searchAgent: function(e) {
             this.loadAgents();
         },
 
@@ -2789,7 +2803,7 @@ define(function (require, exports, module) {
          },
          */
 
-        changeAgentEve: function (e) {
+        changeAgentEve: function(e) {
             var me = this,
                 $target = $(e.currentTarget),
                 vid = $target.attr('data-id'),
@@ -2802,7 +2816,7 @@ define(function (require, exports, module) {
                 util.api({
                     url: '/enterprise/changevendor',
                     data: data,
-                    success: function (data) {
+                    success: function(data) {
                         if (data.success) {
                             util.showTip('修改成功');
                             var agent = me.findAgent(vid);
@@ -2813,10 +2827,10 @@ define(function (require, exports, module) {
                 });
             }
         },
-        findAgent: function (id) {
+        findAgent: function(id) {
             var me = this;
             var result = null;
-            $(me.agent.list).each(function (i, item) {
+            $(me.agent.list).each(function(i, item) {
                 if (item.id == id) {
                     result = item;
                     return false;
@@ -2825,7 +2839,7 @@ define(function (require, exports, module) {
             return result;
         },
 
-        changeTrial: function () {
+        changeTrial: function() {
             var data = {
                 enterpriseId: this.model.attrs.enterpriseId,
                 endDay: new Date(this.$sTrialTime.val()).getTime(),
@@ -2834,14 +2848,14 @@ define(function (require, exports, module) {
             util.api({
                 url: '/enterprise/changetrialconfig',
                 data: data,
-                success: function (data) {
+                success: function(data) {
                     if (data.success) {
                         util.showTip('修改成功');
                     }
                 }
             });
         },
-        clearStatisticsForm: function () {
+        clearStatisticsForm: function() {
             ///this.$sXKDC.val( '' );
             ///this.$sXKET.val( '' );
             ///this.$yxEndInput.val( '' );
@@ -2987,7 +3001,7 @@ define(function (require, exports, module) {
          },
          */
 
-        clearFunctions: function () {
+        clearFunctions: function() {
             var me = this;
             me.$sELC.val('');
             me.$sEFC.val('');
@@ -2997,21 +3011,22 @@ define(function (require, exports, module) {
             me.$sUFS.val('');
             me.$sActionDanger.val('0');
         },
-        changeFunctions: function () {
-            var me = this, data = {
-                enterpriseId: this.model.attrs.enterpriseId,
-                newExportAmountLocation: me.$sELC.val(),
-                newExportAmountPlan: me.$sEFC.val(),
-                newExportAmountFeedWork: me.$sECC.val(),
-                newExportAmountLeaveApplication: me.$sEMWC.val(),
-                newExportAmountFeedApprove: me.$sEAC.val(),
-                newUploadFileSizeLimit: me.$sUFS.val(),
-                newIsAllowDangerOperate: me.$sActionDanger.val()
-            };
+        changeFunctions: function() {
+            var me = this,
+                data = {
+                    enterpriseId: this.model.attrs.enterpriseId,
+                    newExportAmountLocation: me.$sELC.val(),
+                    newExportAmountPlan: me.$sEFC.val(),
+                    newExportAmountFeedWork: me.$sECC.val(),
+                    newExportAmountLeaveApplication: me.$sEMWC.val(),
+                    newExportAmountFeedApprove: me.$sEAC.val(),
+                    newUploadFileSizeLimit: me.$sUFS.val(),
+                    newIsAllowDangerOperate: me.$sActionDanger.val()
+                };
             util.api({
                 url: '/enterprise/changefunction',
                 data: data,
-                success: function (data) {
+                success: function(data) {
                     if (data.success) {
                         util.showTip('更新成功');
                         me.$sdELC.val(me.$sELC.val());
@@ -3026,14 +3041,14 @@ define(function (require, exports, module) {
                 }
             });
         },
-        searchCardList: function () {
+        searchCardList: function() {
             this.loadCardList();
         },
-        stopMarketing: function () {
+        stopMarketing: function() {
             util.api({
                 url: '/enterprise/disablemarketingstimulation',
-                data: {enterpriseId: this.model.attrs.enterpriseId},
-                success: function (data) {
+                data: { enterpriseId: this.model.attrs.enterpriseId },
+                success: function(data) {
                     if (data.success) {
                         util.showTip('更新成功');
                         this.$sdMarketingStatus.val('停止');
@@ -3041,7 +3056,7 @@ define(function (require, exports, module) {
                 }
             });
         },
-        btnCardBuy: function () {
+        btnCardBuy: function() {
             var me = this,
                 data = {
                     year: me.$cardBuyYear.val(),
@@ -3052,7 +3067,7 @@ define(function (require, exports, module) {
             util.api({
                 url: '/enterprise/buybusinesscard',
                 data: data,
-                success: function (data) {
+                success: function(data) {
                     if (data.success) {
                         util.showTip('购买成功');
                         me.getEnterprise(me.model.attrs.enterpriseId);
@@ -3061,7 +3076,7 @@ define(function (require, exports, module) {
                 }
             });
         },
-        btnCardSend: function () {
+        btnCardSend: function() {
             var me = this,
                 data = {
                     cardCount: me.$cardBuyNum.val(),
@@ -3077,7 +3092,7 @@ define(function (require, exports, module) {
             util.api({
                 url: '/enterprise/giftbusinesscard',
                 data: data,
-                success: function (data) {
+                success: function(data) {
                     if (data.success) {
                         util.showTip('赠送成功');
                         me.getEnterprise(me.model.attrs.enterpriseId);
@@ -3085,12 +3100,12 @@ define(function (require, exports, module) {
                 }
             });
         },
-        changeCustomStatus: function () {
+        changeCustomStatus: function() {
             var me = this;
             util.api({
                 url: '/enterprise/enableloginpagepersonalization',
-                data: {enterpriseId: this.model.attrs.id, isLoginPagePersonalization: !this.model.attrs.isLoginPagePersonalization},
-                success: function (data) {
+                data: { enterpriseId: this.model.attrs.id, isLoginPagePersonalization: !this.model.attrs.isLoginPagePersonalization },
+                success: function(data) {
                     if (data.success) {
                         util.showTip('更新成功');
                         me.model.attrs.isLoginPagePersonalization = !me.model.attrs.isLoginPagePersonalization;
@@ -3099,21 +3114,21 @@ define(function (require, exports, module) {
                 }
             });
         },
-        resetAdminPassword: function () {
+        resetAdminPassword: function() {
             if (!window.confirm('是否确认重置企业管理员密码?\r\n' + this.generateConfirmMsg())) {
                 return;
             }
             util.api({
                 url: '/',
-                data: {enterpriseId: this.model.attrs.enterpriseId},
-                success: function (data) {
+                data: { enterpriseId: this.model.attrs.enterpriseId },
+                success: function(data) {
                     if (data.success) {
                         util.showTip('密码重置成功');
                     }
                 }
             });
         },
-        stopService: function () {
+        stopService: function() {
             var me = this;
             if (!window.confirm('是否确认停用企业?\r\n' + this.generateConfirmMsg())) {
                 return;
@@ -3125,7 +3140,7 @@ define(function (require, exports, module) {
                     oldModifyTime: me.model.attrs.updateTime,
                     isEnabled: false
                 },
-                success: function (data) {
+                success: function(data) {
                     if (data.success) {
                         util.showTip('企业已停用.');
                         me.hide();
@@ -3133,7 +3148,7 @@ define(function (require, exports, module) {
                 }
             });
         },
-        startService: function () {
+        startService: function() {
             var me = this;
             if (!window.confirm('是否确认启用企业?\r\n' + this.generateConfirmMsg())) {
                 return;
@@ -3145,7 +3160,7 @@ define(function (require, exports, module) {
                     oldModifyTime: me.model.attrs.updateTime,
                     isEnabled: true
                 },
-                success: function (data) {
+                success: function(data) {
                     if (data.success) {
                         util.showTip('企业已启用');
                         me.hide();
@@ -3153,7 +3168,7 @@ define(function (require, exports, module) {
                 }
             });
         },
-        generateConfirmMsg: function () {
+        generateConfirmMsg: function() {
             return '企业: ' + this.model.attrs.enterpriseName + '\r\n产品: ' + this.model.attrs.productName + '\r\n代理商: ' + this.model.attrs.agentName + '( ' + this.model.attrs.agentId + ' )';
         }
     });
