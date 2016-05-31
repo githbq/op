@@ -1,3 +1,0 @@
-define(function(require, exports, module) {
-    module.exports="<div class=\"p-setleader u-page\" js=\"true\" cache=\"false\">\r\n\t<h3 class=\"page-header\">设置上级</h3>\r\n\t<div class=\"page-content\">\r\n\t\t<section>\r\n\t\t\t<p><b>名字</b><span class=\"content-name\"></span></p>\r\n\t\t\t<p><b>邮箱</b><span class=\"content-email\"></span></p>\r\n\t\t\t<p><b>手机</b><span class=\"content-mobile\"></span></p>\r\n\t\t\t<p><b>电话</b><span class=\"content-phone\"></span></p>\r\n\t\t</section>\r\n\t\t<p>\r\n\t\t\t<button class=\"setleader\">选择上级</button>\r\n\t\t</p>\r\n\t</div>\r\n</div>\r\n\r\n";
-});

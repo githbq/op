@@ -27,6 +27,9 @@ define(function (require, exports, module) {
         controller(terminalDataItems, 'typewrapper_3', function (n) {
             n.visible = true;
         });
+        controller(terminalDataItems, 'type_13', function (n) {
+            n.visible = true;
+        });
         controller(terminalDataItems, 'purchaseAmount_input_3', function (n) {
             n.visible = true;
         });
@@ -34,9 +37,6 @@ define(function (require, exports, module) {
             n.visible = false;
         });
 
-        controller(terminalDataItems, 'businesscard', function (n) {
-            n.visible = false;
-        });
         controller(formDataItems, 'payStatus_name', function (n) {
             n.visible = false;
         });
@@ -52,8 +52,7 @@ define(function (require, exports, module) {
             n.value = false;
         });
         common.setNotable(controller,terminalDataItems,tableDataItems,formDataItems);
-        //增购默认时间
-        common.setAddOrderTime(controller, terminalDataItems, tableDataItems, formDataItems);
+        common.setAddOrderLogic(controller, terminalDataItems, tableDataItems, formDataItems, 6, responseData);
         common.setCommonData(controller, terminalDataItems, tableDataItems, formDataItems,6,responseData);
         //增购逻辑
         var hasCRM = false;
@@ -64,7 +63,7 @@ define(function (require, exports, module) {
                 }
             });
         }
-        common.setAddOrderLogic(controller, terminalDataItems, tableDataItems, formDataItems, 6, responseData);
+
         //增购逻辑END
 
         controller(terminalDataItems,'isadd',function(n){

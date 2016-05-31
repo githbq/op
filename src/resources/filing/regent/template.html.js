@@ -1,3 +1,0 @@
-define(function(require, exports, module) {
-    module.exports="<div class=\"m-disagent\">\r\n <p class=\"title\">\r\n <span>代理商名称</span><input type=\"text\" placeholder=\"查询\" ce-model=\"keyword\">\r\n </p>\r\n <table>\r\n <thead>\r\n <tr>\r\n <th>代理商名称</th>\r\n <th>操作</th>\r\n </tr>\r\n </thead>\r\n <tbody ce-collection=\"list\">\r\n <tr data-name=\"<%=item.name%>\">\r\n <td>\r\n <%=item.name%>\r\n </td>\r\n <td>\r\n <a class=\"bindagent\" data-id=\"<%=item.id%>\" data-permissions=\"F011015\">绑定</a>\r\n </td>\r\n </tr>\r\n </tbody>\r\n </table>\r\n</div>\r\n";
-});

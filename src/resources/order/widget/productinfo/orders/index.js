@@ -1,7 +1,7 @@
 define(function (require, exports, module) {
 
         exports.setCommonData = function (controller, terminalDataItems, tableDataItems, formDataItems, type, responseData) {
-            debugger
+
             type = type.toString();
             controller(terminalDataItems, 'keyword', function (n) {
                 if ($.inArray(type, ['1', '2', '3', '4']) >= 0) {
@@ -27,8 +27,10 @@ define(function (require, exports, module) {
             controller(terminalDataItems, 'allreadonly', function (item) {
                 item.allreadonly = false;
             });
+
             var bigArr = terminalDataItems.concat(tableDataItems).concat(formDataItems);
             if (responseData) {
+
                 var dataDic = toNameDictionary(bigArr);
                 var order, contract, enterpriseExtend, subOrders;
 
@@ -113,9 +115,20 @@ define(function (require, exports, module) {
                     }
                 }
                 var useCRM = false;
+                controller(terminalDataItems, 'useCRM', function (item) {
+                    useCRM = item.value;
+                });
                 var useFX = false;
+                controller(terminalDataItems, 'useFX', function (item) {
+                    useFX = item.value;
+                });
+                var useTrainning = false;
+                controller(terminalDataItems, 'useTrainning', function (item) {
+                    useTrainning = item.value;
+                });
+
                 $(subOrders).each(function (i, n) {
-                    if (n.subOrder && n.subOrder.productId && n.subOrder.productId != 10 && n.subOrder.productId != 11) {//10为绑定百川  11为绑定报数系统
+                    if (n.subOrder && n.subOrder.productId && n.subOrder.productId != 10 && n.subOrder.productId != 11 && n.subOrder.productId != 8) {//10为绑定百川  11为绑定报数系统
                         if (n.subOrder.enabled !== false) {
                             checkids.push(n.subOrder.productId);
                         }
@@ -127,7 +140,9 @@ define(function (require, exports, module) {
                             }
                         }
                         var items = tableDataItems;
-                        if ($.inArray(n.subOrder.productId.toString(), ['1', '2', '3', '13']) >= 0) {
+                      
+
+                        if ($.inArray(n.subOrder.productId.toString(), ['1', '2', '3', '13', '16']) >= 0) {
                             items = terminalDataItems;
                         }
                         if (subOrder.productId == '1') {//选中CRM
@@ -136,7 +151,9 @@ define(function (require, exports, module) {
                         if (subOrder.productId == '2' || subOrder.productId == '3') {//选中逍客终端
                             useFX = true;
                         }
-
+                        if (subOrder.productId == '13' || subOrder.productId == '16') {//选中培训助手
+                            useTrainning = true;
+                        }
                         if (subOrder['startTime_readonly'] === true && dataDic['startTime_' + subOrder.productId]) {
                             dataDic['startTime_' + subOrder.productId].readonly = true;
                             dataDic['startTime_' + subOrder.productId].__force = true;
@@ -180,15 +197,22 @@ define(function (require, exports, module) {
                         }
                     }
                 });
+
                 //使用逍客终端 使用CRM 选中效果
                 controller(terminalDataItems, 'useCRM', function (item) {
-                    if (item.visible !== false) {
-                        item.value = useCRM;
-                    }
+                    // if (item.visible !== false) {
+                    item.value = useCRM;
+                    //}
                 });
                 controller(terminalDataItems, 'useFX', function (item) {
+                    //if (item.visible !== false) {
+                    item.value = useFX;
+                    //}
+                });
+                controller(terminalDataItems, 'useTrainning', function (item) {
                     if (item.visible !== false) {
-                        item.value = useFX;
+
+                        item.value = useTrainning;
                     }
                 });
                 controller(tableDataItems, 'check', function (item) {
@@ -230,7 +254,7 @@ define(function (require, exports, module) {
                 }
             }
         }
-        ;
+
         //设置续费逻辑
         exports.setRenewLogic = function (controller, terminalDataItems, tableDataItems, formDataItems, type, responseData) {
             CRMNewLogic(controller, terminalDataItems, tableDataItems, formDataItems, type, responseData);
@@ -240,16 +264,63 @@ define(function (require, exports, module) {
             controller(terminalDataItems, 'purchaseCount_2', function (n) {
                 n.value = 0;
             });
+            //终端总个数
+            controller(terminalDataItems, 'purchaseCount_1', function (n) {
+                n.on('setValue', function ($field, data, me) {
+                    $field.on('change', function () {
+                        var old_CRMCount = me.o_getFieldData('old_CRMCount');
+                        var old_FXCount = me.o_getFieldData('old_FXCount');
+                        setTimeout(function () {
+                            if ($field.val() && old_CRMCount !== undefined && old_FXCount !== undefined) {
+                                var newFXCount = (old_CRMCount.value || 0) + parseInt($field.val()) - (old_FXCount.value || 0);
+                                if (newFXCount >= 0) {
+                                    me.o_setValue({name: 'purchaseCount_2', value: newFXCount});
+                                }
+                            } else {
+                                me.o_setValue({name: 'purchaseCount_2', value: '0'});
+                            }
+                        }, 100);
+                    })
+                });
 
+            });
         }
 
         //设置增购逻辑
         exports.setAddOrderLogic = function (controller, terminalDataItems, tableDataItems, formDataItems, type, responseData) {
+            var hasTrainning = false;
+
+            $(responseData.data.subOrders).each(function (j, m) {
+                if (m.subOrder.productId == '13' || m.subOrder.productId == '16' ) {
+                    hasTrainning = true;
+                }
+            });
+            if (responseData && hasTrainning) {
+                controller(terminalDataItems, 'productTrainingWrapper', function (n) {
+                    n.visible = false;
+                });
+                if (responseData.readonly || responseData.refuse) {
+                    controller(terminalDataItems, 'useTrainning', function (n) {
+                        n.value = true;
+                    });
+                }
+            }
             CRMNewLogic(controller, terminalDataItems, tableDataItems, formDataItems, type, responseData);
+            controller(tableDataItems, 'productTrainingWrapper', function (n) {
+                n.visible = false;
+            });
             controller(tableDataItems, 'tablelist', function (n) {
                 n.visible = true;
             });
-
+            controller(tableDataItems, 'startTime_7', function (n) {
+                n.value = '';
+            });
+            controller(tableDataItems, 'endTime_7', function (n) {
+                n.value = '';
+            });
+            controller(tableDataItems, 'type_7', function (n) {
+                n.value = '3';
+            });
             controller(tableDataItems, 'check', function (n) {
                 n.on('setFieldValue', function ($ele, value, data, me) {
                     var isreadonly = me.__refs.terminalInfo.o_getFieldData('allreadonly').allreadonly === true;
@@ -313,7 +384,7 @@ define(function (require, exports, module) {
         }
 
         exports.setOtherData = function (terminalInfo, tableInfo, formInfo, data) {
-            debugger
+
             var terminalInfoData = terminalInfo.o_getValues();
             var tableInfoData = tableInfo.o_getValues();
             var formInfoData = formInfo.o_getValues();
@@ -330,14 +401,14 @@ define(function (require, exports, module) {
             };
             //门头照片
             var companyGatePictureData = $.parseJSON(formInfoData.companyGatePicture || '{}');
-            var useBusinessCart = terminalInfo.o_getFieldData('businesscard').visible && terminalInfo.o_getFieldValue('useCRM') ? 1 : 0;//名片可见 CRM已勾选
             data.enterpriseExtend = {
                 companyGatePicture: companyGatePictureData.companyGatePicture,
                 companyGatePictureFileName: (companyGatePictureData.companyGatePictureFileName || '').substr(-20, 20),
                 companyGateKeyword: formInfoData.companyGateKeyword,
-                companyGateRemark: formInfoData.companyGateRemark,
-                useBusinessCard: useBusinessCart,
-                businessCardPrise: useBusinessCart ? terminalInfo.o_getFieldValue('purchaseAmount_8') : 0
+                companyGateRemark: formInfoData.companyGateRemark//,
+                //  useBusinessCard: useBusinessCart
+                //名片没这个了
+                //: useBusinessCart ? terminalInfo.o_getFieldValue('purchaseAmount_8') : 0
             };
             //订单主信息
             data.order = {
@@ -442,6 +513,9 @@ define(function (require, exports, module) {
             controller(formDataItems, 'currPayAmount_1', function (n) {
                 n.readonly = isReadonly;
             });
+            controller(formDataItems, 'currPayAmount_3', function (n) {
+                n.readonly = isReadonly;
+            });
             controller(formDataItems, 'currPayAmount_4', function (n) {
                 n.readonly = isReadonly;
             });
@@ -451,10 +525,23 @@ define(function (require, exports, module) {
             controller(formDataItems, 'currPayAmount_7', function (n) {
                 n.readonly = isReadonly;
             });
-            controller(formDataItems, 'currPayAmount_8', function (n) {
+              
+            controller(formDataItems, 'currPayAmount_12', function (n) {
                 n.readonly = isReadonly;
             });
-            controller(formDataItems, 'currPayAmount_12', function (n) {
+            controller(formDataItems, 'currPayAmount_15', function (n) {
+                n.readonly = isReadonly;
+            });
+            controller(formDataItems, 'currPayAmount_14', function (n) {
+                n.readonly = isReadonly;
+            });
+            controller(formDataItems, 'currPayAmount_13', function (n) {
+                n.readonly = isReadonly;
+            });
+            controller(formDataItems, 'currPayAmount_16', function (n) {
+                n.readonly = isReadonly;
+            });
+            controller(formDataItems, 'currPayAmount_17', function (n) {
                 n.readonly = isReadonly;
             });
             controller(formDataItems, 'receiptsAccount', function (n) {
@@ -469,22 +556,29 @@ define(function (require, exports, module) {
         };
         //转换输入值
         exports.setSuborders = function (terminalInfo, tableInfo, formInfo, data) {
-            debugger
+
             var terminalInfoData = terminalInfo.o_getValues();
             var tableInfoData = tableInfo.o_getValues();
             var formInfoData = formInfo.o_getValues();
             //suborders //////////////////////////////////////////
             var ids = tableInfoData.check.split(',');
-            if (terminalInfo.o_getFieldData('businesscard').visible && terminalInfo.o_getFieldValue('useCRM')) {
-                ids.push('8');
-            }
-            if (terminalInfo.o_getFieldData('useCRMWrapper').visible && terminalInfo.o_getFieldValue('useCRM')) {
+            if (terminalInfo.o_getFieldData('useCRMWrapper').visible !== false && terminalInfo.o_getFieldValue('useCRM')) {
                 ids.push('1');
             }
             if (terminalInfo.o_getFieldValue('useFX')) {
                 ids.push('2');
                 ids.push('3');
             }
+
+            if (terminalInfo.o_getFieldValue('useTrainning')) {// 培训助手
+                if (terminalInfo.o_getFieldData('productTrainingWrapper').visible !== false) {//培训助手
+                    ids.push('13');
+                }
+                if (terminalInfo.o_getFieldData('productTimeLongWrapper').visible !== false) {//流量时长
+                    ids.push('16');
+                }
+            }
+
             $(ids).each(function (i, n) {
                     if (!n) {
                         return;
@@ -492,7 +586,7 @@ define(function (require, exports, module) {
                     if ($.inArray(n, ids) >= 0) {
                         var fromData = tableInfoData;
                         var controler = tableInfo;
-                        if (n == '1' || n == '2' || n == '3' || n == '8') {
+                        if (n == '1' || n == '2' || n == '3' || n == '13' || n == '16') {
                             fromData = terminalInfoData;
                             controler = terminalInfo;
                         }
@@ -501,17 +595,19 @@ define(function (require, exports, module) {
                             productId: n,
                             purchaseCount: fromData['purchaseCount_' + n] || 999999,
                             purchaseAmount: fromData['purchaseAmount_' + n] || 0,
-                            startTime: fromData['startTime_' + n] || new Date().getTime(),
-                            endTime: fromData['endTime_' + n] || new Date().getTime(),
+                            startTime: (fromData['startTime_' + n] || new Date().getTime()) + 1,
+                            endTime: (fromData['endTime_' + n] || new Date().getTime()) + 2,
                             productAmount: fromData['productAmount_' + n] || 0,
                             discount: fromData['discount_' + n] || 0,
                             currPayAmount: formInfo.o_getFieldValue('payStatus_select') != '2' ? 0 : ( formInfoData['currPayAmount_' + n] || 0)
                         };
 
-                        //if (n == '3') {
-                        //    subOrder.startTime = fromData['startTime_2'];
-                        //    subOrder.endTime = fromData['endTime_2'];
-                        //}
+                        if (n == '16') {
+                            subOrder.giveCount = fromData['giveCount_16']||0;
+                            if (!fromData['purchaseCount_' + n]) {
+                                subOrder.purchaseCount = 0;
+                            }
+                        }
                         var productExtends = [];
                         if (n == '1') {
                             if (terminalInfo.o_getFieldValue('kunbang') && terminalInfo.o_data_getField({name: 'kunbang'}).is(':visible')) {
@@ -523,8 +619,8 @@ define(function (require, exports, module) {
                                                 productId: b,
                                                 purchaseCount: 999999,
                                                 purchaseAmount: 0,
-                                                startTime: fromData['startTime_1'],
-                                                endTime: fromData['endTime_1'],
+                                                startTime: fromData['startTime_1'] + 1,
+                                                endTime: fromData['endTime_1'] + 2,
                                                 productAmount: 0,
                                                 discount: 0,
                                                 currPayAmount: 0

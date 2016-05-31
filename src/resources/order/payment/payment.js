@@ -1,6 +1,5 @@
 define( function( require, exports, module ) {
     var IBSS = window.IBSS;
-
 	var OrderInfo = require('../widget/orderinfo/orderinfo');
 	var InvoiceInfo = require('../widget/invoice/invoice');
 	var GetMoney = require('../widget/getmoney/getmoney');

@@ -1,3 +1,0 @@
-define(function(require, exports, module) {
-    module.exports="<script type=\"text/template\" id=\"actCountResult\">\r\n <h3>查询结果</h3>\r\n <div id=\"console\">\r\n <p>查询开始时间: <span class=\"hl\"><%=value.dst%></span></p>\r\n <p>查询结束时间: <span class=\"hl\"><%=value.dct%></span></p>\r\n <p>共有符合条件的企业: <span class=\"hl\"><%=value.count%></span> 个</p>\r\n </div>\r\n <% if ( value.canGenerate ) { %>\r\n <p class=\"btns\"><button id=\"btnGenerate\" class=\"btn-blue\">生成报告</button><button id=\"btnDownload\" class=\"btn-blue invisiable\">下载报告</button></p>\r\n <% } %>\r\n</script>\r\n<script type=\"text/template\" id=\"actGenerateResult\">\r\n<p>生成报告开始时间: <span class=\"hl\"><%=value.dst%></span></p>\r\n<p>生成报告结束时间: <span class=\"hl\"><%=value.dct%></span></p>\r\n</script>";
-});

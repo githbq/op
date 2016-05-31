@@ -1618,7 +1618,7 @@ define(function(require, exports, module) {
                                         strDom += " <p> <span>" + obj['appName'] + "</span> <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span> </p>";
                                         break;
                                     default:
-                                        strDom += " <p> <span>" + obj['appName'] + "</span> <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span>" + enablestatus + "   <input class='off' type='checkbox' name='product' value='" + obj["appId"] + "'> </p>";
+                                        strDom += " <p> <span>" + obj['appName'] + "</span> <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span>" + enablestatus + "   <input class='off' type='checkbox' name='product' value='" + obj["appId"] + "' typeid='"+obj["quotaType"]+"'> </p>";
                                 }
                             });
 
@@ -1634,7 +1634,7 @@ define(function(require, exports, module) {
         },
 
         //开启或产品
-        toggleProduct: function(isEnable) {
+        toggleProduct: function (isEnable) {
             var me = this;
 
             var $input = me.$tbProduct.find('[name="product"]:checked');
@@ -1646,19 +1646,39 @@ define(function(require, exports, module) {
             }
 
             var ids = [];
-            $input.each(function(index, item) {
-                ids.push($(item).val());
+
+			var arrTypeOne = [],arrTypeTwo = [];
+            $input.each(function (index, item) {
+				if( $(item).attr('typeid')==1 ){
+					arrTypeOne.push($(item).val());
+				}else if( $(item).attr('typeid') == 2 ){
+					arrTypeTwo.push($(item).val());
+				}
+                //ids.push($(item).val());
             });
+			var objOne ={}, objTwo ={}, arrList = [];
+			if(arrTypeOne.length>0){
+				//var tempOne ={};
+				objOne.quotaType = 1;
+				objOne.appIds = arrTypeOne.join(',');
+				arrList.push(objOne);
+			}
+			if(arrTypeTwo.length>0){
+				//var tempOne ={};
+				objTwo.quotaType = 2;
+				objTwo.appIds = arrTypeTwo.join(',');
+				arrList.push(objTwo);
+			}
             console.log(ids);
 
             util.api({
                 'url': "/app/setappsenablestatus",
                 'data': {
                     'fsEa': me.model.get('enterpriseAccount'),
-                    'appIds': ids.join(','),
+                    'json': JSON.stringify( arrList ),
                     'isEnable': isEnable
                 },
-                'success': function(data) {
+                'success': function (data) {
                     if (data.success) {
                         util.showTip('操作成功');
                         me.showProductInfo();
@@ -1672,7 +1692,7 @@ define(function(require, exports, module) {
          *
          * 显示资料审核
          */
-        showVerifiCation: function(changeBool) {
+        showVerifiCation: function (changeBool) {
             var me = this;
             var changeBool = changeBool || false;
             //清空上传组件信息
@@ -1709,7 +1729,7 @@ define(function(require, exports, module) {
                 'data': {
                     'enterpriseId': me.model.attrs['enterpriseId']
                 },
-                'success': function(data) {
+                'success': function (data) {
                     console.warn(data);
                     if (data.success) {
 
@@ -2260,9 +2280,13 @@ define(function(require, exports, module) {
          */
         actDownloadEve: function(e) {
             var me = this;
-
-            var startTime = '',
-                endTime = '';
+            function GetDateStr(AddDayCount) {
+                var dd = new Date();
+                dd.setDate(dd.getDate()+AddDayCount);//获取AddDayCount天后的日期
+                return dd.getTime();
+            }
+            var startTime = GetDateStr(-91);
+             var   endTime = GetDateStr(-1);
 
             if (me.$actStartTime.val()) {
                 startTime = new Date(me.$actStartTime.val()).getTime();
@@ -2272,6 +2296,7 @@ define(function(require, exports, module) {
             }
             var url = IBSS.API_PATH + '/query/act/detail/generate?' + $.param({ 'enterpriseId': me.model.attrs.enterpriseId, 'timeStart': startTime, 'timeEnd': endTime })
             window.open(url);
+
         },
 
 

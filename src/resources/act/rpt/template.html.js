@@ -1,3 +1,0 @@
-define(function(require, exports, module) {
-    module.exports="<script type=\"text/template\" id=\"trReport\">\r\n <% _.each(content,function( value ,index ){ %>\r\n <tr>\r\n <td></td>\r\n <td><%=value.month%></td>\r\n <td>\r\n <% if( value.ids ){ %>\r\n <em><a href=\"/op/api/s/query/act/downloadmonth?month=<%=value.month%>&type=1\" target=\"_blank\">下载</a></em>\r\n <% } %>\r\n </td>\r\n <td>\r\n <% if( value.ids_i ){ %>\r\n <em><a href=\"/op/api/s/query/act/downloadmonth?month=<%=value.month%>&type=2\" target=\"_blank\">下载</a></em>\r\n <% } %>\r\n </td>\r\n <td></td>\r\n </tr>\r\n <% }) %>\r\n</script>\r\n";
-});

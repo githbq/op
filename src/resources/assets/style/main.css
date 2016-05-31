@@ -6405,6 +6405,14 @@ em {
   border: 1px solid #dedede;
   color: #545454;
 }
+.productinfo .input-price-wrapper {
+  padding-left: 5px;
+}
+.productinfo .input-price-wrapper .input-price {
+  display: inline-block;
+  min-width: 235px;
+  padding-top: 2px;
+}
 .productinfo .fxwrapper,
 .productinfo .crmwrapper {
   padding-top: 15px;
@@ -6656,19 +6664,6 @@ em {
   padding: 3px 10px;
   margin: 0 10px;
 }
-.sub-tab-money table tr td {
-  width: 254px;
-  display: inline-block;
-  text-align: right;
-}
-.sub-tab-money table tr td.money-box {
-  width: 60px;
-}
-.sub-tab-money span.w-len {
-  width: 150px;
-  text-align: left;
-  display: inline-block;
-}
 .m-invoicedetail h4 {
   font-weight: bold;
   font-size: 18px;
@@ -6899,6 +6894,11 @@ em {
 }
 .m-invoiceapplydetail img {
   width: 300px;
+}
+.w-len {
+  display: inline-block;
+  width: 150px;
+  text-align: left;
 }
 .order-content span.m-len {
   display: inline-block;
