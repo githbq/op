@@ -33,6 +33,7 @@ define(function (require, exports, module) {
                         var servicePrice = 0;
                         servicePrice = me.__refs.terminalInfo.o_getFieldValue('purchaseAmount_3');
                         me.o_setValue({name: 'agentCurrPayAmount', visible: true, value: servicePrice});
+                        me.o_setValue({name: 'currPayAmount_3', visible: false, value: '0'});
                     }
                     //重新计算价格
                     me.__refs.tableInfo.$('[data-name=check]:first').change();
@@ -182,6 +183,7 @@ define(function (require, exports, module) {
                                 {name: 'currPayAmount', value: currPayAmount},
                                 {name: 'agentCurrPayAmount', value: servicePrice},
                                 {name: 'currPayAmount_1', value: '0', visible: false},
+                                {name: 'currPayAmount_3', value: '0', visible: false},
                                 {name: 'currPayAmount_4', value: '0', visible: false},
                                 {name: 'currPayAmount_5', value: '0', visible: false},
                                 {name: 'currPayAmount_7', value: '0', visible: false},
@@ -219,7 +221,8 @@ define(function (require, exports, module) {
                             if (me.__refs.terminalInfo.o_getFieldValue('useCRM') && me.__refs.terminalInfo.o_getFieldData('useCRMWrapper').visible !== false) {//使用了逍客终端 要加入服务费
                                 checkeds.push('1');//CRM费用 
                             }
-                            if (me.__refs.terminalInfo.o_getFieldValue('useFX')) {//使用了逍客终端 要加入服务费
+
+                            if (me.__refs.terminalInfo.o_getFieldValue('useFX') && me.o_getFieldValue('orderAssigned')=='1') {//使用了逍客终端 要加入服务费
                                 checkeds.push('3');//服务费
                             }
                             if (me.__refs.terminalInfo.o_getFieldValue('useTrainning')) {//使用服务费
@@ -253,10 +256,10 @@ define(function (require, exports, module) {
                         {  //未付
                             me.o_setValues([
                                 {name: 'currPayAmount_1', value: '0', visible: false},
+                                {name: 'currPayAmount_3', value: '0', visible: false},
                                 {name: 'currPayAmount_4', value: '0', visible: false},
                                 {name: 'currPayAmount_5', value: '0', visible: false},
                                 {name: 'currPayAmount_7', value: '0', visible: false},
-                             
                                 {name: 'currPayAmount_12', value: '0', visible: false},
                                 {name: 'currPayAmount_14', value: '0', visible: false},
                                 {name: 'currPayAmount_15', value: '0', visible: false},
@@ -299,8 +302,6 @@ define(function (require, exports, module) {
                                 return;
                             }
                             var controll = me.__refs.tableInfo;
-                      
-                          
                             if (id == '1' || id == '3' || id == '13' || id == '16') {
                                 controll = me.__refs.terminalInfo;
                             }
@@ -321,14 +322,14 @@ define(function (require, exports, module) {
                                 $dom.val(purchaseAmount);
                             }
                             var currPayAmount = 0;
-                            
+                            var servicePrice=me.o_getFieldValue('payStatus')=='2' &&　me.o_getFieldData('currPayAmount_3').visible!==false　?me.o_getFieldValue('currPayAmount_3')||0:me.__refs.terminalInfo.o_getFieldValue('purchaseAmount_3')||0;
                             var agentCurrPayAmount = 0;
                             if (me.__refs.formInfo.o_getFieldValue('orderAssigned') == 1) {//只有直销时才算入总部到款价
-                                currPayAmount += parseFloat(me.__refs.terminalInfo.o_getFieldValue('purchaseAmount_3') || 0);
+                                currPayAmount += parseFloat(servicePrice);
                             } else {
-                                agentCurrPayAmount = me.__refs.terminalInfo.o_getFieldValue('purchaseAmount_3');
+                                agentCurrPayAmount =servicePrice;
                             }
-                            me.$('.fenqi').each(function (i, n) {
+                            me.$('.fenqi:not([data-id=3])').each(function (i, n) {//从分期中找出非服务费的
                                 currPayAmount += parseFloat($(n).val() || 0);
                             });
                             me.o_setValue({name: 'currPayAmount', value: currPayAmount});

@@ -301,6 +301,7 @@ define(function (require, exports, module) {
                 if (payStatus == 2) {
                     var curPayAmountItem = me.__refs.formInfo.o_getFieldValue('currPayAmount_' + id);
                     var purchaseAmountItem = purchaseModule.o_getFieldValue('purchaseAmount_' + id);
+                    var curPayAmountItemResult=curPayAmountItem;
                     if (purchaseAmountItem && curPayAmountItem && parseFloat(purchaseAmountItem) < parseFloat(curPayAmountItem)) {
                         curPayAmountItemResult = purchaseAmountItem;
                     }
