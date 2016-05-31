@@ -1,5 +1,7 @@
 .m-approvallist{
     .list-header{
+        padding-top:5px;
+        padding-bottom:5px;
         .title{
             display:inline-block;
             float:left;
@@ -9,7 +11,7 @@
             margin-left:auto;
             margin-right:auto;
             text-align:center;
-            b{
+            span{
 				position:relative;
                 display:inline-block;
                 border:1px #ccc solid;
@@ -25,30 +27,15 @@
                     border-left:none;
                 }
                 &.active{
-                background:#eee;
+                    background:#eee;
                 }
-				.wait-approve,
-				.refuse-approve,
-				.going-approve,
-				.end-approve,
-				.allReject-approve,
-				.allGoing-approve,
-                .mygoing-approve,
-				.allEnd-approve{
-					position: absolute;
-					top: -21px;
-					left: -10px;
-					border-radius: 50%;
-					width: 51px;
-					height: 29px;
-					background: #FEFFEC;
-					z-index:99;
-					display:none;
-				}
+                b{
+                    display:none;
+                }
+                i{
+                    font-style: normal;
+                }
             }
-			b.limits-show{
-				display:none;
-			}
         }
     }
 }

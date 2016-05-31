@@ -276,13 +276,14 @@ define( function(require, exports, module){
                 break;
             };
 
-            me.$tbody.html('<tr><td colspan="15"><p class="info">加载中...</p></td></tr>');
-            
             me.xhr && me.xhr.abort();
 
             me.xhr = util.api({
                 'url': url,
                 'data': data,
+                'beforeSend': function(){
+                    me.$tbody.html('<tr><td colspan="15"><p class="info">努力加载中...</p></td></tr>');
+                },
                 'success': function( data ){
                     console.warn( data );
                     if( data.success ){
