@@ -588,7 +588,7 @@ define(function (require, exports, module) {
                     if (!me.o_getFieldData('endTime_' + id).__force) {
                         me.o_setValue({name: 'endTime_' + id, value: ''});
                     }
-                } else {
+                } else if(me.o_getFieldValue('allreadonly')!==true){
                     options.data.startDate += 1;
                     options.data.endDate += 2;
                     me.attrs.apiPool.api_getCalculateSingle(options);
