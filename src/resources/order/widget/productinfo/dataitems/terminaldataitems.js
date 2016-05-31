@@ -560,9 +560,9 @@ define(function (require, exports, module) {
                         me.o_setValue({name: 'productAmount_' + id, value: responseData.model.amount});
 
 
-                        if (id == '16') {
-                            me.o_setValue({name: 'purchaseAmount_16', value: responseData.model.amount});
-                            me.o_setValue({name: 'purchaseAmount_input_16', value: responseData.model.amount});
+                        if (id == '16' || id == '13' ) {
+                            me.o_setValue({name: 'purchaseAmount_'+id, value: responseData.model.amount});
+                            me.o_setValue({name: 'purchaseAmount_input_'+id, value: responseData.model.amount});
                         }
                         checkTypeForPrice.call(me, e, id);
                         priceComput.call(me, e);
