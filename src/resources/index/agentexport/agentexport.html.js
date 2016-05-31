@@ -1,3 +1,0 @@
-define(function(require, exports, module) {
-    module.exports="<div class=\"p-list\" js=\"true\" cache=\"false\">\n\t<div class=\"m-agentexport\">\n\t\t<div class=\"u-tablelist\">\n\t\t\t<div class=\"list-header\">\n\t\t\t\t<h3>\n\t\t\t\t\t 员工导出\n\t\t\t\t\t<div class=\"header-opts\">\n\t\t\t\t\t\t<button class=\"export-fxiaoke u-btn-blue\" data-permissions=\"F008108\">直销Excel导出</button>\n\t\t\t\t\t\t<button class=\"export-agent u-btn-blue\" data-permissions=\"F008108\">代理商Excel导出</button>\n\t\t\t\t\t</div>\n\t\t\t\t</h3>\n\t\t\t</div>\n\t\t\t<div class=\"list-content\" style=\"height:300px;\">\n\t\t\t\t\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</div>\n";
-});

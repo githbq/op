@@ -1,3 +1,0 @@
-define(function(require, exports, module) {
-    module.exports="<div class=\"p-list p-newoffice\" js=\"true\">\n\t<h2>新购订单普通版</h2>\n\t<p>\n\t\t<span>新购办公版</span>\n\t\t<span>新购办公版特批</span>\n\t</p>\n\t<div>\n\t\t<section>\n\t\t\t\n\t\t</section>\n\t\t<section class=\"invoicewrapper\">\n\t\t\t\n\t\t</section>\n\t\t<button id=\"getinfo\">获取信息</button>\n\t\t<button id=\"express\">查看快递</button>\n\t</div>\n</div>\n\n\n\n";
-});

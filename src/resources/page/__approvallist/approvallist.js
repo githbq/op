@@ -10,7 +10,7 @@ define( function(require, exports, module){
 	var DetailApproval = require('../../order/detailapproval/detailapproval');
 	var DetailPayment = require('../../order/detailpayment/detailpayment');
 	var BackMoney = require('../../order/backmoney/backmoney');
-	
+
 	exports.init = function(param){
 		var $el = exports.$el;
 		

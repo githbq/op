@@ -1,3 +1,0 @@
-define(function(require, exports, module) {
-    module.exports="<script type=\"text/template\" class=\"trTpl\">\n <% _.each(content,function(item){%>\n <tr>\n <td> </td>\n <td><%=item.enterprisename%></td>\n <td><%=item.enterpriseaccount%></td>\n <td><%=item.sourceStr%></td>\n <td><%=item.statusStr%></td>\n <td><%=item.provinceStr%></td>\n <td><%=item.registerTimeStr%></td>\n <td><%=item.vendorName%></td>\n <td><a data-id=\"<%=item.enterpriseregistrationid%>\" class=\"detail\" data-permissions=\"F008010\">详情</a></td>\n <td> </td>\n </tr>\n <%}) %>\n</script>\n\n";
-});
