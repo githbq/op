@@ -90,7 +90,7 @@ define( function(require, exports, module){
             'click .btn-search': 'searchEve',       //查询
             'click .detail': 'detailEve',           //详情
             'click .revoke': 'revokeEve',           //撤销审批
-            'click .toggle b': 'toggleEve'          //切换
+            'click .toggle span': 'toggleEve'          //切换
         },
 
         /**
