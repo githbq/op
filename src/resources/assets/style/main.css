@@ -7094,9 +7094,15 @@ em {
   border: 1px #ccc solid;
   height: 30px;
   line-height: 30px;
-  padding: 0 6px;
+  padding: 0 10px;
   cursor: pointer;
   background: #fefefe;
+}
+.m-approvallist .list-header .toggle span b {
+  display: none;
+}
+.m-approvallist .list-header .toggle span i {
+  font-style: normal;
 }
 .m-approvallist .list-header .toggle span:first-child {
   border-right: none;
@@ -7106,12 +7112,6 @@ em {
 }
 .m-approvallist .list-header .toggle span.active {
   background: #eee;
-}
-.m-approvallist .list-header .toggle span b {
-  display: none;
-}
-.m-approvallist .list-header .toggle span i {
-  font-style: normal;
 }
 .m-funnellist {
   padding: 20px;
