@@ -1,9 +1,10 @@
 define(function (require, exports, module) {
-  var nggrid = angular.module('nggrid', ['ui.grid']);
- 	//var app = angular.module('app', ['ngAnimate', 'ngTouch', 'ui.grid']);
-  var jsondata = require('./data');
+  
 
-  require('./ui-grid')
+  require('common/widget/nggrid/ui-grid');
+  var nggrid = angular.module('nggrid', ['ui.grid']);
+  //var app = angular.module('app', ['ngAnimate', 'ngTouch', 'ui.grid']);
+  var jsondata = require('./data');
 
 nggrid.controller('MainCtrl', ['$scope', '$http', 'uiGridConstants', function ($scope, $http, uiGridConstants) {
   $scope.gridOptions1 = {
