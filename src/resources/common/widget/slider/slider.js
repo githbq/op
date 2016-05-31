@@ -105,20 +105,24 @@ define(function(require, exports, module){
 			me.isRender = true;
 		},
 
-		//显示 滑动效果
-		show: function(){
-			var me = this;
-			if(!me.isRender){
-				me.render();
-			}
+        //显示 滑动效果
+        show: function (noAnimate) {
+            var me = this;
+            if (!me.isRender) {
+                me.render();
+            }
 
-			if( me.isShow === true ) return;
+            if (me.isShow === true) return;
 
-			me.$view.show();
-			var width = parseInt( me.attrs['width'] );
-			me.isShow = true;
-			me.$view.css('right', -width).animate({'right':0},200);
-		},
+            me.$view.show();
+            var width = parseInt(me.attrs['width']);
+            me.isShow = true;
+            if (noAnimate) {
+                me.$view.css({'right': 0});
+            } else {
+                me.$view.css('right', -width).animate({'right': 0}, 200);
+            }
+        },
 
 		//隐藏 滑动效果
 		hide: function(){
