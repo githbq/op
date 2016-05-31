@@ -367,7 +367,7 @@ gulp.task('test', function () {
 
 //默认路径
 var paths = {
-    lesses: ['src/resources/**/**/*.less'],
+    lesses: ['src/resources/**/*.less'],
     jses: ['src/resources/**/*.js']
 
 };
