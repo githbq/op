@@ -379,6 +379,7 @@ define( function(require, exports, module){
 			//获取企业子产品开始时间不能编辑的子产品
 			if(me.attrs.orderData.order.status==0){
 				me.getNeedDate();
+				
 			}
 			
 			 me.attrs.productData.enterpriseExtend = me.attrs.enterpriseData.enterpriseExtend ? me.attrs.enterpriseData.enterpriseExtend:null;

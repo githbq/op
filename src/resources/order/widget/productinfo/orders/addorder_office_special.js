@@ -17,6 +17,7 @@ define(function (require, exports, module) {
 
     //转换输入值
     exports.transferDataItem = function (terminalDataItems, tableDataItems, formDataItems, controller,responseData) {//转换数据项
+
         controller(terminalDataItems, 'useFX', function (n) {
             n.visible=false;
         });
@@ -51,12 +52,9 @@ define(function (require, exports, module) {
             n.value = false;
         });
         common.setNotable(controller,terminalDataItems,tableDataItems,formDataItems);
-
-        //工资助手强制
-        common.setGZHelper(controller,terminalDataItems,tableDataItems,formDataItems);
+        //增购默认时间
+        common.setAddOrderTime(controller, terminalDataItems, tableDataItems, formDataItems);
         common.setCommonData(controller, terminalDataItems, tableDataItems, formDataItems,6,responseData);
-
-
         //增购逻辑
         var hasCRM = false;
         if (responseData && responseData.data&& responseData.data.subOrders) {

@@ -54,8 +54,10 @@ define( function(require, exports, module){
 			me.$customHelper.on('blur', function () {
                 var tempName = me.$customHelper.val(),
                     flag = false;
+				var id = me.$customHelper.attr('data-id');
                 me.attrs.listObjet.length > 0 && me.attrs.listObjet.forEach(function (item) {
-                   if (item.name == tempName) {
+                   if (item.name == tempName ) {
+					    me.$customHelper.attr('data-id',item.id);
                         flag = true;
                         return false;
                     }
