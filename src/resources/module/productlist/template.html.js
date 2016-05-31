@@ -1,0 +1,3 @@
+define(function(require, exports, module) {
+    module.exports="<script type=\"text/template\" id=\"trPdtLst\">\r\n <% _.each(content,function( value ,index ){ %>\r\n <tr>\r\n <td></td>\r\n <td><%=value.name%></td>\r\n <td><%=value.deviceMaxCount%></td>\r\n <td><%=value.textMessageCount %></td>\r\n <td><%=value.textMessageMethod%></td>\r\n <td><%=value.storage%> (GB)</td>\r\n <td><%=value.freeStr%></td>\r\n <td><a class=\"entList\" data-id=\"<%=value.id%>\">企业</a> <a class=\"addEnt\" data-id=\"<%=value.id%>\">添加企业</a></td>\r\n <td></td>\r\n </tr>\r\n <% }) %>\r\n</script>\r\n";
+});
