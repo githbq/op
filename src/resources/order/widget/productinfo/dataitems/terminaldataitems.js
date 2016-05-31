@@ -187,7 +187,6 @@ define(function (require, exports, module) {
             }, 10);
         });
 
-        var typeIds = ['1', '3', '13', '16'];
 
         var typeIds = ['1', '3', '13', '16'];
 

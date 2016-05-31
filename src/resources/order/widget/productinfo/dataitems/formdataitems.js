@@ -205,6 +205,7 @@ define(function (require, exports, module) {
                                 {name: 'currPayAmount'},
                                 {name: 'agentCurrPayAmount', value: servicePrice},
                                 {name: 'currPayAmount_1', visible: false},
+                                {name: 'currPayAmount_3', visible: false},
                                 {name: 'currPayAmount_4', visible: false},
                                 {name: 'currPayAmount_5', visible: false},
                                 {name: 'currPayAmount_7', visible: false},
@@ -216,7 +217,7 @@ define(function (require, exports, module) {
                                 {name: 'currPayAmount_17', visible: false}
                             ]);
                             var checkeds = me.__refs.tableInfo.o_getFieldValue('check').split(',');
-                              
+
                             if (me.__refs.terminalInfo.o_getFieldValue('useCRM') && me.__refs.terminalInfo.o_getFieldData('useCRMWrapper').visible !== false) {//使用了逍客终端 要加入服务费
                                 checkeds.push('1');//CRM费用 
                             }
@@ -284,8 +285,8 @@ define(function (require, exports, module) {
             ]
 
         }));
-        
-        
+
+
         var currPayIdArr = [3, 1, 4, 5, 7, 12, 15, 14, 13, 16, 17];
         $(currPayIdArr).each(function (i, n) {
             (function (id) {
@@ -306,17 +307,17 @@ define(function (require, exports, module) {
                             }
                             var $dom = $(e.target);
                             $dom.val($dom.val().replace(/[^\.\d]/g, ''));
-                       
+
                             if (controll === me.__refs.terminalInfo) {
-                                purchaseAmount = controll.o_getFieldValue('purchaseAmount_input_' + id);
+                                purchaseAmount = controll.o_getFieldData('purchaseAmount_input_' + id);
                             } else {
                                 purchaseAmount = controll.o_getFieldValue('purchaseAmount_' + id);
                             }
                             controll.o_setValue({name: 'purchaseAmount_' + id, value: purchaseAmount});//值再一次同步
                             if (!purchaseAmount) {
-                                $dom.val('');
+                                $dom.val('0');
                             } else if ($dom.val() && parseFloat(purchaseAmount) < parseFloat($dom.val())) {
-                              
+
                                 util.showToast('分期金额不能大于对应的合同金额');
                                 $dom.val(purchaseAmount);
                             }
