@@ -84,7 +84,7 @@ define(function (require, exports, module) {
                             me.o_setValue({name: 'productAmount_' + id, value: 0});
                             me.o_setValue({name: 'discount_' + id, value: ''});
                             if (id == '3') {
-                                me.__refs.formInfo.o_setValue({name: 'agentCurrPayAmount', value: '0'});
+                                me.__refs.formInfo.o_setValue({name: 'agentCurrPayAmount', value: 0});
                             }
                         }
 

@@ -201,7 +201,6 @@ define(function (require, exports, module) {
                             break;
                         case '2':
                         {
-
                             me.o_setValues([
                                 {name: 'currPayAmount'},
                                 {name: 'agentCurrPayAmount', value: servicePrice},
