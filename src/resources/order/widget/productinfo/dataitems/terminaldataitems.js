@@ -248,12 +248,15 @@ define(function (require, exports, module) {
                                 return;
                             }
                         } else {
-                            me.o_setValue({name: 'discount_' + n, value: ''});
-                            me.o_setValue({name: 'purchaseAmount_' + n, value: 0});
-                            me.o_setValue({name: 'purchaseAmount_input_' + n, value: 0});
+                            //me.o_setValue({name: 'discount_' + n, value: ''});
+                            //me.o_setValue({name: 'purchaseAmount_' + n, value: 0});
+                            //me.o_setValue({name: 'purchaseAmount_input_' + n, value: 0});
                             me.o_setValue({name: 'productAmount_' + n, value: 0});
                         }
                         if (n == '16') {
+                            me.o_setValue({name: 'discount_' + n, value: ''});
+                            me.o_setValue({name: 'purchaseAmount_' + n, value: 0});
+                            me.o_setValue({name: 'purchaseAmount_input_' + n, value: 0});
                             changeForGetPrice.call(me, e);
                             return;
                         }
