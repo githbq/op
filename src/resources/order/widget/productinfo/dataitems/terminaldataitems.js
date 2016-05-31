@@ -562,6 +562,7 @@ define(function (require, exports, module) {
 
                         if (id == '16') {
                             me.o_setValue({name: 'purchaseAmount_16', value: responseData.model.amount});
+                            me.o_setValue({name: 'purchaseAmount_input_16', value: responseData.model.amount});
                         }
                         checkTypeForPrice.call(me, e, id);
                         priceComput.call(me, e);
