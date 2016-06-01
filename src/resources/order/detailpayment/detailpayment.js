@@ -275,7 +275,7 @@ define( function(require, exports, module){
 					tempAry[0] = opinionObj[tempAry[0]];
 				}
 				tempAry[2] = (tempAry[2]=='true') ? '同意':'驳回';
-				strDom+='<tr><td>'+tempAry[0]+'</td><td>'+tempAry[1]+'</td><td>'+tempAry[2]+'</td><td>'+tempAry[3]+'</td></tr>'
+				strDom+='<tr><td>'+tempAry[1] + '-' + tempAry[0]+'</td><td>'+tempAry[2]+'</td><td>'+tempAry[3]+'</td><td>'+tempAry[4]+'</td></tr>'
 			}
 			
 			//判断审批意见
