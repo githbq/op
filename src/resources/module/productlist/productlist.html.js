@@ -1,3 +1,0 @@
-define(function(require, exports, module) {
-    module.exports="<div class=\"m-pdtlist u-tablelist\">\r\n <div class=\"list-main\">\r\n <div class=\"list-header\">\r\n <h3>产品列表</h3>\r\n </div>\r\n <div class=\"list-content\">\r\n <table>\r\n <thead>\r\n <tr>\r\n <th></th>\r\n <th>产品名称</th>\r\n <th style=\"width:160px;\">终端上限</th>\r\n <th style=\"width:160px;\">短信赠送条数</th>\r\n <th style=\"width:160px;\">短信赠送频率</th>\r\n <th style=\"width:160px;\">空间数量</th>\r\n <th style=\"width:60px;\">是否免费</th>\r\n <th style=\"width:220px;\"></th>\r\n <th></th>\r\n </tr>\r\n </thead>\r\n <tbody>\r\n <!--content-->\r\n </tbody>\r\n </table>\r\n </div>\r\n </div>\r\n <div class=\"list-pager\"></div>\r\n</div>\r\n";
-});

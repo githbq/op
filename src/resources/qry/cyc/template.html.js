@@ -1,3 +1,0 @@
-define(function(require, exports, module) {
-    module.exports="<script type=\"text/template\" id=\"trCyc\">\r\n <% _.each(content,function( value ,index ){ %>\r\n <tr>\r\n <td></td>\r\n <td><%=value.id%></td>\r\n <td><%=value.enterprise.enterpriseName%></td>\r\n <td><%=value.enterprise.enterpriseAccount%></td>\r\n <td><%=value.employeeName%></td>\r\n <td><%=value.amount%></td>\r\n <td><%=value.displayFirstQueryTime%></td>\r\n <td><%=value.displayLastQueryTime%></td>\r\n <td></td>\r\n </tr>\r\n <% }) %>\r\n</script>\r\n";
-});

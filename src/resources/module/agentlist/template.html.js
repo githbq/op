@@ -1,3 +1,0 @@
-define(function(require, exports, module) {
-    module.exports="<script type=\"text/template\" id=\"trtpl\">\r\n\t<% _.each( content, function( item , index ){%>\r\n\t\t<tr>\r\n\t\t\t<td></td>\r\n\t\t\t<td><%=item.name%></td>\r\n\t\t\t<td><%=item.id%></td>\r\n\t\t\t<td><%=item.cityStr%></td>\r\n\t\t\t<td><%=item.regionName %></td>\r\n\t\t\t<td><%=item.statusStr%></td>\r\n\t\t\t<td> \r\n\t\t\t\t<a data-id=\"<%=item.id%>\" class=\"agent-edit\" data-permissions=\"F010010\">编辑</a> \r\n\t\t\t\t<a data-id=\"<%=item.id%>\" data-name=\"<%=item.name%>\" class=\"agent-detail\" data-permissions=\"F010003\">查看用户</a> \r\n\t\t\t</td>\r\n\t\t\t<td></td>\r\n\t\t</tr>\r\n\t<% }) %>\r\n</script>\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n";
-});
