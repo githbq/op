@@ -108,12 +108,19 @@ define(function (require, exports, module) {
                 return next && next($ele);
             },
             i_convertFieldWhereNumber: function (next, $ele) {
-
                 if ($ele.is('[data-type=number]')) {
                     $ele.on('change', function (e) {
                         var $dom = $(e.target);
                         $dom.val($dom.val().replace(/[^\.\d]/g, ''));
+                        
                         $dom.val($dom.val().match(/^[+-]?\d+(\.\d+)?$/) ? $dom.val() : '');
+                        if($dom.val()){
+                            var little=($dom.attr('data-little') && parseInt($dom.attr('data-little') )*10)||100;
+                            try{
+                                var convertNum=Math.floor(parseFloat($dom.val())*little)/little;
+                                $dom.val(convertNum);
+                            }catch(e){}
+                        }
                     })
                 }
                 return next($ele);
@@ -476,6 +483,7 @@ define(function (require, exports, module) {
                     $.extend(data, obj);
                 }
                 if (silent !== true) {
+              
                     me.trigger('setValue', $field, data, me);
                     data.trigger('setValue', $field, data, me);
                 }
@@ -625,7 +633,7 @@ define(function (require, exports, module) {
             o_setFieldReadonly: function ($ele, value) {
                 var me = this;
                 value = value === undefined ? false : value;
-                this.o_field_getData($ele).readonly = value;
+                me.o_field_getData($ele).readonly = value;
                 if (!$ele.is('.field_text')) {
                     if (value) {
                         $ele.addClass('readonly', 'readonly').attr('readonly', 'readonly').attr('disabled', 'disabled');

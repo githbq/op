@@ -258,10 +258,8 @@ define( function(require, exports, module){
 			me.$('.order-id').html( me.attrs.options.id );
 			//判断审批意见
 			//var opinion = me.attrs.options.opinion ? me.attrs.options.opinion :'暂无';
-			//me.$('.last-options').text(opinion);
-			
-			
 
+			
 
 		},
 		//设置审批意见
@@ -288,7 +286,7 @@ define( function(require, exports, module){
 			//设置到款时间 receivedPayDate
 			var receivedPayDate = (me.attrs.orderData && me.attrs.orderData.order && me.attrs.orderData.order.receivedPayDate) ? new Date( me.attrs.orderData.order.receivedPayDate  )._format("yyyy-MM-dd"):'';
 			//设置到款编号
-			var receivedPayNum= (me.attrs.orderData && me.attrs.orderData.order && me.attrs.orderData.order.receivedPayNum)?me.attrs.orderData.order.receivedPayNum:'未填写';
+			var receivedPayNum= (me.attrs.orderData && me.attrs.orderData.order && me.attrs.orderData.order.receivedPayNum)?me.attrs.orderData.order.receivedPayNum:'';
 
 			if(receivedPayDate){
 				me.$('.receivedPayDate').show();
@@ -296,6 +294,7 @@ define( function(require, exports, module){
 				me.$('.receivedPayNum-text').text(receivedPayNum);
 				me.$('.currentTask-finance').hide();
 			}
+
 			
 		},
 		//获取全部订单数据

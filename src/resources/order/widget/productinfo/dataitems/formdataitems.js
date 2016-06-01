@@ -1,7 +1,7 @@
 define(function (require, exports, module) {
     var DataItem = require('../index').PageDataClass;
     var uploader = require('common/widget/upload').uploader;
-
+    var math = require('common/widget/math/math');
     module.exports.getItems = function () {
         var dataItems = [];
 
@@ -33,6 +33,7 @@ define(function (require, exports, module) {
                         var servicePrice = 0;
                         servicePrice = me.__refs.terminalInfo.o_getFieldValue('purchaseAmount_3');
                         me.o_setValue({name: 'agentCurrPayAmount', visible: true, value: servicePrice});
+                        me.o_setValue({name: 'currPayAmount_3', visible: false, value: '0'});
                     }
                     //重新计算价格
                     me.__refs.tableInfo.$('[data-name=check]:first').change();
@@ -182,11 +183,16 @@ define(function (require, exports, module) {
                                 {name: 'currPayAmount', value: currPayAmount},
                                 {name: 'agentCurrPayAmount', value: servicePrice},
                                 {name: 'currPayAmount_1', value: '0', visible: false},
+                                {name: 'currPayAmount_3', value: '0', visible: false},
                                 {name: 'currPayAmount_4', value: '0', visible: false},
                                 {name: 'currPayAmount_5', value: '0', visible: false},
                                 {name: 'currPayAmount_7', value: '0', visible: false},
-                                {name: 'currPayAmount_8', value: '0', visible: false},
-                                {name: 'currPayAmount_12', value: '0', visible: false}
+                                {name: 'currPayAmount_12', value: '0', visible: false},
+                                {name: 'currPayAmount_14', value: '0', visible: false},
+                                {name: 'currPayAmount_15', value: '0', visible: false},
+                                {name: 'currPayAmount_13', value: '0', visible: false},
+                                {name: 'currPayAmount_16', value: '0', visible: false},
+                                {name: 'currPayAmount_17', value: '0', visible: false}
                             ]);
                             //全款
 
@@ -194,27 +200,40 @@ define(function (require, exports, module) {
                             ;
                             break;
                         case '2':
-                        {//分期
+                        {
                             me.o_setValues([
                                 {name: 'currPayAmount'},
                                 {name: 'agentCurrPayAmount', value: servicePrice},
                                 {name: 'currPayAmount_1', visible: false},
+                                {name: 'currPayAmount_3', visible: false},
                                 {name: 'currPayAmount_4', visible: false},
                                 {name: 'currPayAmount_5', visible: false},
                                 {name: 'currPayAmount_7', visible: false},
-                                {name: 'currPayAmount_8', visible: false},
-                                {name: 'currPayAmount_12', visible: false}
+                                {name: 'currPayAmount_12', visible: false},
+                                {name: 'currPayAmount_14', visible: false},
+                                {name: 'currPayAmount_15', visible: false},
+                                {name: 'currPayAmount_13', visible: false},
+                                {name: 'currPayAmount_16', visible: false},
+                                {name: 'currPayAmount_17', visible: false}
                             ]);
                             var checkeds = me.__refs.tableInfo.o_getFieldValue('check').split(',');
+
                             if (me.__refs.terminalInfo.o_getFieldValue('useCRM') && me.__refs.terminalInfo.o_getFieldData('useCRMWrapper').visible !== false) {//使用了逍客终端 要加入服务费
-                                checkeds.push('1');//CRM费用
-                                if (me.__refs.terminalInfo.o_getFieldData('businesscard').visible !== false) {
-                                    checkeds.push('8');//名片费用
-                                }
+                                checkeds.push('1');//CRM费用 
                             }
-                            if (me.__refs.terminalInfo.o_getFieldValue('useFX')) {//使用了逍客终端 要加入服务费
+
+                            if (me.__refs.terminalInfo.o_getFieldValue('useFX') && me.o_getFieldValue('orderAssigned')=='1') {//使用了逍客终端 要加入服务费
                                 checkeds.push('3');//服务费
                             }
+                            if (me.__refs.terminalInfo.o_getFieldValue('useTrainning')) {//使用服务费
+                                if (me.__refs.terminalInfo.o_getFieldData('productTrainingWrapper').visible !== false) {
+                                    checkeds.push('13');//培训费
+                                }
+                                if (me.__refs.terminalInfo.o_getFieldData('productTimeLongWrapper').visible !== false) {
+                                    checkeds.push('16');//流量费
+                                }
+                            }
+
                             if (data.__editChanged === false) {
                                 data.__editChanged = true;
                             }
@@ -237,11 +256,16 @@ define(function (require, exports, module) {
                         {  //未付
                             me.o_setValues([
                                 {name: 'currPayAmount_1', value: '0', visible: false},
+                                {name: 'currPayAmount_3', value: '0', visible: false},
                                 {name: 'currPayAmount_4', value: '0', visible: false},
                                 {name: 'currPayAmount_5', value: '0', visible: false},
                                 {name: 'currPayAmount_7', value: '0', visible: false},
-                                {name: 'currPayAmount_8', value: '0', visible: false},
                                 {name: 'currPayAmount_12', value: '0', visible: false},
+                                {name: 'currPayAmount_14', value: '0', visible: false},
+                                {name: 'currPayAmount_15', value: '0', visible: false},
+                                {name: 'currPayAmount_13', value: '0', visible: false},
+                                {name: 'currPayAmount_16', value: '0', visible: false},
+                                {name: 'currPayAmount_17', value: '0', visible: false},
                                 {name: 'currPayAmount', value: '0'},
                                 {name: 'agentCurrPayAmount', value: '0'}
                             ]);
@@ -261,7 +285,9 @@ define(function (require, exports, module) {
             ]
 
         }));
-        var currPayIdArr = [1, 8, 4, 5, 7, 12];
+
+
+        var currPayIdArr = [3, 1, 4, 5, 7, 12, 15, 14, 13, 16, 17];
         $(currPayIdArr).each(function (i, n) {
             (function (id) {
                 dataItems.push(new DataItem({
@@ -276,27 +302,34 @@ define(function (require, exports, module) {
                                 return;
                             }
                             var controll = me.__refs.tableInfo;
-                            if (id == '1' || id == '3' || id == '8') {
+                            if (id == '1' || id == '3' || id == '13' || id == '16') {
                                 controll = me.__refs.terminalInfo;
                             }
                             var $dom = $(e.target);
                             $dom.val($dom.val().replace(/[^\.\d]/g, ''));
 
-                            var purchaseAmount = controll.o_getFieldValue('purchaseAmount_' + id);
+                            if (controll === me.__refs.terminalInfo) {
+                                purchaseAmount = controll.o_getFieldData('purchaseAmount_' + id).value;
+                            } else {
+                                purchaseAmount = controll.o_getFieldValue('purchaseAmount_' + id);
+                            }
+                            controll.o_setValue({name: 'purchaseAmount_' + id, value: purchaseAmount});//值再一次同步
                             if (!purchaseAmount) {
-                                $dom.val('');
+                                $dom.val('0');
                             } else if ($dom.val() && parseFloat(purchaseAmount) < parseFloat($dom.val())) {
+
                                 util.showToast('分期金额不能大于对应的合同金额');
                                 $dom.val(purchaseAmount);
                             }
                             var currPayAmount = 0;
+                            var servicePrice=me.o_getFieldValue('payStatus')=='2' &&　me.o_getFieldData('currPayAmount_3').visible!==false　?me.o_getFieldValue('currPayAmount_3')||0:me.__refs.terminalInfo.o_getFieldValue('purchaseAmount_3')||0;
                             var agentCurrPayAmount = 0;
                             if (me.__refs.formInfo.o_getFieldValue('orderAssigned') == 1) {//只有直销时才算入总部到款价
-                                currPayAmount += parseFloat(me.__refs.terminalInfo.o_getFieldValue('purchaseAmount_3') || 0);
+                                currPayAmount += parseFloat(servicePrice);
                             } else {
-                                agentCurrPayAmount = me.__refs.terminalInfo.o_getFieldValue('purchaseAmount_3');
+                                agentCurrPayAmount =servicePrice;
                             }
-                            me.$('.fenqi').each(function (i, n) {
+                            me.$('.fenqi:not([data-id=3])').each(function (i, n) {//从分期中找出非服务费的
                                 currPayAmount += parseFloat($(n).val() || 0);
                             });
                             me.o_setValue({name: 'currPayAmount', value: currPayAmount});

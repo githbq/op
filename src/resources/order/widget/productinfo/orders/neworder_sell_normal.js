@@ -20,13 +20,16 @@ define(function (require, exports, module) {
         controller(terminalDataItems, 'useFX', function (n) {
             n.visible=false;
         });
-        controller(terminalDataItems, 'type_8', function (n) {
-            n.visible = false;
+        controller(terminalDataItems, 'giveCount_16', function (n) {
+            n.value=1000;
         });
-        controller(terminalDataItems, 'purchaseAmount_input_8', function (n) {
-            n.visible = false;
+        controller(terminalDataItems, 'type_13', function (n) {
+            n.visible=false;
         });
         controller(terminalDataItems, 'purchaseAmount_input_3', function (n) {
+            n.visible = false;
+        });
+        controller(terminalDataItems, 'purchaseAmount_13', function (n) {
             n.visible = false;
         });
         controller(terminalDataItems, 'purchaseAmount_input_1', function (n) {
@@ -59,9 +62,6 @@ define(function (require, exports, module) {
         });
 
         controller(terminalDataItems, 'purchaseAmount_3', function (n) {
-            n.visible = true;
-        });
-        controller(terminalDataItems, 'businesscard', function (n) {
             n.visible = true;
         });
         controller(formDataItems, 'payStatus_name', function (n) {

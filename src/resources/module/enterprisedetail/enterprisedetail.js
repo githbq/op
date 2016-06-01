@@ -231,18 +231,18 @@ define(function(require, exports, module) {
             '#sdSC': 'sdSC',
             '#sdSUC': 'sdSUC',
 
-            ///'#sXKDC': 'sXKDC',         		//逍客终端总量
-            ///'#sXKET': 'sXKET',         		//签约到期时间
-            ///'#yxEndInput': 'yxEndInput',    	//营销版到期时间
+            ///'#sXKDC': 'sXKDC',               //逍客终端总量
+            ///'#sXKET': 'sXKET',               //签约到期时间
+            ///'#yxEndInput': 'yxEndInput',     //营销版到期时间
             ///'#sBCDC': 'sBCDC',
             ///'#sBCET': 'sBCET',
             ///'#sSms': 'sSms',
             ///'#sStorage': 'sStorage',
 
-            ///'#sDevice': 'sDevice',     			 //逍客终端扩容
+            ///'#sDevice': 'sDevice',                //逍客终端扩容
 
             ///'#yingxiao': 'yingxiao',             //营销版终端总量
-            ///'#yingxiaoAdd': 'yingxiaoAdd',	     //营销版终端扩容
+            ///'#yingxiaoAdd': 'yingxiaoAdd',        //营销版终端扩容
 
             '#sActivity': 'sActivity',
             '#sProductModule': 'sProductModule',
@@ -382,7 +382,7 @@ define(function(require, exports, module) {
             }, //开启产品
             'click #closeproduct': function() {
                     this.toggleProduct(2)
-                } //关闭产品														
+                } //关闭产品                                                        
         },
 
         uploadzzEve: function() {
@@ -620,7 +620,7 @@ define(function(require, exports, module) {
 
             /*
              * me.modules = {
-             *	isInitializes: false
+             *  isInitializes: false
              * };
              */
 
@@ -990,7 +990,7 @@ define(function(require, exports, module) {
                 }
             };
 
-            ///me.generateSelect( 'INDUSTRY', me.$aindustry , function(){ state.a = true; checkIsOk() });  		//行业信息
+            ///me.generateSelect( 'INDUSTRY', me.$aindustry , function(){ state.a = true; checkIsOk() });       //行业信息
             util.getIndustry(me.$aindustry, function() {
                 state.a = true;
                 checkIsOk()
@@ -1174,7 +1174,7 @@ define(function(require, exports, module) {
                          if( model.paidVersionExpireTime ){
 
                          if( new Date().getTime() > parseInt( model.paidVersionExpireTime ) ){
-                         me.$('#yxEndTime').val('');								
+                         me.$('#yxEndTime').val('');                                
                          }else{
                          me.$('#yxEndTime').val( new Date( model.paidVersionExpireTime )._format( 'yyyy-MM-dd' ) );
                          }
@@ -1377,12 +1377,22 @@ define(function(require, exports, module) {
             }
         },
 
-        showNumber:function() {
+        showNumber: function() {
+            var me = this;
+            var eId = me.model.attrs.enterpriseId
 
-            console.log(999);
-
-
-
+            console.log(eId);
+            var url = '/enterprise/' + eId + '/yesterdaylogincount';
+            util.api({
+                url: url,
+                type: 'POST',
+                dataType: "json",
+                success: function(resp) {
+                    if (resp.success) {
+                        $('#peopleNumber').html(resp.model);
+                    }
+                }
+            });
         },
 
         /**
@@ -1504,7 +1514,7 @@ define(function(require, exports, module) {
                 //autoclaveDays: this.$hpDays.val(),
                 isReferral: this.$isIntro.val(), //是否转介绍
                 isPayed: this.$isPayed.val(), //是否付费
-                //isEndlessTrial: this.$('#isEndlessTrial').val(),			//是否永久试用
+                //isEndlessTrial: this.$('#isEndlessTrial').val(),          //是否永久试用
 
                 //企业负责人
                 keyContactName: this.$kcName.val(), //企业负责人姓名                         
@@ -1608,7 +1618,7 @@ define(function(require, exports, module) {
                                         strDom += " <p> <span>" + obj['appName'] + "</span> <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span> </p>";
                                         break;
                                     default:
-                                        strDom += " <p> <span>" + obj['appName'] + "</span> <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span>" + enablestatus + "   <input class='off' type='checkbox' name='product' value='" + obj["appId"] + "'> </p>";
+                                        strDom += " <p> <span>" + obj['appName'] + "</span> <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span>" + enablestatus + "   <input class='off' type='checkbox' name='product' value='" + obj["appId"] + "' typeid='"+obj["quotaType"]+"'> </p>";
                                 }
                             });
 
@@ -1624,7 +1634,7 @@ define(function(require, exports, module) {
         },
 
         //开启或产品
-        toggleProduct: function(isEnable) {
+        toggleProduct: function (isEnable) {
             var me = this;
 
             var $input = me.$tbProduct.find('[name="product"]:checked');
@@ -1636,19 +1646,39 @@ define(function(require, exports, module) {
             }
 
             var ids = [];
-            $input.each(function(index, item) {
-                ids.push($(item).val());
+
+			var arrTypeOne = [],arrTypeTwo = [];
+            $input.each(function (index, item) {
+				if( $(item).attr('typeid')==1 ){
+					arrTypeOne.push($(item).val());
+				}else if( $(item).attr('typeid') == 2 ){
+					arrTypeTwo.push($(item).val());
+				}
+                //ids.push($(item).val());
             });
+			var objOne ={}, objTwo ={}, arrList = [];
+			if(arrTypeOne.length>0){
+				//var tempOne ={};
+				objOne.quotaType = 1;
+				objOne.appIds = arrTypeOne.join(',');
+				arrList.push(objOne);
+			}
+			if(arrTypeTwo.length>0){
+				//var tempOne ={};
+				objTwo.quotaType = 2;
+				objTwo.appIds = arrTypeTwo.join(',');
+				arrList.push(objTwo);
+			}
             console.log(ids);
 
             util.api({
                 'url': "/app/setappsenablestatus",
                 'data': {
                     'fsEa': me.model.get('enterpriseAccount'),
-                    'appIds': ids.join(','),
+                    'json': JSON.stringify( arrList ),
                     'isEnable': isEnable
                 },
-                'success': function(data) {
+                'success': function (data) {
                     if (data.success) {
                         util.showTip('操作成功');
                         me.showProductInfo();
@@ -1662,7 +1692,7 @@ define(function(require, exports, module) {
          *
          * 显示资料审核
          */
-        showVerifiCation: function(changeBool) {
+        showVerifiCation: function (changeBool) {
             var me = this;
             var changeBool = changeBool || false;
             //清空上传组件信息
@@ -1699,7 +1729,7 @@ define(function(require, exports, module) {
                 'data': {
                     'enterpriseId': me.model.attrs['enterpriseId']
                 },
-                'success': function(data) {
+                'success': function (data) {
                     console.warn(data);
                     if (data.success) {
 
@@ -2250,9 +2280,13 @@ define(function(require, exports, module) {
          */
         actDownloadEve: function(e) {
             var me = this;
-
-            var startTime = '',
-                endTime = '';
+            function GetDateStr(AddDayCount) {
+                var dd = new Date();
+                dd.setDate(dd.getDate()+AddDayCount);//获取AddDayCount天后的日期
+                return dd.getTime();
+            }
+            var startTime = GetDateStr(-91);
+             var   endTime = GetDateStr(-1);
 
             if (me.$actStartTime.val()) {
                 startTime = new Date(me.$actStartTime.val()).getTime();
@@ -2262,6 +2296,7 @@ define(function(require, exports, module) {
             }
             var url = IBSS.API_PATH + '/query/act/detail/generate?' + $.param({ 'enterpriseId': me.model.attrs.enterpriseId, 'timeStart': startTime, 'timeEnd': endTime })
             window.open(url);
+
         },
 
 
@@ -2460,13 +2495,13 @@ define(function(require, exports, module) {
 
              var data = {
              enterpriseId: me.model.attrs.id,
-             accountAmount:  me.$sXKDC.val(),				//逍客终端总量
-             increaseAmount:	me.$sDevice.val(),				//逍客终端扩容
-             marketingAccountAmount: me.$yingxiao.val(),		//营销终端总量
+             accountAmount:  me.$sXKDC.val(),               //逍客终端总量
+             increaseAmount:    me.$sDevice.val(),              //逍客终端扩容
+             marketingAccountAmount: me.$yingxiao.val(),        //营销终端总量
              increaseMarketingAmount: me.$yingxiaoAdd.val(), //营销终端扩容
-             baichuanAccountAmount: me.$sBCDC.val(), 		//百川终端总量
-             rechargeSmsAmount: me.$sSms.val(),      		//短信充值条数
-             expandStorageSpace: me.$sStorage.val() 			//存储扩容
+             baichuanAccountAmount: me.$sBCDC.val(),        //百川终端总量
+             rechargeSmsAmount: me.$sSms.val(),             //短信充值条数
+             expandStorageSpace: me.$sStorage.val()             //存储扩容
              };
              if ( me.$sXKET.val() ) {
              data.productEndTime = new Date( me.$sXKET.val() ).getTime();
@@ -2867,8 +2902,8 @@ define(function(require, exports, module) {
 
             ///this.$sXKDC.val('');
             ///this.$sDevice.val('');
-            ///this.$yingxiao.val('');	
-            ///this.$yingxiaoAdd.val('');	
+            ///this.$yingxiao.val('');  
+            ///this.$yingxiaoAdd.val('');   
 
             this.$cardStartTime.val('');
             this.$cardEndTime.val('');
@@ -2887,11 +2922,11 @@ define(function(require, exports, module) {
 
          var data = {
          enterpriseId: me.model.attrs.id,
-         accountAmount:  me.$sXKDC.val(),				//逍客终端总量
-         increaseAmount:	me.$sDevice.val(),				//逍客终端扩容
-         baichuanAccountAmount: me.$sBCDC.val(), 		//百川终端总量
-         rechargeSmsAmount: me.$sSms.val(),      		//短信充值条数
-         expandStorageSpace: me.$sStorage.val() 			//存储扩容
+         accountAmount:  me.$sXKDC.val(),               //逍客终端总量
+         increaseAmount:    me.$sDevice.val(),              //逍客终端扩容
+         baichuanAccountAmount: me.$sBCDC.val(),        //百川终端总量
+         rechargeSmsAmount: me.$sSms.val(),             //短信充值条数
+         expandStorageSpace: me.$sStorage.val()             //存储扩容
          };
          if ( me.$sXKET.val() ) {
          data.productEndTime = new Date( me.$sXKET.val() ).getTime();
