@@ -154,8 +154,7 @@ angular.module('ui.grid').directive('uiGridCell', ['$compile', '$log', '$parse',
 (function(){
 
 angular.module('ui.grid')
-.service('uiGridColumnMenuService', [ 'i18nService', 'uiGridConstants', 'gridUtil', 
-function ( i18nService, uiGridConstants, gridUtil ) {
+.service('uiGridColumnMenuService', ['i18nService', 'uiGridConstants', 'gridUtil', function ( i18nService, uiGridConstants, gridUtil ) {
 /**
  *  @ngdoc service
  *  @name ui.grid.service:uiGridColumnMenuService
@@ -469,8 +468,7 @@ function ( i18nService, uiGridConstants, gridUtil ) {
 }])
 
 
-.directive('uiGridColumnMenu', ['$log', '$timeout', 'gridUtil', 'uiGridConstants', 'uiGridColumnMenuService', 
-function ($log, $timeout, gridUtil, uiGridConstants, uiGridColumnMenuService) {
+.directive('uiGridColumnMenu', ['$log', '$timeout', 'gridUtil', 'uiGridConstants', 'uiGridColumnMenuService', function ($log, $timeout, gridUtil, uiGridConstants, uiGridColumnMenuService) {
 /**
  * @ngdoc directive
  * @name ui.grid.directive:uiGridColumnMenu
@@ -734,7 +732,7 @@ function ($log, $timeout, gridUtil, uiGridConstants, uiGridColumnMenuService) {
 (function(){
   'use strict';
 
-  angular.module('ui.grid').directive('uiGridGroupPanel', ["$compile", "uiGridConstants", "gridUtil", function($compile, uiGridConstants, gridUtil) {
+  angular.module('ui.grid').directive('uiGridGroupPanel', ['$compile', 'uiGridConstants', 'gridUtil', function($compile, uiGridConstants, gridUtil) {
     var defaultTemplate = 'ui-grid/ui-grid-group-panel';
 
     return {
@@ -770,8 +768,7 @@ function ($log, $timeout, gridUtil, uiGridConstants, uiGridColumnMenuService) {
 (function(){
   'use strict';
 
-  angular.module('ui.grid').directive('uiGridHeaderCell', ['$log', '$compile', '$timeout', '$window', '$document', 'gridUtil', 'uiGridConstants', 
-  function ($log, $compile, $timeout, $window, $document, gridUtil, uiGridConstants) {
+  angular.module('ui.grid').directive('uiGridHeaderCell', ['$log', '$compile', '$timeout', '$window', '$document', 'gridUtil', 'uiGridConstants', function ($log, $compile, $timeout, $window, $document, gridUtil, uiGridConstants) {
     // Do stuff after mouse has been down this many ms on the header cell
     var mousedownTimeout = 500;
 
@@ -1277,7 +1274,7 @@ function ($log, $timeout, gridUtil, uiGridConstants, uiGridColumnMenuService) {
 (function(){
 
 angular.module('ui.grid')
-.service('uiGridGridMenuService', [ '$log', 'i18nService', function( $log, i18nService ) {
+.service('uiGridGridMenuService', ['$log', 'i18nService', function( $log, i18nService ) {
   /**
    *  @ngdoc service
    *  @name ui.grid.gridMenuService
@@ -1592,8 +1589,7 @@ angular.module('ui.grid')
 
 
 
-.directive('uiGridMenuButton', ['$log', 'gridUtil', 'uiGridConstants', 'uiGridGridMenuService', 
-function ($log, gridUtil, uiGridConstants, uiGridGridMenuService) {
+.directive('uiGridMenuButton', ['$log', 'gridUtil', 'uiGridConstants', 'uiGridGridMenuService', function ($log, gridUtil, uiGridConstants, uiGridGridMenuService) {
 
   return {
     priority: 0,
@@ -1662,8 +1658,7 @@ function ($log, gridUtil, uiGridConstants, uiGridGridMenuService) {
  */
 angular.module('ui.grid')
 
-.directive('uiGridMenu', ['$log', '$compile', '$timeout', '$window', '$document', 'gridUtil', 'uiGridConstants', 
-function ($log, $compile, $timeout, $window, $document, gridUtil, uiGridConstants) {
+.directive('uiGridMenu', ['$log', '$compile', '$timeout', '$window', '$document', 'gridUtil', 'uiGridConstants', function ($log, $compile, $timeout, $window, $document, gridUtil, uiGridConstants) {
   var uiGridMenu = {
     priority: 0,
     scope: {
@@ -1908,8 +1903,7 @@ function ($log, $compile, $timeout, $window, $document, gridUtil, uiGridConstant
 (function () {
 // 'use strict';
 
-  angular.module('ui.grid').directive('uiGridNativeScrollbar', ['$log', '$timeout', '$document', 'uiGridConstants', 'gridUtil',
-    function ($log, $timeout, $document, uiGridConstants, gridUtil) {
+  angular.module('ui.grid').directive('uiGridNativeScrollbar', ['$log', '$timeout', '$document', 'uiGridConstants', 'gridUtil', function ($log, $timeout, $document, uiGridConstants, gridUtil) {
     var scrollBarWidth = gridUtil.getScrollbarWidth();
 
     // scrollBarWidth = scrollBarWidth > 0 ? scrollBarWidth : 17;
@@ -2164,8 +2158,7 @@ function ($log, $compile, $timeout, $window, $document, gridUtil, uiGridConstant
 
   var module = angular.module('ui.grid');
   
-  module.directive('uiGridRenderContainer', ['$log', '$timeout', '$document', 'uiGridConstants', 'gridUtil',
-    function($log, $timeout, $document, uiGridConstants, GridUtil) {
+  module.directive('uiGridRenderContainer', ['$log', '$timeout', '$document', 'uiGridConstants', 'GridUtil', function($log, $timeout, $document, uiGridConstants, GridUtil) {
     return {
       replace: true,
       transclude: true,
@@ -2727,8 +2720,7 @@ function ($log, $compile, $timeout, $window, $document, gridUtil, uiGridConstant
 (function(){
   'use strict';
 
-  angular.module('ui.grid').directive('uiGridViewport', ['$log', 'gridUtil',
-    function($log, gridUtil) {
+  angular.module('ui.grid').directive('uiGridViewport', ['$log', 'gridUtil', function($log, gridUtil) {
       return {
         replace: true,
         scope: {},
@@ -2804,8 +2796,7 @@ function ($log, $compile, $timeout, $window, $document, gridUtil, uiGridConstant
           });
         }
       };
-    }
-  ]);
+    }]);
 
 })();
 (function() {
@@ -2824,9 +2815,7 @@ angular.module('ui.grid')
 (function () {
   'use strict';
 
-  angular.module('ui.grid').controller('uiGridController', ['$scope', '$element', '$attrs', '$log', 'gridUtil', '$q', 'uiGridConstants',
-                    '$templateCache', 'gridClassFactory', '$timeout', '$parse', '$compile',
-    function ($scope, $elm, $attrs, $log, gridUtil, $q, uiGridConstants,
+  angular.module('ui.grid').controller('uiGridController', ['$scope', '$elm', '$attrs', '$log', 'gridUtil', '$q', 'uiGridConstants', '$templateCache', 'gridClassFactory', '$timeout', '$parse', '$compile', function ($scope, $elm, $attrs, $log, gridUtil, $q, uiGridConstants,
               $templateCache, gridClassFactory, $timeout, $parse, $compile) {
       $log.debug('ui-grid controller');
 
@@ -2980,13 +2969,7 @@ angular.module('ui.grid')
     </example>
  */
 angular.module('ui.grid').directive('uiGrid',
-  [
-    '$log',
-    '$compile',
-    '$templateCache',
-    'gridUtil',
-    '$window',
-    function(
+  ['$log', '$compile', '$templateCache', 'gridUtil', '$window', function(
       $log,
       $compile,
       $templateCache,
@@ -3093,8 +3076,7 @@ angular.module('ui.grid').directive('uiGrid',
           };
         }
       };
-    }
-  ]);
+    }]);
 
 })();
 
@@ -3171,8 +3153,7 @@ angular.module('ui.grid').directive('uiGrid',
 (function(){
 
 angular.module('ui.grid')
-.factory('Grid', ['$log', '$q', '$compile', '$parse', 'gridUtil', 'uiGridConstants', 'GridOptions', 'GridColumn', 'GridRow', 'GridApi', 'rowSorter', 'rowSearcher', 'GridRenderContainer', '$timeout',
-    function($log, $q, $compile, $parse, gridUtil, uiGridConstants, GridOptions, GridColumn, GridRow, GridApi, rowSorter, rowSearcher, GridRenderContainer, $timeout) {
+.factory('Grid', ['$log', '$q', '$compile', '$parse', 'gridUtil', 'uiGridConstants', 'GridOptions', 'GridColumn', 'GridRow', 'GridApi', 'rowSorter', 'rowSearcher', 'GridRenderContainer', '$timeout', function($log, $q, $compile, $parse, gridUtil, uiGridConstants, GridOptions, GridColumn, GridRow, GridApi, rowSorter, rowSearcher, GridRenderContainer, $timeout) {
 
 /**
  * @ngdoc object
@@ -4813,8 +4794,7 @@ angular.module('ui.grid')
 (function () {
 
   angular.module('ui.grid')
-    .factory('GridApi', ['$log', '$q', '$rootScope', 'gridUtil', 'uiGridConstants', 'GridRow', 'uiGridGridMenuService',
-      function ($log, $q, $rootScope, gridUtil, uiGridConstants, GridRow, uiGridGridMenuService) {
+    .factory('GridApi', ['$log', '$q', '$rootScope', 'gridUtil', 'uiGridConstants', 'GridRow', 'uiGridGridMenuService', function ($log, $q, $rootScope, gridUtil, uiGridConstants, GridRow, uiGridGridMenuService) {
         /**
          * @ngdoc function
          * @name ui.grid.class:GridApi
@@ -6883,8 +6863,7 @@ angular.module('ui.grid')
    *  @description factory to return dom specific instances of a grid
    *
    */
-  angular.module('ui.grid').service('gridClassFactory', ['gridUtil', '$q', '$compile', '$templateCache', 'uiGridConstants', '$log', 'Grid', 'GridColumn', 'GridRow',
-    function (gridUtil, $q, $compile, $templateCache, uiGridConstants, $log, Grid, GridColumn, GridRow) {
+  angular.module('ui.grid').service('gridClassFactory', ['gridUtil', '$q', '$compile', '$templateCache', 'uiGridConstants', '$log', 'Grid', 'GridColumn', 'GridRow', function (gridUtil, $q, $compile, $templateCache, uiGridConstants, $log, Grid, GridColumn, GridRow) {
 
       var service = {
         /**
@@ -8041,8 +8020,7 @@ var uidPrefix = 'uiGrid-';
  *  
  *  @description Grid utility functions
  */
-module.service('gridUtil', ['$log', '$window', '$document', '$http', '$templateCache', '$timeout', '$injector', '$q', 'uiGridConstants',
-  function ($log, $window, $document, $http, $templateCache, $timeout, $injector, $q, uiGridConstants) {
+module.service('gridUtil', ['$log', '$window', '$document', '$http', '$templateCache', '$timeout', '$injector', '$q', 'uiGridConstants', function ($log, $window, $document, $http, $templateCache, $timeout, $injector, $q, uiGridConstants) {
   var s = {
 
     getStyles: getStyles,
@@ -9602,8 +9580,7 @@ module.filter('px', function() {
    *
    *  @description Services for i18n
    */
-  module.service('i18nService', ['$log', 'i18nConstants', '$rootScope',
-    function ($log, i18nConstants, $rootScope) {
+  module.service('i18nService', ['$log', 'i18nConstants', '$rootScope', function ($log, i18nConstants, $rootScope) {
 
       var langCache = {
         _langs: {},
@@ -10039,8 +10016,7 @@ module.filter('px', function() {
   });
 
 
-  module.factory('uiGridCellNavFactory', ['$log', 'uiGridConstants', 'uiGridCellNavConstants', '$q',
-    function ($log, uiGridConstants, uiGridCellNavConstants, $q) {
+  module.factory('uiGridCellNavFactory', ['$log', 'uiGridConstants', 'uiGridCellNavConstants', '$q', function ($log, uiGridConstants, uiGridCellNavConstants, $q) {
       /**
        *  @ngdoc object
        *  @name ui.grid.cellNav.object:CellNav
@@ -10180,8 +10156,7 @@ module.filter('px', function() {
    *  @description Services for cell navigation features. If you don't like the key maps we use,
    *  or the direction cells navigation, override with a service decorator (see angular docs)
    */
-  module.service('uiGridCellNavService', ['$log', 'uiGridConstants', 'uiGridCellNavConstants', '$q', 'uiGridCellNavFactory',
-    function ($log, uiGridConstants, uiGridCellNavConstants, $q, UiGridCellNav) {
+  module.service('uiGridCellNavService', ['$log', 'uiGridConstants', 'uiGridCellNavConstants', '$q', 'UiGridCellNav', function ($log, uiGridConstants, uiGridCellNavConstants, $q, UiGridCellNav) {
 
       var service = {
 
@@ -10458,8 +10433,7 @@ module.filter('px', function() {
    </file>
    </example>
    */
-  module.directive('uiGridCellnav', ['$log', 'uiGridCellNavService', 'uiGridCellNavConstants',
-    function ($log, uiGridCellNavService, uiGridCellNavConstants) {
+  module.directive('uiGridCellnav', ['$log', 'uiGridCellNavService', 'uiGridCellNavConstants', function ($log, uiGridCellNavService, uiGridCellNavConstants) {
       return {
         replace: true,
         priority: -150,
@@ -10496,8 +10470,7 @@ module.filter('px', function() {
       };
     }]);
 
-  module.directive('uiGridRenderContainer', ['$log', 'uiGridCellNavService', 'uiGridCellNavConstants',
-    function ($log, uiGridCellNavService, uiGridCellNavConstants) {
+  module.directive('uiGridRenderContainer', ['$log', 'uiGridCellNavService', 'uiGridCellNavConstants', function ($log, uiGridCellNavService, uiGridCellNavConstants) {
       return {
         replace: true,
         priority: -99999, //this needs to run very last
@@ -10524,8 +10497,7 @@ module.filter('px', function() {
    *  @restrict A
    *  @description Stacks on top of ui.grid.uiGridCell to provide cell navigation
    */
-  module.directive('uiGridCell', ['uiGridCellNavService', '$log', 'uiGridCellNavConstants',
-    function (uiGridCellNavService, $log, uiGridCellNavConstants) {
+  module.directive('uiGridCell', ['uiGridCellNavService', '$log', 'uiGridCellNavConstants', function (uiGridCellNavService, $log, uiGridCellNavConstants) {
       return {
         priority: -150, // run after default uiGridCell directive and ui.grid.edit uiGridCell
         restrict: 'A',
@@ -10628,8 +10600,7 @@ module.filter('px', function() {
    *
    *  @description Services for editing features
    */
-  module.service('uiGridEditService', ['$log', '$q', '$templateCache', 'uiGridConstants', 'gridUtil',
-    function ($log, $q, $templateCache, uiGridConstants, gridUtil) {
+  module.service('uiGridEditService', ['$log', '$q', '$templateCache', 'uiGridConstants', 'gridUtil', function ($log, $q, $templateCache, uiGridConstants, gridUtil) {
 
       var service = {
 
@@ -10955,8 +10926,7 @@ module.filter('px', function() {
    *
    */
   module.directive('uiGridCell',
-    ['$compile', 'uiGridConstants', 'uiGridEditConstants', '$log', '$parse', 'uiGridEditService',
-      function ($compile, uiGridConstants, uiGridEditConstants, $log, $parse, uiGridEditService) {
+    ['$compile', 'uiGridConstants', 'uiGridEditConstants', '$log', '$parse', 'uiGridEditService', function ($compile, uiGridConstants, uiGridEditConstants, $log, $parse, uiGridEditService) {
         return {
           priority: -100, // run after default uiGridCell directive
           restrict: 'A',
@@ -11189,8 +11159,7 @@ module.filter('px', function() {
    *
    */
   module.directive('uiGridEditor',
-    ['uiGridConstants', 'uiGridEditConstants',
-      function (uiGridConstants, uiGridEditConstants) {
+    ['uiGridConstants', 'uiGridEditConstants', function (uiGridConstants, uiGridEditConstants) {
         return {
           scope: true,
           compile: function () {
@@ -11344,8 +11313,7 @@ module.filter('px', function() {
    *
    */
   module.directive('uiGridEditDropdown',
-    ['uiGridConstants', 'uiGridEditConstants',
-      function (uiGridConstants, uiGridEditConstants) {
+    ['uiGridConstants', 'uiGridEditConstants', function (uiGridConstants, uiGridEditConstants) {
         return {
           scope: true,
           compile: function () {
@@ -11473,8 +11441,7 @@ module.filter('px', function() {
     return service;
   }]);
 
-  module.directive('uiGridExpandable', ['$log', 'uiGridExpandableService', '$templateCache',
-    function ($log, uiGridExpandableService, $templateCache) {
+  module.directive('uiGridExpandable', ['$log', 'uiGridExpandableService', '$templateCache', function ($log, uiGridExpandableService, $templateCache) {
       return {
         replace: true,
         priority: 0,
@@ -11496,8 +11463,7 @@ module.filter('px', function() {
     }]);
 
   module.directive('uiGridExpandableRow',
-  ['uiGridExpandableService', '$timeout', '$log', '$compile', 'uiGridConstants','gridUtil','$interval',
-    function (uiGridExpandableService, $timeout, $log, $compile, uiGridConstants, gridUtil, $interval) {
+  ['uiGridExpandableService', '$timeout', '$log', '$compile', 'uiGridConstants', 'gridUtil', '$interval', function (uiGridExpandableService, $timeout, $log, $compile, uiGridConstants, gridUtil, $interval) {
 
       return {
         replace: false,
@@ -11526,8 +11492,7 @@ module.filter('px', function() {
     }]);
 
   module.directive('uiGridRow',
-    ['$compile', '$log', '$templateCache',
-      function ($compile, $log, $templateCache) {
+    ['$compile', '$log', '$templateCache', function ($compile, $log, $templateCache) {
         return {
           priority: -200,
           scope: false,
@@ -11556,8 +11521,7 @@ module.filter('px', function() {
       }]);
 
   module.directive('uiGridViewport',
-    ['$compile', '$log', '$templateCache',
-      function ($compile, $log, $templateCache) {
+    ['$compile', '$log', '$templateCache', function ($compile, $log, $templateCache) {
         return {
           priority: -200,
           scope: false,
@@ -11649,8 +11613,7 @@ module.filter('px', function() {
    *
    *  @description Services for exporter feature
    */
-  module.service('uiGridExporterService', ['$log', '$q', 'uiGridExporterConstants', 'gridUtil', '$compile', '$interval', 'i18nService',
-    function ($log, $q, uiGridExporterConstants, gridUtil, $compile, $interval, i18nService) {
+  module.service('uiGridExporterService', ['$log', '$q', 'uiGridExporterConstants', 'gridUtil', '$compile', '$interval', 'i18nService', function ($log, $q, uiGridExporterConstants, gridUtil, $compile, $interval, i18nService) {
 
       var service = {
 
@@ -12363,8 +12326,7 @@ module.filter('px', function() {
 
       return service;
 
-    }
-  ]);
+    }]);
 
   /**
    *  @ngdoc directive
@@ -12403,8 +12365,7 @@ module.filter('px', function() {
    </file>
    </example>
    */
-  module.directive('uiGridExporter', ['$log', 'uiGridExporterConstants', 'uiGridExporterService', 'gridUtil', '$compile',
-    function ($log, uiGridExporterConstants, uiGridExporterService, gridUtil, $compile) {
+  module.directive('uiGridExporter', ['$log', 'uiGridExporterConstants', 'uiGridExporterService', 'gridUtil', '$compile', function ($log, uiGridExporterConstants, uiGridExporterService, gridUtil, $compile) {
       return {
         replace: true,
         priority: 0,
@@ -12415,8 +12376,7 @@ module.filter('px', function() {
           uiGridCtrl.grid.exporter.$scope = $scope;
         }
       };
-    }
-  ]);
+    }]);
 })();
 (function() {
   'use strict';
@@ -12589,8 +12549,7 @@ module.filter('px', function() {
    </example>
    */
 
-  module.directive('uiGridInfiniteScroll', ['$log', 'uiGridInfiniteScrollService',
-    function ($log, uiGridInfiniteScrollService) {
+  module.directive('uiGridInfiniteScroll', ['$log', 'uiGridInfiniteScrollService', function ($log, uiGridInfiniteScrollService) {
       return {
         priority: -200,
         scope: false,
@@ -12608,8 +12567,7 @@ module.filter('px', function() {
     }]);
 
   module.directive('uiGridViewport',
-    ['$compile', '$log', 'uiGridInfiniteScrollService', 'uiGridConstants',
-      function ($compile, $log, uiGridInfiniteScrollService, uiGridConstants) {
+    ['$compile', '$log', 'uiGridInfiniteScrollService', 'uiGridConstants', function ($compile, $log, uiGridInfiniteScrollService, uiGridConstants) {
         return {
           priority: -200,
           scope: false,
@@ -12792,8 +12750,7 @@ module.filter('px', function() {
     return service;
   }]);
 
-  module.directive('uiGridPinning', ['$log', 'uiGridPinningService',
-    function ($log, uiGridPinningService) {
+  module.directive('uiGridPinning', ['$log', 'uiGridPinningService', function ($log, uiGridPinningService) {
       return {
         require: 'uiGrid',
         scope: false,
@@ -12821,8 +12778,7 @@ module.filter('px', function() {
   });
 
 
-  module.service('uiGridResizeColumnsService', ['$log','$q',
-    function ($log,$q) {
+  module.service('uiGridResizeColumnsService', ['$log', '$q', function ($log,$q) {
 
       var service = {
         defaultGridOptions: function(gridOptions){
@@ -13356,8 +13312,7 @@ module.filter('px', function() {
    *
    *  @description Services for row editing features
    */
-  module.service('uiGridRowEditService', ['$interval', '$log', '$q', 'uiGridConstants', 'uiGridRowEditConstants', 'gridUtil', 
-    function ($interval, $log, $q, uiGridConstants, uiGridRowEditConstants, gridUtil) {
+  module.service('uiGridRowEditService', ['$interval', '$log', '$q', 'uiGridConstants', 'uiGridRowEditConstants', 'gridUtil', function ($interval, $log, $q, uiGridConstants, uiGridRowEditConstants, gridUtil) {
 
       var service = {
 
@@ -13819,8 +13774,7 @@ module.filter('px', function() {
    *  @description Adds row editing features to the ui-grid-edit directive.
    *
    */
-  module.directive('uiGridRowEdit', ['$log', 'uiGridRowEditService', 'uiGridEditConstants', 
-  function ($log, uiGridRowEditService, uiGridEditConstants) {
+  module.directive('uiGridRowEdit', ['$log', 'uiGridRowEditService', 'uiGridEditConstants', function ($log, uiGridRowEditService, uiGridEditConstants) {
     return {
       replace: true,
       priority: 0,
@@ -13848,8 +13802,7 @@ module.filter('px', function() {
    *  for the grid row to allow coloring of saving and error rows
    */
   module.directive('uiGridViewport',
-    ['$compile', 'uiGridConstants', '$log', '$parse',
-      function ($compile, uiGridConstants, $log, $parse) {
+    ['$compile', 'uiGridConstants', '$log', '$parse', function ($compile, uiGridConstants, $log, $parse) {
         return {
           priority: -200, // run after default  directive
           scope: false,
@@ -13912,8 +13865,7 @@ module.filter('px', function() {
    *
    *  @description Services for selection features
    */
-  module.service('uiGridSelectionService', ['$log', '$q', '$templateCache', 'uiGridSelectionConstants', 'gridUtil',
-    function ($log, $q, $templateCache, uiGridSelectionConstants, gridUtil) {
+  module.service('uiGridSelectionService', ['$log', '$q', '$templateCache', 'uiGridSelectionConstants', 'gridUtil', function ($log, $q, $templateCache, uiGridSelectionConstants, gridUtil) {
 
       var service = {
 
@@ -14257,8 +14209,7 @@ module.filter('px', function() {
    </file>
    </example>
    */
-  module.directive('uiGridSelection', ['$log', 'uiGridSelectionConstants', 'uiGridSelectionService', '$templateCache',
-    function ($log, uiGridSelectionConstants, uiGridSelectionService, $templateCache) {
+  module.directive('uiGridSelection', ['$log', 'uiGridSelectionConstants', 'uiGridSelectionService', '$templateCache', function ($log, uiGridSelectionConstants, uiGridSelectionService, $templateCache) {
       return {
         replace: true,
         priority: 0,
@@ -14288,8 +14239,7 @@ module.filter('px', function() {
       };
     }]);
 
-  module.directive('uiGridSelectionRowHeaderButtons', ['$log', '$templateCache', 'uiGridSelectionService',
-    function ($log, $templateCache, uiGridSelectionService) {
+  module.directive('uiGridSelectionRowHeaderButtons', ['$log', '$templateCache', 'uiGridSelectionService', function ($log, $templateCache, uiGridSelectionService) {
       return {
         replace: true,
         restrict: 'E',
@@ -14322,8 +14272,7 @@ module.filter('px', function() {
    *  for the grid row
    */
   module.directive('uiGridViewport',
-    ['$compile', 'uiGridConstants', 'uiGridSelectionConstants', '$log', '$parse', 'uiGridSelectionService',
-      function ($compile, uiGridConstants, uiGridSelectionConstants, $log, $parse, uiGridSelectionService) {
+    ['$compile', 'uiGridConstants', 'uiGridSelectionConstants', '$log', '$parse', 'uiGridSelectionService', function ($compile, uiGridConstants, uiGridSelectionConstants, $log, $parse, uiGridSelectionService) {
         return {
           priority: -200, // run after default  directive
           scope: false,
@@ -14359,8 +14308,7 @@ module.filter('px', function() {
    *  @description Stacks on top of ui.grid.uiGridCell to provide selection feature
    */
   module.directive('uiGridCell',
-    ['$compile', 'uiGridConstants', 'uiGridSelectionConstants', '$log', '$parse', 'uiGridSelectionService',
-      function ($compile, uiGridConstants, uiGridSelectionConstants, $log, $parse, uiGridSelectionService) {
+    ['$compile', 'uiGridConstants', 'uiGridSelectionConstants', '$log', '$parse', 'uiGridSelectionService', function ($compile, uiGridConstants, uiGridSelectionConstants, $log, $parse, uiGridSelectionService) {
         return {
           priority: -200, // run after default uiGridCell directive
           restrict: 'A',

@@ -1,0 +1,292 @@
+<div class="p-list enterprise-panel" js="true">
+    <div ng-controller="mainController" class="ng-cloak">
+        <div ng-if="step==1" ng-controller="mainController"  class="step">
+            <div class="top-bar">
+                <h1>第一步&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;企业信息</h1>
+            </div>
+            <div class="baseinfo form">
+                <div class="form-row">
+                    <h2>基本信息</h2>
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label><span>企业名称</span></label>
+                        <input type="text" name="enterpriseName"/>
+                    </div>
+                    <div class="form-field">
+                        <label><span>代理区域</span></label>
+                        <input type="text" name="enterpriseName"/>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label><span>企业账号</span></label>
+                        <input type="text" name="enterpriseName"/>
+                        <span class="tip">企业账号应为字母开头6-20位由字母数字的组合</span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label><span>企业地址</span></label>
+                        <input select2 ng-model="province" placeholder="请选择省" select2-model="aS2" config="config1" class="form-control multiple-select" type="text"/>
+                        一一<input select2 ng-model="city" placeholder="请选择市" select2-model="aS3" config="config2" class="form-control multiple-select" type="text"/>
+                        一一<input select2 ng-model="city" placeholder="请选择区" select2-model="aS3" config="config2" class="form-control multiple-select" type="text"/>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label></label>
+                        <textarea minlength="5" placeholder="请填写详细地址，不少于5个字" name="" style="width:560px;height:80px;"></textarea>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label><span>企业地址</span></label>
+                        <input select2 placeholder="请选择省" ng-model="province" select2-model="aS2" config="config1" class="form-control multiple-select" type="text"/>
+                        一一<input select2 ng-model="city" placeholder="请选择市" select2-model="aS3" config="config2" class="form-control multiple-select" type="text"/>
+                        一一<input select2 ng-model="city" placeholder="请选择区" select2-model="aS3" config="config2" class="form-control multiple-select" type="text"/>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label class="required"><span>公司规模</span></label>
+                        <input type="text" name="enterpriseName"/>
+                    </div>
+                    <div class="form-field">
+                        <label class="required"><span>使用对象类型</span></label>
+                        <input type="text" name="enterpriseName"/>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label class="required"><span>是否有销售团队</span></label>
+                        <input type="text" name="enterpriseName"/>
+                    </div>
+                    <div class="form-field">
+                        <label class="required"><span>销售团队规模</span></label>
+                        <input type="text" name="enterpriseName"/>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label class="required"><span>是否转介绍</span></label>
+                        <input type="text" name="enterpriseName"/>
+                    </div>
+                    <div class="form-field">
+                        <label class="required"><span>是否标杆</span></label>
+                        <input type="text" name="enterpriseName"/>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <h2>企业负责人</h2>
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label class="required"><span>企业负责人姓名</span></label>
+                        <input type="text" name="enterpriseName"/>
+                    </div>
+                    <div class="form-field">
+                        <label class="required"><span>企业负责人电话</span></label>
+                        <input type="text" name="enterpriseName"/>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label class="required"><span>企业负责人邮箱</span></label>
+                        <input type="text" name="enterpriseName"/>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <h2>纷享平台管理员</h2>
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label class="required"><span>平台管理员</span></label>
+                        <input type="text" name="enterpriseName"/>
+                    </div>
+                    <div class="form-field">
+                        <label class="required"><span>平台管理员手机</span></label>
+                        <input type="text" name="enterpriseName"/>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label class="required"><span>平台管理员邮箱</span></label>
+                        <input type="text" name="enterpriseName"/>
+                    </div>
+                    <div class="form-field">
+                        <label><span>平台管理员QQ</span></label>
+                        <input type="text" name="enterpriseName"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-if="step==2" ng-controller="form2Controller" class="step" style="border:1px solid red;margin-top:20px;">
+            <div class="top-bar">
+                <h1>第二步&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;产品信息</h1>
+            </div>
+            <div class="baseinfo form">
+                <div class="form-row">
+                    <h2>企业已购产品信息</h2>
+                </div>
+                <div class="form-row">
+                    <h2>产品目录</h2>
+                </div>
+            </div>
+        </div>
+        <div ng-if="step==3" ng-controller="form3Controller" class="step" style="border:1px solid red;margin-top:20px;">
+            <div class="top-bar">
+                <h1>第三步&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;付款信息</h1>
+            </div>
+            <div class="baseinfo form">
+                <div class="form-row">
+                    <h2>付款信息</h2>
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label class="required"><span>合同号</span></label>
+                        <input type="text" name="enterpriseName"/>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label class="required"><span>合同总金额</span></label>
+                        <input type="text" name="enterpriseName"/>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label class="required"><span>合同照片</span></label>
+                        <img src="" width="100" height="100" alt=""/>
+                        <input type="file" name="enterpriseName"/>
+                        <span>(支持png、jpg、gif格式)</span>
+                        <span class="status"></span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label class="required"><span>合同章名称</span></label>
+                        <input type="text" class="input-l" name="enterpriseName"/>
+                        <span>(支持png、jpg、gif格式)</span>
+                        <span class="status"></span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label class="required"><span>合同副本照片</span></label>
+                        <img src="" width="100" height="100" alt=""/>
+                        <input type="file" name="enterpriseName"/>
+                        <span>(支持png、jpg、gif格式)</span>
+                        <span class="status"></span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-field" ng-init="payStatus=2">
+                        <label class="required"><span>付费状态</span></label>
+                        <label><input name="payStatus" ng-model="payStatus" ng-value="1" type="radio"/>全额</label>
+                        &nbsp; &nbsp;
+                        <label><input name="payStatus" ng-model="payStatus" ng-value="2" type="radio"/>未付</label>
+                        &nbsp; &nbsp;
+                        <label><input name="payStatus" ng-model="payStatus" ng-value="3" type="radio"/>分期</label>
+                    </div>
+                </div>
+                <div ng-if="payStatus==3" class="form-row">
+                    <div class="form-field">
+                        <label class="required"><span>分期金额</span></label>
+                    </div>
+                    <div class="form-field inputs-container">
+                        <label class="fenqi-label"><span>本期CRM金额(元)</span><input type="text" value="999"/></label>
+                        <label class="fenqi-label"><span>本期CRM金额(元)</span><input type="text" value="999"/></label>
+                        <label class="fenqi-label"><span>本期CRM金额(元)</span><input type="text" value="999"/></label>
+                        <label class="fenqi-label"><span>本期CRM金额(元)</span><input type="text" value="999"/></label>
+                        <label class="fenqi-label"><span>本期CRM金额(元)</span><input type="text" value="999"/></label>
+                        <label class="fenqi-label"><span>本期CRM金额(元)</span><input type="text" value="999"/></label>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label class="required"><span>代理商本次到款款额(元)</span></label>
+                        <input type="text" name="enterpriseName"/>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label class="required"><span>总部本次到款金额(元)</span></label>
+                        <input type="text" name="enterpriseName"/>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label class="required"><span>总部打款日期(元)</span></label>
+                        <input type="text" name="enterpriseName"/>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label class="required"><span>总部到款账户(元)</span></label>
+                        <input select2 ng-model="province" placeholder="请输入银行款号" select2-model="aS2" config="config1" class="form-control multiple-select" type="text"/>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label class="required"><span>付款单位/个人名称</span></label>
+                        <input type="text" name="enterpriseName"/>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label class="required"><span>门头照片</span></label>
+                        <img src="" width="100" height="100" alt=""/>
+                        <input type="file" name="enterpriseName"/>
+                        <span>(支持png、jpg、gif格式)</span>
+                        <span class="status"></span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label class="required"><span>门头照片关键词</span></label>
+                        <input type="text" name="enterpriseName"/>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label class="required"><span>门头照片备注</span></label>
+                        <input type="text" name="enterpriseName"/>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <h2>其他信息</h2>
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label class="required"><span>特殊条款</span></label>
+                        <input select2 ng-model="province" placeholder="请输入银行款号" select2-model="aS2" config="config1" class="form-control multiple-select" type="text"/>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-field" ng-init="peoples=['张三','李四','王五']">
+                        <label class="required"><span>联合跟进人</span></label>
+                      <span class="text-field" ng-repeat="item in peoples track by $index">
+                          {{item}}
+                      </span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <h2>备注</h2>
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <textarea name="" style="width:500px;height:100px"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-button">
+            <button ng-if="step>1" ng-click="prevStep()">上一步</button>&nbsp;&nbsp;&nbsp;&nbsp;
+            <button ng-if="step<3" ng-click="nextStep()">下一步</button>&nbsp;&nbsp;&nbsp;&nbsp;
+            <button ng-if="step==3" class="save" ng-click="save()" ng-class="{saving:saving}">保存</button>&nbsp;&nbsp;&nbsp;&nbsp;
+            <button ng-click="close()" >取消</button>
+        </div>
+    </div>
+</div>

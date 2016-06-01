@@ -15,7 +15,8 @@ var fs = require('fs'),
 //cmdJst = require('gulp-cmd-jst'),
     concat = require('gulp-concat'),
     transport = require('gulp-cmd-transit');
-var ngAnnotate = require('gulp-ng-annotate');
+var ngAnnotate = require('gulp-ng-annotate-plus');
+var autoprefixer = require('gulp-autoprefixer');
 
 //require('./gulps/gulp-angular');
 /**
@@ -34,6 +35,9 @@ gulp.task('clean', function () {
 gulp.task('less', function () {
     return gulp.src('src/resources/assets/style/main.less')
         .pipe(less())
+        .pipe(autoprefixer({
+            cascade: true
+        }))
         .pipe(gulp.dest('src/resources/assets/style/'));
 });
 
@@ -284,7 +288,11 @@ gulp.task('jst', function () {
 gulp.task('ngAnnotate', function () {
     console.log('------执行angularjs自动注入');
     return gulp.src(paths.jses)
-        .pipe(ngAnnotate())
+        .pipe(ngAnnotate({
+            remove: true,//先删除 以防止有不全的注入存在  会默认不再注入
+            add: true,
+            single_quotes: true
+        }))
         .pipe(gulp.dest('src/resources/'));
 });
 
