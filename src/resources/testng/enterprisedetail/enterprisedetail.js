@@ -1,11 +1,11 @@
 define(function (require, exports, module) {
-    var myApp = angular.module('formApp', ['ngMessages']);
+    require('./refs/directives');
+    var myApp = angular.module('formApp', ['ngMessages','common.directives']);
     myApp.controller('form1Controller', ['$scope', function ($scope) {
 
     }]);
     myApp.controller('form2Controller', ['$scope', function ($scope) {
 
-        $scope
 
     }]);
     myApp.controller('form3Controller', ['$scope', function ($scope) {
