@@ -1,9 +1,26 @@
 <div class="p-list p-nggrid" js="true">
+    <style>
+        .multiple-select{
+            width:250px;
+        }
+    </style>
     <hr/>
     multipleselect.html
     <hr/>
     <div ng-controller="appCtrl">
-        <input select2 ng-model="a" select2-model="aS2" config="config1" class="form-control" type="text"/>
-        <input select2 ng-model="b" select2-model="aS3" config="config3" class="form-control" type="text"/>
+        <input select2 ng-model="province" select2-model="aS2" config="config1" class="form-control multiple-select" type="text"/>
+        <input select2 ng-model="city" select2-model="aS3" config="config2" class="form-control multiple-select" type="text"/>
+        <button ng-click="aS2=[{id:1,text:'buggg'}]" class="btn btn-success btn-sm pull-right">设置数据</button>
+
+
+        <hr/>
+        {{a}}
+        <hr/>
+        <hr/>
+        {{b}}
+        <hr/>
+
+        <input select2 ng-model="d" select2-model="dS2" config="default" query="testAJAX" placeholder="ajax数据得在服务器环境下查看" class="form-control" type="text"/>
+
     </div>
 </div>
