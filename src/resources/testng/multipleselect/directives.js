@@ -1,7 +1,7 @@
 define(function(require,exports,module){
 
 
-    angular.module('app').directive('select2', ["select2Query", function (select2Query) {
+    angular.module('app').directive('select2', ['select2Query', function (select2Query) {
         return {
             restrict: 'A',
             scope: {

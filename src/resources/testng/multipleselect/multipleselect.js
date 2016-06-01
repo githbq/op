@@ -5,7 +5,7 @@ define(function (require, exports, module) {
     /**
      * select2 内置查询功能
      */
-    app.factory('select2Query', ["$timeout", function ($timeout) {
+    app.factory('select2Query', ['$timeout', function ($timeout) {
         return {
             testAJAX: function () {
                 var config = {
@@ -36,7 +36,7 @@ define(function (require, exports, module) {
             }
         }
     }]);
-    app.controller('appCtrl', ["$scope", "$timeout", function ($scope, $timeout) {
+    app.controller('appCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
         $scope.config1 = {
             data: [{id: 1, text: '北京'}, {id: 2, text: '上海'}, {id: 3, text: '广东'}, {id: 4, text: '湖北'}],
             multiple:false,

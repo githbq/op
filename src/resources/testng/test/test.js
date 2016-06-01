@@ -5,7 +5,7 @@ define(function (require, exports, module) {
         var $el = exports.$el;
 
         var myApp2 = angular.module('orderApp2', ['app.directives', 'app.services']);
-        myApp2.controller('testController', ["$scope", function ($scope) {
+        myApp2.controller('testController', ['$scope', function ($scope) {
             $scope.value = 'myApp2';
             $scope.value2 = 'myApp222222';
         }]);
@@ -24,13 +24,13 @@ define(function (require, exports, module) {
         //}]);
 
         //父子controller案例
-        myApp.controller('parentController', ["$scope", function ($scope) {
+        myApp.controller('parentController', ['$scope', function ($scope) {
             $scope.value = {A: 'parentA', B: 'parentB'};
             $scope.clickMe = function () {
                 debugger
             }
         }]);
-        myApp.controller('childController', ["$scope", function ($scope) {
+        myApp.controller('childController', ['$scope', function ($scope) {
 
             $scope.clickMe = function () {
                 debugger
@@ -41,7 +41,7 @@ define(function (require, exports, module) {
 
 
         //调用服务案例
-        myApp.controller('service1Controller', ["$scope", "serviceA", function ($scope, serviceA) {
+        myApp.controller('service1Controller', ['$scope', 'serviceA', function ($scope, serviceA) {
             debugger
             $scope.serviceA = serviceA;
             $scope.a = serviceA.a;
@@ -52,7 +52,7 @@ define(function (require, exports, module) {
                 debugger
             }
         }]);
-        myApp.controller('service2Controller', ["$scope", "serviceA", function ($scope, serviceA) {
+        myApp.controller('service2Controller', ['$scope', 'serviceA', function ($scope, serviceA) {
             debugger
 
             $scope.a = serviceA.a;
@@ -74,7 +74,7 @@ define(function (require, exports, module) {
 
          区别： $emit 广播给父controller   $broadcast 广播给子controller
          * */
-        myApp.controller('event1Controller', ["$scope", "$rootScope", function ($scope,$rootScope) {
+        myApp.controller('event1Controller', ['$scope', '$rootScope', function ($scope,$rootScope) {
             $scope.a='1';
             $scope.clickMe = function () {
                 $scope.$broadcast('2child',this.a + ',from parent to child');
@@ -85,7 +85,7 @@ define(function (require, exports, module) {
 
             })
         }]);
-        myApp.controller('event1ChildController', ["$scope", function ($scope) {
+        myApp.controller('event1ChildController', ['$scope', function ($scope) {
             $scope.a='1';
             $scope.clickMe = function () {
                 $scope.$emit('2parent',this.a + ',from child to parents');
@@ -94,7 +94,7 @@ define(function (require, exports, module) {
                 debugger
             });
         }]);
-        myApp.controller('event2Controller', ["$scope", function ($scope) {
+        myApp.controller('event2Controller', ['$scope', function ($scope) {
             $scope.$on('root喊你',function(event,msg){
                 debugger
                 alert('root大哥,我收到了');

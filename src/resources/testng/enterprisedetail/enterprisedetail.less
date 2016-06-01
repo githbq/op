@@ -1,0 +1,84 @@
+.enterprise-panel {
+  .panel-button {
+    .save {
+      background-color: #45a4f2;
+      border: 1px #2896f0 solid;
+      color: #fff;
+    }
+    .saving {
+      &::after{
+      content: '...'
+      }
+      background-color:gray;
+      border:1px solid white;
+    }
+  }
+  .step {
+    padding-left: 150px;
+    transition: width 2s;
+  }
+  h1 {
+    font-size: 18px;
+    font-weight: 800;
+    color: #4a3333;
+    font-family: "Comic Sans MS", "幼圆", "黑体", sans-serif;
+  }
+  h2 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #4a3333;
+    text-indent: 12px;
+  }
+  .top-bar {
+    width: 80%;
+    border: 2px solid #cccccc;
+    background-color: #f2f2f2;
+    margin: auto;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-align: center;
+    color: black;
+  }
+  .panel-button {
+    over-flow: hidden;
+    text-align: center;
+    padding: 5px;
+  }
+  .form {
+    .form-row {
+
+      margin-top: 5px;
+      overflow: hidden;
+      .form-field {
+        float: left;
+        margin-left: 5px;
+      }
+
+      .inputs-container {
+        overflow: hidden;
+        float: left;
+        height: auto;
+        max-width: 1000px;
+        width: 100%;
+        .fenqi-label {
+          display: inline-block;
+          width: 350px;
+          text-align: left;
+
+        }
+      }
+      label:first-child {
+        span::after {
+          content: ':'
+        }
+        display: inline-block;
+        width: 150px;
+        text-align: right;
+        &.required::after {
+          content: '*';
+          color: red;
+        }
+      }
+    }
+  }
+}
