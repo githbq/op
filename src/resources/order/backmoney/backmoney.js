@@ -248,7 +248,7 @@ define( function(require, exports, module){
 			var me = this,
 				strDom = '';
 			
-			var opinionObj = {'support':'小助手开通','support2':'小助手确认','finance':'财务','sup':'小助手'};
+			var opinionObj = {'support':'小助手开通','support2':'小助手确认','finance':'数据中心','sup':'小助手'};
 			var personStr = "support,support2,finance,sup";
 			 
 			var optionsList = me.attrs.refundVO.refund.approvalInfo ? me.attrs.refundVO.refund.approvalInfo.split('<+>'): [];
