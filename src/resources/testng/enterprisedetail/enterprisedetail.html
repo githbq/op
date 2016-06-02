@@ -1,8 +1,5 @@
 <div class="p-list enterprise-panel" js="true">
     <div ng-controller="mainController" class="ng-cloak">
-        <div ng-init="data={status:1,response:{}}" input-file status="data.status" label="合同副本照片" response="data.response"></div>
-        {{data.status}}
-        {{data.response}}
         <button ng-click="testResult()">testResult</button>
         <div ng-if="step==1" ng-controller="mainController"  class="step">
             <div class="top-bar">
@@ -159,30 +156,31 @@
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-field">
-                        <label class="required"><span>合同照片</span></label>
-                        <img src="" width="100" height="100" alt=""/>
-                        <input type="file" name="enterpriseName"/>
-                        <span>(支持png、jpg、gif格式)</span>
-                        <span class="status"></span>
-                    </div>
+                    <div ng-init="data={status:1,response:{},fileA:''}"
+                         ng-model="data.fileA"
+                         default-src="'https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=547758898,887436691&fm=58'"
+                         default-href="'http://www.sina.com'"
+                         input-file status="data.status"
+                         label="合同照片"
+                         response="data.response"></div>
                 </div>
                 <div class="form-row">
-                    <div class="form-field">
-                        <label class="required"><span>合同章名称</span></label>
-                        <input type="text" class="input-l" name="enterpriseName"/>
-                        <span>(支持png、jpg、gif格式)</span>
-                        <span class="status"></span>
-                    </div>
+                    <div ng-init="data={status:1,response:{},fileA:''}"
+                         ng-model="data.fileA"
+                         default-src="'https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=547758898,887436691&fm=58'"
+                         default-href="'http://www.sina.com'"
+                         input-file status="data.status"
+                         label="合同章名称"
+                         response="data.response"></div>
                 </div>
                 <div class="form-row">
-                    <div class="form-field">
-                        <label class="required"><span>合同副本照片</span></label>
-                        <img src="" width="100" height="100" alt=""/>
-                        <input type="file" name="enterpriseName"/>
-                        <span>(支持png、jpg、gif格式)</span>
-                        <span class="status"></span>
-                    </div>
+                    <div ng-init="data={status:1,response:{},fileA:''}"
+                         ng-model="data.fileA"
+                         default-src="'https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=547758898,887436691&fm=58'"
+                         default-href="'http://www.sina.com'"
+                         input-file status="data.status"
+                         label="合同副本照片"
+                         response="data.response"></div>
                 </div>
                 <div class="form-row">
                     <div class="form-field" ng-init="payStatus=2">
@@ -238,13 +236,13 @@
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-field">
-                        <label class="required"><span>门头照片</span></label>
-                        <img src="" width="100" height="100" alt=""/>
-                        <input type="file" name="enterpriseName"/>
-                        <span>(支持png、jpg、gif格式)</span>
-                        <span class="status"></span>
-                    </div>
+                    <div ng-init="data={status:1,response:{},fileA:''}"
+                         ng-model="data.fileA"
+                         default-src="'https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=547758898,887436691&fm=58'"
+                         default-href="'http://www.sina.com'"
+                         input-file status="data.status"
+                         label="门头照片"
+                         response="data.response"></div>
                 </div>
                 <div class="form-row">
                     <div class="form-field">

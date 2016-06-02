@@ -5,6 +5,7 @@ define(function (require, exports, module) {
     } catch (e) {
         app = angular.module('common.services', []);
     }
+    //文件上传服务
     var uploader = require('common/widget/upload').uploader;
     app.factory('fileService', function () {
         var factory = {};
@@ -21,5 +22,5 @@ define(function (require, exports, module) {
         return factory;
     });
 
-
+   //
 });

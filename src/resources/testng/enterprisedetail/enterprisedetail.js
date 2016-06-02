@@ -1,6 +1,7 @@
 define(function (require, exports, module) {
+    var myApp = angular.module('formApp', ['ngMessages', 'common.directives']);
     require('./refs/directives');
-    var myApp = angular.module('formApp', ['ngMessages','common.directives']);
+
     myApp.controller('form1Controller', ['$scope', function ($scope) {
 
     }]);
@@ -12,6 +13,9 @@ define(function (require, exports, module) {
 
     }]);
     myApp.controller('mainController', ['$scope', '$timeout', function ($scope, $timeout) {
+        $scope.testResult = function () {
+            debugger
+        };
         $scope.saving = false;
         $scope.step = 1;//步骤
         $scope.prevStep = function () {
