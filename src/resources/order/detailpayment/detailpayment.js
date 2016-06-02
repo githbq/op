@@ -265,17 +265,26 @@ define( function(require, exports, module){
 		//设置审批意见
 		setOptions:function(){
 			var me = this,strDom = '';
-			var opinionObj = {'support':'小助手开通','support2':'小助手确认','finance':'财务','sup':'小助手'};
+			var opinionObj = {'support':'小助手开通','support2':'小助手确认','finance':'数据中心','sup':'小助手'};
 			var personStr = "support,support2,finance,sup";
 			
 			var optionsList = me.attrs.orderData.order.rejectReason ? me.attrs.orderData.order.rejectReason.split('<+>'): [];
+
 			for(var i = 0; i<optionsList.length; i++){
 				var tempAry = optionsList[i].split('<->');
-				if(personStr.indexOf(tempAry[0])>-1){
-					tempAry[0] = opinionObj[tempAry[0]];
-				}
+				if( tempAry.length == 5 ){
+	            	if( personStr.indexOf(tempAry[1]) > -1 ){
+	            		tempAry[1] = opinionObj[tempAry[1]];
+	            	}
+	            	tempAry[1] = tempAry[1] + '-' + tempAry[0];
+	            	tempAry = tempAry.slice(1);
+	            }else{
+	            	if(personStr.indexOf(tempAry[0]) > -1) {
+	                	tempAry[0] = opinionObj[tempAry[0]];
+	            	}
+	            }
 				tempAry[2] = (tempAry[2]=='true') ? '同意':'驳回';
-				strDom+='<tr><td>'+tempAry[0]+'</td><td>'+tempAry[1]+'</td><td>'+tempAry[2]+'</td><td>'+tempAry[3]+'</td></tr>'
+				strDom+='<tr><td>'+ tempAry[0] +'</td><td>'+tempAry[1]+'</td><td>'+tempAry[2]+'</td><td>'+tempAry[3]+'</td></tr>'
 			}
 			
 			//判断审批意见

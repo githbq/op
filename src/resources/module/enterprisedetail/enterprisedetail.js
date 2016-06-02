@@ -1602,7 +1602,7 @@ define(function(require, exports, module) {
                                         break;
                                     case "CRM":
                                         strDom += " <p> <span>" + obj['appName'] + "(个)：" + obj['quota'] + "</span>" +
-                                            " <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span>" + enablestatus + "   <input class='off' type='checkbox' name='product' value='" + obj["appId"] + "'> </p>";
+                                            " <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span>" + enablestatus + "   <input class='off' type='checkbox' name='product' typeid='"+obj["quotaType"]+"' value='" + obj["appId"] + "'> </p>";
                                         break;
                                     case "Service_Fee":
                                         strDom += " <p> <span>" + obj['appName'] + "(人)：" + obj['quota'] + "</span>" +
@@ -1636,7 +1636,6 @@ define(function(require, exports, module) {
         //开启或产品
         toggleProduct: function (isEnable) {
             var me = this;
-
             var $input = me.$tbProduct.find('[name="product"]:checked');
 
 
@@ -2039,7 +2038,6 @@ define(function(require, exports, module) {
             }
             if (!me.$('#monitoringDay').is('[added]')) {
                 me.$('#monitoringDay').on('change', function() {
-                    debugger
                     me.$('#monitoringDay').val(me.$('#monitoringDay').val().replace(/[^\d]/g, '')); //数字限定
                     setMonitoringETime();
                 });
