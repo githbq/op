@@ -1,5 +1,6 @@
 define(function(require,exports,module){
     require('./services');
+    require('plugin/uploadpreview');
     var app=null;
     //try{
     //    app=angular.module('common.directives');
@@ -11,11 +12,10 @@ define(function(require,exports,module){
     app.directive('inputFile',['fileService', function(fileService){
         return {
             scope:{label:'@',required:'=',ngModel:'=',status:'=',response:'='},
-            controller:function($scope){
-              debugger
-            },
+            controller:['$scope', function($scope){
+            }],
             link:function(scope, iElem, iAttrs){
-                debugger
+                $('input[type=file]',iElem).uploadPreview({ Callback:null,img: $('img',iElem) });
                 iElem.find('input[type=file]').on('change',function(e){
                     scope.$apply(function($sope){
                         scope.status='uploading';

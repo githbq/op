@@ -8,7 +8,7 @@ define(function (require, exports, module) {
     var uploader = require('common/widget/upload').uploader;
     app.factory('fileService', function () {
         var factory = {};
-        factory.sendFile = function (e,callback) {
+        factory.sendFile = function (e, callback) {
             uploader.send({
                 'url': '/op/api/file/uploadsinglefileandcheck',
                 'files': e.target.files,

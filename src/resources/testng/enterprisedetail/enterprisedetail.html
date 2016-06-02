@@ -3,6 +3,7 @@
         <div ng-init="data={status:1,response:{}}" input-file status="data.status" label="合同副本照片" response="data.response"></div>
         {{data.status}}
         {{data.response}}
+        <button ng-click="testResult()">testResult</button>
         <div ng-if="step==1" ng-controller="mainController"  class="step">
             <div class="top-bar">
                 <h1>第一步&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;企业信息</h1>
