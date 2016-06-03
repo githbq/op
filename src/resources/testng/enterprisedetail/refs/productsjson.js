@@ -1,5 +1,5 @@
 define(function (require, exports, module) {
-    exports = [
+    module.exports = [
         {
             "title": "销客终端",
             "value": 2,
@@ -39,7 +39,7 @@ define(function (require, exports, module) {
                             }
                         },
                         {
-                            "title": "产品原价（元）：",
+                            "title": "产品原价（元）",
                             "element": "span",
                             "name": "productPrice"
                         },
@@ -166,7 +166,7 @@ define(function (require, exports, module) {
                             }
                         },
                         {
-                            "title": "产品原价（元）：",
+                            "title": "产品原价（元）",
                             "element": "span",
                             "name": "productPrice"
                         },
@@ -179,9 +179,6 @@ define(function (require, exports, module) {
                                 "required": true,
                                 "bigDecimal": true
                             }
-                        },
-                        {
-                            "element": "completor"
                         }
                     ]
                 },
@@ -254,7 +251,7 @@ define(function (require, exports, module) {
                             }
                         },
                         {
-                            "title": "产品原价（元）：",
+                            "title": "产品原价（元）",
                             "element": "span",
                             "name": "productPrice"
                         },
@@ -339,7 +336,7 @@ define(function (require, exports, module) {
                             }
                         },
                         {
-                            "title": "产品原价（元）：",
+                            "title": "产品原价（元）",
                             "element": "span",
                             "name": "productPrice"
                         },
@@ -396,7 +393,7 @@ define(function (require, exports, module) {
                         }
                     },
                     {
-                        "title": "产品原价（元）：",
+                        "title": "产品原价（元）",
                         "element": "span",
                         "name": "productPrice"
                     },
@@ -523,7 +520,7 @@ define(function (require, exports, module) {
                         }
                     },
                     {
-                        "title": "产品原价（元）：",
+                        "title": "产品原价（元）",
                         "element": "span",
                         "name": "productPrice"
                     },
@@ -536,9 +533,6 @@ define(function (require, exports, module) {
                             "required": true,
                             "bigDecimal": true
                         }
-                    },
-                    {
-                        "element": "completor"
                     }
                 ]
             },
@@ -611,7 +605,7 @@ define(function (require, exports, module) {
                         }
                     },
                     {
-                        "title": "产品原价（元）：",
+                        "title": "产品原价（元）",
                         "element": "span",
                         "name": "productPrice"
                     },
@@ -696,7 +690,7 @@ define(function (require, exports, module) {
                         }
                     },
                     {
-                        "title": "产品原价（元）：",
+                        "title": "产品原价（元）",
                         "element": "span",
                         "name": "productPrice"
                     },

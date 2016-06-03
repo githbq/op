@@ -1,5 +1,27 @@
 define(function (require, exports, module) {
-    var myApp = angular.module('formApp',['ngMessages']);
+    require('./validatedirectives');
+    var myApp = angular.module('formApp',['ngMessages','common.directives']);
+
+    myApp.controller('testScopeController',['$scope', function($scope){
+
+
+    }]);
+    myApp.directive('directiveDemo',function(){
+        return {
+            restrict:'EA',
+            scope:{name:'@'},
+            transclude:true,
+            controller:['$scope', function($scope){
+                $scope.aaa='123';
+                $scope.say={a:1};
+                debugger
+            }],
+            template:'<div><input type="text" ng-model="aaa"/><span>{{aaa}}</span><div ng-transclude></div> </div>',
+            link:function(scope,iElem,iAttrs,requireCtrl){
+             debugger
+            }
+        }
+    });
 
 
     myApp.controller('testRepeatController',['$scope', function($scope){
