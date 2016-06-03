@@ -10,7 +10,7 @@ define(function (require, exports, module) {
     app.factory('fileService', function () {
         var factory = {};
         factory.sendFile = function (e, callback) {
-            uploader.send({
+            return uploader.send({
                 'url': '/op/api/file/uploadsinglefileandcheck',
                 'files': e.target.files,
                 'options': {

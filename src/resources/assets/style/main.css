@@ -8424,6 +8424,9 @@ em {
   text-align: right;
   display: block;
 }
+.enterprise-panel input[type=text] {
+  width: 200px;
+}
 .enterprise-panel .panel-button .save {
   background-color: #45a4f2;
   border: 1px #2896f0 solid;

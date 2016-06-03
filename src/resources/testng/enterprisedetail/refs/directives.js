@@ -23,7 +23,7 @@ define(function (require, exports, module) {
                                 scope.status = 'uploaded';
                                 $timeout(function () {
                                     scope.status = 'unload';//三秒后结束状态
-                                }, 3000);
+                                }, 2000);
                             } else {
                                 scope.status = 'error';
                             }
@@ -36,4 +36,19 @@ define(function (require, exports, module) {
             template: $(template, '.uploadFile').html()
         }
     }]);
+
+    //循环完成时 事件
+    app.directive('onFinishRenderFilters', ['$timeout', function ($timeout) {
+        return {
+            restrict: 'A',
+            link: function(scope, element, attr) {
+                if (scope.$last === true) {
+                    $timeout(function() {
+                        scope.$emit('ngRepeatFinished');
+                    });
+                }
+            }
+        };
+    }]);
+
 });
