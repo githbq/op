@@ -401,7 +401,7 @@ define(function (require, exports, module) {
                     },
                     {
                         "title": "开始时间",
-                        "element": "input",
+                        "element": "inputTime",
                         "type": "time",
                         "name": "startTime",
                         "validate": {

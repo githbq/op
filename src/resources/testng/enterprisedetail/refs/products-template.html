@@ -32,7 +32,7 @@
 
         .enterprise-panel .product .form .form-row label:first-child {
             display: inline-block;
-            width: 130px;
+            width: 145px;
             text-align: right;
         }
 
@@ -75,7 +75,7 @@
 
         .enterprise-panel .product .s-table td {
             text-align: center;
-            vertical-align: middel;
+            vertical-align: middle;
         }
 
         .enterprise-panel .product .div-inline-block {
@@ -85,9 +85,26 @@
         .enterprise-panel .product .form-field {
             width: 100%;
         }
+
+        .enterprise-panel .product .label-tip {
+            text-align: left;
+        }
+
+        .enterprise-panel .product .form .form-row label:first-child.label-tip {
+            text-align: left;
+        }
+
+        .enterprise-panel .product .form .form-row label:first-child.label-tip span::after {
+            content: "";
+        }
+
+        .enterprise-panel .product .add-button {
+            float: right;
+        }
     </style>
     <div class="product" ng-repeat="product in products track by $index">
         <div class="product-border">
+            <button ng-click="clickMe()"></button>
             <div class="product-content">
                 <div class="product-title">
                     {{product.title}}
@@ -96,34 +113,34 @@
                     <div class="form-row" ng-if="group.content" ng-repeat="field in group.content track by $index">
                         <div class="form-field" ng-class="{'radios-field':field.type=='radio'}" ng-switch="field.element">
                             <div ng-switch-when="salesmen">
-                                <label ng-if="field.title"><span class="title">{{field.title}}</span></label>
-                                <button ng-click="addSalesmen()">添加{{field.title}}</button>
-                                <table class="s-table">
+                                <label class="label-tip" ng-if="field.title"><span class="title">{{field.title}}</span></label>
+                                <a class="add-button"  ng-click="addSalesmen(field.items)">添加{{field.title}}</a>
+                                <table class="s-table" ng-init="field.items=field.items||[]">
                                     <tbody>
                                     <tr ng-repeat="item in field.items track by $index">
                                         <td width="20%" ng-bind="item.name"></td>
                                         <td ng-bind="item.department"></td>
-                                        <td width="40%">
-                                            <span ng-bind="item.inputTitle"></span>
+                                        <td width="15%"><span ng-bind="item.inputTitle"></span></td>
+                                        <td width="20%">
                                             <input type="text" ng-model="item.value" class="input-price-s"/>
                                         </td>
                                         <td width="20%">
-                                            <a ng-click="delete(items,$index)">删除</a>
+                                            <a ng-click="deleteArray(field.items,$index)">删除</a>
                                         </td>
                                     </tr>
                                     </tbody>
                                 </table>
                             </div>
                             <div ng-switch-when="partners">
-                                <label ng-if="field.title"><span class="title">{{field.title}}</span></label>
-                                <button ng-click="addPartners()">添加{{field.title}}</button>
-                                <table class="s-table">
+                                <label class="label-tip" ng-if="field.title"><span class="title">{{field.title}}</span></label>
+                                <a class="add-button" ng-click="addPartners(field.items)">添加{{field.title}}</a>
+                                <table class="s-table" ng-init="field.items=field.items||[]">
                                     <tbody>
                                     <tr ng-repeat="item in field.items track by $index">
                                         <td width="30%" ng-bind="item.name"></td>
                                         <td width="50%" ng-bind="item.department"></td>
                                         <td width="20%">
-                                            <a ng-click="delete(items,$index)">删除</a>
+                                            <a ng-click="deleteArray(field.items,$index)">删除</a>
                                         </td>
                                     </tr>
                                     </tbody>
