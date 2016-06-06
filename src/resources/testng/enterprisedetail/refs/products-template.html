@@ -19,14 +19,14 @@
         }
 
         .products-container .product-content {
-            border: 1px solid gray;
+            /*border: 1px solid gray;*/
         }
 
         .field-group {
-            width: 90%;
-            margin: 15px auto;
+            margin: 0px auto;
+            marign-bottom: 15px;
             border-bottom: 1px solid dimgray;
-            padding: 10px 3px;
+            padding-bottom: 10px;
 
         }
 
@@ -42,38 +42,117 @@
 
         .enterprise-panel .product .form .form-row label.radio-label {
             width: 120px;
-            text-align:left;
-            display:inline-block;
+            text-align: left;
+            display: inline;
         }
+
         .enterprise-panel .product .form .form-row label.radio-label span::after {
-          content:""
+            content: ""
+        }
+
+        .enterprise-panel .product .product-title {
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+            color: black;
+        }
+
+        .enterprise-panel .product .span-radio::after {
+            contetn: '111'
+        }
+
+        .enterprise-panel .product .radios-field {
+            text-align: center;
+        }
+
+        .enterprise-panel .product .form .form-row input[type=text].input-price-s {
+            width: 80px;
+        }
+
+        .enterprise-panel .product .s-table {
+            width: 100%;
+        }
+
+        .enterprise-panel .product .s-table td {
+            text-align: center;
+            vertical-align: middel;
+        }
+
+        .enterprise-panel .product .div-inline-block {
+            display: inline-block;
+        }
+
+        .enterprise-panel .product .form-field {
+            width: 100%;
         }
     </style>
     <div class="product" ng-repeat="product in products track by $index">
         <div class="product-border">
             <div class="product-content">
-                <div class="title">
+                <div class="product-title">
                     {{product.title}}
                 </div>
                 <div ng-if="product.groups" class="field-group form" ng-repeat="group in product.groups track by $index">
                     <div class="form-row" ng-if="group.content" ng-repeat="field in group.content track by $index">
-                        <div class="form-field">
-                            <label ng-if="field.title"><span class="title">{{field.title}}</span></label>
-                            <ng-switch on="field.element">
-                                <ng-switch-when-tag ng-switch-when="input">
-                                    <ng-switch on="field.type">
-                                        <ng-switch-when-tag ng-switch-when="radio">
-                                            <label class="radio-label" ng-repeat="radio in field.items track by $index"> <input type="radio" value="radio.value"/><span ng-bind="radio.title"></span></label>
-                                        </ng-switch-when-tag>
-                                        <ng-switch-when-tag ng-switch-default>
-                                            <input type="{{field.type}}"/>
-                                        </ng-switch-when-tag>
-                                    </ng-switch>
-                                </ng-switch-when-tag>
-                                <ng-switch-when-tag ng-switch-default>
-                                    <input type="text" value="default的"/>
-                                </ng-switch-when-tag>
-                            </ng-switch>
+                        <div class="form-field" ng-class="{'radios-field':field.type=='radio'}" ng-switch="field.element">
+                            <div ng-switch-when="salesmen">
+                                <label ng-if="field.title"><span class="title">{{field.title}}</span></label>
+                                <button ng-click="addSalesmen()">添加{{field.title}}</button>
+                                <table class="s-table">
+                                    <tbody>
+                                    <tr ng-repeat="item in field.items track by $index">
+                                        <td width="20%" ng-bind="item.name"></td>
+                                        <td ng-bind="item.department"></td>
+                                        <td width="40%">
+                                            <span ng-bind="item.inputTitle"></span>
+                                            <input type="text" ng-model="item.value" class="input-price-s"/>
+                                        </td>
+                                        <td width="20%">
+                                            <a ng-click="delete(items,$index)">删除</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div ng-switch-when="partners">
+                                <label ng-if="field.title"><span class="title">{{field.title}}</span></label>
+                                <button ng-click="addPartners()">添加{{field.title}}</button>
+                                <table class="s-table">
+                                    <tbody>
+                                    <tr ng-repeat="item in field.items track by $index">
+                                        <td width="30%" ng-bind="item.name"></td>
+                                        <td width="50%" ng-bind="item.department"></td>
+                                        <td width="20%">
+                                            <a ng-click="delete(items,$index)">删除</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div ng-switch-when="input">
+                                <label ng-if="field.title"><span class="title">{{field.title}}</span></label>
+
+                                <div class="div-inline-block" ng-switch on="field.type">
+                                    <div ng-switch-when="radio">
+                                        <label class="radio-label" ng-repeat="radio in field.items track by $index"> <input name="{{field.name}}" type="radio" value="radio.value"/><span class="span-radio" ng-bind="radio.title"></span></label>
+                                    </div>
+                                    <div ng-switch-default>
+                                        <input type="{{field.type}}"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <dev ng-switch-when="discountor">
+                                <label ng-if="field.title"><span class="title">{{field.title}}</span></label>
+                                <span class="discountor">综合折扣</span><span class="discountor-value" ng-item="field.value"></span>
+                            </dev>
+                            <dev ng-switch-when="span">
+                                <label ng-if="field.title"><span class="title">{{field.title}}</span></label>
+                                <span class="label-field" ng-bind="field.value"></span>
+                            </dev>
+                            <dev ng-switch-default>
+                                <label ng-if="field.title"><span class="title">{{field.title}}</span></label>
+                                <input type="text" value="错误项"/>
+                            </dev>
                         </div>
                     </div>
                 </div>

@@ -82,11 +82,37 @@ define(function (require, exports, module) {
                                 }
                             ],
                             "title": "合作人",
-                            "element": "partners"
+                            "element": "partners",
+                            "items": [
+                                {
+                                    "name": "张三",
+                                    "department": '广州大一部',
+                                    "value":"AAAAAA"
+                                } ,
+                                {
+                                    "name": "李四",
+                                    "department": '北京技术总部',
+                                    "value":"BBBBBBB"
+                                }
+                            ]
                         },
                         {
                             "title": "销售姓名",
-                            "element": "salesmen"
+                            "element": "salesmen" ,
+                            "items": [
+                            {
+                                "name": "张三",
+                                "department": '广州大一部',
+                                "inputTitle":"签约金额",
+                                 "value":"111"
+                            } ,
+                            {
+                                "name": "李四",
+                                "department": '北京技术总部',
+                                "inputTitle":"签约金额",
+                                "value":"2222"
+                            }
+                        ]
                         }
                     ]
                 },
@@ -94,7 +120,8 @@ define(function (require, exports, module) {
                     "content": [
                         {
                             "title": "综合折扣",
-                            "element": "discountor"
+                            "element": "discountor",
+                            "value":"-XXXXX折"
                         }
                     ]
                 },
@@ -168,7 +195,8 @@ define(function (require, exports, module) {
                         {
                             "title": "产品原价（元）",
                             "element": "span",
-                            "name": "productPrice"
+                            "name": "productPrice",
+                            "value":"00000"
                         },
                         {
                             "title": "合同金额（元）",
