@@ -11,13 +11,15 @@ define(function (require, exports, module) {
                 var option = {
                     type: '1',
                     dateFmt: 'yyyy/MM/dd',
-                    onpicked: function () {
+                    onpicked: function (control) {
+                        var value = control.el.value;
                         //取值逻辑
                         if (scope.datetimecontrol.type == '1') {//0开始时间 1为结束时间
-                            scope.ngModel = new Date(iElem.val() + " 23:59:59").getTime();
+                            scope.ngModel = new Date(value + " 23:59:59").getTime();
                         } else {
-                            scope.ngModel = new Date(iElem.val() + " 00:00:00").getTime();
+                            scope.ngModel = new Date(value + " 00:00:00").getTime();
                         }
+                        scope.$apply();
                     }
                 };
                 scope.datetimecontrol = $.extend(option, scope.datetimecontrol);
@@ -26,6 +28,8 @@ define(function (require, exports, module) {
                     $('input', iElem).off('focus').on('focus', function () {//触发控件
                         WdatePicker(scope.datetimecontrol);
                     });
+                } else {
+                    $('input', iElem).attr('disabled', 'disabled');
                 }
             }
         }

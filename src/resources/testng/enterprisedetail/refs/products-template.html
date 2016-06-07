@@ -16,6 +16,7 @@
         .products-container .product-border {
             border: 1px solid #cccccc;
             padding: 10px;
+            overflow:hidden;
         }
 
         .products-container .product-content {
@@ -104,7 +105,6 @@
     </style>
     <div class="product" ng-repeat="product in products track by $index">
         <div class="product-border">
-            <button ng-click="clickMe()"></button>
             <div class="product-content">
                 <div class="product-title">
                     {{product.title}}
@@ -148,17 +148,17 @@
                             </div>
                             <dev ng-switch-when="input">
                                 <label ng-if="field.text"><span class="title">{{field.text}}</span></label>
-                                <input type="text" ng-disabled="field.readonly" ng-model="field.value"/>
+                                <input type="text" ng-disabled="field.readonly" ng-disabled="field.readonly" ng-model="field.value"/>
                             </dev>
                             <div ng-switch-when="radio">
                                 <label ng-if="field.text"><span class="title">{{field.text}}</span></label>
-                                <label class="radio-label" ng-repeat="radio in field.items track by $index"> <input ng-readonly="field.readonly" name="{{field.name}}" type="radio" ng-model="field.value" value="radio.value"/><span class="span-radio" ng-bind="radio.text"></span></label>
+                                <label class="radio-label" ng-repeat="radio in field.items track by $index"> <input ng-disabled="field.readonly" name="{{field.name}}" type="radio" ng-model="field.value" ng-value="{{radio.value}}"/><span class="span-radio" ng-bind="radio.text"></span></label>
                             </div>
                             <div ng-switch-when="inputTime">
                                 <label ng-if="field.text"><span class="title">{{field.text}}</span></label>
 
-                                <div class="div-inline-block" ng-init="ddd={a:1,b:2};datetimecontrolData={};dateDefaultValue={value:1465268677864};">
-                                    <div allow="field.readonly" datetimecontrol="datetimecontrolData" ng-model="ddd.a" default-value="dateDefaultValue.value"></div>
+                                <div class="div-inline-block" ng-init="field.datetimecontrolConfig={}">
+                                    <div allow="!field.readonly" datetimecontrol="field.datetimecontrolConfig" ng-model="field.value" default-value="field.value"></div>
                                 </div>
                             </div>
 
@@ -181,9 +181,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="field-row">
-                </div>
             </div>
         </div>
+    </div>
+    <div class="product">
+        {{products}}
     </div>
 </div>

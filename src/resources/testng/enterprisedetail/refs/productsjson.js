@@ -58,19 +58,20 @@ define(function (require, exports, module) {
                     {
                         "name": "buyType",
                         "type": "radio",
-                        "value": 2,
+                        "readonly":false,
+                        "value": "2",
                         "items": [
                             {
                                 "text": "增数量以及时长",
-                                "value": 1
+                                "value": "1"
                             },
                             {
                                 "text": "仅增数量",
-                                "value": 2
+                                "value": "2"
                             },
                             {
                                 "text": "近增时长",
-                                "value": 3
+                                "value": "3"
                             }
                         ]
                     }
@@ -103,7 +104,7 @@ define(function (require, exports, module) {
                     },
                     {
                         "name": "startTime",
-                        "value": "",
+                        "value": 1466006399000,
                         "text": "开始时间",
                         "type": "inputTime",
                         "readonly": true,
@@ -115,7 +116,7 @@ define(function (require, exports, module) {
                         "text": "结束时间",
                         "type": "inputTime",
                         "required": true,
-                        "readonly": true
+                        "readonly": false
                     },
                     {
                         "name": "productAmount",

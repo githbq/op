@@ -30,7 +30,6 @@ define(function (require, exports, module) {
                             } else {
                                 scope.status = 'error';
                             }
-
                         });
                     });
                 });
