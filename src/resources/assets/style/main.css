@@ -6841,6 +6841,11 @@ em {
 .m-invoiceapplyagent .list-header .toggle b.active {
   background: #eee;
 }
+.m-invoiceapplyagent .list-header .export {
+  display: inline-block;
+  float: right;
+  margin-top: 10px;
+}
 .m-invoiceapplydetail {
   color: #333333;
 }
