@@ -1,742 +1,499 @@
 define(function (require, exports, module) {
-    module.exports = [
-        {
-            "title": "销客终端",
-            "value": 2,
-            "name": "productId",
-            "groups": [
+    module.exports = [{
+        "attr": [
+            {
+                "name": "productId",
+                "value": 1
+            }
+        ],
+        "ajaxLogic": {
+            "ajaxList": [
                 {
-                    "content": [
+                    "id": "getQuotaTime",
+                    "url": "getQuotaTime",
+                    "params": [
                         {
-                            "title": "销客终端用户数",
-                            "element": "input",
-                            "type": "text",
-                            "name": "pkNumber",
-                            "validate": {
-                                "required": true,
-                                "digits": true
-                            }
+                            "dataType": "global",
+                            "name": "enterpriseAccount",
+                            "asName": "enterpriseAccount"
                         },
                         {
-                            "title": "开始时间",
-                            "element": "inputTime",
-                            "type": "time",
-                            "name": "startTime",
-                            "validate": {
-                                "required": true,
-                                "date": true
-                            }
-                        },
-                        {
-                            "title": "结束时间",
-                            "element": "inputTime",
-                            "type": "time",
-                            "name": "endTime",
-                            "validate": {
-                                "required": true,
-                                "date": true,
-                                "greater_than_name": "startTime"
-                            }
-                        },
-                        {
-                            "title": "产品原价（元）",
-                            "element": "span",
-                            "name": "productPrice"
-                        },
-                        {
-                            "title": "合同金额（元）",
-                            "element": "input",
-                            "type": "text",
-                            "name": "amount",
-                            "validate": {
-                                "required": true,
-                                "bigDecimal": true
-                            }
-                        }
-                    ]
-                },
-                {
-                    "content": [
-                        {
-                            "title": "是否自开拓",
-                            "element": "input",
-                            "type": "radio",
-                            "name": "isSelfDev",
-                            "value": 1,
-                            "items": [
-                                {
-                                    "title": "是",
-                                    "value": 1
-                                },
-                                {
-                                    "title": "否",
-                                    "value": 0
-                                }
-                            ]
-                        },
-                        {
-                            "display": [
-                                {
-                                    "name": "isSelfDev",
-                                    "value": "0"
-                                }
-                            ],
-                            "title": "合作人",
-                            "element": "partners",
-                            "items": [
-                                {
-                                    "name": "张三",
-                                    "department": '广州大一部',
-                                    "value":"AAAAAA"
-                                } ,
-                                {
-                                    "name": "李四",
-                                    "department": '北京技术总部',
-                                    "value":"BBBBBBB"
-                                }
-                            ]
-                        },
-                        {
-                            "title": "销售姓名",
-                            "element": "salesmen" ,
-                            "items": [
-                            {
-                                "name": "张三",
-                                "department": '广州大一部',
-                                "inputTitle":"签约金额",
-                                 "value":"111"
-                            } ,
-                            {
-                                "name": "李四",
-                                "department": '北京技术总部',
-                                "inputTitle":"签约金额",
-                                "value":"2222"
-                            }
-                        ]
-                        }
-                    ]
-                },
-                {
-                    "content": [
-                        {
-                            "title": "综合折扣",
-                            "element": "discountor",
-                            "value":"-XXXXX折"
-                        }
-                    ]
-                },
-                {
-                    "display": {
-                        "depend_key": [
-                            {
-                                "name": "isNewBuy",
-                                "value": "0"
-                            }
-                        ],
-                        "depend_name": [
-                            {
-                                "name": "buyType",
-                                "value": "1"
-                            }
-                        ]
-                    },
-                    "content": [
-                        {
-                            "element": "input",
-                            "type": "radio",
-                            "name": "buyType",
-                            "value": 1,
-                            "items": [
-                                {
-                                    "title": "增数量以及时长",
-                                    "value": 1
-                                },
-                                {
-                                    "title": "仅增数量",
-                                    "value": 2
-                                },
-                                {
-                                    "title": "仅增时长",
-                                    "value": 3
-                                }
-                            ]
-                        },
-                        {
-                            "title": "本次增购CRM用户数",
-                            "element": "input",
-                            "type": "text",
-                            "name": "pkNumber",
-                            "validate": {
-                                "required": true,
-                                "digits": true
-                            }
-                        },
-                        {
-                            "title": "开始时间",
-                            "element": "inputTime",
-                            "type": "time",
-                            "name": "startTime",
-                            "validate": {
-                                "required": true,
-                                "date": true
-                            }
-                        },
-                        {
-                            "title": "结束时间",
-                            "element": "inputTime",
-                            "type": "time",
-                            "name": "endTime",
-                            "validate": {
-                                "required": true,
-                                "date": true,
-                                "greater_than_name": "startTime"
-                            }
-                        },
-                        {
-                            "title": "产品原价（元）",
-                            "element": "span",
-                            "name": "productPrice",
-                            "value":"00000"
-                        },
-                        {
-                            "title": "合同金额（元）",
-                            "element": "input",
-                            "type": "text",
-                            "name": "amount",
-                            "validate": {
-                                "required": true,
-                                "bigDecimal": true
-                            }
-                        }
-                    ]
-                },
-                {
-                    "display": {
-                        "depend_key": [
-                            {
-                                "name": "isNewBuy",
-                                "value": "0"
-                            }
-                        ],
-                        "depend_name": [
-                            {
-                                "name": "buyType",
-                                "value": "2"
-                            }
-                        ]
-                    },
-                    "content": [
-                        {
-                            "element": "input",
-                            "type": "radio",
-                            "name": "buyType",
-                            "value": 2,
-                            "items": [
-                                {
-                                    "title": "增数量以及时长",
-                                    "value": 1
-                                },
-                                {
-                                    "title": "仅增数量",
-                                    "value": 2
-                                },
-                                {
-                                    "title": "仅增时长",
-                                    "value": 3
-                                }
-                            ]
-                        },
-                        {
-                            "title": "本次增购CRM用户数",
-                            "element": "input",
-                            "type": "text",
-                            "name": "pkNumber",
-                            "validate": {
-                                "required": true,
-                                "digits": true
-                            }
-                        },
-                        {
-                            "title": "开始时间",
-                            "element": "inputTime",
-                            "type": "time",
-                            "name": "startTime",
-                            "validate": {
-                                "required": true,
-                                "date": true
-                            }
-                        },
-                        {
-                            "title": "结束时间",
-                            "element": "inputTime",
-                            "type": "text",
-                            "name": "endTime",
-                            "readonly": true,
-                            "validate": {
-                                "required": true,
-                                "date": true,
-                                "greater_than_name": "startTime"
-                            }
-                        },
-                        {
-                            "title": "产品原价（元）",
-                            "element": "span",
-                            "name": "productPrice"
-                        },
-                        {
-                            "title": "合同金额（元）",
-                            "element": "input",
-                            "type": "text",
-                            "name": "amount",
-                            "validate": {
-                                "required": true,
-                                "bigDecimal": true
-                            }
-                        }
-                    ]
-                },
-                {
-                    "display": [
-                        {
-                            "key": "isNewBuy",
-                            "value": "0"
-                        },
-                        {
-                            "name": "buyType",
-                            "value": "3"
+                            "dataType": "attr",
+                            "name": "productId",
+                            "asName": "productId"
                         }
                     ],
-                    "content": [
-                        {
-                            "element": "input",
-                            "type": "radio",
-                            "name": "buyType",
-                            "value": 3,
-                            "items": [
-                                {
-                                    "title": "增数量以及时长",
-                                    "value": 1
-                                },
-                                {
-                                    "title": "仅增数量",
-                                    "value": 2
-                                },
-                                {
-                                    "title": "仅增时长",
-                                    "value": 3
-                                }
-                            ]
-                        },
-                        {
-                            "title": "本次增时长CRM用户数",
-                            "element": "input",
-                            "type": "text",
-                            "name": "pkNumber",
-                            "depend_key": "pkNumber",
-                            "validate": {
-                                "required": true,
-                                "digits": true,
-                                "less_than_key": "pkNumber"
+                    "response": {
+                        "events": [
+                            {
+                                "name": "",
+                                "type": "value",
+                                "value": 1,
+                                "groupName": ""
+                            },
+                            {
+                                "name": "",
+                                "type": "action",
+                                "value": "blur",
+                                "groupName": ""
                             }
-                        },
-                        {
-                            "title": "开始时间",
-                            "element": "inputTime",
-                            "type": "time",
-                            "name": "startTime",
-                            "readnoly": true,
-                            "depend_key": "endDate",
-                            "validate": {
-                                "required": true,
-                                "date": true
+                        ],
+                        "return": [
+                            {
+                                "name": "startTime",
+                                "toName": "endTime",
+                                "groupName": "main_5"
                             }
-                        },
-                        {
-                            "title": "结束时间",
-                            "element": "inputTime",
-                            "type": "time",
-                            "name": "endTime",
-                            "readonly": true,
-                            "validate": {
-                                "required": true,
-                                "date": true,
-                                "greater_than_name": "startTime"
-                            }
-                        },
-                        {
-                            "title": "产品原价（元）",
-                            "element": "span",
-                            "name": "productPrice"
-                        },
-                        {
-                            "title": "合同金额（元）",
-                            "element": "input",
-                            "type": "text",
-                            "name": "amount",
-                            "validate": {
-                                "required": true,
-                                "bigDecimal": true
-                            }
-                        }
-                    ]
+                        ]
+                    }
                 }
             ]
-        }
-        ,{
-        "title": "CRM",
-        "value": 1,
-        "name": "productId",
+        },
         "groups": [
             {
-                "content": [
+                "name": "buyType",
+                "type": "attr",
+                "border": false,
+                "fields": [
                     {
-                        "title": "CRM用户数",
-                        "element": "input",
-                        "type": "text",
-                        "name": "pkNumber",
-                        "validate": {
-                            "required": true,
-                            "digits": true
-                        }
-                    },
-                    {
-                        "title": "开始时间",
-                        "element": "inputTime",
-                        "type": "time",
-                        "name": "startTime",
-                        "validate": {
-                            "required": true,
-                            "date": true
-                        }
-                    },
-                    {
-                        "title": "结束时间",
-                        "element": "inputTime",
-                        "type": "time",
-                        "name": "endTime",
-                        "validate": {
-                            "required": true,
-                            "date": true,
-                            "greater_than_name": "startTime"
-                        }
-                    },
-                    {
-                        "title": "产品原价（元）",
-                        "element": "span",
-                        "name": "productPrice"
-                    },
-                    {
-                        "title": "合同金额（元）",
-                        "element": "input",
-                        "type": "text",
-                        "name": "amount",
-                        "validate": {
-                            "required": true,
-                            "bigDecimal": true
-                        }
-                    }
-                ]
-            },
-            {
-                "content": [
-                    {
-                        "title": "是否自开拓",
-                        "element": "input",
-                        "type": "radio",
-                        "name": "isSelfDev",
-                        "value": 1,
-                        "items": [
-                            {
-                                "title": "是",
-                                "value": 1
-                            },
-                            {
-                                "title": "否",
-                                "value": 0
-                            }
-                        ]
-                    },
-                    {
-                        "display": [
-                            {
-                                "name": "isSelfDev",
-                                "value": "0"
-                            }
-                        ],
-                        "title": "合作人",
-                        "element": "partners"
-                    },
-                    {
-                        "title": "销售姓名",
-                        "element": "salesmen"
-                    }
-                ]
-            },
-            {
-                "content": [
-                    {
-                        "title": "综合折扣",
-                        "element": "discountor"
-                    }
-                ]
-            },
-            {
-                "display": {
-                    "depend_key": [
-                        {
-                            "name": "isNewBuy",
-                            "value": "0"
-                        }
-                    ],
-                    "depend_name": [
-                        {
-                            "name": "buyType",
-                            "value": "1"
-                        }
-                    ]
-                },
-                "content": [
-                    {
-                        "element": "input",
-                        "type": "radio",
                         "name": "buyType",
-                        "value": 1,
-                        "items": [
-                            {
-                                "title": "增数量以及时长",
-                                "value": 1
-                            },
-                            {
-                                "title": "仅增数量",
-                                "value": 2
-                            },
-                            {
-                                "title": "仅增时长",
-                                "value": 3
-                            }
-                        ]
-                    },
-                    {
-                        "title": "本次增购CRM用户数",
-                        "element": "input",
-                        "type": "text",
-                        "name": "pkNumber",
-                        "validate": {
-                            "required": true,
-                            "digits": true
-                        }
-                    },
-                    {
-                        "title": "开始时间",
-                        "element": "inputTime",
-                        "type": "time",
-                        "name": "startTime",
-                        "validate": {
-                            "required": true,
-                            "date": true
-                        }
-                    },
-                    {
-                        "title": "结束时间",
-                        "element": "inputTime",
-                        "type": "time",
-                        "name": "endTime",
-                        "validate": {
-                            "required": true,
-                            "date": true,
-                            "greater_than_name": "startTime"
-                        }
-                    },
-                    {
-                        "title": "产品原价（元）",
-                        "element": "span",
-                        "name": "productPrice"
-                    },
-                    {
-                        "title": "合同金额（元）",
-                        "element": "input",
-                        "type": "text",
-                        "name": "amount",
-                        "validate": {
-                            "required": true,
-                            "bigDecimal": true
-                        }
-                    }
-                ]
-            },
-            {
-                "display": {
-                    "depend_key": [
-                        {
-                            "name": "isNewBuy",
-                            "value": "0"
-                        }
-                    ],
-                    "depend_name": [
-                        {
-                            "name": "buyType",
-                            "value": "2"
-                        }
-                    ]
-                },
-                "content": [
-                    {
-                        "element": "input",
                         "type": "radio",
-                        "name": "buyType",
                         "value": 2,
                         "items": [
                             {
-                                "title": "增数量以及时长",
+                                "text": "增数量以及时长",
                                 "value": 1
                             },
                             {
-                                "title": "仅增数量",
+                                "text": "仅增数量",
                                 "value": 2
                             },
                             {
-                                "title": "仅增时长",
+                                "text": "近增时长",
                                 "value": 3
                             }
                         ]
-                    },
-                    {
-                        "title": "本次增购CRM用户数",
-                        "element": "input",
-                        "type": "text",
-                        "name": "pkNumber",
-                        "validate": {
-                            "required": true,
-                            "digits": true
-                        }
-                    },
-                    {
-                        "title": "开始时间",
-                        "element": "inputTime",
-                        "type": "time",
-                        "name": "startTime",
-                        "validate": {
-                            "required": true,
-                            "date": true
-                        }
-                    },
-                    {
-                        "title": "结束时间",
-                        "element": "inputTime",
-                        "type": "text",
-                        "name": "endTime",
-                        "readonly": true,
-                        "validate": {
-                            "required": true,
-                            "date": true,
-                            "greater_than_name": "startTime"
-                        }
-                    },
-                    {
-                        "title": "产品原价（元）",
-                        "element": "span",
-                        "name": "productPrice"
-                    },
-                    {
-                        "title": "合同金额（元）",
-                        "element": "input",
-                        "type": "text",
-                        "name": "amount",
-                        "validate": {
-                            "required": true,
-                            "bigDecimal": true
-                        }
-                    }
-                ]
-            },
-            {
-                "display": [
-                    {
-                        "key": "isNewBuy",
-                        "value": "0"
-                    },
-                    {
-                        "name": "buyType",
-                        "value": "3"
                     }
                 ],
-                "content": [
+                "displayLogics": {
+                    "conditions": [
+                        {
+                            "dataType": "key",
+                            "valueCompare": {
+                                "name": "isNewBuy",
+                                "value": 0
+                            }
+                        }
+                    ],
+                    "result": false
+                }
+            },
+            {
+                "name": "main_1",
+                "type": "main",
+                "border": false,
+                "fields": [
                     {
-                        "element": "input",
+                        "name": "purchaseCount",
+                        "value": "",
+                        "text": "本次CRM用户数",
+                        "type": "input",
+                        "readonly": true,
+                        "required": true
+                    },
+                    {
+                        "name": "startTime",
+                        "value": "",
+                        "text": "开始时间",
+                        "type": "inputTime",
+                        "readonly": true,
+                        "required": true
+                    },
+                    {
+                        "name": "endTime",
+                        "value": "",
+                        "text": "结束时间",
+                        "type": "inputTime",
+                        "required": true,
+                        "readonly": true
+                    },
+                    {
+                        "name": "productAmount",
+                        "value": "",
+                        "text": "产品原价(元)",
+                        "type": "text",
+                        "required": false,
+                        "readonly": true
+                    },
+                    {
+                        "name": "purchaseAmount",
+                        "value": "",
+                        "text": "合同金额(元)",
+                        "type": "text",
+                        "required": false,
+                        "readonly": true
+                    }
+                ],
+                "displayLogics": {
+                    "conditions": [
+                        {
+                            "dataType": "key",
+                            "valueCompare": {
+                                "name": "isNewBuy",
+                                "value": 1
+                            }
+                        }
+                    ],
+                    "result": false
+                }
+            },
+            {
+                "name": "main_2",
+                "type": "main",
+                "border": false,
+                "fields": [
+                    {
+                        "name": "purchaseCount",
+                        "value": "",
+                        "text": "本次CRM用户数",
+                        "type": "input",
+                        "readonly": true,
+                        "required": true
+                    },
+                    {
+                        "name": "startTime",
+                        "value": "",
+                        "text": "开始时间",
+                        "type": "inputTime",
+                        "readonly": true,
+                        "required": true
+                    },
+                    {
+                        "name": "endTime",
+                        "value": "",
+                        "text": "结束时间",
+                        "type": "inputTime",
+                        "required": true,
+                        "readonly": true
+                    },
+                    {
+                        "name": "productAmount",
+                        "value": "",
+                        "text": "产品原价(元)",
+                        "type": "text",
+                        "required": false,
+                        "readonly": true
+                    },
+                    {
+                        "name": "purchaseAmount",
+                        "value": "",
+                        "text": "合同金额(元)",
+                        "type": "text",
+                        "required": false,
+                        "readonly": true
+                    }
+                ],
+                "displayLogics": {
+                    "conditions": [
+                        {
+                            "dataType": "key",
+                            "valueCompare": {
+                                "name": "isNewBuy",
+                                "value": 0
+                            }
+                        },
+                        {
+                            "dataType": "name",
+                            "groupName": "buyType",
+                            "valueCompare": {
+                                "name": "buyType",
+                                "value": 1
+                            }
+                        }
+                    ],
+                    "result": false
+                }
+            },
+            {
+                "name": "main_3",
+                "type": "main",
+                "border": false,
+                "fields": [
+                    {
+                        "name": "purchaseCount",
+                        "value": "",
+                        "text": "本次CRM用户数",
+                        "type": "input",
+                        "readonly": true,
+                        "required": true
+                    },
+                    {
+                        "name": "startTime",
+                        "value": "",
+                        "text": "开始时间",
+                        "type": "inputTime",
+                        "readonly": true,
+                        "required": true
+                    },
+                    {
+                        "name": "endTime",
+                        "value": "",
+                        "text": "结束时间",
+                        "type": "text",
+                        "required": true,
+                        "readonly": true
+                    },
+                    {
+                        "name": "productAmount",
+                        "value": "",
+                        "text": "产品原价(元)",
+                        "type": "text",
+                        "required": false,
+                        "readonly": true
+                    },
+                    {
+                        "name": "purchaseAmount",
+                        "value": "",
+                        "text": "合同金额(元)",
+                        "type": "text",
+                        "required": false,
+                        "readonly": true
+                    }
+                ],
+                "displayLogics": {
+                    "conditions": [
+                        {
+                            "dataType": "key",
+                            "valueCompare": {
+                                "name": "isNewBuy",
+                                "value": 0
+                            }
+                        },
+                        {
+                            "dataType": "name",
+                            "groupName": "buyType",
+                            "valueCompare": {
+                                "name": "buyType",
+                                "value": 2
+                            }
+                        }
+                    ],
+                    "result": false
+                }
+            },
+            {
+                "name": "main_4",
+                "type": "main",
+                "border": false,
+                "fields": [
+                    {
+                        "name": "purchaseCount",
+                        "value": "",
+                        "text": "本次CRM用户数",
+                        "type": "input",
+                        "readonly": true,
+                        "required": true
+                    },
+                    {
+                        "name": "startTime",
+                        "value": "",
+                        "text": "开始时间",
+                        "type": "text",
+                        "readonly": true,
+                        "required": true
+                    },
+                    {
+                        "name": "endTime",
+                        "value": "",
+                        "text": "结束时间",
+                        "type": "inputTime",
+                        "required": true,
+                        "readonly": true
+                    },
+                    {
+                        "name": "productAmount",
+                        "value": "",
+                        "text": "产品原价(元)",
+                        "type": "text",
+                        "required": false,
+                        "readonly": true
+                    },
+                    {
+                        "name": "purchaseAmount",
+                        "value": "",
+                        "text": "合同金额(元)",
+                        "type": "text",
+                        "required": false,
+                        "readonly": true
+                    }
+                ],
+                "displayLogics": {
+                    "conditions": [
+                        {
+                            "dataType": "key",
+                            "valueCompare": {
+                                "name": "isNewBuy",
+                                "value": 0
+                            }
+                        },
+                        {
+                            "dataType": "name",
+                            "groupName": "buyType",
+                            "valueCompare": {
+                                "name": "buyType",
+                                "value": 3
+                            }
+                        }
+                    ],
+                    "result": false
+                }
+            },
+            {
+                "name": "main_5",
+                "type": "main",
+                "border": true,
+                "fields": [
+                    {
+                        "name": "purchaseCount",
+                        "value": "",
+                        "text": "本次CRM用户数",
+                        "type": "text",
+                        "readonly": true,
+                        "required": true
+                    },
+                    {
+                        "name": "startTime",
+                        "value": "",
+                        "text": "开始时间",
+                        "type": "text",
+                        "readonly": true,
+                        "required": true
+                    },
+                    {
+                        "name": "endTime",
+                        "value": "",
+                        "text": "结束时间",
+                        "type": "text",
+                        "required": true,
+                        "readonly": true
+                    },
+                    {
+                        "name": "productAmount",
+                        "value": "",
+                        "text": "产品原价(元)",
+                        "type": "text",
+                        "required": true,
+                        "readonly": true
+                    },
+                    {
+                        "name": "purchaseAmount",
+                        "value": "",
+                        "text": "合同金额(元)",
+                        "type": "text",
+                        "required": false,
+                        "readonly": true
+                    }
+                ],
+                "displayLogics": {
+                    "conditions": [
+                        {
+                            "dataType": "key",
+                            "valueCompare": {
+                                "name": "isNewBuy",
+                                "value": 0
+                            }
+                        },
+                        {
+                            "dataType": "name",
+                            "groupName": "buyType",
+                            "valueCompare": {
+                                "name": "buyType",
+                                "value": 1
+                            }
+                        }
+                    ],
+                    "result": false
+                }
+            },
+            {
+                "name": "isSelfDev",
+                "type": "attr",
+                "border": false,
+                "fields": [
+                    {
+                        "name": "isSelfDev",
                         "type": "radio",
-                        "name": "buyType",
-                        "value": 3,
+                        "value": 2,
                         "items": [
                             {
-                                "title": "增数量以及时长",
+                                "text": "是",
                                 "value": 1
                             },
                             {
-                                "title": "仅增数量",
+                                "text": "否",
                                 "value": 2
-                            },
-                            {
-                                "title": "仅增时长",
-                                "value": 3
                             }
                         ]
-                    },
-                    {
-                        "title": "本次增时长CRM用户数",
-                        "element": "input",
-                        "type": "text",
-                        "name": "pkNumber",
-                        "depend_key": "pkNumber",
-                        "validate": {
-                            "required": true,
-                            "digits": true,
-                            "less_than_key": "pkNumber"
-                        }
-                    },
-                    {
-                        "title": "开始时间",
-                        "element": "inputTime",
-                        "type": "time",
-                        "name": "startTime",
-                        "readnoly": true,
-                        "depend_key": "endDate",
-                        "validate": {
-                            "required": true,
-                            "date": true
-                        }
-                    },
-                    {
-                        "title": "结束时间",
-                        "element": "inputTime",
-                        "type": "time",
-                        "name": "endTime",
-                        "readonly": true,
-                        "validate": {
-                            "required": true,
-                            "date": true,
-                            "greater_than_name": "startTime"
-                        }
-                    },
-                    {
-                        "title": "产品原价（元）",
-                        "element": "span",
-                        "name": "productPrice"
-                    },
-                    {
-                        "title": "合同金额（元）",
-                        "element": "input",
-                        "type": "text",
-                        "name": "amount",
-                        "validate": {
-                            "required": true,
-                            "bigDecimal": true
-                        }
                     }
-                ]
+                ],
+                "displayLogics": {
+                    "conditions": [
+                        {
+                            "dataType": "attr",
+                            "valueCompare": {
+                                "name": "productId",
+                                "value": 1
+                            }
+                        }
+                    ],
+                    "result": false
+                }
+            },
+            {
+                "name": "partner",
+                "type": "attr",
+                "fields": [],
+                "displayLogics": {
+                    "conditions": [
+                        {
+                            "dataType": "name",
+                            "groupName": "isSelfDev",
+                            "valueCompare": {
+                                "name": "isSelfDev",
+                                "value": 1
+                            }
+                        }
+                    ],
+                    "result": false
+                }
+            },
+            {
+                "name": "sales",
+                "type": "attr",
+                "fields": [],
+                "displayLogics": {
+                    "result": true
+                }
+            },
+            {
+                "name": "discount",
+                "type": "attr",
+                "fields": [
+                    {
+                        "name": "discount",
+                        "value": "",
+                        "text": "综合折扣",
+                        "type": "text",
+                        "readonly": true,
+                        "required": false
+                    }
+                ],
+                "displayLogics": {
+                    "result": true
+                }
             }
         ]
-    }
-    ]
+    }];
 
 
 });

@@ -110,11 +110,13 @@
                     {{product.title}}
                 </div>
                 <div ng-if="product.groups" class="field-group form" ng-repeat="group in product.groups track by $index">
-                    <div class="form-row" ng-if="group.content" ng-repeat="field in group.content track by $index">
-                        <div class="form-field" ng-class="{'radios-field':field.type=='radio'}" ng-switch="field.element">
+                    <div class="form-row" ng-if="group.fields" ng-repeat="field in group.fields track by $index">
+                        {{field.type}}
+                        <div class="form-field" ng-class="{'radios-field':field.type=='radio'}" ng-switch="field.type">
+
                             <div ng-switch-when="salesmen">
-                                <label class="label-tip" ng-if="field.title"><span class="title">{{field.title}}</span></label>
-                                <a class="add-button" ng-click="addSalesmen(field.items)">添加{{field.title}}</a>
+                                <label class="label-tip" ng-if="field.text"><span class="title">{{field.text}}</span></label>
+                                <a ng-disabled="field.readonly" class="add-button" ng-click="addSalesmen(field.items)">添加{{field.text}}</a>
                                 <table class="s-table" ng-init="field.items=field.items||[]">
                                     <tbody>
                                     <tr ng-repeat="item in field.items track by $index">
@@ -122,18 +124,18 @@
                                         <td ng-bind="item.department"></td>
                                         <td width="15%"><span ng-bind="item.inputTitle"></span></td>
                                         <td width="20%">
-                                            <input type="text" ng-model="item.value" class="input-price-s"/>
+                                            <input ng-required="field.readonly" ng-readonly="field.readonly" type="text" ng-model="item.value" class="input-price-s"/>
                                         </td>
                                         <td width="20%">
-                                            <a ng-click="deleteArray(field.items,$index)">删除</a>
+                                            <a ng-disabled="field.readonly" ng-click="deleteArray(field.items,$index)">删除</a>
                                         </td>
                                     </tr>
                                     </tbody>
                                 </table>
                             </div>
                             <div ng-switch-when="partners">
-                                <label class="label-tip" ng-if="field.title"><span class="title">{{field.title}}</span></label>
-                                <a class="add-button" ng-click="addPartners(field.items)">添加{{field.title}}</a>
+                                <label class="label-tip" ng-if="field.text"><span class="title">{{field.text}}</span></label>
+                                <a ng-disabled="field.readonly" class="add-button" ng-click="addPartners(field.items)">添加{{field.text}}</a>
                                 <table class="s-table" ng-init="field.items=field.items||[]">
                                     <tbody>
                                     <tr ng-repeat="item in field.items track by $index">
@@ -146,38 +148,32 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div ng-switch-when="input">
-                                <label ng-if="field.title"><span class="title">{{field.title}}</span></label>
-
-                                <div class="div-inline-block" ng-switch on="field.type">
-                                    <div ng-switch-when="radio">
-                                        <label class="radio-label" ng-repeat="radio in field.items track by $index"> <input name="{{field.name}}" type="radio" value="radio.value"/><span class="span-radio" ng-bind="radio.title"></span></label>
-                                    </div>
-                                    <div ng-switch-default>
-                                        <input type="{{field.type}}"/>
-                                    </div>
-                                </div>
+                            <dev ng-switch-when="input">
+                                <label ng-if="field.text"><span class="title">{{field.text}}</span></label>
+                                <input type="text" ng-disabled="field.readonly" ng-model="field.value"/>
+                            </dev>
+                            <div ng-switch-when="radio">
+                                <label ng-if="field.text"><span class="title">{{field.text}}</span></label>
+                                <label class="radio-label" ng-repeat="radio in field.items track by $index"> <input ng-readonly="field.readonly" name="{{field.name}}" type="radio" ng-model="field.value" value="radio.value"/><span class="span-radio" ng-bind="radio.text"></span></label>
                             </div>
                             <div ng-switch-when="inputTime">
-                                <label ng-if="field.title"><span class="title">{{field.title}}</span></label>
-
+                                <label ng-if="field.text"><span class="title">{{field.text}}</span></label>
                                 <div class="div-inline-block" ng-init="ddd={a:1,b:2};datetimecontrolData={};dateDefaultValue={value:1465268677864};">
-                                    <div>
-                                        我是时间控件
-                                        <div datetimecontrol="datetimecontrolData" ng-model="ddd.a" default-value="dateDefaultValue.value"></div>
-                                    </div>
+                                    <div allow="field.readonly" datetimecontrol="datetimecontrolData" ng-model="ddd.a" default-value="dateDefaultValue.value"></div>
                                 </div>
                             </div>
+
+
                             <dev ng-switch-when="discountor">
-                                <label ng-if="field.title"><span class="title">{{field.title}}</span></label>
+                                <label ng-if="field.text"><span class="title">{{field.text}}</span></label>
                                 <span class="discountor">综合折扣</span><span class="discountor-value" ng-item="field.value"></span>
                             </dev>
                             <dev ng-switch-when="span">
-                                <label ng-if="field.title"><span class="title">{{field.title}}</span></label>
+                                <label ng-if="field.text"><span class="title">{{field.text}}</span></label>
                                 <span class="label-field" ng-bind="field.value"></span>
                             </dev>
                             <dev ng-switch-default>
-                                <label ng-if="field.title"><span class="title">{{field.title}}</span></label>
+                                <label ng-if="field.text"><span class="title">{{field.text}}</span></label>
                                 <input type="text" value="错误项"/>
                             </dev>
                         </div>

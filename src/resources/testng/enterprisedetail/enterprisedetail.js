@@ -17,7 +17,7 @@ define(function (require, exports, module) {
 
 
 
-    myApp.directvie('testValidate',function(){
+    myApp.directive('testValidate',function(){
         return {
             scope:{ngModel:'=',condition:'='},
             link:function(scope,iElem,iAttr){
