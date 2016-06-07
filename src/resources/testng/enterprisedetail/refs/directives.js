@@ -3,7 +3,7 @@ define(function (require, exports, module) {
     require('plugin/uploadpreview');
     var app = angular.module('common.directives', ['common.services']);
     require('./datetime-directive');
-
+    require('./select2-directives');//多功能复选框
 
     var template = require('./template.html');
     app.directive('inputFile', ['fileService', '$timeout', function (fileService,$timeout) {

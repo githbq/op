@@ -8424,6 +8424,9 @@ em {
   text-align: right;
   display: block;
 }
+.multiple-select {
+  width: 250px;
+}
 .enterprise-panel input[type=text] {
   width: 200px;
 }

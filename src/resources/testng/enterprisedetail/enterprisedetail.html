@@ -1,81 +1,83 @@
 <div class="p-list enterprise-panel" js="true">
     <div ng-controller="mainController" class="ng-cloak">
         <button ng-click="testResult()">testResult</button>
+        
         <div ng-if="step==1" ng-controller="mainController"  class="step">
             <div class="top-bar">
                 <h1>第一步&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;企业信息</h1>
             </div>
-            <div class="baseinfo form">
+            <div class="baseinfo form" ng-form name="basicForm">
+                <button ng-click="testBasicForm()">测试表单验证</button>
                 <div class="form-row">
                     <h2>基本信息</h2>
                 </div>
                 <div class="form-row">
                     <div class="form-field">
                         <label><span>企业名称</span></label>
-                        <input type="text" name="enterpriseName"/>
+                        <input type="text" name="enterpriseName" ng-maxlength="100"/>
                     </div>
                     <div class="form-field">
                         <label><span>代理区域</span></label>
-                        <input type="text" name="enterpriseName"/>
+                        <input type="text" name="enterpriseName" ng-maxlength="100"/>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-field">
                         <label><span>企业账号</span></label>
-                        <input type="text" name="enterpriseName"/>
+                        <input type="text" name="enterpriseName" ng-maxlength="100"/>
                         <span class="tip">企业账号应为字母开头6-20位由字母数字的组合</span>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-field">
-                        <label><span>企业地址</span></label>
-                        <input select2 ng-model="province" placeholder="请选择省" select2-model="aS2" config="config1" class="form-control multiple-select" type="text"/>
-                        一一<input select2 ng-model="city" placeholder="请选择市" select2-model="aS3" config="config2" class="form-control multiple-select" type="text"/>
-                        一一<input select2 ng-model="city" placeholder="请选择区" select2-model="aS3" config="config2" class="form-control multiple-select" type="text"/>
+                        <label class="required"><span>企业地址</span></label>
+                        <input required select2 name="province" ng-model="province" placeholder="请选择省" select2-model="provinceDataValue" config="provinceConfig" class="form-control multiple-select" type="text"/>
+                        一一<input required select2 name="city" ng-model="city" placeholder="请选择市" select2-model="cityDataValue" config="cityConfig" class="form-control multiple-select" type="text"/>
+                        一一<input required select2 name="area" ng-model="area" placeholder="请选择区" select2-model="areaDataValue" config="areaConfig" class="form-control multiple-select" type="text"/>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-field">
-                        <label></label>
-                        <textarea minlength="5" placeholder="请填写详细地址，不少于5个字" name="" style="width:560px;height:80px;"></textarea>
+                        <label class="required"></label>
+                        <textarea required ng-minlength="5" ng-maxlength="1000"  placeholder="请填写详细地址，不少于5个字" name="" style="width:560px;height:80px;"></textarea>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-field">
-                        <label><span>企业地址</span></label>
-                        <input select2 placeholder="请选择省" ng-model="province" select2-model="aS2" config="config1" class="form-control multiple-select" type="text"/>
-                        一一<input select2 ng-model="city" placeholder="请选择市" select2-model="aS3" config="config2" class="form-control multiple-select" type="text"/>
-                        一一<input select2 ng-model="city" placeholder="请选择区" select2-model="aS3" config="config2" class="form-control multiple-select" type="text"/>
+                        <label class="required"><span>行业</span></label>
+                        <input rquired select2 ng-model="industry1"  placeholder="请选择一级行业" select2-model="industry1DataValue" config="industry1Config" class="form-control multiple-select" type="text"/>
+                        一一<input rquired select2 ng-model="industry2" placeholder="请选择二级行业" select2-model="industry2DataValue" config="industry2Config" class="form-control multiple-select" type="text"/>
+                        一一<input rquired select2 ng-model="industry3" placeholder="请选择三级行业" select2-model="industry3DataValue" config="industry3Config" class="form-control multiple-select" type="text"/>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-field">
                         <label class="required"><span>公司规模</span></label>
-                        <input type="text" name="enterpriseName"/>
+                        <input required select2 ng-model="industry3" placeholder="公司规模" select2-model="industry3DataValue" config="industry3Config" class="form-control multiple-select" type="text"/>
                     </div>
                     <div class="form-field">
                         <label class="required"><span>使用对象类型</span></label>
-                        <input type="text" name="enterpriseName"/>
+                        <input required select2 ng-model="industry3" placeholder="使用对象类型" select2-model="industry3DataValue" config="industry3Config" class="form-control multiple-select" type="text"/>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-field">
                         <label class="required"><span>是否有销售团队</span></label>
-                        <input type="text" name="enterpriseName"/>
+                        <input required select2 ng-model="industry3" placeholder="是否有销售团队" select2-model="industry3DataValue" config="industry3Config" class="form-control multiple-select" type="text"/>
                     </div>
                     <div class="form-field">
                         <label class="required"><span>销售团队规模</span></label>
-                        <input type="text" name="enterpriseName"/>
+                        <input required select2 ng-model="industry3" placeholder="销售团队规模" select2-model="industry3DataValue" config="industry3Config" class="form-control multiple-select" type="text"/>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-field">
                         <label class="required"><span>是否转介绍</span></label>
-                        <input type="text" name="enterpriseName"/>
+                        <input required select2 ng-model="industry3" placeholder="是否转介绍" select2-model="industry3DataValue" config="industry3Config" class="form-control multiple-select" type="text"/>
                     </div>
                     <div class="form-field">
                         <label class="required"><span>是否标杆</span></label>
-                        <input type="text" name="enterpriseName"/>
+                        <input required select2 ng-model="industry3" placeholder="是否标杆" select2-model="industry3DataValue" config="industry3Config" class="form-control multiple-select" type="text"/>
                     </div>
                 </div>
                 <div class="form-row">
@@ -84,17 +86,18 @@
                 <div class="form-row">
                     <div class="form-field">
                         <label class="required"><span>企业负责人姓名</span></label>
-                        <input type="text" name="enterpriseName"/>
+                        <input required ng-maxlength="100" type="text" name="enterpriseOwnerName" ng-model="enterpriseOwnerName"/>
                     </div>
                     <div class="form-field">
                         <label class="required"><span>企业负责人电话</span></label>
-                        <input type="text" name="enterpriseName"/>
+                        <!--ng-pattern="/[a-zA-Z]/"   正则表达式验证-->
+                        <input ng-maxlength="100" required  type="text" name="enterpriseName"/>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-field">
                         <label class="required"><span>企业负责人邮箱</span></label>
-                        <input type="text" name="enterpriseName"/>
+                        <input required type="email" name="enterpriseName"/>
                     </div>
                 </div>
                 <div class="form-row">
@@ -103,21 +106,21 @@
                 <div class="form-row">
                     <div class="form-field">
                         <label class="required"><span>平台管理员</span></label>
-                        <input type="text" name="enterpriseName"/>
+                        <input required ng-maxlength="100" type="text" name="enterpriseName"/>
                     </div>
                     <div class="form-field">
                         <label class="required"><span>平台管理员手机</span></label>
-                        <input type="text" name="enterpriseName"/>
+                        <input type="text" ng-maxlength="100" name="enterpriseName"/>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-field">
                         <label class="required"><span>平台管理员邮箱</span></label>
-                        <input type="text" name="enterpriseName"/>
+                        <input required type="email" ng-maxlength="100" name="enterpriseName"/>
                     </div>
                     <div class="form-field">
                         <label><span>平台管理员QQ</span></label>
-                        <input type="text" name="enterpriseName"/>
+                        <input type="text" ng-maxlength="100" name="enterpriseName"/>
                     </div>
                 </div>
             </div>

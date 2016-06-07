@@ -39,22 +39,28 @@ define(function (require, exports, module) {
     app.controller('appCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
         $scope.config1 = {
             data: [{id: 1, text: '北京'}, {id: 2, text: '上海'}, {id: 3, text: '广东'}, {id: 4, text: '湖北'}],
-            multiple:false,
+            multiple: false,
             placeholder: '尚无数据'
         };
 
-        $scope.config2= {
-            data:  [{id: '1-1', text: '北京市'}, {id: '2-1', text: '上海市'}, {id: '3-1', text: '深圳'}, {id: '4-1', text: '武汉'}, {id: '4-2', text: '黄冈'}],
-            multiple:false,
+        $scope.config2 = {
+            data: [{id: '1-1', text: '北京市'}, {id: '2-1', text: '上海市'}, {id: '3-1', text: '深圳'}, {id: '4-1', text: '武汉'}, {id: '4-2', text: '黄冈'}],
+            multiple: false,
             placeholder: '尚无数据'
         };
-        $scope.province=1;
-        $scope.city='2-1';
-        $scope.$watch('province', function (newValue,oldValue, scope) {
-           alert('province:changed');
+        $scope.province = 1;
+        $scope.city = '2-1';
+        $scope.$watch('province', function (newValue, oldValue, scope) {
+            if (newValue != oldValue) {
+                scope.config2= {
+                    data:  [{id: '1-1', text: '北京市AAA'}, {id: '2-1', text: '上海市BBB'}, {id: '3-1', text: '深圳CCC'}, {id: '4-1', text: '武汉'}, {id: '4-2', text: '黄冈'}],
+                    multiple:false,
+                    placeholder: '尚无数据'
+                };
+            }
             debugger
         }, true);
-        $scope.$watch('city', function (newValue,oldValue, scope) {
+        $scope.$watch('city', function (newValue, oldValue, scope) {
             alert('city:changed');
         }, true);
     }]);
