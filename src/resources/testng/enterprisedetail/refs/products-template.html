@@ -114,7 +114,7 @@
                         <div class="form-field" ng-class="{'radios-field':field.type=='radio'}" ng-switch="field.element">
                             <div ng-switch-when="salesmen">
                                 <label class="label-tip" ng-if="field.title"><span class="title">{{field.title}}</span></label>
-                                <a class="add-button"  ng-click="addSalesmen(field.items)">添加{{field.title}}</a>
+                                <a class="add-button" ng-click="addSalesmen(field.items)">添加{{field.title}}</a>
                                 <table class="s-table" ng-init="field.items=field.items||[]">
                                     <tbody>
                                     <tr ng-repeat="item in field.items track by $index">
@@ -155,6 +155,16 @@
                                     </div>
                                     <div ng-switch-default>
                                         <input type="{{field.type}}"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-switch-when="inputTime">
+                                <label ng-if="field.title"><span class="title">{{field.title}}</span></label>
+
+                                <div class="div-inline-block" ng-init="ddd={a:1,b:2};datetimecontrolData={};dateDefaultValue={value:1465268677864};">
+                                    <div>
+                                        我是时间控件
+                                        <div datetimecontrol="datetimecontrolData" ng-model="ddd.a" default-value="dateDefaultValue.value"></div>
                                     </div>
                                 </div>
                             </div>

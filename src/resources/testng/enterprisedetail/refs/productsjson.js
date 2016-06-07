@@ -19,7 +19,7 @@ define(function (require, exports, module) {
                         },
                         {
                             "title": "开始时间",
-                            "element": "input",
+                            "element": "inputTime",
                             "type": "time",
                             "name": "startTime",
                             "validate": {
@@ -29,7 +29,7 @@ define(function (require, exports, module) {
                         },
                         {
                             "title": "结束时间",
-                            "element": "input",
+                            "element": "inputTime",
                             "type": "time",
                             "name": "endTime",
                             "validate": {
@@ -173,7 +173,7 @@ define(function (require, exports, module) {
                         },
                         {
                             "title": "开始时间",
-                            "element": "input",
+                            "element": "inputTime",
                             "type": "time",
                             "name": "startTime",
                             "validate": {
@@ -183,7 +183,7 @@ define(function (require, exports, module) {
                         },
                         {
                             "title": "结束时间",
-                            "element": "input",
+                            "element": "inputTime",
                             "type": "time",
                             "name": "endTime",
                             "validate": {
@@ -258,7 +258,7 @@ define(function (require, exports, module) {
                         },
                         {
                             "title": "开始时间",
-                            "element": "input",
+                            "element": "inputTime",
                             "type": "time",
                             "name": "startTime",
                             "validate": {
@@ -268,7 +268,7 @@ define(function (require, exports, module) {
                         },
                         {
                             "title": "结束时间",
-                            "element": "input",
+                            "element": "inputTime",
                             "type": "text",
                             "name": "endTime",
                             "readonly": true,
@@ -341,7 +341,7 @@ define(function (require, exports, module) {
                         },
                         {
                             "title": "开始时间",
-                            "element": "input",
+                            "element": "inputTime",
                             "type": "time",
                             "name": "startTime",
                             "readnoly": true,
@@ -353,7 +353,7 @@ define(function (require, exports, module) {
                         },
                         {
                             "title": "结束时间",
-                            "element": "input",
+                            "element": "inputTime",
                             "type": "time",
                             "name": "endTime",
                             "readonly": true,
@@ -411,7 +411,7 @@ define(function (require, exports, module) {
                     },
                     {
                         "title": "结束时间",
-                        "element": "input",
+                        "element": "inputTime",
                         "type": "time",
                         "name": "endTime",
                         "validate": {
@@ -528,7 +528,7 @@ define(function (require, exports, module) {
                     },
                     {
                         "title": "开始时间",
-                        "element": "input",
+                        "element": "inputTime",
                         "type": "time",
                         "name": "startTime",
                         "validate": {
@@ -538,7 +538,7 @@ define(function (require, exports, module) {
                     },
                     {
                         "title": "结束时间",
-                        "element": "input",
+                        "element": "inputTime",
                         "type": "time",
                         "name": "endTime",
                         "validate": {
@@ -612,7 +612,7 @@ define(function (require, exports, module) {
                     },
                     {
                         "title": "开始时间",
-                        "element": "input",
+                        "element": "inputTime",
                         "type": "time",
                         "name": "startTime",
                         "validate": {
@@ -622,7 +622,7 @@ define(function (require, exports, module) {
                     },
                     {
                         "title": "结束时间",
-                        "element": "input",
+                        "element": "inputTime",
                         "type": "text",
                         "name": "endTime",
                         "readonly": true,
@@ -695,7 +695,7 @@ define(function (require, exports, module) {
                     },
                     {
                         "title": "开始时间",
-                        "element": "input",
+                        "element": "inputTime",
                         "type": "time",
                         "name": "startTime",
                         "readnoly": true,
@@ -707,7 +707,7 @@ define(function (require, exports, module) {
                     },
                     {
                         "title": "结束时间",
-                        "element": "input",
+                        "element": "inputTime",
                         "type": "time",
                         "name": "endTime",
                         "readonly": true,

@@ -2,6 +2,9 @@ define(function (require, exports, module) {
     require('./services');
     require('plugin/uploadpreview');
     var app = angular.module('common.directives', ['common.services']);
+    require('./datetime-directive');
+
+
     var template = require('./template.html');
     app.directive('inputFile', ['fileService', '$timeout', function (fileService,$timeout) {
         return {
@@ -36,6 +39,7 @@ define(function (require, exports, module) {
             template: $(template, '.uploadFile').html()
         }
     }]);
+
 
     //循环完成时 事件
     app.directive('onFinishRenderFilters', ['$timeout', function ($timeout) {
