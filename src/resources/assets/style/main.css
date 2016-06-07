@@ -6846,6 +6846,9 @@ em {
   float: right;
   margin-top: 10px;
 }
+.m-invoiceapplyagent .list-header [data-state] {
+  display: none;
+}
 .m-invoiceapplydetail {
   color: #333333;
 }

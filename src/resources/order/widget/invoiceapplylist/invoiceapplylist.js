@@ -192,7 +192,7 @@ define(function (require, exports, module) {
             data.applyDateStart = applyDateStart;
             data.applyDateEnd = applyDateEnd;
 
-            window.open( '/op/api/a/odr/invoice/approval/exportInvoice?'+$.param(data) );
+            window.open( IBSS.API_PATH + '/odr/invoice/approval/exportInvoice?'+$.param(data) );
         },
 
         //刷新审批列表
