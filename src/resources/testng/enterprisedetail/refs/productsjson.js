@@ -239,7 +239,7 @@ define(function (require, exports, module) {
                         "name": "endTime",
                         "value": "",
                         "text": "结束时间",
-                        "type": "text",
+                        "type": "inputTime",
                         "required": true,
                         "readonly": true
                     },
@@ -312,7 +312,7 @@ define(function (require, exports, module) {
                     },
                     {
                         "name": "productAmount",
-                        "value": "",
+                        "value": "999",
                         "text": "产品原价(元)",
                         "type": "text",
                         "required": false,
@@ -373,7 +373,7 @@ define(function (require, exports, module) {
                         "name": "endTime",
                         "value": "",
                         "text": "结束时间",
-                        "type": "text",
+                        "type": "inputTime",
                         "required": true,
                         "readonly": true
                     },
