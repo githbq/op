@@ -5633,6 +5633,10 @@ em {
   text-align: right;
   display: none;
 }
+.m-ent-lst .list-content .void {
+  color: #ccc;
+  cursor: default;
+}
 .m-enterprisedetail {
   /* 审核意见 */
   /*产品信息*/
@@ -6301,6 +6305,12 @@ em {
   line-height: 60px;
   height: 182px;
   font-size: 22px;
+}
+.d-read-clue #time {
+  font-weight: bold;
+}
+.d-read-clue #clue {
+  margin-top: 20px;
 }
 .order-content .nav-box {
   display: inline-block;

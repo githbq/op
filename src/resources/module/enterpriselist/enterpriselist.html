@@ -172,11 +172,11 @@
                         <a class="info-renewyingxiao" data-id="<%=item.enterprise.enterpriseID%>" data-account="<%=item.enterprise.enterpriseAccount%>">续费营销版</a>
                         <% } %>
 						<%if(item.canEditPartner == 1||item.canEditPartner == "1"){%>
-					
-								<a class="info-custom"  data-enterpriseId="<%=item.enterprise.enterpriseID%>">联合跟进人</a>&nbsp;&nbsp;
+							<a class="info-custom"  data-enterpriseId="<%=item.enterprise.enterpriseID%>">联合跟进人</a>&nbsp;&nbsp;
 						<%}else{%>
 							<a  style="color:#ccc;" >联合跟进人</a>&nbsp;&nbsp;
 						<%}%>
+                        <a class="<%=item.clueId?'info-clue':'void'%>" data-clue="<%=item.clueId%>">线索</a>
 						
                     </td>
                     <td></td>

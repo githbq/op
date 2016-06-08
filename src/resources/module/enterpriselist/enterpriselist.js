@@ -33,6 +33,7 @@ define(function(require, exports, module) {
             'click #btnSearch': 'search',
             'click .info-detail': 'detailEve',
             'click .info-trace': 'traceEve',
+            'click .info-clue': 'readClue',
             'click .info-zengbangong': function(e) {
                 this.trigger('zengbangong', $(e.currentTarget).attr('data-id'), $(e.currentTarget).attr('data-account'))
             }, //增购办公版
@@ -342,6 +343,12 @@ define(function(require, exports, module) {
 
             this.trigger('trace', id);
         },
+
+        //查看线索
+        readClue: function(e){
+            var clueID = $(e.currentTarget).attr('data-clue');
+            this.trigger('clue', clueID);
+        }
 
         //渲染至页面
         render: function() {
