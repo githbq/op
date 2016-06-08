@@ -402,8 +402,9 @@ define('common/app', function(require, exports, module){
 
                         IBSS.role = data.value.model;
                         
-                        IBSS.FUNCTIONS = data.value.model.functionCodes.concat(data.value.model.ancientFunctionCodes);
+                        //IBSS.FUNCTIONS = data.value.model.functionCodes.concat(data.value.model.ancientFunctionCodes);
                         
+                        IBSS.FUNCTIONS = data.value.model.moduleCodes;
                         IBSS.MODULES = data.value.model.moduleCodes;
  
 
@@ -441,7 +442,7 @@ define('common/app', function(require, exports, module){
 
 			$el.find('[data-permissions]').each(function(){
 				var $this = $( this ),
-				    codes = $this.attr('data-permissions').split(/\s+/);
+				    codes = $this.attr('data-permissions').split(/[\s,]+/);
 				
 				var bool = false;
 				for( var i = 0; i < IBSS.FUNCTIONS.length ; i++ ){
@@ -482,9 +483,9 @@ define('common/app', function(require, exports, module){
 		setModuleCode: function(){
 			var $nav = $('nav');
 
-			$nav.find('li[data-modulecode]').each(function(){
+			$nav.find('li[data-permissions]').each(function(){
 				var $this = $( this ),
-					codes = $this.attr('data-modulecode').split(/\s+/);
+					codes = $this.attr('data-permissions').split(/[\s,]+/);
 
 				var bool = false;
 				for( var i=0; i < IBSS.MODULES.length ; i++ ){
