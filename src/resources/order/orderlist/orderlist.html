@@ -37,20 +37,6 @@
 						<option value="4">收尾款</option>
                     </select>
                 </label>
-                <!--
-				<label for="">
-                    <span>应用类型</span>
-                    <select name="" ce-model="hasProduct">
-                        <option value="">全部</option>
-						<option value="1">CRM</option>
-                        <option value="4">PK助手</option>
-                        <option value="7">工资助手</option>
-						<option value="5">会议助手</option>
-						<option value="12">自定义助手</option>
-						<option value="3">培训服务费</option>
-                    </select>
-                </label>
-                -->
 				<label for="">
     				<span>提单人</span>
     				<input type="text" ce-model="account">
@@ -79,52 +65,13 @@
                         <option value="1">部分</option>
                     </select>
                 </label>
-
-				<label for="">
-                    <span>是否特批</span>
-                    <select name="" ce-model="isTp">
-                        <option value="">全部</option>
-                        <option value="1">是</option>
-                        <option value="2">否</option>
+                <label for="">
+                    <span>应用类型</span>
+                    <select>
+                        <option value="0">全部</option>
                     </select>
                 </label>
-				<label for="">
-                    <span>审核状态</span>
-                    <select name="" ce-model="approveStatus">
-                        <option value="">全部</option>
-                        <option value="1">待审核</option>
-                        <option value="2">已撤回</option>
-						<option value="3">被驳回</option>
-						<option value="4">已通过</option>
-						<option value="5">申请退款</option>
-                        <option value="6">退款成功</option>
-						<option value="7">退款驳回</option>
-						<option value="8">退款撤回</option>
-                    </select>
-                </label>
-				<label for="">
-                    <span>当前付费状态</span>
-                    <select name="" ce-model="isPayUp">
-                        <option value="">全部</option>
-                        <option value="1">已付清</option>
-                        <option value="2">未付清</option>
-                    </select>
-                </label>
-				<label for="">
-                    <span>提单付费状态</span>
-                    <select name="" ce-model="payStatus">
-                        <option value="">全部</option>
-                        <option value="1">全款</option>
-                        <option value="2">分期</option>
-						<option value="3">未付</option>
-                    </select>
-                </label>
-				<label for="">
-    				<span>优惠码</span>
-    				<input type="text" ce-model="agentId" onchange="this.value=this.value.replace(/\D/g,'')"  maxlength=8>
-    			</label>
-                
-    			<p style="color:#ff5511; text-align:right;">到款之日起三个月可以开发票，超过三个月不允许开发票</p>
+    			<p style="color:#ff5511; text-align:right;">到款之日起三个月可以开发票，超过三个月不允许开发票    到款之日起60天之内仍不能提交合规合同的,复审流程结束,不可再提交</p>
     		</div>
 			
     	</div>
