@@ -34,11 +34,12 @@ define(function(reuqire,exports,module){
             }
         };
     });
-    var FLOAT_REGEXP = /^\-?\d+((\.|\,)\d+)?$/;
+    var FLOAT_REGEXP = '/^\-?\d+((\.|\,)\d+)?$/';
     app.directive('decimal', function() {
         return {
             require : 'ngModel',
             link : function(scope, elm, attrs, ctrl) {
+                 new RegExp()
                 ctrl.$parsers.unshift(function(viewValue) {
                     if (FLOAT_REGEXP.test(viewValue)) {
                         ctrl.$setValidity('float', true);

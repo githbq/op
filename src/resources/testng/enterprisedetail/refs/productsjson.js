@@ -62,7 +62,7 @@ define(function (require, exports, module) {
                         "value": "2",
                         "items": [
                             {
-                                "text": "增数量以及时长",
+                                "text": "数量以及时长",
                                 "value": "1"
                             },
                             {
@@ -70,7 +70,7 @@ define(function (require, exports, module) {
                                 "value": "2"
                             },
                             {
-                                "text": "近增时长",
+                                "text": "仅增时长",
                                 "value": "3"
                             }
                         ]
