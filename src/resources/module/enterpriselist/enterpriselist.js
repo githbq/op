@@ -348,7 +348,7 @@ define(function(require, exports, module) {
         readClue: function(e){
             var clueID = $(e.currentTarget).attr('data-clue');
             this.trigger('clue', clueID);
-        }
+        },
 
         //渲染至页面
         render: function() {
