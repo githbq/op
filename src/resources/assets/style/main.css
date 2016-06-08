@@ -8424,6 +8424,12 @@ em {
   text-align: right;
   display: block;
 }
+.multiple-select {
+  width: 250px;
+}
+.enterprise-panel input[type=text] {
+  width: 200px;
+}
 .enterprise-panel .panel-button .save {
   background-color: #45a4f2;
   border: 1px #2896f0 solid;
@@ -8474,7 +8480,6 @@ em {
 }
 .enterprise-panel .form .form-row .form-field {
   float: left;
-  margin-left: 5px;
 }
 .enterprise-panel .form .form-row .inputs-container {
   overflow: hidden;

@@ -1,0 +1,31 @@
+<div class="uploadFile">
+    <style>
+        .upload-preview-img {
+            border: 1px solid gray;
+            background-color: #f2f2f2;
+        }
+        .upload-preview-a img:hover {
+            box-shadow: 0 0 12px 3px #b0b2ab;
+        }
+        .upload-directive .uploading {
+            color: orange;
+        }
+        .upload-directive .uploaded {
+            color: green;
+        }
+        .upload-directive .uploaderror {
+            color: red;
+        }
+    </style>
+    <div class="form-field upload-directive">
+        <label class="required"><span ng-bind="label"></span></label>
+        <a ng-href="{{href}}" class="upload-preview-a">
+            <img ng-src="{{src}}" class="upload-preview-img" src="" width="100" height="100" alt="{{alt}}"/>
+        </a>
+        <input type="file" name="enterpriseName" accept="image/gif,image/jpeg,image/png"/>
+        <span>(支持png、jpg、gif格式)</span>
+        <span class="status" ng-class="{uploading:status=='uploading',uploaderror:status=='error',uploaded:status=='uploaded'}">
+            {{status=='uploading'?'上传中...请稍等':status=='uploaded'?'上传成功':status=='error'?'上传异常，请重新上传':''}}
+        </span>
+    </div>
+</div>
