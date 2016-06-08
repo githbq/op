@@ -4,13 +4,13 @@
             <h3>
                 <span class="title">审批</span>
                 <span class="toggle">
-                    <b data-state="wait" class="active">我的待审批<span class='state wait-approve' style="z-index:3;">0</span></b><b data-state="going">我的已审批未完成<span class='state going-approve' style="z-index:3;">0</span></b><b data-state="end">我的已完成<span class='state end-approve' style="z-index:3;">0</span></b><b data-state="mygoing" class="limits-show">我的审批中<span class='state mygoing-approve' style="z-index:3;">0</span></b><b data-state="refuse" class="limits-show">我的被驳回<span class="state refuse-approve" style="z-index:3;"></span></b><b data-state="allReject">被驳回(代理商)<span class='state allReject-approve' style="z-index:3;">0</span></b><b data-state="allGoing" >审批中(代理商)<span class='state allGoing-approve' style="z-index:3;">0</span></b><b data-state="allEnd">已完成(代理商)<span class='state allEnd-approve' style="z-index:3;">0</span></b>
+                    <b data-state="wait" class="active" data-permissions="M008031001">我的待审批<span class='state wait-approve' style="z-index:3;">0</span></b><b data-state="going" data-permissions="M008031007">我的已审批未完成<span class='state going-approve' style="z-index:3;">0</span></b><b data-state="end" data-permissions="M008031010">我的已完成<span class='state end-approve' style="z-index:3;">0</span></b><b data-state="mygoing" class="limits-show" data-permissions="M008031027">我的审批中<span class='state mygoing-approve' style="z-index:3;">0</span></b><b data-state="refuse" class="limits-show" data-permissions="M008031013">我的被驳回<span class="state refuse-approve" style="z-index:3;"></span></b><b data-state="allReject" data-permissions="M008031018">被驳回(代理商)<span class='state allReject-approve' style="z-index:3;">0</span></b><b data-state="allGoing" data-permissions="M008031021">审批中(代理商)<span class='state allGoing-approve' style="z-index:3;">0</span></b><b data-state="allEnd" data-permissions="M008031024">已完成(代理商)<span class='state allEnd-approve' style="z-index:3;">0</span></b>
                 </span>
             </h3>
         </div>
         <div class="list-bar">
             <div class="list-bar-btns">
-                <button class="btn-blue btn-search">查询</button>
+                <button class="btn-blue btn-search" data-permissions="M008031028,M008031025,M008031022,M008031019,M008031014,M008031011,M008031008,M008031002">查询</button>
             </div>
             <div class="list-bar-input">
                 <label for="">
@@ -130,9 +130,9 @@
                         <td><%=item.applyTimeStr%></td>
                         <td>
                             <% if( item.canCancel){ %>
-                                <a class="revoke state state-mygoing" data-inid="<%=item.processInstanceId%>">撤销审批</a>
+                                <a class="revoke state state-mygoing" data-inid="<%=item.processInstanceId%>" data-permissions="M008031029">撤销审批</a>
                             <% } %>
-							<a class="detail" data-inid="<%=item.processInstanceId%>">
+							<a class="detail" data-inid="<%=item.processInstanceId%>" data-permissions="M008031030,M008031026,M008031023,M008031020,M008031015,M008031012,M008031009,M008031003">
 								查看
 							</a>
                         </td>

@@ -7,9 +7,9 @@
     	</div>
     	<div class="list-bar">
             <div class="list-bar-btns">
-                <button class="bindall" data-permissions="F008004 F008126 F008054" style="margin-right:10px;">批量分配</button>
-                <button class="export" data-permissions="F008004 F008126 F008062" style="margin-right:10px;">导出</button>
-                <button class="btn-blue search" style="margin-right:10px;" data-permissions="F008061 F008060">查询</button>
+                <button class="bindall" data-permissions="M008033010" style="margin-right:10px;">批量分配</button>
+                <button class="export" data-permissions="M008033011" style="margin-right:10px;">导出</button>
+                <button class="btn-blue search" style="margin-right:10px;" data-permissions="M008033001">查询</button>
                 <a href="" style="visibility:hidden" target="_blank" id="export"> </a>
                 <!--<button class="exportin">导入</button>-->
             </div>
@@ -123,7 +123,7 @@
     			<tbody ce-collection="list">
     				<tr>
                         <td></td>
-						<td><input type="checkbox" class="selectEnt" value="<%=item.enterpriseId%>" data-permissions="F008004 F008126"></td>
+						<td><input type="checkbox" class="selectEnt" value="<%=item.enterpriseId%>" data-permissions="M008033010"></td>
 						<td> <%=item.enterpriseName%> </td>
 						<td> <%=item.enterpriseAccount%> </td>
 						<td> <%=item.agentName%></td>
@@ -134,8 +134,8 @@
 						<td> <%=item.shenheStr%></td>
                         <td> <%=item.huifangStr%></td>
                         <td>
-							<a data-permissions="F008004 F008126 F008054" data-id="<%=item.enterpriseId%>" class="watchent-assgin">分配</a>&nbsp;&nbsp;
-							<a data-id="<%=item.enterpriseId%>" class="watchent-detail">详情</a>&nbsp;&nbsp;
+							<a data-permissions="M008033010" data-id="<%=item.enterpriseId%>" class="watchent-assgin">分配</a>&nbsp;&nbsp;
+							<a data-permissions="M008033002" data-id="<%=item.enterpriseId%>" class="watchent-detail">详情</a>&nbsp;&nbsp;
 						</td>
 						<td></td>
 					</tr>
