@@ -34,24 +34,43 @@ define(function(reuqire,exports,module){
             }
         };
     });
-    var FLOAT_REGEXP = '/^\-?\d+((\.|\,)\d+)?$/';
-    app.directive('decimal', function() {
+    var EMAIL_REGEXP=/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+    app.directive('email', function() {
         return {
             require : 'ngModel',
             link : function(scope, elm, attrs, ctrl) {
-                 new RegExp()
                 ctrl.$parsers.unshift(function(viewValue) {
-                    if (FLOAT_REGEXP.test(viewValue)) {
-                        ctrl.$setValidity('float', true);
+                    if (EMAIL_REGEXP.test(viewValue)) {
+                        ctrl.$setValidity('email', true);
                         return parseFloat(viewValue.replace(',','.'));
                     } else {
-                        ctrl.$setValidity('float', false);
+                        ctrl.$setValidity('email', false);
                         return undefined;
                     }
                 });
             }
         };
     });
+
+
+    //var FLOAT_REGEXP = '/^\-?\d+((\.|\,)\d+)?$/';
+    //app.directive('decimal', function() {
+    //    return {
+    //        require : 'ngModel',
+    //        link : function(scope, elm, attrs, ctrl) {
+    //             new RegExp()
+    //            ctrl.$parsers.unshift(function(viewValue) {
+    //                if (FLOAT_REGEXP.test(viewValue)) {
+    //                    ctrl.$setValidity('float', true);
+    //                    return parseFloat(viewValue.replace(',','.'));
+    //                } else {
+    //                    ctrl.$setValidity('float', false);
+    //                    return undefined;
+    //                }
+    //            });
+    //        }
+    //    };
+    //});
 
 
 

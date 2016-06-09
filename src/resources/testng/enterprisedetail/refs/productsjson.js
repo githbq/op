@@ -99,7 +99,7 @@ define(function (require, exports, module) {
                         "value": "",
                         "text": "本次CRM用户数",
                         "type": "input",
-                        "readonly": true,
+                        "readonly":false,
                         "required": true
                     },
                     {
@@ -107,7 +107,7 @@ define(function (require, exports, module) {
                         "value": 1466006399000,
                         "text": "开始时间",
                         "type": "inputTime",
-                        "readonly": true,
+                        "readonly":false,
                         "required": true
                     },
                     {
@@ -124,7 +124,7 @@ define(function (require, exports, module) {
                         "text": "产品原价(元)",
                         "type": "text",
                         "required": false,
-                        "readonly": true
+                        "readonly":false
                     },
                     {
                         "name": "purchaseAmount",
@@ -132,7 +132,7 @@ define(function (require, exports, module) {
                         "text": "合同金额(元)",
                         "type": "text",
                         "required": false,
-                        "readonly": true
+                        "readonly":false
                     }
                 ],
                 "displayLogics": {
@@ -158,7 +158,7 @@ define(function (require, exports, module) {
                         "value": "",
                         "text": "本次CRM用户数",
                         "type": "input",
-                        "readonly": true,
+                        "readonly":false,
                         "required": true
                     },
                     {
@@ -166,7 +166,7 @@ define(function (require, exports, module) {
                         "value": "",
                         "text": "开始时间",
                         "type": "inputTime",
-                        "readonly": true,
+                        "readonly":false,
                         "required": true
                     },
                     {
@@ -175,7 +175,7 @@ define(function (require, exports, module) {
                         "text": "结束时间",
                         "type": "inputTime",
                         "required": true,
-                        "readonly": true
+                        "readonly":false
                     },
                     {
                         "name": "productAmount",
@@ -183,7 +183,7 @@ define(function (require, exports, module) {
                         "text": "产品原价(元)",
                         "type": "text",
                         "required": false,
-                        "readonly": true
+                        "readonly":false
                     },
                     {
                         "name": "purchaseAmount",
@@ -191,7 +191,7 @@ define(function (require, exports, module) {
                         "text": "合同金额(元)",
                         "type": "text",
                         "required": false,
-                        "readonly": true
+                        "readonly":false
                     }
                 ],
                 "displayLogics": {
@@ -225,7 +225,7 @@ define(function (require, exports, module) {
                         "value": "",
                         "text": "本次CRM用户数",
                         "type": "input",
-                        "readonly": true,
+                        "readonly":false,
                         "required": true
                     },
                     {
@@ -233,7 +233,7 @@ define(function (require, exports, module) {
                         "value": "",
                         "text": "开始时间",
                         "type": "inputTime",
-                        "readonly": true,
+                        "readonly":false,
                         "required": true
                     },
                     {
@@ -242,7 +242,7 @@ define(function (require, exports, module) {
                         "text": "结束时间",
                         "type": "inputTime",
                         "required": true,
-                        "readonly": true
+                        "readonly":false
                     },
                     {
                         "name": "productAmount",
@@ -250,7 +250,7 @@ define(function (require, exports, module) {
                         "text": "产品原价(元)",
                         "type": "text",
                         "required": false,
-                        "readonly": true
+                        "readonly":false
                     },
                     {
                         "name": "purchaseAmount",
@@ -258,7 +258,7 @@ define(function (require, exports, module) {
                         "text": "合同金额(元)",
                         "type": "text",
                         "required": false,
-                        "readonly": true
+                        "readonly":false
                     }
                 ],
                 "displayLogics": {
@@ -292,7 +292,7 @@ define(function (require, exports, module) {
                         "value": "",
                         "text": "本次CRM用户数",
                         "type": "input",
-                        "readonly": true,
+                        "readonly":false,
                         "required": true
                     },
                     {
@@ -300,7 +300,7 @@ define(function (require, exports, module) {
                         "value": "",
                         "text": "开始时间",
                         "type": "text",
-                        "readonly": true,
+                        "readonly":false,
                         "required": true
                     },
                     {
@@ -309,7 +309,7 @@ define(function (require, exports, module) {
                         "text": "结束时间",
                         "type": "inputTime",
                         "required": true,
-                        "readonly": true
+                        "readonly":false
                     },
                     {
                         "name": "productAmount",
@@ -317,7 +317,7 @@ define(function (require, exports, module) {
                         "text": "产品原价(元)",
                         "type": "text",
                         "required": false,
-                        "readonly": true
+                        "readonly":false
                     },
                     {
                         "name": "purchaseAmount",
@@ -325,7 +325,7 @@ define(function (require, exports, module) {
                         "text": "合同金额(元)",
                         "type": "text",
                         "required": false,
-                        "readonly": true
+                        "readonly":false
                     }
                 ],
                 "displayLogics": {
@@ -359,7 +359,7 @@ define(function (require, exports, module) {
                         "value": "",
                         "text": "本次CRM用户数",
                         "type": "text",
-                        "readonly": true,
+                        "readonly":false,
                         "required": true
                     },
                     {
@@ -367,7 +367,7 @@ define(function (require, exports, module) {
                         "value": "",
                         "text": "开始时间",
                         "type": "text",
-                        "readonly": true,
+                        "readonly":false,
                         "required": true
                     },
                     {
@@ -376,7 +376,7 @@ define(function (require, exports, module) {
                         "text": "结束时间",
                         "type": "inputTime",
                         "required": true,
-                        "readonly": true
+                        "readonly":false
                     },
                     {
                         "name": "productAmount",
@@ -384,7 +384,7 @@ define(function (require, exports, module) {
                         "text": "产品原价(元)",
                         "type": "text",
                         "required": true,
-                        "readonly": true
+                        "readonly":false
                     },
                     {
                         "name": "purchaseAmount",
@@ -392,7 +392,7 @@ define(function (require, exports, module) {
                         "text": "合同金额(元)",
                         "type": "text",
                         "required": false,
-                        "readonly": true
+                        "readonly":false
                     }
                 ],
                 "displayLogics": {
@@ -485,7 +485,7 @@ define(function (require, exports, module) {
                         "value": "",
                         "text": "综合折扣",
                         "type": "text",
-                        "readonly": true,
+                        "readonly":false,
                         "required": false
                     }
                 ],

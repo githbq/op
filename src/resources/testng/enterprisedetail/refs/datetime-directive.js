@@ -1,7 +1,7 @@
 define(function (require, exports, module) {
     var app = angular.module('common.directives');
     app.directive('datetimecontrol', function () {
-        //datetimecontrol 填写my97的配置　　　有　dateFmt:定义日期展示的格式化串  type:1　为取值的时候　后面加上23:59:59代表结束时间　不填则为开发时间0:0:0
+        //datetimecontrol 填写my97的配置　　　有　dateFmt:定义日期展示的格式化串  type:1　为取值的时候　后面加上23:59:59代表结束时间　不填则为开始时间00:00:00
         return {
             restrict: 'A',
             template: '<input style="cursor:pointer;" type="text" readonly="readonly" class="datetime-control" ng-model="stringValue"/>',
