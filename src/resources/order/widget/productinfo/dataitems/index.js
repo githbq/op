@@ -11,6 +11,10 @@ define(function (require, exports, module) {
 
 
                     }
+                    if ($ele.attr('data-name') == 'purchaseCount_16') {
+                        //培训助手购买流量不验证
+                        return false;
+                    }
                     if ($ele.is('[readonly],[disabled]')) {
                         return false;
                     }
@@ -22,6 +26,10 @@ define(function (require, exports, module) {
                     } else {
                         $checkbox = $ele.parents('.suborder:last').find('input[type=checkbox]:first');
                         id = $checkbox.val();
+                    }
+                    if ($ele.parents('[data-productid]').attr('data-productid') == '13') {
+                        $checkbox = $('[data-name=useTrainning]');
+                        id = '13';
                     }
                     if ($checkbox && id && $checkbox.length > 0) {
                         if ($checkbox.is(':checked')) {

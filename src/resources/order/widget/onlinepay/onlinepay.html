@@ -1,0 +1,39 @@
+<form class="m-invoicedetail">
+	
+	<h4>基本信息</h4>
+	<section>
+		<p>
+			<span class="title">订单号:</span> <span ce-model="orderid"></span>   
+		</p>
+		<p>
+			<span class="title">企业账号:</span>  <span ce-model="enterpriseAccount"></span>  </p>
+		<p>
+			<span class="title">企业名称:</span> <span ce-model="enterpriseName"></span>
+		</p>
+		<p>
+			<span class="title">充值账号:</span> <span ce-model="payAccount"></span>
+		</p>
+		
+		<p>
+			<span class="title">充值金额(元):</span> <span ce-model="purchaseAmount"></span>
+		</p>
+		<p>
+			<span class="title">充值课时（小时）:</span> <span ce-model="purchaseCount"></span>
+		</p>
+		<p>
+			<span class="title">提单时间:</span> <span ce-model="payTime"></span>
+		</p>
+		<p>
+			<span class="title">付费状态:</span> 
+			<select name="" ce-model="payStatus" disabled=disabled>
+				<option value="1">全款</option>
+				<option value="2">分期</option>
+				<option value="3">未付</option>
+			</select>
+		</p>
+		<p>
+			<span class="title">付款单位/个人名称：</span> <span ce-model=""></span>
+		</p>
+		
+	</section>
+</form>

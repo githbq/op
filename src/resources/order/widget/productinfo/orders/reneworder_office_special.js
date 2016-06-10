@@ -16,6 +16,12 @@ define(function (require, exports, module) {
 
     //转换输入值
     exports.transferDataItem = function (terminalDataItems, tableDataItems, formDataItems, controller,responseData) {//转换数据项
+        controller(terminalDataItems, 'type_13', function (n) {
+            n.visible=true;
+        });
+        controller(terminalDataItems, 'purchaseAmount_13', function (n) {
+            n.visible = false;
+        });
         controller(terminalDataItems,'useFX',function(n){
             n.value = false;
             n.readonly=false;
@@ -27,10 +33,6 @@ define(function (require, exports, module) {
             n.visible = true;
         });
         controller(terminalDataItems, 'purchaseAmount_3', function (n) {
-            n.visible = false;
-        });
-
-        controller(terminalDataItems, 'businesscard', function (n) {
             n.visible = false;
         });
         controller(formDataItems, 'payStatus_name', function (n) {
@@ -46,11 +48,13 @@ define(function (require, exports, module) {
         controller(tableDataItems, 'table_type_wrapper', function (n) {
             n.visible = true;
         });
+        common.setRenewLogic(controller, terminalDataItems, tableDataItems, formDataItems,10,responseData);
         common.setCommonData(controller, terminalDataItems, tableDataItems, formDataItems,10,responseData);
         common.setRenewLogic(controller, terminalDataItems, tableDataItems, formDataItems,10, responseData);
         controller(terminalDataItems,'isrenew',function(n){
             n.value = true;
         });
+
         return {terminalDataItems: terminalDataItems, tableDataItems: tableDataItems, formDataItems: formDataItems};
     }
 

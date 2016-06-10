@@ -21,6 +21,7 @@ define(function (require, exports, module) {
             setTimeout(function () {
                 if (!me.$('.bankno').is('[readonly],[disabled]')) {
                     bankFunc(function (data) {
+                        debugger
                         me.autoSelect = new AutoSelect({data: data});
                         me.autoSelect.resetSelect(me.$('.bankno'));
                     });

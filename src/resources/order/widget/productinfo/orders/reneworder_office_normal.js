@@ -15,7 +15,12 @@ define(function (require, exports, module) {
     };
     //转换输入值
     exports.transferDataItem = function (terminalDataItems, tableDataItems, formDataItems,controller,responseData) {//转换数据项
-
+        controller(terminalDataItems, 'type_13', function (n) {
+            n.visible=false;
+        });
+        controller(terminalDataItems, 'purchaseAmount_13', function (n) {
+            n.visible = false;
+        });
         controller(terminalDataItems,'useFX',function(n){
             n.value = false;
             n.readonly=false;
@@ -29,27 +34,24 @@ define(function (require, exports, module) {
         controller(terminalDataItems,'purchaseAmount_3',function(n){
             n.visible = true;
         });
-
-        controller(terminalDataItems,'businesscard',function(n){
-            n.visible = false;
-        });
         controller(tableDataItems,'type_7',function(n){
             n.value = '3';
         });
         common.setNoGZHelper(controller,terminalDataItems, tableDataItems, formDataItems);
 
-        var arr=['payStatus_select','currPayAmount_1','currPayAmount_8', 'currPayAmount_2', 'currPayAmount_4', 'currPayAmount_5', 'currPayAmount_7'];
+        var arr=['payStatus_select','currPayAmount_1', 'currPayAmount_2', 'currPayAmount_3', 'currPayAmount_4', 'currPayAmount_5', 'currPayAmount_7', 'currPayAmount_13', 'currPayAmount_14', 'currPayAmount_15', 'currPayAmount_16'];
         $(arr).each(function(i,b){
             controller(formDataItems,b,function(n){
                 n.visible = false;
             });
         });
-
+        common.setRenewLogic(controller, terminalDataItems, tableDataItems, formDataItems,9,responseData);
         common.setCommonData(controller, terminalDataItems, tableDataItems, formDataItems,9,responseData);
         common.setRenewLogic(controller, terminalDataItems, tableDataItems, formDataItems, 9, responseData);
         controller(terminalDataItems,'isrenew',function(n){
             n.value = true;
         });
+
         return {terminalDataItems: terminalDataItems, tableDataItems: tableDataItems, formDataItems: formDataItems};
     }
 
