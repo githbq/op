@@ -3,6 +3,9 @@
 }
 
 .enterprise-panel {
+  .form.ng-invalid {
+    border: 3px solid red;
+  }
   .form .ng-pristine.ng-invalid {
     border: 1px solid deepskyblue;
   }
@@ -15,7 +18,10 @@
   input[type=text] {
     width: 200px;
   }
-  input[readonly], textarea[readonly] {
+  .multiple-select.input-l{
+    width:400px;
+  }
+  input.readonly, textarea.readonly {
     border: 1px solid #dddddd;
     background-color: #f4f4f4;
   }

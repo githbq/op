@@ -8427,6 +8427,9 @@ em {
 .multiple-select {
   width: 217px;
 }
+.enterprise-panel .form.ng-invalid {
+  border: 3px solid red;
+}
 .enterprise-panel .form .ng-pristine.ng-invalid {
   border: 1px solid deepskyblue;
 }
@@ -8439,8 +8442,11 @@ em {
 .enterprise-panel input[type=text] {
   width: 200px;
 }
-.enterprise-panel input[readonly],
-.enterprise-panel textarea[readonly] {
+.enterprise-panel .multiple-select.input-l {
+  width: 400px;
+}
+.enterprise-panel input.readonly,
+.enterprise-panel textarea.readonly {
   border: 1px solid #dddddd;
   background-color: #f4f4f4;
 }

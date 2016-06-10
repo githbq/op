@@ -29,7 +29,8 @@ define(function (require, exports, module) {
 
     myApp.controller('mainController', ['$scope', '$timeout', 'select2Query', function ($scope, $timeout, select2Query) {
 
-        $scope.enterpriseReadonly = false;
+        $scope.enterpriseReadonly = false;//企业详情信息 只读
+        $scope.payInfoReadonly = false;//企业详情信息 只读
         $scope.ent = {};//企业详情信息
         $scope.testBasicForm = function () {
             debugger
@@ -44,6 +45,11 @@ define(function (require, exports, module) {
         $scope.provinceDataValue = '';
         $scope.cityDataValue = '';
         $scope.areaDataValue = '';
+        $scope.accountConfig = {
+            data: [{id: 1, text: '111111111111111'}, {id: 2, text: '22222222222'}, {id: 3, text: '3333333333'}, {id: 4, text: '支付宝'}],
+            multiple: false,
+            placeholder: '必须与实际打土温地的单位/个人名称一致'
+        };
         $scope.provinceConfig = {
             data: [{id: 1, text: '北京'}, {id: 2, text: '上海'}, {id: 3, text: '广东'}, {id: 4, text: '湖北'}],
             multiple: false,
@@ -117,7 +123,7 @@ define(function (require, exports, module) {
             debugger
         };
         $scope.saving = false;
-        $scope.step = 1;//步骤
+        $scope.step = 3;//步骤
         $scope.prevStep = function () {
 
 
@@ -125,15 +131,19 @@ define(function (require, exports, module) {
         };
         $scope.nextStep = function () {
             if ($scope.step == 1) {//企业详情界面
-                if ($scope.mainForm.basicForm.$invalid) {
-                    debugger
-                    //$scope.mainForm.basicForm.$setValidity();
-                    $scope.step_1_validate_error=true;
-                    return;
-                }
+                //if ($scope.mainForm.basicForm.$invalid) {
+                //    debugger
+                //    $scope.step_1_validate_error=true;
+                //    return;
+                //}
             }
             $scope.step++;
         };
+
+
+        //支付信息
+
+        //end 支付信息
         $scope.save = function () {
             $scope.saving = true;
             $timeout(function () {

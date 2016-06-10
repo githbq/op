@@ -12,14 +12,14 @@ define( function( require, exports, module ) {
     main.directive('grid',function(){
 		return{
 			restrict: 'E', //E element
-            controller: function( $scope,$element ){
+            controller: ['$scope', '$element', function( $scope,$element ){
 
                 console.log('directive grid controller is working');
                 console.log( $scope );
                 $scope.event = function(){
                     $scope.$emit('msg','helloworld')
                 };
-            },
+            }],
             
             scope:{
                 'data':'=',
@@ -47,7 +47,7 @@ define( function( require, exports, module ) {
     });
 
 	//列表控制器
-	main.controller('orderlist',function($scope){
+	main.controller('orderlist',['$scope', function($scope){
             
         console.log('controller test is working');
         $scope.data = {};
@@ -69,7 +69,7 @@ define( function( require, exports, module ) {
             console.log('get msg');
             console.log(evt);
         })
-    });
+    }]);
 
 
 
