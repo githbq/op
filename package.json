@@ -6,6 +6,10 @@
   "scripts": {
     "test": ""
   },
+  "repository": {
+    "type": "git",
+    "url": "http://git.firstshare.cn/ibss-fe/ibss-op.git"
+  },
   "author": "ibss",
   "license": "BSD-2-Clause",
   "output": "./dest/",

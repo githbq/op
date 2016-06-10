@@ -1,13 +1,13 @@
 <div class="p-list enterprise-panel" js="true">
-    <div ng-controller="mainController" class="ng-cloak" ng-init="bbb=false">
+    <div ng-controller="mainController" class="ng-cloak" ng-init="bbb=false" ng-form name="mainForm">
+        <button ng-click="testBasicForm()">测试表单验证11</button>
         <button ng-attr-abcd="aaaa" ng-click="testResult()">testResult</button>
-
-        <div ng-if="step==1" ng-controller="mainController" class="step">
+        <div ng-if="step==1" ng-controller="form1Controller" class="step">
             <div class="top-bar">
                 <h1>第一步&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;企业信息</h1>
             </div>
-            <div class="baseinfo form" ng-form name="basicForm">
-                <button ng-click="testBasicForm()">测试表单验证</button>
+            <div class="baseinfo form" ng-form name="basicForm" ng-class="{step_validate_error:step_1_validate_error}">
+                <button ng-click="testBasicForm()">测试表单验证222</button>
                 <div class="form-row">
                     <h2>基本信息</h2>
                 </div>
@@ -291,6 +291,7 @@
         <div class="panel-button">
             <button ng-if="step>1" ng-click="prevStep()">上一步</button>
             &nbsp;&nbsp;&nbsp;&nbsp;
+            <!--<button ng-disabled="mainForm.basicForm.$invalid" ng-if="step<3" ng-click="nextStep()">下一步</button>-->
             <button ng-if="step<3" ng-click="nextStep()">下一步</button>
             &nbsp;&nbsp;&nbsp;&nbsp;
             <button ng-if="step==3" class="save" ng-click="save()" ng-class="{saving:saving}">保存</button>

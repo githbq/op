@@ -29,8 +29,8 @@ define(function (require, exports, module) {
 
     myApp.controller('mainController', ['$scope', '$timeout', 'select2Query', function ($scope, $timeout, select2Query) {
 
-        $scope.enterpriseReadonly=false;
-        $scope.ent={};//企业详情信息
+        $scope.enterpriseReadonly = false;
+        $scope.ent = {};//企业详情信息
         $scope.testBasicForm = function () {
             debugger
         };
@@ -61,7 +61,7 @@ define(function (require, exports, module) {
             multiple: false,
             placeholder: '尚无数据'
         };
-        $scope.province=1;
+        $scope.province = 1;
         //$scope.city='2-1';
         $scope.$watch('province', function (newValue, oldValue, scope) {
             //alert('province:changed');
@@ -119,9 +119,19 @@ define(function (require, exports, module) {
         $scope.saving = false;
         $scope.step = 1;//步骤
         $scope.prevStep = function () {
+
+
             $scope.step--;
         };
         $scope.nextStep = function () {
+            if ($scope.step == 1) {//企业详情界面
+                if ($scope.mainForm.basicForm.$invalid) {
+                    debugger
+                    //$scope.mainForm.basicForm.$setValidity();
+                    $scope.step_1_validate_error=true;
+                    return;
+                }
+            }
             $scope.step++;
         };
         $scope.save = function () {

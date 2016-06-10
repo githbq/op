@@ -1,13 +1,23 @@
-.multiple-select{
-  width:217px;
+.multiple-select {
+  width: 217px;
 }
+
 .enterprise-panel {
-  input[type=text]{
-    width:200px;
+  .form .ng-pristine.ng-invalid {
+    border: 1px solid deepskyblue;
   }
-  input[readonly],textarea[readonly]{
-    border:1px solid #dddddd;
-    background-color:#f4f4f4;
+  .form.step_validate_error .ng-invalid {
+    border: 1px solid red;
+  }
+  .form .ng-dirty {
+    border: 1px solid lawngreen;
+  }
+  input[type=text] {
+    width: 200px;
+  }
+  input[readonly], textarea[readonly] {
+    border: 1px solid #dddddd;
+    background-color: #f4f4f4;
   }
   .panel-button {
     .save {
@@ -16,11 +26,11 @@
       color: #fff;
     }
     .saving {
-      &::after{
-      content: '...'
+      &::after {
+        content: '...'
       }
-      background-color:gray;
-      border:1px solid white;
+      background-color: gray;
+      border: 1px solid white;
     }
   }
   .step {
