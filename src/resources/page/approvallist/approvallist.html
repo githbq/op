@@ -69,7 +69,22 @@
                 </div>
             </div>
             <div class="list-content">
-               <grid tabledata="tabledata"></grid>
+               <table class='m-table'>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th ng-repeat='th in tabledata.thead'>{{th}}</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat='tr in tabledata.tbody'>
+                            <td></td>
+                            <td ng-repeat='td in tr'>{{td}}</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
         <div class="list-pager">
