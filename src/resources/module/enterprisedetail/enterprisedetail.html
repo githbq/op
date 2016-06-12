@@ -102,16 +102,16 @@
 			<h4>备注</h4>
 			<p><textarea id="remark" rows="4" class="ed"></textarea></p>
 		</section>
-		<p class="tr f1 f2"><button id="btnSaveBasic" class="btn-blue off" data-permissions="F008070">保存</button></p>
+		<p class="tr f1 f2"><button id="btnSaveBasic" class="btn-blue off" data-permissions="M008009003">保存</button></p>
 	</div>
 	<div class="dtl">
 
 		<!--产品信息-->
-		<section class="accordian collapse f1 f2 f3 f4" data-target="product" data-permissions="M009006003">
+		<section class="accordian collapse f1 f2 f3 f4" data-target="product" data-permissions="M009006003,M008009004">
 			<h4><span class="arraw"></span>产品信息</h4>
 
 			<div class="content" id="tbProduct">
-				<p class="content-action off">
+				<p class="content-action off" data-permissions="M008009005">
 					<button class="u-btn-blue" id="openproduct">开启</button>
 					<button id="closeproduct">关闭</button>
 				</p>
@@ -123,7 +123,7 @@
 		</section>
 		
 		<!--资料审核-->
-		<section class="accordian collapse commonsection" data-target="verification" id="verification" data-permissions="M009006005" >
+		<section class="accordian collapse commonsection" data-target="verification" id="verification" data-permissions="M009006005,M008009006" >
 			<h4><span class="arraw"></span>资料审核</h4>
 			<div class="content">
 
@@ -187,8 +187,8 @@
 					</label>
 				</p>
 				<p class="off btns">
-					<button class="u-btn-blue verificationaction-on" data-permissions="F008050">审核通过</button>
-					<button class="u-btn-red verificationaction-off" data-permissions="F008050">审核驳回</button>
+					<button class="u-btn-blue verificationaction-on" data-permissions="M008009007">审核通过</button>
+					<button class="u-btn-red verificationaction-off" data-permissions="M008009007">审核驳回</button>
 				</p>
 				
 				<!--资料审核上传-->
@@ -236,7 +236,7 @@
 		</section>
 
 		<!--电话回访-->
-		<section class="accordian collapse commonsection off" data-target="callback" id="phonecallback" data-permissions="M009006021">
+		<section class="accordian collapse commonsection off" data-target="callback" id="phonecallback" data-permissions="M009006021,M008009008">
 			<h4><span class="arraw"></span>电话回访</h4>
 			<div class="content">
 				<div class="content-result">
@@ -270,7 +270,7 @@
 						<b id="returnVisitCheckStr"></b>
 					</p>
 					<p class="btns">
-						<button class="callback-actionon u-btn-blue">保存</button>
+						<button class="callback-actionon u-btn-blue" data-permissions="M008009009">保存</button>
 					</p>
 				</div>
 				<div class="content-list tb">
@@ -308,7 +308,7 @@
 		</section>
 
 		<!--代理商信息-->
-		<section class="accordian collapse f1 f2 f3 f4 off" data-target="agent">
+		<section class="accordian collapse f1 f2 f3 f4 off" data-target="agent" data-permissions="M008009012">
 			<h4><span class="arraw"></span>代理商信息</h4>
 			<div class="content">
 				<p>
@@ -326,7 +326,7 @@
 								<span>代理商名称</span>
 								<input id="sbAgentName" type="text" class="g-ipt ipt-s" />
 							</label>
-							<button id="btnSBAgentSearch">查询</button>
+							<button id="btnSBAgentSearch" data-permissions="M008009013">查询</button>
 						</p>
 					</div>
 					<table>
@@ -350,7 +350,7 @@
 
 
 		<!--使用情况-->
-		<section class="accordian collapse f1 f2 f3 f4" id="operationssection" data-target="operations" data-permissions="M009006006">
+		<section class="accordian collapse f1 f2 f3 f4" id="operationssection" data-target="operations" data-permissions="M009006006,M008009015">
 			<h4><span class="arraw"></span>使用情况</h4>
 			<div class="content">
 				<p>
@@ -598,7 +598,7 @@
 
 					</p>
 					<p class="tr off">
-						<button class="btn-blue" id="sBtnChangeStatistics" data-permissions="F008023 F008028 F008029 F008030 F008031 F008032 F008033 F008034 F008035">保存</button>
+						<button class="btn-blue" id="sBtnChangeStatistics" data-permissions="M008009016">保存</button>
 					</p>
 					<table>
 						<thead>
@@ -624,7 +624,7 @@
 
 
 		<!--培训信息-->
-		<section class="accordian collapse f1 f2 f3 f4" id="training" data-target="training" data-permissions="M009006007">
+		<section class="accordian collapse f1 f2 f3 f4" id="training" data-target="training" data-permissions="M009006007,M008009017">
 			<h4><span class="arraw"></span>培训信息</h4>
 			<div class="content">
 				<p>
@@ -645,7 +645,7 @@
 					</label>
 				</p>
 				<p class="training-action">
-					<button class="addTraining" data-permissions="M009006008">+添加培训记录</button>
+					<button class="addTraining" data-permissions="M009006008,M008009018">+添加培训记录</button>
 					<button class="u-btn-blue searchTraining" data-permissions="F009041 F008065">查询</button>
 				</p>
 				<table>
@@ -668,7 +668,7 @@
 							<td><%=item.trainer%></td>
 							<td><%=item.trainingDateStr%></td>
 							<td><%=item.trainingDescription%></td>
-							<td><a data-id="<%=item.id%>" class="edittraining" data-permissions="F009040 F009042 F008066">编辑</a></td>
+							<td><a data-id="<%=item.id%>" class="edittraining" data-permissions="M008009019">编辑</a></td>
 						</tr>
 					</tbody>
 
@@ -678,7 +678,7 @@
 		</section>
 		
 		<!--活跃度-->
-		<section class="accordian collapse f1 f2 f3 f4 off" data-target="activeness">
+		<section class="accordian collapse f1 f2 f3 f4 off" data-target="activeness" data-permissions="M008009020">
 			<h4><span class="arraw"></span>活跃度</h4>
 			<div class="content">
 				<!--<p>-->
@@ -692,7 +692,7 @@
 						<input type="text" id="actStartTime">&nbsp;&nbsp;到&nbsp;&nbsp;<input type="text" id="actEndTime">
 					</label>
 					<p class="tr">
-						<button id="actDownload" class="u-btn-blue">下载活跃度表</button>
+						<button id="actDownload" class="u-btn-blue" data-permissions="M008009021">下载活跃度表</button>
 					</p>
 				</div>
 			</div>
@@ -727,7 +727,7 @@
 		</section>-->
 
 		<!--功能限制-->
-		<section class="accordian collapse f1 f2 f3 f4 off" data-target="functions" data-permissions="F008021">
+		<section class="accordian collapse f1 f2 f3 f4 off" data-target="functions" data-permissions="M008009022">
 			<h4><span class="arraw"></span>功能限制</h4>
 			<div class="content">
 				<p>
@@ -754,13 +754,13 @@
 						<label class="hw"><span>设置上传文件大小限制(M)</span><select id="sUFS"><option value="50">50</option><option value="100">100</option></select></label>
 						<label class="hw"><span>是否允许危险操作</span><select id="sActionDanger"><option value="0">否</option><option value="1">是</option></select></label>
 					</p>
-					<p class="tr"><button id="sBtnChangeFunctions" class="btn-blue" data-permissions="F008026">保存</button></p>
+					<p class="tr"><button id="sBtnChangeFunctions" class="btn-blue" data-permissions="M008009023">保存</button></p>
 				</div>
 			</div>
 		</section>
 
 		<!--短信设置-->
-		<section class="accordian collapse f2 off" data-target="">
+		<section class="accordian collapse f2 off" data-target="" data-permissions="M008009024">
 			<h4><span class="arraw"></span>短信设置</h4>
 			<div class="content">
 				<p>
@@ -780,15 +780,15 @@
 					</label>
 				</p>
 				<p class="off tr">
-					<button class="modifySmsName" data-permissions="F008037">修改企业简称</button>
-					<button class="rebackSms" data-permissions="F008040">收回短信尾号</button>
-					<button class="disSms" data-permissions="F008041">分配短信尾号</button>
+					<button class="modifySmsName" data-permissions="M008009025">修改企业简称</button>
+					<button class="rebackSms" data-permissions="M009009026">收回短信尾号</button>
+					<button class="disSms" data-permissions="M008009027">分配短信尾号</button>
 				</p>
 			</div>
 		</section>
 		
 		<!--名片信息-->
-		<section class="accordian collapse f1 f2 f3 f4 off" data-target="">
+		<section class="accordian collapse f1 f2 f3 f4 off" data-target="" data-permissions="M008009028">
 			<h4><span class="arraw"></span>名片信息</h4>
 			<div class="content">
 				<p>
@@ -833,14 +833,14 @@
 					</label>
 				</p>
 				<p class="f2 off tr"> 
-					<label for=""><button class="btn-card" id="btnCardBuy" data-permissions="F008043">购买</button></label>
-					<label for=""><button class="btn-card" id="btnCardSend" data-permissions="F008042">赠送</button></label>
+					<label for=""><button class="btn-card" id="btnCardBuy" data-permissions="M008009030">购买</button></label>
+					<label for=""><button class="btn-card" id="btnCardSend" data-permissions="M008009029">赠送</button></label>
 				</p>
 			</div>
 		</section>
 
 		<!--名片购买信息-->
-		<section class="accordian collapse f1 f2 f3 f4 off" data-target="card" data-permissions="F008016">
+		<section class="accordian collapse f1 f2 f3 f4 off" data-target="card" data-permissions="M008009031">
 			<h4><span class="arraw"></span>名片购买信息</h4>
 			<div class="content">
 			  <fieldset>
@@ -856,7 +856,7 @@
 				<p>
 					<label><span>时间</span><input  type="text" class="g-ipt ipt-m card-startTime" /></label>
 					<label><span>到</span><input  type="text" class="g-ipt ipt-m card-endTime" /></label>
-					<button id="btnCardList">查询</button>
+					<button id="btnCardList" data-permissions="M008009032">查询</button>
 				</p>
 			  </fieldset>
 			  
@@ -929,12 +929,12 @@
 		</section>-->
 		
 		<!--营销刺激-->
-		<section class="accordian collapse f1 f2 f3 f4 off" data-target="market">
+		<section class="accordian collapse f1 f2 f3 f4 off" data-target="market" data-permissions="M008009033">
 			<h4><span class="arraw"></span>营销刺激</h4>
 			<div class="content">
 				<p><label><span>状态</span><input id="sdMarketingStatus" disabled="disabled" class="g-ipt ipt-l" type="text"></label></p>
 				<div id="tbMarketing" class="tb off">
-					<p class="tr"><button id="sBtnMarketingStop" class="btn-blue" data-permissions="F008038">变更</button></p>
+					<p class="tr"><button id="sBtnMarketingStop" class="btn-blue" data-permissions="M008009034">变更</button></p>
 				</div>
 			</div>
 		</section>
@@ -952,7 +952,7 @@
 		</section>-->
 
 		<!--服务信息-->
-		<section class="accordian collapse f2 off" data-target="">
+		<section class="accordian collapse f2 off" data-target="" data-permissions="M008009035">
 			<h4><span class="arraw"></span>服务信息</h4>
 			<div class="content">
 				<p><label><span>开通时间</span><input id="sdActiveTime" disabled="disabled" class="g-ipt ipt-l" type="text"></label></p>
@@ -960,7 +960,7 @@
 		</section>
 
 		<!--提交人信息-->
-		<section class="accordian collapse f1 f2 f3 f4 off" data-target="">
+		<section class="accordian collapse f1 f2 f3 f4 off" data-target="" data-permissions="M008009036">
 			<h4><span class="arraw"></span>提交人信息</h4>
 			<div class="content">
 				<p>
@@ -973,7 +973,7 @@
 		</section>
 
 		<!--修改人信息-->
-		<section class="accordian collapse f1 f2 f3 f4 off" data-target="">
+		<section class="accordian collapse f1 f2 f3 f4 off" data-target="" data-permissions="M008009037">
 			<h4><span class="arraw"></span>修改人信息</h4>
 			<div class="content">
 				<p>
@@ -986,7 +986,7 @@
 		</section>
 		
 		<!--安全监控-->
-		<section class="accordian collapse off" data-target="monitoring" id="monitoring" data-permissions="M009006022">
+		<section class="accordian collapse off" data-target="monitoring" id="monitoring" data-permissions="M009006022,M008009038">
 			<h4><span class="arraw"></span>安全监控</h4>
 			<div class="content">
 				<p>
@@ -1013,7 +1013,7 @@
 					</label>
 				</p>
 				<p class="detail-btn">
-					<button class="u-btn-blue savemonitoring" data-permissions="F008073">保存</button>
+					<button class="u-btn-blue savemonitoring" data-permissions="M008009039">保存</button>
 				</p>
 				<table>
 					<thead>
@@ -1031,7 +1031,7 @@
 		</section>
 		
 		<!--日志信息-->
-		<section class="accordian collapse f1 f2 f3 f4 off" data-target="log" data-permissions="F008020">
+		<section class="accordian collapse f1 f2 f3 f4 off" data-target="log" data-permissions="M008009040">
 			<h4><span class="arraw"></span>日志信息</h4>
 			<div class="content">
 				<div id="tbLog" class="tb">
@@ -1040,7 +1040,7 @@
 							<label><span>类别</span><select id="sbLogType"></select></label>
 							<label><span>操作时间</span><input id="sbLogST" type="text" class="g-ipt ipt-s" /></label>
 							<label><span>到</span><input id="sbLogET" type="text" class="g-ipt ipt-s" /></label>
-							<button id="sBtnLogSearch">查询</button>
+							<button id="sBtnLogSearch" data-permissions="M008009041">查询</button>
 						</p>
 					</div>
 					<table>
@@ -1090,8 +1090,8 @@
 		
 		<p class="tr">
 			<!--<button id="btnResetAdminPassword" class="f2 off">重置管理员密码</button>-->
-			<button id="btnStopService" class="f2 off" data-permissions="F008048">停用</button>
-			<button id="btnStartService" class="f4 off" data-permissions="F008048">启用</button>
+			<button id="btnStopService" class="f2 off" data-permissions="M008009042">停用</button>
+			<button id="btnStartService" class="f4 off" data-permissions="M008009042">启用</button>
 		</p>
 	</div>
 </div>
