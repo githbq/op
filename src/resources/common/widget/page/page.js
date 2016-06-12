@@ -14,7 +14,7 @@ main.directive('page',function(){
             };
             //上一页
             $scope.prevPage = function(e){
-            	if ($scope.pagenumber <= 1) return;
+            	if ($scope.pagenumber <= 0) return;
             	$scope.pagenumber = $scope.pagenumber - 1;
             	$scope.refresh();
             	$scope.$emit('pagechange',$scope.pagenumber);
@@ -81,7 +81,7 @@ main.directive('page',function(){
 	            //前一页 后一页 
 	            $scope.frontpage = "";
 				$scope.nextpage = "";
-	            if ($scope.pagenumber <= 1 || $scope.total <= 0) {
+	            if ($scope.pagenumber <= 0 || $scope.total <= 0) {
 	                $scope.frontpage = "disabled";
 	            }
 	            if ($scope.pagenumber >= fullPage || $scope.total <= 0) {
