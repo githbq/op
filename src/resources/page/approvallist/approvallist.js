@@ -38,15 +38,16 @@ define( function(require, exports, module){
 		    template: "<table class='m-grid'>"  +
                             "<thead>" +
                                 "<tr>" +
+                                    "<th></th>" +
                                     "<th ng-repeat='th in tabledata.thead'>{{th}}</th>" +
+                                    "<th></th>" +
                                 "</tr>" +
                             "</thead>" +
                             "<tbody>"+
                                 "<tr ng-repeat='tr in tabledata.tbody'>" +
-
+                                    "<td></td>"+
                                     "<td ng-repeat='td in tr'>{{td}}</td>" +
-                                	
-                                	
+                                	"<td></td>"+
                                 "</tr>" +
                             "</tbody>" +
                         "</table>" ,
