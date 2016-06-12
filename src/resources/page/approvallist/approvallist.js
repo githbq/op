@@ -56,7 +56,7 @@ define( function(require, exports, module){
     });
 
 	//审批列表控制器
-	main.controller('approvallist',['$scope', function($scope){
+	main.controller('approvallist',['$scope', '$element', function( $scope , $element ){
             
         console.log('controller approvallist is working');
         $scope.tabledata = {};
@@ -96,11 +96,20 @@ define( function(require, exports, module){
         $scope.pagesize = 20;
         $scope.total = 126;
 
+        //状态变化
+        $scope.state = "wait";
+        $scope.changestate = function( e,state ){
+            $scope.state = state;
 
-        $scope.$on('msg',function(evt){
-            console.log('get msg');
-            console.log(evt);
-        })
+            $element.find('.toggle span').removeClass('active');
+            angular.element(e.target).addClass('active');
+        };
+
+        $scope.$on('pagechange', function( evt , pagenumber ){
+            console.log('pagechange');
+            console.log( pagenumber ); 
+        });
+
     }]);
 
 
