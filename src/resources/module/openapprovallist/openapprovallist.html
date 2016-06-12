@@ -3,7 +3,9 @@
         <div class="list-header">
             <h3>
                 <span class="title">审批</span>
-                <section class="toggle"><span data-state="wait" class="active">我的待审批<b>(<i>0</i>)</b></span><span data-state="going">我的已审批未完成<b>(<i>0</i>)</b></span><span data-state="done">我的已完成<b>(<i>0</i>)</b></span><span data-state="reject">我的驳回<b>(<i>0</i>)</b></span></section>
+                <span class="toggle">
+                    <b data-state="wait" class="active">我的待审批<span class='state wait-approve' style="z-index:3;">0</span></b><b data-state="going">我的已审批未完成<span class='state going-approve' style="z-index:3;">0</span></b><b data-state="end">我的已完成<span class='state end-approve' style="z-index:3;">0</span></b><b data-state="mygoing" class="limits-show">我的审批中<span class='state mygoing-approve' style="z-index:3;">0</span></b><b data-state="refuse" class="limits-show">我的被驳回<span class="state refuse-approve" style="z-index:3;"></span></b><b data-state="allReject">被驳回(代理商)<span class='state allReject-approve' style="z-index:3;">0</span></b><b data-state="allGoing" >审批中(代理商)<span class='state allGoing-approve' style="z-index:3;">0</span></b><b data-state="allEnd">已完成(代理商)<span class='state allEnd-approve' style="z-index:3;">0</span></b>
+                </span>
             </h3>
         </div>
         <div class="list-bar">
@@ -42,30 +44,6 @@
                     <input type="text" ce-model="applicantname">
                 </label>
                 <label>
-                    提单日期 <input type="text" placeholder="开始时间" class="starttime"> ———— <input type="text" placeholder="结束时间" class="endtime">
-                </label>
-                <label>
-                    付费状态
-                    <select name="ffzt" ce-model="payStatus">
-                        <option value="">全部</option>
-                        <option value="1">全款</option>
-                        <option value="2">分期</option>
-                        <option value="3">未付</option>
-                    </select>
-                </label>
-                <label>
-                    所属部门/代理商
-                    <input type="text" ce-model="agentName">
-                </label>
-                <label>
-                    订单状态
-                    <select>
-                        <option value="0">全部</option>
-                        <option value="1">部分</option>
-                    </select>
-                </label>
-                <!--
-                <label>
                     特批单
                     <select name="tpd" ce-model="isTp">
                         <option value="">全部</option>
@@ -73,7 +51,7 @@
                         <option value="2">否</option>
                     </select>
                 </label>
-                -->
+                
                 <!--
                 <label for="">
                     审核状态
@@ -86,12 +64,27 @@
                     </select>
                 </label>
                 -->
-                <!--
+
+                <label>
+                    付费状态
+                    <select name="ffzt" ce-model="payStatus">
+                        <option value="">全部</option>
+                        <option value="1">全款</option>
+                        <option value="2">分期</option>
+                        <option value="3">未付</option>
+                    </select>
+                </label>
+                <label>
+                    提单日期 <input type="text" placeholder="开始时间" class="starttime"> ———— <input type="text" placeholder="结束时间" class="endtime">
+                </label>
+                <label>
+                    代理商
+                    <input type="text" ce-model="agentName">
+                </label>
                 <label>
                     优惠码
                     <input type="text" ce-model="agentId" onchange="this.value=this.value.replace(/\D/g,'')" maxlength=8>
                 </label>
-                -->
             </div>
         </div>
         <div class="list-content">
@@ -105,21 +98,19 @@
                         <th style="width:100px;">账号</th>
                         <th style="width:100px;">订单类型</th>
                         <th style="width:100px;">提单人</th>
-                        <th style="width:100px;">所属部门/代理商</th>
-                        <th style="width:100px;">特批单</th>
-                        <!--<th style="width:100px;">合作单</th>-->
-                        <!--<th style="width:100px;">合作人</th>-->
-						<!--<th style="width:100px;">审批类型</th>-->
-                        <th style="width:110px;">当前审批节点</th>
-                        <th style="width:100px;">付费状态</th>
-                        <th style="width:100px;">订单状态</th>
+                        <th style="width:100px;">代理商</th>
+                        <th style="width:80px;">特批单</th>
+                        <th style="width:80px;">合作单</th>
+                        <th style="width:100px;">合作人</th>
+						<th style="width:100px;">审批类型</th>
+                        <th style="width:140px;" class="state state-wait state-going state-allGoing">当前审批节点</th>
+                        <th style="width:90px;">付费状态</th>
                         <th style="width:100px;">提单日期</th>
                         <th style="width:100px;">操作</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody ce-collection="list">
-                    <!--
                     <tr>
                         <td></td>
                         <td><%=item.orderId%></td>
@@ -146,10 +137,6 @@
 							</a>
                         </td>
                         <td></td>
-                    </tr>
-                    -->
-                    <tr>
-                        <td colspan="15">玩命加载中......</td>
                     </tr>
                 </tbody>
             </table>

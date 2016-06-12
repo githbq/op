@@ -74,7 +74,8 @@ define(function (require, exports, module) {
             'click .btn-search': 'searchEve',
             'click .detail': 'detailEve',
             'click .expressdetail': 'expressDetailEve',
-            'click .revoke': 'revokeEve'
+            'click .revoke': 'revokeEve',
+            'click .export': 'exportEve'
         },
         
         switchEve: function( e ){
@@ -168,6 +169,30 @@ define(function (require, exports, module) {
                     }
                 });
             }
+        },
+        //导出发票
+        exportEve: function(){
+
+            var me = this;
+            var applyDateStart = '';
+            var applyDateEnd = '';
+
+            //提单日期开始
+            if( me.$('#startTime').val() ){
+                applyDateStart = new Date( me.$('#startTime').val() ).getTime();
+            }
+
+            //提单日期结束
+            if( me.$('#endTime').val() ){
+                applyDateEnd = new Date( me.$('#endTime').val() ).getTime();
+            }
+
+
+            var data = me.model.all();
+            data.applyDateStart = applyDateStart;
+            data.applyDateEnd = applyDateEnd;
+
+            window.open( IBSS.API_PATH + '/odr/invoice/approval/exportInvoice?'+$.param(data) );
         },
 
         //刷新审批列表

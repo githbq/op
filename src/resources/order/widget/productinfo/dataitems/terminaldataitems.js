@@ -132,7 +132,6 @@ define(function (require, exports, module) {
         });
 
 
-
         //使用CRM复选框
         dataItems.push(new DataItem({
                 name: 'useCRM',
@@ -246,7 +245,7 @@ define(function (require, exports, module) {
                                 $dom.val('');
                                 return;
                             }
-                        } else if(!$dom.val() ||$dom.val()==='0'){
+                        } else if (!$dom.val() || $dom.val() === '0') {
                             me.o_setValue({name: 'discount_' + n, value: ''});
                             me.o_setValue({name: 'purchaseAmount_' + n, value: 0});
                             me.o_setValue({name: 'purchaseAmount_input_' + n, value: 0});
@@ -547,7 +546,7 @@ define(function (require, exports, module) {
                     startDate: me.o_getFieldValue('startTime_' + id),
                     endDate: me.o_getFieldValue('endTime_' + id),
                     sum: sum,
-                    contractAmount: me.o_getFieldValue('purchaseAmount_' + id)|| me.o_getFieldValue('purchaseAmount_input_' + id) || '0',
+                    contractAmount: me.o_getFieldValue('purchaseAmount_' + id) || me.o_getFieldValue('purchaseAmount_input_' + id) || '0',
 
                     orderType: me.o_getFieldValue('orderType'),
                     hasPurchaseCount: me.o_getFieldValue('old_CRMCount') || '0'
@@ -560,9 +559,9 @@ define(function (require, exports, module) {
                         me.o_setValue({name: 'productAmount_' + id, value: responseData.model.amount});
 
 
-                        if (id == '16' || id == '13' ) {
-                            me.o_setValue({name: 'purchaseAmount_'+id, value: responseData.model.amount});
-                            me.o_setValue({name: 'purchaseAmount_input_'+id, value: responseData.model.amount});
+                        if (id == '16') {
+                            me.o_setValue({name: 'purchaseAmount_' + id, value: responseData.model.amount});
+                            me.o_setValue({name: 'purchaseAmount_input_' + id, value: responseData.model.amount});
                         }
                         checkTypeForPrice.call(me, e, id);
                         priceComput.call(me, e);
@@ -579,7 +578,7 @@ define(function (require, exports, module) {
             }
             else if (options.data.startDate && options.data.endDate) {
 
-                if (options.data.startDate > options.data.endDate && id!=16) {
+                if (options.data.startDate > options.data.endDate && id != 16) {
                     util.showToast('开始日期必须小于等于结束日期');
 
                     if (!me.o_getFieldData('startTime_' + id).__force) {
@@ -588,7 +587,7 @@ define(function (require, exports, module) {
                     if (!me.o_getFieldData('endTime_' + id).__force) {
                         me.o_setValue({name: 'endTime_' + id, value: ''});
                     }
-                } else if(me.o_getFieldValue('allreadonly')!==true){
+                } else if (me.o_getFieldValue('allreadonly') !== true) {
                     options.data.startDate += 1;
                     options.data.endDate += 2;
                     me.attrs.apiPool.api_getCalculateSingle(options);
