@@ -3205,46 +3205,6 @@ audio.fn-hide-abs {
 .xdsoft_scroller_box {
   position: relative;
 }
-.m-pagination span {
-  cursor: pointer;
-  display: inline-block;
-  color: #484848;
-}
-.m-pagination span.disable {
-  color: #adadad;
-  cursor: default;
-}
-.m-pagination .page-totalsize {
-  color: #8E8E8E;
-  font-size: 12px;
-}
-.m-pagination .page-totalsize b {
-  font-weight: normal;
-  color: #2896F0;
-}
-.m-pagination > section {
-  display: inline-block;
-}
-.m-pagination > section > span {
-  cursor: pointer;
-}
-.m-pagination > section > span:hover {
-  text-decoration: underline;
-}
-.m-pagination > section .page-span {
-  display: inline-block;
-  min-width: 16px;
-  height: 16px;
-  line-height: 16px;
-  text-align: center;
-  font-size: 12px;
-  margin: 0 2px;
-}
-.m-pagination > section .page-span.active {
-  color: #2896f0;
-  text-decoration: underline;
-  border-radius: 8px;
-}
 /*!
  * Cropper v0.9.3
  * https://github.com/fengyuanchen/cropper
@@ -6155,6 +6115,89 @@ html[dir="rtl"] .select2-search-choice-close {
   .select2-search input {
     background-position: 100% -21px !important;
   }
+}
+.m-page {
+  background: #fff;
+}
+.m-page span.disable {
+  color: #ccc;
+  border: none;
+}
+.m-page .page-totalsize {
+  color: #8E8E8E;
+  font-size: 12px;
+}
+.m-page .page-totalsize b {
+  color: #2896F0;
+}
+.m-page section {
+  display: inline-block;
+}
+.m-page section span {
+  display: inline-block;
+}
+.m-page section span:hover {
+  background: #eee;
+}
+.m-page section span b {
+  display: block;
+  color: #428bca;
+  border: 1px solid #ddd;
+  margin-left: -1px;
+  cursor: pointer;
+  font-weight: normal;
+  padding: 6px 12px;
+  line-height: 22px;
+}
+.m-page section span b.active {
+  color: #fff;
+  background: #428bca;
+}
+.m-page section span b.disabled {
+  color: #999;
+  background-color: #fff;
+  border-color: #ddd;
+  cursor: not-allowed;
+}
+.m-pagination span {
+  cursor: pointer;
+  display: inline-block;
+  color: #484848;
+}
+.m-pagination span.disable {
+  color: #adadad;
+  cursor: default;
+}
+.m-pagination .page-totalsize {
+  color: #8E8E8E;
+  font-size: 12px;
+}
+.m-pagination .page-totalsize b {
+  font-weight: normal;
+  color: #2896F0;
+}
+.m-pagination > section {
+  display: inline-block;
+}
+.m-pagination > section > span {
+  cursor: pointer;
+}
+.m-pagination > section > span:hover {
+  text-decoration: underline;
+}
+.m-pagination > section .page-span {
+  display: inline-block;
+  min-width: 16px;
+  height: 16px;
+  line-height: 16px;
+  text-align: center;
+  font-size: 12px;
+  margin: 0 2px;
+}
+.m-pagination > section .page-span.active {
+  color: #2896f0;
+  text-decoration: underline;
+  border-radius: 8px;
 }
 .ui-slider .con {
   padding-top: 20px;

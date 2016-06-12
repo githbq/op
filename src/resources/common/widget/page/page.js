@@ -1,10 +1,10 @@
-var main = angular.module('list');
+var main = angular.module('common',[]);
 
 //分页组件 ??传递事件
 main.directive('page',function(){
 	return{
 		restrict: 'E', //E element
-        controller: function( $scope,$element ){
+        controller: ['$scope', '$element', function( $scope,$element ){
 
         	var omit="..."; //省略标识
 
@@ -90,7 +90,7 @@ main.directive('page',function(){
             };
 
             $scope.refresh();
-        },
+        }],
         
         scope:{
             'pagesize': '@',         //获取每页条数
