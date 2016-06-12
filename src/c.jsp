@@ -20,8 +20,8 @@
         <div class="person-loginout">
 
             <a href="#page/changepwd" data-permissions="F011052">修改密码</a>
-            <a href="#filing/setleader" data-permissions="F011053">设置上级</a>
-            <a href="#filing/setuser">用户列表</a>
+            <!--<a href="#filing/setleader" data-permissions="F011053">设置上级</a>
+            <a href="#filing/setuser">用户列表</a>-->
             <a href="#filing/backquestion" data-permissions="F011054">反馈</a>
             <a href="/logout?from=/op/c" data-permissions="F011055">退出</a>
         </div>
