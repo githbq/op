@@ -3,6 +3,8 @@ define( function( require, exports, module ) {
         TplEvent = IBSS.tplEvent;
 
     var Pagination = require('common/widget/pagination/pagination');
+    var Dialog = require('common/widget/dialog/dialog');
+
     //var Slider = require('common/widget/slider/slider');
     var DetailApproval = require('../detailapproval/detailapproval');
 	var DetailPayment = require('../detailpayment/detailpayment');
@@ -23,11 +25,24 @@ define( function( require, exports, module ) {
                         '营销版续费-普通','营销版续费-特批','关联自注册办公版-普通','关联自注册办公版-特批',
                         '关联自注册营销版-普通','关联自注册营销版-特批','收尾款'
                         ];
-   /**
-    *
-    * 代理商用户
-    * 备案企业列表
-    */
+    
+    //到款认领
+    var Claim = MClass( Dialog ).include({
+        init: function(){
+            Claim.__super__.init.apply( this, arguments );
+        },
+        show: function(){
+            Claim.__super__.show.apply( this, arguments );
+        },
+        hide: function(){
+            Claim.__super__.hide.apply( this, arguments );
+        }
+    });
+
+
+    //
+    // 代理商用户
+    // 备案企业列表
     var OrderList = MClass( M.Center ).include({
 
     	init: function(){
