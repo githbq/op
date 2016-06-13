@@ -7,14 +7,7 @@ define(function (require, exports, module) {
                 scope: {},
                 template: require('./products-template.html'),
                 link: function (scope, iElem, iAttrs) {
-
                     scope.testGroup = function () {
-                        debugger
-
-
-                    };
-                    scope.testGroup = function () {
-                        debugger
 
 
                     };
@@ -22,7 +15,6 @@ define(function (require, exports, module) {
 
                     //产品逻辑
                     scope.$watch('products', function (newValue, oldValue, scope) {
-                        debugger
                         productLogic();
                         console.log('products changed')
                     }, true);

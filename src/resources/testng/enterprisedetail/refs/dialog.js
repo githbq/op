@@ -39,7 +39,7 @@ define(function (require, exports, module) {
         },
         hide: function () {
             var me = this;
-            PageDialog.__super__.hide.apply(this, arguments);
+            PageDialog.__super__.remove.apply(this, arguments);
 
         },
         bootstrap: function (requires,callback) {

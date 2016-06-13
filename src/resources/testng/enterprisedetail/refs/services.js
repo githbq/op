@@ -23,4 +23,19 @@ define(function (require, exports, module) {
     });
 
    //
+
+    app.factory('industryService', function () {
+        var factory = {};
+        factory.sendFile = function (e, callback) {
+            return uploader.send({
+                'url': '/op/api/file/uploadsinglefileandcheck',
+                'files': e.target.files,
+                'options': {
+                    'limittype': 'IMAGE'
+                },
+                'success': callback
+            });
+        };
+        return factory;
+    });
 });

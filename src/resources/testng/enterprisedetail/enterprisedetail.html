@@ -1,5 +1,5 @@
 <div class="p-list enterprise-panel" js="true">
-    <script src="http://rap.firstshare.cn/rap.plugin.js?projectId=57"></script>
+
     <div ng-controller="mainController" class="ng-cloak" ng-init="bbb=false" ng-form name="mainForm">
         <button ng-click="testBasicForm()">测试表单验证11</button>
         <button ng-attr-abcd="aaaa" ng-click="testResult()">testResult</button>
@@ -32,9 +32,9 @@
                 <div class="form-row">
                     <div class="form-field">
                         <label class="required"><span>企业地址</span></label>
-                        <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 name="province" ng-model="province" placeholder="请选择省" select2-model="provinceDataValue" config="provinceConfig" class="form-control multiple-select" type="text"/>
-                        一一<input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 name="city" ng-model="city" placeholder="请选择市" select2-model="cityDataValue" config="cityConfig" class="form-control multiple-select" type="text"/>
-                        一一<input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 name="area" ng-model="area" placeholder="请选择区" select2-model="areaDataValue" config="areaConfig" class="form-control multiple-select" type="text"/>
+                        <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 name="province" ng-model="entInfo.province" placeholder="请选择省" select2-model="entInfo.provinceDataValue" config="provinceConfig" class="form-control multiple-select" type="text"/>
+                        一一<input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 name="city" ng-model="entInfo.city" placeholder="请选择市" select2-model="entInfo.cityDataValue" config="cityConfig" class="form-control multiple-select" type="text"/>
+                        一一<input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 name="area" ng-model="entInfo.area" placeholder="请选择区" select2-model="entInfo.areaDataValue" config="areaConfig" class="form-control multiple-select" type="text"/>
                     </div>
                 </div>
                 <div class="form-row">
@@ -46,9 +46,9 @@
                 <div class="form-row">
                     <div class="form-field">
                         <label class="required"><span>行业</span></label>
-                        <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" rquired select2 ng-model="industry1" placeholder="请选择一级行业" select2-model="industry1DataValue" config="industry1Config" class="form-control multiple-select" type="text"/>
-                        一一<input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" rquired select2 ng-model="industry2" placeholder="请选择二级行业" select2-model="industry2DataValue" config="industry2Config" class="form-control multiple-select" type="text"/>
-                        一一<input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" rquired select2 ng-model="industry3" placeholder="请选择三级行业" select2-model="industry3DataValue" config="industry3Config" class="form-control multiple-select" type="text"/>
+                        <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" rquired select2 ng-model="entInfo.industry1" placeholder="请选择一级行业" select2-model="entInfo.industry1DataValue" config="industry1Config" class="form-control multiple-select" type="text"/>
+                        一一<input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" rquired select2 ng-model="entInfo.industry2" placeholder="请选择二级行业" select2-model="entInfo.industry2DataValue" config="industry2Config" class="form-control multiple-select" type="text"/>
+                        一一<input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" rquired select2 ng-model="entInfo.industry3" placeholder="请选择三级行业" select2-model="entInfo.industry3DataValue" config="industry3Config" class="form-control multiple-select" type="text"/>
                     </div>
                 </div>
                 <div class="form-row">
