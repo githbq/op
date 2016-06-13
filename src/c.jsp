@@ -45,19 +45,19 @@
             <li data-permissions="M011004">
                 <a href="#index/detail">活跃度</a>
                 <ul class="nav-sub">
-                    <li >
+                    <li  data-permissions="M011011">
                         <a href="#index/detail">企业日活跃详情报表</a>
                     </li>
-                    <li >
+                    <li data-permissions="M011012">
                         <a href="#index/lstreport">企业日活跃汇总报表</a>
                     </li>
-                    <li >
+                    <li data-permissions="M011013">
                         <a href="#pagecommon/activeanalyze">阶段活跃团队分析</a>
                     </li>
-                    <li >
+                    <li data-permissions="M011014">
                         <a href="#pagecommon/monthanalyze">月季度团队数据分析</a>
                     </li>
-                    <li >
+                    <li data-permissions="M011015">
                         <a href="#pagecommon/seasonactive">月度季度总数据分析</a>
                     </li>
                 </ul>
