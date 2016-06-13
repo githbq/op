@@ -95,7 +95,7 @@
             <li data-permissions="M008022">
                 <a class="nav-branch">代理商</a>
                 <ul class="nav-sub">
-                    <li data-permissions="M008023"><a href="#agt/lst">代理商列表</a></li>
+                    <!--<li data-permissions="M008023"><a href="#agt/lst">代理商列表</a></li>-->
                     <li data-permissions="M008024"><a href="#agt/export">招商信息导出</a></li>
                 </ul>
             </li>
