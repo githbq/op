@@ -15,7 +15,7 @@ define(function (require, exports, module) {
         },
         elements: {},
         events: {
-            "click .enter": 'enterEve',
+            "click .enter": 'enter',
             'click .cancel': 'cancel'
         },
         content: '<div>空模板</div>',
@@ -28,17 +28,13 @@ define(function (require, exports, module) {
             PageDialog.__super__.show.apply(this, arguments);
 
         },
-        enterEve: function () {
+        enter: function () {
             var me = this;
-            //me.getValue();
             me.trigger('assginSuccess');
             me.hide();
         },
-
-        getValue: function () {
-
-        },
         cancel: function () {
+            alert('cancel');
             this.hide();
         },
         hide: function () {
@@ -47,14 +43,14 @@ define(function (require, exports, module) {
 
         },
         bootstrap: function (requires,callback) {
-            var app=angular.module('',requires||[]);
-            return angular.bootstrap(this.$view[0], requires || []);
+            var app=angular.module('app.PageDialog',requires||[]);
+            callback && callback(app);
+            return angular.bootstrap(this.$view[0],['app.PageDialog']);
         }
     };
     exports.getInstance = function (data, newconfig) {
         var PageDialog = MClass(Dialog).include($.extend({}, config, newconfig));
         var dialog = new PageDialog();
-
         return dialog;
     };
 });

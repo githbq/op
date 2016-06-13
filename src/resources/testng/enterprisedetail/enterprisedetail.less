@@ -1,18 +1,20 @@
 .multiple-select {
   width: 217px;
 }
-
+.multiple-select-long{
+  width:400px;
+}
 .enterprise-panel {
-  .form.ng-invalid {
-    border: 3px solid red;
-  }
-  .form .ng-pristine.ng-invalid {
+  //.form.ng-invalid {
+  //  border: 3px solid red;
+  //}
+  .form .ng-pristine.ng-invalid:not(.form) {
     border: 1px solid deepskyblue;
   }
   .form.step_validate_error .ng-invalid {
     border: 1px solid red;
   }
-  .form .ng-dirty {
+  .form .ng-dirty:not(.form)  {
     border: 1px solid lawngreen;
   }
   input[type=text] {

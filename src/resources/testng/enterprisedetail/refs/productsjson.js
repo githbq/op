@@ -1,5 +1,6 @@
 define(function (require, exports, module) {
     module.exports = [{
+        "text":'CRM',
         "attr": [
             {
                 "name": "productId",

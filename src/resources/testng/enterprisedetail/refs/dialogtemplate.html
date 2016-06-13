@@ -1,0 +1,10 @@
+<div ng-controller="dialogController as vm">
+    <div class="form-field">
+        <label class="required"><span>添加销售</span></label>
+        <input select2 name="{{vm.name}}" ng-model="vm.ngModel" placeholder="{{vm.placeholder}}" select2-model="vm.select2Model" config="vm.config" class="form-control multiple-select-full input-l" type="text"/>
+    </div>
+    <div class="panel-footer" style="padding-top:82px;text-align:center;">
+        <a class="g-btn enter" ng-click="vm.clickEnter()">确定</a>
+        <a class="g-btn2 cancel"  ng-click="vm.clickCancel()">取消</a>
+    </div>
+</div>

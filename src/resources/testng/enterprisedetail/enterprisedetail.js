@@ -51,7 +51,7 @@ define(function (require, exports, module) {
         $scope.accountConfig = {
             data: [{id: 1, text: '111111111111111'}, {id: 2, text: '22222222222'}, {id: 3, text: '3333333333'}, {id: 4, text: '支付宝'}],
             multiple: false,
-            placeholder: '必须与实际打土温地的单位/个人名称一致'
+            placeholder: '必须与实际打款的单位/个人名称一致'
         };
         $scope.provinceConfig = {
             data: [{id: 1, text: '北京'}, {id: 2, text: '上海'}, {id: 3, text: '广东'}, {id: 4, text: '湖北'}],
@@ -121,22 +121,53 @@ define(function (require, exports, module) {
         }, true);
         //end 多功能复选框　行业
 
-
         $scope.testResult = function () {
-            var dialog=dialogManager.getInstance(null,
+            debugger
+            util.api({
+                data:{},
+                url:'/odr/receivedpay/list',
+                success:function(result){
+                    debugger
+
+
+                }
+            });
+            $scope.selectDialog();
+        };
+        $scope.selectDialog = function (array) {
+            var accountConfig = {
+                data: [{id: 1, text: '111111111111111'}, {id: 2, text: '22222222222'}, {id: 3, text: '3333333333'}, {id: 4, text: '支付宝'}],
+                multiple: false,
+                placeholder: '必须与实际打款的单位/个人名称一致'
+            };
+            var dialog = dialogManager.getInstance(null,
                 {
                     defaultAttr: {
                         title: 'testResult',
-                        width:500
+                        width: 500
                     },
-                    content:'<div><div ng-controller="dController">我勒个去{{data}}</div></div>'
+                    content: require('./refs/dialogtemplate.html')
                 }
             );
-            dialog.show();
+            dialog.bootstrap(['common.directives','common.services'], function (app) {
+                app.controller('dialogController', ['$scope', function ($scope) {
+                    var vm = this;
+                    vm.config = accountConfig;
+                    vm.ngModel = null;
+                    vm.select2Model = null;
+                    vm.placeholder = '请选择...';
+                    vm.clickEnter = function () {
+                        array && array.push(vm.select2Model);
+                    };
+                    vm.clickCancel = function () {
 
+                    }
+                }]);
+            });
+            dialog.show();
         };
         $scope.saving = false;
-        $scope.step = 3;//步骤
+        $scope.step = 2;//步骤
         $scope.prevStep = function () {
 
 
