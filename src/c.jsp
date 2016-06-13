@@ -20,8 +20,7 @@
         <div class="person-loginout">
 
             <a href="#page/changepwd" >修改密码</a>
-           <!-- <a href="#filing/setleader" >设置上级</a>
-            <a href="#filing/setuser">用户列表</a>-->
+         
             <a href="#filing/backquestion" >反馈</a>
             <a href="/logout?from=/op/c" >退出</a>
         </div>
