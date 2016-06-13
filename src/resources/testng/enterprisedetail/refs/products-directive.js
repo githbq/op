@@ -7,6 +7,11 @@ define(function (require, exports, module) {
             scope: {},
             template: require('./products-template.html'),
             link: function (scope, iElem, iAttrs) {
+                scope.testGroup=function(){
+                    debugger
+
+
+                }
                 scope.products=productsJson;
                 scope.deleteArray = function (items, index) {
                     items.splice(index, 1);

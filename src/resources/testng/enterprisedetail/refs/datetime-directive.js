@@ -4,15 +4,19 @@ define(function (require, exports, module) {
         //datetimecontrol 填写my97的配置　　　有　dateFmt:定义日期展示的格式化串  type:1　为取值的时候　后面加上23:59:59代表结束时间　不填则为开始时间00:00:00
         return {
             restrict: 'A',
-            template: '<input style="cursor:pointer;" type="text" readonly="readonly" class="datetime-control" ng-model="stringValue"/>',
-            scope: {datetimecontrol: '=', ngModel: '=', defaultValue: '=', allow: '='},
+            template: '<input name="{{name}}" style="cursor:pointer;" type="text" readonly="readonly" class="datetime-control" ng-model="stringValue"/>',
+            scope: {datetimecontrol: '=', ngModel: '=', defaultValue: '=', allow: '=',getForm:'&getform',name:'@'},
             link: function (scope, iElem, iAttr) {
                 scope.datetimecontrol = scope.datetimecontrol || {};
+                var currentForm=scope.getForm && scope.getForm();
                 var option = {
                     type: '1',
                     dateFmt: 'yyyy/MM/dd',
                     onpicked: function (control) {
                         var value = control.el.value;
+                        if(currentForm){
+                            currentForm[scope.name].$setDirty();
+                        }
                         //取值逻辑
                         if (scope.datetimecontrol.type == '1') {//0开始时间 1为结束时间
                             scope.ngModel = new Date(value + " 23:59:59").getTime();

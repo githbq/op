@@ -4,6 +4,9 @@ define(function (require, exports, module) {
     var myApp = angular.module('formApp', ['ngMessages', 'common.directives']);
     require('./refs/products-directive');
     require('./refs/product-services');//对应的远程服务
+    var dialogManager = require('./refs/dialog');
+
+
     myApp.controller('form1Controller', ['$scope', function ($scope) {
 
     }]);
@@ -120,7 +123,17 @@ define(function (require, exports, module) {
 
 
         $scope.testResult = function () {
-            debugger
+            var dialog=dialogManager.getInstance(null,
+                {
+                    defaultAttr: {
+                        title: 'testResult',
+                        width:500
+                    },
+                    content:'<div><div ng-controller="dController">我勒个去{{data}}</div></div>'
+                }
+            );
+            dialog.show();
+
         };
         $scope.saving = false;
         $scope.step = 3;//步骤
