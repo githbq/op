@@ -20,27 +20,27 @@
 				<%if(item.canCollectFinalPay ==1){%>
 					<a class="receive-money" data-id="<%=item.order.id%>"  data-enterpriseId="<%=item.order.enterpriseId%>"
 					   data-orderType="<%=item.order.orderType%>" data-opinion="<%=item.order.rejectReason ?item.order.rejectReason :'' %>"
-					   data-isTp="<%=item.order.isTp%>"  data-ea="<%=item.order.enterpriseAccount%>" data-contractNo="<%=item.order.contractNo%>" data-permissions="M009005003,M008007005">收尾款</a>&nbsp;&nbsp;
+					   data-isTp="<%=item.order.isTp%>"  data-ea="<%=item.order.enterpriseAccount%>" data-contractNo="<%=item.order.contractNo%>" data-permissions="M009005003,M008007005,M011003004">收尾款</a>&nbsp;&nbsp;
 				<%}else{%>
 					<a   style="color:#ccc;" data-id="<%=item.order.id%>"  data-enterpriseId="<%=item.order.enterpriseId%>"
 					   data-orderType="<%=item.order.orderType%>" data-opinion="<%=item.order.rejectReason ?item.order.rejectReason :'' %>"
-					   data-isTp="<%=item.order.isTp%>"  data-ea="<%=item.order.enterpriseAccount%>" data-contractNo="<%=item.order.contractNo%>" data-permissions="M009005003,M008007005">收尾款</a>&nbsp;&nbsp;
+					   data-isTp="<%=item.order.isTp%>"  data-ea="<%=item.order.enterpriseAccount%>" data-contractNo="<%=item.order.contractNo%>" data-permissions="M009005003,M008007005,M011003004">收尾款</a>&nbsp;&nbsp;
 				<%}%>
 				<%if(item.canDelete == 1||item.canDelete == "1"){%>
 					
-					<a class="order-del" data-id="<%=item.order.id%>" data-permissions="M009005005,M008007006">删除</a>&nbsp;&nbsp;
+					<a class="order-del" data-id="<%=item.order.id%>" data-permissions="M009005005,M008007006,M011003005">删除</a>&nbsp;&nbsp;
 				<%}else{%>
-					<a  style="color:#ccc;" data-id="<%=item.order.id%>" data-permissions="M009005005,M008007006">删除</a>&nbsp;&nbsp;
+					<a  style="color:#ccc;" data-id="<%=item.order.id%>" data-permissions="M009005005,M008007006,M011003005">删除</a>&nbsp;&nbsp;
 				<%}%>
 
 				<%if(item.order.orderType ==17){%>
 					<a class="order-detailPay" data-id="<%=item.order.id%>"  data-enterpriseId="<%=item.order.enterpriseId%>"
 						data-orderType="<%=item.order.orderType%>" data-opinion="<%=item.order.rejectReason ?item.order.rejectReason :'' %>"
-				   data-isTp="<%=item.order.isTp%>"  data-ea="<%=item.order.enterpriseAccount%>" data-contractNo="<%=item.order.contractNo%>" data-permissions="M009005002,M008007002">查看</a>&nbsp;&nbsp;
+				   data-isTp="<%=item.order.isTp%>"  data-ea="<%=item.order.enterpriseAccount%>" data-contractNo="<%=item.order.contractNo%>" data-permissions="M009005002,M008007002,M011003003">查看</a>&nbsp;&nbsp;
 				<%}else if(item.order.orderType ==18){%>
 					<a class="order-onlinepay" data-id="<%=item.order.id%>"  data-enterpriseId="<%=item.order.enterpriseId%>"
 						data-orderType="<%=item.order.orderType%>" data-opinion="<%=item.order.rejectReason ?item.order.rejectReason :'' %>"
-				   data-isTp="<%=item.order.isTp%>"  data-ea="<%=item.order.enterpriseAccount%>" data-contractNo="<%=item.order.contractNo%>" data-permissions="M009005002,M008007002">查看</a>&nbsp;&nbsp;
+				   data-isTp="<%=item.order.isTp%>"  data-ea="<%=item.order.enterpriseAccount%>" data-contractNo="<%=item.order.contractNo%>" data-permissions="M009005002,M008007002,M011003003">查看</a>&nbsp;&nbsp;
 				<%} else {%>
 					<a class="order-detail" data-id="<%=item.order.id%>"  data-enterpriseId="<%=item.order.enterpriseId%>"
 						data-orderType="<%=item.order.orderType%>" data-opinion="<%=item.order.rejectReason ?item.order.rejectReason :'' %>"
@@ -49,31 +49,31 @@
 				
                 <%if(item.canEditPartner == 1||item.canEditPartner == "1"){%>
 					
-					<a class="order-custom"  data-enterpriseId="<%=item.order.enterpriseId%>" data-permissions="M009005006,M008007003">联合跟进人</a>&nbsp;&nbsp;
+					<a class="order-custom"  data-enterpriseId="<%=item.order.enterpriseId%>" data-permissions="M009005006,M008007003,M011003006">联合跟进人</a>&nbsp;&nbsp;
 				<%}else{%>
-					<a  style="color:#ccc;" data-id="<%=item.order.id%>" data-permissions="M009005006,M008007003">联合跟进人</a>&nbsp;&nbsp;
+					<a  style="color:#ccc;" data-id="<%=item.order.id%>" data-permissions="M009005006,M008007003,M011003006">联合跟进人</a>&nbsp;&nbsp;
 				<%}%>
 				<%if(item.canRefund == 1||item.canRefund == "1"){%>
 					
-					<a data-permissions="M009005008,M008007007" class="order-backmoney"  data-id="<%=item.order.id%>"  data-enterpriseId="<%=item.order.enterpriseId%>"
+					<a data-permissions="M009005008,M008007007,M011003007" class="order-backmoney"  data-id="<%=item.order.id%>"  data-enterpriseId="<%=item.order.enterpriseId%>"
 					   data-orderType="<%=item.order.orderType%>" data-opinion="<%=item.order.rejectReason ?item.order.rejectReason :'' %>"
 					   data-isTp="<%=item.order.isTp%>"  data-ea="<%=item.order.enterpriseAccount%>" data-contractNo="<%=item.order.contractNo%>" data-newFirst="newFirst">退款</a>&nbsp;&nbsp;
 				<%}else{%>
 						<%if(item.approveStatus == 5 || item.approveStatus == 6 || item.approveStatus == 7 ||item.approveStatus == 8  ){%>
 							<a class="order-backmoney"  data-id="<%=item.order.id%>"  data-enterpriseId="<%=item.order.enterpriseId%>"
 							   data-orderType="<%=item.order.orderType%>" data-opinion="<%=item.order.rejectReason ?item.order.rejectReason :'' %>"
-							   data-isTp="<%=item.order.isTp%>"  data-ea="<%=item.order.enterpriseAccount%>" data-contractNo="<%=item.order.contractNo%>" data-newFirst="refund" data-permissions="M009005008,M008007007">退款</a>&nbsp;&nbsp;
+							   data-isTp="<%=item.order.isTp%>"  data-ea="<%=item.order.enterpriseAccount%>" data-contractNo="<%=item.order.contractNo%>" data-newFirst="refund" data-permissions="M009005008,M008007007,M011003007">退款</a>&nbsp;&nbsp;
 							
 						<%}else{%>
-							<a  style="color:#ccc;" data-permissions="M009005008,M008007007">退款</a>&nbsp;&nbsp;
+							<a  style="color:#ccc;" data-permissions="M009005008,M008007007,M011003007">退款</a>&nbsp;&nbsp;
 						<%}%>
 				
 				<%}%>
 				<%if(item.canInvoice == 1||item.canInvoice == "1"){%>
 					
-					<a class="order-invoice"  data-id="<%=item.order.id%>" data-permissions="M009005010,M008007009">发票</a>&nbsp;&nbsp;
+					<a class="order-invoice"  data-id="<%=item.order.id%>" data-permissions="M009005010,M008007009,M011003008">发票</a>&nbsp;&nbsp;
 				<%}else{%>
-					<a  style="color:#ccc;" data-permissions="M009005010,M008007009">发票</a>&nbsp;&nbsp;
+					<a  style="color:#ccc;" data-permissions="M009005010,M008007009,M011003008">发票</a>&nbsp;&nbsp;
 				<%}%>
 				
 				

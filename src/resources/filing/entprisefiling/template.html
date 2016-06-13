@@ -14,8 +14,8 @@
 			<td><%=item.createTimeStr%></td>
 			<td><%=item.activeStr%></td>
 			<td>
-				<a data-id="<%=item.id%>" class="filing-detail" data-permissions="F011039">查看</a>
-				<a data-id="<%=item.id%>" data-name="<%=item.enterpriseName%>" class="filing-service">服务记录</a>
+				<a data-id="<%=item.id%>" class="filing-detail" data-permissions="M011005003">查看</a>
+				<a data-id="<%=item.id%>" data-name="<%=item.enterpriseName%>" class="filing-service" data-permissions="M011005005">服务记录</a>
 				<!--<a data-name="<%=item.enterpriseName%>" data-id="<%=item.id%>" class="filing-request">公开申请</a>-->
 				<a data-id="<%=item.id%>" class="filing-check">审核</a>
 			</td>
@@ -151,7 +151,7 @@
 	          </label>
 	      </div>
 	      <div class="list-bar-btns">
-	          <button class="search">查询</button>
+	          <button class="search" data-permissions="M011005004">查询</button>
 	      </div>  
 	    </div>
 	    <div class="list-content">
