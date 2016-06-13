@@ -23,23 +23,24 @@ define( function( require, exports, module ) {
 
        show: function( clueID ) {
             ReadClue.__super__.show.apply( this,arguments );
-            this.getClue(clueID);
+            this.clueID = clueID
+            this.getClue();
         },
 
-        getClue: function(clueID) {
+        getClue: function() {
             var me = this;
-            var data = {
-                enterpriseID: clueID
-            };
             util.api({
                 url: '~/csm/api/m/getcsmcluerecord',
-                data: data,
+                data: {
+                    csmClueRecordID: me.clueID
+                },
                 success: function(res) {
                     if( res.success ){
-                        var time = res.model.opTime/1000.
+                        var time = res.model.opTime;
                         time = new Date(time)._format( "yyyy-MM-dd hh:mm" );
                         $('#updateTime').html(time);
                         $('#clue').html(res.model.clueRemark);
+                        (res.model.id)&&(me.clueID = res.model.id);
                     }
                 }
             });
@@ -49,6 +50,7 @@ define( function( require, exports, module ) {
 
         hide: function() {
             ReadClue.__super__.hide.apply( this,arguments );
+            this.clueId = '';
             $('#clue').html('');
         }
 

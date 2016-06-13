@@ -29,7 +29,7 @@ define( function( require, exports, module ) {
         
         var employeeDetail = new EmployeeDetail();
 
-        var clue = new Clue
+        var clue = new Clue()
 		var customHelper = null;
 
         //查看企业详情
@@ -71,14 +71,14 @@ define( function( require, exports, module ) {
 		 entList.on('orderCustom',function( options ){
             
             customHelper = new CustomHelper();
-             customHelper.on('refresh',function(){
-                 entList.search();
-             });
-             customHelper.show( options );
+            customHelper.on('refresh',function(){
+                entList.search();
+            });
+            customHelper.show( options );
         });
         //线索
-        entList.on('clue', function( entID ){
-            clue.show(entID);
+        entList.on('clue', function( clueID ){
+            clue.show(clueID);
         })
 		
 		//刷新列表

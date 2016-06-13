@@ -5633,10 +5633,6 @@ em {
   text-align: right;
   display: none;
 }
-.m-ent-lst .list-content .void {
-  color: #ccc;
-  cursor: default;
-}
 .m-enterprisedetail {
   /* 审核意见 */
   /*产品信息*/

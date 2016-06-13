@@ -51,7 +51,7 @@ define(function(require, exports, module) {
             'click .deauth': 'deauthEve',
             'click .info-custom': function(e) {
                 this.trigger('orderCustom', { 'enterpriseId': $(e.currentTarget).attr('data-enterpriseId') })
-            }, //联合跟进人
+            }//联合跟进人
         },
 
         init: function() {
@@ -199,7 +199,7 @@ define(function(require, exports, module) {
                         me.getList();
                     }
                 }
-            })
+            });
         },
 
         //取消授权
@@ -275,6 +275,7 @@ define(function(require, exports, module) {
                 'isCoupon': me.model.get('isCoupon'), //是否是优惠企业
                 fromAppStartTime: fromAppStartTime,
                 endAppStartTime: endAppStartTime,
+                clueUpdateTimeType: $('#update').val(),
                 'accountName': accountName
             };
             if (exportFile === true) {
@@ -293,13 +294,13 @@ define(function(require, exports, module) {
                         if (data.value.model.content.length > 0) {
                             me.list.reload(data.value.model.content, function(item) {
 
-                                if (item.enterprise.appStartTime) {
-                                    item.createtimestr = new Date(item.enterprise.appStartTime)._format("yyyy-MM-dd");
+                                if (item.csmEnterprise.appStartTime) {
+                                    item.createtimestr = new Date(item.csmEnterprise.appStartTime)._format("yyyy-MM-dd");
                                 } else {
                                     item.createtimestr = "——";
                                 }
 
-                                item.runstatusstr = EntStatusMap[item.enterprise.runStatus];
+                                item.runstatusstr = EntStatusMap[item.csmEnterprise.runStatus];
 
                                 if (item.protectionWhiteListStatus == 0) {
                                     item.authStr = "全部授权"
@@ -340,7 +341,6 @@ define(function(require, exports, module) {
         //企业跟踪记录
         traceEve: function(e) {
             var id = $(e.currentTarget).attr('data-id');
-
             this.trigger('trace', id);
         },
 
