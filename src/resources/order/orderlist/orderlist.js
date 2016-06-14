@@ -28,6 +28,12 @@ define( function( require, exports, module ) {
     
     //到款认领
     var Claim = MClass( Dialog ).include({
+
+        defaultAttr:{
+            'title': '到款认领',
+            'width': 300
+        },
+
         init: function(){
             Claim.__super__.init.apply( this, arguments );
         },
@@ -41,8 +47,8 @@ define( function( require, exports, module ) {
 
 
     //
-    // 代理商用户
-    // 备案企业列表
+    // 订单列表
+    // 
     var OrderList = MClass( M.Center ).include({
 
     	init: function(){
@@ -65,16 +71,12 @@ define( function( require, exports, module ) {
             me.pagination.onChange = function(){
                 me.getList();
             };
-
-            me.collection = new M.Collection;
-            me.collection.on('reload',function(){
-                me.renderList();
-            });
-
             //me.getEnums();
 			me.searchEve();
         },
+
         trTpl: _.template( tem.filter('#orderList').html() ),
+        
         events: {
 			'click .search':'searchEve',
             'click .order-detail':'orderDetailEve',
@@ -250,13 +252,13 @@ define( function( require, exports, module ) {
             window.open( IBSS.API_PATH + '/odr/exportOrder?' + $.param( queryData ) );
         },
 
-        //获取备案企业列表
+        //获取订单列表
         getList: function(){
             var me = this;
 
             
-            var putStartTime = '',
-                putEndTime = '';
+            var putStartTime = '',        //提单日期开始
+                putEndTime = '';          //提单日期结束
 
             if( me.$putStartTime.val() ){
                 putStartTime = new Date( me.$putStartTime.val() ).getTime();
@@ -266,24 +268,25 @@ define( function( require, exports, module ) {
             }
 
             var queryData = {
-                'orderId':  me.model.get('orderId'),
-                'contractNo': me.model.get('contractNo'),
-                'en': me.model.get('en'),
-                'ea': me.model.get('ea'),
-				'orderType': me.model.get('orderType'),
-				'account': me.model.get('account'),
-				'isTp': me.model.get('isTp'),
-				'approveStatus': me.model.get('approveStatus'),
-				'payStatus': me.model.get('payStatus'),
-				'agent': me.model.get('agent'),
-				'agentId': me.model.get('agentId'),
-                'putStartTime': putStartTime,
-				'isPayUp':me.model.get('isPayUp'),
-                'putEndTime': putEndTime,
-				'hasProduct':me.model.get('hasProduct'),
+                'orderId':  me.model.get('orderId'),            //订单号
+                'contractNo': me.model.get('contractNo'),       //合同号
+                'en': me.model.get('en'),                       //企业名称
+                'ea': me.model.get('ea'),                       //企业账号
+				'orderType': me.model.get('orderType'),         //订单类型
+				'account': me.model.get('account'),             //提单人
+				//'isTp': me.model.get('isTp'),                   //
+				//'approveStatus': me.model.get('approveStatus'),
+				'payStatus': me.model.get('payStatus'),          //付费状态
+				'agent': me.model.get('agent'),                  //代理商
+				//'agentId': me.model.get('agentId'),             //????订单状态
+                //'isPayUp':me.model.get('isPayUp'),              //????应用类型
+                'putStartTime': putStartTime,                     //提单开始日期
+                'putEndTime': putEndTime,                         //提单结束日期
+				//'hasProduct':me.model.get('hasProduct'),
 				'pageIndex': me.pagination.attr['pageNumber']+1,
                 'pageSize': me.pagination.attr['pageSize']
             }
+            
             htmlStr = "<tr> <td colspan='14'><p class='info'>加载中...</p></td> </tr>"
             me.$tbody.html( htmlStr );
             util.api({
@@ -292,24 +295,29 @@ define( function( require, exports, module ) {
                 'success': function( data ){
                     console.warn( data );
                     if( data.success ){
-                        me.collection.reload( data.value.model.content, function( item ){
-							var approveStatus = item.approveStatus ? parseInt(item.approveStatus):0;
-							//var approveStatus = item.approveStatus ? parseInt(item.approveStatus):0;
-                            item.statusStr = statusAry[approveStatus] ;
-                            item.payStatusStr = item.order.payStatus ? payStatusAry[item.order.payStatus] :'';
-							item.isPayUpAryStr = item.order.isPayUp ? isPayUpAry[item.order.isPayUp]:'——';
-							if(item.order.orderType==17){
-								item.isPayUpAryStr = '——';
-							}
-                            item.createTimeStr = new Date( item.order.createTime )._format('yyyy/MM/dd');
-                            item.orderTypeStr = orderTypeAry[item.order.orderType];
 
-                        });
+                        if( data.value.model.content && data.value.model.content.length > 0 ){
+                            me.list.reload( data.value.model.content, function( item ){
+                                var approveStatus = item.approveStatus ? parseInt(item.approveStatus):0;
+                                //var approveStatus = item.approveStatus ? parseInt(item.approveStatus):0;
+                                item.statusStr = statusAry[approveStatus] ;
+                                item.payStatusStr = item.order.payStatus ? payStatusAry[item.order.payStatus] :'';
+                                item.isPayUpAryStr = item.order.isPayUp ? isPayUpAry[item.order.isPayUp]:'——';
+                                if(item.order.orderType==17){
+                                    item.isPayUpAryStr = '——';
+                                }
+                                item.createTimeStr = new Date( item.order.createTime )._format('yyyy/MM/dd');
+                                item.orderTypeStr = orderTypeAry[item.order.orderType];
 
+                            });
+                        }else{
+                            me.$tbody.html("<tr> <td colspan='14'><p class='info'>暂无数据</p></td> </tr>");
+                        }
                         me.pagination.setTotalSize( data.value.model.itemCount );
                     }
                 }
             })
+            
         },
 
         //渲染列表
@@ -338,15 +346,20 @@ define( function( require, exports, module ) {
 		var customHelper = null;
 		var backMoney = null, invioceDetail = null ,onlinePay = null;
 		
+
+        var claim = new Claim();
+        claim.show();
+
+
         orderList.on('orderDetail', function( options ){
             detailApproval = new DetailApproval();
             detailApproval.show( options );
         });
-		 orderList.on('orderDetailPayment', function( options ){
+		orderList.on('orderDetailPayment', function( options ){
             detailPayment = new DetailPayment();
             detailPayment.show( options );
         });
-		 orderList.on('orderOnlinePay', function( options ){
+		orderList.on('orderOnlinePay', function( options ){
             onlinePay = new OnlinePay();
             onlinePay.show( options );
         });
