@@ -31,8 +31,15 @@ define( function( require, exports, module ) {
 
         defaultAttr:{
             'title': '到款认领',
-            'width': 300
+            'width': 500
         },
+
+        events: {
+            'click .action-claim': 'claimEve',
+            'click .action-rematch': 'rematchEve'
+        },
+
+        content: tem.filter('#claim').html(),
 
         init: function(){
             Claim.__super__.init.apply( this, arguments );
@@ -42,6 +49,14 @@ define( function( require, exports, module ) {
         },
         hide: function(){
             Claim.__super__.hide.apply( this, arguments );
+        },
+        //认领
+        claimEve: function(){
+            console.log('认领');
+        },
+        //重新匹配
+        rematchEve: function(){
+            console.log('重新匹配');
         }
     });
 
@@ -348,7 +363,7 @@ define( function( require, exports, module ) {
 		
 
         var claim = new Claim();
-        claim.show();
+        //claim.show();
 
 
         orderList.on('orderDetail', function( options ){

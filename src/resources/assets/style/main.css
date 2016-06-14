@@ -8347,6 +8347,16 @@ em {
   text-align: right;
   width: 150px;
 }
+.m-claim section {
+  min-height: 210px;
+}
+.m-claim section table td {
+  line-height: 30px;
+}
+.m-claim .claim-action {
+  padding: 10px 0;
+  text-align: center;
+}
 .p-coupon {
   background: #f8f8f8;
 }
