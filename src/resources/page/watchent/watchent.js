@@ -236,7 +236,7 @@ define( function( require, exports, module ) {
             data.activityYn = 1;
             
             me.$tbody.html("<tr><td colspan='12'><p class='info'>努力加载中</p></td></tr>");
-			if(IBSS.FUNCTIONS.indexOf('F008060') != -1){
+			if(IBSS.FUNCTIONS.indexOf('M008033') != -1){
 				util.api({
 					'url': '/enterprise/querypageforsupervise',
 					'data': data,
@@ -253,7 +253,7 @@ define( function( require, exports, module ) {
 						}
 					} 
 				})
-			}else if(IBSS.FUNCTIONS.indexOf('F008061') != -1){
+			}else if(IBSS.FUNCTIONS.indexOf('M008033') != -1){
 				util.api({
 					'url': '/enterprise/querypagetosuperviseforsupervise',
 					'data': data,
