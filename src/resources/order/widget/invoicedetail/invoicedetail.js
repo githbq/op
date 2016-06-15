@@ -58,7 +58,7 @@ define(function( require , exports , module ){
 		events: {
 			'click [name="invoice"]': 'typeEve',               //
 			'click [name="invoicetype"]': 'typeEve',           //
-			'click .submit': 'submitEve',                      //申请提交
+			'click .submitT': 'submitEve',                      //申请提交
 			'click .save': 'saveEve',                          //重新保存
 			'click .cancel': 'cancelEve'                       //取消
 		},
