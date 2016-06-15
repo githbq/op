@@ -401,7 +401,7 @@ define('common/app', function(require, exports, module){
                         $('#accountname').text(data.value.model.name);
 
                         IBSS.role = data.value.model;
-                        
+						data.value.model.functionCodes=data.value.model.functionCodes||[];
                         IBSS.FUNCTIONS = data.value.model.functionCodes.concat(data.value.model.ancientFunctionCodes);
                         
                         IBSS.MODULES = data.value.model.moduleCodes;

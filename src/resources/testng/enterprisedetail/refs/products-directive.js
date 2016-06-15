@@ -1,100 +1,59 @@
 //产品指令
 define(function (require, exports, module) {
-    var productsJson = require('./productsjson.js');
+    var productJson = require('./productsjson.js');
     angular.module('formApp').directive('products', function () {
             return {
                 restrict: 'ECMA',
                 scope: {},
                 template: require('./products-template.html'),
                 link: function (scope, iElem, iAttrs) {
-                    scope.testGroup = function () {
-
-
-                    };
-                    scope.products = productsJson;
-
-                    //产品逻辑
-                    scope.$watch('products', function (newValue, oldValue, scope) {
-                        productLogic();
-                        console.log('products changed')
-                    }, true);
-                    //产品逻辑
-                    function productLogic() {
-                        for (var i = 0; i < scope.products.length; i++) {
-                            var product = scope.products[i];
-
-                            groupDisplayLogic(product.groups)
+                    var products = [];
+                    var resultData = [{data: [], state: 1, productId: 11}, {data: [], productId: 11}, {data: [], productId: 11}, {data: [], productId: 11}];
+                    //JSON格式转换
+                    for (var i = 0; i < productJson.logics.length; i++) {
+                        var logic = productJson.logics[i];
+                        var find = _.findWhere(resultData, {productId: logic.attr.productId});
+                        if (find) {
+                            logic.data = find.data;
+                            logic.currState = find.state;
                         }
+                        var state = getStateCombine(logic);
+                        //与基状态合并
+                        products.push({states: state, logic: logic});
                     }
-
-                    //组显示逻辑
-                    function groupDisplayLogic(groups) {
-                        var groupDic = groupsToDictionary(groups);
-                        //组字典
-                        for (var i = 0; i < groups.length; i++) {
-                            var group = groups[i];
-                            if (!group.fields) {
-                                continue;
+                    scope.products = products;
+                    function getStateCombine(logic) {
+                        //创建副本 避免污染原始数据
+                        var baseState = angular.copy(logic.baseState);
+                        var state = angular.copy(logic.states[logic.currState || 0]);
+                        //子状态与基状态合并
+                        for (var i = 0; i < baseState.length; i++) {
+                            var name = baseState[i].name;
+                            var findState = _.findWhere(state, {name: name});
+                            if (findState) {
+                                baseState[i] = findState;
                             }
-                            displayLogic(group.displayLogics, group, groupDic);
-                        }
-                    }
-
-                    function displayLogic(displayLogics, group, groupDic) {
-                        if(!displayLogics.conditions){//无条件 强制显示
-                            displayLogics.result = true;
-                            return ;
-                        }
-                        for (var i = 0; i < displayLogics.conditions.length; i++) {
-                            var condition = displayLogics.conditions[i];
-                            switch (condition.dataType) {
-                                case "key":
-                                {
-                                    displayLogics.result = true;
+                            var findData = _.findWhere(logic.data, {name: name});
+                            var state = baseState[i];
+                            if (findData) {
+                                state.value = state.value || {};
+                                if (checkoutUN(findData.value)) {
+                                    findData.value = state.value.value||'';
                                 }
-                                    ;
-                                    break;
-                                case "name":
-                                {
-                                    displayWithNameLogic(condition, groupDic, displayLogics);
-                                }
-                                    ;
-                                    break;
+                                state.value.valueData = findData;
                             }
                         }
+                        return baseState;
                     }
 
-                    function displayWithNameLogic(condition, groupDic, displayLogics) {
-                        var wantGroup = condition.groupName ? groupDic[condition.groupName] : group;
-                        var fieldDic = fieldsToDictionary(wantGroup);
-                        if (condition.valueCompare && fieldDic[condition.valueCompare.name] !== undefined && fieldDic[condition.valueCompare.name].value == condition.valueCompare.value) {
-                            displayLogics.result = true;
-                        } else {
-                            displayLogics.result = false;
-                        }
+                    //检查是undefined或者null
+                    function checkoutUN(value) {
+                        return value === undefined || value === null;
                     }
 
-                    function groupsToDictionary(groups) {
-                        var groupDic = {};
-                        //组字典
-                        for (var i = 0; i < groups.length; i++) {
-                            var group = groups[i];
-                            groupDic[group.name] = group;
-                        }
-                        return groupDic;
-                    }
+                    //end JSON格式转换
 
-                    function fieldsToDictionary(group) {
-                        var fieldDic = {};
-                        if (group.fields) {
-                            for (var i = 0; i < group.fields.length; i++) {
-                                var field = group.fields[i];
-                                fieldDic[field.name] = field;
-                            }
-                        }
-                        return fieldDic;
-                    }
-                    //end产品逻辑
+
                     scope.deleteArray = function (items, index) {
                         items.splice(index, 1);
                     };
