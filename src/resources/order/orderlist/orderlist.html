@@ -29,13 +29,7 @@
     			</label>
 				<label for="">
                     <span>订单类型</span>
-                    <select name="" ce-model="orderType">
-                        <option value="">全部</option>
-                        <option value="1">新增</option>
-                        <option value="2">续费</option>
-						<option value="3">增购</option>
-						<option value="4">收尾款</option>
-                    </select>
+                    <select name="ordermap" ce-model="orderType"></select>
                 </label>
 				<label for="">
     				<span>提单人</span>
@@ -49,10 +43,7 @@
                 </label>
                 <label for="">
                     <span>付费状态</span>
-                    <select ce-model="payStatus">
-                        <option value="0">全部</option>
-                        <option value="1">部分</option>
-                    </select>
+                    <select name="paystatus" ce-model="payStatus"></select>
                 </label>
                 <label for="">
                     <span>代理商</span>
@@ -60,16 +51,11 @@
                 </label>
                 <label for="">
                     <span>订单状态</span>
-                    <select>
-                        <option value="0">全部</option>
-                        <option value="1">部分</option>
-                    </select>
+                    <select name="orderstatus"></select>
                 </label>
                 <label for="">
                     <span>应用类型</span>
-                    <select>
-                        <option value="0">全部</option>
-                    </select>
+                    <select name="apptype"></select>
                 </label>
     			<p style="color:#ff5511; text-align:right;">到款之日起三个月可以开发票，超过三个月不允许开发票    到款之日起60天之内仍不能提交合规合同的,复审流程结束,不可再提交</p>
     		</div>

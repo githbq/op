@@ -6,6 +6,8 @@ define( function( require, exports, module ) {
     var Dialog = require('common/widget/dialog/dialog');
 
     //var Slider = require('common/widget/slider/slider');
+    var data = require('module/data/data');
+
     var DetailApproval = require('../detailapproval/detailapproval');
 	var DetailPayment = require('../detailpayment/detailpayment');
 	var CustomHelper = require('../widget/customhelper/customhelper');
@@ -15,17 +17,6 @@ define( function( require, exports, module ) {
 
     var tem = $( require('./template.html') );
 
-    var statusMap = {},industryMap = {},sourceMap = {};
-
-    var statusAry = ['','待审核','已撤回','被驳回','已通过','申请退款','退款成功','退款驳回','退款撤回'];
-	var isPayUpAry = ['——','已付清','未付清'];
-    var payStatusAry = ['','全款','分期','未付'];
-    var orderTypeAry = ['','办公版新购-普通','办公版新购-特批','营销版新购-普通','营销版新购-特批','办公版增购-普通',
-                        '办公版增购-特批','营销版增购-普通','营销版增购-特批','办公版续费-普通','办公版续费-特批',
-                        '营销版续费-普通','营销版续费-特批','关联自注册办公版-普通','关联自注册办公版-特批',
-                        '关联自注册营销版-普通','关联自注册营销版-特批','收尾款'
-                        ];
-    
     //到款认领
     var Claim = MClass( Dialog ).include({
 
@@ -88,7 +79,27 @@ define( function( require, exports, module ) {
             };
             //me.getEnums();
 			me.searchEve();
+
+            me.resetSelect("ordermap");
+            me.resetSelect("paystatus");
+            me.resetSelect("apptype");
+            me.resetSelect("orderstatus");
         },
+        //重置select
+        resetSelect: function( name ){
+
+            var me = this;
+
+            var ele = me.$('[name="'+name+'"]');
+            var values = data[name];
+
+            var nv = [{'name': '全部','value':'' }];
+            for( var key in values ){
+                nv.push( {'name':values[key],'value':key} );
+            }
+
+            util.resetSelect( ele, nv );
+        }, 
 
         trTpl: _.template( tem.filter('#orderList').html() ),
         
@@ -308,6 +319,7 @@ define( function( require, exports, module ) {
                 'url':'/odr/querypage',
                 'data':queryData,
                 'success': function( data ){
+                    console.warn( 'orderlist' );
                     console.warn( data );
                     if( data.success ){
 
