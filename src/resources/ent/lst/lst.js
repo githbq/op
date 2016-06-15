@@ -13,6 +13,8 @@ define( function( require, exports, module ) {
     var EntTrace = require('module/enttrace/enttrace');
     
     var EmployeeDetail = require('module/employeedetail/employeedetail'); 
+
+    var Clue = require('module/readclue/readclue');
     
     //var entDetail;
     exports.init = function( param ) {
@@ -26,6 +28,8 @@ define( function( require, exports, module ) {
         var entTrace = new EntTrace();
         
         var employeeDetail = new EmployeeDetail();
+
+        var clue = new Clue()
 		var customHelper = null;
 
         //查看企业详情
@@ -67,11 +71,15 @@ define( function( require, exports, module ) {
 		 entList.on('orderCustom',function( options ){
             
             customHelper = new CustomHelper();
-             customHelper.on('refresh',function(){
-                 entList.search();
-             });
-             customHelper.show( options );
+            customHelper.on('refresh',function(){
+                entList.search();
+            });
+            customHelper.show( options );
         });
+        //线索
+        entList.on('clue', function( clueID ){
+            clue.show(clueID);
+        })
 		
 		//刷新列表
         entDetail.on('refresh',function(){
