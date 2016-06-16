@@ -10,9 +10,11 @@ define( function( require, exports, module ) {
     
     var DetailApproval = require('../detailapproval/detailapproval');
 	var DetailPayment = require('../detailpayment/detailpayment');
-	var CustomHelper = require('../widget/customhelper/customhelper');
-	var BackMoney = require('../backmoney/backmoney');
-	var InvoiceDetail = require('../widget/invoicedetail/invoicedetail');
+
+	var CustomHelper = require('../widget/customhelper/customhelper');     //联合跟进人
+    var InvoiceDetail = require('../widget/invoicedetail/invoicedetail');  //发票
+    var BackMoney = require('../backmoney/backmoney');                     //退款
+	
 	var OnlinePay = require('../widget/onlinepay/onlinepay');
 
     var tem = $( require('./template.html') );
@@ -110,17 +112,17 @@ define( function( require, exports, module ) {
             'click .detail-daokuan': 'daokuanEve',
             'click .detail-invoice': 'invoiceEve',
             'click .detail-tuikuan': 'tuikuanEve',     //退款
-            'click .detail-union': 'unionEve',         //联合跟进人
+            'click .detail-union': 'unionEve'          //联合跟进人
 
-            'click .order-detail':'orderDetailEve',
-			'click .receive-money':'receiveMoneyEve',
-			'click .order-detailPay':'orderDetailPayEve',
-			'click .order-del':'orderDelEve',
-			'click .exportOrder':'exportEve',
-			'click .order-custom':'orderCustomEve',
-			'click .order-backmoney':'orderBackmoneyEve', 
-			'click .order-onlinepay':'orderOnlinePay',  //查看线上支付情况
-			'click .order-invoice':'orderInvoiceEve'
+            //'click .order-detail':'orderDetailEve',
+			//'click .receive-money':'receiveMoneyEve',
+			//'click .order-detailPay':'orderDetailPayEve',
+			//'click .order-del':'orderDelEve',
+			//'click .exportOrder':'exportEve',
+			//'click .order-custom':'orderCustomEve',
+			//'click .order-backmoney':'orderBackmoneyEve', 
+			//'click .order-onlinepay':'orderOnlinePay',  //查看线上支付情况
+			//'click .order-invoice':'orderInvoiceEve'
         },
         elements:{
             'tbody': 'tbody',
@@ -234,6 +236,20 @@ define( function( require, exports, module ) {
         tuikuanEve: function(e){
             var me = this;
             console.log('退款');
+            var id = $(e.currentTarget).attr('data-id');
+            var list = me.list.all();
+
+            var item;
+            for(var i=0; i<list.length; i++){
+                if( list[i]['order']['id'] == id ){
+                    item = list[i];
+                    break;
+                }
+            }
+            /*
+            me.trigger('orderBackmoney',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':false,'orderType':orderType,
+               'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea,'processInstanceId':'','contractNo':contractNo} );
+            */
         },
         //退款
         /*
@@ -260,9 +276,11 @@ define( function( require, exports, module ) {
         },
         */
         //联合跟进人
-        unionEve: function(e){
+        unionEve: function( e ){
             var me = this;
             console.log('联合跟进人');
+            var enterpriseId = $(e.currentTarget).attr('data-entid'); 
+            me.trigger('orderCustom',{'enterpriseId':enterpriseId});
         },
          //联合跟进人
         /*
@@ -435,6 +453,7 @@ define( function( require, exports, module ) {
             onlinePay.show( options );
         });
 		
+        //联合跟进人
 		orderList.on('orderCustom', function( options ){
             customHelper = new CustomHelper();
             customHelper.on('refresh',function(){
@@ -442,7 +461,7 @@ define( function( require, exports, module ) {
             });
             customHelper.show( options );
         });
-		
+		//退款
 		orderList.on('orderBackmoney', function( options ){
             backMoney = new BackMoney();
             backMoney.show( options );
@@ -450,6 +469,7 @@ define( function( require, exports, module ) {
 				orderList.getList();
 			})
         })
+        //发票
 		orderList.on('orderInvoice', function( id ){
             invioceDetail = new InvoiceDetail();
             invioceDetail.show( id,null,0 );
