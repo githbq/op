@@ -1,7 +1,6 @@
 /**
- *  备案企业 模块 
- *  详情或增加
  *
+ * 收尾款slider
  */
 
 define( function(require, exports, module){
