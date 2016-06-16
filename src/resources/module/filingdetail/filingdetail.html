@@ -3,14 +3,14 @@
         <p>
             <label for="">
                 <span>企业名称 <b class="icon-hide">*</b></span>
-                <input type="text" ce-model="enterpriseName" class="text-disabled filing-entname">
+                <input type="text" ce-model="enterpriseName" class="text-disabled filing-entname" maxlength=30>
             </label>
         </p>
         <p style="display: none;"><span class="dnem">您输入的企业名称已备案</span></p>
         <p>
             <label for="">
                 <span>地址 <b class="icon-hide">*</b></span>
-                <input type="text" ce-model="address" class="text-disabled filing-address">
+                <input type="text" ce-model="address" class="text-disabled filing-address" maxlength=40>
             </label>
         </p>
         <p>
@@ -46,11 +46,11 @@
         <p>
             <label for="">
                 <span>联系电话 <b class="icon-hide">*</b></span>
-                <input type="text" ce-model="contactPhone" class="text-disabled" onchange="this.value=this.value.replace(/\D/g,'')">
+                <input type="text" ce-model="contactPhone" class="text-disabled" onchange="this.value=this.value.replace(/\D/g,'')" maxlength=11>
             </label>
             <label for="">
                 <span>联系人邮件</span>
-                <input type="text" ce-model="contactEmail" class="text-disabled">
+                <input type="text" ce-model="contactEmail" class="text-disabled" maxlength=20>
             </label>
         </p>
         <p class="state" data-state="add">
