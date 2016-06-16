@@ -160,16 +160,22 @@
                                 <div ng-switch-when="time">
                                     <label ng-if="field.label"><span class="title" ng-init="field.dateConfig={type:0}">{{field.label}}</span></label>
 
-                                    <div class="div-inline-block">
-                                        <div allow="!field.readonly" ng-disabled="field.disabled" ng-readonly="field.readonly" getform="this[currentFormName]" name="{{field.name}}" datetimeconfig="field.dateConfig" ng-model="field.value.valueData.value" default-value="field.value.valueData.value"></div>
+                                    <div class="div-inline-block" >
+                                        <div allow="!field.readonly"
+                                             ng-init="currentField=field;currentProduct=product" whenchange="this.fieldChange(this.currentField,this.currentProduct)"
+                                             ng-disabled="field.disabled" ng-readonly="field.readonly" getform="this[currentFormName]" name="{{field.name}}" datetimeconfig="field.dateConfig" ng-model="field.value.valueData.value"></div>
                                     </div>
+                                    {{field}}
                                 </div>
                                 <div ng-switch-when="endTime">
                                     <label ng-if="field.label"><span class="title" ng-init="field.dateConfig={type:1}">{{field.label}}</span></label>
 
                                     <div class="div-inline-block">
-                                        <div allow="!field.readonly" ng-disabled="field.disabled" ng-readonly="field.readonly" getform="this[currentFormName]" name="{{field.name}}" datetimeconfig="field.dateConfig" ng-model="field.value.valueData.value" default-value="field.value.valueData.value"></div>
+                                        <div allow="!field.readonly"
+                                             ng-init="currentField=field" whenchange="this.fieldChange(this.currentField)"
+                                             ng-disabled="field.disabled" ng-readonly="field.readonly" getform="this[currentFormName]" name="{{field.name}}" datetimeconfig="field.dateConfig" ng-model="field.value.valueData.value"></div>
                                     </div>
+                                    {{field}}
                                 </div>
                                 <dev ng-switch-when="text">
                                     <label ng-if="field.label"><span class="title">{{field.label}}</span></label>

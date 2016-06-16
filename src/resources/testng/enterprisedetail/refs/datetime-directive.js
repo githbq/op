@@ -5,36 +5,46 @@ define(function (require, exports, module) {
         return {
             restrict: 'A',
             template: '<input name="{{name}}" style="cursor:pointer;" type="text" readonly="readonly" class="datetime-control" ng-model="stringValue"/>',
-            scope: {datetimeconfig: '=', ngModel: '=', defaultValue: '=', allow: '=',getForm:'&getform',name:'@'},
+            scope: {whenchange: '&', datetimeconfig: '=', ngModel: '=', allow: '=', getForm: '&getform', name: '@'},
             link: function (scope, iElem, iAttr) {
                 scope.datetimeconfig = scope.datetimeconfig || {};
-                var currentForm=scope.getForm && scope.getForm();
+                var currentForm = scope.getForm && scope.getForm();
                 var option = {
                     type: '0',
                     dateFmt: 'yyyy/MM/dd',
                     onpicked: function (control) {
                         var value = control.el.value;
-                        if(currentForm){
+                        if (currentForm) {
                             currentForm[scope.name].$setDirty();
                         }
                         //取值逻辑
-                        scope.$apply(function(){
-                            if (scope.datetimeconfig.type == '1') {//0开始时间 1为结束时间
-                                scope.ngModel = new Date(value + " 23:59:59").getTime();
-                            } else {
-                                scope.ngModel = new Date(value + " 00:00:00").getTime();
-                            }
+                        scope.$apply(function () {
+                            transferDate(value);
                         });
+                        scope.whenchange && scope.whenchange();
                     }
                 };
-                var datetimeconfig = $.extend({},option, scope.datetimeconfig||{});
-                scope.stringValue = scope.defaultValue ? new Date(scope.defaultValue)._format(datetimeconfig.dateFmt) : '';//赋默认值
-                if (scope.allow !== false) {
-                    $('input', iElem).off('focus').on('focus', function () {//触发控件
-                        WdatePicker(datetimeconfig);
-                    });
-                } else {
-                    $('input', iElem).attr('disabled', 'disabled');
+                scope.$watch('ngModel', function () {
+                    var datetimeconfig = $.extend({}, option, scope.datetimeconfig || {});
+                    transferDate();
+                    scope.stringValue = scope.ngModel ? new Date(scope.ngModel)._format(datetimeconfig.dateFmt) : '';//赋默认值
+                    if (scope.allow !== false) {
+                        $('input', iElem).off('focus').on('focus', function () {//触发控件
+                            WdatePicker(datetimeconfig);
+                        });
+                    } else {
+                        $('input', iElem).attr('disabled', 'disabled');
+                    }
+                });
+                function transferDate(str) {
+                    if(!str){
+                        str=new Date(scope.ngModel)._format('yyyy/MM/dd')
+                    }
+                    if (scope.datetimeconfig.type == '1' && scope.ngModel) {//0开始时间 1为结束时间
+                        scope.ngModel = new Date(str+ " 23:59:59").getTime();
+                    } else {
+                        scope.ngModel = new Date(str+ " 00:00:00").getTime();
+                    }
                 }
             }
         }

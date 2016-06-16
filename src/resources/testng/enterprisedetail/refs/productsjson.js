@@ -216,7 +216,7 @@ define(function (require, exports, module) {
                             {
                                 "type": "evaluation",
                                 "valueType": "data",
-                                "targe": "endTime_2",
+                                "target": "endTime",
                                 "source": "value"
                             }
                         ],
