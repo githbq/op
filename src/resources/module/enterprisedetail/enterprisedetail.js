@@ -2859,6 +2859,7 @@ define(function(require, exports, module) {
                         if (data.success) {
                             util.showTip('修改成功');
                             var agent = me.findAgent(vid);
+							me.trigger('refresh');
                             me.$sAgentId.val(agent.id);
                             me.$sAgentName.val(agent.name);
                         }
