@@ -56,7 +56,7 @@ define( function( require, exports, module ) {
     // 订单列表
     // 
     var OrderList = MClass( M.Center ).include({
-
+        //初始化
     	init: function(){
     		OrderList.__super__.init.apply( this,arguments );
 
@@ -99,12 +99,17 @@ define( function( require, exports, module ) {
             }
 
             util.resetSelect( ele, nv );
-        }, 
-
-        trTpl: _.template( tem.filter('#orderList').html() ),
-        
+        },
         events: {
 			'click .search':'searchEve',
+            'click .detail-revocation': 'revocationEve',
+            'click .detail-finalpay': 'finalPayEve',
+            'click .detail-delete': 'deleteEve',
+            'click .detail-info': 'infoEve',
+            'click .detail-supplement': 'supplyEve',
+            'click .detail-daokuan': 'daokuanEve',
+
+
             'click .order-detail':'orderDetailEve',
 			'click .receive-money':'receiveMoneyEve',
 			'click .order-detailPay':'orderDetailPayEve',
@@ -125,7 +130,75 @@ define( function( require, exports, module ) {
             this.pagination.setPage( 0,false );
             this.getList();
         },
+        //撤回订单事件
+        revocationEve: function(e){
+            var me = this;
+            var id = $(e.currentTarget).attr('data-id');
+            util.api({
+                'url':'/odr/withdrawOrderApproval',
+                'data':{
+                    'orderId': id
+                },
+                'success':function( data ){
+                    if( data.success ){
+                        util.showTip('订单撤回成功');
+                        me.getList();
+                    }
+                }
+            })
+        },
+        //收尾款
+        finalPayEve: function(e){
+            console.log('收尾款');
+        },
+        //收尾款
+        /*
+        receiveMoneyEve:function( e ){
+           var me = this;
+           var id = $(e.currentTarget).attr('data-id')||'';
+           var enterpriseId = $(e.currentTarget).attr('data-enterpriseId')||'';
+           var orderType = $(e.currentTarget).attr('data-orderType')||'';
+           var opinion = '';
+           var isTp = $(e.currentTarget).attr('data-isTp')||'';
+           var ea = $(e.currentTarget).attr('data-ea')||'';
+           var contractNo = $(e.currentTarget).attr('data-contractNo')||'';
+          
+           location.hash = '#order/payment/'+id+'/'+enterpriseId+'/'+orderType+'/'+opinion+'/'+isTp+'/'+ea+'/'+contractNo;
+        },
+        */
+        //删除
+        deleteEve: function(e){
+            console.log('删除订单');
+        },
+        //删除自订单
+        /*
+        orderDelEve:function(e){
+           var me = this;
+           var id = $(e.currentTarget).attr('data-id');
+           var bool = confirm('确定要删除该订单吗?');
+           if(bool){
+                util.api({
+                    'url':'/odr/deleteOrder',
+                    'data':{
+                        'orderId':id
+                    },
+                    'success': function( data ){
+                        console.warn( data );
+                        if( data.success ){
+                           util.showTip('订单删除成功！')
+                           me.searchEve();
+                        }
+                    }
+                });
+           }
+        },
+        */
         //查看详情
+        infoEve: function(e){
+            console.log('查看详情');
+        },
+        //查看详情
+        /*
        orderDetailEve:function( e ){
            var me = this;
 
@@ -139,6 +212,16 @@ define( function( require, exports, module ) {
            me.trigger('orderDetail',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':false,'orderType':orderType,
                'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea,'processInstanceId':''} );
        },
+       */ 
+        //补充合同
+        supplyEve: function(e){
+            console.log('补充合同');
+        },
+        //到款
+        daokuanEve: function(e){
+            console.log('到款认领');
+        },
+
 	   //查看收尾款详情：
 	   orderDetailPayEve:function( e ){
 		   var me = this;
@@ -200,46 +283,6 @@ define( function( require, exports, module ) {
 		   
            me.trigger('orderInvoice', id );
 		   
-	   },
-	   //收尾款
-	   receiveMoneyEve:function( e ){
-		   var me = this;
-		   var id = $(e.currentTarget).attr('data-id')||'';
-		   var enterpriseId = $(e.currentTarget).attr('data-enterpriseId')||'';
-           var orderType = $(e.currentTarget).attr('data-orderType')||'';
-           var opinion = '';
-           var isTp = $(e.currentTarget).attr('data-isTp')||'';
-           var ea = $(e.currentTarget).attr('data-ea')||'';
-		   var contractNo = $(e.currentTarget).attr('data-contractNo')||'';
-		  
-           location.hash = '#order/payment/'+id+'/'+enterpriseId+'/'+orderType+'/'+opinion+'/'+isTp+'/'+ea+'/'+contractNo;
-	   },
-	   /**
-		 * 删除订单
-		 * @param request
-		 * @param orderId  订单id
-		 * @return
-		*/
-	   //删除自订单
-	   orderDelEve:function(e){
-		   var me = this;
-		   var id = $(e.currentTarget).attr('data-id');
-		   var bool = confirm('确定要删除该订单吗?');
-		   if(bool){
-			    util.api({
-					'url':'/odr/deleteOrder',
-					'data':{
-						'orderId':id
-					},
-					'success': function( data ){
-						console.warn( data );
-						if( data.success ){
-						   util.showTip('订单删除成功！')
-						   me.searchEve();
-						}
-					}
-				});
-		   }
 	   },
         //导出excel
         exportEve: function(e){
