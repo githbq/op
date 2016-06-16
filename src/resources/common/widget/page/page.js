@@ -21,7 +21,7 @@ main.directive('page',function(){
             };
             //下一页
             $scope.nextPage = function(e){
-            	if ($scope.pagenumber >= $scope.getFullPage() ) return;
+            	if ($scope.pagenumber >= $scope.getFullPage()-1 ) return;
             	$scope.pagenumber = $scope.pagenumber + 1;
             	$scope.refresh();
             	$scope.$emit('pagechange',$scope.pagenumber);
@@ -84,7 +84,7 @@ main.directive('page',function(){
 	            if ($scope.pagenumber <= 0 || $scope.total <= 0) {
 	                $scope.frontpage = "disabled";
 	            }
-	            if ($scope.pagenumber >= fullPage || $scope.total <= 0) {
+	            if ($scope.pagenumber >= fullPage-1 || $scope.total <= 0) {
 	                $scope.nextpage = "disabled";
 	            }
             };
