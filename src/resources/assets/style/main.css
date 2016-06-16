@@ -6302,6 +6302,12 @@ em {
   height: 182px;
   font-size: 22px;
 }
+.d-read-clue #time {
+  font-weight: bold;
+}
+.d-read-clue #clue {
+  margin-top: 20px;
+}
 .order-content .nav-box {
   display: inline-block;
   font-size: 16px;
