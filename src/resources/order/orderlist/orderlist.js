@@ -337,7 +337,9 @@ define( function( require, exports, module ) {
         getList: function(){
             var me = this;
 
-            
+            var queryData = me.model.all();
+
+
             var putStartTime = '',        //提单日期开始
                 putEndTime = '';          //提单日期结束
 
@@ -348,26 +350,11 @@ define( function( require, exports, module ) {
                 putEndTime = new Date( me.$putEndTime.val() ).getTime();
             }
 
-            var queryData = {
-                'orderId':  me.model.get('orderId'),            //订单号
-                'contractNo': me.model.get('contractNo'),       //合同号
-                'en': me.model.get('en'),                       //企业名称
-                'ea': me.model.get('ea'),                       //企业账号
-				'orderType': me.model.get('orderType'),         //订单类型
-				'account': me.model.get('account'),             //提单人
-				//'isTp': me.model.get('isTp'),                   //
-				//'approveStatus': me.model.get('approveStatus'),
-				'payStatus': me.model.get('payStatus'),          //付费状态
-				'agent': me.model.get('agent'),                  //代理商
-				//'agentId': me.model.get('agentId'),             //????订单状态
-                //'isPayUp':me.model.get('isPayUp'),              //????应用类型
-                'putStartTime': putStartTime,                     //提单开始日期
-                'putEndTime': putEndTime,                         //提单结束日期
-				//'hasProduct':me.model.get('hasProduct'),
-				'pageIndex': me.pagination.attr['pageNumber']+1,
-                'pageSize': me.pagination.attr['pageSize']
-            }
-            
+            queryData.putStartTime = putStartTime;
+            queryData.putEndTime = putEndTime;
+            queryData.pageIndex = me.pagination.attr['pageNumber'] + 1;
+            queryData.pageSize = me.pagination.attr['pageSize'];
+
             htmlStr = "<tr> <td colspan='14'><p class='info'>加载中...</p></td> </tr>"
             me.$tbody.html( htmlStr );
             util.api({
@@ -393,7 +380,10 @@ define( function( require, exports, module ) {
                                 item.payStatusStr = item.order.payStatus ? ENUMDATA['paystatus'][item.order.payStatus]:'';
                                 //提单日期
                                 item.createTimeStr = new Date( item.order.createTime )._format('yyyy/MM/dd');
-
+                                //当前审批节点
+                                item.approvalNodeStr = ENUMDATA['approvalnode'][item.order.approvalNode];
+                                //到款认领状态
+                                item.claimReceivedPayStatusStr = ENUMDATA['claimreceivedpaystatus'][item.claimReceivedPayStatus]
                                 /*
                                 var approveStatus = item.approveStatus ? parseInt(item.approveStatus):0;
                                 //var approveStatus = item.approveStatus ? parseInt(item.approveStatus):0;

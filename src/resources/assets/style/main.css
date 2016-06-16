@@ -8357,6 +8357,10 @@ em {
   padding: 10px 0;
   text-align: center;
 }
+.m-orderlist td .disable {
+  color: #bdbdbd;
+  cursor: auto;
+}
 .p-coupon {
   background: #f8f8f8;
 }
