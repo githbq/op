@@ -21,6 +21,7 @@ define(function (require, exports, module) {
                         //与基状态合并
                         products.push({states: state, logic: logic});
                     }
+                    initValidate(products);//初始化验证数据
                     scope.products = products;
                     function getStateCombine(logic) {
                         //创建副本 避免污染原始数据
@@ -59,9 +60,75 @@ define(function (require, exports, module) {
                     };
                     scope.clickMe = function () {
                     };
+                    //验证状态初始化
+                    function initValidate(products) {
+
+                        for (var i = 0; i < products.length; i++) {
+                            var product = products[i];
+                        }
+
+                        function resolveProductStates(product) {
+                            var states = product.states;
+                            var logic = product.logic;
+                            for (var i = 0; i < states.length; i == 0) {
+                                var stateItem = states[i];
+                                executeValidateInit(stateItem, logic)
+
+                            }
+                        }
+
+                        //执行验证值初始化行为
+                        function executeValidateInit(state, logic) {
+                            state.validateInit = state.validateInit || [];
+                            for (var i = 0; i < state.validateInit.length; i++) {
+                                var initItem = state.validateInit[i];
+                                witchInitType(initItem, state.validate, logic)
+
+                            }
+                        }
+                        //根据类型执行取值
+                        function switchInitType(initItem, validate, logic) {
+                            switch (initItem.value.type) {
+                                case 'ajax':
+                                {
+                                    util.api({
+                                        url: '~' + initItem.url,
+                                        data: getQueryData(initItem.query),
+                                        success: function (result) {
+                                            if (result.success) {
+                                                validate[initItem.name] = result.value.model[initItem.value.backName];
+                                            }
+                                        }
+                                    });
+                                }
+                                    ;
+                                    break;
+                                case 'attr':
+                                {
+                                    validate[initItem.name] = logic.attr[initItem.name];
+
+                                }
+                                    ;
+                                    break;
+                                case 'global':
+                                {
+                                    validate[initItem.name] = logic.global[initItem.name];
+                                }
+                                    ;
+                                    break;
+                            }
+                        }
+
+
+                    }
+
+
                     //控制值改变时事件  fieldStruct 元素的模型
-                    scope.fieldChange = function (fieldStruct, product) {
-                        debugger
+                    scope.fieldChange = function (fieldStruct, product, form) {
+                        //执行验证
+
+
+                        //执行事件
                         fieldStruct.onchange = fieldStruct.onchange || [];
                         for (var i = 0; i < fieldStruct.onchange.length; i++) {
                             var changeItem = fieldStruct.onchange[i];
@@ -112,51 +179,14 @@ define(function (require, exports, module) {
                             }
                             util.api({
                                 url: '~' + changeItem.url,
-                                data: getQueryData(changeItem),
+                                data: getQueryData(changeItem.query),
                                 success: function (result) {
                                     if (result.success) {
                                         setResponse(result.value.model, changeItem);
                                     }
                                 }
                             });
-                            //获取推送到后端的数据
-                            function getQueryData(changeItem) {
-                                changeItem.query = changeItem.query || [];
-                                var data = {};
-                                for (var i = 0; i < changeItem.query.length; i++) {
-                                    var queryItem = changeItem.query[i];
-                                    var findValue = getValueForSwitchValueType(queryItem.valueType, queryItem.valueRef);
-                                    data[queryItem.name] = findValue;
-                                }
-                                return data;
-                            }
 
-                            //根据不同的拿值类型拿值
-                            function getValueForSwitchValueType(valueType, refName) {
-                                var value = null;
-                                switch (valueType) {
-                                    case 'data':
-                                    {
-                                        var findData = _.findWhere(product.logic.data, {name: refName});
-                                        value = findData.value;
-                                    }
-                                        ;
-                                        break;
-                                    case 'attr':
-                                    {
-                                        value = product.logic.attr[refName];
-                                    }
-                                        ;
-                                        break;
-                                    case 'global':
-                                    {
-                                        value = product.logic.global[refName];
-                                    }
-                                        ;
-                                        break;
-                                }
-                                return value;
-                            }
 
                             //根据ajax返回的值向数据中赋值
                             function setResponse(data, changeItem) {
@@ -247,6 +277,44 @@ define(function (require, exports, module) {
                         }
 
                     };
+                    //获取推送到后端的数据
+                    function getQueryData(querys) {
+                        var data = {};
+                        for (var i = 0; i < querys.length; i++) {
+                            var queryItem = querys[i];
+                            var findValue = getValueForSwitchValueType(queryItem.valueType, queryItem.valueRef);
+                            data[queryItem.name] = findValue;
+                        }
+                        return data;
+                    }
+
+                    //根据不同的拿值类型拿值
+                    function getValueForSwitchValueType(valueType, refName) {
+                        var value = null;
+                        switch (valueType) {
+                            case 'data':
+                            {
+                                var findData = _.findWhere(product.logic.data, {name: refName});
+                                value = findData.value;
+                            }
+                                ;
+                                break;
+                            case 'attr':
+                            {
+                                value = product.logic.attr[refName];
+                            }
+                                ;
+                                break;
+                            case 'global':
+                            {
+                                value = product.logic.global[refName];
+                            }
+                                ;
+                                break;
+                        }
+                        return value;
+                    }
+
                     scope.addSalesmen = function (items) {
                         items.push({
                             "name": "张三",

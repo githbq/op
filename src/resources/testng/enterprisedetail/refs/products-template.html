@@ -116,7 +116,7 @@
                             <div class="form-field" ng-class="{'radios-field':field.type=='radio'}" ng-switch="field.dataType">
                                 <div ng-switch-when="sales">
                                     <label class="label-tip" ng-if="field.label"><span class="title">{{field.label}}</span></label>
-                                    <a ng-disabled="field.readonly" class="add-button" ng-init="field.valueItems=field.valueItems||[]" ng-click="addSalesmen(field.valueItems)">添加{{field.label}}</a>
+                                    <a ng-disabled="field.readonly" class="add-button" onselectstart="return false;" ng-init="field.valueItems=field.valueItems||[]" ng-click="addSalesmen(field.valueItems)">添加{{field.label}}</a>
                                     <table class="s-table">
                                         <tbody>
                                         <tr ng-repeat="item in field.valueItems track by $index">
@@ -124,7 +124,7 @@
                                             <td ng-bind="item.department"></td>
                                             <td width="15%"><span ng-bind="item.inputTitle"></span></td>
                                             <td width="20%">
-                                                <input ng-required="field.readonly" ng-readonly="field.readonly" type="text" ng-model="item.value" class="input-price-s"/>
+                                                <input ng-required="field.readonly" number name="{{'sales'+$index}}" ng-readonly="field.readonly" type="text" ng-model="item.value" class="input-price-s"/>
                                             </td>
                                             <td width="20%">
                                                 <a ng-disabled="field.readonly" ng-click="deleteArray(field.valueItems,$index)">删除</a>
@@ -135,7 +135,7 @@
                                 </div>
                                 <div ng-switch-when="partners">
                                     <label class="label-tip" ng-if="field.label"><span class="title">{{field.label}}</span></label>
-                                    <a ng-disabled="field.readonly" class="add-button" ng-click="addPartners(field.valueItems)">添加{{field.label}}</a>
+                                    <a ng-disabled="field.readonly" onselectstart="return false;" class="add-button" ng-click="addPartners(field.valueItems)">添加{{field.label}}</a>
                                     <table class="s-table" ng-init="field.valueItems=field.valueItems||[]">
                                         <tbody>
                                         <tr ng-repeat="item in field.valueItems track by $index">
@@ -162,7 +162,7 @@
 
                                     <div class="div-inline-block" >
                                         <div allow="!field.readonly"
-                                             ng-init="currentField=field;currentProduct=product" whenchange="this.fieldChange(this.currentField,this.currentProduct)"
+                                             ng-init="currentField=field;currentProduct=product" whenchange="this.fieldChange(this.currentField,this.currentProduct,this[currentFormName])"
                                              ng-disabled="field.disabled" ng-readonly="field.readonly" getform="this[currentFormName]" name="{{field.name}}" datetimeconfig="field.dateConfig" ng-model="field.value.valueData.value"></div>
                                     </div>
                                     {{field}}
@@ -172,7 +172,7 @@
 
                                     <div class="div-inline-block">
                                         <div allow="!field.readonly"
-                                             ng-init="currentField=field" whenchange="this.fieldChange(this.currentField)"
+                                             ng-init="currentField=field;currentProduct=product" whenchange="this.fieldChange(this.currentField,this.currentProduct,this[currentFormName])"
                                              ng-disabled="field.disabled" ng-readonly="field.readonly" getform="this[currentFormName]" name="{{field.name}}" datetimeconfig="field.dateConfig" ng-model="field.value.valueData.value"></div>
                                     </div>
                                     {{field}}
