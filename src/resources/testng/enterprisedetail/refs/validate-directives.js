@@ -1,11 +1,11 @@
-define(function(reuqire,exports,module){
-   var app=angular.module('common.directives',[]);
+define(function (reuqire, exports, module) {
+    var app = angular.module('common.directives');
     var INTEGER_REGEXP = /^\-?\d*$/;
-    app.directive('integer', function() {
+    app.directive('integer', function () {
         return {
-            require : 'ngModel',
-            link : function(scope, elm, attrs, ctrl) {
-                ctrl.$parsers.unshift(function(viewValue) {
+            require: 'ngModel',
+            link: function (scope, elm, attrs, ctrl) {
+                ctrl.$parsers.unshift(function (viewValue) {
                     if (INTEGER_REGEXP.test(viewValue)) {
                         ctrl.$setValidity('integer', true);
                         return viewValue;
@@ -18,14 +18,14 @@ define(function(reuqire,exports,module){
         };
     });
     var FLOAT_REGEXP = /^\-?\d+((\.|\,)\d+)?$/;
-    app.directive('smartFloat', function() {
+    app.directive('smartFloat', function () {
         return {
-            require : 'ngModel',
-            link : function(scope, elm, attrs, ctrl) {
-                ctrl.$parsers.unshift(function(viewValue) {
+            require: 'ngModel',
+            link: function (scope, elm, attrs, ctrl) {
+                ctrl.$parsers.unshift(function (viewValue) {
                     if (FLOAT_REGEXP.test(viewValue)) {
                         ctrl.$setValidity('float', true);
-                        return parseFloat(viewValue.replace(',','.'));
+                        return parseFloat(viewValue.replace(',', '.'));
                     } else {
                         ctrl.$setValidity('float', false);
                         return undefined;
@@ -34,15 +34,15 @@ define(function(reuqire,exports,module){
             }
         };
     });
-    var EMAIL_REGEXP=/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
-    app.directive('email', function() {
+    var EMAIL_REGEXP = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+    app.directive('email', function () {
         return {
-            require : 'ngModel',
-            link : function(scope, elm, attrs, ctrl) {
-                ctrl.$parsers.unshift(function(viewValue) {
+            require: 'ngModel',
+            link: function (scope, elm, attrs, ctrl) {
+                ctrl.$parsers.unshift(function (viewValue) {
                     if (EMAIL_REGEXP.test(viewValue)) {
                         ctrl.$setValidity('email', true);
-                        return parseFloat(viewValue.replace(',','.'));
+                        return parseFloat(viewValue.replace(',', '.'));
                     } else {
                         ctrl.$setValidity('email', false);
                         return undefined;
@@ -53,26 +53,37 @@ define(function(reuqire,exports,module){
     });
 
 
-    //var FLOAT_REGEXP = '/^\-?\d+((\.|\,)\d+)?$/';
-    //app.directive('decimal', function() {
-    //    return {
-    //        require : 'ngModel',
-    //        link : function(scope, elm, attrs, ctrl) {
-    //             new RegExp()
-    //            ctrl.$parsers.unshift(function(viewValue) {
-    //                if (FLOAT_REGEXP.test(viewValue)) {
-    //                    ctrl.$setValidity('float', true);
-    //                    return parseFloat(viewValue.replace(',','.'));
-    //                } else {
-    //                    ctrl.$setValidity('float', false);
-    //                    return undefined;
-    //                }
-    //            });
-    //        }
-    //    };
-    //});
+    var NUMBER_REGEXP = /^\d{1,8}((\.|\,)\d{0,2})?$/;
+    app.directive('number', function () {
+        return {
+            require: 'ngModel',
+            link: function (scope, elm, attrs, ctrl) {
+                //初步解决验证时动态改值问题
+                elm.off('change').on('change', function () {
+                    var $dom = $(this);
+                    var result = ($dom.val().replace(/[^\.\d]/g, ''));
+                    if (!NUMBER_REGEXP.test(result)) {
+                        result = '0';
+                    }
+                    $dom.val(result);
 
-
+                    ctrl.$setViewValue(result, true);//只能赋模型的值不能改变VIEW
+                    setTimeout(function () {
+                        ctrl.$setValidity('number', true);
+                    }, 100);
+                });
+                ctrl.$parsers.unshift(function (viewValue) {
+                    if (NUMBER_REGEXP.test(viewValue)) {
+                        ctrl.$setValidity('number', true);
+                        return parseFloat(viewValue.toString().replace(',', '.'));
+                    } else {
+                        ctrl.$setValidity('number', false);
+                        return undefined;
+                    }
+                });
+            }
+        };
+    });
 
 
 });

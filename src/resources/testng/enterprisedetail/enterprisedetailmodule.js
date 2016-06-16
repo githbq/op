@@ -299,11 +299,11 @@ define(function (require, exports, module) {
         };
         $scope.nextStep = function () {
             if ($scope.step == 1) {//企业详情界面
-                //if ($scope.mainForm.basicForm.$invalid) {
-                //    debugger
-                //    $scope.step_1_validate_error=true;
-                //    return;
-                //}
+                if ($scope.mainForm.basicForm.$invalid) {
+                    debugger
+                    $scope['step_'+$scope.step+'_validate_error']=true;
+                    return;
+                }
             }
             $scope.step++;
         };

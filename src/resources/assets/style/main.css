@@ -8433,7 +8433,7 @@ em {
 .enterprise-panel .form .ng-pristine.ng-invalid:not(.form) {
   border: 1px solid deepskyblue;
 }
-.enterprise-panel .form.step_validate_error .ng-invalid {
+.enterprise-panel .form .form-field .ng-invalid:not(.form) {
   border: 1px solid red;
 }
 .enterprise-panel .form .ng-dirty:not(.form) {

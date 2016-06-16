@@ -660,7 +660,7 @@ define(function (require, exports, module) {
                         "label": "合作人",
                         "groupName": "partners",
                         "readonly": false,
-                        "dataType": "list",
+                        "dataType": "partners",
                         "items": [],
                         "validate": [
                             {
@@ -673,7 +673,7 @@ define(function (require, exports, module) {
                         "label": "销售姓名",
                         "groupName": "sales",
                         "readonly": false,
-                        "dataType": "list",
+                        "dataType": "sales",
                         "items": [],
                         "validate": [
                             {

@@ -13,8 +13,6 @@ define(function (require, exports, module) {
                     type: '0',
                     dateFmt: 'yyyy/MM/dd',
                     onpicked: function (control) {
-                        alert(0000)
-                        debugger
                         var value = control.el.value;
                         if(currentForm){
                             currentForm[scope.name].$setDirty();
@@ -30,7 +28,6 @@ define(function (require, exports, module) {
                     }
                 };
                 var datetimeconfig = $.extend({},option, scope.datetimeconfig||{});
-                debugger
                 scope.stringValue = scope.defaultValue ? new Date(scope.defaultValue)._format(datetimeconfig.dateFmt) : '';//赋默认值
                 if (scope.allow !== false) {
                     $('input', iElem).off('focus').on('focus', function () {//触发控件
