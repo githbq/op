@@ -172,7 +172,7 @@ define( function( require, exports, module ) {
             objdata['account'] = me.$enterpriseAccount.val()||'';
             objdata['enterpriseType'] = me.$('#enterpriseType').val()||'';
 
-            objdata['pageIndex'] = me.pagination.attr['pageNumber']; 
+            objdata['pageIndex'] = me.pagination.attr['pageNumber']+1; 
             objdata['pageSize'] = me.pagination.attr['pageSize'];
 			
             util.api({
