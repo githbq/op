@@ -6,7 +6,7 @@ define( function( require, exports, module ) {
     var Dialog = require('common/widget/dialog/dialog');
 
     //var Slider = require('common/widget/slider/slider');
-    var data = require('module/data/data');
+    var ENUMDATA = require('module/data/data');
 
     var DetailApproval = require('../detailapproval/detailapproval');
 	var DetailPayment = require('../detailpayment/detailpayment');
@@ -91,7 +91,7 @@ define( function( require, exports, module ) {
             var me = this;
 
             var ele = me.$('[name="'+name+'"]');
-            var values = data[name];
+            var values = ENUMDATA[name];
 
             var nv = [{'name': '全部','value':'' }];
             for( var key in values ){
@@ -190,8 +190,6 @@ define( function( require, exports, module ) {
                'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea,'processInstanceId':'','contractNo':contractNo} );
 		   
 		   }
-		   
-
 	   },
 	   //发票
 	   orderInvoiceEve:function( e ){
@@ -325,6 +323,21 @@ define( function( require, exports, module ) {
 
                         if( data.value.model.content && data.value.model.content.length > 0 ){
                             me.list.reload( data.value.model.content, function( item ){
+
+                                //订单类型
+                                //?????
+                                if( item.order.orderType == 17 ){
+
+                                }
+                                item.orderTypeStr = item.order.orderType ? ENUMDATA['ordermap'][item.order.orderType]:'';
+                                //订单状态
+                                item.orderStatusStr = item.order.status ? ENUMDATA['orderstatus'][item.order.status]:'';
+                                //付费状态
+                                item.payStatusStr = item.order.payStatus ? ENUMDATA['paystatus'][item.order.payStatus]:'';
+                                //提单日期
+                                item.createTimeStr = new Date( item.order.createTime )._format('yyyy/MM/dd');
+
+                                /*
                                 var approveStatus = item.approveStatus ? parseInt(item.approveStatus):0;
                                 //var approveStatus = item.approveStatus ? parseInt(item.approveStatus):0;
                                 item.statusStr = statusAry[approveStatus] ;
@@ -335,7 +348,7 @@ define( function( require, exports, module ) {
                                 }
                                 item.createTimeStr = new Date( item.order.createTime )._format('yyyy/MM/dd');
                                 item.orderTypeStr = orderTypeAry[item.order.orderType];
-
+                                */
                             });
                         }else{
                             me.$tbody.html("<tr> <td colspan='14'><p class='info'>暂无数据</p></td> </tr>");
