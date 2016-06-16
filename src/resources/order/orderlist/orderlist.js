@@ -7,7 +7,7 @@ define( function( require, exports, module ) {
 
     //var Slider = require('common/widget/slider/slider');
     var ENUMDATA = require('module/data/data');
-
+    
     var DetailApproval = require('../detailapproval/detailapproval');
 	var DetailPayment = require('../detailpayment/detailpayment');
 	var CustomHelper = require('../widget/customhelper/customhelper');
@@ -108,7 +108,9 @@ define( function( require, exports, module ) {
             'click .detail-info': 'infoEve',
             'click .detail-supplement': 'supplyEve',
             'click .detail-daokuan': 'daokuanEve',
-
+            'click .detail-invoice': 'invoiceEve',
+            'click .detail-tuikuan': 'tuikuanEve',     //退款
+            'click .detail-union': 'unionEve',         //联合跟进人
 
             'click .order-detail':'orderDetailEve',
 			'click .receive-money':'receiveMoneyEve',
@@ -221,9 +223,58 @@ define( function( require, exports, module ) {
         daokuanEve: function(e){
             console.log('到款认领');
         },
-
-	   //查看收尾款详情：
-	   orderDetailPayEve:function( e ){
+        //发票
+        invoiceEve:function( e ){
+            var me = this;
+            var id = $(e.currentTarget).attr('data-id');
+               
+            me.trigger('orderInvoice', id );   
+        },
+        //退款
+        tuikuanEve: function(e){
+            var me = this;
+            console.log('退款');
+        },
+        //退款
+        /*
+        orderBackmoneyEve:function( e ){
+           var me = this;
+           
+           var enterpriseId = $(e.currentTarget).attr('data-enterpriseId');
+           var id = $(e.currentTarget).attr('data-id');
+           var enterpriseId = $(e.currentTarget).attr('data-enterpriseId');
+           var orderType = $(e.currentTarget).attr('data-orderType');
+           var opinion = $(e.currentTarget).attr('data-opinion');
+           var isTp = $(e.currentTarget).attr('data-isTp');
+           var ea = $(e.currentTarget).attr('data-ea');
+           var contractNo = $(e.currentTarget).attr('data-contractNo');
+           var  newFirst = $(e.currentTarget).attr('data-newFirst');
+           if( newFirst == 'newFirst' ){
+                me.trigger('orderBackmoney',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':true,'orderType':orderType,
+               'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea,'processInstanceId':'','contractNo':contractNo,'newFirst':'newFirst'} );
+           }else{
+              me.trigger('orderBackmoney',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':false,'orderType':orderType,
+               'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea,'processInstanceId':'','contractNo':contractNo} );
+           
+           }
+        },
+        */
+        //联合跟进人
+        unionEve: function(e){
+            var me = this;
+            console.log('联合跟进人');
+        },
+         //联合跟进人
+        /*
+        orderCustomEve:function( e ){
+           var me = this;
+           var enterpriseId = $(e.currentTarget).attr('data-enterpriseId');
+           me.trigger('orderCustom',{'enterpriseId':enterpriseId});
+        },
+        */
+	    //查看收尾款详情
+        /*
+	    orderDetailPayEve:function( e ){
 		   var me = this;
 
            var id = $(e.currentTarget).attr('data-id');
@@ -246,44 +297,7 @@ define( function( require, exports, module ) {
 		   
            me.trigger('orderOnlinePay',{ 'id' :id } );
 	   },
-	   //联合跟进人
-	   orderCustomEve:function( e ){
-		   var me = this;
-		   var enterpriseId = $(e.currentTarget).attr('data-enterpriseId');
-		   me.trigger('orderCustom',{'enterpriseId':enterpriseId});
-	   },
-	   //退款
-	   orderBackmoneyEve:function( e ){
-		   var me = this;
-		   
-		   var enterpriseId = $(e.currentTarget).attr('data-enterpriseId');
-		   var id = $(e.currentTarget).attr('data-id');
-           var enterpriseId = $(e.currentTarget).attr('data-enterpriseId');
-           var orderType = $(e.currentTarget).attr('data-orderType');
-           var opinion = $(e.currentTarget).attr('data-opinion');
-           var isTp = $(e.currentTarget).attr('data-isTp');
-           var ea = $(e.currentTarget).attr('data-ea');
-		   var contractNo = $(e.currentTarget).attr('data-contractNo');
-		   var  newFirst = $(e.currentTarget).attr('data-newFirst');
-		   if( newFirst == 'newFirst' ){
-			    me.trigger('orderBackmoney',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':true,'orderType':orderType,
-               'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea,'processInstanceId':'','contractNo':contractNo,'newFirst':'newFirst'} );
-		   }else{
-			  me.trigger('orderBackmoney',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':false,'orderType':orderType,
-               'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea,'processInstanceId':'','contractNo':contractNo} );
-		   
-		   }
-	   },
-	   //发票
-	   orderInvoiceEve:function( e ){
-		   var me = this;
-		   
-		   var id = $(e.currentTarget).attr('data-id');
-         
-		   
-           me.trigger('orderInvoice', id );
-		   
-	   },
+       */
         //导出excel
         exportEve: function(e){
             var me = this;
@@ -401,22 +415,6 @@ define( function( require, exports, module ) {
                 }
             })
             
-        },
-
-        //渲染列表
-        renderList: function(){
-            var me = this;
-            var collection = me.collection.all();
-            var htmlStr = '';
-
-            if( collection.length > 0 ){
-                htmlStr = me.trTpl( {'content': collection} );
-            }else{
-                htmlStr = "<tr> <td colspan='14'><p class='info'>暂无数据</p></td> </tr>"
-            }
-
-            me.$tbody.html( htmlStr );
-            TplEvent.setPermissions( me.$tbody );
         }
     })
 
