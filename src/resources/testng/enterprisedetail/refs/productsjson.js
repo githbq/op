@@ -5,6 +5,18 @@ define(function (require, exports, module) {
             {
                 "text": "CRM",
                 "productId": 1
+            },
+            {
+                "text": "CRM2",
+                "productId": 11
+            },
+            {
+                "text": "CRM3",
+                "productId": 111
+            },
+            {
+                "text": "CRM4",
+                "productId": 1111
             }
         ],
         "defaultStates": [

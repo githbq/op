@@ -8,20 +8,41 @@ define(function (require, exports, module) {
                 template: require('./products-template.html'),
                 link: function (scope, iElem, iAttrs) {
                     var products = [];
-                    var resultData = [{data: [], state: 1, productId: 11}, {data: [], productId: 11}, {data: [], productId: 11}, {data: [], productId: 11}];
+                    var resultData = [{data: [], state: 1, productId: 1}, {data: [], productId: 11}, {data: [], productId: 111}, {data: [], productId: 1111}];
                     //JSON格式转换
                     for (var i = 0; i < productJson.logics.length; i++) {
                         var logic = productJson.logics[i];
+                        debugger
                         var find = _.findWhere(resultData, {productId: logic.attr.productId});
                         if (find) {
-                            logic.data = find.data;
+                            //不再直接替换成结果data而是用采用结果data去赋值给原始data 最终取值使用原始data
+                            _.each(logic.data,function(item,i){
+                                var rData= _.findWhere(find.data,{name:item.name});
+                                if(rData){
+                                    logic.data.value=rData.value;
+                                }
+                            });
                             logic.currState = find.state;
                         }
                         var state = getStateCombine(logic);
+                        var show = !!_.findWhere(resultData, {productId: logic.attr.productId});
                         //与基状态合并
-                        products.push({states: state, logic: logic});
+                        products.push({productId: logic.attr.productId, states: state, logic: logic, show: show});
                     }
-                    initValidate(products);//初始化验证数据
+                    //复选框选中事件
+                    scope.productCheckboxs = _.map(productJson.products, function (item, i) {
+                        var findProduct = _.findWhere(resultData, {productId: item.productId});
+                        item.show = !!findProduct;
+                        return {id: item.productId, text: item.text, checked: !!findProduct};
+                    });
+                    //产品复选框
+                    scope.checkProduct = function (checked, checkbox) {
+                        var findProduct = _.findWhere(products, {productId: checkbox.id});
+                        findProduct && (findProduct.show = checked);
+                    };
+                    //初始化验证数据
+                    initValidate(products);
+                    //视图中渲染的结构
                     scope.products = products;
                     function getStateCombine(logic) {
                         //创建副本 避免污染原始数据
@@ -86,6 +107,7 @@ define(function (require, exports, module) {
 
                             }
                         }
+
                         //根据类型执行取值
                         function switchInitType(initItem, validate, logic) {
                             switch (initItem.value.type) {
@@ -126,7 +148,7 @@ define(function (require, exports, module) {
                     //控制值改变时事件  fieldStruct 元素的模型
                     scope.fieldChange = function (fieldStruct, product, form) {
                         //执行验证
-
+                        debugger
 
                         //执行事件
                         fieldStruct.onchange = fieldStruct.onchange || [];
@@ -153,22 +175,6 @@ define(function (require, exports, module) {
 
                                 }
                                     ;
-                                    break;
-                                case '':
-                                {
-                                }
-                                    ;
-                                    break;
-                                case '':
-                                {
-                                }
-                                    ;
-                                    break;
-                                case '':
-                                {
-                                }
-                                    ;
-                                    break;
                             }
                         }
 
