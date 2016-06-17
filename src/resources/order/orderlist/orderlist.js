@@ -247,37 +247,33 @@ define( function( require, exports, module ) {
                 }
             }
 
+            var enterpriseId = item.order.enterpriseId;
+            var orderType = item.order.orderType;
+            var opinion = item.order.rejectReason ? item.order.rejectReason :'';
+            var isTp = item.order.isTp;
+            var ea = item.order.enterpriseAccount;
+            var contractNo = item.order.contractNo;
+            //var newFirst = $(e.currentTarget).attr('data-newFirst');
             
+            var newFirst;
+            if( item.canRefund == 1 ){
+                newFirst = 'newFirst';
+            } else {
+                newFirst = "refund";
+            }
 
-            /*
-            me.trigger('orderBackmoney',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':false,'orderType':orderType,
-               'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea,'processInstanceId':'','contractNo':contractNo} );
-            */
-        },
-        //退款
-        /*
-        orderBackmoneyEve:function( e ){
-           var me = this;
-           
-           var enterpriseId = $(e.currentTarget).attr('data-enterpriseId');
-           var id = $(e.currentTarget).attr('data-id');
-           var enterpriseId = $(e.currentTarget).attr('data-enterpriseId');
-           var orderType = $(e.currentTarget).attr('data-orderType');
-           var opinion = $(e.currentTarget).attr('data-opinion');
-           var isTp = $(e.currentTarget).attr('data-isTp');
-           var ea = $(e.currentTarget).attr('data-ea');
-           var contractNo = $(e.currentTarget).attr('data-contractNo');
-           var  newFirst = $(e.currentTarget).attr('data-newFirst');
-           if( newFirst == 'newFirst' ){
+
+
+
+            if( newFirst == 'newFirst' ){
                 me.trigger('orderBackmoney',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':true,'orderType':orderType,
                'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea,'processInstanceId':'','contractNo':contractNo,'newFirst':'newFirst'} );
-           }else{
+            }else{
               me.trigger('orderBackmoney',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':false,'orderType':orderType,
                'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea,'processInstanceId':'','contractNo':contractNo} );
            
-           }
+            }
         },
-        */
         //联合跟进人
         unionEve: function( e ){
             var me = this;
