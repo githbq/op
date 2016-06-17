@@ -16,10 +16,10 @@ define(function (require, exports, module) {
                         var find = _.findWhere(resultData, {productId: logic.attr.productId});
                         if (find) {
                             //不再直接替换成结果data而是用采用结果data去赋值给原始data 最终取值使用原始data
-                            _.each(logic.data,function(item,i){
-                                var rData= _.findWhere(find.data,{name:item.name});
-                                if(rData){
-                                    logic.data.value=rData.value;
+                            _.each(logic.data, function (item, i) {
+                                var rData = _.findWhere(find.data, {name: item.name});
+                                if (rData) {
+                                    logic.data.value = rData.value;
                                 }
                             });
                             logic.currState = find.state;
@@ -161,16 +161,14 @@ define(function (require, exports, module) {
                             switch (changeItem.type) {
                                 case 'evaluation':
                                 {
-                                    // scope.$apply(function () {
-                                    //赋值操作
+                                    //直接赋值操作
                                     evaluationForValueType(changeItem);
-                                    //});
                                 }
                                     ;
                                     break;
                                 case 'ajax':
                                 {
-                                    //远程操作
+                                    //远程赋值操作
                                     ajaxSetValue(changeItem);
 
                                 }
@@ -265,6 +263,14 @@ define(function (require, exports, module) {
                                 }
                                     ;
                                     break;
+                                case 'state':{
+                                      function setStateForSource(){
+
+
+                                      }
+
+
+                                };break;
                             }
                         }
 
@@ -321,6 +327,12 @@ define(function (require, exports, module) {
                         return value;
                     }
 
+                    //获取后后端推送的数据
+                    scope.getResultData = function () {
+                        return _.map(products, function (item, i) {
+                            return {productId: item.productId, data: item.logic.data, state: item.logic.currState};
+                        });
+                    };
                     scope.addSalesmen = function (items) {
                         items.push({
                             "name": "张三",
