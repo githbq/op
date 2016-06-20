@@ -2,8 +2,8 @@
 define(function (require, exports, module) {
     var productJson = require('./productsjson.js');
     var dialogManager = require('./dialog');
-    var waterfallcomput=require('./waterfallcomput');
-    var colWrapperStr='<div class="product-col-wraper" style="border:3px solid green;overflow:hidden;float:left;"></div>';
+    var waterfallcomput = require('./waterfallcomput');
+    var colWrapperStr = '<div class="product-col-wraper" style="border:3px solid green;overflow:hidden;float:left;"></div>';
 
     angular.module('formApp').directive('products', function () {
             return {
@@ -19,17 +19,26 @@ define(function (require, exports, module) {
                         var logic = productJson.logics[i];
                         changeState({logic: logic, productId: logic.attr.productId});
                     }
-
-                    function changeState(product) {
-                        setTimeout(function(){
-                            $('.product').each(function(i,n){
-                                var $dom=$(n);
-                                if($dom.parents('.product-col-wraper').length>0){
+                    //瀑布布局重置
+                    function wrapperReset() {
+                        setTimeout(function () {
+                            $('.product-col-wraper').each(function (i, n) {
+                                if ($('.product',n).length==0) {
+                                    $(n).remove();
+                                }
+                            });
+                            $('.product').each(function (i, n) {
+                                var $dom = $(n);
+                                if ($dom.parents('.product-col-wraper').length > 0) {
                                     $dom.unwrap();
                                 }
                             });
-                            waterfallcomput($('.products-border'),$('.product'),colWrapperStr);
-                        },30);
+                            waterfallcomput($('.products-border'), $('.product'), colWrapperStr);
+                        }, 10);
+                    }
+
+                    function changeState(product) {
+                        wrapperReset();
                         var find = _.findWhere(resultData, {productId: product.productId});
                         if (find) {
                             //不再直接替换成结果data而是用采用结果data去赋值给原始data 最终取值使用原始data
@@ -61,6 +70,7 @@ define(function (require, exports, module) {
                     scope.checkProduct = function (checked, checkbox) {
                         var findProduct = _.findWhere(products, {productId: checkbox.id});
                         findProduct && (findProduct.show = checked);
+                        wrapperReset();
                     };
                     //初始化验证数据
                     initValidate(products);
