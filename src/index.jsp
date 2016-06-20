@@ -35,7 +35,7 @@
                     <li data-permissions="M008006"><a href="#index/agentexport">代理商员工导出</a></li>
                 </ul>
             </li>
-			<li data-permissions="M008007">
+            <li data-permissions="M008007">
                 <a href="#order/orderlist">订单</a>
             </li>
 
@@ -68,7 +68,7 @@
                     <li data-permissions="M008013">
                         <a href="#index/rpt2">月度报告2</a>
                     </li>
-					<!--<li data-modulecode="PayedLifeCycleOpS">
+                    <!--<li data-modulecode="PayedLifeCycleOpS">
                         <a href="#index/paid">付费生命周期</a>
                     </li>-->
                     <li data-permissions="M008015">
@@ -95,7 +95,7 @@
             <li data-permissions="M008022">
                 <a class="nav-branch">代理商</a>
                 <ul class="nav-sub">
-                    <!--<li data-permissions="M008023"><a href="#agt/lst">代理商列表</a></li>-->
+                   <!-- <li data-permissions="M008023"><a href="#agt/lst">代理商列表</a></li>-->
                     <li data-permissions="M008024"><a href="#agt/export">招商信息导出</a></li>
                 </ul>
             </li>
@@ -112,7 +112,7 @@
                     <li data-permissions="M008029"><a href="#eme/loginlimit">账号注册上限</a></li>
                 </ul>
             </li>
-			 <li data-permissions="M008030">
+             <li data-permissions="M008030">
                 <a href="#page/approvallist">我的审批</a>
                 <ul class="nav-sub">
                     <li data-permissions="M008031"><a href="#page/approvallist">订单审批</a></li>
@@ -163,7 +163,6 @@
     IBSS.BASE_PATH = location.pathname.slice( 0,location.pathname.lastIndexOf('/') ) + '/resources';   //静态资源路径
     IBSS.API_PATH = '/op/api/s';       //api路径
     IBSS.IS_DEVELOP = true;
-    // IBSS.VERSION ='4.7.' + (new Date()).getTime();
     IBSS.VERSION ='1.1';
 </script>
 
@@ -173,7 +172,6 @@
 <script type="text/javascript" src="resources/common/scripts/lib/backbone-1.1.2.js"></script>
 <script type="text/javascript" src="resources/common/scripts/lib/seajs-2.3.0.js"></script>
 <script type="text/javascript" src="resources/common/scripts/lib/seajs-css.js"></script>
-<!--<script type="text/javascript" src="resources/common/scripts/lib/seajs-text.js"></script>-->
 <script type="text/javascript" src="resources/common/scripts/lib/seajs-preload.js"></script>
 <script type="text/javascript" src="resources/common/scripts/util.js"></script>
 <script type="text/javascript" src="resources/common/scripts/widget.js"></script>
@@ -194,5 +192,6 @@
 
 </body>
 </html>
+
 
 

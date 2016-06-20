@@ -22,9 +22,9 @@
             <a href="/logout?from=/op/am">退出</a>
         </div>
     </div>
-   <nav>
+    <nav>
         <ul class="nav-main clearfix">
-            <li   data-permissions="M018001">
+            <li data-permissions="M018001">
                 <a href="#privilege/lst">优惠方案设置</a>
             </li>
         </ul>
@@ -68,7 +68,6 @@
         IBSS.BASE_PATH = location.pathname.slice( 0,location.pathname.lastIndexOf('/') ) + '/resources';   //静态资源路径
         IBSS.API_PATH = '/op/api/am';       //api路径
         IBSS.IS_DEVELOP = true;
-        // IBSS.VERSION ='4.7.' + (new Date()).getTime();
         IBSS.VERSION ='1.1';
 </script>
 
@@ -80,14 +79,13 @@
 <script type="text/javascript" src="resources/common/scripts/lib/seajs-css.js"></script>
 <script type="text/javascript" src="resources/common/scripts/lib/seajs-text.js"></script>
 <script type="text/javascript" src="resources/common/scripts/lib/seajs-preload.js"></script>
-
 <script type="text/javascript" src="resources/common/scripts/util.js"></script>
 <script type="text/javascript" src="resources/common/scripts/widget.js"></script>
-
 <script type="text/javascript" src="resources/common/widget/calendar/jquery.datetimepicker.js"></script>
-
 <!--endbuild-->
+
 <script type="text/javascript" src="resources/common/widget/my97datepicker/wdatepicker.js"></script>
+
 <!--build:app resources/assets/scripts/app.js-->
 <script type="text/javascript" src="resources/assets/scripts/config.js"></script>
 <script type="text/javascript" src="resources/assets/scripts/app.js"></script>
@@ -101,3 +99,4 @@
 
 </body>
 </html>
+

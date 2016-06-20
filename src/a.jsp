@@ -34,7 +34,7 @@
                     <!--<li data-modulecode="EnterpriseFIlingOpenRequestOpA"><a href="#agentsupport/entprisereq">公开企业申请列表</a></li>-->
                 </ul>
             </li>
-			<li data-permissions="M009005">
+            <li data-permissions="M009005">
                 <a href="#order/orderlist">订单</a>
             </li>
             <li data-permissions="M009006"><a href="#agentsupport/entpriselist">企业</a></li>
@@ -102,9 +102,8 @@
 <script type = "text/javascript">
     var IBSS = {};
         IBSS.BASE_PATH = location.pathname.slice( 0,location.pathname.lastIndexOf('/') ) + '/resources';   //静态资源路径
-        IBSS.API_PATH = '/op/api/a';       //api路径
+        IBSS.API_PATH = '/op/api/a';                                                                       //api路径
         IBSS.IS_DEVELOP = true;
-        // IBSS.VERSION ='4.7.' + (new Date()).getTime();
         IBSS.VERSION ='1.1';
 </script>
 
@@ -114,7 +113,6 @@
 <script type="text/javascript" src="resources/common/scripts/lib/backbone-1.1.2.js"></script>
 <script type="text/javascript" src="resources/common/scripts/lib/seajs-2.3.0.js"></script>
 <script type="text/javascript" src="resources/common/scripts/lib/seajs-css.js"></script>
-<!-- <script type="text/javascript" src="resources/common/scripts/lib/seajs-text.js"></script> -->
 <script type="text/javascript" src="resources/common/scripts/lib/seajs-preload.js"></script>
 <script type="text/javascript" src="resources/common/scripts/util.js"></script>
 <script type="text/javascript" src="resources/common/scripts/widget.js"></script>
@@ -135,3 +133,4 @@
 </script>
 </body>
 </html>
+
