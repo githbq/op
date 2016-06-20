@@ -38,7 +38,7 @@ define(function (require, exports, module) {
                 "data": [
                     {
                         "name": "buyType",
-                        "value": null
+                        "value": 1
                     },
                     {
                         "name": "purchaseCount",

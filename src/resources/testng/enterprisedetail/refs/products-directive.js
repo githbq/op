@@ -1,12 +1,13 @@
 //产品指令
 define(function (require, exports, module) {
     var productJson = require('./productsjson.js');
+    var dialogManager = require('./dialog');
     angular.module('formApp').directive('products', function () {
             return {
-                restrict: 'ECMA',
                 scope: {},
                 template: require('./products-template.html'),
                 link: function (scope, iElem, iAttrs) {
+
                     var products = [];
                     //后端推过来的结果 与提交的结果完全一致的数据结构
                     var resultData = [{data: [], state: 0, productId: 1}, {data: [], productId: 11}, {data: [], productId: 111}, {data: [], productId: 1111}];
@@ -75,12 +76,13 @@ define(function (require, exports, module) {
                                 newState.value.valueData = findData;
                             }
                         }
-                        baseState = _.map(baseState, function (item, i) {
+                        var tempItems = [];
+                        _.each(baseState, function (item, i) {
                             if (!item.hidden) {
-                                return item;
+                                tempItems.push(item);
                             }
                         });
-                        return baseState;
+                        return tempItems;
                     }
 
                     //检查是undefined或者null
@@ -392,6 +394,87 @@ define(function (require, exports, module) {
                             "department": '广州大一部',
                             "value": "AAAAAA"
                         });
+                    };
+                    //弹窗选择 添加销售
+                    scope.selectSalesmenDialog = function (array) {
+                        var accountConfig = {
+                            data: [{id: 1, text: '111111111111111'}, {id: 2, text: '22222222222'}, {id: 3, text: '3333333333'}, {id: 4, text: '支付宝'}],
+                            multiple: false,
+                            placeholder: '必须与实际打款的单位/个人名称一致'
+                        };
+                        var dialog = dialogManager.getInstance(null,
+                            {
+                                defaultAttr: {
+                                    title: 'testResult',
+                                    width: 500
+                                },
+                                content: require('./dialogtemplate.html')
+                            }
+                        );
+                        dialog.bootstrap(['common.directives', 'common.services'], function (app) {
+                            app.controller('dialogController', ['$scope', '$timeout', function ($scope, $timeout) {
+                                var vm = this;
+                                vm.config = accountConfig;
+                                vm.ngModel = null;
+                                vm.select2Model = null;
+                                vm.placeholder = '请选择...';
+                                vm.clickEnter = function () {
+                                    debugger
+                                    scope.$apply(function () {
+                                        array.push({
+                                            "name": "张三",
+                                            "department": '广州大一部',
+                                            "inputTitle": "签约金额",
+                                            "value": "111"
+                                        });
+                                    });
+                                };
+                                vm.clickCancel = function () {
+
+                                }
+                            }]);
+                        });
+                        dialog.show();
+                    };
+                    //弹窗选择 添加跟进人
+                    scope.selectPartnersDialog = function (array) {
+                        var accountConfig = {
+                            data: [{id: 1, text: '111111111111111'}, {id: 2, text: '22222222222'}, {id: 3, text: '3333333333'}, {id: 4, text: '支付宝'}],
+                            multiple: false,
+                            placeholder: '必须与实际打款的单位/个人名称一致'
+                        };
+                        var dialog = dialogManager.getInstance(null,
+                            {
+                                defaultAttr: {
+                                    title: 'testResult',
+                                    width: 500
+                                },
+                                content: require('./dialogtemplate.html')
+                            }
+                        );
+                        dialog.bootstrap(['common.directives', 'common.services'], function (app) {
+                            app.controller('dialogController', ['$scope', '$timeout', function ($scope,$timeout) {
+                                var vm = this;
+                                vm.config = accountConfig;
+                                vm.ngModel = null;
+                                vm.select2Model = null;
+                                vm.placeholder = '请选择...';
+                                vm.clickEnter = function () {
+                                    debugger
+                                    scope.$apply(function () {
+                                        array.push({
+                                            "name": "张三",
+                                            "department": '广州大一部',
+                                            "value": "AAAAAA"
+                                        });
+                                    });
+                                };
+                                vm.clickCancel = function () {
+
+                                }
+                            }]);
+                        });
+                        dialog.show();
                     };
                     //scope.products = [{title: 'PK助手'}, {title: '战报助手'}, {title: '培训助手'}, {title: 'CRM'}, {title: '销客终端'}, {title: '会议助手'}];
                 }

@@ -245,7 +245,7 @@ define(function (require, exports, module) {
         }
         //end 多功能下拉选框　行业
 
-        $scope.testResult2 = function () {
+        $scope.testResult = function () {
             debugger
             util.api({
                 data: {},

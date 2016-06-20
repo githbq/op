@@ -1,7 +1,5 @@
 /**
- *  tree
- *
- *
+ * angular dialog
  */
 define(function (require, exports, module) {
     var Dialog = require('common/widget/dialog/dialog');

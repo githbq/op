@@ -71,8 +71,13 @@
 
         .enterprise-panel .product .s-table {
             width: 100%;
+            table-layout: fixed;
+            word-wrap:break-word;
         }
-
+        .enterprise-panel .product .s-table td {
+            word-wrap:break-word;
+            word-break:break-all;
+        }
         .enterprise-panel .product .s-table td {
             text-align: center;
             vertical-align: middle;
@@ -140,13 +145,13 @@
                         {{product.logic.attr.title}}
                     </div>
                     <div class="group-wrapper" ng-repeat="groups in product.states | groupBy:'groupName'">
-                        <div class="field-group form"  ng-init="currentFormName='product_'+product.logic.attr.productId+'_'+$index" ng-form name="{{'product_'+product.logic.attr.productId+'_'+$index}}">
+                        <div class="field-group form" ng-if="groups.length>0" ng-init="currentFormName='product_'+product.logic.attr.productId+'_'+$index" ng-form name="{{'product_'+product.logic.attr.productId+'_'+$index}}">
                             <div class="form-row {{groups.$key}}" ng-if="field.hidden!==true" ng-repeat="field in groups">
                                 <button ng-click="testGroup(groups)">testGroup</button>
                                 <div class="form-field" ng-class="{'radios-field':field.type=='radio'}" ng-switch="field.dataType">
                                     <div ng-switch-when="sales">
                                         <label class="label-tip" ng-if="field.label"><span class="title">{{field.label}}</span></label>
-                                        <a ng-disabled="field.readonly" class="add-button" onselectstart="return false;" ng-init="field.value.valueData.valueItems=field.value.valueData.valueItems||[]" ng-click="addSalesmen(field)">添加{{field.label}}</a>
+                                        <a ng-disabled="field.readonly" class="add-button" onselectstart="return false;" ng-init="field.value.valueData.valueItems=field.value.valueData.valueItems||[]" ng-click="selectSalesmenDialog(field.value.valueData.valueItems)">添加{{field.label}}</a>
                                         <table class="s-table">
                                             <tbody>
                                             <tr ng-repeat="item in field.value.valueData.valueItems">
@@ -157,7 +162,7 @@
                                                     <input ng-required="field.readonly" number name="{{'sales'+$index}}" ng-readonly="field.readonly" type="text" ng-model="item.value" class="input-price-s"/>
                                                 </td>
                                                 <td width="20%">
-                                                    <a ng-disabled="field.readonly" ng-click="deleteArray(field.valueItems,$index)">删除</a>
+                                                    <a ng-disabled="field.readonly" ng-click="deleteArray(field.value.valueData.valueItems,$index)">删除</a>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -165,14 +170,14 @@
                                     </div>
                                     <div ng-switch-when="partners">
                                         <label class="label-tip" ng-if="field.label"><span class="title">{{field.label}}</span></label>
-                                        <a ng-disabled="field.readonly" onselectstart="return false;" class="add-button" ng-click="addPartners(field)">添加{{field.label}}</a>
+                                        <a ng-disabled="field.readonly" onselectstart="return false;" class="add-button" ng-click="selectPartnersDialog(field.value.valueData.valueItems)">添加{{field.label}}</a>
                                         <table class="s-table" ng-init="field.value.valueData.valueItems=field.value.valueData.valueItems||[]">
                                             <tbody>
                                             <tr ng-repeat="item in field.value.valueData.valueItems">
                                                 <td width="30%" ng-bind="item.name"></td>
                                                 <td width="50%" ng-bind="item.department"></td>
                                                 <td width="20%">
-                                                    <a ng-disabled="field.readonly" ng-click="deleteArray(field.valueItems,$index)">删除</a>
+                                                    <a ng-disabled="field.readonly" ng-click="deleteArray(field.value.valueData.valueItems,$index)">删除</a>
                                                 </td>
                                             </tr>
                                             </tbody>
