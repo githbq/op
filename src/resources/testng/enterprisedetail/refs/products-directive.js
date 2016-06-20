@@ -75,6 +75,11 @@ define(function (require, exports, module) {
                                 newState.value.valueData = findData;
                             }
                         }
+                        baseState = _.map(baseState, function (item, i) {
+                            if (!item.hidden) {
+                                return item;
+                            }
+                        });
                         return baseState;
                     }
 
@@ -113,7 +118,7 @@ define(function (require, exports, module) {
                             state.validateInit = state.validateInit || [];
                             for (var i = 0; i < state.validateInit.length; i++) {
                                 var initItem = state.validateInit[i];
-                                witchInitType(initItem, state.validate, logic)
+                                switchInitType(initItem, state.validate, logic)
 
                             }
                         }
@@ -294,6 +299,7 @@ define(function (require, exports, module) {
                                 }
                             })
                         }
+
                         function setState(state, product) {
                             _.each(resultData, function (item, j) {
                                 if (item.productId == product.productId) {
@@ -370,7 +376,7 @@ define(function (require, exports, module) {
                     };
                     scope.addSalesmen = function (field) {
                         debugger
-                        field.value.valueData.valueItems=field.value.valueData.valueItems||[];
+                        field.value.valueData.valueItems = field.value.valueData.valueItems || [];
 
                         field.value.valueData.valueItems.push({
                             "name": "张三",
@@ -380,7 +386,7 @@ define(function (require, exports, module) {
                         });
                     };
                     scope.addPartners = function (field) {
-                        field.value.valueData.valueItems=field.value.valueData.valueItems||[];
+                        field.value.valueData.valueItems = field.value.valueData.valueItems || [];
                         field.value.valueData.valueItems.push({
                             "name": "张三",
                             "department": '广州大一部',

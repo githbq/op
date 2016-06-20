@@ -30,7 +30,6 @@
             padding-bottom: 10px;
 
         }
-
         .enterprise-panel .product .form .form-row label:first-child {
             display: inline-block;
             width: 145px;
@@ -102,25 +101,28 @@
         .enterprise-panel .product .add-button {
             float: right;
         }
-        .enterprise-panel .product-checkboxs{
-            padding:15px 10px;
+
+        .enterprise-panel .product-checkboxs {
+            padding: 15px 10px;
         }
-        .enterprise-panel .product-checkboxs label{
-           display:inline-block;
-            margin-left:20px;
-            border:2px solid #cccccc;
-            background-color:#f2f2f2;
-            padding-left:20px;
-            cursor:pointer;
+
+        .enterprise-panel .product-checkboxs label {
+            display: inline-block;
+            margin-left: 20px;
+            border: 2px solid #cccccc;
+            background-color: #f2f2f2;
+            padding-left: 20px;
+            cursor: pointer;
         }
-        .enterprise-panel input[type=checkbox]{
-           width:20px;
-            height:30px;
+
+        .enterprise-panel input[type=checkbox] {
+            width: 20px;
+            height: 30px;
         }
     </style>
     <div class="product-checkboxs" onselectstart="return false;">
         <div class="checkboxs-container">
-            <label ng-repeat="checkbox in productCheckboxs track by $index">
+            <label ng-repeat="checkbox in productCheckboxs">
                 <span ng-bind="checkbox.text"></span>
                 <input type="checkbox"
                        ng-click="checkProduct(checkbox.checked,checkbox)"
@@ -131,15 +133,15 @@
         </div>
     </div>
     <div class="products-border">
-        <div class="product" ng-if="product.show" ng-repeat="product in products track by $index">
+        <div class="product" ng-if="product.show" ng-repeat="product in products">
             <div class="product-border">
                 <div class="product-content">
                     <div class="product-title">
                         {{product.logic.attr.title}}
                     </div>
                     <div class="group-wrapper" ng-repeat="groups in product.states | groupBy:'groupName'">
-                        <div class="field-group form" ng-if="groups.length>0" ng-init="currentFormName='product_'+product.logic.attr.productId+'_'+$index" ng-form name="{{'product_'+product.logic.attr.productId+'_'+$index}}">
-                            <div class="form-row {{groups.$key}}" ng-if="field.hidden!==true" ng-repeat="field in groups track by $index" >
+                        <div class="field-group form"  ng-init="currentFormName='product_'+product.logic.attr.productId+'_'+$index" ng-form name="{{'product_'+product.logic.attr.productId+'_'+$index}}">
+                            <div class="form-row {{groups.$key}}" ng-if="field.hidden!==true" ng-repeat="field in groups">
                                 <button ng-click="testGroup(groups)">testGroup</button>
                                 <div class="form-field" ng-class="{'radios-field':field.type=='radio'}" ng-switch="field.dataType">
                                     <div ng-switch-when="sales">
@@ -147,7 +149,7 @@
                                         <a ng-disabled="field.readonly" class="add-button" onselectstart="return false;" ng-init="field.value.valueData.valueItems=field.value.valueData.valueItems||[]" ng-click="addSalesmen(field)">添加{{field.label}}</a>
                                         <table class="s-table">
                                             <tbody>
-                                            <tr ng-repeat="item in field.value.valueData.valueItems track by $index">
+                                            <tr ng-repeat="item in field.value.valueData.valueItems">
                                                 <td width="20%" ng-bind="item.name"></td>
                                                 <td ng-bind="item.department"></td>
                                                 <td width="15%"><span ng-bind="item.inputTitle"></span></td>
@@ -166,7 +168,7 @@
                                         <a ng-disabled="field.readonly" onselectstart="return false;" class="add-button" ng-click="addPartners(field)">添加{{field.label}}</a>
                                         <table class="s-table" ng-init="field.value.valueData.valueItems=field.value.valueData.valueItems||[]">
                                             <tbody>
-                                            <tr ng-repeat="item in field.value.valueData.valueItems track by $index">
+                                            <tr ng-repeat="item in field.value.valueData.valueItems">
                                                 <td width="30%" ng-bind="item.name"></td>
                                                 <td width="50%" ng-bind="item.department"></td>
                                                 <td width="20%">
@@ -181,18 +183,19 @@
                                         <input type="text" number ng-required="field.required" ng-disabled="field.readonly" ng-disabled="field.readonly" ng-model="field.value.valueData.value"/>
                                         <!--{{field}}-->
                                     </dev>
-                                    <div ng-switch-when="radio"  ng-init="currentField=field;currentProduct=product">
+                                    <div ng-switch-when="radio" ng-init="currentField=field;currentProduct=product">
                                         <label ng-if="field.label"><span class="title">{{field.label}}</span></label>
-                                        <label class="radio-label" ng-repeat="radio in field.items track by $index">
+                                        <label class="radio-label" ng-repeat="radio in field.items">
                                             <input ng-disabled="field.readonly" name="{{field.name}}" type="radio"
                                                    ng-model="field.value.valueData.value" ng-value="radio.value" ng-change="this.fieldChange(this.currentField,this.currentProduct,this[currentFormName])"/>
                                             <span class="span-radio" ng-bind="radio.text">
                                             </span>
                                         </label>
-                                   <!--{{field}}-->
+                                        <!--{{field}}-->
                                     </div>
                                     <div ng-switch-when="time">
                                         <label ng-if="field.label"><span class="title" ng-init="field.dateConfig={type:0}">{{field.label}}</span></label>
+
                                         <div class="div-inline-block">
                                             <div allow="!field.readonly"
                                                  ng-init="currentField=field;currentProduct=product" ng-change="this.fieldChange(this.currentField,this.currentProduct,this[currentFormName])"
