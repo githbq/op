@@ -8442,6 +8442,9 @@ em {
 .enterprise-panel input[type=text] {
   width: 200px;
 }
+.enterprise-panel input[type=text].input-l {
+  width: 500px;
+}
 .enterprise-panel .multiple-select.input-l {
   width: 400px;
 }
@@ -8463,7 +8466,6 @@ em {
   content: '...';
 }
 .enterprise-panel .step {
-  padding-left: 150px;
   -webkit-transition: width 2s;
   transition: width 2s;
 }
@@ -8512,6 +8514,9 @@ em {
   display: inline-block;
   width: 350px;
   text-align: left;
+}
+.enterprise-panel .form .form-row .inputs-container .fenqi-label span::after {
+  content: '';
 }
 .enterprise-panel .form .form-row label:first-child {
   display: inline-block;

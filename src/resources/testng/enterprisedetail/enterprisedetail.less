@@ -8,6 +8,7 @@
   //.form.ng-invalid {
   //  border: 3px solid red;
   //}
+
   .form .ng-pristine.ng-invalid:not(.form) {
     border: 1px solid deepskyblue;
   }
@@ -26,6 +27,9 @@
   }
   input[type=text] {
     width: 200px;
+    &.input-l{
+      width:500px;
+    }
   }
   .multiple-select.input-l{
     width:400px;
@@ -49,7 +53,7 @@
     }
   }
   .step {
-    padding-left: 150px;
+    //padding-left: 150px;
     transition: width 2s;
   }
   h1 {
@@ -98,7 +102,9 @@
           display: inline-block;
           width: 350px;
           text-align: left;
-
+          span::after{
+            content:''
+          }
         }
       }
       label:first-child {

@@ -2,6 +2,9 @@
 define(function (require, exports, module) {
     var productJson = require('./productsjson.js');
     var dialogManager = require('./dialog');
+    var waterfallcomput=require('./waterfallcomput');
+    var colWrapperStr='<div class="product-col-wraper" style="border:3px solid green;overflow:hidden;float:left;"></div>';
+
     angular.module('formApp').directive('products', function () {
             return {
                 scope: {},
@@ -10,13 +13,23 @@ define(function (require, exports, module) {
 
                     var products = [];
                     //后端推过来的结果 与提交的结果完全一致的数据结构
-                    var resultData = [{data: [], state: 0, productId: 1}, {data: [], productId: 11}, {data: [], productId: 111}, {data: [], productId: 1111}];
+                    var resultData = [{data: [], state: 0, productId: 1}, {data: [], productId: 11}, {data: [], productId: 111}, {data: [], productId: 1111}, {data: [], productId: 11111}];
                     //JSON格式转换
                     for (var i = 0; i < productJson.logics.length; i++) {
                         var logic = productJson.logics[i];
                         changeState({logic: logic, productId: logic.attr.productId});
                     }
+
                     function changeState(product) {
+                        setTimeout(function(){
+                            $('.product').each(function(i,n){
+                                var $dom=$(n);
+                                if($dom.parents('.product-col-wraper').length>0){
+                                    $dom.unwrap();
+                                }
+                            });
+                            waterfallcomput($('.products-border'),$('.product'),colWrapperStr);
+                        },30);
                         var find = _.findWhere(resultData, {productId: product.productId});
                         if (find) {
                             //不再直接替换成结果data而是用采用结果data去赋值给原始data 最终取值使用原始data
