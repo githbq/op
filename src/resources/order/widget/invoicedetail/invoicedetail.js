@@ -113,7 +113,7 @@ define(function( require , exports , module ){
 		submitEve: function(){
 			var me = this;
 
-			console.log('确定')
+			console.log('you click submit')
 			var info = me.getInfo();
 			if( info ){
 				util.api({
@@ -188,6 +188,8 @@ define(function( require , exports , module ){
 		//取消
 		cancelEve: function(){
 			var me = this;
+			console.log('you click cancel');
+
 			me.hide();
 		},
 
@@ -210,6 +212,8 @@ define(function( require , exports , module ){
 			me.$businessLicense.on('change',function(){
 				console.log('change');
 				console.log( me.$businessLicense[0].files );
+
+				if( me.$businessLicense[0].files.length <=0 ) return;
 				uploader.send({
 					'url':'/op/api/file/uploadsinglefileandcheck',
 					'files': me.$businessLicense[0].files,
@@ -228,6 +232,8 @@ define(function( require , exports , module ){
 			me.$qualification.on('change',function(){
 				console.log('change');
 				console.log( me.$qualification[0].files );
+
+				if( me.$qualification[0].files.length <=0 ) return;
 				uploader.send({
 					'url': '/op/api/file/uploadsinglefileandcheck',
 					'files': me.$qualification[0].files,
@@ -244,6 +250,8 @@ define(function( require , exports , module ){
 
 			//
 			me.$financefile.on('change',function(){
+
+				if( me.$financefile[0].files.length <=0 ) return;
 				uploader.send({
 					'url': '/op/api/file/uploadsinglefileandcheck',
 					'files': me.$financefile[0].files,
