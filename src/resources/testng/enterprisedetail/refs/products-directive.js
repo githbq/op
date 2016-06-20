@@ -8,27 +8,35 @@ define(function (require, exports, module) {
                 template: require('./products-template.html'),
                 link: function (scope, iElem, iAttrs) {
                     var products = [];
-                    var resultData = [{data: [], state: 1, productId: 1}, {data: [], productId: 11}, {data: [], productId: 111}, {data: [], productId: 1111}];
+                    //后端推过来的结果 与提交的结果完全一致的数据结构
+                    var resultData = [{data: [], state:0, productId: 1}, {data: [], productId: 11}, {data: [], productId: 111}, {data: [], productId: 1111}];
                     //JSON格式转换
                     for (var i = 0; i < productJson.logics.length; i++) {
                         var logic = productJson.logics[i];
-                        debugger
-                        var find = _.findWhere(resultData, {productId: logic.attr.productId});
+                        changeState({logic: logic, productId: logic.attr.productId});
+                    }
+                    function changeState(product) {
+                        var find = _.findWhere(resultData, {productId: product.productId});
                         if (find) {
                             //不再直接替换成结果data而是用采用结果data去赋值给原始data 最终取值使用原始data
-                            _.each(logic.data, function (item, i) {
+                            _.each(product.logic.data, function (item, i) {
                                 var rData = _.findWhere(find.data, {name: item.name});
                                 if (rData) {
-                                    logic.data.value = rData.value;
+                                    item.value = rData.value;
                                 }
                             });
                             logic.currState = find.state;
                         }
-                        var state = getStateCombine(logic);
-                        var show = !!_.findWhere(resultData, {productId: logic.attr.productId});
-                        //与基状态合并
-                        products.push({productId: logic.attr.productId, states: state, logic: logic, show: show});
+                        product.states = getStateCombine(logic);
+                        product.show = !!_.findWhere(resultData, {productId: product.productId});
+                        var findIndex = _.findIndex(products, {productId: product.productId});
+                        if (findIndex >= 0) {
+                            products[findIndex] = product;
+                        } else {
+                            products.push(product);
+                        }
                     }
+
                     //复选框选中事件
                     scope.productCheckboxs = _.map(productJson.products, function (item, i) {
                         var findProduct = _.findWhere(resultData, {productId: item.productId});
@@ -45,24 +53,26 @@ define(function (require, exports, module) {
                     //视图中渲染的结构
                     scope.products = products;
                     function getStateCombine(logic) {
+                        debugger
                         //创建副本 避免污染原始数据
                         var baseState = angular.copy(logic.baseState);
                         var state = angular.copy(logic.states[logic.currState || 0]);
                         //子状态与基状态合并
                         for (var i = 0; i < baseState.length; i++) {
                             var name = baseState[i].name;
+                            var stateItem=baseState[i];
                             var findState = _.findWhere(state, {name: name});
                             if (findState) {
-                                baseState[i] = findState;
+                                baseState[i] = angular.extend({},stateItem,findState);
                             }
                             var findData = _.findWhere(logic.data, {name: name});
-                            var state = baseState[i];
+                            var newState = baseState[i];
                             if (findData) {
-                                state.value = state.value || {};
+                                newState.value = newState.value || {};
                                 if (checkoutUN(findData.value)) {
-                                    findData.value = state.value.value || '';
+                                    findData.value = newState.value.value || '';
                                 }
-                                state.value.valueData = findData;
+                                newState.value.valueData = findData;
                             }
                         }
                         return baseState;
@@ -154,22 +164,22 @@ define(function (require, exports, module) {
                         fieldStruct.onchange = fieldStruct.onchange || [];
                         for (var i = 0; i < fieldStruct.onchange.length; i++) {
                             var changeItem = fieldStruct.onchange[i];
-                            done(changeItem);
+                            done(changeItem, fieldStruct);
                         }
-                        scope.$apply();
+                        setTimeout(function(){scope.$apply()},10);
                         function done(changeItem) {
                             switch (changeItem.type) {
                                 case 'evaluation':
                                 {
                                     //直接赋值操作
-                                    evaluationForValueType(changeItem);
+                                    evaluationForValueType(changeItem, fieldStruct, product);
                                 }
                                     ;
                                     break;
                                 case 'ajax':
                                 {
                                     //远程赋值操作
-                                    ajaxSetValue(changeItem);
+                                    ajaxSetValue(changeItem, fieldStruct);
 
                                 }
                                     ;
@@ -238,7 +248,7 @@ define(function (require, exports, module) {
                             }
                         };
                         //根据赋值类型进行赋值
-                        function evaluationForValueType(changeItem) {
+                        function evaluationForValueType(changeItem, fieldStruct, product) {
                             switch (changeItem.valueType) {
                                 case 'data':
                                 {
@@ -263,16 +273,40 @@ define(function (require, exports, module) {
                                 }
                                     ;
                                     break;
-                                case 'state':{
-                                      function setStateForSource(){
-
-
-                                      }
-
-
-                                };break;
+                                case 'state':
+                                {
+                                    setStateForSource(changeItem, fieldStruct, product);
+                                }
+                                    ;
+                                    break;
                             }
                         }
+
+                        //设置状态
+                        function setStateForSource(changeItem, fieldStruct, product) {
+                            var state = null;
+                            _.each(fieldStruct.items, function (n, i) {//目前只有拥有 items属性的元素才会有可能改变状态
+                                var findState = n[changeItem.source];
+                                if (findState !== undefined && n.value == fieldStruct.value.valueData.value) {
+                                    setState(findState, product);
+                                }
+                            })
+                        }
+
+                        function setState(state, product) {
+                            _.each(resultData, function (item, j) {
+                                if (item.productId == product.productId) {
+                                    if (item.state !== state) {
+                                        item.state = state;
+                                        setTimeout(function () {
+                                            changeState(product);
+                                        }, 10);
+                                    }
+                                }
+                            });
+                        }
+
+                        //end 设置状态
 
                         //根据源不同 去给对象赋值
                         function setValueForSource(changeItem, findData, DataIs) {

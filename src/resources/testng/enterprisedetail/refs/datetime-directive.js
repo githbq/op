@@ -5,7 +5,7 @@ define(function (require, exports, module) {
         return {
             restrict: 'A',
             template: '<input name="{{name}}" style="cursor:pointer;" type="text" readonly="readonly" class="datetime-control" ng-model="stringValue"/>',
-            scope: {whenchange: '&', datetimeconfig: '=', ngModel: '=', allow: '=', getForm: '&getform', name: '@'},
+            scope: {ngChange: '&', datetimeconfig: '=', ngModel: '=', allow: '=', getForm: '&getform', name: '@'},
             link: function (scope, iElem, iAttr) {
                 scope.datetimeconfig = scope.datetimeconfig || {};
                 var currentForm = scope.getForm && scope.getForm();
@@ -21,7 +21,7 @@ define(function (require, exports, module) {
                         scope.$apply(function () {
                             transferDate(value);
                         });
-                        scope.whenchange && scope.whenchange();
+                        scope.ngChange && scope.ngChange();
                     }
                 };
                 scope.$watch('ngModel', function () {

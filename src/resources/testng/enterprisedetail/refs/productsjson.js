@@ -640,12 +640,17 @@ define(function (require, exports, module) {
                             {
                                 "text": "是",
                                 "value": 1,
-                                "state": 0
+                                "state": 1
                             },
                             {
                                 "text": "否",
                                 "value": 0,
                                 "state": 0
+                            },
+                            {
+                                "text": "否3",
+                                "value": 3,
+                                "state": 3
                             }
                         ],
                         "validate": [
@@ -743,6 +748,11 @@ define(function (require, exports, module) {
                                     "text": "否",
                                     "value": 0,
                                     "state": 1
+                                },
+                                {
+                                    "text": "不知道",
+                                    "value": 3,
+                                    "state": 3
                                 }
                             ]
                         },
