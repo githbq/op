@@ -1,41 +1,54 @@
 define(function (require, exports, module) {
     require('common/widget/select2/select2');
     require('./refs/directives');
-    var myApp = angular.module('formApp', ['ngMessages', 'common.directives','angular.filter']);
+    var myApp = angular.module('formApp', ['angular.filter', 'ngMessages', 'common.directives']);
     require('./refs/products-directive');
     require('./refs/product-services');//对应的远程服务
     var dialogManager = require('./refs/dialog');
 
-
-    var Page = MClass( M.Center ).include({
+    var mainCtrlScope = null;
+    var Page = MClass(M.Center).include({
         view: require('./template.html'),
-        init: function(){
-            var me=this;
-            Page.__super__.init.apply( me , arguments );
+        init: function () {
+            var me = this;
+            Page.__super__.init.apply(me, arguments);
 
             angular.bootstrap(me.$view, ['formApp']);
+            me.mainCtrlScope = null;
         },
         //渲染
-        render: function(){
-            this.attrs['wrapper'].empty().append( this.$view );
+        render: function () {
+            this.attrs['wrapper'].empty().append(this.$view);
+        },
+        hideTopBar: function () {
+            var me = this;
+            if (mainCtrlScope) {
+                mainCtrlScope.$apply(function () {
+                    mainCtrlScope.hideTopBar = true;
+                });
+            }
+        },
+        hideFootBtns: function () {
+            var me = this;
+            if (mainCtrlScope) {
+                mainCtrlScope.$apply(function () {
+                    mainCtrlScope.hideFootBtns = true;
+                });
+            }
+        },
+        nextStep: function () {
+            mainCtrlScope.$apply(function () {
+                mainCtrlScope.nextStep()
+            });
+        },
+        prevStep: function () {
+            mainCtrlScope.$apply(function () {
+                mainCtrlScope.prevStep();
+            });
         }
     });
 
-    module.exports=Page;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    module.exports = Page;
 
 
     myApp.controller('form1Controller', ['$scope', '$timeout', function ($scope, $timeout) {
@@ -59,9 +72,8 @@ define(function (require, exports, module) {
             }
         }
     });
-
-
     myApp.controller('mainController', ['$scope', '$timeout', 'select2Query', function ($scope, $timeout, select2Query) {
+        mainCtrlScope = $scope;
         $scope.config1 = {
             data: [],
             placeholder: '尚无数据',
@@ -104,7 +116,7 @@ define(function (require, exports, module) {
             // minimumResultsForSearch: Infinity//不显示搜索框
             ,
             search: false,
-            defaultValue:'110000'
+            defaultValue: '110000'
         };
 
         $scope.cityConfig = {
@@ -113,7 +125,7 @@ define(function (require, exports, module) {
             multiple: false,
             placeholder: '尚无数据',
             search: false,
-            defaultValue:'110000'
+            defaultValue: '110000'
         };
         $scope.areaConfig = {
             //data: [{id: '1-1-1', text: '昌平区'}, {id: '2-1-1', text: '浦东区'}, {id: '3-1-1', text: '宝安区'}, {id: '4-1-1', text: '汉口'}, {id: '4-2-1', text: '黄梅县'}],
@@ -121,13 +133,13 @@ define(function (require, exports, module) {
             multiple: false,
             placeholder: '尚无数据',
             search: false,
-            defaultValue:'110000'
+            defaultValue: '110000'
         };
         cascadeSelect([
             {ngModelName: 'entInfo.province', config: $scope.provinceConfig},
             {ngModelName: 'entInfo.city', config: $scope.cityConfig},
             {ngModelName: 'entInfo.area', config: $scope.areaConfig}
-        ],createPullFunc({url:'~/op/api/district/getListByParent',data:{name: 'parentValue'}},function(data,item){
+        ], createPullFunc({url: '~/op/api/district/getListByParent', data: {name: 'parentValue'}}, function (data, item) {
             data.push({id: item.value.toString(), text: item.name});
         }));
         //end多功能下拉选框　
@@ -176,8 +188,8 @@ define(function (require, exports, module) {
         ]);
         //{ngModelName:'',config}
         //级联下拉列表
-        function cascadeSelect(selectConfigs,remotePullFunc) {
-            var remotePullFunc = remotePullFunc||createPullFunc();
+        function cascadeSelect(selectConfigs, remotePullFunc) {
+            var remotePullFunc = remotePullFunc || createPullFunc();
             for (var i = 0; i < selectConfigs.length; i++) {
                 var selectConfig = selectConfigs[i];
                 var nextSelectConfig = selectConfigs.length > i + 1 ? selectConfigs[i + 1] : null;
@@ -212,10 +224,11 @@ define(function (require, exports, module) {
                 return eval('$scope.' + ngModelName);
             }
         }
-        function createPullFunc(options,responseCallback) {
+
+        function createPullFunc(options, responseCallback) {
             return function (config, parentValue, cb) {
-                options=options||{};
-                var defaultOption={
+                options = options || {};
+                var defaultOption = {
                     url: '~/op/api/enums/getlistByParent',
                     data: {name: 'INDUSTRY', parentValue: parentValue || 0},
                     success: function (result) {
@@ -237,12 +250,13 @@ define(function (require, exports, module) {
                         }
                     }
                 };
-                if(defaultOption.data){
-                    options.data=$.extend(defaultOption.data,options.data);
+                if (defaultOption.data) {
+                    options.data = $.extend(defaultOption.data, options.data);
                 }
-                util.api($.extend(defaultOption,options));
+                util.api($.extend(defaultOption, options));
             }
         }
+
         //end 多功能下拉选框　行业
 
         $scope.testResult = function () {
@@ -301,7 +315,7 @@ define(function (require, exports, module) {
             if ($scope.step == 1) {//企业详情界面
                 if ($scope.mainForm.basicForm.$invalid) {
                     debugger
-                    $scope['step_'+$scope.step+'_validate_error']=true;
+                    $scope['step_' + $scope.step + '_validate_error'] = true;
                     return;
                 }
             }

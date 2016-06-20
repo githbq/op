@@ -135,7 +135,9 @@ define(function (require, exports, module) {
                                         data: getQueryData(initItem.query),
                                         success: function (result) {
                                             if (result.success) {
-                                                validate[initItem.name] = result.value.model[initItem.value.backName];
+                                                scope.$apply(function () {
+                                                    validate[initItem.name] = result.value.model[initItem.value.backName];
+                                                });
                                             }
                                         }
                                     });
@@ -453,7 +455,7 @@ define(function (require, exports, module) {
                             }
                         );
                         dialog.bootstrap(['common.directives', 'common.services'], function (app) {
-                            app.controller('dialogController', ['$scope', '$timeout', function ($scope,$timeout) {
+                            app.controller('dialogController', ['$scope', '$timeout', function ($scope, $timeout) {
                                 var vm = this;
                                 vm.config = accountConfig;
                                 vm.ngModel = null;
@@ -476,12 +478,9 @@ define(function (require, exports, module) {
                         });
                         dialog.show();
                     };
-                    //scope.products = [{title: 'PK助手'}, {title: '战报助手'}, {title: '培训助手'}, {title: 'CRM'}, {title: '销客终端'}, {title: '会议助手'}];
                 }
             }
         }
     )
     ;
-
-
 });

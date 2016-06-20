@@ -3,7 +3,7 @@
         <button ng-click="testBasicForm()">测试表单验证11</button>
         <button ng-attr-abcd="aaaa" ng-click="testResult()">testResult</button>
         <div ng-show="step==1" ng-controller="form1Controller" class="step form baseinfo" ng-form name="basicForm">
-            <div class="top-bar">
+            <div class="top-bar" ng-if="hideTopBar!==true">
                 <h1>第一步&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;企业信息</h1>
             </div>
             <!--<input select2 ng-model="a" select2-model="aS2" config="config1" type="text"/>-->
@@ -128,7 +128,7 @@
             </div>
         </div>
         <div ng-show="step==2" ng-controller="form2Controller" class="step form">
-            <div class="top-bar">
+            <div class="top-bar" ng-if="hideTopBar!==true">
                 <h1>第二步&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;产品信息</h1>
             </div>
             <div class="form" ng-class="{step_validate_error:step_2_validate_error}">
@@ -142,7 +142,7 @@
             </div>
         </div>
         <div ng-if="step==3" ng-controller="form3Controller" ng-form name="payInfoForm" class="step form">
-            <div class="top-bar">
+            <div class="top-bar" ng-if="hideTopBar!==true">
                 <h1>第三步&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;付款信息</h1>
             </div>
             <div class="baseinfo form">
@@ -290,7 +290,7 @@
                 </div>
             </div>
         </div>
-        <div class="panel-button">
+        <div class="panel-button" ng-if="hideFootBtns!==true">
             <button ng-if="step>1" ng-click="prevStep()">上一步</button>
             &nbsp;&nbsp;&nbsp;&nbsp;
             <!--<button ng-disabled="mainForm.basicForm.$invalid" ng-if="step<3" ng-click="nextStep()">下一步</button>-->
