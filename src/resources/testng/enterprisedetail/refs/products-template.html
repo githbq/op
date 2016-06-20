@@ -144,10 +144,10 @@
                                 <div class="form-field" ng-class="{'radios-field':field.type=='radio'}" ng-switch="field.dataType">
                                     <div ng-switch-when="sales">
                                         <label class="label-tip" ng-if="field.label"><span class="title">{{field.label}}</span></label>
-                                        <a ng-disabled="field.readonly" class="add-button" onselectstart="return false;" ng-init="field.valueItems=field.valueItems||[]" ng-click="addSalesmen(field.valueItems)">添加{{field.label}}</a>
+                                        <a ng-disabled="field.readonly" class="add-button" onselectstart="return false;" ng-init="field.value.valueData.valueItems=field.value.valueData.valueItems||[]" ng-click="addSalesmen(field)">添加{{field.label}}</a>
                                         <table class="s-table">
                                             <tbody>
-                                            <tr ng-repeat="item in field.valueItems track by $index">
+                                            <tr ng-repeat="item in field.value.valueData.valueItems track by $index">
                                                 <td width="20%" ng-bind="item.name"></td>
                                                 <td ng-bind="item.department"></td>
                                                 <td width="15%"><span ng-bind="item.inputTitle"></span></td>
@@ -163,10 +163,10 @@
                                     </div>
                                     <div ng-switch-when="partners">
                                         <label class="label-tip" ng-if="field.label"><span class="title">{{field.label}}</span></label>
-                                        <a ng-disabled="field.readonly" onselectstart="return false;" class="add-button" ng-click="addPartners(field.valueItems)">添加{{field.label}}</a>
-                                        <table class="s-table" ng-init="field.valueItems=field.valueItems||[]">
+                                        <a ng-disabled="field.readonly" onselectstart="return false;" class="add-button" ng-click="addPartners(field)">添加{{field.label}}</a>
+                                        <table class="s-table" ng-init="field.value.valueData.valueItems=field.value.valueData.valueItems||[]">
                                             <tbody>
-                                            <tr ng-repeat="item in field.valueItems track by $index">
+                                            <tr ng-repeat="item in field.value.valueData.valueItems track by $index">
                                                 <td width="30%" ng-bind="item.name"></td>
                                                 <td width="50%" ng-bind="item.department"></td>
                                                 <td width="20%">

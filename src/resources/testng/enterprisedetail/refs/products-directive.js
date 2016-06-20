@@ -9,7 +9,7 @@ define(function (require, exports, module) {
                 link: function (scope, iElem, iAttrs) {
                     var products = [];
                     //后端推过来的结果 与提交的结果完全一致的数据结构
-                    var resultData = [{data: [], state:0, productId: 1}, {data: [], productId: 11}, {data: [], productId: 111}, {data: [], productId: 1111}];
+                    var resultData = [{data: [], state: 0, productId: 1}, {data: [], productId: 11}, {data: [], productId: 111}, {data: [], productId: 1111}];
                     //JSON格式转换
                     for (var i = 0; i < productJson.logics.length; i++) {
                         var logic = productJson.logics[i];
@@ -60,10 +60,10 @@ define(function (require, exports, module) {
                         //子状态与基状态合并
                         for (var i = 0; i < baseState.length; i++) {
                             var name = baseState[i].name;
-                            var stateItem=baseState[i];
+                            var stateItem = baseState[i];
                             var findState = _.findWhere(state, {name: name});
                             if (findState) {
-                                baseState[i] = angular.extend({},stateItem,findState);
+                                baseState[i] = angular.extend({}, stateItem, findState);
                             }
                             var findData = _.findWhere(logic.data, {name: name});
                             var newState = baseState[i];
@@ -166,7 +166,9 @@ define(function (require, exports, module) {
                             var changeItem = fieldStruct.onchange[i];
                             done(changeItem, fieldStruct);
                         }
-                        setTimeout(function(){scope.$apply()},10);
+                        setTimeout(function () {
+                            scope.$apply()
+                        }, 10);
                         function done(changeItem) {
                             switch (changeItem.type) {
                                 case 'evaluation':
@@ -292,7 +294,6 @@ define(function (require, exports, module) {
                                 }
                             })
                         }
-
                         function setState(state, product) {
                             _.each(resultData, function (item, j) {
                                 if (item.productId == product.productId) {
@@ -367,16 +368,20 @@ define(function (require, exports, module) {
                             return {productId: item.productId, data: item.logic.data, state: item.logic.currState};
                         });
                     };
-                    scope.addSalesmen = function (items) {
-                        items.push({
+                    scope.addSalesmen = function (field) {
+                        debugger
+                        field.value.valueData.valueItems=field.value.valueData.valueItems||[];
+
+                        field.value.valueData.valueItems.push({
                             "name": "张三",
                             "department": '广州大一部',
                             "inputTitle": "签约金额",
                             "value": "111"
                         });
                     };
-                    scope.addPartners = function (items) {
-                        items.push({
+                    scope.addPartners = function (field) {
+                        field.value.valueData.valueItems=field.value.valueData.valueItems||[];
+                        field.value.valueData.valueItems.push({
                             "name": "张三",
                             "department": '广州大一部',
                             "value": "AAAAAA"

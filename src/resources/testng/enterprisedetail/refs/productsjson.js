@@ -1,5 +1,5 @@
 define(function (require, exports, module) {
- //[{data:[],state:1,productId:11},{data:[],productId:11},{data:[],productId:11},{data:[],productId:11}]
+    //[{data:[],state:1,productId:11},{data:[],productId:11},{data:[],productId:11},{data:[],productId:11}]
     module.exports = {
         "products": [
             {
@@ -25,11 +25,10 @@ define(function (require, exports, module) {
                 "state": 0
             }
         ],
-        "global": [
-            {
-                "enterpriseId": ""
-            }
-        ],
+        "global": {
+            "enterpriseId": ""
+        }
+        ,
         "logics": [
             {
                 "attr": {
