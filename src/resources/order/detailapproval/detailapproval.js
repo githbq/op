@@ -1041,6 +1041,12 @@ define( function(require, exports, module){
 		//保存提交
 		actionSubmitEve:function(){
 			var me = this;
+
+			if( !me.model.get('comment') ){
+                util.showToast('请填写意见');
+                return;
+            }
+
 			me.attrs.allData.orderEntity.order.id = me.attrs.options.id;
 			me.getOrderInfo(function(){
 				var tempUrl = '';
@@ -1060,6 +1066,7 @@ define( function(require, exports, module){
 				me.$actionAgree.attr('disabled','disabled');
 				me.$actionReject.text('提交中....');
 				me.$actionReject.attr('disabled','disabled');
+
 				util.api({
 					'url':tempUrl,
 					'data':JSON.stringify( me.attrs.allData ),
@@ -1084,7 +1091,6 @@ define( function(require, exports, module){
 						me.$actionAgree.removeAttr('disabled');
 					}
 				})
-				
 			});
 			 //移交至下一个节点
             function changeNode(){
@@ -1093,7 +1099,7 @@ define( function(require, exports, module){
                     'data':{
                         'processInstanceId': me.attrs.options.processInstanceId,
                         'approved': true,
-                        'opinion':''
+                        'opinion': me.model.get('comment')
                     },
                     'success':function( data ){
                         if( data.success ){
