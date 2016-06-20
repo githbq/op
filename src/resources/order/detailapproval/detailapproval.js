@@ -1083,6 +1083,15 @@ define( function(require, exports, module){
 					'success': function( data ){
 						if( data.success ){
 							changeNode();
+						}else{
+							me.$actionSave.text('保存');
+							me.$actionSave.removeAttr('disabled');
+							me.$actionAgreePass.text('保存通过');
+							me.$actionAgreePass.removeAttr('disabled');
+							me.$actionReject.text('驳回');
+							me.$actionReject.removeAttr('disabled');
+							me.$actionAgree.text('同意');
+							me.$actionAgree.removeAttr('disabled');
 						}
 					},
 					'error': function(){
