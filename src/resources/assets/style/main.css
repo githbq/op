@@ -7092,3 +7092,71 @@ em {
   text-align: right;
   display: block;
 }
+.m-createpolicy p.line {
+  argin-top: 30px;
+}
+.m-createpolicy p.line input {
+  margin-left: 3px;
+  width: 300px;
+  box-sizing: border-box;
+}
+.m-createpolicy p.line select {
+  height: 27px;
+  width: 300px;
+  border: 1px solid #dedede;
+  border-radius: 2px;
+}
+.m-createpolicy p.line label span {
+  display: inline-block;
+  width: 90px;
+}
+.m-createpolicy p.line button {
+  margin: 0 60px;
+}
+#m-preview {
+  min-height: 800px;
+  padding: 10px 0;
+}
+#m-preview p {
+  padding: 12px 0;
+}
+#m-preview h2 {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+#m-preview h4 {
+  cursor: pointer;
+}
+#m-preview h4:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+#m-preview em.dot {
+  width: 4px;
+  height: 4px;
+  margin-top: 8px;
+  background: #999;
+  float: left;
+}
+#m-preview span.title {
+  float: left;
+}
+#m-preview span.arrow {
+  width: 0px;
+  height: 0px;
+  margin: 6px 0 0 6px;
+  border: 8px solid transparent;
+  border-top: 8px solid #ccc;
+  float: left;
+}
+#m-preview .content {
+  display: none;
+  word-wrap: break-word;
+}
+#m-preview .spread span.arrow {
+  margin-top: 0;
+  border: 8px solid transparent;
+  border-bottom: 8px solid #ccc;
+}
