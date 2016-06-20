@@ -1041,11 +1041,16 @@ define( function(require, exports, module){
 		//保存提交
 		actionSubmitEve:function(){
 			var me = this;
+			var comment = '';
 
-			if( !me.model.get('comment') ){
-                util.showToast('请填写意见');
-                return;
-            }
+			if( me.attrs.options.state == 'wait'){
+				if( !me.model.get('comment') ){
+	                util.showToast('请填写意见');
+	                return;
+	            }
+	            comment = me.model.get('comment');
+			}
+			
 
 			me.attrs.allData.orderEntity.order.id = me.attrs.options.id;
 			me.getOrderInfo(function(){
@@ -1099,7 +1104,7 @@ define( function(require, exports, module){
                     'data':{
                         'processInstanceId': me.attrs.options.processInstanceId,
                         'approved': true,
-                        'opinion': me.model.get('comment')
+                        'opinion': comment
                     },
                     'success':function( data ){
                         if( data.success ){
