@@ -3,7 +3,7 @@ define(function (require, exports, module) {
     var productJson = require('./productsjson.js');
     var dialogManager = require('./dialog');
     var waterfallcomput = require('./waterfallcomput');
-    var colWrapperStr = '<div class="product-col-wraper" style="overflow:hidden;float:left;"></div>';
+    var colWrapperStr = '<div class="product-col-wraper" style="border:1px solid green;overflow:hidden;float:left;"></div>';
 
     angular.module('formApp').directive('products', function () {
             return {
@@ -11,6 +11,11 @@ define(function (require, exports, module) {
                 template: require('./products-template.html'),
                 link: function (scope, iElem, iAttrs) {
                     debugger
+                    window.onresize = function () {
+                        setTimeout(function () {
+                            wrapperReset()
+                        }, 500);
+                    };
                     scope.dataResult = scope.dataResult || [];//对外暴露的结果数据
                     var products = [];
                     //后端推过来的结果 与提交的结果完全一致的数据结构
@@ -18,7 +23,9 @@ define(function (require, exports, module) {
                     //JSON格式转换
                     for (var i = 0; i < productJson.logics.length; i++) {
                         var logic = productJson.logics[i];
-                        changeState({logic: logic, productId: logic.attr.productId});
+                        var product={logic: logic, productId: logic.attr.productId};
+                        product.index= _.findIndex(productJson.products,{productId:product.productId});
+                        changeState(product);
                     }
                     //瀑布布局重置
                     function wrapperReset() {

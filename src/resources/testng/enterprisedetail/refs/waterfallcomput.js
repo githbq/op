@@ -10,9 +10,9 @@ define(function (require, exports, module) {
         if ($elements.length == 0) {
             return;
         }
-        $elements=reSort($elements);
+        $elements = reSort($elements);
         var fullWidth = $mainContainer.outerWidth();
-        var offset = offset == undefined ? 2 : offset;
+        var offset = offset == undefined ? 4 : offset;
         var elementWidth = $elements.first().outerWidth();
         var colCount = Math.floor(fullWidth / (elementWidth + offset));
         var rowArr = setRowArr($elements);
@@ -22,6 +22,11 @@ define(function (require, exports, module) {
         function reSort($elements) {
             $elements = $elements.sort(function (a, b) {
                 return parseInt($(a).data('index')) - parseInt($(b).data('index'));
+            });
+            $($elements).each(function (i, n) {
+                if (i < ($elements.length - 1)) {
+                    $(n).after($elements[i + 1]);
+                }
             });
             return $elements;
         }
@@ -46,7 +51,7 @@ define(function (require, exports, module) {
                 var row = rowArr[i];
                 for (var j = 0; j < row.length; j++) {
                     var col = colArr[j] = colArr[j] || [];
-                    col.push(row[j]);
+                    (row.length > j) && (col.push(row[j]));
                 }
             }
             return colArr;
