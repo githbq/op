@@ -617,6 +617,10 @@ define('common/app', function(require, exports, module){
 				 that.setPermissions( widget.$view );
 			});
 			
+			IBSS.on('_initCenter', function(center) {
+
+				that.setPermissions( center.$view );
+			});
 			
 			// 兼容pushState需要手动调用路由
 			// 连接中包含#的直接作为hash处理

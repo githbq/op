@@ -236,7 +236,7 @@ define( function( require, exports, module ) {
             data.activityYn = 1;
             
             me.$tbody.html("<tr><td colspan='12'><p class='info'>努力加载中</p></td></tr>");
-			if(IBSS.FUNCTIONS.indexOf('M008033010') > 0){
+			if(IBSS.FUNCTIONS.join(',').indexOf('M008033010') > 0){
 				util.api({
 					'url': '/enterprise/querypageforsupervise',
 					'data': data,

@@ -456,6 +456,8 @@
 			}
 
 			this._initView();
+			IBSS && IBSS.trigger && IBSS.trigger('_initCenter', this);
+			
 			this._initElements();
 			this._initEvents();
 			this._initDuplexing();
