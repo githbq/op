@@ -8,6 +8,7 @@ define('common/app', function(require, exports, module){
 	
 	var Remind = require('common/widget/remind/remind');
 	var DownFile = require('module/downfile/downfile');
+	var Policy = require('module/policy/policy');
 
 	
     /**
@@ -655,6 +656,9 @@ define('common/app', function(require, exports, module){
 			$('.down-file').on('click',function(e){
 				me.trigger('downFile');
 			});
+			$('.header-policy a').on('click', function(){
+				me.trigger('showPolicy');
+			})
 		}
     });
 
@@ -670,6 +674,7 @@ define('common/app', function(require, exports, module){
 			IBSS.tpl = spa.curPage;     // 当前页面信息
             IBSS.tplEvent = spa;        // 页面路由
 			var downFile = null;
+			var policy = new Policy();
 			
 			if (IBSS.IS_DEVELOP) {
 				IBSS.loadNum = spa.loadNum + 1;    // 便与开发模式下查看信息
@@ -683,7 +688,11 @@ define('common/app', function(require, exports, module){
 			spa.on('downFile',function(){
 				downFile = new DownFile();
 				downFile.show( );
-			})
+			});
+
+			spa.on('showPolicy',function(){
+				policy.show();
+			});
 		}
     };
 	

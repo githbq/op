@@ -101,21 +101,23 @@ define( function( require, exports, module ) {
             var newPolicy = {
                                 'title': title, 
                                 'sortKey': sequence, 
-                                'content': content
+                                'con': content,
+                                'id': me.id
                             };
             util.api({
                 url: '~/op/api/policy/policylist',
                 success: function( data ) {
                     if ( data.success ) {
                         var aCon = data.value.model.content;
-                        if(aCon.length > 0){
+                        if(me.id){
                             for(var i = 0, len = aCon.length; i < len; i++){
-                                if(newPolicy.id == aCon[i].id){
-                                    aCon.splice(i, 1);
+                                if(me.id == aCon[i].id){
+                                    aCon.splice(i, 1);//若修改 删去原有
                                     break;
                                 }
                             }
-                            
+                        }
+                        if(aCon.length > 0) {
                             for(var i = 0, len = aCon.length; i < len; i++){
                                 
                                 if(newPolicy.sortKey == aCon[i].sortKey){//判断重复排序
@@ -131,16 +133,12 @@ define( function( require, exports, module ) {
                                     break;
                                 }
                             }
-                            
                         }else{
                             aCon.push(newPolicy);
                         }
                         me.trigger('preview', aCon );
                     }
                 },
-                error: function() {
-                    uitl.showToast( '数据加载失败' );
-                }
             });
         },
 
@@ -200,7 +198,6 @@ define( function( require, exports, module ) {
         init: function(){
             Preview.__super__.init.apply( this, arguments );
             var me = this;
-            me.collection = new M.Collection;
 
         },
         show: function(aCon){
@@ -213,8 +210,8 @@ define( function( require, exports, module ) {
             var list = '';
             $(aCon).each(function(i, item) {
                 list += '<div class="accordian">'
-                        +'<h4><em class="dot"></em><span class="title">'+item.title+'</span><span class="arrow"></span></h4>'
-                        +'<div class="content">'+item.content+'</div>'
+                        +'<h4 data-id="'+item.id+'"><em class="dot"></em><span class="title">'+item.title+'</span><span class="arrow"></span></h4>'
+                        +'<div class="content">'+(item.con||'')+'</div>'
                         +'</div>';
             });
             me.$policyItems.html(list);
@@ -227,26 +224,39 @@ define( function( require, exports, module ) {
                 $content = $(target).next('.content');
 
             //进行显示隐藏切换
-            if ($parent.hasClass('spread')) {
+            if( $parent.hasClass('spread') ) {
                 $parent.removeClass('spread');
                 $content.slideUp(300);
                 return;
             }
+            if( !$content.html() ){
+                util.api({
+                    url: '~/op/api/policy/getpolicy',
+                    data: {
+                        id: id
+                    },
+                    beforeSend: function(){
+                        $content.html('载入中...');
+                    },
+                    success: function(res){
+                        $content.html(res.model.content);
+                    },
+                    error: function(){
+                        $content.html('载入失败');
+                    }
+                });
+            }
             $parent.addClass('spread');
-            $content.slideDown(300);
+            $content.slideDown(200);
           
         },
         hide: function(){
             Preview.__super__.hide.apply( this,arguments );
-            var me = this;
+            this.$policyItems.html('');
+
         },
-       
     });
    
-
-
-
-              
 
     var PolicyList = MClass( M.Center ).include( {
         tplCode: _.template( tpl.filter( '#trPolicy' ).html() ),
@@ -289,8 +299,6 @@ define( function( require, exports, module ) {
             me.trigger('modify', id );
         },
 
-        
-      
         search: function() {
             this.pagination.setPage( 0, false);
             this.load();

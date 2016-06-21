@@ -22,6 +22,9 @@
             <a href="/logout?from=/op" data-permissions="F008118">退出</a>
         </div>
     </div>
+    <div class="header-policy">
+        <a href="javascript:;">政策规则</a>
+    </div>
     <nav>
         <ul class="nav-main clearfix">
         
