@@ -131,14 +131,15 @@
             <div class="top-bar" ng-if="hideTopBar!==true">
                 <h1>第二步&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;产品信息</h1>
             </div>
-            <div class="form" ng-class="{step_validate_error:step_2_validate_error}">
+            <div class="form" ng-init="dataResultData={dataResult:[]}" ng-class="{step_validate_error:step_2_validate_error}">
                 <div class="form-row">
                     <h2>企业已购产品信息</h2>
                 </div>
-                <div class="form-row">
+                <div class="form-row" >
                     <h2>产品目录</h2>
                 </div>
-                <products></products>
+                <!--{{dataResultData}}-->
+                <products x-data-result="dataResultData.dataResult"></products>
             </div>
         </div>
         <div ng-if="step==3" ng-controller="form3Controller" ng-form name="payInfoForm" class="step form">

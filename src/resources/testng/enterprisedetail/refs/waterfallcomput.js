@@ -5,7 +5,7 @@ define(function (require, exports, module) {
     //$mainContainer:主容器
     //$elements:要实现此布局一组jquery元素  此元素上必须有 data-index属性用来确定顺序
     //colWrapperStr:列容器要将对应一列的元素用此容器包裹起来 需要字符串 因为不能用已存在的DOM
-    //offset:计算时间隙的补偿
+    //offset:计算间隙的补偿
     function multiColumnWaterfallLayout($mainContainer, $elements, colWrapperStr, offset) {
         if ($elements.length == 0) {
             return;

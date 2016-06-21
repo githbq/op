@@ -7,10 +7,11 @@ define(function (require, exports, module) {
 
     angular.module('formApp').directive('products', function () {
             return {
-                scope: {},
+                scope: {dataResult: '='},
                 template: require('./products-template.html'),
                 link: function (scope, iElem, iAttrs) {
-
+                    debugger
+                    scope.dataResult = scope.dataResult || [];//对外暴露的结果数据
                     var products = [];
                     //后端推过来的结果 与提交的结果完全一致的数据结构
                     var resultData = [{data: [], state: 0, productId: 1}, {data: [], productId: 11}, {data: [], productId: 111}, {data: [], productId: 1111}, {data: [], productId: 11111}];
@@ -60,6 +61,15 @@ define(function (require, exports, module) {
                             product.$uniqueKey = Math.random();
                             products.push(product);
                         }
+                        //处理返回的
+                        var findIndex = _.findIndex(scope.dataResult, {productId: product.productId});
+                        var returnProductData = {productId: product.productId, data: product.logic.data, state: product.logic.currState, show: product.hidden !== true};
+                        debugger
+                        if (findIndex >= 0) {
+                            scope.dataResult[findIndex] = returnProductData;
+                        } else {
+                            scope.dataResult.push(returnProductData);
+                        }
                     }
 
                     //复选框选中事件
@@ -72,7 +82,7 @@ define(function (require, exports, module) {
                     scope.checkProduct = function (checked, checkbox) {
                         var findProduct = _.findWhere(products, {productId: checkbox.id});
                         findProduct && (findProduct.show = checked);
-                        wrapperReset();
+                        findProduct && (changeState(findProduct));
                     };
                     //初始化验证数据
                     initValidate(products);
@@ -198,7 +208,7 @@ define(function (require, exports, module) {
                             done(changeItem, fieldStruct);
                         }
                         setTimeout(function () {
-                            scope.$apply()
+                            scope.$apply();
                         }, 10);
                         function done(changeItem) {
                             switch (changeItem.type) {
@@ -400,6 +410,7 @@ define(function (require, exports, module) {
                             return {productId: item.productId, data: item.logic.data, state: item.logic.currState};
                         });
                     };
+                    //添加销售
                     scope.addSalesmen = function (field) {
                         field.value.valueData.valueItems = field.value.valueData.valueItems || [];
 
@@ -410,6 +421,7 @@ define(function (require, exports, module) {
                             "value": "111"
                         });
                     };
+                    // 添加合作人
                     scope.addPartners = function (field) {
                         field.value.valueData.valueItems = field.value.valueData.valueItems || [];
                         field.value.valueData.valueItems.push({
