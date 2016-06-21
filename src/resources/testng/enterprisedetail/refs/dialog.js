@@ -41,9 +41,9 @@ define(function (require, exports, module) {
 
         },
         bootstrap: function (requires,callback) {
-            var app=angular.module('app.PageDialog',requires||[]);
+            var app=angular.module('app.pageDialog',requires||[]);
             callback && callback(app);
-            return angular.bootstrap(this.$view[0],['app.PageDialog']);
+            return angular.bootstrap(this.$view[0],['app.pageDialog']);
         }
     };
     exports.getInstance = function (data, newconfig) {

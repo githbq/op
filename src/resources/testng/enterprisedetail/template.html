@@ -138,8 +138,8 @@
                 <div class="form-row" >
                     <h2>产品目录</h2>
                 </div>
-                <!--{{dataResultData}}-->
-                <products x-data-result="dataResultData.dataResult"></products>
+                {{dataResultData}}
+                <products x-data-result="dataResultData.dataResult" product-readonly="productReadonly"></products>
             </div>
         </div>
         <div ng-if="step==3" ng-controller="form3Controller" ng-form name="payInfoForm" class="step form">

@@ -3,11 +3,11 @@ define(function (require, exports, module) {
     var productJson = require('./productsjson.js');
     var dialogManager = require('./dialog');
     var waterfallcomput = require('./waterfallcomput');
-    var colWrapperStr = '<div class="product-col-wraper" style="border:3px solid green;overflow:hidden;float:left;"></div>';
+    var colWrapperStr = '<div class="product-col-wraper" style="overflow:hidden;float:left;"></div>';
 
     angular.module('formApp').directive('products', function () {
             return {
-                scope: {dataResult: '='},
+                scope: {dataResult: '=', productReadonly: '='},
                 template: require('./products-template.html'),
                 link: function (scope, iElem, iAttrs) {
                     debugger
@@ -52,7 +52,8 @@ define(function (require, exports, module) {
                             });
                             product.logic.currState = find.state;
                         }
-                        product.states = getStateCombine(product.logic);
+                        var stateData = getStateCombine(product.logic);//所有的状态
+                        product.states = stateData.visibleStates;//可见的状态
                         product.show = !!_.findWhere(resultData, {productId: product.productId});
                         var findIndex = _.findIndex(products, {productId: product.productId});
                         if (findIndex >= 0) {
@@ -61,10 +62,13 @@ define(function (require, exports, module) {
                             product.$uniqueKey = Math.random();
                             products.push(product);
                         }
-                        //处理返回的
+                        //处理返回结果
+                        _.each(stateData.allStates, function (item, i) {
+                            var findData = _.findWhere(product.logic.data, {name: item.name});
+                            findData && (findData.hidden = item.hidden);
+                        });
                         var findIndex = _.findIndex(scope.dataResult, {productId: product.productId});
-                        var returnProductData = {productId: product.productId, data: product.logic.data, state: product.logic.currState, show: product.hidden !== true};
-                        debugger
+                        var returnProductData = {productId: product.productId, data: product.logic.data, state: product.logic.currState, show: product.show};
                         if (findIndex >= 0) {
                             scope.dataResult[findIndex] = returnProductData;
                         } else {
@@ -81,8 +85,10 @@ define(function (require, exports, module) {
                     //产品复选框
                     scope.checkProduct = function (checked, checkbox) {
                         var findProduct = _.findWhere(products, {productId: checkbox.id});
-                        findProduct && (findProduct.show = checked);
-                        findProduct && (changeState(findProduct));
+                        findProduct.show = checked;
+                        //同步改变对应的结果值上的属性
+                        var dataResultItem = _.findWhere(scope.dataResult, {productId: checkbox.id});
+                        dataResultItem.show = findProduct.show;
                     };
                     //初始化验证数据
                     initValidate(products);
@@ -111,12 +117,15 @@ define(function (require, exports, module) {
                             }
                         }
                         var tempItems = [];
+                        var hiddenTempItems = [];
                         _.each(baseState, function (item, i) {
                             if (!item.hidden) {
                                 tempItems.push(item);
+                            } else {
+                                hiddenTempItems.push(item);
                             }
                         });
-                        return tempItems;
+                        return {visibleStates: tempItems, hiddenStates: hiddenTempItems, allStates: baseState};
                     }
 
                     //检查是undefined或者null
