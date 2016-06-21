@@ -139,7 +139,7 @@ define( function( require, exports, module ) {
                     }
                 },
                 error: function() {
-                    me.$policyItems.html( '数据加载失败' );
+                    uitl.showToast( '数据加载失败' );
                 }
             });
         },
