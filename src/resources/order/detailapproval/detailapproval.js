@@ -1044,10 +1044,12 @@ define( function(require, exports, module){
 			var comment = '';
 
 			if( me.attrs.options.state == 'wait'){
+				/*
 				if( !me.model.get('comment') ){
 	                util.showToast('请填写意见');
 	                return;
 	            }
+	            */
 	            comment = me.model.get('comment');
 			}
 			
