@@ -11,7 +11,7 @@
         }
 
         .products-container .product-border:hover {
-            box-shadow: 0px 0px 12px 5px #b0b2ab;
+            /*box-shadow: 0px 0px 12px 5px #b0b2ab;*/
         }
 
         .products-container .product {
@@ -140,6 +140,15 @@
             width: 20px;
             height: 30px;
         }
+
+        .enterprise-panel .product-col-wraper {
+            /*background-color: #f6f5f5;*/
+            background-color:#e8e2e2;
+            border-left:1px solid white;
+            border-right:1px solid white;
+            overflow: hidden;
+            float: left;
+        }
     </style>
     <div class="product-checkboxs" onselectstart="return false;">
         <div class="checkboxs-container">
@@ -167,13 +176,13 @@
                                     <!--可输入数字框-->
                                     <dev ng-switch-when="number">
                                         <label ng-if="field.label"><span class="title">{{field.label}}</span></label>
-                                        <input type="text" number name="{{productIndex+'$'+field.groupName+'$'+field.name}}" ng-required="field.validate.required" ng-readonly="productReadonly||field.readonly" ng-disabled="productReadonly||field.readonly" ng-model="field.value.valueData.value"/>
+                                        <input type="text" number name="{{product.productId+'$'+field.groupName+'$'+field.name}}" ng-required="field.validate.required" ng-readonly="productReadonly||field.readonly" ng-disabled="productReadonly||field.readonly" ng-model="field.value.valueData.value"/>
                                     </dev>
                                     <!--单选框-->
                                     <div ng-switch-when="radio">
                                         <label ng-if="field.label"><span class="title">{{field.label}}</span></label>
                                         <label class="radio-label" ng-repeat="radio in field.items">
-                                            <input ng-readonly="productReadonly||field.readonly" ng-disabled="productReadonly||field.readonly" name="{{productIndex+'$'+field.groupName+'$'+field.name}}" type="radio"
+                                            <input ng-readonly="productReadonly||field.readonly" ng-disabled="productReadonly||field.readonly" name="{{product.productId+'$'+field.groupName+'$'+field.name}}" type="radio"
                                                    ng-model="field.value.valueData.value" ng-value="radio.value" ng-change="this.fieldChange(this.field,this.product,this[currentFormName])"/>
                                             <span class="span-radio" ng-bind="radio.text">
                                             </span>
@@ -182,7 +191,7 @@
                                     <!--添加销售-->
                                     <div ng-switch-when="sales">
                                         <label class="label-tip" ng-if="field.label"><span class="title">{{field.label}}</span></label>
-                                        <a ng-disabled="productReadonly||field.readonly" class="add-button" onselectstart="return false;" ng-init="field.value.valueData.valueItems=field.value.valueData.valueItems||[]" ng-click="selectSalesmenDialog(field.value.valueData.valueItems)">添加{{field.label}}</a>
+                                        <a ng-disabled="productReadonly||field.readonly" class="add-button" onselectstart="return false;" ng-if="!(productReadonly||field.readonly)" ng-init="field.value.valueData.valueItems=field.value.valueData.valueItems||[]" ng-click="productReadonly||field.readonly||selectSalesmenDialog(field.value.valueData.valueItems)">添加{{field.label}}</a>
                                         <table class="s-table">
                                             <tbody>
                                             <tr ng-repeat="item in field.value.valueData.valueItems">
@@ -193,7 +202,7 @@
                                                     <input ng-required="field.validate.required" number name="{{'sales'+$index}}" ng-disabled="productReadonly||field.readonly" ng-readonly="productReadonly||field.readonly" type="text" ng-model="item.value" class="input-price-s"/>
                                                 </td>
                                                 <td width="20%">
-                                                    <a ng-disabled="productReadonly||field.readonly" ng-click="deleteArray(field.value.valueData.valueItems,$index)">删除</a>
+                                                    <a ng-disabled="productReadonly||field.readonly" ng-if="!(productReadonly||field.readonly)" ng-click="productReadonly||field.readonly||deleteArray(field.value.valueData.valueItems,$index)">删除</a>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -202,14 +211,14 @@
                                     <!--添加合作人-->
                                     <div ng-switch-when="partners">
                                         <label class="label-tip" ng-if="field.label"><span class="title">{{field.label}}</span></label>
-                                        <a ng-disabled="productReadonly||field.readonly" onselectstart="return false;" class="add-button" ng-init="field.value.valueData.valueItems=field.value.valueData.valueItems||[]" ng-click="selectPartnersDialog(field.value.valueData.valueItems)">添加{{field.label}}</a>
+                                        <a ng-disabled="productReadonly||field.readonly" onselectstart="return false;" class="add-button" ng-if="!(productReadonly||field.readonly)" ng-init="field.value.valueData.valueItems=field.value.valueData.valueItems||[]" ng-click="productReadonly||field.readonly||selectPartnersDialog(field.value.valueData.valueItems)">添加{{field.label}}</a>
                                         <table class="s-table">
                                             <tbody>
                                             <tr ng-repeat="item in field.value.valueData.valueItems">
                                                 <td width="30%" ng-bind="item.name"></td>
                                                 <td width="50%" ng-bind="item.department"></td>
                                                 <td width="20%">
-                                                    <a ng-disabled="productReadonly||field.readonly" ng-click="deleteArray(field.value.valueData.valueItems,$index)">删除</a>
+                                                    <a ng-disabled="productReadonly||field.readonly"  ng-if="!(productReadonly||field.readonly)"  ng-click="productReadonly||field.readonly||deleteArray(field.value.valueData.valueItems,$index)">删除</a>
                                                 </td>
                                             </tr>
                                             </tbody>

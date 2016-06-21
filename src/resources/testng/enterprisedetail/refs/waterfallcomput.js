@@ -18,6 +18,7 @@ define(function (require, exports, module) {
         var rowArr = setRowArr($elements);
         var colArr = setColArr(rowArr);
         wraperToContainer(colArr);//包裹
+
         //根据dom上的data-index属性重新排序
         function reSort($elements) {
             $elements = $elements.sort(function (a, b) {

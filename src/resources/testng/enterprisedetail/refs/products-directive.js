@@ -3,14 +3,13 @@ define(function (require, exports, module) {
     var productJson = require('./productsjson.js');
     var dialogManager = require('./dialog');
     var waterfallcomput = require('./waterfallcomput');
-    var colWrapperStr = '<div class="product-col-wraper" style="border:1px solid green;overflow:hidden;float:left;"></div>';
+    var colWrapperStr = '<div class="product-col-wraper"></div>';
 
     angular.module('formApp').directive('products', function () {
             return {
                 scope: {dataResult: '=', productReadonly: '='},
                 template: require('./products-template.html'),
                 link: function (scope, iElem, iAttrs) {
-                    debugger
                     window.onresize = function () {
                         setTimeout(function () {
                             wrapperReset()
@@ -23,8 +22,8 @@ define(function (require, exports, module) {
                     //JSON格式转换
                     for (var i = 0; i < productJson.logics.length; i++) {
                         var logic = productJson.logics[i];
-                        var product={logic: logic, productId: logic.attr.productId};
-                        product.index= _.findIndex(productJson.products,{productId:product.productId});
+                        var product = {logic: logic, productId: logic.attr.productId};
+                        product.index = _.findIndex(productJson.products, {productId: product.productId});
                         changeState(product);
                     }
                     //瀑布布局重置
@@ -75,7 +74,7 @@ define(function (require, exports, module) {
                             findData && (findData.hidden = item.hidden);
                         });
                         var findIndex = _.findIndex(scope.dataResult, {productId: product.productId});
-                        var returnProductData = {productId: product.productId, data: product.logic.data, state: product.logic.currState, show: product.show};
+                        var returnProductData = {productId: product.productId, data: product.logic.data, state: product.logic.currState || 0, show: product.show};
                         if (findIndex >= 0) {
                             scope.dataResult[findIndex] = returnProductData;
                         } else {
@@ -96,6 +95,7 @@ define(function (require, exports, module) {
                         //同步改变对应的结果值上的属性
                         var dataResultItem = _.findWhere(scope.dataResult, {productId: checkbox.id});
                         dataResultItem.show = findProduct.show;
+                        wrapperReset();
                     };
                     //初始化验证数据
                     initValidate(products);

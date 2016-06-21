@@ -89,7 +89,7 @@ define(function (require, exports, module) {
         var entInfo = $scope.entInfo = {};
         $scope.enterpriseReadonly = false;//企业详情信息 只读
         $scope.payInfoReadonly = false;//企业详情信息 只读
-        $scope.productReadonly = false;//企业详情信息 只读
+        $scope.productReadonly = false;//产品信息 只读
         $scope.ent = {};//企业详情信息
         $scope.testBasicForm = function () {
         };
