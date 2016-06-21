@@ -21,7 +21,6 @@ define(function (require, exports, module) {
                     }
                     //瀑布布局重置
                     function wrapperReset() {
-                        return;
                         setTimeout(function () {
                             $('.product-col-wraper').each(function (i, n) {
                                 if ($('.product', n).length == 0) {
@@ -40,7 +39,6 @@ define(function (require, exports, module) {
 
                     function changeState(product) {
                         wrapperReset();
-                        debugger
                         var find = _.findWhere(resultData, {productId: product.productId});
                         if (find) {
                             //不再直接替换成结果data而是用采用结果data去赋值给原始data 最终取值使用原始data
@@ -81,7 +79,6 @@ define(function (require, exports, module) {
                     //视图中渲染的结构
                     scope.products = products;
                     function getStateCombine(logic) {
-                        debugger
                         //创建副本 避免污染原始数据
                         var baseState = angular.copy(logic.baseState);
                         var state = angular.copy(logic.states[logic.currState || 0]);
@@ -193,7 +190,6 @@ define(function (require, exports, module) {
 
                     //控制值改变时事件  fieldStruct 元素的模型
                     scope.fieldChange = function (fieldStruct, product, form) {
-                        debugger
                         //执行验证
                         //执行事件
                         fieldStruct.onchange = fieldStruct.onchange || [];
