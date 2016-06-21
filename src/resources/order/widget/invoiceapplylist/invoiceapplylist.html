@@ -4,12 +4,12 @@
             <h3>
                 <span class="title">发票审批</span>
                 <button class="export" data-state="finance">导出发票</button>
-                <span class="toggle"><b data-permissions="M009016001,M008032001,M010001001" class="active" data-type="wait">待审核发票</b><b data-permissions="M009016011,M008032011,M010001006" data-type="end">已审核发票</b><b data-type="refuse"  data-permissions="M009016007,M008032007,M010001004">驳回发票</b></span>
+                <span class="toggle"><b data-permissions="M009016001,M008032001,M010001001,M010004001" class="active" data-type="wait">待审核发票</b><b data-permissions="M009016011,M008032011,M010001006,M010004002" data-type="end">已审核发票</b><b data-type="refuse"  data-permissions="M009016007,M008032007,M010001004,M010004003">驳回发票</b></span>
             </h3>
         </div>
         <div class="list-bar">
             <div class="list-bar-btns">
-                <button class="btn-blue btn-search" data-permissions="M009016012,M009016008,M009016002,M008032002,M008032012,M008032008">查询</button>
+                <button class="btn-blue btn-search" data-permissions="M009016012,M009016008,M009016002,M008032002,M008032012,M008032008,M010004003001">查询</button>
             </div>
             <div class="list-bar-input">
                 <label>
@@ -125,7 +125,7 @@
                         <% if( item.canCancel ){ %>
                             <a class="revoke" data-insid="<%=item.processInstanceId%>" data-state="agent" data-permissions="M009016004,M008032004">撤回</a>
                         <% } %>
-                        <a class="detail" data-inid="<%=item.invoiceId%>" data-permissions="M009016013,M009016009,M009016003,M008032013,M008032009,M008032003">
+                        <a class="detail" data-inid="<%=item.invoiceId%>" data-permissions="M009016013,M009016009,M009016003,M008032013,M008032009,M008032003,M010004003002">
                             查看
                         </a>
                         <a class="expressdetail" data-inid="<%=item.invoiceId%>" data-permissions="M009016014,M008032014">
