@@ -154,95 +154,97 @@
                     </div>
                     <div class="group-wrapper" ng-repeat="groups in product.states | groupBy:'groupName'">
                         <div class="field-group form" ng-if="groups.length>0" ng-init="currentFormName='product_'+product.logic.attr.productId+'_'+$index" ng-form name="{{'product_'+product.logic.attr.productId+'_'+$index}}">
-                            <div class="form-row {{groups.$key}}" ng-if="field.hidden!==true" ng-repeat="field in groups">
+                           {{'currentFormName:'+currentFormName}}
+                            <div class="form-row" ng-if="field.hidden!==true" ng-repeat="field in groups">
                                 <button ng-click="testGroup(groups)">testGroup</button>
                                 <div class="form-field" ng-class="{'radios-field':field.type=='radio'}" ng-switch="field.dataType">
-                                    <div ng-switch-when="sales">
-                                        <label class="label-tip" ng-if="field.label"><span class="title">{{field.label}}</span></label>
-                                        <a ng-disabled="field.readonly" class="add-button" onselectstart="return false;" ng-init="field.value.valueData.valueItems=field.value.valueData.valueItems||[]" ng-click="selectSalesmenDialog(field.value.valueData.valueItems)">添加{{field.label}}</a>
-                                        <table class="s-table">
-                                            <tbody>
-                                            <tr ng-repeat="item in field.value.valueData.valueItems">
-                                                <td width="20%" ng-bind="item.name"></td>
-                                                <td ng-bind="item.department"></td>
-                                                <td width="15%"><span ng-bind="item.inputTitle"></span></td>
-                                                <td width="20%">
-                                                    <input ng-required="field.readonly" number name="{{'sales'+$index}}" ng-readonly="field.readonly" type="text" ng-model="item.value" class="input-price-s"/>
-                                                </td>
-                                                <td width="20%">
-                                                    <a ng-disabled="field.readonly" ng-click="deleteArray(field.value.valueData.valueItems,$index)">删除</a>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div ng-switch-when="partners">
-                                        <label class="label-tip" ng-if="field.label"><span class="title">{{field.label}}</span></label>
-                                        <a ng-disabled="field.readonly" onselectstart="return false;" class="add-button" ng-click="selectPartnersDialog(field.value.valueData.valueItems)">添加{{field.label}}</a>
-                                        <table class="s-table" ng-init="field.value.valueData.valueItems=field.value.valueData.valueItems||[]">
-                                            <tbody>
-                                            <tr ng-repeat="item in field.value.valueData.valueItems">
-                                                <td width="30%" ng-bind="item.name"></td>
-                                                <td width="50%" ng-bind="item.department"></td>
-                                                <td width="20%">
-                                                    <a ng-disabled="field.readonly" ng-click="deleteArray(field.value.valueData.valueItems,$index)">删除</a>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
+
                                     <dev ng-switch-when="number">
                                         <label ng-if="field.label"><span class="title">{{field.label}}</span></label>
-                                        <input type="text" number ng-required="field.required" ng-disabled="field.readonly" ng-disabled="field.readonly" ng-model="field.value.valueData.value"/>
-                                        <!--{{field}}-->
+                                        <input type="text" number name="{{productIndex+'$'+field.groupName+'$'+field.name}}" ng-required="field.required" ng-disabled="field.readonly" ng-disabled="field.readonly" ng-model="field.value.valueData.value"/>
+                                        {{field}}
                                     </dev>
-                                    <div ng-switch-when="radio" ng-init="currentField=field;currentProduct=product">
+                                    <div ng-switch-when="radio">
                                         <label ng-if="field.label"><span class="title">{{field.label}}</span></label>
                                         <label class="radio-label" ng-repeat="radio in field.items">
-                                            <input ng-disabled="field.readonly" name="{{field.name}}" type="radio"
-                                                   ng-model="field.value.valueData.value" ng-value="radio.value" ng-change="this.fieldChange(this.currentField,this.currentProduct,this[currentFormName])"/>
+                                            <input ng-disabled="field.readonly" name="{{productIndex+'$'+field.groupName+'$'+field.name}}" type="radio"
+                                                   ng-model="field.value.valueData.value" ng-value="radio.value" ng-change="this.fieldChange(this.field,this.product,this[currentFormName])"/>
                                             <span class="span-radio" ng-bind="radio.text">
                                             </span>
                                         </label>
-                                        <!--{{field}}-->
+                                        {{field}}
                                     </div>
-                                    <div ng-switch-when="time">
-                                        <label ng-if="field.label"><span class="title" ng-init="field.dateConfig={type:0}">{{field.label}}</span></label>
+                                    <!--<div ng-switch-when="sales">-->
+                                        <!--<label class="label-tip" ng-if="field.label"><span class="title">{{field.label}}</span></label>-->
+                                        <!--<a ng-disabled="field.readonly" class="add-button" onselectstart="return false;"  ng-click="selectSalesmenDialog(field.value.valueData.valueItems)">添加{{field.label}}</a>-->
+                                        <!--<table class="s-table">-->
+                                            <!--<tbody>-->
+                                            <!--<tr ng-repeat="item in field.value.valueData.valueItems">-->
+                                                <!--<td width="20%" ng-bind="item.name"></td>-->
+                                                <!--<td ng-bind="item.department"></td>-->
+                                                <!--<td width="15%"><span ng-bind="item.inputTitle"></span></td>-->
+                                                <!--<td width="20%">-->
+                                                    <!--<input ng-required="field.readonly" number name="{{'sales'+$index}}" ng-readonly="field.readonly" type="text" ng-model="item.value" class="input-price-s"/>-->
+                                                <!--</td>-->
+                                                <!--<td width="20%">-->
+                                                    <!--<a ng-disabled="field.readonly" ng-click="deleteArray(field.value.valueData.valueItems,$index)">删除</a>-->
+                                                <!--</td>-->
+                                            <!--</tr>-->
+                                            <!--</tbody>-->
+                                        <!--</table>-->
+                                    <!--</div>-->
+                                    <!--<div ng-switch-when="partners">-->
+                                        <!--<label class="label-tip" ng-if="field.label"><span class="title">{{field.label}}</span></label>-->
+                                        <!--<a ng-disabled="field.readonly" onselectstart="return false;" class="add-button" ng-click="selectPartnersDialog(field.value.valueData.valueItems)">添加{{field.label}}</a>-->
+                                        <!--<table class="s-table">-->
+                                            <!--<tbody>-->
+                                            <!--<tr ng-repeat="item in field.value.valueData.valueItems">-->
+                                                <!--<td width="30%" ng-bind="item.name"></td>-->
+                                                <!--<td width="50%" ng-bind="item.department"></td>-->
+                                                <!--<td width="20%">-->
+                                                    <!--<a ng-disabled="field.readonly" ng-click="deleteArray(field.value.valueData.valueItems,$index)">删除</a>-->
+                                                <!--</td>-->
+                                            <!--</tr>-->
+                                            <!--</tbody>-->
+                                        <!--</table>-->
+                                    <!--</div>-->
+                                    <!--<div ng-switch-when="time">-->
+                                        <!--<label ng-if="field.label"><span class="title" ng-init="field.dateConfig={type:0}">{{field.label}}</span></label>-->
 
-                                        <div class="div-inline-block">
-                                            <div allow="!field.readonly"
-                                                 ng-init="currentField=field;currentProduct=product" ng-change="this.fieldChange(this.currentField,this.currentProduct,this[currentFormName])"
-                                                 ng-disabled="field.disabled" ng-readonly="field.readonly" getform="this[currentFormName]" name="{{field.name}}" datetimeconfig="field.dateConfig" ng-model="field.value.valueData.value"></div>
-                                        </div>
-                                        <!--{{field}}-->
-                                    </div>
-                                    <div ng-switch-when="endTime">
-                                        <label ng-if="field.label"><span class="title" ng-init="field.dateConfig={type:1}">{{field.label}}</span></label>
+                                        <!--<div class="div-inline-block">-->
+                                            <!--<div allow="!field.readonly"-->
+                                                 <!--ng-init="field=field;product=product" ng-change="this.fieldChange(this.field,this.product,this[currentFormName])"-->
+                                                 <!--ng-disabled="field.disabled" ng-readonly="field.readonly" getform="this[currentFormName]" name="{{field.name}}" datetimeconfig="field.dateConfig" ng-model="field.value.valueData.value"></div>-->
+                                        <!--</div>-->
+                                        <!--&lt;!&ndash;{{field}}&ndash;&gt;-->
+                                    <!--</div>-->
+                                    <!--<div ng-switch-when="endTime">-->
+                                        <!--<label ng-if="field.label"><span class="title" ng-init="field.dateConfig={type:1}">{{field.label}}</span></label>-->
 
-                                        <div class="div-inline-block">
-                                            <div allow="!field.readonly"
-                                                 ng-init="currentField=field;currentProduct=product" whenchange="this.fieldChange(this.currentField,this.currentProduct,this[currentFormName])"
-                                                 ng-disabled="field.disabled" ng-readonly="field.readonly" getform="this[currentFormName]" name="{{field.name}}" datetimeconfig="field.dateConfig" ng-model="field.value.valueData.value"></div>
-                                        </div>
-                                        <!--{{field}}-->
-                                    </div>
-                                    <dev ng-switch-when="text">
-                                        <label ng-if="field.label"><span class="title">{{field.label}}</span></label>
-                                        <span ng-bind="field.value"></span>
-                                    </dev>
-                                    <dev ng-switch-when="discountor">
-                                        <label ng-if="field.label"><span class="title">{{field.label}}</span></label>
-                                        <span class="discountor">综合折扣</span><span class="discountor-value" ng-item="field.value"></span>
-                                    </dev>
-                                    <dev ng-switch-when="span">
-                                        <label ng-if="field.label"><span class="title">{{field.label}}</span></label>
-                                        <span class="label-field" ng-bind="field.value"></span>
-                                    </dev>
-                                    <dev ng-switch-default>
-                                        <!--{{field}}-->
-                                        <label ng-if="field.label"><span class="title">{{field.label}}</span></label>
-                                        <input type="text" value="错误项"/>
-                                    </dev>
+                                        <!--<div class="div-inline-block">-->
+                                            <!--<div allow="!field.readonly"-->
+                                                 <!--ng-init="field=field;product=product" whenchange="this.fieldChange(this.field,this.product,this[currentFormName])"-->
+                                                 <!--ng-disabled="field.disabled" ng-readonly="field.readonly" getform="this[currentFormName]" name="{{field.name}}" datetimeconfig="field.dateConfig" ng-model="field.value.valueData.value"></div>-->
+                                        <!--</div>-->
+                                        <!--&lt;!&ndash;{{field}}&ndash;&gt;-->
+                                    <!--</div>-->
+                                    <!--<dev ng-switch-when="text">-->
+                                        <!--<label ng-if="field.label"><span class="title">{{field.label}}</span></label>-->
+                                        <!--<span ng-bind="field.value"></span>-->
+                                    <!--</dev>-->
+                                    <!--<dev ng-switch-when="discountor">-->
+                                        <!--<label ng-if="field.label"><span class="title">{{field.label}}</span></label>-->
+                                        <!--<span class="discountor">综合折扣</span><span class="discountor-value" ng-item="field.value"></span>-->
+                                    <!--</dev>-->
+                                    <!--<dev ng-switch-when="span">-->
+                                        <!--<label ng-if="field.label"><span class="title">{{field.label}}</span></label>-->
+                                        <!--<span class="label-field" ng-bind="field.value"></span>-->
+                                    <!--</dev>-->
+                                    <!--<div ng-switch-default>-->
+                                        <!--&lt;!&ndash;{{field}}&ndash;&gt;-->
+                                        <!--<label ng-if="field.label"><span class="title">{{field.label}}</span></label>-->
+                                        <!--<input type="text" value="错误项"/>-->
+                                    <!--</div>-->
                                 </div>
                             </div>
                         </div>

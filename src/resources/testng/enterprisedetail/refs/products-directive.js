@@ -21,9 +21,10 @@ define(function (require, exports, module) {
                     }
                     //瀑布布局重置
                     function wrapperReset() {
+                        return;
                         setTimeout(function () {
                             $('.product-col-wraper').each(function (i, n) {
-                                if ($('.product',n).length==0) {
+                                if ($('.product', n).length == 0) {
                                     $(n).remove();
                                 }
                             });
@@ -39,6 +40,7 @@ define(function (require, exports, module) {
 
                     function changeState(product) {
                         wrapperReset();
+                        debugger
                         var find = _.findWhere(resultData, {productId: product.productId});
                         if (find) {
                             //不再直接替换成结果data而是用采用结果data去赋值给原始data 最终取值使用原始data
@@ -47,15 +49,17 @@ define(function (require, exports, module) {
                                 if (rData) {
                                     item.value = rData.value;
                                 }
+                                item.x = Math.random();
                             });
-                            logic.currState = find.state;
+                            product.logic.currState = find.state;
                         }
-                        product.states = getStateCombine(logic);
+                        product.states = getStateCombine(product.logic);
                         product.show = !!_.findWhere(resultData, {productId: product.productId});
                         var findIndex = _.findIndex(products, {productId: product.productId});
                         if (findIndex >= 0) {
                             products[findIndex] = product;
                         } else {
+                            product.$uniqueKey = Math.random();
                             products.push(product);
                         }
                     }
@@ -189,9 +193,8 @@ define(function (require, exports, module) {
 
                     //控制值改变时事件  fieldStruct 元素的模型
                     scope.fieldChange = function (fieldStruct, product, form) {
-                        //执行验证
                         debugger
-
+                        //执行验证
                         //执行事件
                         fieldStruct.onchange = fieldStruct.onchange || [];
                         for (var i = 0; i < fieldStruct.onchange.length; i++) {
@@ -402,7 +405,6 @@ define(function (require, exports, module) {
                         });
                     };
                     scope.addSalesmen = function (field) {
-                        debugger
                         field.value.valueData.valueItems = field.value.valueData.valueItems || [];
 
                         field.value.valueData.valueItems.push({
@@ -444,7 +446,6 @@ define(function (require, exports, module) {
                                 vm.select2Model = null;
                                 vm.placeholder = '请选择...';
                                 vm.clickEnter = function () {
-                                    debugger
                                     scope.$apply(function () {
                                         array.push({
                                             "name": "张三",
@@ -485,7 +486,6 @@ define(function (require, exports, module) {
                                 vm.select2Model = null;
                                 vm.placeholder = '请选择...';
                                 vm.clickEnter = function () {
-                                    debugger
                                     scope.$apply(function () {
                                         array.push({
                                             "name": "张三",
