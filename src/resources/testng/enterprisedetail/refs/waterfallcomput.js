@@ -13,7 +13,8 @@ define(function (require, exports, module) {
         $elements = reSort($elements);
         var fullWidth = $mainContainer.outerWidth();
         var offset = offset == undefined ? 4 : offset;
-        var elementWidth = $elements.first().outerWidth();
+        debugger
+        var elementWidth = $elements.filter(':visible').first().outerWidth();
         var colCount = Math.floor(fullWidth / (elementWidth + offset));
         var rowArr = setRowArr($elements);
         var colArr = setColArr(rowArr);

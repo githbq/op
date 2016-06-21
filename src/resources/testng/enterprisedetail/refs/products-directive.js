@@ -12,8 +12,8 @@ define(function (require, exports, module) {
                 link: function (scope, iElem, iAttrs) {
                     window.onresize = function () {
                         setTimeout(function () {
-                            wrapperReset()
-                        }, 500);
+                            wrapperReset();
+                        }, 50);
                     };
                     scope.dataResult = scope.dataResult || [];//对外暴露的结果数据
                     var products = [];
@@ -29,19 +29,15 @@ define(function (require, exports, module) {
                     //瀑布布局重置
                     function wrapperReset() {
                         setTimeout(function () {
-                            $('.product-col-wraper').each(function (i, n) {
-                                if ($('.product', n).length == 0) {
-                                    $(n).remove();
-                                }
-                            });
-                            $('.product').each(function (i, n) {
+                            $('.product-agent').each(function (i, n) {
                                 var $dom = $(n);
                                 if ($dom.parents('.product-col-wraper').length > 0) {
                                     $dom.unwrap();
                                 }
                             });
-                            waterfallcomput($('.products-border'), $('.product'), colWrapperStr);
-                        }, 10);
+                            waterfallcomput($('.products-border'), $('.product-agent').has('.product'), colWrapperStr);
+
+                        }, 50);
                     }
 
                     function changeState(product) {
