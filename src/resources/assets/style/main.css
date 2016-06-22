@@ -8495,20 +8495,33 @@ em {
 .multiple-select {
   width: 217px;
 }
-.enterprise-panel .form.ng-invalid {
-  border: 3px solid red;
+.multiple-select-long {
+  width: 400px;
 }
-.enterprise-panel .form .ng-pristine.ng-invalid {
+.enterprise-panel .inline-block {
+  display: inline-block;
+}
+.enterprise-panel .textarea-m {
+  width: 500px;
+  height: 100px;
+}
+.enterprise-panel .form .ng-pristine.ng-dirty.ng-invalid:not(.form) {
   border: 1px solid deepskyblue;
 }
-.enterprise-panel .form.step_validate_error .ng-invalid {
+.enterprise-panel .form .form-field .ng-invalid.ng-dirty:not(.form) {
   border: 1px solid red;
 }
-.enterprise-panel .form .ng-dirty {
+.enterprise-panel .step_validate_error .ng-invalid {
+  border: 1px solid red;
+}
+.enterprise-panel .form .ng-dirty:not(.form) {
   border: 1px solid lawngreen;
 }
 .enterprise-panel input[type=text] {
   width: 200px;
+}
+.enterprise-panel input[type=text].input-l {
+  width: 500px;
 }
 .enterprise-panel .multiple-select.input-l {
   width: 400px;
@@ -8531,7 +8544,6 @@ em {
   content: '...';
 }
 .enterprise-panel .step {
-  padding-left: 150px;
   -webkit-transition: width 2s;
   transition: width 2s;
 }
@@ -8562,6 +8574,13 @@ em {
   text-align: center;
   padding: 5px;
 }
+.enterprise-panel .form .product-info-group {
+  width: 90%;
+  border: 2px solid #cccccc;
+  margin: 0 auto;
+  padding: 10px;
+  background-color: #f2f2f2;
+}
 .enterprise-panel .form .form-row {
   margin-top: 5px;
   overflow: hidden;
@@ -8580,6 +8599,10 @@ em {
   display: inline-block;
   width: 350px;
   text-align: left;
+  margin-top: 3px;
+}
+.enterprise-panel .form .form-row .inputs-container .fenqi-label span::after {
+  content: '';
 }
 .enterprise-panel .form .form-row label:first-child {
   display: inline-block;

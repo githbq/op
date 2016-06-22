@@ -5,18 +5,27 @@
             position: relative;
         }
 
+        .products-container .products-border {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .products-container .product-border:hover {
+            /*box-shadow: 0px 0px 12px 5px #b0b2ab;*/
+        }
+
         .products-container .product {
             width: 400px;
-            background-color: #f2f2f2;
             float: left;
-            margin-left: 10px;
             overflow: hidden;
+            padding: 10px;
         }
 
         .products-container .product-border {
             border: 1px solid #cccccc;
             padding: 10px;
-            overflow:hidden;
+            overflow: hidden;
+            background-color: #f2f2f2;
         }
 
         .products-container .product-content {
@@ -29,6 +38,10 @@
             border-bottom: 1px solid dimgray;
             padding-bottom: 10px;
 
+        }
+
+        .field-group.last {
+            border: none;
         }
 
         .enterprise-panel .product .form .form-row label:first-child {
@@ -72,6 +85,13 @@
 
         .enterprise-panel .product .s-table {
             width: 100%;
+            table-layout: fixed;
+            word-wrap: break-word;
+        }
+
+        .enterprise-panel .product .s-table td {
+            word-wrap: break-word;
+            word-break: break-all;
         }
 
         .enterprise-panel .product .s-table td {
@@ -102,89 +122,180 @@
         .enterprise-panel .product .add-button {
             float: right;
         }
-    </style>
-    <div class="product" ng-repeat="product in products track by $index">
-        <div class="product-border">
-            <div class="product-content">
-                <div class="product-title">
-                    {{product.title}}
-                </div>
-                <div ng-if="product.groups" class="field-group form" ng-repeat="group in product.groups track by $index">
-                    <div class="form-row" ng-if="group.fields" ng-repeat="field in group.fields track by $index">
-                        <div class="form-field" ng-class="{'radios-field':field.type=='radio'}" ng-switch="field.type">
-                            <div ng-switch-when="salesmen">
-                                <label class="label-tip" ng-if="field.text"><span class="title">{{field.text}}</span></label>
-                                <a ng-disabled="field.readonly" class="add-button" ng-click="addSalesmen(field.items)">添加{{field.text}}</a>
-                                <table class="s-table" ng-init="field.items=field.items||[]">
-                                    <tbody>
-                                    <tr ng-repeat="item in field.items track by $index">
-                                        <td width="20%" ng-bind="item.name"></td>
-                                        <td ng-bind="item.department"></td>
-                                        <td width="15%"><span ng-bind="item.inputTitle"></span></td>
-                                        <td width="20%">
-                                            <input ng-required="field.readonly" ng-readonly="field.readonly" type="text" ng-model="item.value" class="input-price-s"/>
-                                        </td>
-                                        <td width="20%">
-                                            <a ng-disabled="field.readonly" ng-click="deleteArray(field.items,$index)">删除</a>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div ng-switch-when="partners">
-                                <label class="label-tip" ng-if="field.text"><span class="title">{{field.text}}</span></label>
-                                <a ng-disabled="field.readonly" class="add-button" ng-click="addPartners(field.items)">添加{{field.text}}</a>
-                                <table class="s-table" ng-init="field.items=field.items||[]">
-                                    <tbody>
-                                    <tr ng-repeat="item in field.items track by $index">
-                                        <td width="30%" ng-bind="item.name"></td>
-                                        <td width="50%" ng-bind="item.department"></td>
-                                        <td width="20%">
-                                            <a ng-click="deleteArray(field.items,$index)">删除</a>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <dev ng-switch-when="input">
-                                <label ng-if="field.text"><span class="title">{{field.text}}</span></label>
-                                <input type="text" ng-disabled="field.readonly" ng-disabled="field.readonly" ng-model="field.value"/>
-                            </dev>
-                            <div ng-switch-when="radio">
-                                <label ng-if="field.text"><span class="title">{{field.text}}</span></label>
-                                <label class="radio-label" ng-repeat="radio in field.items track by $index"> <input ng-disabled="field.readonly" name="{{field.name}}" type="radio" ng-model="field.value" ng-value="{{radio.value}}"/><span class="span-radio" ng-bind="radio.text"></span></label>
-                            </div>
-                            <div ng-switch-when="inputTime">
-                                <label ng-if="field.text"><span class="title">{{field.text}}</span></label>
 
-                                <div class="div-inline-block" ng-init="field.datetimecontrolConfig={}">
-                                    <div allow="!field.readonly" datetimecontrol="field.datetimecontrolConfig" ng-model="field.value" default-value="field.value"></div>
+        .enterprise-panel .product-checkboxs {
+            padding: 15px 10px;
+        }
+
+        .enterprise-panel .product-checkboxs label {
+            display: inline-block;
+            margin-left: 20px;
+            border: 2px solid #cccccc;
+            background-color: #f2f2f2;
+            padding-left: 20px;
+            cursor: pointer;
+            margin-top:3px;
+        }
+
+        .enterprise-panel input[type=checkbox] {
+            width: 20px;
+            height: 30px;
+        }
+
+        .enterprise-panel .product-col-wraper {
+            /*background-color: #f6f5f5;*/
+            background-color: #e8e2e2;
+            border: 1px solid white;
+            overflow: hidden;
+            float: left;
+        }
+
+        .enterprise-panel .product-agent {
+            overflow: hidden;
+            float: left;
+            border-top:1px solid white;
+            border-bottom:1px solid white;
+        }
+
+        .active {
+            background-color: yellow;
+        }
+
+        .active2 {
+            color: green;
+            font-weight:bold;
+            font-size:20px;
+        }
+
+        .enterprise-panel .product-checkboxs label.active {
+            font-weight: bolder;
+            color: black;
+            transform: scale(1.2);
+            transition: scale 1s ease-in-out;
+        }
+    </style>
+    <div class="product-checkboxs" onselectstart="return false;">
+        <div class="checkboxs-container">
+            <label ng-repeat="checkbox in productCheckboxs" data-productid="{{checkbox.id}}" class="product-label">
+                <span ng-bind="checkbox.text"></span>
+                <input type="checkbox"
+                       ng-click="checkProduct(checkbox.checked,checkbox)"
+                       ng-value="checkbox.id"
+                       ng-model="checkbox.checked"
+                        />
+            </label>
+        </div>
+    </div>
+    <div class="products-border">
+        <div class="product-agent" data-index="{{product.index}}" data-productid="{{product.productId}}" ng-repeat="product in products">
+            <div class="product" ng-if="product.show" data-index="{{product.index}}">
+                <div class="product-border">
+                    <div class="product-content">
+                        <div class="product-title">
+                            {{product.logic.attr.title}}
+                        </div>
+                        <div class="group-wrapper" ng-repeat="groups in product.states | groupBy:'groupName'">
+                            <div class="field-group form" ng-class="{'last':$last}" ng-if="groups.length>0" ng-init="currentFormName='product_'+product.logic.attr.productId+'_'+$index" ng-form name="{{'product_'+product.logic.attr.productId+'_'+$index}}">
+                                <div class="form-row" ng-if="field.hidden!==true" ng-repeat="field in groups">
+                                    <div class="form-field" ng-class="{'radios-field':field.type=='radio'}" ng-switch="field.dataType">
+                                        <!--可输入数字框-->
+                                        <dev ng-switch-when="number">
+                                            <label ng-if="field.label"><span class="title">{{field.label}}</span></label>
+                                            <input type="text" number name="{{product.productId+'$'+field.groupName+'$'+field.name}}" ng-required="field.validate.required" ng-readonly="productReadonly||field.readonly" ng-disabled="productReadonly||field.readonly" ng-model="field.value.valueData.value"/>
+                                        </dev>
+                                        <!--单选框-->
+                                        <div ng-switch-when="radio">
+                                            <label ng-if="field.label"><span class="title">{{field.label}}</span></label>
+                                            <label class="radio-label" ng-repeat="radio in field.items">
+                                                <input ng-readonly="productReadonly||field.readonly" ng-disabled="productReadonly||field.readonly" name="{{product.productId+'$'+field.groupName+'$'+field.name}}" type="radio"
+                                                       ng-model="field.value.valueData.value" ng-value="radio.value" ng-change="this.fieldChange(this.field,this.product,this[currentFormName])"/>
+                                            <span class="span-radio" ng-bind="radio.text">
+                                            </span>
+                                            </label>
+                                        </div>
+                                        <!--添加销售-->
+                                        <div ng-switch-when="sales">
+                                            <label class="label-tip" ng-if="field.label"><span class="title">{{field.label}}</span></label>
+                                            <a ng-disabled="productReadonly||field.readonly" class="add-button" onselectstart="return false;" ng-if="!(productReadonly||field.readonly)" ng-init="field.value.valueData.valueItems=field.value.valueData.valueItems||[]" ng-click="productReadonly||field.readonly||selectSalesmenDialog(field.value.valueData.valueItems)">添加{{field.label}}</a>
+                                            <table class="s-table">
+                                                <tbody>
+                                                <tr ng-repeat="item in field.value.valueData.valueItems">
+                                                    <td width="20%" ng-bind="item.name"></td>
+                                                    <td ng-bind="item.department"></td>
+                                                    <td width="15%"><span ng-bind="item.inputTitle"></span></td>
+                                                    <td width="20%">
+                                                        <input ng-required="field.validate.required" number name="{{'sales'+$index}}" ng-disabled="productReadonly||field.readonly" ng-readonly="productReadonly||field.readonly" type="text" ng-model="item.value" class="input-price-s"/>
+                                                    </td>
+                                                    <td width="20%">
+                                                        <a ng-disabled="productReadonly||field.readonly" ng-if="!(productReadonly||field.readonly)" ng-click="productReadonly||field.readonly||deleteArray(field.value.valueData.valueItems,$index)">删除</a>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <!--添加合作人-->
+                                        <div ng-switch-when="partners">
+                                            <label class="label-tip" ng-if="field.label"><span class="title">{{field.label}}</span></label>
+                                            <a ng-disabled="productReadonly||field.readonly" onselectstart="return false;" class="add-button" ng-if="!(productReadonly||field.readonly)" ng-init="field.value.valueData.valueItems=field.value.valueData.valueItems||[]" ng-click="productReadonly||field.readonly||selectPartnersDialog(field.value.valueData.valueItems)">添加{{field.label}}</a>
+                                            <table class="s-table">
+                                                <tbody>
+                                                <tr ng-repeat="item in field.value.valueData.valueItems">
+                                                    <td width="30%" ng-bind="item.name"></td>
+                                                    <td width="50%" ng-bind="item.department"></td>
+                                                    <td width="20%">
+                                                        <a ng-disabled="productReadonly||field.readonly" ng-if="!(productReadonly||field.readonly)" ng-click="productReadonly||field.readonly||deleteArray(field.value.valueData.valueItems,$index)">删除</a>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <!--输入时间-->
+                                        <div ng-switch-when="time">
+                                            <label ng-if="field.label"><span class="title" ng-init="field.dateConfig={type:0}">{{field.label}}</span></label>
+
+                                            <div class="div-inline-block">
+                                                <div allow="!(productReadonly||field.readonly)"
+                                                     ng-init="field=field;product=product" ng-change="this.fieldChange(this.field,this.product,this[currentFormName])"
+                                                     ng-disabled="productReadonly||field.disabled" ng-readonly="productReadonly||field.readonly" getform="this[currentFormName]" name="{{field.name}}" datetimeconfig="field.dateConfig" ng-model="field.value.valueData.value"></div>
+                                            </div>
+                                        </div>
+                                        <!--输入结束时间-->
+                                        <div ng-switch-when="endTime">
+                                            <label ng-if="field.label"><span class="title" ng-init="field.dateConfig={type:1}">{{field.label}}</span></label>
+
+                                            <div class="div-inline-block">
+                                                <div allow="!(productReadonly||field.readonly)"
+                                                     ng-init="field=field;product=product" whenchange="this.fieldChange(this.field,this.product,this[currentFormName])"
+                                                     ng-disabled="productReadonly||field.disabled" ng-readonly="productReadonly||field.readonly" getform="this[currentFormName]" name="{{field.name}}" datetimeconfig="field.dateConfig" ng-model="field.value.valueData.value"></div>
+                                            </div>
+                                        </div>
+                                        <!--普通输入文本框-->
+                                        <dev ng-switch-when="text">
+                                            <label ng-if="field.label"><span class="title">{{field.label}}</span></label>
+                                            <span ng-bind="field.value"></span>
+                                        </dev>
+                                        <!--综合折扣-->
+                                        <dev ng-switch-when="discountor">
+                                            <label ng-if="field.label"><span class="title">{{field.label}}</span></label>
+                                            <span class="discountor">综合折扣</span><span class="discountor-value" ng-item="field.value"></span>
+                                        </dev>
+                                        <!--普通文本-->
+                                        <dev ng-switch-when="span">
+                                            <label ng-if="field.label"><span class="title">{{field.label}}</span></label>
+                                            <span class="label-field" ng-bind="field.value"></span>
+                                        </dev>
+                                        <!--错误项-->
+                                        <div ng-switch-default>
+                                            <label ng-if="field.label"><span class="title">{{field.label}}</span></label>
+                                            <input type="text" value="错误项"/>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
-                            <dev ng-switch-when="text">
-                                <label ng-if="field.text"><span class="title">{{field.text}}</span></label>
-                                <span ng-bind="field.value"></span>
-                            </dev>
-                            <dev ng-switch-when="discountor">
-                                <label ng-if="field.text"><span class="title">{{field.text}}</span></label>
-                                <span class="discountor">综合折扣</span><span class="discountor-value" ng-item="field.value"></span>
-                            </dev>
-                            <dev ng-switch-when="span">
-                                <label ng-if="field.text"><span class="title">{{field.text}}</span></label>
-                                <span class="label-field" ng-bind="field.value"></span>
-                            </dev>
-                            <dev ng-switch-default>
-                                <label ng-if="field.text"><span class="title">{{field.text}}</span></label>
-                                <input type="text" value="错误项"/>
-                            </dev>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="product">
-        {{products}}
     </div>
 </div>
