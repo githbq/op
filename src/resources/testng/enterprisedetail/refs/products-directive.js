@@ -10,11 +10,31 @@ define(function (require, exports, module) {
                 scope: {dataResult: '=', productReadonly: '='},
                 template: require('./products-template.html'),
                 link: function (scope, iElem, iAttrs) {
-                    window.onresize = function () {
+                    $(window).on('resize', function () {
                         setTimeout(function () {
                             wrapperReset();
                         }, 50);
-                    };
+                    });
+                    //用户体验优化
+                    $(document.body).on(
+                        'mouseenter', '.product-label', function () {
+                            var productId = $(this).attr('data-productid');
+                            if ($('.product-agent[data-productid=' + productId + '] .product').length > 0) {
+                                $('.product-label').removeClass('active');
+
+                                $(this).addClass('active');
+                                $('.product-agent[data-productid]').removeClass('active');
+                                $('.product-agent[data-productid=' + productId + ']').addClass('active');
+                            }
+                        }).on(
+                        'mouseleave', '.product-label', function () {
+                            //var productId = $(this).attr('data-productid');
+                            //$('.product-agent[data-productid=' + productId + ']').removeClass('active');
+                        }).on(
+                        'click', '.product-agent', function () {
+                            var productId = $(this).attr('data-productid');
+                            $('.product-label').removeClass('active2').filter('[data-productid=' + productId + ']').addClass('active2');
+                        });
                     scope.dataResult = scope.dataResult || [];//对外暴露的结果数据
                     var products = [];
                     //后端推过来的结果 与提交的结果完全一致的数据结构
@@ -526,4 +546,5 @@ define(function (require, exports, module) {
         }
     )
     ;
-});
+})
+;

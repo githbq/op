@@ -153,10 +153,27 @@
             overflow: hidden;
             float: left;
         }
+
+        .active {
+            background-color: yellow;
+        }
+
+        .active2 {
+            color: green;
+            font-weight:bold;
+            font-size:20px;
+        }
+
+        .enterprise-panel .product-checkboxs label.active {
+            font-weight: bolder;
+            color: black;
+            transform: scale(1.2);
+            transition: scale 1s ease-in-out;
+        }
     </style>
     <div class="product-checkboxs" onselectstart="return false;">
         <div class="checkboxs-container">
-            <label ng-repeat="checkbox in productCheckboxs">
+            <label ng-repeat="checkbox in productCheckboxs" data-productid="{{checkbox.id}}" class="product-label">
                 <span ng-bind="checkbox.text"></span>
                 <input type="checkbox"
                        ng-click="checkProduct(checkbox.checked,checkbox)"
@@ -167,7 +184,7 @@
         </div>
     </div>
     <div class="products-border">
-        <div class="product-agent" data-index="{{product.index}}" ng-repeat="product in products">
+        <div class="product-agent" data-index="{{product.index}}" data-productid="{{product.productId}}" ng-repeat="product in products">
             <div class="product" ng-if="product.show" data-index="{{product.index}}">
                 <div class="product-border">
                     <div class="product-content">
