@@ -16,8 +16,8 @@
 		<div>
 			<hr/>
 			<h4 style="font-weight: bold; font-size: 18px; padding-top: 8px; padding-bottom: 8px;">审批意见</h4>
-			<table >
-			<tr><th>审批人</th><th>审批时间</th><th>审批结果</th><th>审批意见</th></tr>
+			<table>
+			<tr><th style="width:160px;">审批人</th><th style="width:160px;">审批时间</th><th style="width:100px;">审批结果</th><th>审批意见</th></tr>
 			<tbody class="last-options">
 			 
 			</tbody>
@@ -37,8 +37,8 @@
 		<div class="state state-refuse ">
 			<hr/>
 			<p class="approval-action">
-				<button class="  u-btn-blue action-submit">保存提交</button>
-				<button class="  u-btn-blue action-save">保存</button>
+				<button class="  u-btn-blue action-submit" data-permissions="M008007005,M009015010">保存提交</button>
+				<button class="  u-btn-blue action-save" data-permissions="M008007005,M009015009">保存</button>
 			</p>
 		</div>
 
@@ -60,8 +60,8 @@
 			<textarea ce-model="comment" cols="60" rows="5" maxlength="1000" style=" margin:10px;esize: none;word-wrap: break-word;outline: none; border: 1px solid #d9d9d9;-webkit-border-radius: 3px; -moz-border-radius: 3px;border-radius: 3px;"></textarea>
 			</p>
 			<p class="actions">
-				<button class="u-btn-blue action-agree"> 同意 </button>
-				<button class="u-btn-red action-reject"> 驳回 </button>
+				<button class="u-btn-blue action-agree" data-permissions="M010001008,M008031004"> 同意 </button>
+				<button class="u-btn-red action-reject" data-permissions="M010001009,M008031006"> 驳回 </button>
 			</p>
 		</div>
 	</div>

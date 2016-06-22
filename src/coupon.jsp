@@ -24,7 +24,7 @@
     </div>
     <nav>
         <ul class="nav-main clearfix">
-            <li data-modulecode22="ApprovalOpS">
+            <li  data-permissions="M018001">
                 <a href="#privilege/lst">优惠方案设置</a>
             </li>
             <li>
