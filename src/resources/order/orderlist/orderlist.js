@@ -177,7 +177,18 @@ define( function( require, exports, module ) {
             var id = $(e.currentTarget).attr('data-id');
             var bool = confirm('确定要删除该订单吗?');
             if(bool){
-                util.api
+                util.api({
+                    'url':'/odr/deleteOrder',
+                    'data':{
+                        'orderId':id
+                    },
+                    'success': function( data ){
+                        if( data.success ){
+                            util.showTip('订单删除成功! ');
+                            me.searchEve();
+                        }
+                    }
+                })
             }
         },
         //删除自订单
@@ -195,7 +206,7 @@ define( function( require, exports, module ) {
                     'success': function( data ){
                         console.warn( data );
                         if( data.success ){
-                           util.showTip('订单删除成功！')
+                           util.showTip('订单删除成功！');
                            me.searchEve();
                         }
                     }
