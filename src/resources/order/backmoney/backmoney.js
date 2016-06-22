@@ -1,14 +1,13 @@
-/**
- *  退款slider
- */
-
+//
+// 退款slider
+/////////////////////////////
 define( function(require, exports, module){
 
 	var IBSS = window.IBSS,
         TPL = IBSS.tpl;
 		
 	var Slider = require('common/widget/slider/slider');
-	 var AreaTree = require('module/areatree/areatree');
+	var AreaTree = require('module/areatree/areatree');
 
 	var contentStr = require('./backmoney.html');
 	var OrderInfo = require('../widget/orderinfo/orderinfo');
@@ -24,7 +23,7 @@ define( function(require, exports, module){
 
     /////////////////
     //
-    //  查看审批详情
+    // 退款详情
     /////////////////
 	var DetailApproval = MClass( Slider ).include({
 

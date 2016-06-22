@@ -106,13 +106,13 @@ define( function( require, exports, module ) {
 			'click .search':'searchEve',
             'click .detail-revocation': 'revocationEve',
             'click .detail-finalpay': 'finalPayEve',
-            'click .detail-delete': 'deleteEve',
-            'click .detail-info': 'infoEve',
-            'click .detail-supplement': 'supplyEve',
-            'click .detail-daokuan': 'daokuanEve',
-            'click .detail-invoice': 'invoiceEve',
-            'click .detail-tuikuan': 'tuikuanEve',     //退款
-            'click .detail-union': 'unionEve'          //联合跟进人
+            'click .detail-delete': 'deleteEve',                //删除订单
+            'click .detail-info': 'infoEve',                    //查看详情
+            'click .detail-supplement': 'supplyEve',            //补充合同
+            'click .detail-daokuan': 'daokuanEve',              //到款认领
+            'click .detail-invoice': 'invoiceEve',              //发票
+            'click .detail-tuikuan': 'tuikuanEve',              //退款
+            'click .detail-union': 'unionEve'                   //联合跟进人
 
             //'click .order-detail':'orderDetailEve',
 			//'click .receive-money':'receiveMoneyEve',
@@ -170,9 +170,15 @@ define( function( require, exports, module ) {
            location.hash = '#order/payment/'+id+'/'+enterpriseId+'/'+orderType+'/'+opinion+'/'+isTp+'/'+ea+'/'+contractNo;
         },
         */
-        //删除
+        //删除订单
         deleteEve: function(e){
             console.log('删除订单');
+            var me = this;
+            var id = $(e.currentTarget).attr('data-id');
+            var bool = confirm('确定要删除该订单吗?');
+            if(bool){
+                util.api
+            }
         },
         //删除自订单
         /*
@@ -200,6 +206,11 @@ define( function( require, exports, module ) {
         //查看详情
         infoEve: function(e){
             console.log('查看详情');
+            var me = this;
+
+            var id = $(e.currentTarget).attr('data-id');
+
+            me.trigger('detail', id );
         },
         //查看详情
         /*
@@ -220,10 +231,18 @@ define( function( require, exports, module ) {
         //补充合同
         supplyEve: function(e){
             console.log('补充合同');
+            var me = this;
+            var id = $(e.currentTarget).attr('data-id');
+
+            me.trigger('supply', id );
         },
         //到款
         daokuanEve: function(e){
             console.log('到款认领');
+            var me = this;
+            var id = $(e.currentTarget).attr('data-id');
+
+            me.trigger('daokuan', id );
         },
         //发票
         invoiceEve:function( e ){
@@ -232,6 +251,7 @@ define( function( require, exports, module ) {
                
             me.trigger('orderInvoice', id );   
         },
+
         //退款
         tuikuanEve: function(e){
             var me = this;
@@ -262,9 +282,6 @@ define( function( require, exports, module ) {
                 newFirst = "refund";
             }
 
-
-
-
             if( newFirst == 'newFirst' ){
                 me.trigger('orderBackmoney',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':true,'orderType':orderType,
                'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea,'processInstanceId':'','contractNo':contractNo,'newFirst':'newFirst'} );
@@ -274,6 +291,7 @@ define( function( require, exports, module ) {
            
             }
         },
+
         //联合跟进人
         unionEve: function( e ){
             var me = this;
@@ -452,7 +470,7 @@ define( function( require, exports, module ) {
             onlinePay.show( options );
         });
 		
-        //联合跟进人
+        //联合跟进人[]
 		orderList.on('orderCustom', function( options ){
             customHelper = new CustomHelper();
             customHelper.on('refresh',function(){
@@ -460,15 +478,17 @@ define( function( require, exports, module ) {
             });
             customHelper.show( options );
         });
-		//退款
+
+		//退款[需要测试]
 		orderList.on('orderBackmoney', function( options ){
             backMoney = new BackMoney();
             backMoney.show( options );
 			backMoney.on('saveSuccess', function( ){
 				orderList.getList();
 			})
-        })
-        //发票
+        });
+
+        //发票[需要测试]
 		orderList.on('orderInvoice', function( id ){
             invioceDetail = new InvoiceDetail();
             invioceDetail.show( id,null,0 );
@@ -477,6 +497,22 @@ define( function( require, exports, module ) {
 			})
         });
 
+        //到款认领[待开发完成]
+        orderList.on('daokuan', function( id ){
+            claim.show(id);
+        });
+
+        //补充合同[待开发]
+        orderList.on('supply', function( id ){
+            console.log('补充合同');
+            console.log( id );
+        });
+
+        //查看[待开发]
+        orderList.on('detail', function( id ){
+            console.log('查看');
+            console.log( id );
+        });
     }
 } );
 

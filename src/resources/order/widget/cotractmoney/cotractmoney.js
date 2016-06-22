@@ -1,7 +1,7 @@
-/**
- * 组件：h5 图片模块
- * @html h5.html
- */
+//
+// 通用合同信息付款信息
+//==========================================
+
 define(function (require, exports, module) {
 
     var Slider = require('common/widget/slider/slider');
