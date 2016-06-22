@@ -16,7 +16,7 @@ define(function (require, exports, module) {
                         }, 50);
                     });
                     //用户体验优化
-                    $(document.body).on(
+                    $('.enterprise-panel').on(
                         'mouseenter', '.product-label', function () {
                             var productId = $(this).attr('data-productid');
                             if ($('.product-agent[data-productid=' + productId + '] .product').length > 0) {

@@ -8430,10 +8430,20 @@ em {
 .multiple-select-long {
   width: 400px;
 }
-.enterprise-panel .form .ng-pristine.ng-invalid:not(.form) {
+.enterprise-panel .inline-block {
+  display: inline-block;
+}
+.enterprise-panel .textarea-m {
+  width: 500px;
+  height: 100px;
+}
+.enterprise-panel .form .ng-pristine.ng-dirty.ng-invalid:not(.form) {
   border: 1px solid deepskyblue;
 }
-.enterprise-panel .form .form-field .ng-invalid:not(.form) {
+.enterprise-panel .form .form-field .ng-invalid.ng-dirty:not(.form) {
+  border: 1px solid red;
+}
+.enterprise-panel .step_validate_error .ng-invalid {
   border: 1px solid red;
 }
 .enterprise-panel .form .ng-dirty:not(.form) {
@@ -8521,6 +8531,7 @@ em {
   display: inline-block;
   width: 350px;
   text-align: left;
+  margin-top: 3px;
 }
 .enterprise-panel .form .form-row .inputs-container .fenqi-label span::after {
   content: '';

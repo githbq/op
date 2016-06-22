@@ -12,10 +12,10 @@ define(function (require, exports, module) {
         }
         $elements = reSort($elements);
         var fullWidth = $mainContainer.outerWidth();
-        var offset = offset == undefined ? 4 : offset;
+        var offset = offset == undefined ? 0 : offset;
         var elementWidth = $elements.filter(':visible').first().outerWidth();
         var colCount = Math.floor(fullWidth / (elementWidth + offset));
-        if (colCount == 0) {
+        if (!colCount) {
             return;
         }
         var rowArr = setRowArr($elements);

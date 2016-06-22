@@ -74,35 +74,51 @@ define(function (require, exports, module) {
     });
     myApp.controller('mainController', ['$scope', '$timeout', 'select2Query', function ($scope, $timeout, select2Query) {
         mainCtrlScope = $scope;
-        $scope.config1 = {
-            data: [],
-            placeholder: '尚无数据',
-            search: false
-        };
-        $scope.a = 4;
-        $timeout(function () {
-            $scope.config1.data = [{id: 1, text: 'bug'}, {id: 2, text: 'duplicate'}, {id: 3, text: 'invalid'}, {id: 4, text: 'wontfix'}];
-            $scope.config1.placeholder = '加载完毕'
-        }, 1000);
         //产品已购信息
         $scope.productInfos = [[{name: '培训人数', value: 'xxxx'}], [{name: 'CRM用户数', value: 'xxxx'}, {name: false, value: '2016年-2017年'}]];
 
+        //付款信息
+        var payInfo = $scope.payInfo = {payStatus:1};
+        $scope.testResult3=function(form){
+
+        };
+        //receiptsAccountConfig
+        //总部到款账户
+        $scope.receiptsAccountConfig = {
+            //data: [{id: '1-1-1', text: '昌平区'}, {id: '2-1-1', text: '浦东区'}, {id: '3-1-1', text: '宝安区'}, {id: '4-1-1', text: '汉口'}, {id: '4-2-1', text: '黄梅县'}],
+            data: [],
+            multiple: false,
+            placeholder: '尚无数据',
+            search: false,
+            defaultValue: '110000',
+            minimumResultsForSearch: Infinity//不显示搜索框
+        };
+        //特殊条款
+        $scope.specialClausesConfig = {
+            //data: [{id: '1-1-1', text: '昌平区'}, {id: '2-1-1', text: '浦东区'}, {id: '3-1-1', text: '宝安区'}, {id: '4-1-1', text: '汉口'}, {id: '4-2-1', text: '黄梅县'}],
+            data: [],
+            multiple: false,
+            placeholder: '尚无数据',
+            search: false,
+            defaultValue: '110000',
+            minimumResultsForSearch: Infinity//不显示搜索框
+        };
+        //企业详情信息
         var entInfo = $scope.entInfo = {};
         $scope.enterpriseReadonly = false;//企业详情信息 只读
         $scope.payInfoReadonly = false;//企业详情信息 只读
         $scope.productReadonly = false;//产品信息 只读
-        $scope.ent = {};//企业详情信息
         $scope.testBasicForm = function () {
         };
 
         //多功能下拉选框
         $scope.entInfo.province = '130000';
         $scope.entInfo.city = '150000';
-        $scope.entInfo.area = '130000';
+        $scope.entInfo.county = '130000';
 
         $scope.entInfo.provinceDataValue = '';
         $scope.entInfo.cityDataValue = '';
-        $scope.entInfo.areaDataValue = '';
+        $scope.entInfo.countyDataValue = '';
         $scope.accountConfig = {
             //data: [{id: 1, text: '111111111111111'}, {id: 2, text: '22222222222'}, {id: 3, text: '3333333333'}, {id: 4, text: '支付宝'}],
             data: [],
@@ -115,7 +131,7 @@ define(function (require, exports, module) {
             data: [],
             multiple: false,
             placeholder: '尚无数据'
-            // minimumResultsForSearch: Infinity//不显示搜索框
+            //, minimumResultsForSearch: Infinity//不显示搜索框
             ,
             search: false,
             defaultValue: '110000'
@@ -129,7 +145,7 @@ define(function (require, exports, module) {
             search: false,
             defaultValue: '110000'
         };
-        $scope.areaConfig = {
+        $scope.countyConfig = {
             //data: [{id: '1-1-1', text: '昌平区'}, {id: '2-1-1', text: '浦东区'}, {id: '3-1-1', text: '宝安区'}, {id: '4-1-1', text: '汉口'}, {id: '4-2-1', text: '黄梅县'}],
             data: [],
             multiple: false,
@@ -140,7 +156,7 @@ define(function (require, exports, module) {
         cascadeSelect([
             {ngModelName: 'entInfo.province', config: $scope.provinceConfig},
             {ngModelName: 'entInfo.city', config: $scope.cityConfig},
-            {ngModelName: 'entInfo.area', config: $scope.areaConfig}
+            {ngModelName: 'entInfo.county', config: $scope.countyConfig}
         ], createPullFunc({url: '~/op/api/district/getListByParent', data: {name: 'parentValue'}}, function (data, item) {
             data.push({id: item.value.toString(), text: item.name});
         }));
@@ -148,16 +164,16 @@ define(function (require, exports, module) {
 
 
         //多功能下拉选框　行业
-        entInfo.industry1 = '';
-        entInfo.industry2 = '';
-        entInfo.industry3 = '';
+        entInfo.industryFirst = '';
+        entInfo.industrySecond = '';
+        entInfo.industryThird = '';
 
-        entInfo.industry1DataValue = '';
-        entInfo.industry2DataValue = '';
-        entInfo.industry3DataValue = '';
+        entInfo.industryFirstDataValue = '';
+        entInfo.industrySecondDataValue = '';
+        entInfo.industryThirdDataValue = '';
 
 
-        $scope.industry1Config = {
+        $scope.industryFirstConfig = {
             //data: [{id: 1, text: '行业A'}, {id: 2, text: '行业B'}, {id: 3, text: '行业C'}, {id: 4, text: '行业D'}],
             data: [],
             multiple: false,
@@ -166,7 +182,7 @@ define(function (require, exports, module) {
             defaultValue: '100'
         };
 
-        $scope.industry2Config = {
+        $scope.industrySecondConfig = {
             // data: [{id: '1-1', text: '行业A－1'}, {id: '2-1', text: '行业B－1'}, {id: '3-1', text: '行业C－1'}, {id: '4-1', text: '行业D－1'}, {id: '4-2', text: '行业D－2'}],
             data: [],
             multiple: false,
@@ -174,7 +190,7 @@ define(function (require, exports, module) {
             defaultValue: '150',
             search: false
         };
-        $scope.industry3Config = {
+        $scope.industryThirdConfig = {
             //data: [{id: '1-1-1', text: '行业A－1－1'}, {id: '2-1-1', text: '行业B－1－1'}, {id: '3-1-1', text: '行业C－1－1'}, {id: '4-1-1', text: '行业D－1－1'}, {id: '4-2-1', text: '行业D－1－2'}],
             data: [],
             multiple: false,
@@ -184,9 +200,9 @@ define(function (require, exports, module) {
         };
 
         cascadeSelect([
-            {ngModelName: 'entInfo.industry1', config: $scope.industry1Config},
-            {ngModelName: 'entInfo.industry2', config: $scope.industry2Config},
-            {ngModelName: 'entInfo.industry3', config: $scope.industry3Config}
+            {ngModelName: 'entInfo.industryFirst', config: $scope.industryFirstConfig},
+            {ngModelName: 'entInfo.industrySecond', config: $scope.industrySecondConfig},
+            {ngModelName: 'entInfo.industryThird', config: $scope.industryThirdConfig}
         ]);
         //{ngModelName:'',config}
         //级联下拉列表
@@ -196,21 +212,21 @@ define(function (require, exports, module) {
                 var selectConfig = selectConfigs[i];
                 var nextSelectConfig = selectConfigs.length > i + 1 ? selectConfigs[i + 1] : null;
                 (function (i, total, selectConfig, nextSelectConfig) {
-                    //$scope.$watch(selectConfig.ngModelName, function (newValue, oldValue, scope) {
-                    //    if (i > 0 && !selectConfig.config.auto) {
-                    //        return;
-                    //    }
-                    //    if (newValue != oldValue) {
-                    //        if (i !== total - 1 && nextSelectConfig) {
-                    //            nextSelectConfig.config.data = [];
-                    //            eval('$scope.' + nextSelectConfig.ngModelName + '= ""');
-                    //            nextSelectConfig.config.auto = true;
-                    //            newValue && remotePullFunc(nextSelectConfig.config, getEvalValue(selectConfig.ngModelName),function(){
-                    //                exeConfig(nextSelectConfig);
-                    //            });
-                    //        }
-                    //    }
-                    //});
+                    $scope.$watch(selectConfig.ngModelName, function (newValue, oldValue, scope) {
+                        if (i > 0 && !selectConfig.config.auto) {
+                            return;
+                        }
+                        if (newValue != oldValue) {
+                            if (i !== total - 1 && nextSelectConfig) {
+                                nextSelectConfig.config.data = [];
+                                eval('$scope.' + nextSelectConfig.ngModelName + '= ""');
+                                nextSelectConfig.config.auto = true;
+                                newValue && remotePullFunc(nextSelectConfig.config, getEvalValue(selectConfig.ngModelName), function () {
+                                    exeConfig(nextSelectConfig);
+                                });
+                            }
+                        }
+                    });
                 })(i, selectConfigs.length, selectConfig, nextSelectConfig);
             }
             var firstSelectConfig = selectConfigs[0];
@@ -261,6 +277,67 @@ define(function (require, exports, module) {
 
         //end 多功能下拉选框　行业
 
+        //公司规模
+        $scope.companyScaleConfig = {
+            //data: [{id: '1-1-1', text: '行业A－1－1'}, {id: '2-1-1', text: '行业B－1－1'}, {id: '3-1-1', text: '行业C－1－1'}, {id: '4-1-1', text: '行业D－1－1'}, {id: '4-2-1', text: '行业D－1－2'}],
+            data: [],
+            multiple: false,
+            placeholder: '尚无数据',
+            defaultValue: '100',
+            search: false,
+            minimumResultsForSearch: Infinity//不显示搜索框
+        };
+        //使用对象类型
+        $scope.groupTypeConfig = {
+            //data: [{id: '1-1-1', text: '行业A－1－1'}, {id: '2-1-1', text: '行业B－1－1'}, {id: '3-1-1', text: '行业C－1－1'}, {id: '4-1-1', text: '行业D－1－1'}, {id: '4-2-1', text: '行业D－1－2'}],
+            data: [],
+            multiple: false,
+            placeholder: '尚无数据',
+            defaultValue: '100',
+            search: false,
+            minimumResultsForSearch: Infinity//不显示搜索框
+        };
+        //是否有销售团队
+        $scope.isSaleTeamConfig = {
+            //data: [{id: '1-1-1', text: '行业A－1－1'}, {id: '2-1-1', text: '行业B－1－1'}, {id: '3-1-1', text: '行业C－1－1'}, {id: '4-1-1', text: '行业D－1－1'}, {id: '4-2-1', text: '行业D－1－2'}],
+            data: [],
+            multiple: false,
+            placeholder: '尚无数据',
+            defaultValue: '100',
+            search: false,
+            minimumResultsForSearch: Infinity//不显示搜索框
+        };
+        //销售团队规模
+        $scope.saleTeamScaleConfig = {
+            //data: [{id: '1-1-1', text: '行业A－1－1'}, {id: '2-1-1', text: '行业B－1－1'}, {id: '3-1-1', text: '行业C－1－1'}, {id: '4-1-1', text: '行业D－1－1'}, {id: '4-2-1', text: '行业D－1－2'}],
+            data: [],
+            multiple: false,
+            placeholder: '尚无数据',
+            defaultValue: '100',
+            search: false,
+            minimumResultsForSearch: Infinity//不显示搜索框
+        };
+        //是否转介绍
+        $scope.isReferralConfig = {
+            //data: [{id: '1-1-1', text: '行业A－1－1'}, {id: '2-1-1', text: '行业B－1－1'}, {id: '3-1-1', text: '行业C－1－1'}, {id: '4-1-1', text: '行业D－1－1'}, {id: '4-2-1', text: '行业D－1－2'}],
+            data: [],
+            multiple: false,
+            placeholder: '尚无数据',
+            defaultValue: '100',
+            search: false,
+            minimumResultsForSearch: Infinity//不显示搜索框
+        };
+        //是否标杆
+        $scope.isReferenceConfig = {
+            //data: [{id: '1-1-1', text: '行业A－1－1'}, {id: '2-1-1', text: '行业B－1－1'}, {id: '3-1-1', text: '行业C－1－1'}, {id: '4-1-1', text: '行业D－1－1'}, {id: '4-2-1', text: '行业D－1－2'}],
+            data: [],
+            multiple: false,
+            placeholder: '尚无数据',
+            defaultValue: '100',
+            search: false,
+            minimumResultsForSearch: Infinity//不显示搜索框
+        };
+
         $scope.testResult = function () {
             debugger
             util.api({
@@ -307,19 +384,19 @@ define(function (require, exports, module) {
             dialog.show();
         };
         $scope.saving = false;
-        $scope.step = 2;//步骤
+        $scope.step = 1;//步骤
         $scope.prevStep = function () {
 
 
             $scope.step--;
         };
-        $scope.nextStep = function () {
+        $scope.nextStep = function (form) {
+            debugger
             if ($scope.step == 1) {//企业详情界面
-                if ($scope.mainForm.basicForm.$invalid) {
-                    //debugger
-                    //$scope['step_' + $scope.step + '_validate_error'] = true;
-                    //return;
-                }
+                //if (form.$invalid) {
+                //    $scope['step_' + $scope.step + '_validate_error'] = true;
+                //    return;
+                //}
             }
             $scope.step++;
         };
