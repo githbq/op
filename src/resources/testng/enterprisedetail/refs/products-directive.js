@@ -7,13 +7,17 @@ define(function (require, exports, module) {
 
     angular.module('formApp').directive('products', function () {
             return {
-                scope: {dataResult: '=', productReadonly: '='},
+                scope: {dataResult: '=', productReadonly: '=', show: '='},
                 template: require('./products-template.html'),
                 link: function (scope, iElem, iAttrs) {
-                    $(window).on('resize', function () {
-                        setTimeout(function () {
+
+                    scope.$watch('show', function () {
+                        if (scope.show) {
                             wrapperReset();
-                        }, 50);
+                        }
+                    });
+                    $(window).on('resize', function () {
+                        wrapperReset();
                     });
                     //用户体验优化
                     $('.enterprise-panel').on(
@@ -40,6 +44,15 @@ define(function (require, exports, module) {
                     //后端推过来的结果 与提交的结果完全一致的数据结构
                     var resultData = [{data: [], state: 0, productId: 1}, {data: [], productId: 11}, {data: [], productId: 111}, {data: [], productId: 1111}, {data: [], productId: 11111}];
                     //JSON格式转换
+                    //logic位置重排序
+                    _.each(productJson.logics, function (item, i) {
+                        item.index = _.findIndex(productJson.products, {productId: item.attr.productId});
+                    });
+                    productJson.logics = productJson.logics.sort(function (a, b) {
+                        return a.index - b.index;
+                    })
+
+                    //循环拿到想要的产品模型
                     for (var i = 0; i < productJson.logics.length; i++) {
                         var logic = productJson.logics[i];
                         var product = {logic: logic, productId: logic.attr.productId};
@@ -47,7 +60,7 @@ define(function (require, exports, module) {
                         changeState(product);
                     }
                     //瀑布布局重置
-                    function wrapperReset() {
+                    function wrapperReset(delay) {
                         setTimeout(function () {
                             $('.product-agent').each(function (i, n) {
                                 var $dom = $(n);
@@ -57,7 +70,7 @@ define(function (require, exports, module) {
                             });
                             waterfallcomput($('.products-border'), $('.product-agent').has('.product'), colWrapperStr);
 
-                        }, 50);
+                        }, delay || 50);
                     }
 
                     function changeState(product) {
@@ -98,13 +111,13 @@ define(function (require, exports, module) {
                         }
                     }
 
-                    //复选框选中事件
+                    //产品复选框
                     scope.productCheckboxs = _.map(productJson.products, function (item, i) {
                         var findProduct = _.findWhere(resultData, {productId: item.productId});
                         item.show = !!findProduct;
                         return {id: item.productId, text: item.text, checked: !!findProduct};
                     });
-                    //产品复选框
+                    //复选框选中事件
                     scope.checkProduct = function (checked, checkbox) {
                         var findProduct = _.findWhere(products, {productId: checkbox.id});
                         findProduct.show = checked;

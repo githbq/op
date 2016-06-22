@@ -157,7 +157,7 @@
             <div class="form-row">
                 <h2>产品目录</h2>
             </div>
-            <products x-data-result="dataResultData.dataResult" product-readonly="productReadonly"></products>
+            <products x-data-result="dataResultData.dataResult" product-readonly="productReadonly" show="step==2"></products>
         </div>
     </div>
     <div ng-if="step==3" ng-controller="form3Controller" ng-form name="stepForm3" class="step form">
