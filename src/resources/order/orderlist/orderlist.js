@@ -105,7 +105,7 @@ define( function( require, exports, module ) {
         events: {
 			'click .search':'searchEve',
             'click .detail-revocation': 'revocationEve',
-            'click .detail-finalpay': 'finalPayEve',
+            'click .detail-finalpay': 'finalPayEve',            //收尾款
             'click .detail-delete': 'deleteEve',                //删除订单
             'click .detail-info': 'infoEve',                    //查看详情
             'click .detail-supplement': 'supplyEve',            //补充合同
@@ -154,6 +154,11 @@ define( function( require, exports, module ) {
         //收尾款
         finalPayEve: function(e){
             console.log('收尾款');
+            var me = this;
+            var id = $(e.currentTarget).attr('data-id');
+            
+            //todo
+            
         },
         //收尾款
         /*
