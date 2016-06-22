@@ -6,7 +6,7 @@
 		<div class="list-bar">
 			<div class="list-bar-btns">
 				<button class="search u-btn-blue">查询</button>
-				<button class="bindall" data-permissions=" F011048" style="margin-right:10px;">批量分配</button>
+				<button class="bindall" data-permissions=" M011006003" style="margin-right:10px;">批量分配</button>
 			</div>
 			<div class="list-bar-input">
 				<label for="">
@@ -30,7 +30,7 @@
 				<thead>
 					<tr>
 						<th></th>
-						<th style="width:40px;"><input type="checkbox" class="selectEntAll" data-permissions="F011071"></th>
+						<th style="width:40px;"><input type="checkbox" class="selectEntAll" data-permissions="M011006002"></th>
 						<th>企业名称</th>
 						<th style="display:none;">地址</th>
 						<th>公开时间</th>
@@ -43,7 +43,7 @@
 				<tbody ce-collection="list">
 					<tr>
 						<td></td>
-						<td><input type="checkbox" class="selectEnt" value="<%=item.id%>" data-permissions="F011071"></td>
+						<td><input type="checkbox" class="selectEnt" value="<%=item.id%>" data-permissions="M011006002"></td>
 						<td><%=item.enterpriseName%></td>
 						<td style="display:none;"><%=item.address%></td>
 						<td><%=item.createTimeStr%></td>
@@ -52,8 +52,8 @@
 						<%=item.requestCount%>
 						</td>
 						<td>
-							<a data-permissions="F011048" data-id="<%=item.id%>" class="public-ent-assgin">分配</a>&nbsp;&nbsp;
-							<a data-id="<%=item.id%>" class="detail" style="padding:20px;" data-permissions="F011041">详情</a>
+							<a data-permissions="M011006002" data-id="<%=item.id%>" class="public-ent-assgin">分配</a>&nbsp;&nbsp;
+							<a data-id="<%=item.id%>" class="detail" style="padding:20px;" data-permissions="M011006004">详情</a>
 						</td>
 						<td></td>
 					</tr>

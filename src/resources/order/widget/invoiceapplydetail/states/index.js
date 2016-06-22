@@ -42,7 +42,7 @@ define(function (require, exports, module) {
 
 
                 tempAry[2] = (tempAry[2] == 'true') ? '同意' : '驳回';
-                strDom += '<tr><td>' + tempAry[0] + '</td><td>' + tempAry[1] + '</td><td>' + tempAry[2] + '</td><td>' + tempAry[3] + '</td><td></td></tr>'
+                strDom += '<tr><td>' + tempAry[0] + '</td><td>' + tempAry[1] + '</td><td>' + tempAry[2] + '</td><td style="word-break: break-word;">' + tempAry[3] + '</td><td></td></tr>'
             }
             return strDom;
         }

@@ -17,8 +17,8 @@
     <div class="header-person">
         <span id="accountname"></span>
         <div class="person-loginout">
-            <a href="#page/changepwd" data-permissions="F008117">修改密码</a>
-            <a href="/logout?from=/op" data-permissions="F008118">退出</a>
+            <a href="#page/changepwd" >修改密码</a>
+            <a href="/logout?from=/op" >退出</a>
         </div>
     </div>
     <div class="header-policy">
@@ -27,25 +27,25 @@
     <nav>
         <ul class="nav-main clearfix">
         
-            <li data-modulecode="ComprehensiveQueryOpS PartnerOpS DemoAccountOpS QueryOpS ExportAgentAccountOpS">
+            <li data-permissions="M008001">
                 <a class="nav-branch">查询</a>
                 <ul class="nav-sub">
-                    <li data-modulecode="ComprehensiveQueryOpS"><a href="#qry/cmp">综合查询</a></li>
-                    <li data-modulecode="PartnerOpS"><a href="#qry/partner">合作伙伴</a></li>
-                    <li data-modulecode="DemoAccountOpS"><a href="#qry/exp">演示帐号</a></li>
+                    <li data-permissions="M008002"><a href="#qry/cmp">综合查询</a></li>
+                    <li data-permissions="M008004"><a href="#qry/partner">合作伙伴</a></li>
+                    <li data-permissions="M008003"><a href="#qry/exp">演示帐号</a></li>
                     <!--<li data-modulecode="QueryOpS"><a href="#qry/cyc">查一查</a></li>-->
-                    <li data-modulecode="ExportAgentAccountOpS"><a href="#index/agentexport">代理商员工导出</a></li>
+                    <li data-permissions="M008006"><a href="#index/agentexport">代理商员工导出</a></li>
                 </ul>
             </li>
-			<li data-modulecode="OrderOpS">
+			<li data-permissions="M008007">
                 <a href="#order/orderlist">订单</a>
             </li>
 
-            <li data-modulecode="EnterpriseOpS SelfRegisterOpS">
+            <li data-permissions="M008008">
                 <a class="nav-branch">企业</a>
                 <ul class="nav-sub">
-                    <li data-modulecode="EnterpriseOpS"><a href="#ent/lst">企业</a></li>
-                    <li data-modulecode="SelfRegisterOpS"><a href="#ent/ind">自注册</a></li>
+                    <li data-permissions="M008009"><a href="#ent/lst">企业</a></li>
+                    <li data-permissions="M008010"><a href="#ent/ind">自注册</a></li>
                 </ul>
             </li>
             
@@ -55,7 +55,7 @@
             </li>
             -->
 
-            <li data-modulecode="RealTimeActivityOpS MonthReportOpS PayedLifeCycleOpS SelfActivityAllOpS PeriodActivityAnalysisOpS DayActivityDetailOpS DayActivityAllOpS MonthActivityTeamAnalysisOpS MonthActivityAll">
+            <li data-permissions="M008011">
                 <a class="nav-branch">活跃度</a>
                 <ul class="nav-sub">
                    <!-- <li data-modulecode="RealTimeActivityOpS">
@@ -64,28 +64,28 @@
                     <li data-modulecode="MonthReportOpS">
                         <a href="#index/rpt">月度报告</a>
                     </li>-->
-                    <li data-modulecode="RealTimeActivityOpS">
+                    <li data-permissions="M008012">
                         <a href="#index/lst2">实时2</a>
                     </li>
-                    <li data-modulecode="MonthReportOpS">
+                    <li data-permissions="M008013">
                         <a href="#index/rpt2">月度报告2</a>
                     </li>
 					<!--<li data-modulecode="PayedLifeCycleOpS">
                         <a href="#index/paid">付费生命周期</a>
                     </li>-->
-                    <li data-modulecode="SelfActivityAllOpS">
+                    <li data-permissions="M008015">
                         <a href="#index/personactive">个人活跃汇总</a>
                     </li>
-                    <li data-modulecode="PeriodActivityAnalysisOpS">
+                    <li data-permissions="M008016">
                         <a href="#index/activeanalyze">阶段活跃团队分析</a>
                     </li>
-                    <li data-modulecode="DayActivityDetailOpS">
+                    <li data-permissions="M008017">
                         <a href="#index/detail">企业日活跃详情报表</a>
                     </li>
-                    <li data-modulecode="DayActivityAllOpS">
+                    <li data-permissions="M008018">
                         <a href="#index/lstreport">企业日活跃汇总报表</a>
                     </li>
-                    <li data-modulecode="MonthActivityTeamAnalysisOpS">
+                    <li data-permissions="M008019">
                         <a href="#index/monthanalyze">月季度团队数据分析</a>
                     </li>
                     <li data-modulecode="MonthActivityAll">
@@ -94,34 +94,34 @@
                 </ul>
             </li>
 
-            <li data-modulecode="AgentOpS ExportInvestmentOpS">
+            <li data-permissions="M008022">
                 <a class="nav-branch">代理商</a>
                 <ul class="nav-sub">
-                    <li data-modulecode="AgentOpS"><a href="#agt/lst">代理商列表</a></li>
-                    <li data-modulecode="ExportInvestmentOpS"><a href="#agt/export">招商信息导出</a></li>
+                   <!-- <li data-permissions="M008023"><a href="#agt/lst">代理商列表</a></li>-->
+                    <li data-permissions="M008024"><a href="#agt/export">招商信息导出</a></li>
                 </ul>
             </li>
             <!--<li>
                 <a href="#pdt/lst">产品</a>
             </li>-->
-            <li data-modulecode="ClientOpS HotlineOpS AccountAddLimitOpS AccountRegisterLimitOpS">
+            <li data-permissions="M008025">
                 <a class="nav-branch">客户</a>
                 <ul class="nav-sub">
-                    <li data-modulecode="ClientOpS"><a href="#eme/lst">客户</a></li>
+                    <li data-permissions="M008026"><a href="#eme/lst">客户</a></li>
                     <!--热线查询单独菜单-->
-                    <li data-modulecode="HotlineOpS"><a href="#eme/clientlst">热线查询</a></li>
-                    <li data-modulecode="AccountAddLimitOpS"><a href="#eme/joinlimit">账号加入上限</a></li>
-                    <li data-modulecode="AccountRegisterLimitOpS"><a href="#eme/loginlimit">账号注册上限</a></li>
+                    <li data-permissions="M008027"><a href="#eme/clientlst">热线查询</a></li>
+                    <li data-permissions="M008028"><a href="#eme/joinlimit">账号加入上限</a></li>
+                    <li data-permissions="M008029"><a href="#eme/loginlimit">账号注册上限</a></li>
                 </ul>
             </li>
-			 <li data-modulecode="ApprovalOpS">
+			 <li data-permissions="M008030">
                 <a href="#page/approvallist">我的审批</a>
                 <ul class="nav-sub">
-                    <li data-modulecode="ApprovalOpS"><a href="#page/approvallist">订单审批</a></li>
-                    <li><a href="#order/invoiceapplyagentlist">发票审批</a></li>
+                    <li data-permissions="M008031"><a href="#page/approvallist">订单审批</a></li>
+                    <li data-permissions="M008032"><a href="#order/invoiceapplyagentlist">发票审批</a></li>
                 </ul>
             </li>
-            <li data-modulecode="SupervisionOpS">
+            <li data-permissions="M008033">
                 <a href="#page/watchent">企业监察</a>
             </li>
         </ul>
@@ -165,7 +165,6 @@
     IBSS.BASE_PATH = location.pathname.slice( 0,location.pathname.lastIndexOf('/') ) + '/resources';   //静态资源路径
     IBSS.API_PATH = '/op/api/s';       //api路径
     IBSS.IS_DEVELOP = true;
-    // IBSS.VERSION ='4.7.' + (new Date()).getTime();
     IBSS.VERSION ='1.1';
 </script>
 
@@ -175,7 +174,6 @@
 <script type="text/javascript" src="resources/common/scripts/lib/backbone-1.1.2.js"></script>
 <script type="text/javascript" src="resources/common/scripts/lib/seajs-2.3.0.js"></script>
 <script type="text/javascript" src="resources/common/scripts/lib/seajs-css.js"></script>
-<!--<script type="text/javascript" src="resources/common/scripts/lib/seajs-text.js"></script>-->
 <script type="text/javascript" src="resources/common/scripts/lib/seajs-preload.js"></script>
 <script type="text/javascript" src="resources/common/scripts/util.js"></script>
 <script type="text/javascript" src="resources/common/scripts/widget.js"></script>

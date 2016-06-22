@@ -126,8 +126,14 @@ define(function(require, exports, module){
 					'data':{'ea':me.attrs.ea},
 					'success': function( data ){
 						console.warn( data );
-						if( data.success ){
-							me.$('.proxy-area').val(data.value.model.name);
+						if (data.success && data.value.model.length>0 ) {
+							var quyuName = []
+							for(var i =0; i<data.value.model.length; i++){
+								quyuName.push(data.value.model[i].name)
+							}
+							me.$('.proxy-area').val(quyuName.join(','));
+						}else{
+							me.$('.proxy-area').val('');
 						}
 					}
 				});
@@ -136,8 +142,14 @@ define(function(require, exports, module){
 					'url': '~/op/api/region/getagentregion',
 					'success': function( data ){
 						console.warn( data );
-						if( data.success ){
-							me.$('.proxy-area').val(data.value.model.name);
+						 if (data.success && data.value.model.length>0 ) {
+							var quyuName = []
+							for(var i =0; i<data.value.model.length; i++){
+								quyuName.push(data.value.model[i].name)
+							}
+							me.$('.proxy-area').val(quyuName.join(','));
+						}else{
+							me.$('.proxy-area').val('');
 						}
 					}
 				});

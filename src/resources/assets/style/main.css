@@ -6724,6 +6724,10 @@ em {
   text-align: right;
   padding: 10px 0;
 }
+.m-invoicedetail table {
+  table-layout: fixed;
+  word-wrap: break-word;
+}
 .refundinfo {
   width: 1300px;
 }
@@ -6931,6 +6935,11 @@ em {
 }
 .order-content .red {
   color: red;
+}
+.order-content table {
+  table-layout: fixed;
+  word-wrap: break-word;
+  word-break: normal;
 }
 .m-deailbind .left-info {
   float: left;

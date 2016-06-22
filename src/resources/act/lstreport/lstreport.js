@@ -169,7 +169,7 @@ define( function( require, exports, module ) {
             objdata['name'] = me.$alName.val()||'';
             objdata['account'] = me.$enterpriseAccount.val()||'';
             
-            objdata['pageIndex'] = me.pagination.attr['pageNumber']; 
+            objdata['pageIndex'] = me.pagination.attr['pageNumber']+1; 
             objdata['pageSize'] = me.pagination.attr['pageSize'];
 			
             util.api({
