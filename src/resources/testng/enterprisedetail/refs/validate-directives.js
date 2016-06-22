@@ -42,7 +42,7 @@ define(function (reuqire, exports, module) {
                 ctrl.$parsers.unshift(function (viewValue) {
                     if (EMAIL_REGEXP.test(viewValue)) {
                         ctrl.$setValidity('email', true);
-                        return parseFloat(viewValue.replace(',', '.'));
+                        return viewValue;
                     } else {
                         ctrl.$setValidity('email', false);
                         return undefined;
@@ -59,7 +59,7 @@ define(function (reuqire, exports, module) {
             require: 'ngModel',
             link: function (scope, elm, attrs, ctrl) {
                 //初步解决验证时动态改值问题
-                elm.off('change').on('change', function () {
+                elm.off('keyup').on('keyup', function () {
                     var $dom = $(this);
                     var result = ($dom.val().replace(/[^\.\d]/g, ''));
                     if (!NUMBER_REGEXP.test(result)) {
@@ -85,5 +85,22 @@ define(function (reuqire, exports, module) {
         };
     });
 
-
+    var ACCOUNT_REGEXP = /^[a-z][a-z\d]{5,19}$/i;
+    app.directive('account', function () {
+        return {
+            require: 'ngModel',
+            link: function (scope, elm, attrs, ctrl) {
+                ctrl.$parsers.unshift(function (viewValue) {
+                    debugger
+                    if (ACCOUNT_REGEXP.test(viewValue)) {
+                        ctrl.$setValidity('account', true);
+                       return viewValue;
+                    } else {
+                        ctrl.$setValidity('account', false);
+                        return undefined;
+                    }
+                });
+            }
+        };
+    });
 });

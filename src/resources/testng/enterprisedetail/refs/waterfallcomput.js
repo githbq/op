@@ -15,6 +15,9 @@ define(function (require, exports, module) {
         var offset = offset == undefined ? 4 : offset;
         var elementWidth = $elements.filter(':visible').first().outerWidth();
         var colCount = Math.floor(fullWidth / (elementWidth + offset));
+        if (colCount == 0) {
+            return;
+        }
         var rowArr = setRowArr($elements);
         var colArr = setColArr(rowArr);
         wraperToContainer(colArr);//包裹
@@ -37,7 +40,7 @@ define(function (require, exports, module) {
             var rowArr = [];
             for (var i = 0; i < $elements.length; i++) {
                 var $elem = $elements[i];
-                if (i % colCount == 0) {
+                if (colCount == 0 || i % colCount == 0) {
                     rowArr[rowArr.length] = rowArr[rowArr.length] || [];
                 }
                 rowArr[rowArr.length - 1].push($elem);

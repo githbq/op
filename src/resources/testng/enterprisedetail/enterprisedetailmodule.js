@@ -84,7 +84,8 @@ define(function (require, exports, module) {
             $scope.config1.data = [{id: 1, text: 'bug'}, {id: 2, text: 'duplicate'}, {id: 3, text: 'invalid'}, {id: 4, text: 'wontfix'}];
             $scope.config1.placeholder = '加载完毕'
         }, 1000);
-
+        //产品已购信息
+        $scope.productInfos = [[{name: '培训人数', value: 'xxxx'}], [{name: 'CRM用户数', value: 'xxxx'}, {name: false, value: '2016年-2017年'}]];
 
         var entInfo = $scope.entInfo = {};
         $scope.enterpriseReadonly = false;//企业详情信息 只读
