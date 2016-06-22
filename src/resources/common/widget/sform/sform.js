@@ -275,12 +275,10 @@ define(function (require, exports, module) {
                 var me = this;
                 var error = me.i_checkError(name, value, option, $ele, function (value, option, $ele) {
                     return value.length > option.value;
-
                 });
                 return error;
             }
             ,
-
             i_checkFieldForDefault: function (name, value, option, $ele, wrapper) {
                 return null;
             }

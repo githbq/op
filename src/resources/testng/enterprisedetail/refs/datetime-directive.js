@@ -5,23 +5,30 @@ define(function (require, exports, module) {
         return {
             restrict: 'A',
             template: '<input name="{{name}}" style="cursor:pointer;" type="text" readonly="readonly" class="datetime-control" ng-model="stringValue"/>',
-            scope: {whenchange: '&', datetimeconfig: '=', ngModel: '=', allow: '=', getForm: '&getform', name: '@'},
+            scope: {ngChange: '&', datetimeconfig: '=', ngModel: '=', allow: '=', getForm: '&getform', name: '@'},
             link: function (scope, iElem, iAttr) {
                 scope.datetimeconfig = scope.datetimeconfig || {};
                 var currentForm = scope.getForm && scope.getForm();
+
+                function valueChange(control) {
+                    var value = control.el.value;
+                    if (currentForm) {
+                        currentForm[scope.name].$setDirty();
+                    }
+                    //取值逻辑
+                    scope.$apply(function () {
+                        transferDate(value);
+                    });
+                    scope.ngChange && scope.ngChange();
+                }
+
                 var option = {
                     type: '0',
                     dateFmt: 'yyyy/MM/dd',
                     onpicked: function (control) {
-                        var value = control.el.value;
-                        if (currentForm) {
-                            currentForm[scope.name].$setDirty();
-                        }
-                        //取值逻辑
-                        scope.$apply(function () {
-                            transferDate(value);
-                        });
-                        scope.whenchange && scope.whenchange();
+                        valueChange(control);
+                    }, oncleared: function (control) {
+                        valueChange(control);
                     }
                 };
                 scope.$watch('ngModel', function () {
@@ -36,14 +43,19 @@ define(function (require, exports, module) {
                         $('input', iElem).attr('disabled', 'disabled');
                     }
                 });
+
                 function transferDate(str) {
-                    if(!str){
-                        str=new Date(scope.ngModel)._format('yyyy/MM/dd')
+                    if (str === undefined && scope.ngModel) {
+                        str = new Date(scope.ngModel)._format('yyyy/MM/dd')
                     }
-                    if (scope.datetimeconfig.type == '1' && scope.ngModel) {//0开始时间 1为结束时间
-                        scope.ngModel = new Date(str+ " 23:59:59").getTime();
+                    if (!str) {
+                        scope.ngModel = null;
                     } else {
-                        scope.ngModel = new Date(str+ " 00:00:00").getTime();
+                        if (scope.datetimeconfig.type == '1' && scope.ngModel) {//0开始时间 1为结束时间
+                            scope.ngModel = new Date(str + " 23:59:59").getTime();
+                        } else {
+                            scope.ngModel = new Date(str + " 00:00:00").getTime();
+                        }
                     }
                 }
             }

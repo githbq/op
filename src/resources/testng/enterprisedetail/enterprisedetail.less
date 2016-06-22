@@ -1,34 +1,45 @@
 .multiple-select {
   width: 217px;
 }
-.multiple-select-long{
-  width:400px;
+
+.multiple-select-long {
+  width: 400px;
 }
+
 .enterprise-panel {
   //.form.ng-invalid {
   //  border: 3px solid red;
   //}
-  .form .ng-pristine.ng-invalid:not(.form) {
+  .inline-block{
+    display:inline-block;
+  }
+  .textarea-m {
+    width: 500px;
+    height: 100px;
+  }
+  .form .ng-pristine.ng-dirty.ng-invalid:not(.form) {
     border: 1px solid deepskyblue;
   }
-  .ng-invalid{
+  .ng-invalid {
 
   }
-  .form .form-field .ng-invalid:not(.form) {
+  .form .form-field .ng-invalid.ng-dirty:not(.form) {
     border: 1px solid red;
   }
-  //待启用
-  //.form.step_validate_error .ng-invalid {
-  //  border: 1px solid red;
-  //}
-  .form .ng-dirty:not(.form)  {
+  .step_validate_error .ng-invalid {
+    border: 1px solid red;
+  }
+  .form .ng-dirty:not(.form) {
     border: 1px solid lawngreen;
   }
   input[type=text] {
     width: 200px;
+    &.input-l {
+      width: 500px;
+    }
   }
-  .multiple-select.input-l{
-    width:400px;
+  .multiple-select.input-l {
+    width: 400px;
   }
   input.readonly, textarea.readonly {
     border: 1px solid #dddddd;
@@ -49,7 +60,7 @@
     }
   }
   .step {
-    padding-left: 150px;
+    //padding-left: 150px;
     transition: width 2s;
   }
   h1 {
@@ -79,7 +90,15 @@
     text-align: center;
     padding: 5px;
   }
+
   .form {
+    .product-info-group {
+      width: 90%;
+      border: 2px solid #cccccc;
+      margin: 0 auto;
+      padding: 10px;
+      background-color: #f2f2f2;
+    }
     .form-row {
 
       margin-top: 5px;
@@ -98,7 +117,10 @@
           display: inline-block;
           width: 350px;
           text-align: left;
-
+          margin-top:3px;
+          span::after {
+            content: ''
+          }
         }
       }
       label:first-child {
