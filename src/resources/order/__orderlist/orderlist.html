@@ -1,5 +1,6 @@
 <div class="p-entprisefiling-lst p-list" js="true">
-    <div class="m-orderlist u-tablelist">
+    <!-- orderlist控制器 -->
+    <div class="m-orderlist u-tablelist" ng-controller="orderlist">
     	<div class="list-header">
             <div class="header-opts">
                 <button class="btn-blue exportOrder">导出订单</button>
@@ -8,28 +9,28 @@
     	</div>
     	<div class="list-bar">
             <div class="list-bar-btns" style="width:200px;">
-                <button class="search">查询</button>
+                <button class="search" ng-click="search()">查询</button>
             </div>
     		<div class="list-bar-input">
     			<label for="">
     				<span>订单号</span>
-    				<input type="text" ce-model="orderId" onchange="this.value=this.value.replace(/\D/g,'')" maxlength=8>
+    				<input type="text" ng-model="s.orderId" onchange="this.value=this.value.replace(/\D/g,'')" maxlength=8>
     			</label>
 				<label for="">
     				<span>合同号</span>
-    				<input type="text" ce-model="contractNo">
+    				<input type="text" ng-model="s.contractNo">
     			</label>
 				<label for="">
     				<span>企业名称</span>
-    				<input type="text" ce-model="en">
+    				<input type="text" ng-model="s.en">
     			</label>
 				<label for="">
     				<span>企业账号</span>
-    				<input type="text" ce-model="ea"   onchange="this.value=this.value.toLowerCase( )">
+    				<input type="text" ng-model="s.ea"   onchange="this.value=this.value.toLowerCase( )">
     			</label>
 				<label for="">
                     <span>订单类型</span>
-                    <select name="" ce-model="orderType">
+                    <select name="" ng-model="s.orderType">
                         <option value="">全部</option>
                         <option value="1">新增</option>
                         <option value="2">续费</option>
@@ -39,7 +40,7 @@
                 </label>
 				<label for="">
     				<span>提单人</span>
-    				<input type="text" ce-model="account">
+    				<input type="text" ng-model="s.account">
     			</label>
                 <label for="">
                     <span>提单日期</span>
@@ -56,7 +57,7 @@
                 </label>
                 <label for="">
                     <span>代理商</span>
-                    <input type="text" ce-model="agent">
+                    <input type="text" ng-model="agent">
                 </label>
                 <label for="">
                     <span>订单状态</span>
@@ -76,32 +77,7 @@
 			
     	</div>
     	<div class="list-content" style="overflow:auto;">
-    		<table>
-    			<thead>
-    				<tr>
-    					<th></th>
-    					<th style="width:90px">订单号</th>
-						<th style="width:100px;" >合同号</th>
-    					<th style="width:100px;">企业名称</th>
-						<th style="width:200px;">账号</th>
-						<th style="width:100px;">订单类型</th>
-    					<th style="width:100px;">提单人</th>
-    					<th style="width:120px;">代理商</th>
-    					<th style="width:60px">特批单</th>
-    					<th style="width:60px">合作单</th>
-						<th style="width:153px;">合作人</th>
-						<th style="width:90px">审核状态</th>
-						<th style="width:90px">当前付费状态</th>
-						<th style="width:90px">提单付费状态</th>
-						<th style="width:153px;">提单日期</th>
-						<th style="width:300px;">操作</th>
-    					<th></th>
-    				</tr>
-    			</thead>
-    			<tbody>
-    				<!-- -->
-    			</tbody>
-    		</table>
+    		<grid data="data"></grid>
     	</div>
         <div class="list-pager">
             

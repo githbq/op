@@ -269,7 +269,7 @@ define('common/app', function(require, exports, module){
 					that.singn = true;  // 已经存在于当前页面了
 
 					// 内容添加到页面中去
-					$('#con').append($el);
+					$('#con').empty().append($el);
 
 					// 重新记录当前页面
 					// undersorce 不支持深复制， 手动清空events

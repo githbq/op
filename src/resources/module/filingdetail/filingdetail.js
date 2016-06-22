@@ -49,8 +49,8 @@ define(function (require, exports, module) {
             '.phone-taggle': 'phoneTaggle',
             '.time-taggle': 'timeTaggle',
             '.state-check': 'stateCheck',
-            '.free-reg': 'freeReg',
-            '.buy-reg': 'buyReg',
+            '.openent': 'openent',
+            //'.buy-reg': 'buyReg',
             '.disabled-status': 'noStatus',
             '.filing-drop': 'filingdrop',
             '.filing-region': 'filingRegion',
@@ -70,8 +70,8 @@ define(function (require, exports, module) {
             'click .filing-save': 'saveEve',
             'click .filing-drop': 'dropEve',
             'change .firm-status': 'changeFirmStatus',
-            'click .free-reg': 'jumpFree',
-            'click .buy-reg': 'jumpBuy',
+            'click .openent': 'openenterprise',
+            //'click .buy-reg': 'jumpBuy',
             'click .bind-link': 'bindLinkEve'
         },
 
@@ -275,7 +275,7 @@ define(function (require, exports, module) {
         },
 
         //跳转免费注册
-        jumpFree: function () {
+        openenterprise: function () {
             IBSS.tempEnterprise = temObj;
 
             //查看是否能注册
@@ -284,16 +284,16 @@ define(function (require, exports, module) {
                 'success': function (data) {
                     if (data.success) {
                         //location.hash = '#agentsupport/freereg/link';
-
-                        location.hash = '#order/newmarketying/newOffice';
+                        //location.hash = '#order/newmarketying/newOffice';
+                        location.hash = '#order/openenterprise';
                     }
                 }
             })
-
             //location.hash = '#agentsupport/freereg/link';
         },
 
         //跳转付费注册
+        /*
         jumpBuy: function () {
             IBSS.tempEnterprise = temObj;
 
@@ -310,6 +310,8 @@ define(function (require, exports, module) {
 
             //location.hash = '#agentsupport/payreg/link';
         },
+        */
+
         bindLinkEve: function (e) {
             var me = this;
             IBSS.tempEnterprise = temObj;
@@ -343,8 +345,8 @@ define(function (require, exports, module) {
             //me.$('.state-check input').val('');
             me.$firmStatus.css({'display': 'block'});
             me.$noStatus.css({'display': 'none'});
-            me.$freeReg.css({'display': 'none'});
-            me.$buyReg.css({'display': 'none'});
+            me.$openent.css({'display': 'none'});
+            //me.$buyReg.css({'display': 'none'});
             me.$bindLink.css({'display': 'none'});
 
             //放弃按钮先显示
@@ -400,8 +402,8 @@ define(function (require, exports, module) {
                                     me.$('.operat-input').attr('disabled', 'disabled');
                                 } else {
                                     me.$operatStatus.show();
-                                    me.$freeReg.show();
-                                    me.$buyReg.show();
+                                    me.$openent.show();
+                                    //me.$buyReg.show();
                                     me.$bindLink.show();
                                     me.$('.operat-input').removeAttr('disabled');
                                 }

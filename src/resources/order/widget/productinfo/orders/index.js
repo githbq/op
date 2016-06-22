@@ -291,35 +291,36 @@ define(function (require, exports, module) {
         //设置增购逻辑
         exports.setAddOrderLogic = function (controller, terminalDataItems, tableDataItems, formDataItems, type, responseData) {
             var hasTrainning = false;
-
+            var productTraining = false;
             $(responseData.data.subOrders).each(function (j, m) {
                 if (m.subOrder.productId == '13' || m.subOrder.productId == '16') {
+                    if (m.subOrder.productId == '13') {
+                        productTraining = true;
+                    }
                     hasTrainning = true;
                 }
             });
             if (responseData && hasTrainning) {
-                controller(terminalDataItems, 'productTrainingWrapper', function (n) {
-                    n.visible = false;
-                });
                 if (responseData.readonly || responseData.refuse) {
                     controller(terminalDataItems, 'useTrainning', function (n) {
                         n.value = true;
                     });
                 }
+                controller(terminalDataItems, 'productTrainingWrapper', function (n) {
+                    n.visible = (responseData.edit || responseData.readonly) && productTraining; //在只读的情况下 或者编辑的情况下  如果有培训助手 是允许显示的
+                });
             }
             CRMNewLogic(controller, terminalDataItems, tableDataItems, formDataItems, type, responseData);
-            controller(tableDataItems, 'productTrainingWrapper', function (n) {
-                n.visible = false;
-            });
+
             controller(tableDataItems, 'tablelist', function (n) {
                 n.visible = true;
             });
-            controller(tableDataItems, 'startTime_7', function (n) {
-                n.value = '';
-            });
-            controller(tableDataItems, 'endTime_7', function (n) {
-                n.value = '';
-            });
+            //controller(tableDataItems, 'startTime_7', function (n) {
+            //    n.value = '';
+            //});
+            //controller(tableDataItems, 'endTime_7', function (n) {
+            //    n.value = '';
+            //});
             controller(tableDataItems, 'type_7', function (n) {
                 n.value = '3';
             });
