@@ -12,6 +12,8 @@ define(function (require, exports, module) {
             controller: ['$scope', function ($scope) {
             }],
             link: function (scope, iElem, iAttrs) {
+                //给容器添加样式
+                iElem.addClass('input-file-container');
                 scope.status = 'unload';
                 $('input[type=file]', iElem).uploadPreview({Callback: null, img: $('img', iElem)});
                 iElem.find('input[type=file]').on('change', function (e) {
