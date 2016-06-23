@@ -34,7 +34,7 @@ define( function( require, exports, module ) {
             util.api({
                 url: '~/op/api/policy/allpolicy',
                 success: function(data){
-                    $(data.model.content).each(function(i, item) {
+                    $(data.model).each(function(i, item) {
                         list += '<div class="accordian">'
                                 +'<h4 data-id="'+item.id+'"><em class="dot"></em><span class="title">'+item.title+'</span><span class="arrow"></span></h4>'
                                 +'<div class="content"></div>'

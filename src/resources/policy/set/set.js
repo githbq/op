@@ -109,7 +109,7 @@ define( function( require, exports, module ) {
                 url: '~/op/api/policy/allpolicy',
                 success: function( data ) {
                     if ( data.success ) {
-                        var aCon = data.value.model.content;
+                        var aCon = data.value.model;
                         if(me.id){
                             for(var i = 0, len = aCon.length; i < len; i++){
                                 if(me.id == aCon[i].id){
