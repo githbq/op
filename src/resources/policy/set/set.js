@@ -28,7 +28,6 @@ define( function( require, exports, module ) {
         init: function(){
             CreatePolicy.__super__.init.apply( this, arguments );
             var me = this;
-            //me.initializeEditor();
         },
 
         show: function(id){
@@ -178,7 +177,8 @@ define( function( require, exports, module ) {
                 data: {
                     content: content,
                     sortKey: sequence,
-                    title: title
+                    title: title,
+                    id: me.id
                 },
                 success: function( res ){
                     if(res.success){
