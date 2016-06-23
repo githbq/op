@@ -10,10 +10,11 @@ define( function(require, exports, module){
 	var AreaTree = require('module/areatree/areatree');
 
 	var contentStr = require('./backmoney.html');
-	var OrderInfo = require('../widget/orderinfo/orderinfo');
+
+	var OrderInfo = require('../widget/orderinfo/orderinfo');                  
 	var CotractMoney = require('../widget/cotractmoney/cotractmoney');
 	var refundinfo = require('../widget/refundinfo/refundinfo');
-	var InvoiceList = require('../widget/invoicelist/invoicelist');
+	var InvoiceList = require('../widget/invoicelist/invoicelist');            
 	
 	var orderTypeAry = ['','办公版新购-普通','办公版新购-特批','营销版新购-普通','营销版新购-特批','办公版增购-普通',
 		'办公版增购-特批','营销版增购-普通','营销版增购-特批','办公版续费-普通','办公版续费-特批',

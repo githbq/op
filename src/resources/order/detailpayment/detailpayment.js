@@ -1,7 +1,6 @@
-/**
- *
- * 收尾款slider
- */
+//
+// 收尾款slider
+//=============
 
 define( function(require, exports, module){
 

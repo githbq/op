@@ -10,9 +10,10 @@ define( function(require, exports, module){
         TPL = IBSS.tpl;
 		
 	var Slider = require('common/widget/slider/slider');
-	 var AreaTree = require('module/areatree/areatree');
+	var AreaTree = require('module/areatree/areatree');
 
 	var contentStr = require('./detailapproval.html');
+
 	var BasicInfo = require('../widget/basicinfo/basicinfo');
 	var Explain = require('../widget/explain/explain');
 	var OrderInfo = require('../widget/orderinfo/orderinfo');

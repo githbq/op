@@ -1,5 +1,6 @@
-//hubq
-
+//
+//发票审批 财务列表
+//=====================================
 define(function (require, exports, module) {
 
     var Pagination = require('common/widget/pagination/pagination');
