@@ -1,3 +1,6 @@
+//
+// 收尾款 入口
+//====================
 define( function( require, exports, module ) {
     var IBSS = window.IBSS;
 	var OrderInfo = require('../widget/orderinfo/orderinfo');

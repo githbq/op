@@ -1,6 +1,7 @@
 //
+// 新建收尾款 和 审批收尾款用
 // 收尾款slider
-//=============
+//=================
 
 define( function(require, exports, module){
 
