@@ -252,11 +252,10 @@
                                         <!--输入时间-->
                                         <div ng-switch-when="time">
                                             <label ng-if="field.label"><span class="title" ng-init="field.dateConfig={type:0}">{{field.label}}</span></label>
-
                                             <div class="div-inline-block">
-                                                <div allow="!(productReadonly||field.readonly)"
-                                                     ng-init="field=field;product=product" ng-change="this.fieldChange(this.field,this.product,this[currentFormName])"
-                                                     ng-disabled="productReadonly||field.disabled" ng-readonly="productReadonly||field.readonly" getform="this[currentFormName]" name="{{field.name}}" datetimeconfig="field.dateConfig" ng-model="field.value.valueData.value"></div>
+                                                <div allow="!(productReadonly||field.readonly)" max-date="{{getValidateValue('max',field,product)}}" min-date="{{getValidateValue('min',field,product)}}"
+                                                      ng-change="this.fieldChange(this.field,this.product,this[currentFormName])"
+                                                     ng-disabled="productReadonly||field.disabled" ng-readonly="productReadonly||field.readonly" getform="this[currentFormName]" ng-required="field.validate.required" name="{{field.name}}" datetimeconfig="field.dateConfig" ng-model="field.value.valueData.value"></div>
                                             </div>
                                         </div>
                                         <!--输入结束时间-->
@@ -265,8 +264,8 @@
 
                                             <div class="div-inline-block">
                                                 <div allow="!(productReadonly||field.readonly)"
-                                                     ng-init="field=field;product=product" whenchange="this.fieldChange(this.field,this.product,this[currentFormName])"
-                                                     ng-disabled="productReadonly||field.disabled" ng-readonly="productReadonly||field.readonly" getform="this[currentFormName]" name="{{field.name}}" datetimeconfig="field.dateConfig" ng-model="field.value.valueData.value"></div>
+                                                     whenchange="this.fieldChange(this.field,this.product,this[currentFormName])"
+                                                     ng-disabled="productReadonly||field.disabled" ng-readonly="productReadonly||field.readonly" getform="this[currentFormName]" ng-required="field.validate.required" name="{{field.name}}" datetimeconfig="field.dateConfig" ng-model="field.value.valueData.value"></div>
                                             </div>
                                         </div>
                                         <!--普通输入文本框-->

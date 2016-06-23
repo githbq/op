@@ -82,6 +82,7 @@ define(function (require, exports, module) {
         $scope.testResult3=function(form){
 
         };
+        $scope.currPayAmountList=[{currPayAmount:1,productId:1,productName:'CRM分期',purchaseAmount:555},{currPayAmount:7,productId:7,productName:'工资助手分期',purchaseAmount:666}];
         //receiptsAccountConfig
         //总部到款账户
         $scope.receiptsAccountConfig = {

@@ -52,13 +52,12 @@ define(function (reuqire, exports, module) {
         };
     });
 
-
     var NUMBER_REGEXP = /^\d{1,8}((\.|\,)\d{0,2})?$/;
     app.directive('number', function () {
         return {
             require: 'ngModel',
+            scope: {maxNumber: '=',minNumber:'='},
             link: function (scope, elm, attrs, ctrl) {
-                //初步解决验证时动态改值问题
                 elm.off('keyup').on('keyup', function () {
                     var $dom = $(this);
                     var result = ($dom.val().replace(/[^\.\d]/g, ''));
@@ -66,7 +65,13 @@ define(function (reuqire, exports, module) {
                         result = '0';
                     }
                     $dom.val(result);
-
+                    if (!isNaN(scope.maxNumber) && parseFloat(result) > scope.maxNumber) {
+                        result = scope.maxNumber;
+                    }
+                    if (!isNaN(scope.minNumber) && parseFloat(result)<scope.minNumber) {
+                        result = scope.minNumber;
+                    }
+                    $dom.val(result);
                     ctrl.$setViewValue(result, true);//只能赋模型的值不能改变VIEW
                     setTimeout(function () {
                         ctrl.$setValidity('number', true);
@@ -94,7 +99,7 @@ define(function (reuqire, exports, module) {
                     debugger
                     if (ACCOUNT_REGEXP.test(viewValue)) {
                         ctrl.$setValidity('account', true);
-                       return viewValue;
+                        return viewValue;
                     } else {
                         ctrl.$setValidity('account', false);
                         return undefined;

@@ -16,12 +16,17 @@ define(function (require, exports, module) {
                             wrapperReset();
                         }
                     });
-                    $(window).on('resize', function () {
-                        wrapperReset();
-                    });
-                    //用户体验优化
-                    $('.enterprise-panel').on(
-                        'mouseenter', '.product-label', function () {
+                    setTimeout(function () {
+                        var $container = $('.enterprise-panel');
+                        //用户体验优化
+                        //窗口改变大小事件
+                        $(window).off('resize', resizeEvent).on('resize', resizeEvent);
+                        function resizeEvent() {
+                            $('.enterprise-panel').length > 0 && wrapperReset();
+                        }
+
+                        //鼠标经过效果
+                        function mouseEnterEvent() {
                             var productId = $(this).attr('data-productid');
                             if ($('.product-agent[data-productid=' + productId + '] .product').length > 0) {
                                 $('.product-label').removeClass('active');
@@ -30,15 +35,21 @@ define(function (require, exports, module) {
                                 $('.product-agent[data-productid]').removeClass('active');
                                 $('.product-agent[data-productid=' + productId + ']').addClass('active');
                             }
-                        }).on(
-                        'mouseleave', '.product-label', function () {
-                            //var productId = $(this).attr('data-productid');
-                            //$('.product-agent[data-productid=' + productId + ']').removeClass('active');
-                        }).on(
-                        'click', '.product-agent', function () {
+                        }
+
+                        //点击产品事件
+                        function clickAgentEvent() {
                             var productId = $(this).attr('data-productid');
                             $('.product-label').removeClass('active2').filter('[data-productid=' + productId + ']').addClass('active2');
-                        });
+                        }
+
+                        $container
+                            .off('mouseenter', '.product-label', mouseEnterEvent)
+                            .off('click', '.product-agent', clickAgentEvent)
+                            .on('mouseenter', '.product-label', mouseEnterEvent)
+                            .on('click', '.product-agent', clickAgentEvent);
+                    }, 10);
+                    //end
                     scope.dataResult = scope.dataResult || [];//对外暴露的结果数据
                     var products = [];
                     //后端推过来的结果 与提交的结果完全一致的数据结构
@@ -50,7 +61,7 @@ define(function (require, exports, module) {
                     });
                     productJson.logics = productJson.logics.sort(function (a, b) {
                         return a.index - b.index;
-                    })
+                    });
 
                     //循环拿到想要的产品模型
                     for (var i = 0; i < productJson.logics.length; i++) {
@@ -69,7 +80,6 @@ define(function (require, exports, module) {
                                 }
                             });
                             waterfallcomput($('.products-border'), $('.product-agent').has('.product'), colWrapperStr);
-
                         }, delay || 50);
                     }
 
@@ -85,7 +95,9 @@ define(function (require, exports, module) {
                                 }
                                 item.x = Math.random();
                             });
-                            product.logic.currState = find.state;
+                            if (!checkoutUN(find.state)) {
+                                product.logic.currState = find.state;
+                            }
                         }
                         var stateData = getStateCombine(product.logic);//所有的状态
                         product.states = stateData.visibleStates;//可见的状态
@@ -95,6 +107,7 @@ define(function (require, exports, module) {
                             products[findIndex] = product;
                         } else {
                             product.$uniqueKey = Math.random();
+                            debugger
                             products.push(product);
                         }
                         //处理返回结果
@@ -189,29 +202,29 @@ define(function (require, exports, module) {
                             var logic = product.logic;
                             for (var i = 0; i < states.length; i == 0) {
                                 var stateItem = states[i];
-                                executeValidateInit(stateItem, logic)
+                                executeValidateInit(stateItem, logic, product)
 
                             }
                         }
 
                         //执行验证值初始化行为
-                        function executeValidateInit(state, logic) {
+                        function executeValidateInit(state, logic, product) {
                             state.validateInit = state.validateInit || [];
                             for (var i = 0; i < state.validateInit.length; i++) {
                                 var initItem = state.validateInit[i];
-                                switchInitType(initItem, state.validate, logic)
+                                switchInitType(initItem, state.validate, logic, product)
 
                             }
                         }
 
                         //根据类型执行取值
-                        function switchInitType(initItem, validate, logic) {
+                        function switchInitType(initItem, validate, logic, product) {
                             switch (initItem.value.type) {
                                 case 'ajax':
                                 {
                                     util.api({
                                         url: '~' + initItem.url,
-                                        data: getQueryData(initItem.query),
+                                        data: getQueryData(initItem.query, product),
                                         success: function (result) {
                                             if (result.success) {
                                                 scope.$apply(function () {
@@ -267,7 +280,7 @@ define(function (require, exports, module) {
                                 case 'ajax':
                                 {
                                     //远程赋值操作
-                                    ajaxSetValue(changeItem, fieldStruct);
+                                    ajaxSetValue(changeItem, fieldStruct, product);
 
                                 }
                                     ;
@@ -275,23 +288,23 @@ define(function (require, exports, module) {
                         }
 
                         //ajax赋值操作
-                        function ajaxSetValue(changeItem) {
+                        function ajaxSetValue(changeItem, fieldStruct, product) {
                             if (!changeItem.url) {
                                 return;
                             }
                             util.api({
                                 url: '~' + changeItem.url,
-                                data: getQueryData(changeItem.query),
+                                data: getQueryData(changeItem.query, product),
                                 success: function (result) {
-                                    if (result.success) {
-                                        setResponse(result.value.model, changeItem);
+                                    if (result.success && result.value.model) {//如果查询无效 result.value.model为false或者null
+                                        setResponse(result.value.model, changeItem, product);
                                     }
                                 }
                             });
 
 
                             //根据ajax返回的值向数据中赋值
-                            function setResponse(data, changeItem) {
+                            function setResponse(data, changeItem, product) {
                                 scope.$apply(function () {
                                     if (changeItem.response.writeBackType == 'merge') {//合并到data上
                                         _.each(data, function (value, key) {
@@ -302,13 +315,13 @@ define(function (require, exports, module) {
                                     if (changeItem.response.writeBackType == 'mapping' && changeItem.response.mapper) {//映射合并
                                         for (var i = 0; i < changeItem.response.mapper.length; i++) {
                                             var mapperItem = changeItem.response.mapper[i];
-                                            setMappingValue(data, mapperItem);
+                                            setMappingValue(data, mapperItem, product);
                                         }
                                     }
                                 });
                             }
 
-                            function setMappingValue(responseData, mapperItem) {
+                            function setMappingValue(responseData, mapperItem, product) {
                                 switch (mapperItem.valueType) {
                                     case 'data':
                                     {
@@ -412,18 +425,18 @@ define(function (require, exports, module) {
 
                     };
                     //获取推送到后端的数据
-                    function getQueryData(querys) {
+                    function getQueryData(querys, product) {
                         var data = {};
                         for (var i = 0; i < querys.length; i++) {
                             var queryItem = querys[i];
-                            var findValue = getValueForSwitchValueType(queryItem.valueType, queryItem.valueRef);
+                            var findValue = getValueForSwitchValueType(queryItem.valueType, queryItem.valueRef, product);
                             data[queryItem.name] = findValue;
                         }
                         return data;
                     }
 
                     //根据不同的拿值类型拿值
-                    function getValueForSwitchValueType(valueType, refName) {
+                    function getValueForSwitchValueType(valueType, refName, product) {
                         var value = null;
                         switch (valueType) {
                             case 'data':
@@ -448,6 +461,11 @@ define(function (require, exports, module) {
                         }
                         return value;
                     }
+
+                    //获取对应的验证值
+                    scope.getValidateValue = function (validateName, fieldStruct, product) {
+
+                    };
 
                     //获取后后端推送的数据
                     scope.getResultData = function () {
