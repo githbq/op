@@ -256,7 +256,6 @@ define( function( require, exports, module ) {
         hide: function(){
             Preview.__super__.hide.apply( this,arguments );
             this.$policyItems.html('');
-
         },
     });
    
@@ -305,6 +304,7 @@ define( function( require, exports, module ) {
         search: function() {
             this.pagination.setPage( 0, false);
             this.load();
+            this.trigger('hide');
         },
 
         load: function() {
@@ -369,8 +369,11 @@ define( function( require, exports, module ) {
 
         policyList.on('modify', function( id ){
             createPolicy.show( id );
-
         }); 
+
+        policyList.on('hide', function(){
+            createPolicy.hide();
+        })
 
         createPolicy.on('refresh', function(){
             policyList.load();
