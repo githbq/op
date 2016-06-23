@@ -27,10 +27,10 @@
     </div>
     <nav>
         <ul class="nav-main clearfix">
-            <li  data-permissions="M018001">
+            <li data-permissions="M018001">
                 <a href="#privilege/lst">优惠方案设置</a>
             </li>
-            <li>
+            <li data-permissions="M018002">
                 <a href="#policy/set">政策规则设置</a>
             </li>
         </ul>
@@ -96,7 +96,7 @@
 <script type="text/javascript" src="resources/common/widget/calendar/jquery.datetimepicker.js"></script>
 
 <!--endbuild-->
-<!--<script src="http://rap.firstshare.cn/rap.plugin.js?projectId=63"></script>-->
+<!-- <script src="http://rap.firstshare.cn/rap.plugin.js?projectId=63"></script> -->
 <script type="text/javascript" src="resources/common/widget/my97datepicker/wdatepicker.js"></script>
 <!--build:app resources/assets/scripts/app.js-->
 <script type="text/javascript" src="resources/assets/scripts/config.js"></script>
@@ -111,3 +111,4 @@
 
 </body>
 </html>
+
