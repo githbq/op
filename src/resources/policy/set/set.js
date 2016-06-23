@@ -340,15 +340,15 @@ define( function( require, exports, module ) {
         },
         //删除
         delete: function(e){
-            var id = $( e.curentTarget ).attr('data-id'),
-                me = this;
+            var id = $( e.currentTarget ).attr('data-id'),
+                me = this,
                 c = confirm('确认要删除吗？');
             if(!c){
                 return;
             }
             util.api( {
-                'url': '~/op/api/policy/deletepolicy',
-                'data': {
+                url: '~/op/api/policy/deletepolicy',
+                data: {
                     id: id
                 },
                 success: function(res){
