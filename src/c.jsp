@@ -18,63 +18,60 @@
     <div class="header-person">
         <span id="accountname"></span>
         <div class="person-loginout">
-
-            <a href="#page/changepwd" data-permissions="F011052">修改密码</a>
-            <a href="#filing/setleader" data-permissions="F011053">设置上级</a>
-            <a href="#filing/setuser">用户列表</a>
-            <a href="#filing/backquestion" data-permissions="F011054">反馈</a>
-            <a href="/logout?from=/op/c" data-permissions="F011055">退出</a>
+            <a href="#page/changepwd" >修改密码</a>
+            <a href="#filing/backquestion" >反馈</a>
+            <a href="/logout?from=/op/c" >退出</a>
         </div>
     </div>
     <nav>
         <ul class="nav-main clearfix">
             
-            <li data-modulecode="AgentOpC AgentAccountOpC">
+            <!--<li data-permissions="M011001,M011002">
                 <a href="#filing/agentlist">代理商</a>
                 <ul class="nav-sub">
-                    <li data-modulecode="AgentOpC"><a href="#filing/agentlist">代理商</a> </li>
-                    <li data-modulecode="AgentAccountOpC"><a href="#filing/usersearch">用户查询</a></li>
+                    <li data-permissions="M011001"><a href="#filing/agentlist">代理商</a> </li>
+                    <li data-permissions="M011002"><a href="#filing/usersearch">用户查询</a></li>
                 </ul>
-            </li>
-            <li data-modulecode="OrderOpC">
+            </li>-->
+            <li data-permissions="M011003">
                 <a href="#order/orderlist">订单</a>
             </li>
 
             <!-- -->
 
-            <li data-modulecode="DayActivityDetailOpC DayActivityAllOpC PeriodActivityAnalysisOpC MonthActivityTeamAnalysisOpC MonthActivityAllAnalysisOpC">
+            <li data-permissions="M011004">
                 <a href="#index/detail">活跃度</a>
                 <ul class="nav-sub">
-                    <li data-modulecode="DayActivityDetailOpC">
+                    <li  data-permissions="M011011">
                         <a href="#index/detail">企业日活跃详情报表</a>
                     </li>
-                    <li data-modulecode="DayActivityAllOpC">
+                    <li data-permissions="M011012">
                         <a href="#index/lstreport">企业日活跃汇总报表</a>
                     </li>
-                    <li data-modulecode="PeriodActivityAnalysisOpC">
+                    <li data-permissions="M011013">
                         <a href="#pagecommon/activeanalyze">阶段活跃团队分析</a>
                     </li>
-                    <li data-modulecode="MonthActivityTeamAnalysisOpC">
+                    <li data-permissions="M011014">
                         <a href="#pagecommon/monthanalyze">月季度团队数据分析</a>
                     </li>
-                    <li data-modulecode="MonthActivityAllAnalysisOpC">
+                    <li data-permissions="M011015">
                         <a href="#pagecommon/seasonactive">月度季度总数据分析</a>
                     </li>
                 </ul>
             </li>
 
   
-            <li data-modulecode="EnterpriseFIlingOpC EnterpriseFIlingOpenOpC EnterpriseFIlingOpenRequestOpC">
+            <li data-permissions="M011006,M011005">
                 <a href="#filing/entprisefiling">备案企业</a>
                 <ul class="nav-sub">
-                    <li data-modulecode="EnterpriseFIlingOpC"><a href="#filing/entprisefiling">备案企业列表</a></li>
-                    <li data-modulecode="EnterpriseFIlingOpenOpC"><a href="#filing/entpriseopen">公开企业列表</a></li>
+                    <li data-permissions="M011005"><a href="#filing/entprisefiling">备案企业列表</a></li>
+                    <li data-permissions="M011006"><a href="#filing/entpriseopen">公开企业列表</a></li>
                     <!--<li data-modulecode="EnterpriseFIlingOpenRequestOpC"><a href="#filing/requestlist">公开企业申请</a></li>-->
                 </ul>
             </li>
             
 
-            <li data-modulecode="RegionOpC">
+            <li data-permissions="M011007">
                 <a href="#filing/areaconfig">区域配置</a>
             </li>
 
@@ -91,7 +88,7 @@
             </li>-->
             
 
-            <li data-modulecode="SelfRegisterOpC">
+            <li data-permissions="M011008">
                 <a href="#filing/regent">自注册企业</a>
             </li>
             
@@ -143,7 +140,6 @@
     IBSS.BASE_PATH = location.pathname.slice( 0,location.pathname.lastIndexOf('/') ) + '/resources';   //静态资源路径
     IBSS.API_PATH = '/op/api/c';       //api路径
     IBSS.IS_DEVELOP = true;
-    // IBSS.VERSION ='4.7.' + (new Date()).getTime();
     IBSS.VERSION ='1.1';
 </script>
 
@@ -153,14 +149,14 @@
 <script type="text/javascript" src="resources/common/scripts/lib/backbone-1.1.2.js"></script>
 <script type="text/javascript" src="resources/common/scripts/lib/seajs-2.3.0.js"></script>
 <script type="text/javascript" src="resources/common/scripts/lib/seajs-css.js"></script>
-<!-- <script type="text/javascript" src="resources/common/scripts/lib/seajs-text.js"></script>
- --><script type="text/javascript" src="resources/common/scripts/lib/seajs-preload.js"></script>
+<script type="text/javascript" src="resources/common/scripts/lib/seajs-preload.js"></script>
 <script type="text/javascript" src="resources/common/scripts/util.js"></script>
 <script type="text/javascript" src="resources/common/scripts/widget.js"></script>
 <script type="text/javascript" src="resources/common/widget/calendar/jquery.datetimepicker.js"></script>
-
 <!--endbuild-->
+
 <script type="text/javascript" src="resources/common/widget/my97datepicker/wdatepicker.js"></script>
+
 <!--build:app resources/assets/scripts/main.js-->
 <script type="text/javascript" src="resources/assets/scripts/config.js"></script>
 <script type="text/javascript" src="resources/assets/scripts/app.js"></script>
@@ -174,6 +170,4 @@
 
 </body>
 </html>
-
-
 

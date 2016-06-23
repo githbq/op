@@ -3,14 +3,16 @@
         <p>
             <label for="">
                 <span>企业名称 <b class="icon-hide">*</b></span>
-                <input type="text" ce-model="enterpriseName" class="text-disabled filing-entname">
+
+                <input type="text" ce-model="enterpriseName" class="text-disabled filing-entname" maxlength=30>
             </label>
         </p>
         <p style="display: none;"><span class="dnem">您输入的企业名称已备案</span></p>
         <p>
             <label for="">
                 <span>地址 <b class="icon-hide">*</b></span>
-                <input type="text" ce-model="address" class="text-disabled filing-address">
+
+                <input type="text" ce-model="address" class="text-disabled filing-address" maxlength=40>
             </label>
         </p>
         <p>
@@ -46,11 +48,13 @@
         <p>
             <label for="">
                 <span>联系电话 <b class="icon-hide">*</b></span>
-                <input type="text" ce-model="contactPhone" class="text-disabled" onchange="this.value=this.value.replace(/\D/g,'')">
+
+                <input type="text" ce-model="contactPhone" class="text-disabled" onchange="this.value=this.value.replace(/\D/g,'')" maxlength=11>
             </label>
             <label for="">
                 <span>联系人邮件</span>
-                <input type="text" ce-model="contactEmail" class="text-disabled">
+
+                <input type="text" ce-model="contactEmail" class="text-disabled" maxlength=20>
             </label>
         </p>
         <p class="state" data-state="add">
@@ -130,10 +134,12 @@
 		<p>
 			<button class="filing-return" >返回</button>
 			<button class="filing-submit btn-blue state" data-state="add">提交</button>
-			<button class="filing-save btn-blue state operat-status" data-state="detail" style="float:right; margin-left: 5px;" data-permissions="F009055">保存</button>
-			<button class="filing-drop u-btn-red state operat-status" style="float:right; margin-left: 5px;line-height:22px;" data-permissions="F009048">放弃到公海</button>
+
+			<button class="filing-save btn-blue state operat-status" data-state="detail" style="float:right; margin-left: 5px;" data-permissions="M009002006">保存</button>
+			<button class="filing-drop u-btn-red state operat-status" style="float:right; margin-left: 5px;line-height:22px;" data-permissions="M009002005">放弃到公海</button>
 		</p>
 		<p style="float:right;"> 
+			
 			<button class="openent btn-blue state operat-status">开通申请</button>
 			<!--<button class="buy-reg btn-blue state operat-status"  data-permissions="F009022">营销版开通</button>-->
 			<button class="bind-link btn-blue state operat-status" data-entId= ''>关联自注册</button>

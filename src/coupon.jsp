@@ -22,10 +22,13 @@
             <a href="/logout?from=/op/am">退出</a>
         </div>
     </div>
-   <nav>
+    <nav>
         <ul class="nav-main clearfix">
-            <li data-modulecode="ApprovalOpS">
+            <li  data-permissions="M018001">
                 <a href="#privilege/lst">优惠方案设置</a>
+            </li>
+            <li>
+                <a href="#policy/set">政策规则设置</a>
             </li>
         </ul>
     </nav>
@@ -56,7 +59,7 @@
 </div>
 
 <!---->
-<input id="key" type="hidden" value="${token}" /></div>
+<input id="key" type="hidden" value="${token}" />
 
 <!--Tip 提示-->
 <script type="text/template" id="g-tip">
@@ -85,8 +88,12 @@
 <script type="text/javascript" src="resources/common/scripts/widget.js"></script>
 
 <script type="text/javascript" src="resources/common/widget/calendar/jquery.datetimepicker.js"></script>
+<script type="text/javascript" src="resources/common/widget/kindeditor/kindeditor-all-min.js"></script>
+<script type="text/javascript" src="resources/common/widget/kindeditor/lang/zh-CN.js"></script>
+<script type="text/javascript" src="resources/common/widget/calendar/jquery.datetimepicker.js"></script>
 
 <!--endbuild-->
+<!--<script src="http://rap.firstshare.cn/rap.plugin.js?projectId=63"></script>-->
 <script type="text/javascript" src="resources/common/widget/my97datepicker/wdatepicker.js"></script>
 <!--build:app resources/assets/scripts/app.js-->
 <script type="text/javascript" src="resources/assets/scripts/config.js"></script>

@@ -15,7 +15,7 @@
 	<div class="dtl">
 		
 		<!--资料审核-->
-		<section class="accordian collapse commonsection" data-target="verification" id="verification" >
+		<section class="accordian collapse commonsection" data-target="verification" id="verification" data-permissions="M008033003">
 			<h4><span class="arraw"></span>资料审核</h4>
 			<div class="content">
 
@@ -75,14 +75,14 @@
 					</label>
 				</p>
 				<p class="off btns">
-					<button class="u-btn-blue verificationaction-on">审核通过</button>
-					<button class="u-btn-red verificationaction-off">审核驳回</button>
+					<button class="u-btn-blue verificationaction-on" data-permissions="M008033004">审核通过</button>
+					<button class="u-btn-red verificationaction-off" data-permissions="M008033004">审核驳回</button>
 				</p>
 			</div>
 		</section>
 
 		<!--电话回访-->
-		<section class="accordian collapse commonsection off" data-target="callback" id="phonecallback">
+		<section class="accordian collapse commonsection off" data-target="callback" id="phonecallback" data-permissions="M008033005">
 			<h4><span class="arraw"></span>电话回访</h4>
 			<div class="content">
 				<div class="content-result">
@@ -117,7 +117,7 @@
 						<b ce-model="returnVisitCheckStr"></b>
 					</p>
 					<p class="btns">
-						<button class="callback-actionon u-btn-blue">保存</button>
+						<button class="callback-actionon u-btn-blue" data-permissions="M008033006">保存</button>
 					</p>
 				</div>
 				<div class="content-list tb">
@@ -139,7 +139,7 @@
 		</section>
 
 		<!--风险详情-->
-		<section class="accordian collapse commonsection off" data-target="riskInfo" id="riskInfo">
+		<section class="accordian collapse commonsection off" data-target="riskInfo" id="riskInfo" data-permissions="M008033009">
 			<h4><span class="arraw"></span>风险详情</h4>
 			<div class="content">
 				<div class="content-list tb">

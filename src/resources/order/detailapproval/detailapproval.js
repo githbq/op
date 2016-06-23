@@ -1041,6 +1041,19 @@ define( function(require, exports, module){
 		//保存提交
 		actionSubmitEve:function(){
 			var me = this;
+			var comment = '';
+
+			if( me.attrs.options.state == 'wait'){
+				/*
+				if( !me.model.get('comment') ){
+	                util.showToast('请填写意见');
+	                return;
+	            }
+	            */
+	            comment = me.model.get('comment');
+			}
+			
+
 			me.attrs.allData.orderEntity.order.id = me.attrs.options.id;
 			me.getOrderInfo(function(){
 				var tempUrl = '';
@@ -1060,6 +1073,7 @@ define( function(require, exports, module){
 				me.$actionAgree.attr('disabled','disabled');
 				me.$actionReject.text('提交中....');
 				me.$actionReject.attr('disabled','disabled');
+
 				util.api({
 					'url':tempUrl,
 					'data':JSON.stringify( me.attrs.allData ),
@@ -1071,6 +1085,15 @@ define( function(require, exports, module){
 					'success': function( data ){
 						if( data.success ){
 							changeNode();
+						}else{
+							me.$actionSave.text('保存');
+							me.$actionSave.removeAttr('disabled');
+							me.$actionAgreePass.text('保存通过');
+							me.$actionAgreePass.removeAttr('disabled');
+							me.$actionReject.text('驳回');
+							me.$actionReject.removeAttr('disabled');
+							me.$actionAgree.text('同意');
+							me.$actionAgree.removeAttr('disabled');
 						}
 					},
 					'error': function(){
@@ -1084,7 +1107,6 @@ define( function(require, exports, module){
 						me.$actionAgree.removeAttr('disabled');
 					}
 				})
-				
 			});
 			 //移交至下一个节点
             function changeNode(){
@@ -1093,7 +1115,7 @@ define( function(require, exports, module){
                     'data':{
                         'processInstanceId': me.attrs.options.processInstanceId,
                         'approved': true,
-                        'opinion':''
+                        'opinion': comment
                     },
                     'success':function( data ){
                         if( data.success ){

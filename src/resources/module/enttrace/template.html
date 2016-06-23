@@ -21,7 +21,7 @@
 			</p>
 		</section>
 		<section class="send-action">
-			<button class="send-btn" data-permissions="F009083">添加记录</button>
+			<button class="send-btn" data-permissions="M009006010">添加记录</button>
 		</section>
 	</div>
 </script>
@@ -30,15 +30,15 @@
 	<% _.each(content, function(item){ %>
 		<section class="trace-sec">
 			<p class="sec-time"><%=item.traceDateStr%>                <%=item.enterpriseName%></p>
-			<p class="sec-content">
+			<div class="sec-content" style="word-break: break-word;">
 				<%=item.remark%>
-			</p>
-			<p class="sec-imgs">
+			</div>
+			<p class="sec-imgs" style="word-break: break-word;">
 				<% _.each(item.imageList,function(img){ %>
 					<a href="/op/api/enterprise/previewfile?path=<%=img.attachmentPath%>" target="_blank"> <img src="/op/api/enterprise/downloadfile?path=<%=img.attachmentPath%>"> </a>
 				<% }) %>
 			</p>
-			<p class="sec-attachs">
+			<p class="sec-attachs" style="word-break: break-word;">
 				<% _.each(item.fileList,function(file){%>
 					<span><%=file.attachmentName%> <b data-id="<%=file.id%>" class="downloadfile">下载</b></span><br>
 				<% }) %>

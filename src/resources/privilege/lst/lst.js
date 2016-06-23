@@ -251,9 +251,9 @@ define(function(require, exports, module) {
             transformTtoDate: function(str) {
                 var data = parseInt(str);
                 var date = new Date(data);
-                Y = date.getFullYear() + '-';
-                M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
-                D = date.getDate() + ' ';
+                var Y = date.getFullYear() + '-';
+                var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+                var D = date.getDate() + ' ';
 
                 var targetDate = (Y + M + D);
                 return targetDate;

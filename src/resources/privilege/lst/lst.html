@@ -25,8 +25,8 @@
                     <option value="3">优惠码/优惠助手</option>
                 </select>
             </label>
-            <button type="button" class="search">查询</button>
-            <button type="button" class="new">新建优惠方案</button>
+            <button type="button" class="search" data-permissions="M018001001">查询</button>
+            <button type="button" class="new"  data-permissions="M018001006">新建优惠方案</button>
         </div>
         <div id="listContainer">
         </div>
@@ -109,7 +109,7 @@
                 <label for="" style="margin-top:10px;display: inline-block;margin-bottom:20px">优惠介绍</label> <b style="color:red;margin-left:50px;">*</b>
                 <div style="text-align: center">
                     <textarea id="content" required maxlength="100">最多100字</textarea>
-                    <button type="button" class="submit">提交</button>
+                    <button type="button" class="submit" data-permissions="M018001007">提交</button>
                     <button type="button" class="cancel">取消</button>
                 </div>
             </form>
@@ -149,9 +149,9 @@
                         <%=(item.status==2?"停用":"启用")%>
                     </td>
                     <td>
-                        <a href="javascript:void(0)" class="delete" data-name=<%=item.id%>>删除</a>
-                        <a href="javascript:void(0)" class="view" data-name=<%=item.id%>>查看</a>
-                        <a href="javascript:void(0)" class="aldisable" data-name=<%=item.id%>><%=(item.status==2?"启用":"停用")%></a>
+                        <a href="javascript:void(0)" class="delete" data-name=<%=item.id%> data-permissions="M018001003">删除</a>
+                        <a href="javascript:void(0)" class="view" data-name=<%=item.id%> data-permissions="M018001002">查看</a>
+                        <a href="javascript:void(0)" class="aldisable" data-name=<%=item.id%> data-permissions="M018001005,M018001004"><%=(item.status==2?"启用":"停用")%></a>
                     </td>
                 </tr>
                 <%})%>

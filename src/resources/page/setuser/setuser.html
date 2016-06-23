@@ -2,13 +2,13 @@
 	<div class="list-main">
 		<div class="list-header">
 			<div class="header-opts">
-				<button class="adduser" data-permissions="F009001">新增用户</button>
+				<button class="adduser" >新增用户</button>
 			</div>
 			<h3>代理商用户</h3>
 		</div>
 		<div class="list-bar">
 			<div class="list-bar-btns">
-				<button class="btn-blue search" data-permissions="F009005">查询</button>
+				<button class="btn-blue search" >查询</button>
 			</div>
 			<div class="list-bar-input">
 				<label for="">
@@ -22,7 +22,7 @@
 					<tr>
 						<th></th>
 						<th>姓名</th>
-						<th data-permissions="F009001">审核状态</th>
+						<th >审核状态</th>
 						<th>登录账号</th>
 						<th>邮箱地址</th>
 						<th>手机号码</th>
@@ -35,7 +35,7 @@
 					<tr>
 						<td></td>
 						<td><%=item.name%></td>
-						<td data-permissions="F009001"><%=item.auditStatusStr%></td>
+						<td ><%=item.auditStatusStr%></td>
 						<td><%=item.username%></td>
 						<td><%=item.email%></td>
 						<td><%=item.mobile%></td>
@@ -43,39 +43,39 @@
 						<td class="state-<%=item.status%>"> 
 
 							<% if(item.status == 'detail'){ %>
-								<span data-permissions="F009001">
+								<span >
 									<!--同级的其他内部管理员只能查看-->
 									<a class="userdetail" data-id="<%=item.id%>">查看</a>
 								</span>
 							<%}else if(item.status == 'self'){%>
-								<span data-permissions="F009001">
+								<span >
 									<!--内部管理员编辑自己-->
 									<a class="editself" data-id="<%=item.id%>">编辑</a>
 								</span>
 							<%}else if(item.status == 'editactive'){%>
-								<span data-permissions="F009001">
+								<span >
 									<!--内部管理员对已启用的普通用户进行编辑-->
 									<a class="edituseractive" data-id="<%=item.id%>" >编辑</a>
 								</span>
-								<span data-permissions="F009001">
+								<span >
 									<!--内部管理员对普通用户进行设置上级-->
 									<a class="settinghighter" data-id="<%=item.id%>" data-name="<%=item.name%>">设置上级</a>
 								</span>
 							<%}else if(item.status == 'editdeactive'){%>
-								<span data-permissions="F009001">
+								<span >
 									<!--内部管理员对已停用的普通用户进行编辑-->
 									<a class="edituserdeactive" data-id="<%=item.id%>" >编辑</a>
 								</span>
-								<span data-permissions="F009001">
+								<span >
 									<!--内部管理员对普通用户进行设置上级-->
 									<a class="settinghighter" data-id="<%=item.id%>" data-name="<%=item.name%>">设置上级</a>
 								</span>
 							<% }else if(item.status == 'userdetail'){%>
-								<span data-permissions="F009001">
+								<span >
 									<!--内部管理员对已审核中的普通用户进行查看-->
 									<a class="userdetail" data-id="<%=item.id%>">查看</a>
 								</span>
-								<span data-permissions="F009001">
+								<span >
 									<!--内部管理员对普通用户进行设置上级-->
 									<a class="settinghighter" data-id="<%=item.id%>" data-name="<%=item.name%>">设置上级</a>
 								</span>
@@ -83,12 +83,12 @@
 							<%if(item.auditStatus != "WAIT"){%>
 								<%if(item.active == "1"){%>
 								<span >
-									<a  class="change-status" data-permissions="F009001" data-id="<%=item.id%>"  data-status="0">&nbsp;&nbsp;停用</a>
+									<a  class="change-status"  data-id="<%=item.id%>"  data-status="0">&nbsp;&nbsp;停用</a>
 								</span>
 								
 								<%}else if(item.active == "0"){%>
 								<span >
-									<a  class="change-status" data-permissions="F009001" data-id="<%=item.id%>" data-status="1">&nbsp;&nbsp;启用</a>
+									<a  class="change-status" data-id="<%=item.id%>" data-status="1">&nbsp;&nbsp;启用</a>
 								</span>
 								<%}%>
 							<%}%>

@@ -8,8 +8,8 @@
         <td><%=item.deptAgentName%></td>
         <td><%=item.company%></td>
         <td><%=item.department%></td>
-        <td><a data-id="<%=item.id%>" class="delete">删除</a>
-            <a data-id="<%=item.id%>" class="detail">编辑</a></td>
+        <td><a data-id="<%=item.id%>" class="delete" data-permissions="M010002003">删除</a>
+            <a data-id="<%=item.id%>" class="detail" data-permissions="M010002002">编辑</a></td>
         <td></td>
     </tr>
     <%}) %>
@@ -57,7 +57,7 @@
         </p>
 
         <div class="button-container clearfix">
-            <button class="action-save btn-blue">确定</button>
+            <button class="action-save btn-blue" data-permissions="M010002003">确定</button>
             <button class="action-cancel ">取消</button>
         </div>
     </div>

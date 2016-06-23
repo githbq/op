@@ -5,13 +5,13 @@
 		        <h3>
 		            <span class="title">发出的审批</span>
 		            <span class="toggle">
-		                <b data-state="wait" class="active">我的审批中<span class='state wait-approve'>0</span></b><b data-state="refuse">我的被驳回<span class='state refuse-approve'>0</span></b><b data-state="end">我的已审批<span class='state end-approve'>0</span></b>
+		                <b data-state="wait" class="active" data-permissions="M009015001">我的审批中<span class='state wait-approve'>0</span></b><b data-state="refuse" data-permissions="M009015006">我的被驳回<span class='state refuse-approve'>0</span></b><b data-state="end" data-permissions="M009015011">我的已审批<span class='state end-approve'>0</span></b>
 		            </span>
 		        </h3>
 		    </div>
 		    <div class="list-bar">
 		        <div class="list-bar-btns">
-		            <button class="btn-blue btn-search">查询</button>
+		            <button class="btn-blue btn-search" data-permissions="M009015012,M009015007,M009015002">查询</button>
 		        </div>
 		        <div class="list-bar-input">
 		            <label for="">
@@ -123,11 +123,11 @@
 		                    <td><%=IBSS.PayMap[item.payStatus]%></td>
 		                    <td><%=item.applyTimeStr%></td>
 		                    <td>
-								<a class="detail" data-inid="<%=item.processInstanceId%>">
+								<a class="detail" data-inid="<%=item.processInstanceId%>" data-permissions="M009015013,M009015008,M009015003">
 									查看
 								</a>
 								<% if( item.canCancel){ %>
-									<a class="revoke" data-inid="<%=item.processInstanceId%>">撤销审批</a>
+									<a class="revoke" data-inid="<%=item.processInstanceId%>" data-permissions="M009015004">撤销审批</a>
 								<% } %>
 		                    </td>
 		                    <td></td>

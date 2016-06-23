@@ -11,6 +11,8 @@ define(function(require, exports, module) {
     var Select = require('common/widget/select/select');
     var CustomHelper = require('../../order/widget/customhelper/customhelper');
 
+    var Clue = require('module/readclue/readclue');
+
     var tem = $(require('./template.html'));
 
     var pMap = {}, //产品状态
@@ -39,6 +41,7 @@ define(function(require, exports, module) {
         events: {
             'click #btnSearch': 'search',
             'click .info-detail': 'detailEve',
+            'click .info-clue': 'readClue',
             'click .info-zengbangong': function(e) { this.trigger('zengbangong', $(e.currentTarget).attr('data-id'), $(e.currentTarget).attr('data-account')) }, //增购办公版
             'click .info-zengyingxiao': function(e) { this.trigger('zengyingxiao', $(e.currentTarget).attr('data-id'), $(e.currentTarget).attr('data-account')) }, //增购营销版
             'click .info-renewbangong': function(e) { this.trigger('renewbangong', $(e.currentTarget).attr('data-id'), $(e.currentTarget).attr('data-account')) }, //续费办公版
@@ -182,6 +185,7 @@ define(function(require, exports, module) {
                     'vendorId': me.model.get('vendorId'), //优惠码
                     'isPresent': me.model.get('isPresent'), //是否赠送办公版
                     'isPay': me.model.get('isPay'),
+                    'clueUpdateTimeType': $('#update').val(),
 
                     fromAppStartTime: fromAppStartTime,
                     endAppStartTime: endAppStartTime
@@ -197,13 +201,13 @@ define(function(require, exports, module) {
                         if (data.value.model.content.length > 0) {
                             me.list.reload(data.value.model.content, function(item) {
 
-                                if (item.enterprise.appStartTime) {
-                                    item.createtimestr = new Date(item.enterprise.appStartTime)._format("yyyy-MM-dd");
+                                if (item.csmEnterprise.appStartTime) {
+                                    item.createtimestr = new Date(item.csmEnterprise.appStartTime)._format("yyyy-MM-dd");
                                 } else {
                                     item.createtimestr = "——";
                                 }
 
-                                item.runstatusstr = EntStatusMap[item.enterprise.runStatus];
+                                item.runstatusstr = EntStatusMap[item.csmEnterprise.runStatus];
 
                                 if (item.protectionWhiteListStatus == 0) {
                                     item.authStr = "全部授权"
@@ -245,6 +249,12 @@ define(function(require, exports, module) {
             var id = $(e.currentTarget).attr('data-id');
 
             this.trigger('trace', id);
+        },
+
+        //查看线索
+        readClue: function(e){
+            var clueID = $(e.currentTarget).attr('data-clue');
+            this.trigger('clue', clueID);
         },
 
         //分配
@@ -410,6 +420,9 @@ define(function(require, exports, module) {
         //企业跟踪记录
         var entTrace = new EntTrace();
 
+        //线索
+        var clue = new Clue()
+
 
         //企业分配
         entList.on('assign', function(id) {
@@ -468,5 +481,9 @@ define(function(require, exports, module) {
             customHelper = new CustomHelper();
             customHelper.show(options);
         });
+        //线索
+        entList.on('clue', function( clueID ){
+            clue.show(clueID);
+        })
     }
 });

@@ -8,7 +8,7 @@
             </div>
             <div class="list-bar">
                 <div class="list-bar-btns">
-                    <button id="btnSearch" class="btn-blue">查询</button>
+                    <button id="btnSearch" class="btn-blue" data-permissions="M009006001" >查询</button>
                 </div>
                 <div class="list-bar-input">
                     <label>
@@ -115,6 +115,16 @@
                             <option value="false">否</option>
                         </select>
                     </label>
+                    <label>
+                        <span>线索更新时间</span>
+                        <select  id="update">
+                            <option value="0">全部</option>
+                            <option value="1">最近1天更新</option>
+                            <option value="3">最近3天更新</option>                        
+                            <option value="7">最近7天更新</option>
+                            <option value="30">最近30天更新</option>
+                        </select>
+                    </label>
                 </div>
             </div>
             <div class="list-content">
@@ -140,10 +150,10 @@
                     <tbody ce-collection="list">
                         <td></td>
                         <td>
-                            <%=item.enterprise.enterpriseName%>
+                            <%=item.csmEnterprise.enterpriseName%>
                         </td>
                         <td>
-                            <%=item.enterprise.enterpriseAccount%>
+                            <%=item.csmEnterprise.enterpriseAccount%>
                         </td>
                         <td>
                             <%=item.agent ? item.agent.name:''%>
@@ -152,10 +162,10 @@
                             <%=item.isCoupon ? '是':'否'%>
                         </td>
                         <td>
-                            <%=item.enterprise.isPayed ? '是':'否'%>
+                            <%=item.csmEnterprise.isPayed ? '是':'否'%>
                         </td>
                         <td>
-                            <%=item.isLinkRegister ? '是':'否'%>
+                            <%=item.linkRegister ? '是':'否'%>
                         </td>
                         <td>
                             <%=item.creator ? item.creator.name:'否'%>
@@ -173,24 +183,30 @@
                             <%=item.authStr%>
                         </td>
                         <td>
-                            <a class="info-detail" data-id="<%=item.enterprise.enterpriseID%>" data-status="<%=item.enterprise.runStatus%>">查看</a>
-                            <a class="info-trace" data-id="<%=item.enterprise.enterpriseID%>" data-status="<%=item.enterprise.runStatus%>">跟踪记录</a>
-                            <%if("2" == item.enterprise.runStatus){%>
-                                <a data-permissions="F009001" data-id="<%=item.enterprise.enterpriseID%>" class="info-enterpriseAssign">&nbsp;分配</a>
+                            <a class="info-detail" data-id="<%=item.csmEnterprise.enterpriseID%>" data-status="<%=item.csmEnterprise.runStatus%>" data-permissions="M009006002">查看</a>
+                            <a class="info-trace" data-id="<%=item.csmEnterprise.enterpriseID%>" data-status="<%=item.csmEnterprise.runStatus%>" data-permissions="M009006009">跟踪记录</a>
+                            <%if("2" == item.csmEnterprise.runStatus){%>
+                                <a data-permissions="M009006011" data-id="<%=item.csmEnterprise.enterpriseID%>" class="info-enterpriseAssign">&nbsp;分配</a>
                                 <%}%>
                                     <% if(item.canIncrease){ %>
-                                        <a class="info-zengbangong" data-id="<%=item.enterprise.enterpriseID%>" data-account="<%=item.enterprise.enterpriseAccount%>" data-status="<%=item.enterprise.runStatus%>">增购办公版</a>
-                                        <a class="info-zengyingxiao" data-id="<%=item.enterprise.enterpriseID%>" data-account="<%=item.enterprise.enterpriseAccount%>" data-status="<%=item.enterprise.runStatus%>">增购营销版</a>
+                        
+                                        <a class="info-zengbangong" data-id="<%=item.csmEnterprise.enterpriseID%>" data-account="<%=item.csmEnterprise.enterpriseAccount%>" data-status="<%=item.csmEnterprise.runStatus%>" data-permissions="M009006012">增购办公版</a>
+                                        <a class="info-zengyingxiao" data-id="<%=item.csmEnterprise.enterpriseID%>" data-account="<%=item.csmEnterprise.enterpriseAccount%>" data-status="<%=item.csmEnterprise.runStatus%>" data-permissions="M009006014">增购营销版</a>
                                         <% } %>
                                             <% if(item.canRenew){ %>
-                                                <a class="info-renewbangong" data-id="<%=item.enterprise.enterpriseID%>" data-account="<%=item.enterprise.enterpriseAccount%>" data-status="<%=item.enterprise.runStatus%>">续费办公版</a>
-                                                <a class="info-renewyingxiao" data-id="<%=item.enterprise.enterpriseID%>" data-account="<%=item.enterprise.enterpriseAccount%>" data-status="<%=item.enterprise.runStatus%>">续费营销版</a>
+
+                                                <a class="info-renewbangong" data-id="<%=item.csmEnterprise.enterpriseID%>" data-account="<%=item.csmEnterprise.enterpriseAccount%>" data-status="<%=item.csmEnterprise.runStatus%>" data-permissions="M009006016">续费办公版</a>
+                                                <a class="info-renewyingxiao" data-id="<%=item.csmEnterprise.enterpriseID%>" data-account="<%=item.csmEnterprise.enterpriseAccount%>" data-status="<%=item.csmEnterprise.runStatus%>" data-permissions="M009006018">续费营销版</a>
                                                 <% } %>
                                                     <%if(item.canEditPartner == 1||item.canEditPartner == "1"){%>
-                                                        <a class="info-custom" data-enterpriseId="<%=item.enterprise.enterpriseID%>">联合跟进人</a>&nbsp;&nbsp;
+                                                      
+                                                        <a class="info-custom" data-enterpriseId="<%=item.csmEnterprise.enterpriseID%>" data-permissions="M009006024">联合跟进人</a>&nbsp;&nbsp;
                                                         <%}else{%>
-                                                            <a style="color:#ccc;">联合跟进人</a>&nbsp;&nbsp;
+                                                            <a style="color:#ccc;" data-permissions="M009006024">联合跟进人</a>&nbsp;&nbsp;
                                                             <%}%>
+                            <% if(item.clueId) { %>
+                            <a class="info-clue" data-clue="<%=item.clueId%>">线索</a>
+                            <% } %>
                         </td>
                         </td>
                         <td></td>
