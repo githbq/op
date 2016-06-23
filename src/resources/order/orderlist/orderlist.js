@@ -103,8 +103,8 @@ define( function( require, exports, module ) {
             util.resetSelect( ele, nv );
         },
         events: {
-			'click .search':'searchEve',
-            'click .detail-revocation': 'revocationEve',
+			'click .search':'searchEve',                        //搜索
+            'click .detail-revocation': 'revocationEve',        //撤回
             'click .detail-finalpay': 'finalPayEve',            //收尾款
             'click .detail-delete': 'deleteEve',                //删除订单
             'click .detail-info': 'infoEve',                    //查看详情
@@ -158,7 +158,24 @@ define( function( require, exports, module ) {
             var id = $(e.currentTarget).attr('data-id');
             
             //todo
-            
+            var list = me.list.all();
+
+            var item;
+            for(var i=0; i<list.length; i++){
+                if( list[i]['order']['id'] == id ){
+                    item = list[i];
+                    break;
+                }
+            }
+
+            var enterpriseId = item.order.enterpriseId, 
+                orderType = item.order.orderType,
+                opinion = item.order.rejectReason ? item.order.rejectReason :'',
+                isTp = item.order.isTp,
+                ea = item.order.enterpriseAccount,
+                contractNo = item.order.contractNo;
+
+                location.hash = '#order/payment/' + id + '/' + enterpriseId + '/' + orderType + '/' + opinion + '/' + isTp + '/' + ea + '/' + contractNo;
         },
         //收尾款
         /*
