@@ -7075,9 +7075,68 @@ em {
   text-align: right;
   display: none;
 }
+.m-ent-lst .list-pager .buttons {
+  float: left;
+}
+.m-ent-lst [data-state] {
+  display: none;
+}
+.m-transfer p {
+  padding: 8px 0;
+  height: 30px;
+}
+.m-transfer p .title {
+  display: inline-block;
+  width: 140px;
+}
+.m-transfer .buttons {
+  padding: 5px 0;
+  text-align: right;
+}
+.m-sandbox p {
+  padding: 8px 0;
+  height: 30px;
+}
+.m-sandbox p .title {
+  display: inline-block;
+  width: 64px;
+}
+.m-sandbox .buttons {
+  padding: 5px 0;
+  text-align: right;
+}
+.m-sandbox .state-open,
+.m-sandbox .state-close {
+  display: none;
+}
 .m-enterprisedetail {
   /* 审核意见 */
   /*产品信息*/
+}
+.m-enterprisedetail div.section h4 {
+  font-size: 14px;
+  line-height: 40px;
+  font-weight: bold;
+}
+.m-enterprisedetail div.section p {
+  color: #444;
+}
+.m-enterprisedetail div.section p .title {
+  display: inline-block;
+  width: 110px;
+  margin: 0px;
+}
+.m-enterprisedetail div.section p label {
+  display: inline-block;
+  width: 49%;
+  margin: 0px;
+  padding: 0px;
+}
+.m-enterprisedetail div.section textarea {
+  display: inline-block;
+  width: 480px;
+  height: 40px;
+  padding: 10px;
 }
 .m-enterprisedetail .btn-card {
   margin-left: 115px;
@@ -7694,6 +7753,12 @@ em {
   height: 182px;
   font-size: 22px;
 }
+.d-read-clue #time {
+  font-weight: bold;
+}
+.d-read-clue #clue {
+  margin-top: 20px;
+}
 .order-content .nav-box {
   display: inline-block;
   font-size: 16px;
@@ -8100,6 +8165,10 @@ em {
   text-align: right;
   padding: 10px 0;
 }
+.m-invoicedetail table {
+  table-layout: fixed;
+  word-wrap: break-word;
+}
 .refundinfo {
   width: 1300px;
 }
@@ -8307,6 +8376,11 @@ em {
 }
 .order-content .red {
   color: red;
+}
+.order-content table {
+  table-layout: fixed;
+  word-wrap: break-word;
+  word-break: normal;
 }
 .m-deailbind .left-info {
   float: left;

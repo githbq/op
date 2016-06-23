@@ -6,10 +6,82 @@
 define(function(require, exports, module) {
 
     var Pagination = require('common/widget/pagination/pagination');
+    var Dialog = require('common/widget/dialog/dialog');
 
     var viewStr = require('./enterpriselist.html');
+    var template = $( require('./template.html') );
 
     var EntStatusMap = IBSS.EntStatusMap;
+
+    //转移企业
+    var TransEnt = MClass( Dialog ).include({
+        defaultAttr:{
+            'title': '转移企业',
+            'width': 330
+        },
+        events:{
+            'click .action-submit': 'submitEve',
+            'click .action-cancel': 'hide'
+        },
+        content: template.filter('#transfer').html(),
+        init: function(){
+            TransEnt.__super__.init.apply( this, arguments );
+        },
+
+        //提交
+        submitEve: function(){
+            var me = this;
+            console.log('this is submit');
+        },
+
+        //隐藏
+        hide: function(){
+            TransEnt.__super__.hide.apply( this, arguments );
+        }
+    })
+
+    //沙盒设置
+    var SandBox = MClass( Dialog ).include({
+        defaultAttr:{
+            'title':'沙盒设置',
+            'width':530
+        },
+        content: template.filter('#sandbox').html(),
+        init: function(){
+            SandBox.__super__.init.apply( this, arguments );
+            var me = this;
+
+            me.model.on('change:state',function( key , value ){
+
+                console.log( 'changestate' );
+                console.log( value );
+                
+                value = ( value == null )? '':value;
+
+                switch( value ){
+                    
+                    case '':
+                        me.$('.state-open').hide();
+                        me.$('.state-close').hide();
+                        break;
+                    case 'open':
+                        me.$('.state-open').show();
+                        me.$('.state-close').hide();
+                        break;
+                    case 'close':
+                        me.$('.state-open').hide();
+                        me.$('.state-close').show();
+                        break;
+                }
+            });
+        },
+        hide: function(){
+            var me = this;
+            me.model.clear();
+            SandBox.__super__.hide.apply( this, arguments );
+        }
+    })
+
 
     var EntLst = MClass(M.Center).include({
 
@@ -33,7 +105,6 @@ define(function(require, exports, module) {
             'click #btnSearch': 'search',
             'click .info-detail': 'detailEve',
             'click .info-trace': 'traceEve',
-            'click .info-clue': 'readClue',
             'click .info-zengbangong': function(e) {
                 this.trigger('zengbangong', $(e.currentTarget).attr('data-id'), $(e.currentTarget).attr('data-account'))
             }, //增购办公版
@@ -49,9 +120,11 @@ define(function(require, exports, module) {
             'click .selectall': 'selectAllEve',
             'click .auth': 'authEve',
             'click .deauth': 'deauthEve',
+            'click .btn-transfer': 'transferEve',
+            'click .btn-sandbox': 'sandboxEve',
             'click .info-custom': function(e) {
                 this.trigger('orderCustom', { 'enterpriseId': $(e.currentTarget).attr('data-enterpriseId') })
-            }//联合跟进人
+            }, //联合跟进人
         },
 
         init: function() {
@@ -59,7 +132,7 @@ define(function(require, exports, module) {
             var me = this;
 
             me.pagination = new Pagination({
-                wrapper: me.$view.find('.list-pager'),
+                wrapper: me.$view.find('.list-pager .pages'),
                 pageSize: me.PAGESIZE,
                 pageNumber: 0
             });
@@ -67,6 +140,12 @@ define(function(require, exports, module) {
             me.pagination.onChange = function() {
                 me.getList();
             }
+
+            me.transEnt = new TransEnt();
+            me.sandBox = new SandBox();
+
+
+
 
             //初始化时间控件
             me.$openstime.datetimepicker({ format: 'Y/m/d', timepicker: false });
@@ -102,8 +181,24 @@ define(function(require, exports, module) {
              }
              }
              */
+             me.setState();
             //初始化
             me.initializeSelect();
+        },
+        //打开转移企业弹窗
+        transferEve: function(){
+            this.transEnt.show();
+        },
+        //打开沙盒设置弹窗
+        sandboxEve: function(){
+            this.sandBox.show();
+        },
+        
+        //。设置状态
+        setState: function(){
+            var me = this;
+            me.$('[data-state]').hide();
+            me.$('[data-state="' + me.attrs.state + '"]').show();
         },
 
         //初始化枚举选择
@@ -125,7 +220,7 @@ define(function(require, exports, module) {
             generateSelect('PROVINCE', this.$province); //省市
 
 
-            function generateSelect(name, $select) {
+            function generateSelect( name, $select ) {
                 util.getEnums(name, function(data) {
 
                     var items = data.value.model;
@@ -177,6 +272,7 @@ define(function(require, exports, module) {
         },
 
         //授权
+        /*
         authEve: function() {
             var me = this;
             var arrays = me.getSelect();
@@ -199,10 +295,12 @@ define(function(require, exports, module) {
                         me.getList();
                     }
                 }
-            });
+            })
         },
+        */
 
         //取消授权
+        /*
         deauthEve: function() {
             var me = this;
             var arrays = me.getSelect();
@@ -229,6 +327,7 @@ define(function(require, exports, module) {
                 }
             })
         },
+        */
 
         //默认置为第一页 搜索
         search: function() {
@@ -275,7 +374,6 @@ define(function(require, exports, module) {
                 'isCoupon': me.model.get('isCoupon'), //是否是优惠企业
                 fromAppStartTime: fromAppStartTime,
                 endAppStartTime: endAppStartTime,
-                clueUpdateTimeType: $('#update').val(),
                 'accountName': accountName
             };
             if (exportFile === true) {
@@ -294,13 +392,13 @@ define(function(require, exports, module) {
                         if (data.value.model.content.length > 0) {
                             me.list.reload(data.value.model.content, function(item) {
 
-                                if (item.csmEnterprise.appStartTime) {
-                                    item.createtimestr = new Date(item.csmEnterprise.appStartTime)._format("yyyy-MM-dd");
+                                if (item.enterprise.appStartTime) {
+                                    item.createtimestr = new Date(item.enterprise.appStartTime)._format("yyyy-MM-dd");
                                 } else {
                                     item.createtimestr = "——";
                                 }
 
-                                item.runstatusstr = EntStatusMap[item.csmEnterprise.runStatus];
+                                item.runstatusstr = EntStatusMap[item.enterprise.runStatus];
 
                                 if (item.protectionWhiteListStatus == 0) {
                                     item.authStr = "全部授权"
@@ -341,13 +439,8 @@ define(function(require, exports, module) {
         //企业跟踪记录
         traceEve: function(e) {
             var id = $(e.currentTarget).attr('data-id');
-            this.trigger('trace', id);
-        },
 
-        //查看线索
-        readClue: function(e){
-            var clueID = $(e.currentTarget).attr('data-clue');
-            this.trigger('clue', clueID);
+            this.trigger('trace', id);
         },
 
         //渲染至页面
