@@ -6,7 +6,9 @@ define( function( require, exports, module ) {
     var tpl = $( require( './template.html' ) );
     var Slider = require( 'common/widget/slider/slider' );
     var Dialog = require('common/widget/dialog/dialog');
-    
+    require('common/widget/kindeditor/kindeditor-all.js');
+    require('common/widget/kindeditor/lang/zh-CN.js');
+
     var CreatePolicy = MClass( Slider ).include({
         content: tpl.filter('#crPolicy').html(),
         defaultAttr:{

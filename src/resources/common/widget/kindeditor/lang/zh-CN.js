@@ -6,7 +6,7 @@
 * @site http://www.kindsoft.net/
 * @licence http://www.kindsoft.net/license.php
 *******************************************************************************/
-
+define(function(require, exports, module){
 KindEditor.lang({
 	source : 'HTML代码',
 	preview : '预览',
@@ -236,3 +236,4 @@ KindEditor.lang({
 }, 'zh-CN');
 
 KindEditor.options.langType = 'zh-CN';
+});
