@@ -68,8 +68,11 @@ define( function( require, exports, module ) {
             });
             me.editorInitialized = true;
         },
+        cancel: function() {
+            this.hide(true);
+        },
         
-        hide: function() {
+        hide: function(cancel) {
             CreatePolicy.__super__.hide.apply( this,arguments );
             var me = this;
             if(me.id){
@@ -77,9 +80,14 @@ define( function( require, exports, module ) {
                 KindEditor.html('#editor','');
                 return;
             }
-            sessionStorage.title = me.$title.val();
-            sessionStorage.sortKey = me.$sequence.val();
-            (me.editor)&&(sessionStorage.content = me.editor.html());
+            if(!cancel){
+                sessionStorage.title = me.$title.val();
+                sessionStorage.sortKey = me.$sequence.val();
+                (me.editor)&&(sessionStorage.content = me.editor.html());
+                return;
+            }
+            sessionStorage.clear();
+            KindEditor.html('#editor', '')
         },
 
         preview: function(){
@@ -373,7 +381,7 @@ define( function( require, exports, module ) {
 
         policyList.on('hide', function(){
             createPolicy.hide();
-        })
+        });
 
         createPolicy.on('refresh', function(){
             policyList.load();
