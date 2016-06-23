@@ -106,7 +106,7 @@ define( function( require, exports, module ) {
                                 'id': me.id
                             };
             util.api({
-                url: '~/op/api/policy/policylist',
+                url: '~/op/api/policy/allpolicy',
                 success: function( data ) {
                     if ( data.success ) {
                         var aCon = data.value.model.content;

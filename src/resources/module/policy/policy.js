@@ -32,7 +32,7 @@ define( function( require, exports, module ) {
             var me = this;
             var list = '';
             util.api({
-                url: '~/op/api/policy/policylist',
+                url: '~/op/api/policy/allpolicy',
                 success: function(data){
                     $(data.model.content).each(function(i, item) {
                         list += '<div class="accordian">'
