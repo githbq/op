@@ -17,6 +17,7 @@ define( function( require, exports, module ) {
             'click #release': 'release',
             'click #cancel': 'hide'
         },
+        
         elements:{
             '#title': 'title',
             '#sequence': 'sequence'
@@ -324,6 +325,7 @@ define( function( require, exports, module ) {
                         var content = me.collection.all();
                         if ( content.length > 0 ) {
                             me.$tbody.html( me.tplCode( {'content':me.collection.all() } ) );
+                            IBSS.tplEvent.setPermissions( me.$tbody );
                         } else {
                             me.$tbody.html( '<tr><td colspan="7"><p class="info">暂无数据</p></td></tr>' );
                         }
@@ -342,7 +344,7 @@ define( function( require, exports, module ) {
             if(!c){
                 return;
             }
-            util.api({
+            util.api( {
                 'url': '~/op/api/policy/deletepolicy',
                 'data': {
                     id: id
@@ -362,8 +364,6 @@ define( function( require, exports, module ) {
         var policyList = new PolicyList( { 'view': $el.find( '.m-promote-policy' ) } );
         var createPolicy = new CreatePolicy({'title':'注意事项'});
         var preview = new Preview();
-
-       
 
         policyList.on('modify', function( id ){
             createPolicy.show( id );
