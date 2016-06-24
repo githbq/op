@@ -108,8 +108,8 @@
                     <td data-status="<%=item.csmEnterprise.runStatus%>">
                         
                         <a class="info-detail" data-id="<%=item.csmEnterprise.enterpriseID%>" data-account="<%=item.csmEnterprise.enterpriseAccount%>">查看</a>
-                        <a data-state="agent" data-id="<%=item.csmEnterprise.enterpriseID%>" data-account="<%=item.csmEnterprise.enterpriseAccount%>">跟踪记录</a>
-                        <a data-state="agent" data-id="<%=item.csmEnterprise.enterpriseID%>" data-account="<%=item.csmEnterprise.enterpriseAccount%>">线索</a>
+                        <a class="info-trace" data-id="<%=item.csmEnterprise.enterpriseID%>" data-account="<%=item.csmEnterprise.enterpriseAccount%>">跟踪记录</a>
+                        <a class="info-clue" data-id="<%=item.csmEnterprise.enterpriseID%>" data-account="<%=item.csmEnterprise.enterpriseAccount%>">线索</a>
                         <a class="renew" data-id="<%=item.csmEnterprise.enterpriseID%>" data-account="<%=item.csmEnterprise.enterpriseAccount%>">增购/续费</a>
                         <%if(item.canEditPartner == 1||item.canEditPartner == "1"){%>
 						<a class="info-custom"  data-enterpriseId="<%=item.csmEnterprise.enterpriseID%>">联合跟进人</a>&nbsp;&nbsp;
