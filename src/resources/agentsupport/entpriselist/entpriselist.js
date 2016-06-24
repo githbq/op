@@ -4,12 +4,12 @@ define(function(require, exports, module) {
 
     var Pagination = require('common/widget/pagination/pagination');
     var Slider = require('common/widget/slider/slider');
-    var EntDetail = require('module/enterprisedetail/enterprisedetail'); //企业详情Slider
-    var EntTrace = require('module/enttrace/enttrace'); //企业跟踪记录
-    var uploader = require('common/widget/upload').uploader;
-    var InputHandler = require('common/widget/input-handler/inputhandler');
-    var Select = require('common/widget/select/select');
-    var CustomHelper = require('../../order/widget/customhelper/customhelper');
+    var EntDetail = require('module/enterprisedetail/enterprisedetail');        //企业详情Slider
+    var EntTrace = require('module/enttrace/enttrace');                         //企业跟踪记录
+    var uploader = require('common/widget/upload').uploader;                    //
+    var InputHandler = require('common/widget/input-handler/inputhandler');     //
+    var Select = require('common/widget/select/select');                        //
+    var CustomHelper = require('../../order/widget/customhelper/customhelper'); //
 
     var Clue = require('module/readclue/readclue');
 
