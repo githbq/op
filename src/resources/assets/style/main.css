@@ -8428,7 +8428,7 @@ em {
   width: 217px;
 }
 .multiple-select-long {
-  width: 600px;
+  width: 500px;
 }
 .input-file-container {
   overflow: hidden;
@@ -8462,9 +8462,6 @@ em {
   width: 260px;
 }
 .enterprise-panel input[type=text].input-l {
-  width: 600px;
-}
-.enterprise-panel .multiple-select.input-l {
   width: 600px;
 }
 .enterprise-panel input.readonly,
@@ -8520,7 +8517,6 @@ em {
 }
 .enterprise-panel .form .product-info-group {
   width: 90%;
-  border: 2px solid #cccccc;
   margin: 0 auto;
   padding: 10px;
   background-color: #f2f2f2;

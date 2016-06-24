@@ -200,8 +200,7 @@ define(function (require, exports, module) {
                             var logic = product.logic;
                             for (var i = 0; i < states.length; i == 0) {
                                 var stateItem = states[i];
-                                executeValidateInit(stateItem, logic, product)
-
+                                executeValidateInit(stateItem, logic, product);
                             }
                         }
 
@@ -502,7 +501,7 @@ define(function (require, exports, module) {
                             {
                                 defaultAttr: {
                                     title: 'testResult',
-                                    width: 500
+                                    width:600
                                 },
                                 content: require('./dialogtemplate.html')
                             }
@@ -542,7 +541,7 @@ define(function (require, exports, module) {
                             {
                                 defaultAttr: {
                                     title: 'testResult',
-                                    width: 500
+                                    width: 600
                                 },
                                 content: require('./dialogtemplate.html')
                             }

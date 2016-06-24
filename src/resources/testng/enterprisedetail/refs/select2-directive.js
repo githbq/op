@@ -8,7 +8,7 @@ define(function (require, exports, module) {
                 config: '=',
                 ngModel: '=',
                 select2Model: '=',
-                ajaxQuery: '='//远程查找服务
+                ajaxConfig: '='//远程查找服务
             },
             link: function (scope, element, attrs) {
                 // 初始化
@@ -47,7 +47,7 @@ define(function (require, exports, module) {
 
                     // 获取内置配置
                     if (attrs.query) {
-                        scope.config = scope.ajaxQuery;
+                        scope.config = angular.extend(scope.config||{},scope.ajaxConfig) ;
                     }
 
                     // 动态生成select2
