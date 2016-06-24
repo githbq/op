@@ -71,7 +71,7 @@ define(function (reuqire, exports, module) {
                     if (!isNaN(scope.minNumber) && parseFloat(result)<scope.minNumber) {
                         result = scope.minNumber;
                     }
-                    $dom.val(result);
+                    $dom.val(parseFloat(result));
                     ctrl.$setViewValue(result, true);//只能赋模型的值不能改变VIEW
                     setTimeout(function () {
                         ctrl.$setValidity('number', true);

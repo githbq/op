@@ -58,34 +58,62 @@ define(function (require, exports, module) {
 
 
     }]);
-    myApp.controller('form3Controller', ['$scope', function ($scope) {
-
-    }]);
-
-
-    myApp.directive('testValidate', function () {
-        return {
-            scope: {ngModel: '=', condition: '='},
-            link: function (scope, iElem, iAttr) {
-
-
-            }
-        }
-    });
-    myApp.controller('mainController', ['$scope', '$timeout', 'select2Query', 'getEnumService', 'cascadeSelectService', 'productService', function ($scope, $timeout, select2Query, getEnumService, cascadeSelectService, productService) {
-
-        mainCtrlScope = $scope;
-        //产品已购信息
-        $scope.productInfos = [[{name: '培训人数', value: 'xxxx'}], [{name: 'CRM用户数', value: 'xxxx'}, {name: false, value: '2016年-2017年'}]];
-
-
+    myApp.controller('form3Controller', ['$scope', 'productService', function ($scope, productService) {
         //付款信息
-        var payInfo = $scope.payInfo = {payStatus: 1};
+        var payInfo = $scope.payInfo;//从mainController拿到的对象
+        $scope.payInfo.currPayAmountList = [{currPayAmount: 1, productId: 1, productName: 'CRM分期', purchaseAmount: 555,toAgent:true}, {currPayAmount: 7, productId: 7, productName: '工资助手分期', purchaseAmount: 666}];
         $scope.testResult3 = function (form) {
 
         };
+        //付款状态改变事件
+        $scope.payStatusChange = function (value) {
+            _.each($scope.payInfo.currPayAmountList, function (item, i) {
+                item.currPayAmount = 0;
+            });
+           switch(value.toString()){
+               case '1':{
+                   //全额
+                   var agentPrice=0;
+                   var companyPrice=0;
+                   _.each($scope.payInfo.currPayAmountList,function(item,i){
+                       if(item.toAgent){
+                           agentPrice+=parseFloat(item.purchaseAmount);
+                       }else{
+                           companyPrice+=parseFloat(item.purchaseAmount)
+                       }
+                   });
+                   payInfo.agentCurrPayAmount=agentPrice;
+                   payInfo.currPayAmount=companyPrice;
+               };break;
+               case '2':{
+                   //未付
+                   payInfo.agentCurrPayAmount=0;
+                   payInfo.currPayAmount=0;
+               };break;
+               case '3':{
+                   //分期
+                   payInfo.agentCurrPayAmount=0;
+                   payInfo.currPayAmount=0;
+               };break;
+           }
+        };
+        $scope.payStatusChange(payInfo.payStatus);
+        //分期金额值改变事件
+        $scope.currPayAmountChange=function(currPayAmountList){
+            var agentPrice=0;
+            var companyPrice=0;
+            _.each(currPayAmountList,function(item,i){
+                if(item.toAgent){
+                    agentPrice+=parseFloat(item.currPayAmount);
+                }else{
+                    companyPrice+=parseFloat(item.currPayAmount)
+                }
+            });
+            payInfo.agentCurrPayAmount=agentPrice;
+            payInfo.currPayAmount=companyPrice;
+        };
         $scope.getDataByContractNo = function (value) {
-         debugger
+            debugger
             productService.getDataByContractNo({contractNo: value, enterpriseId: value}, function (result) {
                 $scope.$apply(function () {
                     if (result.success) {
@@ -115,7 +143,6 @@ define(function (require, exports, module) {
                 }
             })
         };
-        $scope.currPayAmountList = [{currPayAmount: 1, productId: 1, productName: 'CRM分期', purchaseAmount: 555}, {currPayAmount: 7, productId: 7, productName: '工资助手分期', purchaseAmount: 666}];
         //receiptsAccountConfig
         //总部到款账户
         $scope.receiptsAccountConfig = {
@@ -125,6 +152,28 @@ define(function (require, exports, module) {
             placeholder: '必须与实际打款的单位/个人名称一致',
             search: false
         };
+    }]);
+
+
+    myApp.directive('testValidate', function () {
+        return {
+            scope: {ngModel: '=', condition: '='},
+            link: function (scope, iElem, iAttr) {
+
+
+            }
+        }
+    });
+    myApp.controller('mainController', ['$scope', '$timeout', 'select2Query', 'getEnumService', 'cascadeSelectService', 'productService', function ($scope, $timeout, select2Query, getEnumService, cascadeSelectService, productService) {
+
+        mainCtrlScope = $scope;
+        //产品已购信息
+        $scope.productInfos = [[{name: '培训人数', value: 'xxxx'}], [{name: 'CRM用户数', value: 'xxxx'}, {name: false, value: '2016年-2017年'}]];
+
+
+        //付款信息
+        var payInfo = $scope.payInfo = {payStatus: 1};
+
         //企业详情信息
         var entInfo = $scope.entInfo = {};
         $scope.enterpriseReadonly = false;//企业详情信息 只读

@@ -163,12 +163,13 @@
             <products x-data-result="dataResultData.dataResult" product-readonly="productReadonly" show="step==2"></products>
         </div>
     </div>
-    <div ng-if="step==3" ng-controller="form3Controller" ng-form name="stepForm3" class="step form">
+    <div ng-if="step==3" ng-controller="form3Controller" ng-form name="stepForm3" class="step form payinfo">
         <div class="top-bar" ng-if="hideTopBar!==true">
             <h1>第三步&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;付款信息</h1>
         </div>
         <button ng-click="testResult3(this['payInfoForm'])">testResult第三步</button>
-        <div class="baseinfo">
+        {{payInfo}}
+        <div class="content-wrapper">
             <div class="form-row">
                 <h2>付款信息</h2>
             </div>
@@ -181,7 +182,7 @@
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>合同总金额</span></label>
-                    <input ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly" required type="text" ng-model="payInfo.contractPrice" name="contractPrice"/>
+                    <input ng-class="{readonly:true}" ng-readonly="true" required type="text" ng-model="payInfo.contractPrice" name="contractPrice"/>
                 </div>
             </div>
             <div class="form-row">
@@ -189,9 +190,10 @@
                      name="contract"
                      ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly"
                      ng-model="payInfo.contract"
-                     input-file status="payInfo.contract_status"
+                     input-file
+                     status="payInfo.contract_status"
                      label="合同照片"
-                     response="payInfo.contract_response"></div>
+                     response=""></div>
             </div>
             <div class="form-row">
                 <div class="form-field">
@@ -202,18 +204,19 @@
             <div class="form-row">
                 <div ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly"
                      ng-model="payInfo.contractCopy"
-                     input-file status="payInfo.contractCopy_status"
+                     input-file
+                     status="payInfo.contractCopy_status"
                      label="合同副本照片"
-                     response="payInfo.contractCopy_response"></div>
+                     response=""></div>
             </div>
             <div class="form-row">
-                <div class="form-field" ng-init="payStatus=2">
+                <div class="form-field">
                     <label class="required"><span>付费状态</span></label>
-                    <label><input ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly" name="payStatus" ng-model="payInfo.payStatus" ng-checked="true" ng-value="1" type="radio"/>全额</label>
+                    <label><input ng-class="{readonly:payInfoReadonly}" ng-change="payStatusChange(payInfo.payStatus)" ng-readonly="payInfoReadonly" name="payStatus" ng-model="payInfo.payStatus" ng-checked="true" ng-value="1" type="radio"/>全额</label>
                     &nbsp; &nbsp;
-                    <label><input ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly" name="payStatus" ng-model="payInfo.payStatus" ng-value="2" type="radio"/>未付</label>
+                    <label><input ng-class="{readonly:payInfoReadonly}" ng-change="payStatusChange(payInfo.payStatus)" ng-readonly="payInfoReadonly" name="payStatus" ng-model="payInfo.payStatus" ng-value="2" type="radio"/>未付</label>
                     &nbsp; &nbsp;
-                    <label><input ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly" name="payStatus" ng-model="payInfo.payStatus" ng-value="3" type="radio"/>分期</label>
+                    <label><input ng-class="{readonly:payInfoReadonly}" ng-change="payStatusChange(payInfo.payStatus)" ng-readonly="payInfoReadonly" name="payStatus" ng-model="payInfo.payStatus" ng-value="3" type="radio"/>分期</label>
                 </div>
             </div>
             <div ng-if="payInfo.payStatus==3" class="form-row">
@@ -221,22 +224,22 @@
                     <label class="required"><span>分期金额</span></label>
                 </div>
                 <div class="form-field inputs-container">
-                    <label class="fenqi-label" ng-repeat="item in currPayAmountList">
+                    <label class="fenqi-label" ng-repeat="item in payInfo.currPayAmountList">
                         <span>{{item.productName}}(元)</span>
-                        <input ng-class="{readonly:payInfoReadonly}" number ng-readonly="payInfoReadonly" type="text" name="{{'currPayAmount_'+item.productId}}" max-number="item.purchaseAmount" ng-model="item.currPayAmount"/>
+                        <input ng-model-options="{updateOn:'blur'}" ng-change="currPayAmountChange(payInfo.currPayAmountList)" ng-class="{readonly:payInfoReadonly}" number ng-readonly="payInfoReadonly" type="text" name="{{'currPayAmount_'+item.productId}}" max-number="item.purchaseAmount" ng-model="item.currPayAmount"/>
                     </label>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>代理商本次到款款额(元)</span></label>
-                    <input ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly" type="text" ng-model="payInfo.agentCurrPayAmount" name="agentCurrPayAmount"/>
+                    <input ng-class="{readonly:true}" ng-readonly="true" type="text" ng-model="payInfo.agentCurrPayAmount" name="agentCurrPayAmount"/>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>总部本次到款金额(元)</span></label>
-                    <input ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly" type="text" ng-model="payInfo.currPayAmount" name="currPayAmount"/>
+                    <input ng-class="{readonly:true}" ng-readonly="true" type="text" ng-model="payInfo.currPayAmount" name="currPayAmount"/>
                 </div>
             </div>
             <div class="form-row">
@@ -270,9 +273,10 @@
             <div class="form-row">
                 <div ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly"
                      ng-model="payInfo.companyGatePicture"
-                     input-file status="payInfo.companyGatePicture_status"
+                     input-file
+                     status="payInfo.companyGatePicture_status"
                      label="门头照片"
-                     response="payInfo.companyGatePicture_response"></div>
+                     response=""></div>
             </div>
             <div class="form-row">
                 <div class="form-field">

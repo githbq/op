@@ -8512,6 +8512,9 @@ em {
   text-align: center;
   padding: 5px;
 }
+.enterprise-panel .form.payinfo .form-row label:first-child:not(.fenqi-label) {
+  width: 220px;
+}
 .enterprise-panel .form .product-info-group {
   width: 90%;
   border: 2px solid #cccccc;
@@ -8535,22 +8538,25 @@ em {
 }
 .enterprise-panel .form .form-row .inputs-container .fenqi-label {
   display: inline-block;
-  width: 350px;
-  text-align: left;
+  width: 240px;
+  text-align: right;
   margin-top: 3px;
 }
 .enterprise-panel .form .form-row .inputs-container .fenqi-label span::after {
   content: '';
 }
-.enterprise-panel .form .form-row label:first-child {
+.enterprise-panel .form .form-row .inputs-container input {
+  width: 100px;
+}
+.enterprise-panel .form .form-row label:first-child:not(.fenqi-label) {
   display: inline-block;
   width: 150px;
   text-align: right;
 }
-.enterprise-panel .form .form-row label:first-child span::after {
+.enterprise-panel .form .form-row label:first-child:not(.fenqi-label) span::after {
   content: ':';
 }
-.enterprise-panel .form .form-row label:first-child.required::after {
+.enterprise-panel .form .form-row label:first-child:not(.fenqi-label).required::after {
   content: '*';
   color: red;
 }
