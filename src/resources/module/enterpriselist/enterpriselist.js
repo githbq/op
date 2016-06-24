@@ -1,7 +1,6 @@
 //
-// 支持人员企业列表
-// 企业列表 
-//==============================
+// 支持人员(小助手) 代理商用 企业列表
+//====================================
 
 define(function(require, exports, module) {
 
@@ -263,71 +262,6 @@ define(function(require, exports, module) {
             return array;
         },
 
-        //增购 续费
-        renewEve: function(e) {
-            var me = this;
-            var id = $(e.currentTarget).attr('data-id');
-            me.trigger('renew',id);
-        },
-
-        //授权
-        /*
-        authEve: function() {
-            var me = this;
-            var arrays = me.getSelect();
-
-            if (arrays.length <= 0) {
-                util.showToast('请选择企业');
-                return false;
-            }
-
-            util.api({
-                'url': '/accountprotectionwhitelist/changeenterpriseauth',
-                'data': {
-                    'enterpriseAccouts': arrays.join(','),
-                    'isAuth': false
-                },
-                'success': function(data) {
-                    console.warn(data);
-                    if (data.success) {
-                        util.showTip('授权成功');
-                        me.getList();
-                    }
-                }
-            })
-        },
-        */
-
-        //取消授权
-        /*
-        deauthEve: function() {
-            var me = this;
-            var arrays = me.getSelect();
-            console.log('deauth');
-            console.log(arrays);
-
-            if (arrays.length <= 0) {
-                util.showToast('请选择企业');
-                return false;
-            }
-
-            util.api({
-                'url': '/accountprotectionwhitelist/changeenterpriseauth',
-                'data': {
-                    'enterpriseAccouts': arrays.join(','),
-                    'isAuth': true
-                },
-                'success': function(data) {
-                    console.warn(data);
-                    if (data.success) {
-                        util.showTip('取消授权成功');
-                        me.getList();
-                    }
-                }
-            })
-        },
-        */
-
         //默认置为第一页 搜索
         search: function() {
             this.pagination.setPage(0, false);
@@ -440,6 +374,22 @@ define(function(require, exports, module) {
             var id = $(e.currentTarget).attr('data-id');
 
             this.trigger('trace', id);
+        },
+
+        //线索
+        
+
+        //增购 续费
+        renewEve: function(e) {
+            var me = this;
+            var id = $(e.currentTarget).attr('data-id');
+            me.trigger('renew',id);
+        },
+
+        //联合跟进人
+        followup: function(e) {
+            var me = this;
+            var id = $(e.currentTarget)
         },
 
         //渲染至页面
