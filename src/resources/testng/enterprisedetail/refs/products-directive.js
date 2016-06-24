@@ -107,7 +107,6 @@ define(function (require, exports, module) {
                             products[findIndex] = product;
                         } else {
                             product.$uniqueKey = Math.random();
-                            debugger
                             products.push(product);
                         }
                         //处理返回结果

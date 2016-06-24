@@ -172,7 +172,6 @@ define(function(require, exports, module){
 			//获取枚举值 并赋值给select
 			function generate( Ename , Map , $select , str ){
 				var list = [{'name':'请选择','value':''}];
-
 				util.getEnums( Ename , function( data ){
 					data.value.model.forEach( function( item ){
 						Map[item.value] = item;

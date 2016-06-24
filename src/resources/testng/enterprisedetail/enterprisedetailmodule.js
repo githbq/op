@@ -72,24 +72,25 @@ define(function (require, exports, module) {
             }
         }
     });
-    myApp.controller('mainController', ['$scope', '$timeout', 'select2Query', function ($scope, $timeout, select2Query) {
+    myApp.controller('mainController', ['$scope', '$timeout', 'select2Query', 'getEnumService', function ($scope, $timeout, select2Query, getEnumService) {
+
         mainCtrlScope = $scope;
         //产品已购信息
         $scope.productInfos = [[{name: '培训人数', value: 'xxxx'}], [{name: 'CRM用户数', value: 'xxxx'}, {name: false, value: '2016年-2017年'}]];
 
         //付款信息
-        var payInfo = $scope.payInfo = {payStatus:1};
-        $scope.testResult3=function(form){
+        var payInfo = $scope.payInfo = {payStatus: 1};
+        $scope.testResult3 = function (form) {
 
         };
-        $scope.currPayAmountList=[{currPayAmount:1,productId:1,productName:'CRM分期',purchaseAmount:555},{currPayAmount:7,productId:7,productName:'工资助手分期',purchaseAmount:666}];
+        $scope.currPayAmountList = [{currPayAmount: 1, productId: 1, productName: 'CRM分期', purchaseAmount: 555}, {currPayAmount: 7, productId: 7, productName: '工资助手分期', purchaseAmount: 666}];
         //receiptsAccountConfig
         //总部到款账户
         $scope.receiptsAccountConfig = {
             //data: [{id: '1-1-1', text: '昌平区'}, {id: '2-1-1', text: '浦东区'}, {id: '3-1-1', text: '宝安区'}, {id: '4-1-1', text: '汉口'}, {id: '4-2-1', text: '黄梅县'}],
             data: [],
             multiple: false,
-            placeholder: '尚无数据',
+            placeholder: '加载中...',
             search: false,
             defaultValue: '110000',
             minimumResultsForSearch: Infinity//不显示搜索框
@@ -99,7 +100,7 @@ define(function (require, exports, module) {
             //data: [{id: '1-1-1', text: '昌平区'}, {id: '2-1-1', text: '浦东区'}, {id: '3-1-1', text: '宝安区'}, {id: '4-1-1', text: '汉口'}, {id: '4-2-1', text: '黄梅县'}],
             data: [],
             multiple: false,
-            placeholder: '尚无数据',
+            placeholder: '加载中...',
             search: false,
             defaultValue: '110000',
             minimumResultsForSearch: Infinity//不显示搜索框
@@ -131,7 +132,7 @@ define(function (require, exports, module) {
             //data: [{id: 1, text: '北京'}, {id: 2, text: '上海'}, {id: 3, text: '广东'}, {id: 4, text: '湖北'}],
             data: [],
             multiple: false,
-            placeholder: '尚无数据'
+            placeholder: '加载中...'
             //, minimumResultsForSearch: Infinity//不显示搜索框
             ,
             search: false,
@@ -142,7 +143,7 @@ define(function (require, exports, module) {
             //data: [{id: '1-1', text: '北京市'}, {id: '2-1', text: '上海市'}, {id: '3-1', text: '深圳'}, {id: '4-1', text: '武汉'}, {id: '4-2', text: '黄冈'}],
             data: [],
             multiple: false,
-            placeholder: '尚无数据',
+            placeholder: '加载中...',
             search: false,
             defaultValue: '110000'
         };
@@ -150,7 +151,7 @@ define(function (require, exports, module) {
             //data: [{id: '1-1-1', text: '昌平区'}, {id: '2-1-1', text: '浦东区'}, {id: '3-1-1', text: '宝安区'}, {id: '4-1-1', text: '汉口'}, {id: '4-2-1', text: '黄梅县'}],
             data: [],
             multiple: false,
-            placeholder: '尚无数据',
+            placeholder: '加载中...',
             search: false,
             defaultValue: '110000'
         };
@@ -178,7 +179,7 @@ define(function (require, exports, module) {
             //data: [{id: 1, text: '行业A'}, {id: 2, text: '行业B'}, {id: 3, text: '行业C'}, {id: 4, text: '行业D'}],
             data: [],
             multiple: false,
-            placeholder: '尚无数据',
+            placeholder: '加载中...',
             search: false,
             defaultValue: '100'
         };
@@ -187,7 +188,7 @@ define(function (require, exports, module) {
             // data: [{id: '1-1', text: '行业A－1'}, {id: '2-1', text: '行业B－1'}, {id: '3-1', text: '行业C－1'}, {id: '4-1', text: '行业D－1'}, {id: '4-2', text: '行业D－2'}],
             data: [],
             multiple: false,
-            placeholder: '尚无数据',
+            placeholder: '加载中...',
             defaultValue: '150',
             search: false
         };
@@ -195,7 +196,7 @@ define(function (require, exports, module) {
             //data: [{id: '1-1-1', text: '行业A－1－1'}, {id: '2-1-1', text: '行业B－1－1'}, {id: '3-1-1', text: '行业C－1－1'}, {id: '4-1-1', text: '行业D－1－1'}, {id: '4-2-1', text: '行业D－1－2'}],
             data: [],
             multiple: false,
-            placeholder: '尚无数据',
+            placeholder: '加载中...',
             defaultValue: '100',
             search: false
         };
@@ -240,7 +241,7 @@ define(function (require, exports, module) {
             }
 
             function getEvalValue(ngModelName) {
-                return eval('$scope.' + ngModelName);
+                return $scope.$eval(ngModelName);
             }
         }
 
@@ -262,7 +263,7 @@ define(function (require, exports, module) {
                                 }
                             }
                             $scope.$apply(function () {
-                                config.placeholder = '加载完毕,请选择';
+                                config.placeholder = '请选择';
                                 config.data = data;
                                 cb && cb(data);
                             });
@@ -280,30 +281,39 @@ define(function (require, exports, module) {
 
         //公司规模
         $scope.companyScaleConfig = {
-            //data: [{id: '1-1-1', text: '行业A－1－1'}, {id: '2-1-1', text: '行业B－1－1'}, {id: '3-1-1', text: '行业C－1－1'}, {id: '4-1-1', text: '行业D－1－1'}, {id: '4-2-1', text: '行业D－1－2'}],
             data: [],
             multiple: false,
-            placeholder: '尚无数据',
+            placeholder: '加载中...',
             defaultValue: '100',
             search: false,
             minimumResultsForSearch: Infinity//不显示搜索框
         };
+        getEnumService.load('CAMPANY_SCALE', function (list) {
+            $scope.$apply(function () {
+                $scope.companyScaleConfig.data = list;
+                $scope.companyScaleConfig.placeholder = '请选择';
+            });
+        });
         //使用对象类型
         $scope.groupTypeConfig = {
-            //data: [{id: '1-1-1', text: '行业A－1－1'}, {id: '2-1-1', text: '行业B－1－1'}, {id: '3-1-1', text: '行业C－1－1'}, {id: '4-1-1', text: '行业D－1－1'}, {id: '4-2-1', text: '行业D－1－2'}],
             data: [],
             multiple: false,
-            placeholder: '尚无数据',
+            placeholder: '加载中...',
             defaultValue: '100',
             search: false,
             minimumResultsForSearch: Infinity//不显示搜索框
         };
+        getEnumService.load('GROUP_TYPE', function (list) {
+            $scope.$apply(function () {
+                $scope.companyScaleConfig.data = list;
+                $scope.companyScaleConfig.placeholder = '请选择';
+            });
+        });
         //是否有销售团队
         $scope.isSaleTeamConfig = {
-            //data: [{id: '1-1-1', text: '行业A－1－1'}, {id: '2-1-1', text: '行业B－1－1'}, {id: '3-1-1', text: '行业C－1－1'}, {id: '4-1-1', text: '行业D－1－1'}, {id: '4-2-1', text: '行业D－1－2'}],
-            data: [],
+            data: [{id: '1', text: '是'}, {id: '0', text: '否'}],
             multiple: false,
-            placeholder: '尚无数据',
+            placeholder: '请选择',
             defaultValue: '100',
             search: false,
             minimumResultsForSearch: Infinity//不显示搜索框
@@ -313,34 +323,37 @@ define(function (require, exports, module) {
             //data: [{id: '1-1-1', text: '行业A－1－1'}, {id: '2-1-1', text: '行业B－1－1'}, {id: '3-1-1', text: '行业C－1－1'}, {id: '4-1-1', text: '行业D－1－1'}, {id: '4-2-1', text: '行业D－1－2'}],
             data: [],
             multiple: false,
-            placeholder: '尚无数据',
+            placeholder: '加载中...',
             defaultValue: '100',
             search: false,
             minimumResultsForSearch: Infinity//不显示搜索框
         };
+        getEnumService.load('SALE_TEAM_SCALE',true, function (list) {
+            $scope.$apply(function () {
+                $scope.companyScaleConfig.data = list;
+                $scope.companyScaleConfig.placeholder = '请选择';
+            });
+        });
         //是否转介绍
         $scope.isReferralConfig = {
-            //data: [{id: '1-1-1', text: '行业A－1－1'}, {id: '2-1-1', text: '行业B－1－1'}, {id: '3-1-1', text: '行业C－1－1'}, {id: '4-1-1', text: '行业D－1－1'}, {id: '4-2-1', text: '行业D－1－2'}],
-            data: [],
+            data: [{id: '1', text: '是'}, {id: '0', text: '否'}],
             multiple: false,
-            placeholder: '尚无数据',
-            defaultValue: '100',
+            placeholder: '请选择',
+            defaultValue: '',
             search: false,
             minimumResultsForSearch: Infinity//不显示搜索框
         };
         //是否标杆
         $scope.isReferenceConfig = {
-            //data: [{id: '1-1-1', text: '行业A－1－1'}, {id: '2-1-1', text: '行业B－1－1'}, {id: '3-1-1', text: '行业C－1－1'}, {id: '4-1-1', text: '行业D－1－1'}, {id: '4-2-1', text: '行业D－1－2'}],
-            data: [],
+            data: [{id: '1', text: '是'}, {id: '0', text: '否'}],
             multiple: false,
-            placeholder: '尚无数据',
+            placeholder: '请选择',
             defaultValue: '100',
             search: false,
             minimumResultsForSearch: Infinity//不显示搜索框
         };
 
         $scope.testResult = function () {
-            debugger
             util.api({
                 data: {},
                 url: '/odr/receivedpay/list',

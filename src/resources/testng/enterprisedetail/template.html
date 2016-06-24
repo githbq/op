@@ -54,31 +54,31 @@
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>公司规模</span></label>
-                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 ng-model="entInfo.companyScale" name="companyScale"  select2-model="entInfo.companyScaleDataValue" config="companyScaleConfig" class="form-control multiple-select" type="text"/>
+                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 ng-model="entInfo.companyScale" name="companyScale" select2-model="entInfo.companyScaleDataValue" config="companyScaleConfig" class="form-control multiple-select" type="text"/>
                 </div>
                 <div class="form-field">
                     <label class="required"><span>使用对象类型</span></label>
-                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 ng-model="entInfo.groupType" name="groupType"   select2-model="entInfo.groupTypeDataValue" config="groupTypeConfig" class="form-control multiple-select" type="text"/>
+                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 ng-model="entInfo.groupType" name="groupType" select2-model="entInfo.groupTypeDataValue" config="groupTypeConfig" class="form-control multiple-select" type="text"/>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>是否有销售团队</span></label>
-                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 ng-model="entInfo.isSaleTeam" name="isSaleTeam"   select2-model="entInfo.isSaleTeamDataValue" config="isSaleTeamConfig" class="form-control multiple-select" type="text"/>
+                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 ng-model="entInfo.isSaleTeam" name="isSaleTeam" select2-model="entInfo.isSaleTeamDataValue" config="isSaleTeamConfig" class="form-control multiple-select" type="text"/>
                 </div>
                 <div class="form-field">
                     <label class="required"><span>销售团队规模</span></label>
-                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 ng-model="entInfo.saleTeamScale" name="saleTeamScale"   select2-model="entInfo.saleTeamScaleDataValue" config="saleTeamScaleConfig" class="form-control multiple-select" type="text"/>
+                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 ng-model="entInfo.saleTeamScale" name="saleTeamScale" select2-model="entInfo.saleTeamScaleDataValue" config="saleTeamScaleConfig" class="form-control multiple-select" type="text"/>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>是否转介绍</span></label>
-                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 ng-model="entInfo.isReferral" name="isReferral"   select2-model="entInfo.isReferralDataValue" config="isReferralConfig" class="form-control multiple-select" type="text"/>
+                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 ng-model="entInfo.isReferral" name="isReferral" select2-model="entInfo.isReferralDataValue" config="isReferralConfig" class="form-control multiple-select" type="text"/>
                 </div>
                 <div class="form-field">
                     <label class="required"><span>是否标杆</span></label>
-                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 ng-model="entInfo.isReference" name="isReference"  select2-model="entInfo.isReferenceDataValue" config="isReferenceConfig" class="form-control multiple-select" type="text"/>
+                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 ng-model="entInfo.isReference" name="isReference" select2-model="entInfo.isReferenceDataValue" config="isReferenceConfig" class="form-control multiple-select" type="text"/>
                 </div>
             </div>
             <div class="form-row">
@@ -182,7 +182,7 @@
                 </div>
             </div>
             <div class="form-row">
-                <div  required
+                <div required
                      name="contract"
                      ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly"
                      ng-model="payInfo.contract"
@@ -243,7 +243,8 @@
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>总部打款日期</span></label>
-                    <div class="inline-block" allow="!payInfoReadonly"   ng-disabled="payInfoReadonly" ng-readonly="payInfoReadonly" getform="this['payInfoForm']" name="payDate" datetimeconfig="payInfo.payDate_dataConfig" ng-model="payInfo.payDate"></div>
+
+                    <div class="inline-block" allow="!payInfoReadonly" ng-disabled="payInfoReadonly" ng-readonly="payInfoReadonly" getform="this['payInfoForm']" name="payDate" datetimeconfig="payInfo.payDate_dataConfig" ng-model="payInfo.payDate"></div>
                 </div>
             </div>
             <div class="form-row">
@@ -286,26 +287,6 @@
                 <div class="form-field">
                     <label class="required"><span>门头照片备注</span></label>
                     <input class="input-l" ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly" type="text" ng-model="payInfo.companyGateRemark" name="companyGateRemark"/>
-                </div>
-            </div>
-            <div class="form-row">
-                <h2>其他信息</h2>
-            </div>
-            <div class="form-row">
-                <div class="form-field">
-                    <label class="required"><span>特殊条款</span></label>
-                    <input ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly" select2
-                           ng-model="payInfo.specialClauses" placeholder="请选择"
-                           select2-model="payInfo.specialClausesDataValue"
-                           config="specialClausesConfig" class="form-control multiple-select" type="text"/>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-field" ng-init="peoples=['张三','李四','王五']">
-                    <label class="required"><span>联合跟进人</span></label>
-                      <span class="text-field" ng-repeat="item in peoples track by $index">
-                          {{item}}
-                      </span>
                 </div>
             </div>
             <div class="form-row">

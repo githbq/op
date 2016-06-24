@@ -22,7 +22,7 @@ define(function (require, exports, module) {
         return factory;
     });
 
-   //
+    //
 
     app.factory('industryService', function () {
         var factory = {};
@@ -34,6 +34,24 @@ define(function (require, exports, module) {
                     'limittype': 'IMAGE'
                 },
                 'success': callback
+            });
+        };
+        return factory;
+    });
+    app.factory('getEnumService', function () {
+        var factory = {};
+        //获取枚举值 并赋值给select
+        factory.load = function (Ename, needEmpty, cb) {
+            var list = [];
+            $.isFunction(needEmpty) && (cb = needEmpty);
+            needEmpty === true && (list.push({text: '请选择', id: ''}));
+            util.getEnums(Ename, function (data) {
+                data.value.model.forEach(function (item) {
+                    if (item && item.text !== undefined && item.value !== undefined) {
+                        list.push({'text': item.text, 'id': item.value + ''});
+                    }
+                });
+                cb && cb(list);
             });
         };
         return factory;

@@ -54,6 +54,7 @@ define(function (require, exports, module) {
                     scope.$watch('config', function () {
                         angular.extend(config, scope.config);
                         $element.select2('destroy').select2(config);
+                        $element.select2('val', scope.ngModel);
                     }, true);
 
                     // view - model
