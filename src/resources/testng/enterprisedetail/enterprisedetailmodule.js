@@ -72,7 +72,7 @@ define(function (require, exports, module) {
             }
         }
     });
-    myApp.controller('mainController', ['$scope', '$timeout', 'select2Query', 'getEnumService', function ($scope, $timeout, select2Query, getEnumService) {
+    myApp.controller('mainController', ['$scope', '$timeout', 'select2Query', 'getEnumService','cascadeSelectService', function ($scope, $timeout, select2Query, getEnumService,cascadeSelectService) {
 
         mainCtrlScope = $scope;
         //产品已购信息
@@ -144,11 +144,11 @@ define(function (require, exports, module) {
             placeholder: '请选择',
             search: false
         };
-        cascadeSelect([
+        cascadeSelectService.cascadeSelect($scope,[
             {ngModelName: 'entInfo.province', config: $scope.provinceConfig},
             {ngModelName: 'entInfo.city', config: $scope.cityConfig},
             {ngModelName: 'entInfo.county', config: $scope.countyConfig}
-        ], createPullFunc({url: '~/op/api/district/getListByParent', data: {name: 'parentValue'}}, function (data, item) {
+        ], cascadeSelectService.createPullFunc({url: '~/op/api/district/getListByParent', data: {name: 'parentValue'}}, function (data, item) {
             data.push({id: item.value.toString(), text: item.name});
         }));
         //end多功能下拉选框　
@@ -186,87 +186,11 @@ define(function (require, exports, module) {
             placeholder: '请选择',
             search: false
         };
-
-        cascadeSelect([
+        cascadeSelectService.cascadeSelect($scope,[
             {ngModelName: 'entInfo.industryFirst', config: $scope.industryFirstConfig},
             {ngModelName: 'entInfo.industrySecond', config: $scope.industrySecondConfig},
             {ngModelName: 'entInfo.industryThird', config: $scope.industryThirdConfig}
         ]);
-        //{ngModelName:'',config}
-        //级联下拉列表
-        function cascadeSelect(selectConfigs, remotePullFunc) {
-            var remotePullFunc = remotePullFunc || createPullFunc();
-            for (var i = 0; i < selectConfigs.length; i++) {
-                var selectConfig = selectConfigs[i];
-                setDefaultForConfig(selectConfig);
-                var nextSelectConfig = selectConfigs.length > i + 1 ? selectConfigs[i + 1] : null;
-                (function (i, total, selectConfig, nextSelectConfig) {
-                    $scope.$watch(selectConfig.ngModelName, function (newValue, oldValue, scope) {
-                        if (i > 0 && !selectConfig.config.auto) {
-                            return;
-                        }
-                        if (newValue != oldValue) {
-                            if (i !== total - 1 && nextSelectConfig) {
-                                nextSelectConfig.config.data = [];
-                                eval('$scope.' + nextSelectConfig.ngModelName + '= ""');
-                                nextSelectConfig.config.auto = true;
-                                newValue && remotePullFunc(nextSelectConfig.config, getEvalValue(selectConfig.ngModelName), function () {
-                                    exeConfig(nextSelectConfig);
-                                });
-                            }
-                        }
-                    });
-                })(i, selectConfigs.length, selectConfig, nextSelectConfig);
-            }
-            var firstSelectConfig = selectConfigs[0];
-            remotePullFunc(firstSelectConfig.config, 0, function () {
-                exeConfig(firstSelectConfig);
-            });
-            function exeConfig(selectConfig) {
-                eval('$scope.' + selectConfig.ngModelName + '= selectConfig.config.defaultValue');
-                selectConfig.config.defaultValue = '';
-            }
-            function setDefaultForConfig(selectConfig) {
-                eval('selectConfig.config.defaultValue=$scope.' + selectConfig.ngModelName);
-                eval('$scope.' + selectConfig.ngModelName+'=null');
-            }
-            function getEvalValue(ngModelName) {
-                return $scope.$eval(ngModelName);
-            }
-        }
-
-        function createPullFunc(options, responseCallback) {
-            return function (config, parentValue, cb) {
-                options = options || {};
-                var defaultOption = {
-                    url: '~/op/api/enums/getlistByParent',
-                    data: {name: 'INDUSTRY', parentValue: parentValue || 0},
-                    success: function (result) {
-                        if (result.success) {
-                            var data = [];
-                            for (var i = 0; i < result.value.model.length; i++) {
-                                var item = result.value.model[i];
-                                if (responseCallback) {
-                                    responseCallback(data, item);
-                                } else {
-                                    data.push({id: item.value.toString(), text: item.text});
-                                }
-                            }
-                            $scope.$apply(function () {
-                                config.placeholder = '请选择';
-                                config.data = data;
-                                cb && cb(data);
-                            });
-                        }
-                    }
-                };
-                if (defaultOption.data) {
-                    options.data = $.extend(defaultOption.data, options.data);
-                }
-                util.api($.extend(defaultOption, options));
-            }
-        }
-
         //end 多功能下拉选框　行业
 
         //公司规模

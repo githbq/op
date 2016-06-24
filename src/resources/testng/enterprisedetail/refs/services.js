@@ -56,4 +56,93 @@ define(function (require, exports, module) {
         };
         return factory;
     });
+    //级联下拉列表服务
+    app.factory('cascadeSelectService', function () {
+        var factory = {};
+        var $scope = $scope;
+        //级联下拉列表
+        //cascadeSelectService.cascadeSelect($scope,[
+        //    {ngModelName: 'entInfo.province', config: $scope.provinceConfig},
+        //    {ngModelName: 'entInfo.city', config: $scope.cityConfig},
+        //    {ngModelName: 'entInfo.county', config: $scope.countyConfig}
+        //], cascadeSelectService.createPullFunc({url: '~/op/api/district/getListByParent', data: {name: 'parentValue'}}, function (data, item) {
+        //    data.push({id: item.value.toString(), text: item.name});
+        //}));
+        factory.cascadeSelect = function (scope, selectConfigs, remotePullFunc) {
+            $scope = scope;
+            var remotePullFunc = remotePullFunc || factory.createPullFunc();
+            for (var i = 0; i < selectConfigs.length; i++) {
+                var selectConfig = selectConfigs[i];
+                setDefaultForConfig(selectConfig);
+                var nextSelectConfig = selectConfigs.length > i + 1 ? selectConfigs[i + 1] : null;
+                (function (i, total, selectConfig, nextSelectConfig) {
+                    $scope.$watch(selectConfig.ngModelName, function (newValue, oldValue, scope) {
+                        if (i > 0 && !selectConfig.config.auto) {
+                            return;
+                        }
+                        if (newValue != oldValue) {
+                            if (i !== total - 1 && nextSelectConfig) {
+                                nextSelectConfig.config.data = [];
+                                eval('$scope.' + nextSelectConfig.ngModelName + '= ""');
+                                nextSelectConfig.config.auto = true;
+                                newValue && remotePullFunc(nextSelectConfig.config, getEvalValue(selectConfig.ngModelName), function () {
+                                    exeConfig(nextSelectConfig);
+                                });
+                            }
+                        }
+                    });
+                })(i, selectConfigs.length, selectConfig, nextSelectConfig);
+            }
+            var firstSelectConfig = selectConfigs[0];
+            remotePullFunc(firstSelectConfig.config, 0, function () {
+                exeConfig(firstSelectConfig);
+            });
+            function exeConfig(selectConfig) {
+                eval('$scope.' + selectConfig.ngModelName + '= selectConfig.config.defaultValue');
+                selectConfig.config.defaultValue = '';
+            }
+
+            function setDefaultForConfig(selectConfig) {
+                eval('selectConfig.config.defaultValue=$scope.' + selectConfig.ngModelName);
+                eval('$scope.' + selectConfig.ngModelName + '=null');
+            }
+
+            function getEvalValue(ngModelName) {
+                return $scope.$eval(ngModelName);
+            }
+        };
+
+        factory.createPullFunc = function (options, responseCallback) {
+            return function (config, parentValue, cb) {
+                options = options || {};
+                var defaultOption = {
+                    url: '~/op/api/enums/getlistByParent',
+                    data: {name: 'INDUSTRY', parentValue: parentValue || 0},
+                    success: function (result) {
+                        if (result.success) {
+                            var data = [];
+                            for (var i = 0; i < result.value.model.length; i++) {
+                                var item = result.value.model[i];
+                                if (responseCallback) {
+                                    responseCallback(data, item);
+                                } else {
+                                    data.push({id: item.value.toString(), text: item.text});
+                                }
+                            }
+                            $scope.$apply(function () {
+                                config.placeholder = '请选择';
+                                config.data = data;
+                                cb && cb(data);
+                            });
+                        }
+                    }
+                };
+                if (defaultOption.data) {
+                    options.data = $.extend(defaultOption.data, options.data);
+                }
+                util.api($.extend(defaultOption, options));
+            }
+        };
+        return factory;
+    });
 });
