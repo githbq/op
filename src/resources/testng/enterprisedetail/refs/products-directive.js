@@ -10,7 +10,6 @@ define(function (require, exports, module) {
                 scope: {dataResult: '=', productReadonly: '=', show: '='},
                 template: require('./products-template.html'),
                 link: function (scope, iElem, iAttrs) {
-
                     scope.$watch('show', function () {
                         if (scope.show) {
                             wrapperReset();

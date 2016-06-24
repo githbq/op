@@ -21,20 +21,15 @@ define(function (require, exports, module) {
         };
         return factory;
     });
-
     //
-
-    app.factory('industryService', function () {
+    app.factory('productService', function () {
         var factory = {};
-        factory.sendFile = function (e, callback) {
-            return uploader.send({
-                'url': '/op/api/file/uploadsinglefileandcheck',
-                'files': e.target.files,
-                'options': {
-                    'limittype': 'IMAGE'
-                },
+        //根据合同号获取
+        factory.getDataByContractNo = function (options, callback) {
+            return  util.api(_.extend({
+                url: '~/op/api/order/enterprise/getContract',
                 'success': callback
-            });
+            },options));
         };
         return factory;
     });

@@ -175,7 +175,7 @@
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>合同号</span></label>
-                    <input ng-class="{readonly:payInfoReadonly}" required ng-readonly="payInfoReadonly" type="text" ng-model="payInfo.contractNo" name="contractNo"/>
+                    <input ng-model-options="{updateOn:'blur'}" ng-class="{readonly:payInfoReadonly}" required ng-readonly="payInfoReadonly" type="text" ng-change="getDataByContractNo(payInfo.contractNo)" ng-model="payInfo.contractNo" name="contractNo"/>
                 </div>
             </div>
             <div class="form-row">
@@ -189,8 +189,6 @@
                      name="contract"
                      ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly"
                      ng-model="payInfo.contract"
-                     default-src="payInfo.contract_src"
-                     default-href="payInfo.contract_href"
                      input-file status="payInfo.contract_status"
                      label="合同照片"
                      response="payInfo.contract_response"></div>
@@ -204,8 +202,6 @@
             <div class="form-row">
                 <div ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly"
                      ng-model="payInfo.contractCopy"
-                     default-src="payInfo.contractCopy_src"
-                     default-href="payInfo.contractCopy_href"
                      input-file status="payInfo.contractCopy_status"
                      label="合同副本照片"
                      response="payInfo.contractCopy_response"></div>
@@ -274,8 +270,6 @@
             <div class="form-row">
                 <div ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly"
                      ng-model="payInfo.companyGatePicture"
-                     default-src="payInfo.companyGatePicture_src"
-                     default-href="payInfo.companyGatePicture_href"
                      input-file status="payInfo.companyGatePicture_status"
                      label="门头照片"
                      response="payInfo.companyGatePicture_response"></div>

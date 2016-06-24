@@ -72,32 +72,54 @@ define(function (require, exports, module) {
             }
         }
     });
-    myApp.controller('mainController', ['$scope', '$timeout', 'select2Query', 'getEnumService','cascadeSelectService', function ($scope, $timeout, select2Query, getEnumService,cascadeSelectService) {
+    myApp.controller('mainController', ['$scope', '$timeout', 'select2Query', 'getEnumService', 'cascadeSelectService', 'productService', function ($scope, $timeout, select2Query, getEnumService, cascadeSelectService, productService) {
 
         mainCtrlScope = $scope;
         //产品已购信息
         $scope.productInfos = [[{name: '培训人数', value: 'xxxx'}], [{name: 'CRM用户数', value: 'xxxx'}, {name: false, value: '2016年-2017年'}]];
+
 
         //付款信息
         var payInfo = $scope.payInfo = {payStatus: 1};
         $scope.testResult3 = function (form) {
 
         };
+        $scope.getDataByContractNo = function (value) {
+         debugger
+            productService.getDataByContractNo({contractNo: value, enterpriseId: value}, function (result) {
+                $scope.$apply(function () {
+                    if (result.success) {
+                        result.model = result.value.model;
+                        if (result.model) {
+                            var model = result.model;
+                            $scope.payInfo.sealName = model.sealName;
+                            $scope.payInfo.contract = model.contract;
+                            $scope.payInfo.contractCopy = model.contractCopy;
+                            $scope.payInfo.companyGatePicture = model.companyGatePicture;
+                            $scope.payInfo.companyGatePicture = model.companyGateKeyword;
+                            $scope.payInfo.companyGateRemark = model.companyGateRemark;
+                        } else if (result.model === false) {
+                            clear();
+                        }
+                    } else {
+                        clear();
+                    }
+                });
+                function clear() {
+                    $scope.payInfo.sealName = '';
+                    $scope.payInfo.contract = '';
+                    $scope.payInfo.contractCopy = '';
+                    $scope.payInfo.companyGatePicture = '';
+                    $scope.payInfo.companyGateKeyword = '';
+                    $scope.payInfo.companyGateRemark = '';
+                }
+            })
+        };
         $scope.currPayAmountList = [{currPayAmount: 1, productId: 1, productName: 'CRM分期', purchaseAmount: 555}, {currPayAmount: 7, productId: 7, productName: '工资助手分期', purchaseAmount: 666}];
         //receiptsAccountConfig
         //总部到款账户
         $scope.receiptsAccountConfig = {
             //data: [{id: '1-1-1', text: '昌平区'}, {id: '2-1-1', text: '浦东区'}, {id: '3-1-1', text: '宝安区'}, {id: '4-1-1', text: '汉口'}, {id: '4-2-1', text: '黄梅县'}],
-            data: [],
-            multiple: false,
-            placeholder: '请选择',
-            search: false,
-            defaultValue: '110000',
-            minimumResultsForSearch: Infinity//不显示搜索框
-        };
-        //总部到款账户
-        $scope.accountConfig = {
-            //data: [{id: 1, text: '111111111111111'}, {id: 2, text: '22222222222'}, {id: 3, text: '3333333333'}, {id: 4, text: '支付宝'}],
             data: [],
             multiple: false,
             placeholder: '必须与实际打款的单位/个人名称一致',
@@ -144,7 +166,7 @@ define(function (require, exports, module) {
             placeholder: '请选择',
             search: false
         };
-        cascadeSelectService.cascadeSelect($scope,[
+        cascadeSelectService.cascadeSelect($scope, [
             {ngModelName: 'entInfo.province', config: $scope.provinceConfig},
             {ngModelName: 'entInfo.city', config: $scope.cityConfig},
             {ngModelName: 'entInfo.county', config: $scope.countyConfig}
@@ -186,7 +208,7 @@ define(function (require, exports, module) {
             placeholder: '请选择',
             search: false
         };
-        cascadeSelectService.cascadeSelect($scope,[
+        cascadeSelectService.cascadeSelect($scope, [
             {ngModelName: 'entInfo.industryFirst', config: $scope.industryFirstConfig},
             {ngModelName: 'entInfo.industrySecond', config: $scope.industrySecondConfig},
             {ngModelName: 'entInfo.industryThird', config: $scope.industryThirdConfig}

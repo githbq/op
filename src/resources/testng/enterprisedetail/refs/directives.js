@@ -3,15 +3,21 @@ define(function (require, exports, module) {
     require('plugin/uploadpreview');
     var app = angular.module('common.directives', ['common.services']);
     require('./datetime-directive');
-    require('./select2-directives');//多功能复选框
-    require('./validate-directives');
+    require('./select2-directive');//多功能复选框
+    require('./validate-directive');
     var template = require('./template.html');
-    app.directive('inputFile', ['fileService', '$timeout', function (fileService,$timeout) {
+    app.directive('inputFile', ['fileService', '$timeout', function (fileService, $timeout) {
         return {
-            scope: {label: '@',ngReadonly:'=',required: '=', ngModel: '=', status: '=', response: '=', src: '=defaultSrc', href: '=defaultHref'},
+            scope: {label: '@', ngReadonly: '=', required: '=', ngModel: '=', status: '=', response: '='},
             controller: ['$scope', function ($scope) {
             }],
             link: function (scope, iElem, iAttrs) {
+                scope.$watch('ngModel', function () {
+                    if (scope.ngModel) {
+                        scope.src = '/op/api/file/previewimage?filePath=' + scope.ngModel;
+                        scope.href = '/op/api/file/previewimage?filePath=' + scope.ngModel;
+                    }
+                });
                 //给容器添加样式
                 iElem.addClass('input-file-container');
                 scope.status = 'unload';
@@ -46,9 +52,9 @@ define(function (require, exports, module) {
     app.directive('onFinishRenderFilters', ['$timeout', function ($timeout) {
         return {
             restrict: 'A',
-            link: function(scope, element, attr) {
+            link: function (scope, element, attr) {
                 if (scope.$last === true) {
-                    $timeout(function() {
+                    $timeout(function () {
                         scope.$emit('ngRepeatFinished');
                     });
                 }
