@@ -82,7 +82,10 @@ define(function(require, exports, module) {
         }
     })
 
-
+    /**
+     *
+     * 企业列表
+     */
     var EntLst = MClass(M.Center).include({
 
         PAGESIZE: 20,
@@ -105,18 +108,7 @@ define(function(require, exports, module) {
             'click #btnSearch': 'search',
             'click .info-detail': 'detailEve',
             'click .info-trace': 'traceEve',
-            'click .info-zengbangong': function(e) {
-                this.trigger('zengbangong', $(e.currentTarget).attr('data-id'), $(e.currentTarget).attr('data-account'))
-            }, //增购办公版
-            'click .info-zengyingxiao': function(e) {
-                this.trigger('zengyingxiao', $(e.currentTarget).attr('data-id'), $(e.currentTarget).attr('data-account'))
-            }, //增购营销版
-            'click .info-renewbangong': function(e) {
-                this.trigger('renewbangong', $(e.currentTarget).attr('data-id'), $(e.currentTarget).attr('data-account'))
-            }, //续费办公版
-            'click .info-renewyingxiao': function(e) {
-                this.trigger('renewyingxiao', $(e.currentTarget).attr('data-id'), $(e.currentTarget).attr('data-account'))
-            }, //续费营销版
+            'click .renew': 'renewEve',
             'click .selectall': 'selectAllEve',
             'click .auth': 'authEve',
             'click .deauth': 'deauthEve',
@@ -271,6 +263,13 @@ define(function(require, exports, module) {
             return array;
         },
 
+        //增购 续费
+        renewEve: function(e) {
+            var me = this;
+            var id = $(e.currentTarget).attr('data-id');
+            me.trigger('renew',id);
+        },
+
         //授权
         /*
         authEve: function() {
@@ -392,13 +391,13 @@ define(function(require, exports, module) {
                         if (data.value.model.content.length > 0) {
                             me.list.reload(data.value.model.content, function(item) {
 
-                                if (item.enterprise.appStartTime) {
-                                    item.createtimestr = new Date(item.enterprise.appStartTime)._format("yyyy-MM-dd");
+                                if (item.csmEnterprise.appStartTime) {
+                                    item.createtimestr = new Date(item.csmEnterprise.appStartTime)._format("yyyy-MM-dd");
                                 } else {
                                     item.createtimestr = "——";
                                 }
 
-                                item.runstatusstr = EntStatusMap[item.enterprise.runStatus];
+                                item.runstatusstr = EntStatusMap[item.csmEnterprise.runStatus];
 
                                 if (item.protectionWhiteListStatus == 0) {
                                     item.authStr = "全部授权"
