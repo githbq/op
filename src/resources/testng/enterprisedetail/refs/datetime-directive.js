@@ -40,7 +40,7 @@ define(function (require, exports, module) {
                             WdatePicker(datetimeconfig);
                         });
                     } else {
-                        $('input', iElem).attr('disabled', 'disabled');
+                        $('input', iElem).attr('readonly', 'readonly');
                     }
                 });
 

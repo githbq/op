@@ -8428,7 +8428,7 @@ em {
   width: 217px;
 }
 .multiple-select-long {
-  width: 400px;
+  width: 600px;
 }
 .input-file-container {
   overflow: hidden;
@@ -8436,11 +8436,14 @@ em {
 .input-file-container.x.x.x .file-field {
   border: 1px solid red;
 }
+.input-file-container .file-field {
+  width: 475px;
+}
 .enterprise-panel .inline-block {
   display: inline-block;
 }
 .enterprise-panel .textarea-m {
-  width: 500px;
+  width: 600px;
   height: 100px;
 }
 .enterprise-panel .form .ng-pristine.ng-dirty.ng-invalid:not(.form) {
@@ -8456,13 +8459,13 @@ em {
   border: 1px solid lawngreen;
 }
 .enterprise-panel input[type=text] {
-  width: 200px;
+  width: 260px;
 }
 .enterprise-panel input[type=text].input-l {
-  width: 500px;
+  width: 600px;
 }
 .enterprise-panel .multiple-select.input-l {
-  width: 400px;
+  width: 600px;
 }
 .enterprise-panel input.readonly,
 .enterprise-panel textarea.readonly {
