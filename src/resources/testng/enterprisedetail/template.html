@@ -5,6 +5,9 @@
         <div class="top-bar" ng-if="hideTopBar!==true">
             <h1>第一步&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;企业信息</h1>
         </div>
+        <div style="width:100%;word-break:break-all;word-wrap:break-word;">
+        {{entInfo}}
+        </div>
         <!--<input select2 ng-model="a" select2-model="aS2" config="config1" type="text"/>-->
         <!--<button ng-click="a=2" class="btn btn-success btn-sm pull-right">设置数据</button>-->
         <div ng-class="{step_validate_error:step_1_validate_error}">
@@ -25,7 +28,7 @@
             <div class="form-row">
                 <div class="form-field">
                     <label><span>企业账号</span></label>
-                    <input account ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" type="text" ng-model="entInfo.enterpriseAccount" name="enterpriseAccount" ng-maxlength="100"/>
+                    <input account ng-model-options="{debounce:1000}" ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" type="text" ng-model="entInfo.enterpriseAccount" name="enterpriseAccount" ng-maxlength="100"/>
                     <span class="tip">企业账号应为字母开头6-20位由字母数字的组合</span>
                 </div>
             </div>
@@ -92,13 +95,13 @@
                 <div class="form-field">
                     <label class="required"><span>企业负责人电话</span></label>
                     <!--ng-pattern="/[a-zA-Z]/"   正则表达式验证-->
-                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" ng-maxlength="100" required type="text" name="entInfo.keyContactPhone"/>
+                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" ng-maxlength="100" required type="text" ng-model="entInfo.keyContactPhone" name="keyContactPhone"/>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>企业负责人邮箱</span></label>
-                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" ng-model="entInfo.keyContactEmail" required type="text" email name="keyContactEmail"/>
+                    <input ng-model-options="{debounce:1000}" ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" ng-model="entInfo.keyContactEmail" required type="text" email name="keyContactEmail"/>
                 </div>
             </div>
             <div class="form-row">
@@ -117,7 +120,7 @@
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>平台管理员邮箱</span></label>
-                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required type="text" email ng-model="entInfo.contactEmail" ng-maxlength="100" name="contactEmail"/>
+                    <input ng-model-options="{debounce:1000}" ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required type="text" email ng-model="entInfo.contactEmail" ng-maxlength="100" name="contactEmail"/>
                 </div>
                 <div class="form-field">
                     <label><span>平台管理员QQ</span></label>

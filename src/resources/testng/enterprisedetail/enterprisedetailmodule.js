@@ -90,20 +90,18 @@ define(function (require, exports, module) {
             //data: [{id: '1-1-1', text: '昌平区'}, {id: '2-1-1', text: '浦东区'}, {id: '3-1-1', text: '宝安区'}, {id: '4-1-1', text: '汉口'}, {id: '4-2-1', text: '黄梅县'}],
             data: [],
             multiple: false,
-            placeholder: '加载中...',
+            placeholder: '请选择',
             search: false,
             defaultValue: '110000',
             minimumResultsForSearch: Infinity//不显示搜索框
         };
-        //特殊条款
-        $scope.specialClausesConfig = {
-            //data: [{id: '1-1-1', text: '昌平区'}, {id: '2-1-1', text: '浦东区'}, {id: '3-1-1', text: '宝安区'}, {id: '4-1-1', text: '汉口'}, {id: '4-2-1', text: '黄梅县'}],
+        //总部到款账户
+        $scope.accountConfig = {
+            //data: [{id: 1, text: '111111111111111'}, {id: 2, text: '22222222222'}, {id: 3, text: '3333333333'}, {id: 4, text: '支付宝'}],
             data: [],
             multiple: false,
-            placeholder: '加载中...',
-            search: false,
-            defaultValue: '110000',
-            minimumResultsForSearch: Infinity//不显示搜索框
+            placeholder: '必须与实际打款的单位/个人名称一致',
+            search: false
         };
         //企业详情信息
         var entInfo = $scope.entInfo = {};
@@ -114,46 +112,37 @@ define(function (require, exports, module) {
         };
 
         //多功能下拉选框
-        $scope.entInfo.province = '130000';
-        $scope.entInfo.city = '150000';
-        $scope.entInfo.county = '130000';
+        $scope.entInfo.province = '110000';
+        $scope.entInfo.city = '140000';
+        $scope.entInfo.county = '110000';
 
         $scope.entInfo.provinceDataValue = '';
         $scope.entInfo.cityDataValue = '';
         $scope.entInfo.countyDataValue = '';
-        $scope.accountConfig = {
-            //data: [{id: 1, text: '111111111111111'}, {id: 2, text: '22222222222'}, {id: 3, text: '3333333333'}, {id: 4, text: '支付宝'}],
-            data: [],
-            multiple: false,
-            placeholder: '必须与实际打款的单位/个人名称一致',
-            search: false
-        };
+
         $scope.provinceConfig = {
             //data: [{id: 1, text: '北京'}, {id: 2, text: '上海'}, {id: 3, text: '广东'}, {id: 4, text: '湖北'}],
             data: [],
             multiple: false,
-            placeholder: '加载中...'
+            placeholder: '请选择'
             //, minimumResultsForSearch: Infinity//不显示搜索框
             ,
-            search: false,
-            defaultValue: '110000'
+            search: false
         };
 
         $scope.cityConfig = {
             //data: [{id: '1-1', text: '北京市'}, {id: '2-1', text: '上海市'}, {id: '3-1', text: '深圳'}, {id: '4-1', text: '武汉'}, {id: '4-2', text: '黄冈'}],
             data: [],
             multiple: false,
-            placeholder: '加载中...',
-            search: false,
-            defaultValue: '110000'
+            placeholder: '请选择',
+            search: false
         };
         $scope.countyConfig = {
             //data: [{id: '1-1-1', text: '昌平区'}, {id: '2-1-1', text: '浦东区'}, {id: '3-1-1', text: '宝安区'}, {id: '4-1-1', text: '汉口'}, {id: '4-2-1', text: '黄梅县'}],
             data: [],
             multiple: false,
-            placeholder: '加载中...',
-            search: false,
-            defaultValue: '110000'
+            placeholder: '请选择',
+            search: false
         };
         cascadeSelect([
             {ngModelName: 'entInfo.province', config: $scope.provinceConfig},
@@ -166,9 +155,9 @@ define(function (require, exports, module) {
 
 
         //多功能下拉选框　行业
-        entInfo.industryFirst = '';
-        entInfo.industrySecond = '';
-        entInfo.industryThird = '';
+        entInfo.industryFirst = '100';
+        entInfo.industrySecond = '150';
+        entInfo.industryThird = '100';
 
         entInfo.industryFirstDataValue = '';
         entInfo.industrySecondDataValue = '';
@@ -179,25 +168,22 @@ define(function (require, exports, module) {
             //data: [{id: 1, text: '行业A'}, {id: 2, text: '行业B'}, {id: 3, text: '行业C'}, {id: 4, text: '行业D'}],
             data: [],
             multiple: false,
-            placeholder: '加载中...',
-            search: false,
-            defaultValue: '100'
+            placeholder: '请选择',
+            search: false
         };
 
         $scope.industrySecondConfig = {
             // data: [{id: '1-1', text: '行业A－1'}, {id: '2-1', text: '行业B－1'}, {id: '3-1', text: '行业C－1'}, {id: '4-1', text: '行业D－1'}, {id: '4-2', text: '行业D－2'}],
             data: [],
             multiple: false,
-            placeholder: '加载中...',
-            defaultValue: '150',
+            placeholder: '请选择',
             search: false
         };
         $scope.industryThirdConfig = {
             //data: [{id: '1-1-1', text: '行业A－1－1'}, {id: '2-1-1', text: '行业B－1－1'}, {id: '3-1-1', text: '行业C－1－1'}, {id: '4-1-1', text: '行业D－1－1'}, {id: '4-2-1', text: '行业D－1－2'}],
             data: [],
             multiple: false,
-            placeholder: '加载中...',
-            defaultValue: '100',
+            placeholder: '请选择',
             search: false
         };
 
@@ -212,6 +198,7 @@ define(function (require, exports, module) {
             var remotePullFunc = remotePullFunc || createPullFunc();
             for (var i = 0; i < selectConfigs.length; i++) {
                 var selectConfig = selectConfigs[i];
+                setDefaultForConfig(selectConfig);
                 var nextSelectConfig = selectConfigs.length > i + 1 ? selectConfigs[i + 1] : null;
                 (function (i, total, selectConfig, nextSelectConfig) {
                     $scope.$watch(selectConfig.ngModelName, function (newValue, oldValue, scope) {
@@ -235,11 +222,14 @@ define(function (require, exports, module) {
             remotePullFunc(firstSelectConfig.config, 0, function () {
                 exeConfig(firstSelectConfig);
             });
-            function exeConfig(seletConfig) {
-                eval('$scope.' + seletConfig.ngModelName + '= seletConfig.config.defaultValue');
-                seletConfig.config.defaultValue = '';
+            function exeConfig(selectConfig) {
+                eval('$scope.' + selectConfig.ngModelName + '= selectConfig.config.defaultValue');
+                selectConfig.config.defaultValue = '';
             }
-
+            function setDefaultForConfig(selectConfig) {
+                eval('selectConfig.config.defaultValue=$scope.' + selectConfig.ngModelName);
+                eval('$scope.' + selectConfig.ngModelName+'=null');
+            }
             function getEvalValue(ngModelName) {
                 return $scope.$eval(ngModelName);
             }
@@ -283,7 +273,7 @@ define(function (require, exports, module) {
         $scope.companyScaleConfig = {
             data: [],
             multiple: false,
-            placeholder: '加载中...',
+            placeholder: '请选择',
             defaultValue: '100',
             search: false,
             minimumResultsForSearch: Infinity//不显示搜索框
@@ -298,7 +288,7 @@ define(function (require, exports, module) {
         $scope.groupTypeConfig = {
             data: [],
             multiple: false,
-            placeholder: '加载中...',
+            placeholder: '请选择',
             defaultValue: '100',
             search: false,
             minimumResultsForSearch: Infinity//不显示搜索框
@@ -323,12 +313,12 @@ define(function (require, exports, module) {
             //data: [{id: '1-1-1', text: '行业A－1－1'}, {id: '2-1-1', text: '行业B－1－1'}, {id: '3-1-1', text: '行业C－1－1'}, {id: '4-1-1', text: '行业D－1－1'}, {id: '4-2-1', text: '行业D－1－2'}],
             data: [],
             multiple: false,
-            placeholder: '加载中...',
+            placeholder: '请选择',
             defaultValue: '100',
             search: false,
             minimumResultsForSearch: Infinity//不显示搜索框
         };
-        getEnumService.load('SALE_TEAM_SCALE',true, function (list) {
+        getEnumService.load('SALE_TEAM_SCALE', true, function (list) {
             $scope.$apply(function () {
                 $scope.companyScaleConfig.data = list;
                 $scope.companyScaleConfig.placeholder = '请选择';
