@@ -11,10 +11,10 @@
 			<td><%=item.address%></td>
 			<td><%=item.createTimeStr%></td>
 			<td>
-				
+				<a data-id="<%=item.id%>" class="filing-assgin" data-permissions="M009002003">分配</a>&nbsp;&nbsp;
+				<a data-id="<%=item.id%>" class="filing-detail"  data-permissions="M009002004">查看</a>&nbsp;&nbsp;
                 <a data-id="<%=item.id%>" data-name="<%=item.enterpriseName%>" class="filing-log" data-permissions="M009002013">备案企业跟踪</a>&nbsp;&nbsp;
                 <a data-reason="<%=item.reason%>" class="filing-reason">驳回原因</a>&nbsp;&nbsp;
-				
 			</td>
 			<td></td>
 		</tr>

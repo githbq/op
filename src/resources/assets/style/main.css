@@ -7759,94 +7759,6 @@ em {
 .d-read-clue #clue {
   margin-top: 20px;
 }
-.order-content .nav-box {
-  display: inline-block;
-  font-size: 16px;
-}
-.order-content .nav-box #tabs li {
-  float: left;
-  color: #000;
-  height: 30px;
-  cursor: pointer;
-  line-height: 30px;
-  padding: 0 20px;
-  background: #eee;
-}
-.order-content .nav-box #tabs li.current {
-  color: #000;
-  background: #ccc;
-}
-.order-content .order-action {
-  width: 680px;
-  padding: 10px 20px;
-  border-top: 1px #ccc solid;
-}
-.order-content .order-action button {
-  float: right;
-  margin: 0px 10px;
-}
-.m-addenterprise {
-  width: 680px;
-  padding: 10px 20px;
-}
-.m-addenterprise .state {
-  display: none;
-}
-.m-addenterprise .enterprise-content {
-  padding-bottom: 6px;
-}
-.m-addenterprise .enterprise-content h3 {
-  font-weight: bold;
-  font-size: 16px;
-  padding: 8px 0;
-  border-bottom: 1px #ccc solid;
-}
-.m-addenterprise .enterprise-content h4 {
-  font-weight: bold;
-  font-size: 18px;
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
-.m-addenterprise .enterprise-content p {
-  padding: 8px 0;
-}
-.m-addenterprise .enterprise-content p span {
-  display: inline-block;
-  min-width: 110px;
-}
-.m-addenterprise .enterprise-content p span b {
-  color: red;
-}
-.m-addenterprise .enterprise-content label {
-  display: inline-block;
-  min-width: 310px;
-}
-.m-addenterprise .enterprise-content label select {
-  height: 27px;
-  width: 185px;
-  border: 1px #d9d9d9 solid;
-  border-radius: 2px;
-}
-.m-addenterprise .enterprise-content label input {
-  width: 180px;
-}
-.m-addenterprise .enterprise-content textarea {
-  border: 1px #ccc solid;
-  border-radius: 2px;
-  padding: 8px;
-  width: 100%;
-  height: 60px;
-}
-.m-addenterprise .enterprise-action {
-  padding: 6px 0;
-  border-top: 1px #ccc solid;
-}
-.m-addenterprise .enterprise-action button {
-  float: right;
-}
-.m-addenterprise .enterprise-action .action-cancel {
-  margin-right: 10px;
-}
 .widget-order-info table tr {
   line-height: 30px;
 }
@@ -8528,9 +8440,6 @@ em {
 .m-slider textarea {
   width: 600px;
   height: 200px;
-}
-.m-slider p {
-  margin-top: 15px;
 }
 .m-slider select {
   height: 25px;
