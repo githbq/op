@@ -1,3 +1,7 @@
+//
+// 新增 增购/续费
+// 入口页面
+//===================
 define( function( require, exports, module ) {
     var IBSS = window.IBSS,
         TplEvent = IBSS.tplEvent;
