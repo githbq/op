@@ -56,34 +56,68 @@ define(function (reuqire, exports, module) {
     app.directive('number', function () {
         return {
             require: 'ngModel',
-            scope: {maxNumber: '=',minNumber:'='},
+            scope: {maxNumber: '=', minNumber: '=', max: '@', min: '@', ngModel: '=', ngRequired: '='},
             link: function (scope, elm, attrs, ctrl) {
+                scope.ngModel = setMaxOrMinValue(scope.ngModel);
                 elm.off('keyup').on('keyup', function () {
                     var $dom = $(this);
                     var result = ($dom.val().replace(/[^\.\d]/g, ''));
                     if (!NUMBER_REGEXP.test(result)) {
-                        result = '0';
+                        result = 0;
+                        if (!scope.required && !result) {
+                            result = '';
+                        }
                     }
                     $dom.val(result);
-                    if (!isNaN(scope.maxNumber) && parseFloat(result) > scope.maxNumber) {
-                        result = scope.maxNumber;
-                    }
-                    if (!isNaN(scope.minNumber) && parseFloat(result)<scope.minNumber) {
-                        result = scope.minNumber;
-                    }
-                    $dom.val(parseFloat(result));
                     ctrl.$setViewValue(result, true);//只能赋模型的值不能改变VIEW
                     setTimeout(function () {
                         ctrl.$setValidity('number', true);
                     }, 100);
                 });
+                elm.off('change').on('change', function () {
+                    var $dom = $(this);
+                    var result = $dom.val();
+                    result = setMaxOrMinValue(result);
+                    $dom.val(result);
+                    ctrl.$setViewValue(result, true);//只能赋模型的值不能改变VIEW
+                    setTimeout(function () {
+                        ctrl.$setValidity('number', true);
+                    }, 100);
+                });
+                function setMaxOrMinValue(result) {
+                    result = result && parseFloat(result) || '';
+                    if (result !== '') {
+                        var max = scope.maxNumber;
+                        var min = scope.minNumber;
+                        if (scope.max) {
+                            max = parseFloat(scope.max);
+                        }
+                        if (scope.min) {
+                            min = parseFloat(scope.min);
+                        }
+                        if (!isNaN(max) && result > max) {
+                            result = max;
+                        }
+                        if (!isNaN(min) && result < min) {
+                            result = min;
+                        }
+                    }
+                    if (scope.required && !result) {
+                        result = 0;
+                    }
+                    return result;
+                }
+                //与非空进行兼容
                 ctrl.$parsers.unshift(function (viewValue) {
                     if (NUMBER_REGEXP.test(viewValue)) {
                         ctrl.$setValidity('number', true);
                         return parseFloat(viewValue.toString().replace(',', '.'));
-                    } else {
+                    } else if (viewValue === '' && scope.ngRequired) {
                         ctrl.$setValidity('number', false);
                         return undefined;
+                    } else {
+                        ctrl.$setValidity('number', true);
+                        return '';
                     }
                 });
             }
@@ -96,7 +130,6 @@ define(function (reuqire, exports, module) {
             require: 'ngModel',
             link: function (scope, elm, attrs, ctrl) {
                 ctrl.$parsers.unshift(function (viewValue) {
-                    debugger
                     if (ACCOUNT_REGEXP.test(viewValue)) {
                         ctrl.$setValidity('account', true);
                         return viewValue;

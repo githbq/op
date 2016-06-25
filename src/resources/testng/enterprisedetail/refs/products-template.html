@@ -203,8 +203,10 @@
                                         <div ng-switch-when="number">
                                             <label ng-if="field.label" ng-class="{required:field.validate.required}"><span class="title">{{field.label}}</span></label>
                                             <input type="text" number name="{{product.productId+'$'+field.groupName+'$'+field.name}}"
-                                                   ng-required="field.validate.required" ng-readonly="productReadonly||field.readonly"
+                                                   ng-required="!field.validate.required" ng-readonly="productReadonly||field.readonly"
                                                    ng-disabled="productReadonly||field.readonly"
+                                                   min="{{getValidateValue('moreThan',field,product)}}"
+                                                   max="{{getValidateValue('lessThan',field,product)}}"
                                                    ng-model="field.value.valueData.value"/>
                                         </div>
                                         <!--单选框-->
