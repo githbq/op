@@ -4,10 +4,44 @@ define(function (require, exports, module) {
     var dialogManager = require('./dialog');
     var waterfallcomput = require('./waterfallcomput');
     var colWrapperStr = '<div class="product-col-wraper"></div>';
+    //瀑布布局重置
+    function wrapperReset(delay) {
+        setTimeout(function () {
+            $('.product-agent').each(function (i, n) {
+                var $dom = $(n);
+                if ($dom.parents('.product-col-wraper').length > 0) {
+                    $dom.unwrap();
+                }
+            });
+            waterfallcomput($('.products-border'), $('.product-agent').has('.product'), colWrapperStr);
+        }, delay || 50);
+    }
+
+    function resizeEvent() {
+        $('.enterprise-panel').length > 0 && wrapperReset();
+    }
+
+    //鼠标经过效果
+    function mouseEnterEvent() {
+        var productId = $(this).attr('data-productid');
+        if ($('.product-agent[data-productid=' + productId + '] .product').length > 0) {
+            $('.product-label').removeClass('active');
+
+            $(this).addClass('active');
+            $('.product-agent[data-productid]').removeClass('active');
+            $('.product-agent[data-productid=' + productId + ']').addClass('active');
+        }
+    }
+
+    //点击产品事件
+    function clickAgentEvent() {
+        var productId = $(this).attr('data-productid');
+        $('.product-label').removeClass('active2').filter('[data-productid=' + productId + ']').addClass('active2');
+    }
 
     angular.module('formApp').directive('products', function () {
             return {
-                scope: {dataResult: '=', productReadonly: '=', show: '=',initData:'='},
+                scope: {dataResult: '=', productReadonly: '=', show: '=', initData: '='},
                 template: require('./products-template.html'),
                 link: function (scope, iElem, iAttrs) {
                     scope.$watch('show', function () {
@@ -20,28 +54,6 @@ define(function (require, exports, module) {
                         //用户体验优化
                         //窗口改变大小事件
                         $(window).off('resize', resizeEvent).on('resize', resizeEvent);
-                        function resizeEvent() {
-                            $('.enterprise-panel').length > 0 && wrapperReset();
-                        }
-
-                        //鼠标经过效果
-                        function mouseEnterEvent() {
-                            var productId = $(this).attr('data-productid');
-                            if ($('.product-agent[data-productid=' + productId + '] .product').length > 0) {
-                                $('.product-label').removeClass('active');
-
-                                $(this).addClass('active');
-                                $('.product-agent[data-productid]').removeClass('active');
-                                $('.product-agent[data-productid=' + productId + ']').addClass('active');
-                            }
-                        }
-
-                        //点击产品事件
-                        function clickAgentEvent() {
-                            var productId = $(this).attr('data-productid');
-                            $('.product-label').removeClass('active2').filter('[data-productid=' + productId + ']').addClass('active2');
-                        }
-
                         $container
                             .off('mouseenter', '.product-label', mouseEnterEvent)
                             .off('click', '.product-agent', clickAgentEvent)
@@ -69,33 +81,32 @@ define(function (require, exports, module) {
                         product.index = _.findIndex(productJson.products, {productId: product.productId});
                         changeState(product);
                     }
-                    //瀑布布局重置
-                    function wrapperReset(delay) {
-                        setTimeout(function () {
-                            $('.product-agent').each(function (i, n) {
-                                var $dom = $(n);
-                                if ($dom.parents('.product-col-wraper').length > 0) {
-                                    $dom.unwrap();
-                                }
-                            });
-                            waterfallcomput($('.products-border'), $('.product-agent').has('.product'), colWrapperStr);
-                        }, delay || 50);
-                    }
+
 
                     function changeState(product) {
                         wrapperReset();
                         var find = _.findWhere(resultData, {productId: product.productId});
-                        if (find) {
-                            //不再直接替换成结果data而是用采用结果data去赋值给原始data 最终取值使用原始data
-                            _.each(product.logic.data, function (item, i) {
-                                var rData = _.findWhere(find.data, {name: item.name});
-                                if (rData) {
+                        var findInitData = _.findWhere(scope.initData || [], {productId: product.productId});
+                        //不再直接替换成结果data而是用采用结果data去赋值给原始data 最终取值使用原始data
+                        _.each(product.logic.data, function (item, i) {
+                            var rData = null;
+                            //先赋初始化数据
+                            if (findInitData && findInitData.data) {
+                                rData = _.findWhere(findInitData.data, {name: item.name});
+                                if (rData && !checkoutUN(rData.value)) {
                                     item.value = rData.value;
                                 }
-                            });
-                            if (!checkoutUN(find.state)) {
-                                product.logic.currState = find.state;
                             }
+                            if (find && find.data) {
+                                //再赋保存的数据
+                                rData = _.findWhere(find.data, {name: item.name});
+                                if (rData && !checkoutUN(rData.value)) {
+                                    item.value = rData.value;
+                                }
+                            }
+                        });
+                        if (find && !checkoutUN(find.state)) { //结果数据会可能修改状态
+                            product.logic.currState = find.state;
                         }
                         var stateData = getStateCombine(product.logic);//所有的状态
                         product.states = stateData.visibleStates;//可见的状态
@@ -126,6 +137,17 @@ define(function (require, exports, module) {
                         item.show = !!findProduct;
                         return {id: item.productId, text: item.text, checked: !!findProduct};
                     });
+                    //初始化数据对复选框进行操作
+                    if (scope.initData) {
+                        //对复选框进行操作
+                        _.each(scope.productCheckboxs, function (item, i) {
+                            var findDataItem = _.findWhere(scope.initData, {productId: item.id});
+                            if (findDataItem) {
+                                item.checked = findDataItem.checked;
+                                item.canCancel = findDataItem.canCancel;
+                            }
+                        });
+                    }
                     //复选框选中事件
                     scope.checkProduct = function (checked, checkbox) {
                         var findProduct = _.findWhere(products, {productId: checkbox.id});
@@ -461,13 +483,6 @@ define(function (require, exports, module) {
                     scope.getValidateValue = function (validateName, fieldStruct, product) {
 
                     };
-
-                    //获取后后端推送的数据
-                    scope.getResultData = function () {
-                        return _.map(products, function (item, i) {
-                            return {productId: item.productId, data: item.logic.data, state: item.logic.currState};
-                        });
-                    };
                     //添加销售
                     scope.addSalesmen = function (field) {
                         field.value.valueData.valueItems = field.value.valueData.valueItems || [];
@@ -504,17 +519,17 @@ define(function (require, exports, module) {
                                 content: require('./dialogtemplate.html')
                             }
                         );
-                        dialog.bootstrap(['common.directives', 'common.services','formApp'], function (app) {
-                            app.controller('dialogController', ['$scope', '$timeout', 'select2Query', function ($scope, $timeout,select2Query) {
+                        dialog.bootstrap(['common.directives', 'common.services', 'formApp'], function (app) {
+                            app.controller('dialogController', ['$scope', '$timeout', 'select2Query', function ($scope, $timeout, select2Query) {
                                 var vm = this;
                                 vm.config = accountConfig;
-                                vm.ajaxConfig=select2Query.getEmplyeeAjaxConfig();
+                                vm.ajaxConfig = select2Query.getEmplyeeAjaxConfig();
                                 vm.ngModel = null;
                                 vm.select2Model = null;
                                 vm.placeholder = '请输入条件查询';
                                 vm.clickEnter = function () {
-                                    var me=this;
-                                    if(me.select2Model) {
+                                    var me = this;
+                                    if (me.select2Model) {
                                         scope.$apply(function () {
                                             array.push(me.select2Model.data);
                                         });
@@ -543,11 +558,11 @@ define(function (require, exports, module) {
                                 content: require('./dialogtemplate.html')
                             }
                         );
-                        dialog.bootstrap(['common.directives', 'common.services','formApp'], function (app) {
-                            app.controller('dialogController', ['$scope', '$timeout', 'select2Query', function ($scope, $timeout,select2Query) {
+                        dialog.bootstrap(['common.directives', 'common.services', 'formApp'], function (app) {
+                            app.controller('dialogController', ['$scope', '$timeout', 'select2Query', function ($scope, $timeout, select2Query) {
                                 var vm = this;
                                 vm.config = accountConfig;
-                                vm.ajaxConfig=select2Query.getEmplyeeAjaxConfig();
+                                vm.ajaxConfig = select2Query.getEmplyeeAjaxConfig();
                                 vm.ngModel = null;
                                 vm.select2Model = null;
                                 vm.placeholder = '请选择...';
