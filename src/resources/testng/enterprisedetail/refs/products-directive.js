@@ -493,35 +493,34 @@ define(function (require, exports, module) {
                     //弹窗选择 添加销售
                     scope.selectSalesmenDialog = function (array) {
                         var accountConfig = {
-                            data: [{id: 1, text: '111111111111111'}, {id: 2, text: '22222222222'}, {id: 3, text: '3333333333'}, {id: 4, text: '支付宝'}],
+                            data: [],
                             multiple: false,
-                            placeholder: '必须与实际打款的单位/个人名称一致'
+                            placeholder: '请输入条件查询'
                         };
                         var dialog = dialogManager.getInstance(null,
                             {
                                 defaultAttr: {
-                                    title: 'testResult',
-                                    width:600
+                                    title: '选择销售',
+                                    width: 600
                                 },
                                 content: require('./dialogtemplate.html')
                             }
                         );
-                        dialog.bootstrap(['common.directives', 'common.services'], function (app) {
-                            app.controller('dialogController', ['$scope', '$timeout', function ($scope, $timeout) {
+                        dialog.bootstrap(['common.directives', 'common.services','formApp'], function (app) {
+                            app.controller('dialogController', ['$scope', '$timeout', 'select2Query', function ($scope, $timeout,select2Query) {
                                 var vm = this;
                                 vm.config = accountConfig;
+                                vm.ajaxConfig=select2Query.getEmplyeeAjaxConfig();
                                 vm.ngModel = null;
                                 vm.select2Model = null;
-                                vm.placeholder = '请选择...';
+                                vm.placeholder = '请输入条件查询';
                                 vm.clickEnter = function () {
-                                    scope.$apply(function () {
-                                        array.push({
-                                            "name": "张三",
-                                            "department": '广州大一部',
-                                            "inputTitle": "签约金额",
-                                            "value": "111"
+                                    var me=this;
+                                    if(me.select2Model) {
+                                        scope.$apply(function () {
+                                            array.push(me.select2Model.data);
                                         });
-                                    });
+                                    }
                                 };
                                 vm.clickCancel = function () {
 
@@ -533,23 +532,24 @@ define(function (require, exports, module) {
                     //弹窗选择 添加跟进人
                     scope.selectPartnersDialog = function (array) {
                         var accountConfig = {
-                            data: [{id: 1, text: '111111111111111'}, {id: 2, text: '22222222222'}, {id: 3, text: '3333333333'}, {id: 4, text: '支付宝'}],
+                            data: [],
                             multiple: false,
-                            placeholder: '必须与实际打款的单位/个人名称一致'
+                            placeholder: '请输入条件查询'
                         };
                         var dialog = dialogManager.getInstance(null,
                             {
                                 defaultAttr: {
-                                    title: 'testResult',
+                                    title: '选择跟进人',
                                     width: 600
                                 },
                                 content: require('./dialogtemplate.html')
                             }
                         );
-                        dialog.bootstrap(['common.directives', 'common.services'], function (app) {
-                            app.controller('dialogController', ['$scope', '$timeout', function ($scope, $timeout) {
+                        dialog.bootstrap(['common.directives', 'common.services','formApp'], function (app) {
+                            app.controller('dialogController', ['$scope', '$timeout', 'select2Query', function ($scope, $timeout,select2Query) {
                                 var vm = this;
                                 vm.config = accountConfig;
+                                vm.ajaxConfig=select2Query.getEmplyeeAjaxConfig();
                                 vm.ngModel = null;
                                 vm.select2Model = null;
                                 vm.placeholder = '请选择...';

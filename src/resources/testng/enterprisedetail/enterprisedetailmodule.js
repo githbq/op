@@ -58,10 +58,12 @@ define(function (require, exports, module) {
 
 
     }]);
-    myApp.controller('form3Controller', ['$scope', 'productService','select2Query', function ($scope, productService,select2Query) {
-        $scope.ajaxQuery1=select2Query.getAjaxConfig();
+    myApp.controller('form3Controller', ['$scope', 'productService', 'select2Query', function ($scope, productService,select2Query) {
+        $scope.bankAjaxConfig=select2Query.getBankAjaxConfig();
+
         //付款信息
         var payInfo = $scope.payInfo;//从mainController拿到的对象
+        payInfo.receiptsAccount='xxxxxxxxxxxxxx';
         //payInfo.partReadonly=true;
         $scope.payInfo.currPayAmountList = [{currPayAmount: 1, productId: 1, productName: 'CRM分期', purchaseAmount: 555,toAgent:true}, {currPayAmount: 7, productId: 7, productName: '工资助手分期', purchaseAmount: 666}];
         $scope.testResult3 = function (form) {

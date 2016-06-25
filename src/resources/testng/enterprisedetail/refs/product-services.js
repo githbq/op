@@ -1,12 +1,45 @@
-define(function(require,exports,module){
-    var app=angular.module('formApp');
+define(function (require, exports, module) {
+    var app = angular.module('formApp');
     app.factory('select2Query', ['$timeout', function ($timeout) {
         return {
-            getAjaxConfig: function () {
+            getEmplyeeAjaxConfig: function () {
                 var config = {
                     minimumInputLength: 1,
                     ajax: {
-                        url: "/api/a/odrDraft/getAccountForSubOrderPartner",
+                        cache:true,
+                         url: "/api/a/odrDraft/getAccountForSubOrderPartner",
+                        dataType: 'json',
+                        data: function (term) {
+                            return {
+                                accountName: term
+                            };
+                        },
+                        results: function (data, page) {
+                            var results=[];
+                            if(data.success){
+                                _.each(data.value.model||[],function(item,i){
+                                    results.push({id:item.accountId,text:item.accountName,selection:item.deptName+':'+item.accountName,data:item});
+                                });
+                            };
+                            return {results: results};
+                        }
+                    },
+                    formatResult: function (data) {
+                        return data.selection;
+                    },
+                    formatSelection: function (data) {
+                        return data.selection;
+                    }
+                };
+                return config;
+            },
+            getBankAjaxConfig: function () {
+                var config = {
+                    minimumInputLength: 1,
+                    ajax: {
+                        cache:true,
+                        // url: "/api/a/odrDraft/getAccountForSubOrderPartner",
+                        url:'/op/api/ba/querylist',
                         dataType: 'json',
                         data: function (term) {
                             return {
@@ -14,17 +47,23 @@ define(function(require,exports,module){
                             };
                         },
                         results: function (data, page) {
-                            return {results: data.movies};
+                            var results=[];
+                              if(data.success){
+                                  _.each(data.value.model.content||[],function(item,i){
+                                      results.push({id:item.bankAccount,text:item.bankAccount,selection:'账户:'+item.bankAccount+'  公司：'+item.company+'  银行名称:'+item.bankName})
+                                  });
+                              };
+                            return {results: results};
                         }
                     },
                     formatResult: function (data) {
-                        return data.title;
+                        return data.selection;
                     },
                     formatSelection: function (data) {
-                        return data.title;
+                        debugger
+                        return data.text;
                     }
                 };
-
                 return config;
             }
         }

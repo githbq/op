@@ -220,9 +220,9 @@
                                             <table class="s-table">
                                                 <tbody>
                                                 <tr ng-repeat="item in field.value.valueData.valueItems">
-                                                    <td width="20%" ng-bind="item.name"></td>
-                                                    <td ng-bind="item.department"></td>
-                                                    <td width="15%"><span ng-bind="item.inputTitle"></span></td>
+                                                    <td width="20%" ng-bind="item.accountName"></td>
+                                                    <td ng-bind="item.deptName"></td>
+                                                    <td width="15%">签约金额</td>
                                                     <td width="20%">
                                                         <input ng-required="field.validate.required" number name="{{'sales'+$index}}" ng-disabled="productReadonly||field.readonly" ng-readonly="productReadonly||field.readonly" type="text" ng-model="item.value" class="input-price-s"/>
                                                     </td>
@@ -240,8 +240,8 @@
                                             <table class="s-table">
                                                 <tbody>
                                                 <tr ng-repeat="item in field.value.valueData.valueItems">
-                                                    <td width="30%" ng-bind="item.name"></td>
-                                                    <td width="50%" ng-bind="item.department"></td>
+                                                    <td width="30%" ng-bind="item.accountName"></td>
+                                                    <td width="50%" ng-bind="item.deptName"></td>
                                                     <td width="20%">
                                                         <a ng-disabled="productReadonly||field.readonly" ng-if="!(productReadonly||field.readonly)" ng-click="productReadonly||field.readonly||deleteArray(field.value.valueData.valueItems,$index)">删除</a>
                                                     </td>

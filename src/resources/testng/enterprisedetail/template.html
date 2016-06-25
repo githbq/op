@@ -6,7 +6,7 @@
             <h1>第一步&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;企业信息</h1>
         </div>
         <div style="width:100%;word-break:break-all;word-wrap:break-word;">
-        {{entInfo}}
+            {{entInfo}}
         </div>
         <!--<input select2 ng-model="a" select2-model="aS2" config="config1" type="text"/>-->
         <!--<button ng-click="a=2" class="btn btn-success btn-sm pull-right">设置数据</button>-->
@@ -250,12 +250,13 @@
                 <div class="form-field">
                     <label class="required"><span>总部打款日期</span></label>
 
-                    <div class="inline-block" allow="!payInfoReadonly&&!payInfo.partReadonly"  ng-readonly="payInfoReadonly||payInfo.partReadonly" getform="this['payInfoForm']" name="payDate" datetimeconfig="payInfo.payDate_dataConfig" ng-model="payInfo.payDate"></div>
+                    <div class="inline-block" allow="!payInfoReadonly&&!payInfo.partReadonly" ng-readonly="payInfoReadonly||payInfo.partReadonly" getform="this['payInfoForm']" name="payDate" datetimeconfig="payInfo.payDate_dataConfig" ng-model="payInfo.payDate"></div>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-field">
-                    <label class="required"><span>总部到款账户</span></label>
+                    <label class="required v-top"><span>总部到款账户2</span></label>
+                    <span class="inline-block">{{payInfo.receiptsAccount}}<br/>
                     <input ng-class="{readonly:payInfoReadonly||payInfo.partReadonly}"
                            ng-readonly="payInfoReadonly||payInfo.partReadonly"
                            ng-readonly="enterpriseReadonly||payInfo.partReadonly"
@@ -264,7 +265,9 @@
                            placeholder="请输入银行账号"
                            select2-model="payInfo.receiptsAccountDataValue"
                            config="receiptsAccountConfig"
+                           ajax-config="bankAjaxConfig"
                            class="form-control multiple-select-long" type="text"/>
+                        </span>
                 </div>
             </div>
             <div class="form-row">
@@ -274,7 +277,7 @@
                 </div>
             </div>
             <div class="form-row">
-                <div  ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly"
+                <div ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly"
                      ng-model="payInfo.companyGatePicture"
                      input-file
                      status="payInfo.companyGatePicture_status"
