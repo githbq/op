@@ -113,11 +113,9 @@ define(function(require, exports, module) {
                 this.trigger('orderCustom', { 'enterpriseId': $(e.currentTarget).attr('data-enterpriseId') })
             }, //联合跟进人
 
-            'click .selectall': 'selectAllEve',   //
-            'click .auth': 'authEve',
-            'click .deauth': 'deauthEve',
-            'click .btn-transfer': 'transferEve',
-            'click .btn-sandbox': 'sandboxEve'
+            'click .selectall': 'selectAllEve',     //全选
+            'click .btn-transfer': 'transferEve',   //转移
+            'click .btn-sandbox': 'sandboxEve'      //沙盒
         },
 
         init: function() {
@@ -143,38 +141,7 @@ define(function(require, exports, module) {
             //初始化时间控件
             me.$openstime.datetimepicker({ format: 'Y/m/d', timepicker: false });
             me.$openetime.datetimepicker({ format: 'Y/m/d', timepicker: false });
-            /*
-             if( me.attrs['param'] && ( me.attrs['param'].length > 0 ) ){
-             var param = me.attrs['param'];
-             if( param.charAt(0) == 'p' ){
-             param = param.slice(1);
-             me.attrs['productId'] = param;
-             //获取产品列表
-             util.api({
-             'url': '/product/querypage',
-             'data':{
-             'isPage': 1
-             },
-             'success': function( data ){
-             console.warn( data );
-             if( data.success ){
-             var pStr = "";
-             data.value.model.content.forEach(function(item){
-             if( item.id == me.attrs['productId'] ){
-             pStr = '(' + item.name + '(' + item.deviceMaxCount + '终端)：' + '终端' + item.deviceMaxCount + '个/一次性赠送短信' + item.textMessageCount + '条/' + item.storage + ')';
-             }
-             });
-             me.$headerInfo.text( pStr );
-             }
-             }
-             });
-             } else {
-             param = param.slice(1);
-             me.model.set('agentId',param);
-             }
-             }
-             */
-             me.setState();
+            me.setState();
             //初始化
             me.initializeSelect();
         },
@@ -187,13 +154,12 @@ define(function(require, exports, module) {
             this.sandBox.show();
         },
         
-        //。设置状态
+        //设置状态
         setState: function(){
             var me = this;
             me.$('[data-state]').hide();
             me.$('[data-state="' + me.attrs.state + '"]').show();
         },
-
         //初始化枚举选择
         initializeSelect: function() {
             var me = this;

@@ -75,7 +75,7 @@
                 <thead>
                 <tr>
                     <th></th>
-                    <th style="width:20px;"><input type="checkbox" class="selectall"></th>
+                    <th style="width:20px;" data-state="agent"><input type="checkbox" class="selectall"></th>
                     <th style="width:120px;">企业名称</th>
                     <th style="width:130px;">企业帐号</th>
 					<th style="width:130px;">所属部门/代理商</th>
@@ -93,7 +93,7 @@
                 </thead>
                 <tbody ce-collection="list">
                     <td></td>
-                    <td><input type="checkbox" class="selectitem" value="<%=item.csmEnterprise.enterpriseAccount%>"></td>
+                    <td data-state="agent"><input type="checkbox" class="selectitem" value="<%=item.csmEnterprise.enterpriseAccount%>"></td>
                     <td><%=item.csmEnterprise.enterpriseName%></td>
                     <td><%=item.csmEnterprise.enterpriseAccount%></td>
 					<td><%=item.agent ? item.agent.name:''%> </td>
@@ -108,8 +108,8 @@
                     <td data-status="<%=item.csmEnterprise.runStatus%>">
                         
                         <a class="info-detail" data-id="<%=item.csmEnterprise.enterpriseID%>" data-account="<%=item.csmEnterprise.enterpriseAccount%>">查看</a>
-                        <a class="info-trace" data-id="<%=item.csmEnterprise.enterpriseID%>" data-account="<%=item.csmEnterprise.enterpriseAccount%>">跟踪记录</a>
-                        <a class="info-clue" data-id="<%=item.csmEnterprise.enterpriseID%>" data-account="<%=item.csmEnterprise.enterpriseAccount%>">线索</a>
+                        <a class="info-trace" data-state="agent" data-id="<%=item.csmEnterprise.enterpriseID%>" data-account="<%=item.csmEnterprise.enterpriseAccount%>">跟踪记录</a>
+                        <a class="info-clue" data-state="agent" data-id="<%=item.csmEnterprise.enterpriseID%>" data-account="<%=item.csmEnterprise.enterpriseAccount%>">线索</a>
                         <a class="info-renew" data-id="<%=item.csmEnterprise.enterpriseID%>" data-account="<%=item.csmEnterprise.enterpriseAccount%>">增购/续费</a>
                         <%if(item.canEditPartner == 1||item.canEditPartner == "1"){%>
 						<a class="info-custom"  data-enterpriseId="<%=item.csmEnterprise.enterpriseID%>">联合跟进人</a>&nbsp;&nbsp;
