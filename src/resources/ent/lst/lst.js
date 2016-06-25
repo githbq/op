@@ -56,10 +56,11 @@ define( function( require, exports, module ) {
         })
 		
 		//刷新列表
+        /*
         entDetail.on('refresh',function(){
             entList.search();
         });
-
+        */
         /*
         entDetail.on('employeeDetail',function(ea,phone){
             employeeDetail.show(ea,phone);
