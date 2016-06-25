@@ -16,7 +16,7 @@ define(function(require, exports, module) {
         var $el = exports.$el;
 
         //企业列表
-        var entList = new EntList({ 'productId': param && param[0] ,'wrapper': $el});
+        var entList = new EntList({ 'productId': param && param[0] ,'wrapper': $el , 'state': 'agent'});
 
         entList.render();
         //企业详情

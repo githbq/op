@@ -317,6 +317,7 @@ define(function(require, exports, module) {
                                     item.crmvisible = "直属下级可见";
                                 }
                             });
+                            me.setState();
                             me.clearSelect();
                         } else {
                             me.pagination.setPage(0, false);

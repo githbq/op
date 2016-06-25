@@ -20,7 +20,7 @@ define( function( require, exports, module ) {
     exports.init = function( param ) {
         var $el = exports.$el;
         
-        var entList = new EntList( {'wrapper':$el,'param': param && param[0]} );
+        var entList = new EntList( {'wrapper':$el,'param': param && param[0],'state':'support'} );
         entList.render();
         
         var entDetail = new EntDetail();

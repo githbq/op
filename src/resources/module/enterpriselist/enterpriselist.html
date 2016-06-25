@@ -75,7 +75,7 @@
                 <thead>
                 <tr>
                     <th></th>
-                    <th style="width:20px;" data-state="agent"><input type="checkbox" class="selectall"></th>
+                    <th style="width:20px;" data-state="support"><input type="checkbox" class="selectall"></th>
                     <th style="width:120px;">企业名称</th>
                     <th style="width:130px;">企业帐号</th>
 					<th style="width:130px;">所属部门/代理商</th>
@@ -93,7 +93,7 @@
                 </thead>
                 <tbody ce-collection="list">
                     <td></td>
-                    <td data-state="agent"><input type="checkbox" class="selectitem" value="<%=item.csmEnterprise.enterpriseAccount%>"></td>
+                    <td data-state="support"><input type="checkbox" class="selectitem" value="<%=item.csmEnterprise.enterpriseAccount%>"></td>
                     <td><%=item.csmEnterprise.enterpriseName%></td>
                     <td><%=item.csmEnterprise.enterpriseAccount%></td>
 					<td><%=item.agent ? item.agent.name:''%> </td>
@@ -126,7 +126,7 @@
     <div class="list-pager">
         <p class="buttons" data-state="support">
             <button class="btn-transfer">转移企业</button>
-            <button class="btn-sandbox">沙盒设置</button>
+            <!--<button class="btn-sandbox">沙盒设置</button>-->
         </p>
         <p class="pages"></p>
     </div>
