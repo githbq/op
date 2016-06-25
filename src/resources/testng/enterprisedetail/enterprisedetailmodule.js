@@ -7,12 +7,12 @@ define(function (require, exports, module) {
     var dialogManager = require('./refs/dialog');
 
     var mainCtrlScope = null;
-    var mainData=null;
+    var mainData = null;
     var Page = MClass(M.Center).include({
         view: require('./template.html'),
         init: function (data) {
             var me = this;
-            mainData=data;
+            mainData = data;
             Page.__super__.init.apply(me, arguments);
 
             angular.bootstrap(me.$view, ['formApp']);
@@ -191,7 +191,7 @@ define(function (require, exports, module) {
         //付款信息
         var payInfo = $scope.payInfo = {payStatus: 1};
         //全局行为状态
-        var action=$scope.action={doing:false};
+        var action = $scope.action = {doing: false};
         //模拟数据
         entInfo = $scope.entInfo = {"province": "110000", "city": "140000", "county": "110000", "provinceDataValue": "", "cityDataValue": "", "countyDataValue": "", "industryFirst": "100", "industrySecond": "150", "industryThird": "100", "industryFirstDataValue": "", "industrySecondDataValue": "", "industryThirdDataValue": "", "groupType": "166", "groupTypeDataValue": {"text": "房地产/建筑业", "id": "166"}, "saleTeamScale": "203", "saleTeamScaleDataValue": {"text": "贸易/批发/零售/租赁业", "id": "203"}, "isSaleTeam": "0", "isSaleTeamDataValue": {"id": "0", "text": "否"}, "companyScale": "166", "companyScaleDataValue": {"text": "房地产/建筑业", "id": "166"}, "isReferral": "0", "isReferralDataValue": {"id": "0", "text": "否"}, "isReference": "0", "isReferenceDataValue": {"id": "0", "text": "否"}, "keyContactName": "7676", "keyContactPhone": "567576", "contactName": "765576", "contactPhone": "576576", "address": "765576", "enterpriseName": "576576", "area": "576576", "enterpriseAccount": "F234554", "keyContactEmail": "765576@fds.gfh", "contactEmail": "756756@gbfc.df", "contactIm": "434343"}
         //
@@ -467,7 +467,7 @@ define(function (require, exports, module) {
             action.doing = true;
             util.api({
                 url: "~/op/api/a/odrDraft/DraftEnterpriseNext",
-                data: angular.extend({enterpriseAccount: null}, $scope.entInfo),
+                data: {odrDraftEnterprise: angular.extend({enterpriseAccount: null}, $scope.entInfo)},
                 success: function (result) {
                     callback(result);
                 },
@@ -498,10 +498,12 @@ define(function (require, exports, module) {
             util.api({
                 url: "~/op/api/a/odrDraft/draftOrderNext",
                 data: {
-                    enterpriseId: null,
-                    draftEneterpriseId: $scope.productInfo.draftEneterpriseId,
-                    id: $scope.productInfo.draftOrderId,
-                    content: angular.toJson(newDataResult)
+                    odrDraftOrder: {
+                        enterpriseId: null,
+                        draftEneterpriseId: $scope.productInfo.draftEneterpriseId,
+                        id: $scope.productInfo.draftOrderId,
+                        content: angular.toJson(newDataResult)
+                    }
                 },
                 success: callback,
                 complete: function () {
@@ -518,7 +520,7 @@ define(function (require, exports, module) {
             action.doing = true;
             util.api({
                 url: "~/op/api/a/odrDraft/draftPaidInfoNext",
-                data: $scope.payInfo,
+                data: {odrDraftPaidInfo: $scope.payInfo},
                 success: callback,
                 complete: function () {
                     $scope.$apply(function () {
