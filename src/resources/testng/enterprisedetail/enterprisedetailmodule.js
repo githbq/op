@@ -61,8 +61,15 @@ define(function (require, exports, module) {
     myApp.controller('form1Controller', ['$scope', '$timeout', function ($scope, $timeout) {
 
     }]);
-    myApp.controller('form2Controller', ['$scope', function ($scope) {
-
+    myApp.controller('form2Controller', ['$scope', 'productService', function ($scope,productService) {
+        //产品已购信息
+        $scope.productInfos = [];
+        productService.getOrderList($scope.globalInfo.enterpriseAccount||'ceshishur3',function(data){
+            $scope.$apply(function(){
+                debugger
+                $scope.productInfos=data;
+            });
+        });
 
     }]);
     myApp.controller('form3Controller', ['$scope', 'productService', 'select2Query', function ($scope, productService, select2Query) {
@@ -184,6 +191,7 @@ define(function (require, exports, module) {
         }
     });
     myApp.controller('mainController', ['$scope', '$timeout', 'select2Query', 'getEnumService', 'cascadeSelectService', 'productService', function ($scope, $timeout, select2Query, getEnumService, cascadeSelectService, productService) {
+        var globalInfo=$scope.globalInfo={};
         //企业详情信息
         var entInfo = $scope.entInfo = {};
         //产品信息模块
@@ -197,8 +205,7 @@ define(function (require, exports, module) {
         //
 
         mainCtrlScope = $scope;
-        //产品已购信息
-        $scope.productInfos = [[{name: '培训人数', value: 'xxxx'}], [{name: 'CRM用户数', value: 'xxxx'}, {name: false, value: '2016年-2017年'}]];
+
 
 
         $scope.enterpriseReadonly = false;//企业详情信息 只读

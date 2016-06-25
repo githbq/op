@@ -8439,6 +8439,12 @@ em {
 .input-file-container .file-field {
   width: 475px;
 }
+.enterprise-panel span.inline-m {
+  display: inline-block;
+  width: 100px;
+  text-align: right;
+  margin-right: 20px;
+}
 .enterprise-panel button[disabled] {
   opacity: 0.5;
 }

@@ -145,17 +145,68 @@
                     <div class="form-row">
                         <div class="form-field">
                             <label><span>企业名称</span></label>
-                            <span></span>
+                            <span>{{globalInfo.enterpriseName}}</span>
                         </div>
                         <div class="form-field">
                             <label><span>企业账号</span></label>
-                            <span></span>
+                            <span>{{globalInfo.enterpriseAccount}}</span>
                         </div>
                     </div>
-                    <div class="form-row" ng-repeat="row in productInfos">
-                        <div class="form-field" ng-repeat="cell in row">
-                            <label><span ng-if="cell.name">{{cell.name}}</span></label>
-                            <span>{{cell.value}}</span>
+                    <div class="form-row" ng-repeat="item in productInfos" ng-switch="item.code">
+                        <div ng-show="false" class="form-field" ng-switch-when="FX_Terminal">
+                        </div>
+                        <div class="form-field" ng-switch-when="CRM">
+                            <!--分割线-->
+                            <label>{{item.appName}}(个)：
+                            </label>
+                            <span class="inline-m">{{item.quota}}</span>
+                            <!--分割线-->
+                            <label>开始时间：
+                                <span>{{item.startDate | date:"yyyy/MM/dd" }}</span>
+                            </label>
+                            <!--分割线-->
+                            <label>结束时间：
+                                <span>{{item.endDate | date:"yyyy/MM/dd" }}</span>
+                            </label>
+                            <!--分割线-->
+                            <label>
+                                <input type='checkbox' name='baichuai' checked='checked' disabled='disabled'/>捆绑纷享百川
+                                <input type='checkbox' name='system' checked='checked' disabled='disabled'/>捆绑报数系统
+                                <input type='checkbox' name='mingpian' checked='checked' disabled='disabled'/>捆绑名片
+                            </label>
+
+                        </div>
+                        <div class="form-field" ng-switch-when="Service_Fee">
+                            <!--分割线-->
+                            <label>{{item.appName}}(个)：
+                            </label>
+                            <span class="inline-m">{{item.quota}}</span>
+                            <!--分割线-->
+                            <label>开始时间：
+                                <span>{{item.startDate | date:"yyyy/MM/dd" }}</span>
+                            </label>
+                            <!--分割线-->
+                            <label>结束时间：
+                                <span>{{item.endDate | date:"yyyy/MM/dd" }}</span>
+                            </label>
+                        </div>
+                        <div ng-show="false" class="form-field" ng-switch-when="Number_System">
+                        </div>
+                        <div ng-show="false" class="form-field" ng-switch-when="FXBC">
+                        </div>
+                        <div class="form-field" ng-switch-default>
+                            <!--分割线-->
+                            <label>{{item.appName}}:
+                            </label>
+                            <span class="inline-m"></span>
+                            <!--分割线-->
+                            <label>开始时间：
+                                <span>{{item.startDate | date:"yyyy/MM/dd" }}</span>
+                            </label>
+                            <!--分割线-->
+                            <label>结束时间：
+                                <span>{{item.endDate | date:"yyyy/MM/dd" }}</span>
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -314,7 +365,7 @@
         <button ng-if="step>1" ng-disabled="action.doing===true" ng-click="prevStep()">上一步</button>
         &nbsp;&nbsp;&nbsp;&nbsp;
         <!--<button ng-disabled="mainForm.basicForm.$invalid" ng-if="step<3" ng-click="nextStep()">下一步</button>-->
-        <button ng-if="step<3"  ng-disabled="action.doing===true" ng-click="nextStep(this.mainForm['stepForm'+step])">下一步</button>
+        <button ng-if="step<3" ng-disabled="action.doing===true" ng-click="nextStep(this.mainForm['stepForm'+step])">下一步</button>
         &nbsp;&nbsp;&nbsp;&nbsp;
         <button ng-if="step==3" class="save" ng-disabled="action.doing===true" ng-click="save()" ng-class="{saving:action.doing}">提交</button>
         &nbsp;&nbsp;&nbsp;&nbsp;
