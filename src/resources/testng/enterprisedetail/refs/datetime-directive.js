@@ -5,7 +5,7 @@ define(function (require, exports, module) {
         return {
             restrict: 'A',
             template: '<input name="{{name}}" style="cursor:pointer;" type="text" readonly="readonly" class="datetime-control" ng-model="stringValue"/>',
-            scope: {ngChange: '&', datetimeconfig: '=', ngModel: '=', allow: '=', getForm: '&getform', name: '@'},
+            scope: {maxDate: '@', minDate: '@', ngChange: '&', datetimeconfig: '=', ngModel: '=', allow: '=', getForm: '&getform', name: '@'},
             link: function (scope, iElem, iAttr) {
                 scope.datetimeconfig = scope.datetimeconfig || {};
                 var currentForm = scope.getForm && scope.getForm();
@@ -31,8 +31,31 @@ define(function (require, exports, module) {
                         valueChange(control);
                     }
                 };
+                scope.$watch('maxDate', function (newValue, oldValue) {
+                    resetMaxOrMinDate(newValue, true);
+                });
+                scope.$watch('minDate', function (newValue, oldValue) {
+                    resetMaxOrMinDate(newValue, false);
+                });
+                function resetMaxOrMinDate(value, isMax) {
+                    if (value && !isNaN(value)) {
+                        var value = parseInt(value);
+                        isMax && (scope.datetimeconfig.maxDate = new Date(value));
+                        !isMax && (scope.datetimeconfig.minDate = new Date(value));
+                        if (isMax && scope.ngModel && value < scope.ngModel) {
+                            scope.ngModel = value;
+                        }
+                        if (!isMax && scope.ngModel && value > scope.ngModel) {
+                            scope.ngModel = value;
+                        }
+                        $('input', iElem).off('focus').on('focus', function () {//触发控件
+                            WdatePicker(scope.datetimeconfig);
+                        });
+                    }
+                }
+
                 scope.$watch('ngModel', function () {
-                    var datetimeconfig = $.extend({}, option, scope.datetimeconfig || {});
+                    var datetimeconfig = scope.datetimeconfig = $.extend({}, option, scope.datetimeconfig || {});
                     transferDate();
                     scope.stringValue = scope.ngModel ? new Date(scope.ngModel)._format(datetimeconfig.dateFmt) : '';//赋默认值
                     if (scope.allow !== false) {
@@ -56,6 +79,18 @@ define(function (require, exports, module) {
                         } else {
                             scope.ngModel = new Date(str + " 00:00:00").getTime();
                         }
+                    }
+                }
+
+                //获取时间戳通过值及类型
+                function getTimeLongByType(value, type) {
+                    if (!value) {
+                        return;
+                    }
+                    if (!isNaN(value)) {//如果是数字
+                        return new Date(parseInt(value))._format('yyyy/MM/dd' + (type != 1 ? ' 00:00:00' : ' 59:59:59')).getTime();
+                    } else {
+                        return new Date(value + (type != 1 ? ' 00:00:00' : ' 59:59:59')).getTime();
                     }
                 }
             }

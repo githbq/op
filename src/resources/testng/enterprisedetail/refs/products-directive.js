@@ -481,27 +481,12 @@ define(function (require, exports, module) {
 
                     //获取对应的验证值
                     scope.getValidateValue = function (validateName, fieldStruct, product) {
-
-                    };
-                    //添加销售
-                    scope.addSalesmen = function (field) {
-                        field.value.valueData.valueItems = field.value.valueData.valueItems || [];
-
-                        field.value.valueData.valueItems.push({
-                            "name": "张三",
-                            "department": '广州大一部',
-                            "inputTitle": "签约金额",
-                            "value": "111"
-                        });
-                    };
-                    // 添加合作人
-                    scope.addPartners = function (field) {
-                        field.value.valueData.valueItems = field.value.valueData.valueItems || [];
-                        field.value.valueData.valueItems.push({
-                            "name": "张三",
-                            "department": '广州大一部',
-                            "value": "AAAAAA"
-                        });
+                       debugger
+                        if (fieldStruct.validate && fieldStruct.validate[validateName]) {
+                            var validateItem=fieldStruct.validate[validateName];
+                            var result = getValueForSwitchValueType(validateItem.valueType, validateItem.valueRef, product);
+                            return result;
+                        }
                     };
                     //弹窗选择 添加销售
                     scope.selectSalesmenDialog = function (array) {
