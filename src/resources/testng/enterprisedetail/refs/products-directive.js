@@ -567,13 +567,12 @@ define(function (require, exports, module) {
                                 vm.select2Model = null;
                                 vm.placeholder = '请选择...';
                                 vm.clickEnter = function () {
-                                    scope.$apply(function () {
-                                        array.push({
-                                            "name": "张三",
-                                            "department": '广州大一部',
-                                            "value": "AAAAAA"
+                                    var me = this;
+                                    if (me.select2Model) {
+                                        scope.$apply(function () {
+                                            array.push(me.select2Model.data);
                                         });
-                                    });
+                                    }
                                 };
                                 vm.clickCancel = function () {
 
