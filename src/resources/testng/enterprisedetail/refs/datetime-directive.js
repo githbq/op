@@ -4,8 +4,8 @@ define(function (require, exports, module) {
         //datetimeconfig 填写my97的配置　　　有　dateFmt:定义日期展示的格式化串  type:1　为取值的时候　后面加上23:59:59代表结束时间　不填则为开始时间00:00:00
         return {
             restrict: 'A',
-            template: '<input name="{{name}}" style="cursor:pointer;" type="text" readonly="readonly" class="datetime-control" ng-model="stringValue"/>',
-            scope: {maxDate: '@', minDate: '@', ngChange: '&', datetimeconfig: '=', ngModel: '=', allow: '=', getForm: '&getform', name: '@'},
+            template: '<input ng-disabled="ngDisabled" name="{{name}}" style="cursor:pointer;" type="text" readonly="readonly" class="datetime-control" ng-model="stringValue"/>',
+            scope: {maxDate: '@', minDate: '@', ngChange: '&', datetimeconfig: '=', ngModel: '=', ngDisabled: '=', getForm: '&getform', name: '@'},
             link: function (scope, iElem, iAttr) {
                 scope.datetimeconfig = scope.datetimeconfig || {};
                 var currentForm = scope.getForm && scope.getForm();
@@ -58,7 +58,7 @@ define(function (require, exports, module) {
                     var datetimeconfig = scope.datetimeconfig = $.extend({}, option, scope.datetimeconfig || {});
                     transferDate();
                     scope.stringValue = scope.ngModel ? new Date(scope.ngModel)._format(datetimeconfig.dateFmt) : '';//赋默认值
-                    if (scope.allow !== false) {
+                    if (!scope.ngDisabled) {
                         $('input', iElem).off('focus').on('focus', function () {//触发控件
                             WdatePicker(datetimeconfig);
                         });

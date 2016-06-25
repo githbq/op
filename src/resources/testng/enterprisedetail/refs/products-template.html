@@ -257,7 +257,7 @@
                                         <div ng-switch-when="time">
                                             <label ng-if="field.label" ng-class="{required:field.validate.required}"><span class="title" ng-init="field.dateConfig={type:0}">{{field.label}}</span></label>
                                             <div class="div-inline-block">
-                                                <div allow="!(productReadonly||field.readonly)"
+                                                <div ng-disabled="productReadonly||field.readonly"
                                                      min-date="{{getValidateValue('moreThan',field,product)}}" max-date="{{getValidateValue('lessThan',field,product)}}"
                                                      ng-change="this.fieldChange(this.field,this.product,this[currentFormName])"
                                                      ng-disabled="productReadonly||field.disabled" ng-readonly="productReadonly||field.readonly"
@@ -270,7 +270,7 @@
                                         <div ng-switch-when="endTime">
                                             <label ng-if="field.label" ng-class="{required:field.validate.required}"><span class="title" ng-init="field.dateConfig={type:1}">{{field.label}}</span></label>
                                             <div class="div-inline-block">
-                                                <div allow="!(productReadonly||field.readonly)"
+                                                <div ng-disabled="productReadonly||field.readonly"
                                                      min-date="{{getValidateValue('moreThan',field,product)}}" max-date="{{getValidateValue('lessThan',field,product)}}"
                                                      whenchange="this.fieldChange(this.field,this.product,this[currentFormName])"
                                                      ng-disabled="productReadonly||field.disabled" ng-readonly="productReadonly||field.readonly"
