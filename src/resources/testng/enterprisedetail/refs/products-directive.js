@@ -481,7 +481,6 @@ define(function (require, exports, module) {
 
                     //获取对应的验证值
                     scope.getValidateValue = function (validateName, fieldStruct, product) {
-                       debugger
                         if (fieldStruct.validate && fieldStruct.validate[validateName]) {
                             var validateItem=fieldStruct.validate[validateName];
                             var result = getValueForSwitchValueType(validateItem.valueType, validateItem.valueRef, product);

@@ -74,7 +74,7 @@ define(function (require, exports, module) {
                     if (!str) {
                         scope.ngModel = null;
                     } else {
-                        if (scope.datetimeconfig.type == '1' && scope.ngModel) {//0开始时间 1为结束时间
+                        if (scope.datetimeconfig.type == '1' && scope.ngModel) {
                             scope.ngModel = new Date(str + " 23:59:59").getTime();
                         } else {
                             scope.ngModel = new Date(str + " 00:00:00").getTime();
@@ -88,7 +88,7 @@ define(function (require, exports, module) {
                         return;
                     }
                     if (!isNaN(value)) {//如果是数字
-                        return new Date(parseInt(value))._format('yyyy/MM/dd' + (type != 1 ? ' 00:00:00' : ' 59:59:59')).getTime();
+                        return new Date(parseInt(value))._format('yyyy/MM/dd ' + (type != 1 ? '00:00:00' : '59:59:59')).getTime();
                     } else {
                         return new Date(value + (type != 1 ? ' 00:00:00' : ' 59:59:59')).getTime();
                     }
