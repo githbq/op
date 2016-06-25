@@ -57,7 +57,10 @@
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>公司规模</span></label>
-                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 ng-model="entInfo.companyScale" name="companyScale" select2-model="entInfo.companyScaleDataValue" config="companyScaleConfig" class="form-control multiple-select" type="text"/>
+                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required
+                           select2 ng-model="entInfo.companyScale" name="companyScale"
+                           select2-model="entInfo.companyScaleDataValue" config="companyScaleConfig"
+                           class="form-control multiple-select" type="text"/>
                 </div>
                 <div class="form-field">
                     <label class="required"><span>使用对象类型</span></label>
@@ -160,7 +163,7 @@
             <div class="form-row">
                 <h2>产品目录</h2>
             </div>
-            <products x-data-result="dataResultData.dataResult" product-readonly="productReadonly" show="step==2"></products>
+            <products x-data-result="productInfo.dataResult" init-data="productInfo.initData" product-readonly="productReadonly" show="step==2"></products>
         </div>
     </div>
     <div ng-if="step==3" ng-controller="form3Controller" ng-form name="stepForm3" class="step form payinfo">

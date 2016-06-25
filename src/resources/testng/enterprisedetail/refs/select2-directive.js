@@ -44,12 +44,10 @@ define(function (require, exports, module) {
                 if (tagName === 'INPUT') {
                     // 初始化
                     var $element = $(element);
-                    debugger
                     // 获取内置配置
                     if (scope.ajaxConfig) {
                         scope.config = angular.extend(scope.config||{},scope.ajaxConfig) ;
                     }
-
                     // 动态生成select2
                     scope.$watch('config', function () {
                         angular.extend(config, scope.config);

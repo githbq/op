@@ -7,7 +7,7 @@ define(function (require, exports, module) {
 
     angular.module('formApp').directive('products', function () {
             return {
-                scope: {dataResult: '=', productReadonly: '=', show: '='},
+                scope: {dataResult: '=', productReadonly: '=', show: '=',initData:'='},
                 template: require('./products-template.html'),
                 link: function (scope, iElem, iAttrs) {
                     scope.$watch('show', function () {
@@ -92,7 +92,6 @@ define(function (require, exports, module) {
                                 if (rData) {
                                     item.value = rData.value;
                                 }
-                                item.x = Math.random();
                             });
                             if (!checkoutUN(find.state)) {
                                 product.logic.currState = find.state;
@@ -105,7 +104,6 @@ define(function (require, exports, module) {
                         if (findIndex >= 0) {
                             products[findIndex] = product;
                         } else {
-                            product.$uniqueKey = Math.random();
                             products.push(product);
                         }
                         //处理返回结果

@@ -58,14 +58,14 @@ define(function (require, exports, module) {
 
 
     }]);
-    myApp.controller('form3Controller', ['$scope', 'productService', 'select2Query', function ($scope, productService,select2Query) {
-        $scope.bankAjaxConfig=select2Query.getBankAjaxConfig();
+    myApp.controller('form3Controller', ['$scope', 'productService', 'select2Query', function ($scope, productService, select2Query) {
+        $scope.bankAjaxConfig = select2Query.getBankAjaxConfig();
 
         //付款信息
         var payInfo = $scope.payInfo;//从mainController拿到的对象
-        payInfo.receiptsAccount='xxxxxxxxxxxxxx';
+        payInfo.receiptsAccount = 'xxxxxxxxxxxxxx';
         //payInfo.partReadonly=true;
-        $scope.payInfo.currPayAmountList = [{currPayAmount: 1, productId: 1, productName: 'CRM分期', purchaseAmount: 555,toAgent:true}, {currPayAmount: 7, productId: 7, productName: '工资助手分期', purchaseAmount: 666}];
+        $scope.payInfo.currPayAmountList = [{currPayAmount: 1, productId: 1, productName: 'CRM分期', purchaseAmount: 555, toAgent: true}, {currPayAmount: 7, productId: 7, productName: '工资助手分期', purchaseAmount: 666}];
         $scope.testResult3 = function (form) {
 
         };
@@ -74,47 +74,56 @@ define(function (require, exports, module) {
             _.each($scope.payInfo.currPayAmountList, function (item, i) {
                 item.currPayAmount = 0;
             });
-           switch(value.toString()){
-               case '1':{
-                   //全额
-                   var agentPrice=0;
-                   var companyPrice=0;
-                   _.each($scope.payInfo.currPayAmountList,function(item,i){
-                       if(item.toAgent){
-                           agentPrice+=parseFloat(item.purchaseAmount);
-                       }else{
-                           companyPrice+=parseFloat(item.purchaseAmount)
-                       }
-                   });
-                   payInfo.agentCurrPayAmount=agentPrice;
-                   payInfo.currPayAmount=companyPrice;
-               };break;
-               case '2':{
-                   //未付
-                   payInfo.agentCurrPayAmount=0;
-                   payInfo.currPayAmount=0;
-               };break;
-               case '3':{
-                   //分期
-                   payInfo.agentCurrPayAmount=0;
-                   payInfo.currPayAmount=0;
-               };break;
-           }
+            switch (value.toString()) {
+                case '1':
+                {
+                    //全额
+                    var agentPrice = 0;
+                    var companyPrice = 0;
+                    _.each($scope.payInfo.currPayAmountList, function (item, i) {
+                        if (item.toAgent) {
+                            agentPrice += parseFloat(item.purchaseAmount);
+                        } else {
+                            companyPrice += parseFloat(item.purchaseAmount)
+                        }
+                    });
+                    payInfo.agentCurrPayAmount = agentPrice;
+                    payInfo.currPayAmount = companyPrice;
+                }
+                    ;
+                    break;
+                case '2':
+                {
+                    //未付
+                    payInfo.agentCurrPayAmount = 0;
+                    payInfo.currPayAmount = 0;
+                }
+                    ;
+                    break;
+                case '3':
+                {
+                    //分期
+                    payInfo.agentCurrPayAmount = 0;
+                    payInfo.currPayAmount = 0;
+                }
+                    ;
+                    break;
+            }
         };
         $scope.payStatusChange(payInfo.payStatus);
         //分期金额值改变事件
-        $scope.currPayAmountChange=function(currPayAmountList){
-            var agentPrice=0;
-            var companyPrice=0;
-            _.each(currPayAmountList,function(item,i){
-                if(item.toAgent){
-                    agentPrice+=parseFloat(item.currPayAmount);
-                }else{
-                    companyPrice+=parseFloat(item.currPayAmount)
+        $scope.currPayAmountChange = function (currPayAmountList) {
+            var agentPrice = 0;
+            var companyPrice = 0;
+            _.each(currPayAmountList, function (item, i) {
+                if (item.toAgent) {
+                    agentPrice += parseFloat(item.currPayAmount);
+                } else {
+                    companyPrice += parseFloat(item.currPayAmount)
                 }
             });
-            payInfo.agentCurrPayAmount=agentPrice;
-            payInfo.currPayAmount=companyPrice;
+            payInfo.agentCurrPayAmount = agentPrice;
+            payInfo.currPayAmount = companyPrice;
         };
         $scope.getDataByContractNo = function (value) {
             debugger
@@ -169,17 +178,22 @@ define(function (require, exports, module) {
         }
     });
     myApp.controller('mainController', ['$scope', '$timeout', 'select2Query', 'getEnumService', 'cascadeSelectService', 'productService', function ($scope, $timeout, select2Query, getEnumService, cascadeSelectService, productService) {
+        //企业详情信息
+        var entInfo = $scope.entInfo = {};
+        //产品信息模块
+        var productInfo = $scope.productInfo = {};
+        //付款信息
+        var payInfo = $scope.payInfo = {payStatus: 1};
+
+        //模拟数据
+        entInfo = $scope.entInfo = {"province": "110000", "city": "140000", "county": "110000", "provinceDataValue": "", "cityDataValue": "", "countyDataValue": "", "industryFirst": "100", "industrySecond": "150", "industryThird": "100", "industryFirstDataValue": "", "industrySecondDataValue": "", "industryThirdDataValue": "", "groupType": "166", "groupTypeDataValue": {"text": "房地产/建筑业", "id": "166"}, "saleTeamScale": "203", "saleTeamScaleDataValue": {"text": "贸易/批发/零售/租赁业", "id": "203"}, "isSaleTeam": "0", "isSaleTeamDataValue": {"id": "0", "text": "否"}, "companyScale": "166", "companyScaleDataValue": {"text": "房地产/建筑业", "id": "166"}, "isReferral": "0", "isReferralDataValue": {"id": "0", "text": "否"}, "isReference": "0", "isReferenceDataValue": {"id": "0", "text": "否"}, "keyContactName": "7676", "keyContactPhone": "567576", "contactName": "765576", "contactPhone": "576576", "address": "765576", "enterpriseName": "576576", "area": "576576", "enterpriseAccount": "F234554", "keyContactEmail": "765576@fds.gfh", "contactEmail": "756756@gbfc.df", "contactIm": "434343"}
+        //
 
         mainCtrlScope = $scope;
         //产品已购信息
         $scope.productInfos = [[{name: '培训人数', value: 'xxxx'}], [{name: 'CRM用户数', value: 'xxxx'}, {name: false, value: '2016年-2017年'}]];
 
 
-        //付款信息
-        var payInfo = $scope.payInfo = {payStatus: 1};
-
-        //企业详情信息
-        var entInfo = $scope.entInfo = {};
         $scope.enterpriseReadonly = false;//企业详情信息 只读
         $scope.payInfoReadonly = false;//企业详情信息 只读
         $scope.productReadonly = false;//产品信息 只读
@@ -292,10 +306,11 @@ define(function (require, exports, module) {
             search: false,
             minimumResultsForSearch: Infinity//不显示搜索框
         };
+        //使用对象类型
         getEnumService.load('GROUP_TYPE', function (list) {
             $scope.$apply(function () {
-                $scope.companyScaleConfig.data = list;
-                $scope.companyScaleConfig.placeholder = '请选择';
+                $scope.groupTypeConfig.data = list;
+                $scope.groupTypeConfig.placeholder = '请选择';
             });
         });
         //是否有销售团队
@@ -319,8 +334,8 @@ define(function (require, exports, module) {
         };
         getEnumService.load('SALE_TEAM_SCALE', true, function (list) {
             $scope.$apply(function () {
-                $scope.companyScaleConfig.data = list;
-                $scope.companyScaleConfig.placeholder = '请选择';
+                $scope.saleTeamScaleConfig.data = list;
+                $scope.saleTeamScaleConfig.placeholder = '请选择';
             });
         });
         //是否转介绍
@@ -401,13 +416,103 @@ define(function (require, exports, module) {
                 //    return;
                 //}
             }
+            switch ($scope.step) {
+                case 1:
+                {//企业详情界面
+                    submitStepEntInfo(function (result) {
+                        debugger
+                        if (result.success) {
+                            $scope.$apply(function () {
+                                var data = result.value.model;
+                                $scope.entInfo.draftEneterpriseId = data.draftEneterpriseId;
+                                $scope.productInfo.draftEneterpriseId = data.draftEneterpriseId;
+                                $scope.payInfo.draftEneterpriseId = data.draftEneterpriseId;
+                                $scope.productInfo.initData = data.initData;
+                                $scope.step++;
+                            });
+                        }
+                    });
+                    return;
+                }
+                    ;
+                    break;
+                case 2:
+                {//产品信息
+                    submitStepProductInfo(function (result) {
+                        debugger
+                        if (result.success) {
+                            $scope.$apply(function () {
+                                var data = result.value.model;
+                                $scope.productInfo.draftOrderId = data.draftOrderId;
+                                $scope.payInfo.draftOrderId = data.draftOrderId;
+                                $scope.payInfo.currPayAmountList = data.productList;
+                                $scope.step++;
+                            });
+                        }
+                    });
+                }
+                    ;
+                    break;
+                case 3:
+                {//付款信息
+                    submitStepPayInfo(function (result) {
+                        debugger
+                        if (result.success) {
+                            alert('操作成功');
+                        }
+                    });
+                }
+                    ;
+                    break;
+            }
             $scope.step++;
         };
+        //企业草稿提交  需要enterpriseAccount
+        function submitStepEntInfo(callback) {
+            util.api({
+                url: "~/op/api/a/odrDraft/DraftEnterpriseNext",
+                data: angular.extend({enterpriseAccount: null}, $scope.entInfo),
+                success: callback
+            })
+        }
 
+        //订单草稿  需要 enterpriseId
+        function submitStepProductInfo(callback) {
+            debugger
+            //数据二次处理
+            var dataResultCopy = angular.copy($scope.productInfo.dataResult);
+            var newDataResult = [];
+            _.each(dataResultCopy, function (item) {
+                item.show && (newDataResult.push(item));
+                var tempData = [];
+                _.each(item.data, function (dataItem) {
+                    dataItem.hidden !== true && (tempData.push(dataItem));
+                    delete dataItem.hidden;
+                });
+                item.data = tempData;
+            });
+            util.api({
+                url: "~/op/api/a/odrDraft/draftOrderNext",
+                data: {
+                    enterpriseId: null,
+                    draftEneterpriseId: $scope.productInfo.draftEneterpriseId,
+                    id: $scope.productInfo.draftOrderId,
+                    content: angular.toJson(newDataResult)
+                },
+                success: callback
+            })
+        }
 
-        //支付信息
+        //付款信息
+        function submitStepPayInfo(callback) {
+            debugger
+            util.api({
+                url: "~/op/api/a/odrDraft/draftPaidInfoNext",
+                data: $scope.payInfo,
+                success: callback
+            })
+        }
 
-        //end 支付信息
         $scope.save = function () {
             $scope.saving = true;
             $timeout(function () {
