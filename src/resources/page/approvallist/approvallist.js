@@ -1,23 +1,29 @@
-/**
- *
- * 我的审批列表
- *
- */
+//
+//
+// 我的审批列表
+//=========================================
 define( function(require, exports, module){
 
 	
 	//var OpenApprovalList = require('module/openapprovallist/openapprovallist');
-	var DetailApproval = require('../../order/detailapproval/detailapproval');
-	var DetailPayment = require('../../order/detailpayment/detailpayment');
-	var BackMoney = require('../../order/backmoney/backmoney');                       //回款
+	var DetailApproval = require('../../order/detailapproval/detailapproval');        //普通订单
+	var DetailPayment = require('../../order/detailpayment/detailpayment');           //收尾款
+	var BackMoney = require('../../order/backmoney/backmoney');                       //退款
 	
 	var page = require('common/widget/page/page');  //ng分页组件
-	var main = angular.module('list',['common']);
+	var main = angular.module('list',['common']);   //
 
 	//审批列表控制器
 	main.controller('approvallist',['$scope', '$element', function( $scope , $element ){
             
         console.log('controller approvallist is working');
+
+        $element.find('.starttime').datetimepicker({'timepicker': false,'format':'Y/m/d'})
+        $element.find('.endtime').datetimepicker({'timepicker': false,'format':'Y/m/d'})
+
+
+
+
         $scope.tabledata = {};
         $scope.tabledata.thead = ['订单号','合同号','企业名称','账号','订单类型','提单人','所属部门/代理商','特批单','当前审批节点','到款认领状态','订单状态','付费状态','提单日期','操作'];
         $scope.tabledata.tbody = [
@@ -47,7 +53,20 @@ define( function(require, exports, module){
         $scope.search = function(){
         	//console.log('search');
         	//console.log($scope.s);
-        	$scope.data.tbody.push([Math.random(),Math.random(),Math.random(),Math.random()])
+        	//$scope.data.tbody.push([Math.random(),Math.random(),Math.random(),Math.random()])
+            /*
+            util.api({
+                'url':'',
+                'data':{
+
+                },
+                'success': function( data ){
+                    
+                }
+            })
+            */
+            console.log('search');
+            console.log( $scope );
         }
 
         //初始化页数相关

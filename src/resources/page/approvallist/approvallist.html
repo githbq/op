@@ -10,7 +10,7 @@
             </div>
             <div class="list-bar">
                 <div class="list-bar-btns">
-                    <button class="btn-blue" >查询</button>
+                    <button class="btn-blue" ng-click="search()">查询</button>
                 </div>
                 <div class="list-bar-input">
                     <label for="">
@@ -44,7 +44,7 @@
                         <input type="text" ng-model="applicantname">
                     </label>
                     <label>
-                        提单日期 <input type="text" placeholder="开始时间" class="starttime"> ———— <input type="text" placeholder="结束时间" class="endtime">
+                        提单日期 <input type="text" ng-model="starttime" placeholder="开始时间" class="starttime"> ———— <input type="text" placeholder="结束时间" class="endtime" ng-model="endtime">
                     </label>
                     <label>
                         付费状态
