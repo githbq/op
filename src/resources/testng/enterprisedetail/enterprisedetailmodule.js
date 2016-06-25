@@ -520,7 +520,7 @@ define(function (require, exports, module) {
             action.doing = true;
             util.api({
                 url: "~/op/api/a/odrDraft/draftPaidInfoNext",
-                data: {odrDraftPaidInfo: $scope.payInfo},
+                data: {odrDraftPaidInfo: $scope.payInfo,submitType:mainData.type},
                 success: callback,
                 complete: function () {
                     $scope.$apply(function () {

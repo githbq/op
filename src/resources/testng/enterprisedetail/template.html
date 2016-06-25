@@ -231,7 +231,7 @@
                 <div class="form-field inputs-container">
                     <label class="fenqi-label" ng-repeat="item in payInfo.currPayAmountList">
                         <span>{{item.productName}}(元)</span>
-                        <input ng-model-options="{updateOn:'blur'}" ng-change="currPayAmountChange(payInfo.currPayAmountList)"
+                        <input ng-model-options="{updateOn:'default'}" ng-change="currPayAmountChange(payInfo.currPayAmountList)"
                                ng-class="{readonly:payInfoReadonly||payInfo.partReadonly}" number ng-readonly="payInfoReadonly||payInfo.partReadonly"
                                type="text" name="{{'currPayAmount_'+item.productId}}" max-number="item.purchaseAmount" ng-model="item.currPayAmount"/>
                     </label>
