@@ -81,10 +81,9 @@ define(function(require, exports, module) {
         }
     })
 
-    /**
-     *
-     * 企业列表
-     */
+    //
+    // 企业列表
+    //===================================
     var EntLst = MClass(M.Center).include({
 
         PAGESIZE: 20,
@@ -92,30 +91,33 @@ define(function(require, exports, module) {
         view: viewStr,
 
         elements: {
-            '#OpenSTime': 'openstime', //开通开始时间
-            '#OpenETime': 'openetime', //开通结束时间
-            '#eiSource': 'source', //来源
-            '#eiProvince': 'province', //省市
-            '#eiIndustry': 'industry', //行业
-            'tbody': 'tbody' //
+            '#OpenSTime': 'openstime',  //开通开始时间
+            '#OpenETime': 'openetime',  //开通结束时间
+            '#eiSource': 'source',      //来源
+            '#eiProvince': 'province',  //省市
+            '#eiIndustry': 'industry',  //行业
+            'tbody': 'tbody'            //
         },
 
         events: {
             'click .export-file': function() {
                 this.getList(true);
             },
-            'click #btnSearch': 'search',
-            'click .info-detail': 'detailEve',
-            'click .info-trace': 'traceEve',
-            'click .renew': 'renewEve',
-            'click .selectall': 'selectAllEve',
+            'click #btnSearch': 'search',         // 查询
+            'click .info-detail': 'detailEve',    // 查看详情
+            'click .info-trace': 'traceEve',      // 跟踪记录
+            'click .info-clue': 'clueEve',        // 线索
+            'click .info-renew': 'renewEve',      // 增购/续费
+            'click .info-custom': function(e) {
+                console.log('do do do');
+                this.trigger('orderCustom', { 'enterpriseId': $(e.currentTarget).attr('data-enterpriseId') })
+            }, //联合跟进人
+
+            'click .selectall': 'selectAllEve',   //
             'click .auth': 'authEve',
             'click .deauth': 'deauthEve',
             'click .btn-transfer': 'transferEve',
-            'click .btn-sandbox': 'sandboxEve',
-            'click .info-custom': function(e) {
-                this.trigger('orderCustom', { 'enterpriseId': $(e.currentTarget).attr('data-enterpriseId') })
-            }, //联合跟进人
+            'click .btn-sandbox': 'sandboxEve'
         },
 
         init: function() {
@@ -372,12 +374,15 @@ define(function(require, exports, module) {
         //企业跟踪记录
         traceEve: function(e) {
             var id = $(e.currentTarget).attr('data-id');
-
             this.trigger('trace', id);
         },
 
         //线索
-        
+        clueEve: function(e){
+            var id = $(e.currentTarget).attr('data-id');
+            console.log('clue');
+            this.trigger('clue',id);
+        },
 
         //增购 续费
         renewEve: function(e) {
