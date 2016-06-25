@@ -8439,6 +8439,9 @@ em {
 .input-file-container .file-field {
   width: 475px;
 }
+.enterprise-panel button[disabled] {
+  opacity: 0.5;
+}
 .enterprise-panel .v-top {
   vertical-align: top;
 }

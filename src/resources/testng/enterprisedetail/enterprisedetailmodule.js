@@ -7,10 +7,12 @@ define(function (require, exports, module) {
     var dialogManager = require('./refs/dialog');
 
     var mainCtrlScope = null;
+    var mainData=null;
     var Page = MClass(M.Center).include({
         view: require('./template.html'),
-        init: function () {
+        init: function (data) {
             var me = this;
+            mainData=data;
             Page.__super__.init.apply(me, arguments);
 
             angular.bootstrap(me.$view, ['formApp']);
@@ -45,12 +47,17 @@ define(function (require, exports, module) {
             mainCtrlScope.$apply(function () {
                 mainCtrlScope.prevStep();
             });
+        },
+        goToStep: function (step) {//跳到指定的某一步
+            if (step && step > 0 && step <= 3) {
+                mainCtrlScope.$apply(function () {
+                    mainCtrlScope.step = step;
+                });
+            }
         }
     });
 
     module.exports = Page;
-
-
     myApp.controller('form1Controller', ['$scope', '$timeout', function ($scope, $timeout) {
 
     }]);
@@ -60,7 +67,6 @@ define(function (require, exports, module) {
     }]);
     myApp.controller('form3Controller', ['$scope', 'productService', 'select2Query', function ($scope, productService, select2Query) {
         $scope.bankAjaxConfig = select2Query.getBankAjaxConfig();
-
         //付款信息
         var payInfo = $scope.payInfo;//从mainController拿到的对象
         payInfo.receiptsAccount = 'xxxxxxxxxxxxxx';
@@ -184,7 +190,8 @@ define(function (require, exports, module) {
         var productInfo = $scope.productInfo = {};
         //付款信息
         var payInfo = $scope.payInfo = {payStatus: 1};
-
+        //全局行为状态
+        var action=$scope.action={doing:false};
         //模拟数据
         entInfo = $scope.entInfo = {"province": "110000", "city": "140000", "county": "110000", "provinceDataValue": "", "cityDataValue": "", "countyDataValue": "", "industryFirst": "100", "industrySecond": "150", "industryThird": "100", "industryFirstDataValue": "", "industrySecondDataValue": "", "industryThirdDataValue": "", "groupType": "166", "groupTypeDataValue": {"text": "房地产/建筑业", "id": "166"}, "saleTeamScale": "203", "saleTeamScaleDataValue": {"text": "贸易/批发/零售/租赁业", "id": "203"}, "isSaleTeam": "0", "isSaleTeamDataValue": {"id": "0", "text": "否"}, "companyScale": "166", "companyScaleDataValue": {"text": "房地产/建筑业", "id": "166"}, "isReferral": "0", "isReferralDataValue": {"id": "0", "text": "否"}, "isReference": "0", "isReferenceDataValue": {"id": "0", "text": "否"}, "keyContactName": "7676", "keyContactPhone": "567576", "contactName": "765576", "contactPhone": "576576", "address": "765576", "enterpriseName": "576576", "area": "576576", "enterpriseAccount": "F234554", "keyContactEmail": "765576@fds.gfh", "contactEmail": "756756@gbfc.df", "contactIm": "434343"}
         //
@@ -404,8 +411,6 @@ define(function (require, exports, module) {
         $scope.saving = false;
         $scope.step = 1;//步骤
         $scope.prevStep = function () {
-
-
             $scope.step--;
         };
         $scope.nextStep = function (form) {
@@ -450,35 +455,34 @@ define(function (require, exports, module) {
                             });
                         }
                     });
-                }
-                    ;
-                    break;
-                case 3:
-                {//付款信息
-                    submitStepPayInfo(function (result) {
-                        debugger
-                        if (result.success) {
-                            alert('操作成功');
-                        }
-                    });
+                    return;
                 }
                     ;
                     break;
             }
-            $scope.step++;
+            //$scope.step++;
         };
         //企业草稿提交  需要enterpriseAccount
         function submitStepEntInfo(callback) {
+            action.doing = true;
             util.api({
                 url: "~/op/api/a/odrDraft/DraftEnterpriseNext",
                 data: angular.extend({enterpriseAccount: null}, $scope.entInfo),
-                success: callback
+                success: function (result) {
+                    callback(result);
+                },
+                complete: function () {
+                    $scope.$apply(function () {
+                        action.doing = false;
+                    });
+                }
             })
         }
 
         //订单草稿  需要 enterpriseId
         function submitStepProductInfo(callback) {
             debugger
+            action.doing = true;
             //数据二次处理
             var dataResultCopy = angular.copy($scope.productInfo.dataResult);
             var newDataResult = [];
@@ -499,25 +503,40 @@ define(function (require, exports, module) {
                     id: $scope.productInfo.draftOrderId,
                     content: angular.toJson(newDataResult)
                 },
-                success: callback
+                success: callback,
+                complete: function () {
+                    $scope.$apply(function () {
+                        action.doing = false;
+                    });
+                }
             })
         }
 
         //付款信息
         function submitStepPayInfo(callback) {
             debugger
+            action.doing = true;
             util.api({
                 url: "~/op/api/a/odrDraft/draftPaidInfoNext",
                 data: $scope.payInfo,
-                success: callback
+                success: callback,
+                complete: function () {
+                    $scope.$apply(function () {
+                        action.doing = false;
+                    });
+                }
             })
         }
 
         $scope.save = function () {
-            $scope.saving = true;
-            $timeout(function () {
-                $scope.saving = false;
-            }, 2000);
+            //付款信息
+            submitStepPayInfo(function (result) {
+                debugger
+                if (result.success) {
+                    alert('操作成功');
+                }
+            });
+            return;
         };
         $scope.close = function () {
             alert('关闭')

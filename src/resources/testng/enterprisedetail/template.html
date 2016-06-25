@@ -311,12 +311,12 @@
         </div>
     </div>
     <div class="panel-button" ng-if="hideFootBtns!==true">
-        <button ng-if="step>1" ng-click="prevStep()">上一步</button>
+        <button ng-if="step>1" ng-disabled="action.doing===true" ng-click="prevStep()">上一步</button>
         &nbsp;&nbsp;&nbsp;&nbsp;
         <!--<button ng-disabled="mainForm.basicForm.$invalid" ng-if="step<3" ng-click="nextStep()">下一步</button>-->
-        <button ng-if="step<3" ng-click="nextStep(this.mainForm['stepForm'+step])">下一步</button>
+        <button ng-if="step<3"  ng-disabled="action.doing===true" ng-click="nextStep(this.mainForm['stepForm'+step])">下一步</button>
         &nbsp;&nbsp;&nbsp;&nbsp;
-        <button ng-if="step==3" class="save" ng-click="save()" ng-class="{saving:saving}">提交</button>
+        <button ng-if="step==3" class="save" ng-disabled="action.doing===true" ng-click="save()" ng-class="{saving:action.doing}">提交</button>
         &nbsp;&nbsp;&nbsp;&nbsp;
         <button ng-click="close()">取消</button>
     </div>

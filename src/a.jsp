@@ -110,18 +110,21 @@
         IBSS.VERSION ='1.1';
 </script>
 
-<!--build:common resources/common/scripts/common.js-->
-<script type="text/javascript" src="resources/common/scripts/lib/jquery-2.1.3.js"></script>
-<script type="text/javascript" src="resources/common/scripts/lib/underscore-1.7.0.js"></script>
-<script type="text/javascript" src="resources/common/scripts/lib/backbone-1.1.2.js"></script>
-<script type="text/javascript" src="resources/common/scripts/lib/seajs-2.3.0.js"></script>
-<script type="text/javascript" src="resources/common/scripts/lib/seajs-css.js"></script>
-<!-- <script type="text/javascript" src="resources/common/scripts/lib/seajs-text.js"></script> -->
-<script type="text/javascript" src="resources/common/scripts/lib/seajs-preload.js"></script>
-<script type="text/javascript" src="resources/common/scripts/util.js"></script>
-<script type="text/javascript" src="resources/common/scripts/widget.js"></script>
-<script type="text/javascript" src="resources/common/widget/calendar/jquery.datetimepicker.js"></script>
-<!--endbuild-->
+    <!--build:common resources/common/scripts/common.js-->
+    <script type="text/javascript" src="resources/common/scripts/lib/jquery-2.1.3.js"></script>
+    <script type="text/javascript" src="resources/common/scripts/lib/underscore-1.7.0.js"></script>
+    <script type="text/javascript" src="resources/common/scripts/lib/backbone-1.1.2.js"></script>
+    <script type="text/javascript" src="resources/common/scripts/lib/seajs-2.3.0.js"></script>
+    <script type="text/javascript" src="resources/common/scripts/lib/seajs-css.js"></script>
+    <!-- <script type="text/javascript" src="resources/common/scripts/lib/seajs-text.js"></script> -->
+    <script type="text/javascript" src="resources/common/scripts/lib/seajs-preload.js"></script>
+    <script type="text/javascript" src="resources/common/scripts/lib/angular.js"></script>
+    <script type="text/javascript" src="resources/common/scripts/lib/angular-messages.js"></script>
+    <script type="text/javascript" src="resources/common/scripts/lib/angular-filter.js"></script>
+    <script type="text/javascript" src="resources/common/scripts/util.js"></script>
+    <script type="text/javascript" src="resources/common/scripts/widget.js"></script>
+    <script type="text/javascript" src="resources/common/widget/calendar/jquery.datetimepicker.js"></script>
+    <!--endbuild-->
 
 <script type="text/javascript" src="resources/common/widget/my97datepicker/wdatepicker.js"></script>
 
