@@ -9,7 +9,6 @@ define(function (require, exports, module) {
             link: function (scope, iElem, iAttr) {
                 scope.datetimeconfig = scope.datetimeconfig || {};
                 var currentForm = scope.getForm && scope.getForm();
-
                 function valueChange(control) {
                     var value = control.el.value;
                     if (currentForm) {
@@ -21,7 +20,6 @@ define(function (require, exports, module) {
                     });
                     scope.ngChange && scope.ngChange();
                 }
-
                 var option = {
                     type: '0',
                     dateFmt: 'yyyy/MM/dd',
@@ -39,13 +37,10 @@ define(function (require, exports, module) {
                 });
                 function resetMaxOrMinDate(value, isMax) {
                     if (value && !isNaN(value)) {
-                        var value = parseInt(value);
+                        value = parseInt(value);
                         isMax && (scope.datetimeconfig.maxDate = new Date(value));
                         !isMax && (scope.datetimeconfig.minDate = new Date(value));
-                        if (isMax && scope.ngModel && value < scope.ngModel) {
-                            scope.ngModel = value;
-                        }
-                        if (!isMax && scope.ngModel && value > scope.ngModel) {
+                        if ((isMax && scope.ngModel && value < scope.ngModel) || (!isMax && scope.ngModel && value > scope.ngModel)) {
                             scope.ngModel = value;
                         }
                         $('input', iElem).off('focus').on('focus', function () {//触发控件

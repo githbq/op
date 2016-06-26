@@ -26,10 +26,10 @@ define(function (require, exports, module) {
         var factory = {};
         //根据合同号获取
         factory.getDataByContractNo = function (options, callback) {
-            return  util.api(_.extend({
+            return util.api(_.extend({
                 url: '~/op/api/order/enterprise/getContract',
                 'success': callback
-            },options));
+            }, options));
         };
         return factory;
     });
@@ -80,6 +80,7 @@ define(function (require, exports, module) {
                                 nextSelectConfig.config.data = [];
                                 eval('$scope.' + nextSelectConfig.ngModelName + '= ""');
                                 nextSelectConfig.config.auto = true;
+                                debugger
                                 newValue && remotePullFunc(nextSelectConfig.config, getEvalValue(selectConfig.ngModelName), function () {
                                     exeConfig(nextSelectConfig);
                                 });
@@ -107,9 +108,10 @@ define(function (require, exports, module) {
             }
         };
 
-        factory.createPullFunc = function (options, responseCallback) {
+        factory.createPullFunc = function (options, responseCallback, paramsFunc) {
             return function (config, parentValue, cb) {
                 options = options || {};
+
                 var defaultOption = {
                     url: '~/op/api/enums/getlistByParent',
                     data: {name: 'INDUSTRY', parentValue: parentValue || 0},
@@ -132,7 +134,12 @@ define(function (require, exports, module) {
                         }
                     }
                 };
+                //提供参数可自定义
+                if (paramsFunc) {
+                    defaultOption = paramsFunc(config, parentValue, defaultOption);
+                }
                 if (defaultOption.data) {
+                    defaultOption.data.parentValue && (options.data.parentValue = defaultOption.data.parentValue);
                     options.data = $.extend(defaultOption.data, options.data);
                 }
                 util.api($.extend(defaultOption, options));

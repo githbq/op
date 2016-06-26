@@ -64,7 +64,8 @@ define(function (require, exports, module) {
     myApp.controller('form2Controller', ['$scope', 'productService', function ($scope,productService) {
         //产品已购信息
         $scope.productInfos = [];
-        productService.getOrderList($scope.globalInfo.enterpriseAccount||'ceshishur3',function(data){
+        //||'ceshishur3'
+        productService.getOrderList($scope.globalInfo.enterpriseAccount,function(data){
             $scope.$apply(function(){
                 debugger
                 $scope.productInfos=data;
@@ -473,7 +474,7 @@ define(function (require, exports, module) {
         function submitStepEntInfo(callback) {
             action.doing = true;
             util.api({
-                url: "~/op/api/a/odrDraft/DraftEnterpriseNext",
+                url: "~/op/api/a/odrDraft/draftEnterpriseNext",
                 data: {odrDraftEnterprise: angular.extend({enterpriseAccount: null}, $scope.entInfo)},
                 success: function (result) {
                     callback(result);

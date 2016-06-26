@@ -40,11 +40,11 @@ define(function (require, exports, module) {
                     ajax: {
                         cache: true,
                         // url: "/api/a/odrDraft/getAccountForSubOrderPartner",
-                        url: '/op/api/ba/querylist',
+                        url: '/op/api/ba/queryListByBankAccount',
                         dataType: 'json',
                         data: function (term) {
                             return {
-                                q: term
+                                bankAccount: term
                             };
                         },
                         results: function (data, page) {
@@ -62,7 +62,6 @@ define(function (require, exports, module) {
                         return data.selection;
                     },
                     formatSelection: function (data) {
-                        debugger
                         return data.text;
                     }
                 };
@@ -74,6 +73,7 @@ define(function (require, exports, module) {
     app.factory('productService', function () {
         var factory = {};
         factory.getOrderList = function (enterpriseAccount, callback) {
+            if(!enterpriseAccount){return;}
             return util.api({
                 'url': '/odr/queryProductVOList',
                 'data': {'ea': enterpriseAccount},
