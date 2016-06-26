@@ -450,7 +450,7 @@ define( function( require, exports, module ) {
                                 }
                                 item.orderTypeStr = item.order.orderType ? ENUMDATA['ordermap'][item.order.orderType]:'';
                                 //订单状态
-                                item.orderStatusStr = item.order.status ? ENUMDATA['orderstatus'][item.order.status]:'';
+                                item.orderStatusStr = item.approveStatus ? ENUMDATA['orderstatus'][item.approveStatus]:'';
                                 //付费状态
                                 item.payStatusStr = item.order.payStatus ? ENUMDATA['paystatus'][item.order.payStatus]:'';
                                 //提单日期
