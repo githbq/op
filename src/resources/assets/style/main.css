@@ -7075,6 +7075,9 @@ em {
   text-align: right;
   display: none;
 }
+.m-ent-lst .list-pager {
+  min-height: 60px;
+}
 .m-ent-lst .list-pager .buttons {
   float: left;
 }
