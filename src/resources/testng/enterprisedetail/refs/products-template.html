@@ -64,7 +64,7 @@
                                                     <td ng-bind="item.deptName"></td>
                                                     <td width="15%">签约金额</td>
                                                     <td width="20%">
-                                                        <input ng-required="field.validate.required" number name="{{'sales'+$index}}" ng-disabled="productReadonly||field.readonly" ng-readonly="productReadonly||field.readonly" type="text" ng-model="item.value" class="input-price-s"/>
+                                                        <input ng-required="field.validate.required" number name="{{'sales'+$index}}" ng-disabled="productReadonly||field.readonly" ng-readonly="productReadonly||field.readonly" type="text" ng-model="item.contractAmount" class="input-price-s"/>
                                                     </td>
                                                     <td width="20%">
                                                         <a ng-disabled="productReadonly||field.readonly" ng-if="!(productReadonly||field.readonly)" ng-click="productReadonly||field.readonly||deleteArray(field.value.valueData.valueItems,$index)">删除</a>

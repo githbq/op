@@ -21,18 +21,7 @@ define(function (require, exports, module) {
         };
         return factory;
     });
-    //
-    app.factory('productService', function () {
-        var factory = {};
-        //根据合同号获取
-        factory.getDataByContractNo = function (options, callback) {
-            return util.api(_.extend({
-                url: '~/op/api/order/enterprise/getContract',
-                'success': callback
-            }, options));
-        };
-        return factory;
-    });
+
     app.factory('getEnumService', function () {
         var factory = {};
         //获取枚举值 并赋值给select

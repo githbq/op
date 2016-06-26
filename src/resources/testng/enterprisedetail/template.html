@@ -280,9 +280,9 @@
                     <label class="required"><span>分期金额</span></label>
                 </div>
                 <div class="form-field inputs-container">
-                    <label class="fenqi-label" ng-repeat="item in payInfo.currPayAmountList">
+                    <label class="fenqi-label" ng-repeat="item in payInfo.productList">
                         <span>{{item.productName}}(元)</span>
-                        <input ng-model-options="{updateOn:'default'}" ng-change="currPayAmountChange(payInfo.currPayAmountList)"
+                        <input ng-model-options="{updateOn:'default'}" ng-change="currPayAmountChange(payInfo.productList)"
                                ng-class="{readonly:payInfoReadonly||payInfo.partReadonly}" number ng-readonly="payInfoReadonly||payInfo.partReadonly"
                                type="text" name="{{'currPayAmount_'+item.productId}}" max-number="item.purchaseAmount" ng-model="item.currPayAmount"/>
                     </label>

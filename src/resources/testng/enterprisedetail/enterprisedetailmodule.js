@@ -70,10 +70,10 @@ define(function (require, exports, module) {
                 $scope.productInfos = data;
             });
         });
-        productService.getDiyOrderFormLogic($scope.globalInfo.enterpriseId||'', function (data) {
+        productService.getDiyOrderFormLogic($scope.globalInfo.enterpriseId || '', function (data) {
             debugger
             $scope.$apply(function () {
-                $scope.productJson=angular.fromJson(data);
+                $scope.productJson = angular.fromJson(data);
             });
         });
     }]);
@@ -81,15 +81,24 @@ define(function (require, exports, module) {
         $scope.bankAjaxConfig = select2Query.getBankAjaxConfig();
         //付款信息
         var payInfo = $scope.payInfo;//从mainController拿到的对象
-        payInfo.receiptsAccount = 'xxxxxxxxxxxxxx';
+        // payInfo.receiptsAccount = 'xxxxxxxxxxxxxx';
         //payInfo.partReadonly=true;
-        $scope.payInfo.currPayAmountList = [{currPayAmount: 1, productId: 1, productName: 'CRM分期', purchaseAmount: 555, toAgent: true}, {currPayAmount: 7, productId: 7, productName: '工资助手分期', purchaseAmount: 666}];
+        //$scope.payInfo.productList = [{currPayAmount: 1, productId: 1, productName: 'CRM分期', purchaseAmount: 555, toAgent: true}, {currPayAmount: 7, productId: 7, productName: '工资助手分期', purchaseAmount: 666}];
+        $scope.payInfo.productList = $scope.payInfo.productList || [];
+        var contractPrice = 0;
+        _.each($scope.payInfo.productList, function (item) {
+            if (item.purchaseAmount) {
+                contractPrice += item.purchaseAmount;
+            }
+        });
+        $scope.payInfo.contractPrice = contractPrice;
+
         $scope.testResult3 = function (form) {
 
         };
         //付款状态改变事件
         $scope.payStatusChange = function (value) {
-            _.each($scope.payInfo.currPayAmountList, function (item, i) {
+            _.each($scope.payInfo.productList, function (item, i) {
                 item.currPayAmount = 0;
             });
             switch (value.toString()) {
@@ -98,7 +107,7 @@ define(function (require, exports, module) {
                     //全额
                     var agentPrice = 0;
                     var companyPrice = 0;
-                    _.each($scope.payInfo.currPayAmountList, function (item, i) {
+                    _.each($scope.payInfo.productList, function (item, i) {
                         if (item.toAgent) {
                             agentPrice += parseFloat(item.purchaseAmount);
                         } else {
@@ -130,10 +139,10 @@ define(function (require, exports, module) {
         };
         $scope.payStatusChange(payInfo.payStatus);
         //分期金额值改变事件
-        $scope.currPayAmountChange = function (currPayAmountList) {
+        $scope.currPayAmountChange = function (productList) {
             var agentPrice = 0;
             var companyPrice = 0;
-            _.each(currPayAmountList, function (item, i) {
+            _.each(productList, function (item, i) {
                 if (item.toAgent) {
                     agentPrice += parseFloat(item.currPayAmount);
                 } else {
@@ -145,32 +154,11 @@ define(function (require, exports, module) {
         };
         $scope.getDataByContractNo = function (value) {
             debugger
-            productService.getDataByContractNo({contractNo: value, enterpriseId: value}, function (result) {
-                $scope.$apply(function () {
-                    if (result.success) {
-                        result.model = result.value.model;
-                        if (result.model) {
-                            var model = result.model;
-                            $scope.payInfo.sealName = model.sealName;
-                            $scope.payInfo.contract = model.contract;
-                            $scope.payInfo.contractCopy = model.contractCopy;
-                            $scope.payInfo.companyGatePicture = model.companyGatePicture;
-                            $scope.payInfo.companyGatePicture = model.companyGateKeyword;
-                            $scope.payInfo.companyGateRemark = model.companyGateRemark;
-                        } else if (result.model === false) {
-                            clear();
-                        }
-                    } else {
-                        clear();
-                    }
-                });
-                function clear() {
-                    $scope.payInfo.sealName = '';
-                    $scope.payInfo.contract = '';
-                    $scope.payInfo.contractCopy = '';
-                    $scope.payInfo.companyGatePicture = '';
-                    $scope.payInfo.companyGateKeyword = '';
-                    $scope.payInfo.companyGateRemark = '';
+            productService.getDataByContractNo({contractNo: value}, function (result) {
+                if (!result) {//合同号不可用
+                    $scope.$apply(function () {
+                        $scope.payInfo.contractNo = '';
+                    });
                 }
             })
         };
@@ -462,7 +450,7 @@ define(function (require, exports, module) {
                                 var data = result.value.model;
                                 $scope.productInfo.draftOrderId = data.draftOrderId;
                                 $scope.payInfo.draftOrderId = data.draftOrderId;
-                                $scope.payInfo.currPayAmountList = data.productList;
+                                $scope.payInfo.productList = data.productList;
                                 $scope.step++;
                             });
                         }
