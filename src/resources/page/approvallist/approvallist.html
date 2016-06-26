@@ -71,21 +71,20 @@
                     <tbody>
                         <tr ng-repeat='tr in tabledata.tbody'>
                             <td></td>
-                            <td>{{tr[0]}}</td>
-                            <td>{{tr[1]}}</td>
-                            <td>{{tr[2]}}</td>
-                            <td>{{tr[3]}}</td>
-                            <td>{{tr[4]}}</td>
-                            <td>{{tr[5]}}</td>
-                            <td>{{tr[6]}}</td>
-                            <td>{{tr[7]}}</td>
-                            <td>{{tr[8]}}</td>
-                            <td>{{tr[9]}}</td>
-                            <td>{{tr[10]}}</td>
-                            <td>{{tr[11]}}</td>
-                            <td>{{tr[12]}}</td>
+                            <td>{{tr['orderId']}}</td>
+                            <td>{{tr['contractNo']}}</td>
+                            <td>{{tr['enterpriseName']}}</td>
+                            <td>{{tr['enterpriseAccount']}}</td>
+                            <td>{{tr['orderType']}}</td>
+                            <td>{{tr['applicanName']}}</td>
+                            <td>{{tr['agentName']}}</td>
+                            <td>{{tr['approvalTypeName']}}</td>
+                            <td>{{tr['currentTaskName']}}</td>
+                            <td>{{tr['payStatus']}}</td>
+                            <td>{{tr['orderstatus']}}</td>
+                            <td>{{tr['applyTime']}}</td>
                             <td>
-                                <a data-id="{{tr[12]}}" class="detail">查看</a>
+                                <a data-id="{{tr['orderId']}}" ng-click="detail($event)" class="detail">查看</a>
                             </td>
                         </tr>
                     </tbody>

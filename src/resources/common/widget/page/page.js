@@ -1,12 +1,19 @@
 var main = angular.module('common',[]);
 
-//分页组件 ??传递事件
+//
+// 分页组件 ??传递事件
+// 分页组件的三个 值变的时候 均要触发刷新函数
+//
 main.directive('page',function(){
 	return{
 		restrict: 'E', //E element
         controller: ['$scope', '$element', function( $scope,$element ){
 
         	var omit="..."; //省略标识
+
+        	$scope.$watch('total',function(){
+        		$scope.refresh();
+        	});
 
             //获取总页数
             $scope.getFullPage = function(){

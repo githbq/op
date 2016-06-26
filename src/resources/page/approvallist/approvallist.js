@@ -12,7 +12,11 @@ define( function(require, exports, module){
 	var DetailApproval = require('../../order/detailapproval/detailapproval');        //普通订单
 	var DetailPayment = require('../../order/detailpayment/detailpayment');           //收尾款
 	var BackMoney = require('../../order/backmoney/backmoney');                       //退款
-	
+    
+
+    var detailApproval = new DetailApproval();
+
+
 	var page = require('common/widget/page/page');  //ng分页组件
 	var main = angular.module('list',['common']);   //
 
@@ -25,29 +29,7 @@ define( function(require, exports, module){
         $element.find('.endtime').datetimepicker({'timepicker': false,'format':'Y/m/d'})
 
         $scope.tabledata = {};
-        $scope.tabledata.thead = ['订单号','合同号','企业名称','账号','订单类型','提单人','所属部门/代理商','特批单','当前审批节点','到款认领状态','订单状态','付费状态','提单日期','操作'];
-        $scope.tabledata.tbody = [
-            [1234,5678,'莲花乡池水沟子','lianhuaxiangchishuigouzi','普通订单','小沈阳','小品侠','是','数据中心','已认领','大订单','已付费','2016-6-1'],
-            [1234,5678,'莲花乡池水沟子','lianhuaxiangchishuigouzi','普通订单','小沈阳','小品侠','是','数据中心','已认领','大订单','已付费','2016-6-1'],
-            [1234,5678,'莲花乡池水沟子','lianhuaxiangchishuigouzi','普通订单','小沈阳','小品侠','是','数据中心','已认领','大订单','已付费','2016-6-1'],
-            [1234,5678,'莲花乡池水沟子','lianhuaxiangchishuigouzi','普通订单','小沈阳','小品侠','是','数据中心','已认领','大订单','已付费','2016-6-1'],
-            [1234,5678,'莲花乡池水沟子','lianhuaxiangchishuigouzi','普通订单','小沈阳','小品侠','是','数据中心','已认领','大订单','已付费','2016-6-1'],
-            [1234,5678,'莲花乡池水沟子','lianhuaxiangchishuigouzi','普通订单','小沈阳','小品侠','是','数据中心','已认领','大订单','已付费','2016-6-1'],
-            [1234,5678,'莲花乡池水沟子','lianhuaxiangchishuigouzi','普通订单','小沈阳','小品侠','是','数据中心','已认领','大订单','已付费','2016-6-1'],
-            [1234,5678,'莲花乡池水沟子','lianhuaxiangchishuigouzi','普通订单','小沈阳','小品侠','是','数据中心','已认领','大订单','已付费','2016-6-1'],
-            [1234,5678,'莲花乡池水沟子','lianhuaxiangchishuigouzi','普通订单','小沈阳','小品侠','是','数据中心','已认领','大订单','已付费','2016-6-1'],
-            [1234,5678,'莲花乡池水沟子','lianhuaxiangchishuigouzi','普通订单','小沈阳','小品侠','是','数据中心','已认领','大订单','已付费','2016-6-1'],
-            [1234,5678,'莲花乡池水沟子','lianhuaxiangchishuigouzi','普通订单','小沈阳','小品侠','是','数据中心','已认领','大订单','已付费','2016-6-1'],
-            [1234,5678,'莲花乡池水沟子','lianhuaxiangchishuigouzi','普通订单','小沈阳','小品侠','是','数据中心','已认领','大订单','已付费','2016-6-1'],
-            [1234,5678,'莲花乡池水沟子','lianhuaxiangchishuigouzi','普通订单','小沈阳','小品侠','是','数据中心','已认领','大订单','已付费','2016-6-1'],
-            [1234,5678,'莲花乡池水沟子','lianhuaxiangchishuigouzi','普通订单','小沈阳','小品侠','是','数据中心','已认领','大订单','已付费','2016-6-1'],
-            [1234,5678,'莲花乡池水沟子','lianhuaxiangchishuigouzi','普通订单','小沈阳','小品侠','是','数据中心','已认领','大订单','已付费','2016-6-1'],
-            [1234,5678,'莲花乡池水沟子','lianhuaxiangchishuigouzi','普通订单','小沈阳','小品侠','是','数据中心','已认领','大订单','已付费','2016-6-1'],
-            [1234,5678,'莲花乡池水沟子','lianhuaxiangchishuigouzi','普通订单','小沈阳','小品侠','是','数据中心','已认领','大订单','已付费','2016-6-1'],
-            [1234,5678,'莲花乡池水沟子','lianhuaxiangchishuigouzi','普通订单','小沈阳','小品侠','是','数据中心','已认领','大订单','已付费','2016-6-1'],
-            [1234,5678,'莲花乡池水沟子','lianhuaxiangchishuigouzi','普通订单','小沈阳','小品侠','是','数据中心','已认领','大订单','已付费','2016-6-1'],
-            [1234,5678,'莲花乡池水沟子','lianhuaxiangchishuigouzi','普通订单','小沈阳','小品侠','是','数据中心','已认领','大订单','已付费','2016-6-1'],
-         ];
+        $scope.tabledata.thead = ['订单号','合同号','企业名称','账号','订单类型','提单人','所属部门/代理商','审批类型','当前审批节点','付费状态','订单状态','提单日期','操作'];
 
         //搜索订单列表
         $scope.search = function(){
@@ -78,6 +60,7 @@ define( function(require, exports, module){
             if( $element.find('.endtime').val() ){
                 appTimeEnd = new Date( $element.find('.endtime').val() ).getTime();
             }
+
             util.api({
                 'url': url,
                 'data': {
@@ -99,16 +82,29 @@ define( function(require, exports, module){
                     console.log( 'getdata' );
                     console.log( data );
                     if( data.success ){
-                        
+                        $scope.tabledata.tbody = data.value.model.content;
+                        $scope.total = data.value.model.itemCount;
+
+                        console.log( $scope.total )
+                        $scope.$apply();
                     }
                 }
             });
         }
 
+        //查看订单状态
+        $scope.detail = function( e ){
+            e.stopPropagation();
+            var id = angular.element(e.target).attr('data-id');
+            console.log('detail' + id);
+            detailApproval.show('id', true)
+            return false;
+        }
+
         //初始化页数相关
         $scope.pagenumber = 0;
         $scope.pagesize = 20;
-        $scope.total = 126;
+        $scope.total = 0;
 
         //状态变化
         $scope.state = "wait";
@@ -117,11 +113,13 @@ define( function(require, exports, module){
 
             $element.find('.toggle span').removeClass('active');
             angular.element(e.target).addClass('active');
+            $scope.search();
         };
 
         $scope.$on('pagechange', function( evt , pagenumber ){
             console.log('pagechange');
-            console.log( pagenumber ); 
+            $scope.pagenumber = pagenumber;
+            $scope.search(); 
         });
 
         $scope.search();
