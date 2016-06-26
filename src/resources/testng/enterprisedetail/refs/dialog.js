@@ -32,7 +32,6 @@ define(function (require, exports, module) {
             me.hide();
         },
         cancel: function () {
-            alert('cancel');
             this.hide();
         },
         hide: function () {

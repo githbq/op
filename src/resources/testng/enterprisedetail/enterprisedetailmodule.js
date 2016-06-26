@@ -67,11 +67,15 @@ define(function (require, exports, module) {
         //||'ceshishur3'
         productService.getOrderList($scope.globalInfo.enterpriseAccount, function (data) {
             $scope.$apply(function () {
-                debugger
                 $scope.productInfos = data;
             });
         });
-
+        productService.getDiyOrderFormLogic($scope.globalInfo.enterpriseId||'', function (data) {
+            debugger
+            $scope.$apply(function () {
+                $scope.productJson=angular.fromJson(data);
+            });
+        });
     }]);
     myApp.controller('form3Controller', ['$scope', 'productService', 'select2Query', function ($scope, productService, select2Query) {
         $scope.bankAjaxConfig = select2Query.getBankAjaxConfig();

@@ -152,7 +152,7 @@
                             <span>{{globalInfo.enterpriseAccount}}</span>
                         </div>
                     </div>
-                    <div class="form-row" ng-repeat="item in productInfos" ng-switch="item.code">
+                    <div class="form-row" ng-repeat="item in productInfos track by $index" ng-switch="item.code">
                         <div ng-show="false" class="form-field" ng-switch-when="FX_Terminal">
                         </div>
                         <div class="form-field" ng-switch-when="CRM">
@@ -214,7 +214,7 @@
             <div class="form-row">
                 <h2>产品目录</h2>
             </div>
-            <products x-data-result="productInfo.dataResult" init-data="productInfo.initData" product-readonly="productReadonly" show="step==2"></products>
+            <products x-data-result="productInfo.dataResult" product-json="productJson" init-data="productInfo.initData" product-readonly="productReadonly" show="step==2"></products>
         </div>
     </div>
     <div ng-if="step==3" ng-controller="form3Controller" ng-form name="stepForm3" class="step form payinfo">

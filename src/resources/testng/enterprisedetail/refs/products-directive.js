@@ -1,6 +1,6 @@
 //产品指令
 define(function (require, exports, module) {
-    var productJson = require('./productsjson.js');
+    //var productJson = require('./productsjson.js');
     var dialogManager = require('./dialog');
     var waterfallcomput = require('./waterfallcomput');
     var colWrapperStr = '<div class="product-col-wraper"></div>';
@@ -41,7 +41,7 @@ define(function (require, exports, module) {
 
     angular.module('formApp').directive('products', function () {
             return {
-                scope: {dataResult: '=', productReadonly: '=', show: '=', initData: '='},
+                scope: {dataResult: '=', productReadonly: '=', show: '=', initData: '=', productJson: '='},
                 template: require('./products-template.html'),
                 link: function (scope, iElem, iAttrs) {
                     scope.$watch('show', function () {
@@ -63,31 +63,37 @@ define(function (require, exports, module) {
                     scope.$watch('initData', function (newVal, oldVal) {
                         init();
                     });
-                    scope.products =scope.products|| [];
-                    scope.resultData =scope.resultData|| [];
+                    scope.$watch('productJson', function (newVal, oldVal) {
+                        init();
+                    });
+                    scope.products = scope.products || [];
+                    scope.resultData = scope.resultData || [];
                     //end
                     function init() {
+                        if (!scope.productJson) {
+                            return;
+                        }
                         scope.dataResult = scope.dataResult || [];//对外暴露的结果数据
                         //后端推过来的结果 与提交的结果完全一致的数据结构
                         resultData = [{data: [], state: 0, productId: 1}, {data: [], productId: 11}, {data: [], productId: 111}, {data: [], productId: 1111}, {data: [], productId: 11111}];
                         //JSON格式转换
                         //logic位置重排序
-                        _.each(productJson.logics, function (item, i) {
-                            item.index = _.findIndex(productJson.products, {productId: item.attr.productId});
+                        _.each(scope.productJson.logics, function (item, i) {
+                            item.index = _.findIndex(scope.productJson.products, {productId: item.attr.productId});
                         });
-                        productJson.logics = productJson.logics.sort(function (a, b) {
+                        scope.productJson.logics = scope.productJson.logics.sort(function (a, b) {
                             return a.index - b.index;
                         });
 
                         //循环拿到想要的产品模型
-                        for (var i = 0; i < productJson.logics.length; i++) {
-                            var logic = productJson.logics[i];
+                        for (var i = 0; i < scope.productJson.logics.length; i++) {
+                            var logic = scope.productJson.logics[i];
                             var product = {logic: logic, productId: logic.attr.productId};
-                            product.index = _.findIndex(productJson.products, {productId: product.productId});
+                            product.index = _.findIndex(scope.productJson.products, {productId: product.productId});
                             changeState(product);
                         }
                         //产品复选框
-                        scope.productCheckboxs = _.map(productJson.products, function (item, i) {
+                        scope.productCheckboxs = _.map(scope.productJson.products, function (item, i) {
                             var findProduct = _.findWhere(resultData, {productId: item.productId});
                             item.show = !!findProduct;
                             return {id: item.productId, text: item.text, checked: !!findProduct};
@@ -157,7 +163,7 @@ define(function (require, exports, module) {
 
                     //复选框选中事件
                     scope.checkProduct = function (checked, checkbox) {
-                        var findProduct = _.findWhere(products, {productId: checkbox.id});
+                        var findProduct = _.findWhere(scope.products, {productId: checkbox.id});
                         findProduct.show = checked;
                         //同步改变对应的结果值上的属性
                         var dataResultItem = _.findWhere(scope.dataResult, {productId: checkbox.id});

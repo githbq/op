@@ -1,0 +1,434 @@
+{
+  "defaultStatus": [
+    {
+      "productId": 1,
+      "state": 0
+    },
+    {
+      "productId": 3,
+      "state": 0
+    },
+    {
+      "productId": 4,
+      "state": 0
+    },
+    {
+      "productId": 5,
+      "state": 0
+    },
+    {
+      "productId": 7,
+      "state": 0
+    },
+    {
+      "productId": 12,
+      "state": 0
+    },
+    {
+      "productId": 13,
+      "state": 0
+    },
+    {
+      "productId": 15,
+      "state": 0
+    },
+    {
+      "productId": 16,
+      "state": 0
+    },
+    {
+      "productId": 17,
+      "state": 0
+    },
+    {
+      "productId": 18,
+      "state": 0
+    },
+    {
+      "productId": 19,
+      "state": 0
+    }
+  ],
+  "logics": [
+    {
+      "baseState": [
+        {
+          "groupName": "buyType",
+          "readonly": false,
+          "dataType": "radio",
+          "name": "buyType",
+          "onchange": [
+            {
+              "valueType": "state",
+              "source": "state",
+              "type": "evaluation"
+            },
+            {
+              "valueRef": "buyType",
+              "valueType": "data",
+              "source": "value",
+              "type": "evaluation"
+            }
+          ],
+          "validate": {"required": true}
+        },
+        {
+          "groupName": "main_1",
+          "readonly": false,
+          "dataType": "number",
+          "name": "purchaseCount",
+          "onchange": [
+            {
+              "response": {"writeBackType": "merge"},
+              "query": [
+                {
+                  "valueRef": "purchaseCount",
+                  "valueType": "data",
+                  "name": "purchaseCount"
+                },
+                {
+                  "valueRef": "startTime",
+                  "valueType": "data",
+                  "name": "startTime"
+                },
+                {
+                  "valueRef": "endTime",
+                  "valueType": "data",
+                  "name": "endTime"
+                },
+                {
+                  "valueRef": "productId",
+                  "valueType": "attr",
+                  "name": "productId"
+                },
+                {
+                  "valueRef": "purchaseAmount",
+                  "valueType": "data",
+                  "name": "purchaseAmount"
+                }
+              ],
+              "type": "ajax",
+              "url": "/api/rebate/calculateSingle"
+            }
+          ],
+          "label": "\r\r\n本次CRM用户数",
+          "validate": {"required": true}
+        },
+        {
+          "groupName": "main_1",
+          "readonly": false,
+          "dataType": "time",
+          "name": "startTime",
+          "onchange": [
+            {
+              "response": {"writeBackType": "merge"},
+              "query": [
+                {
+                  "valueRef": "purchaseCount",
+                  "valueType": "data",
+                  "name": "purchaseCount"
+                },
+                {
+                  "valueRef": "startTime",
+                  "valueType": "data",
+                  "name": "startTime"
+                },
+                {
+                  "valueRef": "endTime",
+                  "valueType": "data",
+                  "name": "endTime"
+                },
+                {
+                  "valueRef": "productId",
+                  "valueType": "attr",
+                  "name": "productId"
+                },
+                {
+                  "valueRef": "purchaseAmount",
+                  "valueType": "data",
+                  "name": "purchaseAmount"
+                }
+              ],
+              "type": "ajax",
+              "url": "/api/rebate/calculateSingle"
+            },
+            {
+              "valueType": "data",
+              "source": "value",
+              "type": "evaluation",
+              "target": "endTime_2"
+            }
+          ],
+          "label": "开始时\r\r\n间",
+          "validateInit": {
+            "name": "min",
+            "value": {
+              "query": [
+                {
+                  "valueRef": "productId",
+                  "valueType": "attr",
+                  "name": "productId"
+                },
+                {
+                  "valueRef": "enterpriseId",
+                  "valueType": "global",
+                  "name": "enterpriseId"
+                }
+              ],
+              "backName": "endTime",
+              "type": "ajax",
+              "url": ""
+            }
+          },
+          "validate": {
+            "lessThan": {
+              "valueRef": "endTime",
+              "valueType": "data"
+            },
+            "required": true
+          }
+        },
+        {
+          "groupName": "main_1",
+          "readonly": false,
+          "dataType": "endTime",
+          "name": "endTime",
+          "onchange": [
+            {
+              "response": {"writeBackType": "merge"},
+              "query": [
+                {
+                  "valueRef": "purchaseCount",
+                  "valueType": "data",
+                  "name": "purchaseCount"
+                },
+                {
+                  "valueRef": "startTime",
+                  "valueType": "data",
+                  "name": "startTime"
+                },
+                {
+                  "valueRef": "endTime",
+                  "valueType": "data",
+                  "name": "endTime"
+                },
+                {
+                  "valueRef": "productId",
+                  "valueType": "attr",
+                  "name": "productId"
+                },
+                {
+                  "valueRef": "purchaseAmount",
+                  "valueType": "data",
+                  "name": "purchaseAmount"
+                }
+              ],
+              "type": "ajax",
+              "url": "/api/rebate/calculateSingle"
+            }
+          ],
+          "label": "结束时间",
+          "validate": {
+            "required": true,
+            "greaterThan": {
+              "valueRef": "startTime",
+              "valueType": "data"
+            }
+          }
+        },
+        {
+          "groupName": "main_1",
+          "readonly": true,
+          "dataType": "number",
+          "name": "productAmount",
+          "label": "产品原价\r\r\n(元)"
+        },
+        {
+          "groupName": "main_1",
+          "readonly": false,
+          "dataType": "number",
+          "name": "purchaseAmount",
+          "onchange": [
+            {
+              "response": {"writeBackType": "merge"},
+              "query": [
+                {
+                  "valueRef": "purchaseCount",
+                  "valueType": "data",
+                  "name": "purchaseCount"
+                },
+                {
+                  "valueRef": "startTime",
+                  "valueType": "data",
+                  "name": "startTime"
+                },
+                {
+                  "valueRef": "endTime",
+                  "valueType": "data",
+                  "name": "endTime"
+                },
+                {
+                  "valueRef": "productId",
+                  "valueType": "attr",
+                  "name": "productId"
+                },
+                {
+                  "valueRef": "purchaseAmount",
+                  "valueType": "data",
+                  "name": "purchaseAmount"
+                }
+              ],
+              "type": "ajax",
+              "url": "/api/rebate/calculateSingle"
+            }
+          ],
+          "label": "合同金额\r\r\n(元)",
+          "validate": {"required": true}
+        },
+        {
+          "groupName": "main_2",
+          "readonly": false,
+          "dataType": "number",
+          "name": "purchaseCount_2",
+          "onchange": [
+            {
+              "response": {
+                "mapper": [
+                  {
+                    "valueRef": "productAmount_2",
+                    "valueType": "data",
+                    "name": "productAmount"
+                  },
+                  {
+                    "valueRef": "discount_2",
+                    "valueType": "data",
+                    "name": "discount"
+                  }
+                ],
+                "writeBackType": "mapping"
+              },
+              "query": [
+                {
+                  "valueRef": "purchaseCount_2",
+                  "valueType": "data",
+                  "name": "purchaseCount"
+                },
+                {
+                  "valueRef": "startTime_2",
+                  "valueType": "data",
+                  "name": "startTime"
+                },
+                {
+                  "valueRef": "endTime_2",
+                  "valueType": "data",
+                  "name": "endTime"
+                },
+                {
+                  "valueRef": "productId",
+                  "valueType": "attr",
+                  "name": "productId"
+                },
+                {
+                  "valueRef": "purchaseAmount_2",
+                  "valueType": "data",
+                  "name": "purchaseAmount"
+                }
+              ],
+              "type": "ajax",
+              "url": "/api/rebate/calculateSingle"
+            }
+          ],
+          "label": "本次CRM用户\r\r\n数",
+          "validate": {"required": true}
+        },
+        {
+          "groupName": "main_2",
+          "readonly": true,
+          "dataType": "time",
+          "name": "startTime_2",
+          "onchange": [
+            {
+              "response": {
+                "mapper": [
+                  {
+                    "valueRef": "productAmount_2",
+                    "valueType": "data",
+                    "name": "productAmount"
+                  },
+                  {
+                    "valueRef": "discount_2",
+                    "valueType": "data",
+                    "name": "discount"
+                  }
+                ],
+                "writeBackType": "mapping"
+              },
+              "query": [
+                {
+                  "valueRef": "purchaseCount_2",
+                  "valueType": "data",
+                  "name": "purchaseCount"
+                },
+                {
+                  "valueRef": "startTime_2",
+                  "valueType": "data",
+                  "name": "startTime"
+                },
+                {
+                  "valueRef": "endTime_2",
+                  "valueType": "data",
+                  "name": "endTime"
+                },
+                {
+                  "valueRef": "productId",
+                  "valueType": "attr",
+                  "name": "productId"
+                },
+                {
+                  "valueRef": "purchaseAmount_2",
+                  "valueType": "data",
+                  "name": "purchaseAmount"
+                }
+              ],
+              "type": "ajax",
+              "url": "/api/rebate/calculateSingle"
+            }
+          ],
+          "label": "开始时\r\r\n间",
+          "validate": {
+            "lessThan": {
+              "valueRef": "endTime_2",
+              "valueType": "data"
+            },
+            "required": true
+          }
+        },
+        {
+          "groupName": "main_2",
+          "readonly": true,
+          "dataType": "ti…ef"
+          :
+          "discount_2",
+          "valueType": "data",
+          "name": "discount"
+        }
+      ],
+      "writeBackType": "mapping"
+    },
+    "query":
+    [{"valueRef": "purchaseCount_2", "valueType": "data", "name": "purchaseCount"},{"valueRef": "startTime_2", "valueType": "data", "name": "startTime"},{"valueRef": "endTime_2", "valueType": "data", "name": "endTime"},{"valueRef": "productId", "valueType": "attr", "name": "productId"},{"valueRef": "purchaseAmount_2", "valueType": "data", "name": "purchaseAmount"}],
+    "type":"ajax",
+    "url":"/api/rebate/calculateSingle"
+    }
+  ],
+  "label": "开始时间",
+  "validate": {
+    "lessThan": {
+      "valueRef": "endTime_2",
+      "valueType": "data"
+    },
+    "required": true
+  }
+},
+{"groupName": "main_2", "readonly": true, "dataType": "time", "name": "endTime_2", "onchange":[{"response":{"mapper":[{"valueRef": "productAmount_2", "valueType": "data", "name": "productAmount"},{"valueRef": "discount_2", "valueType": "data", "name": "discount"}], "writeBackType": "mapper"}, "query":[{"valueRef": "purchaseCount_2", "valueType": "data", "name": "purchaseCount"},{"valueRef": "startTime_2", "valueType": "data", "name": "startTime"},{"valueRef": "endTime_2", "valueType": "data", "name": "endTime"},{"valueRef": "productId", "valueType": "attr", "name": "productId"},{"valueRef": "purchaseAmount_2", "valueType": "data", "name": "purchaseAmount"}], "type": "ajax", "url": "/api/rebate/calculateSingle"}], "label": "结束时间", "value":{"query":[{"valueRef": "productId", "valueType": "attr", "name": "productId"},{"valueRef": "enterpriseId", "valueType": "global", "name": "enterpriseId"}], "backName": "startTime", "type": "ajax", "url": ""}, "validate":{"required": true, "greaterThan":{"valueRef": "startTime_2", "valueType":"data"}}},{"groupName": "main_2","readonly": true, "dataType": "number", "name":"productAmount_2", "label": "产品原价(元)"},{"groupName":"main_2", "readonly": false, "dataType": "number","name": "purchaseAmount_2", "onchange":[{"response":{"mapper":[{"valueRef": "productAmount_2", "valueType": "data", "name": "productAmount"},{"valueRef": "discount_2", "valueType": "data", "name": "discount"}], "writeBackType": "mapper"}, "query":[{"valueRef": "purchaseCount_2", "valueType": "data", "name": "purchaseCount"},{"valueRef": "startTime_2", "valueType": "data", "name": "startTime"},{"valueRef": "endTime_2", "valueType": "data", "name": "endTime"},{"valueRef": "productId", "valueType": "attr", "name": "productId"},{"valueRef": "purchaseAmount_2", "valueType": "data", "name": "purchaseAmount"}], "type": "ajax", "url": "/api/rebate/calculateSingle"}], "label": "合同金额(元)", "validate":{"required":true}},{"groupName": "sales", "readonly": false, "dataType": "sales", "name": "sales", "label": "销售姓名", "items":[], "validate":{"required": true}},{"groupName": "discount", "unit": "折", "readonly": true, "dataType": "number", "name": "discount", "label": "综合折扣", "validate":{"required":true}},{"groupName": "discount", "unit": "折", "readonly": true, "dataType": "number", "name": "discount_2", "label": "综合折扣2", "validate":{"required": true}}], "data":[{"name": "buyType"},{"name": "purchaseCount"},{"name": "purchaseCount_2"},{"name": "startTime"},{"name": "startTime_2"},{"name": "endTime"},{"name": "endTime_2"},{"name": "productAmount"},{"name": "productAmount_2"},{"name": "purchaseAmount"},{"name": "purchaseAmount_2"},{"name": "sales"},{"name": "discount"},{"name": "discount_2"}], "currState": 0, "attr":{"productId":19, "title": "助手套餐"}, "states":[[{"hidden": true, "name": "buyType"},{"hidden": true, "name": "purchaseCount_2"},{"hidden": true, "name": "startTime_2"},{"hidden": true, "name": "endTime_2"},{"hidden": true, "name": "productAmount_2"},{"hidden": true, "name": "purchaseAmount_2"},{"hidden": true, "name": "discount_2"}],[{"name": "buyType", "value":{"type":"normal", "value": 1}}],[{"name": "buyType", "value":{"type":"normal", "value": 2}},{"hidden": true, "name": "purchaseCount_2"},{"readonly": true, "name": "endTime", "value":{"query":[{"valueRef": "productId", "valueType": "attr", "name": "productId"},{"valueRef": "enterpriseId", "valueType": "global", "name": "enterpriseId"}], "backName": "endTime", "type": "ajax", "url": "/api/a/odr/getProductTime"}},{"hidden": true,"name": "startTime_2"},{"hidden": true,"name": "endTime_2"},{"hidden": true,"name": "productAmount_2"},{"hidden": true,"name": "purchaseAmount_2"},{"hidden": true,"name": "discount_2"}],[{"name": "buyType", "value":{"type":"normal", "value": 3}},{"hidden": true, "name": "purchaseCount_2"},{"readonly": true, "name": "startTime", "value":{"query":[{"valueRef": "productId", "valueType": "attr", "name": "productId"},{"valueRef": "enterpriseId", "valueType": "global", "name": "enterpriseId"}], "backName": "startTime", "type": "ajax", "url": "/api/a/odr/getProductTime"}},{"hidden": true,"name": "startTime_2"},{"hidden": true,"name": "endTime_2"},{"hidden": true,"name": "productAmount_2"},{"hidden": true,"name": "purchaseAmount_2"},{"hidden": true,"name": "discount_2"}]]}], "global":{}, "products":[{"productId": 1, "text": "CRM"},{"productId": 3, "text": "服务费"},{"productId": 4, "text": "PK助手"},{"productId": 5, "text": "会议助手"},{"productId": 7, "text": "工资助手"},{"productId": 12, "text": "自定义助手"},{"productId": 13, "text": "培训助手"},{"productId": 15, "text": "考试助手"},{"productId": 16, "text": "培训助手时长"},{"productId": 17, "text": "项目管理"},{"productId": 18, "text": "空间"},{"productId": 19, "text": "助手套餐"}]
+}

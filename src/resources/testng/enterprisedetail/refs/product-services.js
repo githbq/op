@@ -7,7 +7,8 @@ define(function (require, exports, module) {
                     minimumInputLength: 1,
                     ajax: {
                         cache: true,
-                        url: "/api/a/odrDraft/getAccountForSubOrderPartner",
+                        url: "/op/api/a/odrDraft/getAccountForSubOrderPartner",
+                        type:'POST',
                         dataType: 'json',
                         data: function (term) {
                             return {
@@ -39,9 +40,8 @@ define(function (require, exports, module) {
                     minimumInputLength: 1,
                     ajax: {
                         cache: true,
-                        // url: "/api/a/odrDraft/getAccountForSubOrderPartner",
                         url: '/op/api/ba/queryListByBankAccount',
-                        dataType: 'json',
+                        type:'POST',
                         data: function (term) {
                             return {
                                 bankAccount: term
@@ -78,6 +78,18 @@ define(function (require, exports, module) {
                 'url': '/odr/queryProductVOList',
                 'data': {'ea': enterpriseAccount},
                 'success': function (result) {
+                    if (result.success) {
+                        callback(result.value.model);
+                    }
+                }
+            });
+        };
+        factory.getDiyOrderFormLogic = function (enterpriseId, callback) {
+            return util.api({
+                'url': '~/op/api/a/odrDraft/getDiyOrderFormLogic',
+                'data': {'enterpriseId': enterpriseId},
+                'success': function (result) {
+                    debugger
                     if (result.success) {
                         callback(result.value.model);
                     }
