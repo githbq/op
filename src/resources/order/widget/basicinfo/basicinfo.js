@@ -91,8 +91,11 @@ define(function(require, exports, module){
             	me.areaTree.show();
             });
 			IBSS.tempEnterprise = IBSS.tempEnterprise ? IBSS.tempEnterprise :{};
+			
 			me.model.set('enterprisename', IBSS.tempEnterprise['enterpriseName']);
-
+			//备案id
+			//代理区域
+			
 			//me.model.set('regionName', IBSS.tempEnterprise['regionName']);
 			me.model.set('address', IBSS.tempEnterprise['address']);
 			me.model.set('keycontactname', IBSS.tempEnterprise['representative']);

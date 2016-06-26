@@ -65,6 +65,20 @@ define( function(require, exports, module){
                 }
             })
             */
+            switch ( state ){
+                case 'wait':
+                    url = "/approval/getongoingapprovalpage";
+                break;
+                case 'going':
+                    url = "/approval/getapprovedongoingapprovalpage";
+                break;
+                case 'end':
+                    url = "/approval/getcompletedapprovalpage";
+                break;
+                case 'refuse':
+                    url = "/approval/getrefusedapprovalpage";
+                break;
+            };
             console.log('search');
             console.log( $scope );
         }

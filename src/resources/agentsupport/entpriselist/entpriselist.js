@@ -62,5 +62,9 @@ define(function(require, exports, module) {
             console.log('clue clue');
             clue.show(clueID);
         });
+        //增购续费
+        entList.on('renew',function(id){
+            location.hash = "/order/openenterprise/"+id;
+        });
     }
 });

@@ -8,11 +8,31 @@ define( function( require, exports, module ) {
 
     var Page = require('../../testng/enterprisedetail/enterprisedetailmodule');
 
-    exports.init = function() {
+    exports.init = function( param ) {
         var $el = exports.$el;
 
-        var p = new Page({wrapper: $el});
-        p.render();
+        console.log( param );
+        var data;
+        var page;
+
+        //增购/续费
+        if( param[0] ){
+            data = {
+                'enterpriseId': param[0]
+            };
+            page = new Page( {wrapper: $el,isNew:false,isAdd:true,readonly:false,type:'',data:data} );
+            page.render();
+        //新购
+        }else{
+            data = {
+                'enterpriseFilingId': IBSS.tempEnterprise.id,
+                'enterpriseName': IBSS.tempEnterprise.enterpriseName,
+                'area': IBSS.tempEnterprise.regionName
+            };
+            page = new Page( {wrapper: $el,isNew:true,isAdd:false,readonly:false,type:'',data:data} );
+            page.render();
+        }
+        
         //setTimeout(function () {
         //    debugger
         //    //p.nextStep();//下一步

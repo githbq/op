@@ -429,6 +429,7 @@ define( function( require, exports, module ) {
 
             htmlStr = "<tr> <td colspan='14'><p class='info'>加载中...</p></td> </tr>"
             me.$tbody.html( htmlStr );
+            console.log( queryData );
             util.api({
                 'url':'/odr/querypage',
                 'data':queryData,
