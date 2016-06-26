@@ -84,7 +84,7 @@ define(function (reuqire, exports, module) {
                     }, 100);
                 });
                 function setMaxOrMinValue(result) {
-                    if (isNaN(result)) {
+                    if (isNaN(result) || result==='') {
                         result = null;
                     } else {
                         result = parseFloat(result);

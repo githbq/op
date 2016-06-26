@@ -7,7 +7,8 @@ define(function (require, exports, module) {
                     minimumInputLength: 1,
                     ajax: {
                         cache: true,
-                        url: "/api/a/odrDraft/getAccountForSubOrderPartner",
+                        url: "/op/api/a/odrDraft/getAccountForSubOrderPartner",
+                        type:'POST',
                         dataType: 'json',
                         data: function (term) {
                             return {
@@ -40,7 +41,7 @@ define(function (require, exports, module) {
                     ajax: {
                         cache: true,
                         url: '/op/api/ba/queryListByBankAccount',
-                        dataType: 'json',
+                        type:'POST',
                         data: function (term) {
                             return {
                                 bankAccount: term
