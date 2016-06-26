@@ -12,8 +12,8 @@ define( function( require, exports, module ) {
     //var Slider = require('common/widget/slider/slider');
     var ENUMDATA = require('module/data/data');
     
-    var DetailApproval = require('../detailapproval/detailapproval');
-	var DetailPayment = require('../detailpayment/detailpayment');
+    var DetailApproval = require('../detailapproval/detailapproval');      //订单详情
+	var DetailPayment = require('../detailpayment/detailpayment');         //
 
 	var CustomHelper = require('../widget/customhelper/customhelper');     //联合跟进人
     var InvoiceDetail = require('../widget/invoicedetail/invoicedetail');  //发票
@@ -22,6 +22,8 @@ define( function( require, exports, module ) {
 	var OnlinePay = require('../widget/onlinepay/onlinepay');
 
     var tem = $( require('./template.html') );
+
+
 
     //到款认领
     var Claim = MClass( Dialog ).include({
@@ -491,7 +493,7 @@ define( function( require, exports, module ) {
         var $el = exports.$el;
 
         var orderList = new OrderList( {'view': $el.find('.m-orderlist')} );
-        var detailApproval = null;
+        var detailApproval = new DetailApproval();
 		var detailPayment = null;
 		var customHelper = null;
 		var backMoney = null, invioceDetail = null ,onlinePay = null;
@@ -553,9 +555,10 @@ define( function( require, exports, module ) {
         });
 
         //查看[待开发]
-        orderList.on('detail', function( id ){
+        orderList.on('detail', function( id ,type ){
             console.log('查看');
             console.log( id );
+            detailApproval.show( id , type );
         });
     }
 } );

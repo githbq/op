@@ -1,5 +1,5 @@
 //
-// 新购 增购/续费 
+// 新购 增购/续费 合同审批
 // 调用slider
 //============================================
 define( function(require, exports, module){
@@ -9,6 +9,8 @@ define( function(require, exports, module){
 		
 	var Slider = require('common/widget/slider/slider');
 	var contentStr = require('./detailapproval.html');
+	var Page = require('../../testng/enterprisedetail/enterprisedetailmodule');
+
 
     ///////////////////////
     //
@@ -20,7 +22,8 @@ define( function(require, exports, module){
 		content: contentStr,
 
 		defaultAttr: {
-			'width': 1300
+			'width': 1100,
+			'title': '订单详情'
 		},
 		elements: {
 		},
@@ -30,20 +33,24 @@ define( function(require, exports, module){
 			DetailApproval.__super__.init.apply( this,arguments );
 			var me = this;
 		},
-
+		
 		/**
 		 *
 		 * @param id   实例id
 		 * @param eid  企业id
 		 * @param type 类型
 		 */
-		show: function( options ){
+		show: function( id , readonly ){
 			var me = this;
 			DetailApproval.__super__.show.call( this,true );
+			console.log('dododo');
+			me.page = new Page( {wrapper: me.$view.find('.slider-content'), orderId:id, readonly:readonly} );
+			me.page.render();
 		},
 		//重新发送
 		hide: function(){
 			var me = this;
+			me.$view.empty();
 			DetailApproval.__super__.hide.apply( this,arguments );
 		}
 	});

@@ -18,7 +18,7 @@ define( function( require, exports, module ) {
             data = {
                 'enterpriseId': param[0]
             };
-            page = new Page( {wrapper: $el,isNew:false,isAdd:true,readonly:false,type:'',data:data} );
+            page = new Page( {wrapper: $el,orderId:null,isNew:false,isAdd:true,readonly:false,data:data} );
             page.render();
         //新购
         }else{
@@ -27,7 +27,7 @@ define( function( require, exports, module ) {
                 'enterpriseName': IBSS.tempEnterprise.enterpriseName,
                 'area': IBSS.tempEnterprise.regionName
             };
-            page = new Page( {wrapper: $el,isNew:true,isAdd:false,readonly:false,type:'',data:data} );
+            page = new Page( {wrapper: $el,orderId:null,isNew:true,isAdd:false,readonly:false,data:data} );
             page.render();
         }
         
