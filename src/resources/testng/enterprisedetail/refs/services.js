@@ -68,7 +68,6 @@ define(function (require, exports, module) {
             var remotePullFunc = remotePullFunc || factory.createPullFunc();
             for (var i = 0; i < selectConfigs.length; i++) {
                 var selectConfig = selectConfigs[i];
-                debugger
                 setDefaultForConfig(selectConfig);
                 var nextSelectConfig = selectConfigs.length > i + 1 ? selectConfigs[i + 1] : null;
                 (function (i, total, selectConfig, nextSelectConfig) {
@@ -81,7 +80,6 @@ define(function (require, exports, module) {
                                 nextSelectConfig.config.data = [];
                                 eval('$scope.' + nextSelectConfig.ngModelName + '= ""');
                                 nextSelectConfig.config.auto = true;
-                                debugger
                                 newValue && remotePullFunc(nextSelectConfig.config, getEvalValue(selectConfig.ngModelName), function () {
                                     exeConfig(nextSelectConfig);
                                 });

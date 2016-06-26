@@ -61,14 +61,14 @@ define(function (require, exports, module) {
     myApp.controller('form1Controller', ['$scope', '$timeout', function ($scope, $timeout) {
 
     }]);
-    myApp.controller('form2Controller', ['$scope', 'productService', function ($scope,productService) {
+    myApp.controller('form2Controller', ['$scope', 'productService', function ($scope, productService) {
         //产品已购信息
         $scope.productInfos = [];
         //||'ceshishur3'
-        productService.getOrderList($scope.globalInfo.enterpriseAccount,function(data){
-            $scope.$apply(function(){
+        productService.getOrderList($scope.globalInfo.enterpriseAccount, function (data) {
+            $scope.$apply(function () {
                 debugger
-                $scope.productInfos=data;
+                $scope.productInfos = data;
             });
         });
 
@@ -192,7 +192,7 @@ define(function (require, exports, module) {
         }
     });
     myApp.controller('mainController', ['$scope', '$timeout', 'select2Query', 'getEnumService', 'cascadeSelectService', 'productService', function ($scope, $timeout, select2Query, getEnumService, cascadeSelectService, productService) {
-        var globalInfo=$scope.globalInfo={};
+        var globalInfo = $scope.globalInfo = {};
         //企业详情信息
         var entInfo = $scope.entInfo = {};
         //产品信息模块
@@ -202,11 +202,10 @@ define(function (require, exports, module) {
         //全局行为状态
         var action = $scope.action = {doing: false};
         //模拟数据
-        entInfo = $scope.entInfo ={"province":"110000","city":"110100","county":"110102","provinceDataValue":"","cityDataValue":{"id":"110100","text":"市辖区"},"countyDataValue":{"id":"110102","text":"西城区"},"industryFirst":"100","industrySecond":"122","industryThird":"127","industryFirstDataValue":"","industrySecondDataValue":{"id":"122","text":"计算机软件"},"industryThirdDataValue":{"id":"127","text":"办公软件"},"groupType":"3","groupTypeDataValue":{"text":"全公司","id":"3"},"saleTeamScale":"2","saleTeamScaleDataValue":{"text":"1-5人","id":"2"},"isSaleTeam":"0","isSaleTeamDataValue":{"id":"0","text":"否"},"companyScale":"4","companyScaleDataValue":{"text":"11-20人","id":"4"},"isReferral":"0","isReferralDataValue":{"id":"0","text":"否"},"isReference":"0","isReferenceDataValue":{"id":"0","text":"否"},"keyContactName":"7676","keyContactPhone":"567576","contactName":"765576","contactPhone":"576576","address":"765576","enterpriseName":"576576","area":"576576","enterpriseAccount":"F234554","keyContactEmail":"765576@fds.gfh","contactEmail":"756756@gbfc.df","contactIm":"434343"};
+        entInfo = $scope.entInfo = {"province": "110000", "city": "110100", "county": "110102", "provinceDataValue": "", "cityDataValue": {"id": "110100", "text": "市辖区"}, "countyDataValue": {"id": "110102", "text": "西城区"}, "industryFirst": "100", "industrySecond": "122", "industryThird": "127", "industryFirstDataValue": "", "industrySecondDataValue": {"id": "122", "text": "计算机软件"}, "industryThirdDataValue": {"id": "127", "text": "办公软件"}, "groupType": "3", "groupTypeDataValue": {"text": "全公司", "id": "3"}, "saleTeamScale": "2", "saleTeamScaleDataValue": {"text": "1-5人", "id": "2"}, "isSaleTeam": "0", "isSaleTeamDataValue": {"id": "0", "text": "否"}, "companyScale": "4", "companyScaleDataValue": {"text": "11-20人", "id": "4"}, "isReferral": "0", "isReferralDataValue": {"id": "0", "text": "否"}, "isReference": "0", "isReferenceDataValue": {"id": "0", "text": "否"}, "keyContactName": "7676", "keyContactPhone": "567576", "contactName": "765576", "contactPhone": "576576", "address": "765576", "enterpriseName": "576576", "area": "576576", "enterpriseAccount": "F234554", "keyContactEmail": "765576@fds.gfh", "contactEmail": "756756@gbfc.df", "contactIm": "434343"};
         //
 
         mainCtrlScope = $scope;
-
 
 
         $scope.enterpriseReadonly = false;//企业详情信息 只读
@@ -437,9 +436,10 @@ define(function (require, exports, module) {
                         if (result.success) {
                             $scope.$apply(function () {
                                 var data = result.value.model;
-                                $scope.entInfo.draftEneterpriseId = data.draftEneterpriseId;
-                                $scope.productInfo.draftEneterpriseId = data.draftEneterpriseId;
-                                $scope.payInfo.draftEneterpriseId = data.draftEneterpriseId;
+                                $scope.entInfo.draftEneterpriseId = data.id;
+                                $scope.productInfo.draftEneterpriseId = data.id;
+                                $scope.payInfo.draftEneterpriseId = data.id;
+                                debugger
                                 $scope.productInfo.initData = data.initData;
                                 $scope.step++;
                             });
@@ -475,8 +475,7 @@ define(function (require, exports, module) {
             action.doing = true;
             util.api({
                 url: "~/op/api/a/odrDraft/draftEnterpriseNext",
-                data: {odrDraftEnterprise: angular.extend({enterpriseAccount: null}, $scope.entInfo)},
-                contentType:'json',
+                data: {odrDraftEnterprise: angular.toJson(angular.extend({enterpriseAccount: null}, $scope.entInfo))},
                 success: function (result) {
                     callback(result);
                 },
@@ -506,14 +505,13 @@ define(function (require, exports, module) {
             });
             util.api({
                 url: "~/op/api/a/odrDraft/draftOrderNext",
-                contentType:'json',
                 data: {
-                    odrDraftOrder: {
+                    odrDraftOrder: angular.toJson({
                         enterpriseId: null,
                         draftEneterpriseId: $scope.productInfo.draftEneterpriseId,
                         id: $scope.productInfo.draftOrderId,
                         content: angular.toJson(newDataResult)
-                    }
+                    })
                 },
                 success: callback,
                 complete: function () {
@@ -530,8 +528,7 @@ define(function (require, exports, module) {
             action.doing = true;
             util.api({
                 url: "~/op/api/a/odrDraft/draftPaidInfoNext",
-                data: {odrDraftPaidInfo: $scope.payInfo,submitType:mainData.type},
-                contentType:'json',
+                data: {odrDraftPaidInfo: angular.toJson($scope.payInfo), submitType: mainData.type},
                 success: callback,
                 complete: function () {
                     $scope.$apply(function () {

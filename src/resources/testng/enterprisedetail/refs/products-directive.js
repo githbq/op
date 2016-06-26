@@ -60,28 +60,55 @@ define(function (require, exports, module) {
                             .on('mouseenter', '.product-label', mouseEnterEvent)
                             .on('click', '.product-agent', clickAgentEvent);
                     }, 10);
-                    //end
-                    scope.dataResult = scope.dataResult || [];//对外暴露的结果数据
+                    scope.$watch('initData', function (newVal, oldVal) {
+                        debugger
+                        init();
+                    });
                     var products = [];
-                    //后端推过来的结果 与提交的结果完全一致的数据结构
-                    var resultData = [{data: [], state: 0, productId: 1}, {data: [], productId: 11}, {data: [], productId: 111}, {data: [], productId: 1111}, {data: [], productId: 11111}];
-                    //JSON格式转换
-                    //logic位置重排序
-                    _.each(productJson.logics, function (item, i) {
-                        item.index = _.findIndex(productJson.products, {productId: item.attr.productId});
-                    });
-                    productJson.logics = productJson.logics.sort(function (a, b) {
-                        return a.index - b.index;
-                    });
+                    var resultData = [];
+                    //end
+                    function init() {
+                        scope.dataResult = scope.dataResult || [];//对外暴露的结果数据
+                        //后端推过来的结果 与提交的结果完全一致的数据结构
+                        resultData = [{data: [], state: 0, productId: 1}, {data: [], productId: 11}, {data: [], productId: 111}, {data: [], productId: 1111}, {data: [], productId: 11111}];
+                        //JSON格式转换
+                        //logic位置重排序
+                        _.each(productJson.logics, function (item, i) {
+                            item.index = _.findIndex(productJson.products, {productId: item.attr.productId});
+                        });
+                        productJson.logics = productJson.logics.sort(function (a, b) {
+                            return a.index - b.index;
+                        });
 
-                    //循环拿到想要的产品模型
-                    for (var i = 0; i < productJson.logics.length; i++) {
-                        var logic = productJson.logics[i];
-                        var product = {logic: logic, productId: logic.attr.productId};
-                        product.index = _.findIndex(productJson.products, {productId: product.productId});
-                        changeState(product);
+                        //循环拿到想要的产品模型
+                        for (var i = 0; i < productJson.logics.length; i++) {
+                            var logic = productJson.logics[i];
+                            var product = {logic: logic, productId: logic.attr.productId};
+                            product.index = _.findIndex(productJson.products, {productId: product.productId});
+                            changeState(product);
+                        }
+                        //产品复选框
+                        scope.productCheckboxs = _.map(productJson.products, function (item, i) {
+                            var findProduct = _.findWhere(resultData, {productId: item.productId});
+                            item.show = !!findProduct;
+                            return {id: item.productId, text: item.text, checked: !!findProduct};
+                        });
+                        debugger
+                        //初始化数据对复选框进行操作
+                        if (scope.initData) {
+                            debugger
+                            //对复选框进行操作
+                            _.each(scope.productCheckboxs, function (item, i) {
+                                var findDataItem = _.findWhere(scope.initData, {productId: item.id});
+                                if (findDataItem) {
+                                    item.checked = findDataItem.check;
+                                    item.canCancel = findDataItem.canCancel;
+                                    var findProduct = _.findWhere(products, {productId: item.id});
+                                    findProduct && (findProduct.show = findDataItem.check);
+                                }
+                            });
+                        }
                     }
-
 
                     function changeState(product) {
                         wrapperReset();
@@ -129,25 +156,9 @@ define(function (require, exports, module) {
                         } else {
                             scope.dataResult.push(returnProductData);
                         }
+                        scope.products = products;
                     }
 
-                    //产品复选框
-                    scope.productCheckboxs = _.map(productJson.products, function (item, i) {
-                        var findProduct = _.findWhere(resultData, {productId: item.productId});
-                        item.show = !!findProduct;
-                        return {id: item.productId, text: item.text, checked: !!findProduct};
-                    });
-                    //初始化数据对复选框进行操作
-                    if (scope.initData) {
-                        //对复选框进行操作
-                        _.each(scope.productCheckboxs, function (item, i) {
-                            var findDataItem = _.findWhere(scope.initData, {productId: item.id});
-                            if (findDataItem) {
-                                item.checked = findDataItem.checked;
-                                item.canCancel = findDataItem.canCancel;
-                            }
-                        });
-                    }
                     //复选框选中事件
                     scope.checkProduct = function (checked, checkbox) {
                         var findProduct = _.findWhere(products, {productId: checkbox.id});
@@ -160,7 +171,7 @@ define(function (require, exports, module) {
                     //初始化验证数据
                     initValidate(products);
                     //视图中渲染的结构
-                    scope.products = products;
+
                     function getStateCombine(logic) {
                         //创建副本 避免污染原始数据
                         var baseState = angular.copy(logic.baseState);
@@ -482,7 +493,7 @@ define(function (require, exports, module) {
                     //获取对应的验证值
                     scope.getValidateValue = function (validateName, fieldStruct, product) {
                         if (fieldStruct.validate && fieldStruct.validate[validateName]) {
-                            var validateItem=fieldStruct.validate[validateName];
+                            var validateItem = fieldStruct.validate[validateName];
                             var result = getValueForSwitchValueType(validateItem.valueType, validateItem.valueRef, product);
                             return result;
                         }
