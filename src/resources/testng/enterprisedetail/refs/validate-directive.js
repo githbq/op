@@ -60,7 +60,6 @@ define(function (reuqire, exports, module) {
             link: function (scope, elm, attrs, ctrl) {
                 scope.ngModel = setMaxOrMinValue(scope.ngModel);
                 elm.off('keyup').on('keyup', function () {
-                    debugger
                     var $dom = $(this);
                     var result = ($dom.val().replace(/[^\.\d]/g, ''));
                     if (!NUMBER_REGEXP.test(result)) {
@@ -73,7 +72,6 @@ define(function (reuqire, exports, module) {
                     }, 100);
                 });
                 elm.off('change').on('change', function () {
-                    debugger
                     var $dom = $(this);
                     var result = $dom.val();
                     result = setMaxOrMinValue(result);
@@ -98,10 +96,10 @@ define(function (reuqire, exports, module) {
                         if (scope.min) {
                             min = parseFloat(scope.min);
                         }
-                        if (!isNaN(max) && result > max) {
+                        if (!(isNaN(max)||max==='') && result > max) {
                             result = max;
                         }
-                        if (!isNaN(min) && result < min) {
+                        if (!(isNaN(min)||min==='') && result < min) {
                             result = min;
                         }
                     }

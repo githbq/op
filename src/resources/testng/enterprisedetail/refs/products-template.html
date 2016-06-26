@@ -34,6 +34,7 @@
                                                    min="{{getValidateValue('moreThan',field,product)}}"
                                                    max="{{getValidateValue('lessThan',field,product)}}"
                                                    ng-change="this.fieldChange(this.field,this.product,this[currentFormName])"
+                                                   ng-model-options="{updateOn:'blur'}"
                                                    ng-model="field.value.valueData.value"/>
                                         </div>
                                         <!--单选框-->
@@ -51,12 +52,12 @@
                                         </div>
                                         <!--添加销售-->
                                         <div ng-switch-when="sales">
-                                            <label class="label-tip" ng-if="field.label" ng-class="{required:field.validate.required}"><span class="title">{{field.label}}</span></label>
+                                            <label  ng-init="field.value.valueData.valueItems=field.value.valueData.valueItems||[]" class="label-tip" ng-if="field.label" ng-class="{required:field.validate.required}"><span class="title">{{field.label}}</span></label>
                                             <a ng-disabled="productReadonly||field.readonly"
                                                class="add-button" onselectstart="return false;"
-                                               ng-init="field.value.valueData.valueItems=field.value.valueData.valueItems||[]"
-                                               ng-if="!(productReadonly||field.readonly)"
+                                               ng-if="!(productReadonly||field.readonly) && field.value.valueData.valueItems.length<5"
                                                ng-click="productReadonly||field.readonly||selectSalesmenDialog(field.value.valueData.valueItems)">添加{{field.label}}</a>
+                                            {{field.value.valueData.valueItems.length}}
                                             <table class="s-table">
                                                 <tbody>
                                                 <tr ng-repeat="item in field.value.valueData.valueItems">
@@ -75,11 +76,10 @@
                                         </div>
                                         <!--添加合作人-->
                                         <div ng-switch-when="partners">
-                                            <label class="label-tip" ng-if="field.label" ng-class="{required:field.validate.required}"><span class="title">{{field.label}}</span></label>
+                                            <label  ng-init="field.value.valueData.valueItems=field.value.valueData.valueItems||[]" class="label-tip" ng-if="field.label" ng-class="{required:field.validate.required}"><span class="title">{{field.label}}</span></label>
                                             <a ng-disabled="productReadonly||field.readonly"
                                                onselectstart="return false;" class="add-button"
-                                               ng-init="field.value.valueData.valueItems=field.value.valueData.valueItems||[]"
-                                               ng-if="!(productReadonly||field.readonly)"
+                                               ng-if="!(productReadonly||field.readonly) && field.value.valueData.valueItems.length<5"
                                                ng-click="productReadonly||field.readonly||selectPartnersDialog(field.value.valueData.valueItems)">添加{{field.label}}</a>
                                             <table class="s-table">
                                                 <tbody>
@@ -96,7 +96,6 @@
                                         <!--输入时间-->
                                         <div ng-switch-when="time">
                                             <label ng-if="field.label" ng-class="{required:field.validate.required}"><span class="title" ng-init="field.dateConfig={type:0}">{{field.label}}</span></label>
-
                                             <div class="div-inline-block">
                                                 <div ng-disabled="productReadonly||field.readonly"
                                                      min-date="{{getValidateValue('moreThan',field,product)}}" max-date="{{getValidateValue('lessThan',field,product)}}"
@@ -110,7 +109,6 @@
                                         <!--输入结束时间-->
                                         <div ng-switch-when="endTime">
                                             <label ng-if="field.label" ng-class="{required:field.validate.required}"><span class="title" ng-init="field.dateConfig={type:1}">{{field.label}}</span></label>
-
                                             <div class="div-inline-block">
                                                 <div ng-disabled="productReadonly||field.readonly"
                                                      min-date="{{getValidateValue('moreThan',field,product)}}" max-date="{{getValidateValue('lessThan',field,product)}}"
