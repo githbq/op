@@ -63,8 +63,8 @@ define(function (require, exports, module) {
                     scope.$watch('initData', function (newVal, oldVal) {
                         init();
                     });
-                    var products = [];
-                    var resultData = [];
+                    scope.products =scope.products|| [];
+                    scope.resultData =scope.resultData|| [];
                     //end
                     function init() {
                         scope.dataResult = scope.dataResult || [];//对外暴露的结果数据
@@ -100,7 +100,7 @@ define(function (require, exports, module) {
                                 if (findDataItem) {
                                     item.checked = findDataItem.check;
                                     item.canCancel = findDataItem.canCancel;
-                                    var findProduct = _.findWhere(products, {productId: item.id});
+                                    var findProduct = _.findWhere(scope.products, {productId: item.id});
                                     findProduct && (findProduct.show = findDataItem.check);
                                 }
                             });
@@ -135,11 +135,11 @@ define(function (require, exports, module) {
                         var stateData = getStateCombine(product.logic);//所有的状态
                         product.states = stateData.visibleStates;//可见的状态
                         product.show = !!_.findWhere(resultData, {productId: product.productId});
-                        var findIndex = _.findIndex(products, {productId: product.productId});
+                        var findIndex = _.findIndex(scope.products, {productId: product.productId});
                         if (findIndex >= 0) {
-                            products[findIndex] = product;
+                            scope.products[findIndex] = product;
                         } else {
-                            products.push(product);
+                            scope.products.push(product);
                         }
                         //处理返回结果
                         _.each(stateData.allStates, function (item, i) {
@@ -153,7 +153,6 @@ define(function (require, exports, module) {
                         } else {
                             scope.dataResult.push(returnProductData);
                         }
-                        scope.products = products;
                     }
 
                     //复选框选中事件
@@ -166,7 +165,7 @@ define(function (require, exports, module) {
                         wrapperReset();
                     };
                     //初始化验证数据
-                    initValidate(products);
+                    initValidate(scope.products);
                     //视图中渲染的结构
 
                     function getStateCombine(logic) {
