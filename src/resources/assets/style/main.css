@@ -8466,13 +8466,34 @@ em {
   width: 217px;
 }
 .multiple-select-long {
-  width: 400px;
+  width: 500px;
+}
+.input-file-container {
+  overflow: hidden;
+}
+.input-file-container.x.x.x .file-field {
+  border: 1px solid red;
+}
+.input-file-container .file-field {
+  width: 475px;
+}
+.enterprise-panel span.inline-m {
+  display: inline-block;
+  width: 70px;
+  text-align: right;
+  margin-right: 20px;
+}
+.enterprise-panel button[disabled] {
+  opacity: 0.5;
+}
+.enterprise-panel .v-top {
+  vertical-align: top;
 }
 .enterprise-panel .inline-block {
   display: inline-block;
 }
 .enterprise-panel .textarea-m {
-  width: 500px;
+  width: 600px;
   height: 100px;
 }
 .enterprise-panel .form .ng-pristine.ng-dirty.ng-invalid:not(.form) {
@@ -8488,13 +8509,10 @@ em {
   border: 1px solid lawngreen;
 }
 .enterprise-panel input[type=text] {
-  width: 200px;
+  width: 260px;
 }
 .enterprise-panel input[type=text].input-l {
-  width: 500px;
-}
-.enterprise-panel .multiple-select.input-l {
-  width: 400px;
+  width: 600px;
 }
 .enterprise-panel input.readonly,
 .enterprise-panel textarea.readonly {
@@ -8544,9 +8562,11 @@ em {
   text-align: center;
   padding: 5px;
 }
+.enterprise-panel .form.payinfo .form-row label:first-child:not(.fenqi-label) {
+  width: 220px;
+}
 .enterprise-panel .form .product-info-group {
   width: 90%;
-  border: 2px solid #cccccc;
   margin: 0 auto;
   padding: 10px;
   background-color: #f2f2f2;
@@ -8567,22 +8587,25 @@ em {
 }
 .enterprise-panel .form .form-row .inputs-container .fenqi-label {
   display: inline-block;
-  width: 350px;
-  text-align: left;
+  width: 240px;
+  text-align: right;
   margin-top: 3px;
 }
 .enterprise-panel .form .form-row .inputs-container .fenqi-label span::after {
   content: '';
 }
-.enterprise-panel .form .form-row label:first-child {
+.enterprise-panel .form .form-row .inputs-container input {
+  width: 100px;
+}
+.enterprise-panel .form .form-row label:first-child:not(.fenqi-label) {
   display: inline-block;
   width: 150px;
   text-align: right;
 }
-.enterprise-panel .form .form-row label:first-child span::after {
+.enterprise-panel .form .form-row label:first-child:not(.fenqi-label) span::after {
   content: ':';
 }
-.enterprise-panel .form .form-row label:first-child.required::after {
+.enterprise-panel .form .form-row label:first-child:not(.fenqi-label).required::after {
   content: '*';
   color: red;
 }

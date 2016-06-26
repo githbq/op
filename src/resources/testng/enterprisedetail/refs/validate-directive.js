@@ -52,33 +52,76 @@ define(function (reuqire, exports, module) {
         };
     });
 
-
     var NUMBER_REGEXP = /^\d{1,8}((\.|\,)\d{0,2})?$/;
     app.directive('number', function () {
         return {
             require: 'ngModel',
+            scope: {maxNumber: '=', minNumber: '=', max: '@', min: '@', ngModel: '=', ngRequired: '='},
             link: function (scope, elm, attrs, ctrl) {
-                //初步解决验证时动态改值问题
+                scope.ngModel = setMaxOrMinValue(scope.ngModel);
                 elm.off('keyup').on('keyup', function () {
+                    debugger
                     var $dom = $(this);
                     var result = ($dom.val().replace(/[^\.\d]/g, ''));
                     if (!NUMBER_REGEXP.test(result)) {
-                        result = '0';
+                        result = null;
                     }
                     $dom.val(result);
-
-                    ctrl.$setViewValue(result, true);//只能赋模型的值不能改变VIEW
+                    ctrl.$setViewValue(result !== null ? parseFloat(result) : result, true);//只能赋模型的值不能改变VIEW
                     setTimeout(function () {
                         ctrl.$setValidity('number', true);
                     }, 100);
                 });
+                elm.off('change').on('change', function () {
+                    debugger
+                    var $dom = $(this);
+                    var result = $dom.val();
+                    result = setMaxOrMinValue(result);
+                    $dom.val(result);
+                    ctrl.$setViewValue(parseFloat(result), true);//只能赋模型的值不能改变VIEW
+                    setTimeout(function () {
+                        ctrl.$setValidity('number', true);
+                    }, 100);
+                });
+                function setMaxOrMinValue(result) {
+                    if (isNaN(result)) {
+                        result = null;
+                    } else {
+                        result = parseFloat(result);
+                    }
+                    if (result !== null) {
+                        var max = scope.maxNumber;
+                        var min = scope.minNumber;
+                        if (scope.max) {
+                            max = parseFloat(scope.max);
+                        }
+                        if (scope.min) {
+                            min = parseFloat(scope.min);
+                        }
+                        if (!isNaN(max) && result > max) {
+                            result = max;
+                        }
+                        if (!isNaN(min) && result < min) {
+                            result = min;
+                        }
+                    }
+                    //if (scope.required && !result) {
+                    //    result = 0;
+                    //}
+                    return result;
+                }
+
+                //与非空进行兼容
                 ctrl.$parsers.unshift(function (viewValue) {
                     if (NUMBER_REGEXP.test(viewValue)) {
                         ctrl.$setValidity('number', true);
                         return parseFloat(viewValue.toString().replace(',', '.'));
-                    } else {
+                    } else if (viewValue === '' && scope.ngRequired) {
                         ctrl.$setValidity('number', false);
                         return undefined;
+                    } else {
+                        ctrl.$setValidity('number', true);
+                        return '';
                     }
                 });
             }
@@ -91,10 +134,9 @@ define(function (reuqire, exports, module) {
             require: 'ngModel',
             link: function (scope, elm, attrs, ctrl) {
                 ctrl.$parsers.unshift(function (viewValue) {
-                    debugger
                     if (ACCOUNT_REGEXP.test(viewValue)) {
                         ctrl.$setValidity('account', true);
-                       return viewValue;
+                        return viewValue;
                     } else {
                         ctrl.$setValidity('account', false);
                         return undefined;
