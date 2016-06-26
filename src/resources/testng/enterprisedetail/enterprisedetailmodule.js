@@ -549,7 +549,7 @@ define(function (require, exports, module) {
             return;
         };
         $scope.close = function () {
-            alert('关闭')
+            IBSS.tplEvent.trigger('order1.2Close');
         };
     }]);
 
