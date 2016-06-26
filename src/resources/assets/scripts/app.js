@@ -409,7 +409,7 @@ define('common/app', function(require, exports, module){
                         //开始提醒轮询
                         me._startRemind();
                         me.setPermissions();
-                        me.setModuleCode();
+                        //me.setModuleCode();
                         callback && callback();
                     }
                 }
@@ -437,7 +437,7 @@ define('common/app', function(require, exports, module){
          */
 		setPermissions: function( $el ){
 			var $el = $el || $('body');
-
+			/*
 			$el.find('[data-permissions]').each(function(){
 				var $this = $( this ),
 
@@ -462,7 +462,7 @@ define('common/app', function(require, exports, module){
 					$this.remove();
 				}
 			});
-
+			*/
 			//特殊处理
 			/*
 			 *for( var i = 0; i < IBSS.FUNCTIONS.length ; i++ ){

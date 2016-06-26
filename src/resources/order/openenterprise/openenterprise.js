@@ -10,13 +10,11 @@ define( function( require, exports, module ) {
 
     exports.init = function( param ) {
         var $el = exports.$el;
-
-        console.log( param );
         var data;
         var page;
 
         //增购/续费
-        if( param[0] ){
+        if( param && param[0] ){
             data = {
                 'enterpriseId': param[0]
             };
