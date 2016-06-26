@@ -31,13 +31,7 @@
                     </label>
                     <label>
                         订单类型
-                        <select name="orderType" ng-model="orderType">
-                            <option value="">全部</option>
-                            <option value="1">新增</option>
-                            <option value="2">续费</option>
-                            <option value="3">增购</option>
-                            <option value="4">收尾款</option>
-                        </select>
+                        <select name="ordermap" ng-model="orderType"></select>
                     </label>
                     <label>
                         提单人
@@ -61,10 +55,7 @@
                     </label>
                     <label>
                         订单状态
-                        <select ng-model="type">
-                            <option value="0">全部</option>
-                            <option value="1">部分</option>
-                        </select>
+                        <select name="orderstatus" ng-model="orderStatus"></select>
                     </label>
                 </div>
             </div>
