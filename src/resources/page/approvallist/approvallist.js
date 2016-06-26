@@ -65,6 +65,7 @@ define( function(require, exports, module){
                 }
             })
             */
+            var state = $scope.state;
             switch ( state ){
                 case 'wait':
                     url = "/approval/getongoingapprovalpage";
