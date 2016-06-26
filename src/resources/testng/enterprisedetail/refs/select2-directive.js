@@ -8,7 +8,7 @@ define(function (require, exports, module) {
                 config: '=',
                 ngModel: '=',
                 select2Model: '=',
-                ajaxQuery: '='//远程查找服务
+                ajaxConfig: '='//远程查找服务
             },
             link: function (scope, element, attrs) {
                 // 初始化
@@ -44,16 +44,15 @@ define(function (require, exports, module) {
                 if (tagName === 'INPUT') {
                     // 初始化
                     var $element = $(element);
-
                     // 获取内置配置
-                    if (attrs.query) {
-                        scope.config = scope.ajaxQuery;
+                    if (scope.ajaxConfig) {
+                        scope.config = angular.extend(scope.config||{},scope.ajaxConfig) ;
                     }
-
                     // 动态生成select2
                     scope.$watch('config', function () {
                         angular.extend(config, scope.config);
                         $element.select2('destroy').select2(config);
+                        $element.select2('val', scope.ngModel);
                     }, true);
 
                     // view - model

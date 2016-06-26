@@ -4,85 +4,142 @@ define(function (require, exports, module) {
     var dialogManager = require('./dialog');
     var waterfallcomput = require('./waterfallcomput');
     var colWrapperStr = '<div class="product-col-wraper"></div>';
+    //瀑布布局重置
+    function wrapperReset(delay) {
+        setTimeout(function () {
+            $('.product-agent').each(function (i, n) {
+                var $dom = $(n);
+                if ($dom.parents('.product-col-wraper').length > 0) {
+                    $dom.unwrap();
+                }
+            });
+            waterfallcomput($('.products-border'), $('.product-agent').has('.product'), colWrapperStr);
+        }, delay || 50);
+    }
+
+    function resizeEvent() {
+        $('.enterprise-panel').length > 0 && wrapperReset();
+    }
+
+    //鼠标经过效果
+    function mouseEnterEvent() {
+        var productId = $(this).attr('data-productid');
+        if ($('.product-agent[data-productid=' + productId + '] .product').length > 0) {
+            $('.product-label').removeClass('active');
+
+            $(this).addClass('active');
+            $('.product-agent[data-productid]').removeClass('active');
+            $('.product-agent[data-productid=' + productId + ']').addClass('active');
+        }
+    }
+
+    //点击产品事件
+    function clickAgentEvent() {
+        var productId = $(this).attr('data-productid');
+        $('.product-label').removeClass('active2').filter('[data-productid=' + productId + ']').addClass('active2');
+    }
 
     angular.module('formApp').directive('products', function () {
             return {
-                scope: {dataResult: '=', productReadonly: '='},
+                scope: {dataResult: '=', productReadonly: '=', show: '=', initData: '='},
                 template: require('./products-template.html'),
                 link: function (scope, iElem, iAttrs) {
-                    $(window).on('resize', function () {
-                        setTimeout(function () {
+                    scope.$watch('show', function () {
+                        if (scope.show) {
                             wrapperReset();
-                        }, 50);
+                        }
                     });
-                    //用户体验优化
-                    $('.enterprise-panel').on(
-                        'mouseenter', '.product-label', function () {
-                            var productId = $(this).attr('data-productid');
-                            if ($('.product-agent[data-productid=' + productId + '] .product').length > 0) {
-                                $('.product-label').removeClass('active');
-
-                                $(this).addClass('active');
-                                $('.product-agent[data-productid]').removeClass('active');
-                                $('.product-agent[data-productid=' + productId + ']').addClass('active');
-                            }
-                        }).on(
-                        'mouseleave', '.product-label', function () {
-                            //var productId = $(this).attr('data-productid');
-                            //$('.product-agent[data-productid=' + productId + ']').removeClass('active');
-                        }).on(
-                        'click', '.product-agent', function () {
-                            var productId = $(this).attr('data-productid');
-                            $('.product-label').removeClass('active2').filter('[data-productid=' + productId + ']').addClass('active2');
+                    setTimeout(function () {
+                        var $container = $('.enterprise-panel');
+                        //用户体验优化
+                        //窗口改变大小事件
+                        $(window).off('resize', resizeEvent).on('resize', resizeEvent);
+                        $container
+                            .off('mouseenter', '.product-label', mouseEnterEvent)
+                            .off('click', '.product-agent', clickAgentEvent)
+                            .on('mouseenter', '.product-label', mouseEnterEvent)
+                            .on('click', '.product-agent', clickAgentEvent);
+                    }, 10);
+                    scope.$watch('initData', function (newVal, oldVal) {
+                        init();
+                    });
+                    scope.products =scope.products|| [];
+                    scope.resultData =scope.resultData|| [];
+                    //end
+                    function init() {
+                        scope.dataResult = scope.dataResult || [];//对外暴露的结果数据
+                        //后端推过来的结果 与提交的结果完全一致的数据结构
+                        resultData = [{data: [], state: 0, productId: 1}, {data: [], productId: 11}, {data: [], productId: 111}, {data: [], productId: 1111}, {data: [], productId: 11111}];
+                        //JSON格式转换
+                        //logic位置重排序
+                        _.each(productJson.logics, function (item, i) {
+                            item.index = _.findIndex(productJson.products, {productId: item.attr.productId});
                         });
-                    scope.dataResult = scope.dataResult || [];//对外暴露的结果数据
-                    var products = [];
-                    //后端推过来的结果 与提交的结果完全一致的数据结构
-                    var resultData = [{data: [], state: 0, productId: 1}, {data: [], productId: 11}, {data: [], productId: 111}, {data: [], productId: 1111}, {data: [], productId: 11111}];
-                    //JSON格式转换
-                    for (var i = 0; i < productJson.logics.length; i++) {
-                        var logic = productJson.logics[i];
-                        var product = {logic: logic, productId: logic.attr.productId};
-                        product.index = _.findIndex(productJson.products, {productId: product.productId});
-                        changeState(product);
-                    }
-                    //瀑布布局重置
-                    function wrapperReset() {
-                        setTimeout(function () {
-                            $('.product-agent').each(function (i, n) {
-                                var $dom = $(n);
-                                if ($dom.parents('.product-col-wraper').length > 0) {
-                                    $dom.unwrap();
+                        productJson.logics = productJson.logics.sort(function (a, b) {
+                            return a.index - b.index;
+                        });
+
+                        //循环拿到想要的产品模型
+                        for (var i = 0; i < productJson.logics.length; i++) {
+                            var logic = productJson.logics[i];
+                            var product = {logic: logic, productId: logic.attr.productId};
+                            product.index = _.findIndex(productJson.products, {productId: product.productId});
+                            changeState(product);
+                        }
+                        //产品复选框
+                        scope.productCheckboxs = _.map(productJson.products, function (item, i) {
+                            var findProduct = _.findWhere(resultData, {productId: item.productId});
+                            item.show = !!findProduct;
+                            return {id: item.productId, text: item.text, checked: !!findProduct};
+                        });
+                        //初始化数据对复选框进行操作
+                        if (scope.initData) {
+                            //对复选框进行操作
+                            _.each(scope.productCheckboxs, function (item, i) {
+                                var findDataItem = _.findWhere(scope.initData, {productId: item.id});
+                                if (findDataItem) {
+                                    item.checked = findDataItem.check;
+                                    item.canCancel = findDataItem.canCancel;
+                                    var findProduct = _.findWhere(scope.products, {productId: item.id});
+                                    findProduct && (findProduct.show = findDataItem.check);
                                 }
                             });
-                            waterfallcomput($('.products-border'), $('.product-agent').has('.product'), colWrapperStr);
-
-                        }, 50);
+                        }
                     }
 
                     function changeState(product) {
                         wrapperReset();
                         var find = _.findWhere(resultData, {productId: product.productId});
-                        if (find) {
-                            //不再直接替换成结果data而是用采用结果data去赋值给原始data 最终取值使用原始data
-                            _.each(product.logic.data, function (item, i) {
-                                var rData = _.findWhere(find.data, {name: item.name});
-                                if (rData) {
+                        var findInitData = _.findWhere(scope.initData || [], {productId: product.productId});
+                        //不再直接替换成结果data而是用采用结果data去赋值给原始data 最终取值使用原始data
+                        _.each(product.logic.data, function (item, i) {
+                            var rData = null;
+                            //先赋初始化数据
+                            if (findInitData && findInitData.data) {
+                                rData = _.findWhere(findInitData.data, {name: item.name});
+                                if (rData && !checkoutUN(rData.value)) {
                                     item.value = rData.value;
                                 }
-                                item.x = Math.random();
-                            });
+                            }
+                            if (find && find.data) {
+                                //再赋保存的数据
+                                rData = _.findWhere(find.data, {name: item.name});
+                                if (rData && !checkoutUN(rData.value)) {
+                                    item.value = rData.value;
+                                }
+                            }
+                        });
+                        if (find && !checkoutUN(find.state)) { //结果数据会可能修改状态
                             product.logic.currState = find.state;
                         }
                         var stateData = getStateCombine(product.logic);//所有的状态
                         product.states = stateData.visibleStates;//可见的状态
                         product.show = !!_.findWhere(resultData, {productId: product.productId});
-                        var findIndex = _.findIndex(products, {productId: product.productId});
+                        var findIndex = _.findIndex(scope.products, {productId: product.productId});
                         if (findIndex >= 0) {
-                            products[findIndex] = product;
+                            scope.products[findIndex] = product;
                         } else {
-                            product.$uniqueKey = Math.random();
-                            products.push(product);
+                            scope.products.push(product);
                         }
                         //处理返回结果
                         _.each(stateData.allStates, function (item, i) {
@@ -99,12 +156,6 @@ define(function (require, exports, module) {
                     }
 
                     //复选框选中事件
-                    scope.productCheckboxs = _.map(productJson.products, function (item, i) {
-                        var findProduct = _.findWhere(resultData, {productId: item.productId});
-                        item.show = !!findProduct;
-                        return {id: item.productId, text: item.text, checked: !!findProduct};
-                    });
-                    //产品复选框
                     scope.checkProduct = function (checked, checkbox) {
                         var findProduct = _.findWhere(products, {productId: checkbox.id});
                         findProduct.show = checked;
@@ -114,9 +165,9 @@ define(function (require, exports, module) {
                         wrapperReset();
                     };
                     //初始化验证数据
-                    initValidate(products);
+                    initValidate(scope.products);
                     //视图中渲染的结构
-                    scope.products = products;
+
                     function getStateCombine(logic) {
                         //创建副本 避免污染原始数据
                         var baseState = angular.copy(logic.baseState);
@@ -176,29 +227,28 @@ define(function (require, exports, module) {
                             var logic = product.logic;
                             for (var i = 0; i < states.length; i == 0) {
                                 var stateItem = states[i];
-                                executeValidateInit(stateItem, logic)
-
+                                executeValidateInit(stateItem, logic, product);
                             }
                         }
 
                         //执行验证值初始化行为
-                        function executeValidateInit(state, logic) {
+                        function executeValidateInit(state, logic, product) {
                             state.validateInit = state.validateInit || [];
                             for (var i = 0; i < state.validateInit.length; i++) {
                                 var initItem = state.validateInit[i];
-                                switchInitType(initItem, state.validate, logic)
+                                switchInitType(initItem, state.validate, logic, product)
 
                             }
                         }
 
                         //根据类型执行取值
-                        function switchInitType(initItem, validate, logic) {
+                        function switchInitType(initItem, validate, logic, product) {
                             switch (initItem.value.type) {
                                 case 'ajax':
                                 {
                                     util.api({
                                         url: '~' + initItem.url,
-                                        data: getQueryData(initItem.query),
+                                        data: getQueryData(initItem.query, product),
                                         success: function (result) {
                                             if (result.success) {
                                                 scope.$apply(function () {
@@ -254,7 +304,7 @@ define(function (require, exports, module) {
                                 case 'ajax':
                                 {
                                     //远程赋值操作
-                                    ajaxSetValue(changeItem, fieldStruct);
+                                    ajaxSetValue(changeItem, fieldStruct, product);
 
                                 }
                                     ;
@@ -262,23 +312,23 @@ define(function (require, exports, module) {
                         }
 
                         //ajax赋值操作
-                        function ajaxSetValue(changeItem) {
+                        function ajaxSetValue(changeItem, fieldStruct, product) {
                             if (!changeItem.url) {
                                 return;
                             }
                             util.api({
                                 url: '~' + changeItem.url,
-                                data: getQueryData(changeItem.query),
+                                data: getQueryData(changeItem.query, product),
                                 success: function (result) {
-                                    if (result.success) {
-                                        setResponse(result.value.model, changeItem);
+                                    if (result.success && result.value.model) {//如果查询无效 result.value.model为false或者null
+                                        setResponse(result.value.model, changeItem, product);
                                     }
                                 }
                             });
 
 
                             //根据ajax返回的值向数据中赋值
-                            function setResponse(data, changeItem) {
+                            function setResponse(data, changeItem, product) {
                                 scope.$apply(function () {
                                     if (changeItem.response.writeBackType == 'merge') {//合并到data上
                                         _.each(data, function (value, key) {
@@ -289,13 +339,13 @@ define(function (require, exports, module) {
                                     if (changeItem.response.writeBackType == 'mapping' && changeItem.response.mapper) {//映射合并
                                         for (var i = 0; i < changeItem.response.mapper.length; i++) {
                                             var mapperItem = changeItem.response.mapper[i];
-                                            setMappingValue(data, mapperItem);
+                                            setMappingValue(data, mapperItem, product);
                                         }
                                     }
                                 });
                             }
 
-                            function setMappingValue(responseData, mapperItem) {
+                            function setMappingValue(responseData, mapperItem, product) {
                                 switch (mapperItem.valueType) {
                                     case 'data':
                                     {
@@ -399,18 +449,18 @@ define(function (require, exports, module) {
 
                     };
                     //获取推送到后端的数据
-                    function getQueryData(querys) {
+                    function getQueryData(querys, product) {
                         var data = {};
                         for (var i = 0; i < querys.length; i++) {
                             var queryItem = querys[i];
-                            var findValue = getValueForSwitchValueType(queryItem.valueType, queryItem.valueRef);
+                            var findValue = getValueForSwitchValueType(queryItem.valueType, queryItem.valueRef, product);
                             data[queryItem.name] = findValue;
                         }
                         return data;
                     }
 
                     //根据不同的拿值类型拿值
-                    function getValueForSwitchValueType(valueType, refName) {
+                    function getValueForSwitchValueType(valueType, refName, product) {
                         var value = null;
                         switch (valueType) {
                             case 'data':
@@ -436,64 +486,45 @@ define(function (require, exports, module) {
                         return value;
                     }
 
-                    //获取后后端推送的数据
-                    scope.getResultData = function () {
-                        return _.map(products, function (item, i) {
-                            return {productId: item.productId, data: item.logic.data, state: item.logic.currState};
-                        });
-                    };
-                    //添加销售
-                    scope.addSalesmen = function (field) {
-                        field.value.valueData.valueItems = field.value.valueData.valueItems || [];
-
-                        field.value.valueData.valueItems.push({
-                            "name": "张三",
-                            "department": '广州大一部',
-                            "inputTitle": "签约金额",
-                            "value": "111"
-                        });
-                    };
-                    // 添加合作人
-                    scope.addPartners = function (field) {
-                        field.value.valueData.valueItems = field.value.valueData.valueItems || [];
-                        field.value.valueData.valueItems.push({
-                            "name": "张三",
-                            "department": '广州大一部',
-                            "value": "AAAAAA"
-                        });
+                    //获取对应的验证值
+                    scope.getValidateValue = function (validateName, fieldStruct, product) {
+                        if (fieldStruct.validate && fieldStruct.validate[validateName]) {
+                            var validateItem = fieldStruct.validate[validateName];
+                            var result = getValueForSwitchValueType(validateItem.valueType, validateItem.valueRef, product);
+                            return result;
+                        }
                     };
                     //弹窗选择 添加销售
                     scope.selectSalesmenDialog = function (array) {
                         var accountConfig = {
-                            data: [{id: 1, text: '111111111111111'}, {id: 2, text: '22222222222'}, {id: 3, text: '3333333333'}, {id: 4, text: '支付宝'}],
+                            data: [],
                             multiple: false,
-                            placeholder: '必须与实际打款的单位/个人名称一致'
+                            placeholder: '请输入条件查询'
                         };
                         var dialog = dialogManager.getInstance(null,
                             {
                                 defaultAttr: {
-                                    title: 'testResult',
-                                    width: 500
+                                    title: '选择销售',
+                                    width: 600
                                 },
                                 content: require('./dialogtemplate.html')
                             }
                         );
-                        dialog.bootstrap(['common.directives', 'common.services'], function (app) {
-                            app.controller('dialogController', ['$scope', '$timeout', function ($scope, $timeout) {
+                        dialog.bootstrap(['common.directives', 'common.services', 'formApp'], function (app) {
+                            app.controller('dialogController', ['$scope', '$timeout', 'select2Query', function ($scope, $timeout, select2Query) {
                                 var vm = this;
                                 vm.config = accountConfig;
+                                vm.ajaxConfig = select2Query.getEmplyeeAjaxConfig();
                                 vm.ngModel = null;
                                 vm.select2Model = null;
-                                vm.placeholder = '请选择...';
+                                vm.placeholder = '请输入条件查询';
                                 vm.clickEnter = function () {
-                                    scope.$apply(function () {
-                                        array.push({
-                                            "name": "张三",
-                                            "department": '广州大一部',
-                                            "inputTitle": "签约金额",
-                                            "value": "111"
+                                    var me = this;
+                                    if (me.select2Model) {
+                                        scope.$apply(function () {
+                                            array.push(me.select2Model.data);
                                         });
-                                    });
+                                    }
                                 };
                                 vm.clickCancel = function () {
 
@@ -505,34 +536,34 @@ define(function (require, exports, module) {
                     //弹窗选择 添加跟进人
                     scope.selectPartnersDialog = function (array) {
                         var accountConfig = {
-                            data: [{id: 1, text: '111111111111111'}, {id: 2, text: '22222222222'}, {id: 3, text: '3333333333'}, {id: 4, text: '支付宝'}],
+                            data: [],
                             multiple: false,
-                            placeholder: '必须与实际打款的单位/个人名称一致'
+                            placeholder: '请输入条件查询'
                         };
                         var dialog = dialogManager.getInstance(null,
                             {
                                 defaultAttr: {
-                                    title: 'testResult',
-                                    width: 500
+                                    title: '选择跟进人',
+                                    width: 600
                                 },
                                 content: require('./dialogtemplate.html')
                             }
                         );
-                        dialog.bootstrap(['common.directives', 'common.services'], function (app) {
-                            app.controller('dialogController', ['$scope', '$timeout', function ($scope, $timeout) {
+                        dialog.bootstrap(['common.directives', 'common.services', 'formApp'], function (app) {
+                            app.controller('dialogController', ['$scope', '$timeout', 'select2Query', function ($scope, $timeout, select2Query) {
                                 var vm = this;
                                 vm.config = accountConfig;
+                                vm.ajaxConfig = select2Query.getEmplyeeAjaxConfig();
                                 vm.ngModel = null;
                                 vm.select2Model = null;
                                 vm.placeholder = '请选择...';
                                 vm.clickEnter = function () {
-                                    scope.$apply(function () {
-                                        array.push({
-                                            "name": "张三",
-                                            "department": '广州大一部',
-                                            "value": "AAAAAA"
+                                    var me = this;
+                                    if (me.select2Model) {
+                                        scope.$apply(function () {
+                                            array.push(me.select2Model.data);
                                         });
-                                    });
+                                    }
                                 };
                                 vm.clickCancel = function () {
 

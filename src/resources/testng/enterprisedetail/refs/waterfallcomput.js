@@ -48,7 +48,7 @@ define(function (require, exports, module) {
             return rowArr;
         }
 
-//将产品按一列一列的装进二维数组
+        //将产品按一列一列的装进二维数组
         function setColArr(rowArr) {
             var colArr = [];
             for (var i = 0; i < rowArr.length; i++) {

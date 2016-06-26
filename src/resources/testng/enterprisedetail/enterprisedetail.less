@@ -3,18 +3,41 @@
 }
 
 .multiple-select-long {
-  width: 400px;
+  width: 500px;
+}
+
+//文件指令容器样式
+.input-file-container {
+  overflow: hidden;
+  &.x.x.x .file-field {
+    border: 1px solid red;
+  }
+  .file-field{
+    width:475px;
+  }
 }
 
 .enterprise-panel {
+  span.inline-m{
+    display:inline-block;
+    width:70px;
+    text-align:right;
+    margin-right:20px;
+  }
+  button[disabled]{
+    opacity:0.5;
+  }
   //.form.ng-invalid {
   //  border: 3px solid red;
   //}
-  .inline-block{
-    display:inline-block;
+  .v-top{
+    vertical-align:top;
+  }
+  .inline-block {
+    display: inline-block;
   }
   .textarea-m {
-    width: 500px;
+    width: 600px;
     height: 100px;
   }
   .form .ng-pristine.ng-dirty.ng-invalid:not(.form) {
@@ -32,14 +55,14 @@
   .form .ng-dirty:not(.form) {
     border: 1px solid lawngreen;
   }
-  input[type=text] {
-    width: 200px;
+  input[type=text]{
+    width: 260px;
     &.input-l {
-      width: 500px;
+      width: 600px;
     }
-  }
-  .multiple-select.input-l {
-    width: 400px;
+    //&[number]{
+    //  width:100px;
+    //}
   }
   input.readonly, textarea.readonly {
     border: 1px solid #dddddd;
@@ -90,11 +113,13 @@
     text-align: center;
     padding: 5px;
   }
-
+  .form.payinfo .form-row label:first-child:not(.fenqi-label) {
+    width: 220px;
+  }
   .form {
     .product-info-group {
       width: 90%;
-      border: 2px solid #cccccc;
+      //border: 1px solid #cccccc;
       margin: 0 auto;
       padding: 10px;
       background-color: #f2f2f2;
@@ -115,15 +140,18 @@
         width: 100%;
         .fenqi-label {
           display: inline-block;
-          width: 350px;
-          text-align: left;
-          margin-top:3px;
+           width: 240px;
+          text-align: right;
+          margin-top: 3px;
           span::after {
             content: ''
           }
         }
+        input{
+          width:100px;
+        }
       }
-      label:first-child {
+      label:first-child:not(.fenqi-label) {
         span::after {
           content: ':'
         }
@@ -135,6 +163,7 @@
           color: red;
         }
       }
+
     }
   }
 }
