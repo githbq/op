@@ -34,7 +34,7 @@
                                                    min="{{getValidateValue('moreThan',field,product)}}"
                                                    max="{{getValidateValue('lessThan',field,product)}}"
                                                    ng-change="this.fieldChange(this.field,this.product,this[currentFormName])"
-                                                   ng-model-options="{updateOn:'blur'}"
+                                                   ng-model-options="{updateOn:'default blur',debounce:500}"
                                                    ng-model="field.value.valueData.value"/>
                                         </div>
                                         <!--单选框-->
@@ -57,7 +57,6 @@
                                                class="add-button" onselectstart="return false;"
                                                ng-if="!(productReadonly||field.readonly) && field.value.valueData.valueItems.length<5"
                                                ng-click="productReadonly||field.readonly||selectSalesmenDialog(field.value.valueData.valueItems)">添加{{field.label}}</a>
-                                            {{field.value.valueData.valueItems.length}}
                                             <table class="s-table">
                                                 <tbody>
                                                 <tr ng-repeat="item in field.value.valueData.valueItems">

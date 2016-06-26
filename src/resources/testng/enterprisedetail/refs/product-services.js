@@ -8,7 +8,7 @@ define(function (require, exports, module) {
                     ajax: {
                         cache: true,
                         url: "/op/api/a/odrDraft/getAccountForSubOrderPartner",
-                        type:'POST',
+                        type: 'POST',
                         dataType: 'json',
                         data: function (term) {
                             return {
@@ -41,7 +41,7 @@ define(function (require, exports, module) {
                     ajax: {
                         cache: true,
                         url: '/op/api/ba/queryListByBankAccount',
-                        type:'POST',
+                        type: 'POST',
                         data: function (term) {
                             return {
                                 bankAccount: term
@@ -73,7 +73,9 @@ define(function (require, exports, module) {
     app.factory('productService', function () {
         var factory = {};
         factory.getOrderList = function (enterpriseAccount, callback) {
-            if(!enterpriseAccount){return;}
+            if (!enterpriseAccount) {
+                return;
+            }
             return util.api({
                 'url': '/odr/queryProductVOList',
                 'data': {'ea': enterpriseAccount},
@@ -84,14 +86,39 @@ define(function (require, exports, module) {
                 }
             });
         };
+        //获取产品的大JSON串
         factory.getDiyOrderFormLogic = function (enterpriseId, callback) {
             return util.api({
                 'url': '~/op/api/a/odrDraft/getDiyOrderFormLogic',
                 'data': {'enterpriseId': enterpriseId},
                 'success': function (result) {
-                    debugger
                     if (result.success) {
                         callback(result.value.model);
+                    }
+                }
+            });
+        };
+        //获取编辑时的订单详情
+        factory.getOrderDetailByOrderId = function (orderId) {
+            if (!orderId) {
+                return;
+            }
+            return util.api({
+                'url': '~/op/api/a/odr/showOrderDetail',
+                'data': {orderId: orderId},
+                'success': function (result) {
+                    if (result.success) {
+                        callback(result.value.model);
+                        /*
+                         canEditEnterprise	是否可以编辑企业 true or false	boolean
+                         canEditOrder	是否可以编辑产品信息	boolean
+                         canEditPaidInfo	是否可以编辑付款信息	boolean
+                         odrDraftEnterprise	企业草稿	object
+                         odrDraftOrder	订单草稿	object
+                         odrDraftPaidInfo	付款草稿	object
+                         odrOrder	订单对象	object
+                         odrReceivedPay	到款信息	object
+                        * */
                     }
                 }
             });
