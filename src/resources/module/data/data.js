@@ -1,22 +1,30 @@
 define( function(require, exports, module){
 
+
+
+    var data = {};
+
     //订单列表——订单类型
-    exports['ordermap'] = {
+    data['ordermap'] = {
     	'1': '新购',
-    	'2': '续费',
-    	'3': '增购',
-    	'5': '收尾款'
+    	'2': '增购',
+    	'3': '续费',
+    	'4': '增购续费',
+        '5': '关联自注册',
+        '6': '开源',
+        '17': '收尾款订单',
+        '18': '线上支付订单'
     }
 
     //订单列表——付费状态
-    exports['paystatus'] = {
+    data['paystatus'] = {
     	'1': '分期',
     	'2': '全部',
     	'3': '未付'
     }
 
     //订单列表———应用类型
-    exports['apptype'] = {
+    data['apptype'] = {
     	'1': '培训服务费',
     	'2': 'CRM',
     	'3': 'PK助手',
@@ -32,7 +40,7 @@ define( function(require, exports, module){
     }
  
     //订单列表————订单状态
-    exports['orderstatus'] = {
+    data['orderstatus'] = {
         '1': '待审核',
         '2': '已撤回',
         '3': '被驳回',
@@ -48,7 +56,7 @@ define( function(require, exports, module){
     }
 
     //订单列表————当前审批节点
-    exports['approvalnode'] = {
+    data['approvalnode'] = {
         '1': '代理商节点',
         '2': '待小助手开通',
         '3': '到款认领',
@@ -56,11 +64,31 @@ define( function(require, exports, module){
     }
 
     //订单列表————到款认领状态
-    exports['claimreceivedpaystatus'] = {
+    data['claimreceivedpaystatus'] = {
         '1': '未认领',
         '2': '认领中',
         '3': '已认领'
     }
-})
+
+    //重设select的值
+    function resetSelect( $el, name ){
+
+
+        var ele = $el.find('[name="'+name+'"]');
+        var values = data[name];
+
+        var nv = [{'name': '全部','value':'' }];
+        for( var key in values ){
+            nv.push( {'name':values[key],'value':key} );
+        }
+
+        util.resetSelect( ele, nv );
+    }
+
+    module.exports = {
+        'data': data,
+        'resetSelect': resetSelect
+    }
+});
 
 

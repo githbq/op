@@ -5,6 +5,9 @@
 define( function(require, exports, module){
 
 	
+    var data = require('module/data/data').data;
+    var resetSelect = require('module/data/data').resetSelect;
+
 	//var OpenApprovalList = require('module/openapprovallist/openapprovallist');
 	var DetailApproval = require('../../order/detailapproval/detailapproval');        //普通订单
 	var DetailPayment = require('../../order/detailpayment/detailpayment');           //收尾款
@@ -20,9 +23,6 @@ define( function(require, exports, module){
 
         $element.find('.starttime').datetimepicker({'timepicker': false,'format':'Y/m/d'})
         $element.find('.endtime').datetimepicker({'timepicker': false,'format':'Y/m/d'})
-
-
-
 
         $scope.tabledata = {};
         $scope.tabledata.thead = ['订单号','合同号','企业名称','账号','订单类型','提单人','所属部门/代理商','特批单','当前审批节点','到款认领状态','订单状态','付费状态','提单日期','操作'];
@@ -51,21 +51,9 @@ define( function(require, exports, module){
 
         //搜索订单列表
         $scope.search = function(){
-        	//console.log('search');
-        	//console.log($scope.s);
-        	//$scope.data.tbody.push([Math.random(),Math.random(),Math.random(),Math.random()])
-            /*
-            util.api({
-                'url':'',
-                'data':{
 
-                },
-                'success': function( data ){
-                    
-                }
-            })
-            */
             var state = $scope.state;
+            var url;
             switch ( state ){
                 case 'wait':
                     url = "/approval/getongoingapprovalpage";
@@ -80,8 +68,41 @@ define( function(require, exports, module){
                     url = "/approval/getrefusedapprovalpage";
                 break;
             };
-            console.log('search');
-            console.log( $scope );
+
+            var appTimeStart = '';
+            var appTimeEnd = '';
+
+            if( $element.find('.starttime').val() ){
+                appTimeStart = new Date( $element.find('.starttime').val() ).getTime();
+            }
+            if( $element.find('.endtime').val() ){
+                appTimeEnd = new Date( $element.find('.endtime').val() ).getTime();
+            }
+            util.api({
+                'url': url,
+                'data': {
+                    'orderId': $scope.orderId,
+                    'contractNo': $scope.contractNo,
+                    'en': $scope.en,
+                    'ea': $scope.ea,
+                    'orderType': $scope.orderType,
+                    'applicantname': $scope.applicantname,
+                    'payStatus': $scope.payStatus,
+                    'agentName': $scope.agentName,
+                    'orderStatus': $scope.orderStatus,
+                    'appTimeStart': appTimeStart,
+                    'appTimeEnd': appTimeEnd,
+                    'pageIndex': $scope.pagenumber,
+                    'pageSize': $scope.pagesize
+                },
+                'success': function( data ){
+                    console.log( 'getdata' );
+                    console.log( data );
+                    if( data.success ){
+                        
+                    }
+                }
+            });
         }
 
         //初始化页数相关
@@ -103,6 +124,8 @@ define( function(require, exports, module){
             console.log( pagenumber ); 
         });
 
+        $scope.search();
+
     }]);
 
 
@@ -111,8 +134,12 @@ define( function(require, exports, module){
 		
 		param = param || [];
 		console.log( param );
-		
+
+        //重置select的值
+		resetSelect( $el,'ordermap' );
+        resetSelect( $el,'orderstatus' );
 		angular.bootstrap( $el.find('.m-approvallist')[0] , ['list'] );
+
 		/*
 		var approvalList = new OpenApprovalList( { 'wrapper':$el,'limits':true  } );  	//
 		approvalList.render();

@@ -10,8 +10,9 @@ define( function( require, exports, module ) {
     var Dialog = require('common/widget/dialog/dialog');
 
     //var Slider = require('common/widget/slider/slider');
-    var ENUMDATA = require('module/data/data');
-    
+    var ENUMDATA = require('module/data/data').data;
+    var resetSelect = require('module/data/data').resetSelect;
+
     var DetailApproval = require('../detailapproval/detailapproval');      //订单详情
 	var DetailPayment = require('../detailpayment/detailpayment');         //
 
@@ -88,25 +89,10 @@ define( function( require, exports, module ) {
             //me.getEnums();
 			me.searchEve();
 
-            me.resetSelect("ordermap");
-            me.resetSelect("paystatus");
-            me.resetSelect("apptype");
-            me.resetSelect("orderstatus");
-        },
-        //重置select
-        resetSelect: function( name ){
-
-            var me = this;
-
-            var ele = me.$('[name="'+name+'"]');
-            var values = ENUMDATA[name];
-
-            var nv = [{'name': '全部','value':'' }];
-            for( var key in values ){
-                nv.push( {'name':values[key],'value':key} );
-            }
-
-            util.resetSelect( ele, nv );
+            resetSelect( me.$view , "ordermap");
+            resetSelect( me.$view , "paystatus");
+            resetSelect( me.$view , "apptype");
+            resetSelect( me.$view , "orderstatus");
         },
         events: {
 			'click .search':'searchEve',                        //搜索
