@@ -143,4 +143,22 @@ define(function (reuqire, exports, module) {
             }
         };
     });
+    var PHONE_REGEXP = /^[1-9]{3}\d{8}$/;
+    app.directive('phone', function () {
+        return {
+            require: 'ngModel',
+            link: function (scope, elm, attrs, ctrl) {
+                ctrl.$parsers.unshift(function (viewValue) {
+                    debugger
+                    if (PHONE_REGEXP.test(viewValue)) {
+                        ctrl.$setValidity('phone', true);
+                        return viewValue;
+                    } else {
+                        ctrl.$setValidity('phone', false);
+                        return undefined;
+                    }
+                });
+            }
+        };
+    });
 });
