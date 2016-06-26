@@ -29,7 +29,7 @@
                                         <div ng-switch-when="number">
                                             <label ng-if="field.label" ng-class="{required:field.validate.required}"><span class="title">{{field.label}}</span></label>
                                             <input type="text" number name="{{product.productId+'$'+field.groupName+'$'+field.name}}"
-                                                   ng-required="!field.validate.required" ng-readonly="productReadonly||field.readonly"
+                                                   ng-required="field.validate.required" ng-readonly="productReadonly||field.readonly"
                                                    ng-disabled="productReadonly||field.readonly"
                                                    min="{{getValidateValue('moreThan',field,product)}}"
                                                    max="{{getValidateValue('lessThan',field,product)}}"
@@ -51,7 +51,7 @@
                                             </label>
                                         </div>
                                         <!--添加销售-->
-                                        <div ng-switch-when="sales">
+                                        <div ng-switch-when="sales" array-required name="sales" ng-model="field.value.valueData.valueItems">
                                             <label  ng-init="field.value.valueData.valueItems=field.value.valueData.valueItems||[]" class="label-tip" ng-if="field.label" ng-class="{required:field.validate.required}"><span class="title">{{field.label}}</span></label>
                                             <a ng-disabled="productReadonly||field.readonly"
                                                class="add-button" onselectstart="return false;"
@@ -74,7 +74,7 @@
                                             </table>
                                         </div>
                                         <!--添加合作人-->
-                                        <div ng-switch-when="partners">
+                                        <div ng-switch-when="partners" required name="partners" ng-model="field.value.valueData.valueItems">
                                             <label  ng-init="field.value.valueData.valueItems=field.value.valueData.valueItems||[]" class="label-tip" ng-if="field.label" ng-class="{required:field.validate.required}"><span class="title">{{field.label}}</span></label>
                                             <a ng-disabled="productReadonly||field.readonly"
                                                onselectstart="return false;" class="add-button"
@@ -100,7 +100,9 @@
                                                      min-date="{{getValidateValue('moreThan',field,product)}}" max-date="{{getValidateValue('lessThan',field,product)}}"
                                                      ng-change="this.fieldChange(this.field,this.product,this[currentFormName])"
                                                      ng-disabled="productReadonly||field.disabled" ng-readonly="productReadonly||field.readonly"
-                                                     getform="this[currentFormName]" ng-required="field.validate.required" name="{{field.name}}"
+                                                     getform="this[currentFormName]"
+                                                     ng-required="field.validate.required"
+                                                     name="{{field.name}}"
                                                      datetimeconfig="field.dateConfig" ng-model="field.value.valueData.value">
                                                 </div>
                                             </div>
@@ -113,7 +115,8 @@
                                                      min-date="{{getValidateValue('moreThan',field,product)}}" max-date="{{getValidateValue('lessThan',field,product)}}"
                                                      ng-change="this.fieldChange(this.field,this.product,this[currentFormName])"
                                                      ng-disabled="productReadonly||field.disabled" ng-readonly="productReadonly||field.readonly"
-                                                     getform="this[currentFormName]" ng-required="field.validate.required"
+                                                     getform="this[currentFormName]"
+                                                     ng-required="field.validate.required"
                                                      name="{{field.name}}" datetimeconfig="field.dateConfig" ng-model="field.value.valueData.value">
                                                 </div>
                                             </div>

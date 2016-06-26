@@ -427,11 +427,11 @@ define(function (require, exports, module) {
         };
         $scope.nextStep = function (form) {
             debugger
-            if ($scope.step == 1) {//企业详情界面
-                //if (form.$invalid) {
-                //    $scope['step_' + $scope.step + '_validate_error'] = true;
-                //    return;
-                //}
+            if ($scope.step == 1||$scope.step == 2||$scope.step == 3) {//企业详情界面
+                if (form.$invalid) {
+                    $scope['step_' + $scope.step + '_validate_error'] = true;
+                    return;
+                }
             }
             switch ($scope.step) {
                 case 1:
@@ -543,15 +543,17 @@ define(function (require, exports, module) {
             })
         }
 
-        $scope.save = function () {
+        $scope.save = function (form) {
+            if (form.$invalid) {
+                $scope['step_' + $scope.step + '_validate_error'] = true;
+                return;
+            }
             //付款信息
             submitStepPayInfo(function (result) {
-                debugger
                 if (result.success) {
-                    alert('操作成功');
+                    util.showTip('操作成功');
                 }
             });
-            return;
         };
         $scope.close = function () {
             IBSS.tplEvent.trigger('order1.2Close');
