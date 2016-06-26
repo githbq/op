@@ -278,8 +278,8 @@ define( function( require, exports, module ) {
             console.log('到款认领');
             var me = this;
             var id = $(e.currentTarget).attr('data-id');
-
-            me.trigger('daokuan', id );
+            var status = $(e.currentTarget).attr('data-daokuan');
+            me.trigger('daokuan', id , status );
         },
         //发票
         invoiceEve:function( e ){
@@ -457,6 +457,12 @@ define( function( require, exports, module ) {
                                 item.approvalNodeStr = ENUMDATA['approvalnode'][item.order.approvalNode];
                                 //到款认领状态
                                 item.claimReceivedPayStatusStr = ENUMDATA['claimreceivedpaystatus'][item.claimReceivedPayStatus]
+                                //到款认领样式名
+                                if(item.claimOrShowReceivedPay == 0 ){
+                                    item.claimClass = 'disable';
+                                }else{
+                                    item.claimClass = 'detail-daokuan';
+                                }
                                 /*
                                 var approveStatus = item.approveStatus ? parseInt(item.approveStatus):0;
                                 //var approveStatus = item.approveStatus ? parseInt(item.approveStatus):0;

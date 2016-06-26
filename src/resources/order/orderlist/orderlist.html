@@ -90,7 +90,7 @@
                         <td><%=item.order.enterpriseName%></td>
                         <td><%=item.order.enterpriseAccount%></td>
                         <td><%=item.orderTypeStr%></td>
-                        <td>提单人</td>
+                        <td><%=item.account.name%></td>
                         <td><%=item.agent ? item.agent.name:''%></td>
                         <td><%=item.approvalNodeStr%></td>
                         <td><%=item.claimReceivedPayStatusStr%></td>
@@ -103,7 +103,7 @@
                             <a data-id="<%=item.order.id%>" class="<%if(item.canDelete){%>detail-delete<%}else{%>disable<%}%>">删除</a>
                             <a data-id="<%=item.order.id%>" class="detail-info">查看</a>
                             <a data-id="<%=item.order.id%>" class="<%if(item.canSupContract){%>detail-supplement<%}else{%>disable<%}%>">补充合同</a>
-                            <a data-id="<%=item.order.id%>" class="detail-daokuan">到款认领</a>
+                            <a data-id="<%=item.order.id%>" data-daokuan="<%=item.claimOrShowReceivedPay%>" class="<%=item.claimClass%>">到款认领</a>
                             <a data-id="<%=item.order.id%>" class="<%if(item.canInvoice){%>detail-invoice<%}else{%>disable<%}%>">发票</a>
                             <a data-id="<%=item.order.id%>" class="<%if(item.canRefund){%>detail-tuikuan<%}else{%>disable<%}%>">退款</a>
                             <a data-entid="<%=item.order.enterpriseId%>" class="<%if(item.canEditPartner){%>detail-union<%}else{%>disable<%}%>">联合跟进人</a>

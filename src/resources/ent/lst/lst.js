@@ -7,6 +7,7 @@ define( function( require, exports, module ) {
 
     //企业详情
     var EntDetail = require('module/enterprisedetail/enterprisedetail');
+    //联合跟进人
 	var CustomHelper = require('../../order/widget/customhelper/customhelper');
     //企业跟踪记录
     var EntTrace = require('module/enttrace/enttrace');

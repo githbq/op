@@ -13,6 +13,7 @@ define(function(require, exports, module) {
     var EntStatusMap = IBSS.EntStatusMap;
 
     //转移企业
+    //=============================
     var TransEnt = MClass( Dialog ).include({
         defaultAttr:{
             'title': '转移企业',
@@ -40,6 +41,7 @@ define(function(require, exports, module) {
     })
 
     //沙盒设置
+    //==================================
     var SandBox = MClass( Dialog ).include({
         defaultAttr:{
             'title':'沙盒设置',
@@ -285,7 +287,7 @@ define(function(require, exports, module) {
                 url: '/enterprise/querypage',
                 data: data,
                 beforeSend: function() {
-                    me.$tbody.html('<tr><td colspan="10"><p class="info">加载中...</p></td></tr>');
+                    me.$tbody.html('<tr><td colspan="14"><p class="info">加载中...</p></td></tr>');
                 },
                 success: function(data) {
                     if (data.success) {
