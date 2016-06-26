@@ -230,7 +230,7 @@
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>合同号</span></label>
-                    <input ng-model-options="{updateOn:'blur'}" ng-class="{readonly:payInfoReadonly}" required ng-readonly="payInfoReadonly" type="text" ng-change="getDataByContractNo(payInfo.contractNo)" ng-model="payInfo.contractNo" name="contractNo"/>
+                    <input ng-model-options="{updateOn:'blur'}" ng-class="{readonly:payInfoReadonly}" required ng-readonly="payInfoReadonly" type="text" ng-change="getDataByContractNo()" ng-model="payInfo.contractNo" name="contractNo"/>
                 </div>
             </div>
             <div class="form-row">
@@ -280,9 +280,9 @@
                     <label class="required"><span>分期金额</span></label>
                 </div>
                 <div class="form-field inputs-container">
-                    <label class="fenqi-label" ng-repeat="item in payInfo.currPayAmountList">
+                    <label class="fenqi-label" ng-repeat="item in payInfo.currPayList">
                         <span>{{item.productName}}(元)</span>
-                        <input ng-model-options="{updateOn:'default'}" ng-change="currPayAmountChange(payInfo.currPayAmountList)"
+                        <input ng-model-options="{updateOn:'default'}" ng-change="currPayAmountChange(payInfo.currPayList)"
                                ng-class="{readonly:payInfoReadonly||payInfo.partReadonly}" number ng-readonly="payInfoReadonly||payInfo.partReadonly"
                                type="text" name="{{'currPayAmount_'+item.productId}}" max-number="item.purchaseAmount" ng-model="item.currPayAmount"/>
                     </label>

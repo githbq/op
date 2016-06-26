@@ -108,6 +108,9 @@ define(function (require, exports, module) {
                                     item.canCancel = findDataItem.canCancel;
                                     var findProduct = _.findWhere(scope.products, {productId: item.id});
                                     findProduct && (findProduct.show = findDataItem.check);
+                                    ////同步改变对应的结果值上的属性
+                                    var dataResultItem = _.findWhere(scope.dataResult, {productId: item.id});
+                                    dataResultItem.show = findProduct.show;
                                 }
                             });
                         }
