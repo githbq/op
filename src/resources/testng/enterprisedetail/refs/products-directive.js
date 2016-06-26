@@ -288,6 +288,7 @@ define(function (require, exports, module) {
 
                     //控制值改变时事件  fieldStruct 元素的模型
                     scope.fieldChange = function (fieldStruct, product, form) {
+                        debugger
                         //执行验证
                         //执行事件
                         fieldStruct.onchange = fieldStruct.onchange || [];
@@ -494,6 +495,7 @@ define(function (require, exports, module) {
 
                     //获取对应的验证值
                     scope.getValidateValue = function (validateName, fieldStruct, product) {
+                        debugger
                         if (fieldStruct.validate && fieldStruct.validate[validateName]) {
                             var validateItem = fieldStruct.validate[validateName];
                             var result = getValueForSwitchValueType(validateItem.valueType, validateItem.valueRef, product);
