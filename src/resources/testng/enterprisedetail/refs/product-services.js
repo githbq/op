@@ -49,8 +49,8 @@ define(function (require, exports, module) {
                         },
                         results: function (data, page) {
                             var results = [];
-                            if (data.success && data.value.model && data.value.model.content) {
-                                _.each(data.value.model.content || [], function (item, i) {
+                            if (data.success && data.value.model && data.value.model) {
+                                _.each(data.value.model || [], function (item, i) {
                                     results.push({id: item.bankAccount, text: item.bankAccount, selection: '账户:' + item.bankAccount + '  公司：' + item.company + '  银行名称:' + item.bankName})
                                 });
                             }
@@ -73,17 +73,18 @@ define(function (require, exports, module) {
     app.factory('productService', function () {
         var factory = {};
         //根据合同号获取
-        factory.getDataByContractNo = function (options, callback) {
-            return util.api(_.extend({
-                url: '~/op/api/order/enterprise/getContract',
-                'success': function (result) {
+        factory.getDataByContractNo = function (contractNo, callback) {
+            return util.api({
+                url: '~/op/api/a/odrDraft/validateContractNo',
+                data:{contractNo:contractNo},
+                success: function (result) {
                 if (result.success) {
                     callback(result.value.model);
                 }else{
                     callback(false);
                 }
             }
-            }, options));
+            });
         };
         //获取订单历史列表
         factory.getOrderList = function (enterpriseAccount, callback) {

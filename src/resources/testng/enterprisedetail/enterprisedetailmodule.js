@@ -7,7 +7,9 @@ define(function (require, exports, module) {
     var dialogManager = require('./refs/dialog');
 
     var mainCtrlScope = null;
-    var mainData = null;
+    var mainData = null;//被调用时接收的参数
+    var mainReturnData = null;//对外提供的参数
+    var validate = true;//参数的调用与否受validate控制
     var Page = MClass(M.Center).include({
         view: require('./template.html'),
         init: function (data) {
@@ -53,6 +55,12 @@ define(function (require, exports, module) {
                 mainCtrlScope.$apply(function () {
                     mainCtrlScope.step = step;
                 });
+            }
+        }, getReturnData: function () {
+            if (validate) {
+                return mainReturnData;
+            } else {
+                return false;
             }
         }
     });
@@ -152,10 +160,14 @@ define(function (require, exports, module) {
             payInfo.agentCurrPayAmount = agentPrice;
             payInfo.currPayAmount = companyPrice;
         };
-        $scope.getDataByContractNo = function (value) {
-            debugger
-            productService.getDataByContractNo({contractNo: value}, function (result) {
+        $scope.getDataByContractNo = function () {
+            var contractNo = $scope.payInfo.contractNo;
+            if (!contractNo) {
+                return;
+            }
+            productService.getDataByContractNo(contractNo, function (result) {
                 if (!result) {//合同号不可用
+                    util.showToast('合同号不可用,请重新输入');
                     $scope.$apply(function () {
                         $scope.payInfo.contractNo = '';
                     });
@@ -184,7 +196,8 @@ define(function (require, exports, module) {
         }
     });
     myApp.controller('mainController', ['$scope', '$timeout', 'select2Query', 'getEnumService', 'cascadeSelectService', 'productService', function ($scope, $timeout, select2Query, getEnumService, cascadeSelectService, productService) {
-        var globalInfo = $scope.globalInfo = {};
+        //全局性信息
+        var globalInfo = $scope.globalInfo = mainData || {};
         //企业详情信息
         var entInfo = $scope.entInfo = {};
         //产品信息模块
@@ -515,12 +528,12 @@ define(function (require, exports, module) {
         }
 
         //付款信息
-        function submitStepPayInfo(callback) {
+        function submitStepPayInfo(callback) {//todo 缺少提单类型
             debugger
             action.doing = true;
             util.api({
                 url: "~/op/api/a/odrDraft/draftPaidInfoNext",
-                data: {odrDraftPaidInfo: angular.toJson($scope.payInfo), submitType: mainData.type},
+                data: {submitType: $scope.globalInfo.submitType || 1, odrDraftPaidInfo: angular.toJson($scope.payInfo)},
                 success: callback,
                 complete: function () {
                     $scope.$apply(function () {
