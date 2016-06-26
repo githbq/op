@@ -202,7 +202,7 @@ define(function (require, exports, module) {
         //全局行为状态
         var action = $scope.action = {doing: false};
         //模拟数据
-        entInfo = $scope.entInfo = {"province": "110000", "city": "140000", "county": "110000", "provinceDataValue": "", "cityDataValue": "", "countyDataValue": "", "industryFirst": "100", "industrySecond": "150", "industryThird": "100", "industryFirstDataValue": "", "industrySecondDataValue": "", "industryThirdDataValue": "", "groupType": "166", "groupTypeDataValue": {"text": "房地产/建筑业", "id": "166"}, "saleTeamScale": "203", "saleTeamScaleDataValue": {"text": "贸易/批发/零售/租赁业", "id": "203"}, "isSaleTeam": "0", "isSaleTeamDataValue": {"id": "0", "text": "否"}, "companyScale": "166", "companyScaleDataValue": {"text": "房地产/建筑业", "id": "166"}, "isReferral": "0", "isReferralDataValue": {"id": "0", "text": "否"}, "isReference": "0", "isReferenceDataValue": {"id": "0", "text": "否"}, "keyContactName": "7676", "keyContactPhone": "567576", "contactName": "765576", "contactPhone": "576576", "address": "765576", "enterpriseName": "576576", "area": "576576", "enterpriseAccount": "F234554", "keyContactEmail": "765576@fds.gfh", "contactEmail": "756756@gbfc.df", "contactIm": "434343"}
+        entInfo = $scope.entInfo ={"province":"110000","city":"110100","county":"110102","provinceDataValue":"","cityDataValue":{"id":"110100","text":"市辖区"},"countyDataValue":{"id":"110102","text":"西城区"},"industryFirst":"100","industrySecond":"122","industryThird":"127","industryFirstDataValue":"","industrySecondDataValue":{"id":"122","text":"计算机软件"},"industryThirdDataValue":{"id":"127","text":"办公软件"},"groupType":"3","groupTypeDataValue":{"text":"全公司","id":"3"},"saleTeamScale":"2","saleTeamScaleDataValue":{"text":"1-5人","id":"2"},"isSaleTeam":"0","isSaleTeamDataValue":{"id":"0","text":"否"},"companyScale":"4","companyScaleDataValue":{"text":"11-20人","id":"4"},"isReferral":"0","isReferralDataValue":{"id":"0","text":"否"},"isReference":"0","isReferenceDataValue":{"id":"0","text":"否"},"keyContactName":"7676","keyContactPhone":"567576","contactName":"765576","contactPhone":"576576","address":"765576","enterpriseName":"576576","area":"576576","enterpriseAccount":"F234554","keyContactEmail":"765576@fds.gfh","contactEmail":"756756@gbfc.df","contactIm":"434343"};
         //
 
         mainCtrlScope = $scope;
@@ -216,9 +216,9 @@ define(function (require, exports, module) {
         };
 
         //多功能下拉选框
-        $scope.entInfo.province = '110000';
-        $scope.entInfo.city = '140000';
-        $scope.entInfo.county = '110000';
+        //$scope.entInfo.province = '110000';
+        //$scope.entInfo.city = '140000';
+        //$scope.entInfo.county = '110000';
 
         $scope.entInfo.provinceDataValue = '';
         $scope.entInfo.cityDataValue = '';
@@ -259,9 +259,9 @@ define(function (require, exports, module) {
 
 
         //多功能下拉选框　行业
-        entInfo.industryFirst = '100';
-        entInfo.industrySecond = '150';
-        entInfo.industryThird = '100';
+        //entInfo.industryFirst = '100';
+        //entInfo.industrySecond = '150';
+        //entInfo.industryThird = '100';
 
         entInfo.industryFirstDataValue = '';
         entInfo.industrySecondDataValue = '';
@@ -476,6 +476,7 @@ define(function (require, exports, module) {
             util.api({
                 url: "~/op/api/a/odrDraft/draftEnterpriseNext",
                 data: {odrDraftEnterprise: angular.extend({enterpriseAccount: null}, $scope.entInfo)},
+                contentType:'json',
                 success: function (result) {
                     callback(result);
                 },
@@ -505,6 +506,7 @@ define(function (require, exports, module) {
             });
             util.api({
                 url: "~/op/api/a/odrDraft/draftOrderNext",
+                contentType:'json',
                 data: {
                     odrDraftOrder: {
                         enterpriseId: null,
@@ -529,6 +531,7 @@ define(function (require, exports, module) {
             util.api({
                 url: "~/op/api/a/odrDraft/draftPaidInfoNext",
                 data: {odrDraftPaidInfo: $scope.payInfo,submitType:mainData.type},
+                contentType:'json',
                 success: callback,
                 complete: function () {
                     $scope.$apply(function () {

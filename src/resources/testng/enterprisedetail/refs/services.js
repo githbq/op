@@ -68,6 +68,7 @@ define(function (require, exports, module) {
             var remotePullFunc = remotePullFunc || factory.createPullFunc();
             for (var i = 0; i < selectConfigs.length; i++) {
                 var selectConfig = selectConfigs[i];
+                debugger
                 setDefaultForConfig(selectConfig);
                 var nextSelectConfig = selectConfigs.length > i + 1 ? selectConfigs[i + 1] : null;
                 (function (i, total, selectConfig, nextSelectConfig) {
