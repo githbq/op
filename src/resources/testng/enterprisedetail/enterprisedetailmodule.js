@@ -91,10 +91,10 @@ define(function (require, exports, module) {
         var payInfo = $scope.payInfo;//从mainController拿到的对象
         // payInfo.receiptsAccount = 'xxxxxxxxxxxxxx';
         //payInfo.partReadonly=true;
-        //$scope.payInfo.productList = [{currPayAmount: 1, productId: 1, productName: 'CRM分期', purchaseAmount: 555, toAgent: true}, {currPayAmount: 7, productId: 7, productName: '工资助手分期', purchaseAmount: 666}];
-        $scope.payInfo.productList = $scope.payInfo.productList || [];
+        //$scope.payInfo.currPayList = [{currPayAmount: 1, productId: 1, productName: 'CRM分期', purchaseAmount: 555, toAgent: true}, {currPayAmount: 7, productId: 7, productName: '工资助手分期', purchaseAmount: 666}];
+        $scope.payInfo.currPayList = $scope.payInfo.currPayList || [];
         var contractPrice = 0;
-        _.each($scope.payInfo.productList, function (item) {
+        _.each($scope.payInfo.currPayList, function (item) {
             if (item.purchaseAmount) {
                 contractPrice += item.purchaseAmount;
             }
@@ -106,7 +106,7 @@ define(function (require, exports, module) {
         };
         //付款状态改变事件
         $scope.payStatusChange = function (value) {
-            _.each($scope.payInfo.productList, function (item, i) {
+            _.each($scope.payInfo.currPayList, function (item, i) {
                 item.currPayAmount = 0;
             });
             switch (value.toString()) {
@@ -115,7 +115,7 @@ define(function (require, exports, module) {
                     //全额
                     var agentPrice = 0;
                     var companyPrice = 0;
-                    _.each($scope.payInfo.productList, function (item, i) {
+                    _.each($scope.payInfo.currPayList, function (item, i) {
                         if (item.toAgent) {
                             agentPrice += parseFloat(item.purchaseAmount);
                         } else {
@@ -147,10 +147,10 @@ define(function (require, exports, module) {
         };
         $scope.payStatusChange(payInfo.payStatus);
         //分期金额值改变事件
-        $scope.currPayAmountChange = function (productList) {
+        $scope.currPayAmountChange = function (currPayList) {
             var agentPrice = 0;
             var companyPrice = 0;
-            _.each(productList, function (item, i) {
+            _.each(currPayList, function (item, i) {
                 if (item.toAgent) {
                     agentPrice += parseFloat(item.currPayAmount);
                 } else {
@@ -463,7 +463,7 @@ define(function (require, exports, module) {
                                 var data = result.value.model;
                                 $scope.productInfo.draftOrderId = data.draftOrderId;
                                 $scope.payInfo.draftOrderId = data.draftOrderId;
-                                $scope.payInfo.productList = data.productList;
+                                $scope.payInfo.currPayList = data.currPayList;
                                 $scope.step++;
                             });
                         }
