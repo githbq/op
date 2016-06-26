@@ -61,7 +61,6 @@ define(function (require, exports, module) {
                             .on('click', '.product-agent', clickAgentEvent);
                     }, 10);
                     scope.$watch('initData', function (newVal, oldVal) {
-                        debugger
                         init();
                     });
                     var products = [];
@@ -93,10 +92,8 @@ define(function (require, exports, module) {
                             item.show = !!findProduct;
                             return {id: item.productId, text: item.text, checked: !!findProduct};
                         });
-                        debugger
                         //初始化数据对复选框进行操作
                         if (scope.initData) {
-                            debugger
                             //对复选框进行操作
                             _.each(scope.productCheckboxs, function (item, i) {
                                 var findDataItem = _.findWhere(scope.initData, {productId: item.id});

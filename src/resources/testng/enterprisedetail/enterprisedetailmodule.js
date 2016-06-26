@@ -436,9 +436,9 @@ define(function (require, exports, module) {
                         if (result.success) {
                             $scope.$apply(function () {
                                 var data = result.value.model;
-                                $scope.entInfo.draftEneterpriseId = data.id;
-                                $scope.productInfo.draftEneterpriseId = data.id;
-                                $scope.payInfo.draftEneterpriseId = data.id;
+                                $scope.entInfo.draftEnterpriseId = data.id;
+                                $scope.productInfo.draftEnterpriseId = data.id;
+                                $scope.payInfo.draftEnterpriseId = data.id;
                                 debugger
                                 $scope.productInfo.initData = data.initData;
                                 $scope.step++;
@@ -508,7 +508,7 @@ define(function (require, exports, module) {
                 data: {
                     odrDraftOrder: angular.toJson({
                         enterpriseId: null,
-                        draftEneterpriseId: $scope.productInfo.draftEneterpriseId,
+                        draftEnterpriseId: $scope.productInfo.draftEnterpriseId,
                         id: $scope.productInfo.draftOrderId,
                         content: angular.toJson(newDataResult)
                     })
