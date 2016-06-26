@@ -65,7 +65,7 @@ define(function (reuqire, exports, module) {
                     if (!NUMBER_REGEXP.test(result)) {
                         result = 0;
                         if (!scope.required && !result) {
-                            result = '';
+                            result = null;
                         }
                     }
                     $dom.val(result);
@@ -79,14 +79,17 @@ define(function (reuqire, exports, module) {
                     var result = $dom.val();
                     result = setMaxOrMinValue(result);
                     $dom.val(result);
-                    ctrl.$setViewValue(result, true);//只能赋模型的值不能改变VIEW
+                    ctrl.$setViewValue(parseFloat(result), true);//只能赋模型的值不能改变VIEW
                     setTimeout(function () {
                         ctrl.$setValidity('number', true);
                     }, 100);
                 });
                 function setMaxOrMinValue(result) {
-                    result = result && parseFloat(result) || '';
-                    if (result !== '') {
+                    result = result && parseFloat(result);
+                    if(isNaN){
+                        result=null;
+                    }
+                    if (result !== null) {
                         var max = scope.maxNumber;
                         var min = scope.minNumber;
                         if (scope.max) {
@@ -102,9 +105,9 @@ define(function (reuqire, exports, module) {
                             result = min;
                         }
                     }
-                    if (scope.required && !result) {
-                        result = 0;
-                    }
+                    //if (scope.required && !result) {
+                    //    result = 0;
+                    //}
                     return result;
                 }
                 //与非空进行兼容
