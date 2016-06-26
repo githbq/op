@@ -214,7 +214,7 @@
             <div class="form-row">
                 <h2>产品目录</h2>
             </div>
-            <products x-data-result="productInfo.dataResult" product-json="productJson" init-data="productInfo.initData" product-readonly="productReadonly" show="step==2"></products>
+            <products x-data-result="productInfo.dataResult" form-data="orderFromData" product-json="productJson" init-data="productInfo.initData" product-readonly="productReadonly" show="step==2"></products>
         </div>
     </div>
     <div ng-if="step==3" ng-class="{step_validate_error:step_3_validate_error}" ng-controller="form3Controller" ng-form name="stepForm3" class="step form payinfo">

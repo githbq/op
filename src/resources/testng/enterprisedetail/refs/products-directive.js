@@ -41,9 +41,12 @@ define(function (require, exports, module) {
 
     angular.module('formApp').directive('products', function () {
             return {
-                scope: {dataResult: '=', productReadonly: '=', show: '=', initData: '=', productJson: '='},
+                scope: {dataResult: '=', formData: '=', productReadonly: '=', show: '=', initData: '=', productJson: '='},
                 template: require('./products-template.html'),
                 link: function (scope, iElem, iAttrs) {
+                    scope.products = scope.products || [];
+                    scope.fromData = scope.fromData || [];
+                    scope.dataResult = scope.dataResult || [];//对外暴露的结果数据
                     scope.$watch('show', function () {
                         if (scope.show) {
                             wrapperReset();
@@ -66,16 +69,24 @@ define(function (require, exports, module) {
                     scope.$watch('productJson', function (newVal, oldVal) {
                         init();
                     });
-                    scope.products = scope.products || [];
-                    scope.resultData = scope.resultData || [];
+                    scope.$watch('productReadonly', function (newVal, oldVal) {
+                        if(newVal!=oldVal){
+                            setTimeout(function(){
+                                scope.$apply();
+                            },50);
+                        }
+                    });
+                    scope.$watch('formData', function (newVal, oldVal) {
+                        init();
+                    });
+
                     //end
                     function init() {
                         if (!scope.productJson) {
                             return;
                         }
-                        scope.dataResult = scope.dataResult || [];//对外暴露的结果数据
                         //后端推过来的结果 与提交的结果完全一致的数据结构
-                        resultData = [{data: [], state: 0, productId: 1}, {data: [], productId: 11}, {data: [], productId: 111}, {data: [], productId: 1111}, {data: [], productId: 11111}];
+                        //scope.fromData = [{data: [], state: 0, productId: 1}, {data: [], productId: 11}, {data: [], productId: 111}, {data: [], productId: 1111}, {data: [], productId: 11111}];
                         //JSON格式转换
                         //logic位置重排序
                         _.each(scope.productJson.logics, function (item, i) {
@@ -94,7 +105,7 @@ define(function (require, exports, module) {
                         }
                         //产品复选框
                         scope.productCheckboxs = _.map(scope.productJson.products, function (item, i) {
-                            var findProduct = _.findWhere(resultData, {productId: item.productId});
+                            var findProduct = _.findWhere(scope.fromData, {productId: item.productId});
                             item.show = !!findProduct;
                             return {id: item.productId, text: item.text, checked: !!findProduct};
                         });
@@ -118,7 +129,7 @@ define(function (require, exports, module) {
 
                     function changeState(product) {
                         wrapperReset();
-                        var find = _.findWhere(resultData, {productId: product.productId});
+                        var find = _.findWhere(scope.fromData, {productId: product.productId});
                         var findInitData = _.findWhere(scope.initData || [], {productId: product.productId});
                         //不再直接替换成结果data而是用采用结果data去赋值给原始data 最终取值使用原始data
                         _.each(product.logic.data, function (item, i) {
@@ -143,7 +154,7 @@ define(function (require, exports, module) {
                         }
                         var stateData = getStateCombine(product.logic);//所有的状态
                         product.states = stateData.visibleStates;//可见的状态
-                        product.show = !!_.findWhere(resultData, {productId: product.productId});
+                        product.show = !!_.findWhere(scope.fromData, {productId: product.productId});
                         var findIndex = _.findIndex(scope.products, {productId: product.productId});
                         if (findIndex >= 0) {
                             scope.products[findIndex] = product;
@@ -428,7 +439,7 @@ define(function (require, exports, module) {
                         }
 
                         function setState(state, product) {
-                            _.each(resultData, function (item, j) {
+                            _.each(scope.fromData, function (item, j) {
                                 if (item.productId == product.productId) {
                                     if (item.state !== state) {
                                         item.state = state;

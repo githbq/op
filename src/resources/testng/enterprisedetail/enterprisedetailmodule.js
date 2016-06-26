@@ -79,7 +79,6 @@ define(function (require, exports, module) {
             });
         });
         productService.getDiyOrderFormLogic($scope.globalInfo.enterpriseId || '', function (data) {
-            debugger
             $scope.$apply(function () {
                 $scope.productJson = angular.fromJson(data);
             });
@@ -89,9 +88,6 @@ define(function (require, exports, module) {
         $scope.bankAjaxConfig = select2Query.getBankAjaxConfig();
         //付款信息
         var payInfo = $scope.payInfo;//从mainController拿到的对象
-        // payInfo.receiptsAccount = 'xxxxxxxxxxxxxx';
-        //payInfo.partReadonly=true;
-        //$scope.payInfo.currPayList = [{currPayAmount: 1, productId: 1, productName: 'CRM分期', purchaseAmount: 555, toAgent: true}, {currPayAmount: 7, productId: 7, productName: '工资助手分期', purchaseAmount: 666}];
         $scope.payInfo.currPayList = $scope.payInfo.currPayList || [];
         var contractPrice = 0;
         _.each($scope.payInfo.currPayList, function (item) {
@@ -196,8 +192,26 @@ define(function (require, exports, module) {
         }
     });
     myApp.controller('mainController', ['$scope', '$timeout', 'select2Query', 'getEnumService', 'cascadeSelectService', 'productService', function ($scope, $timeout, select2Query, getEnumService, cascadeSelectService, productService) {
+        $scope.enterpriseReadonly = false;//企业详情信息 只读
+        $scope.payInfoReadonly = false;//企业详情信息 只读
+        $scope.productReadonly = false;//产品信息 只读
+        mainReturnData = $scope;
         //全局性信息
-        var globalInfo = $scope.globalInfo = mainData || {};
+        $scope.globalInfo = mainData || {};
+        $scope.globalInfo = angular.extend($scope.globalInfo, $scope.globalInfo.data);
+        $scope.globalInfo.submitType = mainData.isNew ? 1 : mainData.isAdd ? 2 : mainData.isNew ? 3 : 1;
+        debugger
+        productService.getOrderDetailByOrderId($scope.globalInfo.orderId, function (data) {
+            $scope.$apply(function () {
+                $scope.enterpriseReadonly = data.canEditEnterprise;
+                $scope.productReadonly = data.canEditOrder;
+                $scope.payInfoReadonly = data.canEditPaidInfo;
+                $scope.entInfo = data.odrDraftEnterprise || {};
+                $scope.productInfo = data.odrDraftOrder || {};
+                $scope.orderFromData = data.odrDraftPaidInfo || {};//订单来源数据
+            })
+        });
+
         //企业详情信息
         var entInfo = $scope.entInfo = {};
         //产品信息模块
@@ -207,15 +221,12 @@ define(function (require, exports, module) {
         //全局行为状态
         var action = $scope.action = {doing: false};
         //模拟数据
-        entInfo = $scope.entInfo = {"province":"110000","city":"110100","county":"110102","provinceDataValue":"","cityDataValue":"","countyDataValue":"","industryFirst":"100","industrySecond":"122","industryThird":"127","industryFirstDataValue":"","industrySecondDataValue":"","industryThirdDataValue":"","groupType":"3","groupTypeDataValue":{"text":"全公司","id":"3"},"saleTeamScale":"2","saleTeamScaleDataValue":{"text":"1-5人","id":"2"},"isSaleTeam":"0","isSaleTeamDataValue":{"id":"0","text":"否"},"companyScale":"4","companyScaleDataValue":{"text":"11-20人","id":"4"},"isReferral":"0","isReferralDataValue":{"id":"0","text":"否"},"isReference":"0","isReferenceDataValue":{"id":"0","text":"否"},"keyContactName":"7676","keyContactPhone":"18203459685","contactName":"765576","contactPhone":"18203459685","address":"765576","enterpriseName":"576576","area":"576576","enterpriseAccount":"F234554","keyContactEmail":"765576@fds.gfh","contactEmail":"756756@gbfc.df","contactIm":"434343"};
+        entInfo = $scope.entInfo = {"province": "110000", "city": "110100", "county": "110102", "provinceDataValue": "", "cityDataValue": "", "countyDataValue": "", "industryFirst": "100", "industrySecond": "122", "industryThird": "127", "industryFirstDataValue": "", "industrySecondDataValue": "", "industryThirdDataValue": "", "groupType": "3", "groupTypeDataValue": {"text": "全公司", "id": "3"}, "saleTeamScale": "2", "saleTeamScaleDataValue": {"text": "1-5人", "id": "2"}, "isSaleTeam": "0", "isSaleTeamDataValue": {"id": "0", "text": "否"}, "companyScale": "4", "companyScaleDataValue": {"text": "11-20人", "id": "4"}, "isReferral": "0", "isReferralDataValue": {"id": "0", "text": "否"}, "isReference": "0", "isReferenceDataValue": {"id": "0", "text": "否"}, "keyContactName": "7676", "keyContactPhone": "18203459685", "contactName": "765576", "contactPhone": "18203459685", "address": "765576", "enterpriseName": "576576", "area": "576576", "enterpriseAccount": "F234554", "keyContactEmail": "765576@fds.gfh", "contactEmail": "756756@gbfc.df", "contactIm": "434343"};
         //
 
         mainCtrlScope = $scope;
 
 
-        $scope.enterpriseReadonly = false;//企业详情信息 只读
-        $scope.payInfoReadonly = false;//企业详情信息 只读
-        $scope.productReadonly = false;//产品信息 只读
         $scope.testBasicForm = function () {
         };
 
@@ -427,7 +438,7 @@ define(function (require, exports, module) {
         };
         $scope.nextStep = function (form) {
             debugger
-            if ($scope.step == 1||$scope.step == 2||$scope.step == 3) {//企业详情界面
+            if ($scope.step == 1 || $scope.step == 2 || $scope.step == 3) {//企业详情界面
                 if (form.$invalid) {
                     $scope['step_' + $scope.step + '_validate_error'] = true;
                     return;
