@@ -50,7 +50,7 @@ define(function (require, exports, module) {
                         if (scope.show && !scope.showed) {
                             init();
                             scope.showed = true;
-                        }else{
+                        } else {
                             wrapperReset();
                         }
                     });
@@ -111,14 +111,15 @@ define(function (require, exports, module) {
                             product.index = _.findIndex(scope.productJson.products, {productId: product.productId});
                             changeState(product);
                         }
+                        debugger
                         //产品复选框
                         scope.productCheckboxs = _.map(scope.productJson.products, function (item, i) {
                             var findProduct = _.findWhere(scope.fromData, {productId: item.productId});
                             item.show = !!findProduct;
-                            return {id: item.productId, text: item.text, checked: !!findProduct};
+                            return {id: item.productId, text: item.text, checked: !!findProduct, canCancel: findProduct ? findProduct.canCancel : undefined};
                         });
                         //初始化数据对复选框进行操作
-                        if (scope.initData) {
+                        if (scope.initData && scope.initData.length > 0) {
                             //对复选框进行操作
                             _.each(scope.productCheckboxs, function (item, i) {
                                 var findDataItem = _.findWhere(scope.initData, {productId: item.id});
@@ -126,16 +127,21 @@ define(function (require, exports, module) {
                                     item.checked = findDataItem.check;
                                     item.canCancel = findDataItem.canCancel;
                                     var findProduct = _.findWhere(scope.products, {productId: item.id});
-                                    findProduct && (findProduct.show = findDataItem.check);
+                                    if (findProduct) {
+                                        findProduct.show = findDataItem.check;
+                                    }
                                     ////同步改变对应的结果值上的属性
                                     var dataResultItem = _.findWhere(scope.dataResult, {productId: item.id});
-                                    dataResultItem.show = findProduct.show;
+                                    if (dataResultItem) {
+                                        dataResultItem.show = findProduct.show;
+                                        dataResultItem.canCancel = item.canCancel;
+                                    }
                                 }
                             });
                         }
                     }
 
-                    function changeState(product) {
+                    function changeState(product,state) {
                         wrapperReset();
                         var find = _.findWhere(scope.fromData, {productId: product.productId});
                         var findInitData = _.findWhere(scope.initData || [], {productId: product.productId});
@@ -160,9 +166,11 @@ define(function (require, exports, module) {
                         if (find && !checkoutUN(find.state)) { //结果数据会可能修改状态
                             product.logic.currState = find.state;
                         }
+                        if(!checkoutUN(state)){//传参过来的状态
+                            product.logic.currState=state;
+                        }
                         var stateData = getStateCombine(product.logic);//所有的状态
                         product.states = stateData.visibleStates;//可见的状态
-                        product.show = !!_.findWhere(scope.fromData, {productId: product.productId});
                         var findIndex = _.findIndex(scope.products, {productId: product.productId});
                         if (findIndex >= 0) {
                             scope.products[findIndex] = product;
@@ -246,7 +254,9 @@ define(function (require, exports, module) {
                     //验证状态初始化  todo
                     function initValidate(products) {
                         return;
-                        if(!products){return;}
+                        if (!products) {
+                            return;
+                        }
                         for (var i = 0; i < products.length; i++) {
                             var product = products[i];
                         }
@@ -309,6 +319,7 @@ define(function (require, exports, module) {
                     //控制值改变时事件  fieldStruct 元素的模型
                     scope.fieldChange = function (fieldStruct, product, form) {
                         //执行验证
+                        debugger
                         //执行事件
                         fieldStruct.onchange = fieldStruct.onchange || [];
                         for (var i = 0; i < fieldStruct.onchange.length; i++) {
@@ -439,24 +450,10 @@ define(function (require, exports, module) {
                             _.each(fieldStruct.items, function (n, i) {//目前只有拥有 items属性的元素才会有可能改变状态
                                 var findState = n[changeItem.source];
                                 if (findState !== undefined && n.value == fieldStruct.value.valueData.value) {
-                                    setState(findState, product);
+                                    changeState(product,findState);
                                 }
                             })
                         }
-
-                        function setState(state, product) {
-                            _.each(scope.fromData, function (item, j) {
-                                if (item.productId == product.productId) {
-                                    if (item.state !== state) {
-                                        item.state = state;
-                                        setTimeout(function () {
-                                            changeState(product);
-                                        }, 10);
-                                    }
-                                }
-                            });
-                        }
-
                         //end 设置状态
 
                         //根据源不同 去给对象赋值
