@@ -43,7 +43,7 @@ define(function (require, exports, module) {
     //级联下拉列表服务
     app.factory('cascadeSelectService', function () {
         var factory = {};
-        var $scope = $scope;
+        var $scope = null;
         //级联下拉列表
         //cascadeSelectService.cascadeSelect($scope,[
         //    {ngModelName: 'entInfo.province', config: $scope.provinceConfig},
@@ -52,9 +52,10 @@ define(function (require, exports, module) {
         //], cascadeSelectService.createPullFunc({url: '~/op/api/district/getListByParent', data: {name: 'parentValue'}}, function (data, item) {
         //    data.push({id: item.value.toString(), text: item.name});
         //}));
-        var cacheWatch= {};//监听键的缓存　防止多重监听
+
         factory.cascadeSelect = function (scope, selectConfigs, remotePullFunc, needWatch) {
             $scope = scope;
+            var cacheWatch=scope.cascadeSelectCacheWatch= scope.cascadeSelectCacheWatch||{};//监听键的缓存　防止多重监听
             var remotePullFunc = remotePullFunc || factory.createPullFunc();
             for (var i = 0; i < selectConfigs.length; i++) {
                 var selectConfig = selectConfigs[i];
