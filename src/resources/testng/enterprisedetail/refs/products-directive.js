@@ -47,9 +47,11 @@ define(function (require, exports, module) {
                     scope.products = scope.products || [];
                     scope.fromData = scope.fromData || [];
                     scope.dataResult = scope.dataResult || [];//对外暴露的结果数据
+                    scope.showed = false;
                     scope.$watch('show', function () {
-                        if (scope.show) {
-                            wrapperReset();
+                        if (scope.show && !scope.showed) {
+                            init();
+                            scope.showed = true;
                         }
                     });
                     setTimeout(function () {
@@ -64,16 +66,18 @@ define(function (require, exports, module) {
                             .on('click', '.product-agent', clickAgentEvent);
                     }, 10);
                     scope.$watch('initData', function (newVal, oldVal) {
-                        init();
+                        if (newVal) {
+                            init();
+                        }
                     });
                     scope.$watch('productJson', function (newVal, oldVal) {
                         init();
                     });
                     scope.$watch('productReadonly', function (newVal, oldVal) {
-                        if(newVal!=oldVal){
-                            setTimeout(function(){
+                        if (newVal != oldVal) {
+                            setTimeout(function () {
                                 scope.$apply();
-                            },50);
+                            }, 50);
                         }
                     });
                     scope.$watch('formData', function (newVal, oldVal) {
@@ -82,6 +86,7 @@ define(function (require, exports, module) {
 
                     //end
                     function init() {
+
                         if (!scope.productJson) {
                             return;
                         }

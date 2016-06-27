@@ -202,14 +202,16 @@ define(function (require, exports, module) {
         $scope.globalInfo.submitType = mainData.isNew ? 1 : mainData.isAdd ? 2 : mainData.isNew ? 3 : 1;
         debugger
         productService.getOrderDetailByOrderId($scope.globalInfo.orderId, function (data) {
-            $scope.$apply(function () {
+            $timeout(function () {
                 $scope.enterpriseReadonly = data.canEditEnterprise;
                 $scope.productReadonly = data.canEditOrder;
                 $scope.payInfoReadonly = data.canEditPaidInfo;
                 $scope.entInfo = data.odrDraftEnterprise || {};
                 $scope.productInfo = data.odrDraftOrder || {};
-                $scope.orderFromData = data.odrDraftPaidInfo || {};//订单来源数据
-            })
+                $scope.orderFromData = angular.fromJson(data.odrDraftOrder.content);//订单来源数据
+                $scope.payInfo = data.odrDraftPaidInfo;
+                $scope.payInfo.currPayList = angular.fromJson(data.odrDraftPaidInfo.currPayList);
+            }, 10)
         });
 
         //企业详情信息
@@ -455,7 +457,6 @@ define(function (require, exports, module) {
                                 $scope.entInfo.draftEnterpriseId = data.id;
                                 $scope.productInfo.draftEnterpriseId = data.id;
                                 $scope.payInfo.draftEnterpriseId = data.id;
-                                debugger
                                 $scope.productInfo.initData = data.initData;
                                 $scope.step++;
                             });
@@ -491,7 +492,7 @@ define(function (require, exports, module) {
             action.doing = true;
             util.api({
                 url: "~/op/api/a/odrDraft/draftEnterpriseNext",
-                data: {odrDraftEnterprise: angular.toJson(angular.extend({enterpriseAccount: null}, $scope.entInfo))},
+                data: {odrDraftEnterprise: angular.toJson(angular.extend({enterpriseAccount: null, id: entInfo.draftEnterpriseId}, $scope.entInfo))},
                 success: function (result) {
                     callback(result);
                 },
