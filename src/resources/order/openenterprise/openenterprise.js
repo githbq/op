@@ -20,6 +20,7 @@ define( function( require, exports, module ) {
             };
             page = new Page( {wrapper: $el,orderId:null,isNew:false,isAdd:true,readonly:false,data:data} );
             page.render();
+            page.goToStep(2);
         //新购
         }else{
             data = {
