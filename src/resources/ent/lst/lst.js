@@ -55,7 +55,10 @@ define( function( require, exports, module ) {
         entList.on('clue', function( clueID ){
             clue.show(clueID);
         })
-		
+		//增购续费
+        entList.on('renew',function(id){
+            location.hash = "/order/openenterprise/"+id;
+        });
 		//刷新列表
         /*
         entDetail.on('refresh',function(){
