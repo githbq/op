@@ -45,7 +45,7 @@ define(function (require, exports, module) {
                 template: require('./products-template.html'),
                 link: function (scope, iElem, iAttrs) {
 
-                    scope.showed = false;
+                    scope.showed = false;//标记是否已经显示过
                     scope.$watch('show', function () {
                         if (scope.show && !scope.showed) {
                             init();
@@ -81,6 +81,7 @@ define(function (require, exports, module) {
                         }
                     });
                     scope.$watch('fromData', function (newVal, oldVal) {
+                        console.log(' fromData init');
                         init();
                     });
 

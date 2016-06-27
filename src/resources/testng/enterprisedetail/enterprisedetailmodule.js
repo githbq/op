@@ -204,7 +204,6 @@ define(function (require, exports, module) {
         $scope.globalInfo = mainData || {};
         $scope.globalInfo = angular.extend($scope.globalInfo, $scope.globalInfo.data);
         $scope.globalInfo.submitType = mainData.isNew ? 1 : mainData.isAdd ? 2 : mainData.isNew ? 3 : 1;
-        debugger
         productService.getOrderDetailByOrderId($scope.globalInfo.orderId, function (data) {
             $timeout(function () {
                 $scope.enterpriseReadonly = data.canEditEnterprise;
