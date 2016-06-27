@@ -1,5 +1,22 @@
 define(function (reuqire, exports, module) {
     var app = angular.module('common.directives');
+    //全角转半角
+    function CtoH(str) {//todo
+        return str;
+        var result = "";
+        if (str) {
+            for (var i = 0; i < str.length; i++) {
+                if (str.charCodeAt(i) == 12288) {
+                    result += String.fromCharCode(str.charCodeAt(i) - 12256);
+                    continue;
+                }
+                if (str.charCodeAt(i) > 65280 && str.charCodeAt(i) < 65375) result += String.fromCharCode(str.charCodeAt(i) - 65248);
+                else result += String.fromCharCode(str.charCodeAt(i));
+            }
+        }
+        return result;
+    }
+
     var INTEGER_REGEXP = /^\-?\d*$/;
     app.directive('integer', function () {
         return {
@@ -62,6 +79,7 @@ define(function (reuqire, exports, module) {
                 elm.off('keyup').on('keyup', function () {
                     var $dom = $(this);
                     var result = ($dom.val().replace(/[^\.\d]/g, ''));
+                    result = CtoH(result);
                     if (!NUMBER_REGEXP.test(result)) {
                         result = null;
                     }
@@ -132,6 +150,7 @@ define(function (reuqire, exports, module) {
             require: 'ngModel',
             link: function (scope, elm, attrs, ctrl) {
                 ctrl.$parsers.unshift(function (viewValue) {
+                    viewValue = CtoH(viewValue)
                     if (ACCOUNT_REGEXP.test(viewValue)) {
                         ctrl.$setValidity('account', true);
                         return viewValue;

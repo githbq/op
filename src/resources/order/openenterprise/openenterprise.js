@@ -35,7 +35,7 @@ define( function( require, exports, module ) {
         //IBSS.tplEvent.trigger('order1.2Close');
         
         //取消 
-        IBSS.tplEvent.on('order1.2Close'function(){
+        IBSS.tplEvent.on('order1.2Close',function(){
             //location.hash = '';
             history.back();
         });
