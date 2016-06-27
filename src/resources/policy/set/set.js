@@ -49,11 +49,7 @@ define( function( require, exports, module ) {
                         KindEditor.html('#editor', res.model.content);
                     }
                 });
-                return;
             }
-            me.$title.val(sessionStorage.title);
-            me.$sequence.val(sessionStorage.sortKey);
-            KindEditor.html('#editor', sessionStorage.content);
         },
 
         initializeEditor: function() {
@@ -63,30 +59,29 @@ define( function( require, exports, module ) {
                 resizeType: 0,
                 items: [
                  'undo', 'redo', '|', 'print', 'cut', 'copy', 'paste', '|', 'justifyleft', 'justifycenter', 'justifyright', 'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript', 'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', 'formatblock', 'fontname', 'fontsize', '|', 'image', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'emoticons', 'pagebreak'
-                ]
+                ],
+                allowImageUpload: false,
+                afterChange : function() {
+                     //限制字数
+                    var limitNum = 2500;  //设定限制字数
+                    if(this.count('text') > limitNum) {
+                        //超过字数限制自动截取
+                        var strValue = me.editor.text();
+                        strValue = strValue.substring(0,limitNum);
+                        me.editor.text(strValue);  
+                    }    
+                } 
             });
             me.editorInitialized = true;
         },
-        cancel: function() {
-            this.hide(true);
-        },
         
-        hide: function(cancel) {
+        hide: function() {
             CreatePolicy.__super__.hide.apply( this,arguments );
             var me = this;
-            if(me.id){
-                me.id = '';
-                KindEditor.html('#editor','');
-                return;
-            }
-            if(!cancel){
-                sessionStorage.title = me.$title.val();
-                sessionStorage.sortKey = me.$sequence.val();
-                (me.editor)&&(sessionStorage.content = me.editor.html());
-                return;
-            }
-            sessionStorage.clear();
-            KindEditor.html('#editor', '')
+            me.id = ''; 
+            me.$title.val('');
+            me.$sequence.val('');              
+            KindEditor.html('#editor', '');
         },
 
         preview: function(){
@@ -106,6 +101,10 @@ define( function( require, exports, module ) {
 
             if(!content){
                 util.showToast('请输入内容');
+                return;
+            }
+            if(content.length > 2500){
+                util.showToast('内容过长，请控制2500字以下');
                 return;
             }
             var newPolicy = {
@@ -171,7 +170,8 @@ define( function( require, exports, module ) {
                 return;
             }
             if(content.length > 2500){
-                util.showToast('内容过长');
+                util.showToast('内容过长，请控制2500字以下');
+                return;
             }
 
             me.id? url = '~/op/api/policy/updatepolicy' : url = '~/op/api/policy/addpolicy';
@@ -189,7 +189,6 @@ define( function( require, exports, module ) {
                         util.showTip('发布成功');
                         me.trigger('refresh');
                         KindEditor.html('#editor', '')
-                        sessionStorage.clear();
                     }
                 }
             });

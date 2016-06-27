@@ -7112,7 +7112,7 @@ em {
   display: block;
 }
 .m-createpolicy p.line {
-  argin-top: 30px;
+  margin-top: 15px;
 }
 .m-createpolicy p.line input {
   margin-left: 3px;
@@ -7131,6 +7131,9 @@ em {
 }
 .m-createpolicy p.line button {
   margin: 0 60px;
+}
+.m-createpolicy p.line #preview {
+  margin-left: 170px;
 }
 #m-preview {
   min-height: 800px;
