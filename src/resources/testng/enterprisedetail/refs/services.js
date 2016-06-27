@@ -52,30 +52,40 @@ define(function (require, exports, module) {
         //], cascadeSelectService.createPullFunc({url: '~/op/api/district/getListByParent', data: {name: 'parentValue'}}, function (data, item) {
         //    data.push({id: item.value.toString(), text: item.name});
         //}));
-        factory.cascadeSelect = function (scope, selectConfigs, remotePullFunc) {
+        var cacheWatch= {};//监听键的缓存　防止多重监听
+        factory.cascadeSelect = function (scope, selectConfigs, remotePullFunc, needWatch) {
             $scope = scope;
             var remotePullFunc = remotePullFunc || factory.createPullFunc();
             for (var i = 0; i < selectConfigs.length; i++) {
                 var selectConfig = selectConfigs[i];
                 setDefaultForConfig(selectConfig);
                 var nextSelectConfig = selectConfigs.length > i + 1 ? selectConfigs[i + 1] : null;
-                (function (i, total, selectConfig, nextSelectConfig) {
-                    $scope.$watch(selectConfig.ngModelName, function (newValue, oldValue, scope) {
-                        if (i > 0 && !selectConfig.config.auto) {
+                (function (i, total, selectConfig, nextSelectConfig, needWatch) {
+                    if (needWatch !== false) {
+                        if (cacheWatch[selectConfig.ngModelName]) {
                             return;
+                        } else {
+                            cacheWatch[selectConfig.ngModelName] = true;
                         }
-                        if (newValue != oldValue) {
-                            if (i !== total - 1 && nextSelectConfig) {
-                                nextSelectConfig.config.data = [];
-                                eval('$scope.' + nextSelectConfig.ngModelName + '= ""');
-                                nextSelectConfig.config.auto = true;
-                                newValue && remotePullFunc(nextSelectConfig.config, getEvalValue(selectConfig.ngModelName), function () {
-                                    exeConfig(nextSelectConfig);
-                                });
+                        $scope.$watch(selectConfig.ngModelName, function (newValue, oldValue, scope) {
+
+                            if (i > 0 && !selectConfig.config.auto) {
+                                return;
                             }
-                        }
-                    });
-                })(i, selectConfigs.length, selectConfig, nextSelectConfig);
+                            if (newValue != oldValue) {
+                                console.log(selectConfig.ngModelName);
+                                if (i !== total - 1 && nextSelectConfig) {
+                                    nextSelectConfig.config.data = [];
+                                    eval('$scope.' + nextSelectConfig.ngModelName + '= ""');
+                                    nextSelectConfig.config.auto = true;
+                                    newValue && remotePullFunc(nextSelectConfig.config, getEvalValue(selectConfig.ngModelName), function () {
+                                        exeConfig(nextSelectConfig);
+                                    });
+                                }
+                            }
+                        });
+                    }
+                })(i, selectConfigs.length, selectConfig, nextSelectConfig, needWatch);
             }
             var firstSelectConfig = selectConfigs[0];
             remotePullFunc(firstSelectConfig.config, 0, function () {
