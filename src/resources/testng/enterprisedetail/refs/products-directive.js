@@ -111,14 +111,15 @@ define(function (require, exports, module) {
                             product.index = _.findIndex(scope.productJson.products, {productId: product.productId});
                             changeState(product);
                         }
+                        debugger
                         //产品复选框
                         scope.productCheckboxs = _.map(scope.productJson.products, function (item, i) {
                             var findProduct = _.findWhere(scope.fromData, {productId: item.productId});
                             item.show = !!findProduct;
-                            return {id: item.productId, text: item.text, checked: !!findProduct,canCancel:findProduct.canCancel};
+                            return {id: item.productId, text: item.text, checked: !!findProduct, canCancel: findProduct ? findProduct.canCancel : undefined};
                         });
                         //初始化数据对复选框进行操作
-                        if (scope.initData) {
+                        if (scope.initData && scope.initData.length > 0) {
                             //对复选框进行操作
                             _.each(scope.productCheckboxs, function (item, i) {
                                 var findDataItem = _.findWhere(scope.initData, {productId: item.id});
