@@ -74,7 +74,6 @@ define(function (require, exports, module) {
                                 return;
                             }
                             if (newValue != oldValue) {
-                                console.log(selectConfig.ngModelName);
                                 if (i !== total - 1 && nextSelectConfig) {
                                     nextSelectConfig.config.data = [];
                                     eval('$scope.' + nextSelectConfig.ngModelName + '= ""');

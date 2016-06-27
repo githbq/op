@@ -141,7 +141,7 @@ define(function (require, exports, module) {
                         }
                     }
 
-                    function changeState(product) {
+                    function changeState(product,state) {
                         wrapperReset();
                         var find = _.findWhere(scope.fromData, {productId: product.productId});
                         var findInitData = _.findWhere(scope.initData || [], {productId: product.productId});
@@ -166,9 +166,11 @@ define(function (require, exports, module) {
                         if (find && !checkoutUN(find.state)) { //结果数据会可能修改状态
                             product.logic.currState = find.state;
                         }
+                        if(!checkoutUN(state)){//传参过来的状态
+                            product.logic.currState=state;
+                        }
                         var stateData = getStateCombine(product.logic);//所有的状态
                         product.states = stateData.visibleStates;//可见的状态
-                        product.show = !!_.findWhere(scope.fromData, {productId: product.productId});
                         var findIndex = _.findIndex(scope.products, {productId: product.productId});
                         if (findIndex >= 0) {
                             scope.products[findIndex] = product;
@@ -317,6 +319,7 @@ define(function (require, exports, module) {
                     //控制值改变时事件  fieldStruct 元素的模型
                     scope.fieldChange = function (fieldStruct, product, form) {
                         //执行验证
+                        debugger
                         //执行事件
                         fieldStruct.onchange = fieldStruct.onchange || [];
                         for (var i = 0; i < fieldStruct.onchange.length; i++) {
@@ -447,24 +450,10 @@ define(function (require, exports, module) {
                             _.each(fieldStruct.items, function (n, i) {//目前只有拥有 items属性的元素才会有可能改变状态
                                 var findState = n[changeItem.source];
                                 if (findState !== undefined && n.value == fieldStruct.value.valueData.value) {
-                                    setState(findState, product);
+                                    changeState(product,findState);
                                 }
                             })
                         }
-
-                        function setState(state, product) {
-                            _.each(scope.fromData, function (item, j) {
-                                if (item.productId == product.productId) {
-                                    if (item.state !== state) {
-                                        item.state = state;
-                                        setTimeout(function () {
-                                            changeState(product);
-                                        }, 10);
-                                    }
-                                }
-                            });
-                        }
-
                         //end 设置状态
 
                         //根据源不同 去给对象赋值
