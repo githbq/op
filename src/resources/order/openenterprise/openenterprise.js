@@ -31,6 +31,22 @@ define( function( require, exports, module ) {
             page.render();
         }
         
+        //IBSS.tplEvent.trigger('order1.2Success');
+        //IBSS.tplEvent.trigger('order1.2Close');
+        
+        //取消 
+        IBSS.tplEvent.on('order1.2Close'function(){
+            //location.hash = '';
+            history.back();
+        });
+
+        //新增成功
+        IBSS.tplEvent.on('order1.2Success',function(){
+            //location.hash = '';
+            history.back();
+        });
+
+
         //setTimeout(function () {
         //    debugger
         //    //p.nextStep();//下一步
