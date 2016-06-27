@@ -28,29 +28,39 @@ define( function(require, exports, module){
 		elements: {
 		},
 		events:{
+			'click .approval-title span': 'toggleEve'
 		},
 		init: function(){
 			DetailApproval.__super__.init.apply( this,arguments );
 			var me = this;
 		},
 		
-		/**
-		 *
-		 * @param id   实例id
-		 * @param eid  企业id
-		 * @param type 类型
-		 */
-		show: function( id , readonly ){
+		//切换内部页面
+		toggleEve: function(e){
+			var me = this;
+			var $target = $(e.currentTarget);
+			$target.addClass('active').siblings().removeClass('active');
+
+			var index = $target.attr('data-index');
+			console.log( index );
+
+			me.approvalPage.goToStep(index);
+		},
+		//
+		// @param id   	订单id 
+		// @param type  a 订单查看  b 补充合同  c 审批只读
+		//==============================================
+		show: function( id , type ){
 			var me = this;
 			DetailApproval.__super__.show.call( this,true );
 			console.log('dododo');
-			me.page = new Page( {wrapper: me.$view.find('.slider-body'), orderId:id, readonly:readonly} );
-			me.page.render();
+			me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:false} );
+			me.approvalPage.render();
 		},
 		//重新发送
 		hide: function(){
 			var me = this;
-			me.$view.find('.slider-body').empty();
+			me.$view.find('.approval-content').empty();
 			DetailApproval.__super__.hide.apply( this,arguments );
 		}
 	});
