@@ -6,10 +6,11 @@ define( function( require, exports, module ) {
     var tpl = $( require( './template.html' ) );
     var Slider = require( 'common/widget/slider/slider' );
     var Dialog = require('common/widget/dialog/dialog');
-    require('common/widget/kindeditor/kindeditor-all.js');
-    require('common/widget/kindeditor/lang/zh-CN.js');
+    var UE = require('common/widget/editor/ueditor.all.js')
+    //require('common/widget/kindeditor/kindeditor-all.js');
+    //require('common/widget/kindeditor/lang/zh-CN.js');
 
-    var CreatePolicy = MClass( Dialog ).include({
+    var CreatePolicy = MClass( Slider ).include({
         content: tpl.filter('#crPolicy').html(),
         defaultAttr:{
             'width': 900
@@ -28,6 +29,7 @@ define( function( require, exports, module ) {
         init: function(){
             CreatePolicy.__super__.init.apply( this, arguments );
             var me = this;
+            var ue = UE.getEditor('editor');
         },
 
         show: function(id){
@@ -62,7 +64,7 @@ define( function( require, exports, module ) {
             me.editor = KindEditor.create('#editor',{
                 resizeType: 0,
                 items: [
-                 'undo', 'redo', '|', 'print', 'cut', 'copy', 'paste', '|', 'justifyleft', 'justifycenter', 'justifyright', 'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript', 'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', 'formatblock', 'fontname', 'fontsize', '|', 'image', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'emoticons', 'pagebreak'
+                 'undo', 'redo', '|', 'print', 'cut', 'copy', 'paste', '|', 'justifyleft', 'justifycenter', 'justifyright', 'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript', 'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '/', 'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'emoticons', 'pagebreak'
                 ]
             });
             me.editorInitialized = true;
