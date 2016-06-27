@@ -1,6 +1,9 @@
 <div ng-controller="mainController" class="ng-cloak enterprise-panel" ng-init="bbb=false" ng-form name="mainForm">
     <button ng-click="testBasicForm()">测试表单验证11</button>
     <button ng-attr-abcd="aaaa" ng-click="testResult()">testResult</button>
+    <button ng-click="goTo(1)">step1</button>
+    <button ng-click="goTo(2)">step2</button>
+    <button ng-click="goTo(3)">step3</button>
     <div ng-show="step==1" ng-controller="form1Controller" class="step form baseinfo" ng-form name="stepForm1">
         <div class="top-bar" ng-if="hideTopBar!==true">
             <h1>第一步&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;企业信息</h1>
@@ -51,7 +54,7 @@
                     <label class="required"><span>行业</span></label>
                     <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" rquired select2 name="industryFirst" ng-model="entInfo.industryFirst" select2-model="entInfo.industryFirstDataValue" config="industryFirstConfig" class="form-control multiple-select" type="text"/>
                     一一<input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" rquired select2 name="industrySecond" ng-model="entInfo.industrySecond" select2-model="entInfo.industrySecondDataValue" config="industrySecondConfig" class="form-control multiple-select" type="text"/>
-                    一一<input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" rquired select2 ng-model="entInfo.industryThird" select2-model="entInfo.industryThirdDataValue" config="industryThirdConfig" class="form-control multiple-select" type="text"/>
+                    一一<input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" rquired select2 name="industryThird" ng-model="entInfo.industryThird" select2-model="entInfo.industryThirdDataValue" config="industryThirdConfig" class="form-control multiple-select" type="text"/>
                 </div>
             </div>
             <div class="form-row">
@@ -214,7 +217,7 @@
             <div class="form-row">
                 <h2>产品目录</h2>
             </div>
-            <products x-data-result="productInfo.dataResult" form-data="orderFromData" product-json="productJson" init-data="productInfo.initData" product-readonly="productReadonly" show="step==2"></products>
+            <products x-data-result="productInfo.dataResult" from-data="orderFromData" product-json="productJson" init-data="productInfo.initData" product-readonly="productReadonly" show="step==2"></products>
         </div>
     </div>
     <div ng-if="step==3" ng-class="{step_validate_error:step_3_validate_error}" ng-controller="form3Controller" ng-form name="stepForm3" class="step form payinfo">

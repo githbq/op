@@ -192,9 +192,13 @@ define(function (require, exports, module) {
         }
     });
     myApp.controller('mainController', ['$scope', '$timeout', 'select2Query', 'getEnumService', 'cascadeSelectService', 'productService', function ($scope, $timeout, select2Query, getEnumService, cascadeSelectService, productService) {
+        $scope.goTo = function (step) {
+            $scope.step = step;
+        }
         $scope.enterpriseReadonly = false;//企业详情信息 只读
         $scope.payInfoReadonly = false;//企业详情信息 只读
         $scope.productReadonly = false;//产品信息 只读
+        $scope.editMode = false;
         mainReturnData = $scope;
         //全局性信息
         $scope.globalInfo = mainData || {};
@@ -202,14 +206,18 @@ define(function (require, exports, module) {
         $scope.globalInfo.submitType = mainData.isNew ? 1 : mainData.isAdd ? 2 : mainData.isNew ? 3 : 1;
         debugger
         productService.getOrderDetailByOrderId($scope.globalInfo.orderId, function (data) {
-            $scope.$apply(function () {
+            $timeout(function () {
                 $scope.enterpriseReadonly = data.canEditEnterprise;
                 $scope.productReadonly = data.canEditOrder;
                 $scope.payInfoReadonly = data.canEditPaidInfo;
                 $scope.entInfo = data.odrDraftEnterprise || {};
                 $scope.productInfo = data.odrDraftOrder || {};
-                $scope.orderFromData = data.odrDraftPaidInfo || {};//订单来源数据
-            })
+                $scope.orderFromData = angular.fromJson(data.odrDraftOrder.content);//订单来源数据
+                $scope.payInfo = data.odrDraftPaidInfo;
+                $scope.payInfo.currPayList = angular.fromJson(data.odrDraftPaidInfo.currPayList);
+                $scope.editMode = true;
+                setSelect(false);
+            }, 10)
         });
 
         //企业详情信息
@@ -220,10 +228,12 @@ define(function (require, exports, module) {
         var payInfo = $scope.payInfo = {payStatus: 1};
         //全局行为状态
         var action = $scope.action = {doing: false};
-        //模拟数据
-        entInfo = $scope.entInfo = {"province": "110000", "city": "110100", "county": "110102", "provinceDataValue": "", "cityDataValue": "", "countyDataValue": "", "industryFirst": "100", "industrySecond": "122", "industryThird": "127", "industryFirstDataValue": "", "industrySecondDataValue": "", "industryThirdDataValue": "", "groupType": "3", "groupTypeDataValue": {"text": "全公司", "id": "3"}, "saleTeamScale": "2", "saleTeamScaleDataValue": {"text": "1-5人", "id": "2"}, "isSaleTeam": "0", "isSaleTeamDataValue": {"id": "0", "text": "否"}, "companyScale": "4", "companyScaleDataValue": {"text": "11-20人", "id": "4"}, "isReferral": "0", "isReferralDataValue": {"id": "0", "text": "否"}, "isReference": "0", "isReferenceDataValue": {"id": "0", "text": "否"}, "keyContactName": "7676", "keyContactPhone": "18203459685", "contactName": "765576", "contactPhone": "18203459685", "address": "765576", "enterpriseName": "576576", "area": "576576", "enterpriseAccount": "F234554", "keyContactEmail": "765576@fds.gfh", "contactEmail": "756756@gbfc.df", "contactIm": "434343"};
-        //
-
+        //$timeout(function () {
+        //    //模拟数据
+        //    entInfo = $scope.entInfo = {"province":"130000","city":"130400","county":"130404","provinceDataValue":{"id":"130000","text":"河北省"},"cityDataValue":{"id":"130400","text":"邯郸市"},"countyDataValue":{"id":"130404","text":"复兴区"},"industryFirst":"100","industrySecond":"112","industryThird":"115","industryFirstDataValue":"","industrySecondDataValue":{"id":"112","text":"计算机硬件"},"industryThirdDataValue":{"id":"115","text":"平板电脑"},"groupType":"3","groupTypeDataValue":{"text":"全公司","id":"3"},"saleTeamScale":"2","saleTeamScaleDataValue":{"text":"1-5人","id":"2"},"isSaleTeam":"0","isSaleTeamDataValue":{"id":"0","text":"否"},"companyScale":"4","companyScaleDataValue":{"text":"11-20人","id":"4"},"isReferral":"0","isReferralDataValue":{"id":"0","text":"否"},"isReference":"0","isReferenceDataValue":{"id":"0","text":"否"},"keyContactName":"7676","keyContactPhone":"18203459685","contactName":"765576","contactPhone":"18203459685","address":"765576","enterpriseName":"576576","area":"576576","enterpriseAccount":"F234554","keyContactEmail":"765576@fds.gfh","contactEmail":"756756@gbfc.df","contactIm":"434343"};
+        //    setSelect(false);
+        //    //
+        //}, 5000);
         mainCtrlScope = $scope;
 
 
@@ -263,13 +273,8 @@ define(function (require, exports, module) {
             placeholder: '请选择',
             search: false
         };
-        cascadeSelectService.cascadeSelect($scope, [
-            {ngModelName: 'entInfo.province', config: $scope.provinceConfig},
-            {ngModelName: 'entInfo.city', config: $scope.cityConfig},
-            {ngModelName: 'entInfo.county', config: $scope.countyConfig}
-        ], cascadeSelectService.createPullFunc({url: '~/op/api/district/getListByParent', data: {name: 'parentValue'}}, function (data, item) {
-            data.push({id: item.value.toString(), text: item.name});
-        }));
+
+
         //end多功能下拉选框　
 
 
@@ -305,13 +310,23 @@ define(function (require, exports, module) {
             placeholder: '请选择',
             search: false
         };
-        cascadeSelectService.cascadeSelect($scope, [
-            {ngModelName: 'entInfo.industryFirst', config: $scope.industryFirstConfig},
-            {ngModelName: 'entInfo.industrySecond', config: $scope.industrySecondConfig},
-            {ngModelName: 'entInfo.industryThird', config: $scope.industryThirdConfig}
-        ]);
-        //end 多功能下拉选框　行业
 
+        //end 多功能下拉选框　行业
+        function setSelect(needWatch) {
+            cascadeSelectService.cascadeSelect($scope, [
+                {ngModelName: 'entInfo.province', config: $scope.provinceConfig},
+                {ngModelName: 'entInfo.city', config: $scope.cityConfig},
+                {ngModelName: 'entInfo.county', config: $scope.countyConfig}
+            ], cascadeSelectService.createPullFunc({url: '~/op/api/district/getListByParent', data: {name: 'parentValue'}}, function (data, item) {
+                data.push({id: item.value.toString(), text: item.name});
+            }), needWatch);
+            cascadeSelectService.cascadeSelect($scope, [
+                {ngModelName: 'entInfo.industryFirst', config: $scope.industryFirstConfig},
+                {ngModelName: 'entInfo.industrySecond', config: $scope.industrySecondConfig},
+                {ngModelName: 'entInfo.industryThird', config: $scope.industryThirdConfig}
+            ], needWatch);
+        }
+        setSelect();
         //公司规模
         $scope.companyScaleConfig = {
             data: [],
@@ -322,10 +337,10 @@ define(function (require, exports, module) {
             minimumResultsForSearch: Infinity//不显示搜索框
         };
         getEnumService.load('CAMPANY_SCALE', function (list) {
-            $scope.$apply(function () {
+            $timeout(function () {
                 $scope.companyScaleConfig.data = list;
                 $scope.companyScaleConfig.placeholder = '请选择';
-            });
+            }, 10);
         });
         //使用对象类型
         $scope.groupTypeConfig = {
@@ -338,10 +353,10 @@ define(function (require, exports, module) {
         };
         //使用对象类型
         getEnumService.load('GROUP_TYPE', function (list) {
-            $scope.$apply(function () {
+            $timeout(function () {
                 $scope.groupTypeConfig.data = list;
                 $scope.groupTypeConfig.placeholder = '请选择';
-            });
+            }, 10);
         });
         //是否有销售团队
         $scope.isSaleTeamConfig = {
@@ -363,10 +378,10 @@ define(function (require, exports, module) {
             minimumResultsForSearch: Infinity//不显示搜索框
         };
         getEnumService.load('SALE_TEAM_SCALE', true, function (list) {
-            $scope.$apply(function () {
+            $timeout(function () {
                 $scope.saleTeamScaleConfig.data = list;
                 $scope.saleTeamScaleConfig.placeholder = '请选择';
-            });
+            }, 10);
         });
         //是否转介绍
         $scope.isReferralConfig = {
@@ -455,7 +470,6 @@ define(function (require, exports, module) {
                                 $scope.entInfo.draftEnterpriseId = data.id;
                                 $scope.productInfo.draftEnterpriseId = data.id;
                                 $scope.payInfo.draftEnterpriseId = data.id;
-                                debugger
                                 $scope.productInfo.initData = data.initData;
                                 $scope.step++;
                             });
@@ -491,7 +505,7 @@ define(function (require, exports, module) {
             action.doing = true;
             util.api({
                 url: "~/op/api/a/odrDraft/draftEnterpriseNext",
-                data: {odrDraftEnterprise: angular.toJson(angular.extend({enterpriseAccount: null}, $scope.entInfo))},
+                data: {odrDraftEnterprise: angular.toJson(angular.extend({enterpriseAccount: null, id: entInfo.draftEnterpriseId}, $scope.entInfo))},
                 success: function (result) {
                     callback(result);
                 },

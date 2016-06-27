@@ -114,7 +114,7 @@ define(function (require, exports, module) {
             });
         };
         //获取编辑时的订单详情
-        factory.getOrderDetailByOrderId = function (orderId) {
+        factory.getOrderDetailByOrderId = function (orderId,callback) {
             if (!orderId) {
                 return;
             }

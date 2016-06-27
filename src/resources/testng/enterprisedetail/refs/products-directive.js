@@ -41,14 +41,16 @@ define(function (require, exports, module) {
 
     angular.module('formApp').directive('products', function () {
             return {
-                scope: {dataResult: '=', formData: '=', productReadonly: '=', show: '=', initData: '=', productJson: '='},
+                scope: {dataResult: '=', fromData: '=', productReadonly: '=', show: '=', initData: '=', productJson: '='},
                 template: require('./products-template.html'),
                 link: function (scope, iElem, iAttrs) {
-                    scope.products = scope.products || [];
-                    scope.fromData = scope.fromData || [];
-                    scope.dataResult = scope.dataResult || [];//对外暴露的结果数据
+
+                    scope.showed = false;
                     scope.$watch('show', function () {
-                        if (scope.show) {
+                        if (scope.show && !scope.showed) {
+                            init();
+                            scope.showed = true;
+                        }else{
                             wrapperReset();
                         }
                     });
@@ -64,24 +66,29 @@ define(function (require, exports, module) {
                             .on('click', '.product-agent', clickAgentEvent);
                     }, 10);
                     scope.$watch('initData', function (newVal, oldVal) {
-                        init();
+                        if (newVal) {
+                            init();
+                        }
                     });
                     scope.$watch('productJson', function (newVal, oldVal) {
                         init();
                     });
                     scope.$watch('productReadonly', function (newVal, oldVal) {
-                        if(newVal!=oldVal){
-                            setTimeout(function(){
+                        if (newVal != oldVal) {
+                            setTimeout(function () {
                                 scope.$apply();
-                            },50);
+                            }, 50);
                         }
                     });
-                    scope.$watch('formData', function (newVal, oldVal) {
+                    scope.$watch('fromData', function (newVal, oldVal) {
                         init();
                     });
 
                     //end
                     function init() {
+                        scope.products = scope.products || [];
+                        scope.fromData = scope.fromData || [];
+                        scope.dataResult = scope.dataResult || [];//对外暴露的结果数据
                         if (!scope.productJson) {
                             return;
                         }
@@ -181,7 +188,7 @@ define(function (require, exports, module) {
                         findProduct.show = checked;
                         //同步改变对应的结果值上的属性
                         var dataResultItem = _.findWhere(scope.dataResult, {productId: checkbox.id});
-                        dataResultItem.show = findProduct.show;
+                        dataResultItem && (dataResultItem.show = findProduct.show);
                         wrapperReset();
                     };
                     //初始化验证数据
@@ -235,9 +242,10 @@ define(function (require, exports, module) {
                     };
                     scope.clickMe = function () {
                     };
-                    //验证状态初始化
+                    //验证状态初始化  todo
                     function initValidate(products) {
-
+                        return;
+                        if(!products){return;}
                         for (var i = 0; i < products.length; i++) {
                             var product = products[i];
                         }
@@ -295,10 +303,7 @@ define(function (require, exports, module) {
                                     break;
                             }
                         }
-
-
                     }
-
 
                     //控制值改变时事件  fieldStruct 元素的模型
                     scope.fieldChange = function (fieldStruct, product, form) {
