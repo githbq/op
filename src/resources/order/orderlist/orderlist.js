@@ -1,6 +1,6 @@
 //
 //订单列表
-//代理商用 渠道用 小助手用
+//代理商用 渠道用 小助手用 
 //=========================================
 define( function( require, exports, module ) {
     var IBSS = window.IBSS,
@@ -9,23 +9,20 @@ define( function( require, exports, module ) {
     var Pagination = require('common/widget/pagination/pagination');
     var Dialog = require('common/widget/dialog/dialog');
 
-    //var Slider = require('common/widget/slider/slider');
-    var ENUMDATA = require('module/data/data').data;
-    var resetSelect = require('module/data/data').resetSelect;
+    var ENUMDATA = require('module/data/data').data;                    //枚举常量       
+    var resetSelect = require('module/data/data').resetSelect;          //枚举常量
 
     var DetailApproval = require('../detailapproval/detailapproval');      //订单详情
-	var DetailPayment = require('../detailpayment/detailpayment');         //
+	var DetailPayment = require('../detailpayment/detailpayment');         //收尾款
 
 	var CustomHelper = require('../widget/customhelper/customhelper');     //联合跟进人
     var InvoiceDetail = require('../widget/invoicedetail/invoicedetail');  //发票
     var BackMoney = require('../backmoney/backmoney');                     //退款
 	
-	var OnlinePay = require('../widget/onlinepay/onlinepay');
+	var OnlinePay = require('../widget/onlinepay/onlinepay');              //???
 
     var tem = $( require('./template.html') );
-
-
-
+    
     //到款认领
     var Claim = MClass( Dialog ).include({
 
@@ -130,18 +127,22 @@ define( function( require, exports, module ) {
         revocationEve: function(e){
             var me = this;
             var id = $(e.currentTarget).attr('data-id');
-            util.api({
-                'url':'/odr/withdrawOrderApproval',
-                'data':{
-                    'orderId': id
-                },
-                'success':function( data ){
-                    if( data.success ){
-                        util.showTip('订单撤回成功');
-                        me.getList();
+            var bool = confirm('确认撤回改订单吗?');
+
+            if( bool ){
+                util.api({
+                    'url':'/odr/withdrawOrderApproval',
+                    'data':{
+                        'orderId': id
+                    },
+                    'success':function( data ){
+                        if( data.success ){
+                            util.showTip('订单撤回成功');
+                            me.getList();
+                        }
                     }
-                }
-            })
+                })
+            }
         },
         //收尾款
         finalPayEve: function(e){
@@ -479,8 +480,9 @@ define( function( require, exports, module ) {
         var $el = exports.$el;
 
         var orderList = new OrderList( {'view': $el.find('.m-orderlist')} );
-        var detailApproval = new DetailApproval();
-		var detailPayment = null;
+        var detailApproval = new DetailApproval();  //订单详情   
+		
+        var detailPayment = null;
 		var customHelper = null;
 		var backMoney = null, invioceDetail = null ,onlinePay = null;
 		
@@ -488,12 +490,14 @@ define( function( require, exports, module ) {
         var claim = new Claim();
         //claim.show();
 
-
+        /*
         orderList.on('orderDetail', function( options ){
             detailApproval = new DetailApproval();
             detailApproval.show( options );
         });
-		orderList.on('orderDetailPayment', function( options ){
+		*/
+
+        orderList.on('orderDetailPayment', function( options ){
             detailPayment = new DetailPayment();
             detailPayment.show( options );
         });
@@ -541,10 +545,10 @@ define( function( require, exports, module ) {
         });
 
         //查看[待开发]
-        orderList.on('detail', function( id ,type ){
+        orderList.on('detail', function( id ){
             console.log('查看');
             console.log( id );
-            detailApproval.show( id , type );
+            detailApproval.show( id , 'b' );
         });
     }
 } );

@@ -8284,6 +8284,20 @@ em {
   width: 150px;
   text-align: left;
 }
+.m-detailapproval .approval-title {
+  text-align: center;
+}
+.m-detailapproval .approval-title span {
+  display: inline-block;
+  padding: 4px 10px;
+  width: 85px;
+  margin-left: -1px;
+  border: 1px #ccc solid;
+  cursor: pointer;
+}
+.m-detailapproval .approval-title span.active {
+  background: #eee;
+}
 .order-content span.m-len {
   display: inline-block;
   text-align: right;
