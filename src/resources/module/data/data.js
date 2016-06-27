@@ -15,14 +15,12 @@ define( function(require, exports, module){
         '17': '收尾款订单',
         '18': '线上支付订单'
     }
-
     //订单列表——付费状态
     data['paystatus'] = {
     	'1': '分期',
     	'2': '全部',
     	'3': '未付'
     }
-
     //订单列表———应用类型
     data['apptype'] = {
     	'1': '培训服务费',
@@ -38,7 +36,6 @@ define( function(require, exports, module){
         '11':'培训助手流量',
         '12':'助手套餐'
     }
- 
     //订单列表————订单状态
     data['orderstatus'] = {
         '1': '待审核',
@@ -54,7 +51,6 @@ define( function(require, exports, module){
         '11':'补充合同驳回',
         '12':'补充合同撤回'
     }
-
     //订单列表————当前审批节点
     data['approvalnode'] = {
         '1': '代理商节点',
@@ -62,12 +58,25 @@ define( function(require, exports, module){
         '3': '到款认领',
         '4': '待数据中心审批'
     }
-
     //订单列表————到款认领状态
     data['claimreceivedpaystatus'] = {
         '1': '未认领',
         '2': '认领中',
         '3': '已认领'
+    }
+    //企业列表——企业状态
+    data['entstatus'] = {
+        '1': '待开通',
+        '2': '已开通',
+        '3': '已作废',
+        '4': '已停用',
+        '5': '已删除'
+    }
+    //企业列表——企业类型
+    data['enttype'] = {
+        '1': '付费',
+        '2': '开源',
+        '3': '自注册'
     }
 
     //重设select的值

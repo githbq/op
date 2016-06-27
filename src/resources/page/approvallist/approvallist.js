@@ -11,7 +11,7 @@ define( function(require, exports, module){
 	//var OpenApprovalList = require('module/openapprovallist/openapprovallist');
 	var DetailApproval = require('../../order/detailapproval/detailapproval');        //普通订单
 	var DetailPayment = require('../../order/detailpayment/detailpayment');           //收尾款
-	var BackMoney = require('../../order/backmoney/backmoney');                       //退款
+	var BackMoney = require('../../order/detailbackmoney/detailbackmoney');                       //退款
     
 
     var detailApproval = new DetailApproval();
