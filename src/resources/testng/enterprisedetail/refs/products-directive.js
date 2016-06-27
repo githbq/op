@@ -50,7 +50,7 @@ define(function (require, exports, module) {
                         if (scope.show && !scope.showed) {
                             init();
                             scope.showed = true;
-                        }else{
+                        } else {
                             wrapperReset();
                         }
                     });
@@ -115,7 +115,7 @@ define(function (require, exports, module) {
                         scope.productCheckboxs = _.map(scope.productJson.products, function (item, i) {
                             var findProduct = _.findWhere(scope.fromData, {productId: item.productId});
                             item.show = !!findProduct;
-                            return {id: item.productId, text: item.text, checked: !!findProduct};
+                            return {id: item.productId, text: item.text, checked: !!findProduct,canCancel:findProduct.canCancel};
                         });
                         //初始化数据对复选框进行操作
                         if (scope.initData) {
@@ -126,10 +126,15 @@ define(function (require, exports, module) {
                                     item.checked = findDataItem.check;
                                     item.canCancel = findDataItem.canCancel;
                                     var findProduct = _.findWhere(scope.products, {productId: item.id});
-                                    findProduct && (findProduct.show = findDataItem.check);
+                                    if (findProduct) {
+                                        findProduct.show = findDataItem.check;
+                                    }
                                     ////同步改变对应的结果值上的属性
                                     var dataResultItem = _.findWhere(scope.dataResult, {productId: item.id});
-                                    dataResultItem.show = findProduct.show;
+                                    if (dataResultItem) {
+                                        dataResultItem.show = findProduct.show;
+                                        dataResultItem.canCancel = item.canCancel;
+                                    }
                                 }
                             });
                         }
@@ -246,7 +251,9 @@ define(function (require, exports, module) {
                     //验证状态初始化  todo
                     function initValidate(products) {
                         return;
-                        if(!products){return;}
+                        if (!products) {
+                            return;
+                        }
                         for (var i = 0; i < products.length; i++) {
                             var product = products[i];
                         }

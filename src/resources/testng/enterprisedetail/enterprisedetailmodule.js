@@ -57,7 +57,7 @@ define(function (require, exports, module) {
                 });
             }
         }, getReturnData: function () {
-            if (validate) {
+            if (mainReturnData.mainForm.$valid) {
                 return mainReturnData;
             } else {
                 return false;
