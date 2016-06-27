@@ -5,13 +5,13 @@
 define( function(require, exports, module){
 
 	
-    var data = require('module/data/data').data;
+    var enumdata = require('module/data/data').data;
     var resetSelect = require('module/data/data').resetSelect;
 
 	//var OpenApprovalList = require('module/openapprovallist/openapprovallist');
 	var DetailApproval = require('../../order/detailapproval/detailapproval');        //普通订单
 	var DetailPayment = require('../../order/detailpayment/detailpayment');           //收尾款
-	var BackMoney = require('../../order/detailbackmoney/detailbackmoney');                       //退款
+	var BackMoney = require('../../order/detailbackmoney/detailbackmoney');           //退款
     
 
     var detailApproval = new DetailApproval();
@@ -19,6 +19,9 @@ define( function(require, exports, module){
 
 	var page = require('common/widget/page/page');  //ng分页组件
 	var main = angular.module('list',['common']);   //
+
+
+    var paymap = {'1':'全款','2':'分期','3':'未付'}
 
 	//审批列表控制器
 	main.controller('approvallist',['$scope', '$element', function( $scope , $element ){
@@ -82,7 +85,16 @@ define( function(require, exports, module){
                     console.log( 'getdata' );
                     console.log( data );
                     if( data.success ){
-                        $scope.tabledata.tbody = data.value.model.content;
+
+                        if( data.value.model.content && data.value.model.content.length > 0 ){
+                            data.value.model.content.forEach(function( item ){
+                                item.orderTypeStr = enumdata['ordermap'][item.orderType];
+                                item.payStatusStr = paymap[item.payStatus];
+                                item.orderstatusStr = enumdata['orderstatus'][item.orderstatus];
+                                item.applyTimeStr = new Date( item.applyTime )._format('yyyy/MM/dd hh:mm');
+                            });
+                            $scope.tabledata.tbody = data.value.model.content;
+                        }
                         $scope.total = data.value.model.itemCount;
 
                         console.log( $scope.total )
