@@ -7139,9 +7139,6 @@ em {
   min-height: 800px;
   padding: 10px 0;
 }
-#m-preview p {
-  padding: 12px 0;
-}
 #m-preview h2 {
   font-size: 20px;
   font-weight: bold;
@@ -7149,8 +7146,7 @@ em {
 }
 #m-preview h4 {
   cursor: pointer;
-  font-wieght: bold;
-  font-size: 15px;
+  font: bold 15px 'Microsoft Yahei';
   color: #333;
 }
 #m-preview h4:after {

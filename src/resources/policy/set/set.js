@@ -4,7 +4,6 @@ define( function( require, exports, module ) {
     
     var Pagination = require( 'common/widget/pagination/pagination' );
     var tpl = $( require( './template.html' ) );
-    var Slider = require( 'common/widget/slider/slider' );
     var Dialog = require('common/widget/dialog/dialog');
     require('common/widget/kindeditor/kindeditor-all.js');
     require('common/widget/kindeditor/lang/zh-CN.js');
@@ -58,7 +57,7 @@ define( function( require, exports, module ) {
             me.editor = KindEditor.create('#editor',{
                 resizeType: 0,
                 items: [
-                 'undo', 'redo', '|', 'print', 'cut', 'copy', 'paste', '|', 'justifyleft', 'justifycenter', 'justifyright', 'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript', 'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', 'formatblock', 'fontname', 'fontsize', '|', 'image', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'emoticons', 'pagebreak'
+                 'undo', 'redo', '|', 'preview', 'print', 'template', 'code', 'cut', 'copy', 'paste', 'plainpaste', 'wordpaste','|', 'justifyleft', 'justifycenter', 'justifyright', 'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript', 'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', 'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image', 'table', 'hr','emoticons', 'pagebreak', 'anchor', 'link', 'unlink', '|', 'about'
                 ],
                 allowImageUpload: false,
                 afterChange : function() {
@@ -228,7 +227,6 @@ define( function( require, exports, module ) {
                         +'</div>';
             });
             me.$policyItems.html(list);
-                
         },
         showAccordian: function(e) {//展开一条
             var target = e.currentTarget,
