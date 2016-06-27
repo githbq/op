@@ -214,10 +214,10 @@
             <div class="form-row">
                 <h2>产品目录</h2>
             </div>
-            <products x-data-result="productInfo.dataResult" product-json="productJson" init-data="productInfo.initData" product-readonly="productReadonly" show="step==2"></products>
+            <products x-data-result="productInfo.dataResult" form-data="orderFromData" product-json="productJson" init-data="productInfo.initData" product-readonly="productReadonly" show="step==2"></products>
         </div>
     </div>
-    <div ng-if="step==3" ng-controller="form3Controller" ng-form name="stepForm3" class="step form payinfo">
+    <div ng-if="step==3" ng-class="{step_validate_error:step_3_validate_error}" ng-controller="form3Controller" ng-form name="stepForm3" class="step form payinfo">
         <div class="top-bar" ng-if="hideTopBar!==true">
             <h1>第三步&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;付款信息</h1>
         </div>
@@ -260,6 +260,7 @@
                      ng-model="payInfo.contractCopy"
                      input-file
                      status="payInfo.contractCopy_status"
+                     required
                      label="合同副本照片"
                      response=""></div>
             </div>
@@ -304,7 +305,7 @@
                 <div class="form-field">
                     <label class="required"><span>总部打款日期</span></label>
 
-                    <div class="inline-block" allow="!payInfoReadonly&&!payInfo.partReadonly" ng-readonly="payInfoReadonly||payInfo.partReadonly" getform="this['payInfoForm']" name="payDate" datetimeconfig="payInfo.payDate_dataConfig" ng-model="payInfo.payDate"></div>
+                    <div class="inline-block" ng-readonly="payInfoReadonly||payInfo.partReadonly" getform="this['payInfoForm']" name="payDate" datetimeconfig="payInfo.payDate_dataConfig" ng-model="payInfo.payDate"></div>
                 </div>
             </div>
             <div class="form-row">
@@ -332,6 +333,7 @@
             </div>
             <div class="form-row">
                 <div ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly"
+                     required
                      ng-model="payInfo.companyGatePicture"
                      input-file
                      status="payInfo.companyGatePicture_status"
@@ -341,13 +343,13 @@
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>门头照片关键词</span></label>
-                    <input class="input-l" ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly" type="text" ng-model="payInfo.companyGateKeyword" name="companyGateKeyword"/>
+                    <input required  class="input-l" ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly" type="text" ng-model="payInfo.companyGateKeyword" name="companyGateKeyword"/>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>门头照片备注</span></label>
-                    <input class="input-l" ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly" type="text" ng-model="payInfo.companyGateRemark" name="companyGateRemark"/>
+                    <input required class="input-l" ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly" type="text" ng-model="payInfo.companyGateRemark" name="companyGateRemark"/>
                 </div>
             </div>
             <div class="form-row">
@@ -367,7 +369,7 @@
         <!--<button ng-disabled="mainForm.basicForm.$invalid" ng-if="step<3" ng-click="nextStep()">下一步</button>-->
         <button ng-if="step<3" ng-disabled="action.doing===true" ng-click="nextStep(this.mainForm['stepForm'+step])">下一步</button>
         &nbsp;&nbsp;&nbsp;&nbsp;
-        <button ng-if="step==3" class="save" ng-disabled="action.doing===true" ng-click="save()" ng-class="{saving:action.doing}">提交</button>
+        <button ng-if="step==3" class="save" ng-disabled="action.doing===true" ng-click="save(this.mainForm['stepForm'+3])" ng-class="{saving:action.doing}">提交</button>
         &nbsp;&nbsp;&nbsp;&nbsp;
         <button ng-click="close()" class="close-order">取消</button>
     </div>

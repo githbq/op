@@ -8492,7 +8492,7 @@ em {
 .enterprise-panel .form .form-field .ng-invalid.ng-dirty:not(.form) {
   border: 1px solid red;
 }
-.enterprise-panel .step_validate_error .ng-invalid {
+.enterprise-panel .step_validate_error .ng-invalid:not(.field-group) {
   border: 1px solid red;
 }
 .enterprise-panel .form .ng-dirty:not(.form) {

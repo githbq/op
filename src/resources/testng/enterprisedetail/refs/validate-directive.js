@@ -82,7 +82,7 @@ define(function (reuqire, exports, module) {
                     }, 100);
                 });
                 function setMaxOrMinValue(result) {
-                    if (isNaN(result) || result==='') {
+                    if (isNaN(result) || result === '') {
                         result = null;
                     } else {
                         result = parseFloat(result);
@@ -96,10 +96,10 @@ define(function (reuqire, exports, module) {
                         if (scope.min) {
                             min = parseFloat(scope.min);
                         }
-                        if (!(isNaN(max)||max==='') && result > max) {
+                        if (!(isNaN(max) || max === '') && result > max) {
                             result = max;
                         }
-                        if (!(isNaN(min)||min==='') && result < min) {
+                        if (!(isNaN(min) || min === '') && result < min) {
                             result = min;
                         }
                     }
@@ -161,4 +161,26 @@ define(function (reuqire, exports, module) {
             }
         };
     });
+    //数组
+    //app.directive('arrayRequired', function () {
+    //    return {
+    //        require: 'ngModel',
+    //        scope:{ngModel:'='},
+    //        link: function (scope, elm, attr, ctrl) {
+    //            if (!ctrl) return;
+    //            debugger
+    //            //attr.arrayRequired = true; // force truthy in case we are on non input element
+    //            ctrl.$validators.arrayRequired = function (modelValue, viewValue) {
+    //                return scope.$eval(attr.ngModel) && scope.$eval(attr.ngModel).length > 0;
+    //            };
+    //            ctrl.$parsers.unshift(function (viewValue) {
+    //                alert('arrayRequired');
+    //            });
+    //            scope.$watch('ngModel', function () {
+    //                alert(2)
+    //                //ctrl.$validate();
+    //            });
+    //        }
+    //    };
+    //});
 });
