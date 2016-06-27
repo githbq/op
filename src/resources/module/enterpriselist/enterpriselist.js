@@ -11,6 +11,9 @@ define(function(require, exports, module) {
     var template = $( require('./template.html') );
 
     var EntStatusMap = IBSS.EntStatusMap;
+    var enumdata = require('module/data/data').data;
+    var resetSelect = require('module/data/data').resetSelect;
+
 
     //转移企业
     //=============================
@@ -93,11 +96,6 @@ define(function(require, exports, module) {
         view: viewStr,
 
         elements: {
-            '#OpenSTime': 'openstime',  //开通开始时间
-            '#OpenETime': 'openetime',  //开通结束时间
-            '#eiSource': 'source',      //来源
-            '#eiProvince': 'province',  //省市
-            '#eiIndustry': 'industry',  //行业
             'tbody': 'tbody'            //
         },
 
@@ -137,15 +135,13 @@ define(function(require, exports, module) {
             me.transEnt = new TransEnt();
             me.sandBox = new SandBox();
 
+            resetSelect( me.$view, 'entstatus');
+            resetSelect( me.$view, 'enttype');
 
-
-
-            //初始化时间控件
-            me.$openstime.datetimepicker({ format: 'Y/m/d', timepicker: false });
-            me.$openetime.datetimepicker({ format: 'Y/m/d', timepicker: false });
             me.setState();
             //初始化
-            me.initializeSelect();
+            //me.initializeSelect();
+            me.getList();
         },
         //打开转移企业弹窗
         transferEve: function(){
@@ -163,6 +159,7 @@ define(function(require, exports, module) {
             me.$('[data-state="' + me.attrs.state + '"]').show();
         },
         //初始化枚举选择
+        /*
         initializeSelect: function() {
             var me = this;
 
@@ -200,7 +197,7 @@ define(function(require, exports, module) {
                 });
             }
         },
-
+        */
         //选择全部
         selectAllEve: function(e) {
             var me = this;
@@ -239,46 +236,19 @@ define(function(require, exports, module) {
         },
 
         //获取数据
-        getList: function(exportFile) {
+        getList: function( exportFile ) {
             var me = this;
 
-            var fromAppStartTime = '';
-            var endAppStartTime = '';
-
-            if (me.$openstime.val()) {
-                fromAppStartTime = new Date(me.$openstime.val()).getTime();
-            }
-
-            if (me.$openetime.val()) {
-                endAppStartTime = new Date(me.$openetime.val()).getTime();
-            }
-
+            /*
             var accountName = "";
             if (me.attrs['param']) {
                 accountName = me.attrs['param'];
             }
-            var data = {
-                pageIndex: me.pagination.attr['pageNumber'] + 1,
-                pageSize: me.pagination.attr['pageSize'],
-                ea: me.model.get('ea'),
-                en: me.model.get('en'),
-                enterpriseStatus: me.model.get('enterpriseStatus'),
-                source: me.model.get('source'),
-                industry: me.model.get('industry'),
-                province: me.model.get('province'),
-                city: me.model.get('city'),
-                tel: me.model.get('tel'),
-                'creatorName': me.model.get('creatorName'),
-                'isLinkRegister': me.model.get('isLinkRegister'),
-                'hasProduct': me.model.get('hasProduct'), //包含某种产品
-                'vendorId': me.model.get('vendorId'), //优惠码
-                'isPresent': me.model.get('isPresent'), //是否赠送办公版
-                'isPay': me.model.get('isPay'), //是否付费
-                'isCoupon': me.model.get('isCoupon'), //是否是优惠企业
-                fromAppStartTime: fromAppStartTime,
-                endAppStartTime: endAppStartTime,
-                'accountName': accountName
-            };
+            */
+            var data = me.model.all();
+            data.pageIndex = me.pagination.attr['pageNumber'] + 1;
+            data.pageSize = me.pagination.attr['pageSize'];
+
             if (exportFile === true) {
                 window.open(IBSS.API_PATH + '/enterprise/exportTrialData?' + $.param(data));
                 return;
@@ -293,30 +263,14 @@ define(function(require, exports, module) {
                     if (data.success) {
                         me.pagination.setTotalSize(data.value.model.itemCount);
                         if (data.value.model.content.length > 0) {
-                            me.list.reload(data.value.model.content, function(item) {
+                            me.list.reload(data.value.model.content, function( item ) {
+                                item.entTypeStr = enumdata['enttype'][item.enterpriseType];
+                                item.entStatusStr = enumdata['entstatus'][item.csmEnterprise.runStatus];
 
-                                if (item.csmEnterprise.appStartTime) {
-                                    item.createtimestr = new Date(item.csmEnterprise.appStartTime)._format("yyyy-MM-dd");
+                                if( item.isOverLimitWarn ){
+                                    item.isOverLimitWarnStr = '是';
                                 } else {
-                                    item.createtimestr = "——";
-                                }
-
-                                item.runstatusstr = EntStatusMap[item.csmEnterprise.runStatus];
-
-                                if (item.protectionWhiteListStatus == 0) {
-                                    item.authStr = "全部授权"
-                                } else if (item.protectionWhiteListStatus == 1) {
-                                    item.authStr = "未授权"
-                                } else if (item.protectionWhiteListStatus == 2) {
-                                    item.authStr = "部分授权"
-                                }
-
-                                if (!item.cRMVisible) {
-                                    item.crmvisible = "——";
-                                } else if (item.cRMVisible == 1) {
-                                    item.crmvisible = "所有下级可见";
-                                } else if (item.cRMVisible == 2) {
-                                    item.crmvisible = "直属下级可见";
+                                    item.isOverLimitWarnStr = '否';
                                 }
                             });
                             me.setState();
