@@ -44,13 +44,13 @@ define( function(require, exports, module){
 			var me = this;
 			DetailApproval.__super__.show.call( this,true );
 			console.log('dododo');
-			me.page = new Page( {wrapper: me.$view.find('.slider-content'), orderId:id, readonly:readonly} );
+			me.page = new Page( {wrapper: me.$view.find('.slider-body'), orderId:id, readonly:readonly} );
 			me.page.render();
 		},
 		//重新发送
 		hide: function(){
 			var me = this;
-			me.$view.empty();
+			me.$view.find('.slider-body').empty();
 			DetailApproval.__super__.hide.apply( this,arguments );
 		}
 	});
