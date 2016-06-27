@@ -15,23 +15,41 @@ define( function( require, exports, module ) {
 
         //增购/续费
         if( param && param[0] ){
-            data = {
-                'enterpriseId': param[0]
-            };
-            page = new Page( {wrapper: $el,orderId:null,isNew:false,isAdd:true,readonly:false,data:data} );
-            page.render();
-            page.goToStep(2);
-        //新购
-        }else{
-            data = {
-                'enterpriseFilingId': IBSS.tempEnterprise.id,
-                'enterpriseName': IBSS.tempEnterprise.enterpriseName,
-                'area': IBSS.tempEnterprise.regionName
-            };
-            page = new Page( {wrapper: $el,orderId:null,isNew:true,isAdd:false,readonly:false,data:data} );
-            page.render();
-        }
-        
+
+            //新购
+            if( param[0] == 'a' ){
+
+                data = {
+                    'enterpriseFilingId': IBSS.tempEnterprise.id,
+                    'enterpriseName': IBSS.tempEnterprise.enterpriseName,
+                    'area': IBSS.tempEnterprise.regionName
+                };
+                page = new Page( {wrapper: $el,orderId:null,isNew:true,isAdd:false,isRef:false,readonly:false,data:data} );
+                page.render();
+
+            //关联自注册
+            }else if( param[0] == 'b' ){
+                
+                data = {
+                    'enterpriseFilingId': IBSS.tempEnterprise.id,
+                    'enterpriseName': IBSS.tempEnterprise.enterpriseName,
+                    'area': IBSS.tempEnterprise.regionName,
+                    'enterpriseAccount': IBSS.tempEnterprise.enterpriseaccount
+                };
+                page = new Page( {wrapper: $el,orderId:null,isNew:false,isAdd:false,isRef:true,readonly:false,data:data} );
+                page.render();
+
+            //增购续费
+            }else{
+
+                data = {
+                    'enterpriseId': param[0]
+                };
+                page = new Page( {wrapper: $el,orderId:null,isNew:false,isAdd:true,isRef:false,readonly:false,data:data} );
+                page.render();
+                page.goToStep(2);
+            }
+
         //IBSS.tplEvent.trigger('order1.2Success');
         //IBSS.tplEvent.trigger('order1.2Close');
         
