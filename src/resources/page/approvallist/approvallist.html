@@ -1,11 +1,11 @@
 <div class="p-list p-approvallist" js="true" cache="false">
 
-	<div class="u-tablelist m-approvallist" ng-controller="approvallist">
+	<div class="u-tablelist m-approvallist ng-cloak" ng-controller="approvallist" >
         <div class="list-main">
             <div class="list-header">
                 <h3>
                     <span class="title">审批</span>
-                    <section class="toggle"><span ng-click="changestate($event,'wait')" data-state="wait" class="active">我的待审批<b>(<i>0</i>)</b></span><span data-state="going"  ng-click="changestate($event,'going')">我的已审批未完成<b>(<i>0</i>)</b></span><span data-state="done" ng-click="changestate($event,'done')"> 我的已完成<b>(<i>0</i>)</b></span><span data-state="reject" ng-click="changestate($event,'reject')">我的驳回<b>(<i>0</i>)</b></span></section>
+                    <section class="toggle"><span ng-click="changestate($event,'wait')" data-state="wait" class="active">我的待审批<b>(<i>0</i>)</b></span><span data-state="going" ng-show="financeshow" ng-click="changestate($event,'going')">我的已审批未完成<b>(<i>0</i>)</b></span><span data-state="done" ng-click="changestate($event,'done')"> 我的已完成<b>(<i>0</i>)</b></span><span data-state="reject" ng-click="changestate($event,'reject')">我的驳回<b>(<i>0</i>)</b></span></section>
                 </h3>
             </div>
             <div class="list-bar">
