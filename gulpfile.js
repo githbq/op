@@ -116,7 +116,10 @@ gulp.task("transport:common", function () {
         '!dest/resources/common/widget/calendar/*.js',
         '!dest/resources/common/widget/chart/*.js',
         '!dest/resources/common/widget/cropper/*.js',
-        '!dest/resources/common/widget/swfobject/*.js'
+        '!dest/resources/common/widget/swfobject/*.js',
+        '!dest/resources/common/scripts/lib/angular.js',
+        '!dest/resources/common/scripts/lib/angular-messages.js',
+        '!dest/resources/common/scripts/lib/angular-filter.js'
     ])
         .pipe(transport({
             dealIdCallback: function (id) {
