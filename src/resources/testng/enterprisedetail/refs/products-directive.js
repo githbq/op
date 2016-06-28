@@ -563,7 +563,7 @@ define(function (require, exports, module) {
                             }
                         );
                         dialog.bootstrap(['common.directives', 'common.services', 'formApp'], function (app) {
-                            app.controller('dialogController', ['$$scope', '$timeout', 'select2Query', function ($$scope, $timeout, select2Query) {
+                            app.controller('dialogController', ['$scope', '$timeout', 'select2Query', function ($scope, $timeout, select2Query) {
                                 var vm = this;
                                 vm.config = accountConfig;
                                 vm.ajaxConfig = select2Query.getEmplyeeAjaxConfig();
@@ -602,7 +602,7 @@ define(function (require, exports, module) {
                             }
                         );
                         dialog.bootstrap(['common.directives', 'common.services', 'formApp'], function (app) {
-                            app.controller('dialogController', ['$$scope', '$timeout', 'select2Query', function ($$scope, $timeout, select2Query) {
+                            app.controller('dialogController', ['$scope', '$timeout', 'select2Query', function ($scope, $timeout, select2Query) {
                                 var vm = this;
                                 vm.config = accountConfig;
                                 vm.ajaxConfig = select2Query.getEmplyeeAjaxConfig();
