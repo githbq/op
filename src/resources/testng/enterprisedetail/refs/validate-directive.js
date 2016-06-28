@@ -176,7 +176,7 @@ define(function (reuqire, exports, module) {
             }
         };
     });
-    var PHONE_REGEXP = /^[1-9]{3}\d{8}$/;
+    var PHONE_REGEXP = /^[0-9]{3}\d{8}$/;
     app.directive('phone', function () {
         return {
             require: 'ngModel',
