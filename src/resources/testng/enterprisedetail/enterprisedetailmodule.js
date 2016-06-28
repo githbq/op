@@ -214,8 +214,10 @@ define(function (require, exports, module) {
         $scope.globalInfo = angular.extend($scope.globalInfo, $scope.globalInfo.data);
         $scope.globalInfo.submitType = mainData.isNew ? 1 : mainData.isAdd ? 2 : mainData.isRef ? 3 : 1;
         //$scope.globalInfo.submitType =3;//test todo
+        debugger
         productService.getOrderDetailByOrderId($scope.globalInfo.orderId, function (data) {
             $timeout(function () {
+                debugger
                 $scope.enterpriseReadonly = data.canEditEnterprise;
                 $scope.productReadonly = data.canEditOrder;
                 $scope.payInfoReadonly = data.canEditPaidInfo;
@@ -231,7 +233,7 @@ define(function (require, exports, module) {
 
         //$timeout(function () {
         //    //模拟数据
-        entInfo = $scope.entInfo = {"province": "130000", "city": "130400", "county": "130404", "provinceDataValue": {"id": "130000", "text": "河北省"}, "cityDataValue": {"id": "130400", "text": "邯郸市"}, "countyDataValue": {"id": "130404", "text": "复兴区"}, "industryFirst": "100", "industrySecond": "112", "industryThird": "115", "industryFirstDataValue": "", "industrySecondDataValue": {"id": "112", "text": "计算机硬件"}, "industryThirdDataValue": {"id": "115", "text": "平板电脑"}, "groupType": "3", "groupTypeDataValue": {"text": "全公司", "id": "3"}, "saleTeamScale": "2", "saleTeamScaleDataValue": {"text": "1-5人", "id": "2"}, "isSaleTeam": "0", "isSaleTeamDataValue": {"id": "0", "text": "否"}, "companyScale": "4", "companyScaleDataValue": {"text": "11-20人", "id": "4"}, "isReferral": "0", "isReferralDataValue": {"id": "0", "text": "否"}, "isReference": "0", "isReferenceDataValue": {"id": "0", "text": "否"}, "keyContactName": "7676", "keyContactPhone": "18203459685", "contactName": "765576", "contactPhone": "18203459685", "address": "765576", "enterpriseName": "576576", "area": "576576", "enterpriseAccount": "348", "keyContactEmail": "765576@fds.gfh", "contactEmail": "756756@gbfc.df", "contactIm": "434343"};
+       // entInfo = $scope.entInfo = {"province": "130000", "city": "130400", "county": "130404", "provinceDataValue": {"id": "130000", "text": "河北省"}, "cityDataValue": {"id": "130400", "text": "邯郸市"}, "countyDataValue": {"id": "130404", "text": "复兴区"}, "industryFirst": "100", "industrySecond": "112", "industryThird": "115", "industryFirstDataValue": "", "industrySecondDataValue": {"id": "112", "text": "计算机硬件"}, "industryThirdDataValue": {"id": "115", "text": "平板电脑"}, "groupType": "3", "groupTypeDataValue": {"text": "全公司", "id": "3"}, "saleTeamScale": "2", "saleTeamScaleDataValue": {"text": "1-5人", "id": "2"}, "isSaleTeam": "0", "isSaleTeamDataValue": {"id": "0", "text": "否"}, "companyScale": "4", "companyScaleDataValue": {"text": "11-20人", "id": "4"}, "isReferral": "0", "isReferralDataValue": {"id": "0", "text": "否"}, "isReference": "0", "isReferenceDataValue": {"id": "0", "text": "否"}, "keyContactName": "7676", "keyContactPhone": "18203459685", "contactName": "765576", "contactPhone": "18203459685", "address": "765576", "enterpriseName": "576576", "area": "576576", "enterpriseAccount": "348", "keyContactEmail": "765576@fds.gfh", "contactEmail": "756756@gbfc.df", "contactIm": "434343"};
         //    setSelect(false);
         //    //
         //}, 5000);
