@@ -256,7 +256,7 @@
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>合同章名称</span></label>
-                    <input ng-class="{readonly:payInfoReadonly||payInfo.partReadonly}" required ng-readonly="payInfoReadonly||payInfo.partReadonly" type="text" ng-model="payInfo.sealName" name="sealName"/>
+                    <input input-name max-length="20" ng-class="{readonly:payInfoReadonly||payInfo.partReadonly}" required ng-readonly="payInfoReadonly||payInfo.partReadonly" type="text" ng-model="payInfo.sealName" name="sealName"/>
                 </div>
             </div>
             <div class="form-row">
@@ -308,7 +308,7 @@
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>总部打款日期</span></label>
-                    <div class="inline-block" ng-readonly="payInfoReadonly||payInfo.partReadonly" getform="this['payInfoForm']" name="payDate" datetimeconfig="payInfo.payDate_dataConfig" ng-model="payInfo.payDate"></div>
+                    <div class="inline-block" required ng-readonly="payInfoReadonly||payInfo.partReadonly" getform="this['payInfoForm']" name="payDate" datetimeconfig="payInfo.payDate_dataConfig" ng-model="payInfo.payDate"></div>
                 </div>
             </div>
             <div class="form-row">
@@ -331,7 +331,7 @@
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>打款名称（单位/个人）</span></label>
-                    <input ng-class="{readonly:payInfoReadonly||payInfo.partReadonly}" ng-readonly="payInfoReadonly||payInfo.partReadonly" required type="text" ng-model="payInfo.payerName" name="payerName"/>
+                    <input input-name max-length="20" ng-class="{readonly:payInfoReadonly||payInfo.partReadonly}" ng-readonly="payInfoReadonly||payInfo.partReadonly" required type="text" ng-model="payInfo.payerName" name="payerName"/>
                 </div>
             </div>
             <div class="form-row">
@@ -346,13 +346,13 @@
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>门头照片关键词</span></label>
-                    <input required class="input-l" ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly" type="text" ng-model="payInfo.companyGateKeyword" name="companyGateKeyword"/>
+                    <input max-length="100" required class="input-l" ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly" type="text" ng-model="payInfo.companyGateKeyword" name="companyGateKeyword"/>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>门头照片备注</span></label>
-                    <input required class="input-l" ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly" type="text" ng-model="payInfo.companyGateRemark" name="companyGateRemark"/>
+                    <input max-length="100" required class="input-l" ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly" type="text" ng-model="payInfo.companyGateRemark" name="companyGateRemark"/>
                 </div>
             </div>
             <div class="form-row">
@@ -361,7 +361,7 @@
             <div class="form-row">
                 <div class="form-field">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <textarea ng-maxlength="1000" maxlength="1000" placeholder="最多输入1000个字符" ng-class="{readonly:payInfoReadonly}" class="textarea-m" ng-readonly="payInfoReadonly" ng-model="payInfo.remark" name="remark"></textarea>
+                    <textarea ng-maxlength="1000" max-length="1000" placeholder="最多输入1000个字符" ng-class="{readonly:payInfoReadonly}" class="textarea-m" ng-readonly="payInfoReadonly" ng-model="payInfo.remark" name="remark"></textarea>
                 </div>
             </div>
         </div>
