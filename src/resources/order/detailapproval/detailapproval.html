@@ -5,9 +5,37 @@
     <section class="approval-content">
     	
     </section>
-    <!--审批意见-->
+    <!--审批意见明细-->
     <section class="approval-opinion">
-    	
+
+    </section>
+    <!--审批意见-->
+    <section class="approval-opinionaction">
+        <h4>审批意见</h4>
+    	<p> 
+            <span>合同审核</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <select ce-model="contractState">
+                <option value="">请选择</option>
+                <option value="1">合格</option>
+                <option value="0">不合格</option>
+            </select>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <select ce-model="rejectReason">
+                <option value="">请选择不合格原因</option>
+                <option value="1">无合同章</option>
+                <option value="2">所盖章非公章或合同章</option>
+                <option value="3">合同章和实际开通客户名称不一致</option>
+                <option value="4">实际合同章与签约公司名称不一致</option>
+            </select>
+        </p>
+        <p>
+            <textarea cols="20" rows="4" ce-model="comment"></textarea>
+        </p>
+        <p class="action">
+            <button class="u-btn-blue action-agree">同意</button>
+            <button class="u-btn-red action-refuse">驳回</button>
+        </p>
     </section>
     <!--补充合同-->
     <section class="approval-contract">

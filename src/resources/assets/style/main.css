@@ -8284,6 +8284,9 @@ em {
   width: 150px;
   text-align: left;
 }
+.m-detailapproval {
+  padding: 0 10px;
+}
 .m-detailapproval .approval-title {
   text-align: center;
 }
@@ -8297,6 +8300,19 @@ em {
 }
 .m-detailapproval .approval-title span.active {
   background: #eee;
+}
+.m-detailapproval .approval-opinionaction {
+  border-top: 1px #ccc dashed;
+  margin-top: 10px;
+  padding-top: 10px;
+}
+.m-detailapproval .approval-opinionaction h4 {
+  padding: 5px 0;
+  font-weight: bold;
+  font-size: 22px;
+}
+.m-detailapproval .approval-opinionaction p {
+  padding: 5px 0;
 }
 .order-content span.m-len {
   display: inline-block;

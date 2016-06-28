@@ -109,7 +109,7 @@ define( function(require, exports, module){
             e.stopPropagation();
             var id = angular.element(e.target).attr('data-id');
             console.log('detail' + id);
-            detailApproval.show('id', true)
+            detailApproval.show( id , 'c');
             return false;
         }
 
