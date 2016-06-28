@@ -8,7 +8,7 @@
                        ng-click="checkProduct(checkbox.checked,checkbox)"
                        ng-value="checkbox.id"
                        ng-model="checkbox.checked"
-                       ng-disabled="checkbox.canCancel===false || productReadonly"
+                       ng-disabled="checkbox.canCancel===false || allReadonly"
                         />
             </label>
         </div>
@@ -30,8 +30,8 @@
                                         <div ng-switch-when="number">
                                             <label ng-if="field.label" ng-class="{required:field.validate.required}"><span class="title">{{field.label}}</span></label>
                                             <input type="text" number name="{{product.productId+'$'+field.groupName+'$'+field.name}}"
-                                                   ng-required="field.validate.required" ng-readonly="productReadonly||field.readonly"
-                                                   ng-disabled="productReadonly||field.readonly"
+                                                   ng-required="field.validate.required" ng-readonly="allReadonly||field.readonly"
+                                                   ng-disabled="allReadonly||field.readonly"
                                                    min="{{getValidateValue('moreThan',field,product)}}"
                                                    max="{{getValidateValue('lessThan',field,product)}}"
                                                    ng-change="this.fieldChange(this.field,this.product,this[currentFormName])"
@@ -42,8 +42,8 @@
                                         <div ng-switch-when="radio">
                                             <label ng-if="field.label" ng-class="{required:field.validate.required}"><span class="title">{{field.label}}</span></label>
                                             <label class="radio-label" ng-repeat="radio in field.items">
-                                                <input ng-readonly="productReadonly||field.readonly"
-                                                       ng-disabled="productReadonly||field.readonly"
+                                                <input ng-readonly="allReadonly||field.readonly"
+                                                       ng-disabled="allReadonly||field.readonly"
                                                        name="{{product.productId+'$'+field.groupName+'$'+field.name}}" type="radio"
                                                        ng-model="field.value.valueData.value" ng-value="radio.value"
                                                        ng-change="this.fieldChange(this.field,this.product,this[currentFormName])"/>
@@ -54,10 +54,10 @@
                                         <!--添加销售-->
                                         <div ng-switch-when="sales" array-required name="sales" ng-model="field.value.valueData.valueItems">
                                             <label  ng-init="field.value.valueData.valueItems=field.value.valueData.valueItems||[]" class="label-tip" ng-if="field.label" ng-class="{required:field.validate.required}"><span class="title">{{field.label}}</span></label>
-                                            <a ng-disabled="productReadonly||field.readonly"
+                                            <a ng-disabled="allReadonly||field.readonly"
                                                class="add-button" onselectstart="return false;"
-                                               ng-if="!(productReadonly||field.readonly) && field.value.valueData.valueItems.length<5"
-                                               ng-click="productReadonly||field.readonly||selectSalesmenDialog(field.value.valueData.valueItems)">添加{{field.label}}</a>
+                                               ng-if="!(allReadonly||field.readonly) && field.value.valueData.valueItems.length<5"
+                                               ng-click="allReadonly||field.readonly||selectSalesmenDialog(field.value.valueData.valueItems)">添加{{field.label}}</a>
                                             <table class="s-table">
                                                 <tbody>
                                                 <tr ng-repeat="item in field.value.valueData.valueItems">
@@ -65,10 +65,10 @@
                                                     <td ng-bind="item.deptName"></td>
                                                     <td width="15%">签约金额</td>
                                                     <td width="20%">
-                                                        <input ng-required="field.validate.required" number name="{{'sales'+$index}}" ng-disabled="productReadonly||field.readonly" ng-readonly="productReadonly||field.readonly" type="text" ng-model="item.contractAmount" class="input-price-s"/>
+                                                        <input ng-required="field.validate.required" number name="{{'sales'+$index}}" ng-disabled="allReadonly||field.readonly" ng-readonly="allReadonly||field.readonly" type="text" ng-model="item.contractAmount" class="input-price-s"/>
                                                     </td>
                                                     <td width="20%">
-                                                        <a ng-disabled="productReadonly||field.readonly" ng-if="!(productReadonly||field.readonly)" ng-click="productReadonly||field.readonly||deleteArray(field.value.valueData.valueItems,$index)">删除</a>
+                                                        <a ng-disabled="allReadonly||field.readonly" ng-if="!(allReadonly||field.readonly)" ng-click="allReadonly||field.readonly||deleteArray(field.value.valueData.valueItems,$index)">删除</a>
                                                     </td>
                                                 </tr>
                                                 </tbody>
@@ -77,17 +77,17 @@
                                         <!--添加合作人-->
                                         <div ng-switch-when="partners" required name="partners" ng-model="field.value.valueData.valueItems">
                                             <label  ng-init="field.value.valueData.valueItems=field.value.valueData.valueItems||[]" class="label-tip" ng-if="field.label" ng-class="{required:field.validate.required}"><span class="title">{{field.label}}</span></label>
-                                            <a ng-disabled="productReadonly||field.readonly"
+                                            <a ng-disabled="allReadonly||field.readonly"
                                                onselectstart="return false;" class="add-button"
-                                               ng-if="!(productReadonly||field.readonly) && field.value.valueData.valueItems.length<5"
-                                               ng-click="productReadonly||field.readonly||selectPartnersDialog(field.value.valueData.valueItems)">添加{{field.label}}</a>
+                                               ng-if="!(allReadonly||field.readonly) && field.value.valueData.valueItems.length<5"
+                                               ng-click="allReadonly||field.readonly||selectPartnersDialog(field.value.valueData.valueItems)">添加{{field.label}}</a>
                                             <table class="s-table">
                                                 <tbody>
                                                 <tr ng-repeat="item in field.value.valueData.valueItems">
                                                     <td width="30%" ng-bind="item.accountName"></td>
                                                     <td width="50%" ng-bind="item.deptName"></td>
                                                     <td width="20%">
-                                                        <a ng-disabled="productReadonly||field.readonly" ng-if="!(productReadonly||field.readonly)" ng-click="productReadonly||field.readonly||deleteArray(field.value.valueData.valueItems,$index)">删除</a>
+                                                        <a ng-disabled="allReadonly||field.readonly" ng-if="!(allReadonly||field.readonly)" ng-click="allReadonly||field.readonly||deleteArray(field.value.valueData.valueItems,$index)">删除</a>
                                                     </td>
                                                 </tr>
                                                 </tbody>
@@ -97,10 +97,10 @@
                                         <div ng-switch-when="time">
                                             <label ng-if="field.label" ng-class="{required:field.validate.required}"><span class="title" ng-init="field.dateConfig={type:0}">{{field.label}}</span></label>
                                             <div class="div-inline-block">
-                                                <div ng-disabled="productReadonly||field.readonly"
+                                                <div ng-disabled="allReadonly||field.readonly"
                                                      min-date="{{getValidateValue('moreThan',field,product)}}" max-date="{{getValidateValue('lessThan',field,product)}}"
                                                      ng-change="this.fieldChange(this.field,this.product,this[currentFormName])"
-                                                     ng-disabled="productReadonly||field.disabled" ng-readonly="productReadonly||field.readonly"
+                                                     ng-disabled="allReadonly||field.disabled" ng-readonly="allReadonly||field.readonly"
                                                      getform="this[currentFormName]"
                                                      ng-required="field.validate.required"
                                                      name="{{field.name}}"
@@ -112,10 +112,10 @@
                                         <div ng-switch-when="endTime">
                                             <label ng-if="field.label" ng-class="{required:field.validate.required}"><span class="title" ng-init="field.dateConfig={type:1}">{{field.label}}</span></label>
                                             <div class="div-inline-block">
-                                                <div ng-disabled="productReadonly||field.readonly"
+                                                <div ng-disabled="allReadonly||field.readonly"
                                                      min-date="{{getValidateValue('moreThan',field,product)}}" max-date="{{getValidateValue('lessThan',field,product)}}"
                                                      ng-change="this.fieldChange(this.field,this.product,this[currentFormName])"
-                                                     ng-disabled="productReadonly||field.disabled" ng-readonly="productReadonly||field.readonly"
+                                                     ng-disabled="allReadonly||field.disabled" ng-readonly="allReadonly||field.readonly"
                                                      getform="this[currentFormName]"
                                                      ng-required="field.validate.required"
                                                      name="{{field.name}}" datetimeconfig="field.dateConfig" ng-model="field.value.valueData.value">

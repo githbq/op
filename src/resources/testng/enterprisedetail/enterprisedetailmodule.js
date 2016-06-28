@@ -5,7 +5,6 @@ define(function (require, exports, module) {
     require('./refs/products-directive');
     require('./refs/product-services');//对应的远程服务
     var dialogManager = require('./refs/dialog');
-
     var mainCtrlScope = null;
     var mainData = null;//被调用时接收的参数
     var mainReturnData = null;//对外提供的参数
@@ -180,17 +179,6 @@ define(function (require, exports, module) {
             search: false
         };
     }]);
-
-
-    myApp.directive('testValidate', function () {
-        return {
-            scope: {ngModel: '=', condition: '='},
-            link: function (scope, iElem, iAttr) {
-
-
-            }
-        }
-    });
     myApp.controller('mainController', ['$scope', '$timeout', 'select2Query', 'getEnumService', 'cascadeSelectService', 'productService', function ($scope, $timeout, select2Query, getEnumService, cascadeSelectService, productService) {
         //全局性信息
         $scope.globalInfo = mainData || {};
@@ -215,7 +203,7 @@ define(function (require, exports, module) {
         $scope.productReadonly = false;//产品信息 只读
         $scope.editMode = false;
         mainReturnData = $scope;
-        $scope.orderFromData = [];
+        $scope.orderFromData = [];//产品模块的数据来源用于编辑时
         productService.getOrderDetailByOrderId($scope.globalInfo.orderId, function (data) {
             $timeout(function () {
                 $scope.enterpriseReadonly = !data.canEditEnterprise;
@@ -572,7 +560,7 @@ define(function (require, exports, module) {
                 }
             })
         }
-
+        //保存提交按钮
         $scope.save = function (form) {
             if (form.$invalid) {
                 $scope['step_' + $scope.step + '_validate_error'] = true;
@@ -585,6 +573,7 @@ define(function (require, exports, module) {
                 }
             });
         };
+        //取消按钮
         $scope.close = function () {
             IBSS.tplEvent.trigger('order1.2Close');
         };

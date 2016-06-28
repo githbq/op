@@ -41,21 +41,26 @@ define(function (require, exports, module) {
 
     angular.module('formApp').directive('products', function () {
             return {
-                scope: {dataResult: '=', fromData: '=', productReadonly: '=', show: '=', initData: '=', productJson: '='},
+                scope: {dataResult: '=', fromData: '=', allReadonly: '=productReadonly', show: '=', initData: '=', productJson: '='},
                 template: require('./products-template.html'),
-                link: function (scope, iElem, iAttrs) {
-                    scope.$watch('show', function () {
-                       // alert(scope.productReadonly)
+                controller: ['$scope', '$timeout', function ($scope, $timeout) {
+                    //全模块只读监听
+                    $scope.$watch('allReadonly', function () {
+                        $timeout(function () {
+                            //啥也不干
+                        }, 10);
                     });
-                    scope.showed = false;//标记是否已经显示过
-                    scope.$watch('show', function () {
-                        if (scope.show && !scope.showed) {
+                    $scope.showed = false;//标记是否已经显示过
+                    //可见性属性监听
+                    $scope.$watch('show', function () {
+                        if ($scope.show && !$scope.showed) {
                             init();
-                            scope.showed = true;
+                            $scope.showed = true;
                         } else {
                             wrapperReset();
                         }
                     });
+                    //dom事件绑定
                     setTimeout(function () {
                         var $container = $('.enterprise-panel');
                         //用户体验优化
@@ -67,87 +72,104 @@ define(function (require, exports, module) {
                             .on('mouseenter', '.product-label', mouseEnterEvent)
                             .on('click', '.product-agent', clickAgentEvent);
                     }, 10);
-                    scope.$watch('initData', function (newVal, oldVal) {
+                    //初始化数据监听
+                    $scope.$watch('initData', function (newVal, oldVal) {
                         if (newVal) {
                             init();
                         }
                     });
-                    scope.$watch('productJson', function (newVal, oldVal) {
+                    //产品结构数据监听
+                    $scope.$watch('productJson', function (newVal, oldVal) {
                         init();
                     });
-                    scope.$watch('productReadonly', function (newVal, oldVal) {
-                        if (newVal != oldVal) {
-                            setTimeout(function () {
-                                scope.$apply();
-                            }, 50);
-                        }
-                    });
-                    scope.$watch('fromData', function (newVal, oldVal) {
+                    //用户上次保存的数据监听
+                    $scope.$watch('fromData', function (newVal, oldVal) {
                         console.log(' fromData init');
+                        debugger
                         console.warn(newVal);
                         init();
+                        debugger
                     });
 
                     //end
                     function init() {
-                        scope.products = scope.products || [];
-                        scope.fromData = scope.fromData || [];
-                        scope.dataResult = scope.dataResult || [];//对外暴露的结果数据
-                        if (!scope.productJson) {
+                        debugger
+                        $scope.initData = $scope.initData || [];
+                        $scope.products = $scope.products || [];
+                        $scope.fromData = $scope.fromData || [];
+                        $scope.dataResult = $scope.dataResult || [];//对外暴露的结果数据
+                        if (!$scope.productJson) {
                             return;
                         }
                         //后端推过来的结果 与提交的结果完全一致的数据结构
-                        //scope.fromData = [{data: [], state: 0, productId: 1}, {data: [], productId: 11}, {data: [], productId: 111}, {data: [], productId: 1111}, {data: [], productId: 11111}];
+                        //$scope.fromData = [{data: [], state: 0, productId: 1}, {data: [], productId: 11}, {data: [], productId: 111}, {data: [], productId: 1111}, {data: [], productId: 11111}];
                         //JSON格式转换
                         //logic位置重排序
-                        _.each(scope.productJson.logics, function (item, i) {
-                            item.index = _.findIndex(scope.productJson.products, {productId: item.attr.productId});
+                        _.each($scope.productJson.logics, function (item, i) {
+                            item.index = _.findIndex($scope.productJson.products, {productId: item.attr.productId});
                         });
-                        scope.productJson.logics = scope.productJson.logics.sort(function (a, b) {
+                        $scope.productJson.logics = $scope.productJson.logics.sort(function (a, b) {
                             return a.index - b.index;
                         });
 
                         //循环拿到想要的产品模型
-                        for (var i = 0; i < scope.productJson.logics.length; i++) {
-                            var logic = scope.productJson.logics[i];
+                        for (var i = 0; i < $scope.productJson.logics.length; i++) {
+                            var logic = $scope.productJson.logics[i];
                             var product = {logic: logic, productId: logic.attr.productId};
-                            product.index = _.findIndex(scope.productJson.products, {productId: product.productId});
+                            product.index = _.findIndex($scope.productJson.products, {productId: product.productId});
                             changeState(product);
                         }
-                        
+
                         //产品复选框
-                        scope.productCheckboxs = _.map(scope.productJson.products, function (item, i) {
-                            var findProduct = _.findWhere(scope.fromData, {productId: item.productId});
+                        $scope.productCheckboxs = _.map($scope.productJson.products, function (item, i) {
+                            var findProduct = _.findWhere($scope.fromData, {productId: item.productId});
                             item.show = !!findProduct;
                             return {id: item.productId, text: item.text, checked: !!findProduct, canCancel: findProduct ? findProduct.canCancel : undefined};
                         });
                         //初始化数据对复选框进行操作
-                        if (scope.initData && scope.initData.length > 0) {
-                            //对复选框进行操作
-                            _.each(scope.productCheckboxs, function (item, i) {
-                                var findDataItem = _.findWhere(scope.initData, {productId: item.id});
-                                if (findDataItem) {
-                                    item.checked = findDataItem.check;
-                                    item.canCancel = findDataItem.canCancel;
-                                    var findProduct = _.findWhere(scope.products, {productId: item.id});
-                                    if (findProduct) {
-                                        findProduct.show = findDataItem.check;
-                                    }
-                                    ////同步改变对应的结果值上的属性
-                                    var dataResultItem = _.findWhere(scope.dataResult, {productId: item.id});
-                                    if (dataResultItem) {
-                                        dataResultItem.show = findProduct.show;
-                                        dataResultItem.canCancel = item.canCancel;
-                                    }
+
+                        //对复选框进行操作
+                        _.each($scope.productCheckboxs, function (item, i) {
+                            //初始数据填充
+                            var findDataItem = _.findWhere($scope.initData, {productId: item.id});
+                            if (findDataItem) {
+                                item.checked = findDataItem.check;
+                                item.canCancel = findDataItem.canCancel;
+                                var findProduct = _.findWhere($scope.products, {productId: item.id});
+                                if (findProduct) {
+                                    findProduct.show = findDataItem.check;
                                 }
-                            });
-                        }
+                                ////同步改变对应的结果值上的属性
+                                var dataResultItem = _.findWhere($scope.dataResult, {productId: item.id});
+                                if (dataResultItem) {
+                                    dataResultItem.show = findProduct.show;
+                                    dataResultItem.canCancel = item.canCancel;
+                                }
+                            }
+                            //上次填写数据填充
+                            var fromDataItem = _.findWhere($scope.fromData, {productId: item.id});
+                            if (fromDataItem) {
+                                item.checked = true;
+                                item.canCancel = fromDataItem.canCancel;
+                                var findProduct = _.findWhere($scope.products, {productId: item.id});
+                                if (findProduct) {
+                                    findProduct.show = fromDataItem.show;
+                                }
+                                ////同步改变对应的结果值上的属性
+                                var dataResultItem = _.findWhere($scope.dataResult, {productId: item.id});
+                                if (dataResultItem) {
+                                    dataResultItem.show = findProduct.show;
+                                    dataResultItem.canCancel = item.canCancel;
+                                }
+                            }
+                        });
                     }
+
                     //改变产品的状态　　　
-                    function changeState(product,state) {
+                    function changeState(product, state) {
                         wrapperReset();
-                        var find = _.findWhere(scope.fromData, {productId: product.productId});
-                        var findInitData = _.findWhere(scope.initData || [], {productId: product.productId});
+                        var find = _.findWhere($scope.fromData, {productId: product.productId});
+                        var findInitData = _.findWhere($scope.initData || [], {productId: product.productId});
                         //不再直接替换成结果data而是用采用结果data去赋值给原始data 最终取值使用原始data
                         _.each(product.logic.data, function (item, i) {
                             var rData = null;
@@ -169,42 +191,42 @@ define(function (require, exports, module) {
                         if (find && !checkoutUN(find.state)) { //结果数据会可能修改状态
                             product.logic.currState = find.state;
                         }
-                        if(!checkoutUN(state)){//传参过来的状态
-                            product.logic.currState=state;
+                        if (!checkoutUN(state)) {//传参过来的状态
+                            product.logic.currState = state;
                         }
                         var stateData = getStateCombine(product.logic);//所有的状态
                         product.states = stateData.visibleStates;//可见的状态
-                        var findIndex = _.findIndex(scope.products, {productId: product.productId});
+                        var findIndex = _.findIndex($scope.products, {productId: product.productId});
                         if (findIndex >= 0) {
-                            scope.products[findIndex] = product;
+                            $scope.products[findIndex] = product;
                         } else {
-                            scope.products.push(product);
+                            $scope.products.push(product);
                         }
                         //处理返回结果
                         _.each(stateData.allStates, function (item, i) {
                             var findData = _.findWhere(product.logic.data, {name: item.name});
                             findData && (findData.hidden = item.hidden);
                         });
-                        var findIndex = _.findIndex(scope.dataResult, {productId: product.productId});
+                        var findIndex = _.findIndex($scope.dataResult, {productId: product.productId});
                         var returnProductData = {productId: product.productId, data: product.logic.data, state: product.logic.currState || 0, show: product.show};
                         if (findIndex >= 0) {
-                            scope.dataResult[findIndex] = returnProductData;
+                            $scope.dataResult[findIndex] = returnProductData;
                         } else {
-                            scope.dataResult.push(returnProductData);
+                            $scope.dataResult.push(returnProductData);
                         }
                     }
 
                     //复选框选中事件
-                    scope.checkProduct = function (checked, checkbox) {
-                        var findProduct = _.findWhere(scope.products, {productId: checkbox.id});
+                    $scope.checkProduct = function (checked, checkbox) {
+                        var findProduct = _.findWhere($scope.products, {productId: checkbox.id});
                         findProduct.show = checked;
                         //同步改变对应的结果值上的属性
-                        var dataResultItem = _.findWhere(scope.dataResult, {productId: checkbox.id});
+                        var dataResultItem = _.findWhere($scope.dataResult, {productId: checkbox.id});
                         dataResultItem && (dataResultItem.show = findProduct.show);
                         wrapperReset();
                     };
                     //初始化验证数据
-                    initValidate(scope.products);
+                    initValidate($scope.products);
                     //视图中渲染的结构
 
                     function getStateCombine(logic) {
@@ -249,10 +271,10 @@ define(function (require, exports, module) {
                     //end JSON格式转换
 
 
-                    scope.deleteArray = function (items, index) {
+                    $scope.deleteArray = function (items, index) {
                         items.splice(index, 1);
                     };
-                    scope.clickMe = function () {
+                    $scope.clickMe = function () {
                     };
                     //验证状态初始化  todo
                     function initValidate(products) {
@@ -293,7 +315,7 @@ define(function (require, exports, module) {
                                         data: getQueryData(initItem.query, product),
                                         success: function (result) {
                                             if (result.success) {
-                                                scope.$apply(function () {
+                                                $scope.$apply(function () {
                                                     validate[initItem.name] = result.value.model[initItem.value.backName];
                                                 });
                                             }
@@ -320,7 +342,7 @@ define(function (require, exports, module) {
                     }
 
                     //控制值改变时事件  fieldStruct 元素的模型
-                    scope.fieldChange = function (fieldStruct, product, form) {
+                    $scope.fieldChange = function (fieldStruct, product, form) {
                         //执行验证
                         debugger
                         //执行事件
@@ -330,7 +352,7 @@ define(function (require, exports, module) {
                             done(changeItem, fieldStruct);
                         }
                         setTimeout(function () {
-                            scope.$apply();
+                            $scope.$apply();
                         }, 10);
                         function done(changeItem) {
                             switch (changeItem.type) {
@@ -369,7 +391,7 @@ define(function (require, exports, module) {
 
                             //根据ajax返回的值向数据中赋值
                             function setResponse(data, changeItem, product) {
-                                scope.$apply(function () {
+                                $scope.$apply(function () {
                                     if (changeItem.response.writeBackType == 'merge') {//合并到data上
                                         _.each(data, function (value, key) {
                                             var findData = _.findWhere(product.logic.data, {name: key});
@@ -453,10 +475,11 @@ define(function (require, exports, module) {
                             _.each(fieldStruct.items, function (n, i) {//目前只有拥有 items属性的元素才会有可能改变状态
                                 var findState = n[changeItem.source];
                                 if (findState !== undefined && n.value == fieldStruct.value.valueData.value) {
-                                    changeState(product,findState);
+                                    changeState(product, findState);
                                 }
                             })
                         }
+
                         //end 设置状态
 
                         //根据源不同 去给对象赋值
@@ -513,7 +536,7 @@ define(function (require, exports, module) {
                     }
 
                     //获取对应的验证值
-                    scope.getValidateValue = function (validateName, fieldStruct, product) {
+                    $scope.getValidateValue = function (validateName, fieldStruct, product) {
                         if (fieldStruct.validate && fieldStruct.validate[validateName]) {
                             var validateItem = fieldStruct.validate[validateName];
                             var result = getValueForSwitchValueType(validateItem.valueType, validateItem.valueRef, product);
@@ -521,7 +544,7 @@ define(function (require, exports, module) {
                         }
                     };
                     //弹窗选择 添加销售
-                    scope.selectSalesmenDialog = function (array) {
+                    $scope.selectSalesmenDialog = function (array) {
                         var accountConfig = {
                             data: [],
                             multiple: false,
@@ -537,7 +560,7 @@ define(function (require, exports, module) {
                             }
                         );
                         dialog.bootstrap(['common.directives', 'common.services', 'formApp'], function (app) {
-                            app.controller('dialogController', ['$scope', '$timeout', 'select2Query', function ($scope, $timeout, select2Query) {
+                            app.controller('dialogController', ['$$scope', '$timeout', 'select2Query', function ($$scope, $timeout, select2Query) {
                                 var vm = this;
                                 vm.config = accountConfig;
                                 vm.ajaxConfig = select2Query.getEmplyeeAjaxConfig();
@@ -547,7 +570,7 @@ define(function (require, exports, module) {
                                 vm.clickEnter = function () {
                                     var me = this;
                                     if (me.select2Model) {
-                                        scope.$apply(function () {
+                                        $scope.$apply(function () {
                                             array.push(me.select2Model.data);
                                         });
                                     }
@@ -560,7 +583,7 @@ define(function (require, exports, module) {
                         dialog.show();
                     };
                     //弹窗选择 添加跟进人
-                    scope.selectPartnersDialog = function (array) {
+                    $scope.selectPartnersDialog = function (array) {
                         var accountConfig = {
                             data: [],
                             multiple: false,
@@ -576,7 +599,7 @@ define(function (require, exports, module) {
                             }
                         );
                         dialog.bootstrap(['common.directives', 'common.services', 'formApp'], function (app) {
-                            app.controller('dialogController', ['$scope', '$timeout', 'select2Query', function ($scope, $timeout, select2Query) {
+                            app.controller('dialogController', ['$$scope', '$timeout', 'select2Query', function ($$scope, $timeout, select2Query) {
                                 var vm = this;
                                 vm.config = accountConfig;
                                 vm.ajaxConfig = select2Query.getEmplyeeAjaxConfig();
@@ -586,7 +609,7 @@ define(function (require, exports, module) {
                                 vm.clickEnter = function () {
                                     var me = this;
                                     if (me.select2Model) {
-                                        scope.$apply(function () {
+                                        $scope.$apply(function () {
                                             array.push(me.select2Model.data);
                                         });
                                     }
@@ -598,7 +621,7 @@ define(function (require, exports, module) {
                         });
                         dialog.show();
                     };
-                }
+                }]
             }
         }
     )
