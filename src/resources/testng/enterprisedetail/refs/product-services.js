@@ -76,14 +76,14 @@ define(function (require, exports, module) {
         factory.getDataByContractNo = function (contractNo, callback) {
             return util.api({
                 url: '~/op/api/a/odrDraft/validateContractNo',
-                data:{contractNo:contractNo},
+                data: {contractNo: contractNo},
                 success: function (result) {
-                if (result.success) {
-                    callback(result.value.model);
-                }else{
-                    callback(false);
+                    if (result.success) {
+                        callback(result.value.model);
+                    } else {
+                        callback(false);
+                    }
                 }
-            }
             });
         };
         //获取订单历史列表
@@ -101,6 +101,20 @@ define(function (require, exports, module) {
                 }
             });
         };
+        //获取订单历史列表
+        factory.getInitData = function (enterpriseId, submitType, callback) {
+            if (enterpriseId || submitType) {
+                return util.api({
+                    url: '~/op/api/a/odrDraft/getInitData',
+                    data: {enterpriseId: enterpriseId, submitType: submitType},
+                    success: function (result) {
+                        if (result.success) {
+                            callback(result.value.model);
+                        }
+                    }
+                });
+            }
+        };
         //获取产品的大JSON串
         factory.getDiyOrderFormLogic = function (enterpriseId, callback) {
             return util.api({
@@ -114,7 +128,7 @@ define(function (require, exports, module) {
             });
         };
         //获取编辑时的订单详情
-        factory.getOrderDetailByOrderId = function (orderId,callback) {
+        factory.getOrderDetailByOrderId = function (orderId, callback) {
             if (!orderId) {
                 return;
             }
