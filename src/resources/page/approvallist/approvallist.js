@@ -93,9 +93,10 @@ define( function(require, exports, module){
 
                         if( data.value.model.content && data.value.model.content.length > 0 ){
                             data.value.model.content.forEach(function( item ){
+                                item.currentTaskStr = enumdata['approvalnodemap'][item.currentTask];
                                 item.orderTypeStr = enumdata['ordermap'][item.orderType];
                                 item.payStatusStr = paymap[item.payStatus];
-                                item.orderstatusStr = enumdata['orderstatus'][item.orderstatus];
+                                item.orderstatusStr = enumdata['orderstatus'][item.orderStatus];
                                 item.applyTimeStr = new Date( item.applyTime )._format('yyyy/MM/dd hh:mm');
                             });
                             $scope.tabledata.tbody = data.value.model.content;
