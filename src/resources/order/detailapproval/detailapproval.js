@@ -145,8 +145,8 @@ define( function(require, exports, module){
 	                    'rejectReason': me.model.get('rejectReason')   	//不合格原因
 	                },
 					'beforeSend':function(){
-						me.$agree.attr('disabled');
-						me.$refuse.attr('disabled').text('提交中');
+						me.$agree.attr('disabled','disabled');
+						me.$refuse.attr('disabled','disabled').text('提交中');
 					},
 	                success: function( data ){
 	                    console.warn( data );
