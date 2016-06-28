@@ -3,6 +3,8 @@
         .upload-preview-img {
             border: 1px solid gray;
             background-color: #f2f2f2;
+            width: 100px;
+            height: 100px;
         }
 
         .upload-preview-a img:hover {
@@ -17,6 +19,7 @@
             color: green;
 
         }
+
         .upload-directive {
         }
 
@@ -35,7 +38,7 @@
     <div class="form-field upload-directive" ng-class="{disabled:ngReadonly}">
         <label class="required"><span ng-bind="label"></span></label>
         <a ng-href="{{href}}" target="_blank" class="upload-preview-a">
-            <img ng-src="{{src}}" class="upload-preview-img" src="" width="100" height="100" alt="{{alt}}"/>
+            <img ng-if="src" ng-src="{{src}}" class="upload-preview-img" src="" width="100" height="100" alt="{{alt}}"/>
         </a>
         <input type="file" class="file-field" ng-class="{disabled:ngReadonly}" ng-disabled="ngReadonly" name="enterpriseName" accept="image/gif,image/jpeg,image/png"/>
         <span class="type-tip">(支持png、jpg、gif格式)</span>

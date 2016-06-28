@@ -14,6 +14,7 @@ define(function (require, exports, module) {
         init: function (data) {
             var me = this;
             mainData = data;
+
             Page.__super__.init.apply(me, arguments);
 
             angular.bootstrap(me.$view, ['formApp']);
@@ -183,8 +184,9 @@ define(function (require, exports, module) {
         //全局性信息
         $scope.globalInfo = mainData || {};
         $scope.globalInfo = angular.extend($scope.globalInfo, $scope.globalInfo.data);
+
         $scope.globalInfo.submitType = mainData.isNew ? 1 : mainData.isAdd ? 2 : mainData.isRef ? 3 : 1;
-        //$scope.globalInfo.submitType =3;//test todo
+        getInitData();//获取初始化数据 每次必调
         //企业详情信息
         var entInfo = $scope.entInfo = {};
         entInfo.area = $scope.globalInfo.area;
@@ -400,7 +402,6 @@ define(function (require, exports, module) {
                 data: {},
                 url: '/odr/receivedpay/list',
                 success: function (result) {
-                    debugger
 
 
                 }
@@ -445,7 +446,7 @@ define(function (require, exports, module) {
             $scope.step--;
         };
         $scope.nextStep = function (form) {
-            debugger
+
             if ($scope.step == 1 || $scope.step == 2 || $scope.step == 3) {//企业详情界面
                 if (form.$invalid) {
                     $scope['step_' + $scope.step + '_validate_error'] = true;
@@ -456,14 +457,13 @@ define(function (require, exports, module) {
                 case 1:
                 {//企业详情界面
                     submitStepEntInfo(function (result) {
-                        debugger
+
                         if (result.success) {
                             $scope.$apply(function () {
                                 var data = result.value.model;
                                 $scope.entInfo.draftEnterpriseId = data.id;
                                 $scope.productInfo.draftEnterpriseId = data.id;
                                 $scope.payInfo.draftEnterpriseId = data.id;
-                                $scope.productInfo.initData = data.initData;
                                 $scope.step++;
                             });
                         }
@@ -475,7 +475,7 @@ define(function (require, exports, module) {
                 case 2:
                 {//产品信息
                     submitStepProductInfo(function (result) {
-                        debugger
+
                         if (result.success) {
                             $scope.$apply(function () {
                                 var data = result.value.model;
@@ -493,12 +493,23 @@ define(function (require, exports, module) {
             }
             //$scope.step++;
         };
+        function getInitData() {
+
+            productService.getInitData($scope.globalInfo.enterpriseId, $scope.globalInfo.submitType, function (data) {
+                $timeout(function () {
+
+                    $scope.productInfo.initData = data || [];
+                }, 10);
+            })
+        }
+
         //企业草稿提交  需要enterpriseAccount
         function submitStepEntInfo(callback) {
+            debugger
             action.doing = true;
             util.api({
                 url: "~/op/api/a/odrDraft/draftEnterpriseNext",
-                data: {odrDraftEnterprise: angular.toJson(angular.extend({enterpriseAccount: $scope.enterpriseAccount, enterpriseFilingId: $scope.enterpriseFilingId, id: entInfo.draftEnterpriseId}, $scope.entInfo))},
+                data: {odrDraftEnterprise: angular.toJson(angular.extend({enterpriseAccount: $scope.globalInfo.enterpriseAccount, enterpriseFilingId: $scope.globalInfo.enterpriseFilingId, id: entInfo.draftEnterpriseId}, $scope.entInfo))},
                 success: function (result) {
                     callback(result);
                 },
@@ -512,7 +523,7 @@ define(function (require, exports, module) {
 
         //订单草稿  需要 enterpriseId
         function submitStepProductInfo(callback) {
-            debugger
+
             action.doing = true;
             //数据二次处理
             var dataResultCopy = angular.copy($scope.productInfo.dataResult);
@@ -560,6 +571,7 @@ define(function (require, exports, module) {
                 }
             })
         }
+
         //保存提交按钮
         $scope.save = function (form) {
             if (form.$invalid) {

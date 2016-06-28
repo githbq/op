@@ -85,15 +85,15 @@ define(function (require, exports, module) {
                     //用户上次保存的数据监听
                     $scope.$watch('fromData', function (newVal, oldVal) {
                         console.log(' fromData init');
-                        debugger
+                        
                         console.warn(newVal);
                         init();
-                        debugger
+                        
                     });
 
                     //end
                     function init() {
-                        debugger
+                        
                         $scope.initData = $scope.initData || [];
                         $scope.products = $scope.products || [];
                         $scope.fromData = $scope.fromData || [];
@@ -344,7 +344,7 @@ define(function (require, exports, module) {
                     //控制值改变时事件  fieldStruct 元素的模型
                     $scope.fieldChange = function (fieldStruct, product, form) {
                         //执行验证
-                        debugger
+                        
                         //执行事件
                         fieldStruct.onchange = fieldStruct.onchange || [];
                         for (var i = 0; i < fieldStruct.onchange.length; i++) {

@@ -8491,9 +8491,6 @@ em {
 .input-file-container {
   overflow: hidden;
 }
-.input-file-container.x.x.x .file-field {
-  border: 1px solid red;
-}
 .input-file-container .file-field {
   width: 475px;
 }
@@ -8540,7 +8537,7 @@ em {
 .enterprise-panel input.readonly,
 .enterprise-panel textarea.readonly {
   border: 1px solid #dddddd;
-  background-color: #f4f4f4;
+  background-color: #E4E4E4;
 }
 .enterprise-panel .panel-button .save {
   background-color: #45a4f2;
