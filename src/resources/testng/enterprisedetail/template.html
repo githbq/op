@@ -31,7 +31,7 @@
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>企业账号</span></label>
-                    <input max-length="20" required ng-readonly="globalInfo.submitType==3" account ng-model-options="{debounce:1000}" ng-class="{readonly:enterpriseReadonly||globalInfo.submitTgulpype==3}" type="text" ng-model="entInfo.enterpriseAccount" name="enterpriseAccount" ng-maxlength="100"/>
+                    <input maxlength="20" required ng-readonly="globalInfo.submitType==3" account ng-model-options="{debounce:1000}" ng-class="{readonly:enterpriseReadonly||globalInfo.submitTgulpype==3}" type="text" ng-model="entInfo.enterpriseAccount" name="enterpriseAccount" ng-maxlength="100"/>
                     <span class="tip">企业账号应为字母开头6-20位由字母数字的组合</span>
                 </div>
             </div>
@@ -97,18 +97,18 @@
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>企业负责人姓名</span></label>
-                    <input max-length="20" input-name ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required ng-maxlength="100" type="text" name="keyContactName" ng-model="entInfo.keyContactName"/>
+                    <input maxlength="20" input-name ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required ng-maxlength="100" type="text" name="keyContactName" ng-model="entInfo.keyContactName"/>
                 </div>
                 <div class="form-field">
                     <label class="required"><span>企业负责人电话</span></label>
                     <!--ng-pattern="/[a-zA-Z]/"   正则表达式验证-->
-                    <input max-length="11" phone ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" ng-maxlength="100" required type="text" ng-model="entInfo.keyContactPhone" name="keyContactPhone"/>
+                    <input maxlength="11" phone ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" ng-maxlength="100" required type="text" ng-model="entInfo.keyContactPhone" name="keyContactPhone"/>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>企业负责人邮箱</span></label>
-                    <input max-length="100" ng-model-options="{debounce:1000}" ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" ng-model="entInfo.keyContactEmail" required type="text" email name="keyContactEmail"/>
+                    <input maxlength="100" ng-model-options="{debounce:1000}" ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" ng-model="entInfo.keyContactEmail" required type="text" email name="keyContactEmail"/>
                 </div>
             </div>
             <div class="form-row">
@@ -117,17 +117,17 @@
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>平台管理员</span></label>
-                    <input max-length="20" input-name ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required ng-maxlength="100" type="text" ng-model="entInfo.contactName" name="contactName"/>
+                    <input maxlength="20" input-name ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required ng-maxlength="100" type="text" ng-model="entInfo.contactName" name="contactName"/>
                 </div>
                 <div class="form-field">
                     <label class="required"><span>平台管理员手机</span></label>
-                    <input max-length="11" required　phone ng-model-options="{updateOn:'blur'}" ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" ng-model="entInfo.contactPhone" type="text" ng-maxlength="100" name="contactPhone"/>
+                    <input maxlength="11" required　phone ng-model-options="{updateOn:'blur'}" ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" ng-model="entInfo.contactPhone" type="text" ng-maxlength="100" name="contactPhone"/>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>平台管理员邮箱</span></label>
-                    <input max-length="100" ng-model-options="{debounce:1000}" ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required type="text" email ng-model="entInfo.contactEmail" ng-maxlength="100" name="contactEmail"/>
+                    <input maxlength="100" ng-model-options="{debounce:1000}" ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required type="text" email ng-model="entInfo.contactEmail" ng-maxlength="100" name="contactEmail"/>
                 </div>
                 <div class="form-field">
                     <label><span>平台管理员QQ</span></label>
@@ -256,7 +256,7 @@
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>合同章名称</span></label>
-                    <input input-name max-length="20" ng-class="{readonly:payInfoReadonly||payInfo.partReadonly}" required ng-readonly="payInfoReadonly||payInfo.partReadonly" type="text" ng-model="payInfo.sealName" name="sealName"/>
+                    <input input-name maxlength="20" ng-class="{readonly:payInfoReadonly||payInfo.partReadonly}" required ng-readonly="payInfoReadonly||payInfo.partReadonly" type="text" ng-model="payInfo.sealName" name="sealName"/>
                 </div>
             </div>
             <div class="form-row">
@@ -331,7 +331,7 @@
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>打款名称（单位/个人）</span></label>
-                    <input input-name max-length="20" ng-class="{readonly:payInfoReadonly||payInfo.partReadonly}" ng-readonly="payInfoReadonly||payInfo.partReadonly" required type="text" ng-model="payInfo.payerName" name="payerName"/>
+                    <input input-name maxlength="20" ng-class="{readonly:payInfoReadonly||payInfo.partReadonly}" ng-readonly="payInfoReadonly||payInfo.partReadonly" required type="text" ng-model="payInfo.payerName" name="payerName"/>
                 </div>
             </div>
             <div class="form-row">
@@ -345,13 +345,13 @@
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>门头照片关键词</span></label>
-                    <input max-length="100" class="input-l" ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly" type="text" ng-model="payInfo.companyGateKeyword" name="companyGateKeyword"/>
+                    <input maxlength="100" class="input-l" ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly" type="text" ng-model="payInfo.companyGateKeyword" name="companyGateKeyword"/>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>门头照片备注</span></label>
-                    <input max-length="100" class="input-l" ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly" type="text" ng-model="payInfo.companyGateRemark" name="companyGateRemark"/>
+                    <input maxlength="100" class="input-l" ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly" type="text" ng-model="payInfo.companyGateRemark" name="companyGateRemark"/>
                 </div>
             </div>
             <div class="form-row">
@@ -360,7 +360,7 @@
             <div class="form-row">
                 <div class="form-field">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <textarea ng-maxlength="1000" max-length="1000" placeholder="最多输入1000个字符" ng-class="{readonly:payInfoReadonly}" class="textarea-m" ng-readonly="payInfoReadonly" ng-model="payInfo.remark" name="remark"></textarea>
+                    <textarea ng-maxlength="1000" maxlength="1000" placeholder="最多输入1000个字符" ng-class="{readonly:payInfoReadonly}" class="textarea-m" ng-readonly="payInfoReadonly" ng-model="payInfo.remark" name="remark"></textarea>
                 </div>
             </div>
         </div>

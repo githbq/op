@@ -144,14 +144,15 @@ define(function (reuqire, exports, module) {
         };
     });
 
-    var ACCOUNT_REGEXP = /^[a-z][a-z\d]{5,19}$/i;
+    var ACCOUNT_REGEXP = /^[a-z][a-z0-9]{5,19}$/i;
+    var HASNUMBER_REGEXP=/\d{1,}/g;
     app.directive('account', function () {
         return {
             require: 'ngModel',
             link: function (scope, elm, attrs, ctrl) {
                 ctrl.$parsers.unshift(function (viewValue) {
                     viewValue = CtoH(viewValue)
-                    if (ACCOUNT_REGEXP.test(viewValue)) {
+                    if (ACCOUNT_REGEXP.test(viewValue) && HASNUMBER_REGEXP.test(viewValue)) {
                         ctrl.$setValidity('account', true);
                         return viewValue;
                     } else {
