@@ -51,10 +51,10 @@ define( function(require, exports, module){
                 case 'going':
                     url = "/approval/getapprovedongoingapprovalpage";
                 break;
-                case 'end':
+                case 'done':
                     url = "/approval/getcompletedapprovalpage";
                 break;
-                case 'refuse':
+                case 'reject':
                     url = "/approval/getrefusedapprovalpage";
                 break;
             };
