@@ -84,6 +84,7 @@ define(function (require, exports, module) {
                     });
                     scope.$watch('fromData', function (newVal, oldVal) {
                         console.log(' fromData init');
+                        console.warn(newVal);
                         init();
                     });
 

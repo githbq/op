@@ -215,6 +215,7 @@ define(function (require, exports, module) {
         $scope.productReadonly = false;//产品信息 只读
         $scope.editMode = false;
         mainReturnData = $scope;
+        $scope.orderFromData = [];
         productService.getOrderDetailByOrderId($scope.globalInfo.orderId, function (data) {
             $timeout(function () {
                 $scope.enterpriseReadonly = !data.canEditEnterprise;
@@ -224,7 +225,9 @@ define(function (require, exports, module) {
                 $scope.productInfo = data.odrDraftOrder || {};
                 $scope.orderFromData = angular.fromJson(data.odrDraftOrder.content);//订单来源数据
                 $scope.payInfo = data.odrDraftPaidInfo;
-                $scope.payInfo.currPayList = angular.fromJson(data.odrDraftPaidInfo.currPayList);
+                if (data.odrDraftPaidInfo.currPayList) {
+                    $scope.payInfo.currPayList = angular.fromJson(data.odrDraftPaidInfo.currPayList);
+                }
                 $scope.editMode = true;
                 setSelect(false);
             }, 10)
