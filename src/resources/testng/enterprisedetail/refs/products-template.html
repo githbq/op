@@ -57,7 +57,7 @@
                                             <a ng-disabled="allReadonly||field.readonly"
                                                class="add-button" onselectstart="return false;"
                                                ng-if="!(allReadonly||field.readonly) && field.value.valueData.valueItems.length<5"
-                                               ng-click="allReadonly||field.readonly||selectSalesmenDialog(field.value.valueData.valueItems)">添加{{field.label}}</a>
+                                               ng-click="allReadonly||field.readonly||selectSalesmenDialog(field.value.valueData.valueItems)">添加销售</a>
                                             <table class="s-table">
                                                 <tbody>
                                                 <tr ng-repeat="item in field.value.valueData.valueItems">
@@ -80,7 +80,7 @@
                                             <a ng-disabled="allReadonly||field.readonly"
                                                onselectstart="return false;" class="add-button"
                                                ng-if="!(allReadonly||field.readonly) && field.value.valueData.valueItems.length<5"
-                                               ng-click="allReadonly||field.readonly||selectPartnersDialog(field.value.valueData.valueItems)">添加{{field.label}}</a>
+                                               ng-click="allReadonly||field.readonly||selectPartnersDialog(field.value.valueData.valueItems)">添加合作人</a>
                                             <table class="s-table">
                                                 <tbody>
                                                 <tr ng-repeat="item in field.value.valueData.valueItems">
