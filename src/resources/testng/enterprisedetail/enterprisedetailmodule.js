@@ -12,6 +12,7 @@ define(function (require, exports, module) {
     var Page = MClass(M.Center).include({
         view: require('./template.html'),
         init: function (data) {
+            debugger
             var me = this;
             mainData = data;
 
@@ -560,6 +561,7 @@ define(function (require, exports, module) {
         //付款信息
         function submitStepPayInfo(callback) {
             action.doing = true;
+            debugger
             util.api({
                 url: "~/op/api/a/odrDraft/draftPaidInfoNext",
                 data: {submitType: $scope.globalInfo.submitType, odrDraftPaidInfo: angular.toJson($scope.payInfo)},

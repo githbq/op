@@ -180,6 +180,25 @@ define(function (reuqire, exports, module) {
             }
         };
     });
+    //inputName  只能是数字及字母
+    var NAME_REGEXP = /^[a-z0-9]{0,50}$/i;
+    app.directive('inputName', function () {
+        return {
+            require: 'ngModel',
+            link: function (scope, elm, attrs, ctrl) {
+                ctrl.$parsers.unshift(function (viewValue) {
+                    debugger
+                    if (NAME_REGEXP.test(viewValue)) {
+                        ctrl.$setValidity('inputName', true);
+                        return viewValue;
+                    } else {
+                        ctrl.$setValidity('inputName', false);
+                        return viewValue;
+                    }
+                });
+            }
+        };
+    });
     //数组
     //app.directive('arrayRequired', function () {
     //    return {

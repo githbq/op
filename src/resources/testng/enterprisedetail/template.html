@@ -31,7 +31,7 @@
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>企业账号</span></label>
-                    <input required ng-readonly="globalInfo.submitType==3" account ng-model-options="{debounce:1000}" ng-class="{readonly:enterpriseReadonly||globalInfo.submitTgulpype==3}" type="text" ng-model="entInfo.enterpriseAccount" name="enterpriseAccount" ng-maxlength="100"/>
+                    <input max-length="20" required ng-readonly="globalInfo.submitType==3" account ng-model-options="{debounce:1000}" ng-class="{readonly:enterpriseReadonly||globalInfo.submitTgulpype==3}" type="text" ng-model="entInfo.enterpriseAccount" name="enterpriseAccount" ng-maxlength="100"/>
                     <span class="tip">企业账号应为字母开头6-20位由字母数字的组合</span>
                 </div>
             </div>
@@ -97,18 +97,18 @@
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>企业负责人姓名</span></label>
-                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required ng-maxlength="100" type="text" name="keyContactName" ng-model="entInfo.keyContactName"/>
+                    <input max-length="20" input-name ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required ng-maxlength="100" type="text" name="keyContactName" ng-model="entInfo.keyContactName"/>
                 </div>
                 <div class="form-field">
                     <label class="required"><span>企业负责人电话</span></label>
                     <!--ng-pattern="/[a-zA-Z]/"   正则表达式验证-->
-                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" ng-maxlength="100" required type="text" ng-model="entInfo.keyContactPhone" name="keyContactPhone"/>
+                    <input max-length="11" phone ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" ng-maxlength="100" required type="text" ng-model="entInfo.keyContactPhone" name="keyContactPhone"/>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>企业负责人邮箱</span></label>
-                    <input ng-model-options="{debounce:1000}" ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" ng-model="entInfo.keyContactEmail" required type="text" email name="keyContactEmail"/>
+                    <input max-length="100" ng-model-options="{debounce:1000}" ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" ng-model="entInfo.keyContactEmail" required type="text" email name="keyContactEmail"/>
                 </div>
             </div>
             <div class="form-row">
@@ -117,21 +117,21 @@
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>平台管理员</span></label>
-                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required ng-maxlength="100" type="text" ng-model="entInfo.contactName" name="contactName"/>
+                    <input max-length="20" input-name ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required ng-maxlength="100" type="text" ng-model="entInfo.contactName" name="contactName"/>
                 </div>
                 <div class="form-field">
                     <label class="required"><span>平台管理员手机</span></label>
-                    <input required　phone ng-model-options="{updateOn:'blur'}" ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" ng-model="entInfo.contactPhone" type="text" ng-maxlength="100" name="contactPhone"/>
+                    <input max-length="11" required　phone ng-model-options="{updateOn:'blur'}" ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" ng-model="entInfo.contactPhone" type="text" ng-maxlength="100" name="contactPhone"/>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>平台管理员邮箱</span></label>
-                    <input ng-model-options="{debounce:1000}" ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required type="text" email ng-model="entInfo.contactEmail" ng-maxlength="100" name="contactEmail"/>
+                    <input max-length="100" ng-model-options="{debounce:1000}" ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required type="text" email ng-model="entInfo.contactEmail" ng-maxlength="100" name="contactEmail"/>
                 </div>
                 <div class="form-field">
                     <label><span>平台管理员QQ</span></label>
-                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" type="text" ng-maxlength="100" ng-model="entInfo.contactIm" name="contactIm"/>
+                    <input maxlength="15" ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" type="text" ng-maxlength="100" ng-model="entInfo.contactIm" name="contactIm"/>
                 </div>
             </div>
         </div>
