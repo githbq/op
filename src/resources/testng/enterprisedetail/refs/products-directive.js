@@ -85,15 +85,15 @@ define(function (require, exports, module) {
                     //用户上次保存的数据监听
                     $scope.$watch('fromData', function (newVal, oldVal) {
                         console.log(' fromData init');
-                        
+
                         console.warn(newVal);
                         init();
-                        
+
                     });
 
                     //end
                     function init() {
-                        
+
                         $scope.initData = $scope.initData || [];
                         $scope.products = $scope.products || [];
                         $scope.fromData = $scope.fromData || [];
@@ -176,22 +176,22 @@ define(function (require, exports, module) {
                             //先赋初始化数据
                             if (findInitData && findInitData.data) {
                                 rData = _.findWhere(findInitData.data, {name: item.name});
-                                if (rData && !checkoutUN(rData.value)) {
+                                if (rData && !checkUN(rData.value)) {
                                     item.value = rData.value;
                                 }
                             }
                             if (find && find.data) {
                                 //再赋保存的数据
                                 rData = _.findWhere(find.data, {name: item.name});
-                                if (rData && !checkoutUN(rData.value)) {
+                                if (rData && !checkUN(rData.value)) {
                                     item.value = rData.value;
                                 }
                             }
                         });
-                        if (find && !checkoutUN(find.state)) { //结果数据会可能修改状态
+                        if (find && !checkUN(find.state)) { //结果数据会可能修改状态
                             product.logic.currState = find.state;
                         }
-                        if (!checkoutUN(state)) {//传参过来的状态
+                        if (!checkUN(state)) {//传参过来的状态
                             product.logic.currState = state;
                         }
                         var stateData = getStateCombine(product.logic);//所有的状态
@@ -225,8 +225,6 @@ define(function (require, exports, module) {
                         dataResultItem && (dataResultItem.show = findProduct.show);
                         wrapperReset();
                     };
-                    //初始化验证数据
-                    initValidate($scope.products);
                     //视图中渲染的结构
 
                     function getStateCombine(logic) {
@@ -245,7 +243,7 @@ define(function (require, exports, module) {
                             var newState = baseState[i];
                             if (findData) {
                                 newState.value = newState.value || {};
-                                if (checkoutUN(findData.value)) {
+                                if (checkUN(findData.value)) {
                                     findData.value = newState.value.value || '';
                                 }
                                 newState.value.valueData = findData;
@@ -264,7 +262,7 @@ define(function (require, exports, module) {
                     }
 
                     //检查是undefined或者null
-                    function checkoutUN(value) {
+                    function checkUN(value) {
                         return value === undefined || value === null;
                     }
 
@@ -276,7 +274,7 @@ define(function (require, exports, module) {
                     };
                     $scope.clickMe = function () {
                     };
-                    //验证状态初始化  todo
+                    //验证状态初始化  todo      暂时不用
                     function initValidate(products) {
                         return;
                         if (!products) {
@@ -344,7 +342,7 @@ define(function (require, exports, module) {
                     //控制值改变时事件  fieldStruct 元素的模型
                     $scope.fieldChange = function (fieldStruct, product, form) {
                         //执行验证
-                        
+
                         //执行事件
                         fieldStruct.onchange = fieldStruct.onchange || [];
                         for (var i = 0; i < fieldStruct.onchange.length; i++) {
@@ -535,11 +533,16 @@ define(function (require, exports, module) {
                         return value;
                     }
 
-                    //获取对应的验证值
+                    //获取对应的验证值  如果验证项上有value属性且不为空  则优先使用
                     $scope.getValidateValue = function (validateName, fieldStruct, product) {
                         if (fieldStruct.validate && fieldStruct.validate[validateName]) {
+                            var result = null;
                             var validateItem = fieldStruct.validate[validateName];
-                            var result = getValueForSwitchValueType(validateItem.valueType, validateItem.valueRef, product);
+                            if (!checkUN(validateItem.value)) {
+                                result = validateItem.value;
+                            } else {
+                                result = getValueForSwitchValueType(validateItem.valueType, validateItem.valueRef, product);
+                            }
                             return result;
                         }
                     };
