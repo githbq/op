@@ -8481,6 +8481,10 @@ em {
 .input-file-container .file-field {
   width: 475px;
 }
+.enterprise-panel .step1 {
+  width: 1000px;
+  margin: auto;
+}
 .enterprise-panel span.inline-m {
   display: inline-block;
   width: 70px;
@@ -8574,7 +8578,7 @@ em {
   background-color: #f2f2f2;
 }
 .enterprise-panel .form .form-row {
-  margin-top: 5px;
+  margin-top: 15px;
   overflow: hidden;
 }
 .enterprise-panel .form .form-row .form-field {

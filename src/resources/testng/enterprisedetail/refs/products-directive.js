@@ -45,7 +45,7 @@ define(function (require, exports, module) {
                 template: require('./products-template.html'),
                 link: function (scope, iElem, iAttrs) {
                     scope.$watch('show', function () {
-                        alert(scope.productReadonly)
+                       // alert(scope.productReadonly)
                     });
                     scope.showed = false;//标记是否已经显示过
                     scope.$watch('show', function () {
@@ -113,7 +113,7 @@ define(function (require, exports, module) {
                             product.index = _.findIndex(scope.productJson.products, {productId: product.productId});
                             changeState(product);
                         }
-                        debugger
+                        
                         //产品复选框
                         scope.productCheckboxs = _.map(scope.productJson.products, function (item, i) {
                             var findProduct = _.findWhere(scope.fromData, {productId: item.productId});

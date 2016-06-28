@@ -14,7 +14,7 @@
         <!--</div>-->
         <!--<input select2 ng-model="a" select2-model="aS2" config="config1" type="text"/>-->
         <!--<button ng-click="a=2" class="btn btn-success btn-sm pull-right">设置数据</button>-->
-        <div ng-class="{step_validate_error:step_1_validate_error}">
+        <div ng-class="{step_validate_error:step_1_validate_error}" class="step1">
             <div class="form-row">
                 <h2>基本信息</h2>
             </div>
@@ -22,17 +22,17 @@
             <div class="form-row">
                 <div class="form-field">
                     <label><span>企业名称</span></label>
-                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" type="text" ng-model="entInfo.enterpriseName" name="enterpriseName" ng-maxlength="100"/>
+                    <input ng-class="{readonly:true}" ng-readonly="true" type="text" ng-model="entInfo.enterpriseName" name="enterpriseName" ng-maxlength="100"/>
                 </div>
                 <div class="form-field">
                     <label><span>代理区域</span></label>
-                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" type="text" ng-model="entInfo.area" name="area" ng-maxlength="100"/>
+                    <input ng-class="{readonly:true}" ng-readonly="true" type="text" ng-model="entInfo.area" name="area" ng-maxlength="100"/>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-field">
-                    <label><span>企业账号</span></label>
-                    <input ng-readonly="globalInfo.submitType==3||enterpriseReadonly" account ng-model-options="{debounce:1000}" ng-class="{readonly:enterpriseReadonly||globalInfo.submitTgulpype==3}" type="text" ng-model="entInfo.enterpriseAccount" name="enterpriseAccount" ng-maxlength="100"/>
+                    <label class="required"><span>企业账号</span></label>
+                    <input required ng-readonly="globalInfo.submitType==3" account ng-model-options="{debounce:1000}" ng-class="{readonly:enterpriseReadonly||globalInfo.submitTgulpype==3}" type="text" ng-model="entInfo.enterpriseAccount" name="enterpriseAccount" ng-maxlength="100"/>
                     <span class="tip">企业账号应为字母开头6-20位由字母数字的组合</span>
                 </div>
             </div>
@@ -44,6 +44,7 @@
                     一一<input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 name="county" ng-model="entInfo.county" select2-model="entInfo.countyDataValue" config="countyConfig" class="form-control multiple-select" type="text"/>
                 </div>
             </div>
+
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"></label>
@@ -53,9 +54,9 @@
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>行业</span></label>
-                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" rquired select2 name="industryFirst" ng-model="entInfo.industryFirst" select2-model="entInfo.industryFirstDataValue" config="industryFirstConfig" class="form-control multiple-select" type="text"/>
-                    一一<input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" rquired select2 name="industrySecond" ng-model="entInfo.industrySecond" select2-model="entInfo.industrySecondDataValue" config="industrySecondConfig" class="form-control multiple-select" type="text"/>
-                    一一<input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" rquired select2 name="industryThird" ng-model="entInfo.industryThird" select2-model="entInfo.industryThirdDataValue" config="industryThirdConfig" class="form-control multiple-select" type="text"/>
+                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 name="industryFirst" ng-model="entInfo.industryFirst" select2-model="entInfo.industryFirstDataValue" config="industryFirstConfig" class="form-control multiple-select" type="text"/>
+                    一一<input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 name="industrySecond" ng-model="entInfo.industrySecond" select2-model="entInfo.industrySecondDataValue" config="industrySecondConfig" class="form-control multiple-select" type="text"/>
+                    一一<input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 name="industryThird" ng-model="entInfo.industryThird" select2-model="entInfo.industryThirdDataValue" config="industryThirdConfig" class="form-control multiple-select" type="text"/>
                 </div>
             </div>
             <div class="form-row">

@@ -4,13 +4,24 @@ define(function (require, exports, module) {
     angular.module('common.directives').directive('select2', function () {
         return {
             restrict: 'A',
+            require: 'ngModel',
             scope: {
                 config: '=',
                 ngModel: '=',
                 select2Model: '=',
                 ajaxConfig: '='//远程查找服务
             },
-            link: function (scope, element, attrs) {
+            link: function (scope, element, attrs, ctrl) {
+                ctrl.$parsers.unshift(function (viewValue) {
+                    if ((viewValue !== undefined || viewValue !== null) && viewValue.toString().length > 0) {
+                        ctrl.$setValidity('select2', true);
+                        return viewValue;
+                    }
+                    else {
+                        ctrl.$setValidity('select2', false);
+                        return '';
+                    }
+                });
                 // 初始化
                 var tagName = element[0].tagName,
                     config = {
@@ -46,7 +57,7 @@ define(function (require, exports, module) {
                     var $element = $(element);
                     // 获取内置配置
                     if (scope.ajaxConfig) {
-                        scope.config = angular.extend(scope.config||{},scope.ajaxConfig) ;
+                        scope.config = angular.extend(scope.config || {}, scope.ajaxConfig);
                     }
                     // 动态生成select2
                     scope.$watch('config', function () {
@@ -73,7 +84,6 @@ define(function (require, exports, module) {
                         if (config.ajax || config.multiple) {
                             return false
                         }
-
                         $element.select2('val', newVal);
                     }, true);
                 }
