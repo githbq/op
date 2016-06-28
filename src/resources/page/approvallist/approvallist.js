@@ -34,6 +34,11 @@ define( function(require, exports, module){
         $scope.tabledata = {};
         $scope.tabledata.thead = ['订单号','合同号','企业名称','账号','订单类型','提单人','所属部门/代理商','审批类型','当前审批节点','付费状态','订单状态','提单日期','操作'];
 
+        //注册事件
+        detailApproval.on('saveSuccess',function(){
+            $scope.search();
+        });
+
         //搜索订单列表
         $scope.search = function(){
 
@@ -107,9 +112,17 @@ define( function(require, exports, module){
         //查看订单状态
         $scope.detail = function( e ){
             e.stopPropagation();
-            var id = angular.element(e.target).attr('data-id');
-            console.log('detail' + id);
-            detailApproval.show( id , 'c');
+            var id = angular.element(e.target).attr('data-id'),
+                inId = angular.element(e.target).attr('data-inid');
+
+            var type;
+            if( $scope.state == 'wait' ){
+                type = 'c';
+            }else{
+                type = 'd';
+            }
+
+            detailApproval.show( id , type , {'processInstanceId':inId} );
             return false;
         }
 

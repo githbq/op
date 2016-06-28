@@ -55,7 +55,7 @@ define( function(require, exports, module){
 		},
 		//
 		// @param id   	订单id 
-		// @param type  a 订单查看  b 补充合同  c 审批只读
+		// @param type  a 订单编辑查看  b 补充合同  c 审批只读(可进行审批同意或驳回) d 完全只读状态
 		// @param info  一些额外信息
 		//==============================================
 		show: function( id , type , info ){
@@ -67,7 +67,7 @@ define( function(require, exports, module){
 			me.info = info;
 			//审批只读
 			if( type == 'c' ){
-
+				me.$('[data-state="c"]').show();
 				me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:true} );
 				me.approvalPage.hideTopBar();
 				me.approvalPage.hideFootBtns();
@@ -77,6 +77,11 @@ define( function(require, exports, module){
 			//补充合同
 			}else if( type == 'b' ){
 
+			//只读
+			}else if( type == 'd'){
+				me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:true} );
+				me.approvalPage.hideTopBar();
+				me.approvalPage.hideFootBtns();
 			}
 			me.approvalPage.render();
 		},
@@ -104,8 +109,8 @@ define( function(require, exports, module){
 	                    'rejectReason': me.model.get('rejectReason')   	//不合格原因
 	                },
 					'beforeSend':function(){
-						me.$agree.attr('disabled').text('提交中')
-						me.$refuse.attr('disabled');
+						me.$agree.attr('disabled','disabled').text('提交中')
+						me.$refuse.attr('disabled','disabled');
 					},
 	                success: function( data ){
 	                    console.warn( data );
@@ -163,6 +168,7 @@ define( function(require, exports, module){
 		hide: function(){
 			var me = this;
 			me.$view.find('.approval-content').empty();
+			me.$('[data-state]').hide();
 			DetailApproval.__super__.hide.apply( this,arguments );
 		}
 	});
