@@ -3,11 +3,12 @@
         <div class="checkboxs-container">
             <label ng-repeat="checkbox in productCheckboxs" data-productid="{{checkbox.id}}" class="product-label">
                 <span ng-bind="checkbox.text"></span>
+
                 <input type="checkbox"
                        ng-click="checkProduct(checkbox.checked,checkbox)"
                        ng-value="checkbox.id"
                        ng-model="checkbox.checked"
-                       ng-disabled="checkbox.canCancel===false"
+                       ng-disabled="checkbox.canCancel===false || productReadonly"
                         />
             </label>
         </div>
