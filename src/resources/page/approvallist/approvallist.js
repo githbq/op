@@ -20,7 +20,7 @@ define( function(require, exports, module){
 	var page = require('common/widget/page/page');  //ng分页组件
 	var main = angular.module('list',['common']);   //
 
-
+    var isFinance = false;
     var paymap = {'1':'全款','2':'分期','3':'未付'}
 
 	//审批列表控制器
@@ -38,6 +38,14 @@ define( function(require, exports, module){
         detailApproval.on('saveSuccess',function(){
             $scope.search();
         });
+
+        $scope.financeshow = !isFinance;
+        /*
+        if( !isFinance ){
+            console.log($element.find('.financeshow'))
+            $element.find('.financeshow').show();
+        }
+        */
 
         //搜索订单列表
         $scope.search = function(){
@@ -96,10 +104,12 @@ define( function(require, exports, module){
                     console.log( 'getdata' );
                     console.log( data );
                     if( data.success ){
-                        $scope.tipshow = false;
-                        $scope.contentshow = true;
-
+                        
                         if( data.value.model.content && data.value.model.content.length > 0 ){
+
+                            $scope.tipshow = false;
+                            $scope.contentshow = true;
+
                             data.value.model.content.forEach(function( item ){
                                 item.currentTaskStr = enumdata['approvalnodemap'][item.currentTask];
                                 item.orderTypeStr = enumdata['ordermap'][item.orderType];
@@ -108,6 +118,9 @@ define( function(require, exports, module){
                                 item.applyTimeStr = new Date( item.applyTime )._format('yyyy/MM/dd hh:mm');
                             });
                             $scope.tabledata.tbody = data.value.model.content;
+                        } else {
+
+                           $scope.tip = "暂无数据";
                         }
                         $scope.total = data.value.model.itemCount;
 
@@ -166,11 +179,15 @@ define( function(require, exports, module){
 		var $el = exports.$el;
 		
 		param = param || [];
+        console.log( '================' );
 		console.log( param );
-
+        if( param[0] == 'finance' ){
+            isFinance = true;
+        }
         //重置select的值
 		resetSelect( $el,'ordermap' );
         resetSelect( $el,'orderstatus' );
+
 		angular.bootstrap( $el.find('.m-approvallist')[0] , ['list'] );
 
 		/*
