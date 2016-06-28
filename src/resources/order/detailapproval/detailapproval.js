@@ -55,7 +55,7 @@ define( function(require, exports, module){
 		},
 		//
 		// @param id   	订单id 
-		// @param type  a 订单编辑查看  b 补充合同  c 审批只读(可进行审批同意或驳回) d 完全只读状态
+		// @param type  a 订单编辑查看  b 补充合同(可以补充合同)  c 审批只读(可进行审批同意或驳回) d完全只读状态
 		// @param info  一些额外信息
 		//==============================================
 		show: function( id , type , info ){
