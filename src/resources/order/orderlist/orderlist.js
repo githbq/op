@@ -548,7 +548,7 @@ define( function( require, exports, module ) {
         orderList.on('detail', function( id ){
             console.log('查看');
             console.log( id );
-            detailApproval.show( id , 'b' );
+            detailApproval.show( id , 'a' );
         });
     }
 } );
