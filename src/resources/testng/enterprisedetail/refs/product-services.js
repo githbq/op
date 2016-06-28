@@ -51,7 +51,7 @@ define(function (require, exports, module) {
                             var results = [];
                             if (data.success && data.value.model && data.value.model) {
                                 _.each(data.value.model || [], function (item, i) {
-                                    results.push({id: item.bankAccount, text: item.bankAccount, selection: '账户:' + item.bankAccount + '  公司：' + item.company + '  银行名称:' + item.bankName})
+                                    results.push({id: item.bankAccount, text: item.bankAccount})
                                 });
                             }
                             ;
@@ -59,7 +59,7 @@ define(function (require, exports, module) {
                         }
                     },
                     formatResult: function (data) {
-                        return data.selection;
+                        return data.text;
                     },
                     formatSelection: function (data) {
                         return data.text;

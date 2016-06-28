@@ -8484,6 +8484,7 @@ em {
 .enterprise-panel .step1,
 .enterprise-panel .step3 {
   width: 80%;
+  min-width: 1000px;
   margin: auto;
 }
 .enterprise-panel span.inline-m {
