@@ -8525,7 +8525,10 @@ em {
 .enterprise-panel .form .form-field .ng-invalid.ng-dirty:not(.form) {
   border: 1px solid red;
 }
-.enterprise-panel .step_validate_error .ng-invalid:not(.field-group) {
+.enterprise-panel .step_validate_error .ng-invalid:not(.field-group):not(.input-file-container) {
+  border: 1px solid red;
+}
+.enterprise-panel .step_validate_error .input-file-container.ng-invalid input[type=file] {
   border: 1px solid red;
 }
 .enterprise-panel input[type=text] {
