@@ -140,7 +140,7 @@ define(function (require, exports, module) {
                             });
                         }
                     }
-
+                    //改变产品的状态　　　
                     function changeState(product,state) {
                         wrapperReset();
                         var find = _.findWhere(scope.fromData, {productId: product.productId});
