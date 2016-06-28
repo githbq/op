@@ -81,10 +81,6 @@ define(function (require, exports, module) {
         productService.getDiyOrderFormLogic($scope.globalInfo.enterpriseId || '', function (data) {
             $scope.$apply(function () {
                 $scope.productJson = angular.fromJson(data);
-                if ($scope.productJson) {
-                    $scope.productJson.global = $scope.productJson.global || {};
-                    $.extend($scope.productJson.global, $scope.globalInfo);
-                }
             });
         });
     }]);
