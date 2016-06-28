@@ -505,10 +505,11 @@ define(function (require, exports, module) {
 
         //企业草稿提交  需要enterpriseAccount
         function submitStepEntInfo(callback) {
+            debugger
             action.doing = true;
             util.api({
                 url: "~/op/api/a/odrDraft/draftEnterpriseNext",
-                data: {odrDraftEnterprise: angular.toJson(angular.extend({enterpriseAccount: $scope.enterpriseAccount, enterpriseFilingId: $scope.enterpriseFilingId, id: entInfo.draftEnterpriseId}, $scope.entInfo))},
+                data: {odrDraftEnterprise: angular.toJson(angular.extend({enterpriseAccount: $scope.globalInfo.enterpriseAccount, enterpriseFilingId: $scope.globalInfo.enterpriseFilingId, id: entInfo.draftEnterpriseId}, $scope.entInfo))},
                 success: function (result) {
                     callback(result);
                 },
