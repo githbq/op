@@ -546,6 +546,8 @@ define(function (require, exports, module) {
                             return result;
                         }
                     };
+                    var parentScope = $scope;
+                    var parent$timeout = $timeout;
                     //弹窗选择 添加销售
                     $scope.selectSalesmenDialog = function (array) {
                         var accountConfig = {
@@ -562,8 +564,7 @@ define(function (require, exports, module) {
                                 content: require('./dialogtemplate.html')
                             }
                         );
-                        var parentScope = $scope;
-                        var parent$timeout = $timeout;
+
                         dialog.bootstrap(['common.directives', 'common.services', 'formApp'], function (app) {
                             app.controller('dialogController', ['$scope', '$timeout', 'select2Query', function ($scope, $timeout, select2Query) {
                                 var vm = this;
@@ -576,7 +577,10 @@ define(function (require, exports, module) {
                                     var me = this;
                                     if (me.select2Model) {
                                         parent$timeout(function () {
-                                            array.push(me.select2Model.data);
+                                            debugger
+                                            if (!_.findWhere(array, {accountId: me.select2Model.data.accountId})) {
+                                                array.push(me.select2Model.data);
+                                            }
                                         }, 10);
                                     }
                                 };
@@ -615,7 +619,10 @@ define(function (require, exports, module) {
                                     var me = this;
                                     if (me.select2Model) {
                                         parent$timeout(function () {
-                                            array.push(me.select2Model.data);
+                                            debugger
+                                            if (!_.findWhere(array, {accountId: me.select2Model.data.accountId})) {
+                                                array.push(me.select2Model.data);
+                                            }
                                         }, 10);
                                     }
                                 };
