@@ -69,7 +69,7 @@ define(function (reuqire, exports, module) {
         };
     });
 
-    var NUMBER_REGEXP = /^\d{1,8}((\.|\,)\d{0,2})?$/;
+    var NUMBER_REGEXP = /^\d{1,6}((\.)\d{0,2})?$/;
     app.directive('number', function () {
         return {
             require: 'ngModel',
@@ -81,7 +81,7 @@ define(function (reuqire, exports, module) {
                     var result = ($dom.val().replace(/[^\.\d]/g, ''));
                     result = CtoH(result);
                     if (!NUMBER_REGEXP.test(result)) {
-                        result = null;
+                        result = 999999;
                     }
                     $dom.val(result);
                     ctrl.$setViewValue(result !== null ? parseFloat(result) : result, true);//只能赋模型的值不能改变VIEW
@@ -144,14 +144,15 @@ define(function (reuqire, exports, module) {
         };
     });
 
-    var ACCOUNT_REGEXP = /^[a-z][a-z\d]{5,19}$/i;
+    var ACCOUNT_REGEXP = /^[a-z][a-z0-9]{5,19}$/i;
+    var HASNUMBER_REGEXP=/\d{1,}/g;//是否包含一个数字验证
     app.directive('account', function () {
         return {
             require: 'ngModel',
             link: function (scope, elm, attrs, ctrl) {
                 ctrl.$parsers.unshift(function (viewValue) {
                     viewValue = CtoH(viewValue)
-                    if (ACCOUNT_REGEXP.test(viewValue)) {
+                    if (ACCOUNT_REGEXP.test(viewValue) && HASNUMBER_REGEXP.test(viewValue)) {
                         ctrl.$setValidity('account', true);
                         return viewValue;
                     } else {
