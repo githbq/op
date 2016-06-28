@@ -14,7 +14,7 @@ define(function (require, exports, module) {
         init: function (data) {
             var me = this;
             mainData = data;
-            
+
             Page.__super__.init.apply(me, arguments);
 
             angular.bootstrap(me.$view, ['formApp']);
@@ -81,6 +81,10 @@ define(function (require, exports, module) {
         productService.getDiyOrderFormLogic($scope.globalInfo.enterpriseId || '', function (data) {
             $scope.$apply(function () {
                 $scope.productJson = angular.fromJson(data);
+                if ($scope.productJson) {
+                    $scope.productJson.global = $scope.productJson.global || {};
+                    $.extend($scope.productJson.global, $scope.globalInfo);
+                }
             });
         });
     }]);
@@ -184,7 +188,7 @@ define(function (require, exports, module) {
         //全局性信息
         $scope.globalInfo = mainData || {};
         $scope.globalInfo = angular.extend($scope.globalInfo, $scope.globalInfo.data);
-        
+
         $scope.globalInfo.submitType = mainData.isNew ? 1 : mainData.isAdd ? 2 : mainData.isRef ? 3 : 1;
         getInitData();//获取初始化数据 每次必调
         //企业详情信息
@@ -402,7 +406,6 @@ define(function (require, exports, module) {
                 data: {},
                 url: '/odr/receivedpay/list',
                 success: function (result) {
-                    
 
 
                 }
@@ -447,7 +450,7 @@ define(function (require, exports, module) {
             $scope.step--;
         };
         $scope.nextStep = function (form) {
-            
+
             if ($scope.step == 1 || $scope.step == 2 || $scope.step == 3) {//企业详情界面
                 if (form.$invalid) {
                     $scope['step_' + $scope.step + '_validate_error'] = true;
@@ -458,7 +461,7 @@ define(function (require, exports, module) {
                 case 1:
                 {//企业详情界面
                     submitStepEntInfo(function (result) {
-                        
+
                         if (result.success) {
                             $scope.$apply(function () {
                                 var data = result.value.model;
@@ -476,7 +479,7 @@ define(function (require, exports, module) {
                 case 2:
                 {//产品信息
                     submitStepProductInfo(function (result) {
-                        
+
                         if (result.success) {
                             $scope.$apply(function () {
                                 var data = result.value.model;
@@ -495,10 +498,10 @@ define(function (require, exports, module) {
             //$scope.step++;
         };
         function getInitData() {
-            debugger
+
             productService.getInitData($scope.globalInfo.enterpriseId, $scope.globalInfo.submitType, function (data) {
                 $timeout(function () {
-                    debugger
+
                     $scope.productInfo.initData = data || [];
                 }, 10);
             })
@@ -523,7 +526,7 @@ define(function (require, exports, module) {
 
         //订单草稿  需要 enterpriseId
         function submitStepProductInfo(callback) {
-            
+
             action.doing = true;
             //数据二次处理
             var dataResultCopy = angular.copy($scope.productInfo.dataResult);
