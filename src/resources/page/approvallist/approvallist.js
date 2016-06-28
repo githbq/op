@@ -86,10 +86,18 @@ define( function(require, exports, module){
                     'pageIndex': $scope.pagenumber,
                     'pageSize': $scope.pagesize
                 },
+                'beforeSend': function(){
+                    var me = this;
+                    $scope.tipshow = true;
+                    $scope.tip = "加载中......";
+                    $scope.contentshow = false;
+                },
                 'success': function( data ){
                     console.log( 'getdata' );
                     console.log( data );
                     if( data.success ){
+                        $scope.tipshow = false;
+                        $scope.contentshow = true;
 
                         if( data.value.model.content && data.value.model.content.length > 0 ){
                             data.value.model.content.forEach(function( item ){
@@ -139,6 +147,7 @@ define( function(require, exports, module){
 
             $element.find('.toggle span').removeClass('active');
             angular.element(e.target).addClass('active');
+            $scope.pagenumber = 0;
             $scope.search();
         };
 

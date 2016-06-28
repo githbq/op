@@ -7064,6 +7064,11 @@ em {
 .m-approvallist .list-header .toggle span.active {
   background: #eee;
 }
+.m-approvallist .list-content .tip {
+  font-size: 16px;
+  text-align: center;
+  padding: 5px 0;
+}
 .m-grid {
   width: 100%;
 }
