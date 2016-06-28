@@ -1,7 +1,8 @@
 define(function (require, exports, module) {
     require('common/widget/select2/select2');
     require('./refs/directives');
-    var myApp = angular.module('formApp', ['angular.filter', 'ngMessages', 'common.directives']);
+    require('./refs/filters');
+    var myApp = angular.module('formApp', ['angular.filter', 'ngMessages', 'common.directives','common.filters']);
     require('./refs/products-directive');
     require('./refs/product-services');//对应的远程服务
     var dialogManager = require('./refs/dialog');
