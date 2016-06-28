@@ -32,7 +32,6 @@
     "gulp-minify-css": "^1.2.3",
     "gulp-minify-html": "^1.0.5",
     "gulp-ng-annotate-plus": "^2.0.0",
-    "gulp-ng-html2js": "^0.2.2",
     "gulp-rev": "^6.0.1",
     "gulp-rev-collector": "^1.0.2",
     "gulp-sequence": "^0.4.1",
