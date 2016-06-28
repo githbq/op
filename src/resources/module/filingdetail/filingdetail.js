@@ -285,7 +285,7 @@ define(function (require, exports, module) {
                     if (data.success) {
                         //location.hash = '#agentsupport/freereg/link';
                         //location.hash = '#order/newmarketying/newOffice';
-                        location.hash = '#order/openenterprise';
+                        location.hash = '#order/openenterprise/a';
                     }
                 }
             })

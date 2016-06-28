@@ -25,26 +25,15 @@
                 </label>
                 <label>
                     <span>所属部门/代理商</span>
-                    <input type="text" >
+                    <input type="text" ce-model="departmentName">
                 </label>
                 <label>
                     <span>企业状态</span>
-                    <select ce-model="enterpriseStatus">
-                        <option value="">全部</option>
-                        <option value="1">待开通</option>
-                        <option value="2">已开通</option>
-                        <option value="3">已作废</option>
-                        <option value="4">已停用</option>
-                        <option value="5">已删除</option>
-                    </select>
+                    <select ce-model="enterpriseStatus" name="entstatus"></select>
                 </label>
                 <label>
                     <span>企业类型</span>
-                    <select>
-                        <option value="">全部</option>
-                        <option value="1">类型A</option>
-                        <option value="2">类型B</option>
-                    </select>
+                    <select name="enttype" ce-model="enterpriseType"></select>
                 </label>
                 <label>
                     <span>销售负责人(创建人)</span>
@@ -56,9 +45,10 @@
                 </label>
                 <label>
                     <span>超出数量预警</span>
-                    <select>
-                        <option value="0">全部</option>
-                        <option value="1">部分</option>
+                    <select ce-model="isOverLimitWarn">
+                        <option value="">全部</option>
+                        <option value="0">否</option>
+                        <option value="1">是</option>
                     </select>
                 </label>
             </div>
@@ -69,17 +59,13 @@
                 <tr>
                     <th></th>
                     <th style="width:20px;" data-state="support"><input type="checkbox" class="selectall"></th>
-                    <th style="width:120px;">企业名称</th>
-                    <th style="width:130px;">企业帐号</th>
-					<th style="width:130px;">所属部门/代理商</th>
-					<th style="width:130px;">是否优惠企业</th>
-					<th style="width:60px;">是否付费</th>
-					<th style="width:90px;">关联自注册</th>
-					<th style="width:130px;">销售负责人(创建人)</th>
-                    <th style="width:120px;">开通日期</th>
-                    <th style="width:100px;">企业状态</th>
-					<th style="width:150px;">CRM信息可见授权</th>
-                    <th style="width:110px;">手机设备授权</th>
+                    <th style="width:180px;">企业名称</th>
+                    <th style="width:200px;">企业帐号</th>
+					<th style="width:200px;">所属部门/代理商</th>
+                    <th style="width:200px;">销售负责人(创建人)</th>
+                    <th style="width:200px;">企业类型</th>
+                    <th style="width:200px;">企业状态</th>
+                    <th style="width:160px;">超出数量预警</th>
                     <th style="">操作</th>
                     <th></th>
                 </tr>
@@ -90,14 +76,10 @@
                     <td><%=item.csmEnterprise.enterpriseName%></td>
                     <td><%=item.csmEnterprise.enterpriseAccount%></td>
 					<td><%=item.agent ? item.agent.name:''%> </td>
-					<td><%=item.isCoupon ? '是':'否'%></td>
-					<td><%=item.csmEnterprise.isPayed ? '是':'否'%></td>
-					<td><%=item.isLinkRegister ? '是':'否'%></td>
-					<td><%=item.creator ?item.creator.name:'否'%> </td>
-                    <td><%=item.createtimestr%></td>
-                    <td><%=item.runstatusstr%></td>
-                    <td><%=item.crmvisible%></td>
-                    <td><%=item.authStr%></td>
+					<td><%=item.creator ? item.creator.name:'--'%></td>
+					<td><%=item.entTypeStr%></td>
+                    <td><%=item.entStatusStr%></td>
+                    <td><%=item.isOverLimitWarnStr%></td>
                     <td data-status="<%=item.csmEnterprise.runStatus%>">
                         
                         <a class="info-detail" data-id="<%=item.csmEnterprise.enterpriseID%>" data-account="<%=item.csmEnterprise.enterpriseAccount%>">查看</a>

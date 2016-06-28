@@ -63,7 +63,7 @@ define(function(require, exports, module) {
             clue.show(clueID);
         });
         //增购续费
-        entList.on('renew',function(id){
+        entList.on('renew',function(id,entname,entaccount){
             location.hash = "/order/openenterprise/"+id;
         });
     }
