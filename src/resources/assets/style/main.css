@@ -8481,8 +8481,9 @@ em {
 .input-file-container .file-field {
   width: 475px;
 }
-.enterprise-panel .step1 {
-  width: 1000px;
+.enterprise-panel .step1,
+.enterprise-panel .step3 {
+  width: 80%;
   margin: auto;
 }
 .enterprise-panel span.inline-m {
