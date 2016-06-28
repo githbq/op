@@ -53,17 +53,29 @@ define( function(require, exports, module){
     }
     //订单列表————当前审批节点
     data['approvalnode'] = {
-        '1': '代理商节点',
-        '2': '待小助手开通',
-        '3': '到款认领',
-        '4': '待数据中心审批'
+        '1':'代理商节点',
+        '2':'待小助手开通',
+        '3':'到款认领',
+        '4':'待数据中心审批'
     }
+
+    //审批列表——当前审批节点map映射
+    data['approvalnodemap'] = {
+        'agent':'代理商节点',
+        'support':'待小助手开通',
+        'claimReceivedPay':'到款认领节点',
+        'finance':'待数据中心审批'
+    }
+
+
     //订单列表————到款认领状态
     data['claimreceivedpaystatus'] = {
         '1': '未认领',
         '2': '认领中',
         '3': '已认领'
     }
+
+
     //企业列表——企业状态
     data['entstatus'] = {
         '1': '待开通',
