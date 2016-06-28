@@ -218,9 +218,9 @@ define(function (require, exports, module) {
         productService.getOrderDetailByOrderId($scope.globalInfo.orderId, function (data) {
             $timeout(function () {
                 debugger
-                $scope.enterpriseReadonly = data.canEditEnterprise;
-                $scope.productReadonly = data.canEditOrder;
-                $scope.payInfoReadonly = data.canEditPaidInfo;
+                $scope.enterpriseReadonly = !data.canEditEnterprise;
+                $scope.productReadonly = !data.canEditOrder;
+                $scope.payInfoReadonly = !data.canEditPaidInfo;
                 $scope.entInfo = data.odrDraftEnterprise || {};
                 $scope.productInfo = data.odrDraftOrder || {};
                 $scope.orderFromData = angular.fromJson(data.odrDraftOrder.content);//订单来源数据
