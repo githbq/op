@@ -8322,6 +8322,10 @@ em {
 .m-detailapproval .approval-opinionaction p {
   padding: 5px 0;
 }
+.m-detailapproval .approval-btns {
+  padding: 10px 0;
+  text-align: right;
+}
 .order-content span.m-len {
   display: inline-block;
   text-align: right;

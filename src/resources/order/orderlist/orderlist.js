@@ -17,7 +17,7 @@ define( function( require, exports, module ) {
 
 	var CustomHelper = require('../widget/customhelper/customhelper');     //联合跟进人
     var InvoiceDetail = require('../widget/invoicedetail/invoicedetail');  //发票
-    var BackMoney = require('../backmoney/backmoney');                     //退款
+    var BackMoney = require('../detailbackmoney/detailbackmoney');         //退款
 	
 	var OnlinePay = require('../widget/onlinepay/onlinepay');              //???
 
@@ -235,7 +235,7 @@ define( function( require, exports, module ) {
             var me = this;
 
             var id = $(e.currentTarget).attr('data-id');
-
+            
             me.trigger('detail', id );
         },
         //查看详情
