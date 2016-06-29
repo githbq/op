@@ -163,7 +163,7 @@ define(function (require, exports, module) {
             var companyPrice = 0;
             _.each(currPayList, function (item, i) {
                 if (item.toAgent) {
-                    agentPrice = math2.numAdd(agentPrice, parseFloat(item.currPayAmount));
+                    agentPrice = math2.numAdd(agentPrice, parseFloat(item.purchaseAmount));
                 } else {
                     companyPrice = math2.numAdd(companyPrice, parseFloat(item.currPayAmount));
                 }
