@@ -196,6 +196,7 @@ define( function( require, exports, module ) {
                     en: me.$en.val(),
                     ea: me.$ea.val(),
                     contractNo: me.$contractNo.val(),
+                    approvalNode: 3,
                     pageIndex: me.pagination.attr['pageNumber']+1,
                     pageSize: me.pagination.attr['pageSize']
                 },
@@ -251,7 +252,7 @@ define( function( require, exports, module ) {
                 },
                 success: function(data) {
                     if(data.success){
-                        util.showTip('匹配订单成功');
+                        util.showTip('订单认领提交成功');
                         me.hide();
                         me.trigger('refresh');
                     }
