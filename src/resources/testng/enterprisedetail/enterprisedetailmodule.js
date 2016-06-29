@@ -193,6 +193,7 @@ define(function (require, exports, module) {
         var entInfo = $scope.entInfo = {};
         entInfo.area = $scope.globalInfo.area;
         entInfo.enterpriseName = $scope.globalInfo.enterpriseName;
+        entInfo.enterpriseAccount=$scope.globalInfo.enterpriseAccount;
         //产品信息模块
         var productInfo = $scope.productInfo = {};
         //付款信息
