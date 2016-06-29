@@ -100,7 +100,6 @@ define( function( require, exports, module ) {
         
         submit: function() {//提交编辑
             var me = this;
-            me.trigger('refresh');
             var bool = false;
             var append = '';
             var data = {};
