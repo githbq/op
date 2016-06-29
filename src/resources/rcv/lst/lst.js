@@ -5,6 +5,7 @@ define( function( require, exports, module ) {
     var Pagination = require( 'common/widget/pagination/pagination' );
     var Slider = require( 'common/widget/slider/slider' );
     var Dialog = require('common/widget/dialog/dialog');
+    //var orderDetail = require('order/detailapproval/detailapproval');
     var uploader = require('common/widget/upload').uploader;
     var CustomTree=require('module/customtree/customtree').getDialog();
     var tpl = $( require( './template.html' ) );
@@ -217,7 +218,7 @@ define( function( require, exports, module ) {
                                     +'<td>'+item.order.enterpriseAccount+'</td>'
                                     +'<td>'+item.account.name+'</td>'
                                     +'<td>'+item.formatTime+'</td>'
-                                    +'<td><a class="view">查看</a></td>'
+                                    +'<td><a class="check" data-id="item.order.id">查看</a></td>'
                                     +'</tr>';
                             });
                         }else{
@@ -232,7 +233,10 @@ define( function( require, exports, module ) {
                 }
             })
         },
-
+        check: function(e) {
+            var id = $(e.currentTarge).attr('data-id');
+            this.trigger('checkDetail');
+        },
         submit: function(data) {
             var me = this;
             var orderId = $("input[type=radio]:checked").val();
@@ -573,6 +577,10 @@ define( function( require, exports, module ) {
         // 显示重复
         importDialog.on('showDup', function(data) {
             duplication.show(data);
+        });
+
+        selectOrder.on('checkDetail', function( id ){
+            //orderDetail.show(id, 'd');
         });
 
         // 更新列表
