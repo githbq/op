@@ -179,12 +179,18 @@ define(function (require, exports, module) {
                                 if (rData && !checkUN(rData.value)) {
                                     item.value = rData.value;
                                 }
+                                if (rData && !checkUN(rData.valueItems)) {
+                                    item.valueItems = rData.valueItems;
+                                }
                             }
                             if (find && find.data) {
                                 //再赋保存的数据
                                 rData = _.findWhere(find.data, {name: item.name});
                                 if (rData && !checkUN(rData.value)) {
                                     item.value = rData.value;
+                                }
+                                if (rData && !checkUN(rData.valueItems)) {
+                                    item.valueItems = rData.valueItems;
                                 }
                             }
                         });
@@ -500,8 +506,12 @@ define(function (require, exports, module) {
                         var data = {};
                         for (var i = 0; i < querys.length; i++) {
                             var queryItem = querys[i];
-                            var findValue = getValueForSwitchValueType(queryItem.valueType, queryItem.valueRef, product);
-                            data[queryItem.name] = findValue;
+                            if (!checkUN(queryItem.value)) {//支持直接在验证项上添加固定值
+                                data[queryItem.name] = queryItem.value;
+                            } else {
+                                var findValue = getValueForSwitchValueType(queryItem.valueType, queryItem.valueRef, product);
+                                data[queryItem.name] = findValue;
+                            }
                         }
                         return data;
                     }

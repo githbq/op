@@ -38,7 +38,7 @@
     <div class="m-createreceive">
         <p><label>
             <span>到款编号<b style="color: red; ">*</b></span>
-            <input type="text" maxlength="9" id="c-rcvNum" class="info" data-model="receivedPayNum">
+            <input type="text" maxlength="9" class="info" data-model="receivedPayNum">
         </label></p>
         <p><label>
             <span>到款日期<b style="color: red; ">*</b></span>
@@ -46,19 +46,19 @@
         </label></p>
         <p><label>
             <span>打款名称（单位/个人）<b style="color: red; ">*</b></span>
-            <input type="text" id="c-payer" class="info" data-model="payerName">
+            <input type="text" class="info" data-model="payerName">
         </label></p>
         <p><label>
             <span>到款金额（元）<b style="color: red;">*</b></span>
-            <input type="text" id="c-amout"  class="info" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" data-model="receivedPayAmount">
+            <input type="text" class="info" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" data-model="receivedPayAmount">
         </label></p> 
         <p><label>
             <span>手续费（元）<b style="color: red;">*</b></span>
-            <input type="text" id="c-fee"  class="info" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" data-model="handlingCharge">
+            <input type="text" class="info" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" data-model="handlingCharge">
         </label></p>
         <p><label>
             <span>性质<b style="color: red; ">*</b></span>
-            <select id="c-type"  class="info" data-model="property">
+            <select class="info" data-model="property">
                 <option selected="selected" disabled="disabled" style="display:none;">请选择</option>
                 <option value="1">到款</option>
                 <option value="2">退款</option>
@@ -66,16 +66,16 @@
         </label></p>
         <p><label>
             <span>收款银行名称<b style="color: red; ">*</b></span>
-            <input type="text" id="c-bank" class="info" data-model="bankName">
+            <input type="text" class="info" data-model="bankName">
         </label></p>
         <p><label>
             <span>部门<b style="color: red;">*</b></span>
-            <input type="text" id="departmentText" readonly style="width:150px;">
+            <input type="text" id="departmentText" data-model="departmentName" readonly style="width:150px;">
             <button id="c-department" data-model="departmentId" class="info btn-blue">选择部门</button>
         </label></p>
         <p><label>
             <span>收款账号<b style="color: red;">*</b></span>
-            <input type="text" id="c-account" class="info" data-model="receiptsAccount">
+            <input type="text" class="info" data-model="receiptsAccount">
         </label></p>
         <p><button id="c-submit" class="btn-blue">提交</button><button id="c-cancel" class="btn-blue">取消</button></p>
     </div>

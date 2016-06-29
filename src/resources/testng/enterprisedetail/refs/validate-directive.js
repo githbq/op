@@ -18,7 +18,7 @@ define(function (reuqire, exports, module) {
     }
 
     var INTEGER_REGEXP = /^\d*$/;
-    app.directive('integer', function () {
+    app.directive('int', function () {
         return {
             require: 'ngModel',
             link: function (scope, elm, attrs, ctrl) {
@@ -32,15 +32,15 @@ define(function (reuqire, exports, module) {
                     $dom.val(result);
                     ctrl.$setViewValue(result ? parseInt(result) : result, true);//只能赋模型的值不能改变VIEW
                     setTimeout(function () {
-                        ctrl.$setValidity('integer', true);
+                        ctrl.$setValidity('int', true);
                     }, 100);
                 });
                 ctrl.$parsers.unshift(function (viewValue) {
                     if (INTEGER_REGEXP.test(viewValue)) {
-                        ctrl.$setValidity('integer', true);
+                        ctrl.$setValidity('int', true);
                         return viewValue;
                     } else {
-                        ctrl.$setValidity('integer', false);
+                        ctrl.$setValidity('int', false);
                         return undefined;
                     }
                 });

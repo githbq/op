@@ -5,6 +5,7 @@ define( function( require, exports, module ) {
     var Pagination = require( 'common/widget/pagination/pagination' );
     var Slider = require( 'common/widget/slider/slider' );
     var Dialog = require('common/widget/dialog/dialog');
+    var Detail = require('../../order/detailapproval/detailapproval');
     var uploader = require('common/widget/upload').uploader;
     var CustomTree=require('module/customtree/customtree').getDialog();
     var tpl = $( require( './template.html' ) );
@@ -23,15 +24,10 @@ define( function( require, exports, module ) {
         elements:{
             '#c-rcvNum': 'rcvNum',
             '#c-date': 'date',
-            '#c-payer': 'payer',
-            '#c-amount': 'amount',
-            '#c-fee': 'fee',
-            '#c-type': 'type',
-            '#c-bank': 'bank',
             '#c-department': 'department',
-            '#c-account': 'account',
             '#departmentText': 'departmentText',
-            '.info': 'info'
+            '.info': 'info',
+            '[data-model]':'data'
         },
         init: function(){
             CreateReceipt.__super__.init.apply( this, arguments );
@@ -56,26 +52,23 @@ define( function( require, exports, module ) {
                         if(res.success){
                             res.value.model.receivedPayDate = new Date(res.value.model.receivedPayDate)._format( "yyyy/MM/dd" );
 
-                            me.$info.each(function(i, item){
+                            me.$data.each(function(i, item){
                                 var data = $(item).attr('data-model');
                                 $(item).val(res.value.model[data]);
                             });
-
                         }
                     }
                 });
-                return;
             }
-            me.$info.val('');
-            me.$departmentText.val('');
-            $(".info option[disabled]").each(function(i,item){
-                this.selected = true;
-            });
+            
         },
         hide: function(){
             CreateReceipt.__super__.hide.apply( this,arguments );
+            this.$data.val('');
+            $(".info option[disabled]").each(function(i,item){
+                this.selected = true;
+            });
             this.id='';
-            
         },
         keydown: function(e) {//只能删除不能输入
             if(e.keyCode == 46||e.keyCode == 8){
@@ -92,16 +85,15 @@ define( function( require, exports, module ) {
                 searchOptions:{show:true,title:'部门名称'},
                 ztreeOptions:{expandAll:true,check:{chkStyle: "radio",radioType: "all"},
                 checkStyle:"radio"},
-                ajaxData:{url:'http://localhost:8087/admin/api/authfunction/queryDept'}
+                ajaxData:{url:'~/op/api/a/odr/receivedpay/getAllDepartment'}
             });
             me.deptTree.on('enter', function (  ) {
                 me.deptObj = me.deptTree.getValue() ? me.deptTree.getValue()[0]: null;
                 me.deptObjId = [me.deptObj.id]
                 me.postObjId = [];
                 me.postObj = null;
-                me.deptObj ? me.$('.detp-area').text(me.deptObj.name +" —— "):me.$('.detp-area').text('');
-                me.$('.post-area').text('');
-                
+                me.deptObj ? me.$departmentText.val(me.deptObj.name ):me.$department.val('');
+                me.$department.val(me.deptObjId);
             });
             me.deptTree.show( me.deptObjId, {})
         },
@@ -137,8 +129,8 @@ define( function( require, exports, module ) {
                 success: function( res ){
                     if( res.success ){
                         util.showTip('提交成功');
-                        me.hide();
                         me.trigger('refresh');
+                        me.hide();
                     }
                 }
             });
@@ -225,7 +217,7 @@ define( function( require, exports, module ) {
                                     +'<td>'+item.order.enterpriseAccount+'</td>'
                                     +'<td>'+item.account.name+'</td>'
                                     +'<td>'+item.formatTime+'</td>'
-                                    +'<td><a class="view">查看</a></td>'
+                                    +'<td><a class="check" data-id="'+item.order.id+'">查看</a></td>'
                                     +'</tr>';
                             });
                         }else{
@@ -240,7 +232,10 @@ define( function( require, exports, module ) {
                 }
             })
         },
-
+        check: function(e) {
+            var id = $(e.currentTarget).attr('data-id');
+            this.trigger('checkDetail', id);
+        },
         submit: function(data) {
             var me = this;
             var orderId = $("input[type=radio]:checked").val();
@@ -561,6 +556,7 @@ define( function( require, exports, module ) {
         var createReceipt = new CreateReceipt({'title':'新增/编辑'});
         var selectOrder = new SelectOrder({'title':'选择订单'});
         var importDialog = new ImportDialog({'title':'导入'});
+        var detail = new Detail();
         var duplication = new Duplication();
 
         function refreshList() {
@@ -581,6 +577,10 @@ define( function( require, exports, module ) {
         // 显示重复
         importDialog.on('showDup', function(data) {
             duplication.show(data);
+        });
+        // 查看订单详情
+        selectOrder.on('checkDetail', function( id ){
+            detail.show(id, 'd');
         });
 
         // 更新列表

@@ -4,6 +4,8 @@
     <button ng-click="goTo(1)">step1</button>
     <button ng-click="goTo(2)">step2</button>
     <button ng-click="goTo(3)">step3</button>
+
+
     <div ng-show="step==1" ng-controller="form1Controller" ng-class="{step_validate_error:step_1_validate_error}" class="step form baseinfo" ng-form name="stepForm1">
         <div class="top-bar" ng-if="hideTopBar!==true">
             <!--<h1>第一步&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;企业信息</h1>-->
@@ -31,7 +33,7 @@
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>企业账号</span></label>
-                    <input maxlength="20" required ng-readonly="globalInfo.submitType==3" account ng-model-options="{debounce:1000}" ng-class="{readonly:enterpriseReadonly||globalInfo.submitTgulpype==3}" type="text" ng-model="entInfo.enterpriseAccount" name="enterpriseAccount" ng-maxlength="100"/>
+                    <input maxlength="20" required ng-readonly="globalInfo.submitType==3" account ng-model-options="{debounce:1000}" ng-class="{readonly:enterpriseReadonly||globalInfo.submitType==3}" type="text" ng-model="entInfo.enterpriseAccount" name="enterpriseAccount" ng-maxlength="100"/>
                     <span class="tip">企业账号应为字母开头6-20位由字母数字的组合</span>
                 </div>
             </div>
@@ -285,7 +287,7 @@
                     <label class="required"><span>分期金额</span></label>
                 </div>
                 <div class="form-field inputs-container">
-                    <label class="fenqi-label" ng-repeat="item in payInfo.currPayList">
+                    <label ng-if="item.toAgent!==true" class="fenqi-label" ng-repeat="item in payInfo.currPayList">
                         <span>{{item.productName}}(元)</span>
                         <input ng-model-options="{updateOn:'default'}" ng-change="currPayAmountChange(payInfo.currPayList)"
                                ng-class="{readonly:payInfoReadonly||payInfo.partReadonly}" number ng-readonly="payInfoReadonly||payInfo.partReadonly"
@@ -315,7 +317,7 @@
                 <div class="form-field">
                     <label class="required v-top"><span>总部到款账户</span></label>
                     <span  class="inline-block"> <span ng-if="payInfoReadonly||payInfo.partReadonly">{{payInfo.receiptsAccount}}<br/></span>
-                    <input ng-class="{readonly:payInfoReadonly||payInfo.partReadonly}"
+                    <input ng-if="!(payInfoReadonly||payInfo.partReadonly)" ng-class="{readonly:payInfoReadonly||payInfo.partReadonly}"
                            ng-readonly="payInfoReadonly||payInfo.partReadonly"
                            ng-readonly="enterpriseReadonly||payInfo.partReadonly"
                            required select2

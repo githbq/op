@@ -1,4 +1,5 @@
 define(function (require, exports, module) {
+    var math2 = require('common/widget/math/math');
     require('common/widget/select2/select2');
     require('./refs/directives');
     require('./refs/filters');
@@ -74,12 +75,14 @@ define(function (require, exports, module) {
     myApp.controller('form2Controller', ['$scope', 'productService', function ($scope, productService) {
         //产品已购信息
         $scope.productInfos = [];
-        //||'ceshishur3'
-        productService.getOrderList($scope.globalInfo.enterpriseAccount, function (data) {
-            $scope.$apply(function () {
-                $scope.productInfos = data;
+        if ($scope.globalInfo.submitType == 2) {//只有增购与续费才显示
+            //||'ceshishur3'
+            productService.getOrderList($scope.globalInfo.enterpriseAccount, function (data) {
+                $scope.$apply(function () {
+                    $scope.productInfos = data;
+                });
             });
-        });
+        }
         productService.getDiyOrderFormLogic($scope.globalInfo.enterpriseId || '', function (data) {
             $scope.$apply(function () {
                 $scope.productJson = angular.fromJson(data);
@@ -94,7 +97,7 @@ define(function (require, exports, module) {
         var contractPrice = 0;
         _.each($scope.payInfo.currPayList, function (item) {
             if (item.purchaseAmount) {
-                contractPrice += item.purchaseAmount;
+                contractPrice = math2.numAdd(contractPrice, item.purchaseAmount);
             }
         });
         $scope.payInfo.contractPrice = contractPrice;
@@ -105,7 +108,7 @@ define(function (require, exports, module) {
         //付款状态改变事件
         $scope.payStatusChange = function (value) {
             _.each($scope.payInfo.currPayList, function (item, i) {
-                item.currPayAmount = 0;
+                item.currPayAmount = item.currPayAmount|| 0;
             });
             switch (value.toString()) {
                 case '1':
@@ -115,9 +118,9 @@ define(function (require, exports, module) {
                     var companyPrice = 0;
                     _.each($scope.payInfo.currPayList, function (item, i) {
                         if (item.toAgent) {
-                            agentPrice += parseFloat(item.purchaseAmount);
+                            agentPrice = math2.numAdd(agentPrice, item.purchaseAmount);
                         } else {
-                            companyPrice += parseFloat(item.purchaseAmount)
+                            companyPrice = math2.numAdd(companyPrice, item.purchaseAmount);
                         }
                     });
                     payInfo.agentCurrPayAmount = agentPrice;
@@ -129,6 +132,11 @@ define(function (require, exports, module) {
                 {
                     //未付
                     payInfo.agentCurrPayAmount = 0;
+                    _.each($scope.payInfo.currPayList, function (item, i) {
+                        if (item.toAgent) {
+                            payInfo.agentCurrPayAmount = math2.numAdd(payInfo.agentCurrPayAmount, item.purchaseAmount);
+                        }
+                    });
                     payInfo.currPayAmount = 0;
                 }
                     ;
@@ -137,6 +145,11 @@ define(function (require, exports, module) {
                 {
                     //分期
                     payInfo.agentCurrPayAmount = 0;
+                    _.each($scope.payInfo.currPayList, function (item, i) {
+                        if (item.toAgent) {
+                            payInfo.agentCurrPayAmount = math2.numAdd(payInfo.agentCurrPayAmount, item.purchaseAmount);
+                        }
+                    });
                     payInfo.currPayAmount = 0;
                 }
                     ;
@@ -150,9 +163,9 @@ define(function (require, exports, module) {
             var companyPrice = 0;
             _.each(currPayList, function (item, i) {
                 if (item.toAgent) {
-                    agentPrice += parseFloat(item.currPayAmount);
+                    agentPrice = math2.numAdd(agentPrice, parseFloat(item.purchaseAmount));
                 } else {
-                    companyPrice += parseFloat(item.currPayAmount)
+                    companyPrice = math2.numAdd(companyPrice, parseFloat(item.currPayAmount));
                 }
             });
             payInfo.agentCurrPayAmount = agentPrice;
@@ -193,6 +206,7 @@ define(function (require, exports, module) {
         var entInfo = $scope.entInfo = {};
         entInfo.area = $scope.globalInfo.area;
         entInfo.enterpriseName = $scope.globalInfo.enterpriseName;
+        entInfo.enterpriseAccount = $scope.globalInfo.enterpriseAccount;
         //产品信息模块
         var productInfo = $scope.productInfo = {};
         //付款信息
@@ -450,7 +464,6 @@ define(function (require, exports, module) {
             $scope.step--;
         };
         $scope.nextStep = function (form) {
-
             if ($scope.step == 1 || $scope.step == 2 || $scope.step == 3) {//企业详情界面
                 if (form.$invalid) {
                     $scope['step_' + $scope.step + '_validate_error'] = true;
