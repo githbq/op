@@ -192,11 +192,14 @@ define( function(require, exports, module){
 			//保存
 			util.api({
 				'url': '/odr/update',
-				'data': postData,
+				'data': {
+					'vo': JSON.stringify( postData )
+				},
 				'success': function( data ){
 					console.warn(data);
 					if(data.success){
-						
+						util.showTip('保存成功');
+						me.hide();
 					}
 				}
 			})
