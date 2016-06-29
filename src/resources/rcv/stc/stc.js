@@ -84,7 +84,7 @@ define( function( require, exports, module ) {
                 sticks = new Date( startTime ).getTime();
             }
             if ( endTime ) {
-                eticks = new Date( endTime ).getTime() + 1000 * 60 * 60 * 24;
+                eticks = new Date( endTime ).getTime();
             }
             if ( sticks > eticks ) {
                 alert( '开始时间大于结束时间, 请重新选择.' );
@@ -114,17 +114,18 @@ define( function( require, exports, module ) {
                 },
                 success: function( data ) {
                     if ( data.success ) {
-                        var total = data.value.model.total;
-                        var tr = '<tr><td>' + total.departmentName
-                        + '</td><td>' + total.totalAmount
-                        + '</td><td>' + total.claimedAmount                        
-                        + '</td><td>' + total.unclaimedAmount
-                        + '</td></tr>';
+
                         me.pagination.setTotalSize( data.value.model.page.itemCount );
                         me.collection.reload( data.value.model.page.content, function( item ) {
                         } );
                         var content = me.collection.all();
                         if ( content.length > 0 ) {
+                            var total = data.value.model.total;
+                            var tr = '<tr><td>' + total.departmentName
+                            + '</td><td>' + total.totalAmount
+                            + '</td><td>' + total.claimedAmount                        
+                            + '</td><td>' + total.unclaimedAmount
+                            + '</td></tr>';
                             me.$tbody.html( tr + me.tplCode( {'content':me.collection.all() } ) );
                         } else {
                             me.$tbody.html( '<tr><td colspan="9"><p class="info">暂无数据</p></td></tr>' );

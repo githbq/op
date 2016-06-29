@@ -196,6 +196,7 @@ define( function( require, exports, module ) {
                     en: me.$en.val(),
                     ea: me.$ea.val(),
                     contractNo: me.$contractNo.val(),
+                    approvalNode: 3,
                     pageIndex: me.pagination.attr['pageNumber']+1,
                     pageSize: me.pagination.attr['pageSize']
                 },
@@ -251,7 +252,7 @@ define( function( require, exports, module ) {
                 },
                 success: function(data) {
                     if(data.success){
-                        util.showTip('匹配订单成功');
+                        util.showTip('订单认领提交成功');
                         me.hide();
                         me.trigger('refresh');
                     }
@@ -497,7 +498,7 @@ define( function( require, exports, module ) {
                 sticks = new Date( startTime ).getTime();
             }
             if ( endTime ) {
-                eticks = new Date( endTime ).getTime() + 1000 * 60 * 60 * 24;
+                eticks = new Date( endTime ).getTime();
             }
             if ( sticks > eticks ) {
                 alert( '开始时间大于结束时间, 请重新选择.' );
