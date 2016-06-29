@@ -22,7 +22,7 @@ define(function (reuqire, exports, module) {
         return {
             require: 'ngModel',
             link: function (scope, elm, attrs, ctrl) {
-                elm.off('keyup').on('keyup', function () {
+                elm.off('p').on('keyup', function () {
                     var $dom = $(this);
                     var result = ($dom.val().replace(/[^\d]/g, ''));
                     result = CtoH(result);
@@ -30,7 +30,7 @@ define(function (reuqire, exports, module) {
                         result=result.substr(0,result.length-1);
                     }
                     $dom.val(result);
-                    ctrl.$setViewValue(result !== null ? parseInt(result) : result, true);//只能赋模型的值不能改变VIEW
+                    ctrl.$setViewValue(result ? parseInt(result) : result, true);//只能赋模型的值不能改变VIEW
                     setTimeout(function () {
                         ctrl.$setValidity('integer', true);
                     }, 100);
@@ -181,6 +181,19 @@ define(function (reuqire, exports, module) {
         return {
             require: 'ngModel',
             link: function (scope, elm, attrs, ctrl) {
+                elm.off('keyup').on('keyup', function () {
+                    var $dom = $(this);
+                    var result = ($dom.val().replace(/[^\d]/g, ''));
+                    result = CtoH(result);
+                    if (!INTEGER_REGEXP.test(result) && !isNaN(result) && result !== '') {
+                        result=result.substr(0,result.length-1);
+                    }
+                    $dom.val(result);
+                    ctrl.$setViewValue(result ? parseInt(result) : result, true);//只能赋模型的值不能改变VIEW
+                    setTimeout(function () {
+                        ctrl.$setValidity('phone', true);
+                    }, 100);
+                });
                 ctrl.$parsers.unshift(function (viewValue) {
                     debugger
                     if (PHONE_REGEXP.test(viewValue)) {
