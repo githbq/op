@@ -54,7 +54,6 @@ define( function( require, exports, module ) {
                 me.$('.claim-action').hide();
                 me.url = '/odr/getClaimedReceivedPay';
             }
-
             me.searchEve();
         },
         //搜寻到款列表
@@ -74,9 +73,7 @@ define( function( require, exports, module ) {
                         if( data.value.model.length <= 0 ){
                             me.$('tbody').html('<tr><td colspan="8"><p class="tip">暂未匹配到的数据</p></td></tr>');
                         }else{
-                            me.list.reload( data.value.model , function(){
-
-                            });
+                            me.list.reload( data.value.model , function(){});
                         }
                     }
                 }
@@ -540,7 +537,6 @@ define( function( require, exports, module ) {
         var $el = exports.$el;
 
         var orderList = new OrderList( {'view': $el.find('.m-orderlist')} );
-        var detailApproval = new DetailApproval();  //订单详情   
 		
         var detailPayment = null;
 		var customHelper = null;
@@ -602,6 +598,9 @@ define( function( require, exports, module ) {
         orderList.on('supply', function( id ){
             console.log('补充合同');
             console.log( id );
+            
+            var detailApproval = new DetailApproval();  //订单详情   
+            detailApproval.show( id , 'b' );
         });
 
         //查看[待开发]
@@ -609,6 +608,8 @@ define( function( require, exports, module ) {
             console.log('查看');
             console.log( id );
             console.log( status );
+            
+            var detailApproval = new DetailApproval();  //订单详情   
             
             //被驳回和已撤回可编辑
             if( IBSS.API_PATH == '/op/api/a' && (status == '2' || status == '3') ){

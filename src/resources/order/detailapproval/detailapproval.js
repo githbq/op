@@ -11,6 +11,7 @@ define( function(require, exports, module){
 	var contentStr = require('./detailapproval.html');
 	var Page = require('../../testng/enterprisedetail/enterprisedetailmodule');
 
+	var uploader = require('common/widget/upload').uploader;
 
     ///////////////////////
     //
@@ -27,17 +28,82 @@ define( function(require, exports, module){
 		},
 		elements: {
 			'.action-agree': 'agree',
-			'.action-refuse': 'refuse'
+			'.action-refuse': 'refuse',
+
+			'#hetong': 'hetong',			//合同input
+			'#hetongfb': 'hetongfb',        //合同副本input
+			'#hetongimg': 'hetongimg',      //合同img展示
+			'#hetongfbimg': 'hetongfbimg',  //合同父辈img展示
+			'.savehetong': 'savehetong'     //保存合同按钮
 		},
 		events:{
 			'click .approval-title span': 'toggleEve',
 			'click .action-agree': 'agreeEve',
 			'click .action-refuse': 'refuseEve',
-			'click .action-save': 'saveEve'            //重新编辑保存
+			'click .action-save': 'saveEve',            //重新编辑保存
+			'click .savehetong': 'saveHetongEve'        //补充合同
 		},
 		init: function(){
 			DetailApproval.__super__.init.apply( this,arguments );
 			var me = this;
+
+			me.contract = '';            	//合同图片
+			me.contractFileName = '';    	//合同图片文件名称
+
+			me.contractCopy = '';        	//合同图片副本
+			me.contractCopyFileName = '';   //合同图片副本文件名称
+
+			me.contractId = '';             //合同ID
+
+			me.$hetong.on('change',function(){
+				console.log('hetongchange');
+				var fileExtension = me.$hetong[0].files[0].name.split('.').pop().toLowerCase();
+				if( fileExtension == 'jpg' || fileExtension == 'gif' || fileExtension == 'png' || fileExtension == 'jpeg' ){
+					me.$savehetong.attr('disabled','disabled');
+					uploader.send({
+						'url': '/op/api/file/uploadsinglefileandcheck',
+						'files': me.$hetong[0].files,
+						'options': {
+							'limittype': 'IMAGE'
+						},
+						'success': function( response ){
+							me.contract = response.value.model.path;
+							me.contractFileName = response.value.model.FileName;
+							me.$hetongimg.attr('src','/op/api/file/previewimage?filePath=' + response.value.model.path );
+							me.$savehetong.removeAttr('disabled');
+						},
+						'error': function(){
+							me.$savehetong.removeAttr('disabled');
+						}
+					})
+				}
+
+			});
+
+			me.$hetongfb.on('change',function(){
+				var fileExtension = me.$hetongfb[0].files[0].name.split('.').pop().toLowerCase();
+				if( fileExtension == 'jpg' || fileExtension == 'gif' || fileExtension == 'png' || fileExtension == 'jpeg' ){
+					me.$savehetong.attr('disabled','disabled');
+					uploader.send({
+						'url': '/op/api/file/uploadsinglefileandcheck',
+						'files': me.$hetongfb[0].files,
+						'options': {
+							'limittype':'IMAGE'
+						},
+						'success': function( response ){
+							me.contractCopy = response.value.model.path;
+							me.contractCopyFileName = response.value.model.FileName;
+							me.$hetongfbimg.attr('src','/op/api/file/previewimage?filePath=' + response.value.model.path );
+							me.$savehetong.removeAttr('disabled');
+						},
+						'error': function(){
+							me.$savehetong.removeAttr('disabled');
+						}
+
+					})
+				}
+			});
+
 		},
 		//状态变换
 		setState: function(){
@@ -205,12 +271,48 @@ define( function(require, exports, module){
 			})
 			console.log(data);
 		},
+		//保存合同
+		saveHetongEve: function(){
+			var me = this;
+
+			if( !me.contract ){
+				util.showToast('请选择合同照片');
+				return false;
+			}
+			if( !me.contractCopy ){
+				util.showToast('请选择合同副本照片');
+				return false;
+			}
+
+			console.log('savehetong');
+			var data = me.approvalPage.getReturnData();
+
+			//补充合同
+			util.api({
+				'url':'/odr/supContractSubmit',
+				'data':{
+					'contract': me.contract,
+					'contractCopy': me.contractCopy,
+					'contractFileName': me.contractFileName,
+					'contractCopyFileName': me.contractCopyFileName,
+					'contractId': data.payInfo.contractId
+				},
+				'success': function( data ){
+					if( data.success ){
+						util.showTip('提交成功');
+						me.hide();
+					}
+				}
+			})
+			console.log( data );
+		},
 		//重新发送
 		hide: function(){
 			var me = this;
 			me.$view.find('.approval-content').empty();
 			me.$('[data-state]').hide();
 			DetailApproval.__super__.hide.apply( this,arguments );
+			me.remove();
 		}
 	});
         

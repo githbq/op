@@ -52,10 +52,16 @@
             <button class="u-btn-red action-refuse">驳回</button>
         </p>
     </section>
+
     <!--补充合同-->
-    <section class="approval-contract">
-    	
+    <section class="approval-contract" data-state="b">
+    	<p><label>补充合同照片    </label>  <input type="file" id="hetong"> </p>
+        <p> <img src="" id="hetongimg"> </p>
+        <p><label>补充合同副本照片</label>  <input type="file" id="hetongfb"> </p>
+        <p> <img src="" id="hetongfbimg"> </p>
+        <p> <button class="u-btn-blue savehetong">保存合同</button> </p>
     </section>
+    
     <!--编辑按钮-->
     <section class="approval-btns" data-state="a">
         <button class="u-btn-blue action-save">保存</button>
