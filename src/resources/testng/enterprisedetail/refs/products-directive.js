@@ -506,8 +506,12 @@ define(function (require, exports, module) {
                         var data = {};
                         for (var i = 0; i < querys.length; i++) {
                             var queryItem = querys[i];
-                            var findValue = getValueForSwitchValueType(queryItem.valueType, queryItem.valueRef, product);
-                            data[queryItem.name] = findValue;
+                            if (checkUN(queryItem.value)) {//支持直接在验证项上添加固定值
+                                data[queryItem.name] = queryItem.value;
+                            } else {
+                                var findValue = getValueForSwitchValueType(queryItem.valueType, queryItem.valueRef, product);
+                                data[queryItem.name] = findValue;
+                            }
                         }
                         return data;
                     }
