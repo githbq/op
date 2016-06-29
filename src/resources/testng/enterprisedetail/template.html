@@ -315,7 +315,7 @@
                 <div class="form-field">
                     <label class="required v-top"><span>总部到款账户</span></label>
                     <span  class="inline-block"> <span ng-if="payInfoReadonly||payInfo.partReadonly">{{payInfo.receiptsAccount}}<br/></span>
-                    <input ng-class="{readonly:payInfoReadonly||payInfo.partReadonly}"
+                    <input ng-if="!(payInfoReadonly||payInfo.partReadonly)" ng-class="{readonly:payInfoReadonly||payInfo.partReadonly}"
                            ng-readonly="payInfoReadonly||payInfo.partReadonly"
                            ng-readonly="enterpriseReadonly||payInfo.partReadonly"
                            required select2
