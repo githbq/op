@@ -601,6 +601,9 @@ define( function( require, exports, module ) {
             
             var detailApproval = new DetailApproval();  //订单详情   
             detailApproval.show( id , 'b' );
+            detailApproval.on('editSuccess',function(){
+                orderList.getList();
+            });
         });
 
         //查看[待开发]
@@ -620,6 +623,9 @@ define( function( require, exports, module ) {
 
                 detailApproval.show( id , 'd');
             }
+            detailApproval.on('editSuccess',function(){
+                orderList.getList();
+            });
         });
     }
 } );

@@ -122,7 +122,12 @@ define( function(require, exports, module){
 		},
 		//
 		// @param id   	订单id 
-		// @param type  a 订单编辑查看(可编辑内容)  b 补充合同(可以补充合同)  c 审批只读(可进行审批同意或驳回) d完全只读状态
+		// @param type  a 订单编辑查看(可编辑内容)  
+		//				b 补充合同(可以补充合同)
+		//				b1 补充合同(可审核);
+		//				b2 补充合同(仅可查看); 
+		//				c 审批只读(可进行审批同意或驳回) 
+		//				d 完全只读状态 
 		// @param info  一些额外信息
 		//==============================================
 		show: function( id , type , info ){
@@ -156,7 +161,19 @@ define( function(require, exports, module){
 				me.approvalPage.hideTopBar();
 				me.approvalPage.hideFootBtns();
 				me.$('[data-state="b"]').show();
-				
+			
+			//补充合同(可审核)			
+			}else if( type == 'b1' ){
+
+				me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:true} );
+				me.approvalPage.hideTopBar();
+				me.approvalPage.hideFootBtns();
+			//补充合同(仅可查看)
+			}else if( type == 'b2' ){
+
+				me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:true} );
+				me.approvalPage.hideTopBar();
+				me.approvalPage.hideFootBtns();
 			//只读
 			}else if( type == 'd'){
 				me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:true} );
@@ -197,7 +214,7 @@ define( function(require, exports, module){
 	                    if( data.success ){
 	                        util.showTip('批复成功');
 	                        me.hide();
-	                        me.trigger('saveSuccess');
+	                        me.trigger('approvalSuccess');
 	                    }
 	                },
 					complete: function(){
@@ -233,7 +250,7 @@ define( function(require, exports, module){
 	                    if( data.success ){
 	                        util.showTip('批复成功');
 	                        me.hide();
-	                        me.trigger('saveSuccess');
+	                        me.trigger('approvalSuccess');
 	                    }
 	                },
 					complete: function(){
@@ -265,6 +282,7 @@ define( function(require, exports, module){
 					console.warn(data);
 					if(data.success){
 						util.showTip('保存成功');
+						me.trigger('editSuccess');
 						me.hide();
 					}
 				}
@@ -300,6 +318,7 @@ define( function(require, exports, module){
 				'success': function( data ){
 					if( data.success ){
 						util.showTip('提交成功');
+						me.trigger('editSuccess');
 						me.hide();
 					}
 				}
