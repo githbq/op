@@ -8322,6 +8322,10 @@ em {
 .m-detailapproval .approval-opinionaction p {
   padding: 5px 0;
 }
+.m-detailapproval .approval-btns {
+  padding: 10px 0;
+  text-align: right;
+}
 .order-content span.m-len {
   display: inline-block;
   text-align: right;
@@ -8780,4 +8784,82 @@ em {
           transform: scale(1.2);
   -webkit-transition: scale 1s ease-in-out;
   transition: scale 1s ease-in-out;
+}
+.m-dialog-normal .m-pagination {
+  text-align: right;
+}
+.m-dialog-normal .loading {
+  text-algin: center;
+}
+.m-dialog-normal .button-wrapper {
+  float: right;
+}
+.m-dialog-normal .panel-main .panel-header {
+  padding: 10px;
+}
+.m-dialog-normal .panel-main .panel-header input {
+  width: 180px;
+  height: 30px;
+  margin-left: 10px;
+}
+.m-dialog-normal .panel-main .panel-content .no-data {
+  padding-top: 20px;
+  line-height: 60px;
+  font-size: 20px;
+  text-align: center;
+  color: #d0cfcf;
+}
+.m-dialog-normal .panel-main .panel-footer {
+  padding: 10px 0;
+  text-align: center;
+}
+.list-content .unavailable {
+  color: #999;
+  cursor: default;
+}
+.list-content .unavailable:hover {
+  color: #999;
+  cursor: default;
+}
+.m-createreceive p {
+  margin-top: 30px;
+}
+.m-createreceive p span {
+  display: inline-block;
+  width: 140px;
+  padding-right: 10px;
+  text-align: right;
+}
+.m-createreceive p input {
+  margin-left: 3px;
+  width: 300px;
+  box-sizing: border-box;
+}
+.m-createreceive p select {
+  height: 27px;
+  width: 300px;
+  border: 1px solid #dedede;
+  border-radius: 2px;
+}
+.m-createreceive p button {
+  margin: 0 60px;
+}
+.m-import-dialog p.line {
+  width: 450px;
+  margin: 50px auto;
+}
+.m-import-dialog p.line input {
+  width: 320px;
+  margin: 0 15px;
+}
+.m-import-dialog p.line #i-submit,
+.m-import-dialog p.line #i-cancel {
+  margin-left: 100px;
+}
+#m-selector-order .list-content {
+  height: 420px;
+}
+#m-selector-order #s-submit {
+  margin-left: 300px;
+  margin-right: 250px;
 }

@@ -17,7 +17,7 @@ define( function( require, exports, module ) {
 
 	var CustomHelper = require('../widget/customhelper/customhelper');     //联合跟进人
     var InvoiceDetail = require('../widget/invoicedetail/invoicedetail');  //发票
-    var BackMoney = require('../backmoney/backmoney');                     //退款
+    var BackMoney = require('../detailbackmoney/detailbackmoney');         //退款
 	
 	var OnlinePay = require('../widget/onlinepay/onlinepay');              //???
 
@@ -235,8 +235,9 @@ define( function( require, exports, module ) {
             var me = this;
 
             var id = $(e.currentTarget).attr('data-id');
+            var status = $(e.currentTarget).attr('data-status');
 
-            me.trigger('detail', id );
+            me.trigger( 'detail', id , status );
         },
         //查看详情
         /*
@@ -545,9 +546,10 @@ define( function( require, exports, module ) {
         });
 
         //查看[待开发]
-        orderList.on('detail', function( id ){
+        orderList.on('detail', function( id , status ){
             console.log('查看');
             console.log( id );
+            console.log( status );
             detailApproval.show( id , 'a' );
         });
     }
