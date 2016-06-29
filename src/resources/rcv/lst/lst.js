@@ -498,7 +498,7 @@ define( function( require, exports, module ) {
                 sticks = new Date( startTime ).getTime();
             }
             if ( endTime ) {
-                eticks = new Date( endTime ).getTime() + 1000 * 60 * 60 * 24;
+                eticks = new Date( endTime ).getTime();
             }
             if ( sticks > eticks ) {
                 alert( '开始时间大于结束时间, 请重新选择.' );
