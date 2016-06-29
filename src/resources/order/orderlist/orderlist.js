@@ -235,8 +235,9 @@ define( function( require, exports, module ) {
             var me = this;
 
             var id = $(e.currentTarget).attr('data-id');
-            
-            me.trigger('detail', id );
+            var status = $(e.currentTarget).attr('data-status');
+
+            me.trigger( 'detail', id , status );
         },
         //查看详情
         /*
@@ -545,9 +546,10 @@ define( function( require, exports, module ) {
         });
 
         //查看[待开发]
-        orderList.on('detail', function( id ){
+        orderList.on('detail', function( id , status ){
             console.log('查看');
             console.log( id );
+            console.log( status );
             detailApproval.show( id , 'a' );
         });
     }
