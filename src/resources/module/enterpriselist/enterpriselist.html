@@ -85,11 +85,16 @@
                         <a class="info-detail" data-id="<%=item.csmEnterprise.enterpriseID%>" data-account="<%=item.csmEnterprise.enterpriseAccount%>">查看</a>
                         <a class="info-trace" data-state="agent" data-id="<%=item.csmEnterprise.enterpriseID%>" data-account="<%=item.csmEnterprise.enterpriseAccount%>">跟踪记录</a>
                         <a class="info-clue" data-state="agent" data-id="<%=item.csmEnterprise.enterpriseID%>" data-account="<%=item.csmEnterprise.enterpriseAccount%>">线索</a>
+                        <%if(item.canRenew){%>
                         <a class="info-renew" data-id="<%=item.csmEnterprise.enterpriseID%>" data-account="<%=item.csmEnterprise.enterpriseAccount%>">增购/续费</a>
+                        <%}else{%>
+                        <a style="color:#ccc;">增购/续费</a>&nbsp;&nbsp;
+                        <%}%>
+
                         <%if(item.canEditPartner == 1||item.canEditPartner == "1"){%>
 						<a class="info-custom"  data-enterpriseId="<%=item.csmEnterprise.enterpriseID%>">联合跟进人</a>&nbsp;&nbsp;
 						<%}else{%>
-						<a  style="color:#ccc;" >联合跟进人</a>&nbsp;&nbsp;
+						<a  style="color:#ccc;">联合跟进人</a>&nbsp;&nbsp;
 						<%}%>
 						
                     </td>
