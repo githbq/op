@@ -115,6 +115,8 @@ define(function (require, exports, module) {
             switch (value.toString()) {
                 case '1':
                 {
+                    payInfo.agentCurrPayAmount=0;
+                    payInfo.currPayAmount=0;
                     //全额
                     _.each($scope.payInfo.currPayList, function (item, i) {
                         if (item.toAgent) {
@@ -144,8 +146,10 @@ define(function (require, exports, module) {
                     break;
                 case '3':
                 {
+                    payInfo.agentCurrPayAmount = 0;
+                    payInfo.currPayAmount = 0;
                     //分期
-                    _.each(currPayList, function (item, i) {
+                    _.each($scope.payInfo.currPayList, function (item, i) {
                         if (item.toAgent) {
                             item.currPayAmount = 0;
                             payInfo.agentCurrPayAmount = math2.numAdd(payInfo.agentCurrPayAmount, parseFloat(item.purchaseAmount));
