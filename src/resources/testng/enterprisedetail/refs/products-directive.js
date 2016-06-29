@@ -179,12 +179,18 @@ define(function (require, exports, module) {
                                 if (rData && !checkUN(rData.value)) {
                                     item.value = rData.value;
                                 }
+                                if (rData && !checkUN(rData.valueItems)) {
+                                    item.valueItems = rData.valueItems;
+                                }
                             }
                             if (find && find.data) {
                                 //再赋保存的数据
                                 rData = _.findWhere(find.data, {name: item.name});
                                 if (rData && !checkUN(rData.value)) {
                                     item.value = rData.value;
+                                }
+                                if (rData && !checkUN(rData.valueItems)) {
+                                    item.valueItems = rData.valueItems;
                                 }
                             }
                         });

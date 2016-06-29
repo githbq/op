@@ -74,12 +74,14 @@ define(function (require, exports, module) {
     myApp.controller('form2Controller', ['$scope', 'productService', function ($scope, productService) {
         //产品已购信息
         $scope.productInfos = [];
-        //||'ceshishur3'
-        productService.getOrderList($scope.globalInfo.enterpriseAccount, function (data) {
-            $scope.$apply(function () {
-                $scope.productInfos = data;
+        if ($scope.globalInfo.submitType == 2) {//只有增购与续费才显示
+            //||'ceshishur3'
+            productService.getOrderList($scope.globalInfo.enterpriseAccount, function (data) {
+                $scope.$apply(function () {
+                    $scope.productInfos = data;
+                });
             });
-        });
+        }
         productService.getDiyOrderFormLogic($scope.globalInfo.enterpriseId || '', function (data) {
             $scope.$apply(function () {
                 $scope.productJson = angular.fromJson(data);
@@ -193,7 +195,7 @@ define(function (require, exports, module) {
         var entInfo = $scope.entInfo = {};
         entInfo.area = $scope.globalInfo.area;
         entInfo.enterpriseName = $scope.globalInfo.enterpriseName;
-        entInfo.enterpriseAccount=$scope.globalInfo.enterpriseAccount;
+        entInfo.enterpriseAccount = $scope.globalInfo.enterpriseAccount;
         //产品信息模块
         var productInfo = $scope.productInfo = {};
         //付款信息
