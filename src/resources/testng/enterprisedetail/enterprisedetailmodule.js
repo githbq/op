@@ -149,7 +149,7 @@ define(function (require, exports, module) {
                     payInfo.agentCurrPayAmount = 0;
                     payInfo.currPayAmount = 0;
                     //分期
-                    _.each(currPayList, function (item, i) {
+                    _.each($scope.payInfo.currPayList, function (item, i) {
                         if (item.toAgent) {
                             item.currPayAmount = 0;
                             payInfo.agentCurrPayAmount = math2.numAdd(payInfo.agentCurrPayAmount, parseFloat(item.purchaseAmount));
