@@ -130,13 +130,26 @@ define( function(require, exports, module){
         $scope.detail = function( e ){
             e.stopPropagation();
             var id = angular.element(e.target).attr('data-id'),
-                inId = angular.element(e.target).attr('data-inid');
+                inId = angular.element(e.target).attr('data-inid'),
+                status = angular.element(e.target).attr('data-status');
 
             var type;
+            //待审核的
             if( $scope.state == 'wait' ){
-                type = 'c';
+                
+                if( status == '10' ){
+                    type = 'b1';
+                }else{
+                    type = 'c';
+                }                
+
+            //非待审核的
             }else{
-                type = 'd';
+                if( status == '10' ){
+                    type = 'b2';
+                }else{
+                    type = 'd';
+                }
             }
 
             var detailApproval = new DetailApproval();

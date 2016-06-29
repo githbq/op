@@ -168,12 +168,41 @@ define( function(require, exports, module){
 				me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:true} );
 				me.approvalPage.hideTopBar();
 				me.approvalPage.hideFootBtns();
+
+				util.api({
+					'url':'',
+					'data':{
+						'orderId': me.orderId
+					},
+					'success': function( data ){
+						if( data.success ){
+							me.$('.htshow').attr('src','/op/api/file/previewimage?filePath='+data.value.model.contract);
+							me.$('.htfbshow').attr('src','/op/api/file/previewimage?filePath='+data.value.model.contractCopy);
+						}
+					}
+				})
+				me.$('[data-state="b+"]').show();
+				me.$('[data-state="c"]').show();
 			//补充合同(仅可查看)
 			}else if( type == 'b2' ){
 
 				me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:true} );
 				me.approvalPage.hideTopBar();
 				me.approvalPage.hideFootBtns();
+				
+				util.api({
+					'url':'',
+					'data':{
+						'orderId': me.orderId
+					},
+					'success': function( data ){
+						if( data.success ){
+							me.$('.htshow').attr('src','/op/api/file/previewimage?filePath='+data.value.model.contract)
+							me.$('.htfbshow').attr('src','/op/api/file/previewimage?filePath='+data.value.model.contractCopy);
+						}
+					}
+				})
+				me.$('[data-state="b+"]').show();
 			//只读
 			}else if( type == 'd'){
 				me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:true} );
