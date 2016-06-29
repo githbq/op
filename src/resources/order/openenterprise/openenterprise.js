@@ -65,8 +65,8 @@ define(function (require, exports, module) {
 
         //新增成功
         IBSS.tplEvent.on('order1.2Success', function () {
-            //location.hash = '';
-            history.back();
+            location.hash = '#order/orderlist';
+            //history.back();
         });
 
 

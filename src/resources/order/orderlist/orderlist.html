@@ -101,7 +101,7 @@
                             <a data-id="<%=item.order.id%>" class="<%if(item.canWithdraw){%>detail-revocation<%}else{%>disable<%}%>">撤回</a>
                             <a data-id="<%=item.order.id%>" class="<%if(item.canCollectFinalPay){%>detail-finalpay<%}else{%>disable<%}%>">收尾款</a>
                             <a data-id="<%=item.order.id%>" class="<%if(item.canDelete){%>detail-delete<%}else{%>disable<%}%>">删除</a>
-                            <a data-id="<%=item.order.id%>" class="detail-info">查看</a>
+                            <a data-id="<%=item.order.id%>" data-status="<%=item.approveStatus%>" data-class="detail-info">查看</a>
                             <a data-id="<%=item.order.id%>" class="<%if(item.canSupContract){%>detail-supplement<%}else{%>disable<%}%>">补充合同</a>
                             <a data-id="<%=item.order.id%>" data-daokuan="<%=item.claimOrShowReceivedPay%>" class="<%=item.claimClass%>">到款认领</a>
                             <a data-id="<%=item.order.id%>" class="<%if(item.canInvoice){%>detail-invoice<%}else{%>disable<%}%>">发票</a>
