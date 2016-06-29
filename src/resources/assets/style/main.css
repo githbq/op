@@ -8791,6 +8791,9 @@ em {
   -webkit-transition: scale 1s ease-in-out;
   transition: scale 1s ease-in-out;
 }
+.m-dialog-normal {
+  max-height: 600px;
+}
 .m-dialog-normal .m-pagination {
   text-align: right;
 }
