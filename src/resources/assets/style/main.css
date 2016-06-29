@@ -8309,18 +8309,58 @@ em {
 .m-detailapproval .approval-title span.active {
   background: #eee;
 }
-.m-detailapproval .approval-opinionaction {
-  border-top: 1px #ccc dashed;
-  margin-top: 10px;
-  padding-top: 10px;
+.m-detailapproval .approval-table {
+  border-top: 1px #444 dashed;
+  margin-top: 30px;
+  padding-top: 20px;
 }
-.m-detailapproval .approval-opinionaction h4 {
-  padding: 5px 0;
+.m-detailapproval .approval-table .title {
+  font-size: 14px;
   font-weight: bold;
-  font-size: 22px;
+  padding: 8px 0;
+}
+.m-detailapproval .approval-table .tip {
+  text-align: center;
+  font-size: 16px;
+  padding: 5px 0;
+  color: #666;
+}
+.m-detailapproval .approval-table table {
+  border: 1px #ccc solid;
+}
+.m-detailapproval .approval-table table tr {
+  border-bottom: 1px #ccc solid;
+}
+.m-detailapproval .approval-table table tr th,
+.m-detailapproval .approval-table table tr td {
+  padding: 0 10px;
+}
+.m-detailapproval .approval-table table tr th {
+  color: #444;
+  background: #eee;
+}
+.m-detailapproval .approval-opinionaction {
+  border-top: 1px #444 dashed;
+  margin-top: 30px;
+  padding-top: 20px;
+}
+.m-detailapproval .approval-opinionaction .title {
+  font-size: 14px;
+  font-weight: bold;
+  padding: 8px 0;
 }
 .m-detailapproval .approval-opinionaction p {
-  padding: 5px 0;
+  padding: 8px 0;
+}
+.m-detailapproval .approval-contract {
+  border-top: 1px #444 dashed;
+  margin-top: 30px;
+  padding-top: 20px;
+}
+.m-detailapproval .approval-contract .title {
+  font-size: 14px;
+  font-weight: bold;
+  padding: 8px 0;
 }
 .m-detailapproval .approval-btns {
   padding: 10px 0;

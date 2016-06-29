@@ -138,78 +138,95 @@ define( function(require, exports, module){
 			//缓存额外信息
 			me.orderId = id;
 			me.info = info;
-			//审批状态
-			if( type == 'c' ){
-				
-				me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:true} );
-				me.approvalPage.hideTopBar();
-				me.approvalPage.hideFootBtns();
-				me.$('[data-state="c"]').show();
 
-			//订单查看(可编辑内容)
-			}else if( type == 'a' ){
-				console.log('edit edit edit');
-				console.log( id );
-				me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:false} );
-				me.approvalPage.hideTopBar();
-				me.approvalPage.hideFootBtns();
-				me.$('[data-state="a"]').show();
-			//补充合同
-			}else if( type == 'b' ){
+			switch( type ){
 
-				me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:true} );
-				me.approvalPage.hideTopBar();
-				me.approvalPage.hideFootBtns();
-				me.$('[data-state="b"]').show();
-			
-			//补充合同(可审核)			
-			}else if( type == 'b1' ){
+				//审批只读 [小助手/财务](可进行审批同意或驳回);
+				case 'c':
+					me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:true} );
+					me.approvalPage.hideTopBar();
+					me.approvalPage.hideFootBtns();
+					me.$('[data-state="c"]').show();
+				break;
+				//订单查看  [订单列表]  (可进行编辑提交)
+				case 'a':
+					me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:false} );
+					me.approvalPage.hideTopBar();
+					me.approvalPage.hideFootBtns();
+					me.$('[data-state="a"]').show();
+				break;
+				//补充合同  [订单列表]  (可以补充合同)
+				case 'b':
+					me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:true} );
+					me.approvalPage.hideTopBar();
+					me.approvalPage.hideFootBtns();
+					me.$('[data-state="b"]').show();
+				break;
+				//补充合同  [小助手/财务] (可进行审批同意或驳回);
+				case 'b1':
+					me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:true} );
+					me.approvalPage.hideTopBar();
+					me.approvalPage.hideFootBtns();
 
-				me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:true} );
-				me.approvalPage.hideTopBar();
-				me.approvalPage.hideFootBtns();
-
-				util.api({
-					'url':'',
-					'data':{
-						'orderId': me.orderId
-					},
-					'success': function( data ){
-						if( data.success ){
-							me.$('.htshow').attr('src','/op/api/file/previewimage?filePath='+data.value.model.contract);
-							me.$('.htfbshow').attr('src','/op/api/file/previewimage?filePath='+data.value.model.contractCopy);
+					util.api({
+						'url':'',
+						'data':{
+							'orderId': me.orderId
+						},
+						'success': function( data ){
+							if( data.success ){
+								me.$('.htshow').attr('src','/op/api/file/previewimage?filePath='+data.value.model.contract);
+								me.$('.htfbshow').attr('src','/op/api/file/previewimage?filePath='+data.value.model.contractCopy);
+							}
 						}
-					}
-				})
-				me.$('[data-state="b+"]').show();
-				me.$('[data-state="c"]').show();
-			//补充合同(仅可查看)
-			}else if( type == 'b2' ){
-
-				me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:true} );
-				me.approvalPage.hideTopBar();
-				me.approvalPage.hideFootBtns();
-				
-				util.api({
-					'url':'',
-					'data':{
-						'orderId': me.orderId
-					},
-					'success': function( data ){
-						if( data.success ){
-							me.$('.htshow').attr('src','/op/api/file/previewimage?filePath='+data.value.model.contract)
-							me.$('.htfbshow').attr('src','/op/api/file/previewimage?filePath='+data.value.model.contractCopy);
+					})
+					me.$('[data-state="b+"]').show();
+					me.$('[data-state="c"]').show();
+				break;
+				//补充合同  [小助手/财务] (仅可查看);
+				case 'b2':
+					me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:true} );
+					me.approvalPage.hideTopBar();
+					me.approvalPage.hideFootBtns();
+					
+					util.api({
+						'url':'',
+						'data':{
+							'orderId': me.orderId
+						},
+						'success': function( data ){
+							if( data.success ){
+								me.$('.htshow').attr('src','/op/api/file/previewimage?filePath='+data.value.model.contract)
+								me.$('.htfbshow').attr('src','/op/api/file/previewimage?filePath='+data.value.model.contractCopy);
+							}
 						}
-					}
-				})
-				me.$('[data-state="b+"]').show();
-			//只读
-			}else if( type == 'd'){
-				me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:true} );
-				me.approvalPage.hideTopBar();
-				me.approvalPage.hideFootBtns();
+					})
+					me.$('[data-state="b+"]').show();
+				break;
+				//只读状态  [订单列表] (仅可查看)
+				case 'd':
+					me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:true} );
+					me.approvalPage.hideTopBar();
+					me.approvalPage.hideFootBtns();
+				break;
 			}
+
 			me.approvalPage.render();
+			me.getInfo();
+		},
+		//获取基本信息
+		getInfo: function(){
+			var me = this;
+
+			//获取审批意见
+			util.api({
+				'url':'/odr/getRejectReason',
+				'orderId': me.orderId,
+				'success': function( data ){
+					console.log('审批意见');
+					console.log( data );
+				}
+			})
 		},
 
 		//校验 合同审核 审批意见

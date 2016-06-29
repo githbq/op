@@ -2,11 +2,14 @@
     <p class="approval-title">
     	<span class="active" data-index="1">企业信息</span><span data-index="2">产品信息</span><span data-index="3">付款信息</span>
     </p>
+
+    <!--订单详细信息 view-->
     <section class="approval-content">
     	
     </section>
-    <!--审批意见明细-->
-    <section class="approval-opinion">
+
+    <!--审批意见明细 view-->
+    <section class="approval-table approval-opinion">
         <p class="title">审批意见明细</p>
         <table>
             <thead>
@@ -19,14 +22,44 @@
             </thead>
             <tbody>
                 <tr>
-                    <td colspan="4">暂无数据</td>
+                    <td colspan="4"><p class="tip">暂无数据</p></td>
                 </tr>
             </tbody>
         </table>
     </section>
-    <!--审批意见-->
+
+    <!--到款信息 view-->
+    <section class="approval-table approval-daokuan">
+        <p class="title">到款信息</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>到款编号</th>
+                    <th>到款日期</th>
+                    <th>到款金额(元)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="4"><p class="tip">暂无数据</p></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    
+    <!--补充合同展示页面 view-->
+    <section class="approval-contractshow" data-state="b+">
+        <h4>补充合同信息</h4>
+        <p>补充合同照片</p>
+        <p><img src="" class="htshow"></p>
+        <p>补充合同副本照片</p>
+        <p><img src="" class="htfbshow"></p>
+    </section>
+
+
+    <!--审批意见 action-->
     <section class="approval-opinionaction" data-state="c">
-        <h4>审批意见</h4>
+        <p class="title">审批意见</p>
     	<p> 
             <span>合同审核</span>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -52,27 +85,20 @@
             <button class="u-btn-red action-refuse">驳回</button>
         </p>
     </section>
-    <!--补充合同展示页面-->
-    <section class="approval-contractshow" data-state="b+">
-        <h4>补充合同信息</h4>
-        <p>补充合同照片</p>
-        <p><img src="" class="htshow"></p>
-        <p>补充合同副本照片</p>
-        <p><img src="" class="htfbshow"></p>
-    </section>
 
-    <!--补充合同-->
+    <!--补充合同 action-->
     <section class="approval-contract" data-state="b">
+        <p class="title">补充合同</p>
     	<p><label>补充合同照片    </label>  <input type="file" id="hetong"> </p>
         <p> <img src="" id="hetongimg"> </p>
         <p><label>补充合同副本照片</label>  <input type="file" id="hetongfb"> </p>
         <p> <img src="" id="hetongfbimg"> </p>
-        <p> <button class="u-btn-blue savehetong">保存合同</button> </p>
+        <p> <button class="u-btn-blue savehetong">保存合同并提交</button> </p>
     </section>
 
-    <!--编辑按钮-->
+    <!--编辑按钮 action-->
     <section class="approval-btns" data-state="a">
-        <button class="u-btn-blue action-save">保存提交</button>
+        <button class="u-btn-blue action-save">保存并提交</button>
     </section>
 </div>
 
