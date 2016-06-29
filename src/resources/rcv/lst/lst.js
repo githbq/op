@@ -23,15 +23,10 @@ define( function( require, exports, module ) {
         elements:{
             '#c-rcvNum': 'rcvNum',
             '#c-date': 'date',
-            '#c-payer': 'payer',
-            '#c-amount': 'amount',
-            '#c-fee': 'fee',
-            '#c-type': 'type',
-            '#c-bank': 'bank',
             '#c-department': 'department',
-            '#c-account': 'account',
             '#departmentText': 'departmentText',
-            '.info': 'info'
+            '.info': 'info',
+            '[data-model]':'data'
         },
         init: function(){
             CreateReceipt.__super__.init.apply( this, arguments );
@@ -56,26 +51,23 @@ define( function( require, exports, module ) {
                         if(res.success){
                             res.value.model.receivedPayDate = new Date(res.value.model.receivedPayDate)._format( "yyyy/MM/dd" );
 
-                            me.$info.each(function(i, item){
+                            me.$data.each(function(i, item){
                                 var data = $(item).attr('data-model');
                                 $(item).val(res.value.model[data]);
                             });
-
                         }
                     }
                 });
-                return;
             }
-            me.$info.val('');
-            me.$departmentText.val('');
-            $(".info option[disabled]").each(function(i,item){
-                this.selected = true;
-            });
+            
         },
         hide: function(){
             CreateReceipt.__super__.hide.apply( this,arguments );
+            this.$data.val('');
+            $(".info option[disabled]").each(function(i,item){
+                this.selected = true;
+            });
             this.id='';
-            
         },
         keydown: function(e) {//只能删除不能输入
             if(e.keyCode == 46||e.keyCode == 8){
@@ -92,22 +84,22 @@ define( function( require, exports, module ) {
                 searchOptions:{show:true,title:'部门名称'},
                 ztreeOptions:{expandAll:true,check:{chkStyle: "radio",radioType: "all"},
                 checkStyle:"radio"},
-                ajaxData:{url:'http://localhost:8087/admin/api/authfunction/queryDept'}
+                ajaxData:{url:'~/op/api/a/odr/receivedpay/getAllDepartment'}
             });
             me.deptTree.on('enter', function (  ) {
                 me.deptObj = me.deptTree.getValue() ? me.deptTree.getValue()[0]: null;
                 me.deptObjId = [me.deptObj.id]
                 me.postObjId = [];
                 me.postObj = null;
-                me.deptObj ? me.$('.detp-area').text(me.deptObj.name +" —— "):me.$('.detp-area').text('');
-                me.$('.post-area').text('');
-                
+                me.deptObj ? me.$departmentText.val(me.deptObj.name ):me.$department.val('');
+                me.$department.val(me.deptObjId);
             });
             me.deptTree.show( me.deptObjId, {})
         },
         
         submit: function() {//提交编辑
             var me = this;
+            me.trigger('refresh');
             var bool = false;
             var append = '';
             var data = {};
@@ -137,8 +129,8 @@ define( function( require, exports, module ) {
                 success: function( res ){
                     if( res.success ){
                         util.showTip('提交成功');
-                        me.hide();
                         me.trigger('refresh');
+                        me.hide();
                     }
                 }
             });
