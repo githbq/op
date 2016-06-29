@@ -4,6 +4,8 @@
     <button ng-click="goTo(1)">step1</button>
     <button ng-click="goTo(2)">step2</button>
     <button ng-click="goTo(3)">step3</button>
+
+
     <div ng-show="step==1" ng-controller="form1Controller" ng-class="{step_validate_error:step_1_validate_error}" class="step form baseinfo" ng-form name="stepForm1">
         <div class="top-bar" ng-if="hideTopBar!==true">
             <!--<h1>第一步&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;企业信息</h1>-->
@@ -285,7 +287,7 @@
                     <label class="required"><span>分期金额</span></label>
                 </div>
                 <div class="form-field inputs-container">
-                    <label class="fenqi-label" ng-repeat="item in payInfo.currPayList">
+                    <label ng-if="item.toAgent!==true" class="fenqi-label" ng-repeat="item in payInfo.currPayList">
                         <span>{{item.productName}}(元)</span>
                         <input ng-model-options="{updateOn:'default'}" ng-change="currPayAmountChange(payInfo.currPayList)"
                                ng-class="{readonly:payInfoReadonly||payInfo.partReadonly}" number ng-readonly="payInfoReadonly||payInfo.partReadonly"
