@@ -55,7 +55,7 @@ define( function(require, exports, module){
 		},
 		//
 		// @param id   	订单id 
-		// @param type  a 订单编辑查看  b 补充合同  c 审批只读(可进行审批同意或驳回) d 完全只读状态
+		// @param type  a 订单编辑查看  b 补充合同(可以补充合同)  c 审批只读(可进行审批同意或驳回) d完全只读状态
 		// @param info  一些额外信息
 		//==============================================
 		show: function( id , type , info ){
@@ -65,25 +65,34 @@ define( function(require, exports, module){
 
 			//缓存额外信息
 			me.info = info;
-			//审批只读
+			//审批状态
 			if( type == 'c' ){
-				me.$('[data-state="c"]').show();
+				
 				me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:true} );
 				me.approvalPage.hideTopBar();
 				me.approvalPage.hideFootBtns();
+				me.$('[data-state="c"]').show();
 			//订单查看
 			}else if( type == 'a' ){
 
+				console.log( id );
+				me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:false} );
+				me.approvalPage.hideTopBar();
+				me.approvalPage.hideFootBtns();
 			//补充合同
 			}else if( type == 'b' ){
 
+				me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:true} );
+				me.approvalPage.hideTopBar();
+				me.approvalPage.hideFootBtns();
+				me.$('[data-state="b"]').show();
 			//只读
 			}else if( type == 'd'){
 				me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:true} );
 				me.approvalPage.hideTopBar();
 				me.approvalPage.hideFootBtns();
 			}
-			me.approvalPage.render();
+			//me.approvalPage.render();
 		},
 
 		//校验 合同审核 审批意见

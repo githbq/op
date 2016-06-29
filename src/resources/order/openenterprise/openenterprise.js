@@ -54,6 +54,9 @@ define(function (require, exports, module) {
         //IBSS.tplEvent.trigger('order1.2Success');
         //IBSS.tplEvent.trigger('order1.2Close');
 
+        IBSS.tplEvent.off('order1.2Close');
+        IBSS.tplEvent.off('order1.2Success');
+
         //取消
         IBSS.tplEvent.on('order1.2Close', function () {
             //location.hash = '';
