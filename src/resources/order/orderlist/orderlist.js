@@ -72,7 +72,7 @@ define( function( require, exports, module ) {
                 'success': function( data ){
                     if( data.success ){
                         if( data.value.model.length <= 0 ){
-                            me.$('tbody').html('<tr><td colspan="8"><p class="tip">暂无匹配到的数据</p></td></tr>');
+                            me.$('tbody').html('<tr><td colspan="8"><p class="tip">暂未匹配到的数据</p></td></tr>');
                         }else{
                             me.list.reload( data.value.model , function(){
 
