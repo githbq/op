@@ -5,7 +5,7 @@ define( function( require, exports, module ) {
     var Pagination = require( 'common/widget/pagination/pagination' );
     var Slider = require( 'common/widget/slider/slider' );
     var Dialog = require('common/widget/dialog/dialog');
-    //var orderDetail = require('order/detailapproval/detailapproval');
+    var Detail = require('../../order/detailapproval/detailapproval');
     var uploader = require('common/widget/upload').uploader;
     var CustomTree=require('module/customtree/customtree').getDialog();
     var tpl = $( require( './template.html' ) );
@@ -218,7 +218,7 @@ define( function( require, exports, module ) {
                                     +'<td>'+item.order.enterpriseAccount+'</td>'
                                     +'<td>'+item.account.name+'</td>'
                                     +'<td>'+item.formatTime+'</td>'
-                                    +'<td><a class="check" data-id="item.order.id">查看</a></td>'
+                                    +'<td><a class="check" data-id="'+item.order.id+'">查看</a></td>'
                                     +'</tr>';
                             });
                         }else{
@@ -234,8 +234,8 @@ define( function( require, exports, module ) {
             })
         },
         check: function(e) {
-            var id = $(e.currentTarge).attr('data-id');
-            this.trigger('checkDetail');
+            var id = $(e.currentTarget).attr('data-id');
+            this.trigger('checkDetail', id);
         },
         submit: function(data) {
             var me = this;
@@ -557,6 +557,7 @@ define( function( require, exports, module ) {
         var createReceipt = new CreateReceipt({'title':'新增/编辑'});
         var selectOrder = new SelectOrder({'title':'选择订单'});
         var importDialog = new ImportDialog({'title':'导入'});
+        var detail = new Detail();
         var duplication = new Duplication();
 
         function refreshList() {
@@ -578,9 +579,9 @@ define( function( require, exports, module ) {
         importDialog.on('showDup', function(data) {
             duplication.show(data);
         });
-
+        // 查看订单详情
         selectOrder.on('checkDetail', function( id ){
-            //orderDetail.show(id, 'd');
+            detail.show(id, 'd');
         });
 
         // 更新列表
