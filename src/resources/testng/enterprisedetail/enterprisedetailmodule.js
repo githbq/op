@@ -2,7 +2,7 @@ define(function (require, exports, module) {
     require('common/widget/select2/select2');
     require('./refs/directives');
     require('./refs/filters');
-    var myApp = angular.module('formApp', ['angular.filter', 'ngMessages', 'common.directives','common.filters']);
+    var myApp = angular.module('formApp', ['angular.filter', 'ngMessages', 'common.directives', 'common.filters']);
     require('./refs/products-directive');
     require('./refs/product-services');//对应的远程服务
     var dialogManager = require('./refs/dialog');
@@ -202,17 +202,19 @@ define(function (require, exports, module) {
         $scope.goTo = function (step) {
             $scope.step = step;
         };
-        $scope.enterpriseReadonly = false;//企业详情信息 只读
-        $scope.payInfoReadonly = false;//企业详情信息 只读
-        $scope.productReadonly = false;//产品信息 只读
+        $scope.enterpriseReadonly = $scope.globalInfo.readonly;//企业详情信息 只读
+        $scope.payInfoReadonly = $scope.globalInfo.readonly;//企业详情信息 只读
+        $scope.productReadonly = $scope.globalInfo.readonly;//产品信息 只读
         $scope.editMode = false;
         mainReturnData = $scope;
         $scope.orderFromData = [];//产品模块的数据来源用于编辑时
         productService.getOrderDetailByOrderId($scope.globalInfo.orderId, function (data) {
             $timeout(function () {
-                $scope.enterpriseReadonly = !data.canEditEnterprise;
-                $scope.productReadonly = !data.canEditOrder;
-                $scope.payInfoReadonly = !data.canEditPaidInfo;
+                if (!$scope.globalInfo.readonly) {//传过来的只读为false才同远程数据对接
+                    $scope.enterpriseReadonly = !data.canEditEnterprise;
+                    $scope.productReadonly = !data.canEditOrder;
+                    $scope.payInfoReadonly = !data.canEditPaidInfo;
+                }
                 $scope.entInfo = data.odrDraftEnterprise || {};
                 $scope.productInfo = data.odrDraftOrder || {};
                 $scope.orderFromData = angular.fromJson(data.odrDraftOrder.content);//订单来源数据
