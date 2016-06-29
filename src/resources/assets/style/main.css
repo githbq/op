@@ -8359,8 +8359,14 @@ em {
   line-height: 30px;
 }
 .m-claim .claim-action {
+  display: none;
   padding: 10px 0;
   text-align: center;
+}
+.m-claim .tip {
+  text-align: center;
+  padding: 5px 0;
+  font-size: 14px;
 }
 .m-orderlist td .disable {
   color: #bdbdbd;

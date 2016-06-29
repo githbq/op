@@ -246,7 +246,7 @@
                 </div>
             </div>
             <div class="form-row">
-                <div required
+                <div ng-required="true"
                      name="contract"
                      ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly"
                      ng-model="payInfo.contract"
@@ -266,7 +266,7 @@
                      ng-model="payInfo.contractCopy"
                      input-file
                      status="payInfo.contractCopy_status"
-                     required
+                     ng-required="true"
                      label="合同副本照片"
                      response=""></div>
             </div>

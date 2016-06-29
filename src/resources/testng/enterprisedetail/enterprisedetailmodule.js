@@ -108,23 +108,24 @@ define(function (require, exports, module) {
         //付款状态改变事件
         $scope.payStatusChange = function (value) {
             _.each($scope.payInfo.currPayList, function (item, i) {
-                item.currPayAmount = item.currPayAmount|| 0;
+                item.currPayAmount = item.currPayAmount || 0;
             });
+            payInfo.agentCurrPayAmount = payInfo.agentCurrPayAmount || 0;
+            payInfo.currPayAmount = payInfo.currPayAmount || 0;
             switch (value.toString()) {
                 case '1':
                 {
+                    payInfo.agentCurrPayAmount=0;
+                    payInfo.currPayAmount=0;
                     //全额
-                    var agentPrice = 0;
-                    var companyPrice = 0;
                     _.each($scope.payInfo.currPayList, function (item, i) {
                         if (item.toAgent) {
-                            agentPrice = math2.numAdd(agentPrice, item.purchaseAmount);
+                            payInfo.agentCurrPayAmount = math2.numAdd(payInfo.agentCurrPayAmount, item.purchaseAmount);
                         } else {
-                            companyPrice = math2.numAdd(companyPrice, item.purchaseAmount);
+                            payInfo.currPayAmount = math2.numAdd(payInfo.currPayAmount, item.purchaseAmount);
                         }
+                        item.currPayAmount = 0;
                     });
-                    payInfo.agentCurrPayAmount = agentPrice;
-                    payInfo.currPayAmount = companyPrice;
                 }
                     ;
                     break;
@@ -132,25 +133,30 @@ define(function (require, exports, module) {
                 {
                     //未付
                     payInfo.agentCurrPayAmount = 0;
+                    payInfo.currPayAmount = 0;
                     _.each($scope.payInfo.currPayList, function (item, i) {
                         if (item.toAgent) {
                             payInfo.agentCurrPayAmount = math2.numAdd(payInfo.agentCurrPayAmount, item.purchaseAmount);
                         }
+                        item.currPayAmount = 0;
                     });
-                    payInfo.currPayAmount = 0;
+
                 }
                     ;
                     break;
                 case '3':
                 {
-                    //分期
                     payInfo.agentCurrPayAmount = 0;
-                    _.each($scope.payInfo.currPayList, function (item, i) {
+                    payInfo.currPayAmount = 0;
+                    //分期
+                    _.each(currPayList, function (item, i) {
                         if (item.toAgent) {
-                            payInfo.agentCurrPayAmount = math2.numAdd(payInfo.agentCurrPayAmount, item.purchaseAmount);
+                            item.currPayAmount = 0;
+                            payInfo.agentCurrPayAmount = math2.numAdd(payInfo.agentCurrPayAmount, parseFloat(item.purchaseAmount));
+                        } else {
+                            payInfo.currPayAmount = math2.numAdd(payInfo.currPayAmount, parseFloat(item.currPayAmount));
                         }
                     });
-                    payInfo.currPayAmount = 0;
                 }
                     ;
                     break;

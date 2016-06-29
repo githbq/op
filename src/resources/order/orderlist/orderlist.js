@@ -41,19 +41,77 @@ define( function( require, exports, module ) {
         init: function(){
             Claim.__super__.init.apply( this, arguments );
         },
-        show: function(){
+        //到款认领
+        show: function( id , status ){
             Claim.__super__.show.apply( this, arguments );
+            var me = this;          //0都不可以 1显示到款认领 2查看认领的到款
+
+            me.orderId = id;
+            if( status == 1 ){
+                me.$('.claim-action').show();
+                me.url = '/odr/getMatchedReceivedPay';
+            } else {
+                me.$('.claim-action').hide();
+                me.url = '/odr/getClaimedReceivedPay';
+            }
+
+            me.searchEve();
+        },
+        //搜寻到款列表
+        searchEve: function(){
+            var me = this;
+
+             util.api({
+                'url': me.url,
+                'data': {
+                    'orderId': me.orderId
+                },
+                'beforeSend': function(){
+                    me.$('tbody').html('<tr><td colspan="8"><p class="tip">加载中......</p></td></tr>');
+                },
+                'success': function( data ){
+                    if( data.success ){
+                        if( data.value.model.length <= 0 ){
+                            me.$('tbody').html('<tr><td colspan="8"><p class="tip">暂未匹配到的数据</p></td></tr>');
+                        }else{
+                            me.list.reload( data.value.model , function(){
+
+                            });
+                        }
+                    }
+                }
+            })
         },
         hide: function(){
+            var me = this;
+            me.$('.claim-action').hide();
             Claim.__super__.hide.apply( this, arguments );
         },
         //认领
         claimEve: function(){
+            var me = this;
             console.log('认领');
+            var id = me.$('[name="daokuan"]:checked').val();
+            console.log(id);
+
+            util.api({
+                'url':'/odr/claimReceivedPay',
+                'data':{
+                    'orderId': me.orderId,
+                    'receivedPayId': id
+                },
+                'success': function( data ){
+                    if( data.success ){
+                        util.showTip('认领成功');
+                        me.hide();
+                    }
+                }
+            })
         },
         //重新匹配
         rematchEve: function(){
-            console.log('重新匹配');
+            var me = this;
+            me.searchEve();
         }
     });
 
@@ -267,8 +325,9 @@ define( function( require, exports, module ) {
         daokuanEve: function(e){
             console.log('到款认领');
             var me = this;
-            var id = $(e.currentTarget).attr('data-id');
-            var status = $(e.currentTarget).attr('data-daokuan');
+            var id = $(e.currentTarget).attr('data-id');                 //
+            var status = $(e.currentTarget).attr('data-daokuan');        //0都不可以 1显示到款认领 2查看认领的到款
+
             me.trigger('daokuan', id , status );
         },
         //发票
@@ -535,8 +594,8 @@ define( function( require, exports, module ) {
         });
 
         //到款认领[待开发完成]
-        orderList.on('daokuan', function( id ){
-            claim.show(id);
+        orderList.on('daokuan', function( id , status ){
+            claim.show( id, status );
         });
 
         //补充合同[待开发]
@@ -550,7 +609,16 @@ define( function( require, exports, module ) {
             console.log('查看');
             console.log( id );
             console.log( status );
-            detailApproval.show( id , 'a' );
+            
+            //被驳回和已撤回可编辑
+            if( IBSS.API_PATH == '/op/api/a' && (status == '2' || status == '3') ){
+
+                detailApproval.show( id , 'a');
+            //其他只可以看详情
+            } else {
+
+                detailApproval.show( id , 'd');
+            }
         });
     }
 } );

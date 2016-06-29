@@ -8,7 +8,7 @@ define(function (require, exports, module) {
     var template = require('./template.html');
     app.directive('inputFile', ['fileService', '$timeout', function (fileService, $timeout) {
         return {
-            scope: {label: '@', ngReadonly: '=', required: '=', ngModel: '=', status: '=', response: '='},
+            scope: {label: '@', ngReadonly: '=', ngRequired: '=', ngModel: '=', status: '=', response: '='},
             controller: ['$scope', function ($scope) {
             }],
             link: function (scope, iElem, iAttrs) {

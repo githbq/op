@@ -32,7 +32,8 @@ define( function(require, exports, module){
 		events:{
 			'click .approval-title span': 'toggleEve',
 			'click .action-agree': 'agreeEve',
-			'click .action-refuse': 'refuseEve'
+			'click .action-refuse': 'refuseEve',
+			'click .action-save': 'saveEve'            //重新编辑保存
 		},
 		init: function(){
 			DetailApproval.__super__.init.apply( this,arguments );
@@ -64,6 +65,7 @@ define( function(require, exports, module){
 			console.log('dododo');
 
 			//缓存额外信息
+			me.orderId = id;
 			me.info = info;
 			//审批状态
 			if( type == 'c' ){
@@ -175,7 +177,31 @@ define( function(require, exports, module){
 	            })
 			}
 		},
+		//重新编辑保存
+		saveEve: function(){
+			var me = this;
+			var data = me.approvalPage.getReturnData();
 
+			var postData = {
+				'odrDraftEnterprise': data.entInfo,
+				'odrDraftOrder': data.productInfo,
+				'odrDraftPaidInfo': data.payInfo,
+				'orderId': me.orderId
+			}
+
+			//保存
+			util.api({
+				'url': '/odr/update',
+				'data': postData,
+				'success': function( data ){
+					console.warn(data);
+					if(data.success){
+						
+					}
+				}
+			})
+			console.log(data);
+		},
 		//重新发送
 		hide: function(){
 			var me = this;
