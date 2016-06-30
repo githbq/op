@@ -43,7 +43,8 @@ define(function (require, exports, module) {
             } else {
 
                 data = {
-                    'enterpriseId': param[0]
+                    'enterpriseId': param[0],
+                    'enterpriseAccount': param[1]
                 };
                 page = new Page({wrapper: $el, orderId: null, isNew: false, isAdd: true, isRef: false, readonly: false, data: data});
                 page.render();
