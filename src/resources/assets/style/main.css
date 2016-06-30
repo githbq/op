@@ -2952,6 +2952,7 @@ audio.fn-hide-abs {
 .xdsoft_datetimepicker .xdsoft_datepicker.active,
 .xdsoft_datetimepicker .xdsoft_timepicker.active {
   display: block;
+  background: none;
 }
 .xdsoft_datetimepicker .xdsoft_datepicker {
   width: 224px;
@@ -6198,6 +6199,7 @@ html[dir="rtl"] .select2-search-choice-close {
   color: #2896f0;
   text-decoration: underline;
   border-radius: 8px;
+  background: none;
 }
 .ui-slider .con {
   padding-top: 20px;
