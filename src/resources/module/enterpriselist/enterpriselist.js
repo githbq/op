@@ -311,7 +311,9 @@ define(function(require, exports, module) {
         renewEve: function(e) {
             var me = this;
             var id = $(e.currentTarget).attr('data-id');
-            me.trigger('renew',id);
+            var account = $(e.currentTarget).attr('data-account');
+
+            me.trigger('renew',id,account);
         },
 
         //联合跟进人
