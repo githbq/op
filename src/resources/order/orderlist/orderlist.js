@@ -123,7 +123,7 @@ define( function( require, exports, module ) {
         //重新匹配
         rematchEve: function(){
             var me = this;
-            me.searchEve();
+            me.searchEve(true);
         }
     });
 
