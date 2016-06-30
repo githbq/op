@@ -23,6 +23,11 @@ define( function( require, exports, module ) {
 
     var tem = $( require('./template.html') );
     
+    var Map = {
+        '1': '到款',
+        '2': '退款'
+    }
+
     //到款认领
     var Claim = MClass( Dialog ).include({
 
@@ -50,12 +55,12 @@ define( function( require, exports, module ) {
             if( status == 1 ){
                 me.$('.claim-action').show();
                 me.url = '/odr/getMatchedReceivedPay';
-                me.searchEve()
+                me.searchEve( true );
             } else {
                 me.$('.claim-action').hide();
                 me.url = '/odr/getClaimedReceivedPay';
+                me.searchEve( false );
             }
-            me.searchEve();
         },
 
         //搜寻到款列表
@@ -75,7 +80,15 @@ define( function( require, exports, module ) {
                         if( data.value.model.length <= 0 ){
                             me.$('tbody').html('<tr><td colspan="8"><p class="tip">暂未匹配到的数据</p></td></tr>');
                         }else{
-                            me.list.reload( data.value.model , function(){});
+                            if( bool ){
+                                me.list.reload( data.value.model , function( item ){
+                                    item.propertyStr = Map[item.property];
+                                });
+                            } else {
+                                me.list.reload( [data.value.model] , function( item ){
+                                    item.propertyStr = Map[item.property];
+                                });
+                            }
                         }
                     }
                 }
