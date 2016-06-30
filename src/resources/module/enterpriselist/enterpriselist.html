@@ -84,7 +84,9 @@
                         
                         <a class="info-detail" data-id="<%=item.csmEnterprise.enterpriseID%>" data-account="<%=item.csmEnterprise.enterpriseAccount%>">查看</a>
                         <a class="info-trace" data-state="agent" data-id="<%=item.csmEnterprise.enterpriseID%>" data-account="<%=item.csmEnterprise.enterpriseAccount%>">跟踪记录</a>
-                        <a class="info-clue" data-state="agent" data-id="<%=item.csmEnterprise.enterpriseID%>" data-account="<%=item.csmEnterprise.enterpriseAccount%>">线索</a>
+                        <% if(item.clueId) { %>
+                            <a class="info-clue" data-clue="<%=item.clueId%>">线索</a>
+                        <% } %>
                         <%if(item.canIncrease){%>
                         <a class="info-renew" data-id="<%=item.csmEnterprise.enterpriseID%>" data-account="<%=item.csmEnterprise.enterpriseAccount%>">增购/续费</a>
                         <%}else{%>

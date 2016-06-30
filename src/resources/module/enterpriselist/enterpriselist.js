@@ -302,8 +302,7 @@ define(function(require, exports, module) {
 
         //线索
         clueEve: function(e){
-            var id = $(e.currentTarget).attr('data-id');
-            console.log('clue');
+            var id = $(e.currentTarget).attr('data-clue');
             this.trigger('clue',id);
         },
 
