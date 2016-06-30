@@ -83,6 +83,7 @@ define(function (require, exports, module) {
                 });
             });
         }
+        debugger
         productService.getDiyOrderFormLogic($scope.globalInfo.enterpriseId || '', function (data) {
             $scope.$apply(function () {
                 $scope.productJson = angular.fromJson(data);
@@ -520,7 +521,6 @@ define(function (require, exports, module) {
 
             productService.getInitData($scope.globalInfo.enterpriseId, $scope.globalInfo.submitType, function (data) {
                 $timeout(function () {
-
                     $scope.productInfo.initData = data || [];
                 }, 10);
             })

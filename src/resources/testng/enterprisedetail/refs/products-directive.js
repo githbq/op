@@ -107,6 +107,12 @@ define(function (require, exports, module) {
                         //logic位置重排序
                         _.each($scope.productJson.logics, function (item, i) {
                             item.index = _.findIndex($scope.productJson.products, {productId: item.attr.productId});
+                            if ($scope.productJson.defaultStatus) {
+                                var findDefault = _.findWhere($scope.productJson.defaultStatus, {productId: item.attr.productId});
+                                if (findDefault) {
+                                    item.currState = findDefault.state;
+                                }
+                            }
                         });
                         $scope.productJson.logics = $scope.productJson.logics.sort(function (a, b) {
                             return a.index - b.index;
@@ -194,6 +200,7 @@ define(function (require, exports, module) {
                                 }
                             }
                         });
+
                         if (find && !checkUN(find.state)) { //结果数据会可能修改状态
                             product.logic.currState = find.state;
                         }
