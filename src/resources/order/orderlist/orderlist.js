@@ -50,15 +50,16 @@ define( function( require, exports, module ) {
             if( status == 1 ){
                 me.$('.claim-action').show();
                 me.url = '/odr/getMatchedReceivedPay';
+                me.searchEve()
             } else {
                 me.$('.claim-action').hide();
                 me.url = '/odr/getClaimedReceivedPay';
             }
             me.searchEve();
         },
-        
+
         //搜寻到款列表
-        searchEve: function(){
+        searchEve: function( bool ){
             var me = this;
 
              util.api({
