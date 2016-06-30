@@ -437,7 +437,8 @@ define(function (require, exports, module) {
             var accountConfig = {
                 data: [{id: 1, text: '111111111111111'}, {id: 2, text: '22222222222'}, {id: 3, text: '3333333333'}, {id: 4, text: '支付宝'}],
                 multiple: false,
-                placeholder: '必须与实际打款的单位/个人名称一致'
+                placeholder: '必须与实际打款的单位/个人名称一致',
+                maximumInputLength:50
             };
             var dialog = dialogManager.getInstance(null,
                 {

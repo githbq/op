@@ -508,7 +508,8 @@ define(function (require, exports, module) {
                         var accountConfig = {
                             data: [],
                             multiple: false,
-                            placeholder: '请输入条件查询'
+                            placeholder: '请输入条件查询',
+                            maximumInputLength:50
                         };
                         var dialog = dialogManager.getInstance(null,
                             {
@@ -551,7 +552,8 @@ define(function (require, exports, module) {
                         var accountConfig = {
                             data: [],
                             multiple: false,
-                            placeholder: '请输入条件查询'
+                            placeholder: '请输入条件查询',
+                            maximumInputLength:50
                         };
                         var dialog = dialogManager.getInstance(null,
                             {
