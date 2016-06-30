@@ -52,7 +52,7 @@ define(function (reuqire, exports, module) {
     });
 
     var NUMBER_REGEXP = /^\d{1,6}((\.)\d{0,2})?$/;
-    var INTEGER_REGEXP = /^\d{1,6}$/;
+    var INTEGER_REGEXP = /^[0-9][0-9]{0,5}$/;
     app.directive('number', function () {
         return {
             require: 'ngModel',
@@ -67,8 +67,18 @@ define(function (reuqire, exports, module) {
                     var $dom = $(this);
                     var result = ($dom.val().replace(/[^\.\d]/g, ''));
                     result = CtoH(result);
-                    if (!exp.test(result) && !isNaN(result) && result !== '') {
+                    if (!exp.test(result) && result !== '') {
                         result=result.substr(0,6);
+                        var findIndex=result.indexOf('.');
+                        if(findIndex>=6 || findIndex<0){
+                            result=result.substr(0,6);
+                        }else if(findIndex>=0){
+                            result=result.substr(0,findIndex+3);
+                        }
+                        result=(Math.floor(result*100)/100).toString();
+                        if(scope.config&&scope.config.int){
+                            result=result.replace(/\./g,'');
+                        }
                     }
                     //result = setMaxOrMinValue(result);
                     $dom.val(result);
@@ -162,7 +172,11 @@ define(function (reuqire, exports, module) {
                     var result = ($dom.val().replace(/[^\d]/g, ''));
                     result = CtoH(result);
                     if (!/^\d{1,}$/.test(result) && !isNaN(result) && result !== '') {
-                        result=result.substr(0,result.length-1);
+                        var subLength=result.length-1;
+                        if(result.length>11){
+                            subLength=11;
+                        }
+                        result=result.substr(0,subLength);
                     }
                     $dom.val(result);
                     ctrl.$setViewValue(result ? parseInt(result) : result, true);//只能赋模型的值不能改变VIEW
