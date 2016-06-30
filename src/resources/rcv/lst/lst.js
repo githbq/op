@@ -225,7 +225,6 @@ define( function( require, exports, module ) {
                         });
                     }else{
                         tr = '<tr><td colspan="2"><p class="info">暂无数据</p></td></tr>';
-
                     }
                     me.$tbody.html( tr );
                 },
