@@ -55,6 +55,8 @@ define(function(require, exports, module) {
             '#phonecallback': 'phonecallback',  //电话回访按钮
             '#verification': 'verification',    //资料审核按钮
 
+
+
             '#yingyezhizhao': 'yingyezhizhao',                  //*营业执照图片input
             '#yingyezhizhaonone': 'yingyezhizhaonone',          //*营业执照无图提示
             '#yingyezhizhaoinfo': 'yingyezhizhaoinfo',          //*营业执照显示信息a标签
@@ -76,6 +78,8 @@ define(function(require, exports, module) {
             '.companyGateKeyword': 'setcompanyGatekeyword',     //*设置门头照片关键字
             '.companyGateRemark': 'setcompanyGateRemark',       //*设置门头照片备注
             
+
+
             '#shenheresult': 'shenheresult',
             '#huifangresult': 'huifangresult',
 
@@ -167,8 +171,9 @@ define(function(require, exports, module) {
             me.attrs.isPay = 0;
 
             //初始化日期选择
-            me.initializeDatepickers();
+            //me.initializeDatepickers();
 
+            /*==========================================
             //门头照片
             me.$mentou.on('change', function() {
                 var fileExtension = me.$mentou[0].files[0].name.split('.').pop().toLowerCase();
@@ -303,7 +308,7 @@ define(function(require, exports, module) {
                     return false;
                 }
             });
-
+            ==================================================*/
             me.setState();
         },
 
@@ -666,65 +671,6 @@ define(function(require, exports, module) {
  
                         //给活跃度赋值
                         me.$sActivity.val(model.activityStr);
-                        /**
-                         *
-                         * 审核成功的 不显示资料审核上传相关页面
-                         */
-                        if (model.informationCheck == 2) {
-
-                            me.$('#verificationupload').hide();
-                        } else if (me.attrs.isAgent == true) {
-
-                            me.$('#verificationupload').show();
-                        };
-
-                        /**
-                         *
-                         * 如果有合同显示合同信息
-                         */
-                        if (model.contract) {
-
-                            me.$hetongnone.hide();
-                            me.$hetonginfo.attr('href', '/op/api/file/previewimage' + '?filePath=' + model.contract).show();
-
-                            if (/(jpeg|jpg|gif|png)/i.test(model.contract)) {
-
-                                var str = '<img src="' + '/op/api/file/previewimage' + '?filePath=' + model.contract + '&t=' + new Date().getTime() + '"style="width:350px; height:200px;">';
-                            } else {
-
-                                var str = '下载合同';
-                            }
-                            me.$hetonginfo.empty().html(str);
-
-                            //
-                        } else {
-                            me.$hetongnone.show();
-                            me.$hetonginfo.hide();
-                        }
-
-                        /**
-                         *
-                         * 如果有合同副本显示合同副本信息 否则隐藏合同副本
-                         */
-                        if (model.contractCopy) {
-
-                            me.$hetongfbnone.hide();
-                            me.$hetongfbinfo.attr('href', '/op/api/file/previewimage' + '?filePath=' + model.contractCopy).show();
-
-                            if (/(jpeg|jpg|gif|png)/i.test(model.contractCopy)) {
-
-                                var str = '<img src="' + '/op/api/file/previewimage' + '?filePath=' + model.contractCopy + '&t=' + new Date().getTime() + '"style="width:350px; height:200px;">';
-                            } else {
-
-                                var str = '下载合同副本';
-                            }
-                            me.$hetongfbinfo.empty().html(str);
-
-                        } else {
-                            me.$hetongfbnone.show();
-                            me.$hetongfbinfo.hide();
-                        }
-
 
                         /**
                          * 进行状态显隐控制
@@ -856,12 +802,16 @@ define(function(require, exports, module) {
                     console.log('product');
                     this.showProductInfo();      //产品信息
                     break;
+                /*===================================
                 case 'verification':             //资料审核
                     this.showVerifiCation();
                     break;
+                =====================================*/
+                /*===================================
                 case 'callback':
                     this.showCallBack();          //电话回访
                     break;
+                =====================================*/
                 case 'operations':                //使用情况
                     console.log('operations');
                     this.showOperations();
@@ -880,12 +830,6 @@ define(function(require, exports, module) {
                 case 'peopleNumber':               //数据统计
                     this.showNumber();
                     break;
-                    /*
-                     case 'crmInfo':
-                     this.showCrmInfo();  //企业监控
-                     break;
-                     */
-
                 default:
                     break;
             }
@@ -1087,6 +1031,7 @@ define(function(require, exports, module) {
         },
 
         //*显示资料审核
+        /*===========================================
         showVerifiCation: function ( changeBool ) {
             var me = this;
             var changeBool = changeBool || false;
@@ -1181,7 +1126,10 @@ define(function(require, exports, module) {
                 }
             });
         },
+        =============================================*/
+
         //*资料审核成功
+        /*===========================================
         veriOnEve: function() {
             var me = this;
             console.log('on');
@@ -1198,7 +1146,10 @@ define(function(require, exports, module) {
                 }
             })
         },
+        =============================================*/
+
         //*资料审核失败
+        /*==========================================
         veriOffEve: function() {
             var me = this;
             console.log('off');
@@ -1215,16 +1166,15 @@ define(function(require, exports, module) {
                 }
             })
         },
+        =============================================*/
         //*保存资料审核
+        /*==========================================
         saveFn: function() {
 
             var me = this;
             var objData = {};
 
-            /***
-             *
-             * 如果以前没有合同 这次也没上传 则提示必须选择合同照片
-             */
+            //如果以前没有合同 这次也没上传 则提示必须选择合同照片
             if (!me.model.get('contract') && me.$hetongzhaopian[0].files.length <= 0) {
 
                 util.showTip('请选择合同照片');
@@ -1269,15 +1219,13 @@ define(function(require, exports, module) {
                 }
             });
         },
+        =========================================*/
 
-        //*电话回访
+        /*==========================电话回访
         showCallBack: function() {
             var me = this;
 
-            /**
-             *
-             * 查询电话回访结果
-             */
+            //查询电话回访结果
             util.api({
                 'url': '/enterprise/getinfoandvisitcheck',
                 'data': {
@@ -1301,7 +1249,9 @@ define(function(require, exports, module) {
                 me.loadCallBackList();
             }
         },
+        =================================*/
         //*加载回访列表
+        /*===============================
         loadCallBackList: function() {
 
             var me = this;
@@ -1331,7 +1281,9 @@ define(function(require, exports, module) {
                 }
             })
         },
+        ================================*/
         //*保存回访记录
+        /*=============================
         callbackEve: function() {
             var me = this;
 
@@ -1350,13 +1302,16 @@ define(function(require, exports, module) {
                 }
             })
         },
+        ================================*/
         //*查看记录人员详情
+        /*==============================
         employeeDetailEve: function(e) {
             var ea = $(e.currentTarget).attr('data-ea');
             var phone = $(e.currentTarget).attr('data-phone');
             this.trigger('employeeDetail', ea, phone);
         },
-
+        ================================*/
+        
         //使用情况显示使用情况 ??培训助手流量总量 和已用量/未用量 如何赋值
         showOperations: function() {
             var me = this;
