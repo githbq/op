@@ -8359,7 +8359,7 @@ em {
 }
 .m-detailapproval .approval-contractshow img {
   display: inline-block;
-  max-width: 100px;
+  max-width: 300px;
 }
 .m-detailapproval .approval-contract {
   border-top: 1px #444 dashed;
@@ -8373,7 +8373,7 @@ em {
 }
 .m-detailapproval .approval-contract img {
   display: inline-block;
-  max-width: 100px;
+  max-width: 300px;
 }
 .m-detailapproval .approval-btns {
   padding: 10px 0;

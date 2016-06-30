@@ -314,9 +314,11 @@ define( function( require, exports, module ) {
         supplyEve: function(e){
             console.log('补充合同');
             var me = this;
-            var id = $(e.currentTarget).attr('data-id');
 
-            me.trigger('supply', id );
+            var id = $(e.currentTarget).attr('data-id');
+            var status = $(e.currentTarget).attr('data-status');
+
+            me.trigger('supply', id , status );
         },
         //到款
         daokuanEve: function(e){
@@ -595,12 +597,12 @@ define( function( require, exports, module ) {
         });
 
         //补充合同[待开发]
-        orderList.on('supply', function( id ){
+        orderList.on('supply', function( id , status ){
             console.log('补充合同');
             console.log( id );
             
             var detailApproval = new DetailApproval();  //订单详情   
-            detailApproval.show( id , 'b' );
+            detailApproval.show( id , 'b' , status );
             detailApproval.on('editSuccess',function(){
                 orderList.getList();
             });
@@ -619,8 +621,6 @@ define( function( require, exports, module ) {
                 
                 if( status == '2' || status == '3' ){
                     detailApproval.show( id , 'a', status);
-                }else if( status == '11' || status == '12' ){
-                    detailApproval.show( id , 'b', status);
                 }else{
                     detailApproval.show( id , 'd', status);
                 }
