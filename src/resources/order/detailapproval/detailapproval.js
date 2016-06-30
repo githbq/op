@@ -361,13 +361,14 @@ define( function(require, exports, module){
 			//补充合同
 			util.api({
 				'url':'/odr/supContractSubmit',
-				'data':{
+				'contentType':'application/json',
+				'data': JSON.stringify({
 					'contract': me.contract,
 					'contractCopy': me.contractCopy,
 					'contractFileName': me.contractFileName,
 					'contractCopyFileName': me.contractCopyFileName,
 					'contractId': data.payInfo.contractId
-				},
+				}),
 				'success': function( data ){
 					if( data.success ){
 						util.showTip('提交成功');
