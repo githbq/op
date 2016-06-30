@@ -56,7 +56,7 @@ define( function( require, exports, module ) {
             KindEditor.options.filterMode = false;//不过滤html标签
             me.editor = KindEditor.create('#editor',{
                 allowFileManager: false,
-                uploadJson: '/api/file/uploadsinglefile',
+                uploadJson: 'api/file/uploadsinglefile',
                 baseSrc: 'api/file/previewimage?filePath=',
                 filePostName: 'upfile',
                 resizeType: 0,
