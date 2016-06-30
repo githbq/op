@@ -68,7 +68,7 @@ define(function (reuqire, exports, module) {
                     var result = ($dom.val().replace(/[^\.\d]/g, ''));
                     result = CtoH(result);
                     if (!exp.test(result) && !isNaN(result) && result !== '') {
-                        result=result.substr(0,result.length-1);
+                        result=result.substr(0,6);
                     }
                     //result = setMaxOrMinValue(result);
                     $dom.val(result);
