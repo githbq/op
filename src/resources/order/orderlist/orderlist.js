@@ -56,6 +56,7 @@ define( function( require, exports, module ) {
             }
             me.searchEve();
         },
+        
         //搜寻到款列表
         searchEve: function(){
             var me = this;
