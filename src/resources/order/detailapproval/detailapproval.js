@@ -130,9 +130,11 @@ define( function(require, exports, module){
 		//				b2 补充合同(仅可查看); 
 		//				c 审批只读(可进行审批同意或驳回) 
 		//				d 完全只读状态 
-		// @param info  一些额外信息
+		// @param status  订单状态
+		// @param dstatus 到款认领状态
+		// @param info    一些额外信息
 		//==============================================
-		show: function( id , type , status , info ){
+		show: function( id , type , status , dstatus, info ){
 			var me = this;
 			DetailApproval.__super__.show.call( this,true );
 			console.log('dododo');
@@ -197,22 +199,26 @@ define( function(require, exports, module){
 			});
 			
 			//获取到款信息
-			util.api({
-				'url':'/odr/getClaimedReceivedPay',
-				'data':{
-					'orderId': me.orderId
-				},
-				'success': function( data ){
-					console.log('到款信息');
-					console.log( data );
-					if( data.value.model.length > 0 ){
-						//me.daokuanlist.reload()
-						me.$('#daokuanlist').html('<tr><td colspan="4"><p class="tip">暂无数据</p></td></tr>');
-					}else{
-						me.$('#daokuanlist').html('<tr><td colspan="4"><p class="tip">暂无数据</p></td></tr>');
-					}	
-				}
-			});
+			if( me.dstatus == 3 ){
+				util.api({
+					'url':'/odr/getClaimedReceivedPay',
+					'data':{
+						'orderId': me.orderId
+					},
+					'success': function( data ){
+						console.log('到款信息');
+						console.log( data );
+						if( data.value.model.length > 0 ){
+							//me.daokuanlist.reload()
+							me.$('#daokuanlist').html('<tr><td colspan="4"><p class="tip">暂无数据</p></td></tr>');
+						}else{
+							me.$('#daokuanlist').html('<tr><td colspan="4"><p class="tip">暂无数据</p></td></tr>');
+						}	
+					}
+				});
+				me.$('.approval-daokuan').show();
+			}
+			
 
 			//获取补充合同信息
 			if( me.status == 10 ){
