@@ -182,13 +182,13 @@ define( function( require, exports, module ) {
             me.$tbody.html( '' );
             me.$input.val('');
         },
-        query: function() {//明细栏查询按钮
+        query: function() {//选择订单栏查询按钮
             var me = this;
             this.pagination.setPage( 0, false );
             me.load();           
         },
    
-        load: function() {//加载明细列表
+        load: function() {//加载订单列表
             var me = this;
             util.api({
                 url: '~/op/api/a/odr/querypage',
@@ -225,6 +225,7 @@ define( function( require, exports, module ) {
                         });
                     }else{
                         tr = '<tr><td colspan="2"><p class="info">暂无数据</p></td></tr>';
+
                     }
                     me.$tbody.html( tr );
                 },

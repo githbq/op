@@ -56,6 +56,7 @@ define( function( require, exports, module ) {
             }
             me.searchEve();
         },
+        
         //搜寻到款列表
         searchEve: function(){
             var me = this;
@@ -314,9 +315,11 @@ define( function( require, exports, module ) {
         supplyEve: function(e){
             console.log('补充合同');
             var me = this;
-            var id = $(e.currentTarget).attr('data-id');
 
-            me.trigger('supply', id );
+            var id = $(e.currentTarget).attr('data-id');
+            var status = $(e.currentTarget).attr('data-status');
+
+            me.trigger('supply', id , status );
         },
         //到款
         daokuanEve: function(e){
@@ -595,12 +598,12 @@ define( function( require, exports, module ) {
         });
 
         //补充合同[待开发]
-        orderList.on('supply', function( id ){
+        orderList.on('supply', function( id , status ){
             console.log('补充合同');
             console.log( id );
             
             var detailApproval = new DetailApproval();  //订单详情   
-            detailApproval.show( id , 'b' );
+            detailApproval.show( id , 'b' , status );
             detailApproval.on('editSuccess',function(){
                 orderList.getList();
             });
@@ -615,13 +618,17 @@ define( function( require, exports, module ) {
             var detailApproval = new DetailApproval();  //订单详情   
             
             //被驳回和已撤回可编辑
-            if( IBSS.API_PATH == '/op/api/a' && (status == '2' || status == '3') ){
-
-                detailApproval.show( id , 'a');
+            if( IBSS.API_PATH == '/op/api/a' ){
+                
+                if( status == '2' || status == '3' ){
+                    detailApproval.show( id , 'a', status);
+                }else{
+                    detailApproval.show( id , 'd', status);
+                }
             //其他只可以看详情
             } else {
 
-                detailApproval.show( id , 'd');
+                detailApproval.show( id , 'd', status);
             }
             detailApproval.on('editSuccess',function(){
                 orderList.getList();

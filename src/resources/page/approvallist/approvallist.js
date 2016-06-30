@@ -134,23 +134,15 @@ define( function(require, exports, module){
             //待审核的
             if( $scope.state == 'wait' ){
                 
-                if( status == '10' ){
-                    type = 'b1';
-                }else{
-                    type = 'c';
-                }                
-
+                type = 'c';
             //非待审核的
             }else{
-                if( status == '10' ){
-                    type = 'b2';
-                }else{
-                    type = 'd';
-                }
+                
+                type = 'd';
             }
 
             var detailApproval = new DetailApproval();
-            detailApproval.show( id , type , {'processInstanceId':inId} );
+            detailApproval.show( id , type , status , { 'processInstanceId': inId } );
              //注册事件
             detailApproval.on('approvalSuccess',function(){
                 $scope.search();
