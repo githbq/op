@@ -7203,8 +7203,9 @@ KindEditor.plugin('image', function(K) {
 		imageTabIndex = K.undef(self.imageTabIndex, 0),
 		imgPath = self.pluginsPath + 'image/images/',
 		extraParams = K.undef(self.extraFileUploadParams, {}),
-		filePostName = K.undef(self.filePostName, 'imgFile'),
+		filePostName = K.undef(self.filePostName, 'uploadfile'),
 		fillDescAfterUploadImage = K.undef(self.fillDescAfterUploadImage, false),
+		baseSrc = K.undef(self.baseSrc, 'op/api/file/previewimage?filePath='),
 		lang = self.lang(name + '.');
 	self.plugin.imageDialog = function(options) {
 		var imageUrl = options.imageUrl,
@@ -7251,7 +7252,7 @@ KindEditor.plugin('image', function(K) {
 			'</div>',
 			'<div class="tab2" style="display:none;">',
 			'<iframe name="' + target + '" style="display:none;"></iframe>',
-			'<form class="ke-upload-area ke-form" method="post" enctype="multipart/form-data" target="' + target + '" action="' + K.addParam(uploadJson, 'dir=image') + '">',
+			'<form class="ke-upload-area ke-form" method="post" enctype="multipart/form-data" target="' + target + '" action="' + uploadJson + '">',
 			'<div class="ke-dialog-row">',
 			hiddenElements.join(''),
 			'<label style="width:60px;">' + lang.localUrl + '</label>',
@@ -7359,11 +7360,9 @@ KindEditor.plugin('image', function(K) {
 			width: 60,
 			afterUpload : function(data) {
 				dialog.hideLoading();
-				if (data.error === 0) {
-					var url = data.url;
-					if (formatUploadUrl) {
-						url = K.formatUrl(url, 'absolute');
-					}
+				if (data.success) {
+					//var url = data.model.path;
+					url = baseSrc + data.model.path;
 					if (self.afterUpload) {
 						self.afterUpload.call(self, url, data, name);
 					}

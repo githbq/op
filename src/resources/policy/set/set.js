@@ -55,21 +55,13 @@ define( function( require, exports, module ) {
             var me = this;
             KindEditor.options.filterMode = false;//不过滤html标签
             me.editor = KindEditor.create('#editor',{
+                allowImageRemote: false,
+                uploadJson: '/op/api/file/uploadsinglefile',
+                filePostName: 'upfile',
                 resizeType: 0,
                 items: [
                  'undo', 'redo', '|', 'preview', 'print', 'template', 'code', 'cut', 'copy', 'paste', 'plainpaste', 'wordpaste','|', 'justifyleft', 'justifycenter', 'justifyright', 'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript', 'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', 'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image', 'table', 'hr','emoticons', 'pagebreak', 'anchor', 'link', 'unlink', '|', 'about'
                 ],
-                allowImageUpload: false,
-                afterChange : function() {
-                     //限制字数
-                    var limitNum = 2500;  //设定限制字数
-                    if(this.count('text') > limitNum) {
-                        //超过字数限制自动截取
-                        var strValue = me.editor.text();
-                        strValue = strValue.substring(0,limitNum);
-                        me.editor.text(strValue);  
-                    }    
-                } 
             });
             me.editorInitialized = true;
         },
@@ -390,10 +382,6 @@ define( function( require, exports, module ) {
         createPolicy.on('preview', function(aCon){
             preview.show(aCon);
         });
-
-       
-
-        
 
     }
 } );
