@@ -159,9 +159,7 @@
                             <span>{{globalInfo.enterpriseAccount}}</span>
                         </div>
                     </div>
-                    <div class="form-row" ng-repeat="item in productInfos track by $index" ng-switch="item.code">
-                        <div ng-show="false" class="form-field" ng-switch-when="FX_Terminal">
-                        </div>
+                    <div ng-if="item.code!='FX_Terminal'" class="form-row" ng-repeat="item in productInfos track by $index" ng-switch="item.code">
                         <div class="form-field" ng-switch-when="CRM">
                             <!--分割线-->
                             <label>{{item.appName}}(个)：
