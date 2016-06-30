@@ -216,7 +216,7 @@ define(function (require, exports, module) {
         //产品信息模块
         var productInfo = $scope.productInfo = {};
         //付款信息
-        var payInfo = $scope.payInfo = {payStatus: 1};
+         var payInfo = $scope.payInfo = {payStatus: 1};
         //全局行为状态
         var action = $scope.action = {doing: false};
         $scope.goTo = function (step) {

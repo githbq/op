@@ -272,13 +272,13 @@
             </div>
             <div class="form-row">
                 <div class="form-field" ng-init="payStatusData=[{label:'全额',value:1,checked:true},{label:'未付',value:2,checked:false},{label:'分期',value:3,checked:false}]">
-                    <label class="required"><span>付费状态</span></label>
+                    <label class="required" ><span>付费状态</span></label>
                     <label ng-repeat="item in payStatusData">
                         <input ng-class="{readonly:payInfoReadonly||payInfo.partReadonly}"
                                ng-change="payStatusChange(payInfo.payStatus)"
                                ng-readonly="payInfoReadonly||payInfo.partReadonly"
                                ng-disabled="payInfoReadonly||payInfo.partReadonly" name="payStatus" ng-model="payInfo.payStatus"
-                               ng-checked="item.checked" ng-value="item.value" type="radio"/>{{item.label}}
+                               ng-checked="item.value==payInfo.payStatus" ng-value="item.value" type="radio"/>{{item.label}}
                     </label>
                 </div>
             </div>
