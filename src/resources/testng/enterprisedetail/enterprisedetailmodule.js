@@ -199,7 +199,8 @@ define(function (require, exports, module) {
             data: [],
             multiple: false,
             placeholder: '必须与实际打款的单位/个人名称一致',
-            search: false
+            search: false,
+            maximumInputLength:50
         };
     }]);
     myApp.controller('mainController', ['$scope', '$timeout', 'select2Query', 'getEnumService', 'cascadeSelectService', 'productService', function ($scope, $timeout, select2Query, getEnumService, cascadeSelectService, productService) {
@@ -275,7 +276,8 @@ define(function (require, exports, module) {
             placeholder: '请选择'
             //, minimumResultsForSearch: Infinity//不显示搜索框
             ,
-            search: false
+            search: false,
+            maximumInputLength:50
         };
 
         $scope.cityConfig = {
@@ -283,14 +285,16 @@ define(function (require, exports, module) {
             data: [],
             multiple: false,
             placeholder: '请选择',
-            search: false
+            search: false,
+            maximumInputLength:50
         };
         $scope.countyConfig = {
             //data: [{id: '1-1-1', text: '昌平区'}, {id: '2-1-1', text: '浦东区'}, {id: '3-1-1', text: '宝安区'}, {id: '4-1-1', text: '汉口'}, {id: '4-2-1', text: '黄梅县'}],
             data: [],
             multiple: false,
             placeholder: '请选择',
-            search: false
+            search: false,
+            maximumInputLength:50
         };
 
 
@@ -312,7 +316,8 @@ define(function (require, exports, module) {
             data: [],
             multiple: false,
             placeholder: '请选择',
-            search: false
+            search: false,
+            maximumInputLength:50
         };
 
         $scope.industrySecondConfig = {
@@ -320,14 +325,16 @@ define(function (require, exports, module) {
             data: [],
             multiple: false,
             placeholder: '请选择',
-            search: false
+            search: false,
+            maximumInputLength:50
         };
         $scope.industryThirdConfig = {
             //data: [{id: '1-1-1', text: '行业A－1－1'}, {id: '2-1-1', text: '行业B－1－1'}, {id: '3-1-1', text: '行业C－1－1'}, {id: '4-1-1', text: '行业D－1－1'}, {id: '4-2-1', text: '行业D－1－2'}],
             data: [],
             multiple: false,
             placeholder: '请选择',
-            search: false
+            search: false,
+            maximumInputLength:50
         };
 
         //end 多功能下拉选框　行业
