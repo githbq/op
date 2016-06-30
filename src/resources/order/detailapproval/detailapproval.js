@@ -224,7 +224,10 @@ define( function(require, exports, module){
 					'success': function( data ){
 						if( data.success ){
 							me.$('.htshow').attr('src','/op/api/file/previewimage?filePath='+data.value.model.contract);
+							me.$('.htshow').parent().attr('href','/op/api/file/previewimage?filePath='+data.value.model.contract);
+
 							me.$('.htfbshow').attr('src','/op/api/file/previewimage?filePath='+data.value.model.contractCopy);
+							me.$('.htfbshow').parent().attr('href','/op/api/file/previewimage?filePath='+data.value.model.contractCopy);
 						}
 					}
 				})
