@@ -14,9 +14,6 @@ define( function(require, exports, module){
 	var BackMoney = require('../../order/detailbackmoney/detailbackmoney');           //退款
     
 
-    var detailApproval = new DetailApproval();
-
-
 	var page = require('common/widget/page/page');  //ng分页组件
 	var main = angular.module('list',['common']);   //
 
@@ -33,11 +30,6 @@ define( function(require, exports, module){
 
         $scope.tabledata = {};
         $scope.tabledata.thead = ['订单号','合同号','企业名称','账号','订单类型','提单人','所属部门/代理商','审批类型','当前审批节点','付费状态','订单状态','提单日期','操作'];
-
-        //注册事件
-        detailApproval.on('saveSuccess',function(){
-            $scope.search();
-        });
 
         $scope.financeshow = !isFinance;
         /*
@@ -135,16 +127,26 @@ define( function(require, exports, module){
         $scope.detail = function( e ){
             e.stopPropagation();
             var id = angular.element(e.target).attr('data-id'),
-                inId = angular.element(e.target).attr('data-inid');
+                inId = angular.element(e.target).attr('data-inid'),
+                status = angular.element(e.target).attr('data-status');
 
             var type;
+            //待审核的
             if( $scope.state == 'wait' ){
+                
                 type = 'c';
+            //非待审核的
             }else{
+                
                 type = 'd';
             }
 
-            detailApproval.show( id , type , {'processInstanceId':inId} );
+            var detailApproval = new DetailApproval();
+            detailApproval.show( id , type , status , { 'processInstanceId': inId } );
+             //注册事件
+            detailApproval.on('approvalSuccess',function(){
+                $scope.search();
+            });
             return false;
         }
 

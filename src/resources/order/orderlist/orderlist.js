@@ -23,6 +23,11 @@ define( function( require, exports, module ) {
 
     var tem = $( require('./template.html') );
     
+    var Map = {
+        '1': '到款',
+        '2': '退款'
+    }
+
     //到款认领
     var Claim = MClass( Dialog ).include({
 
@@ -50,15 +55,16 @@ define( function( require, exports, module ) {
             if( status == 1 ){
                 me.$('.claim-action').show();
                 me.url = '/odr/getMatchedReceivedPay';
+                me.searchEve( true );
             } else {
                 me.$('.claim-action').hide();
                 me.url = '/odr/getClaimedReceivedPay';
+                me.searchEve( false );
             }
-
-            me.searchEve();
         },
+
         //搜寻到款列表
-        searchEve: function(){
+        searchEve: function( bool ){
             var me = this;
 
              util.api({
@@ -74,9 +80,15 @@ define( function( require, exports, module ) {
                         if( data.value.model.length <= 0 ){
                             me.$('tbody').html('<tr><td colspan="8"><p class="tip">暂未匹配到的数据</p></td></tr>');
                         }else{
-                            me.list.reload( data.value.model , function(){
-
-                            });
+                            if( bool ){
+                                me.list.reload( data.value.model , function( item ){
+                                    item.propertyStr = Map[item.property];
+                                });
+                            } else {
+                                me.list.reload( [data.value.model] , function( item ){
+                                    item.propertyStr = Map[item.property];
+                                });
+                            }
                         }
                     }
                 }
@@ -317,9 +329,11 @@ define( function( require, exports, module ) {
         supplyEve: function(e){
             console.log('补充合同');
             var me = this;
-            var id = $(e.currentTarget).attr('data-id');
 
-            me.trigger('supply', id );
+            var id = $(e.currentTarget).attr('data-id');
+            var status = $(e.currentTarget).attr('data-status');
+
+            me.trigger('supply', id , status );
         },
         //到款
         daokuanEve: function(e){
@@ -540,7 +554,6 @@ define( function( require, exports, module ) {
         var $el = exports.$el;
 
         var orderList = new OrderList( {'view': $el.find('.m-orderlist')} );
-        var detailApproval = new DetailApproval();  //订单详情   
 		
         var detailPayment = null;
 		var customHelper = null;
@@ -599,9 +612,15 @@ define( function( require, exports, module ) {
         });
 
         //补充合同[待开发]
-        orderList.on('supply', function( id ){
+        orderList.on('supply', function( id , status ){
             console.log('补充合同');
             console.log( id );
+            
+            var detailApproval = new DetailApproval();  //订单详情   
+            detailApproval.show( id , 'b' , status );
+            detailApproval.on('editSuccess',function(){
+                orderList.getList();
+            });
         });
 
         //查看[待开发]
@@ -610,15 +629,24 @@ define( function( require, exports, module ) {
             console.log( id );
             console.log( status );
             
+            var detailApproval = new DetailApproval();  //订单详情   
+            
             //被驳回和已撤回可编辑
-            if( IBSS.API_PATH == '/op/api/a' && (status == '2' || status == '3') ){
-
-                detailApproval.show( id , 'a');
+            if( IBSS.API_PATH == '/op/api/a' ){
+                
+                if( status == '2' || status == '3' ){
+                    detailApproval.show( id , 'a', status);
+                }else{
+                    detailApproval.show( id , 'd', status);
+                }
             //其他只可以看详情
             } else {
 
-                detailApproval.show( id , 'd');
+                detailApproval.show( id , 'd', status);
             }
+            detailApproval.on('editSuccess',function(){
+                orderList.getList();
+            });
         });
     }
 } );

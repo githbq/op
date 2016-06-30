@@ -155,6 +155,7 @@ define( function( require, exports, module ) {
             '#en': 'en',
             '#ea': 'ea',
             '#account': 'account',
+            'input': 'input',
             'tbody': 'tbody'
         },
         init: function() {
@@ -179,14 +180,15 @@ define( function( require, exports, module ) {
             SelectOrder.__super__.hide.apply( this,arguments );
             var me = this;
             me.$tbody.html( '' );
+            me.$input.val('');
         },
-        query: function() {//明细栏查询按钮
+        query: function() {//选择订单栏查询按钮
             var me = this;
             this.pagination.setPage( 0, false );
             me.load();           
         },
    
-        load: function() {//加载明细列表
+        load: function() {//加载订单列表
             var me = this;
             util.api({
                 url: '~/op/api/a/odr/querypage',
@@ -196,6 +198,7 @@ define( function( require, exports, module ) {
                     en: me.$en.val(),
                     ea: me.$ea.val(),
                     contractNo: me.$contractNo.val(),
+                    approvalNode: 3,
                     pageIndex: me.pagination.attr['pageNumber']+1,
                     pageSize: me.pagination.attr['pageSize']
                 },
@@ -203,28 +206,27 @@ define( function( require, exports, module ) {
                     me.$tbody.html( '<tr><td colspan="2"><p class="info">加载中...</p></td></tr>' );
                 },
                 success: function( data ) {
-                    if ( data.success ) {
+                    var tr = '';
+                    if ( data.success && data.model.content) {
                         me.pagination.setTotalSize( data.value.model.itemCount );
-                        var items = data.model.content, tr = '';
-                        if(data.model.content.length > 0){
-                            $( items ).each( function( i, item ) {
-                                item.formatTime = new Date( item.order.createTime )._format( "yyyy-MM-dd" );
-                                tr += '<tr>'
-                                    +'<td><input type="radio" name="select" value="'+item.order.id+'"></td>'
-                                    +'<td>'+item.order.id+'</td>'
-                                    +'<td>'+item.order.contractNo+'</td>'
-                                    +'<td>'+item.order.enterpriseName+'</td>'
-                                    +'<td>'+item.order.enterpriseAccount+'</td>'
-                                    +'<td>'+item.account.name+'</td>'
-                                    +'<td>'+item.formatTime+'</td>'
-                                    +'<td><a class="check" data-id="'+item.order.id+'">查看</a></td>'
-                                    +'</tr>';
-                            });
-                        }else{
-                            tr = '<tr><td colspan="2"><p class="info">暂无数据</p></td></tr>';
-                        }
-                        me.$tbody.html( tr );
+                        var items = data.model.content;
+                        $( items ).each( function( i, item ) {
+                            item.formatTime = new Date( item.order.createTime )._format( "yyyy-MM-dd" );
+                            tr += '<tr>'
+                                +'<td><input type="radio" name="select" value="'+item.order.id+'"></td>'
+                                +'<td>'+item.order.id+'</td>'
+                                +'<td>'+item.order.contractNo+'</td>'
+                                +'<td>'+item.order.enterpriseName+'</td>'
+                                +'<td>'+item.order.enterpriseAccount+'</td>'
+                                +'<td>'+item.account.name+'</td>'
+                                +'<td>'+item.formatTime+'</td>'
+                                +'<td><a class="check" data-id="'+item.order.id+'">查看</a></td>'
+                                +'</tr>'; 
+                        });
+                    }else{
+                        tr = '<tr><td colspan="2"><p class="info">暂无数据</p></td></tr>';
                     }
+                    me.$tbody.html( tr );
                 },
                 error: function(){
                     var tr = '<tr><td colspan="2"><p class="info">数据加载失败</p></td></tr>';
@@ -251,7 +253,7 @@ define( function( require, exports, module ) {
                 },
                 success: function(data) {
                     if(data.success){
-                        util.showTip('匹配订单成功');
+                        util.showTip('订单认领提交成功');
                         me.hide();
                         me.trigger('refresh');
                     }
@@ -497,7 +499,7 @@ define( function( require, exports, module ) {
                 sticks = new Date( startTime ).getTime();
             }
             if ( endTime ) {
-                eticks = new Date( endTime ).getTime() + 1000 * 60 * 60 * 24;
+                eticks = new Date( endTime ).getTime();
             }
             if ( sticks > eticks ) {
                 alert( '开始时间大于结束时间, 请重新选择.' );
