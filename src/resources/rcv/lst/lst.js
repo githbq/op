@@ -155,6 +155,7 @@ define( function( require, exports, module ) {
             '#en': 'en',
             '#ea': 'ea',
             '#account': 'account',
+            'input': 'input',
             'tbody': 'tbody'
         },
         init: function() {
@@ -179,6 +180,7 @@ define( function( require, exports, module ) {
             SelectOrder.__super__.hide.apply( this,arguments );
             var me = this;
             me.$tbody.html( '' );
+            me.$input.val('');
         },
         query: function() {//明细栏查询按钮
             var me = this;
@@ -204,26 +206,26 @@ define( function( require, exports, module ) {
                     me.$tbody.html( '<tr><td colspan="2"><p class="info">加载中...</p></td></tr>' );
                 },
                 success: function( data ) {
-                    if ( data.success ) {
+                    var tr = '';
+                    if ( data.success && data.model.content) {
                         me.pagination.setTotalSize( data.value.model.itemCount );
-                        var items = data.model.content, tr = '';
-                        if(data.model.content.length > 0){
-                            $( items ).each( function( i, item ) {
-                                item.formatTime = new Date( item.order.createTime )._format( "yyyy-MM-dd" );
-                                tr += '<tr>'
-                                    +'<td><input type="radio" name="select" value="'+item.order.id+'"></td>'
-                                    +'<td>'+item.order.id+'</td>'
-                                    +'<td>'+item.order.contractNo+'</td>'
-                                    +'<td>'+item.order.enterpriseName+'</td>'
-                                    +'<td>'+item.order.enterpriseAccount+'</td>'
-                                    +'<td>'+item.account.name+'</td>'
-                                    +'<td>'+item.formatTime+'</td>'
-                                    +'<td><a class="check" data-id="'+item.order.id+'">查看</a></td>'
-                                    +'</tr>';
-                            });
-                        }else{
-                            tr = '<tr><td colspan="2"><p class="info">暂无数据</p></td></tr>';
-                        }
+                        var items = data.model.content;
+                        $( items ).each( function( i, item ) {
+                            item.formatTime = new Date( item.order.createTime )._format( "yyyy-MM-dd" );
+                            tr += '<tr>'
+                                +'<td><input type="radio" name="select" value="'+item.order.id+'"></td>'
+                                +'<td>'+item.order.id+'</td>'
+                                +'<td>'+item.order.contractNo+'</td>'
+                                +'<td>'+item.order.enterpriseName+'</td>'
+                                +'<td>'+item.order.enterpriseAccount+'</td>'
+                                +'<td>'+item.account.name+'</td>'
+                                +'<td>'+item.formatTime+'</td>'
+                                +'<td><a class="check" data-id="'+item.order.id+'">查看</a></td>'
+                                +'</tr>'; 
+                        });
+                    }else{
+                        tr = '<tr><td colspan="2"><p class="info">暂无数据</p></td></tr>';
+                    }
                         me.$tbody.html( tr );
                     }
                 },
