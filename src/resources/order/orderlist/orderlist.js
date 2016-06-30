@@ -615,13 +615,19 @@ define( function( require, exports, module ) {
             var detailApproval = new DetailApproval();  //订单详情   
             
             //被驳回和已撤回可编辑
-            if( IBSS.API_PATH == '/op/api/a' && (status == '2' || status == '3') ){
-
-                detailApproval.show( id , 'a');
+            if( IBSS.API_PATH == '/op/api/a' ){
+                
+                if( status == '2' || status == '3' ){
+                    detailApproval.show( id , 'a', status);
+                }else if( status == '11' || status == '12' ){
+                    detailApproval.show( id , 'b', status);
+                }else{
+                    detailApproval.show( id , 'd', status);
+                }
             //其他只可以看详情
             } else {
 
-                detailApproval.show( id , 'd');
+                detailApproval.show( id , 'd', status);
             }
             detailApproval.on('editSuccess',function(){
                 orderList.getList();

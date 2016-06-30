@@ -132,13 +132,14 @@ define( function(require, exports, module){
 		//				d 完全只读状态 
 		// @param info  一些额外信息
 		//==============================================
-		show: function( id , type , info ){
+		show: function( id , type , status , info ){
 			var me = this;
 			DetailApproval.__super__.show.call( this,true );
 			console.log('dododo');
 
 			//缓存额外信息
 			me.orderId = id;
+			me.status = status;
 			me.info = info;
 
 			switch( type ){
@@ -150,62 +151,21 @@ define( function(require, exports, module){
 					me.approvalPage.hideFootBtns();
 					me.$('[data-state="c"]').show();
 				break;
-				//订单查看  [订单列表]  (可进行编辑提交)
+				//订单查看  [销售]  (可进行编辑提交)
 				case 'a':
 					me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:false} );
 					me.approvalPage.hideTopBar();
 					me.approvalPage.hideFootBtns();
 					me.$('[data-state="a"]').show();
 				break;
-				//补充合同  [订单列表]  (可以补充合同)
+				//补充合同  [销售]  (可以补充合同)
 				case 'b':
 					me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:true} );
 					me.approvalPage.hideTopBar();
 					me.approvalPage.hideFootBtns();
 					me.$('[data-state="b"]').show();
 				break;
-				//补充合同  [小助手/财务] (可进行审批同意或驳回);
-				case 'b1':
-					me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:true} );
-					me.approvalPage.hideTopBar();
-					me.approvalPage.hideFootBtns();
-
-					util.api({
-						'url':'',
-						'data':{
-							'orderId': me.orderId
-						},
-						'success': function( data ){
-							if( data.success ){
-								me.$('.htshow').attr('src','/op/api/file/previewimage?filePath='+data.value.model.contract);
-								me.$('.htfbshow').attr('src','/op/api/file/previewimage?filePath='+data.value.model.contractCopy);
-							}
-						}
-					})
-					me.$('[data-state="b+"]').show();
-					me.$('[data-state="c"]').show();
-				break;
-				//补充合同  [小助手/财务] (仅可查看);
-				case 'b2':
-					me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:true} );
-					me.approvalPage.hideTopBar();
-					me.approvalPage.hideFootBtns();
-					
-					util.api({
-						'url':'',
-						'data':{
-							'orderId': me.orderId
-						},
-						'success': function( data ){
-							if( data.success ){
-								me.$('.htshow').attr('src','/op/api/file/previewimage?filePath='+data.value.model.contract)
-								me.$('.htfbshow').attr('src','/op/api/file/previewimage?filePath='+data.value.model.contractCopy);
-							}
-						}
-					})
-					me.$('[data-state="b+"]').show();
-				break;
-				//只读状态  [订单列表] (仅可查看)
+				//只读状态  [小助手/财务/销售] (仅可查看)
 				case 'd':
 					me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:true} );
 					me.approvalPage.hideTopBar();
@@ -252,7 +212,24 @@ define( function(require, exports, module){
 						me.$('#daokuanlist').html('<tr><td colspan="4"><p class="tip">暂无数据</p></td></tr>');
 					}	
 				}
-			})
+			});
+
+			//获取补充合同信息
+			if( me.status == 10 ){
+				util.api({
+					'url':'',
+					'data':{
+						'orderId': me.orderId
+					},
+					'success': function( data ){
+						if( data.success ){
+							me.$('.htshow').attr('src','/op/api/file/previewimage?filePath='+data.value.model.contract);
+							me.$('.htfbshow').attr('src','/op/api/file/previewimage?filePath='+data.value.model.contractCopy);
+						}
+					}
+				})
+				me.$('.approval-contractshow').show();
+			}
 		},
 
 		//校验 合同审核 审批意见
@@ -272,7 +249,7 @@ define( function(require, exports, module){
 				util.api({
 	                'url': '~/op/api/approval/directapprove',
 	                'data':{
-	                    'processInstanceId': me.info.processInstanceId,   //流程实例ID
+	                    'processInstanceId': me.info.processInstanceId, //流程实例ID
 	                    'approved': true,                  				//审批结果(通过/拒绝)
 	                    'opinion': me.model.get('comment'),  			//审批意见
 	                    'contractState': me.model.get('contractState'), //是否合格
