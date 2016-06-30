@@ -99,7 +99,7 @@
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>企业负责人姓名</span></label>
-                    <input maxlength="20"  ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required ng-maxlength="100" type="text" name="keyContactName" ng-model="entInfo.keyContactName"/>
+                    <input maxlength="50"  ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required ng-maxlength="100" type="text" name="keyContactName" ng-model="entInfo.keyContactName"/>
                 </div>
                 <div class="form-field">
                     <label class="required"><span>企业负责人电话</span></label>
@@ -119,7 +119,7 @@
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>平台管理员</span></label>
-                    <input maxlength="20" ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required ng-maxlength="100" type="text" ng-model="entInfo.contactName" name="contactName"/>
+                    <input maxlength="50" ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required ng-maxlength="100" type="text" ng-model="entInfo.contactName" name="contactName"/>
                 </div>
                 <div class="form-field">
                     <label class="required"><span>平台管理员手机</span></label>
@@ -256,7 +256,7 @@
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>合同章名称</span></label>
-                    <input  maxlength="20" ng-class="{readonly:payInfoReadonly||payInfo.partReadonly}" required ng-readonly="payInfoReadonly||payInfo.partReadonly" type="text" ng-model="payInfo.sealName" name="sealName"/>
+                    <input  maxlength="50" ng-class="{readonly:payInfoReadonly||payInfo.partReadonly}" required ng-readonly="payInfoReadonly||payInfo.partReadonly" type="text" ng-model="payInfo.sealName" name="sealName"/>
                 </div>
             </div>
             <div class="form-row">
@@ -331,7 +331,7 @@
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>打款名称（单位/个人）</span></label>
-                    <input  maxlength="20" ng-class="{readonly:payInfoReadonly||payInfo.partReadonly}" ng-readonly="payInfoReadonly||payInfo.partReadonly" required type="text" ng-model="payInfo.payerName" name="payerName"/>
+                    <input  maxlength="50" ng-class="{readonly:payInfoReadonly||payInfo.partReadonly}" ng-readonly="payInfoReadonly||payInfo.partReadonly" required type="text" ng-model="payInfo.payerName" name="payerName"/>
                 </div>
             </div>
             <div class="form-row">
