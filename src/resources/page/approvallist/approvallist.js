@@ -18,7 +18,6 @@ define( function(require, exports, module){
 	var main = angular.module('list',['common']);   //
 
     var isFinance = false;
-    var paymap = {'1':'全款','2':'分期','3':'未付'}
 
 	//审批列表控制器
 	main.controller('approvallist',['$scope', '$element', function( $scope , $element ){
@@ -105,7 +104,7 @@ define( function(require, exports, module){
                             data.value.model.content.forEach(function( item ){
                                 item.currentTaskStr = enumdata['approvalnodemap'][item.currentTask];
                                 item.orderTypeStr = enumdata['ordermap'][item.orderType];
-                                item.payStatusStr = paymap[item.payStatus];
+                                item.payStatusStr = enumdata['paystatus'][item.payStatus];
                                 item.orderstatusStr = enumdata['orderstatus'][item.orderStatus];
                                 item.applyTimeStr = new Date( item.applyTime )._format('yyyy/MM/dd hh:mm');
                             });
