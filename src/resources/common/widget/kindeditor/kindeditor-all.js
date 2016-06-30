@@ -7199,13 +7199,13 @@ KindEditor.plugin('image', function(K) {
 		allowImageRemote = K.undef(self.allowImageRemote, true),
 		formatUploadUrl = K.undef(self.formatUploadUrl, true),
 		allowFileManager = K.undef(self.allowFileManager, false),
-		uploadJson = K.undef(self.uploadJson, 'op/api/file/uploadsinglefile'),
+		uploadJson = K.undef(self.uploadJson, '/op/api/file/uploadsinglefile'),
 		imageTabIndex = K.undef(self.imageTabIndex, 0),
 		imgPath = self.pluginsPath + 'image/images/',
 		extraParams = K.undef(self.extraFileUploadParams, {}),
 		filePostName = K.undef(self.filePostName, 'uploadfile'),
 		fillDescAfterUploadImage = K.undef(self.fillDescAfterUploadImage, false),
-		baseSrc = K.undef(self.baseSrc, 'api/file/previewimage?filePath='),
+		baseSrc = K.undef(self.baseSrc, '/op/api/file/previewimage?filePath='),
 		lang = self.lang(name + '.');
 	self.plugin.imageDialog = function(options) {
 		var imageUrl = options.imageUrl,
