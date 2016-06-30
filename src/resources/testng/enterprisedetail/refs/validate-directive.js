@@ -16,37 +16,6 @@ define(function (reuqire, exports, module) {
         }
         return result;
     }
-
-    var INTEGER_REGEXP = /^\d*$/;
-    app.directive('int', function () {
-        return {
-            require: 'ngModel',
-            link: function (scope, elm, attrs, ctrl) {
-                elm.off('p').on('keyup', function () {
-                    var $dom = $(this);
-                    var result = ($dom.val().replace(/[^\d]/g, ''));
-                    result = CtoH(result);
-                    if (!INTEGER_REGEXP.test(result) && !isNaN(result) && result !== '') {
-                        result=result.substr(0,result.length-1);
-                    }
-                    $dom.val(result);
-                    ctrl.$setViewValue(result ? parseInt(result) : result, true);//只能赋模型的值不能改变VIEW
-                    setTimeout(function () {
-                        ctrl.$setValidity('int', true);
-                    }, 100);
-                });
-                ctrl.$parsers.unshift(function (viewValue) {
-                    if (INTEGER_REGEXP.test(viewValue)) {
-                        ctrl.$setValidity('int', true);
-                        return viewValue;
-                    } else {
-                        ctrl.$setValidity('int', false);
-                        return undefined;
-                    }
-                });
-            }
-        };
-    });
     var FLOAT_REGEXP = /^\-?\d+((\.|\,)\d+)?$/;
     app.directive('smartFloat', function () {
         return {
@@ -83,19 +52,34 @@ define(function (reuqire, exports, module) {
     });
 
     var NUMBER_REGEXP = /^\d{1,6}((\.)\d{0,2})?$/;
+    var INTEGER_REGEXP = /^[0-9][0-9]{0,5}$/;
     app.directive('number', function () {
         return {
             require: 'ngModel',
-            scope: {maxNumber: '=', minNumber: '=', max: '@', min: '@', ngModel: '=', ngRequired: '='},
+            scope: {config:'=number',maxNumber: '=', minNumber: '=', max: '@', min: '@', ngModel: '=', ngRequired: '='},
             link: function (scope, elm, attrs, ctrl) {
+                var exp=NUMBER_REGEXP;
+                if(scope.config && scope.config.int){
+                    exp=INTEGER_REGEXP;
+                }
                 scope.ngModel = setMaxOrMinValue(scope.ngModel);
                 elm.off('keyup').on('keyup', function () {
                     var $dom = $(this);
                     var result = ($dom.val().replace(/[^\.\d]/g, ''));
                     result = CtoH(result);
-                    if (!NUMBER_REGEXP.test(result) && !isNaN(result) && result !== '') {
-                        result=result.substr(0,result.length-1);
+                    if (!exp.test(result) && result !== '') {
+                        var findIndex=result.indexOf('.');
+                        if(findIndex>=6 || findIndex<0){
+                            result=result.substr(0,6);
+                        }else if(findIndex>=0){
+                            result=result.substr(0,findIndex+3);
+                        }
+                        result=(Math.floor(result*100)/100).toString();
+                        if(scope.config&&scope.config.int){
+                            result=result.replace(/\./g,'');
+                        }
                     }
+                    //result = setMaxOrMinValue(result);
                     $dom.val(result);
                     ctrl.$setViewValue(result !== null ? parseFloat(result) : result, true);//只能赋模型的值不能改变VIEW
                     setTimeout(function () {
@@ -142,7 +126,8 @@ define(function (reuqire, exports, module) {
 
                 //与非空进行兼容
                 ctrl.$parsers.unshift(function (viewValue) {
-                    if (NUMBER_REGEXP.test(viewValue)) {
+                    console.log('$parsers:'+viewValue)
+                    if (exp.test(viewValue)) {
                         ctrl.$setValidity('number', true);
                         return parseFloat(viewValue.toString().replace(',', '.'));
                     } else if (viewValue === '' && scope.ngRequired) {
@@ -176,7 +161,7 @@ define(function (reuqire, exports, module) {
             }
         };
     });
-    var PHONE_REGEXP = /^[0-9]{3}\d{8}$/;
+    var PHONE_REGEXP = /^[0-9]{11}$/;
     app.directive('phone', function () {
         return {
             require: 'ngModel',
@@ -185,8 +170,12 @@ define(function (reuqire, exports, module) {
                     var $dom = $(this);
                     var result = ($dom.val().replace(/[^\d]/g, ''));
                     result = CtoH(result);
-                    if (!INTEGER_REGEXP.test(result) && !isNaN(result) && result !== '') {
-                        result=result.substr(0,result.length-1);
+                    if (!/^\d{1,}$/.test(result) && !isNaN(result) && result !== '') {
+                        var subLength=result.length-1;
+                        if(result.length>11){
+                            subLength=11;
+                        }
+                        result=result.substr(0,subLength);
                     }
                     $dom.val(result);
                     ctrl.$setViewValue(result ? parseInt(result) : result, true);//只能赋模型的值不能改变VIEW
