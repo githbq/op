@@ -618,14 +618,15 @@ define( function( require, exports, module ) {
                 if( status == '2' || status == '3' ){
                     detailApproval.show( id , 'a', status , dstatus );
                 }else{
-                    detailApproval.show( id , 'd', status , );
+                    detailApproval.show( id , 'd', status , dstatus );
                 }
 
             //其他只可以看详情
             } else {
 
-                detailApproval.show( id , 'd', status);
+                detailApproval.show( id , 'd', status , dstatus );
             }
+            
             detailApproval.on('editSuccess',function(){
                 orderList.getList();
             });

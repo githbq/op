@@ -8361,6 +8361,9 @@ em {
   display: inline-block;
   max-width: 300px;
 }
+.m-detailapproval .approval-daokuan {
+  display: none;
+}
 .m-detailapproval .approval-contract {
   border-top: 1px #444 dashed;
   margin-top: 30px;

@@ -128,7 +128,8 @@ define( function(require, exports, module){
             e.stopPropagation();
             var id = angular.element(e.target).attr('data-id'),
                 inId = angular.element(e.target).attr('data-inid'),
-                status = angular.element(e.target).attr('data-status');
+                status = angular.element(e.target).attr('data-status'),
+                dstatus = angular.element(e.target).attr('data-dstatus');
 
             var type;
             //待审核的
@@ -142,7 +143,7 @@ define( function(require, exports, module){
             }
 
             var detailApproval = new DetailApproval();
-            detailApproval.show( id , type , status , { 'processInstanceId': inId } );
+            detailApproval.show( id , type , status , dstatus , { 'processInstanceId': inId } );
              //注册事件
             detailApproval.on('approvalSuccess',function(){
                 $scope.search();
