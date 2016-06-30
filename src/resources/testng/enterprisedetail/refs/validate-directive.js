@@ -70,7 +70,7 @@ define(function (reuqire, exports, module) {
                     if (!exp.test(result) && !isNaN(result) && result !== '') {
                         result=result.substr(0,result.length-1);
                     }
-                    result = setMaxOrMinValue(result);
+                    //result = setMaxOrMinValue(result);
                     $dom.val(result);
                     ctrl.$setViewValue(result !== null ? parseFloat(result) : result, true);//只能赋模型的值不能改变VIEW
                     setTimeout(function () {
