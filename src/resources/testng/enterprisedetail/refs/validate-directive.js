@@ -68,7 +68,6 @@ define(function (reuqire, exports, module) {
                     var result = ($dom.val().replace(/[^\.\d]/g, ''));
                     result = CtoH(result);
                     if (!exp.test(result) && result !== '') {
-                        result=result.substr(0,6);
                         var findIndex=result.indexOf('.');
                         if(findIndex>=6 || findIndex<0){
                             result=result.substr(0,6);
