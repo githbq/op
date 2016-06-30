@@ -14,9 +14,6 @@ define( function(require, exports, module){
 	var BackMoney = require('../../order/detailbackmoney/detailbackmoney');           //退款
     
 
-   
-
-
 	var page = require('common/widget/page/page');  //ng分页组件
 	var main = angular.module('list',['common']);   //
 

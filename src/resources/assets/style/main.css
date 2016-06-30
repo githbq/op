@@ -8333,7 +8333,7 @@ em {
 }
 .m-detailapproval .approval-table table tr th,
 .m-detailapproval .approval-table table tr td {
-  padding: 0 10px;
+  padding: 8px 10px;
 }
 .m-detailapproval .approval-table table tr th {
   color: #444;
