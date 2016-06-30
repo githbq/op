@@ -223,17 +223,17 @@ define( function(require, exports, module){
 			//获取补充合同信息
 			if( me.status == 10 ){
 				util.api({
-					'url':'',
+					'url':'/odr/getOdrContract',
 					'data':{
 						'orderId': me.orderId
 					},
 					'success': function( data ){
 						if( data.success ){
-							me.$('.htshow').attr('src','/op/api/file/previewimage?filePath='+data.value.model.contract);
-							me.$('.htshow').parent().attr('href','/op/api/file/previewimage?filePath='+data.value.model.contract);
+							me.$('.htshow').attr('src','/op/api/file/previewimage?filePath='+data.value.model.contractPic);
+							me.$('.htshow').parent().attr('href','/op/api/file/previewimage?filePath='+data.value.model.contractPic);
 
-							me.$('.htfbshow').attr('src','/op/api/file/previewimage?filePath='+data.value.model.contractCopy);
-							me.$('.htfbshow').parent().attr('href','/op/api/file/previewimage?filePath='+data.value.model.contractCopy);
+							me.$('.htfbshow').attr('src','/op/api/file/previewimage?filePath='+data.value.model.contractPicCopy);
+							me.$('.htfbshow').parent().attr('href','/op/api/file/previewimage?filePath='+data.value.model.contractPicCopy);
 						}
 					}
 				})
