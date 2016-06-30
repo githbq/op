@@ -8329,6 +8329,7 @@ em {
 }
 .m-detailapproval .approval-table table {
   border: 1px #ccc solid;
+  table-layout: fixed;
 }
 .m-detailapproval .approval-table table tr {
   border-bottom: 1px #ccc solid;
