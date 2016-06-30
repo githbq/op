@@ -41,7 +41,7 @@
                                         <!--可输入整型-->
                                         <div ng-switch-when="int">
                                             <label ng-if="field.label" ng-class="{required:field.validate.required}"><span class="title">{{field.label|trim2:true}}</span></label>
-                                            <input type="text" maxlength="6" int name="{{product.productId+'$'+field.groupName+'$'+field.name}}"
+                                            <input  type="text" number="{int:true}" name="{{product.productId+'$'+field.groupName+'$'+field.name}}"
                                                    ng-required="field.validate.required" ng-readonly="allReadonly||field.readonly"
                                                    ng-disabled="allReadonly||field.readonly"
                                                    min="{{getValidateValue('moreThan',field,product)}}"
