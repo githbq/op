@@ -6,7 +6,7 @@
     <button ng-click="goTo(3)">step3</button>
 
 
-    <div ng-show="step==1" ng-controller="form1Controller" ng-class="{step_validate_error:step_1_validate_error}" class="step form baseinfo" ng-form name="stepForm1">
+    <div ng-show="step==1 && !(globalInfo.isAdd)" ng-controller="form1Controller" ng-class="{step_validate_error:step_1_validate_error}" class="step form baseinfo" ng-form name="stepForm1">
         <div class="top-bar" ng-if="hideTopBar!==true">
             <!--<h1>第一步&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;企业信息</h1>-->
             <h1>企业信息</h1>
