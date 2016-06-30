@@ -367,20 +367,20 @@ define(function (require, exports, module) {
                                 }
                             }
                                 ;
-                                brack;
+                                break;
                             case 'attr':
                             {
                                 product.logic.attr[mapperItem.valueRef] = responseData[mapperItem.name];
 
                             }
                                 ;
-                                brack;
+                                break;
                             case 'global':
                             {
                                 $scope.productJson.global[mapperItem.valueRef] = responseData[mapperItem.name];
                             }
                                 ;
-                                brack;
+                                break;
                         }
                     }
 
