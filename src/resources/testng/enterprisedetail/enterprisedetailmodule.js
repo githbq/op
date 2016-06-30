@@ -116,8 +116,8 @@ define(function (require, exports, module) {
             switch (value.toString()) {
                 case '1':
                 {
-                    payInfo.agentCurrPayAmount=0;
-                    payInfo.currPayAmount=0;
+                    payInfo.agentCurrPayAmount = 0;
+                    payInfo.currPayAmount = 0;
                     //全额
                     _.each($scope.payInfo.currPayList, function (item, i) {
                         if (item.toAgent) {
@@ -217,7 +217,7 @@ define(function (require, exports, module) {
         //产品信息模块
         var productInfo = $scope.productInfo = {};
         //付款信息
-         var payInfo = $scope.payInfo = {payStatus: 1};
+        var payInfo = $scope.payInfo = {payStatus: 1};
         //全局行为状态
         var action = $scope.action = {doing: false};
         $scope.goTo = function (step) {
@@ -544,11 +544,7 @@ define(function (require, exports, module) {
             })
         }
 
-        //订单草稿  需要 enterpriseId
-        function submitStepProductInfo(callback) {
-
-            action.doing = true;
-            //数据二次处理
+        $scope.getProductInfo = function () {
             var dataResultCopy = angular.copy($scope.productInfo.dataResult);
             var newDataResult = [];
             _.each(dataResultCopy, function (item) {
@@ -560,17 +556,24 @@ define(function (require, exports, module) {
                 });
                 item.data = tempData;
             });
+            var data = {
+                odrDraftOrder: angular.toJson({
+                    enterpriseId: $scope.globalInfo.enterpriseId,
+                    draftEnterpriseId: $scope.productInfo.draftEnterpriseId,
+                    id: $scope.productInfo.draftOrderId,
+                    content: angular.toJson(newDataResult)
+                })
+            };
+            return data;
+        };
+        //订单草稿  需要 enterpriseId
+        function submitStepProductInfo(callback) {
+
+            action.doing = true;
             console.log('enterpriseIdenterpriseIdenterpriseId-------' + $scope.productInfo.draftEnterpriseId);
             util.api({
                 url: "~/op/api/a/odrDraft/draftOrderNext",
-                data: {
-                    odrDraftOrder: angular.toJson({
-                        enterpriseId: $scope.globalInfo.enterpriseId,
-                        draftEnterpriseId: $scope.productInfo.draftEnterpriseId,
-                        id: $scope.productInfo.draftOrderId,
-                        content: angular.toJson(newDataResult)
-                    })
-                },
+                data: $scope.getProductInfo(),
                 success: callback,
                 complete: function () {
                     $scope.$apply(function () {

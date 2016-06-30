@@ -207,7 +207,7 @@ define(function (require, exports, module) {
                         if (!checkUN(state)) {//传参过来的状态
                             product.logic.currState = state;
                         }
-                        var stateData = getStateCombine(product.logic);//所有的状态
+                        var stateData = getStateCombine(product.logic, product);//所有的状态
                         product.states = stateData.visibleStates;//可见的状态
                         var findIndex = _.findIndex($scope.products, {productId: product.productId});
                         if (findIndex >= 0) {
@@ -238,9 +238,8 @@ define(function (require, exports, module) {
                         dataResultItem && (dataResultItem.show = findProduct.show);
                         wrapperReset();
                     };
-                    //视图中渲染的结构
-
-                    function getStateCombine(logic) {
+                    //视图中渲染的结构  进行状态合并
+                    function getStateCombine(logic, product) {
                         //创建副本 避免污染原始数据
                         var baseState = angular.copy(logic.baseState);
                         var state = angular.copy(logic.states[logic.currState || 0]);
@@ -260,6 +259,9 @@ define(function (require, exports, module) {
                                     findData.value = newState.value.value || '';
                                 }
                                 newState.value.valueData = findData;
+                            }
+                            if (newState.value.type == 'ajax') {//状态切换的时候由ajax取值
+                                ajaxSetValue(newState.value, product);
                             }
                         }
                         var tempItems = [];
@@ -283,79 +285,14 @@ define(function (require, exports, module) {
 
 
                     $scope.deleteArray = function (items, index) {
-                        items.splice(index, 1);
+                        if (items && items.length > 0) {
+                            items.splice(index, 1);
+                        }
                     };
                     $scope.clickMe = function () {
                     };
-                    //验证状态初始化  todo      暂时不用
-                    function initValidate(products) {
-                        return;
-                        if (!products) {
-                            return;
-                        }
-                        for (var i = 0; i < products.length; i++) {
-                            var product = products[i];
-                        }
-
-                        function resolveProductStates(product) {
-                            var states = product.states;
-                            var logic = product.logic;
-                            for (var i = 0; i < states.length; i == 0) {
-                                var stateItem = states[i];
-                                executeValidateInit(stateItem, logic, product);
-                            }
-                        }
-
-                        //执行验证值初始化行为
-                        function executeValidateInit(state, logic, product) {
-                            state.validateInit = state.validateInit || [];
-                            for (var i = 0; i < state.validateInit.length; i++) {
-                                var initItem = state.validateInit[i];
-                                switchInitType(initItem, state.validate, logic, product)
-
-                            }
-                        }
-
-                        //根据类型执行取值
-                        function switchInitType(initItem, validate, logic, product) {
-                            switch (initItem.value.type) {
-                                case 'ajax':
-                                {
-                                    util.api({
-                                        url: '~' + initItem.url,
-                                        data: getQueryData(initItem.query, product),
-                                        success: function (result) {
-                                            if (result.success) {
-                                                $scope.$apply(function () {
-                                                    validate[initItem.name] = result.value.model[initItem.value.backName];
-                                                });
-                                            }
-                                        }
-                                    });
-                                }
-                                    ;
-                                    break;
-                                case 'attr':
-                                {
-                                    validate[initItem.name] = logic.attr[initItem.name];
-
-                                }
-                                    ;
-                                    break;
-                                case 'global':
-                                {
-                                    validate[initItem.name] = logic.global[initItem.name];
-                                }
-                                    ;
-                                    break;
-                            }
-                        }
-                    }
-
                     //控制值改变时事件  fieldStruct 元素的模型
                     $scope.fieldChange = function (fieldStruct, product, form) {
-                        //执行验证
-
                         //执行事件
                         fieldStruct.onchange = fieldStruct.onchange || [];
                         for (var i = 0; i < fieldStruct.onchange.length; i++) {
@@ -377,137 +314,138 @@ define(function (require, exports, module) {
                                 case 'ajax':
                                 {
                                     //远程赋值操作
-                                    ajaxSetValue(changeItem, fieldStruct, product);
+                                    ajaxSetValue(changeItem, product);
 
                                 }
                                     ;
                             }
                         }
-
-                        //ajax赋值操作
-                        function ajaxSetValue(changeItem, fieldStruct, product) {
-                            if (!changeItem.url) {
-                                return;
-                            }
-                            util.api({
-                                url: '~' + changeItem.url,
-                                data: getQueryData(changeItem.query, product),
-                                success: function (result) {
-                                    if (result.success && result.value.model) {//如果查询无效 result.value.model为false或者null
-                                        setResponse(result.value.model, changeItem, product);
-                                    }
+                    };
+                    //ajax赋值操作
+                    function ajaxSetValue(changeItem, product) {
+                        if (!changeItem.url) {
+                            return;
+                        }
+                        util.api({
+                            url: '~' + changeItem.url,
+                            data: getQueryData(changeItem.query, product),
+                            success: function (result) {
+                                if (result.success && result.value.model) {//如果查询无效 result.value.model为false或者null
+                                    setResponse(result.value.model, changeItem, product);
                                 }
-                            });
-
-
-                            //根据ajax返回的值向数据中赋值
-                            function setResponse(data, changeItem, product) {
-                                $scope.$apply(function () {
-                                    if (changeItem.response.writeBackType == 'merge') {//合并到data上
-                                        _.each(data, function (value, key) {
-                                            var findData = _.findWhere(product.logic.data, {name: key});
-                                            findData && (findData.value = value);
-                                        });
-                                    }
-                                    if (changeItem.response.writeBackType == 'mapping' && changeItem.response.mapper) {//映射合并
-                                        for (var i = 0; i < changeItem.response.mapper.length; i++) {
-                                            var mapperItem = changeItem.response.mapper[i];
-                                            setMappingValue(data, mapperItem, product);
-                                        }
-                                    }
+                            }
+                        });
+                    };
+                    //根据ajax返回的值向数据中赋值
+                    function setResponse(data, changeItem, product) {
+                        $timeout(function () {
+                            if (changeItem.backName && changeItem.valueData) {//单一数据来源赋值
+                                changeItem.valueData.value = data[changeItem.backName];
+                            }
+                            else if (changeItem.response.writeBackType == 'merge') {//合并到data上
+                                _.each(data, function (value, key) {
+                                    var findData = _.findWhere(product.logic.data, {name: key});
+                                    findData && (findData.value = value);
                                 });
                             }
-
-                            function setMappingValue(responseData, mapperItem, product) {
-                                switch (mapperItem.valueType) {
-                                    case 'data':
-                                    {
-                                        var findData = _.findWhere(product.logic.data, {name: mapperItem.valueRef});
-                                        if (findData) {
-                                            findData.value = responseData[mapperItem.name];
-                                        }
-                                    }
-                                        ;
-                                        brack;
-                                    case 'attr':
-                                    {
-                                        product.logic.attr[mapperItem.valueRef] = responseData[mapperItem.name];
-
-                                    }
-                                        ;
-                                        brack;
-                                    case 'global':
-                                    {
-                                        product.global.attr[mapperItem.valueRef] = responseData[mapperItem.name];
-                                    }
-                                        ;
-                                        brack;
+                            else if (changeItem.response.writeBackType == 'mapping' && changeItem.response.mapper) {//映射合并
+                                for (var i = 0; i < changeItem.response.mapper.length; i++) {
+                                    var mapperItem = changeItem.response.mapper[i];
+                                    setMappingValue(data, mapperItem, product);
                                 }
                             }
-                        };
-                        //根据赋值类型进行赋值
-                        function evaluationForValueType(changeItem, fieldStruct, product) {
-                            switch (changeItem.valueType) {
-                                case 'data':
-                                {
-                                    var findvalue = null;
-                                    //从data中赋值
-                                    var find = _.findWhere(product.logic.data, {name: changeItem.target});
-                                    setValueForSource(changeItem, find, {data: true});
-                                }
-                                    ;
-                                    break;
+                        }, 10);
+                    }
 
-                                case 'attr':
-                                {
-                                    setValueForSource(changeItem, product.logic.attr, {attr: true});
+                    function setMappingValue(responseData, mapperItem, product) {
+                        switch (mapperItem.valueType) {
+                            case 'data':
+                            {
+                                var findData = _.findWhere(product.logic.data, {name: mapperItem.valueRef});
+                                if (findData) {
+                                    findData.value = responseData[mapperItem.name];
                                 }
-                                    ;
-                                    break;
-                                case 'global':
-                                {
-                                    //从global中赋值
-                                    setValueForSource(changeItem, product.logic.global, {global: true});
-                                }
-                                    ;
-                                    break;
-                                case 'state':
-                                {
-                                    setStateForSource(changeItem, fieldStruct, product);
-                                }
-                                    ;
-                                    break;
+                            }
+                                ;
+                                brack;
+                            case 'attr':
+                            {
+                                product.logic.attr[mapperItem.valueRef] = responseData[mapperItem.name];
+
+                            }
+                                ;
+                                brack;
+                            case 'global':
+                            {
+                                $scope.productJson.global[mapperItem.valueRef] = responseData[mapperItem.name];
+                            }
+                                ;
+                                brack;
+                        }
+                    }
+
+                    //根据赋值类型进行赋值
+                    function evaluationForValueType(changeItem, fieldStruct, product) {
+                        switch (changeItem.valueType) {
+                            case 'data':
+                            {
+                                var findvalue = null;
+                                //从data中赋值
+                                var find = _.findWhere(product.logic.data, {name: changeItem.target});
+                                setValueForSource(changeItem, find, {data: true},fieldStruct);
+                            }
+                                ;
+                                break;
+
+                            case 'attr':
+                            {
+                                setValueForSource(changeItem, product.logic.attr, {attr: true},fieldStruct);
+                            }
+                                ;
+                                break;
+                            case 'global':
+                            {
+                                //从global中赋值
+                                setValueForSource(changeItem, $scope.productJson.global, {global: true},fieldStruct);
+                            }
+                                ;
+                                break;
+                            case 'state':
+                            {
+                                setStateForSource(changeItem, fieldStruct, product);
+                            }
+                                ;
+                                break;
+                        }
+                    }
+
+                    //设置状态
+                    function setStateForSource(changeItem, fieldStruct, product) {
+                        var state = null;
+                        _.each(fieldStruct.items, function (n, i) {//目前只有拥有 items属性的元素才会有可能改变状态
+                            var findState = n[changeItem.source];
+                            if (findState !== undefined && n.value == fieldStruct.value.valueData.value) {
+                                changeState(product, findState);
+                            }
+                        })
+                    }
+
+                    //end 设置状态
+
+                    //根据源不同 去给对象赋值
+                    function setValueForSource(changeItem, findData, DataIs,fieldStruct) {
+                        if (!findData || !changeItem.target) {
+                            return;
+                        }
+                        if (changeItem.source == 'value') {
+                            if (DataIs.data) {
+                                findData.value = fieldStruct.value.valueData.value;
+                            } else if (DataIs.attr || DataIs.global) {
+                                findData[changeItem.target] && (findData[changeItem.target] = fieldStruct.value.valueData.value);
                             }
                         }
+                    }
 
-                        //设置状态
-                        function setStateForSource(changeItem, fieldStruct, product) {
-                            var state = null;
-                            _.each(fieldStruct.items, function (n, i) {//目前只有拥有 items属性的元素才会有可能改变状态
-                                var findState = n[changeItem.source];
-                                if (findState !== undefined && n.value == fieldStruct.value.valueData.value) {
-                                    changeState(product, findState);
-                                }
-                            })
-                        }
-
-                        //end 设置状态
-
-                        //根据源不同 去给对象赋值
-                        function setValueForSource(changeItem, findData, DataIs) {
-                            if (!findData || !changeItem.target) {
-                                return;
-                            }
-                            if (changeItem.source == 'value') {
-                                if (DataIs.data) {
-                                    findData.value = fieldStruct.value.valueData.value;
-                                } else if (DataIs.attr || DataIs.global) {
-                                    findData[changeItem.target] && (findData[changeItem.target] = fieldStruct.value.valueData.value);
-                                }
-                            }
-                        }
-
-                    };
                     //获取推送到后端的数据
                     function getQueryData(querys, product) {
                         var data = {};
@@ -542,7 +480,7 @@ define(function (require, exports, module) {
                                 break;
                             case 'global':
                             {
-                                value = product.logic.global[refName];
+                                value = $scope.productJson.global[refName];
                             }
                                 ;
                                 break;
