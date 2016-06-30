@@ -1,50 +1,51 @@
-var main = angular.module('common',[]);
+define(function(require, exports, module){
+	var main = angular.module('common',[]);
 
-//
-// 分页组件 ??传递事件
-// 分页组件的三个 值变的时候 均要触发刷新函数
-//
-main.directive('page',function(){
+	//
+	// 分页组件 ??传递事件
+	// 分页组件的三个 值变的时候 均要触发刷新函数
+	//
+	main.directive('page',function(){
 	return{
 		restrict: 'E', //E element
-        controller: ['$scope', '$element', function( $scope,$element ){
+	    controller: ['$scope', '$element', function( $scope,$element ){
 
-        	var omit="..."; //省略标识
+	    	var omit="..."; //省略标识
 
-        	$scope.$watch('total',function(){
-        		$scope.refresh();
-        	});
+	    	$scope.$watch('total',function(){
+	    		$scope.refresh();
+	    	});
 
-            //获取总页数
-            $scope.getFullPage = function(){
-            	return Math.ceil( $scope.total / $scope.pagesize );
-            };
-            //上一页
-            $scope.prevPage = function(e){
-            	if ($scope.pagenumber <= 0) return;
-            	$scope.pagenumber = $scope.pagenumber - 1;
-            	$scope.refresh();
-            	$scope.$emit('pagechange',$scope.pagenumber);
-            };
-            //下一页
-            $scope.nextPage = function(e){
-            	if ($scope.pagenumber >= $scope.getFullPage()-1 ) return;
-            	$scope.pagenumber = $scope.pagenumber + 1;
-            	$scope.refresh();
-            	$scope.$emit('pagechange',$scope.pagenumber);
-            };
-            //页数点击
-            $scope.pageClick = function( e ){
-            	var page = e.target.getAttribute('data-page');
-            	if(page == omit) return;
-            	$scope.pagenumber = page - 1;
-            	$scope.refresh();
-            	$scope.$emit('pagechange',$scope.pagenumber);
-            };
-            //重新计算数据模型
-            $scope.refresh = function(){
-            	var fullPage = $scope.getFullPage(),
-            		pageNumber = $scope.pagenumber+1;
+	        //获取总页数
+	        $scope.getFullPage = function(){
+	        	return Math.ceil( $scope.total / $scope.pagesize );
+	        };
+	        //上一页
+	        $scope.prevPage = function(e){
+	        	if ($scope.pagenumber <= 0) return;
+	        	$scope.pagenumber = $scope.pagenumber - 1;
+	        	$scope.refresh();
+	        	$scope.$emit('pagechange',$scope.pagenumber);
+	        };
+	        //下一页
+	        $scope.nextPage = function(e){
+	        	if ($scope.pagenumber >= $scope.getFullPage()-1 ) return;
+	        	$scope.pagenumber = $scope.pagenumber + 1;
+	        	$scope.refresh();
+	        	$scope.$emit('pagechange',$scope.pagenumber);
+	        };
+	        //页数点击
+	        $scope.pageClick = function( e ){
+	        	var page = e.target.getAttribute('data-page');
+	        	if(page == omit) return;
+	        	$scope.pagenumber = page - 1;
+	        	$scope.refresh();
+	        	$scope.$emit('pagechange',$scope.pagenumber);
+	        };
+	        //重新计算数据模型
+	        $scope.refresh = function(){
+	        	var fullPage = $scope.getFullPage(),
+	        		pageNumber = $scope.pagenumber+1;
 
 				//------------------------------------------------------------------------
 	            // 计算数据模型
@@ -94,16 +95,16 @@ main.directive('page',function(){
 	            if ($scope.pagenumber >= fullPage-1 || $scope.total <= 0) {
 	                $scope.nextpage = "disabled";
 	            }
-            };
+	        };
 
-            $scope.refresh();
-        }],
-        
-        scope:{
-            'pagesize': '@',         //获取每页条数
-            'pagenumber': '=',       //页数
-            'total': '@'             //总条数
-        },
+	        $scope.refresh();
+	    }],
+	    
+	    scope:{
+	        'pagesize': '@',         //获取每页条数
+	        'pagenumber': '=',       //页数
+	        'total': '@'             //总条数
+	    },
 
 	    template:'<div class="m-page">' +
 
@@ -126,4 +127,5 @@ main.directive('page',function(){
 				'</div>',
 		replace: true   //是否替换原始自定义标签
 	}
-});
+	});
+})
