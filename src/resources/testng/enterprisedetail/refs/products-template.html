@@ -107,8 +107,6 @@
                                         </div>
                                         <!--输入时间-->
                                         <div ng-switch-when="time">
-                                            {{'moreThan:'+getValidateValue('moreThan',field,product)}}
-                                            {{'lessThan:'+getValidateValue('lessThan',field,product)}}
                                             <label ng-if="field.label" ng-class="{required:field.validate.required}"><span class="title" ng-init="field.dateConfig={type:0}">{{field.label|trim2:true}}</span></label>
                                             <div class="div-inline-block">
                                                 <div ng-disabled="allReadonly||field.readonly"
