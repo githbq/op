@@ -152,7 +152,7 @@ define(function (reuqire, exports, module) {
             }
         };
     });
-    var PHONE_REGEXP = /^[0-9]{3}\d{8}$/;
+    var PHONE_REGEXP = /^[0-9]{11}$/;
     app.directive('phone', function () {
         return {
             require: 'ngModel',
@@ -161,7 +161,7 @@ define(function (reuqire, exports, module) {
                     var $dom = $(this);
                     var result = ($dom.val().replace(/[^\d]/g, ''));
                     result = CtoH(result);
-                    if (!INTEGER_REGEXP.test(result) && !isNaN(result) && result !== '') {
+                    if (!/^\d{1,}$/.test(result) && !isNaN(result) && result !== '') {
                         result=result.substr(0,result.length-1);
                     }
                     $dom.val(result);
