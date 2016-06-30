@@ -255,6 +255,7 @@ define( function( require, exports, module ) {
            location.hash = '#order/payment/'+id+'/'+enterpriseId+'/'+orderType+'/'+opinion+'/'+isTp+'/'+ea+'/'+contractNo;
         },
         */
+        
         //删除订单
         deleteEve: function(e){
             console.log('删除订单');
@@ -276,29 +277,7 @@ define( function( require, exports, module ) {
                 })
             }
         },
-        //删除自订单
-        /*
-        orderDelEve:function(e){
-           var me = this;
-           var id = $(e.currentTarget).attr('data-id');
-           var bool = confirm('确定要删除该订单吗?');
-           if(bool){
-                util.api({
-                    'url':'/odr/deleteOrder',
-                    'data':{
-                        'orderId':id
-                    },
-                    'success': function( data ){
-                        console.warn( data );
-                        if( data.success ){
-                           util.showTip('订单删除成功！');
-                           me.searchEve();
-                        }
-                    }
-                });
-           }
-        },
-        */
+
         //查看详情
         infoEve: function(e){
             console.log('查看详情');
@@ -306,6 +285,7 @@ define( function( require, exports, module ) {
 
             var id = $(e.currentTarget).attr('data-id');
             var status = $(e.currentTarget).attr('data-status');
+            var dstatus = $(e.currentTarget).attr('');
 
             me.trigger( 'detail', id , status );
         },
@@ -341,7 +321,7 @@ define( function( require, exports, module ) {
             var me = this;
             var id = $(e.currentTarget).attr('data-id');                 //
             var status = $(e.currentTarget).attr('data-daokuan');        //0都不可以 1显示到款认领 2查看认领的到款
-
+            
             me.trigger('daokuan', id , status );
         },
         //发票
@@ -639,6 +619,7 @@ define( function( require, exports, module ) {
                 }else{
                     detailApproval.show( id , 'd', status);
                 }
+
             //其他只可以看详情
             } else {
 
