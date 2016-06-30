@@ -392,21 +392,21 @@ define(function (require, exports, module) {
                                 var findvalue = null;
                                 //从data中赋值
                                 var find = _.findWhere(product.logic.data, {name: changeItem.target});
-                                setValueForSource(changeItem, find, {data: true});
+                                setValueForSource(changeItem, find, {data: true},fieldStruct);
                             }
                                 ;
                                 break;
 
                             case 'attr':
                             {
-                                setValueForSource(changeItem, product.logic.attr, {attr: true});
+                                setValueForSource(changeItem, product.logic.attr, {attr: true},fieldStruct);
                             }
                                 ;
                                 break;
                             case 'global':
                             {
                                 //从global中赋值
-                                setValueForSource(changeItem, $scope.productJson.global, {global: true});
+                                setValueForSource(changeItem, $scope.productJson.global, {global: true},fieldStruct);
                             }
                                 ;
                                 break;
@@ -433,7 +433,7 @@ define(function (require, exports, module) {
                     //end 设置状态
 
                     //根据源不同 去给对象赋值
-                    function setValueForSource(changeItem, findData, DataIs) {
+                    function setValueForSource(changeItem, findData, DataIs,fieldStruct) {
                         if (!findData || !changeItem.target) {
                             return;
                         }
