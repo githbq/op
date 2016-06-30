@@ -191,7 +191,7 @@ define( function(require, exports, module){
 		resetSelect( $el,'ordermap' );
         resetSelect( $el,'orderstatus' );
 
-		angular.bootstrap( $el.find('.m-approvallist')[0] , ['list'] );
+		angular.bootstrap( $el[0] , ['list'] );
 
 		/*
 		var approvalList = new OpenApprovalList( { 'wrapper':$el,'limits':true  } );  	//
