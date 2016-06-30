@@ -55,8 +55,9 @@ define( function( require, exports, module ) {
             var me = this;
             KindEditor.options.filterMode = false;//不过滤html标签
             me.editor = KindEditor.create('#editor',{
-                allowImageRemote: false,
-                uploadJson: '/op/api/file/uploadsinglefile',
+                allowFileManager: false,
+                uploadJson: 'op/api/file/uploadsinglefile',
+                baseSrc: 'api/file/previewimage?filePath=',
                 filePostName: 'upfile',
                 resizeType: 0,
                 items: [
