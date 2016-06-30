@@ -96,6 +96,7 @@ define(function (reuqire, exports, module) {
                     if (!NUMBER_REGEXP.test(result) && !isNaN(result) && result !== '') {
                         result=result.substr(0,result.length-1);
                     }
+                    result = setMaxOrMinValue(result);
                     $dom.val(result);
                     ctrl.$setViewValue(result !== null ? parseFloat(result) : result, true);//只能赋模型的值不能改变VIEW
                     setTimeout(function () {
@@ -142,6 +143,7 @@ define(function (reuqire, exports, module) {
 
                 //与非空进行兼容
                 ctrl.$parsers.unshift(function (viewValue) {
+                    console.log('$parsers:'+viewValue)
                     if (NUMBER_REGEXP.test(viewValue)) {
                         ctrl.$setValidity('number', true);
                         return parseFloat(viewValue.toString().replace(',', '.'));

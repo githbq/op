@@ -197,7 +197,7 @@
                                 <span class="inline-m">{{item.endDate | date:"yyyy/MM/dd" }}</span>
                             </label>
                         </div>
-                        <div ng-show="false" class="form-field" ng-switch-when="Number_System">
+                        <div ng-show="false" class="form-field" ng-switch-when="number_System">
                         </div>
                         <div ng-show="false" class="form-field" ng-switch-when="FXBC">
                         </div>
@@ -286,7 +286,7 @@
                 <div class="form-field">
                     <label class="required"><span>分期金额</span></label>
                 </div>
-                <div class="form-field inputs-container">
+                <div class="form-field inputs-container" ng-init-testdata="payInfo.currPayList=[{currPayAmount:0,purchaseAmount:99}]">
                     <label ng-if="item.toAgent!==true" class="fenqi-label" ng-repeat="item in payInfo.currPayList">
                         <span>{{item.productName}}(元)</span>
                         <input ng-model-options="{updateOn:'default'}" ng-change="currPayAmountChange(payInfo.currPayList)"
