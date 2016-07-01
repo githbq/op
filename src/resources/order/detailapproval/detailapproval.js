@@ -362,8 +362,11 @@ define( function(require, exports, module){
 				'orderId': me.orderId
 			}
 
+			var rejectFrom == data.rejectFrom;
+
+			console.log( data );
 			//1 小助手
-			if( me.info.from && me.info.from == 1 ){
+			if( rejectFrom && rejectFrom == 1 ){
 
 				//保存
 				util.api({
@@ -381,7 +384,7 @@ define( function(require, exports, module){
 					}
 				})
 			//2 财务
-			}else if( me.info.from && me.info.from == 2 ){
+			}else if( rejectFrom && rejectFrom == 2 ){
 
 				//保存
 				util.api({
