@@ -362,7 +362,7 @@ define( function(require, exports, module){
 				'orderId': me.orderId
 			}
 
-			var rejectFrom == data.rejectFrom;
+			var rejectFrom = data.rejectFrom;
 
 			console.log( data );
 			//1 小助手
