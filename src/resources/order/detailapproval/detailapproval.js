@@ -107,6 +107,17 @@ define( function(require, exports, module){
 				}
 			});
 
+			me.$('#contractstate').on('change',function(e){
+
+				var value = $(e.currentTarget).val();
+				if( value == 1 ){
+					me.$('#rejectReason').val('').attr('disabled','disabled');
+				}else{
+					me.$('#rejectReason').removeAttr('disabled');
+				}
+			})
+
+
 		},
 		//状态变换
 		setState: function(){
