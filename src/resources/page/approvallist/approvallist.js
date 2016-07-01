@@ -13,9 +13,11 @@ define( function(require, exports, module){
 	var DetailPayment = require('../../order/detailpayment/detailpayment');           //收尾款
 	var BackMoney = require('../../order/detailbackmoney/detailbackmoney');           //退款
     
+    var Pagination = require('common/widget/pagination/pagination');      //分页组件
+    var pagination;
 
-	var page = require('common/widget/page/page');  //ng分页组件
-	var main = angular.module('list',['common']);   //
+
+	var main = angular.module('list',[]);   //
 
     var isFinance = false;
 
@@ -31,16 +33,14 @@ define( function(require, exports, module){
         $scope.tabledata.thead = ['订单号','合同号','企业名称','账号','订单类型','提单人','所属部门/代理商','审批类型','当前审批节点','付费状态','订单状态','提单日期','操作'];
 
         $scope.financeshow = !isFinance;
-        /*
+        
         if( !isFinance ){
             console.log($element.find('.financeshow'))
             $element.find('.financeshow').show();
         }
-        */
 
-        //搜索订单列表
-        $scope.search = function(){
-
+        //获取列表
+        $scope.getList = function(){
             var state = $scope.state;
             var url;
             switch ( state ){
@@ -82,8 +82,8 @@ define( function(require, exports, module){
                     'orderStatus': $scope.orderStatus,
                     'appTimeStart': appTimeStart,
                     'appTimeEnd': appTimeEnd,
-                    'pageIndex': $scope.pagenumber,
-                    'pageSize': $scope.pagesize
+                    'pageIndex': pagination.attr['pageNumber'],
+                    'pageSize': pagination.attr['pageSize']
                 },
                 'beforeSend': function(){
                     var me = this;
@@ -92,8 +92,7 @@ define( function(require, exports, module){
                     $scope.contentshow = false;
                 },
                 'success': function( data ){
-                    console.log( 'getdata' );
-                    console.log( data );
+
                     if( data.success ){
                         
                         if( data.value.model.content && data.value.model.content.length > 0 ){
@@ -111,15 +110,22 @@ define( function(require, exports, module){
                             $scope.tabledata.tbody = data.value.model.content;
                         } else {
 
+                           $scope.tipshow = true;
+                           $scope.contentshow = false;
+
                            $scope.tip = "暂无数据";
                         }
-                        $scope.total = data.value.model.itemCount;
-
-                        console.log( $scope.total )
+                        pagination.setTotalSize( data.value.model.itemCount );
                         $scope.$apply();
                     }
                 }
             });
+        }
+
+        //搜索订单列表
+        $scope.search = function(){
+            pagination.setPage( 0,false );
+            $scope.getList();
         }
 
         //查看订单状态
@@ -150,11 +156,6 @@ define( function(require, exports, module){
             return false;
         }
 
-        //初始化页数相关
-        $scope.pagenumber = 0;
-        $scope.pagesize = 20;
-        $scope.total = 0;
-
         //状态变化
         $scope.state = "wait";
         $scope.changestate = function( e,state ){
@@ -162,24 +163,28 @@ define( function(require, exports, module){
 
             $element.find('.toggle span').removeClass('active');
             angular.element(e.target).addClass('active');
-            $scope.pagenumber = 0;
             $scope.search();
         };
 
-        $scope.$on('pagechange', function( evt , pagenumber ){
-            console.log('pagechange');
-            $scope.pagenumber = pagenumber;
-            $scope.search(); 
-        });
+        pagination.onChange = function(){
+            $scope.getList();
+        };
 
         $scope.search();
-
     }]);
 
 
 	exports.init = function( param ){
 		var $el = exports.$el;
-		
+        
+        //初始化老分页组件		
+        pagination = new Pagination({
+            wrapper: $el.find('.list-pager'),
+            pageSize: 20,
+            pageNumber: 0
+        });
+        pagination.render();
+
 		param = param || [];
         console.log( '================' );
 		console.log( param );
