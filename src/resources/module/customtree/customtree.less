@@ -10,18 +10,20 @@
     float: right;
   }
   .panel-main {
-    max-height: 500px;
-    overflow: auto;
     .panel-header {
       padding: 10px;
       input {
         width: 180px;
-        height: 30px;
-        margin-left: 10px;
+        height: 25px;
+        margin: 0 10px;
       }
-
     }
     .panel-content {
+      .m-ztree{
+        position: relative;
+      }
+      max-height: 500px;
+      overflow: auto;
       .no-data {
         padding-top: 20px;
         line-height: 60px;

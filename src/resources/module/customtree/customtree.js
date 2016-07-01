@@ -53,12 +53,14 @@ define(function (require, exports, module) {
                 'width': 650
             },
             elements: {
-				'.no-data':'noData'
+				'.no-data':'noData',
+                '.name': 'name',
+                '.panel-content': 'content'
 			},
             events: {
                 "click .enter": 'onEnter',
                 'click .cancel': 'onCancel',
-                'keyup .search': 'onSearchTree'
+                'click .search': 'onSearchTree'
             },
             content: contentStr,
             init: function () {
@@ -98,42 +100,21 @@ define(function (require, exports, module) {
              */
             onSearchTree: function (e) {
                 var me = this;
-                if (!me.tree) {
+                var name = $.trim(me.$name.val());
+                if(!name){
                     return;
                 }
-                me.nodeList = [];
-                me.allNode = [];
-                me.$('.search').val($.trim(me.$('.search').val()));
-                value = me.$('.search').val();
-                console.log(value)
-                if (value != "") {
-                    var ztreeObj = me.tree.ztreeObj;
-                    me.allNode = ztreeObj.transformToArray(ztreeObj.getNodes());
-                    ztreeObj.expandAll(me.newOptions.ztreeOptions.expandAll);
-                    console.log(me.allNode);
-                    if (me.allNode && me.allNode.length > 0) {
-                        for (var i = 0; i < me.allNode.length; i++) {
-                            if ((me.allNode[i].name.indexOf(value)) > -1) {
-
-                                me.allNode[i].highlight = true;
-                                ztreeObj.updateNode(me.allNode[i]);
-                                console.log(me.allNode[i])
-                            } else {
-                                me.allNode[i].highlight = false;
-                                ztreeObj.updateNode(me.allNode[i]);
-                            }
-                        }
-                    }
-                } else {
-                    me.nodeList = me.tree.ztreeObj.getNodesByParamFuzzy(me.newOptions.ztreeOptions.name || 'name', '');
-                    console.log(me.nodeList);
-                    me.tree.expandAll(me.newOptions.ztreeOptions.expandAll);
-                    //return false;
-                    if (me.nodeList && me.nodeList.length > 0) {
-                        me.updateNodes(false);
-                    }
-                    //me.updateNodes(false);
+                var target = $(".panel-content li a[title="+ name +"]");
+                if( target.length > 0 ){
+                    var distance = -200;
+                    target.parentsUntil(".m-ztree").filter("li").each(function(index,item){
+                        distance += this.offsetTop;
+                    });
+                    $(".panel-content li a").removeClass('curSelectedNode');
+                    target.addClass('curSelectedNode');
+                    me.$content.scrollTop(distance); 
                 }
+                
             }, 
 
             updateNodes: function (highlight) {
