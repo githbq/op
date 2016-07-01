@@ -7132,6 +7132,7 @@ em {
   font-weight: bold;
 }
 .m-enterprisedetail div.section p {
+  padding: 5px 0;
   color: #444;
 }
 .m-enterprisedetail div.section p .title {

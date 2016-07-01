@@ -598,21 +598,6 @@ define(function(require, exports, module) {
 
                         me.$sdSC.val(model.storageTotalSpace);
                         me.$sdSUC.val(model.storageUsedSpace);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                         me.enterpriseAccount = model.enterpriseAccount;
                         me.attrs.isPay = model.isPayed;
 
@@ -628,13 +613,9 @@ define(function(require, exports, module) {
                             }
                         });
 
-                        me.$address.val(model.address);
-                        me.$aindustry.val(model.industry);
                         me.$asource.val(model.source);
-                        me.$aprovince.val(model.province);
-                        me.$agroup.val(model.groupType);
-                        me.$aknow.val(model.knowSource);
-                        me.$aregister.val(model.registerMotive);
+                        //me.$aknow.val(model.knowSource);
+                        //me.$aregister.val(model.registerMotive);
                         me.$acompany.val(model.companyScale);
                         me.$asales.val(model.saleTeamScale);
                         
@@ -657,17 +638,17 @@ define(function(require, exports, module) {
                         }
 
                         me.$('#presentOfficeEdition').val(model.presentOfficeEdition);
-                        me.$hasSales.val(model.isSaleTeam ? 'true' : 'false');
-                        me.$isMettingSale.val(model.isWillPin ? 'true' : 'false');
-                        me.$isFirstView.val(model.isFirstmeetingSign ? 'true' : 'false');
-                        me.$isStranger.val(model.isStrangerVisits ? 'true' : 'false');
-                        me.$city.val(model.city);
-                        me.$dealDays.val(model.dealDays);
-                        me.$isIntro.val(model.isReferral ? 'true' : 'false');
+                        //me.$hasSales.val(model.isSaleTeam ? 'true' : 'false');
+                        //me.$isMettingSale.val(model.isWillPin ? 'true' : 'false');
+                        //me.$isFirstView.val(model.isFirstmeetingSign ? 'true' : 'false');
+                        //me.$isStranger.val(model.isStrangerVisits ? 'true' : 'false');
+                        //me.$city.val(model.city);
+                        //me.$dealDays.val(model.dealDays);
+                        //me.$isIntro.val(model.isReferral ? 'true' : 'false');
 
                         me.$remark.val(model.remark);
-                        me.$sAgentId.val(model.agentId);
-                        me.$sAgentName.val(model.agentName);
+                        //me.$sAgentId.val(model.agentId);
+                        //me.$sAgentName.val(model.agentName);
  
                         //给活跃度赋值
                         me.$sActivity.val(model.activityStr);
@@ -846,12 +827,9 @@ define(function(require, exports, module) {
             var data = {
                 enterpriseId: this.model.attrs.enterpriseId, //企业ID
                 enterpriseName: this.$name.val(), //企业名称
-                address: this.$address.val(), //地址
-                industry: this.$aindustry.val(), //行业
                 source: this.$asource.val(), //来源
                 isFreeGiven: this.$('#presentOfficeEdition').val(), //是否赠送办公版
-                groupType: this.$agroup.val(), //团队类型
-                knowSource: this.$aknow.val(), //了解渠道
+                //knowSource: this.$aknow.val(), //了解渠道
                 registerMotive: this.$aregister.val(), //注册动机
                 companyScale: this.$acompany.val(), //公司规模
                 isSaleTeam: this.$hasSales.val(), //是否有销售团队
@@ -859,7 +837,6 @@ define(function(require, exports, module) {
                 isFirstMeetingSign: this.$isFirstView.val(), //是否首面签约
                 isWillPin: this.$isMettingSale.val(), //是否会销
                 isStrangerVisits: this.$isStranger.val(), //是否陌拜
-                province: this.$aprovince.val(), //省市
                 city: this.$city.val(), //城市
                 //isFastSign: this.$isFastSign.val(),
                 dealDays: this.$dealDays.val(), //成交周期
