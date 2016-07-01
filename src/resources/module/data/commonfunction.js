@@ -22,6 +22,7 @@ define( function(require, exports, module){
             tempAry = tempAry.slice(1);
 
             tempAry[2] = (tempAry[2] == 'true') ? '同意' : '驳回';
+            tempAry[4] = tempAry[4] || '';
             tempAry[5] = tempAry[5] || '';
             strDom += '<tr><td>' + tempAry[0]  + '</td><td>' + tempAry[1] + '</td><td>' + tempAry[2] + '</td><td>' + tempAry[3] + '</td><td>' + tempAry[4] + '</td><td>' + tempAry[5] +'</td></tr>'
         }
