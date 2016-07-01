@@ -312,7 +312,15 @@ define( function(require, exports, module){
 				util.showToast('请填写审批意见');
 				return false;
 			}
-			if( me.verify() ){
+
+			var bool;
+			if( me.status == 10 ){
+				bool = true;
+			}else{
+				bool = me.verify();
+			}
+
+			if( bool ){
 				util.api({
 	                'url': '~/op/api/approval/directapprove',
 	                'data':{
