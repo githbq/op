@@ -139,7 +139,7 @@ define( function(require, exports, module){
 			var me = this;
 			DetailApproval.__super__.show.call( this,true );
 			console.log('dododo');
-
+			console.log( status );
 			//缓存额外信息
 			me.orderId = id;
 			me.status = status;
@@ -239,6 +239,8 @@ define( function(require, exports, module){
 					}
 				})
 				me.$('.approval-contractshow').show();
+				//同时隐藏合同审核选择
+				me.$('.approval-hetongopinion').hide();
 			}
 		},
 
@@ -255,7 +257,15 @@ define( function(require, exports, module){
 		//同意
 		agreeEve: function(){
 			var me = this;
-			if( me.verify() ){
+
+			var bool;
+			if( me.status == 10 ){
+				bool = true;
+			}else{
+				bool = me.verify();
+			}
+
+			if( bool ){
 				util.api({
 	                'url': '~/op/api/approval/directapprove',
 	                'data':{
