@@ -104,7 +104,7 @@
                 <div class="form-field">
                     <label class="required"><span>企业负责人电话</span></label>
                     <!--ng-pattern="/[a-zA-Z]/"   正则表达式验证-->
-                    <input maxlength="11" ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" ng-maxlength="100" required type="text" ng-model="entInfo.keyContactPhone" name="keyContactPhone"/>
+                    <input maxlength="11" ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required type="text" ng-model="entInfo.keyContactPhone" name="keyContactPhone"/>
                 </div>
             </div>
             <div class="form-row">
@@ -123,7 +123,7 @@
                 </div>
                 <div class="form-field">
                     <label class="required"><span>平台管理员手机</span></label>
-                    <input maxlength="11" required　phone ng-model-options="{updateOn:'blur'}" ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" ng-model="entInfo.contactPhone" type="text" ng-maxlength="100" name="contactPhone"/>
+                    <input maxlength="11" required　phone ng-model-options="{updateOn:'blur'}" ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" ng-model="entInfo.contactPhone" type="text" name="contactPhone"/>
                 </div>
             </div>
             <div class="form-row">
@@ -308,7 +308,7 @@
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>总部打款日期</span></label>
-                    <div class="inline-block" required ng-readonly="payInfoReadonly||payInfo.partReadonly" getform="this['payInfoForm']" name="payDate" datetimeconfig="payInfo.payDate_dataConfig" ng-model="payInfo.payDate"></div>
+                    <div class="inline-block" required ng-readonly="payInfoReadonly||payInfo.partReadonly" getform="this['stepForm3']" name="payDate" datetimeconfig="payInfo.payDate_dataConfig" ng-model="payInfo.payDate"></div>
                 </div>
             </div>
             <div class="form-row">
