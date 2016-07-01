@@ -8850,9 +8850,6 @@ em {
   -webkit-transition: scale 1s ease-in-out;
   transition: scale 1s ease-in-out;
 }
-.m-dialog-normal {
-  max-height: 600px;
-}
 .m-dialog-normal .m-pagination {
   text-align: right;
 }
@@ -8861,6 +8858,10 @@ em {
 }
 .m-dialog-normal .button-wrapper {
   float: right;
+}
+.m-dialog-normal .panel-main {
+  max-height: 600px;
+  overflow: auto;
 }
 .m-dialog-normal .panel-main .panel-header {
   padding: 10px;
@@ -8877,7 +8878,7 @@ em {
   text-align: center;
   color: #d0cfcf;
 }
-.m-dialog-normal .panel-main .panel-footer {
+.m-dialog-normal .panel-footer {
   padding: 10px 0;
   text-align: center;
 }

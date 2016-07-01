@@ -134,15 +134,17 @@ define(function (require, exports, module) {
                     }
                     //me.updateNodes(false);
                 }
-            }, updateNodes: function (highlight) {
+            }, 
+
+            updateNodes: function (highlight) {
                 var me = this;
                 var treeObj = me.tree.ztreeObj;
                 for (var i = 0; i < me.nodeList.length; i++) {
                     me.nodeList[i].highlight = highlight;
                     treeObj.updateNode(me.nodeList[i]);
                 }
-            }
-            ,
+            },
+
             getFontCss: function (treeId, treeNode) {
                 //console.log(3)
                 if (treeNode.highlight) {
@@ -150,8 +152,8 @@ define(function (require, exports, module) {
                 } else {
                     return {color: "#333", "font-weight": "normal"};
                 }
-
             },
+            
             show: function (selecteds, options, nodialog) {
                 var me = this;
                 me.attrs = me.attrs || {};
