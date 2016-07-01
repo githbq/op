@@ -115,6 +115,7 @@ define( function( require, exports, module ) {
                 'success': function( data ){
                     if( data.success ){
                         util.showTip('认领成功');
+                        me.trigger('success');
                         me.hide();
                     }
                 }
@@ -540,17 +541,6 @@ define( function( require, exports, module ) {
 		var customHelper = null;
 		var backMoney = null, invioceDetail = null ,onlinePay = null;
 		
-
-        var claim = new Claim();
-        //claim.show();
-
-        /*
-        orderList.on('orderDetail', function( options ){
-            detailApproval = new DetailApproval();
-            detailApproval.show( options );
-        });
-		*/
-
         orderList.on('orderDetailPayment', function( options ){
             detailPayment = new DetailPayment();
             detailPayment.show( options );
@@ -589,7 +579,11 @@ define( function( require, exports, module ) {
 
         //到款认领[待开发完成]
         orderList.on('daokuan', function( id , status ){
+            var claim = new Claim();
             claim.show( id, status );
+            claim.on('success',function(){
+                orderList.getList();
+            });
         });
 
         //补充合同[待开发]
@@ -598,7 +592,7 @@ define( function( require, exports, module ) {
             console.log( id );
             
             var detailApproval = new DetailApproval();  //订单详情   
-            detailApproval.show( id , 'b' , status );
+            detailApproval.show( id , 'b' , status , dstatus );
             detailApproval.on('editSuccess',function(){
                 orderList.getList();
             });
