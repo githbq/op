@@ -287,8 +287,9 @@ define( function( require, exports, module ) {
             var id = $(e.currentTarget).attr('data-id');
             var status = $(e.currentTarget).attr('data-status');
             var dstatus = $(e.currentTarget).attr('data-dstatus');
+            var from = $(e.currentTarget).attr('data-from');
 
-            me.trigger( 'detail', id , status , dstatus );
+            me.trigger( 'detail', id , status , dstatus , from );
         },
         //查看详情
         /*
@@ -599,7 +600,7 @@ define( function( require, exports, module ) {
         });
 
         //查看[待开发]
-        orderList.on('detail', function( id , status , dstatus ){
+        orderList.on('detail', function( id , status , dstatus , from ){
             console.log('查看');
             console.log( id );
             console.log( status );
@@ -610,9 +611,9 @@ define( function( require, exports, module ) {
             if( IBSS.API_PATH == '/op/api/a' ){
                 
                 if( status == '2' || status == '3' ){
-                    detailApproval.show( id , 'a', status , dstatus );
+                    detailApproval.show( id , 'a', status , dstatus , {'from': from} );
                 }else{
-                    detailApproval.show( id , 'd', status , dstatus );
+                    detailApproval.show( id , 'd', status , dstatus , {'from': from} );
                 }
 
             //其他只可以看详情

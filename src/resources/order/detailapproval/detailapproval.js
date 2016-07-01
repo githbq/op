@@ -353,21 +353,44 @@ define( function(require, exports, module){
 				'orderId': me.orderId
 			}
 
-			//保存
-			util.api({
-				'url': '/odr/update',
-				'data': {
-					'vo': JSON.stringify( postData )
-				},
-				'success': function( data ){
-					console.warn(data);
-					if(data.success){
-						util.showTip('保存成功');
-						me.trigger('editSuccess');
-						me.hide();
+			//1 小助手
+			if( me.info.from && me.info.from == 1 ){
+
+				//保存
+				util.api({
+					'url': '/odr/update',
+					'data': {
+						'vo': JSON.stringify( postData )
+					},
+					'success': function( data ){
+						console.warn(data);
+						if(data.success){
+							util.showTip('保存成功');
+							me.trigger('editSuccess');
+							me.hide();
+						}
 					}
-				}
-			})
+				})
+			//2 财务
+			}else if( me.info.from && me.info.from == 2 ){
+
+				//保存
+				util.api({
+					'url': '/odr/odrDraftPaidInfo',
+					'contentType': 'application/json',
+					'data': JSON.stringify( data.payInfo ),
+					'success': function( data ){
+						console.warn(data);
+						if(data.success){
+							util.showTip('保存成功');
+							me.trigger('editSuccess');
+							me.hide();
+						}
+					}
+				})
+			}
+
+			
 			console.log(data);
 		},
 		//保存合同
