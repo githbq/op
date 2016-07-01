@@ -121,11 +121,11 @@ define( function( require, exports, module ) {
                         var content = me.collection.all();
                         if ( content.length > 0 ) {
                             var total = data.value.model.total;
-                            var tr = '<tr><td>' + total.departmentName
-                            + '</td><td>' + total.totalAmount
-                            + '</td><td>' + total.claimedAmount                        
-                            + '</td><td>' + total.unclaimedAmount
-                            + '</td></tr>';
+                            var tr = '<tr style="font-weight: bold;"><td></td><td style="border-bottom: 1px solid #bbb">' + total.departmentName
+                            + '</td><td style="border-bottom: 1px solid #bbb">' + total.totalAmount
+                            + '</td><td style="border-bottom: 1px solid #bbb">' + total.claimedAmount                        
+                            + '</td><td style="border-bottom: 1px solid #bbb">' + total.unclaimedAmount
+                            + '</td><td></td></tr>';
                             me.$tbody.html( tr + me.tplCode( {'content':me.collection.all() } ) );
                         } else {
                             me.$tbody.html( '<tr><td colspan="9"><p class="info">暂无数据</p></td></tr>' );
