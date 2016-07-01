@@ -205,7 +205,7 @@ define( function(require, exports, module){
 					if( data.value.model ){
 						me.$('#opinionlist').html( getRejectReason( data.value.model ) );
 					}else{
-						me.$('#opinionlist').html('<tr><td colspan="4"><p class="tip">暂无数据</p></td></tr>');
+						me.$('#opinionlist').html('<tr><td colspan="6"><p class="tip">暂无数据</p></td></tr>');
 					}
 				}
 			});
@@ -222,9 +222,9 @@ define( function(require, exports, module){
 						console.log( data );
 						if( data.value.model.length > 0 ){
 							//me.daokuanlist.reload()
-							me.$('#daokuanlist').html('<tr><td colspan="4"><p class="tip">暂无数据</p></td></tr>');
+							me.$('#daokuanlist').html('<tr><td colspan="6"><p class="tip">暂无数据</p></td></tr>');
 						}else{
-							me.$('#daokuanlist').html('<tr><td colspan="4"><p class="tip">暂无数据</p></td></tr>');
+							me.$('#daokuanlist').html('<tr><td colspan="6"><p class="tip">暂无数据</p></td></tr>');
 						}	
 					}
 				});

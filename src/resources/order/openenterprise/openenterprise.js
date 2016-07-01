@@ -44,7 +44,8 @@ define(function (require, exports, module) {
 
                 data = {
                     'enterpriseId': param[0],
-                    'enterpriseAccount': param[1]
+                    'enterpriseAccount': param[1],
+                    'enterpriseName': param[2]
                 };
                 page = new Page({wrapper: $el, orderId: null, isNew: false, isAdd: true, isRef: false, readonly: false, data: data});
                 page.render();

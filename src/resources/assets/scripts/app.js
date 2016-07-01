@@ -414,7 +414,7 @@ define('common/app', function(require, exports, module){
                     }
                 }
             });
-			
+			/*
 			if( bool ){
 				//获取代理商ID
 				util.api({
@@ -426,6 +426,7 @@ define('common/app', function(require, exports, module){
 					} 
 				});
 			}
+			*/
 		},
 		
 

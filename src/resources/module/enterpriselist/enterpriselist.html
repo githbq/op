@@ -82,7 +82,7 @@
                     <td><%=item.isOverLimitWarnStr%></td>
                     <td data-status="<%=item.csmEnterprise.runStatus%>">
                         
-                        <a class="info-detail" data-id="<%=item.csmEnterprise.enterpriseID%>" data-account="<%=item.csmEnterprise.enterpriseAccount%>">查看</a>
+                        <a class="info-detail" data-entname="<%=item.csmEnterprise.enterpriseName%>" data-id="<%=item.csmEnterprise.enterpriseID%>" data-account="<%=item.csmEnterprise.enterpriseAccount%>">查看</a>
                         <a class="info-trace" data-state="agent" data-id="<%=item.csmEnterprise.enterpriseID%>" data-account="<%=item.csmEnterprise.enterpriseAccount%>">跟踪记录</a>
                         <% if(item.clueId) { %>
                             <a class="info-clue" data-clue="<%=item.clueId%>">线索</a>

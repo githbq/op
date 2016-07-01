@@ -290,8 +290,10 @@ define(function(require, exports, module) {
         //查看详情
         detailEve: function(e) {
             var id = $(e.currentTarget).attr('data-id'),
-                status = $(e.currentTarget).attr('data-status');
-            this.trigger('detail', id, status);
+                status = $(e.currentTarget).attr('data-status'),
+                entname = $(e.currentTarget).attr('data-entname');
+
+            this.trigger('detail', id, status, entname );
         },
 
         //企业跟踪记录
