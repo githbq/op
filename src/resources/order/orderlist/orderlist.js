@@ -47,7 +47,7 @@ define( function( require, exports, module ) {
             Claim.__super__.init.apply( this, arguments );
         },
         //到款认领
-        show: function( id , status ){
+        show: function( id , status ){ 
             Claim.__super__.show.apply( this, arguments );
             var me = this;          //0都不可以 1显示到款认领 2查看认领的到款
 
@@ -568,7 +568,7 @@ define( function( require, exports, module ) {
 			})
         });
 
-        //发票[需要测试]
+        //发票
 		orderList.on('orderInvoice', function( id ){
             invioceDetail = new InvoiceDetail();
             invioceDetail.show( id,null,0 );
