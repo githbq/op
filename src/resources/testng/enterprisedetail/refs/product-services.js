@@ -152,6 +152,93 @@ define(function (require, exports, module) {
                 }
             });
         };
+        var dialogManager = require('./dialog');
+        //选择销售弹窗
+        factory.selectSalesmenDialog=function (array,parent$timeout) {
+            var accountConfig = {
+                data: [],
+                multiple: false,
+                placeholder: '请输入条件查询',
+                maximumInputLength: 50
+            };
+            var dialog = dialogManager.getInstance(null,
+                {
+                    defaultAttr: {
+                        title: '选择销售',
+                        width: 600
+                    },
+                    content: require('./dialogtemplate.html')
+                }
+            );
+
+            dialog.bootstrap(['common.directives', 'common.services', 'formApp'], function (app) {
+                app.controller('dialogController', ['$scope', '$timeout', 'select2Query', function ($scope, $timeout, select2Query) {
+                    var vm = this;
+                    vm.config = accountConfig;
+                    vm.ajaxConfig = select2Query.getEmplyeeAjaxConfig();
+                    vm.ngModel = null;
+                    vm.select2Model = null;
+                    vm.placeholder = '请输入条件查询';
+                    vm.clickEnter = function () {
+                        var me = this;
+                        if (me.select2Model) {
+                            parent$timeout(function () {
+                                debugger
+                                if (!_.findWhere(array, {accountId: me.select2Model.data.accountId})) {
+                                    array.push(me.select2Model.data);
+                                }
+                            }, 10);
+                        }
+                    };
+                    vm.clickCancel = function () {
+
+                    }
+                }]);
+            });
+            dialog.show();
+        };
+        factory.selectPartnersDialog = function (array,parent$timeout) {
+            var accountConfig = {
+                data: [],
+                multiple: false,
+                placeholder: '请输入条件查询',
+                maximumInputLength: 50
+            };
+            var dialog = dialogManager.getInstance(null,
+                {
+                    defaultAttr: {
+                        title: '选择跟进人',
+                        width: 600
+                    },
+                    content: require('./dialogtemplate.html')
+                }
+            );
+            dialog.bootstrap(['common.directives', 'common.services', 'formApp'], function (app) {
+                app.controller('dialogController', ['$scope', '$timeout', 'select2Query', function ($scope, $timeout, select2Query) {
+                    var vm = this;
+                    vm.config = accountConfig;
+                    vm.ajaxConfig = select2Query.getEmplyeeAjaxConfig();
+                    vm.ngModel = null;
+                    vm.select2Model = null;
+                    vm.placeholder = '请选择...';
+                    vm.clickEnter = function () {
+                        var me = this;
+                        if (me.select2Model) {
+                            parent$timeout(function () {
+                                debugger
+                                if (!_.findWhere(array, {accountId: me.select2Model.data.accountId})) {
+                                    array.push(me.select2Model.data);
+                                }
+                            }, 10);
+                        }
+                    };
+                    vm.clickCancel = function () {
+
+                    }
+                }]);
+            });
+            dialog.show();
+        };
         return factory;
     });
 });

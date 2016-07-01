@@ -1,7 +1,7 @@
 //产品指令
 define(function (require, exports, module) {
     //var productJson = require('./productsjson.js');
-    var dialogManager = require('./dialog');
+
     var waterfallcomput = require('./waterfallcomput');
     var colWrapperStr = '<div class="product-col-wraper"></div>';
     //瀑布布局重置
@@ -43,7 +43,7 @@ define(function (require, exports, module) {
             return {
                 scope: {dataResult: '=', fromData: '=', allReadonly: '=productReadonly', show: '=', initData: '=', productJson: '='},
                 template: require('./products-template.html'),
-                controller: ['$scope', '$timeout', function ($scope, $timeout) {
+                controller: ['$scope', '$timeout', 'productService', function ($scope, $timeout, productService) {
                     //全模块只读监听
                     $scope.$watch('allReadonly', function () {
                         $timeout(function () {
@@ -260,9 +260,7 @@ define(function (require, exports, module) {
                                 }
                                 newState.value.valueData = findData;
                             }
-                            if (newState.value.type == 'ajax') {//状态切换的时候由ajax取值
-                                ajaxSetValue(newState.value, product);
-                            }
+                            switchSetStateValue(newState, product);//数据赋值逻辑
                         }
                         var tempItems = [];
                         var hiddenTempItems = [];
@@ -274,6 +272,26 @@ define(function (require, exports, module) {
                             }
                         });
                         return {visibleStates: tempItems, hiddenStates: hiddenTempItems, allStates: baseState};
+                    }
+
+                    //分支判断为状态赋值
+                    function switchSetStateValue(newState, product) {
+                        switch (newState.value.type) {
+                            case 'ajax':
+                            {
+                                ajaxSetValue(newState.value, product);
+                            }
+                                break;
+                            case 'normal'://普通赋值由由结构中向数据赋值
+                            {
+                                newState.value.valueData.value = newState.value.value;
+                            }
+                                break;
+                            case 'copy':
+                            {
+                            }
+                                break;
+                        }
                     }
 
                     //检查是undefined或者null
@@ -315,7 +333,6 @@ define(function (require, exports, module) {
                                 {
                                     //远程赋值操作
                                     ajaxSetValue(changeItem, product);
-
                                 }
                                     ;
                             }
@@ -389,29 +406,28 @@ define(function (require, exports, module) {
                         switch (changeItem.valueType) {
                             case 'data':
                             {
-                                var findvalue = null;
                                 //从data中赋值
                                 var find = _.findWhere(product.logic.data, {name: changeItem.target});
-                                setValueForSource(changeItem, find, {data: true},fieldStruct);
+                                setValueForSource(changeItem, find, {data: true}, fieldStruct);
                             }
                                 ;
                                 break;
 
                             case 'attr':
                             {
-                                setValueForSource(changeItem, product.logic.attr, {attr: true},fieldStruct);
+                                setValueForSource(changeItem, product.logic.attr, {attr: true}, fieldStruct);
                             }
                                 ;
                                 break;
                             case 'global':
                             {
                                 //从global中赋值
-                                setValueForSource(changeItem, $scope.productJson.global, {global: true},fieldStruct);
+                                setValueForSource(changeItem, $scope.productJson.global, {global: true}, fieldStruct);
                             }
                                 ;
                                 break;
                             case 'state':
-                            {
+                            {   //改变状态
                                 setStateForSource(changeItem, fieldStruct, product);
                             }
                                 ;
@@ -421,8 +437,7 @@ define(function (require, exports, module) {
 
                     //设置状态
                     function setStateForSource(changeItem, fieldStruct, product) {
-                        var state = null;
-                        _.each(fieldStruct.items, function (n, i) {//目前只有拥有 items属性的元素才会有可能改变状态
+                        _.each(fieldStruct.items, function (n) {//目前只有拥有 items属性的元素才会有可能改变状态
                             var findState = n[changeItem.source];
                             if (findState !== undefined && n.value == fieldStruct.value.valueData.value) {
                                 changeState(product, findState);
@@ -433,7 +448,7 @@ define(function (require, exports, module) {
                     //end 设置状态
 
                     //根据源不同 去给对象赋值
-                    function setValueForSource(changeItem, findData, DataIs,fieldStruct) {
+                    function setValueForSource(changeItem, findData, DataIs, fieldStruct) {
                         if (!findData || !changeItem.target) {
                             return;
                         }
@@ -501,94 +516,13 @@ define(function (require, exports, module) {
                             return result;
                         }
                     };
-                    var parentScope = $scope;
-                    var parent$timeout = $timeout;
                     //弹窗选择 添加销售
                     $scope.selectSalesmenDialog = function (array) {
-                        var accountConfig = {
-                            data: [],
-                            multiple: false,
-                            placeholder: '请输入条件查询',
-                            maximumInputLength:50
-                        };
-                        var dialog = dialogManager.getInstance(null,
-                            {
-                                defaultAttr: {
-                                    title: '选择销售',
-                                    width: 600
-                                },
-                                content: require('./dialogtemplate.html')
-                            }
-                        );
-
-                        dialog.bootstrap(['common.directives', 'common.services', 'formApp'], function (app) {
-                            app.controller('dialogController', ['$scope', '$timeout', 'select2Query', function ($scope, $timeout, select2Query) {
-                                var vm = this;
-                                vm.config = accountConfig;
-                                vm.ajaxConfig = select2Query.getEmplyeeAjaxConfig();
-                                vm.ngModel = null;
-                                vm.select2Model = null;
-                                vm.placeholder = '请输入条件查询';
-                                vm.clickEnter = function () {
-                                    var me = this;
-                                    if (me.select2Model) {
-                                        parent$timeout(function () {
-                                            debugger
-                                            if (!_.findWhere(array, {accountId: me.select2Model.data.accountId})) {
-                                                array.push(me.select2Model.data);
-                                            }
-                                        }, 10);
-                                    }
-                                };
-                                vm.clickCancel = function () {
-
-                                }
-                            }]);
-                        });
-                        dialog.show();
+                        productService.selectSalesmenDialog(array, $timeout);
                     };
                     //弹窗选择 添加跟进人
                     $scope.selectPartnersDialog = function (array) {
-                        var accountConfig = {
-                            data: [],
-                            multiple: false,
-                            placeholder: '请输入条件查询',
-                            maximumInputLength:50
-                        };
-                        var dialog = dialogManager.getInstance(null,
-                            {
-                                defaultAttr: {
-                                    title: '选择跟进人',
-                                    width: 600
-                                },
-                                content: require('./dialogtemplate.html')
-                            }
-                        );
-                        dialog.bootstrap(['common.directives', 'common.services', 'formApp'], function (app) {
-                            app.controller('dialogController', ['$scope', '$timeout', 'select2Query', function ($scope, $timeout, select2Query) {
-                                var vm = this;
-                                vm.config = accountConfig;
-                                vm.ajaxConfig = select2Query.getEmplyeeAjaxConfig();
-                                vm.ngModel = null;
-                                vm.select2Model = null;
-                                vm.placeholder = '请选择...';
-                                vm.clickEnter = function () {
-                                    var me = this;
-                                    if (me.select2Model) {
-                                        parent$timeout(function () {
-                                            debugger
-                                            if (!_.findWhere(array, {accountId: me.select2Model.data.accountId})) {
-                                                array.push(me.select2Model.data);
-                                            }
-                                        }, 10);
-                                    }
-                                };
-                                vm.clickCancel = function () {
-
-                                }
-                            }]);
-                        });
-                        dialog.show();
+                        productService.selectPartnersDialog(array, $timeout);
                     };
                 }]
             }

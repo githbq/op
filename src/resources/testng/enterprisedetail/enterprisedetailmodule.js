@@ -238,6 +238,7 @@ define(function (require, exports, module) {
                     $scope.payInfoReadonly = !data.canEditPaidInfo;
                 }
                 debugger
+                $scope.rejectFrom=data.rejectFrom;
                 $scope.entInfo = data.odrDraftEnterprise || {};
                 $scope.productInfo = data.odrDraftOrder || {};
                 $scope.orderFromData = angular.fromJson(data.odrDraftOrder.content);//订单来源数据
