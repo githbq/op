@@ -8859,17 +8859,20 @@ em {
 .m-dialog-normal .button-wrapper {
   float: right;
 }
-.m-dialog-normal .panel-main {
-  max-height: 500px;
-  overflow: auto;
-}
 .m-dialog-normal .panel-main .panel-header {
   padding: 10px;
 }
 .m-dialog-normal .panel-main .panel-header input {
   width: 180px;
-  height: 30px;
-  margin-left: 10px;
+  height: 25px;
+  margin: 0 10px;
+}
+.m-dialog-normal .panel-main .panel-content {
+  max-height: 500px;
+  overflow: auto;
+}
+.m-dialog-normal .panel-main .panel-content .m-ztree {
+  position: relative;
 }
 .m-dialog-normal .panel-main .panel-content .no-data {
   padding-top: 20px;

@@ -577,7 +577,7 @@ define( function( require, exports, module ) {
 			})
         });
 
-        //到款认领[待开发完成]
+        //到款认领
         orderList.on('daokuan', function( id , status ){
             var claim = new Claim();
             claim.show( id, status );
@@ -586,7 +586,7 @@ define( function( require, exports, module ) {
             });
         });
 
-        //补充合同[待开发]
+        //补充合同
         orderList.on('supply', function( id , status , dstatus ){
             console.log('补充合同');
             console.log( id );
@@ -598,8 +598,8 @@ define( function( require, exports, module ) {
             });
         });
 
-        //查看[待开发]
-        orderList.on('detail', function( id , status , dstatus , from ){
+        //查看
+        orderList.on('detail', function( id , status , dstatus ){
             console.log('查看');
             console.log( id );
             console.log( status );
@@ -610,9 +610,9 @@ define( function( require, exports, module ) {
             if( IBSS.API_PATH == '/op/api/a' ){
                 
                 if( status == '2' || status == '3' ){
-                    detailApproval.show( id , 'a', status , dstatus , {'from': from} );
+                    detailApproval.show( id , 'a', status , dstatus );
                 }else{
-                    detailApproval.show( id , 'd', status , dstatus , {'from': from} );
+                    detailApproval.show( id , 'd', status , dstatus );
                 }
 
             //其他只可以看详情
