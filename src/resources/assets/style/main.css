@@ -8860,7 +8860,7 @@ em {
   float: right;
 }
 .m-dialog-normal .panel-main {
-  max-height: 600px;
+  max-height: 500px;
   overflow: auto;
 }
 .m-dialog-normal .panel-main .panel-header {
