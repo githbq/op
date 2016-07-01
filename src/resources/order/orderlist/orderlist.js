@@ -369,9 +369,8 @@ define( function( require, exports, module ) {
                 me.trigger('orderBackmoney',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':true,'orderType':orderType,
                'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea,'processInstanceId':'','contractNo':contractNo,'newFirst':'newFirst'} );
             }else{
-              me.trigger('orderBackmoney',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':false,'orderType':orderType,
+                me.trigger('orderBackmoney',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':false,'orderType':orderType,
                'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea,'processInstanceId':'','contractNo':contractNo} );
-           
             }
         },
 
