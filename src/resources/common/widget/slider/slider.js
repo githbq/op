@@ -21,13 +21,12 @@ define(function(require, exports, module){
 			allclose();
 		}
 	});
-
-	function allclose(){
+	*/
+	function allClose(){
 		for( var key in Slider.widgets ){
 			Slider.widgets[key].hide();
 		}
 	}
-	*/
 
 	/**
 	 * @class Slider
@@ -141,7 +140,7 @@ define(function(require, exports, module){
 				me.$view.hide();
 				
 			});
-			allclose();
+			allClose();
 		},
 
 		// 移除
