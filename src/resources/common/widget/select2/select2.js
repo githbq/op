@@ -721,7 +721,6 @@ the specific language governing permissions and limitations under the Apache Lic
 
             this.results = results = this.container.find(resultsSelector);
             this.search = search = this.container.find("input.select2-input");
-             debugger
             this.queryCount = 0;
             this.resultsPage = 0;
             this.context = null;

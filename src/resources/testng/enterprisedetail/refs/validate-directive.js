@@ -181,12 +181,14 @@ define(function (reuqire, exports, module) {
                     ctrl.$setViewValue(result ? parseInt(result) : result, true);//只能赋模型的值不能改变VIEW
                     setTimeout(function () {
                         ctrl.$setValidity('phone', true);
+                        ctrl.$setValidity('maxlength', true);
                     }, 100);
                 });
                 ctrl.$parsers.unshift(function (viewValue) {
                     debugger
                     if (PHONE_REGEXP.test(viewValue)) {
                         ctrl.$setValidity('phone', true);
+                        ctrl.$setValidity('maxlength', true);
                         return viewValue;
                     } else {
                         ctrl.$setValidity('phone', false);
