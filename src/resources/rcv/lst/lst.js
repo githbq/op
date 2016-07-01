@@ -83,19 +83,23 @@ define( function( require, exports, module ) {
             me.deptTree= new CustomTree({ 
                 'title': '业绩归属部门-选择部门',
                 searchOptions:{show:true,title:'部门名称'},
-                ztreeOptions:{expandAll:true,check:{chkStyle: "radio",radioType: "all"},
-                checkStyle:"radio"},
+                ztreeOptions:{
+                    expandAll:true,
+                    check:{chkStyle: "radio",radioType: "all"},
+                    checkStyle:"radio"
+                },
                 ajaxData:{url:'~/op/api/a/odr/receivedpay/getAllDepartment'}
             });
             me.deptTree.on('enter', function (  ) {
                 me.deptObj = me.deptTree.getValue() ? me.deptTree.getValue()[0]: null;
-                me.deptObjId = [me.deptObj.id]
+                me.deptObjId = [me.deptObj.id];
                 me.postObjId = [];
                 me.postObj = null;
                 me.deptObj ? me.$departmentText.val(me.deptObj.name ):me.$department.val('');
                 me.$department.val(me.deptObjId);
             });
-            me.deptTree.show( me.deptObjId, {})
+            
+            me.deptTree.show( [ me.$department.val() ], {})
         },
         
         submit: function() {//提交编辑
