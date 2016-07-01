@@ -86,9 +86,9 @@ define( function(require, exports, module){
     data['entstatus'] = {
         '1': '待开通',
         '2': '已开通',
-        '3': '已作废',
-        '4': '已停用',
-        '5': '已删除'
+        //'3': '已作废',
+        '4': '已停用'
+        //'5': '已删除'
     }
     //企业列表——企业类型
     data['enttype'] = {
