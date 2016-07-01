@@ -200,7 +200,7 @@ define(function (require, exports, module) {
             multiple: false,
             placeholder: '必须与实际打款的单位/个人名称一致',
             search: false,
-            maximumInputLength:50
+            maximumInputLength: 50
         };
     }]);
     myApp.controller('mainController', ['$scope', '$timeout', 'select2Query', 'getEnumService', 'cascadeSelectService', 'productService', function ($scope, $timeout, select2Query, getEnumService, cascadeSelectService, productService) {
@@ -237,6 +237,8 @@ define(function (require, exports, module) {
                     $scope.productReadonly = !data.canEditOrder;
                     $scope.payInfoReadonly = !data.canEditPaidInfo;
                 }
+                debugger
+                $scope.rejectFrom=data.rejectFrom;
                 $scope.entInfo = data.odrDraftEnterprise || {};
                 $scope.productInfo = data.odrDraftOrder || {};
                 $scope.orderFromData = angular.fromJson(data.odrDraftOrder.content);//订单来源数据
@@ -277,7 +279,7 @@ define(function (require, exports, module) {
             //, minimumResultsForSearch: Infinity//不显示搜索框
             ,
             search: false,
-            maximumInputLength:50
+            maximumInputLength: 50
         };
 
         $scope.cityConfig = {
@@ -286,7 +288,7 @@ define(function (require, exports, module) {
             multiple: false,
             placeholder: '请选择',
             search: false,
-            maximumInputLength:50
+            maximumInputLength: 50
         };
         $scope.countyConfig = {
             //data: [{id: '1-1-1', text: '昌平区'}, {id: '2-1-1', text: '浦东区'}, {id: '3-1-1', text: '宝安区'}, {id: '4-1-1', text: '汉口'}, {id: '4-2-1', text: '黄梅县'}],
@@ -294,7 +296,7 @@ define(function (require, exports, module) {
             multiple: false,
             placeholder: '请选择',
             search: false,
-            maximumInputLength:50
+            maximumInputLength: 50
         };
 
 
@@ -317,7 +319,7 @@ define(function (require, exports, module) {
             multiple: false,
             placeholder: '请选择',
             search: false,
-            maximumInputLength:50
+            maximumInputLength: 50
         };
 
         $scope.industrySecondConfig = {
@@ -326,7 +328,7 @@ define(function (require, exports, module) {
             multiple: false,
             placeholder: '请选择',
             search: false,
-            maximumInputLength:50
+            maximumInputLength: 50
         };
         $scope.industryThirdConfig = {
             //data: [{id: '1-1-1', text: '行业A－1－1'}, {id: '2-1-1', text: '行业B－1－1'}, {id: '3-1-1', text: '行业C－1－1'}, {id: '4-1-1', text: '行业D－1－1'}, {id: '4-2-1', text: '行业D－1－2'}],
@@ -334,7 +336,7 @@ define(function (require, exports, module) {
             multiple: false,
             placeholder: '请选择',
             search: false,
-            maximumInputLength:50
+            maximumInputLength: 50
         };
 
         //end 多功能下拉选框　行业
@@ -445,7 +447,7 @@ define(function (require, exports, module) {
                 data: [{id: 1, text: '111111111111111'}, {id: 2, text: '22222222222'}, {id: 3, text: '3333333333'}, {id: 4, text: '支付宝'}],
                 multiple: false,
                 placeholder: '必须与实际打款的单位/个人名称一致',
-                maximumInputLength:50
+                maximumInputLength: 50
             };
             var dialog = dialogManager.getInstance(null,
                 {
@@ -552,7 +554,7 @@ define(function (require, exports, module) {
             })
         }
 
-        $scope.getProductInfo = function () {
+        $scope.getProductInfo = function (needToJson) {
             var dataResultCopy = angular.copy($scope.productInfo.dataResult);
             var newDataResult = [];
             _.each(dataResultCopy, function (item) {
@@ -564,24 +566,30 @@ define(function (require, exports, module) {
                 });
                 item.data = tempData;
             });
+            var odrDraftOrder = {
+                enterpriseId: $scope.globalInfo.enterpriseId,
+                draftEnterpriseId: $scope.productInfo.draftEnterpriseId,
+                id: $scope.productInfo.draftOrderId || $scope.productInfo.id,
+                content: needToJson ? angular.toJson(newDataResult) : newDataResult,
+                createTime: $scope.productInfo.createTime,
+                creatorId: $scope.productInfo.creatorId,
+                orderId: $scope.productInfo.orderId,
+                status: $scope.productInfo.status,
+                updateTime: $scope.productInfo.updateTime
+            };
             var data = {
-                odrDraftOrder: angular.toJson({
-                    enterpriseId: $scope.globalInfo.enterpriseId,
-                    draftEnterpriseId: $scope.productInfo.draftEnterpriseId,
-                    id: $scope.productInfo.draftOrderId,
-                    content: angular.toJson(newDataResult)
-                })
+                odrDraftOrder: needToJson ? angular.toJson(odrDraftOrder) : odrDraftOrder
             };
             return data;
         };
-        //订单草稿  需要 enterpriseId
+//订单草稿  需要 enterpriseId
         function submitStepProductInfo(callback) {
 
             action.doing = true;
             console.log('enterpriseIdenterpriseIdenterpriseId-------' + $scope.productInfo.draftEnterpriseId);
             util.api({
                 url: "~/op/api/a/odrDraft/draftOrderNext",
-                data: $scope.getProductInfo(),
+                data: $scope.getProductInfo(true),
                 success: callback,
                 complete: function () {
                     $scope.$apply(function () {
@@ -591,7 +599,7 @@ define(function (require, exports, module) {
             })
         }
 
-        //付款信息
+//付款信息
         function submitStepPayInfo(callback) {
             action.doing = true;
             debugger
@@ -607,7 +615,7 @@ define(function (require, exports, module) {
             })
         }
 
-        //保存提交按钮
+//保存提交按钮
         $scope.save = function (form) {
             if (form.$invalid) {
                 $scope['step_' + $scope.step + '_validate_error'] = true;
@@ -620,10 +628,13 @@ define(function (require, exports, module) {
                 }
             });
         };
-        //取消按钮
+//取消按钮
         $scope.close = function () {
             IBSS.tplEvent.trigger('order1.2Close');
         };
-    }]);
+    }
+    ])
+    ;
 
-});
+})
+;

@@ -8378,7 +8378,7 @@ em {
   padding: 8px 0;
 }
 .m-detailapproval .approval-contract img {
-  display: inline-block;
+  display: none;
   max-width: 300px;
 }
 .m-detailapproval .approval-btns {

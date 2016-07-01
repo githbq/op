@@ -287,8 +287,9 @@ define( function( require, exports, module ) {
             var id = $(e.currentTarget).attr('data-id');
             var status = $(e.currentTarget).attr('data-status');
             var dstatus = $(e.currentTarget).attr('data-dstatus');
+            var from = $(e.currentTarget).attr('data-from');
 
-            me.trigger( 'detail', id , status , dstatus );
+            me.trigger( 'detail', id , status , dstatus , from );
         },
         //查看详情
         /*
@@ -368,9 +369,8 @@ define( function( require, exports, module ) {
                 me.trigger('orderBackmoney',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':true,'orderType':orderType,
                'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea,'processInstanceId':'','contractNo':contractNo,'newFirst':'newFirst'} );
             }else{
-              me.trigger('orderBackmoney',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':false,'orderType':orderType,
+                me.trigger('orderBackmoney',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':false,'orderType':orderType,
                'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea,'processInstanceId':'','contractNo':contractNo} );
-           
             }
         },
 
@@ -577,7 +577,7 @@ define( function( require, exports, module ) {
 			})
         });
 
-        //到款认领[待开发完成]
+        //到款认领
         orderList.on('daokuan', function( id , status ){
             var claim = new Claim();
             claim.show( id, status );
@@ -586,7 +586,7 @@ define( function( require, exports, module ) {
             });
         });
 
-        //补充合同[待开发]
+        //补充合同
         orderList.on('supply', function( id , status , dstatus ){
             console.log('补充合同');
             console.log( id );
@@ -598,7 +598,7 @@ define( function( require, exports, module ) {
             });
         });
 
-        //查看[待开发]
+        //查看
         orderList.on('detail', function( id , status , dstatus ){
             console.log('查看');
             console.log( id );

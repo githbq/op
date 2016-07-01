@@ -72,7 +72,7 @@ define( function(require, exports, module){
 						'success': function( response ){
 							me.contract = response.value.model.path;
 							me.contractFileName = response.value.model.FileName;
-							me.$hetongimg.attr('src','/op/api/file/previewimage?filePath=' + response.value.model.path );
+							me.$hetongimg.attr('src','/op/api/file/previewimage?filePath=' + response.value.model.path ).show();
 							me.$savehetong.removeAttr('disabled');
 						},
 						'error': function(){
@@ -96,7 +96,7 @@ define( function(require, exports, module){
 						'success': function( response ){
 							me.contractCopy = response.value.model.path;
 							me.contractCopyFileName = response.value.model.FileName;
-							me.$hetongfbimg.attr('src','/op/api/file/previewimage?filePath=' + response.value.model.path );
+							me.$hetongfbimg.attr('src','/op/api/file/previewimage?filePath=' + response.value.model.path ).show();
 							me.$savehetong.removeAttr('disabled');
 						},
 						'error': function(){
@@ -154,6 +154,7 @@ define( function(require, exports, module){
 			//缓存额外信息
 			me.orderId = id;
 			me.status = status;
+			me.dstatus = dstatus;
 			me.info = info;
 
 			switch( type ){
@@ -213,18 +214,18 @@ define( function(require, exports, module){
 			//获取到款信息
 			if( me.dstatus == 3 ){
 				util.api({
-					'url':'/odr/getClaimedReceivedPay',
+					'url':'/odr/getClaimedReceivedPayForDetail',
 					'data':{
 						'orderId': me.orderId
 					},
 					'success': function( data ){
 						console.log('到款信息');
 						console.log( data );
-						if( data.value.model.length > 0 ){
-							//me.daokuanlist.reload()
-							me.$('#daokuanlist').html('<tr><td colspan="6"><p class="tip">暂无数据</p></td></tr>');
+						if( data.value.model ){
+							me.dklist.reload([data.value.model]);
 						}else{
-							me.$('#daokuanlist').html('<tr><td colspan="6"><p class="tip">暂无数据</p></td></tr>');
+							
+							me.$('#daokuanlist').html('<tr><td colspan="3"><p class="tip">暂无数据</p></td></tr>');
 						}	
 					}
 				});
@@ -312,7 +313,15 @@ define( function(require, exports, module){
 				util.showToast('请填写审批意见');
 				return false;
 			}
-			if( me.verify() ){
+
+			var bool;
+			if( me.status == 10 ){
+				bool = true;
+			}else{
+				bool = me.verify();
+			}
+
+			if( bool ){
 				util.api({
 	                'url': '~/op/api/approval/directapprove',
 	                'data':{
@@ -348,26 +357,52 @@ define( function(require, exports, module){
 
 			var postData = {
 				'odrDraftEnterprise': data.entInfo,
-				'odrDraftOrder': data.getProductInfo(),
+				'odrDraftOrder': data.getProductInfo()['odrDraftOrder'],
 				'odrDraftPaidInfo': data.payInfo,
 				'orderId': me.orderId
 			}
 
-			//保存
-			util.api({
-				'url': '/odr/update',
-				'data': {
-					'vo': JSON.stringify( postData )
-				},
-				'success': function( data ){
-					console.warn(data);
-					if(data.success){
-						util.showTip('保存成功');
-						me.trigger('editSuccess');
-						me.hide();
+			var rejectFrom = data.rejectFrom;
+
+			console.log( data );
+			//1 小助手
+			if( rejectFrom && rejectFrom == 1 ){
+
+				//保存
+				util.api({
+					'url': '/odr/update',
+					'data': {
+						'vo': JSON.stringify( postData )
+					},
+					'success': function( data ){
+						console.warn(data);
+						if(data.success){
+							util.showTip('保存成功');
+							me.trigger('editSuccess');
+							me.hide();
+						}
 					}
-				}
-			})
+				})
+			//2 财务
+			}else if( rejectFrom && rejectFrom == 2 ){
+
+				//保存
+				util.api({
+					'url': '/odr/odrDraftPaidInfo',
+					'contentType': 'application/json',
+					'data': JSON.stringify( data.payInfo ),
+					'success': function( data ){
+						console.warn(data);
+						if(data.success){
+							util.showTip('保存成功');
+							me.trigger('editSuccess');
+							me.hide();
+						}
+					}
+				})
+			}
+
+			
 			console.log(data);
 		},
 		//保存合同
@@ -376,10 +411,6 @@ define( function(require, exports, module){
 
 			if( !me.contract ){
 				util.showToast('请选择合同照片');
-				return false;
-			}
-			if( !me.contractCopy ){
-				util.showToast('请选择合同副本照片');
 				return false;
 			}
 

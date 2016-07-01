@@ -9,10 +9,15 @@ define(function (require, exports, module) {
             link: function (scope, iElem, iAttr) {
                 scope.datetimeconfig = scope.datetimeconfig || {};
                 var currentForm = scope.getForm && scope.getForm();
+
                 function valueChange(control) {
                     var value = control.el.value;
-                    if (currentForm) {
-                        currentForm[scope.name].$setDirty();
+                    var field = currentForm[scope.name];
+                    if (currentForm && field) {
+                        field.$setDirty();
+                        if (value && value.length > 0) {//处理require错误验证问题
+                            field.$setValidity('required', true);
+                        }
                     }
                     //取值逻辑
                     scope.$apply(function () {
@@ -20,6 +25,7 @@ define(function (require, exports, module) {
                     });
                     scope.ngChange && scope.ngChange();
                 }
+
                 var option = {
                     type: '0',
                     dateFmt: 'yyyy/MM/dd',
@@ -38,8 +44,8 @@ define(function (require, exports, module) {
                 function resetMaxOrMinDate(value, isMax) {
                     if (value && !isNaN(value)) {
                         value = parseInt(value);
-                        isMax && (scope.datetimeconfig.maxDate = new Date(value)._format(scope.datetimeconfig.dateFmt||'yyyy/MM/dd'));
-                        !isMax && (scope.datetimeconfig.minDate = new Date(value)._format(scope.datetimeconfig.dateFmt||'yyyy/MM/dd'));
+                        isMax && (scope.datetimeconfig.maxDate = new Date(value)._format(scope.datetimeconfig.dateFmt || 'yyyy/MM/dd'));
+                        !isMax && (scope.datetimeconfig.minDate = new Date(value)._format(scope.datetimeconfig.dateFmt || 'yyyy/MM/dd'));
                         if ((isMax && scope.ngModel && value < scope.ngModel) || (!isMax && scope.ngModel && value > scope.ngModel)) {
                             scope.ngModel = value;
                         }
