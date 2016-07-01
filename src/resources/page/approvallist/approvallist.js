@@ -39,7 +39,7 @@ define( function(require, exports, module){
             $element.find('.financeshow').show();
         }
 
-        //获取列表
+        //----获取列表
         $scope.getList = function(){
             var state = $scope.state;
             var url;
@@ -122,39 +122,79 @@ define( function(require, exports, module){
             });
         }
 
-        //搜索订单列表
+        //----页数重置-搜索订单列表
         $scope.search = function(){
             pagination.setPage( 0,false );
             $scope.getList();
         }
 
-        //查看订单状态
+        //----查看订单状态
         $scope.detail = function( e ){
             e.stopPropagation();
             var id = angular.element(e.target).attr('data-id'),
                 inId = angular.element(e.target).attr('data-inid'),
                 status = angular.element(e.target).attr('data-status'),
+                enttype = angular.element(e.target).attr('data-type'),
                 dstatus = angular.element(e.target).attr('data-dstatus');
 
             var type;
-            //待审核的
-            if( $scope.state == 'wait' ){
-                
-                type = 'c';
-            //非待审核的
-            }else{
-                
-                type = 'd';
+            var detail;
+            //遍历出数据
+            $scope.tabledata.tbody.forEach(function( item ){
+                if( item.orderId == id ){
+                    detail = item;
+                }
+            })
+
+            var data = {
+                'id' : detail.orderId,
+                'enterpriseId': detail.enterpriseId, 
+                'editFlag': true,                           //detail.canEdit || '',
+                'orderType': detail.orderType,
+                'opinion': detail.lastAssigneeOpinion,
+                'isTp': detail.isTp,
+                'state': $scope.state,
+                'ea': detail.enterpriseAccount,
+                'currentTask': detail.currentTask,
+                'processInstanceId': detail.processInstanceId,
+                'contractNo': detail.contractNo,
+                'rejectsFrom': detail.rejectsFrom
+            };
+
+            if( detail.approvalTypeId =='refundApproval' ){
+                var backMoney = new BackMoney();
+                backMoney.show( data );
+                backMoney.on('saveSuccess',function(){
+                    $scope.search();
+                })
+                return false;
             }
-            
-            var detailApproval = new DetailApproval();
-            detailApproval.show( id , type , status , dstatus , { 'processInstanceId': inId } );
-             //注册事件
-            detailApproval.on('approvalSuccess',function(){
-                $scope.search();
-            });
-            return false;
+            if( data.orderType != 17 ){
+
+                //待审核的
+                if( $scope.state == 'wait' ){
+                    type = 'c';
+                //非待审核的
+                }else{
+                    type = 'd';
+                }
+                var detailApproval = new DetailApproval();
+                detailApproval.show( id , type , status , dstatus ,{ 'processInstanceId': inId } );
+                //注册事件
+                detailApproval.on('approvalSuccess',function(){
+                    $scope.search();
+                });
+                return false;
+            } else {
+
+                var detailPayment = new DetailPayment();
+                detailPayment.show( data );
+                detailPayment.on('saveSuccess',function(){
+                    $scope.search();
+                });
+            }
         }
+
 
         //状态变化
         $scope.state = "wait";
@@ -186,8 +226,8 @@ define( function(require, exports, module){
         pagination.render();
 
 		param = param || [];
-        console.log( '================' );
-		console.log( param );
+        //console.log( '================' );
+		//console.log( param );
         if( param[0] == 'finance' ){
             isFinance = true;
         }
