@@ -140,7 +140,7 @@ define( function(require, exports, module){
                 
                 type = 'd';
             }
-
+            
             var detailApproval = new DetailApproval();
             detailApproval.show( id , type , status , dstatus , { 'processInstanceId': inId } );
              //注册事件
