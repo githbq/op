@@ -153,7 +153,7 @@ define(function (require, exports, module) {
                     return {color: "#333", "font-weight": "normal"};
                 }
             },
-            
+
             show: function (selecteds, options, nodialog) {
                 var me = this;
                 me.attrs = me.attrs || {};
@@ -283,7 +283,7 @@ define(function (require, exports, module) {
                     me.trigger('enter', me);
                     me.hide();
                 }else{
-                    util.showToast('请选择职位 如果无职位请添加职位后选择!');
+                    util.showToast('请选择部门');
                 }
             },
             getSelectedIds: function () {
