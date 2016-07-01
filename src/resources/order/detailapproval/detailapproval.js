@@ -72,7 +72,7 @@ define( function(require, exports, module){
 						'success': function( response ){
 							me.contract = response.value.model.path;
 							me.contractFileName = response.value.model.FileName;
-							me.$hetongimg.attr('src','/op/api/file/previewimage?filePath=' + response.value.model.path );
+							me.$hetongimg.attr('src','/op/api/file/previewimage?filePath=' + response.value.model.path ).show();
 							me.$savehetong.removeAttr('disabled');
 						},
 						'error': function(){
@@ -96,7 +96,7 @@ define( function(require, exports, module){
 						'success': function( response ){
 							me.contractCopy = response.value.model.path;
 							me.contractCopyFileName = response.value.model.FileName;
-							me.$hetongfbimg.attr('src','/op/api/file/previewimage?filePath=' + response.value.model.path );
+							me.$hetongfbimg.attr('src','/op/api/file/previewimage?filePath=' + response.value.model.path ).show();
 							me.$savehetong.removeAttr('disabled');
 						},
 						'error': function(){
@@ -399,10 +399,6 @@ define( function(require, exports, module){
 
 			if( !me.contract ){
 				util.showToast('请选择合同照片');
-				return false;
-			}
-			if( !me.contractCopy ){
-				util.showToast('请选择合同副本照片');
 				return false;
 			}
 
