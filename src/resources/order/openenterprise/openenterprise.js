@@ -13,6 +13,8 @@ define(function (require, exports, module) {
         var data;
         var page;
 
+        var state;
+
         //增购/续费
         if (param && param[0]) {
 
@@ -27,7 +29,8 @@ define(function (require, exports, module) {
                 page = new Page({wrapper: $el, orderId: null, isNew: true, isAdd: false, isRef: false, readonly: false, data: data});
                 page.render();
 
-                //关联自注册
+                state = 'a';
+            //关联自注册
             } else if (param[0] == 'b') {
 
                 data = {
@@ -39,7 +42,8 @@ define(function (require, exports, module) {
                 page = new Page({wrapper: $el, orderId: null, isNew: false, isAdd: false, isRef: true, readonly: false, data: data});
                 page.render();
 
-                //增购续费
+                state = 'b';
+            //增购续费
             } else {
 
                 data = {
@@ -50,12 +54,10 @@ define(function (require, exports, module) {
                 page = new Page({wrapper: $el, orderId: null, isNew: false, isAdd: true, isRef: false, readonly: false, data: data});
                 page.render();
                 page.goToStep(2);
+
+                state = 'c';
             }
         }
-
-        //IBSS.tplEvent.trigger('order1.2Success');
-        //IBSS.tplEvent.trigger('order1.2Close');
-
         IBSS.tplEvent.off('order1.2Close');
         IBSS.tplEvent.off('order1.2Success');
 
