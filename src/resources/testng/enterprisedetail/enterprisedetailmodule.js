@@ -6,8 +6,7 @@ define(function (require, exports, module) {
     var myApp = angular.module('formApp', ['angular.filter', 'ngMessages', 'common.directives', 'common.filters']);
     require('./refs/products-directive');
     require('./refs/product-services');//对应的远程服务
-    var dialogManager = require('./refs/dialog');
-    var mainCtrlScope = null;
+    var mainCtrlScope = null;//主$scope
     var mainData = null;//被调用时接收的参数
     var mainReturnData = null;//对外提供的参数
     var validate = true;//参数的调用与否受validate控制
@@ -238,7 +237,7 @@ define(function (require, exports, module) {
                     $scope.payInfoReadonly = !data.canEditPaidInfo;
                 }
                 debugger
-                $scope.rejectFrom=data.rejectFrom;
+                $scope.rejectFrom = data.rejectFrom;
                 $scope.entInfo = data.odrDraftEnterprise || {};
                 $scope.productInfo = data.odrDraftOrder || {};
                 $scope.orderFromData = angular.fromJson(data.odrDraftOrder.content);//订单来源数据
@@ -430,51 +429,6 @@ define(function (require, exports, module) {
             search: false,
             minimumResultsForSearch: Infinity//不显示搜索框
         };
-
-        $scope.testResult = function () {
-            util.api({
-                data: {},
-                url: '/odr/receivedpay/list',
-                success: function (result) {
-
-
-                }
-            });
-            $scope.selectDialog();
-        };
-        $scope.selectDialog = function (array) {
-            var accountConfig = {
-                data: [{id: 1, text: '111111111111111'}, {id: 2, text: '22222222222'}, {id: 3, text: '3333333333'}, {id: 4, text: '支付宝'}],
-                multiple: false,
-                placeholder: '必须与实际打款的单位/个人名称一致',
-                maximumInputLength: 50
-            };
-            var dialog = dialogManager.getInstance(null,
-                {
-                    defaultAttr: {
-                        title: 'testResult',
-                        width: 500
-                    },
-                    content: require('./refs/dialogtemplate.html')
-                }
-            );
-            dialog.bootstrap(['common.directives', 'common.services'], function (app) {
-                app.controller('dialogController', ['$scope', function ($scope) {
-                    var vm = this;
-                    vm.config = accountConfig;
-                    vm.ngModel = null;
-                    vm.select2Model = null;
-                    vm.placeholder = '请选择...';
-                    vm.clickEnter = function () {
-                        array && array.push(vm.select2Model);
-                    };
-                    vm.clickCancel = function () {
-
-                    }
-                }]);
-            });
-            dialog.show();
-        };
         $scope.saving = false;
         $scope.step = 1;//步骤
         $scope.prevStep = function () {
@@ -536,22 +490,20 @@ define(function (require, exports, module) {
             })
         }
 
-        //企业草稿提交  需要enterpriseAccount
+//企业草稿提交  需要enterpriseAccount
         function submitStepEntInfo(callback) {
-            debugger
             action.doing = true;
-            util.api({
-                url: "~/op/api/a/odrDraft/draftEnterpriseNext",
-                data: {odrDraftEnterprise: angular.toJson(angular.extend({enterpriseAccount: $scope.globalInfo.enterpriseAccount, enterpriseFilingId: $scope.globalInfo.enterpriseFilingId, id: entInfo.draftEnterpriseId}, $scope.entInfo))},
-                success: function (result) {
-                    callback(result);
-                },
-                complete: function () {
-                    $scope.$apply(function () {
-                        action.doing = false;
-                    });
+            productService.submitStepEntInfo({
+                data: {
+                    odrDraftEnterprise: angular.toJson(angular.extend({enterpriseAccount: $scope.globalInfo.enterpriseAccount, enterpriseFilingId: $scope.globalInfo.enterpriseFilingId, id: entInfo.draftEnterpriseId}, $scope.entInfo))
                 }
-            })
+            }).success(function (result) {
+                callback(result);
+            }).always(function () {
+                $scope.$apply(function () {
+                    action.doing = false;
+                });
+            });
         }
 
         $scope.getProductInfo = function (needToJson) {
@@ -582,37 +534,24 @@ define(function (require, exports, module) {
             };
             return data;
         };
-//订单草稿  需要 enterpriseId
+        //订单草稿  需要 enterpriseId
         function submitStepProductInfo(callback) {
-
             action.doing = true;
-            console.log('enterpriseIdenterpriseIdenterpriseId-------' + $scope.productInfo.draftEnterpriseId);
-            util.api({
-                url: "~/op/api/a/odrDraft/draftOrderNext",
-                data: $scope.getProductInfo(true),
-                success: callback,
-                complete: function () {
-                    $scope.$apply(function () {
-                        action.doing = false;
-                    });
-                }
-            })
+            productService.submitStepProductInfo($scope.getProductInfo(true), callback).always(function () {
+                $scope.$apply(function () {
+                    action.doing = false;
+                });
+            });
         }
 
 //付款信息
         function submitStepPayInfo(callback) {
             action.doing = true;
-            debugger
-            util.api({
-                url: "~/op/api/a/odrDraft/draftPaidInfoNext",
-                data: {submitType: $scope.globalInfo.submitType, odrDraftPaidInfo: angular.toJson($scope.payInfo)},
-                success: callback,
-                complete: function () {
-                    $scope.$apply(function () {
-                        action.doing = false;
-                    });
-                }
-            })
+            productService.submitStepPayInfo({submitType: $scope.globalInfo.submitType, odrDraftPaidInfo: angular.toJson($scope.payInfo)}, callback).always(function () {
+                $scope.$apply(function () {
+                    action.doing = false;
+                });
+            });
         }
 
 //保存提交按钮

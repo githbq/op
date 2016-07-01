@@ -154,7 +154,7 @@ define(function (require, exports, module) {
         };
         var dialogManager = require('./dialog');
         //选择销售弹窗
-        factory.selectSalesmenDialog=function (array,parent$timeout) {
+        factory.selectSalesmenDialog = function (array, parent$timeout) {
             var accountConfig = {
                 data: [],
                 multiple: false,
@@ -197,7 +197,8 @@ define(function (require, exports, module) {
             });
             dialog.show();
         };
-        factory.selectPartnersDialog = function (array,parent$timeout) {
+        //选择合作人
+        factory.selectPartnersDialog = function (array, parent$timeout) {
             var accountConfig = {
                 data: [],
                 multiple: false,
@@ -225,7 +226,6 @@ define(function (require, exports, module) {
                         var me = this;
                         if (me.select2Model) {
                             parent$timeout(function () {
-                                debugger
                                 if (!_.findWhere(array, {accountId: me.select2Model.data.accountId})) {
                                     array.push(me.select2Model.data);
                                 }
@@ -233,12 +233,36 @@ define(function (require, exports, module) {
                         }
                     };
                     vm.clickCancel = function () {
-
                     }
                 }]);
             });
             dialog.show();
         };
+
+        //提交企业详情
+        factory.submitStepEntInfo = function (data,callback) {
+            return util.api({
+                url: "~/op/api/a/odrDraft/draftEnterpriseNext",
+                data:data,
+                success: callback
+            })
+        }
+        //提交产品信息
+        factory.submitStepProductInfo = function (data, callback) {
+            return util.api({
+                url: "~/op/api/a/odrDraft/draftOrderNext",
+                data:data,
+                success: callback
+            })
+        }
+        //提交支付信息
+        factory.submitStepPayInfo = function (data,callback) {
+            return util.api({
+                url: "~/op/api/a/odrDraft/draftPaidInfoNext",
+                data:data,
+                success: callback
+            })
+        }
         return factory;
     });
 });
