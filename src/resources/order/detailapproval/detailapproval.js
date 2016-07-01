@@ -348,7 +348,7 @@ define( function(require, exports, module){
 
 			var postData = {
 				'odrDraftEnterprise': data.entInfo,
-				'odrDraftOrder': data.getProductInfo(),
+				'odrDraftOrder': data.getProductInfo()['odrDraftOrder'],
 				'odrDraftPaidInfo': data.payInfo,
 				'orderId': me.orderId
 			}
