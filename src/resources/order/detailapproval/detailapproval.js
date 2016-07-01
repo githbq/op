@@ -72,7 +72,7 @@ define( function(require, exports, module){
 						'success': function( response ){
 							me.contract = response.value.model.path;
 							me.contractFileName = response.value.model.FileName;
-							me.$hetongimg.attr('src','/op/api/file/previewimage?filePath=' + response.value.model.path );
+							me.$hetongimg.attr('src','/op/api/file/previewimage?filePath=' + response.value.model.path ).show();
 							me.$savehetong.removeAttr('disabled');
 						},
 						'error': function(){
@@ -96,7 +96,7 @@ define( function(require, exports, module){
 						'success': function( response ){
 							me.contractCopy = response.value.model.path;
 							me.contractCopyFileName = response.value.model.FileName;
-							me.$hetongfbimg.attr('src','/op/api/file/previewimage?filePath=' + response.value.model.path );
+							me.$hetongfbimg.attr('src','/op/api/file/previewimage?filePath=' + response.value.model.path ).show();
 							me.$savehetong.removeAttr('disabled');
 						},
 						'error': function(){
@@ -312,7 +312,15 @@ define( function(require, exports, module){
 				util.showToast('请填写审批意见');
 				return false;
 			}
-			if( me.verify() ){
+
+			var bool;
+			if( me.status == 10 ){
+				bool = true;
+			}else{
+				bool = me.verify();
+			}
+
+			if( bool ){
 				util.api({
 	                'url': '~/op/api/approval/directapprove',
 	                'data':{
@@ -353,21 +361,44 @@ define( function(require, exports, module){
 				'orderId': me.orderId
 			}
 
-			//保存
-			util.api({
-				'url': '/odr/update',
-				'data': {
-					'vo': JSON.stringify( postData )
-				},
-				'success': function( data ){
-					console.warn(data);
-					if(data.success){
-						util.showTip('保存成功');
-						me.trigger('editSuccess');
-						me.hide();
+			//1 小助手
+			if( me.info.from && me.info.from == 1 ){
+
+				//保存
+				util.api({
+					'url': '/odr/update',
+					'data': {
+						'vo': JSON.stringify( postData )
+					},
+					'success': function( data ){
+						console.warn(data);
+						if(data.success){
+							util.showTip('保存成功');
+							me.trigger('editSuccess');
+							me.hide();
+						}
 					}
-				}
-			})
+				})
+			//2 财务
+			}else if( me.info.from && me.info.from == 2 ){
+
+				//保存
+				util.api({
+					'url': '/odr/odrDraftPaidInfo',
+					'contentType': 'application/json',
+					'data': JSON.stringify( data.payInfo ),
+					'success': function( data ){
+						console.warn(data);
+						if(data.success){
+							util.showTip('保存成功');
+							me.trigger('editSuccess');
+							me.hide();
+						}
+					}
+				})
+			}
+
+			
 			console.log(data);
 		},
 		//保存合同
@@ -376,10 +407,6 @@ define( function(require, exports, module){
 
 			if( !me.contract ){
 				util.showToast('请选择合同照片');
-				return false;
-			}
-			if( !me.contractCopy ){
-				util.showToast('请选择合同副本照片');
 				return false;
 			}
 
