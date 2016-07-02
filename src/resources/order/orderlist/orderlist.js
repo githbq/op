@@ -215,6 +215,7 @@ define( function( require, exports, module ) {
                 })
             }
         },
+
         //收尾款
         finalPayEve: function(e){
             console.log('收尾款');
@@ -290,9 +291,30 @@ define( function( require, exports, module ) {
             var from = $(e.currentTarget).attr('data-from');
             var type = $(e.currentTarget).attr('data-type');
 
+            //获取订单详情
+            var list = me.list.all();
+            var item;
+            for( var i=0; i<list.length; i++ ){
+                if( list[i]['order']['id'] == id ){
+                    item = list[i];
+                    break;
+                }
+            }
+
+            var id = item.order.id;
+            var enterpriseId = item.order.enterpriseId;
+            var orderType = item.order.orderType;
+            var opinion = item.order.rejectReason;
+            var isTp = item.order.isTp;
+            var ea = item.order.enterpriseAccount;
+            var contractNo = item.order.contractNo;
+
+
+
             //收尾款
             if( type == 17 ){
 
+                me.trigger('orderDetailPayment',{'id':id,'enterpriseId':enterpriseId,'editFlag':false,'orderType':orderType,'person':'','opinion':opinion,'isTp':isTp,'state':'','ea':ea,'processInstanceId':'','contractNo':contractNo})
             //线上支付订单
             }else if( type == 18 ){
 
