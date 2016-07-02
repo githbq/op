@@ -313,8 +313,9 @@ define(function(require, exports, module) {
             var me = this;
             var id = $(e.currentTarget).attr('data-id');
             var account = $(e.currentTarget).attr('data-account');
+            var entName = $(e.currentTarget).attr('data-entname');
 
-            me.trigger('renew',id,account);
+            me.trigger('renew',id,account,entName);
         },
 
         //联合跟进人
