@@ -82,7 +82,7 @@
             </select>
         </p>
         <p>
-            <textarea cols="20" rows="4" ce-model="comment"></textarea>
+            <textarea cols="20" rows="4" ce-model="comment" maxlength="1000"></textarea>
         </p>
         <p class="action">
             <button class="u-btn-blue action-agree">同意</button>
@@ -93,7 +93,7 @@
     <!--补充合同 action-->
     <section class="approval-contract" data-state="b">
         <p class="title">补充合同</p>
-    	<p><label>补充合同照片    </label>  <input type="file" id="hetong"> (支持png、jpg、gif格式)</p>
+    	<p><label>补充合同照片<b class="mst">*</b></label>  <input type="file" id="hetong"> (支持png、jpg、gif格式)</p>
         <p> <img src="" id="hetongimg"> </p>
         <p><label>补充合同副本照片</label>  <input type="file" id="hetongfb"> (支持png、jpg、gif格式)</p>
         <p> <img src="" id="hetongfbimg"> </p>
