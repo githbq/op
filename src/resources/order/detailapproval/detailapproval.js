@@ -314,41 +314,32 @@ define( function(require, exports, module){
 				return false;
 			}
 
-			var bool;
-			if( me.status == 10 ){
-				bool = true;
-			}else{
-				bool = me.verify();
-			}
-
-			if( bool ){
-				util.api({
-	                'url': '~/op/api/approval/directapprove',
-	                'data':{
-	                    'processInstanceId': me.info.processInstanceId, //流程实例ID
-	                    'approved': false,                  		    //审批结果(通过/拒绝)
-	                    'opinion': me.model.get('comment'),  			//审批意见
-	                    'contractState': me.model.get('contractState'), //是否合格
-	                    'rejectReason': me.model.get('rejectReason')   	//不合格原因
-	                },
-					'beforeSend':function(){
-						me.$agree.attr('disabled','disabled');
-						me.$refuse.attr('disabled','disabled').text('提交中');
-					},
-	                success: function( data ){
-	                    console.warn( data );
-	                    if( data.success ){
-	                        util.showTip('批复成功');
-	                        me.hide();
-	                        me.trigger('approvalSuccess');
-	                    }
-	                },
-					complete: function(){
-						me.$agree.removeAttr('disabled');
-						me.$refuse.removeAttr('disabled').text('驳回');
-					}
-	            })
-			}
+			util.api({
+                'url': '~/op/api/approval/directapprove',
+                'data':{
+                    'processInstanceId': me.info.processInstanceId, //流程实例ID
+                    'approved': false,                  		    //审批结果(通过/拒绝)
+                    'opinion': me.model.get('comment'),  			//审批意见
+                    'contractState': me.model.get('contractState'), //是否合格
+                    'rejectReason': me.model.get('rejectReason')   	//不合格原因
+                },
+				'beforeSend':function(){
+					me.$agree.attr('disabled','disabled');
+					me.$refuse.attr('disabled','disabled').text('提交中');
+				},
+                success: function( data ){
+                    console.warn( data );
+                    if( data.success ){
+                        util.showTip('批复成功');
+                        me.hide();
+                        me.trigger('approvalSuccess');
+                    }
+                },
+				complete: function(){
+					me.$agree.removeAttr('disabled');
+					me.$refuse.removeAttr('disabled').text('驳回');
+				}
+            })
 		},
 		//重新编辑保存
 		saveEve: function(){
