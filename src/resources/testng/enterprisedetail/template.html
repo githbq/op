@@ -33,7 +33,7 @@
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>企业账号</span></label>
-                    <input maxlength="20" required ng-readonly="enterpriseReadonly||globalInfo.submitType==3||$scope.globalInfo.orderId" account ng-model-options="{debounce:1000}" ng-class="{readonly:enterpriseReadonly||globalInfo.submitType==3||$scope.globalInfo.orderId}" type="text" ng-model="entInfo.enterpriseAccount" name="enterpriseAccount" ng-maxlength="100"/>
+                    <input maxlength="20" required ng-readonly="enterpriseReadonly||globalInfo.submitType==3||globalInfo.orderId" account ng-model-options="{debounce:1000}" ng-class="{readonly:enterpriseReadonly||globalInfo.submitType==3||globalInfo.orderId}" type="text" ng-model="entInfo.enterpriseAccount" name="enterpriseAccount" ng-maxlength="100"/>
                     <span class="tip">企业账号应为字母开头6-20位由字母数字的组合</span>
                 </div>
             </div>
