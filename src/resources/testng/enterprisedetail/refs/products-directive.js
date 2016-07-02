@@ -315,7 +315,7 @@ define(function (require, exports, module) {
                         debugger
                         //执行事件
                         fieldStruct.onchange = fieldStruct.onchange || [];
-                        //重新确实权重 确保ajax在最后被调用
+                        //重新确实权重 确保ajax在最后被调用  priority优先级数越高越先调用
                         for (var i = 0; i < fieldStruct.onchange.length; i++) {
                             var changeItem = fieldStruct.onchange[i];
                             if (changeItem.type == 'ajax') {
