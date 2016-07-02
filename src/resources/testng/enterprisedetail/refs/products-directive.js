@@ -259,6 +259,7 @@ define(function (require, exports, module) {
                                     findData.value = newState.value.value || '';
                                 }
                                 newState.value.valueData = findData;
+                                newState.value.valueData.readonly=newState.readonly;
                             }
                             switchSetStateValue(newState, product);//数据赋值逻辑
                         }
@@ -315,9 +316,22 @@ define(function (require, exports, module) {
                         debugger
                         //执行事件
                         fieldStruct.onchange = fieldStruct.onchange || [];
+                        //重新确实权重 确保ajax在最后被调用  priority优先级数越高越先调用
                         for (var i = 0; i < fieldStruct.onchange.length; i++) {
                             var changeItem = fieldStruct.onchange[i];
-                            done(changeItem, fieldStruct);
+                            if (changeItem.type == 'ajax') {
+                                changeItem.priority = 1;
+                            } else {
+                                changeItem.priority = 2;
+                            }
+                        }
+                        //根据权重重新排序
+                        fieldStruct.onchange = fieldStruct.onchange.sort(function (a, b) {
+                            return b.priority - a.priority;
+                        });
+                        for (var i = 0; i < fieldStruct.onchange.length; i++) {
+                            var changeItem = fieldStruct.onchange[i];
+                            done(changeItem);
                         }
                         setTimeout(function () {
                             $scope.$apply();
@@ -484,12 +498,12 @@ define(function (require, exports, module) {
                         switch (valueType) {
                             case 'data':
                             {
-                                try{
-                                var findData = _.findWhere(product.logic.data, {name: refName});
-                                value = findData.value;
-                                }catch(e){
+                                try {
+                                    var findData = _.findWhere(product.logic.data, {name: refName});
+                                    value = findData.value;
+                                } catch (e) {
                                     debugger
-                                    throw new error("数据上未配置这个关联名称:"+refName);
+                                    throw new error("数据上未配置这个关联名称:" + refName);
                                 }
                             }
                                 ;

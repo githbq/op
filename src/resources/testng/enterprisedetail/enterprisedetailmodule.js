@@ -563,6 +563,7 @@ define(function (require, exports, module) {
             submitStepPayInfo(function (result) {
                 if (result.success) {
                     util.showTip('操作成功');
+                    IBSS.tplEvent.trigger('order1.2Success');
                 }
             });
         };
