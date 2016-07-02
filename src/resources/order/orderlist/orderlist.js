@@ -309,8 +309,6 @@ define( function( require, exports, module ) {
             var ea = item.order.enterpriseAccount;
             var contractNo = item.order.contractNo;
 
-
-
             //收尾款
             if( type == 17 ){
 
@@ -330,11 +328,7 @@ define( function( require, exports, module ) {
                 me.trigger('orderDetailPayment',info);
             //线上支付订单
             }else if( type == 18 ){
-
-
                 me.trigger('orderOnlinePay',{ 'id' :id } );
-
-                
             //普通订单
             } else {
                 me.trigger( 'detail', id , status , dstatus , from );

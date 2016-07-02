@@ -23,7 +23,7 @@ define( function( require, exports, module ) {
         var entList = new EntList( {'wrapper':$el,'param': param && param[0],'state':'support'} );
         entList.render();
         
-        //var entDetail = new EntDetail();
+        var entDetail = new EntDetail();
 
         var entTrace = new EntTrace();
         
