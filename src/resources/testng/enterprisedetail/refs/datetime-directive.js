@@ -17,6 +17,7 @@ define(function (require, exports, module) {
                         field.$setDirty();
                         if (value && value.length > 0) {//处理require错误验证问题
                             field.$setValidity('required', true);
+                            field.$valid=true;
                         }
                     }
                     //取值逻辑
