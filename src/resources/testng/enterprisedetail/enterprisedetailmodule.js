@@ -494,16 +494,15 @@ define(function (require, exports, module) {
         function submitStepEntInfo(callback) {
             action.doing = true;
             productService.submitStepEntInfo({
-                data: {
                     odrDraftEnterprise: angular.toJson(angular.extend({enterpriseAccount: $scope.globalInfo.enterpriseAccount, enterpriseFilingId: $scope.globalInfo.enterpriseFilingId, id: entInfo.draftEnterpriseId}, $scope.entInfo))
                 }
-            }).success(function (result) {
-                callback(result);
-            }).always(function () {
-                $scope.$apply(function () {
-                    action.doing = false;
+            ).success(function (result) {
+                    callback(result);
+                }).always(function () {
+                    $scope.$apply(function () {
+                        action.doing = false;
+                    });
                 });
-            });
         }
 
         $scope.getProductInfo = function (needToJson) {
