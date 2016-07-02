@@ -365,6 +365,7 @@ define( function( require, exports, module ) {
                 newFirst = "refund";
             }
 
+            //
             if( newFirst == 'newFirst' ){
                 me.trigger('orderBackmoney',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':true,'orderType':orderType,
                'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea,'processInstanceId':'','contractNo':contractNo,'newFirst':'newFirst'} );
