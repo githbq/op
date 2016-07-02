@@ -8382,6 +8382,9 @@ em {
   display: none;
   max-width: 300px;
 }
+.m-detailapproval .approval-contract .mst {
+  color: red;
+}
 .m-detailapproval .approval-btns {
   padding: 10px 0;
   text-align: right;
