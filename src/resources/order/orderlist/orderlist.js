@@ -172,13 +172,13 @@ define( function( require, exports, module ) {
             'click .detail-daokuan': 'daokuanEve',              //到款认领
             'click .detail-invoice': 'invoiceEve',              //发票
             'click .detail-tuikuan': 'tuikuanEve',              //退款
-            'click .detail-union': 'unionEve'                   //联合跟进人
+            'click .detail-union': 'unionEve',                   //联合跟进人
 
             //'click .order-detail':'orderDetailEve',
 			//'click .receive-money':'receiveMoneyEve',
 			//'click .order-detailPay':'orderDetailPayEve',
 			//'click .order-del':'orderDelEve',
-			'click .exportOrder':'exportEve',
+			'click .exportOrder':'exportEve'
 			//'click .order-custom':'orderCustomEve',
 			//'click .order-backmoney':'orderBackmoneyEve', 
 			//'click .order-onlinepay':'orderOnlinePay',  //查看线上支付情况
