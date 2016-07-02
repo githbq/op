@@ -331,7 +331,10 @@ define( function( require, exports, module ) {
             //线上支付订单
             }else if( type == 18 ){
 
+
                 me.trigger('orderOnlinePay',{ 'id' :id } );
+
+                
             //普通订单
             } else {
                 me.trigger( 'detail', id , status , dstatus , from );
