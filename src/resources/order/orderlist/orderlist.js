@@ -314,7 +314,20 @@ define( function( require, exports, module ) {
             //收尾款
             if( type == 17 ){
 
-                me.trigger('orderDetailPayment',{'id':id,'enterpriseId':enterpriseId,'editFlag':false,'orderType':orderType,'person':'','opinion':opinion,'isTp':isTp,'state':'','ea':ea,'processInstanceId':'','contractNo':contractNo})
+                //
+                //收尾款分两种情况
+                //查看 和 编辑提交
+                //======================
+
+                var info;
+                //已撤回和被驳回 可以编辑
+                if( status == 2 || status == 3 ){
+                    info = {'id':id,'enterpriseId':enterpriseId,'editFlag':true,'orderType':orderType,'person':'','opinion':opinion,'isTp':isTp,'state':'refuse','ea':ea,'processInstanceId':'','contractNo':contractNo}
+                //其他仅可查看 
+                }else{
+                    info = {'id':id,'enterpriseId':enterpriseId,'editFlag':false,'orderType':orderType,'person':'','opinion':opinion,'isTp':isTp,'state':'','ea':ea,'processInstanceId':'','contractNo':contractNo}
+                }
+                me.trigger('orderDetailPayment',info);
             //线上支付订单
             }else if( type == 18 ){
 
