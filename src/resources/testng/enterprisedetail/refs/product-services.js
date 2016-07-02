@@ -263,6 +263,18 @@ define(function (require, exports, module) {
                 success: callback
             })
         }
+        //获取代理商区域
+        factory.getAgentArea=function(callback){
+            return util.api({
+                url: "~/op/api/a/odrDraft/getAgentArea",
+                data:data,
+                success:function (result){
+                    if(result.success){
+                        callback(result.value.model);
+                    }
+                }
+            })
+        }
         return factory;
     });
 });

@@ -211,7 +211,14 @@ define(function (require, exports, module) {
         getInitData();//获取初始化数据 每次必调
         //企业详情信息
         var entInfo = $scope.entInfo = {};
-        entInfo.area = $scope.globalInfo.area;
+        entInfo.area = '';//代理区域现在统一从接口中取
+        productService.getAgentArea(function (str) {
+            $timeout(function () {
+                entInfo.area = str;
+            }, 10);
+        });
+
+
         entInfo.enterpriseName = $scope.globalInfo.enterpriseName;
         entInfo.enterpriseAccount = $scope.globalInfo.enterpriseAccount;
         //产品信息模块
