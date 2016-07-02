@@ -44,6 +44,8 @@ define(function (require, exports, module) {
                 scope: {dataResult: '=', fromData: '=', allReadonly: '=productReadonly', show: '=', initData: '=', productJson: '='},
                 template: require('./products-template.html'),
                 controller: ['$scope', '$timeout', 'productService', function ($scope, $timeout, productService) {
+                    //标记是否由用户操作界面
+                    $scope.isUserControl = false;
                     //全模块只读监听
                     $scope.$watch('allReadonly', function () {
                         $timeout(function () {
@@ -216,10 +218,6 @@ define(function (require, exports, module) {
                             $scope.products.push(product);
                         }
                         //处理返回结果
-                        _.each(stateData.allStates, function (item, i) {
-                            var findData = _.findWhere(product.logic.data, {name: item.name});
-                            findData && (findData.hidden = item.hidden);
-                        });
                         var findIndex = _.findIndex($scope.dataResult, {productId: product.productId});
                         var returnProductData = {productId: product.productId, data: product.logic.data, state: product.logic.currState || 0, show: product.show};
                         if (findIndex >= 0) {
@@ -259,7 +257,11 @@ define(function (require, exports, module) {
                                     findData.value = newState.value.value || '';
                                 }
                                 newState.value.valueData = findData;
-                                newState.value.valueData.readonly=newState.readonly;
+                                if ($scope.isUserControl && newState.value.valueData.readonly === true) {//在用户操作的值清空逻辑
+                                    newState.value.valueData.value = '';
+                                }
+                                newState.value.valueData.hidden = newState.hidden;//由于数据是固定的而结构经常在变动 部分状态保存在data上
+                                newState.value.valueData.readonly = newState.readonly;
                             }
                             switchSetStateValue(newState, product);//数据赋值逻辑
                         }
@@ -311,8 +313,10 @@ define(function (require, exports, module) {
                     };
                     $scope.clickMe = function () {
                     };
+
                     //控制值改变时事件  fieldStruct 元素的模型
                     $scope.fieldChange = function (fieldStruct, product, form) {
+                        $scope.isUserControl = true;
                         debugger
                         //执行事件
                         fieldStruct.onchange = fieldStruct.onchange || [];
