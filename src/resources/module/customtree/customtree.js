@@ -110,8 +110,8 @@ define(function (require, exports, module) {
                     target.parentsUntil(".m-ztree").filter("li").each(function(index,item){
                         distance += this.offsetTop;
                     });
-                    $(".panel-content li a").removeClass('curSelectedNode');
-                    target.addClass('curSelectedNode');
+                    $(".panel-content li a").removeClass('locatedNode');
+                    target.addClass('locatedNode');
                     me.$content.scrollTop(distance); 
                 }
                 

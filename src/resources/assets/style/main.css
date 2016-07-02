@@ -5494,6 +5494,11 @@ fieldset[disabled] .ui-grid-menu .ui-grid-menu-inner .ui-grid-menu-close-button.
   border-radius: 3px;
   margin-top: -2px;
 }
+.m-ztree li a.locatedNode {
+  background-color: #DDD;
+  margin: 0 -500px;
+  padding: 0 525px 0 552px;
+}
 .m-ztree li span.button.switch {
   width: 19px;
   height: 19px;
