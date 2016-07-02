@@ -19,7 +19,7 @@ define( function( require, exports, module ) {
     var InvoiceDetail = require('../widget/invoicedetail/invoicedetail');  //发票
     var BackMoney = require('../detailbackmoney/detailbackmoney');         //退款
 	
-	var OnlinePay = require('../widget/onlinepay/onlinepay');              //???
+	var OnlinePay = require('../widget/onlinepay/onlinepay');              //线上支付订单
 
     var tem = $( require('./template.html') );
     
@@ -288,8 +288,19 @@ define( function( require, exports, module ) {
             var status = $(e.currentTarget).attr('data-status');
             var dstatus = $(e.currentTarget).attr('data-dstatus');
             var from = $(e.currentTarget).attr('data-from');
+            var type = $(e.currentTarget).attr('data-type');
 
-            me.trigger( 'detail', id , status , dstatus , from );
+            //收尾款
+            if( type == 17 ){
+
+            //线上支付订单
+            }else if( type == 18 ){
+
+                me.trigger('orderOnlinePay',{ 'id' :id } );
+            //普通订单
+            } else {
+                me.trigger( 'detail', id , status , dstatus , from );
+            }
         },
         //查看详情
         /*
@@ -406,16 +417,7 @@ define( function( require, exports, module ) {
            me.trigger('orderDetailPayment',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':false,'orderType':orderType,
                'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea,'processInstanceId':'','contractNo':contractNo} );
 	   },
-	   //查看线上支付情况
-	   orderOnlinePay:function( e ){
-		   var me = this;
-
-           var id = $(e.currentTarget).attr('data-id');
-         
-		   
-           me.trigger('orderOnlinePay',{ 'id' :id } );
-	   },
-       */
+        */
         //导出excel
         exportEve: function(e){
             var me = this;
@@ -542,16 +544,19 @@ define( function( require, exports, module ) {
 		var customHelper = null;
 		var backMoney = null, invioceDetail = null ,onlinePay = null;
 		
+        //收尾款[]
         orderList.on('orderDetailPayment', function( options ){
             detailPayment = new DetailPayment();
             detailPayment.show( options );
         });
+
+        //在线支付[需要测试]
 		orderList.on('orderOnlinePay', function( options ){
             onlinePay = new OnlinePay();
             onlinePay.show( options );
         });
 		
-        //联合跟进人[]
+        //联合跟进人
 		orderList.on('orderCustom', function( options ){
             customHelper = new CustomHelper();
             customHelper.on('refresh',function(){
