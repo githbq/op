@@ -140,8 +140,8 @@ define( function(require, exports, module){
 		//				b 补充合同(可以补充合同)
 		//				c 审批只读(可进行审批同意或驳回) 
 		//				d 完全只读状态 
-		// @param status  订单状态
-		// @param dstatus 到款认领状态
+		// @param status  订单状态        []
+		// @param dstatus 到款认领状态    []
 		// @param info    一些额外信息
 		//==============================================
 		show: function( id , type , status , dstatus, info ){
