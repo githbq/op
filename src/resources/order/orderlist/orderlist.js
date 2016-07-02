@@ -178,7 +178,7 @@ define( function( require, exports, module ) {
 			//'click .receive-money':'receiveMoneyEve',
 			//'click .order-detailPay':'orderDetailPayEve',
 			//'click .order-del':'orderDelEve',
-			//'click .exportOrder':'exportEve',
+			'click .exportOrder':'exportEve',
 			//'click .order-custom':'orderCustomEve',
 			//'click .order-backmoney':'orderBackmoneyEve', 
 			//'click .order-onlinepay':'orderOnlinePay',  //查看线上支付情况
@@ -431,25 +431,10 @@ define( function( require, exports, module ) {
             if( me.$putEndTime.val() ){
                 putEndTime = new Date( me.$putEndTime.val() ).getTime();
             }
+            var queryData = me.model.all();
+            queryData.putStartTime = putStartTime;
+            queryData.putEndTime = putEndTime;
 
-            var queryData = {
-                'orderId':  me.model.get('orderId'),
-                'contractNo': me.model.get('contractNo'),
-                'en': me.model.get('en'),
-                'ea': me.model.get('ea'),
-				'orderType': me.model.get('orderType'),
-				'account': me.model.get('account'),
-				'isTp': me.model.get('isTp'),
-				'approveStatus': me.model.get('approveStatus'),
-				'payStatus': me.model.get('payStatus'),
-				'agent': me.model.get('agent'),
-				'isPayUp':me.model.get('isPayUp'),
-				'agentId': me.model.get('agentId'),
-                'putStartTime': putStartTime,
-                'putEndTime': putEndTime
-				
-            }
-            
             window.open( IBSS.API_PATH + '/odr/exportOrder?' + $.param( queryData ) );
         },
 
