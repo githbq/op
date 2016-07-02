@@ -35,7 +35,7 @@ define( function(require, exports, module){
 			'#hetong': 'hetong',			//合同input
 			'#hetongfb': 'hetongfb',        //合同副本input
 			'#hetongimg': 'hetongimg',      //合同img展示
-			'#hetongfbimg': 'hetongfbimg',  //合同父辈img展示
+			'#hetongfbimg': 'hetongfbimg',  //合同副本img展示
 			'.savehetong': 'savehetong'     //保存合同按钮
 		},
 		events:{
@@ -80,7 +80,6 @@ define( function(require, exports, module){
 						}
 					})
 				}
-
 			});
 
 			me.$hetongfb.on('change',function(){
@@ -115,9 +114,7 @@ define( function(require, exports, module){
 				}else{
 					me.$('#rejectReason').removeAttr('disabled');
 				}
-			})
-
-
+			});
 		},
 		//状态变换
 		setState: function(){

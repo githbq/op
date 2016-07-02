@@ -20,7 +20,7 @@ define(function(require, exports, module) {
 
         entList.render();
         //企业详情
-        //var entDetail = new EntDetail({ 'isAgent': true });
+        var entDetail = new EntDetail({ 'isAgent': true });
 
         var customHelper = null;
 
