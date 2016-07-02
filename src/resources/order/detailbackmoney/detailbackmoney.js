@@ -231,15 +231,17 @@ define( function(require, exports, module){
 		setState:function(){
 			var me = this;
 			me.$('.state').hide();
+
 			me.$('.state-'+me.attrs.options.state).show();
-			me.$('.state-'+me.attrs.options.newFirst).show();
+			//me.$('.state-'+me.attrs.options.newFirst).show();
+			/*
 			if(me.attrs.options.editFlag && me.attrs.options.newFirst!='newFirst'){
 				me.$('.state-refuse').show();
 			}
+			*/
+
 			me.$('.currentTask-'+me.attrs.options.currentTask).show();
 			me.$('.order-id').html( me.attrs.options.id );
-		
-			
 		},
 		//设置审批意见
 		setOptions:function(){

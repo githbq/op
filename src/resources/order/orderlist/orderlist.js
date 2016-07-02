@@ -391,23 +391,29 @@ define( function( require, exports, module ) {
             var contractNo = item.order.contractNo;
             //var newFirst = $(e.currentTarget).attr('data-newFirst');
             
-            var newFirst;
-            if( item.canRefund == 1 ){
-                newFirst = 'newFirst';
-            } else {
-                newFirst = "refund";
-            }
+
 
             //
-            if( newFirst == 'newFirst' ){
-                me.trigger('orderBackmoney',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':true,'orderType':orderType,
-               'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea,'processInstanceId':'','contractNo':contractNo,'newFirst':'newFirst'} );
-            }else{
+            // 点击时分三种情况  查看  第一次提交  驳回提交
+            //=================================================
+            var newFirst;
+            //查看 退款待审核
+            if( item.orderStatus == 5 ){
+
                 me.trigger('orderBackmoney',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':false,'orderType':orderType,
                'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea,'processInstanceId':'','contractNo':contractNo} );
+            //退款驳回 退款撤回 可编辑
+            } else if( item.orderStatus == 7 || item.orderStatus == 8 ){
+
+                me.trigger('orderBackmoney',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':true,'orderType':orderType,
+               'person':'', 'opinion':opinion ,'isTp':isTp,'state':'refuse','ea':ea,'processInstanceId':'','contractNo':contractNo} );
+            //第一次提交
+            }else{
+
+                me.trigger('orderBackmoney',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':true,'orderType':orderType,
+               'person':'', 'opinion':opinion ,'isTp':isTp,'state':'newFirst','ea':ea,'processInstanceId':'','contractNo':contractNo} );
             }
-            
-            
+
         },
 
         //联合跟进人
