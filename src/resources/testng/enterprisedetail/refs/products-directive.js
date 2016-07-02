@@ -259,6 +259,7 @@ define(function (require, exports, module) {
                                     findData.value = newState.value.value || '';
                                 }
                                 newState.value.valueData = findData;
+                                newState.value.valueData.readonly=newState.readonly;
                             }
                             switchSetStateValue(newState, product);//数据赋值逻辑
                         }
