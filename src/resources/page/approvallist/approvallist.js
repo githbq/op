@@ -122,7 +122,7 @@ define( function(require, exports, module){
             });
         }
 
-        //----页数重置-搜索订单列表
+        //----页数重置为第一页--搜索订单列表
         $scope.search = function(){
             pagination.setPage( 0,false );
             $scope.getList();
@@ -198,6 +198,7 @@ define( function(require, exports, module){
 
         //状态变化
         $scope.state = "wait";
+        //点击不同的审批状态
         $scope.changestate = function( e,state ){
             $scope.state = state;
 
@@ -205,7 +206,7 @@ define( function(require, exports, module){
             angular.element(e.target).addClass('active');
             $scope.search();
         };
-
+        //页数点击变化事件
         pagination.onChange = function(){
             $scope.getList();
         };
