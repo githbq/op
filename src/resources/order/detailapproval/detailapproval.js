@@ -242,11 +242,20 @@ define( function(require, exports, module){
 					},
 					'success': function( data ){
 						if( data.success ){
-							me.$('.htshow').attr('src','/op/api/file/previewimage?filePath='+data.value.model.contractPic);
-							me.$('.htshow').parent().attr('href','/op/api/file/previewimage?filePath='+data.value.model.contractPic);
 
-							me.$('.htfbshow').attr('src','/op/api/file/previewimage?filePath='+data.value.model.contractPicCopy);
-							me.$('.htfbshow').parent().attr('href','/op/api/file/previewimage?filePath='+data.value.model.contractPicCopy);
+							if( data.value.model.contractPic ){
+								me.$('.htshow').attr('src','/op/api/file/previewimage?filePath='+data.value.model.contractPic);
+								me.$('.htshow').parent().attr('href','/op/api/file/previewimage?filePath='+data.value.model.contractPic);
+							}else{
+								me.$('.htshow').hide();
+							}
+
+							if( data.value.model.contractPicCopy ){
+								me.$('.htfbshow').attr('src','/op/api/file/previewimage?filePath='+data.value.model.contractPicCopy);
+								me.$('.htfbshow').parent().attr('href','/op/api/file/previewimage?filePath='+data.value.model.contractPicCopy);
+							}else{
+								me.$('.htfbshow').hide();
+							}
 						}
 					}
 				})
