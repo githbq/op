@@ -33,7 +33,6 @@
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>企业账号</span></label>
-                    {{enterpriseReadonly||globalInfo.submitType==3||globalInfo.orderId}}
                     <input maxlength="20" required ng-readonly="enterpriseReadonly||globalInfo.submitType==3||globalInfo.orderId" account ng-model-options="{debounce:1000}" ng-class="{readonly:enterpriseReadonly||globalInfo.submitType==3||globalInfo.orderId}" type="text" ng-model="entInfo.enterpriseAccount" name="enterpriseAccount" ng-maxlength="100"/>
                     <span class="tip">企业账号应为字母开头6-20位由字母数字的组合</span>
                 </div>
@@ -257,7 +256,7 @@
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>合同章名称</span></label>
-                    <input maxlength="50" ng-class="{readonly:payInfoReadonly||payInfo.partReadonly}" required ng-readonly="payInfoReadonly||payInfo.partReadonly" type="text" ng-model="payInfo.sealName" name="sealName"/>
+                    <input maxlength="50" ng-class="{readonly:payInfoReadonly||globalInfo.isRefuse}" required ng-readonly="payInfoReadonly||globalInfo.isRefuse" type="text" ng-model="payInfo.sealName" name="sealName"/>
                 </div>
             </div>
             <div class="form-row">
@@ -273,10 +272,10 @@
                 <div class="form-field" ng-init="payStatusData=[{label:'全额',value:1,checked:true},{label:'未付',value:2,checked:false},{label:'分期',value:3,checked:false}]">
                     <label class="required"><span>付费状态</span></label>
                     <label ng-repeat="item in payStatusData">
-                        <input ng-class="{readonly:payInfoReadonly||payInfo.partReadonly}"
+                        <input ng-class="{readonly:payInfoReadonly||globalInfo.isRefuse}"
                                ng-change="payStatusChange(payInfo.payStatus)"
-                               ng-readonly="payInfoReadonly||payInfo.partReadonly"
-                               ng-disabled="payInfoReadonly||payInfo.partReadonly" name="payStatus" ng-model="payInfo.payStatus"
+                               ng-readonly="payInfoReadonly||globalInfo.isRefuse"
+                               ng-disabled="payInfoReadonly||globalInfo.isRefuse" name="payStatus" ng-model="payInfo.payStatus"
                                ng-checked="item.value==payInfo.payStatus" ng-value="item.value" type="radio"/>{{item.label}}
                     </label>
                 </div>
@@ -289,7 +288,7 @@
                     <label ng-if="item.toAgent!==true" class="fenqi-label" ng-repeat="item in payInfo.currPayList">
                         <span>{{item.productName}}(元)</span>
                         <input ng-model-options="{updateOn:'default'}" ng-change="currPayAmountChange(payInfo.currPayList)"
-                               ng-class="{readonly:payInfoReadonly||payInfo.partReadonly}" number ng-readonly="payInfoReadonly||payInfo.partReadonly"
+                               ng-class="{readonly:payInfoReadonly||globalInfo.isRefuse}" number ng-readonly="payInfoReadonly||globalInfo.isRefuse"
                                type="text" name="{{'currPayAmount_'+item.productId}}" max-number="item.purchaseAmount" ng-model="item.currPayAmount"/>
                     </label>
                 </div>
@@ -309,16 +308,17 @@
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>总部打款日期</span></label>
-                    <div class="inline-block" required ng-readonly="payInfoReadonly||payInfo.partReadonly" getform="this['stepForm3']" name="payDate" datetimeconfig="payInfo.payDate_dataConfig" ng-model="payInfo.payDate"></div>
+
+                    <div class="inline-block" required ng-readonly="payInfoReadonly||globalInfo.isRefuse" getform="this['stepForm3']" name="payDate" datetimeconfig="payInfo.payDate_dataConfig" ng-model="payInfo.payDate"></div>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-field">
                     <label class="required v-top"><span>总部到款账户</span></label>
-                    <span class="inline-block"> <span ng-if="payInfoReadonly||payInfo.partReadonly">{{payInfo.receiptsAccount}}<br/></span>
-                    <input ng-if="!(payInfoReadonly||payInfo.partReadonly)" ng-class="{readonly:payInfoReadonly||payInfo.partReadonly}"
-                           ng-readonly="payInfoReadonly||payInfo.partReadonly"
-                           ng-readonly="enterpriseReadonly||payInfo.partReadonly"
+                    <span class="inline-block"> <span ng-if="payInfoReadonly||globalInfo.isRefuse">{{payInfo.receiptsAccount}}<br/></span>
+                    <input ng-if="!(payInfoReadonly||globalInfo.isRefuse)" ng-class="{readonly:payInfoReadonly||globalInfo.isRefuse}"
+                           ng-readonly="payInfoReadonly||globalInfo.isRefuse"
+                           ng-readonly="enterpriseReadonly||globalInfo.isRefuse"
                            required select2
                            name="receiptsAccount" ng-model="payInfo.receiptsAccount"
                            placeholder="请输入银行账号"
@@ -332,7 +332,7 @@
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>打款名称（单位/个人）</span></label>
-                    <input maxlength="50" ng-class="{readonly:payInfoReadonly||payInfo.partReadonly}" ng-readonly="payInfoReadonly||payInfo.partReadonly" required type="text" ng-model="payInfo.payerName" name="payerName"/>
+                    <input maxlength="50" ng-class="{readonly:payInfoReadonly||globalInfo.isRefuse}" ng-readonly="payInfoReadonly||globalInfo.isRefuse" required type="text" ng-model="payInfo.payerName" name="payerName"/>
                 </div>
             </div>
             <div class="form-row">

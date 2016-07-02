@@ -246,7 +246,9 @@ define(function (require, exports, module) {
                 }
                 debugger
                 $scope.rejectFrom = data.rejectFrom;
-                data.odrDraftEnterprise.area = entInfo.area || data.odrDraftEnterprise.area;
+                if (data.odrDraftEnterprise) {
+                    data.odrDraftEnterprise.area = entInfo.area || data.odrDraftEnterprise.area;
+                }
                 $scope.entInfo = data.odrDraftEnterprise || {};
                 $scope.productInfo = data.odrDraftOrder || {};
                 $scope.orderFromData = angular.fromJson(data.odrDraftOrder.content);//订单来源数据
