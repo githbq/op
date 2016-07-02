@@ -161,6 +161,7 @@ define( function(require, exports, module){
                 'rejectsFrom': detail.rejectsFrom
             };
 
+            //退款
             if( detail.approvalTypeId =='refundApproval' ){
                 var backMoney = new BackMoney();
                 backMoney.show( data );
