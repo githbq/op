@@ -250,9 +250,11 @@ define( function(require, exports, module){
 			var me = this;
 			me.$('.state').hide();
 			me.$('.state-'+me.attrs.options.state).show();
+			/*
 			if(me.attrs.options.editFlag){
 				me.$('.state-refuse').show();
 			}
+			*/
 			me.$('.currentTask-'+me.attrs.options.currentTask).show();
 			me.$('.order-id').html( me.attrs.options.id );
 			//判断审批意见
