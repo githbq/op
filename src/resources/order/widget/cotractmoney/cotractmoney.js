@@ -173,8 +173,6 @@ define(function (require, exports, module) {
                 me.$('.contractCopy-box').hide();
             }
         }
-
-
     });
 
     module.exports = AddEnt;

@@ -149,11 +149,11 @@ define( function(require, exports, module){
             var data = {
                 'id' : detail.orderId,
                 'enterpriseId': detail.enterpriseId, 
-                'editFlag': true,                           //detail.canEdit || '',
+                'editFlag': false,                //=========       //detail.canEdit || '',
                 'orderType': detail.orderType,
                 'opinion': detail.lastAssigneeOpinion,
                 'isTp': detail.isTp,
-                'state': $scope.state,
+                'state': $scope.state,  //=========
                 'ea': detail.enterpriseAccount,
                 'currentTask': detail.currentTask,
                 'processInstanceId': detail.processInstanceId,
@@ -169,6 +169,8 @@ define( function(require, exports, module){
                 })
                 return false;
             }
+
+            //普通订单
             if( data.orderType != 17 ){
 
                 //待审核的
@@ -185,6 +187,8 @@ define( function(require, exports, module){
                     $scope.search();
                 });
                 return false;
+            
+            //收尾款订单
             } else {
 
                 var detailPayment = new DetailPayment();
