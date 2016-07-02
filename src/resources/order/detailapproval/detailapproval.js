@@ -155,32 +155,37 @@ define( function(require, exports, module){
 			me.dstatus = dstatus;
 			me.info = info;
 
+			var isRefuse = false;  //是否是驳回状态
+			if( status == 3 ){
+				isRefuse = true;
+			}
+
 			switch( type ){
 
 				//审批只读 [小助手/财务](可进行审批同意或驳回);
 				case 'c':
-					me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:true} );
+					me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:true, isRefuse:isRefuse} );
 					me.approvalPage.hideTopBar();
 					me.approvalPage.hideFootBtns();
 					me.$('[data-state="c"]').show();
 				break;
 				//订单查看  [销售]  (可进行编辑提交)
 				case 'a':
-					me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:false} );
+					me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:false, isRefuse:isRefuse} );
 					me.approvalPage.hideTopBar();
 					me.approvalPage.hideFootBtns();
 					me.$('[data-state="a"]').show();
 				break;
 				//补充合同  [销售]  (可以补充合同)
 				case 'b':
-					me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:true} );
+					me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:true, isRefuse:isRefuse} );
 					me.approvalPage.hideTopBar();
 					me.approvalPage.hideFootBtns();
 					me.$('[data-state="b"]').show();
 				break;
 				//只读状态  [小助手/财务/销售] (仅可查看)
 				case 'd':
-					me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:true} );
+					me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:true, isRefuse:isRefuse} );
 					me.approvalPage.hideTopBar();
 					me.approvalPage.hideFootBtns();
 				break;
