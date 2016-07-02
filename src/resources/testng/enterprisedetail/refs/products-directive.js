@@ -257,7 +257,7 @@ define(function (require, exports, module) {
                                     findData.value = newState.value.value || '';
                                 }
                                 newState.value.valueData = findData;
-                                if ($scope.isUserControl && newState.value.valueData.readonly === true) {//在用户操作的值清空逻辑
+                                if ($scope.isUserControl && newState.value.valueData.readonly === true && !newState.readonly) {//在用户操作的值清空逻辑
                                     newState.value.valueData.value = '';
                                 }
                                 newState.value.valueData.hidden = newState.hidden;//由于数据是固定的而结构经常在变动 部分状态保存在data上
