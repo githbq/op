@@ -138,12 +138,10 @@ define( function(require, exports, module){
 		// @param id   	订单id 
 		// @param type  a 订单编辑查看(可编辑内容)  
 		//				b 补充合同(可以补充合同)
-		//				b1 补充合同(可审核);
-		//				b2 补充合同(仅可查看); 
 		//				c 审批只读(可进行审批同意或驳回) 
 		//				d 完全只读状态 
-		// @param status  订单状态
-		// @param dstatus 到款认领状态
+		// @param status  订单状态        []
+		// @param dstatus 到款认领状态    []
 		// @param info    一些额外信息
 		//==============================================
 		show: function( id , type , status , dstatus, info ){
@@ -234,6 +232,8 @@ define( function(require, exports, module){
 			
 
 			//获取补充合同信息
+			//如果是补充合同待审核
+			//则显示合同图片的同时 隐藏合同审核选择
 			if( me.status == 10 ){
 				util.api({
 					'url':'/odr/getOdrContract',
