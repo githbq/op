@@ -59,7 +59,7 @@ define(function (require, exports, module) {
                 });
             }
         }, getReturnData: function () {
-            if (mainReturnData.mainForm.$valid) {
+            if (mainReturnData.mainForm.$valid||$scope.globalInfo.readonly) {
                 return mainReturnData;
             } else {
                 return false;
