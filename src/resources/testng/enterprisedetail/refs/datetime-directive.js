@@ -89,10 +89,37 @@ define(function (require, exports, module) {
                         return;
                     }
                     if (!isNaN(value)) {//如果是数字
-                        return new Date(parseInt(value))._format('yyyy/MM/dd ' + (type != 1 ? '00:00:00' : '59:59:59')).getTime();
+                        return new Date(parseInt(value))._format('yyyy/MM/dd ' + (type != 1 ? '00:00:00' : '23:59:59')).getTime();
                     } else {
-                        return new Date(value + (type != 1 ? ' 00:00:00' : ' 59:59:59')).getTime();
+                        return new Date(value + (type != 1 ? ' 00:00:00' : ' 23:59:59')).getTime();
                     }
+                }
+                //获取检查时间是否开始时间以及对应的处理
+                function getCheckTime(time) {
+                    return time;
+                    if (!time) {
+                        return;
+                    }
+                    var data = {};
+                    var reg = /[0000]$/;
+                    if (reg.test(time.toString())) {//尾号以0000结束的为开始时间
+                        data.isStartTime = true;
+                    } else {
+                        data.isEndTime = true;
+                    }
+                    //获取小于的时间
+                    data.getLessThan = function () {
+                        var date = new Date(time);
+                        date.setDate(date.getDate() +(data.isStartTime?- 1:0));//
+                        return new Date(date._format('yyyy/MM/dd ' + (data.isStartTime ? '23:59:59' : '00:00:00' ))).getTime();
+                    }
+                    //获取大于的时间
+                    data.getMoreThan = function () {
+                        var date = new Date(time);
+                        date.setDate(date.getDate() + (data.isEndTime?1:0));//
+                        return new Date(date._format('yyyy/MM/dd ' + (data.isEndTime ? '00:00:00' : '23:59:59'))).getTime();
+                    }
+                    return data;
                 }
             }
         }

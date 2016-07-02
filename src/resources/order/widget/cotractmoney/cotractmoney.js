@@ -150,29 +150,29 @@ define(function (require, exports, module) {
         //展示订单内容
         showData: function () {
             var me = this;
+
+            console.log('showData');
             me.model.load(me.attrs.dataObj);
             var payDate = me.attrs.dataObj.payDate ? new Date(me.attrs.dataObj.payDate)._format('yyyy/MM/dd') : '';
             var receivedPayDate = me.attrs.dataObj.receivedPayDate ? new Date(me.attrs.dataObj.receivedPayDate)._format('yyyy/MM/dd') : '';
 
             me.model.set('payDate', payDate);
             me.model.set('receivedPayDate', receivedPayDate);
-            if (me.attrs.dataObj.contract) {
+            if (me.attrs.dataObj.contractPic) {
                 me.$('.contract-info').hide();
-                me.$('.contract-img').attr('src', '/op/api/file/previewimage' + '?filePath=' + me.attrs.dataObj.contract);
-                me.$('.contract-link').attr('href', '/op/api/file/previewimage' + '?filePath=' + me.attrs.dataObj.contract)
+                me.$('.contract-img').attr('src', '/op/api/file/previewimage' + '?filePath=' + me.attrs.dataObj.contractPic);
+                me.$('.contract-link').attr('href', '/op/api/file/previewimage' + '?filePath=' + me.attrs.dataObj.contractPic)
             } else {
                 me.$('.contract-box').hide();
             }
-            if (me.attrs.dataObj.contractCopy) {
+            if (me.attrs.dataObj.contractPicCopy) {
                 me.$('.contractCopy-info').hide();
-                me.$('.contractCopy-img').attr('src', '/op/api/file/previewimage' + '?filePath=' + me.attrs.dataObj.contract);
-                me.$('.contractCopy-link').attr('href', '/op/api/file/previewimage' + '?filePath=' + me.attrs.dataObj.contract)
+                me.$('.contractCopy-img').attr('src', '/op/api/file/previewimage' + '?filePath=' + me.attrs.dataObj.contractPicCopy);
+                me.$('.contractCopy-link').attr('href', '/op/api/file/previewimage' + '?filePath=' + me.attrs.dataObj.contractPicCopy)
             } else {
                 me.$('.contractCopy-box').hide();
             }
         }
-
-
     });
 
     module.exports = AddEnt;

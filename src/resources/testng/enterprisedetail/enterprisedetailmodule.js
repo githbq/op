@@ -481,8 +481,8 @@ define(function (require, exports, module) {
             }
             //$scope.step++;
         };
+        //获取
         function getInitData() {
-
             productService.getInitData($scope.globalInfo.enterpriseId, $scope.globalInfo.submitType, function (data) {
                 $timeout(function () {
                     $scope.productInfo.initData = data || [];
@@ -563,6 +563,7 @@ define(function (require, exports, module) {
             submitStepPayInfo(function (result) {
                 if (result.success) {
                     util.showTip('操作成功');
+                    IBSS.tplEvent.trigger('order1.2Success');
                 }
             });
         };

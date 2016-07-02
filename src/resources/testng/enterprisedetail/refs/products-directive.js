@@ -44,6 +44,8 @@ define(function (require, exports, module) {
                 scope: {dataResult: '=', fromData: '=', allReadonly: '=productReadonly', show: '=', initData: '=', productJson: '='},
                 template: require('./products-template.html'),
                 controller: ['$scope', '$timeout', 'productService', function ($scope, $timeout, productService) {
+                    //标记是否由用户操作界面
+                    $scope.isUserControl = false;
                     //全模块只读监听
                     $scope.$watch('allReadonly', function () {
                         $timeout(function () {
@@ -216,10 +218,6 @@ define(function (require, exports, module) {
                             $scope.products.push(product);
                         }
                         //处理返回结果
-                        _.each(stateData.allStates, function (item, i) {
-                            var findData = _.findWhere(product.logic.data, {name: item.name});
-                            findData && (findData.hidden = item.hidden);
-                        });
                         var findIndex = _.findIndex($scope.dataResult, {productId: product.productId});
                         var returnProductData = {productId: product.productId, data: product.logic.data, state: product.logic.currState || 0, show: product.show};
                         if (findIndex >= 0) {
@@ -259,6 +257,11 @@ define(function (require, exports, module) {
                                     findData.value = newState.value.value || '';
                                 }
                                 newState.value.valueData = findData;
+                                if ($scope.isUserControl && newState.value.valueData.readonly === true) {//在用户操作的值清空逻辑
+                                    newState.value.valueData.value = '';
+                                }
+                                newState.value.valueData.hidden = newState.hidden;//由于数据是固定的而结构经常在变动 部分状态保存在data上
+                                newState.value.valueData.readonly = newState.readonly;
                             }
                             switchSetStateValue(newState, product);//数据赋值逻辑
                         }
@@ -310,13 +313,29 @@ define(function (require, exports, module) {
                     };
                     $scope.clickMe = function () {
                     };
+
                     //控制值改变时事件  fieldStruct 元素的模型
                     $scope.fieldChange = function (fieldStruct, product, form) {
+                        $scope.isUserControl = true;
+                        debugger
                         //执行事件
                         fieldStruct.onchange = fieldStruct.onchange || [];
+                        //重新确实权重 确保ajax在最后被调用  priority优先级数越高越先调用
                         for (var i = 0; i < fieldStruct.onchange.length; i++) {
                             var changeItem = fieldStruct.onchange[i];
-                            done(changeItem, fieldStruct);
+                            if (changeItem.type == 'ajax') {
+                                changeItem.priority = 1;
+                            } else {
+                                changeItem.priority = 2;
+                            }
+                        }
+                        //根据权重重新排序
+                        fieldStruct.onchange = fieldStruct.onchange.sort(function (a, b) {
+                            return b.priority - a.priority;
+                        });
+                        for (var i = 0; i < fieldStruct.onchange.length; i++) {
+                            var changeItem = fieldStruct.onchange[i];
+                            done(changeItem);
                         }
                         setTimeout(function () {
                             $scope.$apply();
@@ -483,8 +502,13 @@ define(function (require, exports, module) {
                         switch (valueType) {
                             case 'data':
                             {
-                                var findData = _.findWhere(product.logic.data, {name: refName});
-                                value = findData.value;
+                                try {
+                                    var findData = _.findWhere(product.logic.data, {name: refName});
+                                    value = findData.value;
+                                } catch (e) {
+                                    debugger
+                                    throw new error("数据上未配置这个关联名称:" + refName);
+                                }
                             }
                                 ;
                                 break;
