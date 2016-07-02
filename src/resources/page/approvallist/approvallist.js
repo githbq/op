@@ -54,7 +54,7 @@ define( function(require, exports, module){
                     url = "/approval/getcompletedapprovalpage";
                 break;
                 case 'reject':
-                    url = "/approval/getrefusedapprovalpage";
+                    url = "/approval/getrefusedbymeapprovalpage";
                 break;
             };
 

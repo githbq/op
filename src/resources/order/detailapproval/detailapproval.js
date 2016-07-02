@@ -379,7 +379,7 @@ define( function(require, exports, module){
 
 				//保存
 				util.api({
-					'url': '/odr/odrDraftPaidInfo',
+					'url': '/odrDraft/updateDraftPaidInfo',
 					'contentType': 'application/json',
 					'data': JSON.stringify( data.payInfo ),
 					'success': function( data ){

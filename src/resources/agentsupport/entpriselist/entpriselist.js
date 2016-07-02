@@ -64,6 +64,10 @@ define(function(require, exports, module) {
         });
         //增购续费
         entList.on('renew',function( id, entaccount , entname ){
+            //如果 id entaccount entname 为undefined 变换为空字符串
+            id = id || '';
+            entaccount = entaccount || '';
+            entname = entname || '';
             location.hash = "/order/openenterprise/" + id + "/" + entaccount + "/" + entname ;
         });
     }
