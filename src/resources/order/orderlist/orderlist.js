@@ -592,6 +592,7 @@ define( function( require, exports, module ) {
 
 		//退款[需要测试]
 		orderList.on('orderBackmoney', function( options ){
+            
             backMoney = new BackMoney();
             backMoney.show( options );
 			backMoney.on('saveSuccess', function( ){
