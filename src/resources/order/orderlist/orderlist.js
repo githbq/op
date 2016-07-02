@@ -406,6 +406,8 @@ define( function( require, exports, module ) {
                 me.trigger('orderBackmoney',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':false,'orderType':orderType,
                'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea,'processInstanceId':'','contractNo':contractNo} );
             }
+            
+            
         },
 
         //联合跟进人
