@@ -312,6 +312,7 @@ define(function (require, exports, module) {
                     };
                     //控制值改变时事件  fieldStruct 元素的模型
                     $scope.fieldChange = function (fieldStruct, product, form) {
+                        debugger
                         //执行事件
                         fieldStruct.onchange = fieldStruct.onchange || [];
                         for (var i = 0; i < fieldStruct.onchange.length; i++) {
@@ -483,8 +484,13 @@ define(function (require, exports, module) {
                         switch (valueType) {
                             case 'data':
                             {
+                                try{
                                 var findData = _.findWhere(product.logic.data, {name: refName});
                                 value = findData.value;
+                                }catch(e){
+                                    debugger
+                                    throw new error("数据上未配置这个关联名称:"+refName);
+                                }
                             }
                                 ;
                                 break;

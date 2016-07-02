@@ -481,8 +481,8 @@ define(function (require, exports, module) {
             }
             //$scope.step++;
         };
+        //获取
         function getInitData() {
-
             productService.getInitData($scope.globalInfo.enterpriseId, $scope.globalInfo.submitType, function (data) {
                 $timeout(function () {
                     $scope.productInfo.initData = data || [];
