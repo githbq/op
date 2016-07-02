@@ -212,12 +212,13 @@ define(function (require, exports, module) {
         //企业详情信息
         var entInfo = $scope.entInfo = {};
         entInfo.area = '';//代理区域现在统一从接口中取
-        productService.getAgentArea(function (str) {
-            $timeout(function () {
-                entInfo.area = str;
-            }, 10);
-        });
-
+        if (!$scope.globalInfo.orderId) {
+            productService.getAgentArea(function (str) {
+                $timeout(function () {
+                    entInfo.area = str;
+                }, 10);
+            });
+        }
 
         entInfo.enterpriseName = $scope.globalInfo.enterpriseName;
         entInfo.enterpriseAccount = $scope.globalInfo.enterpriseAccount;
@@ -245,6 +246,7 @@ define(function (require, exports, module) {
                 }
                 debugger
                 $scope.rejectFrom = data.rejectFrom;
+                data.odrDraftEnterprise.area = entInfo.area || data.odrDraftEnterprise.area;
                 $scope.entInfo = data.odrDraftEnterprise || {};
                 $scope.productInfo = data.odrDraftOrder || {};
                 $scope.orderFromData = angular.fromJson(data.odrDraftOrder.content);//订单来源数据
