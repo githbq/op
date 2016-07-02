@@ -57,7 +57,7 @@ define( function(require, exports, module){
 
 			me.contractId = '';             //合同ID
 
-			me.$view.css( {"z-index":3000} );
+			//me.$view.css( {"z-index":3000} );
 			me.$hetong.on('change',function(){
 				console.log('hetongchange');
 				var fileExtension = me.$hetong[0].files[0].name.split('.').pop().toLowerCase();
