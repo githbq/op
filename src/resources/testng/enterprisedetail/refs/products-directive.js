@@ -287,8 +287,9 @@ define(function (require, exports, module) {
                                 newState.value.valueData.value = newState.value.value;
                             }
                                 break;
-                            case 'copy':
+                            case 'copy'://指定data里的一个值赋给这个值
                             {
+                                newState.value.valueData.value = getValueForSwitchValueType(newState.value.valueType, newState.value.valueRef, product)
                             }
                                 break;
                         }
