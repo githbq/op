@@ -25,7 +25,7 @@ define( function(require, exports, module){
 
     /////////////////
     //
-    //  查看审批详情
+    //  收尾款
     /////////////////
 	var DetailApproval = MClass( Slider ).include({
 
@@ -257,9 +257,6 @@ define( function(require, exports, module){
 			me.$('.order-id').html( me.attrs.options.id );
 			//判断审批意见
 			//var opinion = me.attrs.options.opinion ? me.attrs.options.opinion :'暂无';
-
-			
-
 		},
 		//设置审批意见
 		setOptions:function(){
