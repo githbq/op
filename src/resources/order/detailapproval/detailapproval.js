@@ -197,6 +197,9 @@ define( function(require, exports, module){
 				//
 			}
 
+			
+
+
 			me.approvalPage.render();
 			me.getInfo();
 		},

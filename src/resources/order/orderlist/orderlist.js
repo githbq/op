@@ -336,7 +336,7 @@ define( function( require, exports, module ) {
                 me.trigger('orderOnlinePay',{ 'id' :id } );
             //普通订单
             } else {
-                me.trigger( 'detail', id , status , dstatus , from );
+                me.trigger( 'detail', id , status , dstatus , orderType );
             }
         },
         //查看详情
@@ -650,7 +650,7 @@ define( function( require, exports, module ) {
         });
 
         //查看
-        orderList.on('detail', function( id , status , dstatus ){
+        orderList.on('detail', function( id , status , dstatus , orderType ){
             console.log('查看');
             console.log( id );
             console.log( status );
@@ -661,15 +661,15 @@ define( function( require, exports, module ) {
             if( IBSS.API_PATH == '/op/api/a' ){
                 
                 if( status == '2' || status == '3' ){
-                    detailApproval.show( id , 'a', status , dstatus , {'htshow':false});
+                    detailApproval.show( id , 'a', status , dstatus , {'htshow':false, 'orderType': orderType });
                 }else{
-                    detailApproval.show( id , 'd', status , dstatus , {'htshow':false});
+                    detailApproval.show( id , 'd', status , dstatus , {'htshow':false, 'orderType': orderType });
                 }
 
             //其他只可以看详情
             } else {
 
-                detailApproval.show( id , 'd', status , dstatus );
+                detailApproval.show( id , 'd', status , dstatus , {'orderType': orderType} );
             }
             
             detailApproval.on('editSuccess',function(){
