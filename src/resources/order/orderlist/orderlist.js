@@ -172,7 +172,7 @@ define( function( require, exports, module ) {
             'click .detail-daokuan': 'daokuanEve',              //到款认领
             'click .detail-invoice': 'invoiceEve',              //发票
             'click .detail-tuikuan': 'tuikuanEve',              //退款
-            'click .detail-union': 'unionEve',                   //联合跟进人
+            'click .detail-union': 'unionEve',                  //联合跟进人
 
             //'click .order-detail':'orderDetailEve',
 			//'click .receive-money':'receiveMoneyEve',
@@ -181,7 +181,7 @@ define( function( require, exports, module ) {
 			'click .exportOrder':'exportEve'
 			//'click .order-custom':'orderCustomEve',
 			//'click .order-backmoney':'orderBackmoneyEve', 
-			//'click .order-onlinepay':'orderOnlinePay',  //查看线上支付情况
+			//'click .order-onlinepay':'orderOnlinePay',         //查看线上支付情况
 			//'click .order-invoice':'orderInvoiceEve'
         },
         elements:{
@@ -308,6 +308,8 @@ define( function( require, exports, module ) {
             var isTp = item.order.isTp;
             var ea = item.order.enterpriseAccount;
             var contractNo = item.order.contractNo;
+            var processInstanceId = item.order.procInstId;
+            //
 
             //收尾款
             if( type == 17 ){
@@ -320,11 +322,14 @@ define( function( require, exports, module ) {
                 var info;
                 //已撤回和被驳回 可以编辑
                 if( status == 2 || status == 3 ){
-                    info = {'id':id,'enterpriseId':enterpriseId,'editFlag':true,'orderType':orderType,'person':'','opinion':opinion,'isTp':isTp,'state':'refuse','ea':ea,'processInstanceId':'','contractNo':contractNo}
+                    info = {'id':id,'enterpriseId':enterpriseId,'editFlag':true,'orderType':orderType,'person':'','opinion':opinion,'isTp':isTp,'state':'refuse','ea':ea,'processInstanceId':processInstanceId,'contractNo':contractNo}
+                
                 //其他仅可查看 
                 }else{
-                    info = {'id':id,'enterpriseId':enterpriseId,'editFlag':false,'orderType':orderType,'person':'','opinion':opinion,'isTp':isTp,'state':'','ea':ea,'processInstanceId':'','contractNo':contractNo}
+                    
+                    info = {'id':id,'enterpriseId':enterpriseId,'editFlag':false,'orderType':orderType,'person':'','opinion':opinion,'isTp':isTp,'state':'','ea':ea,'processInstanceId':processInstanceId,'contractNo':contractNo}
                 }
+
                 me.trigger('orderDetailPayment',info);
             //线上支付订单
             }else if( type == 18 ){
@@ -569,13 +574,16 @@ define( function( require, exports, module ) {
 		var customHelper = null;
 		var backMoney = null, invioceDetail = null ,onlinePay = null;
 		
-        //收尾款[]
+        //收尾款[需要测试]
         orderList.on('orderDetailPayment', function( options ){
             detailPayment = new DetailPayment();
             detailPayment.show( options );
+            detailPayment.on('saveSuccess',function(){
+                orderList.getList();
+            })
         });
 
-        //在线支付[需要测试]
+        //在线支付
 		orderList.on('orderOnlinePay', function( options ){
             onlinePay = new OnlinePay();
             onlinePay.show( options );
