@@ -188,7 +188,7 @@ define( function(require, exports, module){
                     type = 'd';
                 }
                 var detailApproval = new DetailApproval();
-                detailApproval.show( id , type , status , dstatus ,{ 'processInstanceId': inId , 'orderType':orderType} );
+                detailApproval.show( id , type , status , dstatus ,{ 'processInstanceId': inId , 'orderType':detail.orderType} );
                 //注册事件
                 detailApproval.on('approvalSuccess',function(){
                     $scope.search();
