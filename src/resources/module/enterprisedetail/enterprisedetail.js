@@ -427,8 +427,76 @@ define(function(require, exports, module) {
 
             //获取枚举值 获取完毕后 获取企业信息
             me.getEnums(id);
-
+            me.initMselect();
             EntDetail.__super__.show.apply(this, arguments);
+        },
+
+        //
+        // 获取省市区信息和行业信息
+        //==============================
+        initMselect: function(){
+            var me = this;
+
+            //初始化地区
+            function getlist( type, parentValue , el , text ){
+
+                var url,name;
+                if( type == 'area' ){
+                    url='~/op/api/district/getListByParent';
+                    name='parentValue';
+                }else{
+                    url='~/op/api/enums/getlistByParent';
+                    name='INDUSTRY';
+                }
+                util.api({
+                    'url':url,
+                    'data':{
+                        'name':name,
+                        'parentValue': parentValue
+                    },
+                    'success': function( data ){
+                        console.log('dododo');
+                        console.log(data);
+                        if( data.success ){
+                            if( type == 'industry' ){
+                                data.value.model.forEach(function(item){
+                                    item.name = item.text;
+                                })
+                                console.log( data.value.model );
+                            }
+                            data.value.model.unshift({'name':text,'value':''})
+                            util.resetSelect( el , data.value.model );
+                        }
+                    }
+                })
+            }
+
+            getlist( 'area', 0 ,me.$('#sprovince'),'请选择省');
+
+            me.$('#sprovince').on('change',function(){
+                var val = me.$('#sprovince').val();
+                if( val )
+                getlist( 'area',val,me.$('#scity'),'请选择市');
+            })
+
+            me.$('#scity').on('change',function(){
+                var val = me.$('#scity').val();
+                if( val )
+                getlist('area',val,me.$('#sarea'),'请选择地区');
+            })
+
+            getlist('industry',0,me.$('#sinsone'),'请选择一级行业');
+
+            me.$('#sinsone').on('change',function(){
+                var val = me.$('#sinsone').val();
+                if( val )
+                getlist('industry',val,me.$('#sinstwo'),'请选择二级行业');
+            })
+            me.$('#sinstwo').on('change',function(){
+                var val = me.$('#sinstwo').val();
+                if( val )
+                getlist('industry',val,me.$('#sinsthree'),'请选择三级行业');
+            })
         },
 
         /**
