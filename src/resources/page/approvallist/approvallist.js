@@ -149,17 +149,22 @@ define( function(require, exports, module){
             var data = {
                 'id' : detail.orderId,
                 'enterpriseId': detail.enterpriseId, 
-                'editFlag': false,                //=========       //detail.canEdit || '',
+                'editFlag': false,                              //=========       //detail.canEdit || '',
                 'orderType': detail.orderType,
                 'opinion': detail.lastAssigneeOpinion,
                 'isTp': detail.isTp,
-                'state': $scope.state,  //=========
+                'state': $scope.state,                          //=========
                 'ea': detail.enterpriseAccount,
                 'currentTask': detail.currentTask,
                 'processInstanceId': detail.processInstanceId,
                 'contractNo': detail.contractNo,
                 'rejectsFrom': detail.rejectsFrom
             };
+
+            //
+            //  根据参数判断订单类型
+            //  分为 退款 普通订单 收尾款
+            //=========================================================
 
             //退款
             if( detail.approvalTypeId =='refundApproval' ){
@@ -177,7 +182,8 @@ define( function(require, exports, module){
                 //待审核的
                 if( $scope.state == 'wait' ){
                     type = 'c';
-                //非待审核的
+
+                //非待审核的均为只读状态
                 }else{
                     type = 'd';
                 }

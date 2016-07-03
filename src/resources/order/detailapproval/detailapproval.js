@@ -137,6 +137,7 @@ define( function(require, exports, module){
 		//				b 补充合同(可以补充合同)
 		//				c 审批只读(可进行审批同意或驳回) 
 		//				d 完全只读状态 
+		//              
 		// @param status  订单状态        []
 		// @param dstatus 到款认领状态    []
 		// @param info    一些额外信息
@@ -234,9 +235,9 @@ define( function(require, exports, module){
 			
 
 			//获取补充合同信息
-			//如果是补充合同待审核
+			//如果是补充合同待审核 补充合同驳回 补充合同撤回 都显示补充合同
 			//则显示合同图片的同时 隐藏合同审核选择
-			if( me.status == 10 ){
+			if( (me.status == 10) || (me.status == 11) || (me.status == 12) ){
 				util.api({
 					'url':'/odr/getOdrContract',
 					'data':{
