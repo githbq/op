@@ -57,7 +57,9 @@ define( function(require, exports, module){
 
 			me.contractId = '';             //合同ID
 
-			//me.$view.css( {"z-index":3000} );
+			if( me.attrs.isTop ){
+				me.$view.css( {"z-index":3000} );
+			}
 			me.$hetong.on('change',function(){
 				console.log('hetongchange');
 				var fileExtension = me.$hetong[0].files[0].name.split('.').pop().toLowerCase();
@@ -152,9 +154,9 @@ define( function(require, exports, module){
 			console.log( status );
 			//缓存额外信息
 			me.orderId = id;
-			me.status = status;
-			me.dstatus = dstatus;
-			me.info = info;
+			me.status = status || '';
+			me.dstatus = dstatus || '';
+			me.info = info || {};
 
 			var isRefuse = false;  //是否是驳回状态
 			if( status == 3 ){

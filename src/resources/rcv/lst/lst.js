@@ -562,7 +562,7 @@ define( function( require, exports, module ) {
         var createReceipt = new CreateReceipt({'title':'新增/编辑'});
         var selectOrder = new SelectOrder({'title':'选择订单'});
         var importDialog = new ImportDialog({'title':'导入'});
-        var detail = new Detail();
+        //var detail = new Detail();
         var duplication = new Duplication();
 
         function refreshList() {
@@ -586,6 +586,7 @@ define( function( require, exports, module ) {
         });
         // 查看订单详情
         selectOrder.on('checkDetail', function( id ){
+            var detail = new Detail( {'isTop':true} );
             detail.show(id, 'd');
         });
 
