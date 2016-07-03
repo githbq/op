@@ -197,7 +197,12 @@ define( function(require, exports, module){
 				//
 			}
 
-			
+			//增购续费不显示企业信息
+			me.info.orderType = me.info.orderType || '';
+			if( (me.info.orderType == 2) || (me.info.orderType == 3) || (me.info.orderType == 4) ){
+				me.$('.approval-title [data-index="1"]').hide();
+				me.$('.approval-title [data-index="2"]').trigger('click');
+			}
 
 
 			me.approvalPage.render();

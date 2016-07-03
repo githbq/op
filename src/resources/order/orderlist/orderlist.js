@@ -426,7 +426,7 @@ define( function( require, exports, module ) {
             }else{
 
                 me.trigger('orderBackmoney',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':true,'orderType':orderType,
-               'person':'', 'opinion':opinion ,'isTp':isTp,'state':'newFirst','ea':ea,'processInstanceId':'','contractNo':contractNo} );
+               'person':'', 'opinion':opinion ,'isTp':isTp,'state':'newFirst', 'newFirst':'newFirst', 'ea':ea,'processInstanceId':'','contractNo':contractNo} );
             }
 
         },

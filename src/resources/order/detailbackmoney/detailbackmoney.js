@@ -11,9 +11,12 @@ define( function(require, exports, module){
 
 	var contentStr = require('./detailbackmoney.html');      //模板页面  
 
-	var OrderInfo = require('../widget/orderinfo/orderinfo');           //企业信息     
+	var OrderInfo = require('../widget/orderinfo/orderinfo');           //企业信息 
+
 	var CotractMoney = require('../widget/cotractmoney/cotractmoney');  //合同信息展示
+
 	var refundinfo = require('../widget/refundinfo/refundinfo');        //退款信息
+	
 	var InvoiceList = require('../widget/invoicelist/invoicelist');     //发票信息       
 	
 	var orderTypeAry = ['','办公版新购-普通','办公版新购-特批','营销版新购-普通','营销版新购-特批','办公版增购-普通',
