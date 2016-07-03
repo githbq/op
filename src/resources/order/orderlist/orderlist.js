@@ -623,8 +623,19 @@ define( function( require, exports, module ) {
             console.log('补充合同');
             console.log( id );
             
-            var detailApproval = new DetailApproval();  //订单详情   
-            detailApproval.show( id , 'b' , status , dstatus );
+            var detailApproval = new DetailApproval();  //订单详情
+
+            //补充合同待审核的为只读状态
+            if( status == 10 ){
+
+                detailApproval.show( id , 'd' , status , dstatus );
+            
+            //补充合同被驳回和撤回的可以补充合同
+            } else {
+
+                detailApproval.show( id , 'b' , status , dstatus);
+            }
+
             detailApproval.on('editSuccess',function(){
                 orderList.getList();
             });
@@ -642,9 +653,9 @@ define( function( require, exports, module ) {
             if( IBSS.API_PATH == '/op/api/a' ){
                 
                 if( status == '2' || status == '3' ){
-                    detailApproval.show( id , 'a', status , dstatus );
+                    detailApproval.show( id , 'a', status , dstatus , {'htshow':false});
                 }else{
-                    detailApproval.show( id , 'd', status , dstatus );
+                    detailApproval.show( id , 'd', status , dstatus , {'htshow':false});
                 }
 
             //其他只可以看详情

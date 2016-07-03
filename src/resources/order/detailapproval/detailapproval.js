@@ -141,6 +141,9 @@ define( function(require, exports, module){
 		// @param status  订单状态        []
 		// @param dstatus 到款认领状态    []
 		// @param info    一些额外信息
+		//
+		// show       为第一层状态控制
+		// getInfo    为第二层状态控制
 		//==============================================
 		show: function( id , type , status , dstatus, info ){
 			var me = this;
@@ -160,6 +163,13 @@ define( function(require, exports, module){
 
 			switch( type ){
 
+				//只读状态  [小助手/财务/销售] (仅可查看)
+				case 'd':
+					me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:true, isRefuse:isRefuse} );
+					me.approvalPage.hideTopBar();
+					me.approvalPage.hideFootBtns();
+				break;
+
 				//审批只读 [小助手/财务](可进行审批同意或驳回);
 				case 'c':
 					me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:true, isRefuse:isRefuse} );
@@ -167,6 +177,7 @@ define( function(require, exports, module){
 					me.approvalPage.hideFootBtns();
 					me.$('[data-state="c"]').show();
 				break;
+
 				//订单查看  [销售]  (可进行编辑提交)
 				case 'a':
 					me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:false, isRefuse:isRefuse} );
@@ -174,6 +185,7 @@ define( function(require, exports, module){
 					me.approvalPage.hideFootBtns();
 					me.$('[data-state="a"]').show();
 				break;
+				
 				//补充合同  [销售]  (可以补充合同)
 				case 'b':
 					me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:true, isRefuse:isRefuse} );
@@ -181,17 +193,17 @@ define( function(require, exports, module){
 					me.approvalPage.hideFootBtns();
 					me.$('[data-state="b"]').show();
 				break;
-				//只读状态  [小助手/财务/销售] (仅可查看)
-				case 'd':
-					me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:true, isRefuse:isRefuse} );
-					me.approvalPage.hideTopBar();
-					me.approvalPage.hideFootBtns();
-				break;
+				
+				//
 			}
 
 			me.approvalPage.render();
 			me.getInfo();
 		},
+		//
+
+
+
 		//获取基本信息
 		getInfo: function(){
 			var me = this;
@@ -237,6 +249,9 @@ define( function(require, exports, module){
 			//获取补充合同信息
 			//如果是补充合同待审核 补充合同驳回 补充合同撤回 都显示补充合同
 			//则显示合同图片的同时 隐藏合同审核选择
+			//
+			// 当额外信息是不可看时 隐藏合同
+			//
 			if( (me.status == 10) || (me.status == 11) || (me.status == 12) ){
 				util.api({
 					'url':'/odr/getOdrContract',
@@ -262,7 +277,13 @@ define( function(require, exports, module){
 						}
 					}
 				})
-				me.$('.approval-contractshow').show();
+
+				if( me.info.htshow && me.info.htshow == false ){
+					me.$('.approval-contractshow').hide();
+				}else{
+					me.$('.approval-contractshow').show();
+				}
+
 				//同时隐藏合同审核选择
 				me.$('.approval-hetongopinion').hide();
 			}
