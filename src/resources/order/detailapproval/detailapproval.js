@@ -235,7 +235,7 @@ define( function(require, exports, module){
 			});
 			
 			//获取到款信息
-			if( me.dstatus == 3 ){
+			//if( me.dstatus == 3 ){
 				util.api({
 					'url':'/odr/getClaimedReceivedPayForDetail',
 					'data':{
@@ -246,14 +246,15 @@ define( function(require, exports, module){
 						console.log( data );
 						if( data.value.model ){
 							me.dklist.reload([data.value.model]);
+							me.$('.approval-daokuan').show();
 						}else{
-							
-							me.$('#daokuanlist').html('<tr><td colspan="3"><p class="tip">暂无数据</p></td></tr>');
+							me.$('.approval-daokuan').hide();
+							//me.$('#daokuanlist').html('<tr><td colspan="3"><p class="tip">暂无数据</p></td></tr>');
 						}	
 					}
 				});
-				me.$('.approval-daokuan').show();
-			}
+				
+			//}
 			
 
 			//获取补充合同信息
