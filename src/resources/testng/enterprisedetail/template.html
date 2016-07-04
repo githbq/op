@@ -201,11 +201,18 @@
                         </div>
                         <div ng-show="false" class="form-field" ng-switch-when="FXBC">
                         </div>
+                        <div ng-show="false" class="form-field" ng-switch-when="StorageSpace">
+                            <!--分割线-->
+                            <label>{{item.appName}}:
+                            </label>
+                            <span class="inline-m">{{item.quota}}</span>
+
+                        </div>
                         <div class="form-field" ng-switch-default>
                             <!--分割线-->
                             <label>{{item.appName}}:
                             </label>
-                            <span class="inline-m"></span>
+                            <span class="inline-m">{{item.quota}}</span>
                             <!--分割线-->
                             <label>开始时间：
                                 <span class="inline-m">{{item.startDate | date:"yyyy/MM/dd" }}</span>

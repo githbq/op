@@ -11,7 +11,6 @@ define(function (require, exports, module) {
                 scope.datetimeconfig = scope.datetimeconfig || {};
                 var currentForm = scope.getForm && scope.getForm();
                 console.warn('required2-time-ctrl.$parsers.unshift');
-                debugger
                 ctrl.$parsers.unshift(function (viewValue) {
                     console.warn('required2-time=' + scope.ngModel);
                     if (scope.ngModel) {
