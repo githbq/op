@@ -69,22 +69,22 @@ define(function (require, exports, module) {
     myApp.controller('form1Controller', ['$scope', '$timeout', function ($scope, $timeout) {
 
     }]);
-    myApp.controller('form2Controller', ['$scope', 'productService', function ($scope, productService) {
+    myApp.controller('form2Controller', ['$scope', 'productService','$timeout', function ($scope, productService,$timeout) {
         //产品已购信息
         $scope.productInfos = [];
         if ($scope.globalInfo.submitType == 2) {//只有增购与续费才显示
             //||'ceshishur3'
             productService.getOrderList($scope.globalInfo.enterpriseAccount, function (data) {
-                $scope.$apply(function () {
+               $timeout(function () {
                     $scope.productInfos = data;
-                });
+                },10);
             });
         }
         debugger
         productService.getDiyOrderFormLogic($scope.globalInfo.enterpriseId || '', function (data) {
-            $scope.$apply(function () {
+            $timeout(function () {
                 $scope.productJson = angular.fromJson(data);
-            });
+            },10);
         });
     }]);
     myApp.controller('form3Controller', ['$scope', 'productService', 'select2Query', function ($scope, productService, select2Query) {
