@@ -1714,11 +1714,11 @@ define(function(require, exports, module) {
             var me = this;
 
             //设置默认设置
-            me.$sELC.val(100);
-            me.$sEFC.val(100);
-            me.$sECC.val(100);
-            me.$sEMWC.val(100);
-            me.$sEAC.val(100);
+            //me.$sELC.val(100);
+            //me.$sEFC.val(100);
+            //me.$sECC.val(100);
+            //me.$sEMWC.val(100);
+            //me.$sEAC.val(100);
 
 
             if (me.model.get('productFree')) {
@@ -1734,16 +1734,16 @@ define(function(require, exports, module) {
                     if (data.success) {
                         var model = data.value.model;
                         console.warn(model);
-                        me.$sdELC.val(model['Config.ExportAmountLocation']);
-                        me.$sdELUC.val(model['Used.ExportAmountLocation']);
-                        me.$sdEFC.val(model['Config.ExportAmountPlan']); //导出日志次数
-                        me.$sdEFUC.val(model['Used.ExportAmountPlan']); //导出日志已用次数
-                        me.$sdECC.val(model['Config.ExportAmountFeedWork']); //导出指令次数
-                        me.$sdECUC.val(model['Used.ExportAmountFeedWork']); //导出指令已用次数
-                        me.$sdEMWC.val(model['Config.ExportAmountLeaveApplication']); //导出月度考勤次数
-                        me.$sdEMWUC.val(model['Used.ExportAmountLeaveApplication']); //导出月度考勤已用
-                        me.$sdEAC.val(model['Config.ExportAmountFeedApprove']); //导出审批汇总次数
-                        me.$sdEAUC.val(model['Used.ExportAmountFeedApprove']); //导出审批汇总已用
+                        //me.$sdELC.val(model['Config.ExportAmountLocation']);
+                        //me.$sdELUC.val(model['Used.ExportAmountLocation']);
+                        //me.$sdEFC.val(model['Config.ExportAmountPlan']); //导出日志次数
+                        //me.$sdEFUC.val(model['Used.ExportAmountPlan']); //导出日志已用次数
+                        //me.$sdECC.val(model['Config.ExportAmountFeedWork']); //导出指令次数
+                        //me.$sdECUC.val(model['Used.ExportAmountFeedWork']); //导出指令已用次数
+                        //me.$sdEMWC.val(model['Config.ExportAmountLeaveApplication']); //导出月度考勤次数
+                        //me.$sdEMWUC.val(model['Used.ExportAmountLeaveApplication']); //导出月度考勤已用
+                       // me.$sdEAC.val(model['Config.ExportAmountFeedApprove']); //导出审批汇总次数
+                        //me.$sdEAUC.val(model['Used.ExportAmountFeedApprove']); //导出审批汇总已用
                         me.$sdUFS.val(model['Config.UploadFileSizeLimit']); //上传文件大小限制
                         console.warn(model['Config.isAllowDangerOperate']);
                         var temp = model['Config.IsAllowDangerOperate'] == '1' ? '是' : '否'
@@ -1882,11 +1882,11 @@ define(function(require, exports, module) {
             var me = this,
                 data = {
                     enterpriseId: this.model.attrs.enterpriseId,
-                    newExportAmountLocation: me.$sELC.val(),
-                    newExportAmountPlan: me.$sEFC.val(),
-                    newExportAmountFeedWork: me.$sECC.val(),
-                    newExportAmountLeaveApplication: me.$sEMWC.val(),
-                    newExportAmountFeedApprove: me.$sEAC.val(),
+                    //newExportAmountLocation: me.$sELC.val(),
+                   // newExportAmountPlan: me.$sEFC.val(),
+                    //newExportAmountFeedWork: me.$sECC.val(),
+                    //newExportAmountLeaveApplication: me.$sEMWC.val(),
+                    //newExportAmountFeedApprove: me.$sEAC.val(),
                     newUploadFileSizeLimit: me.$sUFS.val(),
                     newIsAllowDangerOperate: me.$sActionDanger.val()
                 };
