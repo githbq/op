@@ -94,11 +94,11 @@ define( function(require, exports, module){
 			//
 			// 到款认领 逻辑处理
 			//======================
-			/*
+			me.$('.approval-daokuan').hide();
 			util.api({
 				'url':'/odr/getClaimedReceivedPayForDetail',
 				'data':{
-					'orderId': me.orderId
+					'orderId': me.attrs.options.id
 				},
 				'success': function( data ){
 					console.log('到款信息');
@@ -108,11 +108,10 @@ define( function(require, exports, module){
 						me.$('.approval-daokuan').show();
 					}else{
 						me.$('.approval-daokuan').hide();
-						//me.$('#daokuanlist').html('<tr><td colspan="3"><p class="tip">暂无数据</p></td></tr>');
 					}	
 				}
 			});
-			*/
+			
 
 			DetailApproval.__super__.show.call( this,true );
 		},
