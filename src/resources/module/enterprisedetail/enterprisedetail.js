@@ -30,8 +30,8 @@ define(function(require, exports, module) {
             '#tSource': 'asource',        //*来源
             '#tCompanySize': 'acompany',  //*公司规模
             '#tSalesSize': 'asales',      //*销售团队规模
-            '#remark': 'remark',        //*
-            '#tbProduct': 'tbProduct',  //*
+            '#remark': 'remark',          //*
+            '#tbProduct': 'tbProduct',    //*
             '#tbOperation tbody': 'tbOperation', //*
             '#sdXKDC': 'sdXKDC',                //*逍客终端总量
             '#sdXKDUC': 'sdXKDUC',              //*逍客终端 已用量/未用量
@@ -105,7 +105,7 @@ define(function(require, exports, module) {
             'click #btnStartService': 'startService',
             'click .rebackSms': 'rebackSms',
             'click .disSms': 'disSms',
-            'click #actDownload': 'actDownloadEve', //活跃度下载
+            'click #actDownload': 'actDownloadEve',             //活跃度下载
             'click #btnCardList': 'searchCardList',
             'click #btnCardBuy': 'btnCardBuy',
             'click #btnCardSend': 'btnCardSend',
@@ -448,10 +448,11 @@ define(function(require, exports, module) {
                     url='~/op/api/enums/getlistByParent';
                     name='INDUSTRY';
                 }
+                //发送请求
                 util.api({
                     'url':url,
                     'data':{
-                        'name':name,
+                        'name': name,
                         'parentValue': parentValue
                     },
                     'success': function( data ){

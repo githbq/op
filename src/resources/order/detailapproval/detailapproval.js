@@ -261,7 +261,7 @@ define( function(require, exports, module){
 			//如果是补充合同待审核 补充合同驳回 补充合同撤回 都显示补充合同
 			//则显示合同图片的同时 隐藏合同审核选择
 			//
-			// 当额外信息是不可看时 隐藏合同
+			//当额外信息是不可看时 隐藏合同
 			//
 			if( (me.status == 10) || (me.status == 11) || (me.status == 12) ){
 				util.api({
@@ -296,7 +296,7 @@ define( function(require, exports, module){
 				}
 
 				//同时隐藏合同审核选择
-				me.$('.approval-hetongopinion').hide();
+				//me.$('.approval-hetongopinion').hide();
 			}
 		},
 
@@ -314,12 +314,15 @@ define( function(require, exports, module){
 		agreeEve: function(){
 			var me = this;
 
+			/*
 			var bool;
 			if( me.status == 10 ){
 				bool = true;
 			}else{
 				bool = me.verify();
 			}
+			*/
+			var bool = me.verify();
 
 			if( bool ){
 				util.api({
@@ -358,32 +361,36 @@ define( function(require, exports, module){
 				return false;
 			}
 
-			util.api({
-                'url': '~/op/api/approval/directapprove',
-                'data':{
-                    'processInstanceId': me.info.processInstanceId, //流程实例ID
-                    'approved': false,                  		    //审批结果(通过/拒绝)
-                    'opinion': me.model.get('comment'),  			//审批意见
-                    'contractState': me.model.get('contractState'), //是否合格
-                    'rejectReason': me.model.get('rejectReason')   	//不合格原因
-                },
-				'beforeSend':function(){
-					me.$agree.attr('disabled','disabled');
-					me.$refuse.attr('disabled','disabled').text('提交中');
-				},
-                success: function( data ){
-                    console.warn( data );
-                    if( data.success ){
-                        util.showTip('批复成功');
-                        me.hide();
-                        me.trigger('approvalSuccess');
-                    }
-                },
-				complete: function(){
-					me.$agree.removeAttr('disabled');
-					me.$refuse.removeAttr('disabled').text('驳回');
-				}
-            })
+			var bool = me.verify();
+
+			if( bool ){
+				util.api({
+	                'url': '~/op/api/approval/directapprove',
+	                'data':{
+	                    'processInstanceId': me.info.processInstanceId, //流程实例ID
+	                    'approved': false,                  		    //审批结果(通过/拒绝)
+	                    'opinion': me.model.get('comment'),  			//审批意见
+	                    'contractState': me.model.get('contractState'), //是否合格
+	                    'rejectReason': me.model.get('rejectReason')   	//不合格原因
+	                },
+					'beforeSend':function(){
+						me.$agree.attr('disabled','disabled');
+						me.$refuse.attr('disabled','disabled').text('提交中');
+					},
+	                success: function( data ){
+	                    console.warn( data );
+	                    if( data.success ){
+	                        util.showTip('批复成功');
+	                        me.hide();
+	                        me.trigger('approvalSuccess');
+	                    }
+	                },
+					complete: function(){
+						me.$agree.removeAttr('disabled');
+						me.$refuse.removeAttr('disabled').text('驳回');
+					}
+	            })
+			}
 		},
 		//重新编辑保存
 		saveEve: function(){

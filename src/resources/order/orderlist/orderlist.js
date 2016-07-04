@@ -412,6 +412,7 @@ define( function( require, exports, module ) {
             // 点击时分三种情况  查看  第一次提交  驳回提交
             //=================================================
             var newFirst;
+            
             //查看 退款待审核
             if( item.orderStatus == 5 ){
 
