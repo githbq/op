@@ -78,8 +78,6 @@ define(function(require, exports, module) {
             '.companyGateKeyword': 'setcompanyGatekeyword',     //*设置门头照片关键字
             '.companyGateRemark': 'setcompanyGateRemark',       //*设置门头照片备注
             
-
-
             '#shenheresult': 'shenheresult',
             '#huifangresult': 'huifangresult',
 
@@ -312,10 +310,10 @@ define(function(require, exports, module) {
             me.setState();
         },
 
-        /**
-         *
-         * 初始化日期选择
-         */
+        //
+        //
+        // 初始化日期选择
+        //=================================
         initializeDatepickers: function() {
             var me = this;
 

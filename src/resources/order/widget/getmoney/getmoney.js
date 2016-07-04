@@ -168,7 +168,7 @@ define(function(require, exports, module){
 					"<div class='field_row'> <div class='field_row_head'> </div> " +
 					"<div class='field_wrapper'> <div class='field'> <label> " +
 					"<span class='label'>"+obj.productName+"(未收"+obj.noChargeAmount+")</span> </label> " +
-					"<input  type='text' data-noChargeAmount='"+obj.noChargeAmount+"' data-productId='"+obj.productId+"' class='sub-app edit-flag' /> </div> </div> </div>"
+					"<input  type='text' data-subOrderId='" + obj.subOrderId + "' data-subOrderType='" + obj.subOrderType + "' data-noChargeAmount='"+obj.noChargeAmount+"' data-productId='"+obj.productId+"' class='sub-app edit-flag' /> </div> </div> </div>"
 				}
 			});
 			me.$appBox.html(strDom);
@@ -224,7 +224,8 @@ define(function(require, exports, module){
 						var temp = {};
 						
 						temp.productId = $(this).attr('data-productId');
-						
+						temp.subOrderId = $(this).attr('data-subOrderId');
+						temp.subOrderType = $(this).attr('data-subOrderType');
 						temp.currPayAmount = $(this).val() ? $(this).val():0;
 						
 						tempArry.push({'subOrder':temp});
@@ -238,7 +239,8 @@ define(function(require, exports, module){
 							var temp = {};
 							
 							temp.productId = obj.productId;
-							
+							temp.subOrderId = obj.subOrderId;
+							temp.subOrderType = obj.subOrderType;
 							temp.currPayAmount = obj.noChargeAmount;
 							
 							tempArry.push({'subOrder':temp});
