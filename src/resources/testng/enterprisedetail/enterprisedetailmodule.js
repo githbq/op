@@ -97,6 +97,7 @@ define(function (require, exports, module) {
                 }
             });
             $scope.payInfo.contractPrice = contractPrice;
+            $scope.payStatusChange(payInfo.payStatus);
         });
 
         $scope.testResult3 = function (form) {
