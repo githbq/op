@@ -53,13 +53,16 @@ define(function (require, exports, module) {
             });
         },
         goToStep: function (step) {//跳到指定的某一步
-            if (step && step > 0 && step <= 3) {
-                mainCtrlScope.$apply(function () {
-                    mainCtrlScope.step = step;
-                });
-            }
+            debugger
+            mainCtrlScope.goToStep(step);
         }, getReturnData: function () {
-            if (mainReturnData.mainForm.$valid||mainReturnData.globalInfo.readonly) {
+
+            if (mainCtrlScope.mainForm.$valid || (mainCtrlScope.globalInfo.isAdd
+                && mainCtrlScope.mainForm.stepForm2
+                && mainCtrlScope.mainForm.stepForm2.$valid
+                && mainCtrlScope.mainForm.stepForm3
+                && mainCtrlScope.mainForm.stepForm3.$valid
+                )) {
                 return mainReturnData;
             } else {
                 return false;
@@ -71,22 +74,22 @@ define(function (require, exports, module) {
     myApp.controller('form1Controller', ['$scope', '$timeout', function ($scope, $timeout) {
 
     }]);
-    myApp.controller('form2Controller', ['$scope', 'productService', function ($scope, productService) {
+    myApp.controller('form2Controller', ['$scope', 'productService', '$timeout', function ($scope, productService, $timeout) {
         //产品已购信息
         $scope.productInfos = [];
         if ($scope.globalInfo.submitType == 2) {//只有增购与续费才显示
             //||'ceshishur3'
             productService.getOrderList($scope.globalInfo.enterpriseAccount, function (data) {
-                $scope.$apply(function () {
+                $timeout(function () {
                     $scope.productInfos = data;
-                });
+                }, 10);
             });
         }
         debugger
         productService.getDiyOrderFormLogic($scope.globalInfo.enterpriseId || '', function (data) {
-            $scope.$apply(function () {
+            $timeout(function () {
                 $scope.productJson = angular.fromJson(data);
-            });
+            }, 10);
         });
     }]);
     myApp.controller('form3Controller', ['$scope', 'productService', 'select2Query', function ($scope, productService, select2Query) {
@@ -228,8 +231,20 @@ define(function (require, exports, module) {
         var payInfo = $scope.payInfo = {payStatus: 1};
         //全局行为状态
         var action = $scope.action = {doing: false};
-        $scope.goTo = function (step) {
+        $scope.goToStepTest = function (step) {
             $scope.step = step;
+        };
+        $scope.goToStep = function (step) {
+            if (step && mainCtrlScope.showValid($scope.step) && step > 0 && step <= 3) {
+                $scope.step = step;
+                if (step == 3 && $scope.globalInfo.orderId) {
+                    productService.getCurrPayList($scope.getProductInfo(true), function (data) {
+                        $timeout(function () {
+                            $scope.payInfo.currPayList = angular.fromJson(data);
+                        }, 10);
+                    });
+                }
+            }
         };
         $scope.enterpriseReadonly = $scope.globalInfo.readonly;//企业详情信息 只读
         $scope.payInfoReadonly = $scope.globalInfo.readonly;//企业详情信息 只读
@@ -253,9 +268,9 @@ define(function (require, exports, module) {
                 $scope.productInfo = data.odrDraftOrder || {};
                 $scope.orderFromData = angular.fromJson(data.odrDraftOrder.content);//订单来源数据
                 $scope.payInfo = data.odrDraftPaidInfo;
-                if (data.odrDraftPaidInfo.currPayList) {
-                    $scope.payInfo.currPayList = angular.fromJson(data.odrDraftPaidInfo.currPayList);
-                }
+                //if (data.odrDraftPaidInfo.currPayList) {
+                //    $scope.payInfo.currPayList = angular.fromJson(data.odrDraftPaidInfo.currPayList);
+                //}
                 $scope.editMode = true;
                 setSelect(false);
             }, 10)
@@ -445,6 +460,16 @@ define(function (require, exports, module) {
         $scope.prevStep = function () {
             $scope.step--;
         };
+        //显示错误
+        $scope.showValid = function (step) {
+            if ($scope.isAdd && step == 1) {//增购续费下 不走验证直接通过
+                return true;
+            }
+            $timeout(function () {
+                $scope['step_' + step + '_validate_error'] = true;
+            }, 10);
+            return $scope.mainForm['stepForm' + step].$valid;
+        }
         $scope.nextStep = function (form) {
             if ($scope.step == 1 || $scope.step == 2 || $scope.step == 3) {//企业详情界面
                 if (form.$invalid) {

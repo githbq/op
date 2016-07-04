@@ -3,21 +3,33 @@ define(function (require, exports, module) {
     app.directive('datetimeconfig', function () {
         //datetimeconfig 填写my97的配置　　　有　dateFmt:定义日期展示的格式化串  type:1　为取值的时候　后面加上23:59:59代表结束时间　不填则为开始时间00:00:00
         return {
+            require: 'ngModel',
             restrict: 'A',
             template: '<input ng-disabled="ngDisabled" name="{{name}}" style="cursor:pointer;" type="text" readonly="readonly" class="datetime-control" ng-model="stringValue"/>',
-            scope: {maxDate: '@', minDate: '@', ngChange: '&', datetimeconfig: '=', ngModel: '=', ngDisabled: '=', getForm: '&getform', name: '@'},
-            link: function (scope, iElem, iAttr) {
+            scope: {required2: '=', maxDate: '@', minDate: '@', ngChange: '&', datetimeconfig: '=', ngModel: '=', ngDisabled: '=', getForm: '&getform', name: '@'},
+            link: function (scope, iElem, iAttr, ctrl) {
                 scope.datetimeconfig = scope.datetimeconfig || {};
                 var currentForm = scope.getForm && scope.getForm();
-
+                console.warn('required2-time-ctrl.$parsers.unshift');
+                debugger
+                ctrl.$parsers.unshift(function (viewValue) {
+                    console.warn('required2-time=' + scope.ngModel);
+                    if (scope.ngModel) {
+                        ctrl.$setValidity('required2', true);
+                    } else {
+                        ctrl.$setValidity('required2', false);
+                    }
+                });
                 function valueChange(control) {
                     var value = control.el.value;
                     var field = currentForm[scope.name];
                     if (currentForm && field) {
                         field.$setDirty();
                         if (value && value.length > 0) {//处理require错误验证问题
-                            field.$setValidity('required', true);
-                            field.$valid=true;
+                            field.$setValidity('required2', true);
+                            field.$valid = true;
+                        } else if (scope.required2) {
+                            field.$setValidity('required2', false);
                         }
                     }
                     //取值逻辑
@@ -67,6 +79,12 @@ define(function (require, exports, module) {
                     } else {
                         $('input', iElem).attr('readonly', 'readonly');
                     }
+                    var field = currentForm[scope.name];
+                    if (scope.ngModel) {//处理require错误验证问题
+                        field.$setValidity('required2', true);
+                    } else if (scope.required2) {
+                        field.$setValidity('required2', false);
+                    }
                 });
 
                 function transferDate(str) {
@@ -95,6 +113,7 @@ define(function (require, exports, module) {
                         return new Date(value + (type != 1 ? ' 00:00:00' : ' 23:59:59')).getTime();
                     }
                 }
+
                 //获取检查时间是否开始时间以及对应的处理
                 function getCheckTime(time) {
                     return time;
@@ -111,13 +130,13 @@ define(function (require, exports, module) {
                     //获取小于的时间
                     data.getLessThan = function () {
                         var date = new Date(time);
-                        date.setDate(date.getDate() +(data.isStartTime?- 1:0));//
+                        date.setDate(date.getDate() + (data.isStartTime ? -1 : 0));//
                         return new Date(date._format('yyyy/MM/dd ' + (data.isStartTime ? '23:59:59' : '00:00:00' ))).getTime();
                     }
                     //获取大于的时间
                     data.getMoreThan = function () {
                         var date = new Date(time);
-                        date.setDate(date.getDate() + (data.isEndTime?1:0));//
+                        date.setDate(date.getDate() + (data.isEndTime ? 1 : 0));//
                         return new Date(date._format('yyyy/MM/dd ' + (data.isEndTime ? '00:00:00' : '23:59:59'))).getTime();
                     }
                     return data;

@@ -46,37 +46,29 @@
 <div class="m-transfer">
     <p>
         <span class="title">转移到:</span>
-        <label for="">
-            <input type="radio" name="company">
+        <label>
+            <input type="radio" name="company" value="1">
             代理商
         </label>
-        <label for="">
-            <input type="radio" name="company">
+        <label>
+            <input type="radio" name="company" value="2">
             直销
         </label>
-        <label for="">
-            <input type="radio" name="company">
+        <label>
+            <input type="radio" name="company" value="3">
             联营公司
         </label>
     </p>
 
     <p>
         <span class="title">选择所属部门/代理商:</span>
-        <select>
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-        </select>
+        <input type="text" id="departmentText" readonly>
+        <button type="button" class="btn-blue" id="dept">选择部门</button>
     </p>
 
     <p>
         <span class="title">销售人员:</span>
-        <select>
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
+        <select id="sales">
         </select>
     </p>
 
