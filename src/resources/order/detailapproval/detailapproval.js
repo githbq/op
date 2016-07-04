@@ -288,8 +288,8 @@ define( function(require, exports, module){
 						}
 					}
 				})
-
-				if( me.info.htshow && me.info.htshow == false ){
+				
+				if( me.info.htshow == false ){
 					me.$('.approval-contractshow').hide();
 				}else{
 					me.$('.approval-contractshow').show();
