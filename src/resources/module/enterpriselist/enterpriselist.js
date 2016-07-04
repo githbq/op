@@ -92,6 +92,11 @@ define(function(require, exports, module) {
         //选择部门
         selectDeptEve:function(){
             var me = this;
+            var type = $("input[type=radio]:checked").val()
+            if(!type){
+                util.showToast('请选择公司类型');
+                return false;
+            }
             me.deptTree= new CustomTree({ 
                 'title': '转移企业-选择部门',
                 searchOptions:{show:true,title:'部门名称'},
@@ -100,7 +105,12 @@ define(function(require, exports, module) {
                     check:{chkStyle: "radio",radioType: "all"},
                     checkStyle:"radio"
                 },
-                ajaxData:{url:'~/op/api/a/odr/receivedpay/getAllDepartment'}
+                ajaxData:{
+                    url:'~/op/api/s/enterprise/getSalesDepartment',
+                    data: {
+                        companyType: type
+                    }
+                }
             });
             me.deptTree.on('enter', function (  ) {
                 me.deptObj = me.deptTree.getValue() ? me.deptTree.getValue()[0]: null;
@@ -110,25 +120,21 @@ define(function(require, exports, module) {
                 me.deptObj ? me.$departmentText.val(me.deptObj.name ):me.$departmentText.val('');
                 me.$dept.val(me.deptObjId);
                 util.api({
-                    url: '',
+                    url: '~/op/api/s/enterprise/queryAccountByDeptId',
                     data: {
-                        departmentId: me.deptObjId
+                        deptId: me.deptObjId
                     },
                     success: function(res) {
                         if(res.success){
                             var options = '<option value="" disabled selected style="display: none;">请选择</option>';
                             res.model.content.each(function(idnex, item){
-                                options += '<option value=""></option>';
+                                options += '<option value="'+item.id+'">'+item.name+'</option>';
                             });
                             me.$sales.prop('disabled',false);
                             me.$sales.append(me.options);
                         }
                     }
                 });
-                me.options = '<option value="" disabled selected style="display: none;">请选择</option>';
-                me.options += '<option value="23212">热工无</option>';
-                me.$sales.html(me.options);
-                me.$sales.prop('disabled',false);
             });
             me.deptTree.show( [ me.$dept.val() ], {});
         }

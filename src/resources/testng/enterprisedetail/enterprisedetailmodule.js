@@ -75,15 +75,7 @@ define(function (require, exports, module) {
     }]);
     myApp.controller('form2Controller', ['$scope', 'productService', '$timeout', function ($scope, productService, $timeout) {
         //产品已购信息
-        $scope.productInfos = [];
-        if ($scope.globalInfo.submitType == 2) {//只有增购与续费才显示
-            //||'ceshishur3'
-            productService.getOrderList($scope.globalInfo.enterpriseAccount, function (data) {
-                $timeout(function () {
-                    $scope.productInfos = data;
-                }, 10);
-            });
-        }
+        $scope.getEnterpriseHistory();
         debugger
         productService.getDiyOrderFormLogic($scope.globalInfo.enterpriseId || '', function (data) {
             $timeout(function () {
@@ -96,13 +88,16 @@ define(function (require, exports, module) {
         //付款信息
         var payInfo = $scope.payInfo;//从mainController拿到的对象
         $scope.payInfo.currPayList = $scope.payInfo.currPayList || [];
-        var contractPrice = 0;
-        _.each($scope.payInfo.currPayList, function (item) {
-            if (item.purchaseAmount) {
-                contractPrice = math2.numAdd(contractPrice, item.purchaseAmount);
-            }
+        $scope.$watch('payInfo.currPayList', function (newVal, oldVal) {
+            console.log('payInfo.currPayList')
+            var contractPrice = 0;
+            _.each($scope.payInfo.currPayList, function (item) {
+                if (item.purchaseAmount) {
+                    contractPrice = math2.numAdd(contractPrice, item.purchaseAmount);
+                }
+            });
+            $scope.payInfo.contractPrice = contractPrice;
         });
-        $scope.payInfo.contractPrice = contractPrice;
 
         $scope.testResult3 = function (form) {
 
@@ -205,8 +200,20 @@ define(function (require, exports, module) {
         };
     }]);
     myApp.controller('mainController', ['$scope', '$timeout', 'select2Query', 'getEnumService', 'cascadeSelectService', 'productService', function ($scope, $timeout, select2Query, getEnumService, cascadeSelectService, productService) {
+        //获取企业历史详情
+        $scope.getEnterpriseHistory = function () {
+            if ($scope.globalInfo.submitType == 2) {//只有增购与续费才显示
+                //||'ceshishur3'
+                productService.getOrderList($scope.globalInfo.enterpriseAccount || $scope.orderInfo.enterpriseAccount, function (data) {
+                    $timeout(function () {
+                        $scope.productInfos = data;
+                    }, 10);
+                });
+            }
+        }
         //全局性信息
         $scope.globalInfo = mainData || {};
+        $scope.orderInfo = $scope.orderInfo || {};
         $scope.globalInfo = angular.extend($scope.globalInfo, $scope.globalInfo.data);
 
         $scope.globalInfo.submitType = mainData.isNew ? 1 : mainData.isAdd ? 2 : mainData.isRef ? 3 : 1;
@@ -243,7 +250,7 @@ define(function (require, exports, module) {
                             $scope.payInfo.currPayList = $scope.payInfo.currPayList || [];
                             var tempCurrPayArray = angular.fromJson(data);
                             _.each(tempCurrPayArray, function (item, index) {
-                                var findItem = _.findWhere($scope.payInfo.currPayList, {productId: item.productId});
+                                var findItem = _.findWhere($scope.payInfo.currPayList, {productId: item.productId, isMain: item.isMain});
                                 if (findItem && findItem.purchaseAmount == item.purchaseAmount) {
                                     _.extend(item, findItem);
                                 }
@@ -278,6 +285,8 @@ define(function (require, exports, module) {
                 }
                 $scope.entInfo = data.odrDraftEnterprise || {};
                 $scope.productInfo = data.odrDraftOrder || {};
+                $scope.orderInfo = data.odrOrder || {};
+                $scope.getEnterpriseHistory();//获取企业产品历史信息
                 $scope.globalInfo.enterpriseId = $scope.productInfo && $scope.productInfo.enterpriseId;
                 $scope.orderFromData = angular.fromJson(data.odrDraftOrder.content);//订单来源数据
                 $scope.payInfo = data.odrDraftPaidInfo;
