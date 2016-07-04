@@ -213,7 +213,7 @@ define( function(require, exports, module){
 				
 				//补充合同  [销售]  (可以补充合同)
 				case 'b':
-					me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), isAdd: isAdd, orderId:id, readonly:true, isRefuse:isRefuse,'data':{'enterpriseId':me.info.enterpriseId} );
+					me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), isAdd: isAdd, orderId:id, readonly:true, isRefuse:isRefuse,'data':{'enterpriseId':me.info.enterpriseId}} );
 					me.approvalPage.hideTopBar();
 					me.approvalPage.hideFootBtns();
 					me.$('[data-state="b"]').show();
