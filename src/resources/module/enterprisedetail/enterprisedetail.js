@@ -1082,7 +1082,7 @@ define(function(require, exports, module) {
                                         strDom += " <p> <span>" + obj['appName'] + "</span> <span>" + obj['quota'] + "(GB)</span> </p>";
                                         break;
                                     default:
-                                        strDom += " <p> <span>" + obj['appName'] + "&nbsp;&nbsp;总量(" + obj['quota'] + ")&nbsp;&nbsp;已用量("+ obj['usedQuota'] + ")</span>" +"<span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span>" + enablestatus + "&nbsp;<button class='prooff' name='product' typeid='"+obj["quotaType"]+"' value='"+obj["appId"]+"'>开启</button><button class='proon' name='product' typeid='"+obj["quotaType"]+"' value='" + obj["appId"] + "'>关闭</button> </p>";
+                                        strDom += " <p> <span>" + obj['appName'] + "&nbsp;&nbsp;总量(" + obj['quota'] + ")&nbsp;&nbsp;使用人数("+ obj['usedQuota'] + ")</span>" +"<span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span>" + enablestatus + "&nbsp;<button class='prooff' name='product' typeid='"+obj["quotaType"]+"' value='"+obj["appId"]+"'>开启</button><button class='proon' name='product' typeid='"+obj["quotaType"]+"' value='" + obj["appId"] + "'>关闭</button> </p>";
                                 }
                             });
 
