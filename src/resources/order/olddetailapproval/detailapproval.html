@@ -1,0 +1,80 @@
+<div class="order-content" js="true" style="z-index:100">
+
+    <div class="content-box" style="clear:both;">
+        <div class="m-addenterprise " style="width:1200px;">
+            <div class="common--explain"></div>
+            <h4 style="font-weight: bold; font-size: 18px; padding-top: 8px; padding-bottom: 8px;">基本信息</h4>
+
+            <div class="common--basic"></div>
+            <h4 style="font-weight: bold; font-size: 18px; padding-top: 8px; padding-bottom: 8px;">产品信息</h4>
+
+            <div class="common-product productinfo">
+                <div class="common-terminalinfo"></div>
+                <div class="common-tableinfo"></div>
+                <div class="common-forminfo"></div>
+            </div>
+            <div class="common--invioce"></div>
+        </div>
+        <div class="custom-box" style="height: 35px; ">
+            联合跟进人：<span class="helper-box"></span>
+        </div>
+        <div>
+            <hr/>
+            <h4 style="font-weight: bold; font-size: 18px; padding-top: 8px; padding-bottom: 8px;">审批意见</h4>
+            <table>
+                <tr>
+                    <th style="width:160px;">操作人</th>
+                    <th style="width:160px;">审批时间</th>
+                    <th style="width:100px;">审批结果</th>
+                    <th>审批意见</th>
+                </tr>
+                <tbody class="last-options">
+
+                </tbody>
+            </table>
+            <p class="receivedPayDate" style="display: none; padding:10px 0px; font-size:18px;">
+                <label for="">
+                    <span class="m-len">实际到款时间 :</span>
+                    <span class="receivedPayDate-text"></span>
+                </label>
+                <br/>
+                <label for="">
+                    <span class="m-len">到款编号 : </span>
+                    <span class="receivedPayNum-text"></span>
+                </label>
+            </p>
+        </div>
+        <div class="state state-refuse">
+            <hr/>
+            <p class="approval-action">
+                <button class="  u-btn-blue action-submit" data-permissions="M009015009,M009015014,M008031032,M008031016">保存提交</button>
+                <button class="  u-btn-blue action-save" data-permissions="M009015010,M009015005,M008031031,M008031017">保存</button>
+            </p>
+        </div>
+
+        <div class="approval-action state state-wait">
+            <hr/>
+            <p class="currentTask-finance" style="display: none;">
+                <label for="">
+                    <span class="m-len">实际到款时间<span class="red">*</span> </span>
+                    <input type="text" class="money-time" onblur="this.value= this.value.match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/) ? this.value:''">
+                </label>
+                <br/>
+                <label for="">
+                    <span class="m-len">到款编号</span>
+                    <input type="text" class="receivedPayNum" maxlength="50">
+                </label>
+            </p>
+            <p>
+            <h3 style="font-size:18px;">审批意见</h3>
+            <textarea ce-model="comment" maxlength="1000" cols="60" rows="5" style=" margin:10px;esize: none;word-wrap: break-word;outline: none; border: 1px solid #d9d9d9;-webkit-border-radius: 3px; -moz-border-radius: 3px;border-radius: 3px;"></textarea>
+            </p>
+            <p class="actions">
+                <button class="u-btn-blue action-agree" data-permissions="M008031004,M010001008"> 同意</button>
+                <button class="u-btn-blue action-agree-pass" style="display:none;" data-permissions="M008031005"> 保存通过</button>
+                <button class="u-btn-red action-reject" data-permissions="M008031006,M010001009"> 驳回</button>
+            </p>
+        </div>
+    </div>
+
+</div>
