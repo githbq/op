@@ -89,6 +89,7 @@ define(function (require, exports, module) {
         var payInfo = $scope.payInfo;//从mainController拿到的对象
         $scope.payInfo.currPayList = $scope.payInfo.currPayList || [];
         $scope.$watch('payInfo.currPayList', function (newVal, oldVal) {
+            console.log('payInfo.currPayList')
             var contractPrice = 0;
             _.each($scope.payInfo.currPayList, function (item) {
                 if (item.purchaseAmount) {
