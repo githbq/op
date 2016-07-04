@@ -19,8 +19,9 @@ define(function(require, exports, module) {
         var entList = new EntList({ 'productId': param && param[0] ,'wrapper': $el , 'state': 'agent'});
 
         entList.render();
+        
         //企业详情
-        var entDetail = new EntDetail({ 'isAgent': true });
+        //var entDetail = new EntDetail({ 'isAgent': true });
 
         var customHelper = null;
 
@@ -32,6 +33,7 @@ define(function(require, exports, module) {
 
         //企业详情
         entList.on('detail', function(id) {
+            var entDetail = new EntDetail({'isAgent':true});
             entDetail.show(id);
         });
 

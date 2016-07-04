@@ -132,6 +132,11 @@ define( function(require, exports, module){
 			console.log( index );
 
 			me.approvalPage.goToStep(index);
+			if(index == 3 && me.type == 'a'){
+				me.$('[data-state="a"]').show();
+			} else {
+				me.$('[data-state="a"]').hide();
+			}
 		},
 		//
 		// @param id   	订单id 
@@ -153,7 +158,10 @@ define( function(require, exports, module){
 			console.log('dododo');
 			console.log( status );
 			//缓存额外信息
+
+
 			me.orderId = id;
+			me.type = type;  //slider类型
 			me.status = status || '';
 			me.dstatus = dstatus || '';
 			me.info = info || {};
@@ -200,7 +208,7 @@ define( function(require, exports, module){
 					me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), isAdd: isAdd, orderId:id, readonly:false, isRefuse:isRefuse} );
 					me.approvalPage.hideTopBar();
 					me.approvalPage.hideFootBtns();
-					me.$('[data-state="a"]').show();
+					//me.$('[data-state="a"]').show();
 				break;
 				
 				//补充合同  [销售]  (可以补充合同)

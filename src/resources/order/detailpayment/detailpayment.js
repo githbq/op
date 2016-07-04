@@ -40,9 +40,9 @@ define( function(require, exports, module){
 			'.action-agree':'actionAgree',
 			'.action-reject':'actionReject',
 			'.action-submit':'actionSubmit',
-			'.enterpriseAccount':'enterpriseAccount',
-			'.money-time':'moneyTime',
-			'.receivedPayNum':'receivedPayNum'
+			'.enterpriseAccount':'enterpriseAccount'
+			//'.money-time':'moneyTime',
+			//'.receivedPayNum':'receivedPayNum'
 		},
 		events:{
 			'click .action-save':'actionSaveEve',
@@ -58,7 +58,7 @@ define( function(require, exports, module){
 			var me = this;
 			
 			//选择区域模块
-			me.$moneyTime.datetimepicker({'timepicker': false,'format':'Y/m/d'});
+			//me.$moneyTime.datetimepicker({'timepicker': false,'format':'Y/m/d'});
 
 			//区域树选择
             me.areaTree = new AreaTree();
@@ -91,6 +91,28 @@ define( function(require, exports, module){
 			//根据订单类型区分设置
 			me.sortType();
 			
+			//
+			// 到款认领 逻辑处理
+			//======================
+			me.$('.approval-daokuan').hide();
+			util.api({
+				'url':'/odr/getClaimedReceivedPayForDetail',
+				'data':{
+					'orderId': me.attrs.options.id
+				},
+				'success': function( data ){
+					console.log('到款信息');
+					console.log( data );
+					if( data.value.model ){
+						me.dklist.reload([data.value.model]);
+						me.$('.approval-daokuan').show();
+					}else{
+						me.$('.approval-daokuan').hide();
+					}	
+				}
+			});
+			
+
 			DetailApproval.__super__.show.call( this,true );
 		},
 		//根据定单类型区分设置
@@ -306,12 +328,12 @@ define( function(require, exports, module){
 			//设置到款编号
 			var receivedPayNum= (me.attrs.orderData && me.attrs.orderData.order && me.attrs.orderData.order.receivedPayNum)?me.attrs.orderData.order.receivedPayNum:'';
 
-			if(receivedPayDate){
-				me.$('.receivedPayDate').show();
-				me.$('.receivedPayDate-text').text(receivedPayDate);
-				me.$('.receivedPayNum-text').text(receivedPayNum);
-				me.$('.currentTask-finance').hide();
-			}
+			//if(receivedPayDate){
+				//me.$('.receivedPayDate').show();
+				//me.$('.receivedPayDate-text').text(receivedPayDate);
+				//me.$('.receivedPayNum-text').text(receivedPayNum);
+				//me.$('.currentTask-finance').hide();
+			//}
 
 			
 		},
@@ -476,9 +498,9 @@ define( function(require, exports, module){
 			var bool = confirm("确认同意此条审批吗?");
 			if( bool ){
 				 if( me.attrs.options.currentTask == 'finance' && !me.attrs.orderData.order.receivedPayDate){
-				   me.setMoneyTime(function(){
+				   //me.setMoneyTime(function(){
 						me.replyOptions();
-				   });
+				   //});
 				}else{
 					me.replyOptions();
 				}
@@ -520,7 +542,9 @@ define( function(require, exports, module){
 			})
 			
 		},
+
 		//设置到款时间
+		/*
 		setMoneyTime:function( callback ){
 			var me = this;
 			if(!me.$moneyTime.val() ){
@@ -542,6 +566,8 @@ define( function(require, exports, module){
 				}
 			})
 		},
+		*/
+
 		//重新发送
 		hide: function(){
 			var me = this;

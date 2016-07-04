@@ -54,14 +54,13 @@ define(function (require, exports, module) {
         },
         goToStep: function (step) {//跳到指定的某一步
             debugger
-            mainCtrlScope.goToStep(step);
+            return mainCtrlScope.goToStep(step);
         }, getReturnData: function () {
-
             if (mainCtrlScope.mainForm.$valid || (mainCtrlScope.globalInfo.isAdd
-                && mainCtrlScope.mainForm.stepForm2
-                && mainCtrlScope.mainForm.stepForm2.$valid
-                && mainCtrlScope.mainForm.stepForm3
-                && mainCtrlScope.mainForm.stepForm3.$valid
+                && (!mainCtrlScope.mainForm.stepForm3 || (mainCtrlScope.mainForm.stepForm3
+                && mainCtrlScope.mainForm.stepForm3.$valid))
+                && (!mainCtrlScope.mainForm.stepForm2 || (mainCtrlScope.mainForm.stepForm2
+                && mainCtrlScope.mainForm.stepForm2.$valid))
                 )) {
                 return mainReturnData;
             } else {
@@ -237,13 +236,25 @@ define(function (require, exports, module) {
         $scope.goToStep = function (step) {
             if (step && mainCtrlScope.showValid($scope.step) && step > 0 && step <= 3) {
                 $scope.step = step;
-                if (step == 3 && $scope.globalInfo.orderId) {
+                if (step == 3 && $scope.globalInfo.orderId && !$scope.globalInfo.readonly) {
                     productService.getCurrPayList($scope.getProductInfo(true), function (data) {
                         $timeout(function () {
-                            $scope.payInfo.currPayList = angular.fromJson(data);
+                            debugger
+                            $scope.payInfo.currPayList = $scope.payInfo.currPayList || [];
+                            var tempCurrPayArray = angular.fromJson(data);
+                            _.each(tempCurrPayArray, function (item, index) {
+                                var findItem = _.findWhere($scope.payInfo.currPayList, {productId: item.productId});
+                                if (findItem && findItem.purchaseAmount == item.purchaseAmount) {
+                                    _.extend(item, findItem);
+                                }
+                            });
+                            $scope.payInfo.currPayList = tempCurrPayArray;
                         }, 10);
                     });
                 }
+                return true;
+            } else {
+                return false;
             }
         };
         $scope.enterpriseReadonly = $scope.globalInfo.readonly;//企业详情信息 只读
@@ -261,16 +272,18 @@ define(function (require, exports, module) {
                 }
                 debugger
                 $scope.rejectFrom = data.rejectFrom;
+                $scope.isCaiWu = data.rejectFrom == 2;
                 if (data.odrDraftEnterprise) {
                     data.odrDraftEnterprise.area = entInfo.area || data.odrDraftEnterprise.area;
                 }
                 $scope.entInfo = data.odrDraftEnterprise || {};
                 $scope.productInfo = data.odrDraftOrder || {};
+                $scope.globalInfo.enterpriseId = $scope.productInfo && $scope.productInfo.enterpriseId;
                 $scope.orderFromData = angular.fromJson(data.odrDraftOrder.content);//订单来源数据
                 $scope.payInfo = data.odrDraftPaidInfo;
-                //if (data.odrDraftPaidInfo.currPayList) {
-                //    $scope.payInfo.currPayList = angular.fromJson(data.odrDraftPaidInfo.currPayList);
-                //}
+                if (data.odrDraftPaidInfo.currPayList) {
+                    $scope.payInfo.currPayList = angular.fromJson(data.odrDraftPaidInfo.currPayList);
+                }
                 $scope.editMode = true;
                 setSelect(false);
             }, 10)
@@ -462,7 +475,7 @@ define(function (require, exports, module) {
         };
         //显示错误
         $scope.showValid = function (step) {
-            if ($scope.isAdd && step == 1) {//增购续费下 不走验证直接通过
+            if ($scope.globalInfo.isAdd && step == 1) {//增购续费下 不走验证直接通过
                 return true;
             }
             $timeout(function () {
@@ -592,6 +605,7 @@ define(function (require, exports, module) {
 
 //保存提交按钮
         $scope.save = function (form) {
+            form.$commitViewValue();
             if (form.$invalid) {
                 $scope['step_' + $scope.step + '_validate_error'] = true;
                 return;
