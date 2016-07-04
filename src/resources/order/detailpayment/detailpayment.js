@@ -59,7 +59,10 @@ define( function(require, exports, module){
 			
 			//选择区域模块
 			me.$moneyTime.datetimepicker({'timepicker': false,'format':'Y/m/d'});
+
+			//区域树选择
             me.areaTree = new AreaTree();
+            //区域树选择区域事件
             me.areaTree.on('selectarea',function( treenodes ){
                 
                 me.$filingRegion.val( treenodes[0]['name'] ).attr('data-code', treenodes[0]['code'] );
@@ -83,7 +86,9 @@ define( function(require, exports, module){
 			me.attrs.receiveData = {};
 			me.attrs.allData = {'orderEntity':{},'contract':{},'enterpriseExtend':{},'enterprise':{}};
 			
+			//设置状态
 			me.setState();
+			//根据订单类型区分设置
 			me.sortType();
 			
 			DetailApproval.__super__.show.call( this,true );
@@ -91,11 +96,13 @@ define( function(require, exports, module){
 		//根据定单类型区分设置
 		sortType:function(){
 			var me = this;
+
 			me.attrs.options.orderType = parseInt(me.attrs.options.orderType)
 			
 			me._setTitle( orderTypeAry[me.attrs.options.orderType] );
 			
 			$.when( me.getOrderDetail()/*, me.getEnterpriseInfo()*/, me.setOrderList()).done(function(){
+
 				//备注信息
 				me.getReceiveOrder(function(){
 					//setOrderInfo--订单信息
@@ -104,11 +111,11 @@ define( function(require, exports, module){
 				
 
 				//基本信息
+				/*
 				me.attrs.basicCommon = new OrderInfo( { 'wrapper':me.$view.find('.common--basic'),'data':me.attrs.orderList,
 					'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
+				*/
 			});
-
-
 		},
 		//获取企业基本信息
 		getEnterpriseInfo:function(  ){
@@ -207,18 +214,21 @@ define( function(require, exports, module){
 			if(me.attrs.options.rejectsFrom &&  me.attrs.options.rejectsFrom == 3  && me.attrs.options.editFlag){
 				me.attrs.moneyEdit = false;;
 			}
+
+			//
 			me.attrs.getMoneyCommon = new GetMoney( { 'wrapper':me.$view.find('.common-product'),'data':me.attrs.receiveData,'editFlag':me.attrs.moneyEdit,
 			'type':me.attrs.options.orderType ,'dataDetail':me.attrs.orderData} );
 			
 			
-			 //发票信息
-			 me.attrs.invoiceCommon = new InvoiceInfo( { 'wrapper':me.$view.find('.common--invioce'),'data':me.attrs.orderData,
+			//发票信息
+			me.attrs.invoiceCommon = new InvoiceInfo( { 'wrapper':me.$view.find('.common--invioce'),'data':me.attrs.orderData,
 				 'editFlag': me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
 				 
 			me.getCustomHelper();
 
 		 },
-		  //获取现有跟进人信息：
+		
+		//获取现有跟进人信息：
 		getCustomHelper:function(){
 			var me = this;
 			

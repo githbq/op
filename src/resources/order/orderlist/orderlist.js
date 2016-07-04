@@ -636,7 +636,7 @@ define( function( require, exports, module ) {
         });
 
         //补充合同
-        orderList.on('supply', function( id , status , dstatus ){
+        orderList.on('supply', function( id , status , dstatus , orderType ){
             console.log('补充合同');
             console.log( id );
             
@@ -645,12 +645,12 @@ define( function( require, exports, module ) {
             //补充合同待审核的为只读状态
             if( status == 10 ){
 
-                detailApproval.show( id , 'd' , status , dstatus );
+                detailApproval.show( id , 'd' , status , dstatus , {'orderType': orderType});
             
             //补充合同被驳回和撤回的可以补充合同
             } else {
 
-                detailApproval.show( id , 'b' , status , dstatus);
+                detailApproval.show( id , 'b' , status , dstatus , {'orderType': orderType});
             }
 
             detailApproval.on('editSuccess',function(){
