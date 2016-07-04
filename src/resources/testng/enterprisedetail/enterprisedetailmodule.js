@@ -57,10 +57,10 @@ define(function (require, exports, module) {
             mainCtrlScope.goToStep(step);
         }, getReturnData: function () {
             if (mainCtrlScope.mainForm.$valid || (mainCtrlScope.globalInfo.isAdd
-                && mainCtrlScope.mainForm.stepForm2
-                && mainCtrlScope.mainForm.stepForm2.$valid
                 && (!mainCtrlScope.mainForm.stepForm3 || (mainCtrlScope.mainForm.stepForm3
                 && mainCtrlScope.mainForm.stepForm3.$valid))
+                && (!mainCtrlScope.mainForm.stepForm2 || (mainCtrlScope.mainForm.stepForm2
+                && mainCtrlScope.mainForm.stepForm2.$valid))
                 )) {
                 return mainReturnData;
             } else {
@@ -236,10 +236,19 @@ define(function (require, exports, module) {
         $scope.goToStep = function (step) {
             if (step && mainCtrlScope.showValid($scope.step) && step > 0 && step <= 3) {
                 $scope.step = step;
-                if (step == 3 && $scope.globalInfo.orderId) {
+                if (step == 3 && $scope.globalInfo.orderId && !$scope.globalInfo.readonly) {
                     productService.getCurrPayList($scope.getProductInfo(true), function (data) {
                         $timeout(function () {
-                            $scope.payInfo.currPayList = angular.fromJson(data);
+                            debugger
+                            $scope.payInfo.currPayList = $scope.payInfo.currPayList || [];
+                            var tempCurrPayArray = angular.fromJson(data);
+                            _.each(tempCurrPayArray, function (item, index) {
+                                var findItem = _.findWhere($scope.payInfo.currPayList, {productId: item.productId});
+                                if (findItem && findItem.purchaseAmount == item.purchaseAmount) {
+                                    _.extend(item, findItem);
+                                }
+                            });
+                            $scope.payInfo.currPayList = tempCurrPayArray;
                         }, 10);
                     });
                 }
@@ -266,12 +275,12 @@ define(function (require, exports, module) {
                 }
                 $scope.entInfo = data.odrDraftEnterprise || {};
                 $scope.productInfo = data.odrDraftOrder || {};
-                $scope.globalInfo.enterpriseId= $scope.productInfo &&  $scope.productInfo.enterpriseId;
+                $scope.globalInfo.enterpriseId = $scope.productInfo && $scope.productInfo.enterpriseId;
                 $scope.orderFromData = angular.fromJson(data.odrDraftOrder.content);//订单来源数据
                 $scope.payInfo = data.odrDraftPaidInfo;
-                //if (data.odrDraftPaidInfo.currPayList) {
-                //    $scope.payInfo.currPayList = angular.fromJson(data.odrDraftPaidInfo.currPayList);
-                //}
+                if (data.odrDraftPaidInfo.currPayList) {
+                    $scope.payInfo.currPayList = angular.fromJson(data.odrDraftPaidInfo.currPayList);
+                }
                 $scope.editMode = true;
                 setSelect(false);
             }, 10)

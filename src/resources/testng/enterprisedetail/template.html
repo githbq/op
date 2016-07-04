@@ -273,7 +273,7 @@
             <div class="form-row">
                 <div class="form-field" ng-init="payStatusData=[{label:'全额',value:1,checked:true},{label:'未付',value:2,checked:false},{label:'分期',value:3,checked:false}]">
                     <label class="required"><span>付费状态</span></label>
-                    <label ng-repeat="item in payStatusData">
+                    <label ng-repeat="item in payStatusData track by $index">
                         <input ng-class="{readonly:payInfoReadonly}"
                                ng-change="payStatusChange(payInfo.payStatus)"
                                ng-readonly="payInfoReadonly"
@@ -287,7 +287,7 @@
                     <label class="required"><span>分期金额</span></label>
                 </div>
                 <div class="form-field inputs-container" ng-init-testdata="payInfo.currPayList=[{currPayAmount:0,purchaseAmount:99}]">
-                    <label ng-if="item.toAgent!==true" class="fenqi-label" ng-repeat="item in payInfo.currPayList">
+                    <label ng-if="item.toAgent!==true" class="fenqi-label" ng-repeat="item in payInfo.currPayList track by $index">
                         <span>{{item.productName}}(元)</span>
                         <input ng-model-options="{updateOn:'default'}" ng-change="currPayAmountChange(payInfo.currPayList)"
                                ng-class="{readonly:payInfoReadonly}" number ng-readonly="payInfoReadonly"
