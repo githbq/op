@@ -57,7 +57,12 @@ define(function (require, exports, module) {
             mainCtrlScope.goToStep(step);
         }, getReturnData: function () {
 
-            if (mainCtrlScope.mainForm.$valid || (mainCtrlScope.globalInfo.isAdd && mainCtrlScope.mainForm.stepForm2.$valid && mainCtrlScope.mainForm.stepForm3.$valid )) {
+            if (mainCtrlScope.mainForm.$valid || (mainCtrlScope.globalInfo.isAdd
+                && mainCtrlScope.mainForm.stepForm2
+                && mainCtrlScope.mainForm.stepForm2.$valid
+                && mainCtrlScope.mainForm.stepForm3
+                && mainCtrlScope.mainForm.stepForm3.$valid
+                )) {
                 return mainReturnData;
             } else {
                 return false;
@@ -69,22 +74,22 @@ define(function (require, exports, module) {
     myApp.controller('form1Controller', ['$scope', '$timeout', function ($scope, $timeout) {
 
     }]);
-    myApp.controller('form2Controller', ['$scope', 'productService','$timeout', function ($scope, productService,$timeout) {
+    myApp.controller('form2Controller', ['$scope', 'productService', '$timeout', function ($scope, productService, $timeout) {
         //产品已购信息
         $scope.productInfos = [];
         if ($scope.globalInfo.submitType == 2) {//只有增购与续费才显示
             //||'ceshishur3'
             productService.getOrderList($scope.globalInfo.enterpriseAccount, function (data) {
-               $timeout(function () {
+                $timeout(function () {
                     $scope.productInfos = data;
-                },10);
+                }, 10);
             });
         }
         debugger
         productService.getDiyOrderFormLogic($scope.globalInfo.enterpriseId || '', function (data) {
             $timeout(function () {
                 $scope.productJson = angular.fromJson(data);
-            },10);
+            }, 10);
         });
     }]);
     myApp.controller('form3Controller', ['$scope', 'productService', 'select2Query', function ($scope, productService, select2Query) {
