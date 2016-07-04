@@ -172,6 +172,7 @@ define( function(require, exports, module){
 			if( me.info.orderType && (me.info.orderType == 2 || me.info.orderType == 3 || me.info.orderType == 4 ) ){
 				isAdd = true;
 			}
+			me.isAdd = isAdd;
 			//var isAdd = false;  //是否是增购续费
 			//if( )
 
@@ -417,11 +418,22 @@ define( function(require, exports, module){
 				'odrDraftPaidInfo': data.payInfo,
 				'orderId': me.orderId
 			}
+			if( me.isAdd ){
+				postData = {
+					'odrDraftOrder': data.getProductInfo()['odrDraftOrder'],
+					'odrDraftPaidInfo': data.payInfo,
+					'orderId': me.orderId
+				}
+			}
+
 
 			var rejectFrom = data.rejectFrom;
 
 			console.log( data );
-			//1 小助手
+
+			// 小助手驳回
+			// 新购             则提交三个类型的信息
+			// 增购续费         则提交产品信息和付款信息
 			if( rejectFrom && rejectFrom == 1 ){
 
 				//保存
@@ -439,7 +451,9 @@ define( function(require, exports, module){
 						}
 					}
 				})
-			//2 财务
+
+			// 财务驳回
+			// 则只保存付款信息
 			}else if( rejectFrom && rejectFrom == 2 ){
 
 				//保存
