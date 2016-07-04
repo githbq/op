@@ -1,10 +1,12 @@
 <div ng-controller="mainController" class="ng-cloak enterprise-panel" ng-init="bbb=false" ng-form name="mainForm">
     <!--<button ng-click="testBasicForm()">测试表单验证11</button>-->
     <!--<button ng-attr-abcd="aaaa" ng-click="testResult()">testResult</button>-->
-    <button ng-click="goTo(1)">step1</button>
-    <button ng-click="goTo(2)">step2</button>
-    <button ng-click="goTo(3)">step3</button>
-
+    <button ng-click="goToStep(1)">step1*</button>
+    <button ng-click="goToStep(2)">step2*</button>
+    <button ng-click="goToStep(3)">step3*</button>
+    <button ng-click="goToStepTest(1)">step1</button>
+    <button ng-click="goToStepTest(2)">step2</button>
+    <button ng-click="goToStepTest(3)">step3</button>
 
     <div ng-show="step==1 && !(globalInfo.isAdd)" ng-controller="form1Controller" ng-class="{step_validate_error:step_1_validate_error}" class="step form baseinfo" ng-form name="stepForm1">
         <div class="top-bar" ng-if="hideTopBar!==true">
@@ -234,7 +236,7 @@
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>合同号</span></label>
-                    <input ng-model-options="{updateOn:'blur'}" maxlength="50" ng-class="{readonly:payInfoReadonly}" required ng-readonly="payInfoReadonly" type="text" ng-change="getDataByContractNo()" ng-model="payInfo.contractNo" name="contractNo"/>
+                    <input ng-model-options="{updateOn:'blur'}" maxlength="50" ng-class="{readonly:payInfoReadonly||globalInfo.isRefuse}" required ng-readonly="payInfoReadonly||globalInfo.isRefuse" type="text" ng-change="getDataByContractNo()" ng-model="payInfo.contractNo" name="contractNo"/>
                 </div>
             </div>
             <div class="form-row">
@@ -308,8 +310,7 @@
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>总部打款日期</span></label>
-
-                    <div class="inline-block" required ng-readonly="payInfoReadonly||globalInfo.isRefuse" getform="this['stepForm3']" name="payDate" datetimeconfig="payInfo.payDate_dataConfig" ng-model="payInfo.payDate"></div>
+                    <div class="inline-block" required2="true" ng-readonly="payInfoReadonly||globalInfo.isRefuse" getform="this['stepForm3']" name="payDate" datetimeconfig="payInfo.payDate_dataConfig" ng-model="payInfo.payDate"></div>
                 </div>
             </div>
             <div class="form-row">

@@ -103,7 +103,7 @@ define(function (require, exports, module) {
         };
         //获取订单历史列表
         factory.getInitData = function (enterpriseId, submitType, callback) {
-            if (enterpriseId || submitType) {
+            if (enterpriseId && (enterpriseId || submitType)) {
                 return util.api({
                     url: '~/op/api/a/odrDraft/getInitData',
                     data: {enterpriseId: enterpriseId, submitType: submitType},
@@ -276,7 +276,7 @@ define(function (require, exports, module) {
             });
         };
         //获取分期产品的数据
-        factory.getCurrPayList = function (callback) {
+        factory.getCurrPayList = function (data, callback) {
             return util.api({
                 url: "~/op/api/a/odrDraft/getCurrPayList",
                 data: data,
