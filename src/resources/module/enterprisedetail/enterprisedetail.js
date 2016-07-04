@@ -30,6 +30,7 @@ define(function(require, exports, module) {
             '#tSource': 'asource',        //*来源
             '#tCompanySize': 'acompany',  //*公司规模
             '#tSalesSize': 'asales',      //*销售团队规模
+            '#tGroupType': 'agroup',      //*使用对象类型
             '#remark': 'remark',          //*
             '#tbProduct': 'tbProduct',    //*
             '#tbOperation tbody': 'tbOperation', //*
@@ -570,6 +571,11 @@ define(function(require, exports, module) {
                 checkIsOk()
             }); //作弊情况
 
+            me.generateSelect('GROUP_TYPE', me.$agroup, function() {
+                state.d = true;
+                checkIsOk()
+            }); //团队类型
+
             /*
             me.generateSelect('PROVINCE', me.$aprovince, function() {
                 state.c = true;
@@ -617,6 +623,7 @@ define(function(require, exports, module) {
         },
 
         //获取企业详情
+        //================
         getEnterprise: function(id, callback) {
             var me = this;
 
@@ -883,6 +890,10 @@ define(function(require, exports, module) {
             }
         },
 
+        //
+        //
+        // 保存企业信息
+        //=========================
         saveBasicEve: function(e) {
 
             // disable buttons
@@ -891,6 +902,40 @@ define(function(require, exports, module) {
             $target.attr('disabled', 'disabled');
             $target.addClass('disable');
 
+            function generateData( array ){
+                    
+                var data = {};
+                array.forEach(function(item){
+                    data.item = me.model.get(item);
+                })
+                return data;
+            }
+            /*
+            var postData = generateData([
+                'address',
+                'area',
+                'city',
+                'companyScale',
+                'contactEmail',
+                'contactIm',
+                'contactName',
+                'contactPhone',
+                'county',
+                'enterpriseAccount',
+                'enterpriseFilingId',
+                'enterpriseName',
+                'groupType',
+                'industryFirst',
+                'industrySecond',
+                'industryThird',
+                'isReference',
+                'isReferral',
+                'isSaleTeam',
+                'keyContactEmail',
+                'keyContactName',
+                'keyC'
+                ])
+            */
             var data = {
                 enterpriseId: this.model.attrs.enterpriseId, //企业ID
                 enterpriseName: this.$name.val(), //企业名称

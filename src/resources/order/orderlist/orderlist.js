@@ -341,7 +341,7 @@ define( function( require, exports, module ) {
             } else {
 
                 if( item.isNewOrder ){
-                    me.trigger('detail', id , status , dstatus , orderType );
+                    me.trigger('detail', id , status , dstatus , orderType , enterpriseId );
                 } else {
                     me.trigger('olddetail', id , status , dstatus , orderType );
                 }
@@ -370,9 +370,11 @@ define( function( require, exports, module ) {
 
             var id = $(e.currentTarget).attr('data-id');
             var status = $(e.currentTarget).attr('data-status');
-            var dstatus = $(e.currentTarget)
+            var dstatus = $(e.currentTarget).attr('data-dstatus');
+            var type = $(e.currentTarget).attr('data-type');
+            var entId = $(e.currentTarget).attr('data-entid');
 
-            me.trigger('supply', id , status , dstatus );
+            me.trigger('supply', id , status , dstatus , type , entId );
         },
         //到款
         daokuanEve: function(e){
@@ -636,7 +638,7 @@ define( function( require, exports, module ) {
         });
 
         //补充合同
-        orderList.on('supply', function( id , status , dstatus , orderType ){
+        orderList.on('supply', function( id , status , dstatus , orderType , enterpriseId ){
             console.log('补充合同');
             console.log( id );
             
@@ -645,12 +647,12 @@ define( function( require, exports, module ) {
             //补充合同待审核的为只读状态
             if( status == 10 ){
 
-                detailApproval.show( id , 'd' , status , dstatus , {'orderType': orderType});
+                detailApproval.show( id , 'd' , status , dstatus , {'orderType': orderType,'enterpriseId': enterpriseId});
             
             //补充合同被驳回和撤回的可以补充合同
             } else {
 
-                detailApproval.show( id , 'b' , status , dstatus , {'orderType': orderType});
+                detailApproval.show( id , 'b' , status , dstatus , {'orderType': orderType,'enterpriseId': enterpriseId});
             }
 
             detailApproval.on('editSuccess',function(){
@@ -659,7 +661,7 @@ define( function( require, exports, module ) {
         });
 
         //查看
-        orderList.on('detail', function( id , status , dstatus , orderType ){
+        orderList.on('detail', function( id , status , dstatus , orderType , enterpriseId ){
             console.log('查看');
             console.log( id );
             console.log( status );
@@ -670,15 +672,15 @@ define( function( require, exports, module ) {
             if( IBSS.API_PATH == '/op/api/a' ){
                 
                 if( status == '2' || status == '3' ){
-                    detailApproval.show( id , 'a', status , dstatus , {'htshow':false, 'orderType': orderType });
+                    detailApproval.show( id , 'a', status , dstatus , {'htshow':false, 'orderType': orderType , 'enterpriseId': enterpriseId });
                 }else{
-                    detailApproval.show( id , 'd', status , dstatus , {'htshow':false, 'orderType': orderType });
+                    detailApproval.show( id , 'd', status , dstatus , {'htshow':false, 'orderType': orderType , 'enterpriseId': enterpriseId });
                 }
 
             //其他只可以看详情
             } else {
 
-                detailApproval.show( id , 'd', status , dstatus , {'orderType': orderType} );
+                detailApproval.show( id , 'd', status , dstatus , {'orderType': orderType , 'enterpriseId': enterpriseId } );
             }
             
             detailApproval.on('editSuccess',function(){
