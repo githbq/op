@@ -12,8 +12,9 @@ define( function( require, exports, module ) {
     var ENUMDATA = require('module/data/data').data;                    //枚举常量       
     var resetSelect = require('module/data/data').resetSelect;          //枚举常量
 
-    var DetailApproval = require('../detailapproval/detailapproval');      //订单详情
-	var DetailPayment = require('../detailpayment/detailpayment');         //收尾款
+    var DetailApproval = require('../detailapproval/detailapproval');           //[订单详情]
+    var OldDetailApproval = require('../olddetailapproval/detailapproval');     //[老订单详情]
+	var DetailPayment = require('../detailpayment/detailpayment');              //[收尾款]
 
 	var CustomHelper = require('../widget/customhelper/customhelper');     //联合跟进人
     var InvoiceDetail = require('../widget/invoicedetail/invoicedetail');  //发票
@@ -214,6 +215,23 @@ define( function( require, exports, module ) {
                     }
                 })
             }
+
+            //撤回订单
+            /*
+            if( bool ){
+                util.api({
+                    'url':'~/op/api/approval/withdrawapproval',
+                    'data':{
+                        'orderId': id
+                    },
+                    'success': function( data ){
+                        if( data.success ){
+                            
+                        }
+                    }
+                })
+            }
+            */
         },
 
         //收尾款
@@ -331,12 +349,19 @@ define( function( require, exports, module ) {
                 }
 
                 me.trigger('orderDetailPayment',info);
+
             //线上支付订单
             }else if( type == 18 ){
                 me.trigger('orderOnlinePay',{ 'id' :id } );
-            //普通订单
+
+            //普通订单( 判断新老订单 )
             } else {
-                me.trigger( 'detail', id , status , dstatus , orderType );
+
+                if( item.isNewOrder ){
+                    me.trigger('detail', id , status , dstatus , orderType );
+                } else {
+                    me.trigger('olddetail', id , status , dstatus , orderType );
+                }
             }
         },
         //查看详情
@@ -676,6 +701,13 @@ define( function( require, exports, module ) {
             detailApproval.on('editSuccess',function(){
                 orderList.getList();
             });
+        });
+
+        //
+        //查看老订单
+        //
+        orderList.on('olddetail',function( id , status , dstatus , orderType ){
+
         });
     }
 } );
