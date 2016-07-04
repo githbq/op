@@ -56,12 +56,11 @@ define(function (require, exports, module) {
             debugger
             mainCtrlScope.goToStep(step);
         }, getReturnData: function () {
-
             if (mainCtrlScope.mainForm.$valid || (mainCtrlScope.globalInfo.isAdd
                 && mainCtrlScope.mainForm.stepForm2
                 && mainCtrlScope.mainForm.stepForm2.$valid
-                && mainCtrlScope.mainForm.stepForm3
-                && mainCtrlScope.mainForm.stepForm3.$valid
+                && (!mainCtrlScope.mainForm.stepForm3 || (mainCtrlScope.mainForm.stepForm3
+                && mainCtrlScope.mainForm.stepForm3.$valid))
                 )) {
                 return mainReturnData;
             } else {
@@ -261,11 +260,13 @@ define(function (require, exports, module) {
                 }
                 debugger
                 $scope.rejectFrom = data.rejectFrom;
+                $scope.isCaiWu = data.rejectFrom == 2;
                 if (data.odrDraftEnterprise) {
                     data.odrDraftEnterprise.area = entInfo.area || data.odrDraftEnterprise.area;
                 }
                 $scope.entInfo = data.odrDraftEnterprise || {};
                 $scope.productInfo = data.odrDraftOrder || {};
+                $scope.globalInfo.enterpriseId= $scope.productInfo &&  $scope.productInfo.enterpriseId;
                 $scope.orderFromData = angular.fromJson(data.odrDraftOrder.content);//订单来源数据
                 $scope.payInfo = data.odrDraftPaidInfo;
                 //if (data.odrDraftPaidInfo.currPayList) {
@@ -462,7 +463,7 @@ define(function (require, exports, module) {
         };
         //显示错误
         $scope.showValid = function (step) {
-            if ($scope.isAdd && step == 1) {//增购续费下 不走验证直接通过
+            if ($scope.globalInfo.isAdd && step == 1) {//增购续费下 不走验证直接通过
                 return true;
             }
             $timeout(function () {
@@ -592,6 +593,7 @@ define(function (require, exports, module) {
 
 //保存提交按钮
         $scope.save = function (form) {
+            form.$commitViewValue();
             if (form.$invalid) {
                 $scope['step_' + $scope.step + '_validate_error'] = true;
                 return;
