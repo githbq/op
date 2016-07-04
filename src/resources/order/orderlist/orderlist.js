@@ -215,22 +215,6 @@ define( function( require, exports, module ) {
                     }
                 })
             }
-            //撤回订单
-            /*
-            if( bool ){
-                util.api({
-                    'url':'~/op/api/approval/withdrawapproval',
-                    'data':{
-                        'orderId': id
-                    },
-                    'success': function( data ){
-                        if( data.success ){
-                            
-                        }
-                    }
-                })
-            }
-            */
         },
 
         //收尾款
