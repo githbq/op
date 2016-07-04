@@ -6,15 +6,18 @@ define( function(require, exports, module){
 	var IBSS = window.IBSS,
         TPL = IBSS.tpl;
 		
-	var Slider = require('common/widget/slider/slider');
-	var AreaTree = require('module/areatree/areatree');
+	var Slider = require('common/widget/slider/slider');     // Slider滑框
+	var AreaTree = require('module/areatree/areatree');      // 区域树
 
-	var contentStr = require('./detailbackmoney.html');
+	var contentStr = require('./detailbackmoney.html');      //模板页面  
 
-	var OrderInfo = require('../widget/orderinfo/orderinfo');                  
-	var CotractMoney = require('../widget/cotractmoney/cotractmoney');
-	var refundinfo = require('../widget/refundinfo/refundinfo');
-	var InvoiceList = require('../widget/invoicelist/invoicelist');            
+	var OrderInfo = require('../widget/orderinfo/orderinfo');           //企业信息 
+
+	var CotractMoney = require('../widget/cotractmoney/cotractmoney');  //合同信息展示
+
+	var refundinfo = require('../widget/refundinfo/refundinfo');        //退款信息
+	
+	var InvoiceList = require('../widget/invoicelist/invoicelist');     //发票信息       
 	
 	var orderTypeAry = ['','办公版新购-普通','办公版新购-特批','营销版新购-普通','营销版新购-特批','办公版增购-普通',
 		'办公版增购-特批','营销版增购-普通','营销版增购-特批','办公版续费-普通','办公版续费-特批',
@@ -109,23 +112,23 @@ define( function(require, exports, module){
 				//合同付款信息
 				me.attrs.refundVO.readonly = !me.attrs.options.editFlag;
 				me.attrs.cotractMoney = new CotractMoney( { 'wrapper':me.$view.find('.common-product'),'orderId':me.attrs.options.id,'hasInovice':me.attrs.hasInovice, 'editFlag':me.attrs.options.editFlag} );
-				if(me.attrs.options.newFirst =='newFirst'){
+				
+				//
+				//newFirst
+				if(me.attrs.options.state == 'newFirst'){
 					me.attrs.cotractMoney.on('successData',function(){
 						me.attrs.refundVO = me.attrs.cotractMoney.getVauel();
-						//退款信息
 						
+						//退款信息
 						me.attrs.refundinfo =  refundinfo.show( {$view:me.$view.find('.common--meoney')}, me.attrs.refundVO ); 
 					})
-					
+				
 				}else{
 					//退款信息
 					me.attrs.refundinfo =  refundinfo.show( {$view:me.$view.find('.common--meoney')}, me.attrs.refundVO ); 
 				}
 				
-				
 			});
-
-
 		},
 
 		//渲染订单和产品基础信息：
@@ -231,15 +234,17 @@ define( function(require, exports, module){
 		setState:function(){
 			var me = this;
 			me.$('.state').hide();
+
 			me.$('.state-'+me.attrs.options.state).show();
-			me.$('.state-'+me.attrs.options.newFirst).show();
+			//me.$('.state-'+me.attrs.options.newFirst).show();
+			/*
 			if(me.attrs.options.editFlag && me.attrs.options.newFirst!='newFirst'){
 				me.$('.state-refuse').show();
 			}
+			*/
+
 			me.$('.currentTask-'+me.attrs.options.currentTask).show();
 			me.$('.order-id').html( me.attrs.options.id );
-		
-			
 		},
 		//设置审批意见
 		setOptions:function(){

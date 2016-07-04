@@ -12,8 +12,9 @@ define( function( require, exports, module ) {
     var ENUMDATA = require('module/data/data').data;                    //枚举常量       
     var resetSelect = require('module/data/data').resetSelect;          //枚举常量
 
-    var DetailApproval = require('../detailapproval/detailapproval');      //订单详情
-	var DetailPayment = require('../detailpayment/detailpayment');         //收尾款
+    var DetailApproval = require('../detailapproval/detailapproval');           //[订单详情]
+    var OldDetailApproval = require('../olddetailapproval/detailapproval');     //[老订单详情]
+	var DetailPayment = require('../detailpayment/detailpayment');              //[收尾款]
 
 	var CustomHelper = require('../widget/customhelper/customhelper');     //联合跟进人
     var InvoiceDetail = require('../widget/invoicedetail/invoicedetail');  //发票
@@ -172,16 +173,16 @@ define( function( require, exports, module ) {
             'click .detail-daokuan': 'daokuanEve',              //到款认领
             'click .detail-invoice': 'invoiceEve',              //发票
             'click .detail-tuikuan': 'tuikuanEve',              //退款
-            'click .detail-union': 'unionEve'                   //联合跟进人
+            'click .detail-union': 'unionEve',                  //联合跟进人
 
             //'click .order-detail':'orderDetailEve',
 			//'click .receive-money':'receiveMoneyEve',
 			//'click .order-detailPay':'orderDetailPayEve',
 			//'click .order-del':'orderDelEve',
-			//'click .exportOrder':'exportEve',
+			'click .exportOrder':'exportEve'
 			//'click .order-custom':'orderCustomEve',
 			//'click .order-backmoney':'orderBackmoneyEve', 
-			//'click .order-onlinepay':'orderOnlinePay',  //查看线上支付情况
+			//'click .order-onlinepay':'orderOnlinePay',         //查看线上支付情况
 			//'click .order-invoice':'orderInvoiceEve'
         },
         elements:{
@@ -215,6 +216,7 @@ define( function( require, exports, module ) {
                 })
             }
         },
+
         //收尾款
         finalPayEve: function(e){
             console.log('收尾款');
@@ -290,16 +292,59 @@ define( function( require, exports, module ) {
             var from = $(e.currentTarget).attr('data-from');
             var type = $(e.currentTarget).attr('data-type');
 
+            //获取订单详情
+            var list = me.list.all();
+            var item;
+            for( var i=0; i<list.length; i++ ){
+                if( list[i]['order']['id'] == id ){
+                    item = list[i];
+                    break;
+                }
+            }
+
+            var id = item.order.id;
+            var enterpriseId = item.order.enterpriseId;
+            var orderType = item.order.orderType;
+            var opinion = item.order.rejectReason;
+            var isTp = item.order.isTp;
+            var ea = item.order.enterpriseAccount;
+            var contractNo = item.order.contractNo;
+            var processInstanceId = item.order.procInstId;
+            //
+
             //收尾款
             if( type == 17 ){
 
+                //
+                //收尾款分两种情况
+                //查看 和 编辑提交
+                //======================
+
+                var info;
+                //已撤回和被驳回 可以编辑
+                if( status == 2 || status == 3 ){
+                    info = {'id':id,'enterpriseId':enterpriseId,'editFlag':true,'orderType':orderType,'person':'','opinion':opinion,'isTp':isTp,'state':'refuse','ea':ea,'processInstanceId':processInstanceId,'contractNo':contractNo}
+                
+                //其他仅可查看 
+                }else{
+                    
+                    info = {'id':id,'enterpriseId':enterpriseId,'editFlag':false,'orderType':orderType,'person':'','opinion':opinion,'isTp':isTp,'state':'','ea':ea,'processInstanceId':processInstanceId,'contractNo':contractNo}
+                }
+
+                me.trigger('orderDetailPayment',info);
+
             //线上支付订单
             }else if( type == 18 ){
-
                 me.trigger('orderOnlinePay',{ 'id' :id } );
-            //普通订单
+
+            //普通订单( 判断新老订单 )
             } else {
-                me.trigger( 'detail', id , status , dstatus , from );
+
+                if( item.isNewOrder ){
+                    me.trigger('detail', id , status , dstatus , orderType );
+                } else {
+                    me.trigger('olddetail', id , status , dstatus , orderType );
+                }
             }
         },
         //查看详情
@@ -369,21 +414,30 @@ define( function( require, exports, module ) {
             var contractNo = item.order.contractNo;
             //var newFirst = $(e.currentTarget).attr('data-newFirst');
             
-            var newFirst;
-            if( item.canRefund == 1 ){
-                newFirst = 'newFirst';
-            } else {
-                newFirst = "refund";
-            }
+
 
             //
-            if( newFirst == 'newFirst' ){
-                me.trigger('orderBackmoney',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':true,'orderType':orderType,
-               'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea,'processInstanceId':'','contractNo':contractNo,'newFirst':'newFirst'} );
-            }else{
+            // 点击时分三种情况  查看  第一次提交  驳回提交
+            //=================================================
+            var newFirst;
+            
+            //查看 退款待审核
+            if( item.orderStatus == 5 ){
+
                 me.trigger('orderBackmoney',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':false,'orderType':orderType,
                'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea,'processInstanceId':'','contractNo':contractNo} );
+            //退款驳回 退款撤回 可编辑
+            } else if( item.orderStatus == 7 || item.orderStatus == 8 ){
+
+                me.trigger('orderBackmoney',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':true,'orderType':orderType,
+               'person':'', 'opinion':opinion ,'isTp':isTp,'state':'refuse','ea':ea,'processInstanceId':'','contractNo':contractNo} );
+            //第一次提交
+            }else{
+
+                me.trigger('orderBackmoney',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':true,'orderType':orderType,
+               'person':'', 'opinion':opinion ,'isTp':isTp,'state':'newFirst', 'newFirst':'newFirst', 'ea':ea,'processInstanceId':'','contractNo':contractNo} );
             }
+
         },
 
         //联合跟进人
@@ -431,25 +485,10 @@ define( function( require, exports, module ) {
             if( me.$putEndTime.val() ){
                 putEndTime = new Date( me.$putEndTime.val() ).getTime();
             }
+            var queryData = me.model.all();
+            queryData.putStartTime = putStartTime;
+            queryData.putEndTime = putEndTime;
 
-            var queryData = {
-                'orderId':  me.model.get('orderId'),
-                'contractNo': me.model.get('contractNo'),
-                'en': me.model.get('en'),
-                'ea': me.model.get('ea'),
-				'orderType': me.model.get('orderType'),
-				'account': me.model.get('account'),
-				'isTp': me.model.get('isTp'),
-				'approveStatus': me.model.get('approveStatus'),
-				'payStatus': me.model.get('payStatus'),
-				'agent': me.model.get('agent'),
-				'isPayUp':me.model.get('isPayUp'),
-				'agentId': me.model.get('agentId'),
-                'putStartTime': putStartTime,
-                'putEndTime': putEndTime
-				
-            }
-            
             window.open( IBSS.API_PATH + '/odr/exportOrder?' + $.param( queryData ) );
         },
 
@@ -544,13 +583,16 @@ define( function( require, exports, module ) {
 		var customHelper = null;
 		var backMoney = null, invioceDetail = null ,onlinePay = null;
 		
-        //收尾款[]
+        //收尾款[需要测试]
         orderList.on('orderDetailPayment', function( options ){
             detailPayment = new DetailPayment();
             detailPayment.show( options );
+            detailPayment.on('saveSuccess',function(){
+                orderList.getList();
+            })
         });
 
-        //在线支付[需要测试]
+        //在线支付
 		orderList.on('orderOnlinePay', function( options ){
             onlinePay = new OnlinePay();
             onlinePay.show( options );
@@ -567,6 +609,7 @@ define( function( require, exports, module ) {
 
 		//退款[需要测试]
 		orderList.on('orderBackmoney', function( options ){
+            
             backMoney = new BackMoney();
             backMoney.show( options );
 			backMoney.on('saveSuccess', function( ){
@@ -597,15 +640,26 @@ define( function( require, exports, module ) {
             console.log('补充合同');
             console.log( id );
             
-            var detailApproval = new DetailApproval();  //订单详情   
-            detailApproval.show( id , 'b' , status , dstatus );
+            var detailApproval = new DetailApproval();  //订单详情
+
+            //补充合同待审核的为只读状态
+            if( status == 10 ){
+
+                detailApproval.show( id , 'd' , status , dstatus );
+            
+            //补充合同被驳回和撤回的可以补充合同
+            } else {
+
+                detailApproval.show( id , 'b' , status , dstatus);
+            }
+
             detailApproval.on('editSuccess',function(){
                 orderList.getList();
             });
         });
 
         //查看
-        orderList.on('detail', function( id , status , dstatus ){
+        orderList.on('detail', function( id , status , dstatus , orderType ){
             console.log('查看');
             console.log( id );
             console.log( status );
@@ -616,20 +670,27 @@ define( function( require, exports, module ) {
             if( IBSS.API_PATH == '/op/api/a' ){
                 
                 if( status == '2' || status == '3' ){
-                    detailApproval.show( id , 'a', status , dstatus );
+                    detailApproval.show( id , 'a', status , dstatus , {'htshow':false, 'orderType': orderType });
                 }else{
-                    detailApproval.show( id , 'd', status , dstatus );
+                    detailApproval.show( id , 'd', status , dstatus , {'htshow':false, 'orderType': orderType });
                 }
 
             //其他只可以看详情
             } else {
 
-                detailApproval.show( id , 'd', status , dstatus );
+                detailApproval.show( id , 'd', status , dstatus , {'orderType': orderType} );
             }
             
             detailApproval.on('editSuccess',function(){
                 orderList.getList();
             });
+        });
+
+        //
+        //查看老订单
+        //
+        orderList.on('olddetail',function( id , status , dstatus , orderType ){
+
         });
     }
 } );

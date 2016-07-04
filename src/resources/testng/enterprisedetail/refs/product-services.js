@@ -240,29 +240,53 @@ define(function (require, exports, module) {
         };
 
         //提交企业详情
-        factory.submitStepEntInfo = function (data,callback) {
+        factory.submitStepEntInfo = function (data, callback) {
             return util.api({
                 url: "~/op/api/a/odrDraft/draftEnterpriseNext",
-                data:data,
+                data: data,
                 success: callback
-            })
-        }
+            });
+        };
         //提交产品信息
         factory.submitStepProductInfo = function (data, callback) {
             return util.api({
                 url: "~/op/api/a/odrDraft/draftOrderNext",
-                data:data,
+                data: data,
                 success: callback
-            })
-        }
+            });
+        };
         //提交支付信息
-        factory.submitStepPayInfo = function (data,callback) {
+        factory.submitStepPayInfo = function (data, callback) {
             return util.api({
                 url: "~/op/api/a/odrDraft/draftPaidInfoNext",
-                data:data,
+                data: data,
                 success: callback
-            })
-        }
+            });
+        };
+        //获取代理商区域
+        factory.getAgentArea = function (callback) {
+            return util.api({
+                url: "~/op/api/a/odrDraft/getAgentArea",
+                data: data,
+                success: function (result) {
+                    if (result.success) {
+                        callback(result.value.model);
+                    }
+                }
+            });
+        };
+        //获取分期产品的数据
+        factory.getCurrPayList = function (callback) {
+            return util.api({
+                url: "~/op/api/a/odrDraft/getCurrPayList",
+                data: data,
+                success: function (result) {
+                    if (result.success) {
+                        callback(result.value.model);
+                    }
+                }
+            });
+        };
         return factory;
     });
 });

@@ -59,7 +59,7 @@ define(function (require, exports, module) {
                 });
             }
         }, getReturnData: function () {
-            if (mainReturnData.mainForm.$valid) {
+            if (mainReturnData.mainForm.$valid||mainReturnData.globalInfo.readonly) {
                 return mainReturnData;
             } else {
                 return false;
@@ -211,7 +211,15 @@ define(function (require, exports, module) {
         getInitData();//获取初始化数据 每次必调
         //企业详情信息
         var entInfo = $scope.entInfo = {};
-        entInfo.area = $scope.globalInfo.area;
+        entInfo.area = '';//代理区域现在统一从接口中取
+        if (!$scope.globalInfo.orderId) {
+            productService.getAgentArea(function (str) {
+                $timeout(function () {
+                    entInfo.area = str;
+                }, 10);
+            });
+        }
+
         entInfo.enterpriseName = $scope.globalInfo.enterpriseName;
         entInfo.enterpriseAccount = $scope.globalInfo.enterpriseAccount;
         //产品信息模块
@@ -238,6 +246,9 @@ define(function (require, exports, module) {
                 }
                 debugger
                 $scope.rejectFrom = data.rejectFrom;
+                if (data.odrDraftEnterprise) {
+                    data.odrDraftEnterprise.area = entInfo.area || data.odrDraftEnterprise.area;
+                }
                 $scope.entInfo = data.odrDraftEnterprise || {};
                 $scope.productInfo = data.odrDraftOrder || {};
                 $scope.orderFromData = angular.fromJson(data.odrDraftOrder.content);//订单来源数据
