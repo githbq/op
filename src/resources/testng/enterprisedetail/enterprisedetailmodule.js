@@ -472,6 +472,7 @@ define(function (require, exports, module) {
         }
         $scope.nextStep = function (form) {
             if ($scope.step == 1 || $scope.step == 2 || $scope.step == 3) {//企业详情界面
+                form.$commitViewValue();
                 if (form.$invalid) {
                     $scope['step_' + $scope.step + '_validate_error'] = true;
                     return;
