@@ -130,12 +130,13 @@ define( function( require, exports, module ) {
 				objData.enterprise.enterpriseId = me.attrs.enterpriseId;
 
 				console.log( objData );
-			/*
+			
+			
 			me.$commonAdd.text('提交中....');
 			me.$commonAdd.attr('disabled','disabled');
-			*/
+			
 
-			/*
+			
 			util.api({
 				'url':'/odr/balancePayment/submit',
 				'data':JSON.stringify( objData ),
@@ -155,7 +156,7 @@ define( function( require, exports, module ) {
 					me.$commonAdd.removeAttr('disabled');
 				}
 			});
-			*/
+			
 		},
 		cancelEve: function(){
 			
