@@ -316,7 +316,7 @@
             <div class="form-row">
                 <div class="form-field">
                     <label class="required v-top"><span>总部到款账户</span></label>
-                    <span class="inline-block"> <span ng-if="payInfoReadonly">{{payInfo.receiptsAccount}}<br/></span>
+                    <span class="inline-block"> <span ng-if="payInfoReadonly||globalInfo.isRefuse">{{payInfo.receiptsAccount}}<br/></span>
                     <input ng-if="!(payInfoReadonly)" ng-class="{readonly:payInfoReadonly}"
                            ng-readonly="payInfoReadonly"
                            ng-readonly="enterpriseReadonly"
