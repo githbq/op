@@ -158,23 +158,35 @@ define( function(require, exports, module){
 			me.dstatus = dstatus || '';
 			me.info = info || {};
 
+
+			//判断是否是订单的驳回状态
 			var isRefuse = false;  //是否是驳回状态
 			if( status == 3 ){
 				isRefuse = true;
 			}
 
+			//判断是否是增购续费
+			var isAdd = false;
+			if( info.orderType && (info.orderType == 2 || info.orderType == 3 || info.orderType == 4 ) ){
+				isAdd = true;
+			}
+			//var isAdd = false;  //是否是增购续费
+			//if( )
+
+
+
 			switch( type ){
 
 				//只读状态  [小助手/财务/销售] (仅可查看)
 				case 'd':
-					me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:true, isRefuse:isRefuse} );
+					me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), isAdd: isAdd, orderId:id, readonly:true, isRefuse:isRefuse} );
 					me.approvalPage.hideTopBar();
 					me.approvalPage.hideFootBtns();
 				break;
 
 				//审批只读 [小助手/财务](可进行审批同意或驳回);
 				case 'c':
-					me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:true, isRefuse:isRefuse} );
+					me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), isAdd: isAdd, orderId:id, readonly:true, isRefuse:isRefuse} );
 					me.approvalPage.hideTopBar();
 					me.approvalPage.hideFootBtns();
 					me.$('[data-state="c"]').show();
@@ -182,7 +194,7 @@ define( function(require, exports, module){
 
 				//订单查看  [销售]  (可进行编辑提交)
 				case 'a':
-					me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:false, isRefuse:isRefuse} );
+					me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), isAdd: isAdd, orderId:id, readonly:false, isRefuse:isRefuse} );
 					me.approvalPage.hideTopBar();
 					me.approvalPage.hideFootBtns();
 					me.$('[data-state="a"]').show();
@@ -190,7 +202,7 @@ define( function(require, exports, module){
 				
 				//补充合同  [销售]  (可以补充合同)
 				case 'b':
-					me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:true, isRefuse:isRefuse} );
+					me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), isAdd: isAdd, orderId:id, readonly:true, isRefuse:isRefuse} );
 					me.approvalPage.hideTopBar();
 					me.approvalPage.hideFootBtns();
 					me.$('[data-state="b"]').show();
