@@ -7111,6 +7111,10 @@ em {
   padding: 5px 0;
   text-align: right;
 }
+.m-transfer select {
+  height: 25px;
+  width: 100px;
+}
 .m-sandbox p {
   padding: 8px 0;
   height: 30px;

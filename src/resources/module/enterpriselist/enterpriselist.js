@@ -13,20 +13,31 @@ define(function(require, exports, module) {
     var EntStatusMap = IBSS.EntStatusMap;
     var enumdata = require('module/data/data').data;
     var resetSelect = require('module/data/data').resetSelect;
-
+    var CustomTree=require('module/customtree/customtree').getDialog();
 
     //转移企业
     //=============================
     var TransEnt = MClass( Dialog ).include({
         defaultAttr:{
             'title': '转移企业',
-            'width': 330
+            'width': 500
         },
         events:{
             'click .action-submit': 'submitEve',
-            'click .action-cancel': 'hide'
+            'click .action-cancel': 'hide',
+            'click #dept': 'selectDeptEve'
+        },
+        elements:{
+            '#departmentText': 'departmentText',
+            '#dept': 'dept',
+            '#sales': 'sales'
         },
         content: template.filter('#transfer').html(),
+        show: function(aId){
+            TransEnt.__super__.show.apply( this, arguments );
+            this.aId = aId;
+            this.$sales.prop('disabled',true);
+        },
         init: function(){
             TransEnt.__super__.init.apply( this, arguments );
         },
@@ -34,14 +45,94 @@ define(function(require, exports, module) {
         //提交
         submitEve: function(){
             var me = this;
-            console.log('this is submit');
+            var sales = me.$sales.val(),
+                type = $("input[type=radio]:checked").val(),
+                dept = me.$dept.val();
+            if(!dept){
+                util.showToast('请选择代理商类型');
+                return;
+            }
+            if(!type){
+                util.showToast('请选择部门');
+                return;
+            }
+            if((type == 1)&&(!sales)){
+                util.showToast('请选择销售人员');
+                return;
+            }
+         
+            util.api({
+                url: '~/op/api/a/enterprise/transferEnterprises',
+                data: {
+                    accountId: sales,
+                    agentType: type,
+                    vendorId: dept,
+                    enterpriseIds: me.aId.join(',') 
+                },
+                success: function(data) {
+                    if(data.success){
+                        util.showTip('企业转移成功');
+                        me.hide();
+                    }
+                }
+            });
+
         },
 
         //隐藏
         hide: function(){
             TransEnt.__super__.hide.apply( this, arguments );
+            var me = this;
+            me.aId = '';
+            $("input[type=radio]").prop('checked', false);
+            me.$departmentText.val('');
+            me.$dept.val('');
+            me.$sales.empty();
+        },
+        //选择部门
+        selectDeptEve:function(){
+            var me = this;
+            me.deptTree= new CustomTree({ 
+                'title': '转移企业-选择部门',
+                searchOptions:{show:true,title:'部门名称'},
+                ztreeOptions:{
+                    expandAll:true,
+                    check:{chkStyle: "radio",radioType: "all"},
+                    checkStyle:"radio"
+                },
+                ajaxData:{url:'~/op/api/a/odr/receivedpay/getAllDepartment'}
+            });
+            me.deptTree.on('enter', function (  ) {
+                me.deptObj = me.deptTree.getValue() ? me.deptTree.getValue()[0]: null;
+                me.deptObjId = [me.deptObj.id];
+                me.postObjId = [];
+                me.postObj = null;
+                me.deptObj ? me.$departmentText.val(me.deptObj.name ):me.$departmentText.val('');
+                me.$dept.val(me.deptObjId);
+                util.api({
+                    url: '',
+                    data: {
+                        departmentId: me.deptObjId
+                    },
+                    success: function(res) {
+                        if(res.success){
+                            var options = '<option value="" disabled selected style="display: none;">请选择</option>';
+                            res.model.content.each(function(idnex, item){
+                                options += '<option value=""></option>';
+                            });
+                            me.$sales.prop('disabled',false);
+                            me.$sales.append(me.options);
+                        }
+                    }
+                });
+                me.options = '<option value="" disabled selected style="display: none;">请选择</option>';
+                me.options += '<option value="23212">热工无</option>';
+                me.$sales.html(me.options);
+                me.$sales.prop('disabled',false);
+            });
+            me.deptTree.show( [ me.$dept.val() ], {});
         }
-    })
+    });
 
     //沙盒设置
     //==================================
@@ -84,7 +175,7 @@ define(function(require, exports, module) {
             me.model.clear();
             SandBox.__super__.hide.apply( this, arguments );
         }
-    })
+    });
 
     //
     // 企业列表
@@ -145,7 +236,12 @@ define(function(require, exports, module) {
         },
         //打开转移企业弹窗
         transferEve: function(){
-            this.transEnt.show();
+            var array = this.getSelect();
+            if(array.length <= 0){
+                util.showToast('请选择企业！');
+                return;
+            }
+            this.transEnt.show( array );
         },
         //打开沙盒设置弹窗
         sandboxEve: function(){

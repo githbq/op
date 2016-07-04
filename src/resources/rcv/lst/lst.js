@@ -81,7 +81,7 @@ define( function( require, exports, module ) {
         selectDeptEve:function(){
             var me = this;
             me.deptTree= new CustomTree({ 
-                'title': '业绩归属部门-选择部门',
+                'title': '新建到款信息-选择部门',
                 searchOptions:{show:true,title:'部门名称'},
                 ztreeOptions:{
                     expandAll:true,
@@ -95,11 +95,11 @@ define( function( require, exports, module ) {
                 me.deptObjId = [me.deptObj.id];
                 me.postObjId = [];
                 me.postObj = null;
-                me.deptObj ? me.$departmentText.val(me.deptObj.name ):me.$department.val('');
+                me.deptObj ? me.$departmentText.val(me.deptObj.name ):me.$departmentText.val('');
                 me.$department.val(me.deptObjId);
             });
             
-            me.deptTree.show( [ me.$department.val() ], {})
+            me.deptTree.show( [ me.$department.val() ], {});
         },
         
         submit: function() {//提交编辑
