@@ -311,7 +311,7 @@ define( function( require, exports, module ) {
             var contractNo = item.order.contractNo;
             var processInstanceId = item.order.procInstId;
             //
-
+            
             //收尾款
             if( type == 17 ){
 

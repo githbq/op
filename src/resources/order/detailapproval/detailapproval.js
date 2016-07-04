@@ -133,9 +133,9 @@ define( function(require, exports, module){
 
 			me.approvalPage.goToStep(index);
 			if(index == 3 && me.type == 'a'){
-				me.$('data-state=["a"]').show();
+				me.$('[data-state="a"]').show();
 			} else {
-				me.$('data-state=["a"]').hide();
+				me.$('[data-state="a"]').hide();
 			}
 		},
 		//
