@@ -18,8 +18,8 @@ define( function(require, exports, module){
     //订单列表/审批列表——付费状态
     data['paystatus'] = {
     	'1': '全款',
-    	'2': '未付',
-    	'3': '分期'
+    	'2': '分期',
+    	'3': '未付'
     }
     //订单列表———应用类型
     data['apptype'] = {

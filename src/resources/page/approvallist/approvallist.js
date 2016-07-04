@@ -151,7 +151,7 @@ define( function(require, exports, module){
                 'enterpriseId': detail.enterpriseId, 
                 'editFlag': false,                              //=========       //detail.canEdit || '',
                 'orderType': detail.orderType,
-                'opinion': detail.lastAssigneeOpinion,
+                'opinion': detail.lastAssigneeOpinion,          //=========
                 'isTp': detail.isTp,
                 'state': $scope.state,                          //=========
                 'ea': detail.enterpriseAccount,
