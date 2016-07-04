@@ -211,26 +211,29 @@ define( function( require, exports, module ) {
                 },
                 success: function( data ) {
                     var tr = '';
-                    if ( data.success && data.model.content) {
+                    if(data.success){
                         me.pagination.setTotalSize( data.value.model.itemCount );
-                        var items = data.model.content;
-                        $( items ).each( function( i, item ) {
-                            item.formatTime = new Date( item.order.createTime )._format( "yyyy-MM-dd" );
-                            tr += '<tr>'
-                                +'<td><input type="radio" name="select" value="'+item.order.id+'"></td>'
-                                +'<td>'+item.order.id+'</td>'
-                                +'<td>'+item.order.contractNo+'</td>'
-                                +'<td>'+item.order.enterpriseName+'</td>'
-                                +'<td>'+item.order.enterpriseAccount+'</td>'
-                                +'<td>'+item.account.name+'</td>'
-                                +'<td>'+item.formatTime+'</td>'
-                                +'<td><a class="check" data-id="'+item.order.id+'">查看</a></td>'
-                                +'</tr>'; 
-                        });
-                    }else{
-                        tr = '<tr><td colspan="2"><p class="info">暂无数据</p></td></tr>';
+                        if (data.model.content) {
+                           
+                            var items = data.model.content;
+                            $( items ).each( function( i, item ) {
+                                item.formatTime = new Date( item.order.createTime )._format( "yyyy-MM-dd" );
+                                tr += '<tr>'
+                                    +'<td><input type="radio" name="select" value="'+item.order.id+'"></td>'
+                                    +'<td>'+item.order.id+'</td>'
+                                    +'<td>'+item.order.contractNo+'</td>'
+                                    +'<td>'+item.order.enterpriseName+'</td>'
+                                    +'<td>'+item.order.enterpriseAccount+'</td>'
+                                    +'<td>'+item.account.name+'</td>'
+                                    +'<td>'+item.formatTime+'</td>'
+                                    +'<td><a class="check" data-id="'+item.order.id+'">查看</a></td>'
+                                    +'</tr>'; 
+                            });
+                        }else{
+                            tr = '<tr><td colspan="2"><p class="info">暂无数据</p></td></tr>';
+                        }
+                        me.$tbody.html( tr );
                     }
-                    me.$tbody.html( tr );
                 },
                 error: function(){
                     var tr = '<tr><td colspan="2"><p class="info">数据加载失败</p></td></tr>';
