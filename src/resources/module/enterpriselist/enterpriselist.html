@@ -66,13 +66,13 @@
                     <th style="width:200px;">企业类型</th>
                     <th style="width:200px;">企业状态</th>
                     <th style="width:160px;">超出数量预警</th>
-                    <th style="">操作</th>
+                    <th style="width:200px;">操作</th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody ce-collection="list">
                     <td></td>
-                    <td data-state="support"><input type="checkbox" class="selectitem" value="<%=item.csmEnterprise.enterpriseAccount%>"></td>
+                    <td data-state="support"><input type="checkbox" class="selectitem" value="<%=item.csmEnterprise.enterpriseID%>"></td>
                     <td><%=item.csmEnterprise.enterpriseName%></td>
                     <td><%=item.csmEnterprise.enterpriseAccount%></td>
 					<td><%=item.agent ? item.agent.name:''%> </td>
@@ -105,7 +105,7 @@
     </div>
     <div class="list-pager">
         <p class="buttons" data-state="support">
-            <button class="btn-transfer">转移企业</button>
+            <button class="btn-transfer btn-blue">转移企业</button>
             <!--<button class="btn-sandbox">沙盒设置</button>-->
         </p>
         <p class="pages"></p>

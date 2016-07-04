@@ -26,7 +26,8 @@ define(function (require, exports, module) {
         '17':'项目管理'
     };
 
-    var AddEnt = MClass(M.Center).include({
+    //退款信息
+    var AddEnt = MClass( M.Center ).include({
         view: contentStr,
         /*
          defaultAttr:{
@@ -35,6 +36,7 @@ define(function (require, exports, module) {
          },
          */
         events: {},
+
         elements: {
             '.payStatus-select': 'payStatusSelect',
             '.stage-box': 'stageBox',
@@ -42,6 +44,7 @@ define(function (require, exports, module) {
             '.sub-app': 'subApp',
             '.payDate': 'payDate'
         },
+
         init: function () {
             AddEnt.__super__.init.apply(this, arguments);
             var me = this;

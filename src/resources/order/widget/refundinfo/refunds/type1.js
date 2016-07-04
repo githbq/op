@@ -2,6 +2,7 @@ define(function (require, exports, module) {
     //已开普票
     var common = require('./index');
     var math= require('common/widget/math/math');
+    
     //转换结果值
     exports.transferResultData = function (itemInfo) {
         return function () {

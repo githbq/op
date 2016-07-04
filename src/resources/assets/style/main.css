@@ -89,6 +89,7 @@
 .u-tablelist table {
   border-top: none;
   border-bottom: none;
+  width: 100%;
   /*单元表格定宽*/
   table-layout: fixed;
 }
@@ -7110,6 +7111,10 @@ em {
 .m-transfer .buttons {
   padding: 5px 0;
   text-align: right;
+}
+.m-transfer select {
+  height: 25px;
+  width: 100px;
 }
 .m-sandbox p {
   padding: 8px 0;

@@ -9,7 +9,7 @@ define( function(require, exports, module){
         TPL = IBSS.tpl;
 		
 	var Slider = require('common/widget/slider/slider');
-	 var AreaTree = require('module/areatree/areatree');
+	var AreaTree = require('module/areatree/areatree');
 
 	var contentStr = require('./detailpayment.html');
 	
@@ -202,6 +202,7 @@ define( function(require, exports, module){
 			 //收尾款模块
 			 //设置是否可以编辑
 			me.attrs.moneyEdit = me.attrs.options.editFlag;
+			
 			//财务驳回只能部分编辑和小助手第二次驳回
 			if(me.attrs.options.rejectsFrom &&  me.attrs.options.rejectsFrom == 3  && me.attrs.options.editFlag){
 				me.attrs.moneyEdit = false;;

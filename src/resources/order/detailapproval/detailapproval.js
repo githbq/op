@@ -57,7 +57,9 @@ define( function(require, exports, module){
 
 			me.contractId = '';             //合同ID
 
-			//me.$view.css( {"z-index":3000} );
+			if( me.attrs.isTop ){
+				me.$view.css( {"z-index":3000} );
+			}
 			me.$hetong.on('change',function(){
 				console.log('hetongchange');
 				var fileExtension = me.$hetong[0].files[0].name.split('.').pop().toLowerCase();
@@ -137,9 +139,13 @@ define( function(require, exports, module){
 		//				b 补充合同(可以补充合同)
 		//				c 审批只读(可进行审批同意或驳回) 
 		//				d 完全只读状态 
+		//              
 		// @param status  订单状态        []
 		// @param dstatus 到款认领状态    []
 		// @param info    一些额外信息
+		//
+		// show       为第一层状态控制
+		// getInfo    为第二层状态控制
 		//==============================================
 		show: function( id , type , status , dstatus, info ){
 			var me = this;
@@ -148,49 +154,78 @@ define( function(require, exports, module){
 			console.log( status );
 			//缓存额外信息
 			me.orderId = id;
-			me.status = status;
-			me.dstatus = dstatus;
-			me.info = info;
+			me.status = status || '';
+			me.dstatus = dstatus || '';
+			me.info = info || {};
 
+
+			//判断是否是订单的驳回状态
 			var isRefuse = false;  //是否是驳回状态
 			if( status == 3 ){
 				isRefuse = true;
 			}
 
+			//判断是否是增购续费
+			var isAdd = false;
+			if( info.orderType && (info.orderType == 2 || info.orderType == 3 || info.orderType == 4 ) ){
+				isAdd = true;
+			}
+			//var isAdd = false;  //是否是增购续费
+			//if( )
+
+
+
 			switch( type ){
+
+				//只读状态  [小助手/财务/销售] (仅可查看)
+				case 'd':
+					me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), isAdd: isAdd, orderId:id, readonly:true, isRefuse:isRefuse} );
+					me.approvalPage.hideTopBar();
+					me.approvalPage.hideFootBtns();
+				break;
 
 				//审批只读 [小助手/财务](可进行审批同意或驳回);
 				case 'c':
-					me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:true, isRefuse:isRefuse} );
+					me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), isAdd: isAdd, orderId:id, readonly:true, isRefuse:isRefuse} );
 					me.approvalPage.hideTopBar();
 					me.approvalPage.hideFootBtns();
 					me.$('[data-state="c"]').show();
 				break;
+
 				//订单查看  [销售]  (可进行编辑提交)
 				case 'a':
-					me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:false, isRefuse:isRefuse} );
+					me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), isAdd: isAdd, orderId:id, readonly:false, isRefuse:isRefuse} );
 					me.approvalPage.hideTopBar();
 					me.approvalPage.hideFootBtns();
 					me.$('[data-state="a"]').show();
 				break;
+				
 				//补充合同  [销售]  (可以补充合同)
 				case 'b':
-					me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:true, isRefuse:isRefuse} );
+					me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), isAdd: isAdd, orderId:id, readonly:true, isRefuse:isRefuse} );
 					me.approvalPage.hideTopBar();
 					me.approvalPage.hideFootBtns();
 					me.$('[data-state="b"]').show();
 				break;
-				//只读状态  [小助手/财务/销售] (仅可查看)
-				case 'd':
-					me.approvalPage = new Page( {wrapper: me.$view.find('.approval-content'), orderId:id, readonly:true, isRefuse:isRefuse} );
-					me.approvalPage.hideTopBar();
-					me.approvalPage.hideFootBtns();
-				break;
+				
+				//
 			}
+
+			//增购续费不显示企业信息
+			me.info.orderType = me.info.orderType || '';
+			if( (me.info.orderType == 2) || (me.info.orderType == 3) || (me.info.orderType == 4) ){
+				me.$('.approval-title [data-index="1"]').hide();
+				me.$('.approval-title [data-index="2"]').trigger('click');
+			}
+
 
 			me.approvalPage.render();
 			me.getInfo();
 		},
+		//
+
+
+
 		//获取基本信息
 		getInfo: function(){
 			var me = this;
@@ -212,7 +247,7 @@ define( function(require, exports, module){
 			});
 			
 			//获取到款信息
-			if( me.dstatus == 3 ){
+			//if( me.dstatus == 3 ){
 				util.api({
 					'url':'/odr/getClaimedReceivedPayForDetail',
 					'data':{
@@ -223,20 +258,24 @@ define( function(require, exports, module){
 						console.log( data );
 						if( data.value.model ){
 							me.dklist.reload([data.value.model]);
+							me.$('.approval-daokuan').show();
 						}else{
-							
-							me.$('#daokuanlist').html('<tr><td colspan="3"><p class="tip">暂无数据</p></td></tr>');
+							me.$('.approval-daokuan').hide();
+							//me.$('#daokuanlist').html('<tr><td colspan="3"><p class="tip">暂无数据</p></td></tr>');
 						}	
 					}
 				});
-				me.$('.approval-daokuan').show();
-			}
+				
+			//}
 			
 
 			//获取补充合同信息
-			//如果是补充合同待审核
+			//如果是补充合同待审核 补充合同驳回 补充合同撤回 都显示补充合同
 			//则显示合同图片的同时 隐藏合同审核选择
-			if( me.status == 10 ){
+			//
+			//当额外信息是不可看时 隐藏合同
+			//
+			if( (me.status == 10) || (me.status == 11) || (me.status == 12) ){
 				util.api({
 					'url':'/odr/getOdrContract',
 					'data':{
@@ -261,9 +300,15 @@ define( function(require, exports, module){
 						}
 					}
 				})
-				me.$('.approval-contractshow').show();
+				
+				if( me.info.htshow == false ){
+					me.$('.approval-contractshow').hide();
+				}else{
+					me.$('.approval-contractshow').show();
+				}
+
 				//同时隐藏合同审核选择
-				me.$('.approval-hetongopinion').hide();
+				//me.$('.approval-hetongopinion').hide();
 			}
 		},
 
@@ -281,12 +326,15 @@ define( function(require, exports, module){
 		agreeEve: function(){
 			var me = this;
 
+			/*
 			var bool;
 			if( me.status == 10 ){
 				bool = true;
 			}else{
 				bool = me.verify();
 			}
+			*/
+			var bool = me.verify();
 
 			if( bool ){
 				util.api({
@@ -325,32 +373,36 @@ define( function(require, exports, module){
 				return false;
 			}
 
-			util.api({
-                'url': '~/op/api/approval/directapprove',
-                'data':{
-                    'processInstanceId': me.info.processInstanceId, //流程实例ID
-                    'approved': false,                  		    //审批结果(通过/拒绝)
-                    'opinion': me.model.get('comment'),  			//审批意见
-                    'contractState': me.model.get('contractState'), //是否合格
-                    'rejectReason': me.model.get('rejectReason')   	//不合格原因
-                },
-				'beforeSend':function(){
-					me.$agree.attr('disabled','disabled');
-					me.$refuse.attr('disabled','disabled').text('提交中');
-				},
-                success: function( data ){
-                    console.warn( data );
-                    if( data.success ){
-                        util.showTip('批复成功');
-                        me.hide();
-                        me.trigger('approvalSuccess');
-                    }
-                },
-				complete: function(){
-					me.$agree.removeAttr('disabled');
-					me.$refuse.removeAttr('disabled').text('驳回');
-				}
-            })
+			var bool = me.verify();
+
+			if( bool ){
+				util.api({
+	                'url': '~/op/api/approval/directapprove',
+	                'data':{
+	                    'processInstanceId': me.info.processInstanceId, //流程实例ID
+	                    'approved': false,                  		    //审批结果(通过/拒绝)
+	                    'opinion': me.model.get('comment'),  			//审批意见
+	                    'contractState': me.model.get('contractState'), //是否合格
+	                    'rejectReason': me.model.get('rejectReason')   	//不合格原因
+	                },
+					'beforeSend':function(){
+						me.$agree.attr('disabled','disabled');
+						me.$refuse.attr('disabled','disabled').text('提交中');
+					},
+	                success: function( data ){
+	                    console.warn( data );
+	                    if( data.success ){
+	                        util.showTip('批复成功');
+	                        me.hide();
+	                        me.trigger('approvalSuccess');
+	                    }
+	                },
+					complete: function(){
+						me.$agree.removeAttr('disabled');
+						me.$refuse.removeAttr('disabled').text('驳回');
+					}
+	            })
+			}
 		},
 		//重新编辑保存
 		saveEve: function(){

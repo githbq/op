@@ -113,8 +113,9 @@ define(function (require, exports, module) {
                     $(".panel-content li a").removeClass('locatedNode');
                     target.addClass('locatedNode');
                     me.$content.scrollTop(distance); 
+                }else{
+                    util.showToast('请输入准确信息');
                 }
-                
             }, 
 
             updateNodes: function (highlight) {
@@ -187,7 +188,7 @@ define(function (require, exports, module) {
                     if (me.newOptions.searchOptions.searchKeys) {
                         $(me.newOptions.searchOptions.searchKeys).each(function (i, n) {
                             data[n] = me.model.get(n);
-                        })
+                        });
                     }
                     me.newOptions.ajaxData.data = me.newOptions.ajaxData.data || {};
                     $.extend(me.newOptions.ajaxData.data, data);
@@ -283,7 +284,6 @@ define(function (require, exports, module) {
                 this.hide();
             },
             hide: function () {
-
                 this.remove();
             },
             remove: function () {
