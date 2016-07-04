@@ -101,9 +101,10 @@ define(function (require, exports, module) {
                 }
             });
         };
-        //获取订单历史列表
+        //获取复选框默认数据
         factory.getInitData = function (enterpriseId, submitType, callback) {
-            if (enterpriseId && (enterpriseId || submitType)) {
+            //if (enterpriseId && (enterpriseId || submitType)) {
+            if (enterpriseId || submitType) {
                 return util.api({
                     url: '~/op/api/a/odrDraft/getInitData',
                     data: {enterpriseId: enterpriseId, submitType: submitType},

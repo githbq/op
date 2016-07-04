@@ -54,7 +54,7 @@ define(function (require, exports, module) {
         },
         goToStep: function (step) {//跳到指定的某一步
             debugger
-            mainCtrlScope.goToStep(step);
+            return mainCtrlScope.goToStep(step);
         }, getReturnData: function () {
             if (mainCtrlScope.mainForm.$valid || (mainCtrlScope.globalInfo.isAdd
                 && (!mainCtrlScope.mainForm.stepForm3 || (mainCtrlScope.mainForm.stepForm3
@@ -252,6 +252,9 @@ define(function (require, exports, module) {
                         }, 10);
                     });
                 }
+                return true;
+            } else {
+                return false;
             }
         };
         $scope.enterpriseReadonly = $scope.globalInfo.readonly;//企业详情信息 只读
