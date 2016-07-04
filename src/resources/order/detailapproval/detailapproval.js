@@ -166,8 +166,10 @@ define( function(require, exports, module){
 			}
 
 			//判断是否是增购续费
+			//如果是增购续费 将参数传给订单详情页面
+			//
 			var isAdd = false;
-			if( info.orderType && (info.orderType == 2 || info.orderType == 3 || info.orderType == 4 ) ){
+			if( me.info.orderType && (me.info.orderType == 2 || me.info.orderType == 3 || me.info.orderType == 4 ) ){
 				isAdd = true;
 			}
 			//var isAdd = false;  //是否是增购续费
