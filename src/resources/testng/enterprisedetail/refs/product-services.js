@@ -276,7 +276,7 @@ define(function (require, exports, module) {
             });
         };
         //获取分期产品的数据
-        factory.getCurrPayList = function (callback) {
+        factory.getCurrPayList = function (data,callback) {
             return util.api({
                 url: "~/op/api/a/odrDraft/getCurrPayList",
                 data: data,
