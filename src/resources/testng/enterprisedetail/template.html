@@ -316,7 +316,7 @@
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>总部打款日期</span></label>
-                    <div class="inline-block" required2="true" ng-readonly="payInfoReadonly" getform="this['stepForm3']" name="payDate" datetimeconfig="payInfo.payDate_dataConfig" ng-model="payInfo.payDate"></div>
+                    <div class="inline-block" ng-disabled="payInfoReadonly" required2="true" ng-readonly="payInfoReadonly" getform="this['stepForm3']" name="payDate" datetimeconfig="payInfo.payDate_dataConfig" ng-model="payInfo.payDate"></div>
                 </div>
             </div>
             <div class="form-row">
@@ -325,7 +325,6 @@
                     <span class="inline-block"> <span ng-if="payInfoReadonly||globalInfo.isRefuse">{{payInfo.receiptsAccount}}<br/></span>
                     <input ng-if="!(payInfoReadonly)" ng-class="{readonly:payInfoReadonly}"
                            ng-readonly="payInfoReadonly"
-                           ng-readonly="enterpriseReadonly"
                            required select2
                            name="receiptsAccount" ng-model="payInfo.receiptsAccount"
                            placeholder="请输入银行账号"
