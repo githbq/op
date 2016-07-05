@@ -1,7 +1,6 @@
 //
-// 通用合同信息付款信息
+// 退款用合同产品展示信息
 //==========================================
-
 define(function (require, exports, module) {
 
     var Slider = require('common/widget/slider/slider');
@@ -108,20 +107,22 @@ define(function (require, exports, module) {
             
             me.attrs.refundVO={};
             
+            //
+            //组装子产品列表
             for(var i = 0; i<sublist.length; i++ ){
                 
                 var tempId = parseInt(sublist[i].productId);
                 
                 switch( tempId ){
                     case 3:
-                        serviceDoms.push('<label style="width:250px;"> <span class="label">'+productIdDic[tempId]+'已使用金额(元)：</span> </label><span class="w-len">'+sublist[i].contractAmount+'</span><span class="w-len">非退款项</span>');
+                        serviceDoms.push('<label style="width:250px;"> <span class="label">'+sublist[i]['productName']+'已使用金额(元)：</span> </label><span class="w-len">'+sublist[i].contractAmount+'</span><span class="w-len">非退款项</span>');
                         //serviceDom+=" <tr> <td>"+productIdDic[tempId]+"合同金额(元)：</td><td class='money-box'>"+sublist[i].contractAmount+"</td>" +
                         //" <td>非退款项</td><td></td></tr>";
                         contractAmount+=parseFloat(sublist[i].contractAmount);
                         usedAmound+=parseFloat(sublist[i].usedAmount);
                         break;
 					case 16:
-                        serviceDoms.push('<label style="width:250px;"> <span class="label">'+productIdDic[tempId]+'已使用金额(元)：</span> </label><span class="w-len">'+sublist[i].contractAmount+'</span><span class="w-len">非退款项</span>');
+                        serviceDoms.push('<label style="width:250px;"> <span class="label">'+sublist[i]['productName']+'已使用金额(元)：</span> </label><span class="w-len">'+sublist[i].contractAmount+'</span><span class="w-len">非退款项</span>');
                         //serviceDom+=" <tr> <td>"+productIdDic[tempId]+"合同金额(元)：</td><td class='money-box'>"+sublist[i].contractAmount+"</td>" +
                         //" <td>非退款项</td><td></td></tr>";
                         contractAmount+=parseFloat(sublist[i].contractAmount);
@@ -133,7 +134,7 @@ define(function (require, exports, module) {
                         //strDom+=" <tr> <td>"+productIdDic[tempId]+"合同金额(元)：</td><td class='money-box'>"+sublist[i].contractAmount+"</td>" +
                         //" <td>已使用金额(元)：</td><td class='money-box'>"+sublist[i].usedAmount+"</td></tr>";
 
-                        strDoms.push('<label style="width:250px;"> <span class="label">'+productIdDic[tempId]+'合同金额(元)：</span> </label> <span class="w-len">'+sublist[i].contractAmount+'</span>已使用金额(元)：<span class="w-len">'+sublist[i].usedAmount+'</span>');
+                        strDoms.push('<label style="width:250px;"> <span class="label">'+sublist[i]['productName']+'合同金额(元)：</span> </label> <span class="w-len">'+sublist[i].contractAmount+'</span>已使用金额(元)：<span class="w-len">'+sublist[i].usedAmount+'</span>');
                         contractAmount+=parseFloat(sublist[i].contractAmount);
                         usedAmound+=parseFloat(sublist[i].usedAmount);
                         var backAmount = {};
@@ -142,7 +143,6 @@ define(function (require, exports, module) {
                             backAmount = {'productId':sublist[i].productId,'amount':tempMoney,'refundAmount':0};
                             tempSublist.push( backAmount );
                         }
-
                 }
             }
             //组合传给退款的数据
