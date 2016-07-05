@@ -79,7 +79,7 @@ define(function (reuqire, exports, module) {
                             result=result.replace(/\./g,'');
                         }
                     }
-                    result = setMaxOrMinValue(result);
+                    result = setMaxOrMinValue(result,true);
                     $dom.val(result);
                     ctrl.$setViewValue(result !== null ? parseFloat(result) : result, true);//只能赋模型的值不能改变VIEW
                     setTimeout(function () {
@@ -96,7 +96,7 @@ define(function (reuqire, exports, module) {
                         ctrl.$setValidity('number', true);
                     }, 100);
                 });
-                function setMaxOrMinValue(result) {
+                function setMaxOrMinValue(result,ignoreMin) {
                     if (isNaN(result) || result === '') {
                         result = null;
                     } else {
@@ -108,13 +108,13 @@ define(function (reuqire, exports, module) {
                         if (scope.max) {
                             max = parseFloat(scope.max);
                         }
-                        if (scope.min) {
+                        if (scope.min && !ignoreMin) {
                             min = parseFloat(scope.min);
                         }
                         if (!(isNaN(max) || max === '') && result > max) {
                             result = max;
                         }
-                        if (!(isNaN(min) || min === '') && result < min) {
+                        if (!(isNaN(min) || min === '') && result < min && !ignoreMin) {
                             result = min;
                         }
                     }
