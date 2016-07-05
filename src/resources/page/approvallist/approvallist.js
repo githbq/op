@@ -77,7 +77,7 @@ define( function(require, exports, module){
                     'en': $scope.en,
                     'ea': $scope.ea,
                     'orderType': $scope.orderType,
-                    'applicantname': $scope.applicantname,
+                    'applicantName': $scope.applicantname,
                     'payStatus': $scope.payStatus,
                     'agentName': $scope.agentName,
                     'orderStatus': $scope.orderStatus,
