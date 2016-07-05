@@ -674,10 +674,13 @@ define( function( require, exports, module ) {
                 detailApproval.show( id , 'a', status , dstatus , {'htshow':false, 'orderType': orderType , 'enterpriseId': enterpriseId });
             } else {
                 detailApproval.show( id , 'd', status , dstatus , {'htshow':false, 'orderType': orderType , 'enterpriseId': enterpriseId });
-            } else {
+            } 
+
+            /*
+            else {
                 detailApproval.show( id , 'd', status , dstatus , {'htshow',false, 'orderType': orderType , 'enterpriseId': enterpriseId } );
             }
-
+            */
             /*
             //被驳回和已撤回可编辑
             if( IBSS.API_PATH == '/op/api/a' ){
