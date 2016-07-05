@@ -10,6 +10,7 @@ define( function(require, exports, module){
 
 	//var OpenApprovalList = require('module/openapprovallist/openapprovallist');
 	var DetailApproval = require('../../order/detailapproval/detailapproval');        //普通订单
+    var OldDetailApproval = require('../../order/olddetailapproval/detailapproval');  //老订单
 	var DetailPayment = require('../../order/detailpayment/detailpayment');           //收尾款
 	var BackMoney = require('../../order/detailbackmoney/detailbackmoney');           //退款
     
@@ -177,24 +178,57 @@ define( function(require, exports, module){
             }
 
             //普通订单
+            //判断新老订单逻辑
+            //========================
             if( data.orderType != 17 ){
 
-                //待审核的
-                if( $scope.state == 'wait' ){
-                    type = 'c';
+                console.log('data');
+                console.log(detail);
+                
+                //新订单
+                if( detail.isNewOrder ){
 
-                //非待审核的均为只读状态
+                    //待审核的
+                    if( $scope.state == 'wait' ){
+                        type = 'c';
+
+                    //非待审核的均为只读状态
+                    }else{
+                        type = 'd';
+                    }
+                    var detailApproval = new DetailApproval();
+                    detailApproval.show( id , type , status , dstatus ,{ 'processInstanceId': inId , 'orderType':detail.orderType ,'enterpriseId':data.enterpriseId } );
+                    //注册事件
+                    detailApproval.on('approvalSuccess',function(){
+                        $scope.search();
+                    });
+                    return false;
+                
+                //老订单
                 }else{
-                    type = 'd';
+
+                    var data = {
+                        'id': detail.orderId,
+                        'enterpriseId': detail.enterpriseId,
+                        'editFlag': false,
+                        'orderType': detail.orderType,
+                        'opinion': detail.lastAssigneeOpinion,
+                        'isTp': detail.isTp,
+                        'state': $scope.state,
+                        'ea': detail.enterpriseAccount,
+                        'currentTask': detail.currentTask,
+                        'processInstanceId': detail.processInstanceId,
+                        'contractNo': detail.contractNo,
+                        'rejectsFrom': detail.rejectsFrom || ''
+                    }
+                    var oldDetailApproval = new OldDetailApproval();
+                        oldDetailApproval.show( data );
+                        oldDetailApproval.on('saveSuccess',function(){
+                            $scope.search();
+                        });
+                    return false;
                 }
-                var detailApproval = new DetailApproval();
-                detailApproval.show( id , type , status , dstatus ,{ 'processInstanceId': inId , 'orderType':detail.orderType ,'enterpriseId':data.enterpriseId } );
-                //注册事件
-                detailApproval.on('approvalSuccess',function(){
-                    $scope.search();
-                });
-                return false;
-            
+
             //收尾款订单
             } else {
 

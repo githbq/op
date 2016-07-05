@@ -720,7 +720,7 @@ define( function( require, exports, module ) {
                     oldDetailApproval.show( { 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':false,'orderType':orderType,
                     'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea,'processInstanceId':''} );
                 };
-
+                
 
         });
     }
