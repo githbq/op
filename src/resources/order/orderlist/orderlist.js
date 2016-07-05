@@ -342,7 +342,7 @@ define( function( require, exports, module ) {
 
                 //新订单
                 if( item.isNewOrder ){
-                    me.trigger('detail', id , status , dstatus , orderType , enterpriseId );
+                    me.trigger('detail', id , status , dstatus , orderType , enterpriseId , item.canEdit );
                 //老订单
                 } else {
                     me.trigger('olddetail', item );
@@ -663,13 +663,22 @@ define( function( require, exports, module ) {
         });
 
         //查看
-        orderList.on('detail', function( id , status , dstatus , orderType , enterpriseId ){
+        orderList.on('detail', function( id , status , dstatus , orderType , enterpriseId ,canEdit){
             console.log('查看');
             console.log( id );
             console.log( status );
             
             var detailApproval = new DetailApproval();  //订单详情   
             
+            if( canEdit ){
+                detailApproval.show( id , 'a', status , dstatus , {'htshow':false, 'orderType': orderType , 'enterpriseId': enterpriseId });
+            } else {
+                detailApproval.show( id , 'd', status , dstatus , {'htshow':false, 'orderType': orderType , 'enterpriseId': enterpriseId });
+            } else {
+                detailApproval.show( id , 'd', status , dstatus , {'htshow',false, 'orderType': orderType , 'enterpriseId': enterpriseId } );
+            }
+
+            /*
             //被驳回和已撤回可编辑
             if( IBSS.API_PATH == '/op/api/a' ){
                 
@@ -684,7 +693,7 @@ define( function( require, exports, module ) {
 
                 detailApproval.show( id , 'd', status , dstatus , {'orderType': orderType , 'enterpriseId': enterpriseId } );
             }
-            
+            */
             detailApproval.on('editSuccess',function(){
                 orderList.getList();
             });
