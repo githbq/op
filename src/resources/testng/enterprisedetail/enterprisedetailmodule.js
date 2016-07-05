@@ -126,7 +126,7 @@ define(function (require, exports, module) {
                 }
                     ;
                     break;
-                case '2':
+                case '3':
                 {
                     //未付
                     $scope.payInfo.agentCurrPayAmount = 0;
@@ -141,7 +141,7 @@ define(function (require, exports, module) {
                 }
                     ;
                     break;
-                case '3':
+                case '2':
                 {
                     $scope.payInfo.agentCurrPayAmount = 0;
                     $scope.payInfo.currPayAmount = 0;
