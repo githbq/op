@@ -712,10 +712,14 @@ define( function( require, exports, module ) {
                 var isTp = item.order.isTp || '';
                 var ea = item.order.enterpriseAccount;
 
-                oldDetailApproval.show( { 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':false,'orderType':orderType,
-               'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea,'processInstanceId':''} );
-
-                if( item.)
+                //被驳回或已撤回
+                if( item.approveStatus == 2 || item.approveStatus == 3 ){
+                    oldDetailApproval.show( { 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':true,'orderType':orderType,
+                    'person':'', 'opinion':opinion ,'isTp':isTp,'state':'refuse','ea':ea,'processInstanceId':''} );
+                } else {
+                    oldDetailApproval.show( { 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':false,'orderType':orderType,
+                    'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea,'processInstanceId':''} );
+                };
 
 
         });
