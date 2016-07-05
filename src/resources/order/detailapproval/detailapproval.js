@@ -169,7 +169,7 @@ define( function(require, exports, module){
 
 			//判断是否是订单的驳回状态
 			var isRefuse = false;  //是否是驳回状态
-			if( status == 3 ){
+			if( status == 3 || status == 2 ){
 				isRefuse = true;
 			}
 
