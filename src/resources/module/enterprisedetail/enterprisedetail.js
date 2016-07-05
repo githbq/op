@@ -1037,9 +1037,6 @@ define(function(require, exports, module) {
                     $target.removeClass('disable');
                 }
             });
-
-
-
             /*
             var data = {
                 enterpriseId: this.model.attrs.enterpriseId, //企业ID
