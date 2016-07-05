@@ -277,7 +277,7 @@
                      response=""></div>
             </div>
             <div class="form-row">
-                <div class="form-field" ng-init="payStatusData=[{label:'全额',value:1,checked:true},{label:'未付',value:2,checked:false},{label:'分期',value:3,checked:false}]">
+                <div class="form-field" ng-init="payStatusData=[{label:'全额',value:1,checked:true},{label:'未付',value:3,checked:false},{label:'分期',value:2,checked:false}]">
                     <label class="required"><span>付费状态</span></label>
                     <label ng-repeat="item in payStatusData track by $index">
                         <input ng-class="{readonly:payInfoReadonly}"
