@@ -125,7 +125,7 @@
                 </div>
                 <div class="form-field">
                     <label class="required"><span>平台管理员手机</span></label>
-                    <input maxlength="11" required　phone ng-model-options="{updateOn:'blur'}" ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" ng-model="entInfo.contactPhone" type="text" name="contactPhone"/>
+                    <input required　phone ng-model-options="{updateOn:'blur'}" ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" ng-model="entInfo.contactPhone" type="text" name="contactPhone"/>
                 </div>
             </div>
             <div class="form-row">
@@ -288,7 +288,7 @@
                     </label>
                 </div>
             </div>
-            <div ng-if="payInfo.payStatus==3" class="form-row">
+            <div ng-if="payInfo.payStatus==2" class="form-row">
                 <div class="form-field">
                     <label class="required"><span>分期金额</span></label>
                 </div>
