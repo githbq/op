@@ -708,8 +708,8 @@ define(function(require, exports, module) {
                         ///me.product.isInitialized = false;
                         
                         //转换一些数据
-                        model.isSaleTeam = model.isSaleTeam ? 'true':'false';
-                        model.isReferral = model.isReferral ? 'true':'false';
+                        model.isSaleTeam = model.isSaleTeam ? '1':'0';
+                        model.isReferral = model.isReferral ? '1':'0';
 
                         //装载数据 主要给企业基本信息赋值
                         model = $.extend( model, model.odrDraftEnterprise );
@@ -1021,9 +1021,7 @@ define(function(require, exports, module) {
             util.api({
                 'url':'/enterprise/uptEnterprise',
                 'contentType': 'application/json',
-                'data': JSON.stringify({
-                    'odrDraftEnterprise': postData
-                }),
+                'data': JSON.stringify( postData ),
                 'success': function( data ){
                     if( data.success ){
 
