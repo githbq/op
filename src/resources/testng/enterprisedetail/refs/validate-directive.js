@@ -161,6 +161,24 @@ define(function (reuqire, exports, module) {
             }
         };
     });
+    var TELEPHONE_REGEXP= /^0\d{2,3}-?\d{7,8}$/
+    app.directive('telephone', function () {
+        return {
+            require: 'ngModel',
+            link: function (scope, elm, attrs, ctrl) {
+                ctrl.$parsers.unshift(function (viewValue) {
+                    if (TELEPHONE_REGEXP.test(viewValue)||PHONE_REGEXP.test(viewValue)) {
+                        ctrl.$setValidity('telephone', true);
+                        return viewValue;
+                    } else {
+                        ctrl.$setValidity('telephone', false);
+                        return undefined;
+                    }
+                });
+            }
+        };
+    });
+
     var PHONE_REGEXP = /^[0-9]{11}$/;
     app.directive('phone', function () {
         return {
