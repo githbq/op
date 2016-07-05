@@ -7249,7 +7249,7 @@ em {
 }
 .m-enterprisedetail #tbProduct p span {
   display: inline-block;
-  width: 170px;
+  padding: 0 10px;
 }
 .m-enterprisedetail #tbProduct p.info {
   text-align: center;

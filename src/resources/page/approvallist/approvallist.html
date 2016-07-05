@@ -35,7 +35,7 @@
                     </label>
                     <label>
                         提单人
-                        <input type="text" ng-model="applicantname">
+                        <input type="text" ng-model="applicantName">
                     </label>
                     <label>
                         提单日期 <input type="text" placeholder="开始时间" class="starttime"> ———— <input type="text" placeholder="结束时间" class="endtime">
@@ -73,7 +73,7 @@
                             <td></td>
                             <td>{{tr['orderId']}}</td>
                             <td>{{tr['contractNo']}}</td>
-                            <td>{{tr['enterpriseName']}}</td>
+                            <td title="{{tr['enterpriseName']}}">{{tr['enterpriseName']}}</td>
                             <td>{{tr['enterpriseAccount']}}</td>
                             <td>{{tr['orderTypeStr']}}</td>
                             <td>{{tr['applicantName']}}</td>

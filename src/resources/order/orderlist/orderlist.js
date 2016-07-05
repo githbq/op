@@ -340,10 +340,12 @@ define( function( require, exports, module ) {
             //普通订单( 判断新老订单 )
             } else {
 
+                //新订单
                 if( item.isNewOrder ){
                     me.trigger('detail', id , status , dstatus , orderType , enterpriseId );
+                //老订单
                 } else {
-                    me.trigger('olddetail', id , status , dstatus , orderType );
+                    me.trigger('olddetail', item );
                 }
             }
         },
@@ -690,8 +692,31 @@ define( function( require, exports, module ) {
 
         //
         //查看老订单
-        //
-        orderList.on('olddetail',function( id , status , dstatus , orderType ){
+        //===============================
+        orderList.on('olddetail',function( item ){
+                /*
+                var id = $(e.currentTarget).attr('data-id');
+                var enterpriseId = $(e.currentTarget).attr('data-enterpriseId');
+                var orderType = $(e.currentTarget).attr('data-orderType');
+                var opinion = $(e.currentTarget).attr('data-opinion');
+                var isTp = $(e.currentTarget).attr('data-isTp');
+                var ea = $(e.currentTarget).attr('data-ea');
+                */
+
+                var oldDetailApproval = new OldDetailApproval(); //老订单
+
+                var id = item.order.id;
+                var enterpriseId = item.order.enterpriseId;
+                var orderType = item.order.orderType;
+                var opinion = item.order.rejectReason || '';
+                var isTp = item.order.isTp || '';
+                var ea = item.order.enterpriseAccount;
+
+                oldDetailApproval.show( { 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':false,'orderType':orderType,
+               'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea,'processInstanceId':''} );
+
+                if( item.)
+
 
         });
     }
