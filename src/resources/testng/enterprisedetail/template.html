@@ -106,13 +106,13 @@
                 <div class="form-field">
                     <label class="required"><span>企业负责人电话</span></label>
                     <!--ng-pattern="/[a-zA-Z]/"   正则表达式验证-->
-                    <input maxlength="11" ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required type="text" ng-model="entInfo.keyContactPhone" name="keyContactPhone"/>
+                    <input telephone ng-model-options="{updateOn:'blur'}" ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required type="text" ng-model="entInfo.keyContactPhone" name="keyContactPhone"/>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>企业负责人邮箱</span></label>
-                    <input maxlength="100" ng-model-options="{debounce:1000}" ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" ng-model="entInfo.keyContactEmail" required type="text" email name="keyContactEmail"/>
+                    <input maxlength="100" ng-model-options="{updateOn:'blur'}" ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" ng-model="entInfo.keyContactEmail" required type="text" email name="keyContactEmail"/>
                 </div>
             </div>
             <div class="form-row">
@@ -342,7 +342,7 @@
                 </div>
             </div>
             <div class="form-row">
-                <div ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly"
+                <div ng-class="{readonly:payInfoReadonly||isCaiWu}" ng-readonly="payInfoReadonly||isCaiWu"
                      ng-model="payInfo.companyGatePicture"
                      input-file
                      status="payInfo.companyGatePicture_status"
@@ -352,13 +352,13 @@
             <div class="form-row">
                 <div class="form-field">
                     <label><span>门头照片关键词</span></label>
-                    <input maxlength="100" class="input-l" ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly" type="text" ng-model="payInfo.companyGateKeyword" name="companyGateKeyword"/>
+                    <input maxlength="100" class="input-l" ng-class="{readonly:payInfoReadonly||isCaiWu}" ng-readonly="payInfoReadonly||isCaiWu" type="text" ng-model="payInfo.companyGateKeyword" name="companyGateKeyword"/>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-field">
                     <label><span>门头照片备注</span></label>
-                    <input maxlength="100" class="input-l" ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly" type="text" ng-model="payInfo.companyGateRemark" name="companyGateRemark"/>
+                    <input maxlength="100" class="input-l" ng-class="{readonly:payInfoReadonly||isCaiWu}" ng-readonly="payInfoReadonly||isCaiWu" type="text" ng-model="payInfo.companyGateRemark" name="companyGateRemark"/>
                 </div>
             </div>
             <div class="form-row">
