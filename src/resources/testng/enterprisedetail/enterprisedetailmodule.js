@@ -95,7 +95,7 @@ define(function (require, exports, module) {
                     contractPrice = math2.numAdd(contractPrice, item.purchaseAmount);
                 }
             });
-            $scope.payInfo.contractPrice = contractPrice||'';
+            $scope.payInfo.contractPrice = contractPrice||0;
             $scope.payStatusChange($scope.payInfo.payStatus);
         });
 
