@@ -21,7 +21,7 @@ define(function(require, exports, module) {
 
         defaultAttr: {
             title: '企业产品单',
-            width: 680
+            width: 780
         },
 
         elements: {
@@ -30,6 +30,7 @@ define(function(require, exports, module) {
             '#tSource': 'asource',        //*来源
             '#tCompanySize': 'acompany',  //*公司规模
             '#tSalesSize': 'asales',      //*销售团队规模
+            '#tGroupType': 'agroup',      //*使用对象类型
             '#remark': 'remark',          //*
             '#tbProduct': 'tbProduct',    //*
             '#tbOperation tbody': 'tbOperation', //*
@@ -119,6 +120,9 @@ define(function(require, exports, module) {
 
             'click .employee-detail': 'employeeDetailEve',
             ///'click #crmInfoChange':'crmInfoChangeEve'
+
+            'click .prooff': 'prooffEve',
+            'click .proon': 'proonEve',
 
             'click #openproduct': function() {
                 this.toggleProduct(1)
@@ -570,6 +574,11 @@ define(function(require, exports, module) {
                 checkIsOk()
             }); //作弊情况
 
+            me.generateSelect('GROUP_TYPE', me.$agroup, function() {
+                state.d = true;
+                checkIsOk()
+            }); //团队类型
+
             /*
             me.generateSelect('PROVINCE', me.$aprovince, function() {
                 state.c = true;
@@ -617,6 +626,7 @@ define(function(require, exports, module) {
         },
 
         //获取企业详情
+        //================
         getEnterprise: function(id, callback) {
             var me = this;
 
@@ -883,6 +893,10 @@ define(function(require, exports, module) {
             }
         },
 
+        //
+        //
+        // 保存企业信息
+        //=========================
         saveBasicEve: function(e) {
 
             // disable buttons
@@ -891,6 +905,65 @@ define(function(require, exports, module) {
             $target.attr('disabled', 'disabled');
             $target.addClass('disable');
 
+            function generateData( array ){
+                    
+                var data = {};
+                array.forEach(function(item){
+                    data[item] = me.model.get(item);
+                })
+                return data;
+            }
+            
+            var postData = generateData([
+                'address',
+                'area',
+                'city',
+                'companyScale',
+                'contactEmail',
+                'contactIm',
+                'contactName',
+                'contactPhone',
+                'county',
+                'enterpriseAccount',
+                //'enterpriseFilingId',   //备案企业id
+                'enterpriseName',
+                'groupType',
+                'industryFirst',
+                'industrySecond',
+                'industryThird',
+                'isReference',
+                'isReferral',
+                'isSaleTeam',
+                'keyContactEmail',
+                'keyContactName',
+                'keyContactPhone',
+                'province',
+                'saleTeamScale'
+                ]);
+            
+            //修改企业信息
+            util.api({
+                'url':'/enterprise/uptEnterprise',
+                'data':{
+                    'odrDraftEnterprise': postData
+                },
+                'success': function( data ){
+                    if( data.success ){
+
+                        console.warn('企业修改提交');
+                        console.warn(data);
+                        util.showTip('企业修改成功');
+                    }
+                },
+                'complete': function(){
+                    $target.removeAttr('disabled');
+                    $target.removeClass('disable');
+                }
+            });
+
+
+
+            /*
             var data = {
                 enterpriseId: this.model.attrs.enterpriseId, //企业ID
                 enterpriseName: this.$name.val(), //企业名称
@@ -943,6 +1016,7 @@ define(function(require, exports, module) {
                     $target.removeClass('disable');
                 }
             });
+            */
         },
 
         //显示产品信息
@@ -966,6 +1040,7 @@ define(function(require, exports, module) {
                             _.map(data.value.model, function(obj) {
                                 var startTime = "——",
                                     endTime = "——";
+
                                 if (obj['startDate']) {
                                     startTime = new Date(obj['startDate'])._format('yyyy/MM/dd');
                                 }
@@ -987,11 +1062,12 @@ define(function(require, exports, module) {
                                         break;
                                     case "CRM":
                                         strDom += " <p> <span>" + obj['appName'] + "(个)：" + obj['quota'] + "</span>" +
-                                            " <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span>" + enablestatus + "   <input class='off' type='checkbox' name='product' value='" + obj["appId"] + "'> </p>";
+                                            " <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span>" + enablestatus + "&nbsp;<button class='prooff' name='product' typeid='"+obj["quotaType"]+"' value='"+obj["appId"]+"'>开启</button><button class='proon' name='product' typeid='"+obj["quotaType"]+"' value='" + obj["appId"] + "'>关闭</button> </p>";
                                         break;
+                                    //培训人数
                                     case "Service_Fee":
                                         strDom += " <p> <span>" + obj['appName'] + "(人)：" + obj['quota'] + "</span>" +
-                                            " <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span></p>";
+                                            "</p>";
                                         break;
                                     case "HR_Helper":
                                         strDom += " <p> <span>" + obj['appName'] + "</span> <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span> </p>";
@@ -1002,8 +1078,11 @@ define(function(require, exports, module) {
                                     case "Custom_Helper":
                                         strDom += " <p> <span>" + obj['appName'] + "</span> <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span> </p>";
                                         break;
+                                    case "StorageSpace":
+                                        strDom += " <p> <span>" + obj['appName'] + "</span> <span>" + obj['quota'] + "(GB)</span> </p>";
+                                        break;
                                     default:
-                                        strDom += " <p> <span>" + obj['appName'] + "</span> <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span>" + enablestatus + "   <input class='off' type='checkbox' name='product' value='" + obj["appId"] + "' typeid='"+obj["quotaType"]+"'> </p>";
+                                        strDom += " <p> <span>" + obj['appName'] + "&nbsp;&nbsp;总量(" + obj['quota'] + ")&nbsp;&nbsp;使用人数("+ obj['usedQuota'] + ")</span>" +"<span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span>" + enablestatus + "&nbsp;<button class='prooff' name='product' typeid='"+obj["quotaType"]+"' value='"+obj["appId"]+"'>开启</button><button class='proon' name='product' typeid='"+obj["quotaType"]+"' value='" + obj["appId"] + "'>关闭</button> </p>";
                                 }
                             });
 
@@ -1012,6 +1091,91 @@ define(function(require, exports, module) {
                         } else {
                             me.$tbProduct.find('.container').html('<p class="info">暂无数据</p>');
                         }
+                    }
+                }
+            })
+        },
+
+        //新开启或关闭产品
+        proonEve: function(e){
+            var $target = $(e.currentTarget);
+            var me = this;
+
+            var arrTypeOne = [],arrTypeTwo=[];
+            if( $target.attr('typeid') == 1 ){
+                arrTypeOne.push( $target.val() );
+            }else if( $target.attr('typeid') == 2 ){
+                arrTypeTwo.push( $target.val() );
+            }
+
+            var objOne = {}, objTwo = {}, arrList = [];
+            if(arrTypeOne.length>0){
+                //var tempOne ={};
+                objOne.quotaType = 1;
+                objOne.appIds = arrTypeOne.join(',');
+                arrList.push(objOne);
+            }
+            if(arrTypeTwo.length>0){
+                //var tempOne ={};
+                objTwo.quotaType = 2;
+                objTwo.appIds = arrTypeTwo.join(',');
+                arrList.push(objTwo);
+            }
+            //console.log(ids);
+
+            util.api({
+                'url': "/app/setappsenablestatus",
+                'data': {
+                    'fsEa': me.model.get('enterpriseAccount'),
+                    'json': JSON.stringify( arrList ),
+                    'isEnable': 2
+                },
+                'success': function (data) {
+                    if (data.success) {
+                        util.showTip('操作成功');
+                        me.showProductInfo();
+                    }
+                }
+            })
+        },
+
+        prooffEve: function(e){
+            var $target = $(e.currentTarget);
+            var me = this;
+
+            var arrTypeOne = [],arrTypeTwo=[];
+            if( $target.attr('typeid') == 1 ){
+                arrTypeOne.push( $target.val() );
+            }else if( $target.attr('typeid') == 2 ){
+                arrTypeTwo.push( $target.val() );
+            }
+
+            var objOne = {}, objTwo = {}, arrList = [];
+            if(arrTypeOne.length>0){
+                //var tempOne ={};
+                objOne.quotaType = 1;
+                objOne.appIds = arrTypeOne.join(',');
+                arrList.push(objOne);
+            }
+            if(arrTypeTwo.length>0){
+                //var tempOne ={};
+                objTwo.quotaType = 2;
+                objTwo.appIds = arrTypeTwo.join(',');
+                arrList.push(objTwo);
+            }
+            //console.log(ids);
+
+            util.api({
+                'url': "/app/setappsenablestatus",
+                'data': {
+                    'fsEa': me.model.get('enterpriseAccount'),
+                    'json': JSON.stringify( arrList ),
+                    'isEnable': 1
+                },
+                'success': function (data) {
+                    if (data.success) {
+                        util.showTip('操作成功');
+                        me.showProductInfo();
                     }
                 }
             })
@@ -1032,14 +1196,13 @@ define(function(require, exports, module) {
             var ids = [];
 
 			var arrTypeOne = [],arrTypeTwo = [];
+
             $input.each(function (index, item) {
 
 				if( $(item).attr('typeid')==1 ){
-					arrTypeOne.push($(item).val());
-
+					arrTypeOne.push( $(item).val() );
 				}else if( $(item).attr('typeid') == 2 ){
-
-					arrTypeTwo.push($(item).val());
+					arrTypeTwo.push( $(item).val() );
 				}
                 //ids.push($(item).val());
             });
@@ -1551,11 +1714,11 @@ define(function(require, exports, module) {
             var me = this;
 
             //设置默认设置
-            me.$sELC.val(100);
-            me.$sEFC.val(100);
-            me.$sECC.val(100);
-            me.$sEMWC.val(100);
-            me.$sEAC.val(100);
+            //me.$sELC.val(100);
+            //me.$sEFC.val(100);
+            //me.$sECC.val(100);
+            //me.$sEMWC.val(100);
+            //me.$sEAC.val(100);
 
 
             if (me.model.get('productFree')) {
@@ -1571,16 +1734,16 @@ define(function(require, exports, module) {
                     if (data.success) {
                         var model = data.value.model;
                         console.warn(model);
-                        me.$sdELC.val(model['Config.ExportAmountLocation']);
-                        me.$sdELUC.val(model['Used.ExportAmountLocation']);
-                        me.$sdEFC.val(model['Config.ExportAmountPlan']); //导出日志次数
-                        me.$sdEFUC.val(model['Used.ExportAmountPlan']); //导出日志已用次数
-                        me.$sdECC.val(model['Config.ExportAmountFeedWork']); //导出指令次数
-                        me.$sdECUC.val(model['Used.ExportAmountFeedWork']); //导出指令已用次数
-                        me.$sdEMWC.val(model['Config.ExportAmountLeaveApplication']); //导出月度考勤次数
-                        me.$sdEMWUC.val(model['Used.ExportAmountLeaveApplication']); //导出月度考勤已用
-                        me.$sdEAC.val(model['Config.ExportAmountFeedApprove']); //导出审批汇总次数
-                        me.$sdEAUC.val(model['Used.ExportAmountFeedApprove']); //导出审批汇总已用
+                        //me.$sdELC.val(model['Config.ExportAmountLocation']);
+                        //me.$sdELUC.val(model['Used.ExportAmountLocation']);
+                        //me.$sdEFC.val(model['Config.ExportAmountPlan']); //导出日志次数
+                        //me.$sdEFUC.val(model['Used.ExportAmountPlan']); //导出日志已用次数
+                        //me.$sdECC.val(model['Config.ExportAmountFeedWork']); //导出指令次数
+                        //me.$sdECUC.val(model['Used.ExportAmountFeedWork']); //导出指令已用次数
+                        //me.$sdEMWC.val(model['Config.ExportAmountLeaveApplication']); //导出月度考勤次数
+                        //me.$sdEMWUC.val(model['Used.ExportAmountLeaveApplication']); //导出月度考勤已用
+                       // me.$sdEAC.val(model['Config.ExportAmountFeedApprove']); //导出审批汇总次数
+                        //me.$sdEAUC.val(model['Used.ExportAmountFeedApprove']); //导出审批汇总已用
                         me.$sdUFS.val(model['Config.UploadFileSizeLimit']); //上传文件大小限制
                         console.warn(model['Config.isAllowDangerOperate']);
                         var temp = model['Config.IsAllowDangerOperate'] == '1' ? '是' : '否'
@@ -1719,11 +1882,11 @@ define(function(require, exports, module) {
             var me = this,
                 data = {
                     enterpriseId: this.model.attrs.enterpriseId,
-                    newExportAmountLocation: me.$sELC.val(),
-                    newExportAmountPlan: me.$sEFC.val(),
-                    newExportAmountFeedWork: me.$sECC.val(),
-                    newExportAmountLeaveApplication: me.$sEMWC.val(),
-                    newExportAmountFeedApprove: me.$sEAC.val(),
+                    //newExportAmountLocation: me.$sELC.val(),
+                   // newExportAmountPlan: me.$sEFC.val(),
+                    //newExportAmountFeedWork: me.$sECC.val(),
+                    //newExportAmountLeaveApplication: me.$sEMWC.val(),
+                    //newExportAmountFeedApprove: me.$sEAC.val(),
                     newUploadFileSizeLimit: me.$sUFS.val(),
                     newIsAllowDangerOperate: me.$sActionDanger.val()
                 };

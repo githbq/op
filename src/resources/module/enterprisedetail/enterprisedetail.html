@@ -12,7 +12,7 @@
 				</label>
 				<label>
 					<span class="title">代理区域</span>
-					<input disabled="disabled" class="g-ipt ipt-l proxy-area" type="text">
+					<input disabled="disabled" ce-model="area" class="g-ipt ipt-l proxy-area" type="text">
 				</label>
 			</p>
 			<p>
@@ -22,30 +22,30 @@
 			<!--企业地址-->
 			<p>
 				<span class="title">企业地址</span>
-				<select id="sprovince">
+				<select id="sprovince" ce-model="province">
 					<option value="">请选择省</option>
 				</select> -- 
-				<select id="scity">
+				<select id="scity" ce-model="city">
 					<option value="">请选择市</option>
 				</select> -- 
-				<select id="sarea">
+				<select id="sarea" ce-model="county">
 					<option value="">请选择区</option>
 				</select>
 			</p>
 			<p>
 				<span class="title">&nbsp;&nbsp;</span>
-				<textarea placeholder="请填写详细地址,不少于五个字"></textarea>
+				<textarea placeholder="请填写详细地址,不少于五个字" maxlength="100" ce-model="address"></textarea>
 			</p>
 			<!--行业-->
 			<p>
 				<span class="title">行业</span>
-				<select id="sinsone">
+				<select id="sinsone" ce-model="industryFirst">
 					<option value="">请选择一级行业</option>
 				</select> --
-				<select id="sinstwo">
+				<select id="sinstwo" ce-model="industrySecond">
 					<option value="">请选择二级行业</option>
 				</select> --
-				<select id="sinsthree">
+				<select id="sinsthree" ce-model="industryThird">
 					<option value="">请选择三级行业</option>
 				</select> 
 			</p>
@@ -58,7 +58,7 @@
 				</label>
 				<label>
 					<span class="title">使用对象类型</span> 
-					<select id="">
+					<select id="tGroupType" ce-model="groupType">
 						<option value=""></option>
 					</select>
 				</label>
@@ -89,7 +89,7 @@
 				</label>
 				<label>
 					<span class="title">是否标杆</span>
-					<select ce-model="">
+					<select ce-model="isReference">
 						<option value="true">是</option>
 						<option value="false">否</option>
 					</select>
@@ -166,10 +166,12 @@
 			<h4><span class="arraw"></span>产品信息</h4>
 
 			<div class="content" id="tbProduct">
+				<!--
 				<p class="content-action off">
 					<button class="u-btn-blue" id="openproduct">开启</button>
 					<button id="closeproduct">关闭</button>
 				</p>
+				-->
 				<!--显示产品列表-->
 				<div class="container">
 					

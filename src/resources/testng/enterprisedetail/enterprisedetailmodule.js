@@ -75,15 +75,7 @@ define(function (require, exports, module) {
     }]);
     myApp.controller('form2Controller', ['$scope', 'productService', '$timeout', function ($scope, productService, $timeout) {
         //产品已购信息
-        $scope.productInfos = [];
-        if ($scope.globalInfo.submitType == 2) {//只有增购与续费才显示
-            //||'ceshishur3'
-            productService.getOrderList($scope.globalInfo.enterpriseAccount, function (data) {
-                $timeout(function () {
-                    $scope.productInfos = data;
-                }, 10);
-            });
-        }
+        $scope.getEnterpriseHistory();
         debugger
         productService.getDiyOrderFormLogic($scope.globalInfo.enterpriseId || '', function (data) {
             $timeout(function () {
@@ -94,15 +86,18 @@ define(function (require, exports, module) {
     myApp.controller('form3Controller', ['$scope', 'productService', 'select2Query', function ($scope, productService, select2Query) {
         $scope.bankAjaxConfig = select2Query.getBankAjaxConfig();
         //付款信息
-        var payInfo = $scope.payInfo;//从mainController拿到的对象
         $scope.payInfo.currPayList = $scope.payInfo.currPayList || [];
-        var contractPrice = 0;
-        _.each($scope.payInfo.currPayList, function (item) {
-            if (item.purchaseAmount) {
-                contractPrice = math2.numAdd(contractPrice, item.purchaseAmount);
-            }
+        $scope.$watch('payInfo.currPayList', function (newVal, oldVal) {
+            console.log('payInfo.currPayList')
+            var contractPrice = 0;
+            _.each($scope.payInfo.currPayList, function (item) {
+                if (item.purchaseAmount) {
+                    contractPrice = math2.numAdd(contractPrice, item.purchaseAmount);
+                }
+            });
+            $scope.payInfo.contractPrice = contractPrice||'';
+            $scope.payStatusChange($scope.payInfo.payStatus);
         });
-        $scope.payInfo.contractPrice = contractPrice;
 
         $scope.testResult3 = function (form) {
 
@@ -112,33 +107,33 @@ define(function (require, exports, module) {
             _.each($scope.payInfo.currPayList, function (item, i) {
                 item.currPayAmount = item.currPayAmount || 0;
             });
-            payInfo.agentCurrPayAmount = payInfo.agentCurrPayAmount || 0;
-            payInfo.currPayAmount = payInfo.currPayAmount || 0;
+            $scope.payInfo.agentCurrPayAmount = $scope.payInfo.agentCurrPayAmount || 0;
+            $scope.payInfo.currPayAmount = $scope.payInfo.currPayAmount || 0;
             switch (value.toString()) {
                 case '1':
                 {
-                    payInfo.agentCurrPayAmount = 0;
-                    payInfo.currPayAmount = 0;
+                    $scope.payInfo.agentCurrPayAmount = 0;
+                    $scope.payInfo.currPayAmount = 0;
                     //全额
                     _.each($scope.payInfo.currPayList, function (item, i) {
                         if (item.toAgent) {
-                            payInfo.agentCurrPayAmount = math2.numAdd(payInfo.agentCurrPayAmount, item.purchaseAmount);
+                            $scope.payInfo.agentCurrPayAmount = math2.numAdd($scope.payInfo.agentCurrPayAmount, item.purchaseAmount);
                         } else {
-                            payInfo.currPayAmount = math2.numAdd(payInfo.currPayAmount, item.purchaseAmount);
+                            $scope.payInfo.currPayAmount = math2.numAdd($scope.payInfo.currPayAmount, item.purchaseAmount);
                         }
                         item.currPayAmount = 0;
                     });
                 }
                     ;
                     break;
-                case '2':
+                case '3':
                 {
                     //未付
-                    payInfo.agentCurrPayAmount = 0;
-                    payInfo.currPayAmount = 0;
+                    $scope.payInfo.agentCurrPayAmount = 0;
+                    $scope.payInfo.currPayAmount = 0;
                     _.each($scope.payInfo.currPayList, function (item, i) {
                         if (item.toAgent) {
-                            payInfo.agentCurrPayAmount = math2.numAdd(payInfo.agentCurrPayAmount, item.purchaseAmount);
+                            $scope.payInfo.agentCurrPayAmount = math2.numAdd($scope.payInfo.agentCurrPayAmount, item.purchaseAmount);
                         }
                         item.currPayAmount = 0;
                     });
@@ -146,17 +141,17 @@ define(function (require, exports, module) {
                 }
                     ;
                     break;
-                case '3':
+                case '2':
                 {
-                    payInfo.agentCurrPayAmount = 0;
-                    payInfo.currPayAmount = 0;
+                    $scope.payInfo.agentCurrPayAmount = 0;
+                    $scope.payInfo.currPayAmount = 0;
                     //分期
                     _.each($scope.payInfo.currPayList, function (item, i) {
                         if (item.toAgent) {
                             item.currPayAmount = 0;
-                            payInfo.agentCurrPayAmount = math2.numAdd(payInfo.agentCurrPayAmount, parseFloat(item.purchaseAmount));
+                            $scope.payInfo.agentCurrPayAmount = math2.numAdd($scope.payInfo.agentCurrPayAmount, parseFloat(item.purchaseAmount));
                         } else {
-                            payInfo.currPayAmount = math2.numAdd(payInfo.currPayAmount, parseFloat(item.currPayAmount));
+                            $scope.payInfo.currPayAmount = math2.numAdd($scope.payInfo.currPayAmount, parseFloat(item.currPayAmount));
                         }
                     });
                 }
@@ -164,7 +159,7 @@ define(function (require, exports, module) {
                     break;
             }
         };
-        $scope.payStatusChange(payInfo.payStatus);
+        $scope.payStatusChange($scope.payInfo.payStatus);
         //分期金额值改变事件
         $scope.currPayAmountChange = function (currPayList) {
             var agentPrice = 0;
@@ -176,8 +171,8 @@ define(function (require, exports, module) {
                     companyPrice = math2.numAdd(companyPrice, parseFloat(item.currPayAmount));
                 }
             });
-            payInfo.agentCurrPayAmount = agentPrice;
-            payInfo.currPayAmount = companyPrice;
+            $scope.payInfo.agentCurrPayAmount = agentPrice;
+            $scope.payInfo.currPayAmount = companyPrice;
         };
         $scope.getDataByContractNo = function () {
             var contractNo = $scope.payInfo.contractNo;
@@ -205,8 +200,20 @@ define(function (require, exports, module) {
         };
     }]);
     myApp.controller('mainController', ['$scope', '$timeout', 'select2Query', 'getEnumService', 'cascadeSelectService', 'productService', function ($scope, $timeout, select2Query, getEnumService, cascadeSelectService, productService) {
+        //获取企业历史详情
+        $scope.getEnterpriseHistory = function () {
+            if ($scope.globalInfo.submitType == 2) {//只有增购与续费才显示
+                //||'ceshishur3'
+                productService.getOrderList($scope.globalInfo.enterpriseAccount || $scope.orderInfo.enterpriseAccount, function (data) {
+                    $timeout(function () {
+                        $scope.productInfos = data;
+                    }, 10);
+                });
+            }
+        }
         //全局性信息
         $scope.globalInfo = mainData || {};
+        $scope.orderInfo = $scope.orderInfo || {};
         $scope.globalInfo = angular.extend($scope.globalInfo, $scope.globalInfo.data);
 
         $scope.globalInfo.submitType = mainData.isNew ? 1 : mainData.isAdd ? 2 : mainData.isRef ? 3 : 1;
@@ -227,7 +234,7 @@ define(function (require, exports, module) {
         //产品信息模块
         var productInfo = $scope.productInfo = {};
         //付款信息
-        var payInfo = $scope.payInfo = {payStatus: 1};
+       $scope.payInfo = {payStatus: 1};
         //全局行为状态
         var action = $scope.action = {doing: false};
         $scope.goToStepTest = function (step) {
@@ -243,7 +250,7 @@ define(function (require, exports, module) {
                             $scope.payInfo.currPayList = $scope.payInfo.currPayList || [];
                             var tempCurrPayArray = angular.fromJson(data);
                             _.each(tempCurrPayArray, function (item, index) {
-                                var findItem = _.findWhere($scope.payInfo.currPayList, {productId: item.productId});
+                                var findItem = _.findWhere($scope.payInfo.currPayList, {productId: item.productId, isMain: item.isMain});
                                 if (findItem && findItem.purchaseAmount == item.purchaseAmount) {
                                     _.extend(item, findItem);
                                 }
@@ -278,6 +285,8 @@ define(function (require, exports, module) {
                 }
                 $scope.entInfo = data.odrDraftEnterprise || {};
                 $scope.productInfo = data.odrDraftOrder || {};
+                $scope.orderInfo = data.odrOrder || {};
+                $scope.getEnterpriseHistory();//获取企业产品历史信息
                 $scope.globalInfo.enterpriseId = $scope.productInfo && $scope.productInfo.enterpriseId;
                 $scope.orderFromData = angular.fromJson(data.odrDraftOrder.content);//订单来源数据
                 $scope.payInfo = data.odrDraftPaidInfo;

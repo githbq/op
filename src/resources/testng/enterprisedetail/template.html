@@ -201,11 +201,17 @@
                         </div>
                         <div ng-show="false" class="form-field" ng-switch-when="FXBC">
                         </div>
+                        <div  class="form-field" ng-switch-when="StorageSpace">
+                            <!--分割线-->
+                            <label>{{item.appName}}:
+                            </label>
+                            <span class="inline-m">{{item.quota}}</span>
+                        </div>
                         <div class="form-field" ng-switch-default>
                             <!--分割线-->
                             <label>{{item.appName}}:
                             </label>
-                            <span class="inline-m"></span>
+                            <span class="inline-m">{{item.quota}}</span>
                             <!--分割线-->
                             <label>开始时间：
                                 <span class="inline-m">{{item.startDate | date:"yyyy/MM/dd" }}</span>
@@ -271,7 +277,7 @@
                      response=""></div>
             </div>
             <div class="form-row">
-                <div class="form-field" ng-init="payStatusData=[{label:'全额',value:1,checked:true},{label:'未付',value:2,checked:false},{label:'分期',value:3,checked:false}]">
+                <div class="form-field" ng-init="payStatusData=[{label:'全额',value:1,checked:true},{label:'未付',value:3,checked:false},{label:'分期',value:2,checked:false}]">
                     <label class="required"><span>付费状态</span></label>
                     <label ng-repeat="item in payStatusData track by $index">
                         <input ng-class="{readonly:payInfoReadonly}"
@@ -282,7 +288,7 @@
                     </label>
                 </div>
             </div>
-            <div ng-if="payInfo.payStatus==3" class="form-row">
+            <div ng-if="payInfo.payStatus==2" class="form-row">
                 <div class="form-field">
                     <label class="required"><span>分期金额</span></label>
                 </div>
@@ -310,7 +316,7 @@
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>总部打款日期</span></label>
-                    <div class="inline-block" required2="true" ng-readonly="payInfoReadonly" getform="this['stepForm3']" name="payDate" datetimeconfig="payInfo.payDate_dataConfig" ng-model="payInfo.payDate"></div>
+                    <div class="inline-block" ng-disabled="payInfoReadonly" required2="true" ng-readonly="payInfoReadonly" getform="this['stepForm3']" name="payDate" datetimeconfig="payInfo.payDate_dataConfig" ng-model="payInfo.payDate"></div>
                 </div>
             </div>
             <div class="form-row">
@@ -319,7 +325,6 @@
                     <span class="inline-block"> <span ng-if="payInfoReadonly||globalInfo.isRefuse">{{payInfo.receiptsAccount}}<br/></span>
                     <input ng-if="!(payInfoReadonly)" ng-class="{readonly:payInfoReadonly}"
                            ng-readonly="payInfoReadonly"
-                           ng-readonly="enterpriseReadonly"
                            required select2
                            name="receiptsAccount" ng-model="payInfo.receiptsAccount"
                            placeholder="请输入银行账号"
