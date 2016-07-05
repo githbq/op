@@ -438,7 +438,7 @@ define('common/app', function(require, exports, module){
          */
 		setPermissions: function( $el ){
 			var $el = $el || $('body');
-			/*
+			
 			$el.find('[data-permissions]').each(function(){
 				var $this = $( this ),
 
@@ -463,7 +463,7 @@ define('common/app', function(require, exports, module){
 					$this.remove();
 				}
 			});
-			*/
+			
 			//特殊处理
 			/*
 			 *for( var i = 0; i < IBSS.FUNCTIONS.length ; i++ ){

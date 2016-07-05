@@ -79,7 +79,7 @@ define(function (reuqire, exports, module) {
                             result=result.replace(/\./g,'');
                         }
                     }
-                    result = setMaxOrMinValue(result);
+                    result = setMaxOrMinValue(result,true);
                     $dom.val(result);
                     ctrl.$setViewValue(result !== null ? parseFloat(result) : result, true);//只能赋模型的值不能改变VIEW
                     setTimeout(function () {
@@ -96,7 +96,7 @@ define(function (reuqire, exports, module) {
                         ctrl.$setValidity('number', true);
                     }, 100);
                 });
-                function setMaxOrMinValue(result) {
+                function setMaxOrMinValue(result,ignoreMin) {
                     if (isNaN(result) || result === '') {
                         result = null;
                     } else {
@@ -108,13 +108,13 @@ define(function (reuqire, exports, module) {
                         if (scope.max) {
                             max = parseFloat(scope.max);
                         }
-                        if (scope.min) {
+                        if (scope.min && !ignoreMin) {
                             min = parseFloat(scope.min);
                         }
                         if (!(isNaN(max) || max === '') && result > max) {
                             result = max;
                         }
-                        if (!(isNaN(min) || min === '') && result < min) {
+                        if (!(isNaN(min) || min === '') && result < min && !ignoreMin) {
                             result = min;
                         }
                     }
@@ -161,11 +161,28 @@ define(function (reuqire, exports, module) {
             }
         };
     });
-    var TELEPHONE_REGEXP= /^0\d{2,3}-?\d{7,8}$/
+    var TELEPHONE_REGEXP= /^\d{1,11}$/
     app.directive('telephone', function () {
         return {
             require: 'ngModel',
             link: function (scope, elm, attrs, ctrl) {
+                elm.off('keyup').on('keyup', function () {
+                    var $dom = $(this);
+                    var result = ($dom.val().replace(/[^\d]/g, ''));
+                    result = CtoH(result);
+                    if (!isNaN(result) && result !== '') {
+                        var subLength=result.length;
+                        if(result.length>11){
+                            subLength=11;
+                        }
+                        result=result.substr(0,subLength);
+                    }
+                    $dom.val(result);
+                    ctrl.$setViewValue(result ? parseInt(result) : result, true);//只能赋模型的值不能改变VIEW
+                    setTimeout(function () {
+                        ctrl.$setValidity('telephone', true);
+                    }, 100);
+                });
                 ctrl.$parsers.unshift(function (viewValue) {
                     if (TELEPHONE_REGEXP.test(viewValue)||PHONE_REGEXP.test(viewValue)) {
                         ctrl.$setValidity('telephone', true);
@@ -179,7 +196,7 @@ define(function (reuqire, exports, module) {
         };
     });
 
-    var PHONE_REGEXP = /^[0-9]{11}$/;
+    var PHONE_REGEXP = /^1[0-9]{10}$/;
     app.directive('phone', function () {
         return {
             require: 'ngModel',
