@@ -630,14 +630,28 @@ define(function(require, exports, module) {
         getEnterprise: function(id, callback) {
             var me = this;
 
+            //获取企业详情 兼容
+            //
+            /*
+            util.api({
+                'url': '/odrDraft/getDraftEnterpriseById',
+                'data':{
+                    'id': id
+                },
+                'success':function( data ){
 
+                }
+            })
+            */
+            
+            //获取企业详情
             util.api({
                 'url': '/enterprise/getenterprise',
                 'data': {
                     'enterpriseId': id
                 },
                 'success': function( data ) {
-                    console.warn(data);
+
                     if (data.success) {
                         me.attrs.runStatus = data.value.model.runStatus;
                         var model = data.value.model;
