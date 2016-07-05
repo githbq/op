@@ -169,7 +169,7 @@ define( function(require, exports, module){
 
 			//判断是否是订单的驳回状态
 			var isRefuse = false;  //是否是驳回状态
-			if( status == 3 ){
+			if( status == 3 || status == 2 ){
 				isRefuse = true;
 			}
 
@@ -446,7 +446,7 @@ define( function(require, exports, module){
 
 				//保存
 				util.api({
-					'url': '/odr/update',
+					'url': '~/op/api/a/odr/update',
 					'data': {
 						'vo': JSON.stringify( postData )
 					},
@@ -466,7 +466,7 @@ define( function(require, exports, module){
 
 				//保存
 				util.api({
-					'url': '/odrDraft/updateDraftPaidInfo',
+					'url': '~/op/api/a/odrDraft/updateDraftPaidInfo',
 					'contentType': 'application/json',
 					'data': JSON.stringify( data.payInfo ),
 					'success': function( data ){
