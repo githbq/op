@@ -10,7 +10,7 @@ define(function (require, exports, module) {
     var productIdDic = {
         '1': 'CRM',
         '2': '逍客终端',
-        '3': '服务',
+        '3': '培训',
         '4': 'PK助手',
         '5': '会议助手',
         '6': 'HR助手',

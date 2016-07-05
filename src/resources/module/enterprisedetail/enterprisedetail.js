@@ -1017,6 +1017,8 @@ define(function(require, exports, module) {
                 'saleTeamScale'
                 ]);
             
+            postData.enterpriseFilingId = me.model.get('enterpriseFilingId');
+
             //修改企业信息
             util.api({
                 'url':'/enterprise/uptEnterprise',
