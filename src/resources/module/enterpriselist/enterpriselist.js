@@ -141,7 +141,7 @@ define(function(require, exports, module) {
                             if(res.model.length > 0){
                                 var options = '<option value="" disabled selected style="display: none;">请选择</option>';
                                 var con = res.model;
-                                $(con).each(function(index, item){alert(1)
+                                $(con).each(function(index, item){
                                     options += '<option value="'+item.id+'">'+item.name+'</option>';
                                 });
                                 me.$sales.prop('disabled',false);
