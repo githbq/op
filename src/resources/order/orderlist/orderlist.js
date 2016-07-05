@@ -428,13 +428,13 @@ define( function( require, exports, module ) {
             var newFirst;
             
             //查看 退款待审核
-            if( item.orderStatus == 5 ){
+            if( item.approveStatus == 5 || item.approveStatus == 6 ){
 
                 me.trigger('orderBackmoney',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':false,'orderType':orderType,
                'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea,'processInstanceId':'','contractNo':contractNo} );
 
             //退款驳回 退款撤回 可编辑
-            } else if( item.orderStatus == 7 || item.orderStatus == 8 ){
+            } else if( item.approveStatus == 7 || item.approveStatus == 8 ){
 
                 me.trigger('orderBackmoney',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':true,'orderType':orderType,
                'person':'', 'opinion':opinion ,'isTp':isTp,'state':'refuse','ea':ea,'processInstanceId':'','contractNo':contractNo} );
