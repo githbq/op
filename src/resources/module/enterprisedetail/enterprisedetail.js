@@ -428,19 +428,33 @@ define(function(require, exports, module) {
             me.clearinfo();
 
             //获取枚举值 获取完毕后 获取企业信息
-            me.getEnums(id);
-            me.initMselect();
+            //me.getEnums(id);
+            me.initMselect(function(){
+                me.getEnums(id);
+            });
             EntDetail.__super__.show.apply(this, arguments);
         },
 
         //
         // 获取省市区信息和行业信息
         //==============================
-        initMselect: function(){
+        initMselect: function( cb ){
             var me = this;
 
+            var state = {
+                'a': false,
+                'b': false
+            };
+
+            //检测是否ok
+            function checkOk(){
+                if( state.a && state.b ){
+                    cb && cb();
+                }
+            }
+
             //初始化地区
-            function getlist( type, parentValue , el , text ){
+            function getlist( type, parentValue , el , text , callback ){
 
                 var url,name;
                 if( type == 'area' ){
@@ -458,8 +472,6 @@ define(function(require, exports, module) {
                         'parentValue': parentValue
                     },
                     'success': function( data ){
-                        console.log('dododo');
-                        console.log(data);
                         if( data.success ){
                             if( type == 'industry' ){
                                 data.value.model.forEach(function(item){
@@ -469,36 +481,72 @@ define(function(require, exports, module) {
                             }
                             data.value.model.unshift({'name':text,'value':''})
                             util.resetSelect( el , data.value.model );
+                            callback && callback();
                         }
                     }
                 })
             }
 
-            getlist( 'area', 0 ,me.$('#sprovince'),'请选择省');
+            getlist( 'area', 0 ,me.$('#sprovince'),'请选择省', function(){
+                state.a = true;
+                checkOk();
+            });
 
             me.$('#sprovince').on('change',function(){
                 var val = me.$('#sprovince').val();
                 if( val )
-                getlist( 'area',val,me.$('#scity'),'请选择市');
+                getlist( 'area',val,me.$('#scity'),'请选择市',function(){
+                    //
+                    if( me.attrs.mstate.a2 == false){
+                        me.$('#scity').val(me.model.get('city'));
+                        me.$('#scity').trigger('change');
+                        me.attrs.mstate.a2 = true;
+                    }
+                });
             })
 
             me.$('#scity').on('change',function(){
                 var val = me.$('#scity').val();
                 if( val )
-                getlist('area',val,me.$('#sarea'),'请选择地区');
+                getlist('area',val,me.$('#sarea'),'请选择地区',function(){
+                    //
+                    if( me.attrs.mstate.a3 == false){
+                        me.$('#sarea').val(me.model.get('county'));
+                        me.attrs.mstate.a3 = true;
+                    }
+                });
             })
 
-            getlist('industry',0,me.$('#sinsone'),'请选择一级行业');
+            getlist('industry',0,me.$('#sinsone'),'请选择一级行业', function(){
+                state.b = true;
+                checkOk();
+            });
 
             me.$('#sinsone').on('change',function(){
                 var val = me.$('#sinsone').val();
                 if( val )
-                getlist('industry',val,me.$('#sinstwo'),'请选择二级行业');
+                getlist('industry',val,me.$('#sinstwo'),'请选择二级行业',function(){
+                    //
+                    console.log('二级行业变化');
+                    console.log( me.model.get('industrySecond') );
+                    if( me.attrs.mstate.b2 == false){
+                        me.$('#sinstwo').val(me.model.get('industrySecond'));
+                        me.attrs.mstate.b2 = true;
+                    }
+                });
             })
             me.$('#sinstwo').on('change',function(){
                 var val = me.$('#sinstwo').val();
                 if( val )
-                getlist('industry',val,me.$('#sinsthree'),'请选择三级行业');
+                getlist('industry',val,me.$('#sinsthree'),'请选择三级行业',function(){
+                    //
+                    console.log('三级行业变化');
+                    console.log( me.model.get('industryThird') );
+                    if( me.attrs.mstate.b3 == false){
+                        me.$('#sinsthree').val(me.model.get('industryThird'));
+                        me.attrs.mstate.b3 = true;
+                    }
+                });
             })
         },
 
@@ -532,11 +580,12 @@ define(function(require, exports, module) {
                 b: false,
                 c: false,
                 d: false,
-                e: false
+                e: false,
+                f: false
             };
 
             function checkIsOk() {
-                if (state.a && state.b && state.c && state.d && state.e) {
+                if (state.a && state.b && state.c && state.d && state.e && state.f) {
                     me.getEnterprise( id );
                 }
             };
@@ -575,7 +624,7 @@ define(function(require, exports, module) {
             }); //作弊情况
 
             me.generateSelect('GROUP_TYPE', me.$agroup, function() {
-                state.d = true;
+                state.f = true;
                 checkIsOk()
             }); //团队类型
 
@@ -643,6 +692,7 @@ define(function(require, exports, module) {
                 }
             })
             */
+            console.log('getenterprise!!!!!');
 
             //获取企业详情
             util.api({
@@ -662,7 +712,19 @@ define(function(require, exports, module) {
                         model.isReferral = model.isReferral ? 'true':'false';
 
                         //装载数据 主要给企业基本信息赋值
+                        model = $.extend( model, model.odrDraftEnterprise );
+
                         me.model.load(model);
+
+                        //兼容二三级地址和行业
+                        console.log('enterpriseinfo');
+                        console.log(model);
+                        me.$('#sprovince').trigger('change');
+                        me.$('#sinsone').trigger('change');
+
+                        //
+                        me.attrs.mstate = {'a2':false,'a3':false,'b2':false,'b3':false }
+
 
                         //初始化 使用情况的缓存
                         me.operations.initialInfo = {
@@ -958,9 +1020,10 @@ define(function(require, exports, module) {
             //修改企业信息
             util.api({
                 'url':'/enterprise/uptEnterprise',
-                'data':{
+                'contentType': 'application/json',
+                'data': JSON.stringify({
                     'odrDraftEnterprise': postData
-                },
+                }),
                 'success': function( data ){
                     if( data.success ){
 
