@@ -68,6 +68,7 @@ define(function (require, exports, module) {
             });
 
         },
+
         //获取订单详情
         getOrderDetail: function () {
             var me = this;
@@ -76,41 +77,54 @@ define(function (require, exports, module) {
                 'url': '/odr/getOrderDetail',
                 'data': {'orderId': me.attrs.orderId},
                 'success': function (data) {
+
                     if (data.success) {
+
                         me.attrs.data = data.value.model;
                         me.attrs.dataObj = data.value.model.contract || {};
                         me.attrs.dataObj.payerName = data.value.model.orderEntity.order.payerName;
-                        me.attrs.dataObj.payDate = data.value.model.orderEntity.order.payDate;//打款日期
-                        me.attrs.dataObj.receivedPayDate = data.value.model.orderEntity.order.receivedPayDate;//实际到款日期
-                        me.attrs.dataObj.receiptsAccount = data.value.model.orderEntity.order.receiptsAccount;//收款账户
-                        me.attrs.dataObj.payStatus = data.value.model.orderEntity.order.payStatus;//付费状态
-                        me.attrs.dataObj.reciviedAmount = data.value.model.odrMnyVO.reciviedAmount  //财务确认收款
-                        me.attrs.dataObj.hasInovice = me.attrs.hasInovice //是否开发票
+                        me.attrs.dataObj.payDate = data.value.model.orderEntity.order.payDate;                  //打款日期
+                        me.attrs.dataObj.receivedPayDate = data.value.model.orderEntity.order.receivedPayDate;  //实际到款日期
+                        me.attrs.dataObj.receiptsAccount = data.value.model.orderEntity.order.receiptsAccount;  //收款账户
+                        me.attrs.dataObj.payStatus = data.value.model.orderEntity.order.payStatus;              //付费状态
+                        me.attrs.dataObj.reciviedAmount = data.value.model.odrMnyVO.reciviedAmount;             //财务确认收款金额
+                        me.attrs.dataObj.hasInovice = me.attrs.hasInovice                                       //是否开发票
                     }
                 }
             })
 
         },
+
         //子产品退款和使用
         showSubers:function(){
             var me = this;
             var strDoms=[];
             var serviceDoms=[];
-            var sublist = me.attrs.data.odrMnyVO.subOdrMnyVOs,usedAmound = 0,tempSublist = [];
+
+            var sublist = me.attrs.data.odrMnyVO.subOdrMnyVOs,
+                contractAmount = 0,
+                usedAmound = 0,
+                tempSublist = [];
+            
             me.attrs.refundVO={};
+            
             for(var i = 0; i<sublist.length; i++ ){
+                
                 var tempId = parseInt(sublist[i].productId);
+                
                 switch( tempId ){
                     case 3:
                         serviceDoms.push('<label style="width:250px;"> <span class="label">'+productIdDic[tempId]+'已使用金额(元)：</span> </label><span class="w-len">'+sublist[i].contractAmount+'</span><span class="w-len">非退款项</span>');
                         //serviceDom+=" <tr> <td>"+productIdDic[tempId]+"合同金额(元)：</td><td class='money-box'>"+sublist[i].contractAmount+"</td>" +
                         //" <td>非退款项</td><td></td></tr>";
+                        contractAmount+=parseFloat(sublist[i].contractAmount);
                         usedAmound+=parseFloat(sublist[i].usedAmount);
                         break;
 					case 16:
                         serviceDoms.push('<label style="width:250px;"> <span class="label">'+productIdDic[tempId]+'已使用金额(元)：</span> </label><span class="w-len">'+sublist[i].contractAmount+'</span><span class="w-len">非退款项</span>');
                         //serviceDom+=" <tr> <td>"+productIdDic[tempId]+"合同金额(元)：</td><td class='money-box'>"+sublist[i].contractAmount+"</td>" +
                         //" <td>非退款项</td><td></td></tr>";
+                        contractAmount+=parseFloat(sublist[i].contractAmount);
                         usedAmound+=parseFloat(sublist[i].usedAmount);
                         break;
                     case 10: case 11: case 2: case 8:
@@ -120,7 +134,7 @@ define(function (require, exports, module) {
                         //" <td>已使用金额(元)：</td><td class='money-box'>"+sublist[i].usedAmount+"</td></tr>";
 
                         strDoms.push('<label style="width:250px;"> <span class="label">'+productIdDic[tempId]+'合同金额(元)：</span> </label> <span class="w-len">'+sublist[i].contractAmount+'</span>已使用金额(元)：<span class="w-len">'+sublist[i].usedAmount+'</span>');
-
+                        contractAmount+=parseFloat(sublist[i].contractAmount);
                         usedAmound+=parseFloat(sublist[i].usedAmount);
                         var backAmount = {};
                         var tempMoney  = parseFloat(sublist[i].contractAmount) - parseFloat(sublist[i].usedAmount);
@@ -133,8 +147,18 @@ define(function (require, exports, module) {
             }
             //组合传给退款的数据
             me.attrs.refundVO.subRefunds = tempSublist;
-            var tempAmount = parseFloat(me.attrs.dataObj.reciviedAmount)- parseFloat(usedAmound);
+
+
+            //
+            //计算tempAmount
+            var tempAmount = parseFloat(contractAmount) - parseFloat(usedAmound);
+                tempAmount = tempAmount.toFixed(2); 
+            //
+            /*
+            var tempAmount = parseFloat(me.attrs.dataObj.reciviedAmount) - parseFloat(usedAmound);
             tempAmount = tempAmount.toFixed(2);
+            */
+
             me.attrs.refundVO.refund= {
                 'refundAmount':0,
                 'amount':tempAmount
