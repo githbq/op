@@ -25,6 +25,7 @@ define(function(require, exports, module) {
         events:{
             'click .action-submit': 'submitEve',
             'click .action-cancel': 'hide',
+            'click input:radio[name=company]': 'changeType', 
             'click #dept': 'selectDeptEve'
         },
         elements:{
@@ -42,17 +43,27 @@ define(function(require, exports, module) {
             TransEnt.__super__.init.apply( this, arguments );
         },
 
+        changeType: function(e){
+            var me = this;
+            if($(e.currentTarget).val() == me.type){
+                return;
+            }
+            me.$departmentText.val('');
+            me.$dept.val('');
+            me.$sales.html('<option value="">--------</option>').prop('disabled',true);
+        },
+
         //提交
         submitEve: function(){
             var me = this;
             var sales = me.$sales.val(),
                 type = $("input[type=radio]:checked").val(),
                 dept = me.$dept.val();
-            if(!dept){
+            if(!type){
                 util.showToast('请选择代理商类型');
                 return;
             }
-            if(!type){
+            if(!dept){
                 util.showToast('请选择部门');
                 return;
             }
@@ -87,12 +98,13 @@ define(function(require, exports, module) {
             $("input[type=radio]").prop('checked', false);
             me.$departmentText.val('');
             me.$dept.val('');
-            me.$sales.empty();
+            me.$sales.html('<option value="">--------</option>').prop('disabled',true);
         },
         //选择部门
         selectDeptEve:function(){
             var me = this;
             var type = $("input[type=radio]:checked").val()
+            me.type = type;
             if(!type){
                 util.showToast('请选择公司类型');
                 return false;
@@ -118,20 +130,25 @@ define(function(require, exports, module) {
                 me.postObjId = [];
                 me.postObj = null;
                 me.deptObj ? me.$departmentText.val(me.deptObj.name ):me.$departmentText.val('');
-                me.$dept.val(me.deptObjId);
+                me.$dept.val(me.deptObjId[0]);
                 util.api({
                     url: '~/op/api/s/enterprise/queryAccountByDeptId',
                     data: {
-                        deptId: me.deptObjId
+                        deptId: me.deptObjId[0]
                     },
                     success: function(res) {
                         if(res.success){
-                            var options = '<option value="" disabled selected style="display: none;">请选择</option>';
-                            res.model.content.each(function(idnex, item){
-                                options += '<option value="'+item.id+'">'+item.name+'</option>';
-                            });
-                            me.$sales.prop('disabled',false);
-                            me.$sales.append(me.options);
+                            if(res.model.length > 0){
+                                var options = '<option value="" disabled selected style="display: none;">请选择</option>';
+                                var con = res.model;
+                                $(con).each(function(index, item){alert(1)
+                                    options += '<option value="'+item.id+'">'+item.name+'</option>';
+                                });
+                                me.$sales.prop('disabled',false);
+                                me.$sales.html(options);
+                            }else{
+                                me.$sales.html('<option value="">--------</option>');
+                            }
                         }
                     }
                 });
