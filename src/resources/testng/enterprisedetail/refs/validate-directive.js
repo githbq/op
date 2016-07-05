@@ -79,7 +79,7 @@ define(function (reuqire, exports, module) {
                             result=result.replace(/\./g,'');
                         }
                     }
-                    //result = setMaxOrMinValue(result);
+                    result = setMaxOrMinValue(result);
                     $dom.val(result);
                     ctrl.$setViewValue(result !== null ? parseFloat(result) : result, true);//只能赋模型的值不能改变VIEW
                     setTimeout(function () {
@@ -170,8 +170,8 @@ define(function (reuqire, exports, module) {
                     var $dom = $(this);
                     var result = ($dom.val().replace(/[^\d]/g, ''));
                     result = CtoH(result);
-                    if (!/^\d{1,}$/.test(result) && !isNaN(result) && result !== '') {
-                        var subLength=result.length-1;
+                    if (!isNaN(result) && result !== '') {
+                        var subLength=result.length;
                         if(result.length>11){
                             subLength=11;
                         }
