@@ -6,6 +6,7 @@ define( function( require, exports, module ) {
     var Slider = require( 'common/widget/slider/slider' );
     var Dialog = require('common/widget/dialog/dialog');
     var Detail = require('../../order/detailapproval/detailapproval');
+    var DetailPayment = require('../detailpayment/detailpayment');              //[收尾款]
     var uploader = require('common/widget/upload').uploader;
     var CustomTree=require('module/customtree/customtree').getDialog();
     var tpl = $( require( './template.html' ) );
@@ -26,6 +27,7 @@ define( function( require, exports, module ) {
             '#c-date': 'date',
             '#c-department': 'department',
             '#departmentText': 'departmentText',
+            '#c-submit': 'submit',
             '.info': 'info',
             '[data-model]':'data'
         },
@@ -38,10 +40,11 @@ define( function( require, exports, module ) {
             });
                
         },
-        show: function( id ){
+        show: function( id, bool ){
             CreateReceipt.__super__.show.apply( this,arguments );
             var me = this;
             me.id = id;
+            me.bUpdate = bool;
             if(id){
                 util.api({
                     url: '~/op/api/a/odr/receivedpay/detail',
@@ -60,6 +63,14 @@ define( function( require, exports, module ) {
                     }
                 });
             }
+            if(bool){
+                me.$data.prop('disabled',false);
+                me.$submit.prop({'disabled':false, class: 'btn-blue'})
+                return;
+            }
+            me.$data.prop('disabled',true);
+            me.$submit.prop({'disabled':true, class: ''});
+
             
         },
         hide: function(){
@@ -191,7 +202,7 @@ define( function( require, exports, module ) {
             this.pagination.setPage( 0, false );
             me.load();           
         },
-   
+    
         load: function() {//加载订单列表
             var me = this;
             util.api({
@@ -226,7 +237,7 @@ define( function( require, exports, module ) {
                                     +'<td>'+item.order.enterpriseAccount+'</td>'
                                     +'<td>'+item.account.name+'</td>'
                                     +'<td>'+item.formatTime+'</td>'
-                                    +'<td><a class="check" data-id="'+item.order.id+'">查看</a></td>'
+                                    +'<td><a class="check" data-type="'+item.order.orderType+'" data-id="'+item.order.id+'">查看</a></td>'
                                     +'</tr>'; 
                             });
                         }else{
@@ -243,6 +254,15 @@ define( function( require, exports, module ) {
         },
         check: function(e) {
             var id = $(e.currentTarget).attr('data-id');
+            var type = $(e.currentTarget).attr('data-type');
+            // switch(type){
+            //     case '17':
+            //         this.trigger('detailPayment');
+            //         break;
+            //     case ''
+            //         this.trigger('checkDetail', id);
+            //         break;
+            // }
             this.trigger('checkDetail', id);
         },
         submit: function(data) {
@@ -431,8 +451,9 @@ define( function( require, exports, module ) {
         //修改编辑
         edit:function(e) {
             var id = $(e.currentTarget).attr('data-id');
+            var bUpdate = ($(e.currentTarget).html() == '编辑')? true: false;
             var me = this;
-            me.trigger('modify', id );    
+            me.trigger('modify', id, bUpdate );    
         },
 
         //选择订单信息
@@ -565,6 +586,7 @@ define( function( require, exports, module ) {
         var createReceipt = new CreateReceipt({'title':'新增/编辑'});
         var selectOrder = new SelectOrder({'title':'选择订单'});
         var importDialog = new ImportDialog({'title':'导入'});
+
         //var detail = new Detail();
         var duplication = new Duplication();
 
@@ -572,8 +594,8 @@ define( function( require, exports, module ) {
             receivedList.search();
         }
         // 增加、修改
-        receivedList.on('modify', function(id) {
-            createReceipt.show(id);
+        receivedList.on('modify', function(id, bUpdate) {
+            createReceipt.show(id, bUpdate);
         }); 
         // 选择订单信息
         receivedList.on('getOrder', function(id) {
