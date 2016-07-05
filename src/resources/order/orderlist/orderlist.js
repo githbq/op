@@ -342,7 +342,7 @@ define( function( require, exports, module ) {
 
                 //新订单
                 if( item.isNewOrder ){
-                    me.trigger('detail', id , status , dstatus , orderType , enterpriseId );
+                    me.trigger('detail', id , status , dstatus , orderType , enterpriseId , item.canEdit );
                 //老订单
                 } else {
                     me.trigger('olddetail', item );
@@ -430,11 +430,13 @@ define( function( require, exports, module ) {
 
                 me.trigger('orderBackmoney',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':false,'orderType':orderType,
                'person':'', 'opinion':opinion ,'isTp':isTp,'state':'','ea':ea,'processInstanceId':'','contractNo':contractNo} );
+
             //退款驳回 退款撤回 可编辑
             } else if( item.orderStatus == 7 || item.orderStatus == 8 ){
 
                 me.trigger('orderBackmoney',{ 'id' :id ,'enterpriseId':enterpriseId, 'editFlag':true,'orderType':orderType,
                'person':'', 'opinion':opinion ,'isTp':isTp,'state':'refuse','ea':ea,'processInstanceId':'','contractNo':contractNo} );
+
             //第一次提交
             }else{
 
@@ -611,7 +613,8 @@ define( function( require, exports, module ) {
             customHelper.show( options );
         });
 
-		//退款[需要测试]
+		//
+        //退款[需要测试]
 		orderList.on('orderBackmoney', function( options ){
             
             backMoney = new BackMoney();
@@ -663,13 +666,25 @@ define( function( require, exports, module ) {
         });
 
         //查看
-        orderList.on('detail', function( id , status , dstatus , orderType , enterpriseId ){
+        orderList.on('detail', function( id , status , dstatus , orderType , enterpriseId ,canEdit){
             console.log('查看');
             console.log( id );
             console.log( status );
             
             var detailApproval = new DetailApproval();  //订单详情   
             
+            if( canEdit ){
+                detailApproval.show( id , 'a', status , dstatus , {'htshow':false, 'orderType': orderType , 'enterpriseId': enterpriseId });
+            } else {
+                detailApproval.show( id , 'd', status , dstatus , {'htshow':false, 'orderType': orderType , 'enterpriseId': enterpriseId });
+            } 
+
+            /*
+            else {
+                detailApproval.show( id , 'd', status , dstatus , {'htshow',false, 'orderType': orderType , 'enterpriseId': enterpriseId } );
+            }
+            */
+            /*
             //被驳回和已撤回可编辑
             if( IBSS.API_PATH == '/op/api/a' ){
                 
@@ -684,7 +699,7 @@ define( function( require, exports, module ) {
 
                 detailApproval.show( id , 'd', status , dstatus , {'orderType': orderType , 'enterpriseId': enterpriseId } );
             }
-            
+            */
             detailApproval.on('editSuccess',function(){
                 orderList.getList();
             });
