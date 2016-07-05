@@ -63,7 +63,6 @@ define( function(require, exports, module){
 			
 			//选择区域模块
 			me.$moneyTime.datetimepicker({'timepicker': false,'format':'Y/m/d'});
-           
 		},
 
 		/**
@@ -102,7 +101,6 @@ define( function(require, exports, module){
 				
 				if(me.attrs.invoiceData.length>0){
 					me.showInvoiceList()
-
 				}
 				
 				//企业信息
