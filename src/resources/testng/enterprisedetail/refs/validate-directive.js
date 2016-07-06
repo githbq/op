@@ -16,6 +16,7 @@ define(function (reuqire, exports, module) {
         }
         return result;
     }
+
     var FLOAT_REGEXP = /^\-?\d+((\.|\,)\d+)?$/;
     app.directive('smartFloat', function () {
         return {
@@ -56,30 +57,41 @@ define(function (reuqire, exports, module) {
     app.directive('number', function () {
         return {
             require: 'ngModel',
-            scope: {config:'=number',maxNumber: '=', minNumber: '=', max: '@', min: '@', ngModel: '=', ngRequired: '='},
+            scope: {config: '=number', maxNumber: '=', minNumber: '=', max: '@', min: '@', ngModel: '=', ngRequired: '='},
             link: function (scope, elm, attrs, ctrl) {
-                var exp=NUMBER_REGEXP;
-                if(scope.config && scope.config.int){
-                    exp=INTEGER_REGEXP;
+                var exp = NUMBER_REGEXP;
+                if (scope.config && scope.config.int) {
+                    exp = INTEGER_REGEXP;
                 }
                 scope.ngModel = setMaxOrMinValue(scope.ngModel);
                 elm.off('keyup').on('keyup', function () {
                     var $dom = $(this);
                     var result = ($dom.val().replace(/[^\.\d]/g, ''));
-                    result = CtoH(result);
-                    if (!exp.test(result) && result !== '') {
-                        var findIndex=result.indexOf('.');
-                        if(findIndex>=6 || findIndex<0){
-                            result=result.substr(0,6);
-                        }else if(findIndex>=0){
-                            result=result.substr(0,findIndex+3);
+                    var has=false;
+                    var result=result.replace(/([\.]{1})(?:\1*)/ig,function(str,key){
+                        debugger
+                        if(has){
+                            return '';
+                        }else{
+                            has=true;
+                            return key;
                         }
-                        result=(Math.floor(result*100)/100).toString();
-                        if(scope.config&&scope.config.int){
-                            result=result.replace(/\./g,'');
+                    })
+                    if (result.indexOf('.') > 0 && /\.$/.test(result)) {
+                      return;
+                    } else if (!exp.test(result) && result !== '') {
+                        var findIndex = result.indexOf('.');
+                        if (findIndex > 6 || findIndex < 0) {
+                            result = result.substr(0, 6);
+                        } else if (findIndex >= 0) {
+                            result = result.substr(0, findIndex + 3);
+                        }
+                        result = (Math.floor(result * 100) / 100).toString();
+                        if (scope.config && scope.config.int) {
+                            result = result.replace(/\./g, '');
                         }
                     }
-                    result = setMaxOrMinValue(result,true);
+                    result = setMaxOrMinValue(result, true);
                     $dom.val(result);
                     ctrl.$setViewValue(result !== null ? parseFloat(result) : result, true);//只能赋模型的值不能改变VIEW
                     setTimeout(function () {
@@ -96,7 +108,7 @@ define(function (reuqire, exports, module) {
                         ctrl.$setValidity('number', true);
                     }, 100);
                 });
-                function setMaxOrMinValue(result,ignoreMin) {
+                function setMaxOrMinValue(result, ignoreMin) {
                     if (isNaN(result) || result === '') {
                         result = null;
                     } else {
@@ -126,7 +138,7 @@ define(function (reuqire, exports, module) {
 
                 //与非空进行兼容
                 ctrl.$parsers.unshift(function (viewValue) {
-                    console.log('$parsers:'+viewValue)
+                    console.log('$parsers:' + viewValue)
                     if (exp.test(viewValue)) {
                         ctrl.$setValidity('number', true);
                         return parseFloat(viewValue.toString().replace(',', '.'));
@@ -143,7 +155,7 @@ define(function (reuqire, exports, module) {
     });
 
     var ACCOUNT_REGEXP = /^[a-z][a-z0-9]{5,19}$/i;
-   // var HASNUMBER_REGEXP = /\d{1,}/g;//是否包含一个数字验证
+    // var HASNUMBER_REGEXP = /\d{1,}/g;//是否包含一个数字验证
     app.directive('account', function () {
         return {
             require: 'ngModel',
@@ -161,7 +173,7 @@ define(function (reuqire, exports, module) {
             }
         };
     });
-    var TELEPHONE_REGEXP= /^\d{1,11}$/
+    var TELEPHONE_REGEXP = /^\d{1,11}$/
     app.directive('telephone', function () {
         return {
             require: 'ngModel',
@@ -171,11 +183,11 @@ define(function (reuqire, exports, module) {
                     var result = ($dom.val().replace(/[^\d]/g, ''));
                     result = CtoH(result);
                     if (!isNaN(result) && result !== '') {
-                        var subLength=result.length;
-                        if(result.length>11){
-                            subLength=11;
+                        var subLength = result.length;
+                        if (result.length > 11) {
+                            subLength = 11;
                         }
-                        result=result.substr(0,subLength);
+                        result = result.substr(0, subLength);
                     }
                     $dom.val(result);
                     ctrl.$setViewValue(result ? parseInt(result) : result, true);//只能赋模型的值不能改变VIEW
@@ -184,7 +196,7 @@ define(function (reuqire, exports, module) {
                     }, 100);
                 });
                 ctrl.$parsers.unshift(function (viewValue) {
-                    if (TELEPHONE_REGEXP.test(viewValue)||PHONE_REGEXP.test(viewValue)) {
+                    if (TELEPHONE_REGEXP.test(viewValue) || PHONE_REGEXP.test(viewValue)) {
                         ctrl.$setValidity('telephone', true);
                         return viewValue;
                     } else {
@@ -206,11 +218,11 @@ define(function (reuqire, exports, module) {
                     var result = ($dom.val().replace(/[^\d]/g, ''));
                     result = CtoH(result);
                     if (!isNaN(result) && result !== '') {
-                        var subLength=result.length;
-                        if(result.length>11){
-                            subLength=11;
+                        var subLength = result.length;
+                        if (result.length > 11) {
+                            subLength = 11;
                         }
-                        result=result.substr(0,subLength);
+                        result = result.substr(0, subLength);
                     }
                     $dom.val(result);
                     ctrl.$setViewValue(result ? parseInt(result) : result, true);//只能赋模型的值不能改变VIEW
