@@ -204,9 +204,11 @@ define(function (require, exports, module) {
         $scope.getEnterpriseHistory = function () {
             if ($scope.globalInfo.submitType == 2) {//只有增购与续费才显示
                 //||'ceshishur3'
-                productService.getOrderList($scope.globalInfo.enterpriseAccount || $scope.orderInfo.enterpriseAccount, function (data) {
+                productService.getOrderList($scope.globalInfo.enterpriseAccount || $scope.orderInfo.enterpriseAccount, function (data,valueData) {
                     $timeout(function () {
                         $scope.productInfos = data;
+                        $scope.globalInfo.enterpriseName= $scope.globalInfo.enterpriseName||valueData.enterpriseName;
+                        $scope.globalInfo.enterpriseAccount= $scope.globalInfo.enterpriseAccount||valueData.enterpriseAccount;
                     }, 10);
                 });
             }
