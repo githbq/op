@@ -166,7 +166,7 @@ define(function (require, exports, module) {
             me.attrs.refundVO.refund= {
                 'refundAmount': 0,
                 'amount': tempAmount,
-                'backAmount': me.attrs.dataObj.usedAmount - me.attrs.dataObj.reciviedAmount
+                'backAmount': me.attrs.dataObj.reciviedAmount - me.attrs.dataObj.usedAmount;
             };
 
             me.model.set('usedAmount',me.attrs.dataObj.usedAmount );
