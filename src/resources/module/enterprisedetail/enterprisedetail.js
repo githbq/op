@@ -23,7 +23,7 @@ define(function(require, exports, module) {
 
         defaultAttr: {
             title: '企业产品单',
-            width: 780
+            width: 840
         },
 
         elements: {
@@ -149,12 +149,7 @@ define(function(require, exports, module) {
 
             //主要记录pagination是否已经初始化 
             //如果已经初始化 就不再初始化
-            
-            /*
-            me.trial = {
-                isInitialized: false
-            };
-            */
+
             //使用情况
             me.operations = {
                 isInitializes: false,
@@ -173,150 +168,9 @@ define(function(require, exports, module) {
             };
 
             me.attrs.isPay = 0;
-
-            //初始化日期选择
-            //me.initializeDatepickers();
-
-            /*==========================================
-            //门头照片
-            me.$mentou.on('change', function() {
-                var fileExtension = me.$mentou[0].files[0].name.split('.').pop().toLowerCase();
-                if (fileExtension == 'jpg' || fileExtension == 'gif' || fileExtension == 'png' || fileExtension == 'jpeg') {
-
-                    me.$saveEve.attr('disabled', 'disabled');
-                    me.$saveEve.text('文件上传...');
-                    uploader.send({
-                        'url': '/op/api/file/uploadsinglefileandcheck',
-                        'files': me.$mentou[0].files,
-                        'options': {
-                            'limittype': 'IMAGE'
-                        },
-                        'success': function(response) {
-                            console.warn(response);
-                            me.model.set('companyGatePicture', response.value.model.path);
-                            me.model.set('companyGatePictureFileName', response.value.model.FileName);
-
-                            me.$saveEve.removeAttr('disabled');
-                            me.$saveEve.text('保存');
-
-                        },
-                        'error': function(response) {
-                            me.$saveEve.removeAttr('disabled');
-                            me.$saveEve.text('保存');
-                            me.$mentou.val('');
-                            return false;
-                        }
-                    })
-                } else {
-                    me.$mentou.val('');
-                    util.showToast('请上传图片格式不正确(.jpg,.png,.gif)！');
-                    return false;
-                }
-            });
-
-            //营业执照
-            me.$yingyezhizhao.on('change', function() {
-                var fileExtension = me.$yingyezhizhao[0].files[0].name.split('.').pop().toLowerCase();
-                if (fileExtension == 'jpg' || fileExtension == 'gif' || fileExtension == 'png' || fileExtension == 'jpeg') {
-                    me.$saveEve.attr('disabled', 'disabled');
-                    me.$saveEve.text('文件上传...');
-                    uploader.send({
-                        'url': '/op/api/file/uploadsinglefileandcheck',
-                        'files': me.$yingyezhizhao[0].files,
-                        'options': {
-                            'limittype': 'IMAGE'
-                        },
-                        'success': function(response) {
-                            console.warn(response);
-                            me.model.set('businessLicense', response.value.model.path);
-                            me.model.set('businessLicenseFileName', response.value.model.FileName);
-                            me.$saveEve.removeAttr('disabled');
-                            me.$saveEve.text('保存');
-                        },
-                        'error': function(response) {
-                            me.$saveEve.removeAttr('disabled');
-                            me.$saveEve.text('保存');
-                            me.$mentou.val('');
-                            return false;
-                        }
-                    })
-                } else {
-                    me.$yingyezhizhao.val('');
-                    util.showToast('请上传图片格式不正确(.jpg,.png,.gif)！');
-                    return false;
-                }
-            });
-
-            //合同照片
-            me.$hetongzhaopian.on('change', function() {
-                var fileExtension = me.$hetongzhaopian[0].files[0].name.split('.').pop().toLowerCase();
-                if (fileExtension == 'jpg' || fileExtension == 'gif' || fileExtension == 'png' || fileExtension == 'jpeg') {
-                    me.$saveEve.attr('disabled', 'disabled');
-                    me.$saveEve.text('文件上传...');
-                    uploader.send({
-                        'url': '/op/api/file/uploadsinglefileandcheck',
-                        'files': me.$hetongzhaopian[0].files,
-                        'options': {
-                            'limittype': 'IMAGE'
-                        },
-                        'success': function(response) {
-                            console.warn(response);
-                            me.model.set('contract', response.value.model.path);
-                            me.model.set('contractFileName', response.value.model.FileName);
-                            me.$saveEve.removeAttr('disabled');
-                            me.$saveEve.text('保存');
-                        },
-                        'error': function(response) {
-                            me.$saveEve.removeAttr('disabled');
-                            me.$saveEve.text('保存');
-                            me.$mentou.val('');
-                            return false;
-                        }
-                    })
-                } else {
-                    me.$hetongzhaopian.val('');
-                    util.showToast('请上传图片格式不正确(.jpg,.png,.gif)！');
-                    return false;
-                }
-            });
-
-            //合同副本照片
-            me.$hetongfbzhaopian.on('change', function() {
-                var fileExtension = me.$hetongfbzhaopian[0].files[0].name.split('.').pop().toLowerCase();
-                if (fileExtension == 'jpg' || fileExtension == 'gif' || fileExtension == 'png' || fileExtension == 'jpeg') {
-                    me.$saveEve.attr('disabled', 'disabled');
-                    me.$saveEve.text('文件上传...');
-                    uploader.send({
-                        'url': '/op/api/file/uploadsinglefileandcheck',
-                        'files': me.$hetongfbzhaopian[0].files,
-                        'options': {
-                            'limittype': 'IMAGE'
-                        },
-                        'success': function(response) {
-                            console.warn(response);
-                            me.model.set('contractCopy', response.value.model.path);
-                            me.model.set('contractCopyFileName', response.value.model.FileName);
-                            me.$saveEve.removeAttr('disabled');
-                            me.$saveEve.text('保存');
-                        },
-                        'error': function(response) {
-                            me.$saveEve.removeAttr('disabled');
-                            me.$saveEve.text('保存');
-                            me.$mentou.val('');
-                            return false;
-                        }
-                    })
-                } else {
-                    me.$hetongfbzhaopian.val('');
-                    util.showToast('请上传图片格式不正确(.jpg,.png,.gif)！');
-                    return false;
-                }
-            });
-            ==================================================*/
             me.setState();
         },
 
-        //
         //
         // 初始化日期选择
         //=================================
@@ -464,7 +318,7 @@ define(function(require, exports, module) {
                     name='parentValue';
                 }else{
                     url='~/op/api/enums/getlistByParent';
-                    name='INDUSTRY';
+                    name='INDUSTRY_NEW';
                 }
                 //发送请求
                 util.api({
@@ -496,27 +350,29 @@ define(function(require, exports, module) {
 
             me.$('#sprovince').on('change',function(){
                 var val = me.$('#sprovince').val();
-                if( val )
-                getlist( 'area',val,me.$('#scity'),'请选择市',function(){
-                    //
-                    if( me.attrs.mstate.a2 == false){
-                        me.$('#scity').val(me.model.get('city'));
-                        me.$('#scity').trigger('change');
-                        me.attrs.mstate.a2 = true;
-                    }
-                });
+                if( val ){
+                    getlist( 'area',val,me.$('#scity'),'请选择市',function(){
+                        //
+                        if( me.attrs.mstate.a2 == false){
+                            me.$('#scity').val(me.model.get('city'));
+                            me.$('#scity').trigger('change');
+                            me.attrs.mstate.a2 = true;
+                        }
+                    });
+                }
             })
 
             me.$('#scity').on('change',function(){
                 var val = me.$('#scity').val();
-                if( val )
-                getlist('area',val,me.$('#sarea'),'请选择地区',function(){
-                    //
-                    if( me.attrs.mstate.a3 == false){
-                        me.$('#sarea').val(me.model.get('county'));
-                        me.attrs.mstate.a3 = true;
-                    }
-                });
+                if( val ){
+                    getlist('area',val,me.$('#sarea'),'请选择地区',function(){
+                        //
+                        if( me.attrs.mstate.a3 == false){
+                            me.$('#sarea').val(me.model.get('county'));
+                            me.attrs.mstate.a3 = true;
+                        }
+                    });
+                }
             })
 
             getlist('industry',0,me.$('#sinsone'),'请选择一级行业', function(){
@@ -526,29 +382,32 @@ define(function(require, exports, module) {
 
             me.$('#sinsone').on('change',function(){
                 var val = me.$('#sinsone').val();
-                if( val )
-                getlist('industry',val,me.$('#sinstwo'),'请选择二级行业',function(){
-                    //
-                    console.log('二级行业变化');
-                    console.log( me.model.get('industrySecond') );
-                    if( me.attrs.mstate.b2 == false){
-                        me.$('#sinstwo').val(me.model.get('industrySecond'));
-                        me.attrs.mstate.b2 = true;
-                    }
-                });
+                if( val ){
+                    getlist('industry',val,me.$('#sinstwo'),'请选择二级行业',function(){
+                        //
+                        console.log('二级行业变化');
+                        console.log( me.model.get('industrySecond') );
+                        if( me.attrs.mstate.b2 == false){
+                            me.$('#sinstwo').val(me.model.get('industrySecond'));
+                            me.$('#sinstwo').trigger('change');
+                            me.attrs.mstate.b2 = true;
+                        }
+                    });
+                }
             })
             me.$('#sinstwo').on('change',function(){
                 var val = me.$('#sinstwo').val();
-                if( val )
-                getlist('industry',val,me.$('#sinsthree'),'请选择三级行业',function(){
-                    //
-                    console.log('三级行业变化');
-                    console.log( me.model.get('industryThird') );
-                    if( me.attrs.mstate.b3 == false){
-                        me.$('#sinsthree').val(me.model.get('industryThird'));
-                        me.attrs.mstate.b3 = true;
-                    }
-                });
+                if( val ){
+                    getlist('industry',val,me.$('#sinsthree'),'请选择三级行业',function(){
+                        //
+                        console.log('三级行业变化');
+                        console.log( me.model.get('industryThird') );
+                        if( me.attrs.mstate.b3 == false){
+                            me.$('#sinsthree').val(me.model.get('industryThird'));
+                            me.attrs.mstate.b3 = true;
+                        }
+                    });
+                }
             })
         },
 
@@ -681,15 +540,15 @@ define(function(require, exports, module) {
 
                         //装载数据 主要给企业基本信息赋值
                         model = $.extend( model, model.odrDraftEnterprise );
+                        console.log(model);
 
                         me.model.load(model);
-
                         //
                         //兼容二三级地址和二三级行业
                         //===========================================================
-                        console.log('enterpriseinfo');
-                        console.log(model);
                         me.attrs.mstate = {'a2':false,'a3':false,'b2':false,'b3':false }
+                        me.$('#sprovince').val(me.model.get('province'));
+                        me.$('#sinsone').val(me.model.get('industryFirst'));
                         me.$('#sprovince').trigger('change');
                         me.$('#sinsone').trigger('change');
                         //============================================================
@@ -724,19 +583,6 @@ define(function(require, exports, module) {
                         me.enterpriseAccount = model.enterpriseAccount;
                         me.attrs.isPay = model.isPayed;
 
-                        //根据企业账号获取代理区域
-                        /*
-                        util.api({
-                            'url': '~/op/api/region/getbyea',
-                            'data': { 'ea': model.enterpriseAccount },
-                            'success': function(data) {
-                                console.warn(data);
-                                if (data.success) {
-                                    me.$('.proxy-area').val(data.value.model.name);
-                                }
-                            }
-                        });
-                        */
 
                         me.$asource.val(model.source);
                         //me.$aknow.val(model.knowSource);
@@ -908,16 +754,6 @@ define(function(require, exports, module) {
                     console.log('product');
                     this.showProductInfo();      //产品信息
                     break;
-                /*===================================
-                case 'verification':             //资料审核
-                    this.showVerifiCation();
-                    break;
-                =====================================*/
-                /*===================================
-                case 'callback':
-                    this.showCallBack();          //电话回访
-                    break;
-                =====================================*/
                 case 'operations':                //使用情况
                     console.log('operations');
                     this.showOperations();
@@ -942,7 +778,6 @@ define(function(require, exports, module) {
         },
 
         //
-        //
         // 保存企业信息
         //=========================
         saveBasicEve: function(e) {
@@ -965,32 +800,40 @@ define(function(require, exports, module) {
             var postData = generateData([
                 'address',
                 'area',
-                'city',
+                //'city',
                 'companyScale',
                 'contactEmail',
                 'contactIm',
                 'contactName',
                 'contactPhone',
-                'county',
+                //'county',
                 'enterpriseAccount',
                 //'enterpriseFilingId',   //备案企业id
                 'enterpriseName',
                 'groupType',
-                'industryFirst',
-                'industrySecond',
-                'industryThird',
+                //'industryFirst',
+                //'industrySecond',
+                //'industryThird',
                 'isReference',
                 'isReferral',
                 'isSaleTeam',
                 'keyContactEmail',
                 'keyContactName',
                 'keyContactPhone',
-                'province',
+                //'province',
                 'saleTeamScale'
                 ]);
             
             postData.enterpriseFilingId = me.model.get('enterpriseFilingId');
+            postData.province = me.$('#sprovince').val();
+            postData.city = me.$('#scity').val();
+            postData.county = me.$('#sarea').val();
 
+            postData.industryFirst = me.$('#sinsone').val();
+            postData.industrySecond = me.$('#sinstwo').val();
+            postData.industryThird = me.$('#sinsthree').val();
+
+            postData.id = me.model.get('id');
             //修改企业信息
             util.api({
                 'url':'/enterprise/uptEnterprise',
@@ -1009,60 +852,6 @@ define(function(require, exports, module) {
                     $target.removeClass('disable');
                 }
             });
-            /*
-            var data = {
-                enterpriseId: this.model.attrs.enterpriseId, //企业ID
-                enterpriseName: this.$name.val(), //企业名称
-                source: this.$asource.val(), //来源
-                isFreeGiven: this.$('#presentOfficeEdition').val(), //是否赠送办公版
-                //knowSource: this.$aknow.val(), //了解渠道
-                registerMotive: this.$aregister.val(), //注册动机
-                companyScale: this.$acompany.val(), //公司规模
-                isSaleTeam: this.$hasSales.val(), //是否有销售团队
-                saleTeamScale: this.$asales.val(), //销售团队规模
-                isFirstMeetingSign: this.$isFirstView.val(), //是否首面签约
-                isWillPin: this.$isMettingSale.val(), //是否会销
-                isStrangerVisits: this.$isStranger.val(), //是否陌拜
-                city: this.$city.val(), //城市
-                //isFastSign: this.$isFastSign.val(),
-                dealDays: this.$dealDays.val(), //成交周期
-                //isAutoClave: this.$hp.val(),
-                //autoclaveDays: this.$hpDays.val(),
-                isReferral: this.$isIntro.val(), //是否转介绍
-                isPayed: this.$isPayed.val(), //是否付费
-                //isEndlessTrial: this.$('#isEndlessTrial').val(),          //是否永久试用
-
-                //企业负责人
-                keyContactName: this.$kcName.val(), //企业负责人姓名                         
-                keyContactPhone: this.$kcMobile.val(), //企业负责人电话
-                keyContactEmail: this.$kcEmail.val(), //企业负责人电子邮箱
-
-                //纷享平台管理员
-                contactName: this.$cName.val(), //姓名
-                contactPhone: this.$cMobile.val(), //电话
-                contactEmail: this.$cEmail.val(), //电子邮箱
-                contactIm: this.$cQQ.val(), //常用QQ
-                remark: this.$remark.val() //备注
-            };
-            util.api({
-                url: '/enterprise/updatebasics',
-                data: data,
-                success: function(data) {
-
-                    console.warn(data);
-                    if (data.success) {
-                        util.showTip('更新成功');
-
-                        me.model.attrs.updateTime = data.value.model.modifytime;
-                        me.trigger('refresh');
-                    }
-                },
-                complete: function() {
-                    $target.removeAttr('disabled');
-                    $target.removeClass('disable');
-                }
-            });
-            */
         },
 
         //显示产品信息
@@ -1103,32 +892,31 @@ define(function(require, exports, module) {
 
                                 switch (obj["code"]) {
                                     case "FX_Terminal":
-                                        /*strDom += " <p> <span>" + obj['appName'] + "(个)：" + obj['quota'] + "</span>" +
-                                        " <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span></p>";*/
+                                        break;
+                                    case "Train_Hepler_Capacity":
                                         break;
                                     case "CRM":
-                                        strDom += " <p> <span>" + obj['appName'] + "(个)：" + obj['quota'] + "</span>" +
-                                            " <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span>" + enablestatus + "&nbsp;<button class='prooff off' name='product' typeid='"+obj["quotaType"]+"' value='"+obj["appId"]+"'>开启</button><button class='proon off' name='product' typeid='"+obj["quotaType"]+"' value='" + obj["appId"] + "'>关闭</button> </p>";
+                                        strDom += " <p> <span class='title'><b>" + obj['appName'] + ":</b>" + obj['quota'] + "</span>" +
+                                            " <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span><i>" + enablestatus + "</i>&nbsp;<button class='prooff off u-btn-blue' name='product' typeid='"+obj["quotaType"]+"' value='"+obj["appId"]+"'>开启</button><button class='proon off' name='product' typeid='"+obj["quotaType"]+"' value='" + obj["appId"] + "'>关闭</button> </p>";
                                         break;
                                     //培训人数
                                     case "Service_Fee":
-                                        strDom += " <p> <span>" + obj['appName'] + "(人)：" + obj['quota'] + "</span>" +
+                                        strDom += " <p> <span class='title'><b>" + obj['appName'] + ":</b>" + obj['quota'] + "</span>" +
                                             "</p>";
                                         break;
                                     case "HR_Helper":
-                                        strDom += " <p> <span>" + obj['appName'] + "</span> <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span> </p>";
+                                        strDom += " <p> <span class='title'><b>" + obj['appName'] + ":</b></span> <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span> </p>";
                                         break;
                                     case "Business_Card":
-                                        strDom += " <p> <span>" + obj['appName'] + "</span> <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span> </p>";
+                                        strDom += " <p> <span class='title'><b>" + obj['appName'] + ":</b></span> <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span> </p>";
                                         break;
                                     case "Custom_Helper":
-                                        strDom += " <p> <span>" + obj['appName'] + "</span> <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span> </p>";
+                                        strDom += " <p> <span class='title'><b>" + obj['appName'] + ":</b></span> <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span> </p>";
                                         break;
                                     case "StorageSpace":
-                                        //strDom += " <p> <span>" + obj['appName'] + "</span> <span>" + obj['quota'] + "(GB)</span> </p>";
                                         break;
                                     default:
-                                        strDom += " <p> <span>" + obj['appName'] + "&nbsp;&nbsp;总量(" + obj['quota'] + ")&nbsp;&nbsp;使用人数("+ obj['usedQuota'] + ")</span>" +"<span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span>" + enablestatus + "&nbsp;<button class='prooff off' name='product' typeid='"+obj["quotaType"]+"' value='"+obj["appId"]+"'>开启</button><button class='proon off' name='product' typeid='"+obj["quotaType"]+"' value='" + obj["appId"] + "'>关闭</button> </p>";
+                                        strDom += " <p> <span class='title'><b>" + obj['appName'] + ":</b>&nbsp;总量" + obj['quota'] + "&nbsp;已用"+ obj['usedQuota'] + "</span>" +"<span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span><i>" + enablestatus + "</i>&nbsp;<button class='prooff off u-btn-blue' name='product' typeid='"+obj["quotaType"]+"' value='"+obj["appId"]+"'>开启</button><button class='proon off' name='product' typeid='"+obj["quotaType"]+"' value='" + obj["appId"] + "'>关闭</button> </p>";
                                 }
                             });
 
@@ -1282,288 +1070,6 @@ define(function(require, exports, module) {
                 }
             })
         },
-
-        //*显示资料审核
-        /*===========================================
-        showVerifiCation: function ( changeBool ) {
-            var me = this;
-            var changeBool = changeBool || false;
-
-            //清空上传组件信息
-            me.$yingyezhizhao.removeAttr('disabled');
-            me.$yingyezhizhao[0].value = '';
-
-            me.$mentou.removeAttr('disabled');
-            me.$mentou[0].value = '';
-
-            me.$hetongzhaopian.removeAttr('disabled');
-            me.$hetongzhaopian[0].value = '';
-
-            me.$hetongfbzhaopian.removeAttr('disabled');
-            me.$hetongfbzhaopian[0].value = '';
-
-
-            me.$setcompanyGatekeyword.removeAttr('disabled');
-            me.$setcompanyGateRemark.removeAttr('disabled');
-
-            //清空input信息
-            me.model.set('companyGateKeyword', '');
-            me.model.set('companyGateRemark', '');
-            me.$verification.find('#shenheresult input').val('');
-            me.$('.approvalinfo').val('');
-
-
-            //先清空营业执照和门头信息的照片src
-            me.$yingyezhizhaoinfo.attr('href', '');
-            me.$yingyezhizhaoinfo.find('img').attr('src', '');
-            me.$mentouinfo.attr('href', '');
-            me.$mentouinfo.find('img').attr('src', '');
-
-            util.api({
-                'url': '/enterprise/getinfoandvisitcheck',
-                'data': {
-                    'enterpriseId': me.model.attrs['enterpriseId']
-                },
-                'success': function (data) {
-                    console.warn(data);
-                    if (data.success) {
-
-                        //营业执照
-                        if (data.value.model && data.value.model.businessLicense) {
-                            console.log(111);
-                            me.$yingyezhizhaoinfo.attr('href', '/op/api/file/previewimage' + '?filePath=' + data.value.model.businessLicense);
-                            me.$yingyezhizhaoinfo.find('img').attr('src', '/op/api/file/previewimage' + '?filePath=' + data.value.model.businessLicense + '&t=' + new Date().getTime());
-                            me.$yingyezhizhaonone.hide();
-                            me.$yingyezhizhaoinfo.show();
-                        } else {
-                            me.$yingyezhizhaoinfo.attr('href', '');
-                            me.$yingyezhizhaoinfo.find('img').attr('src', '');
-                            me.$yingyezhizhaoinfo.hide();
-                            me.$yingyezhizhaonone.show();
-                        }
-
-                        //门头信息
-                        if (data.value.model && data.value.model.companyGatePicture) {
-                            console.log(222);
-                            me.$mentouinfo.attr('href', '/op/api/file/previewimage' + '?filePath=' + data.value.model.companyGatePicture);
-                            me.$mentouinfo.find('img').attr('src', '/op/api/file/previewimage' + '?filePath=' + data.value.model.companyGatePicture + '&t=' + new Date().getTime());
-                            me.$mentouinfo.show();
-                            me.$mentounone.hide();
-                        } else {
-                            me.$mentouinfo.attr('href', '');
-                            me.$mentouinfo.find('img').attr('src', '');
-                            me.$mentouinfo.hide()
-                            me.$mentounone.show();
-                        }
-
-                        if (data.value.model && data.value.model.companyGateKeyword) {
-                            me.$getcompanyGatekeyword.val(data.value.model.companyGateKeyword);
-                        } else {
-                            me.$getcompanyGatekeyword.val('');
-                        }
-                        if (data.value.model && data.value.model.companyGateRemark) {
-                            me.$getcompanyGateRemark.val(data.value.model.companyGateRemark);
-                        } else {
-                            me.$getcompanyGateRemark.val('');
-                        }
-
-                        //审核结果
-                        me.$verification.find('#shenheresult input').val(util.findEnumsText('INFORMATION_CHECK_STATUS', data.value.model.informationCheck));
-
-                        //审核意见
-                        if (data.value.model && data.value.model.informationCheckRemark) {
-
-                            me.$('.approvalinfo').val(data.value.model.informationCheckRemark);
-                        }
-                    }
-                }
-            });
-        },
-        =============================================*/
-
-        //*资料审核成功
-        /*===========================================
-        veriOnEve: function() {
-            var me = this;
-            console.log('on');
-            util.api({
-                'url': '/enterprise/checkinformation',
-                'data': {
-                    'enterpriseId': me.model.get('enterpriseId'),
-                    'isCheckPassed': 2,
-                    'informationCheckRemark': me.$('.approvalinfo').val()
-                },
-                'success': function(data) {
-                    console.warn(data);
-                    me.showVerifiCation(true);
-                }
-            })
-        },
-        =============================================*/
-
-        //*资料审核失败
-        /*==========================================
-        veriOffEve: function() {
-            var me = this;
-            console.log('off');
-            util.api({
-                'url': '/enterprise/checkinformation',
-                'data': {
-                    'enterpriseId': me.model.get('enterpriseId'),
-                    'isCheckPassed': 3,
-                    'informationCheckRemark': me.$('.approvalinfo').val()
-                },
-                'success': function(data) {
-                    console.warn(data);
-                    me.showVerifiCation();
-                }
-            })
-        },
-        =============================================*/
-        //*保存资料审核
-        /*==========================================
-        saveFn: function() {
-
-            var me = this;
-            var objData = {};
-
-            //如果以前没有合同 这次也没上传 则提示必须选择合同照片
-            if (!me.model.get('contract') && me.$hetongzhaopian[0].files.length <= 0) {
-
-                util.showTip('请选择合同照片');
-                return false;
-            }
-
-            objData['enterpriseId'] = me.model.attrs['enterpriseId'];
-            objData['contract'] = me.model.get('contract') || '';
-            objData['contractFileName'] = me.model.get('contractFileName') || '';
-
-            objData['contractType'] = me.model.get('contractType') || 3;
-            objData['extraId'] = me.model.get('extraId');
-
-            objData['businessLicense'] = me.model.get('businessLicense') || '';
-            objData['businessLicenseFileName'] = me.model.get('businessLicenseFileName') || '';
-            objData['companyGatePicture'] = me.model.get('companyGatePicture') || '';
-            objData['companyGatePictureFileName'] = me.model.get('companyGatePictureFileName') || '';
-            objData['contractCopy'] = me.model.get('contractCopy') || '';
-            objData['contractCopyFileName'] = me.model.get('contractCopyFileName') || '';
-            objData['companyGateKeyword'] = me.model.get('companyGateKeyword');
-            objData['companyGateRemark'] = me.model.get('companyGateRemark');
-
-            util.api({
-                'url': '/enterprise/saveenterpriseextend',
-                'data': objData,
-                'button': {
-                    'el': me.$saveEve,
-                    'text': '提交中......'
-                },
-                'success': function(data) {
-                    console.warn(data);
-                    if (data.success) {
-                        util.showTip('保存成功 请等待审核');
-                        me.getEnterprise(objData['enterpriseId'], function() {
-                            me.showVerifiCation();
-                        });
-                    }
-                },
-                'complete': function() {
-                    me.$saveEve.removeAttr('disabled');
-                    me.$saveEve.text('保存');
-                }
-            });
-        },
-        =========================================*/
-
-        /*==========================电话回访
-        showCallBack: function() {
-            var me = this;
-
-            //查询电话回访结果
-            util.api({
-                'url': '/enterprise/getinfoandvisitcheck',
-                'data': {
-                    'enterpriseId': me.model.attrs['enterpriseId']
-                },
-                'success': function(data) {
-
-                    if (data.success) {
-
-                        me.$('#returnvisitCheck').val(data.value.model['returnVisitCheck']);         //电话回访状态
-                        me.$('#cheatType').val(data.value.model['cheatType']);                       //作弊情况
-
-                        me.$('#returnVisitCheckAccountName').val(data.value.model['returnVisitCheckAccount'] && data.value.model['returnVisitCheckAccount']['name']);
-                        me.$('#returnVisitCheckTimeStr').val(data.value.model['returnvisitCheckTime'] && new Date(data.value.model['returnvisitCheckTime'])._format('yyyy-MM-dd hh:mm'));
-                        
-                        me.$('#returnVisitCheckStr').text(util.findEnumsText('RETURN_VISIT_CHECK', data.value.model['returnVisitCheck']));
-                    }
-                }
-            })
-            if (!me.attrs.isAgent) {
-                me.loadCallBackList();
-            }
-        },
-        =================================*/
-        //*加载回访列表
-        /*===============================
-        loadCallBackList: function() {
-
-            var me = this;
-            me.$phonecallback.find('tbody').html('<tr><td colspan="4"><p class="info">加载中</p></td></tr>');
-
-            util.api({
-                'url': '/enterprise/getemployeessupervise',
-                'data': {
-                    'enterpriseId': me.model.attrs['enterpriseId']
-                },
-                'success': function(data) {
-                    console.warn(data);
-                    if (data.success) {
-                        if (data.value.model.length > 0) {
-                            data.value.model.forEach(function(item) {
-                                if (item.admin == '1') {
-                                    item.adminStr = '是';
-                                } else {
-                                    item.adminStr = '否';
-                                }
-                            });
-                            me.$phonecallback.find('tbody').html(me.tplCallBackList({ 'content': data.value.model }));
-                        } else {
-                            me.$phonecallback.find('tbody').html('<tr><td colspan="4"><p class="info">暂无数据</p></td></tr>')
-                        }
-                    }
-                }
-            })
-        },
-        ================================*/
-        //*保存回访记录
-        /*=============================
-        callbackEve: function() {
-            var me = this;
-
-            console.log('callbackeve');
-            util.api({
-                'url': '/enterprise/checkreturnvisit',
-                'data': {
-                    'enterpriseId': me.model.attrs['enterpriseId'],
-                    'cheatType': me.$('#cheatType').val(),
-                    'returnVisitCheck': me.$('#returnvisitCheck').val()
-                },
-                'success': function(data) {
-                    if (data.success) {
-                        me.showCallBack();
-                    }
-                }
-            })
-        },
-        ================================*/
-        //*查看记录人员详情
-        /*==============================
-        employeeDetailEve: function(e) {
-            var ea = $(e.currentTarget).attr('data-ea');
-            var phone = $(e.currentTarget).attr('data-phone');
-            this.trigger('employeeDetail', ea, phone);
-        },
-        ================================*/
         
         //使用情况显示使用情况 ??培训助手流量总量 和已用量/未用量 如何赋值
         showOperations: function() {
