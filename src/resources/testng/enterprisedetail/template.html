@@ -168,11 +168,11 @@
                             </label>
                             <span class="inline-m">{{item.quota}}</span>
                             <!--分割线-->
-                            <label>开始时间：
+                            <label ng-if="item.startDate">开始时间：
                                 <span class="inline-m">{{item.startDate | date:"yyyy/MM/dd" }}</span>
                             </label>
                             <!--分割线-->
-                            <label>结束时间：
+                            <label ng-if="item.endDate">结束时间：
                                 <span class="inline-m">{{item.endDate | date:"yyyy/MM/dd" }}</span>
                             </label>
                             <!--分割线-->
@@ -189,11 +189,11 @@
                             </label>
                             <span class="inline-m">{{item.quota}}</span>
                             <!--分割线-->
-                            <label>开始时间：
+                            <label ng-if="item.startDate">开始时间：
                                 <span class="inline-m">{{item.startDate | date:"yyyy/MM/dd" }}</span>
                             </label>
                             <!--分割线-->
-                            <label>结束时间：
+                            <label ng-if="item.endDate">结束时间：
                                 <span class="inline-m">{{item.endDate | date:"yyyy/MM/dd" }}</span>
                             </label>
                         </div>
@@ -201,7 +201,7 @@
                         </div>
                         <div ng-show="false" class="form-field" ng-switch-when="FXBC">
                         </div>
-                        <div  class="form-field" ng-switch-when="StorageSpace">
+                        <div ng-show="false"  class="form-field" ng-switch-when="StorageSpace">
                             <!--分割线-->
                             <label>{{item.appName}}:
                             </label>
@@ -213,11 +213,11 @@
                             </label>
                             <span class="inline-m">{{item.quota}}</span>
                             <!--分割线-->
-                            <label>开始时间：
+                            <label ng-if="item.startDate">开始时间：
                                 <span class="inline-m">{{item.startDate | date:"yyyy/MM/dd" }}</span>
                             </label>
                             <!--分割线-->
-                            <label>结束时间：
+                            <label ng-if="item.endDate">结束时间：
                                 <span class="inline-m">{{item.endDate | date:"yyyy/MM/dd" }}</span>
                             </label>
                         </div>
