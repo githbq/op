@@ -18,7 +18,7 @@ define(function(require, exports, module){
 	var $body = $('body');
 	$body.on('click',function(e){
 		if ($(e.target).closest('.m-slider,.ui-autocomplete').length == 0) {
-			allclose();
+			allClose();
 		}
 	});
 	
