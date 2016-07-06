@@ -112,7 +112,7 @@ define(function (require, exports, module) {
 
                 var defaultOption = {
                     url: '~/op/api/enums/getlistByParent',
-                    data: {name: 'INDUSTRY', parentValue: parentValue || 0},
+                    data: {name: 'INDUSTRY_NEW', parentValue: parentValue || 0},
                     success: function (result) {
                         if (result.success) {
                             var data = [];
