@@ -1,13 +1,15 @@
 <div ng-controller="mainController" class="ng-cloak enterprise-panel" ng-init="bbb=false" ng-form name="mainForm">
     <!--<button ng-click="testBasicForm()">测试表单验证11</button>-->
     <!--<button ng-attr-abcd="aaaa" ng-click="testResult()">testResult</button>-->
+    <span ng-click="showTest=true">&nbsp;&nbsp;</span>
+    <div ng-if="showTest">
     <button ng-click="goToStep(1)">step1*</button>
     <button ng-click="goToStep(2)">step2*</button>
     <button ng-click="goToStep(3)">step3*</button>
     <button ng-click="goToStepTest(1)">step1</button>
     <button ng-click="goToStepTest(2)">step2</button>
     <button ng-click="goToStepTest(3)">step3</button>
-
+    </div>
     <div ng-show="step==1 && !(globalInfo.isAdd)" ng-controller="form1Controller" ng-class="{step_validate_error:step_1_validate_error}" class="step form baseinfo" ng-form name="stepForm1">
         <div class="top-bar" ng-if="hideTopBar!==true">
             <!--<h1>第一步&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;企业信息</h1>-->
@@ -168,16 +170,16 @@
                             </label>
                             <span class="inline-m">{{item.quota}}</span>
                             <!--分割线-->
-                            <label>开始时间：
+                            <label ng-if="item.startDate">开始时间：
                                 <span class="inline-m">{{item.startDate | date:"yyyy/MM/dd" }}</span>
                             </label>
                             <!--分割线-->
-                            <label>结束时间：
+                            <label ng-if="item.endDate">结束时间：
                                 <span class="inline-m">{{item.endDate | date:"yyyy/MM/dd" }}</span>
                             </label>
                             <!--分割线-->
                             <label>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 &nbsp;&nbsp;<input type='checkbox' name='baichuai' checked='checked' disabled='disabled'/>捆绑纷享百川
                                 &nbsp;&nbsp;<input type='checkbox' name='system' checked='checked' disabled='disabled'/>捆绑报数系统
                                 &nbsp;&nbsp;<input type='checkbox' name='mingpian' checked='checked' disabled='disabled'/>捆绑名片
@@ -189,11 +191,11 @@
                             </label>
                             <span class="inline-m">{{item.quota}}</span>
                             <!--分割线-->
-                            <label>开始时间：
+                            <label ng-if="item.startDate">开始时间：
                                 <span class="inline-m">{{item.startDate | date:"yyyy/MM/dd" }}</span>
                             </label>
                             <!--分割线-->
-                            <label>结束时间：
+                            <label ng-if="item.endDate">结束时间：
                                 <span class="inline-m">{{item.endDate | date:"yyyy/MM/dd" }}</span>
                             </label>
                         </div>
@@ -201,7 +203,7 @@
                         </div>
                         <div ng-show="false" class="form-field" ng-switch-when="FXBC">
                         </div>
-                        <div  class="form-field" ng-switch-when="StorageSpace">
+                        <div ng-show="false"  class="form-field" ng-switch-when="StorageSpace">
                             <!--分割线-->
                             <label>{{item.appName}}:
                             </label>
@@ -213,11 +215,11 @@
                             </label>
                             <span class="inline-m">{{item.quota}}</span>
                             <!--分割线-->
-                            <label>开始时间：
+                            <label ng-if="item.startDate">开始时间：
                                 <span class="inline-m">{{item.startDate | date:"yyyy/MM/dd" }}</span>
                             </label>
                             <!--分割线-->
-                            <label>结束时间：
+                            <label ng-if="item.endDate">结束时间：
                                 <span class="inline-m">{{item.endDate | date:"yyyy/MM/dd" }}</span>
                             </label>
                         </div>
