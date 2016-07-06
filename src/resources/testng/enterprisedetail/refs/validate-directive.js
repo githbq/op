@@ -52,7 +52,7 @@ define(function (reuqire, exports, module) {
         };
     });
 
-    var NUMBER_REGEXP = /^\d{1,6}((\.)\d{0,2})?$/;
+    var NUMBER_REGEXP = /^\d{1,8}((\.)\d{0,2})?$/;
     var INTEGER_REGEXP = /^[0-9][0-9]{0,5}$/;
     app.directive('number', function () {
         return {
