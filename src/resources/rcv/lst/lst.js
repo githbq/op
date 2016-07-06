@@ -64,12 +64,12 @@ define( function( require, exports, module ) {
                 });
             }
             if(bool){
-                me.$data.prop('disabled',false);
-                me.$submit.prop({'disabled':false, class: 'btn-blue'})
+                me.$data.prop('disabled',true);
+                me.$submit.prop({'disabled':true, class: 'btn-blue'})
                 return;
             }
-            me.$data.prop('disabled',true);
-            me.$submit.prop({'disabled':true, class: ''});
+            me.$data.prop('disabled',false);
+            me.$submit.prop({'disabled':false, class: ''});
 
             
         },
@@ -451,7 +451,7 @@ define( function( require, exports, module ) {
         //修改编辑
         edit:function(e) {
             var id = $(e.currentTarget).attr('data-id');
-            var bUpdate = ($(e.currentTarget).html() == '编辑')? true: false;
+            var bUpdate = ($(e.currentTarget).html() == '编辑')? false: true;
             var me = this;
             me.trigger('modify', id, bUpdate );    
         },
