@@ -59,7 +59,9 @@ define( function(require, exports, module){
 			
 			//选择区域模块
 			//me.$moneyTime.datetimepicker({'timepicker': false,'format':'Y/m/d'});
-
+			if( me.attrs.isTop ){
+				me.$view.css( {"z-index":3000} );
+			}
 			//区域树选择
             me.areaTree = new AreaTree();
             //区域树选择区域事件
