@@ -238,7 +238,7 @@ define( function( require, exports, module ) {
                                     +'<td>'+item.order.enterpriseAccount+'</td>'
                                     +'<td>'+item.account.name+'</td>'
                                     +'<td>'+item.formatTime+'</td>'
-                                    +'<td><a class="check" data-type="'+item.order.orderType+'" data-id="'+item.order.id+'" data-status="'+item.approveStatus+'" data-dstatus="'+item.claimReceivedPayStatus+'" data-entid="'+item.order.enterpriseId+'">查看</a></td>';
+                                    +'<td><a class="check" data-type="'+item.order.orderType+'" data-id="'+item.order.id+'" data-status="'+item.approveStatus+'" data-dstatus="'+item.claimReceivedPayStatus+'" data-entId="'+item.order.enterpriseId+'">查看</a></td>';
                                     +'</tr>';
                             });
                         }else{
@@ -273,15 +273,21 @@ define( function( require, exports, module ) {
                                 processInstanceId: item.order.procInstId
                             }
                         }
-                    })
+                    });
                     options&&this.trigger('detailPayment', options);
                     break;
                 default:
-                    this.trigger('checkDetail', id);
+                    var status = $(e.currentTarget).attr('data-status');
+                    var dstatus = $(e.currentTarget).attr('data-dstatus');
+                    var options = {
+                        'htshow': false,
+                        'orderType': type,
+                        'enterpriseId': $(e.currentTarget).attr('data-entId')
+                    };
+                    this.trigger('checkDetail', id, status, dstatus, options);
                     break;
             }
             
-            this.trigger('checkDetail', id);
         },
         submit: function(data) {
             var me = this;
@@ -629,14 +635,13 @@ define( function( require, exports, module ) {
         });
 
         selectOrder.on('detailPayment', function(options){
-            console.log(options)
-            var detailPayment = new DetailPayment();
+            var detailPayment = new DetailPayment({'isTop':true});
             detailPayment.show(options);
         });
         // 查看订单详情
-        selectOrder.on('checkDetail', function( id ){
+        selectOrder.on('checkDetail', function( id,status,dstatus,options){
             var detail = new Detail( {'isTop':true} );
-            detail.show(id, 'd');
+            detail.show( id, 'd', status, dstatus, options );
         });
 
         // 更新列表
