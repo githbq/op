@@ -14,14 +14,14 @@ define(function(require, exports, module){
 	 * $body 注册全局事件
 	 * 点击时 隐藏所有slider
 	 */
-	 /*
+	 
 	var $body = $('body');
 	$body.on('click',function(e){
 		if ($(e.target).closest('.m-slider,.ui-autocomplete').length == 0) {
 			allclose();
 		}
 	});
-	*/
+	
 	function allClose(){
 		for( var key in Slider.widgets ){
 			Slider.widgets[key].hide();
