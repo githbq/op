@@ -53,6 +53,11 @@
                 </label>
                 <label>
                     <span>是否自注册</span>
+                    <select ce-model="isSelfRegister">
+                        <option value="">全部</option>
+                        <option value="1">是</option>
+                        <option value="0">否</option>
+                    </select>
                 </label>
             </div>
         </div>
@@ -62,10 +67,11 @@
                 <tr>
                     <th></th>
                     <th style="width:20px;" data-state="support"><input type="checkbox" class="selectall"></th>
-                    <th style="width:180px;">企业名称</th>
-                    <th style="width:200px;">企业帐号</th>
-					<th style="width:200px;">所属部门/代理商</th>
-                    <th style="width:200px;">销售负责人(创建人)</th>
+                    <th style="width:170px;">企业名称</th>
+                    <th style="width:190px;">企业帐号</th>
+					<th style="width:190px;">所属部门/代理商</th>
+                    <th style="width:190px;">销售负责人(创建人)</th>
+                    <th style="width:80px">是否自注册</th>
                     <th style="width:200px;">企业类型</th>
                     <th style="width:200px;">企业状态</th>
                     <th style="width:160px;">超出数量预警</th>
@@ -80,7 +86,8 @@
                     <td><%=item.csmEnterprise.enterpriseAccount%></td>
 					<td><%=item.agent ? item.agent.name:''%> </td>
 					<td><%=item.creator ? item.creator.name:'--'%></td>
-					<td><%=item.entTypeStr%></td>
+					<td><%=item.isSelfRegister ? '是':'否'%></td>
+                    <td><%=item.entTypeStr%></td>
                     <td><%=item.entStatusStr%></td>
                     <td><%=item.isOverLimitWarnStr%></td>
                     <td data-status="<%=item.csmEnterprise.runStatus%>">

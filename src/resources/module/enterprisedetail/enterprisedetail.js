@@ -14,7 +14,9 @@ define(function(require, exports, module) {
     var buyMap = new Object({ '1': '赠送', '2': '购买充值' });
     var carMap = new Object({ '0': '未开通服务', '1': '限量购买', '2': '不限量使用' });
 
-    //企业详情
+    //
+    // 企业详情
+    //=============================================
     var EntDetail = MClass(Slider).include({
 
         content: contentStr,
@@ -567,11 +569,11 @@ define(function(require, exports, module) {
             EntDetail.__super__.hide.apply(this, arguments);
         },
 
-        /**
-         *  获取枚举值
-         *  获取完枚举值后
-         *  获取企业信息
-         */
+        //
+        //  获取枚举值
+        //  获取完枚举值后
+        //  获取企业信息
+        //===========================
         getEnums: function(id) {
             var me = this;
 
@@ -590,13 +592,7 @@ define(function(require, exports, module) {
                 }
             };
 
-            ///me.generateSelect( 'INDUSTRY', me.$aindustry , function(){ state.a = true; checkIsOk() });       //行业信息
-            /*
-            util.getIndustry(me.$aindustry, function() {
-                state.a = true;
-                checkIsOk()
-            });
-            */
+            //
             me.generateSelect('ENT_LST_SOURCE', me.$asource, function() {
                 state.a = true;
                 checkIsOk()
@@ -627,34 +623,6 @@ define(function(require, exports, module) {
                 state.f = true;
                 checkIsOk()
             }); //团队类型
-
-            /*
-            me.generateSelect('PROVINCE', me.$aprovince, function() {
-                state.c = true;
-                checkIsOk()
-            }); //省和直辖市
-
-            me.generateSelect('GROUP_TYPE', me.$agroup, function() {
-                state.d = true;
-                checkIsOk()
-            }); //团队类型
-
-            me.generateSelect('KNOW_SOURCE', me.$aknow, function() {
-                state.e = true;
-                checkIsOk()
-            }); //了解渠道
-
-            me.generateSelect('REGISTER_MOTIVE', me.$aregister, function() {
-                state.f = true;
-                checkIsOk()
-            }); //注册动机
-
-            me.generateSelect('ENTERPRISE_LOG_TYPE', me.$sbLogType, function() {
-                state.i = true;
-                checkIsOk()
-            }); //日志类型
-            */
-            //util.getEnums('INFORMATION_CHECK_STATUS');
         },
 
         //重置select枚举值
@@ -716,14 +684,16 @@ define(function(require, exports, module) {
 
                         me.model.load(model);
 
-                        //兼容二三级地址和行业
+                        //
+                        //兼容二三级地址和二三级行业
+                        //===========================================================
                         console.log('enterpriseinfo');
                         console.log(model);
+                        me.attrs.mstate = {'a2':false,'a3':false,'b2':false,'b3':false }
                         me.$('#sprovince').trigger('change');
                         me.$('#sinsone').trigger('change');
-
-                        //
-                        me.attrs.mstate = {'a2':false,'a3':false,'b2':false,'b3':false }
+                        //============================================================
+                        
 
 
                         //初始化 使用情况的缓存
@@ -755,6 +725,7 @@ define(function(require, exports, module) {
                         me.attrs.isPay = model.isPayed;
 
                         //根据企业账号获取代理区域
+                        /*
                         util.api({
                             'url': '~/op/api/region/getbyea',
                             'data': { 'ea': model.enterpriseAccount },
@@ -765,6 +736,7 @@ define(function(require, exports, module) {
                                 }
                             }
                         });
+                        */
 
                         me.$asource.val(model.source);
                         //me.$aknow.val(model.knowSource);
@@ -1153,7 +1125,7 @@ define(function(require, exports, module) {
                                         strDom += " <p> <span>" + obj['appName'] + "</span> <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span> </p>";
                                         break;
                                     case "StorageSpace":
-                                        strDom += " <p> <span>" + obj['appName'] + "</span> <span>" + obj['quota'] + "(GB)</span> </p>";
+                                        //strDom += " <p> <span>" + obj['appName'] + "</span> <span>" + obj['quota'] + "(GB)</span> </p>";
                                         break;
                                     default:
                                         strDom += " <p> <span>" + obj['appName'] + "&nbsp;&nbsp;总量(" + obj['quota'] + ")&nbsp;&nbsp;使用人数("+ obj['usedQuota'] + ")</span>" +"<span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span>" + enablestatus + "&nbsp;<button class='prooff off' name='product' typeid='"+obj["quotaType"]+"' value='"+obj["appId"]+"'>开启</button><button class='proon off' name='product' typeid='"+obj["quotaType"]+"' value='" + obj["appId"] + "'>关闭</button> </p>";

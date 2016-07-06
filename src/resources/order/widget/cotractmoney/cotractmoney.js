@@ -68,7 +68,8 @@ define(function (require, exports, module) {
 
         },
 
-        //获取订单详情
+        // 获取订单详情
+        //==================
         getOrderDetail: function () {
             var me = this;
 
@@ -91,7 +92,6 @@ define(function (require, exports, module) {
                     }
                 }
             })
-
         },
 
         //子产品退款和使用
@@ -128,6 +128,8 @@ define(function (require, exports, module) {
                         contractAmount+=parseFloat(sublist[i].contractAmount);
                         usedAmound+=parseFloat(sublist[i].usedAmount);
                         break;
+
+                    //部分产品直接略过
                     case 10: case 11: case 2: case 8:
                     break;
                     default:
@@ -159,11 +161,14 @@ define(function (require, exports, module) {
             tempAmount = tempAmount.toFixed(2);
             */
 
-            me.attrs.refundVO.refund= {
-                'refundAmount':0,
-                'amount':tempAmount
-            };
+
             me.attrs.dataObj.usedAmount = usedAmound.toFixed(2);
+            me.attrs.refundVO.refund= {
+                'refundAmount': 0,
+                'amount': tempAmount,
+                'backAmount': me.attrs.dataObj.reciviedAmount - me.attrs.dataObj.usedAmount
+            };
+
             me.model.set('usedAmount',me.attrs.dataObj.usedAmount );
             //me.$('.sub-tab tbody').html(strDom);
             me.$('.sub-tab-money').html(serviceDoms.concat(strDoms).join('<br/>'));

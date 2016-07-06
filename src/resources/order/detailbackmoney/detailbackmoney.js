@@ -112,15 +112,18 @@ define( function(require, exports, module){
 				me.attrs.cotractMoney = new CotractMoney( { 'wrapper':me.$view.find('.common-product'),'orderId':me.attrs.options.id,'hasInovice':me.attrs.hasInovice, 'editFlag':me.attrs.options.editFlag} );
 				
 				//
-				//newFirst
+				// 第一次退款 退款金额通过计算 newFirst
+				//=============================================
 				if(me.attrs.options.state == 'newFirst'){
 					me.attrs.cotractMoney.on('successData',function(){
 						me.attrs.refundVO = me.attrs.cotractMoney.getVauel();
-						
+						me.attrs.refundVO.refund.amount = me.attrs.refundVO.refund.backAmount;
 						//退款信息
 						me.attrs.refundinfo =  refundinfo.show( {$view:me.$view.find('.common--meoney')}, me.attrs.refundVO ); 
 					})
 				
+				//其他的
+				//=============================================
 				}else{
 					//退款信息
 					me.attrs.refundinfo =  refundinfo.show( {$view:me.$view.find('.common--meoney')}, me.attrs.refundVO ); 
@@ -163,7 +166,7 @@ define( function(require, exports, module){
 							me.setOptions();
 						}
 					}
-			});
+				});
 
 		},
 		//获取发票列表：
@@ -437,7 +440,8 @@ define( function(require, exports, module){
                 util.api({
                     'url':'~/op/api/approval/directapprove',
                     'data':{
-                        'processInstanceId': me.attrs.options.processInstanceId,
+                        //'processInstanceId': me.attrs.options.processInstanceId,
+                        'processInstanceId': me.attrs.refundVO.refund.procInstId,
                         'approved': true,
                         'opinion':''
                     },
