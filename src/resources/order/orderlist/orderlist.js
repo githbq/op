@@ -616,7 +616,9 @@ define( function( require, exports, module ) {
         });
 
 		//
-        //退款[需要测试]
+        // 退款
+        // 
+        //==========================
 		orderList.on('orderBackmoney', function( options ){
             
             backMoney = new BackMoney();
