@@ -7251,6 +7251,12 @@ em {
   display: inline-block;
   padding: 0 10px;
 }
+.m-enterprisedetail #tbProduct p span.title {
+  width: 180px;
+}
+.m-enterprisedetail #tbProduct p button {
+  margin: 0 5px;
+}
 .m-enterprisedetail #tbProduct p.info {
   text-align: center;
 }

@@ -6,7 +6,7 @@ define( function( require, exports, module ) {
     var Slider = require( 'common/widget/slider/slider' );
     var Dialog = require('common/widget/dialog/dialog');
     var Detail = require('../../order/detailapproval/detailapproval');
-    var DetailPayment = require('../detailpayment/detailpayment');              //[收尾款]
+    var DetailPayment = require('../../order/detailpayment/detailpayment');              //[收尾款]
     var uploader = require('common/widget/upload').uploader;
     var CustomTree=require('module/customtree/customtree').getDialog();
     var tpl = $( require( './template.html' ) );
@@ -64,12 +64,12 @@ define( function( require, exports, module ) {
                 });
             }
             if(bool){
-                me.$data.prop('disabled',false);
-                me.$submit.prop({'disabled':false, class: 'btn-blue'})
+                me.$data.prop('disabled',true);
+                me.$submit.prop({'disabled':true, class: ''})
                 return;
             }
-            me.$data.prop('disabled',true);
-            me.$submit.prop({'disabled':true, class: ''});
+            me.$data.prop('disabled',false);
+            me.$submit.prop({'disabled':false, class: 'btn-blue'});
 
             
         },
@@ -224,9 +224,10 @@ define( function( require, exports, module ) {
                     var tr = '';
                     if(data.success){
                         me.pagination.setTotalSize( data.value.model.itemCount );
-                        if (data.model.content) {
-                           
-                            var items = data.model.content;
+                        if (data.value.model.content) {
+
+                            me.dataset = data.value.model.content;
+                            var items = data.value.model.content;
                             $( items ).each( function( i, item ) {
                                 item.formatTime = new Date( item.order.createTime )._format( "yyyy-MM-dd" );
                                 tr += '<tr>'
@@ -237,8 +238,8 @@ define( function( require, exports, module ) {
                                     +'<td>'+item.order.enterpriseAccount+'</td>'
                                     +'<td>'+item.account.name+'</td>'
                                     +'<td>'+item.formatTime+'</td>'
-                                    +'<td><a class="check" data-type="'+item.order.orderType+'" data-id="'+item.order.id+'">查看</a></td>'
-                                    +'</tr>'; 
+                                    +'<td><a class="check" data-type="'+item.order.orderType+'" data-id="'+item.order.id+'" data-status="'+item.approveStatus+'" data-dstatus="'+item.claimReceivedPayStatus+'" data-entId="'+item.order.enterpriseId+'">查看</a></td>';
+                                    +'</tr>';
                             });
                         }else{
                             tr = '<tr><td colspan="2"><p class="info">暂无数据</p></td></tr>';
@@ -253,17 +254,40 @@ define( function( require, exports, module ) {
             })
         },
         check: function(e) {
+            var me = this;
             var id = $(e.currentTarget).attr('data-id');
             var type = $(e.currentTarget).attr('data-type');
-            // switch(type){
-            //     case '17':
-            //         this.trigger('detailPayment');
-            //         break;
-            //     case ''
-            //         this.trigger('checkDetail', id);
-            //         break;
-            // }
-            this.trigger('checkDetail', id);
+            switch(type){
+                case '17':
+                    var options = null;
+                    $(me.dataset).each(function(index, item){
+                        if(item.order.id == id){
+                            options = {
+                                id: id,
+                                enterpriseId: item.order.enterpriseId,
+                                orderType: item.order.orderType,
+                                opinion: item.order.rejectReason,
+                                isTp: item.order.isTp,
+                                ea: item.order.enterpriseAccount,
+                                contractNo: item.order.contractNo,
+                                processInstanceId: item.order.procInstId
+                            }
+                        }
+                    });
+                    options&&this.trigger('detailPayment', options);
+                    break;
+                default:
+                    var status = $(e.currentTarget).attr('data-status');
+                    var dstatus = $(e.currentTarget).attr('data-dstatus');
+                    var options = {
+                        'htshow': false,
+                        'orderType': type,
+                        'enterpriseId': $(e.currentTarget).attr('data-entId')
+                    };
+                    this.trigger('checkDetail', id, status, dstatus, options);
+                    break;
+            }
+            
         },
         submit: function(data) {
             var me = this;
@@ -451,7 +475,7 @@ define( function( require, exports, module ) {
         //修改编辑
         edit:function(e) {
             var id = $(e.currentTarget).attr('data-id');
-            var bUpdate = ($(e.currentTarget).html() == '编辑')? true: false;
+            var bUpdate = ($(e.currentTarget).html() == '编辑')? false: true;
             var me = this;
             me.trigger('modify', id, bUpdate );    
         },
@@ -609,10 +633,15 @@ define( function( require, exports, module ) {
         importDialog.on('showDup', function(data) {
             duplication.show(data);
         });
+
+        selectOrder.on('detailPayment', function(options){
+            var detailPayment = new DetailPayment({'isTop':true});
+            detailPayment.show(options);
+        });
         // 查看订单详情
-        selectOrder.on('checkDetail', function( id ){
+        selectOrder.on('checkDetail', function( id,status,dstatus,options){
             var detail = new Detail( {'isTop':true} );
-            detail.show(id, 'd');
+            detail.show( id, 'd', status, dstatus, options );
         });
 
         // 更新列表
