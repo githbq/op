@@ -317,7 +317,6 @@ define(function (require, exports, module) {
                     //控制值改变时事件  fieldStruct 元素的模型
                     $scope.fieldChange = function (fieldStruct, product, form) {
                         $scope.isUserControl = true;
-                        debugger
                         //执行事件
                         fieldStruct.onchange = fieldStruct.onchange || [];
                         //重新确实权重 确保ajax在最后被调用  priority优先级数越高越先调用

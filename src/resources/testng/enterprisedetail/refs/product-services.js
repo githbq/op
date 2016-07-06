@@ -96,7 +96,7 @@ define(function (require, exports, module) {
                 'data': {'ea': enterpriseAccount},
                 'success': function (result) {
                     if (result.success) {
-                        callback(result.value.model);
+                        callback(result.value.model,result.value);
                     }
                 }
             });

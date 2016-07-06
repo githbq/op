@@ -56,6 +56,8 @@ define(function (require, exports, module) {
                 function resetMaxOrMinDate(value, isMax) {
                     if (value && !isNaN(value)) {
                         value = parseInt(value);
+                        console.log('isMax:'+isMax);
+                        console.log('minDate:' + new Date(value)._format('yyyy/MM/dd'));
                         isMax && (scope.datetimeconfig.maxDate = new Date(value)._format(scope.datetimeconfig.dateFmt || 'yyyy/MM/dd'));
                         !isMax && (scope.datetimeconfig.minDate = new Date(value)._format(scope.datetimeconfig.dateFmt || 'yyyy/MM/dd'));
                         if ((isMax && scope.ngModel && value < scope.ngModel) || (!isMax && scope.ngModel && value > scope.ngModel)) {
