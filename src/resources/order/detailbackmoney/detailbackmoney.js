@@ -166,7 +166,7 @@ define( function(require, exports, module){
 							me.setOptions();
 						}
 					}
-			});
+				});
 
 		},
 		//获取发票列表：
@@ -440,7 +440,8 @@ define( function(require, exports, module){
                 util.api({
                     'url':'~/op/api/approval/directapprove',
                     'data':{
-                        'processInstanceId': me.attrs.options.processInstanceId,
+                        //'processInstanceId': me.attrs.options.processInstanceId,
+                        'processInstanceId': me.attrs.refundVO.refund.procInstId,
                         'approved': true,
                         'opinion':''
                     },
