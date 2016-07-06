@@ -117,7 +117,7 @@ define( function(require, exports, module){
 				if(me.attrs.options.state == 'newFirst'){
 					me.attrs.cotractMoney.on('successData',function(){
 						me.attrs.refundVO = me.attrs.cotractMoney.getVauel();
-						me.attrs.refundVO.amount = me.attrs.refundVO.backAmount;
+						me.attrs.refundVO.refund.amount = me.attrs.refundVO.refund.backAmount;
 						//退款信息
 						me.attrs.refundinfo =  refundinfo.show( {$view:me.$view.find('.common--meoney')}, me.attrs.refundVO ); 
 					})
