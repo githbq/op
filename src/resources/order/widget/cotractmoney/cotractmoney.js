@@ -161,12 +161,14 @@ define(function (require, exports, module) {
             tempAmount = tempAmount.toFixed(2);
             */
 
+            var backAmount = me.attrs.dataObj.reciviedAmount - me.attrs.dataObj.usedAmount;
+            backAmount = backAmount.toFixed(2);
 
             me.attrs.dataObj.usedAmount = usedAmound.toFixed(2);
             me.attrs.refundVO.refund= {
                 'refundAmount': 0,
                 'amount': tempAmount,
-                'backAmount': me.attrs.dataObj.reciviedAmount - me.attrs.dataObj.usedAmount
+                'backAmount': backAmount
             };
 
             me.model.set('usedAmount',me.attrs.dataObj.usedAmount );
