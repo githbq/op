@@ -20,6 +20,7 @@ define(function (require, exports, module) {
                     }
                 });
                 function valueChange(control) {
+                    //iElem.css('border','2px solid green')
                     var value = control.el.value;
                     var field = currentForm[scope.name];
                     if (currentForm && field) {

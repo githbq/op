@@ -59,30 +59,33 @@ define(function (reuqire, exports, module) {
             require: 'ngModel',
             scope: {config: '=number', maxNumber: '=', minNumber: '=', max: '@', min: '@', ngModel: '=', ngRequired: '='},
             link: function (scope, elm, attrs, ctrl) {
+                var isInt = false;
                 var exp = NUMBER_REGEXP;
                 if (scope.config && scope.config.int) {
                     exp = INTEGER_REGEXP;
+                    isInt = true;
                 }
                 scope.ngModel = setMaxOrMinValue(scope.ngModel);
                 elm.off('keyup').on('keyup', function () {
                     var $dom = $(this);
                     var result = ($dom.val().replace(/[^\.\d]/g, ''));
-                    var has=false;
-                    var result=result.replace(/([\.]{1})(?:\1*)/ig,function(str,key){
+                    var has = false;
+                    var result = result.replace(/([\.]{1})(?:\1*)/ig, function (str, key) {
                         debugger
-                        if(has){
+                        if (has) {
                             return '';
-                        }else{
-                            has=true;
+                        } else {
+                            has = true;
                             return key;
                         }
                     })
                     if (result.indexOf('.') > 0 && /\.$/.test(result)) {
-                      return;
+                        return;
                     } else if (!exp.test(result) && result !== '') {
                         var findIndex = result.indexOf('.');
-                        if (findIndex > 6 || findIndex < 0) {
-                            result = result.substr(0, 6);
+                        var len = isInt ? 6 : 8;
+                        if (findIndex > len || findIndex < 0) {
+                            result = result.substr(0, len);
                         } else if (findIndex >= 0) {
                             result = result.substr(0, findIndex + 3);
                         }
