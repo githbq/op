@@ -34,7 +34,10 @@ define(function (require, exports, module) {
                 setRotate(iElem.find('img.preview')[0], iElem.find('.btn-rotate'));
                 scope.close = function () {
                     scope.show = false;
-                }
+                };
+                scope.hrefClick = function ($event) {
+                    $event.stopPropagation();
+                };
             }
         }
     }]);
