@@ -84,6 +84,7 @@ define(function(require, exports, module) {
                     if(data.success){
                         util.showTip('企业转移成功');
                         me.hide();
+                        me.trigger('success');
                     }
                 }
             });
@@ -146,7 +147,6 @@ define(function(require, exports, module) {
                                 });
                                 me.$sales.prop('disabled',false);
                                 me.$sales.html(options);
-                                me.trigger('success');
                             }else{
                                 me.$sales.html('<option value="">--------</option>');
                             }
@@ -249,7 +249,9 @@ define(function(require, exports, module) {
 
             me.transEnt = new TransEnt();
             me.sandBox = new SandBox();
-
+            me.transEnt.on('success', function(){
+                me.getList();
+            });
             resetSelect( me.$view, 'entstatus');
             resetSelect( me.$view, 'enttype');
 
