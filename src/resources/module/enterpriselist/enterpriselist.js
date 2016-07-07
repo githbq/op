@@ -71,6 +71,11 @@ define(function(require, exports, module) {
                 util.showToast('请选择销售人员');
                 return;
             }
+            if( type ==2 ){
+                type = 1;
+            }else if(type ==1){
+                type = 2;
+            }
          
             util.api({
                 url: '~/op/api/a/enterprise/transferEnterprises',
