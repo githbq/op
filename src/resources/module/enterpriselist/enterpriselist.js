@@ -146,6 +146,7 @@ define(function(require, exports, module) {
                                 });
                                 me.$sales.prop('disabled',false);
                                 me.$sales.html(options);
+                                me.trigger('success');
                             }else{
                                 me.$sales.html('<option value="">--------</option>');
                             }
