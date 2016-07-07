@@ -38,6 +38,9 @@ define( function( require, exports, module ) {
             console.log('detail detail');
             var entDetail = new EntDetail();
             entDetail.show( id,status );
+            entDetail.on('updatesuccess',function(){
+                entList.getList();
+            })
         });
 
         //查看跟踪记录

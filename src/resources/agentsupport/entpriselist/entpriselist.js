@@ -35,6 +35,9 @@ define(function(require, exports, module) {
         entList.on('detail', function(id) {
             var entDetail = new EntDetail({'isAgent':true});
             entDetail.show(id);
+            entDetail.on('updatesuccess',function(){
+                entList.getList();
+            })
         });
 
         //企业跟踪记录
@@ -72,5 +75,6 @@ define(function(require, exports, module) {
             entname = entname || '';
             location.hash = "/order/openenterprise/" + id + "/" + entaccount + "/" + entname ;
         });
+
     }
 });

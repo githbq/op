@@ -539,10 +539,14 @@ define(function(require, exports, module) {
                         model.isReferral = model.isReferral ? '1':'0';
 
                         //装载数据 主要给企业基本信息赋值
+                        //缓存数据
+                        var updateTime = model.updateTime;
                         model = $.extend( model, model.odrDraftEnterprise );
-                        console.log(model);
+                        //重新加载
+                        model.updateTime = updateTime;
 
                         me.model.load(model);
+                        
                         //
                         //兼容二三级地址和二三级行业
                         //===========================================================
@@ -1564,6 +1568,7 @@ define(function(require, exports, module) {
                 success: function(data) {
                     if (data.success) {
                         util.showTip('企业已停用.');
+                        me.trigger('updatesuccess');
                         me.hide();
                     }
                 }
@@ -1584,6 +1589,7 @@ define(function(require, exports, module) {
                 success: function(data) {
                     if (data.success) {
                         util.showTip('企业已启用');
+                        me.trigger('updatesuccess');
                         me.hide();
                     }
                 }
