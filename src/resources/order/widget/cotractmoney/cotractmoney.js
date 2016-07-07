@@ -160,11 +160,11 @@ define(function (require, exports, module) {
             var tempAmount = parseFloat(me.attrs.dataObj.reciviedAmount) - parseFloat(usedAmound);
             tempAmount = tempAmount.toFixed(2);
             */
+            me.attrs.dataObj.usedAmount = usedAmound.toFixed(2);
 
             var backAmount = me.attrs.dataObj.reciviedAmount - me.attrs.dataObj.usedAmount;
             backAmount = backAmount.toFixed(2);
 
-            me.attrs.dataObj.usedAmount = usedAmound.toFixed(2);
             me.attrs.refundVO.refund= {
                 'refundAmount': 0,
                 'amount': tempAmount,
@@ -175,7 +175,6 @@ define(function (require, exports, module) {
             //me.$('.sub-tab tbody').html(strDom);
             me.$('.sub-tab-money').html(serviceDoms.concat(strDoms).join('<br/>'));
             me.trigger('successData');
-
         },
         getVauel: function () {
             var me = this;
