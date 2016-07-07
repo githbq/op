@@ -8906,6 +8906,42 @@ em {
   -webkit-transition: scale 1s ease-in-out;
   transition: scale 1s ease-in-out;
 }
+.image-preview .mask {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  border: 10px solid red;
+  box-sizing: border-box;
+}
+.image-preview .opacity {
+  opacity: 0.3;
+  filter: alpha(opacity=30);
+  background-color: #000;
+}
+.image-preview .close {
+  position: fixed;
+  right: 0px;
+  top: 0px;
+}
+.image-preview .content {
+  text-align: center;
+}
+.image-preview .buttons {
+  border-radius: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  width: 500px;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  opacity: 0.3;
+  filter: alpha(opacity=30);
+  background-color: black;
+}
 .m-dialog-normal .m-pagination {
   text-align: right;
 }

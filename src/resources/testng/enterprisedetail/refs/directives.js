@@ -6,12 +6,40 @@ define(function (require, exports, module) {
     require('./select2-directive');//多功能复选框
     require('./validate-directive');
     var template = require('./template.html');
+
+    function setRotate(elem, $btn) {
+        var deg = 0;
+        $btn.off('click').on("click", function () {
+            if ((deg + 90) > 360) {
+                deg = 90;
+            } else {
+                deg += 90;
+            }
+            var element = elem;
+            var styles = ['webkitTransform', 'MozTransform', 'msTransform', 'OTransform', 'transform'];
+            for (var i = 0; i < styles.length; i++) {
+                element.style[styles[i]] = "rotate(" + deg + "deg)"
+            }
+        });
+    }
+
+    //app.directive('imagePreview', function (fileService, $timeout) {
+    //    return {
+    //        restrict:'ECMA',
+    //        template: $(template, '.image-preview')[0].outerHTML,
+    //        scope:{src:'=',hidden:'='},
+    //        controller:function($scope){
+    //            //$scope.
+    //        }
+    //    }
+    //});
     app.directive('inputFile', ['fileService', '$timeout', function (fileService, $timeout) {
         return {
             scope: {label: '@', ngReadonly: '=', ngRequired: '=', ngModel: '=', status: '=', response: '='},
             controller: ['$scope', function ($scope) {
             }],
             link: function (scope, iElem, iAttrs) {
+                setRotate(iElem.find('.upload-preview-img')[0], iElem.find('.btn-rotate'));
                 scope.$watch('ngModel', function () {
                     if (scope.ngModel) {
                         scope.src = '/op/api/file/previewimage?filePath=' + scope.ngModel;

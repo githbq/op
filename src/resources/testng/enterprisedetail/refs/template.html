@@ -38,12 +38,25 @@
     <div class="form-field upload-directive" ng-class="{disabled:ngReadonly}">
         <label ng-class="{required:ngRequired}"><span ng-bind="label"></span></label>
         <a ng-href="{{href}}" target="_blank" class="upload-preview-a">
-            <img ng-if="src" ng-src="{{src}}" class="upload-preview-img" src="" width="100" height="100" alt="{{alt}}"/>
+            <img ng-show="src" ng-src="{{src}}" class="upload-preview-img" src="" width="100" height="100" alt="{{alt}}"/>
         </a>
+        <button class="btn-rotate" ng-show="src">旋转</button>
         <input type="file" class="file-field" ng-class="{disabled:ngReadonly}" ng-disabled="ngReadonly" name="enterpriseName" accept="image/gif,image/jpeg,image/png"/>
         <span class="type-tip">(支持png、jpg、gif格式)</span>
         <span class="status" ng-class="{uploading:status=='uploading',uploaderror:status=='error',uploaded:status=='uploaded'}">
             {{status=='uploading'?'上传中...请稍等':status=='uploaded'?'上传成功':status=='error'?'上传异常，请重新上传':''}}
         </span>
+        <!--<image-preview src="src" ng-if="src" hidden="false"></image-preview>-->
     </div>
+</div>
+
+
+
+<div class="image-preview">
+    <div class="close" ng-click="hidden=true;">close</div>
+    <div class="mask opacity"></div>
+    <div class="content">
+        <img ng-src='src' />
+    </div>
+    <div class="buttons"><input type="button" value="旋转"/></div>
 </div>
