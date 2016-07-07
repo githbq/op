@@ -440,9 +440,47 @@
 					<label class="hw"><span>是否允许危险操作</span><input id="sdActionDanger" disabled="disabled" class="g-ipt ipt-m" type="text"></label>
 				</p>
 				<div id="tbFunctions off" class="tb">
+					
 					<p>
 						<label class="hw"><span>设置上传文件大小限制(M)</span><select id="sUFS"><option value="50">50</option><option value="100">100</option></select></label>
 						<label class="hw"><span>是否允许危险操作</span><select id="sActionDanger"><option value="0">否</option><option value="1">是</option></select></label>
+					</p>
+					
+					<p>
+						<label class="hw crmvisible">
+							<span>CRM允许个人设置自己的目标</span>
+							<select name="" class="g-ipt ipt-m" ce-model="setPersonalGoal">
+								<option value="">请选择</option>
+								<option value="1">可以</option>
+								<option value="0">不可以</option>
+							</select>
+						</label>
+						<label class="hw crmvisible">
+							<span>成交折扣计算方式</span>
+							<select name="" class="g-ipt ipt-m" ce-model="discountAutoCalculated">
+								<option value="">请选择</option>
+								<option value="1">自动计算</option>
+								<option value="0">手动计算</option>
+							</select>
+						</label>
+					</p>
+					<p>
+						<label class="hw crmvisible">
+							<span>负责人可以修改客户名称</span>
+							<select name="" class="g-ipt ipt-m" ce-model="editCustomerName">
+								<option value="">请选择</option>
+								<option value="1">可以</option>
+								<option value="0">不可以</option>
+							</select>
+						</label>
+						<label class="hw crmvisible">
+							<span>手机设备授权</span>
+							<select name="" class="g-ipt ipt-m" ce-model="webSanCodeAuth">
+								<option value="">请选择</option>
+								<option value="0">全部授权</option>
+								<option value="1">未授权</option>
+							</select>
+						</label>
 					</p>
 					<p class="tr"><button id="sBtnChangeFunctions" class="btn-blue">保存</button></p>
 				</div>

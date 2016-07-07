@@ -1213,7 +1213,7 @@ define(function(require, exports, module) {
         },
 
         //修改使用情况信息
-        changeStatistics: function() {
+        changeStatistics: function( bool , callback ) {
             var me = this;
             var temAccout = 0;
 
@@ -1248,9 +1248,12 @@ define(function(require, exports, module) {
                 'data': data,
                 'success': function(data) {
                     if (data.success) {
-                        util.showTip('修改成功!');
-                        //me.getEnterprise( me.model.attrs.enterpriseId );
-                        me.trigger('refresh');
+                        if(!bool){
+                            util.showTip('修改成功!');
+                            //me.getEnterprise( me.model.attrs.enterpriseId );
+                            me.trigger('refresh');
+                            callback && callback();
+                        }
                     }
                 },
                 'complete': function(data) {
@@ -1298,6 +1301,12 @@ define(function(require, exports, module) {
             } else {
                 me.$sUFS.val('100');
             }
+            
+            if (this.model.attrs.runStatus == 2) {
+                $('#tbFunctions').css('display', 'block');
+            } else {
+                $('#tbFunctions').css('display', 'none');
+            }
 
             util.api({
                 url: '/enterprise/queryenterpriseitemconfig',
@@ -1320,16 +1329,9 @@ define(function(require, exports, module) {
                         console.warn(model['Config.isAllowDangerOperate']);
                         var temp = model['Config.IsAllowDangerOperate'] == '1' ? '是' : '否'
                         me.$sdActionDanger.val(temp);
-
                     }
                 }
             });
-
-            if (this.model.attrs.runStatus == 2) {
-                $('#tbFunctions').css('display', 'block');
-            } else {
-                $('#tbFunctions').css('display', 'none');
-            }
         },
 
         //打开活跃度标签
@@ -1451,34 +1453,46 @@ define(function(require, exports, module) {
         },
         //??
         changeFunctions: function() {
-            var me = this,
-                data = {
+            var me = this;
+
+            if (me.model.get('marketingAccountAmount') == 0) {
+
+                me.$('.crmvisible').hide();
+            } else {
+
+                me.$('.crmvisible').show();
+            }
+
+            var  data = {
                     enterpriseId: this.model.attrs.enterpriseId,
                     //newExportAmountLocation: me.$sELC.val(),
-                   // newExportAmountPlan: me.$sEFC.val(),
+                    //newExportAmountPlan: me.$sEFC.val(),
                     //newExportAmountFeedWork: me.$sECC.val(),
                     //newExportAmountLeaveApplication: me.$sEMWC.val(),
                     //newExportAmountFeedApprove: me.$sEAC.val(),
                     newUploadFileSizeLimit: me.$sUFS.val(),
                     newIsAllowDangerOperate: me.$sActionDanger.val()
                 };
-            util.api({
-                url: '/enterprise/changefunction',
-                data: data,
-                success: function(data) {
-                    if (data.success) {
-                        util.showTip('更新成功');
-                        me.$sdELC.val(me.$sELC.val());
-                        me.$sdEFC.val(me.$sEFC.val());
-                        me.$sdECC.val(me.$sECC.val());
-                        me.$sdEMWC.val(me.$sEMWC.val());
-                        me.$sdEAC.val(me.$sEAC.val());
-                        me.$sdUFS.val(me.$sUFS.val());
-                        me.$sdActionDanger.val(me.$sActionDanger.val() == '1' ? '是' : '否');
-                        me.clearFunctions();
+
+            me.changeStatistics(true,function(){
+                util.api({
+                    url: '/enterprise/changefunction',
+                    data: data,
+                    success: function(data) {
+                        if (data.success) {
+                            util.showTip('更新成功');
+                            me.$sdELC.val(me.$sELC.val());
+                            me.$sdEFC.val(me.$sEFC.val());
+                            me.$sdECC.val(me.$sECC.val());
+                            me.$sdEMWC.val(me.$sEMWC.val());
+                            me.$sdEAC.val(me.$sEAC.val());
+                            me.$sdUFS.val(me.$sUFS.val());
+                            me.$sdActionDanger.val(me.$sActionDanger.val() == '1' ? '是' : '否');
+                            me.clearFunctions();
+                        }
                     }
-                }
-            });
+                });
+            })
         },
         //??
         searchCardList: function() {
