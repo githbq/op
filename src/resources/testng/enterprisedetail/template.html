@@ -164,7 +164,7 @@
                             <span>{{globalInfo.enterpriseAccount}}</span>
                         </div>
                     </div>
-                    <div ng-if="item.code!='FX_Terminal'" class="form-row" ng-repeat="item in productInfos track by $index" ng-switch="item.code">
+                    <div ng-if="item.code!='FX_Terminal'&&item.code!='FXBC'&&item.code!='Number_System'&&item.code!='StorageSpace'" class="form-row" ng-repeat="item in productInfos track by $index" ng-switch="item.code">
                         <div class="form-field" ng-switch-when="CRM">
                             <!--分割线-->
                             <label>{{item.appName}}(个)：
@@ -226,7 +226,7 @@
                                 <span class="inline-m">{{item.timeLongData.usedQuota}}</span>
                             </label>
                         </div>
-                        <div ng-show="false" class="form-field" ng-switch-when="number_System">
+                        <div ng-show="false" class="form-field" ng-switch-when="Number_System">
                         </div>
                         <div ng-show="false" class="form-field" ng-switch-when="FXBC">
                         </div>
