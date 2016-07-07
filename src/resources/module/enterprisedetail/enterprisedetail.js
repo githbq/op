@@ -915,6 +915,12 @@ define(function(require, exports, module) {
                                         break;
                                     case "Train_Hepler_Capacity":
                                         break;
+                                    //报数系统
+                                    case "Number_System":
+                                        break;
+                                    //纷享百川
+                                    case "FXBC":
+                                        break;
                                     case "CRM":
                                         strDom += " <p> <span class='title'><b>" + obj['appName'] + ":</b>&nbsp;总量" + obj['quota'] + "&nbsp;已用"+ obj['usedQuota'] + "</span>" +
                                             " <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span><i>" + enablestatus + "</i>&nbsp;<button class='prooff off u-btn-blue' name='product' typeid='"+obj["quotaType"]+"' value='"+obj["appId"]+"'>开启</button><button class='proon off' name='product' typeid='"+obj["quotaType"]+"' value='" + obj["appId"] + "'>关闭</button> </p>";
@@ -1212,7 +1218,10 @@ define(function(require, exports, module) {
             });
         },
 
+        //
         //修改使用情况信息
+        //
+        //===========================================
         changeStatistics: function( bool , callback ) {
             var me = this;
             var temAccout = 0;
@@ -1252,6 +1261,7 @@ define(function(require, exports, module) {
                             util.showTip('修改成功!');
                             //me.getEnterprise( me.model.attrs.enterpriseId );
                             me.trigger('refresh');
+                        }else{
                             callback && callback();
                         }
                     }
@@ -1284,7 +1294,10 @@ define(function(require, exports, module) {
             window.open(url);
         },
 
+        //
         //显示功能限制 并拉取相应的数据
+        //
+        //=============================
         showFunctions: function() {
             var me = this;
 
@@ -1294,7 +1307,13 @@ define(function(require, exports, module) {
             //me.$sECC.val(100);
             //me.$sEMWC.val(100);
             //me.$sEAC.val(100);
+            if (me.model.get('marketingAccountAmount') == 0) {
 
+                me.$('.crmvisible').hide();
+            } else {
+
+                me.$('.crmvisible').show();
+            }
 
             if (me.model.get('productFree')) {
                 me.$sUFS.val('50');
@@ -1454,25 +1473,16 @@ define(function(require, exports, module) {
         //??
         changeFunctions: function() {
             var me = this;
-
-            if (me.model.get('marketingAccountAmount') == 0) {
-
-                me.$('.crmvisible').hide();
-            } else {
-
-                me.$('.crmvisible').show();
-            }
-
             var  data = {
-                    enterpriseId: this.model.attrs.enterpriseId,
-                    //newExportAmountLocation: me.$sELC.val(),
-                    //newExportAmountPlan: me.$sEFC.val(),
-                    //newExportAmountFeedWork: me.$sECC.val(),
-                    //newExportAmountLeaveApplication: me.$sEMWC.val(),
-                    //newExportAmountFeedApprove: me.$sEAC.val(),
-                    newUploadFileSizeLimit: me.$sUFS.val(),
-                    newIsAllowDangerOperate: me.$sActionDanger.val()
-                };
+                enterpriseId: this.model.attrs.enterpriseId,
+                //newExportAmountLocation: me.$sELC.val(),
+                //newExportAmountPlan: me.$sEFC.val(),
+                //newExportAmountFeedWork: me.$sECC.val(),
+                //newExportAmountLeaveApplication: me.$sEMWC.val(),
+                //newExportAmountFeedApprove: me.$sEAC.val(),
+                newUploadFileSizeLimit: me.$sUFS.val(),
+                newIsAllowDangerOperate: me.$sActionDanger.val()
+            };
 
             me.changeStatistics(true,function(){
                 util.api({
