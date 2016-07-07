@@ -66,7 +66,7 @@
                 <thead>
                 <tr>
                     <th></th>
-                    <th style="width:20px;" data-permissions="M008009060"><input type="checkbox" class="selectall"></th>
+                    <th style="width:20px;" data-permissions="M008009060 M009006100"><input type="checkbox" class="selectall"></th>
                     <th style="width:170px;">企业名称</th>
                     <th style="width:190px;">企业帐号</th>
 					<th style="width:190px;">所属部门/代理商</th>
@@ -81,7 +81,7 @@
                 </thead>
                 <tbody ce-collection="list">
                     <td></td>
-                    <td data-permissions="M008009060"><input type="checkbox" class="selectitem" value="<%=item.csmEnterprise.enterpriseID%>"></td>
+                    <td data-permissions="M008009060 M009006100"><input type="checkbox" class="selectitem" value="<%=item.csmEnterprise.enterpriseID%>"></td>
                     <td><%=item.csmEnterprise.enterpriseName%></td>
                     <td><%=item.csmEnterprise.enterpriseAccount%></td>
 					<td><%=item.agent ? item.agent.name:''%> </td>
@@ -114,7 +114,7 @@
         </div>
     </div>
     <div class="list-pager">
-        <p class="buttons" data-permissions="M008009060">
+        <p class="buttons" data-permissions="M008009060 M009006100">
             <button class="btn-transfer btn-blue">转移企业</button>
             <!--<button class="btn-sandbox">沙盒设置</button>-->
         </p>
