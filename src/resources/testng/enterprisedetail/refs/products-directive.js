@@ -227,14 +227,19 @@ define(function (require, exports, module) {
                         }
                     }
 
+                   //如果用户快速点击复选框在DOM没渲染成功的时候就执行了第二次重组会发生意想不到的事件，所有要避免用户狂点击，数组变动过快
                     //复选框选中事件
                     $scope.checkProduct = function (checked, checkbox) {
-                        var findProduct = _.findWhere($scope.products, {productId: checkbox.id});
-                        findProduct.show = checked;
-                        //同步改变对应的结果值上的属性
-                        var dataResultItem = _.findWhere($scope.dataResult, {productId: checkbox.id});
-                        dataResultItem && (dataResultItem.show = findProduct.show);
-                        wrapperReset();
+                       $scope.checkboxDisabled=true;
+                        $timeout(function () {
+                            var findProduct = _.findWhere($scope.products, {productId: checkbox.id});
+                            findProduct.show = checked;
+                            //同步改变对应的结果值上的属性
+                            var dataResultItem = _.findWhere($scope.dataResult, {productId: checkbox.id});
+                            dataResultItem && (dataResultItem.show = findProduct.show);
+                            wrapperReset();
+                            $scope.checkboxDisabled=false;
+                        }, 300);
                     };
                     //视图中渲染的结构  进行状态合并
                     function getStateCombine(logic, product) {
