@@ -168,6 +168,8 @@ define(function(require, exports, module) {
             };
 
             me.attrs.isPay = 0;
+
+            me.initializeDatepickers();
             me.setState();
         },
 
@@ -177,6 +179,7 @@ define(function(require, exports, module) {
         initializeDatepickers: function() {
             var me = this;
 
+            //企业日志开始时间
             me.$sbLogST.datetimepicker({
                 format: 'Y/m/d',
                 onShow: function() {
@@ -187,6 +190,8 @@ define(function(require, exports, module) {
                 },
                 timepicker: false
             });
+            
+            //企业日志结束时间
             me.$sbLogET.datetimepicker({
                 format: 'Y/m/d',
                 onShow: function() {
@@ -198,6 +203,7 @@ define(function(require, exports, module) {
                 timepicker: false
             });
 
+            //活跃度开始时间
             me.$actStartTime.datetimepicker({
                 format: 'Y/m/d',
                 onShow: function() {
@@ -209,6 +215,7 @@ define(function(require, exports, module) {
                 timepicker: false
             });
 
+            //活跃度结束时间
             me.$actEndTime.datetimepicker({
                 format: 'Y/m/d',
                 onShow: function() {
@@ -219,6 +226,8 @@ define(function(require, exports, module) {
                 },
                 timepicker: false
             });
+
+            /*
             me.$cardStartTime.datetimepicker({
                 format: 'Y/m/d',
                 onShow: function() {
@@ -239,6 +248,7 @@ define(function(require, exports, module) {
                 },
                 timepicker: false
             });
+            */
 
             me.$('#trainstarttime').datetimepicker({
                 format: 'Y/m/d',
@@ -442,11 +452,12 @@ define(function(require, exports, module) {
                 c: false,
                 d: false,
                 e: false,
-                f: false
+                f: false,
+                g: false
             };
 
             function checkIsOk() {
-                if (state.a && state.b && state.c && state.d && state.e && state.f) {
+                if (state.a && state.b && state.c && state.d && state.e && state.f && state.g ) {
                     me.getEnterprise( id );
                 }
             };
@@ -482,6 +493,11 @@ define(function(require, exports, module) {
                 state.f = true;
                 checkIsOk()
             }); //团队类型
+
+            me.generateSelect('ENTERPRISE_LOG_TYPE', me.$sbLogType, function() {
+                state.g = true;
+                checkIsOk()
+            }); //日志类型
         },
 
         //重置select枚举值
@@ -900,7 +916,7 @@ define(function(require, exports, module) {
                                     case "Train_Hepler_Capacity":
                                         break;
                                     case "CRM":
-                                        strDom += " <p> <span class='title'><b>" + obj['appName'] + ":</b>" + obj['quota'] + "</span>" +
+                                        strDom += " <p> <span class='title'><b>" + obj['appName'] + ":</b>&nbsp;总量" + obj['quota'] + "&nbsp;已用"+ obj['usedQuota'] + "</span>" +
                                             " <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span><i>" + enablestatus + "</i>&nbsp;<button class='prooff off u-btn-blue' name='product' typeid='"+obj["quotaType"]+"' value='"+obj["appId"]+"'>开启</button><button class='proon off' name='product' typeid='"+obj["quotaType"]+"' value='" + obj["appId"] + "'>关闭</button> </p>";
                                         break;
                                     //培训人数

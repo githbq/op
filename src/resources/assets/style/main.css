@@ -7356,6 +7356,9 @@ em {
   padding: 10px 0;
   text-align: right;
 }
+.m-enterprisedetail #tbLog p label {
+  width: 22%;
+}
 .m-enterprisedetail .tabs-box {
   clear: both;
 }

@@ -2461,11 +2461,17 @@ define(function(require, exports, module) {
                 'expandStorageSpace': me.$('#expandStorageSpace').val(), //存储扩容
                 'groupNumLimit': me.model.get('groupNumLimit'), //群人数上限
                 'videoNumLimit': me.model.get('videoNumLimit'), //视频参与人数上限
+                
                 'crmVisibleRange': me.model.get('crmVisibleRange'), //CRM上级可见数据范围
+
                 'editCustomerName': me.model.get('editCustomerName'), //允许负责人修改客户名称
+
                 'setPersonalGoal': me.model.get('setPersonalGoal'), //允许个人设置目标
+
                 'discountAutoCalculated': me.model.get('discountAutoCalculated'), //折扣是否自动计算
+
                 'webSanCodeAuth': me.model.get('webSanCodeAuth'), //WEB扫码授权
+
                 'enterpriseId': me.model.get('enterpriseId')
             }
 
