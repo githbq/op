@@ -8913,8 +8913,20 @@ em {
   position: fixed;
   top: 0;
   z-index: 1000;
-  border: 10px solid red;
-  box-sizing: border-box;
+  left: 0px;
+}
+.image-preview .preview {
+  max-width: 80%;
+  max-height: 80%;
+  marign: auto;
+}
+.image-preview .container {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 1100;
+  left: 0px;
 }
 .image-preview .opacity {
   opacity: 0.3;
@@ -8925,11 +8937,16 @@ em {
   position: fixed;
   right: 0px;
   top: 0px;
+  z-index: 1100;
 }
 .image-preview .content {
   text-align: center;
+  z-index: 1100;
+  height: 100%;
+  width: 100%;
 }
 .image-preview .buttons {
+  z-index: 1100;
   border-radius: 50px;
   margin-left: auto;
   margin-right: auto;

@@ -1,6 +1,6 @@
 define(function (require, exports, module) {
     require('./services');
-    require('plugin/uploadpreview');
+    //require('plugin/uploadpreview');
     var app = angular.module('common.directives', ['common.services']);
     require('./datetime-directive');
     require('./select2-directive');//多功能复选框
@@ -9,7 +9,7 @@ define(function (require, exports, module) {
 
     function setRotate(elem, $btn) {
         var deg = 0;
-        $btn.off('click').on("click", function () {
+        $btn.off('click').on("click", function (e) {
             if ((deg + 90) > 360) {
                 deg = 90;
             } else {
@@ -20,26 +20,33 @@ define(function (require, exports, module) {
             for (var i = 0; i < styles.length; i++) {
                 element.style[styles[i]] = "rotate(" + deg + "deg)"
             }
+            return false;
         });
     }
 
-    //app.directive('imagePreview', function (fileService, $timeout) {
-    //    return {
-    //        restrict:'ECMA',
-    //        template: $(template, '.image-preview')[0].outerHTML,
-    //        scope:{src:'=',hidden:'='},
-    //        controller:function($scope){
-    //            //$scope.
-    //        }
-    //    }
-    //});
+    app.directive('imagePreview', ['fileService', '$timeout', function (fileService, $timeout) {
+        debugger
+        return {
+            replace: true,
+            template: $(template).filter('.image-preview')[0].outerHTML,
+            scope: {src: '=', show: '='},
+            link: function (scope, iElem, iAttrs) {
+                setRotate(iElem.find('img.preview')[0], iElem.find('.btn-rotate'));
+                scope.close = function () {
+                    scope.show = false;
+                }
+            }
+        }
+    }]);
     app.directive('inputFile', ['fileService', '$timeout', function (fileService, $timeout) {
         return {
             scope: {label: '@', ngReadonly: '=', ngRequired: '=', ngModel: '=', status: '=', response: '='},
             controller: ['$scope', function ($scope) {
             }],
             link: function (scope, iElem, iAttrs) {
-                //setRotate(iElem.find('.upload-preview-img')[0], iElem.find('.btn-rotate'));
+                scope.showBig = function () {
+                    scope.showPreview.value = true;
+                };
                 scope.$watch('ngModel', function () {
                     if (scope.ngModel) {
                         scope.src = '/op/api/file/previewimage?filePath=' + scope.ngModel;
@@ -49,7 +56,7 @@ define(function (require, exports, module) {
                 //给容器添加样式
                 iElem.addClass('input-file-container');
                 scope.status = 'unload';
-                $('input[type=file]', iElem).uploadPreview({Callback: null, img: $('img', iElem)});
+                //$('input[type=file]', iElem).uploadPreview({Callback: null, img: $('img', iElem)});
                 iElem.find('input[type=file]').on('change', function (e) {
                     scope.$apply(function ($sope) {
                         scope.status = 'uploading';
@@ -71,7 +78,7 @@ define(function (require, exports, module) {
                 });
             },
             restrict: 'CA',
-            template: $(template, '.uploadFile').html()
+            template: $(template).filter('.uploadFile')[0].outerHTML
         }
     }]);
 
