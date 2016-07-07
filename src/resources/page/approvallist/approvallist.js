@@ -140,9 +140,10 @@ define( function(require, exports, module){
 
             var type;
             var detail;
+
             //遍历出数据
             $scope.tabledata.tbody.forEach(function( item ){
-                if( item.orderId == id ){
+                if( item.processInstanceId == inId ){
                     detail = item;
                 }
             })
