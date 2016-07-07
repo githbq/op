@@ -417,7 +417,15 @@ define( function(require, exports, module){
 				edit = true;
 			}*/
 	
-			 me.attrs.productData.contract = me.attrs.enterpriseData.contract ? me.attrs.enterpriseData.contract : null ;
+			 me.attrs.productData.contract = me.attrs.enterpriseData.contract ? me.attrs.enterpriseData.contract : null;
+			 
+			 try{
+			 	me.attrs.productData.contract.contract = me.attrs.productData.contract.contractPic;
+			 	me.attrs.productData.contract.contractCopy = me.attrs.productData.contract.contractPicCopy;
+			 }catch( err ){
+
+			 }
+
 			 me.attrs.prodeuctObj =  productinfo.showProductInfo( {terminalInfo:{$view:me.$view.find('.common-terminalinfo')},
 					 tableInfo:{$view:me.$view.find('.common-tableinfo')},
 					 formInfo:{$view:me.$view.find('.common-forminfo')}}
