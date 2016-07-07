@@ -911,7 +911,7 @@ define(function(require, exports, module) {
                                         strDom += " <p> <span class='title'><b>" + obj['appName'] + ":</b></span> <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span> </p>";
                                         break;
                                     case "Custom_Helper":
-                                        strDom += " <p> <span class='title'><b>" + obj['appName'] + ":</b></span> <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span> </p>";
+                                        strDom += " <p> <span class='title'><b>" + obj['appName'] + ":</b>&nbsp;总量" + obj['quota'] + "&nbsp;已用"+ obj['usedQuota'] + "</span>"+"<span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span> </p>";
                                         break;
                                     case "StorageSpace":
                                         break;
