@@ -239,7 +239,7 @@ define(function (require, exports, module) {
                             dataResultItem && (dataResultItem.show = findProduct.show);
                             wrapperReset();
                             $scope.checkboxDisabled=false;
-                        }, 300);
+                        }, 500);
                     };
                     //视图中渲染的结构  进行状态合并
                     function getStateCombine(logic, product) {
