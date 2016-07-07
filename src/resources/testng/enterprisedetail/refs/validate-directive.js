@@ -66,6 +66,7 @@ define(function (reuqire, exports, module) {
                     isInt = true;
                 }
                 scope.ngModel = setMaxOrMinValue(scope.ngModel);
+                scope.ngModel = scope.ngModel === NaN ? null : scope.ngModel;
                 elm.off('keyup').on('keyup', function () {
                     var $dom = $(this);
                     var result = ($dom.val().replace(/[^\.\d]/g, ''));
@@ -95,6 +96,7 @@ define(function (reuqire, exports, module) {
                         }
                     }
                     result = setMaxOrMinValue(result, true);
+                    result = result === NaN ? null : result;
                     $dom.val(result);
                     ctrl.$setViewValue(result !== null ? parseFloat(result) : result, true);//只能赋模型的值不能改变VIEW
                     setTimeout(function () {
@@ -136,15 +138,15 @@ define(function (reuqire, exports, module) {
                     //if (scope.required && !result) {
                     //    result = 0;
                     //}
-                    return result;
+                    return result === NaN ? null : result;
                 }
 
                 //与非空进行兼容
                 ctrl.$parsers.unshift(function (viewValue) {
-                    console.log('$parsers:' + viewValue)
                     if (exp.test(viewValue)) {
                         ctrl.$setValidity('number', true);
-                        return parseFloat(viewValue.toString().replace(',', '.'));
+                        var result = parseFloat(viewValue.toString().replace(',', '.'));
+                        return result === NaN ? null : result;
                     } else if (viewValue === '' && scope.ngRequired) {
                         ctrl.$setValidity('number', false);
                         return undefined;
