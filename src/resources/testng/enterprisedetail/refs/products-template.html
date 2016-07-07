@@ -8,7 +8,7 @@
                        ng-click="checkProduct(checkbox.checked,checkbox)"
                        ng-value="checkbox.id"
                        ng-model="checkbox.checked"
-                       ng-disabled="checkbox.canCancel===false || allReadonly"
+                       ng-disabled="checkboxDisabled || checkbox.canCancel===false || allReadonly"
                         />
             </label>
         </div>
