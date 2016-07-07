@@ -1222,15 +1222,17 @@ define(function(require, exports, module) {
         //修改使用情况信息
         //
         //===========================================
-        changeStatistics: function( bool , callback ) {
+        changeStatistics: function() {
             var me = this;
             var temAccout = 0;
 
             console.log('changeStatistics');
+
             if (parseInt(me.model.get('groupNumLimit')) > 1000) {
                 util.showToast('群人数上限最多为1000');
                 return false;
             }
+
             if (me.$('#yingxiaoSum').val() && parseInt(me.$('#yingxiaoSum').val()) > parseInt(me.$sdXKDC.val())) {
                 util.showToast('逍客终端总量不能小于CRM总量');
                 return false;
@@ -1245,9 +1247,9 @@ define(function(require, exports, module) {
                 'groupNumLimit': me.model.get('groupNumLimit'), //群人数上限
                 'videoNumLimit': me.model.get('videoNumLimit'), //视频参与人数上限
                 'crmVisibleRange': me.model.get('crmVisibleRange'), //CRM上级可见数据范围
-                'editCustomerName': me.model.get('editCustomerName'), //允许负责人修改客户名称
-                'setPersonalGoal': me.model.get('setPersonalGoal'), //允许个人设置目标
-                'discountAutoCalculated': me.model.get('discountAutoCalculated'), //折扣是否自动计算
+                //'editCustomerName': me.model.get('editCustomerName'), //允许负责人修改客户名称
+                //'setPersonalGoal': me.model.get('setPersonalGoal'), //允许个人设置目标
+                //'discountAutoCalculated': me.model.get('discountAutoCalculated'), //折扣是否自动计算
                 'webSanCodeAuth': me.model.get('webSanCodeAuth'), //WEB扫码授权
                 'enterpriseId': me.model.get('enterpriseId')
             }
@@ -1257,13 +1259,9 @@ define(function(require, exports, module) {
                 'data': data,
                 'success': function(data) {
                     if (data.success) {
-                        if(!bool){
-                            util.showTip('修改成功!');
-                            //me.getEnterprise( me.model.attrs.enterpriseId );
-                            me.trigger('refresh');
-                        }else{
-                            callback && callback();
-                        }
+                        util.showTip('修改成功!');
+                        //me.getEnterprise( me.model.attrs.enterpriseId );
+                        me.trigger('refresh');
                     }
                 },
                 'complete': function(data) {
@@ -1481,28 +1479,33 @@ define(function(require, exports, module) {
                 //newExportAmountLeaveApplication: me.$sEMWC.val(),
                 //newExportAmountFeedApprove: me.$sEAC.val(),
                 newUploadFileSizeLimit: me.$sUFS.val(),
-                newIsAllowDangerOperate: me.$sActionDanger.val()
+                newIsAllowDangerOperate: me.$sActionDanger.val(),
+                'setPersonalGoal': me.model.get('setPersonalGoal'),
+                'discountAutoCalculated': me.model.get('discountAutoCalculated'),
+                'editCustomerName': me.model.get('editCustomerName'),
+                'isPhoneDeviceAuth': me.model.get('isPhoneDeviceAuth')
             };
 
-            me.changeStatistics(true,function(){
-                util.api({
-                    url: '/enterprise/changefunction',
-                    data: data,
-                    success: function(data) {
-                        if (data.success) {
-                            util.showTip('更新成功');
-                            me.$sdELC.val(me.$sELC.val());
-                            me.$sdEFC.val(me.$sEFC.val());
-                            me.$sdECC.val(me.$sECC.val());
-                            me.$sdEMWC.val(me.$sEMWC.val());
-                            me.$sdEAC.val(me.$sEAC.val());
-                            me.$sdUFS.val(me.$sUFS.val());
-                            me.$sdActionDanger.val(me.$sActionDanger.val() == '1' ? '是' : '否');
-                            me.clearFunctions();
-                        }
+
+            util.api({
+                url: '/enterprise/changefunctionNew',
+                data: data,
+                success: function(data) {
+                    if (data.success) {
+                        util.showTip('更新成功');
+                        //me.$sdELC.val(me.$sELC.val());
+                        //me.$sdEFC.val(me.$sEFC.val());
+                        //me.$sdECC.val(me.$sECC.val());
+                        //me.$sdEMWC.val(me.$sEMWC.val());
+                        //me.$sdEAC.val(me.$sEAC.val());
+                        //me.$sdUFS.val(me.$sUFS.val());
+                        //me.$sdActionDanger.val(me.$sActionDanger.val() == '1' ? '是' : '否');
+                        //me.clearFunctions();
+                        me.showFunctions();
+                        me.getEnterprise(me.model.attrs.enterpriseId)
                     }
-                });
-            })
+                }
+            });
         },
         //??
         searchCardList: function() {

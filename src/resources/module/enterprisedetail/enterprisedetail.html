@@ -379,15 +379,34 @@
 				</p>
 				<p>
 					<label class="hw">
-						<span>培训助手流量总量(小时)</span>
-						<input id="trainHelperTotalCapacity"  class="g-ipt ipt-m" type="text">
+						<span>视频参与人数上限(人)</span>
+						<input type="text" class="g-ipt ipt-m" ce-model="videoNumLimit" oninput="this.value=this.value.replace(/[^\d]/g,'')">
+						<span>(最多可添加20人)</span>
 					</label>
 					<label class="hw">
-						<span>培训助手流量<br>已用量/未用量</span>
-						<input id="trainHelperUsedCapacityStr" disabled="disabled" class="g-ipt ipt-m" type="text">
+						<span>群人数上限(人)</span>
+						<input type="text" class="g-ipt ipt-m" ce-model="groupNumLimit" oninput="this.value=this.value.replace(/[^\d]/g,'')">
 					</label>
 				</p>
-				
+				<p>
+					<label class="hw crmvisible">
+						<span>CRM上级可见数据范围</span>
+						<select name="" class="g-ipt ipt-m" ce-model="crmVisibleRange">
+							<option value="">请选择</option>
+							<option value="1">所有下级数据</option>
+							<option value="2">直属下级数据</option>
+						</select>
+					</label>
+					<label class="hw">
+						<span>WEB扫码授权</span>
+						<select name="" class="g-ipt ipt-m" ce-model="webSanCodeAuth">
+							<option value="">请选择</option>
+							<option value="0">全部授权</option>
+							<option value="1">未授权</option>
+							<!--<option value="2">部分授权</option>-->
+						</select>
+					</label>
+				</p>
 				<div id="tbOperation" class="tb">
 					<p class="tr off">
 						<button class="btn-blue" id="sBtnChangeStatistics">保存</button>
@@ -475,10 +494,10 @@
 						</label>
 						<label class="hw crmvisible">
 							<span>手机设备授权</span>
-							<select name="" class="g-ipt ipt-m" ce-model="webSanCodeAuth">
+							<select name="" class="g-ipt ipt-m" ce-model="isPhoneDeviceAuth">
 								<option value="">请选择</option>
-								<option value="0">全部授权</option>
-								<option value="1">未授权</option>
+								<option value="1">授权</option>
+								<option value="0">不授权</option>
 							</select>
 						</label>
 					</p>
@@ -518,6 +537,7 @@
 		</section>
 		
 		<!--数据统计-->
+		<!--
 		<section class="accordian collapse f1 f2 f3 f4 off" data-target="peopleNumber">
 			<h4><span class="arraw"></span>数据统计</h4>
 			<div class="content">
@@ -526,7 +546,8 @@
 				
 			</div>
 		</section>
-		
+		-->
+
 		<p class="tr">
 			<!--<button id="btnResetAdminPassword" class="f2 off">重置管理员密码</button>-->
 			<button id="btnStopService" class="f2 off" data-permissions="M008009042">停用</button>

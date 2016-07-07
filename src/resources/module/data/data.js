@@ -94,8 +94,7 @@ define( function(require, exports, module){
     //企业列表——企业类型
     data['enttype'] = {
         '1': '付费',
-        '2': '开源',
-        '3': '自注册'
+        '2': '开源'
     }
 
     //重设select的值
