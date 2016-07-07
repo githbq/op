@@ -1479,7 +1479,11 @@ define(function(require, exports, module) {
                 //newExportAmountLeaveApplication: me.$sEMWC.val(),
                 //newExportAmountFeedApprove: me.$sEAC.val(),
                 newUploadFileSizeLimit: me.$sUFS.val(),
-                newIsAllowDangerOperate: me.$sActionDanger.val()
+                newIsAllowDangerOperate: me.$sActionDanger.val(),
+                'setPersonalGoal': me.model.get('setPersonalGoal'),
+                'discountAutoCalculated': me.model.get('discountAutoCalculated'),
+                'editCustomerName': me.model.get('editCustomerName'),
+                'isPhoneDeviceAuth': me.model.get('isPhoneDeviceAuth')
             };
 
             me.changeStatistics(true,function(){
