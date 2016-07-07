@@ -39,7 +39,7 @@ define(function (require, exports, module) {
             controller: ['$scope', function ($scope) {
             }],
             link: function (scope, iElem, iAttrs) {
-                setRotate(iElem.find('.upload-preview-img')[0], iElem.find('.btn-rotate'));
+                //setRotate(iElem.find('.upload-preview-img')[0], iElem.find('.btn-rotate'));
                 scope.$watch('ngModel', function () {
                     if (scope.ngModel) {
                         scope.src = '/op/api/file/previewimage?filePath=' + scope.ngModel;
