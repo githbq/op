@@ -1251,8 +1251,9 @@ define(function(require, exports, module) {
                         if(!bool){
                             util.showTip('修改成功!');
                             //me.getEnterprise( me.model.attrs.enterpriseId );
-                            callback && callback();
                             me.trigger('refresh');
+                        }else{
+                            callback && callback();
                         }
                     }
                 },
