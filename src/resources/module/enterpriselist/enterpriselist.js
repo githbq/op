@@ -71,6 +71,12 @@ define(function(require, exports, module) {
                 util.showToast('请选择销售人员');
                 return;
             }
+            //选择与提交type值不同
+            if( type ==2 ){
+                type = 1;
+            }else if(type ==1){
+                type = 2;
+            }
          
             util.api({
                 url: '~/op/api/a/enterprise/transferEnterprises',
@@ -84,6 +90,7 @@ define(function(require, exports, module) {
                     if(data.success){
                         util.showTip('企业转移成功');
                         me.hide();
+                        me.trigger('success');
                     }
                 }
             });
@@ -248,7 +255,9 @@ define(function(require, exports, module) {
 
             me.transEnt = new TransEnt();
             me.sandBox = new SandBox();
-
+            me.transEnt.on('success', function(){
+                me.getList();
+            });
             resetSelect( me.$view, 'entstatus');
             resetSelect( me.$view, 'enttype');
 

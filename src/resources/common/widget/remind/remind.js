@@ -23,19 +23,19 @@ define(function(require, exports, module){
 		},
 		'5': {
 			text:'普通审批被驳回',
-			url:'/op/index#page/approvallist/refuse'  //'/op/a#agentsupport/renewlist'
+			url:'/op/index#order/orderlist'  //'/op/a#agentsupport/renewlist'
 		},
 		'6': {
 			text:'普通审批被驳回',
-			url:'/op/a#agentsupport/renewlist/refuse'  //'/op/a#agentsupport/renewlist'
+			url:'/op/a#order/orderlist'  //'/op/a#agentsupport/renewlist'
 		},
         '7': {
             text: "小助手退款被驳回",
-            url: "/op/index#page/approvallist/refuse"
+            url: "/op/index#order/orderlist"
         },
         '8': {
             text: "代理商退款被驳回",
-            url: "/op/a#agentsupport/renewlist/refuse"
+            url: "/op/a#order/orderlist"
         },
         '9': {
             text: "发票申请被驳回",//小助手

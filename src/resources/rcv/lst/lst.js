@@ -65,13 +65,14 @@ define( function( require, exports, module ) {
             }
             if(bool){
                 me.$data.prop('disabled',true);
-                me.$submit.prop({'disabled':true, class: ''})
+                me.$submit.prop({'disabled':true, 'class': ''});
+                me.$department.prop('class', '');
                 return;
             }
             me.$data.prop('disabled',false);
-            me.$submit.prop({'disabled':false, class: 'btn-blue'});
+            me.$submit.prop({'disabled':false, 'class': 'btn-blue'});
+            me.$department.prop('class', 'btn-blue');
 
-            
         },
         hide: function(){
             CreateReceipt.__super__.hide.apply( this,arguments );
