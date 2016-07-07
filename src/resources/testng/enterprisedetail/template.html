@@ -2,13 +2,14 @@
     <!--<button ng-click="testBasicForm()">测试表单验证11</button>-->
     <!--<button ng-attr-abcd="aaaa" ng-click="testResult()">testResult</button>-->
     <span ng-click="showTest=true">&nbsp;&nbsp;</span>
+
     <div ng-if="showTest">
-    <button ng-click="goToStep(1)">step1*</button>
-    <button ng-click="goToStep(2)">step2*</button>
-    <button ng-click="goToStep(3)">step3*</button>
-    <button ng-click="goToStepTest(1)">step1</button>
-    <button ng-click="goToStepTest(2)">step2</button>
-    <button ng-click="goToStepTest(3)">step3</button>
+        <button ng-click="goToStep(1)">step1*</button>
+        <button ng-click="goToStep(2)">step2*</button>
+        <button ng-click="goToStep(3)">step3*</button>
+        <button ng-click="goToStepTest(1)">step1</button>
+        <button ng-click="goToStepTest(2)">step2</button>
+        <button ng-click="goToStepTest(3)">step3</button>
     </div>
     <div ng-show="step==1 && !(globalInfo.isAdd)" ng-controller="form1Controller" ng-class="{step_validate_error:step_1_validate_error}" class="step form baseinfo" ng-form name="stepForm1">
         <div class="top-bar" ng-if="hideTopBar!==true">
@@ -199,17 +200,43 @@
                                 <span class="inline-m">{{item.endDate | date:"yyyy/MM/dd" }}</span>
                             </label>
                         </div>
+                        <div class="form-field" ng-switch-when="Train_Helper">
+                            <!--分割线-->
+                            <label>{{item.appName}}(个)：
+                            </label>
+                            <span class="inline-m">{{item.quota}}</span>
+                            <!--分割线-->
+                            <label ng-if="item.startDate">开始时间：
+                                <span class="inline-m">{{item.startDate | date:"yyyy/MM/dd" }}</span>
+                            </label>
+                            <!--分割线-->
+                            <label ng-if="item.endDate">结束时间：
+                                <span class="inline-m">{{item.endDate | date:"yyyy/MM/dd" }}</span>
+                            </label>
+                            <!--分割线-->
+                            <label ng-if="item.timeLongData">总课时(小时)：
+                                <span class="inline-m">{{item.timeLongData.quota}}</span>
+                            </label>
+                            <!--分割线-->
+                            <label ng-if="item.timeLongData">剩余课时(小时)：
+                                <span class="inline-m">{{item.timeLongData.quota-item.timeLongData.usedQuota  }}</span>
+                            </label>
+                            <!--分割线-->
+                            <label ng-if="item.timeLongData">已用课时(小时)：
+                                <span class="inline-m">{{item.timeLongData.usedQuota}}</span>
+                            </label>
+                        </div>
                         <div ng-show="false" class="form-field" ng-switch-when="number_System">
                         </div>
                         <div ng-show="false" class="form-field" ng-switch-when="FXBC">
                         </div>
-                        <div ng-show="false"  class="form-field" ng-switch-when="StorageSpace">
+                        <div ng-show="false" class="form-field" ng-switch-when="StorageSpace">
                             <!--分割线-->
                             <label>{{item.appName}}:
                             </label>
                             <span class="inline-m">{{item.quota}}</span>
                         </div>
-                        <div class="form-field" ng-switch-default>
+                        <div ng-if="!item.hidden" class="form-field" ng-switch-default>
                             <!--分割线-->
                             <label>{{item.appName}}:
                             </label>
@@ -318,6 +345,7 @@
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>总部打款日期</span></label>
+
                     <div class="inline-block" ng-disabled="payInfoReadonly" required2="true" ng-readonly="payInfoReadonly" getform="this['stepForm3']" name="payDate" datetimeconfig="payInfo.payDate_dataConfig" ng-model="payInfo.payDate"></div>
                 </div>
             </div>

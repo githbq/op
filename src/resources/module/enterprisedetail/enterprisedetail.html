@@ -22,13 +22,13 @@
 			<!--企业地址-->
 			<p>
 				<span class="title">企业地址</span>
-				<select id="sprovince" ce-model="province">
+				<select id="sprovince">
 					<option value="">请选择省</option>
 				</select> -- 
-				<select id="scity" ce-model="city">
+				<select id="scity">
 					<option value="">请选择市</option>
 				</select> -- 
-				<select id="sarea" ce-model="county">
+				<select id="sarea">
 					<option value="">请选择区</option>
 				</select>
 			</p>
@@ -39,31 +39,31 @@
 			<!--行业-->
 			<p>
 				<span class="title">行业</span>
-				<select id="sinsone" ce-model="industryFirst">
+				<select id="sinsone">
 					<option value="">请选择一级行业</option>
 				</select> --
-				<select id="sinstwo" ce-model="industrySecond">
+				<select id="sinstwo">
 					<option value="">请选择二级行业</option>
 				</select> --
-				<select id="sinsthree" ce-model="industryThird">
+				<select id="sinsthree">
 					<option value="">请选择三级行业</option>
 				</select> 
 			</p>
 			<p>
+				<!--
 				<label>
 					<span class="title">来源</span> 
 					<select id="tSource" ce-model="source">
 						<option value="">请选择</option>
 					</select>
 				</label>
+				-->
 				<label>
 					<span class="title">使用对象类型</span> 
 					<select id="tGroupType" ce-model="groupType">
 						<option value=""></option>
 					</select>
 				</label>
-			</p>
-			<p>
 				<label>
 					<span class="title">公司规模</span> 
 					<select id="tCompanySize" ce-model="companyScale">
@@ -71,6 +71,8 @@
 						<option value=""></option>
 					</select>
 				</label>
+			</p>
+			<p>
 				<label>
 					<span class="title">销售团队规模</span> 
 					<select id="tSalesSize" ce-model="saleTeamScale">
@@ -78,8 +80,6 @@
 						<option value=""></option>
 					</select>
 				</label>
-			</p>
-			<p>
 				<label>
 					<span class="title">是否销售团队</span>
 					<select ce-model="isSaleTeam">
@@ -87,6 +87,8 @@
 						<option value="0">否</option>
 					</select>
 				</label>
+			</p>
+			<p>
 				<label>
 					<span class="title">是否标杆</span>
 					<select ce-model="isReference">
@@ -94,8 +96,6 @@
 						<option value="0">否</option>
 					</select>
 				</label>
-			</p>
-			<p>
 				<label>
 					<span class="title">是否转介绍</span> 
 					<select ce-model="isReferral">
@@ -145,7 +145,7 @@
 				</label>
 				<label>
 					<span class="title">平台管理员QQ</span>
-					<input type="text" class="g-ipt ipt-l ed" onblur="this.value=this.value.replace(/\D/g,'')" ce-model="contactIM">
+					<input type="text" class="g-ipt ipt-l ed" onblur="this.value=this.value.replace(/\D/g,'')" ce-model="contactIm">
 				</label>
 			</p>
 		</section>
@@ -495,8 +495,8 @@
 		
 		<p class="tr">
 			<!--<button id="btnResetAdminPassword" class="f2 off">重置管理员密码</button>-->
-			<button id="btnStopService" class="f2 off" data-permissions="F008048">停用</button>
-			<button id="btnStartService" class="f4 off" data-permissions="F008048">启用</button>
+			<button id="btnStopService" class="f2 off" data-permissions="M008009042">停用</button>
+			<button id="btnStartService" class="f4 off" data-permissions="M008009042">启用</button>
 		</p>
 	</div>
 </div>

@@ -209,6 +209,12 @@ define(function (require, exports, module) {
                         $scope.productInfos = data;
                         $scope.globalInfo.enterpriseName= $scope.globalInfo.enterpriseName||valueData.enterpriseName;
                         $scope.globalInfo.enterpriseAccount= $scope.globalInfo.enterpriseAccount||valueData.enterpriseAccount;
+                        var train_Helper=_.findWhere($scope.productInfos,{code:'Train_Helper'});
+                        var train_Hepler_Capacity=_.findWhere($scope.productInfos,{code:'Train_Hepler_Capacity'});
+                        if(train_Helper&& train_Hepler_Capacity){
+                            train_Helper.timeLongData=train_Hepler_Capacity;
+                            train_Hepler_Capacity.hidden=true;
+                        }
                     }, 10);
                 });
             }
