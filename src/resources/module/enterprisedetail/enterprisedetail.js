@@ -1486,25 +1486,26 @@ define(function(require, exports, module) {
                 'isPhoneDeviceAuth': me.model.get('isPhoneDeviceAuth')
             };
 
-            me.changeStatistics(true,function(){
-                util.api({
-                    url: '/enterprise/changefunction',
-                    data: data,
-                    success: function(data) {
-                        if (data.success) {
-                            util.showTip('更新成功');
-                            me.$sdELC.val(me.$sELC.val());
-                            me.$sdEFC.val(me.$sEFC.val());
-                            me.$sdECC.val(me.$sECC.val());
-                            me.$sdEMWC.val(me.$sEMWC.val());
-                            me.$sdEAC.val(me.$sEAC.val());
-                            me.$sdUFS.val(me.$sUFS.val());
-                            me.$sdActionDanger.val(me.$sActionDanger.val() == '1' ? '是' : '否');
-                            me.clearFunctions();
-                        }
+
+            util.api({
+                url: '/enterprise/changefunctionNew',
+                data: data,
+                success: function(data) {
+                    if (data.success) {
+                        util.showTip('更新成功');
+                        //me.$sdELC.val(me.$sELC.val());
+                        //me.$sdEFC.val(me.$sEFC.val());
+                        //me.$sdECC.val(me.$sECC.val());
+                        //me.$sdEMWC.val(me.$sEMWC.val());
+                        //me.$sdEAC.val(me.$sEAC.val());
+                        //me.$sdUFS.val(me.$sUFS.val());
+                        //me.$sdActionDanger.val(me.$sActionDanger.val() == '1' ? '是' : '否');
+                        //me.clearFunctions();
+                        me.showFunctions();
+                        me.getEnterprise(me.model.attrs.enterpriseId)
                     }
-                });
-            })
+                }
+            });
         },
         //??
         searchCardList: function() {
