@@ -845,10 +845,12 @@ define(function(require, exports, module) {
                 ]);
             
             postData.enterpriseFilingId = me.model.get('enterpriseFilingId');
+            //省市区信息
             postData.province = me.$('#sprovince').val();
             postData.city = me.$('#scity').val();
             postData.county = me.$('#sarea').val();
 
+            //三级行业信息
             postData.industryFirst = me.$('#sinsone').val();
             postData.industrySecond = me.$('#sinstwo').val();
             postData.industryThird = me.$('#sinsthree').val();
@@ -1040,63 +1042,7 @@ define(function(require, exports, module) {
                 }
             })
         },
-
-        //开启或关闭产品
-        toggleProduct: function (isEnable) {
-            var me = this;
-
-            var $input = me.$tbProduct.find('[name="product"]:checked');
-
-
-            if ( $input.length <= 0 ) {
-                util.showToast('请选择产品');
-                return false;
-            }
-
-            var ids = [];
-
-			var arrTypeOne = [],arrTypeTwo = [];
-
-            $input.each(function (index, item) {
-
-				if( $(item).attr('typeid')==1 ){
-					arrTypeOne.push( $(item).val() );
-				}else if( $(item).attr('typeid') == 2 ){
-					arrTypeTwo.push( $(item).val() );
-				}
-                //ids.push($(item).val());
-            });
-			var objOne ={}, objTwo ={}, arrList = [];
-			if(arrTypeOne.length>0){
-				//var tempOne ={};
-				objOne.quotaType = 1;
-				objOne.appIds = arrTypeOne.join(',');
-				arrList.push(objOne);
-			}
-			if(arrTypeTwo.length>0){
-				//var tempOne ={};
-				objTwo.quotaType = 2;
-				objTwo.appIds = arrTypeTwo.join(',');
-				arrList.push(objTwo);
-			}
-            console.log(ids);
-
-            util.api({
-                'url': "/app/setappsenablestatus",
-                'data': {
-                    'fsEa': me.model.get('enterpriseAccount'),
-                    'json': JSON.stringify( arrList ),
-                    'isEnable': isEnable
-                },
-                'success': function (data) {
-                    if (data.success) {
-                        util.showTip('操作成功');
-                        me.showProductInfo();
-                    }
-                }
-            })
-        },
-        
+                
         //使用情况显示使用情况 ??培训助手流量总量 和已用量/未用量 如何赋值
         showOperations: function() {
             var me = this;
@@ -1246,11 +1192,11 @@ define(function(require, exports, module) {
                 'expandStorageSpace': me.$('#expandStorageSpace').val(), //存储扩容
                 'groupNumLimit': me.model.get('groupNumLimit'), //群人数上限
                 'videoNumLimit': me.model.get('videoNumLimit'), //视频参与人数上限
-                'crmVisibleRange': me.model.get('crmVisibleRange'), //CRM上级可见数据范围
+                //'crmVisibleRange': me.model.get('crmVisibleRange'), //CRM上级可见数据范围
                 //'editCustomerName': me.model.get('editCustomerName'), //允许负责人修改客户名称
                 //'setPersonalGoal': me.model.get('setPersonalGoal'), //允许个人设置目标
                 //'discountAutoCalculated': me.model.get('discountAutoCalculated'), //折扣是否自动计算
-                'webSanCodeAuth': me.model.get('webSanCodeAuth'), //WEB扫码授权
+                //'webSanCodeAuth': me.model.get('webSanCodeAuth'), //WEB扫码授权
                 'enterpriseId': me.model.get('enterpriseId')
             }
 
@@ -1473,13 +1419,10 @@ define(function(require, exports, module) {
             var me = this;
             var  data = {
                 enterpriseId: this.model.attrs.enterpriseId,
-                //newExportAmountLocation: me.$sELC.val(),
-                //newExportAmountPlan: me.$sEFC.val(),
-                //newExportAmountFeedWork: me.$sECC.val(),
-                //newExportAmountLeaveApplication: me.$sEMWC.val(),
-                //newExportAmountFeedApprove: me.$sEAC.val(),
                 newUploadFileSizeLimit: me.$sUFS.val(),
                 newIsAllowDangerOperate: me.$sActionDanger.val(),
+                'webSanCodeAuth': me.model.get('webSanCodeAuth'), //WEB扫码授权
+                'crmVisibleRange': me.model.get('crmVisibleRange'), //CRM上级可见数据范围
                 'setPersonalGoal': me.model.get('setPersonalGoal'),
                 'discountAutoCalculated': me.model.get('discountAutoCalculated'),
                 'editCustomerName': me.model.get('editCustomerName'),
