@@ -68,7 +68,7 @@
                                             <label  ng-init="field.value.valueData.valueItems=field.value.valueData.valueItems||[]" class="label-tip" ng-if="field.label" ng-class="{required:field.validate.required}"><span class="title">{{field.label|trim2:true}}</span></label>
                                             <a ng-disabled="allReadonly||field.readonly"
                                                class="add-button" onselectstart="return false;"
-                                               ng-if="!(allReadonly||field.readonly) && field.value.valueData.valueItems.length<5"
+                                               ng-if="!(allReadonly||field.readonly) && field.value.valueData.valueItems.length<10"
                                                ng-click="allReadonly||field.readonly||selectSalesmenDialog(field.value.valueData.valueItems)">添加销售</a>
                                             <table class="s-table">
                                                 <tbody>
@@ -91,7 +91,7 @@
                                             <label  ng-init="field.value.valueData.valueItems=field.value.valueData.valueItems||[]" class="label-tip" ng-if="field.label" ng-class="{required:field.validate.required}"><span class="title">{{field.label|trim2:true}}</span></label>
                                             <a ng-disabled="allReadonly||field.readonly"
                                                onselectstart="return false;" class="add-button"
-                                               ng-if="!(allReadonly||field.readonly) && field.value.valueData.valueItems.length<5"
+                                               ng-if="!(allReadonly||field.readonly) && field.value.valueData.valueItems.length<10"
                                                ng-click="allReadonly||field.readonly||selectPartnersDialog(field.value.valueData.valueItems)">添加合作人</a>
                                             <table class="s-table">
                                                 <tbody>
