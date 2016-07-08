@@ -1115,11 +1115,11 @@ define(function(require, exports, module) {
             }
             */
             if( me.model.get('trainHelperTotalCapacity') ){
-                me.$('#trainHelperTotalCapacity').val( me.model.get('trainHelperTotalCapacity') );
+                me.$('#trainHelperTotalCapacity').val( parseFloat( me.model.get('trainHelperTotalCapacity') ) );
 
                 if( me.model.get('trainHelperUsedCapacity') ){
 
-                    me.$('#trainHelperUsedCapacityStr').val( me.model.get('trainHelperUsedCapacity') + '/' + ( me.model.get('trainHelperTotalCapacity') - me.model.get('trainHelperUsedCapacity') ) )
+                    me.$('#trainHelperUsedCapacityStr').val( parseFloat( me.model.get('trainHelperUsedCapacity') ) + '/' + ( parseFloat( me.model.get('trainHelperTotalCapacity') ) - parseFloat( me.model.get('trainHelperUsedCapacity') ) ) )
                 }
             }
 
