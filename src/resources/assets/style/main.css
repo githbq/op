@@ -8919,9 +8919,14 @@ em {
   left: 0px;
 }
 .image-preview .preview {
-  max-width: 80%;
-  max-height: 80%;
-  vertical-align: middle;
+  max-width: 90%;
+  max-height: 100%;
+  position: fixed;
+  margin: auto;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
 }
 .image-preview .container {
   height: 100%;
@@ -8943,7 +8948,6 @@ em {
   z-index: 1100;
 }
 .image-preview .content {
-  display: table-cell;
   text-align: center;
   z-index: 1100;
   height: 100%;
