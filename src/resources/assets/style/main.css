@@ -7136,6 +7136,9 @@ em {
   /* 审核意见 */
   /*产品信息*/
 }
+.m-enterprisedetail .openTime {
+  display: none;
+}
 .m-enterprisedetail div.section h4 {
   font-size: 14px;
   line-height: 40px;

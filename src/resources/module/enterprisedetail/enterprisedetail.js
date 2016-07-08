@@ -575,6 +575,15 @@ define(function(require, exports, module) {
                         
 
 
+                        //
+                        //开通时间显示
+                        //===================================================
+                        if( me.model.get('appStartTime') ){
+                            me.$('.openTime').show().find('.content').text( new Date( me.model.get('appStartTime') )._format('yyyy年MM月dd日') );
+                        }
+
+
+
                         //初始化 使用情况的缓存
                         me.operations.initialInfo = {
                             'accountTotalAmount': model.accountTotalAmount,         //逍客终端总量
@@ -1100,8 +1109,19 @@ define(function(require, exports, module) {
             me.model.load( me.operations.initialInfo );
 
             //给培训助手流量总量 和 培训助手流量赋值
+            /*
             if (me.operations.trainHelperTotalCapacity !== undefined) {
                 me.model.set('trainHelperUsedCapacityStr', me.operations.trainHelperTotalCapacity + '/' + (me.operations.trainHelperTotalCapacity - me.operations.trainHelperTotalCapacity))
+            }
+            */
+            trainHelperTotalCapacity
+            if( me.model.get('trainHelperTotalCapacity') ){
+                me.$('#trainHelperTotalCapacity').val( me.model.get('trainHelperTotalCapacity') );
+
+                if( me.model.get('trainHelperUsedCapacity') ){
+
+                    me.$('#trainHelperUsedCapacityStr').val( me.model.get('trainHelperUsedCapacity') + '/' + ( me.model.get('trainHelperTotalCapacity') - me.model.get('trainHelperUsedCapacity') ) )
+                }
             }
 
             /**
