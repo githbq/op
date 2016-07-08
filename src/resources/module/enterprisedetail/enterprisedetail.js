@@ -1114,7 +1114,6 @@ define(function(require, exports, module) {
                 me.model.set('trainHelperUsedCapacityStr', me.operations.trainHelperTotalCapacity + '/' + (me.operations.trainHelperTotalCapacity - me.operations.trainHelperTotalCapacity))
             }
             */
-            trainHelperTotalCapacity
             if( me.model.get('trainHelperTotalCapacity') ){
                 me.$('#trainHelperTotalCapacity').val( me.model.get('trainHelperTotalCapacity') );
 
