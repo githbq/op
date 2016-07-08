@@ -50,14 +50,6 @@
 				</select> 
 			</p>
 			<p>
-				<!--
-				<label>
-					<span class="title">来源</span> 
-					<select id="tSource" ce-model="source">
-						<option value="">请选择</option>
-					</select>
-				</label>
-				-->
 				<label>
 					<span class="title">使用对象类型</span> 
 					<select id="tGroupType" ce-model="groupType">
@@ -149,14 +141,6 @@
 				</label>
 			</p>
 		</section>
-		
-		<!--
-		<section>
-			<h4>备注</h4>
-			<p><textarea id="remark" rows="4" class="ed"></textarea></p>
-		</section>
-		-->
-		<!--<p class="tr f1 f2" style="text-align:right"><button id="btnSaveBasic" class="btn-blue off" data-permissions="F008070">保存</button></p>-->
 		<p class="tr f1 f2" style="text-align:right"><button id="btnSaveBasic" class="btn-blue off">保存</button></p>
 	</div>
 	<div class="dtl section">
@@ -166,182 +150,12 @@
 			<h4><span class="arraw"></span>产品信息</h4>
 
 			<div class="content" id="tbProduct">
-				<!--
-				<p class="content-action off">
-					<button class="u-btn-blue" id="openproduct">开启</button>
-					<button id="closeproduct">关闭</button>
-				</p>
-				-->
 				<!--显示产品列表-->
 				<div class="container">
 					
 				</div>
 			</div>
 		</section>
-		
-		<!--资料审核-->
-		<!--
-		<section class="accordian collapse commonsection" data-target="verification" id="verification" >
-			<h4><span class="arraw"></span>资料审核</h4>
-			<div class="content">
-
-				<h5>营业执照</h5>
-
-				<p>
-					<a href="" id="yingyezhizhaoinfo" target="_blank"><img src="" style="width:350px; height:200px;"></a>
-					<span id="yingyezhizhaonone" style="display:none; color:#0000ff; margin-left:20px;">未上传</span>
-				</p>
-
-				<h5>合同</h5>
-				<p>
-					<a id="hetonginfo" style="display:none;" target="_blank" href="">
-					</a>
-					<span id="hetongnone" style="display:none; color:#0000ff; margin-left:20px;">未上传</span>
-				</p>
-
-				<h5>合同副本</h5>
-				<p>
-					<a id="hetongfbinfo" style="display:none" target="_blank" href="">
-					</a>
-					<span id="hetongfbnone" style="display:none; color:#0000ff; margin-left:20px;">未上传</span>
-				</p>
-
-				<h5>门头信息</h5>
-
-				<p>
-					<a href="" id="mentouinfo" target="_blank"><img src="" style="width:350px; height:200px;"></a>
-					<span id="mentounone" style=" display:none; color:#0000ff; margin-left:20px;">未上传</span>
-				</p>
-
-				<p>
-					<label for="">
-						<span class="title">门头照片关键字</span>
-						<input type="text"  id="companyGateKeyword" disabled="disabled">
-					</label>
-					<label for="">
-						<span class="title">门头照片备注</span>
-						<input type="text" id="companyGateRemark" disabled="disabled">
-					</label>
-				</p>
-				<p id="shenheresult">
-					<label>
-						<span>审核结果</span><input type="text" disabled="disabled">
-					</label>
-					<label>
-						<span>操作时间</span><input type="text" disabled="disabled" ce-model="informationCheckTimeStr">
-					</label>
-				</p>
-				<p>
-					<span class="title">审核意见</span>
-					<textarea class="approvalinfo"></textarea>
-				</p>
-				<p class="off btns">
-					<button class="u-btn-blue verificationaction-on" data-permissions="F008050">审核通过</button>
-					<button class="u-btn-red verificationaction-off" data-permissions="F008050">审核驳回</button>
-				</p>
-				
-				<div style="border:1px solid #ccc; padding:15px;" class="on" id="verificationupload">
-					<p class="on">
-						<label>
-							<span>营业执照</span>
-							<input type="file" id="yingyezhizhao" accept="image/gif, image/jpeg, image/png">
-						</label>
-					</p>
-					<p class="on hetong">
-						<label>
-							<span>合同</span>
-							<input type="file" id="hetongzhaopian" accept="image/gif, image/jpeg, image/png">
-						</label>
-					</p>
-					<p class="on hetongfb">
-						<label>
-							<span>合同副本</span>
-							<input type="file" id="hetongfbzhaopian" accept="image/gif, image/jpeg, image/png">
-						</label>
-					</p>
-					<p class="on">
-						<label>
-							<span>门头照片</span>
-							<input type="file" id="mentou" accept="image/gif, image/jpeg, image/png">
-						</label>
-					</p>
-					<p class="on">
-						<label for="">
-							<span>门头照片关键字</span>
-							<input type="text" ce-model="companyGateKeyword" class="companyGateKeyword" >
-						</label>
-						<label for="">
-							<span>门头照片备注</span>
-							<input type="text" ce-model="companyGateRemark" class="companyGateRemark" >
-						</label>
-					</p>
-					<p class="on">
-						
-						<button class="u-btn-blue upload">保存</button>
-					</p>
-				</div>
-			</div>
-		</section>
-		-->
-	
-		<!--电话回访-->
-		<!--
-		<section class="accordian collapse commonsection off" data-target="callback" id="phonecallback">
-			<h4><span class="arraw"></span>电话回访</h4>
-			<div class="content">
-				<div class="content-result">
-					<p>
-						<label>
-							<span>电话回访状态</span>
-							<select id="returnvisitCheck"></select>
-						</label>
-					</p>
-					<p>
-						<label>
-							<span>作弊情况</span>
-							<select id="cheatType">
-							</select>
-						</label>
-					</p>
-					<p>
-						<label>
-							<span>操作人</span>
-							<input type="text" id="returnVisitCheckAccountName" disabled="disabled">
-						</label>
-					</p>
-					<p>
-						<label>
-							<span>操作时间</span>
-							<input type="text" id="returnVisitCheckTimeStr" disabled="disabled">
-						</label>
-					</p>
-					<p class="huifangresult">
-						<span>回访结果</span>
-						<b id="returnVisitCheckStr"></b>
-					</p>
-					<p class="btns">
-						<button class="callbackaction u-btn-blue" type="button">保存</button>
-					</p>
-				</div>
-				<div class="content-list tb">
-					<table>
-						<thead>
-							<tr>
-								<th>姓名</th>
-								<th>是否是管理员</th>
-								<th>电话</th>
-								<th>操作</th>
-							</tr>
-						</thead>
-						<tbody>
-							
-						</tbody>
-					</table>
-					<div class="pager"></div>
-				</div>
-			</div>
-		</section>
-		-->
 		
 		<!--使用情况-->
 		<section class="accordian collapse f1 f2 f3 f4" id="operationssection" data-target="operations">
@@ -388,25 +202,6 @@
 						<input type="text" class="g-ipt ipt-m" ce-model="groupNumLimit" oninput="this.value=this.value.replace(/[^\d]/g,'')">
 					</label>
 				</p>
-				<p>
-					<label class="hw">
-						<span>CRM上级可见数据范围</span>
-						<select name="" class="g-ipt ipt-m" ce-model="crmVisibleRange">
-							<option value="">请选择</option>
-							<option value="1">所有下级数据</option>
-							<option value="2">直属下级数据</option>
-						</select>
-					</label>
-					<label class="hw">
-						<span>WEB扫码授权</span>
-						<select name="" class="g-ipt ipt-m" ce-model="webSanCodeAuth">
-							<option value="">请选择</option>
-							<option value="0">全部授权</option>
-							<option value="1">未授权</option>
-							<!--<option value="2">部分授权</option>-->
-						</select>
-					</label>
-				</p>
 				<div id="tbOperation" class="tb">
 					<p class="tr off">
 						<button class="btn-blue" id="sBtnChangeStatistics">保存</button>
@@ -433,9 +228,6 @@
 		<section class="accordian collapse f1 f2 f3 f4 off" data-target="activeness">
 			<h4><span class="arraw"></span>活跃度</h4>
 			<div class="content">
-				<!--<p>-->
-					<!--<label><span>活跃度</span><input id="sActivity" disabled="disabled" class="g-ipt ipt-l" type="text"></label>-->
-				<!--</p>-->
 				<br/>
 				<br/>
 				<div class="f2">
@@ -492,12 +284,31 @@
 								<option value="0">不可以</option>
 							</select>
 						</label>
+						<label class="hw crmvisible">
+							<span>CRM上级可见数据范围</span>
+							<select name="" class="g-ipt ipt-m" ce-model="crmVisibleRange">
+								<option value="">请选择</option>
+								<option value="1">所有下级数据</option>
+								<option value="2">直属下级数据</option>
+							</select>
+						</label>
+					</p>
+					<p>
 						<label class="hw">
 							<span>手机设备授权</span>
 							<select name="" class="g-ipt ipt-m" ce-model="isPhoneDeviceAuth">
 								<option value="">请选择</option>
 								<option value="1">授权</option>
 								<option value="0">不授权</option>
+							</select>
+						</label>
+						<label class="hw">
+							<span>WEB扫码授权</span>
+							<select name="" class="g-ipt ipt-m" ce-model="webSanCodeAuth">
+								<option value="">请选择</option>
+								<option value="0">全部授权</option>
+								<option value="1">未授权</option>
+								<!--<option value="2">部分授权</option>-->
 							</select>
 						</label>
 					</p>
