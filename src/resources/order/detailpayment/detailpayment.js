@@ -1,8 +1,7 @@
-/**
- *  备案企业 模块 
- *  详情或增加
- *
- */
+//
+// 新建收尾款 和 审批收尾款用
+// 收尾款slider
+//=================
 
 define( function(require, exports, module){
 
@@ -10,7 +9,7 @@ define( function(require, exports, module){
         TPL = IBSS.tpl;
 		
 	var Slider = require('common/widget/slider/slider');
-	 var AreaTree = require('module/areatree/areatree');
+	var AreaTree = require('module/areatree/areatree');
 
 	var contentStr = require('./detailpayment.html');
 	
@@ -26,7 +25,7 @@ define( function(require, exports, module){
 
     /////////////////
     //
-    //  查看审批详情
+    //  收尾款
     /////////////////
 	var DetailApproval = MClass( Slider ).include({
 
@@ -41,9 +40,9 @@ define( function(require, exports, module){
 			'.action-agree':'actionAgree',
 			'.action-reject':'actionReject',
 			'.action-submit':'actionSubmit',
-			'.enterpriseAccount':'enterpriseAccount',
-			'.money-time':'moneyTime',
-			'.receivedPayNum':'receivedPayNum'
+			'.enterpriseAccount':'enterpriseAccount'
+			//'.money-time':'moneyTime',
+			//'.receivedPayNum':'receivedPayNum'
 		},
 		events:{
 			'click .action-save':'actionSaveEve',
@@ -59,8 +58,13 @@ define( function(require, exports, module){
 			var me = this;
 			
 			//选择区域模块
-			me.$moneyTime.datetimepicker({'timepicker': false,'format':'Y/m/d'});
+			//me.$moneyTime.datetimepicker({'timepicker': false,'format':'Y/m/d'});
+			if( me.attrs.isTop ){
+				me.$view.css( {"z-index":3000} );
+			}
+			//区域树选择
             me.areaTree = new AreaTree();
+            //区域树选择区域事件
             me.areaTree.on('selectarea',function( treenodes ){
                 
                 me.$filingRegion.val( treenodes[0]['name'] ).attr('data-code', treenodes[0]['code'] );
@@ -84,19 +88,45 @@ define( function(require, exports, module){
 			me.attrs.receiveData = {};
 			me.attrs.allData = {'orderEntity':{},'contract':{},'enterpriseExtend':{},'enterprise':{}};
 			
+			//设置状态
 			me.setState();
+			//根据订单类型区分设置
 			me.sortType();
 			
+			//
+			// 到款认领 逻辑处理
+			//======================
+			me.$('.approval-daokuan').hide();
+			util.api({
+				'url':'/odr/getClaimedReceivedPayForDetail',
+				'data':{
+					'orderId': me.attrs.options.id
+				},
+				'success': function( data ){
+					console.log('到款信息');
+					console.log( data );
+					if( data.value.model ){
+						me.dklist.reload([data.value.model]);
+						me.$('.approval-daokuan').show();
+					}else{
+						me.$('.approval-daokuan').hide();
+					}	
+				}
+			});
+			
+
 			DetailApproval.__super__.show.call( this,true );
 		},
 		//根据定单类型区分设置
 		sortType:function(){
 			var me = this;
+
 			me.attrs.options.orderType = parseInt(me.attrs.options.orderType)
 			
 			me._setTitle( orderTypeAry[me.attrs.options.orderType] );
 			
 			$.when( me.getOrderDetail()/*, me.getEnterpriseInfo()*/, me.setOrderList()).done(function(){
+
 				//备注信息
 				me.getReceiveOrder(function(){
 					//setOrderInfo--订单信息
@@ -105,11 +135,11 @@ define( function(require, exports, module){
 				
 
 				//基本信息
+				/*
 				me.attrs.basicCommon = new OrderInfo( { 'wrapper':me.$view.find('.common--basic'),'data':me.attrs.orderList,
 					'editFlag':me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
+				*/
 			});
-
-
 		},
 		//获取企业基本信息
 		getEnterpriseInfo:function(  ){
@@ -203,22 +233,26 @@ define( function(require, exports, module){
 			 //收尾款模块
 			 //设置是否可以编辑
 			me.attrs.moneyEdit = me.attrs.options.editFlag;
+			
 			//财务驳回只能部分编辑和小助手第二次驳回
 			if(me.attrs.options.rejectsFrom &&  me.attrs.options.rejectsFrom == 3  && me.attrs.options.editFlag){
 				me.attrs.moneyEdit = false;;
 			}
+
+			//
 			me.attrs.getMoneyCommon = new GetMoney( { 'wrapper':me.$view.find('.common-product'),'data':me.attrs.receiveData,'editFlag':me.attrs.moneyEdit,
 			'type':me.attrs.options.orderType ,'dataDetail':me.attrs.orderData} );
 			
 			
-			 //发票信息
-			 me.attrs.invoiceCommon = new InvoiceInfo( { 'wrapper':me.$view.find('.common--invioce'),'data':me.attrs.orderData,
+			//发票信息
+			me.attrs.invoiceCommon = new InvoiceInfo( { 'wrapper':me.$view.find('.common--invioce'),'data':me.attrs.orderData,
 				 'editFlag': me.attrs.options.editFlag,'type':me.attrs.options.orderType} );
 				 
 			me.getCustomHelper();
 
 		 },
-		  //获取现有跟进人信息：
+		
+		//获取现有跟进人信息：
 		getCustomHelper:function(){
 			var me = this;
 			
@@ -251,16 +285,15 @@ define( function(require, exports, module){
 			var me = this;
 			me.$('.state').hide();
 			me.$('.state-'+me.attrs.options.state).show();
+			/*
 			if(me.attrs.options.editFlag){
 				me.$('.state-refuse').show();
 			}
+			*/
 			me.$('.currentTask-'+me.attrs.options.currentTask).show();
 			me.$('.order-id').html( me.attrs.options.id );
 			//判断审批意见
 			//var opinion = me.attrs.options.opinion ? me.attrs.options.opinion :'暂无';
-
-			
-
 		},
 		//设置审批意见
 		setOptions:function(){
@@ -297,12 +330,12 @@ define( function(require, exports, module){
 			//设置到款编号
 			var receivedPayNum= (me.attrs.orderData && me.attrs.orderData.order && me.attrs.orderData.order.receivedPayNum)?me.attrs.orderData.order.receivedPayNum:'';
 
-			if(receivedPayDate){
-				me.$('.receivedPayDate').show();
-				me.$('.receivedPayDate-text').text(receivedPayDate);
-				me.$('.receivedPayNum-text').text(receivedPayNum);
-				me.$('.currentTask-finance').hide();
-			}
+			//if(receivedPayDate){
+				//me.$('.receivedPayDate').show();
+				//me.$('.receivedPayDate-text').text(receivedPayDate);
+				//me.$('.receivedPayNum-text').text(receivedPayNum);
+				//me.$('.currentTask-finance').hide();
+			//}
 
 			
 		},
@@ -467,9 +500,9 @@ define( function(require, exports, module){
 			var bool = confirm("确认同意此条审批吗?");
 			if( bool ){
 				 if( me.attrs.options.currentTask == 'finance' && !me.attrs.orderData.order.receivedPayDate){
-				   me.setMoneyTime(function(){
+				   //me.setMoneyTime(function(){
 						me.replyOptions();
-				   });
+				   //});
 				}else{
 					me.replyOptions();
 				}
@@ -511,7 +544,9 @@ define( function(require, exports, module){
 			})
 			
 		},
+
 		//设置到款时间
+		/*
 		setMoneyTime:function( callback ){
 			var me = this;
 			if(!me.$moneyTime.val() ){
@@ -533,6 +568,8 @@ define( function(require, exports, module){
 				}
 			})
 		},
+		*/
+
 		//重新发送
 		hide: function(){
 			var me = this;

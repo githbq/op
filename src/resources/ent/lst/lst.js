@@ -7,23 +7,23 @@ define( function( require, exports, module ) {
 
     //企业详情
     var EntDetail = require('module/enterprisedetail/enterprisedetail');
+    //联合跟进人
 	var CustomHelper = require('../../order/widget/customhelper/customhelper');
-
     //企业跟踪记录
     var EntTrace = require('module/enttrace/enttrace');
-    
+    //what??
     var EmployeeDetail = require('module/employeedetail/employeedetail'); 
-
+    //线索
     var Clue = require('module/readclue/readclue');
     
     //var entDetail;
     exports.init = function( param ) {
         var $el = exports.$el;
         
-        var entList = new EntList( {'wrapper':$el,'param': param && param[0]} );
+        var entList = new EntList( {'wrapper':$el,'param': param && param[0],'state':'support'} );
         entList.render();
         
-        var entDetail = new EntDetail();
+        //var entDetail = new EntDetail();
 
         var entTrace = new EntTrace();
         
@@ -34,7 +34,13 @@ define( function( require, exports, module ) {
 
         //查看企业详情
         entList.on('detail',function( id , status ){
+            
+            console.log('detail detail');
+            var entDetail = new EntDetail();
             entDetail.show( id,status );
+            entDetail.on('updatesuccess',function(){
+                entList.getList();
+            })
         });
 
         //查看跟踪记录
@@ -42,34 +48,9 @@ define( function( require, exports, module ) {
             console.log('trace' + id);
             entTrace.show( id );
         });
-
-        //增购办公
-        entList.on('zengbangong',function( id , account ){
-            console.log('zengbangong');
-            console.log( id );
-            location.hash = "order/newmarketying/addOffice/" + id + '/' + account;
-        });
-        //增购营销
-        entList.on('zengyingxiao',function( id , account ){
-            console.log('zengyingxiao');
-            console.log( id );
-            location.hash = "order/newmarketying/addMarkey/" + id + '/' + account;
-        });
-        //续费办公
-        entList.on('renewbangong',function( id , account ){
-            console.log('renewbangong');
-            console.log( id );
-            location.hash = "order/newmarketying/againOffice/" + id + '/' + account;
-        });
-        //续费营销
-        entList.on('renewyingxiao',function( id , account ){
-            console.log('renewyingxiao');
-            console.log( id );
-            location.hash = "order/newmarketying/againMarkey/" + id + '/' + account;
-        });
 		//联合跟进人
-		 entList.on('orderCustom',function( options ){
-            
+		entList.on('orderCustom',function( options ){
+            console.log('联合跟进人');
             customHelper = new CustomHelper();
             customHelper.on('refresh',function(){
                 entList.search();
@@ -80,14 +61,20 @@ define( function( require, exports, module ) {
         entList.on('clue', function( clueID ){
             clue.show(clueID);
         })
-		
+		//增购续费
+        entList.on('renew',function( id , entaccount , entname ){
+            location.hash = "/order/openenterprise/"+ id + "/" + entaccount + "/" + entname;
+        });
 		//刷新列表
+        /*
         entDetail.on('refresh',function(){
             entList.search();
         });
-
-       entDetail.on('employeeDetail',function(ea,phone){
+        */
+        /*
+        entDetail.on('employeeDetail',function(ea,phone){
             employeeDetail.show(ea,phone);
         });
+        */
     }
 } );

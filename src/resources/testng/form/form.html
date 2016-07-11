@@ -1,0 +1,78 @@
+<div class="p-list p-qry-partner" js="true" css="true">
+    <hr/>
+   <div ng-controller="testScopeController">
+       <directive-demo name="我是指令1">我是指令1</directive-demo>
+       <directive-demo name="我是指令2">我是指令2</directive-demo>
+   </div>
+
+    <hr/>
+    <b>测试repeat11111111</b>
+
+    <div ng-controller="testRepeatController">
+        <div ng-repeat="li in list track by $index">
+            {{li}}
+        </div>
+    </div>
+    <hr/>
+    <div ng-controller="testFormsController">
+        testFormsController
+        <div ng-repeat="form in formList" style="border:1px solid red;margin-top:20px;">
+            <form role="form" name="{{form.name}}" class="form-horizontal" novalidate>
+                <div>索引{{$index}}</div>
+                <div class="form-group">
+                    <div class="col-md-2">
+                        用户名
+                    </div>
+                    <div class="col-md-10">
+                        <b>嵌套循环元素demo</b>
+                        <div ng-repeat="food in form.data.foods track by $index">
+                            <input type="text" ng-model="food.name"/>
+                        </div>
+                        <button ng-click="addFood()">添加子食物</button>
+                        <hr/>
+                        <input ng-class="{error:this[form.name].AA.$invalid}" type="text" placeholder="ng-Messages测试" name="AA" ng-model="form.data.a"
+                               ng-minlength=3 ng-maxlength=20 required/>
+                        <hr/>
+                        <input type="text" placeholder="ng-Messages测试" name="BB" ng-model="form.data.b"
+                               ng-minlength=3 ng-maxlength=20 required/>
+                        <hr/>
+                        <input type="text" placeholder="ng-Messages测试" name="CC" ng-model="form.data.c"
+                               ng-minlength=3 ng-maxlength=20 required/>
+                        <hr/>
+                        $error：{{this[form.name].AA.$error}}
+                        <hr/>
+                        <div ng-messages="this[form.name].AA.$error">
+                            <div ng-message="required">必填项</div>
+                            <div ng-message="minlength">字符太短小于3</div>
+                            <div ng-message="maxlength">字符太长大于20</div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <button ng-click="getFormStatus()">查看表单状态</button>
+        </div>
+    </div>
+    <div ng-controller="testFormController" style="border:1px solid red;margin-top:20px;">
+        testFormController
+        <form role="form" name="myForm" class="form-horizontal" novalidate>
+            <div class="form-group">
+                <div class="col-md-2">
+                    用户名
+                </div>
+                <div class="col-md-10">
+                    <input type="text" placeholder="ng-Messages测试" name="name" ng-model="data.a"
+                           ng-minlength=3 ng-maxlength=20 required/>
+                    <hr/>
+                    $error：{{myForm.name.$error}}
+                    <hr/>
+                    <div ng-messages="myForm.name.$error">
+                        <div ng-message="required">必填项</div>
+                        <div ng-message="minlength">字符太短小于3</div>
+                        <div ng-message="maxlength">字符太长大于20</div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <button ng-click="getFormStatus()">查看表单状态</button>
+    </div>
+</div>

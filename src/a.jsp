@@ -57,9 +57,8 @@
                 </ul>
             </li>
             <li data-permissions="M009017">
-                <a href="#agentsupport/renewlist">我的审批</a>
+                <a href="#order/invoiceapplyagentlist">我的审批</a>
                 <ul class="nav-sub">
-                    <li data-permissions="M009016"><a href="#agentsupport/renewlist">订单审批</a></li>
                     <li data-permissions="M009015"><a href="#order/invoiceapplyagentlist">发票审批</a></li>
                 </ul>
             </li>
@@ -102,10 +101,11 @@
 <script type = "text/javascript">
     var IBSS = {};
         IBSS.BASE_PATH = location.pathname.slice( 0,location.pathname.lastIndexOf('/') ) + '/resources';   //静态资源路径
-        IBSS.API_PATH = '/op/api/a';                                                                       //api路径
+        IBSS.API_PATH = '/op/api/a';       //api路径
         IBSS.IS_DEVELOP = true;
         IBSS.VERSION ='1.1';
 </script>
+
 
 <!--build:common resources/common/scripts/common.js-->
 <script type="text/javascript" src="resources/common/scripts/lib/jquery-2.1.3.js"></script>
@@ -114,11 +114,14 @@
 <script type="text/javascript" src="resources/common/scripts/lib/seajs-2.3.0.js"></script>
 <script type="text/javascript" src="resources/common/scripts/lib/seajs-css.js"></script>
 <script type="text/javascript" src="resources/common/scripts/lib/seajs-preload.js"></script>
+
 <script type="text/javascript" src="resources/common/scripts/util.js"></script>
 <script type="text/javascript" src="resources/common/scripts/widget.js"></script>
 <script type="text/javascript" src="resources/common/widget/calendar/jquery.datetimepicker.js"></script>
 <!--endbuild-->
-
+<script type="text/javascript" src="resources/common/scripts/lib/angular.js"></script>
+<script type="text/javascript" src="resources/common/scripts/lib/angular-messages.js"></script>
+<script type="text/javascript" src="resources/common/scripts/lib/angular-filter.js"></script>
 <script type="text/javascript" src="resources/common/widget/my97datepicker/wdatepicker.js"></script>
 
 <!--build:app resources/assets/scripts/main.js-->
@@ -131,6 +134,8 @@
         app.run( true );
     });
 </script>
+<!--<script src="http://rap.firstshare.cn/rap.plugin.js?projectId=57"></script>-->
 </body>
 </html>
+
 

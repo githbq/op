@@ -5,7 +5,7 @@ define( function( require, exports, module ) {
 
     var Pagination = require('common/widget/pagination/pagination');
     var DetailApproval = require('../../order/detailapproval/detailapproval');
-	var BackMoney = require('../../order/backmoney/backmoney');
+	var BackMoney = require('../../order/detailbackmoney/detailbackmoney');
     var DetailPayment = require('../../order/detailpayment/detailpayment');
 
     /**

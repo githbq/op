@@ -1,5 +1,9 @@
+//
+// 收尾款 入口
+//====================
 define( function( require, exports, module ) {
     var IBSS = window.IBSS;
+    
 	var OrderInfo = require('../widget/orderinfo/orderinfo');
 	var InvoiceInfo = require('../widget/invoice/invoice');
 	var GetMoney = require('../widget/getmoney/getmoney');
@@ -20,13 +24,14 @@ define( function( require, exports, module ) {
             var me = this;
 
 			me.attrs.orderList = {};
-
 			me.checkType();
         },
+        
 		//判断类型.
 		checkType:function(){
 			var me = this;
-			me.$('.order-id').text(me.attrs.id)
+			
+			//me.$('.order-id').text(me.attrs.id)
 			
 			//获取订单详情
 			 util.api({
@@ -39,14 +44,16 @@ define( function( require, exports, module ) {
 						$.when( me.setOrderList(), me.getReceiveOrder() ).done(function(){
 						
 							me.attrs.invoiceCommon = new InvoiceInfo( { 'wrapper':me.$view.find('.common-invioce'),'data':null,'editFlag':true,'type':17 } );
-							me.attrs.basicCommon = new OrderInfo( { 'wrapper':me.$view.find('.common-basic'),'data':me.attrs.orderList,'editFlag':true,'type':17} );
+							
+							//基本信息不展示
+							//me.attrs.basicCommon = new OrderInfo( { 'wrapper':me.$view.find('.common-basic'),'data':me.attrs.orderList,'editFlag':true,'type':17} );
+							
 							me.attrs.getMoney = new GetMoney( { 'wrapper':me.$view.find('.common-product'),'data':me.attrs.receiveData,'editFlag':true,'type':17,'showType':true} );
 						});
 					
 					}
 				}
 			});
-
 		},
 		//当前订单合同信息
 		getReceiveOrder:function(){
@@ -73,7 +80,6 @@ define( function( require, exports, module ) {
 						}
 					}
 				});
-
 		},
 		
 		//渲染订单和产品基础信息：
@@ -95,11 +101,13 @@ define( function( require, exports, module ) {
 	
 		//获取全部订单数据
 		getOrderInfo:function(){
-			var me = this,objData  = { 'orderEntity':{},'enterprise':{}};
+			var me = this,
+				objData  = { 'orderEntity':{},'enterprise':{}};
 
 				//尾款订单数据
 				if( me.attrs.getMoney.getValue() ){
-					var tem = me.attrs.getMoney.getValue() ;
+					var tem = me.attrs.getMoney.getValue();
+
 					objData.orderEntity.order = tem.order;
 					objData.orderEntity.subOrders = tem.subOrders;
 					objData.orderEntity.order.contractNo = me.attrs.contractNo;
@@ -117,12 +125,18 @@ define( function( require, exports, module ) {
 					return ;
 				}
 
-			//获取订单类型
-			objData.orderEntity.order['orderType'] = 17 ;
-			objData.enterprise.enterpriseId = me.attrs.enterpriseId;
+				//获取订单类型
+				objData.orderEntity.order['orderType'] = 17 ;
+				objData.enterprise.enterpriseId = me.attrs.enterpriseId;
 
+				console.log( objData );
+			
+			
 			me.$commonAdd.text('提交中....');
 			me.$commonAdd.attr('disabled','disabled');
+			
+
+			
 			util.api({
 				'url':'/odr/balancePayment/submit',
 				'data':JSON.stringify( objData ),
@@ -142,6 +156,7 @@ define( function( require, exports, module ) {
 					me.$commonAdd.removeAttr('disabled');
 				}
 			});
+			
 		},
 		cancelEve: function(){
 			

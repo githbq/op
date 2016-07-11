@@ -4,7 +4,7 @@ define( function( require, exports, module ) {
         var $el = exports.$el;
 
         var myApp=angular.module('orderApp',['app.directives']);
-        myApp.controller('testController',["$scope", function($scope){
+        myApp.controller('testController',['$scope', function($scope){
 
 
             $scope.value='测试使用'+Math.random();

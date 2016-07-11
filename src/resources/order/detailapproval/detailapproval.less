@@ -1,35 +1,103 @@
-.order-content{
-  span.m-len{
-	display:inline-block;
-	text-align:right;
-	width:150px;
-  }
-  .red{
-	color:red;
-  }
-  table{
-  	    table-layout: fixed;
-    	word-wrap: break-word;
-    	word-break: normal;
-  }
+.m-detailapproval{
+  	
+    padding: 0 10px;
+
+  	.approval-title{
+  		text-align:center;
+  		span{
+  			display: inline-block;
+  			padding:4px 10px;
+  			width:85px;
+  			margin-left:-1px;
+  			border:1px #ccc solid;
+  			cursor:pointer;
+  			&.active{
+  				background:#eee;
+  			}
+  		}
+  	}
+
+    .approval-table{
+      border-top:1px #444 dashed;
+      margin-top:20px;
+      padding-top:10px;
+      .title{
+        font-size:14px;
+        font-weight:bold;
+        padding:8px 0;
+      }
+      .tip{
+        text-align:center;
+        font-size:16px;
+        padding:5px 0;
+        color:#666;
+      }
+      table{
+        border:1px #ccc solid;
+        table-layout: fixed;
+        tr{
+          border-bottom:1px #ccc solid;
+          th,td{
+            padding: 4px 10px;
+            word-break:break-all;
+          }
+          th{
+            color:#444;
+            height:20px;
+            line-height:20px;
+            background:#eee;
+          }
+        }
+      }
+    }
+    
+
+
+    .approval-opinionaction{
+      border-top:1px #444 dashed;
+      margin-top:30px;
+      padding-top:20px;
+      .title{
+        font-size:14px;
+        font-weight:bold;
+        padding:8px 0;
+      }
+      p{
+        padding:8px 0;
+      }
+    }
+    .approval-contractshow{
+      display:none;
+      img{
+        display:inline-block;
+        max-width:300px;
+      }
+    }
+    .approval-daokuan{
+      display:none;
+    }
+    .approval-contract{
+      border-top:1px #444 dashed;
+      margin-top:30px;
+      padding-top:20px;
+      .title{
+        font-size:14px;
+        font-weight:bold;
+        padding:8px 0;
+      }
+      img{
+        display:none;
+        max-width:300px;
+      }
+      .mst{
+        color:red;
+      }
+    }
+
+    .approval-btns{
+      padding:10px 0;
+      text-align: right;
+    }
 }
 
-.m-deailbind{
-	.left-info{
-		float:left;
-		
-	}
-	.right-info{
-		float:right;
-		border-left:1px solid #ccc;
-		padding-left:10px;
-	}
-	label{
-		textarea{
-			width:169px;
-			height:80px;
-			padding:10px;
-		}
-	}
 
-}

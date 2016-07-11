@@ -286,7 +286,7 @@ define( function( require, exports, module ) {
             RejectReason.__super__.hide.apply(this,arguments);
         }
     });
-	   /**
+	/**
      * 备案企业绑定关联自注册企业
      */
    var BindLink = MClass( Dialog ).include({
@@ -310,6 +310,8 @@ define( function( require, exports, module ) {
 
             BindLink.__super__.show.apply( this,arguments );
         },
+
+        //关联自注册
 		actionLinkEve:function(){
 			var me = this;
 			var enterpriseAccount = me.model.get('enterpriseAccount').replace(/^\s+|\s+$/g,"");
@@ -317,12 +319,13 @@ define( function( require, exports, module ) {
 				util.showToast('请填写完整自注册企业账号！');
 				return false;
 			}
+            /*
 			var val = me.$('input:radio[name="newType"]:checked').val();
 			if( !val ){
 				util.showToast('请选择开通版本！');
 				return false;
 			}
-			
+			*/
 			util.api({
 				'url': '/enterprisefiling/canbinding',
 				'data': {
@@ -335,11 +338,15 @@ define( function( require, exports, module ) {
 				'success': function( data ){
 					if( data.success ){
 						IBSS.tempEnterprise.enterpriseaccount = enterpriseAccount;
+
+                        location.hash = '#order/openenterprise/b';
+                        /*
 						if( val == 'newOffice' ){
 							location.hash = '#order/newmarketying/releateOffice';
 						}else{
 							location.hash = '#order/newmarketying/releateMarket';
 						}
+                        */
 					   //location.hash = '#agentsupport/bindinfo/'+me.attrs['entId']+'/'+enterpriseAccount;
 					} 
 				}

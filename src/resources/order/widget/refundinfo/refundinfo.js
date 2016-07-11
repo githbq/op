@@ -37,7 +37,8 @@ define(function (require, exports, module) {
         '14':'战报助手',
         '15':'考试助手',
         '16':'培训助手购买流量',
-        '17':'项目管理'
+        '17':'项目管理',
+        '18':'空间'
     };
     exports.show = function (data, result) {
         //result = {
@@ -57,21 +58,28 @@ define(function (require, exports, module) {
         //};
         //result.readonly=true;
         var templateData = {content: []};
+
         if (result && result.subRefunds) {
             $(result.subRefunds).each(function (i, n) {
                 templateData.content.push({title: productIdDic[n.productId.toString()], name: 'refundAmount_' + n.productId, value: n.amount});
             });
         }
+
         var dataItems = require('./dataitems/items').getItems();
+
         var controller = getDataControllerByType(1);//根据类型获取控制器
+
         var transferedDataItems = controller.transferDataItem(dataItems, controlDataItems, result);//用控制器转换输入的数据项
+
         var refundInfo = new RefundInfo({templateData: templateData, wrapperView: data.$view, dataItems: transferedDataItems.dataItems, apiPool: {}});
         refundInfo.render();
+
         return {
             getData: controller.transferResultData(refundInfo), validate: function () {
                 return refundInfo.o_validate();
             }
         };
+        
     };
     //根据类型获取不同的订单控制器
     function getDataControllerByType(type) {

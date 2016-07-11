@@ -137,7 +137,7 @@ define(function (require, exports, module) {
      */
     function api_getCalculateSingle(options) {
         connectApi($.extend({
-            url: '~/op/api/rebate/calculateSingle'
+            url: '~/op/api/rebate/calculateSingleOld'
         }, options))
     }
 
