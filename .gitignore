@@ -6,4 +6,4 @@
 workspace.xml
 .idea/
 npm-debug.log
-*.html.js
+/src/**/*.html.js

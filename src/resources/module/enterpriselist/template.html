@@ -1,0 +1,81 @@
+<script type="text/template" id="sandbox">
+
+<div class="m-sandbox">
+<p>
+    <span class="title">状态设置</span>
+    <select ce-model="state">
+        <option value="">请选择</option>
+        <option value="open">开启</option>
+        <option value="close">关闭</option>
+    </select>
+</p>
+<p class="state-open">
+    <span class="title">时间设置</span>
+    <input type="text" placeholder="开始时间">————<input type="text" placeholder="结束时间">
+</p>
+<p class="state-open">
+    <span class="title">同步数据</span>
+    <label for="">
+        <input type="radio" name="sync">
+        是
+    </label>
+    <label for="">
+        <input type="radio" name="sync">
+        否
+    </label>
+</p>
+<p class="state-close">
+    <span class="title">删除</span>
+    <label for="">
+        <input type="radio" name="delete">
+        是
+    </label>
+    <label for="">
+        <input type="radio" name="delete">
+        否
+    </label>
+</p>
+<p class="buttons">
+    <button class="u-btn-blue submit">提交</button>
+    <button class="cancel">取消</button>
+</p>
+</div>
+</script>
+
+<script type="text/template" id="transfer">
+<div class="m-transfer">
+    <p>
+        <span class="title">转移到:</span>
+        <label>
+            <input type="radio" name="company" value="2">
+            代理商
+        </label>
+        <label>
+            <input type="radio" name="company" value="1">
+            直销
+        </label>
+        <label>
+            <input type="radio" name="company" value="3">
+            联营公司
+        </label>
+    </p>
+
+    <p>
+        <span class="title">选择所属部门/代理商:</span>
+        <input type="text" id="departmentText" readonly>
+        <button type="button" class="btn-blue" id="dept">选择部门</button>
+    </p>
+
+    <p>
+        <span class="title">销售人员:</span>
+        <select id="sales">
+            <option value="">--------</option>
+        </select>
+    </p>
+
+    <p class="buttons">
+        <button class="u-btn-blue action-submit">提交</button>
+        <button class="action-cancel">取消</button>
+    </p>
+</div>
+</script>

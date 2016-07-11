@@ -1,6 +1,6 @@
 define(function (require, exports, module) {
     var myApp = angular.module('formApp',['ngMessages']);
-    myApp.controller('testFormController', ["$scope", function ($scope) {
+    myApp.controller('testFormController', ['$scope', function ($scope) {
 
         $scope.data={a:1,b:2,c:3};
 
@@ -15,7 +15,7 @@ define(function (require, exports, module) {
         }
     }]);
 
-    myApp.controller('testFormsController', ["$scope", function ($scope) {
+    myApp.controller('testFormsController', ['$scope', function ($scope) {
 
         $scope.formList=[
             {

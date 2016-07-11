@@ -1,0 +1,55 @@
+.m-approvallist{
+    .list-header{
+        padding-top:5px;
+        padding-bottom:5px;
+        .title{
+            display:inline-block;
+            float:left;
+        }
+        .toggle{
+            display:block;
+            margin-left:auto;
+            margin-right:auto;
+            text-align:center;
+            span{
+                position:relative;
+                display:inline-block;
+                border:1px #ccc solid;
+                height:30px;
+                line-height:30px;
+                padding:0 10px;
+                cursor:pointer;
+                background:#fefefe;
+                b{
+                    display:none;
+                }
+                i{
+                    font-style: normal;
+                }
+                &:first-child{
+                    border-right:none;
+                }
+                &:last-child{
+                    border-left:none;
+                }
+                &.active{
+                    background:#eee;
+                }
+            }
+            .financeshow{
+                display:none
+            }
+        }
+    }
+    .list-content{
+        .tip{
+            font-size:16px;
+            text-align:center;
+            padding:5px 0;
+        }
+    }
+}
+.m-grid{
+    width:100%;
+}
+

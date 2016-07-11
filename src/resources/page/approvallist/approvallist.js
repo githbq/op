@@ -1,29 +1,297 @@
-/**
- *
- * 我的审批列表
- *
- */
+//
+//
+// 我的审批列表
+//=========================================
 define( function(require, exports, module){
 
 	
-	var OpenApprovalList = require('module/openapprovallist/openapprovallist');
-	var DetailApproval = require('../../order/detailapproval/detailapproval');
-	var DetailPayment = require('../../order/detailpayment/detailpayment');
-	var BackMoney = require('../../order/backmoney/backmoney');
+    var enumdata = require('module/data/data').data;
+    var resetSelect = require('module/data/data').resetSelect;
 
-	exports.init = function(param){
+	//var OpenApprovalList = require('module/openapprovallist/openapprovallist');
+	var DetailApproval = require('../../order/detailapproval/detailapproval');        //普通订单
+    var OldDetailApproval = require('../../order/olddetailapproval/detailapproval');  //老订单
+	var DetailPayment = require('../../order/detailpayment/detailpayment');           //收尾款
+	var BackMoney = require('../../order/detailbackmoney/detailbackmoney');           //退款
+    
+    var Pagination = require('common/widget/pagination/pagination');      //分页组件
+    var pagination;
+
+
+	var main = angular.module('list',[]);   //
+
+    var isFinance = false;
+
+	//审批列表控制器
+	main.controller('approvallist',['$scope', '$element', function( $scope , $element ){
+            
+        console.log('controller approvallist is working');
+
+        $element.find('.starttime').datetimepicker({'timepicker': false,'format':'Y/m/d'})
+        $element.find('.endtime').datetimepicker({'timepicker': false,'format':'Y/m/d'})
+
+        $scope.tabledata = {};
+        $scope.tabledata.thead = ['订单号','合同号','企业名称','账号','订单类型','提单人','所属部门/代理商','审批类型','当前审批节点','付费状态','订单状态','提单日期','操作'];
+
+        $scope.financeshow = !isFinance;
+        
+        if( !isFinance ){
+            console.log($element.find('.financeshow'))
+            $element.find('.financeshow').show();
+        }
+
+        //----获取列表
+        $scope.getList = function(){
+            var state = $scope.state;
+            var url;
+            switch ( state ){
+                case 'wait':
+                    url = "/approval/getongoingapprovalpage";
+                break;
+                case 'going':
+                    url = "/approval/getapprovedongoingapprovalpage";
+                break;
+                case 'done':
+                    url = "/approval/getcompletedapprovalpage";
+                break;
+                case 'reject':
+                    url = "/approval/getrefusedbymeapprovalpage";
+                break;
+            };
+
+            var appTimeStart = '';
+            var appTimeEnd = '';
+
+            if( $element.find('.starttime').val() ){
+                appTimeStart = new Date( $element.find('.starttime').val() ).getTime();
+            }
+            if( $element.find('.endtime').val() ){
+                appTimeEnd = new Date( $element.find('.endtime').val() ).getTime();
+            }
+
+            util.api({
+                'url': url,
+                'data': {
+                    'orderId': $scope.orderId,
+                    'contractNo': $scope.contractNo,
+                    'en': $scope.en,
+                    'ea': $scope.ea,
+                    'orderType': $scope.orderType,
+                    'applicantName': $scope.applicantname,
+                    'payStatus': $scope.payStatus,
+                    'agentName': $scope.agentName,
+                    'orderStatus': $scope.orderStatus,
+                    'appTimeStart': appTimeStart,
+                    'appTimeEnd': appTimeEnd,
+                    'pageIndex': pagination.attr['pageNumber'],
+                    'pageSize': pagination.attr['pageSize']
+                },
+                'beforeSend': function(){
+                    var me = this;
+                    $scope.tipshow = true;
+                    $scope.tip = "加载中......";
+                    $scope.contentshow = false;
+                },
+                'success': function( data ){
+
+                    if( data.success ){
+                        
+                        if( data.value.model.content && data.value.model.content.length > 0 ){
+
+                            $scope.tipshow = false;
+                            $scope.contentshow = true;
+
+                            data.value.model.content.forEach(function( item ){
+                                item.currentTaskStr = enumdata['approvalnodemap'][item.currentTask];
+                                item.orderTypeStr = enumdata['ordermap'][item.orderType];
+                                item.payStatusStr = enumdata['paystatus'][item.payStatus];
+                                item.orderstatusStr = enumdata['orderstatus'][item.orderStatus];
+                                item.applyTimeStr = new Date( item.applyTime )._format('yyyy/MM/dd hh:mm');
+                            });
+                            $scope.tabledata.tbody = data.value.model.content;
+                        } else {
+
+                           $scope.tipshow = true;
+                           $scope.contentshow = false;
+
+                           $scope.tip = "暂无数据";
+                        }
+                        pagination.setTotalSize( data.value.model.itemCount );
+                        $scope.$apply();
+                    }
+                }
+            });
+        }
+
+        //----页数重置为第一页--搜索订单列表
+        $scope.search = function(){
+            pagination.setPage( 0,false );
+            $scope.getList();
+        }
+
+        //----查看订单状态
+        $scope.detail = function( e ){
+            e.stopPropagation();
+            var id = angular.element(e.target).attr('data-id'),
+                inId = angular.element(e.target).attr('data-inid'),
+                status = angular.element(e.target).attr('data-status'),
+                enttype = angular.element(e.target).attr('data-type'),
+                dstatus = angular.element(e.target).attr('data-dstatus');
+
+            var type;
+            var detail;
+
+            //遍历出数据
+            $scope.tabledata.tbody.forEach(function( item ){
+                if( item.processInstanceId == inId ){
+                    detail = item;
+                }
+            })
+
+            var data = {
+                'id' : detail.orderId,
+                'enterpriseId': detail.enterpriseId, 
+                'editFlag': false,                              //=========       //detail.canEdit || '',
+                'orderType': detail.orderType,
+                'opinion': detail.lastAssigneeOpinion,          //=========
+                'isTp': detail.isTp,
+                'state': $scope.state,                          //=========
+                'ea': detail.enterpriseAccount,
+                'currentTask': detail.currentTask,
+                'processInstanceId': detail.processInstanceId,
+                'contractNo': detail.contractNo,
+                'rejectsFrom': detail.rejectsFrom
+            };
+
+            //
+            //  根据参数判断订单类型
+            //  分为 退款 普通订单 收尾款
+            //=========================================================
+
+            //退款
+            if( detail.approvalTypeId =='refundApproval' ){
+                var backMoney = new BackMoney();
+                backMoney.show( data );
+                backMoney.on('saveSuccess',function(){
+                    $scope.search();
+                })
+                return false;
+            }
+
+            //普通订单
+            //判断新老订单逻辑
+            //========================
+            if( data.orderType != 17 ){
+
+                console.log('data');
+                console.log(detail);
+                
+                //新订单
+                if( detail.isNewOrder ){
+
+                    //待审核的
+                    if( $scope.state == 'wait' ){
+                        type = 'c';
+
+                    //非待审核的均为只读状态
+                    }else{
+                        type = 'd';
+                    }
+                    var detailApproval = new DetailApproval();
+                    detailApproval.show( id , type , status , dstatus ,{ 'processInstanceId': inId , 'orderType':detail.orderType ,'enterpriseId':data.enterpriseId } );
+                    //注册事件
+                    detailApproval.on('approvalSuccess',function(){
+                        $scope.search();
+                    });
+                    return false;
+                
+                //老订单
+                }else{
+
+                    var data = {
+                        'id': detail.orderId,
+                        'enterpriseId': detail.enterpriseId,
+                        'editFlag': false,
+                        'orderType': detail.orderType,
+                        'opinion': detail.lastAssigneeOpinion,
+                        'isTp': detail.isTp,
+                        'state': $scope.state,
+                        'ea': detail.enterpriseAccount,
+                        'currentTask': detail.currentTask,
+                        'processInstanceId': detail.processInstanceId,
+                        'contractNo': detail.contractNo,
+                        'rejectsFrom': detail.rejectsFrom || ''
+                    }
+                    var oldDetailApproval = new OldDetailApproval();
+                        oldDetailApproval.show( data );
+                        oldDetailApproval.on('saveSuccess',function(){
+                            $scope.search();
+                        });
+                    return false;
+                }
+
+            //收尾款订单
+            } else {
+
+                var detailPayment = new DetailPayment();
+                detailPayment.show( data );
+                detailPayment.on('saveSuccess',function(){
+                    $scope.search();
+                });
+            }
+        }
+
+
+        //状态变化
+        $scope.state = "wait";
+        //点击不同的审批状态
+        $scope.changestate = function( e,state ){
+            $scope.state = state;
+
+            $element.find('.toggle span').removeClass('active');
+            angular.element(e.target).addClass('active');
+            $scope.search();
+        };
+        //页数点击变化事件
+        pagination.onChange = function(){
+            $scope.getList();
+        };
+
+        $scope.search();
+    }]);
+
+
+	exports.init = function( param ){
 		var $el = exports.$el;
-		
+        
+        //初始化老分页组件		
+        pagination = new Pagination({
+            wrapper: $el.find('.list-pager'),
+            pageSize: 20,
+            pageNumber: 0
+        });
+        pagination.render();
+
 		param = param || [];
-		console.log(param)
-		
+        //console.log( '================' );
+		//console.log( param );
+        if( param[0] == 'finance' ){
+            isFinance = true;
+        }
+        //重置select的值
+		resetSelect( $el,'ordermap' );
+        resetSelect( $el,'orderstatus' );
+
+		angular.bootstrap( $el[0] , ['list'] );
+
+		/*
 		var approvalList = new OpenApprovalList( { 'wrapper':$el,'limits':true  } );  	//
 		approvalList.render();
 		
 		approvalList.on('ceshi',function(jump){
 			approvalList.jumpEve(jump);
 		})
-		if(param.length>0){
+		if( param.length>0 ){
 			approvalList.trigger('ceshi',param[0]);
 		}
 
@@ -77,5 +345,6 @@ define( function(require, exports, module){
 				});
 			}
 		});
+		*/
 	}
 });

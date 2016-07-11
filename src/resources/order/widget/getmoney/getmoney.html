@@ -1,93 +1,96 @@
-<div >
+<div>
     <div class="forminfo">
-        <div class="field_row">
-            <div class="field_row_head">
-            </div>
-            <div class="field_wrapper">
-                <div class="field">
-                    <label style="width:250px;">
-                        <span class="label">合同号：</span>
-                        <span ce-model="contractNo"></span>
-                    </label>
+
+        <section style="border:1px #ccc solid; background:#eee; padding: 20px;">
+            <div class="field_row">
+                <div class="field_row_head">
+                </div>
+                <div class="field_wrapper">
+                    <div class="field">
+                        <label style="width:250px;">
+                            <span class="label">合同号：</span>
+                            <span ce-model="contractNo"></span>
+                        </label>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="field_row">
-            <div class="field_row_head">
-            </div>
-            <div class="field_wrapper">
-                <div class="field">
-                    <label style="width:250px;">
-                        <span class="label">合同总金额(元)：</span>
-                        <span ce-model="amount"></span>
-                    </label>
+            <div class="field_row">
+                <div class="field_row_head">
+                </div>
+                <div class="field_wrapper">
+                    <div class="field">
+                        <label style="width:250px;">
+                            <span class="label">合同总金额(元)：</span>
+                            <span ce-model="amount"></span>
+                        </label>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="field_row">
-            <div class="field_row_head">
-            </div>
-            <div class="field_wrapper">
-                <div class="field">
-                    <label style="width:250px;">
-                        <span class="label">到款金额（财务确认到款)(元)：</span>
-                        <span ce-model="auditedAmount"></span>
-                    </label>
+            <div class="field_row">
+                <div class="field_row_head">
+                </div>
+                <div class="field_wrapper">
+                    <div class="field">
+                        <label style="width:250px;">
+                            <span class="label">到款金额(元)：</span>
+                            <span ce-model="auditedAmount"></span>
+                        </label>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="field_row">
-            <div class="field_row_head">
-            </div>
-            <div class="field_wrapper">
-                <div class="field">
-                    <label style="width:250px;">
-                        <span class="label">已收金额（财务审核中）(元):</span>
-                        <span ce-model="auditAmount"></span>
-                    </label>
+            <div class="field_row">
+                <div class="field_row_head">
+                </div>
+                <div class="field_wrapper">
+                    <div class="field">
+                        <label style="width:250px;">
+                            <span class="label">审核中金额(元):</span>
+                            <span ce-model="auditAmount"></span>
+                        </label>
+                    </div>
                 </div>
             </div>
-        </div>
-		 <div class="field_row">
-            <div class="field_row_head">
-            </div>
-            <div class="field_wrapper">
-                <div class="field">
-                    <label style="width:250px;">
-                        <span class="label">代理商已收金额(元)：</span>
-                        <span ce-model="agentCurrPayAmount" ></span>
-                    </label>
+    		<div class="field_row">
+                <div class="field_row_head">
+                </div>
+                <div class="field_wrapper">
+                    <div class="field">
+                        <label style="width:250px;">
+                            <span class="label">代理商已收金额(元)：</span>
+                            <span ce-model="agentCurrPayAmount" ></span>
+                        </label>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="field_row">
-            <div class="field_row_head">
-            </div>
-            <div class="field_wrapper">
-                <div class="field">
-                    <label style="width:250px;">
-                        <span class="label">未收金额：</span>
-                        <span ce-model="noChargeAmount"></span>
-                    </label>
+            <div class="field_row">
+                <div class="field_row_head">
+                </div>
+                <div class="field_wrapper">
+                    <div class="field">
+                        <label style="width:250px;">
+                            <span class="label">未收金额：</span>
+                            <span ce-model="noChargeAmount"></span>
+                        </label>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="field_row">
-            <div class="field_row_head">
-            </div>
-            <div class="field_wrapper">
-                <div class="field">
-                    <label style="width:250px;">
-                        <span class="label">当前状态：</span>
-                        <select ce-model="payStatus" disabled="disabled">
-                            <option value="1">付清</option>
-                            <option value="2">分期</option>
-                            <option value="3">未付</option>
-                        </select>
-                    </label>
+            <div class="field_row">
+                <div class="field_row_head">
+                </div>
+                <div class="field_wrapper">
+                    <div class="field">
+                        <label style="width:250px;">
+                            <span class="label">当前状态：</span>
+                            <select ce-model="payStatus" disabled="disabled">
+                                <option value="1">付清</option>
+                                <option value="2">分期</option>
+                                <option value="3">未付</option>
+                            </select>
+                        </label>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
         <br/>
         <div class="field_row">
             <div class="field_row_head">
@@ -127,7 +130,7 @@
             <div class="field_wrapper">
                 <div class="field">
                     <label>
-                        <span class="label">本次到款金额(元)</span>
+                        <span class="label">总部本次到款金额(元)</span>
                         <b class="check-edit" style="color: #ff0000">*</b>
                     </label>
                     <input data-name="currPayAmount" ce-model="currPayAmount" data-type="number" type="text" class="" name="" disabled="disabled"/>
@@ -140,7 +143,7 @@
             <div class="field_wrapper">
                 <div class="field">
                     <label>
-                        <span class="label">打款日期</span>
+                        <span class="label">总部打款日期</span>
                         <b class="check-edit" style="color: #ff0000">*</b>
                     </label>
                     <input data-name="payDate" ce-model="payDate"  type="text" class="required-basic payDate edit-flag" name=""/>
@@ -154,7 +157,7 @@
 
                 <div class="field">
                     <label>
-                        <span class="label">收款账户</span>
+                        <span class="label">总部到款账户</span>
                         <b class="check-edit" style="color: #ff0000">*</b>
                     </label>
                     <input data-name="receiptsAccount"  ce-model="receiptsAccount" type="text" class="ipt-l bankno required-basic edit-flag" name=""/>
@@ -168,7 +171,7 @@
             <div class="field_wrapper">
                 <div class="field">
                     <label>
-                        <span class="label">打款名称（单位/个人）</span>
+                        <span class="label">付款单位/个人名称</span>
                         <b class="check-edit" style="color: #ff0000">*</b>
                     </label>
                     <input placeholder="必须与实际打款时的单位/个人名称一致" data-name="payerName"  ce-model="payerName" type="text" class="ipt-l required-basic edit-flag" name=""/>

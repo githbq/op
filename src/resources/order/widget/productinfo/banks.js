@@ -1,4 +1,4 @@
-﻿define(function (require, exports, module) {
+define(function (require, exports, module) {
     //module.exports = [
     //    "现金",
     //    "youngxiaoli@facishare.com",

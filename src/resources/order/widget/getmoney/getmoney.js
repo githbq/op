@@ -18,7 +18,7 @@ define(function(require, exports, module){
 		},
 		*/
 		events:{
-
+			
 		},
 		elements: {
 			'.payStatus-select':'payStatusSelect',
@@ -33,6 +33,7 @@ define(function(require, exports, module){
 
 			me.$payDate.datetimepicker({'timepicker': false,'format':'Y/m/d'});
 
+			//
 			me.$payStatusSelect.on('change',function(){
 				var temp = me.$payStatusSelect.val();
 				if(temp == 1){
@@ -76,6 +77,7 @@ define(function(require, exports, module){
 			me.checkEdit(me.attrs.editFlag)
 			me.setValue();
 		},
+
 		//数据渲染显示
 		setValue:function(){
 			var me = this; 
@@ -102,6 +104,7 @@ define(function(require, exports, module){
 				me.model.set('payerName',me.attrs.dataDetail.order.payerName);
 			}
 		},
+
 		//付费情况显示自订单
 		setSubersMoney:function(){
 			var me = this;
@@ -116,6 +119,8 @@ define(function(require, exports, module){
 				});
 			});
 		},
+
+		//
 		setNewSubers:function(){
 			var me = this;
 			var strDom = '';
@@ -149,7 +154,9 @@ define(function(require, exports, module){
 			me.$appBox.html(strDom);
 			
 		},
+
 		//渲染显示子产品：
+		//
 		setSubers:function(){
 			var me = this;
 			var strDom = '';
@@ -157,10 +164,11 @@ define(function(require, exports, module){
 			me.$appBox.empty();
 			_.map( me.attrs.data.items , function( obj ){
 				if(obj.noChargeAmount > 0){
-					strDom +="<div class='field_row'> <div class='field_row_head'> </div> " +
+					strDom += 
+					"<div class='field_row'> <div class='field_row_head'> </div> " +
 					"<div class='field_wrapper'> <div class='field'> <label> " +
 					"<span class='label'>"+obj.productName+"(未收"+obj.noChargeAmount+")</span> </label> " +
-					"<input  type='text' data-noChargeAmount='"+obj.noChargeAmount+"' data-productId='"+obj.productId+"' class='sub-app edit-flag' /> </div> </div> </div>"
+					"<input  type='text' data-subOrderId='" + obj.subOrderId + "' data-subOrderType='" + obj.subOrderType + "' data-noChargeAmount='"+obj.noChargeAmount+"' data-productId='"+obj.productId+"' class='sub-app edit-flag' /> </div> </div> </div>"
 				}
 			});
 			me.$appBox.html(strDom);
@@ -203,31 +211,49 @@ define(function(require, exports, module){
 			var me = this;
 			var objData = {'order':{}};
 			var tempArry = [];
-			if(me.checkVaild()){
+
+
+			if( me.checkVaild() ){
+				
 				var temp = me.$payStatusSelect.val();
+				
 				if(temp == 2){
 					var sum = 0;
 					me.$view.find('.sub-app').each(function(){
+
 						var temp = {};
+						
 						temp.productId = $(this).attr('data-productId');
+						temp.subOrderId = $(this).attr('data-subOrderId');
+						temp.subOrderType = $(this).attr('data-subOrderType');
 						temp.currPayAmount = $(this).val() ? $(this).val():0;
+						
 						tempArry.push({'subOrder':temp});
 					});
 				}else{
+					
 					_.map( me.attrs.data.items , function( obj ){
+						
 						if(obj.noChargeAmount > 0){
+							
 							var temp = {};
+							
 							temp.productId = obj.productId;
+							temp.subOrderId = obj.subOrderId;
+							temp.subOrderType = obj.subOrderType;
 							temp.currPayAmount = obj.noChargeAmount;
+							
 							tempArry.push({'subOrder':temp});
 						}
 					});
 				}
+				
 				objData.order['payStatus'] = me.$('.payStatus-select').val();
 				objData.order['payDate'] = new Date( me.$payDate.val() ).getTime();
 				objData.order['currPayAmount'] = me.model.get('currPayAmount');
 				objData.order['receiptsAccount'] = me.model.get('receiptsAccount');
 				objData.order['payerName'] = me.model.get('payerName');
+				
 				objData.subOrders = tempArry;
 				return objData;
 			}
@@ -236,6 +262,7 @@ define(function(require, exports, module){
 		//检测数据有效和必填项
 		checkVaild:function(){
 			var me = this;
+
 			//检测必填项
 			var state = true; 
 			me.$('.required-basic').each(function(){

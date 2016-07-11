@@ -2,10 +2,10 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <title>运营平台-支持人员</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <link rel="shortcut icon" href="//www.fxiaoke.com/favicon.ico" type="image/x-icon" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <link rel="shortcut icon" href="//www.fxiaoke.com/favicon.ico" type="image/x-icon"/>
     <!-- build:css resources/assets/style/main.css -->
     <link rel="stylesheet" type="text/css" href="resources/assets/style/main.css"/>
     <!-- endbuild -->
@@ -14,12 +14,14 @@
 
 <!--头部区域-->
 <header id="header">
-    <h1 class="header-logo"><img src="resources/assets/images/fxlogo.png" alt="" /></h1>
+    <h1 class="header-logo"><img src="resources/assets/images/fxlogo.png" alt=""/></h1>
+
     <div class="header-person">
         <span id="accountname"></span>
+
         <div class="person-loginout">
-            <a href="#page/changepwd" >修改密码</a>
-            <a href="/logout?from=/op" >退出</a>
+            <a href="#page/changepwd">修改密码</a>
+            <a href="/logout?from=/op">退出</a>
         </div>
     </div>
     <div class="header-policy">
@@ -27,7 +29,7 @@
     </div>
     <nav>
         <ul class="nav-main clearfix">
-        
+
             <li data-permissions="M008001">
                 <a class="nav-branch">查询</a>
                 <ul class="nav-sub">
@@ -49,7 +51,7 @@
                     <li data-permissions="M008010"><a href="#ent/ind">自注册</a></li>
                 </ul>
             </li>
-            
+
             <!--
             <li data-modulecode="EnterpriseDayActivityOpS">
                 <a href="#index/dayactive">企业日活跃</a>
@@ -59,12 +61,12 @@
             <li data-permissions="M008011">
                 <a class="nav-branch">活跃度</a>
                 <ul class="nav-sub">
-                   <!-- <li data-modulecode="RealTimeActivityOpS">
-                        <a href="#index/lst">实时</a>
-                    </li>
-                    <li data-modulecode="MonthReportOpS">
-                        <a href="#index/rpt">月度报告</a>
-                    </li>-->
+                    <!-- <li data-modulecode="RealTimeActivityOpS">
+                         <a href="#index/lst">实时</a>
+                     </li>
+                     <li data-modulecode="MonthReportOpS">
+                         <a href="#index/rpt">月度报告</a>
+                     </li>-->
                     <li data-permissions="M008012">
                         <a href="#index/lst2">实时2</a>
                     </li>
@@ -98,7 +100,7 @@
             <li data-permissions="M008022">
                 <a class="nav-branch">代理商</a>
                 <ul class="nav-sub">
-                   <!-- <li data-permissions="M008023"><a href="#agt/lst">代理商列表</a></li>-->
+                    <li data-modulecode="AgentOpS"><a href="#agt/lst">代理商列表</a></li>
                     <li data-permissions="M008024"><a href="#agt/export">招商信息导出</a></li>
                 </ul>
             </li>
@@ -115,7 +117,7 @@
                     <li data-permissions="M008029"><a href="#eme/loginlimit">账号注册上限</a></li>
                 </ul>
             </li>
-             <li data-permissions="M008030">
+            <li data-permissions="M008030">
                 <a href="#page/approvallist">我的审批</a>
                 <ul class="nav-sub">
                     <li data-permissions="M008031"><a href="#page/approvallist">订单审批</a></li>
@@ -139,6 +141,7 @@
 <div class="g-toast"></div>
 <div class="g-confirm">
     <h3></h3>
+
     <div class="con"></div>
     <span class="btn"></span>
     <span class="close">×</span>
@@ -161,12 +164,13 @@
     <div class="g-tip"><p></p></div>
 </script>
 
-<script type = "text/javascript">
+<script type="text/javascript">
     var IBSS = {};
-    IBSS.BASE_PATH = location.pathname.slice( 0,location.pathname.lastIndexOf('/') ) + '/resources';   //静态资源路径
+    IBSS.BASE_PATH = location.pathname.slice(0, location.pathname.lastIndexOf('/')) + '/resources';   //静态资源路径
     IBSS.API_PATH = '/op/api/s';       //api路径
     IBSS.IS_DEVELOP = true;
-    IBSS.VERSION ='1.1';
+    // IBSS.VERSION ='4.7.' + (new Date()).getTime();
+    IBSS.VERSION = '1.1';
 </script>
 
 <!--build:common resources/common/scripts/common.js-->
@@ -180,19 +184,20 @@
 <script type="text/javascript" src="resources/common/scripts/widget.js"></script>
 <script type="text/javascript" src="resources/common/widget/calendar/jquery.datetimepicker.js"></script>
 <!--endbuild-->
-
+<script type="text/javascript" src="resources/common/scripts/lib/angular.js"></script>
+<script type="text/javascript" src="resources/common/scripts/lib/angular-messages.js"></script>
+<script type="text/javascript" src="resources/common/scripts/lib/angular-filter.js"></script>
 <script type="text/javascript" src="resources/common/widget/my97datepicker/wdatepicker.js"></script>
-<!--build:main resources/assets/scripts/main.js-->
+<!--build:app resources/assets/scripts/main.js-->
 <script type="text/javascript" src="resources/assets/scripts/config.js"></script>
 <script type="text/javascript" src="resources/assets/scripts/app.js"></script>
 <!--endbuild-->
 
 <script type="text/javascript">
-    seajs.use(['common/app'], function( app ) {
+    seajs.use(['common/app'], function (app) {
         app.run();
     });
 </script>
-
+<!--<script src="http://rap.firstshare.cn/rap.plugin.js?projectId=57"></script>-->
 </body>
 </html>
-

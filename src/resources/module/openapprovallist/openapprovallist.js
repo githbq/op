@@ -1,10 +1,9 @@
 /**
  * 
  * 查看 企业开通审批详情
- * 用于 渠道人员 支持人员 查看 审批详情
+ * 用于 渠道人员 支持人员 查看 审批列表
  *
  * 支持人员(小助手) 用审批列表 
- * 渠道人员 用审批列表
  * 财务人员 用审批列表
  */
 
@@ -90,7 +89,7 @@ define( function(require, exports, module){
             'click .btn-search': 'searchEve',       //查询
             'click .detail': 'detailEve',           //详情
             'click .revoke': 'revokeEve',           //撤销审批
-            'click .toggle b': 'toggleEve'          //切换
+            'click .toggle span': 'toggleEve'          //切换
         },
 
         /**
@@ -276,13 +275,14 @@ define( function(require, exports, module){
                 break;
             };
 
-            me.$tbody.html('<tr><td colspan="15"><p class="info">加载中...</p></td></tr>');
-            
             me.xhr && me.xhr.abort();
 
             me.xhr = util.api({
                 'url': url,
                 'data': data,
+                'beforeSend': function(){
+                    me.$tbody.html('<tr><td colspan="15"><p class="info">努力加载中...</p></td></tr>');
+                },
                 'success': function( data ){
                     console.warn( data );
                     if( data.success ){

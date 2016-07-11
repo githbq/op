@@ -1,0 +1,86 @@
+<div class="p-list p-received-list" js="true">
+	<div class="m-received-list u-tablelist">
+        <div class="list-main">
+            <div class="list-header">
+            <div class="header-opts">
+                <button id="create" class="btn-blue">新增</button>
+                <button id="import" class="btn-blue">导入</button>
+                <button id="export" class="btn-blue">导出</button>
+            </div>
+            <h3>到款数据</h3>
+            </div>
+            <div class="list-bar">
+                <div class="list-bar-btns">
+                    <button id="search" class="btn-blue">查询</button>
+                </div>
+                <div class="list-bar-input">
+                    <label>
+                        <span>到款编号</span>
+                        <input type="text" id="rcvNum" maxlength="20">
+                    </label>
+                    <label class="sp">
+                        <label><span>到款日期</span>
+                            <input id="startTime" type="text" class="g-ipt ipt-m timepicker" readOnly="readOnly" placeholder="开始时间">
+                        </label>
+                        <label><span>-</span>
+                            <input id="endTime" type="text" class="g-ipt ipt-m timepicker" readOnly="readOnly" placeholder="结束时间">
+                        </label>
+                    </label>
+                    <label>
+                        <span>公司/个人打款名称</span>
+                        <input type="text" id="payer">
+                    </label>
+                    <label>
+                        <span>性质</span>
+                            <select id="type" class="statusEnum">                         
+                                <option value="">全部</option>
+                                <option value="1">到款</option>
+                                <option value="2">退款</option>
+                            </select> 
+                    </label>
+                    <label>
+                        <span>收款银行名称</span>
+                        <input type="text" id="bank">
+                    </label>
+                    <label>
+                        <span>所属部门/代理商</span>
+                        <input type="text" id="department">
+                    </label>
+                    <label>
+                        <span>匹配状态</span>
+                            <select id="match" class="statusEnum">
+                                <option value="">全部</option>      
+                                <option value="1">未认领</option>
+                                <option value="2">认领中</option>
+                                <option value="3">已认领</option>
+                            </select>
+                    </label>
+                </div>
+            </div>
+            <div class="list-content">
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th style="width: 250px;">到款编号</th>
+                            <th style="width: 250px;">到款日期</th>
+                            <th style="width: 250px;">打款单位/个人</th>
+                            <th style="width: 150px;">性质</th>
+                            <th style="width: 200px;">收款银行名称</th>
+                            <th style="width: 200px;">所属部门/代理商</th>
+                            <th style="width: 150px;">匹配状态</th>
+                            <th>操作</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    	<div class="list-pager">
+    		
+    	</div>
+    </div>
+</div>

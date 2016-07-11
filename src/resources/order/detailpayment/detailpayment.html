@@ -1,7 +1,9 @@
 <div class="order-content" js="true" style="z-index:100">
 
 	<div class="content-box" style="clear:both;">
+
 		<div class="m-addenterprise " style="width:1200px;">
+			
 			<h4 style="font-weight: bold; font-size: 18px; padding-top: 8px; padding-bottom: 8px;">收尾款</h4>
 			<hr/>
 			<p style="line-height:40px;">订单号： <span class="order-id"></span></p>
@@ -9,19 +11,45 @@
 			<h4 style="font-weight: bold; font-size: 18px; padding-top: 8px; padding-bottom: 8px;">产品信息</h4>
 			<div class="common-product productinfo"></div>
 			<div class="common--invioce"></div>
+
 		</div>
+
 		<div class="custom-box" style="height: 35px; ">
 			联合跟进人：<span class="helper-box"></span>
 		</div>
+		
+		<!--到款信息-->
+		<section class="approval-table approval-daokuan">
+	        <p class="title">到款信息</p>
+	        <table>
+	            <thead>
+	                <tr>
+	                    <th>到款编号</th>
+	                    <th>到款日期</th>
+	                    <th>到款金额(元)</th>
+	                </tr>
+	            </thead>
+	            <tbody id="daokuanlist" ce-collection="dklist">
+	                <tr>
+	                    <td><%=item.receivedPayNum%></td>
+	                    <td><%=new Date( item.receivedPayDate )._format('yyyy/MM/dd') %></td>
+	                    <td><%=item.receivedPayAmount%></td>
+	                </tr>
+	            </tbody>
+	        </table>
+    	</section>
+		<!--end-->
+
 		<div>
 			<hr/>
 			<h4 style="font-weight: bold; font-size: 18px; padding-top: 8px; padding-bottom: 8px;">审批意见</h4>
 			<table>
 			<tr><th style="width:160px;">审批人</th><th style="width:160px;">审批时间</th><th style="width:100px;">审批结果</th><th>审批意见</th></tr>
 			<tbody class="last-options">
-			 
 			</tbody>
 			</table>
+			
+			<!--
 			<p class="receivedPayDate" style="display: none;">
 				<label for="">
 					<span class="m-len">实际到款时间 :</span>
@@ -33,17 +61,22 @@
 					<span class="receivedPayNum-text"></span>
 				</label>
 			</p>
+			-->
+
 		</div>
+		
 		<div class="state state-refuse ">
 			<hr/>
 			<p class="approval-action">
-				<button class="  u-btn-blue action-submit" data-permissions="M008007005,M009015010">保存提交</button>
-				<button class="  u-btn-blue action-save" data-permissions="M008007005,M009015009">保存</button>
+				<button class="u-btn-blue action-submit" data-permissions="M008007005,M009015010">保存提交</button>
+				<button class="u-btn-blue action-save" data-permissions="M008007005,M009015009">保存</button>
 			</p>
 		</div>
 
 		<div class="approval-action state state-wait">
 			<hr/>
+			
+			<!--
 			<p class="currentTask-finance" style="display: none;">
 				<label for="">
 					<span class="m-len">实际到款时间<span class="red">*</span></span>
@@ -55,6 +88,8 @@
 					<input type="text" class="receivedPayNum" maxlength="50">
 				</label>
 			</p>
+			-->
+			
 			<p>
 			<h3 style="font-size:18px;">审批意见</h3>
 			<textarea ce-model="comment" cols="60" rows="5" maxlength="1000" style=" margin:10px;esize: none;word-wrap: break-word;outline: none; border: 1px solid #d9d9d9;-webkit-border-radius: 3px; -moz-border-radius: 3px;border-radius: 3px;"></textarea>

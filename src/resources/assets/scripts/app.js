@@ -402,9 +402,7 @@ define('common/app', function(require, exports, module){
                         $('#accountname').text(data.value.model.name);
 
                         IBSS.role = data.value.model;
-                        
-                        //IBSS.FUNCTIONS = data.value.model.functionCodes.concat(data.value.model.ancientFunctionCodes);
-                        
+						
                         IBSS.FUNCTIONS = data.value.model.moduleCodes;
                         IBSS.MODULES = data.value.model.moduleCodes;
  
@@ -412,12 +410,12 @@ define('common/app', function(require, exports, module){
                         //开始提醒轮询
                         me._startRemind();
                         me.setPermissions();
-                        me.setModuleCode();
+                        //me.setModuleCode();
                         callback && callback();
                     }
                 }
             });
-			
+			/*
 			if( bool ){
 				//获取代理商ID
 				util.api({
@@ -429,6 +427,7 @@ define('common/app', function(require, exports, module){
 					} 
 				});
 			}
+			*/
 		},
 		
 
@@ -440,9 +439,10 @@ define('common/app', function(require, exports, module){
          */
 		setPermissions: function( $el ){
 			var $el = $el || $('body');
-
+			
 			$el.find('[data-permissions]').each(function(){
 				var $this = $( this ),
+
 				    codes = $this.attr('data-permissions').split(/[\s,]+/);
 				
 				var bool = false;
@@ -464,7 +464,7 @@ define('common/app', function(require, exports, module){
 					$this.remove();
 				}
 			});
-
+			
 			//特殊处理
 			/*
 			 *for( var i = 0; i < IBSS.FUNCTIONS.length ; i++ ){
@@ -484,8 +484,10 @@ define('common/app', function(require, exports, module){
 		setModuleCode: function(){
 			var $nav = $('nav');
 
+
 			$nav.find('li[data-permissions]').each(function(){
 				var $this = $( this ),
+
 					codes = $this.attr('data-permissions').split(/[\s,]+/);
 
 				var bool = false;

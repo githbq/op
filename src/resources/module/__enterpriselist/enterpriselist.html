@@ -1,0 +1,207 @@
+<div class="m-list m-ent-lst u-tablelist">
+    <div class="list-main">
+        <div class="list-header">
+            <div class="header-opts">
+
+                <button class="u-btn-blue auth" data-permissions="M008009052">授权</button>
+                <button class="deauth" data-permissions="M008009053">取消授权</button>
+                <button class="export-file" data-permissions="M008009055">导出企业试用应用列表</button>
+            </div>
+            <h3>
+                企业列表
+            </h3>
+        </div>
+        <div class="list-bar">
+            <div class="list-bar-btns">
+                <button id="btnSearch" class="btn-blue" data-permissions="M008009001">查询</button>
+            </div>
+            <div class="list-bar-input">
+                <label>
+                    <span>企业名称</span>
+                    <input id="eiName" class="g-ipt ipt-m"  type="text" ce-model="en"/>
+                </label>
+                <label>
+                    <span>企业帐号</span>
+                    <input id="eiAccount" class="g-ipt ipt-m" type="text" ce-model="ea"/>
+                </label>
+				<label>
+					<span>创建人姓名</span>
+					<input id="creatorName" class="g-ipt ipt-m" type="text" ce-model="creatorName" maxlength=20/>
+				</label>
+                <label>
+                    <span>开通时间</span>
+                    <input type="text" id="OpenSTime"> ---- <input type="text" id="OpenETime">
+                </label>
+                <label>
+                    <span>企业状态</span>
+                    <select ce-model="enterpriseStatus">
+                        <option value="">全部</option>
+                        <option value="1">待开通</option>
+                        <option value="2">已开通</option>
+                        <option value="3">已作废</option>
+                        <option value="4">已停用</option>
+                        <option value="5">已删除</option>
+                    </select>
+                </label>
+				<label>
+					<span>关联自注册</span>
+					<select ce-model="isLinkRegister">
+						<option value="">全部</option>
+						<option value="1">是</option>
+						<option value="0">否</option>
+					</select>
+				</label>
+                <label>
+                    <span>来源</span>
+                    <select id="eiSource" ce-model="source">
+                        <option value="">全部</option>
+                    </select>
+                </label>
+                <label>
+                    <span>行业</span>
+                    <select id="eiIndustry" ce-model="industry">
+                        <option value="">全部</option>
+                    </select>
+                </label>
+                <label>
+                    <span>省市</span>
+                    <select id="eiProvince" ce-model="province">
+                        <option value="">全部</option>
+                    </select>
+                </label>
+                <label>
+                    <span>城市</span>
+                    <input id="eiCity" class="g-ipt ipt-s"  type="text" ce-model="city"/>
+                </label>
+                
+                <label>
+                    <span>联系电话</span>
+                    <input id="eiMobile" class="g-ipt ipt-m"  type="text" ce-model="tel"/>
+                </label>
+            
+                <!--新添筛选项-->
+                <label>
+                    <span>应用类型</span>
+                    <select name="hasProduct" ce-model="hasProduct">
+                        <option value="">全部</option>
+                        <option value="1">CRM</option>
+                        <option value="4">PK助手</option>
+                        <option value="7">工资助手</option>
+                        <option value="5">会议助手</option>
+                        <option value="12">自定义助手</option>
+                        <option value="3">培训服务费</option>
+                        <option value="13">培训助手</option>
+                        <option value="16">培训助手时长</option>
+                        <option value="14">战报助手</option>
+                        <option value="17">项目管理</option>
+                    </select>
+                </label>
+                <label>
+                    <span>优惠码</span>
+                    <input type="text" onchange="this.value=this.value.replace(/\D/g,'')" maxlength=8 ce-model="vendorId" >
+                </label>
+                <label>
+                    <span>是否赠送办公版</span>
+                    <select ce-model="isPresent">
+                        <option value="">全部</option>
+                        <option value="1">是</option>
+                        <option value="0">否</option>
+                    </select>
+                </label>
+                <label>
+                    <span>是否付费</span>
+                    <select ce-model="isPay">
+                        <option value="">全部</option>
+                        <option value="true">是</option>
+                        <option value="false">否</option>
+                    </select>
+                </label>
+
+                 <label>
+                    <span>是否优惠企业</span>
+                    <select ce-model="isCoupon">
+                        <option value="">全部</option>
+                        <option value="true">是</option>
+                        <option value="false">否</option>
+                    </select>
+                </label>
+                <label>
+                    <span>线索更新时间</span>
+                    <select  id="update">
+                        <option value="0">全部</option>
+                        <option value="1">最近1天更新</option>
+                        <option value="3">最近3天更新</option>                        
+                        <option value="7">最近7天更新</option>
+                        <option value="30">最近30天更新</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+        <div class="list-content">
+            <table>
+                <thead>
+                <tr>
+                    <th></th>
+                    <th style="width:20px;"><input type="checkbox" class="selectall"></th>
+                    <th style="width:120px;">企业名称</th>
+                    <th style="width:130px;">帐号</th>
+					<th style="width:130px;">所属代理商</th>
+					<th style="width:130px;">是否优惠企业</th>
+					<th style="width:60px;">是否付费</th>
+					<th style="width:90px;">关联自注册</th>
+					<th style="width:130px;">负责销售(创建人)</th>
+                    <th style="width:120px;">开通日期</th>
+                    <th style="width:100px;"></th>
+					<th style="width:150px;">CRM信息可见授权</th>
+                    <th style="width:110px;">手机设备授权</th>
+                    <th style="">操作</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody ce-collection="list">
+                    <td></td>
+                    <td><input type="checkbox" class="selectitem" value="<%=item.csmEnterprise.enterpriseAccount%>"></td>
+                    <td><%=item.csmEnterprise.enterpriseName%></td>
+                    <td><%=item.csmEnterprise.enterpriseAccount%></td>
+					<td> <%=item.agent ? item.agent.name:''%> </td>
+					<td> <%=item.isCoupon ? '是':'否'%></td>
+					<td> <%=item.csmEnterprise.isPayed ? '是':'否'%></td>
+					<td> <%=item.linkRegister ? '是':'否'%></td>
+					<td> <%=item.creator ?item.creator.name:'否'%> </td>
+                    <td><%=item.createtimestr%></td>
+                    <td><%=item.runstatusstr%></td>
+                    <td><%=item.crmvisible%></td>
+                    <td><%=item.authStr%></td>
+     
+                    <td data-status="<%=item.csmEnterprise.runStatus%>">
+                        <a class="info-detail" data-id="<%=item.csmEnterprise.enterpriseID%>" data-account="<%=item.csmEnterprise.enterpriseAccount%>" data-permissions="M008009002">查看</a>
+
+                        <% if(item.canIncrease){ %>
+              
+                        <a class="info-zengbangong" data-id="<%=item.csmEnterprise.enterpriseID%>" data-account="<%=item.csmEnterprise.enterpriseAccount%>" data-permissions="M008009043">增购办公版</a>
+                        <a class="info-zengyingxiao" data-id="<%=item.csmEnterprise.enterpriseID%>" data-account="<%=item.csmEnterprise.enterpriseAccount%>" data-permissions="M008009049">增购营销版</a>
+                        <% } %>
+                        
+                        <% if(item.canRenew){ %>
+
+                        <a class="info-renewbangong" data-id="<%=item.csmEnterprise.enterpriseID%>" data-account="<%=item.csmEnterprise.enterpriseAccount%>" data-permissions="M008009047">续费办公版</a>
+                        <a class="info-renewyingxiao" data-id="<%=item.csmEnterprise.enterpriseID%>" data-account="<%=item.csmEnterprise.enterpriseAccount%>" data-permissions="M008009049">续费营销版</a>
+                        <% } %>
+						<%if(item.canEditPartner == 1||item.canEditPartner == "1"){%>
+							<a class="info-custom" data-permissions="M008009051" data-enterpriseId="<%=item.csmEnterprise.enterpriseID%>">联合跟进人</a>&nbsp;&nbsp;
+						<%}else{%>
+							<a  style="color:#ccc;" data-permissions="M008009051">联合跟进人</a>&nbsp;&nbsp;
+						<%}%>
+                        <% if(item.clueId) { %>
+                            <a class="info-clue" data-clue="<%=item.clueId%>">线索</a>
+						<% } %>
+                    </td>
+                    <td></td>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="list-pager">
+        
+    </div>
+</div>

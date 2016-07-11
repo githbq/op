@@ -28,19 +28,24 @@
     <nav>
         <ul class="nav-main clearfix">
             <li data-permissions="M010003">
-                <a href="#finance/approvallist">我的审批</a>
+                <a href="#page/approvallist/finance">我的审批</a>
                 <ul class="nav-sub">
                     <li data-permissions="M010001">
-                        <a href="#finance/approvallist">订单审批</a>
+                        <a href="#page/approvallist/finance">订单审批</a>
                     </li>
                     <li data-permissions="M010004">
                         <a href="#order/invoiceapplyfinancelist">发票审批</a>
                     </li>
                 </ul>
             </li>
-
             <li data-permissions="M010002">
                 <a href="#order/payaccount">银行账户管理</a>
+            </li>
+            <li data-permissions="M010005">
+                <a href="#rcv/lst">到款数据</a>
+            </li>
+            <li data-permissions="M010009">
+                <a href="#rcv/stc">到款统计</a>
             </li>
         </ul>
     </nav>
@@ -83,8 +88,10 @@
     IBSS.BASE_PATH = location.pathname.slice( 0,location.pathname.lastIndexOf('/') ) + '/resources';   //静态资源路径
     IBSS.API_PATH = '/op/api/f';       //api路径
     IBSS.IS_DEVELOP = true;
+    // IBSS.VERSION ='4.7.' + (new Date()).getTime();
     IBSS.VERSION ='1.1';
 </script>
+
 
 <!--build:common resources/common/scripts/common.js-->
 <script type="text/javascript" src="resources/common/scripts/lib/jquery-2.1.3.js"></script>
@@ -93,13 +100,15 @@
 <script type="text/javascript" src="resources/common/scripts/lib/seajs-2.3.0.js"></script>
 <script type="text/javascript" src="resources/common/scripts/lib/seajs-css.js"></script>
 <script type="text/javascript" src="resources/common/scripts/lib/seajs-preload.js"></script>
+
 <script type="text/javascript" src="resources/common/scripts/util.js"></script>
 <script type="text/javascript" src="resources/common/scripts/widget.js"></script>
 <script type="text/javascript" src="resources/common/widget/calendar/jquery.datetimepicker.js"></script>
 <!--endbuild-->
-
+<script type="text/javascript" src="resources/common/scripts/lib/angular.js"></script>
+<script type="text/javascript" src="resources/common/scripts/lib/angular-messages.js"></script>
+<script type="text/javascript" src="resources/common/scripts/lib/angular-filter.js"></script>
 <script type="text/javascript" src="resources/common/widget/my97datepicker/wdatepicker.js"></script>
-
 <!--build:app resources/assets/scripts/main.js-->
 <script type="text/javascript" src="resources/assets/scripts/config.js"></script>
 <script type="text/javascript" src="resources/assets/scripts/app.js"></script>

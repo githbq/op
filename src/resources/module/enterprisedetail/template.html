@@ -28,8 +28,8 @@
 	<tr>
 		<td><%=item.id%></td>
 		<td><%=item.name%></td>
-		<td><%=item.regionNames%></td>
-		<td><em data-id="<%=item.id%>" class="off" data-permissions="M008009014">选择</em></td>
+		<td><%=item.provinceName%></td>
+		<td><em data-id="<%=item.id%>" class="off" data-permissions="F008025">选择</em></td>
 	</tr>
 	<% } ) %>
 </script>
@@ -127,7 +127,7 @@
 		</p>
 		<p class="training-action">
 			<button class="u-btn-blue submit" data-state="add">提交</button>
-			<button class="u-btn-blue save" data-state="edit">保存</button>
+			<button class="u-btn-blue save" data-state="edit" data-permissions="F008064">保存</button>
 		</p>
 	</div>
 </script>

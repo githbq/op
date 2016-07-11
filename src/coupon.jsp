@@ -27,10 +27,9 @@
     </div>
     <nav>
         <ul class="nav-main clearfix">
-            <li data-permissions="M018001">
                 <a href="#privilege/lst">优惠方案设置</a>
             </li>
-            <li data-permissions="M018002">
+            <li>            <li data-permissions="M018002">
                 <a href="#policy/set">政策规则设置</a>
             </li>
         </ul>
@@ -62,7 +61,7 @@
 </div>
 
 <!---->
-<input id="key" type="hidden" value="${token}" />
+<input id="key" type="hidden" value="${token}" /><input id="key" type="hidden" value="${token}" /></div>
 
 <!--Tip 提示-->
 <script type="text/template" id="g-tip">
@@ -84,19 +83,14 @@
 <script type="text/javascript" src="resources/common/scripts/lib/backbone-1.1.2.js"></script>
 <script type="text/javascript" src="resources/common/scripts/lib/seajs-2.3.0.js"></script>
 <script type="text/javascript" src="resources/common/scripts/lib/seajs-css.js"></script>
-<script type="text/javascript" src="resources/common/scripts/lib/seajs-text.js"></script>
+
 <script type="text/javascript" src="resources/common/scripts/lib/seajs-preload.js"></script>
 
 <script type="text/javascript" src="resources/common/scripts/util.js"></script>
 <script type="text/javascript" src="resources/common/scripts/widget.js"></script>
-
-<script type="text/javascript" src="resources/common/widget/calendar/jquery.datetimepicker.js"></script>
-<script type="text/javascript" src="resources/common/widget/kindeditor/kindeditor-all-min.js"></script>
-<script type="text/javascript" src="resources/common/widget/kindeditor/lang/zh-CN.js"></script>
 <script type="text/javascript" src="resources/common/widget/calendar/jquery.datetimepicker.js"></script>
 
 <!--endbuild-->
-<!-- <script src="http://rap.firstshare.cn/rap.plugin.js?projectId=63"></script> -->
 <script type="text/javascript" src="resources/common/widget/my97datepicker/wdatepicker.js"></script>
 <!--build:app resources/assets/scripts/app.js-->
 <script type="text/javascript" src="resources/assets/scripts/config.js"></script>

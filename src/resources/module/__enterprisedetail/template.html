@@ -1,0 +1,133 @@
+<script type="text/template" id="trtpl">
+	<% _.each( content, function( item , index ){%>
+		<tr>
+			<td></td>
+			<td><%=item.name%></td>
+			<td><%=item.id%></td>
+			<td><%=item.cityStr%></td>
+			<td><%=item.statusStr%></td>
+			<td> <a data-id="<%=item.id%>" class="agent-edit off">编辑</a> <a data-id="<%=item.id%>" class="agent-detail">查看用户</a> </td>
+			<td></td>
+		</tr>
+	<% }) %>
+</script>
+
+<!--产品信息-->
+<script type="text/template" id="trProduct">
+<% _.each( content, function( item, index ) { %>
+	<p>
+		<span><%=item.appName && item.appName%> (配额: <%=item.quota && item.quota%>) </span>
+		<span> 开始时间: <%=item.startDate && new Date( item.startDate )._format('yyyy年MM月dd日')%></span>
+		<span> 结束时间: <%=item.endDate && new Date( item.endDate )._format('yyyy年MM月dd日')%></span>
+	</p>
+<% } ) %>
+</script>
+
+<script type="text/template" id="trAgent">
+	<% _.each( content, function( item, index ) { %>
+	<tr>
+		<td><%=item.id%></td>
+		<td><%=item.name%></td>
+		<td><%=item.regionNames%></td>
+		<td><em data-id="<%=item.id%>" class="off" data-permissions="M008009014">选择</em></td>
+	</tr>
+	<% } ) %>
+</script>
+
+<script type="text/template" id="trOperation">
+	<% _.each( content, function( item, index ) { %>
+	<tr>
+		<td><%=item.id%></td>
+		<td><%=item.ncreaseTime%></td>
+		<td><%=item.ncreasedAmount%></td>
+		<td><%=item.accountName%></td>
+	</tr>
+	<% } ) %>
+</script>
+
+<script type="text/template" id="trLog">
+	<% _.each( content, function( item, index ) { %>
+	<tr>
+		<td><%=item.accountid%></td>
+		<td><%=item.createTimeStr%></td>
+		<td><%=item.accountName%></td>
+		<td><%=item.typeStr%></td>
+		<td title="<%=item.content%>"><%=item.content%></td>
+	</tr>
+	<% } ) %>
+</script>
+
+<script type="text/template" id="trCardList">
+	<% _.each( content, function( item, index ) { %>
+	<tr>
+		<td><%=item.id%></td>
+		<td><%=item.rechargeTime%></td>
+		<td><%=item.expireTime%></td>
+		<td><%=item.cardCount%></td>
+		<td><%=item.usedCount%></td>
+		<td><%=item.wasteCount%></td>
+		<td><%=item.rechargeType%></td>
+	</tr>
+	<% } ) %>
+</script>
+
+<script type="text/template" id="callBackList">
+	<% _.each( content, function( item ){ %>
+	<tr>
+		<td><%=item.employeeName%></td>
+		<td><%=item.adminStr%></td>
+		<td><%=item.employeeContact%></td>
+		<td><a data-ea="<%=item.ea%>" data-phone="<%=item.employeeContact%>" class="employee-detail">详情</a></td>
+	</tr>
+	<% }) %>
+</script>
+
+<!--企业监控-->
+<script type="text/template" id="monitoringList">
+	<% _.each( content,function( item ){ %>
+	<tr>
+		<td><%=item.remark%></td>
+		<td><%=item.createTimeStr%></td>
+		<td><%=item.creatorName%></td>
+	</tr>
+	<% }) %>
+</script>
+
+<script type="text/template" id="training">
+	<div class="m-training">
+		<p>
+			<label for="">
+				<span>培训名称 <b>*</b> </span>
+				<input type="text" ce-model="trainingName">
+			</label>
+		</p>
+		<p>
+			<label for="">
+				<span>培训时间 <b>*</b></span>
+				<input type="text" class="trainingDate" onkeyup="this.value=''">
+			</label>
+		</p>
+		<p>
+			<label for="">
+				<span>培训师 <b>*</b></span>
+				<input type="text" ce-model="trainer">
+			</label>
+		</p>
+		<p>
+			<label for="">
+				<span>参训人数 <b>*</b></span>
+				<input type="text" ce-model="trainingNumber" onkeyup="this.value=this.value.replace(/[^\d]/g,'')" >
+			</label>
+		</p>
+		<p>
+			<label for="">
+				<span>描述</span>
+				<input type="text" ce-model="trainingDescription">
+			</label>
+		</p>
+		<p class="training-action">
+			<button class="u-btn-blue submit" data-state="add">提交</button>
+			<button class="u-btn-blue save" data-state="edit">保存</button>
+		</p>
+	</div>
+</script>
