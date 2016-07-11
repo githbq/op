@@ -149,7 +149,7 @@
             <h1>产品信息</h1>
         </div>
         <div class="form" ng-init="dataResultData={dataResult:[]}" ng-class="{step_validate_error:step_2_validate_error}">
-            <div ng-init="productInfos=productInfos||[]">
+            <div ng-if="globalInfo.enterpriseName&&globalInfo.enterpriseAccount" ng-init="productInfos=productInfos||[]">
                 <div class="form-row">
                     <h2>企业已购产品信息</h2>
                 </div>
