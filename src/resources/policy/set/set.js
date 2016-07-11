@@ -214,11 +214,8 @@ define( function( require, exports, module ) {
             var me = this;
             var list = '';
             $(aCon).each(function(i, item) {
-                var className = 'accordian';
-                if(item.con){
-                    className += 'spread';
-                }
-                list += '<div class="' + className +'">'
+                
+                list += '<div class="accordian">'
                         + '<h4 data-id="' + item.id + '"><em class="dot"></em><span class="title">' + item.title + '</span><span class="arrow"></span></h4>'
                         + '<div class="content">' + (item.con||'') + '</div>'
                         + '</div>';
@@ -230,7 +227,6 @@ define( function( require, exports, module ) {
                 id = $(target).attr('data-id'),
                 $parent = $(target).parent(),
                 $content = $(target).next('.content');
-
             //进行显示隐藏切换
             if( $parent.hasClass('spread') ) {
                 $parent.removeClass('spread');
