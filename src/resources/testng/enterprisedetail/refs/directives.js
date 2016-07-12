@@ -83,6 +83,7 @@ define(function (require, exports, module) {
                     fileService.sendFile(e, function (result) {
                         scope.$apply(function ($scope) {
                             scope.response = result;
+                            iElem.find('input[type=file]').val('');
                             if (result.success) {
                                 if (scope.multiple !== false) {
                                     scope.imgArr.push(result.value.model.path);
