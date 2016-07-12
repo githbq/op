@@ -9122,3 +9122,53 @@ em {
   word-wrap: break-word;
   word-break: break-all;
 }
+.list-content .unavailable {
+  color: #999;
+  cursor: default;
+}
+.list-content .unavailable:hover {
+  color: #999;
+  cursor: default;
+}
+.m-createreceive p {
+  margin-top: 30px;
+}
+.m-createreceive p span {
+  display: inline-block;
+  width: 140px;
+  padding-right: 10px;
+  text-align: right;
+}
+.m-createreceive p input {
+  margin-left: 3px;
+  width: 300px;
+  box-sizing: border-box;
+}
+.m-createreceive p select {
+  height: 27px;
+  width: 300px;
+  border: 1px solid #dedede;
+  border-radius: 2px;
+}
+.m-createreceive p button {
+  margin: 0 60px;
+}
+.m-import-dialog p.line {
+  width: 450px;
+  margin: 50px auto;
+}
+.m-import-dialog p.line input {
+  width: 320px;
+  margin: 0 15px;
+}
+.m-import-dialog p.line #i-submit,
+.m-import-dialog p.line #i-cancel {
+  margin-left: 100px;
+}
+#m-selector-order .list-content {
+  height: 420px;
+}
+#m-selector-order #s-submit {
+  margin-left: 300px;
+  margin-right: 250px;
+}
