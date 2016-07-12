@@ -43,19 +43,28 @@ define(function (require, exports, module) {
     }]);
     app.directive('inputFile', ['fileService', '$timeout', function (fileService, $timeout) {
         return {
-            scope: {label: '@', ngReadonly: '=', ngRequired: '=', ngModel: '=', status: '=', response: '='},
+            scope: {maxCount: '=', multiple: '=', label: '@', ngReadonly: '=', ngRequired: '=', ngModel: '=', status: '=', response: '='},
             controller: ['$scope', function ($scope) {
             }],
             link: function (scope, iElem, iAttrs) {
-                scope.showBig = function () {
-                    scope.showPreview.value = true;
-                };
                 scope.$watch('ngModel', function () {
-                    if (scope.ngModel) {
-                        scope.src = '/op/api/file/previewimage?filePath=' + scope.ngModel;
-                        scope.href = '/op/api/file/previewimage?filePath=' + scope.ngModel;
-                    }
+                    $timeout(function () {
+                        scope.ngModel = scope.ngModel || '';
+                        scope.imgArr = scope.ngModel.split(',');
+                    }, 10);
                 });
+                scope.imgArr = [];
+                scope.maxFileCount = scope.maxCount || 10;//可多上传情况下最多上传几张图片
+                //if (scope.multiple !== false) {
+                //    $('input[type=file]', iElem).attr({multiple: 'multiple'});
+                //}
+                scope.showBig = function (showPreview) {
+                    showPreview.value = true;
+                };
+                scope.deleteImage = function ($index) {
+                    scope.imgArr.splice($index, 1);
+                    scope.ngModel = scope.imgArr.join(',');
+                };
                 //给容器添加样式
                 iElem.addClass('input-file-container');
                 scope.status = 'unload';
@@ -68,7 +77,12 @@ define(function (require, exports, module) {
                         scope.$apply(function ($scope) {
                             scope.response = result;
                             if (result.success) {
-                                scope.ngModel = result.value.model.path;
+                                if (scope.multiple !== false) {
+                                    scope.imgArr.push(result.value.model.path);
+                                } else {
+                                    scope.imgArr = [result.value.model.path];
+                                }
+                                scope.ngModel = scope.imgArr.join(',');
                                 scope.status = 'uploaded';
                                 $timeout(function () {
                                     scope.status = 'unload';//三秒后结束状态
@@ -81,12 +95,14 @@ define(function (require, exports, module) {
                 });
             },
             restrict: 'CA',
-            template: $(template).filter('.uploadFile')[0].outerHTML
+            template: $(template).filter('.upload-file')[0].outerHTML
         }
-    }]);
+    }
+    ])
+    ;
 
 
-    //循环完成时 事件
+//循环完成时 事件
     app.directive('onFinishRenderFilters', ['$timeout', function ($timeout) {
         return {
             restrict: 'A',
@@ -100,4 +116,5 @@ define(function (require, exports, module) {
         };
     }]);
 
-});
+})
+;

@@ -8992,6 +8992,56 @@ em {
 .image-preview .btn-rotate:hover {
   background-color: #022848;
 }
+.upload-file .upload-preview-img {
+  border: 1px solid gray;
+  background-color: #f2f2f2;
+  width: 100px;
+  height: 100px;
+}
+.upload-file .upload-preview-a img:hover {
+  box-shadow: 0px 0px 12px 5px #b0b2ab;
+}
+.upload-file .upload-directive .uploading {
+  color: orange;
+}
+.upload-file .upload-directive .uploaded {
+  color: green;
+}
+.upload-file .upload-directive .uploaderror {
+  color: red;
+}
+.upload-file .upload-directive.disabled .type-tip {
+  display: none;
+}
+.upload-file .upload-directive.disabled .file-field {
+  display: none;
+}
+.upload-file .delete-img {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  z-index: 100;
+  background-color: rgba(30, 42, 53, 0.5);
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  cursor: pointer;
+  color: white;
+}
+.upload-file .image-item {
+  position: relative;
+  display: inline-block;
+  margin-left: 3px;
+  margin-bottom: 3px;
+}
+.upload-file .upload-wrapper {
+  display: inline-block;
+}
+.upload-file .image-wrapper {
+  word-wrap: break-word;
+  word-break: break-all;
+}
 .m-dialog-normal .m-pagination {
   text-align: right;
 }
