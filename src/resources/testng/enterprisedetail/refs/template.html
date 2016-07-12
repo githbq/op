@@ -13,8 +13,8 @@
                     <div image-preview data-src="showSrc" ng-if="showPreview.value" data-show="showPreview.value"></div>
                 </div>
             </div>
-            <input ng-show="multiple===false||(multiple!==false && imgArr.length<maxFileCount)" type="file" class="file-field" ng-class="{disabled:ngReadonly}" ng-disabled="ngReadonly" name="enterpriseName" accept="image/gif,image/jpeg,image/png"/>
-            <span ng-show="multiple===false||(multiple!==false && imgArr.length<maxFileCount)" class="type-tip">(支持png、jpg、gif格式)</span>
+            <input ng-show="multiple===false||(multiple!==false && imgArr.length<=maxFileCount)" type="file" class="file-field" ng-class="{disabled:ngReadonly}" ng-disabled="ngReadonly" name="enterpriseName" accept="image/gif,image/jpeg,image/png"/>
+            <span ng-show="multiple===false||(multiple!==false && imgArr.length<=maxFileCount)" class="type-tip">(支持png、jpg、gif格式)</span>
         <span class="status" ng-class="{uploading:status=='uploading',uploaderror:status=='error',uploaded:status=='uploaded'}">
             {{status=='uploading'?'上传中...请稍等':status=='uploaded'?'上传成功':status=='error'?'上传异常，请重新上传':''}}
         </span>
