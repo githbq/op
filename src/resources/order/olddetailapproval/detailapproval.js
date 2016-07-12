@@ -420,8 +420,11 @@ define( function(require, exports, module){
 			 me.attrs.productData.contract = me.attrs.enterpriseData.contract ? me.attrs.enterpriseData.contract : null;
 			 
 			 try{
-			 	me.attrs.productData.contract.contract = me.attrs.productData.contract.contractPic;
-			 	me.attrs.productData.contract.contractCopy = me.attrs.productData.contract.contractPicCopy;
+			 	me.attrs.productData.contract.contractFileName = me.attrs.productData.contract.contractPicName;
+			 	me.attrs.productData.contract.contract = me.attrs.productData.contract.contractPic; 
+			 	me.attrs.productData.contract.contractCopyFileName = me.attrs.productData.contract.contractPicCopyName;
+			 	me.attrs.productData.contract.contractCopy = me.attrs.productData.contract.contractPicCopy; 
+
 			 }catch( err ){
 
 			 }
