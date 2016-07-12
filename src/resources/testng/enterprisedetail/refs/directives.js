@@ -50,7 +50,13 @@ define(function (require, exports, module) {
                 scope.$watch('ngModel', function () {
                     $timeout(function () {
                         scope.ngModel = scope.ngModel || '';
-                        scope.imgArr = scope.ngModel.split(',');
+                        var strs = scope.ngModel.split(',');
+                        scope.imgArr = [];
+                        _.each(strs, function (item) {
+                            if (item) {
+                                scope.imgArr.push(item);
+                            }
+                        })
                     }, 10);
                 });
                 scope.imgArr = [];
@@ -62,6 +68,7 @@ define(function (require, exports, module) {
                     showPreview.value = true;
                 };
                 scope.deleteImage = function ($index) {
+                    debugger
                     scope.imgArr.splice($index, 1);
                     scope.ngModel = scope.imgArr.join(',');
                 };
