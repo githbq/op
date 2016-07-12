@@ -34,7 +34,7 @@ define(function (reuqire, exports, module) {
             }
         };
     });
-    var EMAIL_REGEXP = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+    var EMAIL_REGEXP = /^([.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
     app.directive('email', function () {
         return {
             require: 'ngModel',

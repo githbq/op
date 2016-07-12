@@ -927,11 +927,12 @@ define(function(require, exports, module) {
                                     case "Train_Hepler_Capacity":
                                         break;
                                     //报数系统
-                                    case "Number_System":
-                                        break;
+                                    //case "Number_System":
+                                    //  break;
                                     //纷享百川
                                     case "FXBC":
                                         break;
+                                    //
                                     case "CRM":
                                         strDom += " <p> <span class='title'><b>" + obj['appName'] + ":</b>&nbsp;总量" + obj['quota'] + "&nbsp;已用"+ obj['usedQuota'] + "</span>" +
                                             " <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span><i>" + enablestatus + "</i>&nbsp;<button class='prooff off u-btn-blue' name='product' typeid='"+obj["quotaType"]+"' value='"+obj["appId"]+"'>开启</button><button class='proon off' name='product' typeid='"+obj["quotaType"]+"' value='" + obj["appId"] + "'>关闭</button> </p>";

@@ -74,8 +74,8 @@ define(function (require, exports, module) {
 
     }]);
     myApp.controller('form2Controller', ['$scope', 'productService', '$timeout', function ($scope, productService, $timeout) {
-        //产品已购信息
-        $scope.getEnterpriseHistory();
+
+        $scope.getEnterpriseHistory($timeout);
         debugger
         productService.getDiyOrderFormLogic($scope.globalInfo.enterpriseId || '', function (data) {
             $timeout(function () {
@@ -95,7 +95,7 @@ define(function (require, exports, module) {
                     contractPrice = math2.numAdd(contractPrice, item.purchaseAmount);
                 }
             });
-            $scope.payInfo.contractPrice = contractPrice||0;
+            $scope.payInfo.contractPrice = contractPrice || 0;
             $scope.payStatusChange($scope.payInfo.payStatus);
         });
 
@@ -200,20 +200,21 @@ define(function (require, exports, module) {
         };
     }]);
     myApp.controller('mainController', ['$scope', '$timeout', 'select2Query', 'getEnumService', 'cascadeSelectService', 'productService', function ($scope, $timeout, select2Query, getEnumService, cascadeSelectService, productService) {
+        $scope.productInfos={data:[]};
         //获取企业历史详情
-        $scope.getEnterpriseHistory = function () {
+        $scope.getEnterpriseHistory = function (timeout) {
+            $timeout = timeout || $timeout;
             if ($scope.globalInfo.submitType == 2) {//只有增购与续费才显示
-                //||'ceshishur3'
-                productService.getOrderList($scope.globalInfo.enterpriseAccount || $scope.orderInfo.enterpriseAccount, function (data,valueData) {
+                productService.getOrderList($scope.globalInfo.enterpriseAccount || $scope.orderInfo.enterpriseAccount, function (data, valueData) {
                     $timeout(function () {
-                        $scope.productInfos = data;
-                        $scope.globalInfo.enterpriseName= $scope.globalInfo.enterpriseName||valueData.enterpriseName;
-                        $scope.globalInfo.enterpriseAccount= $scope.globalInfo.enterpriseAccount||valueData.enterpriseAccount;
-                        var train_Helper=_.findWhere($scope.productInfos,{code:'Train_Helper'});
-                        var train_Hepler_Capacity=_.findWhere($scope.productInfos,{code:'Train_Hepler_Capacity'});
-                        if(train_Helper&& train_Hepler_Capacity){
-                            train_Helper.timeLongData=train_Hepler_Capacity;
-                            train_Hepler_Capacity.hidden=true;
+                        $scope.productInfos.data = data;
+                        $scope.globalInfo.enterpriseName = $scope.globalInfo.enterpriseName || valueData.enterpriseName;
+                        $scope.globalInfo.enterpriseAccount = $scope.globalInfo.enterpriseAccount || valueData.enterpriseAccount;
+                        var train_Helper = _.findWhere($scope.productInfos.data, {code: 'Train_Helper'});
+                        var train_Hepler_Capacity = _.findWhere($scope.productInfos.data, {code: 'Train_Hepler_Capacity'});
+                        if (train_Helper && train_Hepler_Capacity) {
+                            train_Helper.timeLongData = train_Hepler_Capacity;
+                            train_Hepler_Capacity.hidden = true;
                         }
                     }, 10);
                 });
@@ -242,7 +243,7 @@ define(function (require, exports, module) {
         //产品信息模块
         var productInfo = $scope.productInfo = {};
         //付款信息
-       $scope.payInfo = {payStatus: 1};
+        $scope.payInfo = {payStatus: 1};
         //全局行为状态
         var action = $scope.action = {doing: false};
         $scope.goToStepTest = function (step) {

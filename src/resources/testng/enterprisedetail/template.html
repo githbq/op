@@ -149,7 +149,7 @@
             <h1>产品信息</h1>
         </div>
         <div class="form" ng-init="dataResultData={dataResult:[]}" ng-class="{step_validate_error:step_2_validate_error}">
-            <div ng-if="productInfos && productInfos.length>0">
+            <div ng-if="globalInfo.enterpriseName&&globalInfo.enterpriseAccount" ng-init="productInfos=productInfos||[]">
                 <div class="form-row">
                     <h2>企业已购产品信息</h2>
                 </div>
@@ -164,7 +164,7 @@
                             <span>{{globalInfo.enterpriseAccount}}</span>
                         </div>
                     </div>
-                    <div ng-if="item.code!='FX_Terminal'&&item.code!='FXBC'&&item.code!='Number_System'&&item.code!='StorageSpace'" class="form-row" ng-repeat="item in productInfos track by $index" ng-switch="item.code">
+                    <div ng-if="item.code!='FX_Terminal'&&item.code!='FXBC'&&item.code!='StorageSpace'" class="form-row" ng-repeat="item in productInfos.data track by $index" ng-switch="item.code">
                         <div class="form-field" ng-switch-when="CRM">
                             <!--分割线-->
                             <label>{{item.appName}}(个)：
@@ -182,7 +182,7 @@
                             <label>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 &nbsp;&nbsp;<input type='checkbox' name='baichuai' checked='checked' disabled='disabled'/>捆绑纷享百川
-                                &nbsp;&nbsp;<input type='checkbox' name='system' checked='checked' disabled='disabled'/>捆绑报数系统
+                                <!--&nbsp;&nbsp;<input type='checkbox' name='system' checked='checked' disabled='disabled'/>捆绑报数系统-->
                                 &nbsp;&nbsp;<input type='checkbox' name='mingpian' checked='checked' disabled='disabled'/>捆绑名片
                             </label>
                         </div>
@@ -226,8 +226,8 @@
                                 <span class="inline-m">{{item.timeLongData.usedQuota}}</span>
                             </label>
                         </div>
-                        <div ng-show="false" class="form-field" ng-switch-when="Number_System">
-                        </div>
+                        <!--<div ng-show="false" class="form-field" ng-switch-when="Number_System">-->
+                        <!--</div>-->
                         <div ng-show="false" class="form-field" ng-switch-when="FXBC">
                         </div>
                         <div ng-show="false" class="form-field" ng-switch-when="StorageSpace">
@@ -286,6 +286,7 @@
                      ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly"
                      ng-model="payInfo.contract"
                      input-file
+                     multiple="false"
                      status="payInfo.contract_status"
                      label="合同照片"
                      response=""></div>
@@ -300,6 +301,7 @@
                 <div ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly"
                      ng-model="payInfo.contractCopy"
                      input-file
+                     multiple="false"
                      status="payInfo.contractCopy_status"
                      ng-required="false"
                      label="合同副本照片"
@@ -375,6 +377,7 @@
                 <div ng-class="{readonly:payInfoReadonly||isCaiWu}" ng-readonly="payInfoReadonly||isCaiWu"
                      ng-model="payInfo.companyGatePicture"
                      input-file
+                     multiple="false"
                      status="payInfo.companyGatePicture_status"
                      label="门头照片"
                      response=""></div>

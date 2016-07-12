@@ -8699,3 +8699,426 @@ em {
   border: 8px solid transparent;
   border-bottom: 8px solid #ccc;
 }
+.multiple-select {
+  width: 217px;
+}
+.multiple-select-long {
+  width: 500px;
+}
+.input-file-container {
+  overflow: hidden;
+}
+.input-file-container .file-field {
+  width: 475px;
+}
+.enterprise-panel .step1,
+.enterprise-panel .step3 {
+  width: 80%;
+  min-width: 1000px;
+  margin: auto;
+}
+.enterprise-panel span.inline-m {
+  display: inline-block;
+  width: 70px;
+  text-align: right;
+  margin-right: 20px;
+}
+.enterprise-panel button[disabled] {
+  opacity: 0.5;
+}
+.enterprise-panel .v-top {
+  vertical-align: top;
+}
+.enterprise-panel .inline-block {
+  display: inline-block;
+}
+.enterprise-panel .textarea-m {
+  width: 600px;
+  height: 100px;
+}
+.enterprise-panel .form .ng-pristine.ng-dirty.ng-invalid:not(.form) {
+  border: 1px solid deepskyblue;
+}
+.enterprise-panel .form .form-field .ng-invalid.ng-dirty:not(.form) {
+  border: 1px solid red;
+}
+.enterprise-panel .step_validate_error .ng-invalid:not(.field-group):not(.input-file-container) {
+  border: 1px solid red;
+}
+.enterprise-panel .step_validate_error .input-file-container.ng-invalid input[type=file] {
+  border: 1px solid red;
+}
+.enterprise-panel input[type=text] {
+  width: 260px;
+}
+.enterprise-panel input[type=text].input-l {
+  width: 600px;
+}
+.enterprise-panel input.readonly,
+.enterprise-panel textarea.readonly {
+  border: 1px solid #dddddd;
+  background-color: #E4E4E4;
+}
+.enterprise-panel .panel-button .save {
+  background-color: #45a4f2;
+  border: 1px #2896f0 solid;
+  color: #fff;
+}
+.enterprise-panel .panel-button .saving {
+  background-color: gray;
+  border: 1px solid white;
+}
+.enterprise-panel .panel-button .saving::after {
+  content: '...';
+}
+.enterprise-panel .step {
+  -webkit-transition: width 2s;
+  transition: width 2s;
+}
+.enterprise-panel h1 {
+  font-size: 18px;
+  font-weight: 800;
+  color: #4a3333;
+  font-family: "Comic Sans MS", "幼圆", "黑体", sans-serif;
+}
+.enterprise-panel h2 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #4a3333;
+  text-indent: 12px;
+}
+.enterprise-panel .top-bar {
+  width: 80%;
+  border: 2px solid #cccccc;
+  background-color: #f2f2f2;
+  margin: auto;
+  margin-top: 10px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  text-align: center;
+  color: black;
+}
+.enterprise-panel .panel-button {
+  over-flow: hidden;
+  text-align: center;
+  padding: 5px;
+}
+.enterprise-panel .form.payinfo .form-row label:first-child:not(.fenqi-label) {
+  width: 220px;
+}
+.enterprise-panel .form .product-info-group {
+  width: 90%;
+  margin: 0 auto;
+  padding: 10px;
+  background-color: #f2f2f2;
+}
+.enterprise-panel .form .form-row {
+  margin-top: 15px;
+  overflow: hidden;
+}
+.enterprise-panel .form .form-row .form-field {
+  float: left;
+}
+.enterprise-panel .form .form-row .inputs-container {
+  overflow: hidden;
+  float: left;
+  height: auto;
+}
+.enterprise-panel .form .form-row .inputs-container .fenqi-label {
+  display: inline-block;
+  width: 240px;
+  text-align: right;
+  margin-top: 3px;
+}
+.enterprise-panel .form .form-row .inputs-container .fenqi-label span::after {
+  content: '';
+}
+.enterprise-panel .form .form-row .inputs-container input {
+  width: 100px;
+}
+.enterprise-panel .form .form-row label:first-child:not(.fenqi-label) {
+  display: inline-block;
+  width: 150px;
+  text-align: right;
+}
+.enterprise-panel .form .form-row label:first-child:not(.fenqi-label) span::after {
+  content: ':';
+}
+.enterprise-panel .form .form-row label:first-child:not(.fenqi-label).required::after {
+  content: '*';
+  color: red;
+}
+.products-container {
+  overflow: hidden;
+  position: relative;
+}
+.products-container .products-border {
+  overflow: hidden;
+  position: relative;
+}
+.products-container .product-border:hover {
+  /*box-shadow: 0px 0px 12px 5px #b0b2ab;*/
+}
+.products-container .product {
+  width: 400px;
+  float: left;
+  overflow: hidden;
+  padding: 10px;
+}
+.products-container .product-border {
+  border: 1px solid #cccccc;
+  padding: 10px;
+  overflow: hidden;
+  background-color: #f2f2f2;
+}
+.products-container .product-content {
+  /*border: 1px solid gray;*/
+}
+.field-group {
+  margin: 0px auto;
+  marign-bottom: 15px;
+  border-bottom: 1px solid dimgray;
+  padding-bottom: 10px;
+}
+.field-group.last {
+  border: none;
+}
+.enterprise-panel .product .form .form-row label:first-child {
+  display: inline-block;
+  width: 145px;
+  text-align: right;
+}
+.enterprise-panel .product .form .form-row input[type=text] {
+  width: 160px;
+}
+.enterprise-panel .product .form .form-row label.radio-label {
+  width: 120px;
+  text-align: left;
+  display: inline;
+}
+.enterprise-panel .product .form .form-row label.radio-label span::after {
+  content: "";
+}
+.enterprise-panel .product .product-title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  color: black;
+}
+.enterprise-panel .product .span-radio::after {
+  contetn: '111';
+}
+.enterprise-panel .product .radios-field {
+  text-align: center;
+}
+.enterprise-panel .product .form .form-row input[type=text].input-price-s {
+  width: 80px;
+}
+.enterprise-panel .product .s-table {
+  width: 100%;
+  table-layout: fixed;
+  word-wrap: break-word;
+}
+.enterprise-panel .product .s-table td {
+  word-wrap: break-word;
+  word-break: break-all;
+}
+.enterprise-panel .product .s-table td {
+  text-align: center;
+  vertical-align: middle;
+}
+.enterprise-panel .product .div-inline-block {
+  display: inline-block;
+}
+.enterprise-panel .product .form-field {
+  width: 100%;
+}
+.enterprise-panel .product .label-tip {
+  text-align: left;
+}
+.enterprise-panel .product .form .form-row label:first-child.label-tip {
+  text-align: left;
+}
+.enterprise-panel .product .form .form-row label:first-child.label-tip span::after {
+  content: "";
+}
+.enterprise-panel .product .add-button {
+  float: right;
+}
+.enterprise-panel .product-checkboxs {
+  padding: 15px 10px;
+}
+.enterprise-panel .product-checkboxs label {
+  display: inline-block;
+  margin-left: 20px;
+  border: 2px solid #cccccc;
+  background-color: #f2f2f2;
+  padding-left: 20px;
+  cursor: pointer;
+  margin-top: 3px;
+}
+.enterprise-panel input[type=checkbox] {
+  width: 20px;
+  height: 30px;
+}
+.enterprise-panel .product-col-wraper {
+  /*background-color: #f6f5f5;*/
+  background-color: #e8e2e2;
+  border: 1px solid white;
+  overflow: hidden;
+  float: left;
+}
+.enterprise-panel .product-agent {
+  overflow: hidden;
+  float: left;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+}
+.active {
+  background-color: yellow;
+}
+.active2 {
+  color: green;
+  font-weight: bold;
+  font-size: 20px;
+}
+.enterprise-panel .product-checkboxs label.active {
+  font-weight: bolder;
+  color: black;
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+  -webkit-transition: scale 1s ease-in-out;
+  transition: scale 1s ease-in-out;
+}
+.image-preview {
+  position: absolute;
+}
+.image-preview .mask {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  left: 0px;
+}
+.image-preview .preview {
+  max-width: 90%;
+  max-height: 100%;
+  position: fixed;
+  margin: auto;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+}
+.image-preview .container {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 1100;
+  left: 0px;
+}
+.image-preview .opacity {
+  opacity: 0.3;
+  filter: alpha(opacity=30);
+  background-color: #000;
+}
+.image-preview .close {
+  position: fixed;
+  right: 0px;
+  top: 0px;
+  z-index: 1100;
+}
+.image-preview .content {
+  text-align: center;
+  z-index: 1100;
+  height: 100%;
+  width: 100%;
+}
+.image-preview .buttons-mask {
+  z-index: 1199;
+  margin-left: auto;
+  margin-right: auto;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  opacity: 0.3;
+  filter: alpha(opacity=30);
+  background-color: black;
+  border-radius: 50px;
+  width: 500px;
+  height: 35px;
+}
+.image-preview .buttons {
+  z-index: 1200;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  width: 500px;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+}
+.image-preview .btn-rotate {
+  background-color: #45a4f2;
+  color: #fff;
+  border-radius: 101px;
+  border: 2px solid white;
+  cursor: pointer;
+}
+.image-preview .btn-rotate:hover {
+  background-color: #022848;
+}
+.upload-file .upload-preview-img {
+  border: 1px solid gray;
+  background-color: #f2f2f2;
+  width: 100px;
+  height: 100px;
+}
+.upload-file .upload-preview-a img:hover {
+  box-shadow: 0px 0px 12px 5px #b0b2ab;
+}
+.upload-file .upload-directive .uploading {
+  color: orange;
+}
+.upload-file .upload-directive .uploaded {
+  color: green;
+}
+.upload-file .upload-directive .uploaderror {
+  color: red;
+}
+.upload-file .upload-directive.disabled .type-tip {
+  display: none;
+}
+.upload-file .upload-directive.disabled .file-field {
+  display: none;
+}
+.upload-file .delete-img {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  z-index: 100;
+  background-color: rgba(30, 42, 53, 0.5);
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  cursor: pointer;
+  color: white;
+}
+.upload-file .image-item {
+  position: relative;
+  display: inline-block;
+  margin-left: 3px;
+  margin-bottom: 3px;
+}
+.upload-file .upload-wrapper {
+  display: inline-block;
+}
+.upload-file .image-wrapper {
+  word-wrap: break-word;
+  word-break: break-all;
+}
