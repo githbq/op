@@ -9172,3 +9172,38 @@ em {
   margin-left: 300px;
   margin-right: 250px;
 }
+.m-dialog-normal .m-pagination {
+  text-align: right;
+}
+.m-dialog-normal .loading {
+  text-algin: center;
+}
+.m-dialog-normal .button-wrapper {
+  float: right;
+}
+.m-dialog-normal .panel-main .panel-header {
+  padding: 10px;
+}
+.m-dialog-normal .panel-main .panel-header input {
+  width: 180px;
+  height: 25px;
+  margin: 0 10px;
+}
+.m-dialog-normal .panel-main .panel-content {
+  height: 500px;
+  overflow: auto;
+}
+.m-dialog-normal .panel-main .panel-content .m-ztree {
+  position: relative;
+}
+.m-dialog-normal .panel-main .panel-content .no-data {
+  padding-top: 20px;
+  line-height: 60px;
+  font-size: 20px;
+  text-align: center;
+  color: #d0cfcf;
+}
+.m-dialog-normal .panel-footer {
+  padding: 10px 0;
+  text-align: center;
+}
