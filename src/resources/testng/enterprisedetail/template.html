@@ -286,6 +286,7 @@
                      ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly"
                      ng-model="payInfo.contract"
                      input-file
+                     multiple="false"
                      status="payInfo.contract_status"
                      label="合同照片"
                      response=""></div>
@@ -300,6 +301,7 @@
                 <div ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly"
                      ng-model="payInfo.contractCopy"
                      input-file
+                     multiple="false"
                      status="payInfo.contractCopy_status"
                      ng-required="false"
                      label="合同副本照片"
@@ -375,6 +377,7 @@
                 <div ng-class="{readonly:payInfoReadonly||isCaiWu}" ng-readonly="payInfoReadonly||isCaiWu"
                      ng-model="payInfo.companyGatePicture"
                      input-file
+                     multiple="false"
                      status="payInfo.companyGatePicture_status"
                      label="门头照片"
                      response=""></div>
