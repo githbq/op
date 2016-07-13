@@ -55,9 +55,13 @@
     <section class="approval-contractshow approval-table">
         <p class="title">补充合同信息</p>
         <p>补充合同照片</p>
-        <p> <a href="" target="_blank"> <img src="" class="htshow"> </a> </p>
+        <p ce-collection="imghtlist" class="imglist">
+            <span><a href="<%=item.src%>" target="_blank"><img src="<%=item.src%>" class="htshow"></a><b>X</b></span> 
+        </p>
         <p>补充合同副本照片</p>
-        <p> <a href="" target="_blank"> <img src="" class="htfbshow"> </a> </p>
+        <p ce-collection="imghtfblist" class="imglist">
+            <span><a href="<%=item.src%>" target="_blank"><img src="<%=item.src%>" class="htfbshow"></a><b>X</b></span>
+        </p>
     </section>
 
 
@@ -94,9 +98,15 @@
     <section class="approval-contract" data-state="b">
         <p class="title">补充合同</p>
     	<p><label>补充合同照片<b class="mst">*</b></label>  <input type="file" id="hetong"> (支持png、jpg、gif格式)</p>
-        <p> <img src="" id="hetongimg"> </p>
+        <!--<p> <img src="" id="hetongimg"> </p>-->
+        <p ce-collection="imghtlist" class="imglist">
+            <span><a href="<%='/op/api/file/previewimage?filePath='+item.path%>" target="_blank"><img src="<%='/op/api/file/previewimage?filePath='+item.path%>" class="htshow"></a><b>X</b></span> 
+        </p>
         <p><label>补充合同副本照片</label>  <input type="file" id="hetongfb"> (支持png、jpg、gif格式)</p>
-        <p> <img src="" id="hetongfbimg"> </p>
+        <!--<p> <img src="" id="hetongfbimg"> </p>-->
+        <p ce-collection="imghtfblist" class="imglist">
+            <span><a href="<%='/op/api/file/previewimage?filePath='+item.path%>" target="_blank"><img src="<%='/op/api/file/previewimage?filePath='+item.path%>" class="htfbshow"></a><b>X</b></span>
+        </p>
         <p> <button class="u-btn-blue savehetong">保存合同并提交</button> </p>
     </section>
 

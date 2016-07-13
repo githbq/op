@@ -8412,11 +8412,25 @@ em {
   padding: 8px 0;
 }
 .m-detailapproval .approval-contract img {
-  display: none;
   max-width: 300px;
 }
 .m-detailapproval .approval-contract .mst {
   color: red;
+}
+.m-detailapproval .approval-contract .imglist span {
+  display: inline-block;
+  position: relative;
+  width: 200px;
+}
+.m-detailapproval .approval-contract .imglist span b {
+  position: absolute;
+  font-size: 12px;
+  top: 0px;
+  right: 0px;
+}
+.m-detailapproval .approval-contract .imglist span img {
+  display: block;
+  width: 100%;
 }
 .m-detailapproval .approval-btns {
   padding: 10px 0;

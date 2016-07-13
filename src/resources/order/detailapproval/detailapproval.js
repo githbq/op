@@ -57,6 +57,9 @@ define( function(require, exports, module){
 
 			me.contractId = '';             //合同ID
 
+			me.contracts = [];  	//合同数组
+			me.contractcopys = [];  //合同副本数组
+
 			if( me.attrs.isTop ){
 				me.$view.css( {"z-index":3000} );
 			}
@@ -72,9 +75,11 @@ define( function(require, exports, module){
 							'limittype': 'IMAGE'
 						},
 						'success': function( response ){
-							me.contract = response.value.model.path;
-							me.contractFileName = response.value.model.FileName;
-							me.$hetongimg.attr('src','/op/api/file/previewimage?filePath=' + response.value.model.path ).show();
+							//me.contract = response.value.model.path;
+							//me.contractFileName = response.value.model.FileName;
+							//me.$hetongimg.attr('src','/op/api/file/previewimage?filePath=' + response.value.model.path ).show();
+							me.contracts.push( {'path':response.value.model.path,'fileName':response.value.model.FileName} );
+							me.imghtlist.reload( me.contracts );
 							me.$savehetong.removeAttr('disabled');
 						},
 						'error': function(){
@@ -95,9 +100,11 @@ define( function(require, exports, module){
 							'limittype':'IMAGE'
 						},
 						'success': function( response ){
-							me.contractCopy = response.value.model.path;
-							me.contractCopyFileName = response.value.model.FileName;
-							me.$hetongfbimg.attr('src','/op/api/file/previewimage?filePath=' + response.value.model.path ).show();
+							//me.contractCopy = response.value.model.path;
+							//me.contractCopyFileName = response.value.model.FileName;
+							//me.$hetongfbimg.attr('src','/op/api/file/previewimage?filePath=' + response.value.model.path ).show();
+							me.contractcopys.push( {'path':response.value.model.path,'fileName':response.value.model.FileName} );
+							me.imghtfblist.reload( me.contractcopys );
 							me.$savehetong.removeAttr('disabled');
 						},
 						'error': function(){
@@ -118,6 +125,14 @@ define( function(require, exports, module){
 				}
 			});
 		},
+		//移除合同图片
+		removeHtEve: function(e){
+			var me = this;
+		},
+		//移除合同副本图片
+		removeHtFbEve: function(e){
+			var me = this;
+		},
 		//状态变换
 		setState: function(){
 			var me = this;
@@ -132,6 +147,10 @@ define( function(require, exports, module){
 			console.log( index );
 
 			me.approvalPage.goToStep(index);
+
+			//
+			// 在type为a的状态下
+			// 只有点到第三个type才能提交
 			if(index == 3 && me.type == 'a'){
 				me.$('[data-state="a"]').show();
 			} else {
@@ -140,9 +159,9 @@ define( function(require, exports, module){
 		},
 		//
 		// @param id   	订单id 
-		// @param type  a 订单编辑查看(可编辑内容)  
-		//				b 补充合同(可以补充合同)
-		//				c 审批只读(可进行审批同意或驳回) 
+		// @param type  a 订单编辑查看 (可编辑内容)  
+		//				b 补充合同     (可以补充合同)
+		//				c 审批只读     (可进行审批同意或驳回) 
 		//				d 完全只读状态 
 		//              
 		// @param status  订单状态        []
@@ -258,25 +277,26 @@ define( function(require, exports, module){
 			});
 			
 			//获取到款信息
+			//没有到款信息隐藏
+			//有到款信息则显示
 			//if( me.dstatus == 3 ){
-				util.api({
-					'url':'/odr/getClaimedReceivedPayForDetail',
-					'data':{
-						'orderId': me.orderId
-					},
-					'success': function( data ){
-						console.log('到款信息');
-						console.log( data );
-						if( data.value.model ){
-							me.dklist.reload([data.value.model]);
-							me.$('.approval-daokuan').show();
-						}else{
-							me.$('.approval-daokuan').hide();
-							//me.$('#daokuanlist').html('<tr><td colspan="3"><p class="tip">暂无数据</p></td></tr>');
-						}	
-					}
-				});
-				
+			util.api({
+				'url':'/odr/getClaimedReceivedPayForDetail',
+				'data':{
+					'orderId': me.orderId
+				},
+				'success': function( data ){
+					console.log('到款信息');
+					console.log( data );
+					if( data.value.model ){
+						me.dklist.reload([data.value.model]);
+						me.$('.approval-daokuan').show();
+					}else{
+						me.$('.approval-daokuan').hide();
+						//me.$('#daokuanlist').html('<tr><td colspan="3"><p class="tip">暂无数据</p></td></tr>');
+					}	
+				}
+			});
 			//}
 			
 
