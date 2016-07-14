@@ -325,7 +325,7 @@ define( function(require, exports, module){
 			//如果是补充合同待审核 补充合同驳回 补充合同撤回 都显示补充合同
 			//则显示合同图片的同时 隐藏合同审核选择
 			//
-			//当额外信息是不可看时 隐藏合同
+			//当额外信息htshow是不可看时 隐藏合同
 			//
 			if( (me.status == 10) || (me.status == 11) || (me.status == 12) ){
 				util.api({
@@ -338,6 +338,7 @@ define( function(require, exports, module){
 
 							if( data.value.model.contractPic ){
 								me.imghtlistview.reload( data.value.model.contractPic.split(',') );
+								me.$('.approval-contractshow').show();
 							}else{
 								me.imghtlistview.reload( [] );
 							}
@@ -352,12 +353,15 @@ define( function(require, exports, module){
 				
 				if( me.info.htshow == false ){
 					me.$('.approval-contractshow').hide();
-				}else{
+				}
+				/*
+				else{
 					me.$('.approval-contractshow').show();
 				}
+				*/
 
 				//同时隐藏合同审核选择
-				//me.$('.approval-hetongopinion').hide();
+				me.$('.approval-hetongopinion').hide();
 			}
 		},
 
@@ -375,15 +379,15 @@ define( function(require, exports, module){
 		agreeEve: function(){
 			var me = this;
 
-			/*
+			
 			var bool;
 			if( me.status == 10 ){
 				bool = true;
 			}else{
 				bool = me.verify();
 			}
-			*/
-			var bool = me.verify();
+			
+			//var bool = me.verify();
 
 			if( bool ){
 				util.api({
@@ -422,7 +426,14 @@ define( function(require, exports, module){
 				return false;
 			}
 
-			var bool = me.verify();
+			var bool;
+			if( me.status == 10 ){
+				bool = true;
+			}else{
+				bool = me.verify();
+			}
+
+			//var bool = me.verify();
 
 			if( bool ){
 				util.api({
