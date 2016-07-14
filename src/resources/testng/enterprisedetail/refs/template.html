@@ -9,7 +9,7 @@
                         <img ng-src="{{'/op/api/file/previewimage?filePath='+src}}" class="upload-preview-img" src="" width="100" height="100" alt="{{alt}}"/>
                     </a>
 
-                    <div ng-if="multiple!==false" class="delete-img" ng-init="index=$index" ng-if="!ngReadonly" ng-click="deleteImage(index)">X</div>
+                    <div ng-if="multiple!==false && !ngReadonly" class="delete-img" ng-init="index=$index" ng-click="deleteImage(index)">X</div>
                     <div image-preview data-src="'/op/api/file/previewimage?filePath='+src" ng-if="showPreview.value" data-show="showPreview.value"></div>
                 </div>
             </div>

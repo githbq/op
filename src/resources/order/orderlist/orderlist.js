@@ -453,7 +453,7 @@ define( function( require, exports, module ) {
             var enterpriseId = $(e.currentTarget).attr('data-entid'); 
             me.trigger('orderCustom',{'enterpriseId':enterpriseId});
         },
-         //联合跟进人
+        //联合跟进人
         /*
         orderCustomEve:function( e ){
            var me = this;

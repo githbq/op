@@ -599,11 +599,13 @@ define(function(require, exports, module) {
                         //给使用情况赋值
                         me.$sdXKDUC.val(model.accountUsedAmount + '/' + model.accountAvailableAmount || '');
                         var tempmarketingAccountAmount = model.marketingAccountAmount
-                        if (model.marketingAccountAmount && parseInt(model.marketingAccountAmount) > parseInt(model.accountTotalAmount)) {
-                            me.$sdXKDC.val(model.marketingAccountAmount);
-                        } else {
+                        
+                        //if (model.marketingAccountAmount && parseInt(model.marketingAccountAmount) > parseInt(model.accountTotalAmount)) {
+                        //    me.$sdXKDC.val(model.marketingAccountAmount);
+                        //} else {
                             me.$sdXKDC.val(model.accountTotalAmount);
-                        }
+                        //}
+
                         me.$yingxiaoSum.val(model.marketingAccountAmount);
                         me.$yingxiaoUsed.val(model.marketingAccountUsedAmount + '/' + model.marketingAccountAvailableAmount);
 
@@ -1108,6 +1110,7 @@ define(function(require, exports, module) {
             ///me.$('#tbOperation input').val('');
 
             me.model.load( me.operations.initialInfo );
+            me.$('#expandStorageSpace').val('');
 
             //给培训助手流量总量 和 培训助手流量赋值
             /*
@@ -1226,12 +1229,13 @@ define(function(require, exports, module) {
                 'success': function(data) {
                     if (data.success) {
                         util.showTip('修改成功!');
-                        //me.getEnterprise( me.model.attrs.enterpriseId );
+                        me.getEnterprise( me.model.attrs.enterpriseId );
                         me.trigger('refresh');
                     }
                 },
                 'complete': function(data) {
                     me.getEnterprise(me.model.attrs.enterpriseId);
+                    me.$('#expandStorageSpace').val('');
                 }
             });
         },

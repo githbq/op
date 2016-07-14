@@ -8398,6 +8398,20 @@ em {
   display: inline-block;
   max-width: 300px;
 }
+.m-detailapproval .approval-contractshow span {
+  display: inline-block;
+  position: relative;
+  padding: 2px;
+  width: 186px;
+  height: 186px;
+  border: 1px #dcdcdc solid;
+}
+.m-detailapproval .approval-contractshow span img {
+  display: block;
+  margin: 0 auto;
+  max-width: 186px;
+  max-height: 186px;
+}
 .m-detailapproval .approval-daokuan {
   display: none;
 }
@@ -8412,11 +8426,34 @@ em {
   padding: 8px 0;
 }
 .m-detailapproval .approval-contract img {
-  display: none;
   max-width: 300px;
 }
 .m-detailapproval .approval-contract .mst {
   color: red;
+}
+.m-detailapproval .approval-contract .imglist span {
+  display: inline-block;
+  position: relative;
+  padding: 2px;
+  width: 186px;
+  height: 186px;
+  border: 1px #dcdcdc solid;
+}
+.m-detailapproval .approval-contract .imglist span b {
+  position: absolute;
+  font-size: 12px;
+  top: 4px;
+  right: 4px;
+  color: #fff;
+  padding: 4px;
+  background: #222;
+  cursor: pointer;
+}
+.m-detailapproval .approval-contract .imglist span img {
+  display: inline-block;
+  margin: 0 auto;
+  max-width: 186px;
+  max-height: 186px;
 }
 .m-detailapproval .approval-btns {
   padding: 10px 0;

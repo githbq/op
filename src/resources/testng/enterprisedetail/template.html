@@ -192,13 +192,13 @@
                             </label>
                             <span class="inline-m">{{item.quota}}</span>
                             <!--分割线-->
-                            <label ng-if="item.startDate">开始时间：
-                                <span class="inline-m">{{item.startDate | date:"yyyy/MM/dd" }}</span>
-                            </label>
-                            <!--分割线-->
-                            <label ng-if="item.endDate">结束时间：
-                                <span class="inline-m">{{item.endDate | date:"yyyy/MM/dd" }}</span>
-                            </label>
+                            <!--<label ng-if="item.startDate">开始时间：-->
+                                <!--<span class="inline-m">{{item.startDate | date:"yyyy/MM/dd" }}</span>-->
+                            <!--</label>-->
+                            <!--&lt;!&ndash;分割线&ndash;&gt;-->
+                            <!--<label ng-if="item.endDate">结束时间：-->
+                                <!--<span class="inline-m">{{item.endDate | date:"yyyy/MM/dd" }}</span>-->
+                            <!--</label>-->
                         </div>
                         <div class="form-field" ng-switch-when="Train_Helper">
                             <!--分割线-->
@@ -286,7 +286,7 @@
                      ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly"
                      ng-model="payInfo.contract"
                      input-file
-                     multiple="false"
+                     multiple="true"
                      status="payInfo.contract_status"
                      label="合同照片"
                      response=""></div>
@@ -301,7 +301,7 @@
                 <div ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly"
                      ng-model="payInfo.contractCopy"
                      input-file
-                     multiple="false"
+                     multiple="true"
                      status="payInfo.contractCopy_status"
                      ng-required="false"
                      label="合同副本照片"
@@ -377,7 +377,7 @@
                 <div ng-class="{readonly:payInfoReadonly||isCaiWu}" ng-readonly="payInfoReadonly||isCaiWu"
                      ng-model="payInfo.companyGatePicture"
                      input-file
-                     multiple="false"
+                     multiple="true"
                      status="payInfo.companyGatePicture_status"
                      label="门头照片"
                      response=""></div>
