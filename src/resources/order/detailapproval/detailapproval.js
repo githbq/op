@@ -68,6 +68,12 @@ define( function(require, exports, module){
 			}
 			me.$hetong.on('change',function(){
 				console.log('hetongchange');
+				if( me.contracts.length >= 10 ){
+					util.showToast('最多上传10张合同图片');
+					me.$hetong.val('');
+					return false;
+				}
+
 				var fileExtension = me.$hetong[0].files[0].name.split('.').pop().toLowerCase();
 				if( fileExtension == 'jpg' || fileExtension == 'gif' || fileExtension == 'png' || fileExtension == 'jpeg' ){
 					me.$savehetong.attr('disabled','disabled');
@@ -94,6 +100,11 @@ define( function(require, exports, module){
 			});
 
 			me.$hetongfb.on('change',function(){
+				if( me.contractcopys.length >= 10 ){
+					util.showToast('最多上传10张合同副本图片');
+					me.$hetongfb.val('');
+					return false;
+				}
 				var fileExtension = me.$hetongfb[0].files[0].name.split('.').pop().toLowerCase();
 				if( fileExtension == 'jpg' || fileExtension == 'gif' || fileExtension == 'png' || fileExtension == 'jpeg' ){
 					me.$savehetong.attr('disabled','disabled');
