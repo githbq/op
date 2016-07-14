@@ -8445,6 +8445,8 @@ em {
   top: 4px;
   right: 4px;
   color: #fff;
+  padding: 4px;
+  background: #222;
   cursor: pointer;
 }
 .m-detailapproval .approval-contract .imglist span img {
