@@ -47,7 +47,6 @@ define(function (require, exports, module) {
             controller: ['$scope', function ($scope) {
             }],
             link: function (scope, iElem, iAttrs) {
-                scope.multiple=false;
                 scope.$watch('ngModel', function () {
                     $timeout(function () {
                         scope.ngModel = scope.ngModel || '';
