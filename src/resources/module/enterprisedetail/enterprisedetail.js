@@ -599,11 +599,13 @@ define(function(require, exports, module) {
                         //给使用情况赋值
                         me.$sdXKDUC.val(model.accountUsedAmount + '/' + model.accountAvailableAmount || '');
                         var tempmarketingAccountAmount = model.marketingAccountAmount
-                        if (model.marketingAccountAmount && parseInt(model.marketingAccountAmount) > parseInt(model.accountTotalAmount)) {
-                            me.$sdXKDC.val(model.marketingAccountAmount);
-                        } else {
+                        
+                        //if (model.marketingAccountAmount && parseInt(model.marketingAccountAmount) > parseInt(model.accountTotalAmount)) {
+                        //    me.$sdXKDC.val(model.marketingAccountAmount);
+                        //} else {
                             me.$sdXKDC.val(model.accountTotalAmount);
-                        }
+                        //}
+
                         me.$yingxiaoSum.val(model.marketingAccountAmount);
                         me.$yingxiaoUsed.val(model.marketingAccountUsedAmount + '/' + model.marketingAccountAvailableAmount);
 

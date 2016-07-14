@@ -42,6 +42,8 @@ define( function(require, exports, module){
 			'click .approval-title span': 'toggleEve',
 			'click .action-agree': 'agreeEve',
 			'click .action-refuse': 'refuseEve',
+			'click .imgclose': 'imgCloseEve',
+			'click .imgfbclose': 'imgFbCloseEve',
 			'click .action-save': 'saveEve',            //重新编辑保存
 			'click .savehetong': 'saveHetongEve'        //补充合同
 		},
@@ -49,16 +51,17 @@ define( function(require, exports, module){
 			DetailApproval.__super__.init.apply( this,arguments );
 			var me = this;
 
-			me.contract = '';            	//合同图片
-			me.contractFileName = '';    	//合同图片文件名称
+			//me.contract = '';            	//合同图片
+			//me.contractFileName = '';    	//合同图片文件名称
 
-			me.contractCopy = '';        	//合同图片副本
-			me.contractCopyFileName = '';   //合同图片副本文件名称
+			//me.contractCopy = '';        	//合同图片副本
+			//me.contractCopyFileName = '';   //合同图片副本文件名称
 
 			me.contractId = '';             //合同ID
 
 			me.contracts = [];  	//合同数组
 			me.contractcopys = [];  //合同副本数组
+
 
 			if( me.attrs.isTop ){
 				me.$view.css( {"z-index":3000} );
@@ -81,6 +84,7 @@ define( function(require, exports, module){
 							me.contracts.push( {'path':response.value.model.path,'fileName':response.value.model.FileName} );
 							me.imghtlist.reload( me.contracts );
 							me.$savehetong.removeAttr('disabled');
+							me.$hetong.val('');
 						},
 						'error': function(){
 							me.$savehetong.removeAttr('disabled');
@@ -106,11 +110,11 @@ define( function(require, exports, module){
 							me.contractcopys.push( {'path':response.value.model.path,'fileName':response.value.model.FileName} );
 							me.imghtfblist.reload( me.contractcopys );
 							me.$savehetong.removeAttr('disabled');
+							me.$hetongfb.val('');
 						},
 						'error': function(){
 							me.$savehetong.removeAttr('disabled');
 						}
-
 					})
 				}
 			});
@@ -125,13 +129,19 @@ define( function(require, exports, module){
 				}
 			});
 		},
-		//移除合同图片
-		removeHtEve: function(e){
+		//去除合同图片
+		imgCloseEve: function(e){
 			var me = this;
+			var index = $(e.currentTarget).parent('span').index();
+			me.contracts.splice(index,1);
+			me.imghtlist.reload( me.contracts );
 		},
-		//移除合同副本图片
-		removeHtFbEve: function(e){
+		//去除合同副本图片
+		imgFbCloseEve: function(e){
 			var me = this;
+			var index = $(e.currentTarget).parent('span').index();
+			me.contractcopys.splice(index,1);
+			me.imghtfblist.reload(me.contractcopys);
 		},
 		//状态变换
 		setState: function(){
@@ -316,17 +326,14 @@ define( function(require, exports, module){
 						if( data.success ){
 
 							if( data.value.model.contractPic ){
-								me.$('.htshow').attr('src','/op/api/file/previewimage?filePath='+data.value.model.contractPic);
-								me.$('.htshow').parent().attr('href','/op/api/file/previewimage?filePath='+data.value.model.contractPic);
+								me.imghtlistview.reload( data.value.model.contractPic.split(',') );
 							}else{
-								me.$('.htshow').hide();
+								me.imghtlistview.reload( [] );
 							}
-
 							if( data.value.model.contractPicCopy ){
-								me.$('.htfbshow').attr('src','/op/api/file/previewimage?filePath='+data.value.model.contractPicCopy);
-								me.$('.htfbshow').parent().attr('href','/op/api/file/previewimage?filePath='+data.value.model.contractPicCopy);
+								me.imghtfblistview.reload( data.value.model.contractPicCopy.split(',') );
 							}else{
-								me.$('.htfbshow').hide();
+								me.imghtfblistview.reload( [] );
 							}
 						}
 					}
@@ -507,12 +514,26 @@ define( function(require, exports, module){
 		saveHetongEve: function(){
 			var me = this;
 
-			if( !me.contract ){
+			if( me.contracts.length <= 0 ){
 				util.showToast('请选择合同照片');
 				return false;
 			}
 
-			console.log('savehetong');
+			var contract = [],
+				contractFileName = [];
+			me.contracts.forEach(function(item){
+				contract.push( item.path );
+				contractFileName.push( item.fileName );
+			});
+
+			var contractCopy = [],
+				contractCopyFileName = [];
+
+			me.contractcopys.forEach(function(item){
+				contractCopy.push( item.path );
+				contractCopyFileName.push( item.fileName );
+			});
+
 			var data = me.approvalPage.getReturnData();
 
 			//补充合同
@@ -520,10 +541,10 @@ define( function(require, exports, module){
 				'url':'/odr/supContractSubmit',
 				'contentType':'application/json',
 				'data': JSON.stringify({
-					'contract': me.contract,
-					'contractCopy': me.contractCopy,
-					'contractFileName': me.contractFileName,
-					'contractCopyFileName': me.contractCopyFileName,
+					'contract': contract.join(','),
+					'contractCopy': contractCopy.join(','),
+					'contractFileName': contractFileName.join(','),
+					'contractCopyFileName': contractCopyFileName.join(','),
 					'contractId': data.payInfo.contractId
 				}),
 				'success': function( data ){
@@ -541,6 +562,10 @@ define( function(require, exports, module){
 			var me = this;
 			me.$view.find('.approval-content').empty();
 			me.$('[data-state]').hide();
+			
+			me.contracts = [];  	//合同数组
+			me.contractcopys = [];  //合同副本数组
+
 			DetailApproval.__super__.hide.apply( this,arguments );
 			me.remove();
 		}

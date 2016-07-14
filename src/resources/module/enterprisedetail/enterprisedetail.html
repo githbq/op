@@ -193,6 +193,13 @@
 				</p>
 				<p>
 					<label class="hw">
+						<span>存储扩容(GB)</span>
+						<input type="text" class="g-ipt ipt-m" oninput="this.value=this.value.replace(/[^\d]/g,'')" id="expandStorageSpace">
+					</label>
+				</p>
+
+				<p>
+					<label class="hw">
 						<span>培训助手流量总量(小时)</span>
 						<input id="trainHelperTotalCapacity"  class="g-ipt ipt-m" type="text" disabled="disabled">
 					</label>
@@ -212,12 +219,8 @@
 						<input type="text" class="g-ipt ipt-m" ce-model="groupNumLimit" oninput="this.value=this.value.replace(/[^\d]/g,'')">
 					</label>
 				</p>
-				<p>
-					<label class="hw">
-						<span>存储扩容(GB)</span>
-						<input type="text" class="g-ipt ipt-m" oninput="this.value=this.value.replace(/[^\d]/g,'')" id="expandStorageSpace">
-					</label>
-				</p>
+				
+				<!--
 				<div id="tbOperation" class="tb">
 					<p class="tr off">
 						<button class="btn-blue" id="sBtnChangeStatistics">保存</button>
@@ -237,6 +240,7 @@
 					</table>
 					<div class="pager"></div>
 				</div>
+				-->
 			</div>
 		</section>
 		
