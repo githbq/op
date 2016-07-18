@@ -90,7 +90,7 @@
                         <td><%=item.order.enterpriseName%></td>
                         <td><%=item.order.enterpriseAccount%></td>
                         <td><%=item.orderTypeStr%></td>
-                        <td><%=item.account && item.account.name%></td>
+                        <td><%=item.account ? item.account.name:''%></td>
                         <td><%=item.agent ? item.agent.name:''%></td>
                         <td><%=item.approvalNodeStr%></td>
                         <td><%=item.claimReceivedPayStatusStr%></td>
