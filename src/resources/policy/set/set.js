@@ -95,8 +95,8 @@ define( function( require, exports, module ) {
                 util.showToast('请输入内容');
                 return;
             }
-            if(content.length > 2500){
-                util.showToast('内容过长，请控制2500字以下');
+            if(content.length > 10000){
+                util.showToast('内容过长，请控制10000字以下');
                 return;
             }
             var newPolicy = {
@@ -159,10 +159,6 @@ define( function( require, exports, module ) {
             }
             if(!content) {
                 util.showToast('请输入内容');
-                return;
-            }
-            if(content.length > 2500){
-                util.showToast('内容过长，请控制2500字以下');
                 return;
             }
 
