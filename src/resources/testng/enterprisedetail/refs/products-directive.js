@@ -16,7 +16,7 @@ define(function (require, exports, module) {
             waterfallcomput($('.products-border'), $('.product-agent').has('.product'), colWrapperStr);
         }, delay || 50);
     }
-
+    //窗口改变大小事件
     function resizeEvent() {
         $('.enterprise-panel').length > 0 && wrapperReset();
     }
@@ -227,7 +227,7 @@ define(function (require, exports, module) {
                         }
                     }
 
-                    //如果用户快速点击复选框在DOM没渲染成功的时候就执行了第二次重组会发生意想不到的事件，所有要避免用户狂点击，数组变动过快
+                    //如果用户快速点击复选框在DOM没渲染成功的时候就执行了第二次重组会发生意想不到的事情，所以要避免用户点击导致数组变动过快
                     //复选框选中事件
                     $scope.checkProduct = function (checked, checkbox) {
                         $scope.checkboxDisabled = true;
@@ -324,7 +324,7 @@ define(function (require, exports, module) {
                         $scope.isUserControl = true;
                         //执行事件
                         fieldStruct.onchange = fieldStruct.onchange || [];
-                        //重新确实权重 确保ajax在最后被调用  priority优先级数越高越先调用
+                        //重新确定权重 确保ajax在最后被调用  priority优先级数越高越先调用
                         for (var i = 0; i < fieldStruct.onchange.length; i++) {
                             var changeItem = fieldStruct.onchange[i];
                             if (changeItem.type == 'ajax') {
@@ -359,9 +359,38 @@ define(function (require, exports, module) {
                                     ajaxSetValue(changeItem, product);
                                 }
                                     ;
+                                case 'attribute':
+                                {
+                                    //远程赋值操作
+                                    attributeSetValue(changeItem, fieldStruct, product);
+                                }
+                                    ;
                             }
                         }
                     };
+                    //赋属性值
+                    function attributeSetValue(changeItem, fieldStruct, product) {
+                        //根据值不同给其他数据的属性赋值
+                        if (changeItem.switch) {
+                            _.each(changeItem.switch, function (item, i) {
+                                if (fieldStruct.value.valueData.value == item.value) {
+                                    eachActions(item.actions);
+                                }
+                            });
+                        }
+                        //遍历行为
+                        function eachActions(actions) {
+                            if (actions) {
+                                _.each(actions, function (item, i) {
+                                    var findData = _.findWhere(product.logic.data, {name: item.name});
+                                    if (findData && angular.isDefined(item.hidden)) {
+                                        findData.hidden = findData.valueData.hidden = item.hidden;
+                                    }
+                                });
+                            }
+                        }
+                    }
+
                     //ajax赋值操作
                     function ajaxSetValue(changeItem, product) {
                         if (!changeItem.url) {
