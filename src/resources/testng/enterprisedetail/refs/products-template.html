@@ -23,7 +23,7 @@
                             {{product.logic.attr.title}}
                         </div>
                         <div class="group-wrapper" ng-repeat="groups in product.states | groupBy:'groupName'">
-                            <div class="field-group form" ng-class="{'last':$last}" ng-if="groups.length>0" ng-init="currentFormName='product_'+product.logic.attr.productId+'_'+$index" ng-form name="{{'product_'+product.logic.attr.productId+'_'+$index}}">
+                            <div class="field-group form" ng-class="{'last':$last}" ng-if="checkGroupShow(groups)" ng-init="currentFormName='product_'+product.logic.attr.productId+'_'+$index" ng-form name="{{'product_'+product.logic.attr.productId+'_'+$index}}">
                                 <div class="form-row" ng-if="field.hidden!==true" ng-repeat="field in groups">
                                     <div class="form-field" ng-class="{'radios-field':field.type=='radio'}" ng-switch="field.dataType">
                                         <!--可输入数字框-->
@@ -41,7 +41,7 @@
                                         <!--可输入整型-->
                                         <div ng-switch-when="int">
                                             <label ng-if="field.label" ng-class="{required:field.validate.required}"><span class="title">{{field.label|trim2:true}}</span></label>
-                                            <input  type="text" number="{int:true}" name="{{product.productId+'$'+field.groupName+'$'+field.name}}"
+                                            <input type="text" number="{int:true}" name="{{product.productId+'$'+field.groupName+'$'+field.name}}"
                                                    ng-required="field.validate.required" ng-readonly="allReadonly||field.readonly"
                                                    ng-disabled="allReadonly||field.readonly"
                                                    min="{{getValidateValue('moreThan',field,product)}}"
@@ -65,7 +65,7 @@
                                         </div>
                                         <!--添加销售-->
                                         <div ng-switch-when="sales" array-required name="sales" ng-model="field.value.valueData.valueItems">
-                                            <label  ng-init="field.value.valueData.valueItems=field.value.valueData.valueItems||[]" class="label-tip" ng-if="field.label" ng-class="{required:field.validate.required}"><span class="title">{{field.label|trim2:true}}</span></label>
+                                            <label ng-init="field.value.valueData.valueItems=field.value.valueData.valueItems||[]" class="label-tip" ng-if="field.label" ng-class="{required:field.validate.required}"><span class="title">{{field.label|trim2:true}}</span></label>
                                             <a ng-disabled="allReadonly||field.readonly"
                                                class="add-button" onselectstart="return false;"
                                                ng-if="!(allReadonly||field.readonly) && field.value.valueData.valueItems.length<10"
@@ -88,7 +88,7 @@
                                         </div>
                                         <!--添加合作人-->
                                         <div ng-switch-when="partners" required name="partners" ng-model="field.value.valueData.valueItems">
-                                            <label  ng-init="field.value.valueData.valueItems=field.value.valueData.valueItems||[]" class="label-tip" ng-if="field.label" ng-class="{required:field.validate.required}"><span class="title">{{field.label|trim2:true}}</span></label>
+                                            <label ng-init="field.value.valueData.valueItems=field.value.valueData.valueItems||[]" class="label-tip" ng-if="field.label" ng-class="{required:field.validate.required}"><span class="title">{{field.label|trim2:true}}</span></label>
                                             <a ng-disabled="allReadonly||field.readonly"
                                                onselectstart="return false;" class="add-button"
                                                ng-if="!(allReadonly||field.readonly) && field.value.valueData.valueItems.length<10"
@@ -108,6 +108,7 @@
                                         <!--输入时间-->
                                         <div ng-switch-when="time">
                                             <label ng-if="field.label" ng-class="{required:field.validate.required}"><span class="title" ng-init="field.dateConfig={type:0}">{{field.label|trim2:true}}</span></label>
+
                                             <div class="div-inline-block">
                                                 <div ng-disabled="allReadonly||field.readonly"
                                                      min-date="{{getValidateValue('moreThan',field,product)}}" max-date="{{getValidateValue('lessThan',field,product)}}"
@@ -123,6 +124,7 @@
                                         <!--输入结束时间-->
                                         <div ng-switch-when="endTime">
                                             <label ng-if="field.label" ng-class="{required:field.validate.required}"><span class="title" ng-init="field.dateConfig={type:1}">{{field.label|trim2:true}}</span></label>
+
                                             <div class="div-inline-block">
                                                 <div ng-disabled="allReadonly||field.readonly"
                                                      min-date="{{getValidateValue('moreThan',field,product)}}" max-date="{{getValidateValue('lessThan',field,product)}}"
@@ -152,8 +154,8 @@
                                         </div>
                                         <!--错误项-->
                                         <!--<div ng-switch-default>-->
-                                            <!--<label ng-if="field.label"><span class="title">{{field.label|trim2:true}}</span></label>-->
-                                            <!--<input type="text" value="错误项:{{field.name}}"/>-->
+                                        <!--<label ng-if="field.label"><span class="title">{{field.label|trim2:true}}</span></label>-->
+                                        <!--<input type="text" value="错误项:{{field.name}}"/>-->
                                         <!--</div>-->
                                     </div>
                                 </div>

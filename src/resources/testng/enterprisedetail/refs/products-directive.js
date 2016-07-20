@@ -16,6 +16,7 @@ define(function (require, exports, module) {
             waterfallcomput($('.products-border'), $('.product-agent').has('.product'), colWrapperStr);
         }, delay || 50);
     }
+
     //窗口改变大小事件
     function resizeEvent() {
         $('.enterprise-panel').length > 0 && wrapperReset();
@@ -172,7 +173,18 @@ define(function (require, exports, module) {
                             }
                         });
                     }
-
+                    //检测组是否显示
+                    $scope.checkGroupShow = function (items) {
+                        debugger
+                        var hasVisible = false;
+                        _.each(items, function (n, i) {
+                            if (n.hidden !== true) {
+                                hasVisible = true;
+                                return;
+                            }
+                        })
+                        return hasVisible;
+                    }
                     //改变产品的状态　　　
                     function changeState(product, state) {
                         wrapperReset();
@@ -210,7 +222,7 @@ define(function (require, exports, module) {
                             product.logic.currState = state;
                         }
                         var stateData = getStateCombine(product.logic, product);//所有的状态
-                        product.states = stateData.visibleStates;//可见的状态
+                        product.states = stateData.allStates;// stateData.visibleStates;//可见的状态
                         var findIndex = _.findIndex($scope.products, {productId: product.productId});
                         if (findIndex >= 0) {
                             $scope.products[findIndex] = product;
@@ -382,9 +394,10 @@ define(function (require, exports, module) {
                         function eachActions(actions) {
                             if (actions) {
                                 _.each(actions, function (item, i) {
-                                    var findData = _.findWhere(product.logic.data, {name: item.name});
+                                    var findData = _.findWhere(product.states, {name: item.name});
                                     if (findData && angular.isDefined(item.hidden)) {
-                                        findData.hidden = findData.valueData.hidden = item.hidden;
+                                        findData.valueData && (findData.valueData.hidden = item.hidden);
+                                        findData.hidden = item.hidden;
                                     }
                                 });
                             }
