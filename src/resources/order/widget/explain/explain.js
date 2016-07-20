@@ -55,6 +55,7 @@ define(function(require, exports, module){
 			}else{
 				me.$editUrl.hide();
 				me.$showUrl.show();
+				approvedUrl = approvedUrl||'';
 				if(approvedUrl.indexOf('http://')>-1){
 					me.$('.approval-url').attr('href',approvedUrl);
 				}else{
