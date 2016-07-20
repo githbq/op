@@ -1565,6 +1565,10 @@ define(function(require, exports, module) {
         },
         stopService: function() {
             var me = this;
+			if(!me.$('#stopReason').val()){
+				util.showToast('请填写停用原因');
+                return false;
+			}
             if (!window.confirm('是否确认停用企业?\r\n' + this.generateConfirmMsg())) {
                 return;
             }

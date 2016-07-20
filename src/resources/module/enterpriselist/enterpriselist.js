@@ -20,7 +20,7 @@ define(function(require, exports, module) {
     var TransEnt = MClass( Dialog ).include({
         defaultAttr:{
             'title': '转移企业',
-            'width': 500
+            'width': 575
         },
         events:{
             'click .action-submit': 'submitEve',
