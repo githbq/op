@@ -173,18 +173,18 @@ define(function (require, exports, module) {
                             }
                         });
                     }
+
                     //检测组是否显示
                     $scope.checkGroupShow = function (items) {
-                        debugger
                         var hasVisible = false;
                         _.each(items, function (n, i) {
                             if (n.hidden !== true) {
                                 hasVisible = true;
                                 return;
                             }
-                        })
+                        });
                         return hasVisible;
-                    }
+                    };
                     //改变产品的状态　　　
                     function changeState(product, state) {
                         wrapperReset();
