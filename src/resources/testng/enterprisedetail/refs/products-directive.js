@@ -268,18 +268,22 @@ define(function (require, exports, module) {
                             }
                             var findData = _.findWhere(logic.data, {name: name});
                             var newState = baseState[i];
-                            switchSetStateValue(newState, product);//数据赋值逻辑
+                            newState.value = newState.value || {};
                             if (findData) {
-                                newState.value = newState.value || {};
                                 if (checkUN(findData.value)) {
                                     findData.value = newState.value.value || '';
                                 }
                                 newState.value.valueData = findData;
+                                if (checkUN(findData.value)) {
+                                    switchSetStateValue(newState, product);//数据赋值逻辑
+                                }
                                 if ($scope.isUserControl && newState.value.valueData.readonly === true && !newState.readonly) {//在用户操作的值清空逻辑
                                     newState.value.valueData.value = '';
                                 }
                                 newState.value.valueData.hidden = newState.hidden;//由于数据是固定的而结构经常在变动 部分状态保存在data上
                                 newState.value.valueData.readonly = newState.readonly;
+                            } else {
+                                switchSetStateValue(newState, product);//数据赋值逻辑
                             }
                         }
                         var tempItems = [];
