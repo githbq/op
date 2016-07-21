@@ -43,7 +43,7 @@ define( function( require, exports, module ) {
             });
                
         },
-        show: function( id ){
+        show: function( id, bool){
             CreateReceipt.__super__.show.apply( this,arguments );
             var me = this;
             me.id = id;
@@ -65,8 +65,8 @@ define( function( require, exports, module ) {
                     }
                 });
             }
-            
-
+            bool = bool||false;
+            me.$info.slice(0,2).prop('disabled',bool);
         },
         hide: function(){
             CreateReceipt.__super__.hide.apply( this,arguments );
@@ -480,7 +480,7 @@ define( function( require, exports, module ) {
         //修改编辑
         edit:function(e) {
             var id = $(e.currentTarget).attr('data-id');
-            var bUpdate = ($(e.currentTarget).html() == '编辑')? false: true;
+            var bUpdate = $(e.currentTarget).attr('data-bool') == 1? true: false;
             var me = this;
             me.trigger('modify', id, bUpdate );    
         },
@@ -623,8 +623,8 @@ define( function( require, exports, module ) {
             receivedList.search();
         }
         // 增加、修改
-        receivedList.on('modify', function(id) {
-            createReceipt.show(id);
+        receivedList.on('modify', function(id, b) {
+            createReceipt.show(id, b);
         }); 
         // 选择订单信息
         receivedList.on('getOrder', function(id) {

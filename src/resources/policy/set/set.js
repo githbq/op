@@ -198,7 +198,7 @@ define( function( require, exports, module ) {
             'click .accordian h4': 'showAccordian'
         },
         elements:{
-            '.policyItems': 'policyItems'
+            '.policyitems': 'policyItems'
         },
         init: function(){
             Preview.__super__.init.apply( this, arguments );
