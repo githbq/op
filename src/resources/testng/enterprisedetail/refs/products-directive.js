@@ -268,7 +268,6 @@ define(function (require, exports, module) {
                             }
                             var findData = _.findWhere(logic.data, {name: name});
                             var newState = baseState[i];
-                            switchSetStateValue(newState, product);//数据赋值逻辑
                             if (findData) {
                                 newState.value = newState.value || {};
                                 if (checkUN(findData.value)) {
@@ -281,6 +280,7 @@ define(function (require, exports, module) {
                                 newState.value.valueData.hidden = newState.hidden;//由于数据是固定的而结构经常在变动 部分状态保存在data上
                                 newState.value.valueData.readonly = newState.readonly;
                             }
+                            switchSetStateValue(newState, product);//数据赋值逻辑
                         }
                         var tempItems = [];
                         var hiddenTempItems = [];
