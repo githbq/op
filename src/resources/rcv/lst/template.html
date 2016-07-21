@@ -3,6 +3,7 @@
     <tr>
         <td></td>
         <td><%=value.receivedPayNum%></td>
+        <td><%=value.receivedPayAmount%></td>
         <td><%=value.payDate%></td>
         <td><%=value.payerName%></td>
         <td>
@@ -25,7 +26,7 @@
         </td>
         <td>
             <a class="<%=value.canDelete ? 'delete' : 'unavailable'%>"  data-id="<%=value.id%>">删除</a>&nbsp;
-            <a class="edit" data-id="<%=value.id%>"><%=value.canUpdate? '编辑':'查看'%></a>&nbsp;
+            <a class="edit" data-id="<%=value.id%>">编辑</a>&nbsp;
             <a class="<%=value.canSelectOrder ? 'selectOrder' : 'unavailable'%>" data-id="<%=value.id%>">选择订单</a>&nbsp;
         </td>
         <td></td>

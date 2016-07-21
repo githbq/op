@@ -43,11 +43,10 @@ define( function( require, exports, module ) {
             });
                
         },
-        show: function( id, bool ){
+        show: function( id ){
             CreateReceipt.__super__.show.apply( this,arguments );
             var me = this;
             me.id = id;
-            me.bUpdate = bool;
             if(id){
                 util.api({
                     url: '~/op/api/a/odr/receivedpay/detail',
@@ -66,23 +65,12 @@ define( function( require, exports, module ) {
                     }
                 });
             }
-            if(bool){
-                me.$data.prop('disabled',true);
-                me.$submit.prop({'disabled':true, 'class': ''});
-                me.$department.prop('class', '');
-                return;
-            }
-            me.$data.prop('disabled',false);
-            me.$submit.prop({'disabled':false, 'class': 'btn-blue'});
-            me.$department.prop('class', 'btn-blue');
+            
 
         },
         hide: function(){
             CreateReceipt.__super__.hide.apply( this,arguments );
             this.$data.val('');
-            $(".info option[disabled]").each(function(i,item){
-                this.selected = true;
-            });
             this.id='';
         },
         keydown: function(e) {//只能删除不能输入
@@ -635,8 +623,8 @@ define( function( require, exports, module ) {
             receivedList.search();
         }
         // 增加、修改
-        receivedList.on('modify', function(id, bUpdate) {
-            createReceipt.show(id, bUpdate);
+        receivedList.on('modify', function(id) {
+            createReceipt.show(id);
         }); 
         // 选择订单信息
         receivedList.on('getOrder', function(id) {
