@@ -268,10 +268,10 @@ define(function (require, exports, module) {
                             }
                             var findData = _.findWhere(logic.data, {name: name});
                             var newState = baseState[i];
+                            newState.value = newState.value || {};
                             if (findData) {
-                                newState.value = newState.value || {};
                                 if (checkUN(findData.value)) {
-                                    findData.value = newState.value.value || '';
+                                    findData.value = newState.value.value;
                                 }
                                 newState.value.valueData = findData;
                                 if ($scope.isUserControl && newState.value.valueData.readonly === true && !newState.readonly) {//在用户操作的值清空逻辑
@@ -296,22 +296,24 @@ define(function (require, exports, module) {
 
                     //分支判断为状态赋值
                     function switchSetStateValue(newState, product) {
-                        switch (newState.value.type) {
-                            case 'ajax':
-                            {
-                                ajaxSetValue(newState.value, product);
+                        if (checkUN(newState.value.valueData.value)) {
+                            switch (newState.value.type) {
+                                case 'ajax':
+                                {
+                                    ajaxSetValue(newState.value, product);
+                                }
+                                    break;
+                                case 'normal'://普通赋值由由结构中向数据赋值
+                                {
+                                    newState.value.valueData.value = newState.value.value;
+                                }
+                                    break;
+                                case 'copy'://指定data里的一个值赋给这个值
+                                {
+                                    newState.value.valueData.value = getValueForSwitchValueType(newState.value.valueType, newState.value.valueRef, product)
+                                }
+                                    break;
                             }
-                                break;
-                            case 'normal'://普通赋值由由结构中向数据赋值
-                            {
-                                newState.value.valueData.value = newState.value.value;
-                            }
-                                break;
-                            case 'copy'://指定data里的一个值赋给这个值
-                            {
-                                newState.value.valueData.value = getValueForSwitchValueType(newState.value.valueType, newState.value.valueRef, product)
-                            }
-                                break;
                         }
                     }
 
