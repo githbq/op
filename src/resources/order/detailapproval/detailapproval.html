@@ -56,11 +56,11 @@
         <p class="title">补充合同信息</p>
         <p>补充合同照片</p>
         <p ce-collection="imghtlistview" class="imglistview">
-            <span><a href="/op/api/file/previewimage?filePath="+<%=item.path%> target="_blank"><img src="/op/api/file/previewimage?filePath="+<%=item.path%> class="htshow"></a></span> 
+            <span><a href="<%='/op/api/file/previewimage?filePath='+item%>" target="_blank"><img src="<%='/op/api/file/previewimage?filePath='+item%>" class="htshow"></a></span> 
         </p>
-        <p>补充合同副本照片</p>
+              <p>补充合同副本照片</p>
         <p ce-collection="imghtfblistview" class="imgfblistview">
-            <span><a href="/op/api/file/previewimage?filePath="+<%=item.path%>  target="_blank"><img src="/op/api/file/previewimage?filePath="+<%=+item.path%> class="htfbshow"></a></span>
+            <span><a href="<%='/op/api/file/previewimage?filePath='+item%>" target="_blank"><img src="<%='/op/api/file/previewimage?filePath='+item%>" class="htfbshow"></a></span>
         </p>
     </section>
 
