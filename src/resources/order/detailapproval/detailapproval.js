@@ -535,6 +535,11 @@ define( function(require, exports, module){
 		//保存合同
 		saveHetongEve: function(){
 			var me = this;
+			
+			if( !me.$('#httongzhang').val() ){
+				util.showToast('请填写合同章');
+				return false;
+			}
 
 			if( me.contracts.length <= 0 ){
 				util.showToast('请选择合同照片');
@@ -567,6 +572,7 @@ define( function(require, exports, module){
 					'contractCopy': contractCopy.join(','),
 					'contractFileName': contractFileName.join(','),
 					'contractCopyFileName': contractCopyFileName.join(','),
+					'sealName':me.$('#httongzhang').val(),
 					'contractId': data.payInfo.contractId
 				}),
 				'success': function( data ){
