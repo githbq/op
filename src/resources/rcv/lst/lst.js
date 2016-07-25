@@ -23,7 +23,7 @@ define( function( require, exports, module ) {
             'keydown #c-date': 'keydown',
             'input .fix': 'examine',
             'afterpaste .fix': 'examine',
-            //'blur .fix': 'fix'
+            'blur .fix': 'fix'
         },
         elements:{
             '#c-rcvNum': 'rcvNum',
@@ -82,18 +82,30 @@ define( function( require, exports, module ) {
         },
         examine: function(e){//限制两位小数
             var obj = $(e.currentTarget);
+            var reg = /^\d{1,10}$|^d{1,10}\.{1}\d{0,2}$/;
+            if(reg.test(obj.val())){
+                return;
+            }
             var temp = obj.val().replace(/[^0-9\.]/g,'');
-            temp = temp.slice(0,temp.indexOf('.') === -1? temp.length : temp.indexOf('.') + 3);
+            var index = temp.indexOf('.');
+            if(index != -1){
+                var tempInt = temp.slice(0, index);
+                var tempFloat = temp.slice(index+1, index+3).replace(/[^0-9]/g,'');
+                temp = tempInt.slice(0,10) + '.' +tempFloat;
+            }else{
+                temp = temp.slice(0,10)
+            }
+            
             obj.val(temp);
         },
-        // fix: function(e){//
-        //     var obj = $(e.currentTarget);
-        //     if(!obj.val()){
-        //         return;
-        //     }
-        //     var temp = parseFloat(obj.val()).toFixed(2);
-        //     obj.val(temp);
-        // },
+        fix: function(e){//
+            var obj = $(e.currentTarget);
+            if(!obj.val()){
+                return;
+            }
+            var temp = parseFloat(obj.val()).toFixed(2);
+            obj.val(temp);
+        },
         selectDeptEve:function(){
             var me = this;
             me.deptTree= new CustomTree({ 
