@@ -377,6 +377,10 @@ define( function(require, exports, module){
 
 		//同意
 		agreeEve: function(){
+			var c = confirm('确认审批通过吗？')；
+			if(!c){
+				return;
+			}
 			var me = this;
 
 			
