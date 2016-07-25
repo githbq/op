@@ -82,7 +82,7 @@ define( function( require, exports, module ) {
         },
         examine: function(e){//限制两位小数
             var obj = $(e.currentTarget);
-            var reg = /^\d{1,10}$|^d{1,10}\.{1}\d{0,2}$/;
+            var reg = /(^\d{1,10}$)|(^\d{1,10}\.{1}\d{0,2}$)/;
             if(reg.test(obj.val())){
                 return;
             }
@@ -90,7 +90,7 @@ define( function( require, exports, module ) {
             var index = temp.indexOf('.');
             if(index != -1){
                 var tempInt = temp.slice(0, index);
-                var tempFloat = temp.slice(index+1, index+3).replace(/[^0-9]/g,'');
+                var tempFloat = temp.replace(/[^0-9]/g,'').slice(index, index+2);
                 temp = tempInt.slice(0,10) + '.' +tempFloat;
             }else{
                 temp = temp.slice(0,10)
