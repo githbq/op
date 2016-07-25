@@ -1,0 +1,15 @@
+<div class="image-preview">
+	<div class="mask opacity">
+	</div>
+	<div class="container" ng-click="close()">
+		<div class="content">
+			<a ng-href="{{src}}" target="_black" ng-click="hrefClick($event)">
+				<img class="preview" ng-src="{{src}}" src=""/>
+			</a>
+		</div>
+		<div class="buttons-mask"></div>
+
+	</div>
+	<div class="buttons"><input type="button" class="btn-rotate" ng-click="rotation()" value="旋转"/></div>
+</div>
+

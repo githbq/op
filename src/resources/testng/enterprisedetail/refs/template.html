@@ -4,7 +4,7 @@
 
         <div class="upload-wrapper">
             <div class="image-wrapper">
-                <div ng-init="showPreview={value:false}" ng-if="src" class="image-item" ng-repeat="src in imgArr track by $index">
+                <div ng-init="hrefClick={value:false}" ng-if="src" class="image-item" ng-repeat="src in imgArr track by $index">
                     <a  ng-click="showBig(showPreview)" target="_blank" class="upload-preview-a">
                         <img ng-src="{{'/op/api/file/previewimage?filePath='+src}}" class="upload-preview-img" src="" width="100" height="100" alt="{{alt}}"/>
                     </a>

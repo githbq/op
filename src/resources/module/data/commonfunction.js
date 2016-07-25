@@ -24,8 +24,14 @@ define( function(require, exports, module){
             tempAry[2] = (tempAry[2] == 'true') ? '同意' : '驳回';
             tempAry[3] = tempAry[3] || '';
             tempAry[4] = tempAry[4] || '';
-            tempAry[5] = tempAry[5] || '';
-            strDom += '<tr><td>' + tempAry[0]  + '</td><td>' + tempAry[1] + '</td><td>' + tempAry[2] + '</td><td>' + tempAry[3] + '</td><td>' + tempAry[4] + '</td><td>' + tempAry[5] +'</td></tr>'
+			tempAry[5] = tempAry[5] || '';
+            tempAry[6] = tempAry[6] || '';
+			if(tempAry[4]){
+				 strDom += '<tr><td>' + tempAry[0]  + '</td><td>' + tempAry[1] + '</td><td>' + tempAry[2] + '</td><td>' + tempAry[3] + '</td><td><a href="javascript:" class="img-info" data-imglist="'+tempAry[4]+'">查看</a></td><td>' + tempAry[5] + '</td><td>' + tempAry[6] +'</td></tr>'
+			}else{
+				 strDom += '<tr><td>' + tempAry[0]  + '</td><td>' + tempAry[1] + '</td><td>' + tempAry[2] + '</td><td>' + tempAry[3] + '</td><td>暂无</td><td>' + tempAry[5] + '</td><td>' + tempAry[6] +'</td></tr>'
+			}
+           
         }
         return strDom;
     }

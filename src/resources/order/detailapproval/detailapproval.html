@@ -18,6 +18,7 @@
                     <th style="width:210px;">审批时间</th>
                     <th style="width:120px;">审批结果</th>
                     <th style="width:140px;">审批意见</th>
+					 <th style="width:140px;">备注照片</th>
                     <th style="width:85px;">合同审核结果</th>
                     <th style="width:145px;">合同审核意见</th>
                 </tr>
@@ -54,6 +55,7 @@
     <!--补充合同展示页面 view-->
     <section class="approval-contractshow approval-table">
         <p class="title">补充合同信息</p>
+		<p style="line-height:50px;"><label>合同章名称:<input type="text" id="showhetong" style="margin-left: 40px;" disabled="disabled"></p>
         <p>补充合同照片</p>
         <p ce-collection="imghtlistview" class="imglistview">
             <span><a href="<%='/op/api/file/previewimage?filePath='+item%>" target="_blank"><img src="<%='/op/api/file/previewimage?filePath='+item%>" class="htshow"></a></span> 
@@ -87,6 +89,12 @@
                 <option value="其他">其他</option>
             </select>
         </p>
+		<div class="approval-hetongopinion approval-checkoption"> 
+            <p style="line-height:50px;"><label>备注照片</label>  <input type="file" id="hetonglyl" style="margin-left: 30px;" > (支持png、jpg、gif格式)</p>
+			 <p ce-collection="imghtlistlyl" class="imglist">
+				<span><a href="<%='/op/api/file/previewimage?filePath='+item.path%>" target="_blank"><img src="<%='/op/api/file/previewimage?filePath='+item.path%>" class="htshow"></a><b class="imgcheckclose">X</b></span> 
+			</p>
+        </div>
         <p>
             <textarea cols="20" rows="4" ce-model="comment" maxlength="1000"></textarea>
         </p>

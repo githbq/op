@@ -7805,6 +7805,22 @@ em {
 .d-read-clue #clue {
   margin-top: 20px;
 }
+#modifyPhone .main p {
+  line-height: 50px;
+  font-size: 20px;
+}
+#modifyPhone p .info-text {
+  margin-right: 10px;
+}
+#modifyPhone p .info-val {
+  height: 30px;
+  margin-right: 10px;
+}
+#modifyPhone p .info-btn {
+  height: 44px;
+  padding: 5px;
+  line-height: 28px;
+}
 .widget-order-info table tr {
   line-height: 30px;
 }
@@ -8391,6 +8407,23 @@ em {
 .m-detailapproval .approval-opinionaction p {
   padding: 8px 0;
 }
+.m-detailapproval .approval-checkoption img {
+  display: inline-block;
+  max-width: 300px;
+}
+.m-detailapproval .approval-checkoption span {
+  display: inline-block;
+  position: relative;
+  padding: 2px;
+  width: 186px;
+  border: 1px #dcdcdc solid;
+}
+.m-detailapproval .approval-checkoption span img {
+  display: block;
+  margin: 0 auto;
+  max-width: 186px;
+  max-height: 186px;
+}
 .m-detailapproval .approval-contractshow {
   display: none;
 }
@@ -8458,6 +8491,18 @@ em {
 .m-detailapproval .approval-btns {
   padding: 10px 0;
   text-align: right;
+}
+.show-img-list li {
+  display: inline-block;
+  width: 137px;
+  height: 150px;
+  float: left;
+  margin: 10px 0 10px 10px;
+  border: 1px solid;
+}
+.show-img-list li .img-small {
+  width: 135px;
+  height: 150px;
 }
 .order-content span.m-len {
   display: inline-block;
