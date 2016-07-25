@@ -20,7 +20,10 @@ define( function( require, exports, module ) {
             'click #c-submit': 'submit',
             'click #c-cancel': 'hide',
             'click #c-department':'selectDeptEve',
-            'keydown #c-date': 'keydown'
+            'keydown #c-date': 'keydown',
+            'input .fix': 'examine',
+            'afterpaste .fix': 'examine',
+            'blur .fix': 'fix'
         },
         elements:{
             '#c-rcvNum': 'rcvNum',
@@ -40,11 +43,10 @@ define( function( require, exports, module ) {
             });
                
         },
-        show: function( id, bool ){
+        show: function( id, bool){
             CreateReceipt.__super__.show.apply( this,arguments );
             var me = this;
             me.id = id;
-            me.bUpdate = bool;
             if(id){
                 util.api({
                     url: '~/op/api/a/odr/receivedpay/detail',
@@ -63,23 +65,12 @@ define( function( require, exports, module ) {
                     }
                 });
             }
-            if(bool){
-                me.$data.prop('disabled',true);
-                me.$submit.prop({'disabled':true, 'class': ''});
-                me.$department.prop('class', '');
-                return;
-            }
-            me.$data.prop('disabled',false);
-            me.$submit.prop({'disabled':false, 'class': 'btn-blue'});
-            me.$department.prop('class', 'btn-blue');
-
+            bool = bool||false;
+            me.$info.slice(0,2).prop('disabled',bool);
         },
         hide: function(){
             CreateReceipt.__super__.hide.apply( this,arguments );
             this.$data.val('');
-            $(".info option[disabled]").each(function(i,item){
-                this.selected = true;
-            });
             this.id='';
         },
         keydown: function(e) {//只能删除不能输入
@@ -89,7 +80,32 @@ define( function( require, exports, module ) {
                 $(e.currentTarget).attr('readOnly','readOnly');
             }
         },
-
+        examine: function(e){//限制两位小数
+            var obj = $(e.currentTarget);
+            var reg = /(^\d{1,10}$)|(^\d{1,10}\.{1}\d{0,2}$)/;
+            if(reg.test(obj.val())){
+                return;
+            }
+            var temp = obj.val().replace(/[^0-9\.]/g,'');
+            var index = temp.indexOf('.');
+            if(index != -1){
+                var tempInt = temp.slice(0, index);
+                var tempFloat = temp.replace(/[^0-9]/g,'').slice(index, index+2);
+                temp = tempInt.slice(0,10) + '.' +tempFloat;
+            }else{
+                temp = temp.slice(0,10)
+            }
+            
+            obj.val(temp);
+        },
+        fix: function(e){//
+            var obj = $(e.currentTarget);
+            if(!obj.val()){
+                return;
+            }
+            var temp = parseFloat(obj.val()).toFixed(2);
+            obj.val(temp);
+        },
         selectDeptEve:function(){
             var me = this;
             me.deptTree= new CustomTree({ 
@@ -476,7 +492,7 @@ define( function( require, exports, module ) {
         //修改编辑
         edit:function(e) {
             var id = $(e.currentTarget).attr('data-id');
-            var bUpdate = ($(e.currentTarget).html() == '编辑')? false: true;
+            var bUpdate = $(e.currentTarget).attr('data-bool') == 1? true: false;
             var me = this;
             me.trigger('modify', id, bUpdate );    
         },
@@ -619,8 +635,8 @@ define( function( require, exports, module ) {
             receivedList.search();
         }
         // 增加、修改
-        receivedList.on('modify', function(id, bUpdate) {
-            createReceipt.show(id, bUpdate);
+        receivedList.on('modify', function(id, b) {
+            createReceipt.show(id, b);
         }); 
         // 选择订单信息
         receivedList.on('getOrder', function(id) {

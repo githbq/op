@@ -17,6 +17,7 @@ define(function (require, exports, module) {
         }, delay || 50);
     }
 
+    //窗口改变大小事件
     function resizeEvent() {
         $('.enterprise-panel').length > 0 && wrapperReset();
     }
@@ -173,6 +174,17 @@ define(function (require, exports, module) {
                         });
                     }
 
+                    //检测组是否显示
+                    $scope.checkGroupShow = function (items) {
+                        var hasVisible = false;
+                        _.each(items, function (n, i) {
+                            if (n.hidden !== true) {
+                                hasVisible = true;
+                                return;
+                            }
+                        });
+                        return hasVisible;
+                    };
                     //改变产品的状态　　　
                     function changeState(product, state) {
                         wrapperReset();
@@ -210,7 +222,7 @@ define(function (require, exports, module) {
                             product.logic.currState = state;
                         }
                         var stateData = getStateCombine(product.logic, product);//所有的状态
-                        product.states = stateData.visibleStates;//可见的状态
+                        product.states = stateData.allStates;// stateData.visibleStates;//可见的状态
                         var findIndex = _.findIndex($scope.products, {productId: product.productId});
                         if (findIndex >= 0) {
                             $scope.products[findIndex] = product;
@@ -227,7 +239,7 @@ define(function (require, exports, module) {
                         }
                     }
 
-                    //如果用户快速点击复选框在DOM没渲染成功的时候就执行了第二次重组会发生意想不到的事件，所有要避免用户狂点击，数组变动过快
+                    //如果用户快速点击复选框在DOM没渲染成功的时候就执行了第二次重组会发生意想不到的事情，所以要避免用户点击导致数组变动过快
                     //复选框选中事件
                     $scope.checkProduct = function (checked, checkbox) {
                         $scope.checkboxDisabled = true;
@@ -256,10 +268,10 @@ define(function (require, exports, module) {
                             }
                             var findData = _.findWhere(logic.data, {name: name});
                             var newState = baseState[i];
+                            newState.value = newState.value || {};
                             if (findData) {
-                                newState.value = newState.value || {};
                                 if (checkUN(findData.value)) {
-                                    findData.value = newState.value.value || '';
+                                    findData.value = newState.value.value;
                                 }
                                 newState.value.valueData = findData;
                                 if ($scope.isUserControl && newState.value.valueData.readonly === true && !newState.readonly) {//在用户操作的值清空逻辑
@@ -284,22 +296,24 @@ define(function (require, exports, module) {
 
                     //分支判断为状态赋值
                     function switchSetStateValue(newState, product) {
-                        switch (newState.value.type) {
-                            case 'ajax':
-                            {
-                                ajaxSetValue(newState.value, product);
+                        if (checkUN(newState.value.valueData.value)) {
+                            switch (newState.value.type) {
+                                case 'ajax':
+                                {
+                                    ajaxSetValue(newState.value, product);
+                                }
+                                    break;
+                                case 'normal'://普通赋值由由结构中向数据赋值
+                                {
+                                    newState.value.valueData.value = newState.value.value;
+                                }
+                                    break;
+                                case 'copy'://指定data里的一个值赋给这个值
+                                {
+                                    newState.value.valueData.value = getValueForSwitchValueType(newState.value.valueType, newState.value.valueRef, product)
+                                }
+                                    break;
                             }
-                                break;
-                            case 'normal'://普通赋值由由结构中向数据赋值
-                            {
-                                newState.value.valueData.value = newState.value.value;
-                            }
-                                break;
-                            case 'copy'://指定data里的一个值赋给这个值
-                            {
-                                newState.value.valueData.value = getValueForSwitchValueType(newState.value.valueType, newState.value.valueRef, product)
-                            }
-                                break;
                         }
                     }
 
@@ -324,7 +338,7 @@ define(function (require, exports, module) {
                         $scope.isUserControl = true;
                         //执行事件
                         fieldStruct.onchange = fieldStruct.onchange || [];
-                        //重新确实权重 确保ajax在最后被调用  priority优先级数越高越先调用
+                        //重新确定权重 确保ajax在最后被调用  priority优先级数越高越先调用
                         for (var i = 0; i < fieldStruct.onchange.length; i++) {
                             var changeItem = fieldStruct.onchange[i];
                             if (changeItem.type == 'ajax') {
@@ -359,9 +373,39 @@ define(function (require, exports, module) {
                                     ajaxSetValue(changeItem, product);
                                 }
                                     ;
+                                case 'attribute':
+                                {
+                                    //远程赋值操作
+                                    attributeSetValue(changeItem, fieldStruct, product);
+                                }
+                                    ;
                             }
                         }
                     };
+                    //赋属性值
+                    function attributeSetValue(changeItem, fieldStruct, product) {
+                        //根据值不同给其他数据的属性赋值
+                        if (changeItem.switch) {
+                            _.each(changeItem.switch, function (item, i) {
+                                if (fieldStruct.value.valueData.value == item.value) {
+                                    eachActions(item.actions);
+                                }
+                            });
+                        }
+                        //遍历行为
+                        function eachActions(actions) {
+                            if (actions) {
+                                _.each(actions, function (item, i) {
+                                    var findData = _.findWhere(product.states, {name: item.name});
+                                    if (findData && angular.isDefined(item.hidden)) {
+                                        findData.valueData && (findData.valueData.hidden = item.hidden);
+                                        findData.hidden = item.hidden;
+                                    }
+                                });
+                            }
+                        }
+                    }
+
                     //ajax赋值操作
                     function ajaxSetValue(changeItem, product) {
                         if (!changeItem.url) {

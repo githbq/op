@@ -520,7 +520,7 @@ define( function( require, exports, module ) {
             queryData.pageIndex = me.pagination.attr['pageNumber'] + 1;
             queryData.pageSize = me.pagination.attr['pageSize'];
 
-            htmlStr = "<tr> <td colspan='14'><p class='info'>加载中...</p></td> </tr>"
+            htmlStr = "<tr> <td colspan='17'><p class='info'>加载中...</p></td> </tr>"
             me.$tbody.html( htmlStr );
             console.log( queryData );
             util.api({
@@ -533,7 +533,7 @@ define( function( require, exports, module ) {
 
                         if( data.value.model.content && data.value.model.content.length > 0 ){
                             me.list.reload( data.value.model.content, function( item ){
-
+                                
                                 //订单类型
                                 //?????
                                 if( item.order.orderType == 17 ){
@@ -570,7 +570,7 @@ define( function( require, exports, module ) {
                                 */
                             });
                         }else{
-                            me.$tbody.html("<tr> <td colspan='14'><p class='info'>暂无数据</p></td> </tr>");
+                            me.$tbody.html("<tr> <td colspan='17'><p class='info'>暂无数据</p></td> </tr>");
                         }
                         me.pagination.setTotalSize( data.value.model.itemCount );
                     }

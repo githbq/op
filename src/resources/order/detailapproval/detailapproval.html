@@ -51,7 +51,7 @@
             </tbody>
         </table>
     </section>
-    
+	
     <!--补充合同展示页面 view-->
     <section class="approval-contractshow approval-table">
         <p class="title">补充合同信息</p>
@@ -110,7 +110,7 @@
 		<p style="line-height:50px;"><label>合同章名称:<b class="mst">*</b></label>  <input type="text" id="httongzhang" style="margin-left: 40px;"></p>
     	<p style="line-height:50px;"><label>补充合同照片<b class="mst">*</b></label>  <input type="file" id="hetong" style="margin-left: 30px;"> (支持png、jpg、gif格式)</p>
         <!--<p> <img src="" id="hetongimg"> </p>-->
-         <p ce-collection="imghtlist" class="imglist">
+        <p ce-collection="imghtlist" class="imglist">
             <span><a href="<%='/op/api/file/previewimage?filePath='+item.path%>" target="_blank"><img src="<%='/op/api/file/previewimage?filePath='+item.path%>" class="htshow"></a><b class="imgclose">X</b></span> 
         </p>
         <p><label>补充合同副本照片</label>  <input type="file" id="hetongfb"> (支持png、jpg、gif格式)</p>

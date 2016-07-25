@@ -161,6 +161,10 @@ define( function( require, exports, module ) {
                 util.showToast('请输入内容');
                 return;
             }
+            if(content.length > 10000){
+                util.showToast('内容过长，请控制10000字以下');
+                return;
+            }
 
             me.id? url = '~/op/api/policy/updatepolicy' : url = '~/op/api/policy/addpolicy';
             util.api({
@@ -194,7 +198,7 @@ define( function( require, exports, module ) {
             'click .accordian h4': 'showAccordian'
         },
         elements:{
-            '.policyItems': 'policyItems'
+            '.policyitems': 'policyItems'
         },
         init: function(){
             Preview.__super__.init.apply( this, arguments );
