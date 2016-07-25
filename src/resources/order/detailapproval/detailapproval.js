@@ -377,6 +377,10 @@ define( function(require, exports, module){
 
 		//同意
 		agreeEve: function(){
+			var c = confirm('确认审批通过吗？');
+			if(!c){
+				return;
+			}
 			var me = this;
 
 			
@@ -420,6 +424,10 @@ define( function(require, exports, module){
 		},
 		//驳回
 		refuseEve: function(){
+			var c = confirm('确认审批驳回吗？');
+			if(!c){
+				return;
+			}
 			var me = this;
 			if(!me.model.get('comment')){
 				util.showToast('请填写审批意见');
