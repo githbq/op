@@ -16,7 +16,7 @@
 <header id="header">
     <h1 class="header-logo"><img src="resources/assets/images/fxlogo.png" alt="" /></h1>
     <div class="header-person">
-        <span id="accountname"></span>
+        <div id="accountDept" title=""><span id="accountname"></span></div>
         <div class="person-loginout">
             <a href="#page/changepwd" >修改密码</a>
 			<a href="javascript:void(0)" class="modify-phone" >修改密码</a>

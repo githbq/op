@@ -401,7 +401,14 @@ define('common/app', function(require, exports, module){
                     if (data.success) {
                     	
                         $('#accountname').text(data.value.model.name);
-
+						var deptArt = data.value.deptLevelList||[];
+						var deptStr = '';
+						if( deptArt.length>1 ){
+							deptStr = deptArt.reverse().join('/');
+						}else if(deptArt.length==0){
+							deptStr = deptArt[0]
+						}
+						$('#accountDept').attr('title',deptStr);
                         IBSS.role = data.value.model;
 						
                         IBSS.FUNCTIONS = data.value.model.moduleCodes;
