@@ -674,7 +674,7 @@ define( function(require, exports, module){
 			);
 
 			dialog.bootstrap([], function (app) {
-				app.controller('dialogController', ['$scope',function ($scope) {
+				app.controller('dialogController', ['$scope', function ($scope) {
 					$scope.imgList = objImgList;
 					$scope.objImg = {'show':false};
 					$scope.showBig = function(showFlag ,index){

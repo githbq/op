@@ -64,7 +64,7 @@ define( function(require, exports, module){
 				return false;
 			}
 			util.api({
-				'url':'/account/updateBindingMobile',
+				'url':'~/g/api/account/updateBindingMobile',
 				'data':{
 					'newMobile': me.$newPhone.val(),
 					'oldMobile': me.$oldPhone.val(),
@@ -113,7 +113,7 @@ define( function(require, exports, module){
 		checkPhon:function(){
 			var me = this;
 			util.api({
-				'url':'/account/getCodeForUpdateBindingMobile',
+				'url':'~/g/api/account/getCodeForUpdateBindingMobile',
 				'data':{
 					'newMobile': me.$newPhone.val(),
 					'oldMobile': me.$oldPhone.val()

@@ -44,21 +44,6 @@ define( function(require, exports, module){
             ShowRemarkCard.__super__.hide.apply( this, arguments );
         }
     });*/
-    var dialog = DialogImg.getInstance(null,
-        {
-            defaultAttr: {
-                title: '查看审批备注图片',
-                width: 800
-            },
-            content: require('./dialogtemplate.html')
-        }
-    );
 
-    dialog.bootstrap([], function (app) {
-        app.controller('dialogController', ['$scope', '$timeout', 'select2Query', function ($scope, $timeout, select2Query) {
-
-        }]);
-    });
-
-	module.exports = dialog;
+	//module.exports = dialog;
 });
