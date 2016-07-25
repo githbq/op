@@ -698,6 +698,7 @@ define(function(require, exports, module) {
                 case 2: // 已开通
                     me.$('.ed').removeAttr('disabled');
                     me.$('.f2').css('display', '');
+					me.$('.off24').css('display', '');
                     break;
                 case 3: // 已作废
                     me.$('.ed').attr('disabled', 'disabled');
@@ -706,6 +707,7 @@ define(function(require, exports, module) {
                 case 4: // 已停用
                     me.$('.ed').attr('disabled', 'disabled');
                     me.$('.f4').css('display', '');
+					me.$('.off24').css('display', '');
                     break;
                 default:
                     me.$('.ed').removeAttr('disabled');
