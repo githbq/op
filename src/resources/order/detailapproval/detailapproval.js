@@ -424,7 +424,7 @@ define( function(require, exports, module){
 		},
 		//驳回
 		refuseEve: function(){
-			var c = confirm('确认审批驳回吗？')；
+			var c = confirm('确认审批驳回吗？');
 			if(!c){
 				return;
 			}
