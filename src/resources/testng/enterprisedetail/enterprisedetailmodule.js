@@ -200,7 +200,7 @@ define(function (require, exports, module) {
         };
     }]);
     myApp.controller('mainController', ['$scope', '$timeout', 'select2Query', 'getEnumService', 'cascadeSelectService', 'productService', function ($scope, $timeout, select2Query, getEnumService, cascadeSelectService, productService) {
-        $scope.productInfos={data:[]};
+        $scope.productInfos = {data: []};
         //获取企业历史详情
         $scope.getEnterpriseHistory = function (timeout) {
             $timeout = timeout || $timeout;
@@ -293,6 +293,12 @@ define(function (require, exports, module) {
                     data.odrDraftEnterprise.area = entInfo.area || data.odrDraftEnterprise.area;
                 }
                 $scope.entInfo = data.odrDraftEnterprise || {};
+                if (!data.odrDraftEnterprise) {//如何后端没有返回
+                    $scope.hideEnterprise = true;
+                    $('.approval-title [data-index=1]').hide();
+                    $('.approval-title [data-index]').removeClass('active').filter('[data-index=2]').addClass('active')
+                    $scope.step = 2;
+                }
                 $scope.productInfo = data.odrDraftOrder || {};
                 $scope.orderInfo = data.odrOrder || {};
                 $scope.getEnterpriseHistory();//获取企业产品历史信息
