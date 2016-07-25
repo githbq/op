@@ -67,7 +67,10 @@ define(function (reuqire, exports, module) {
                 }
                 scope.ngModel = setMaxOrMinValue(scope.ngModel);
                 scope.ngModel = scope.ngModel === NaN ? null : scope.ngModel;
-                elm.off('keyup').on('keyup', function () {
+                elm.off('keyup').on('keyup', function (e) {
+                    if (e.which >= 37 && e.which <= 40) {//左上右下不管
+                        return;
+                    }
                     var $dom = $(this);
                     var result = ($dom.val().replace(/[^\.\d]/g, ''));
                     var has = false;
@@ -184,6 +187,9 @@ define(function (reuqire, exports, module) {
             require: 'ngModel',
             link: function (scope, elm, attrs, ctrl) {
                 elm.off('keyup').on('keyup', function () {
+                    if (e.which >= 37 && e.which <= 40) {//左上右下不管
+                        return;
+                    }
                     var $dom = $(this);
                     var result = ($dom.val().replace(/[^\d]/g, ''));
                     result = CtoH(result);
@@ -219,6 +225,9 @@ define(function (reuqire, exports, module) {
             require: 'ngModel',
             link: function (scope, elm, attrs, ctrl) {
                 elm.off('keyup').on('keyup', function () {
+                    if (e.which >= 37 && e.which <= 40) {//左上右下不管
+                        return;
+                    }
                     var $dom = $(this);
                     var result = ($dom.val().replace(/[^\d]/g, ''));
                     result = CtoH(result);
