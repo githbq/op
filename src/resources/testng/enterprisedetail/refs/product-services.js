@@ -117,10 +117,10 @@ define(function (require, exports, module) {
             }
         };
         //获取产品的大JSON串
-        factory.getDiyOrderFormLogic = function (enterpriseId, callback) {
+        factory.getDiyOrderFormLogic = function (enterpriseId,orderId, callback) {
             return util.api({
                 'url': '~/op/api/a/odrDraft/getDiyOrderFormLogic',
-                'data': {'enterpriseId': enterpriseId},
+                'data': {enterpriseId: enterpriseId,orderId:orderId},
                 'success': function (result) {
                     if (result.success) {
                         callback(result.value.model);

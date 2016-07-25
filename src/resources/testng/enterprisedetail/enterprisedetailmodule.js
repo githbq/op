@@ -76,8 +76,7 @@ define(function (require, exports, module) {
     myApp.controller('form2Controller', ['$scope', 'productService', '$timeout', function ($scope, productService, $timeout) {
 
         $scope.getEnterpriseHistory($timeout);
-        debugger
-        productService.getDiyOrderFormLogic($scope.globalInfo.enterpriseId || '', function (data) {
+        productService.getDiyOrderFormLogic($scope.globalInfo.enterpriseId || '', $scope.globalInfo.orderId, function (data) {
             $timeout(function () {
                 $scope.productJson = angular.fromJson(data);
             }, 10);
