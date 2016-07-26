@@ -120,7 +120,7 @@ define(function(require, exports, module) {
                 'title': '转移企业-选择部门',
                 searchOptions:{show:true,title:'部门名称'},
                 ztreeOptions:{
-                    expandAll:true,
+                    expandAll:false,
                     check:{chkStyle: "radio",radioType: "all"},
                     checkStyle:"radio"
                 },
