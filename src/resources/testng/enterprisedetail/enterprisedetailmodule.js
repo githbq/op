@@ -76,8 +76,7 @@ define(function (require, exports, module) {
     myApp.controller('form2Controller', ['$scope', 'productService', '$timeout', function ($scope, productService, $timeout) {
 
         $scope.getEnterpriseHistory($timeout);
-        debugger
-        productService.getDiyOrderFormLogic($scope.globalInfo.enterpriseId || '', function (data) {
+        productService.getDiyOrderFormLogic($scope.globalInfo.enterpriseId || '', $scope.globalInfo.orderId, function (data) {
             $timeout(function () {
                 $scope.productJson = angular.fromJson(data);
             }, 10);
@@ -204,7 +203,7 @@ define(function (require, exports, module) {
         //获取企业历史详情
         $scope.getEnterpriseHistory = function (timeout) {
             $timeout = timeout || $timeout;
-            if ($scope.globalInfo.submitType == 2) {//只有增购与续费才显示
+            if ($scope.globalInfo.submitType == 2 || mainData.isOpen) {//只有增购与续费才显示 现在开源也显示了
                 productService.getOrderList($scope.globalInfo.enterpriseAccount || $scope.orderInfo.enterpriseAccount, function (data, valueData) {
                     $timeout(function () {
                         $scope.productInfos.data = data;
@@ -226,6 +225,9 @@ define(function (require, exports, module) {
         $scope.globalInfo = angular.extend($scope.globalInfo, $scope.globalInfo.data);
 
         $scope.globalInfo.submitType = mainData.isNew ? 1 : mainData.isAdd ? 2 : mainData.isRef ? 3 : 1;
+        if (!mainData.isNew && !mainData.isAdd && !mainData.isRef) {
+            mainData.isOpen = true;//开源状态
+        }
         getInitData();//获取初始化数据 每次必调
         //企业详情信息
         var entInfo = $scope.entInfo = {};
