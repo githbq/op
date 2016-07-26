@@ -259,7 +259,6 @@ define(function(require, exports, module) {
                 me.getList();
             });
             resetSelect( me.$view, 'entstatus');
-            resetSelect( me.$view, 'enttype');
 
             me.setState();
             //初始化

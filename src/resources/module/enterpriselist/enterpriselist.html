@@ -32,10 +32,6 @@
                     <select ce-model="enterpriseStatus" name="entstatus"></select>
                 </label>
                 <label>
-                    <span>企业类型</span>
-                    <select name="enttype" ce-model="enterpriseType"></select>
-                </label>
-                <label>
                     <span>销售负责人(创建人)</span>
                     <input id="creatorName" class="g-ipt ipt-m" type="text" ce-model="creatorName" maxlength=20/>
                 </label>
@@ -57,6 +53,31 @@
                         <option value="">全部</option>
                         <option value="1">是</option>
                         <option value="0">否</option>
+                    </select>
+                </label>
+                <label><span>企业类型</span>
+                    <select ce-model="enterpriseType">
+                        <option value="">全部</option>
+                        <option value="">开源</option>
+                        <option value="">付费</option>
+                        <option value="">免费</option>
+                        <option value="">未续费</option>
+                    </select>
+                </label>
+                <label><span>企业标签</span>
+                    <select ce-model="enterpriseTag">
+                        <option value="">全部</option>
+                        <option value="">资源客户</option>
+                        <option value="">续办公版</option>
+                        <option value="">楼宇客户</option>
+                    </select>
+                </label>
+                <label><span>续费提醒</span>
+                    <select ce-model="renewal">
+                        <option value="">全部</option>
+                        <option value="">部分产品过期</option>
+                        <option value="">全部产品过期</option>
+                        <option value="">产品即将过期</option>
                     </select>
                 </label>
             </div>
