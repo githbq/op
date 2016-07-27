@@ -84,7 +84,7 @@
                     <td data-permissions="M008009060 M009006100"><input type="checkbox" class="selectitem" value="<%=item.csmEnterprise.enterpriseID%>"></td>
                     <td><%=item.csmEnterprise.enterpriseName%></td>
                     <td><%=item.csmEnterprise.enterpriseAccount%></td>
-					<td><%=item.deptLevelArr ? item.deptLevelArr:''%> </td>
+					<td title="<%=item.deptLevelArr%>" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"><%=item.deptLevelArr ? item.deptLevelArr:''%> </td>
 					<td><%=item.creator ? item.creator.name:'--'%></td>
 					<td><%=item.isSelfRegister ? '是':'否'%></td>
                     <td><%=item.entTypeStr%></td>

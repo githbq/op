@@ -101,7 +101,7 @@
                         <td><%=item.order.agentCurrPayAmount%></td>
                         <td><%=item.orderTypeStr%></td>
                         <td><%=item.account ? item.account.name:''%></td>
-                        <td><%=item.deptLevelArr ? item.deptLevelArr:''%></td>
+                        <td title="<%=item.deptLevelArr%>" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"><%=item.deptLevelArr ? item.deptLevelArr:''%></td>
                         <td><%=item.approvalNodeStr%></td>
                         <td><%=item.claimReceivedPayStatusStr%></td>
                         <td><%=item.orderStatusStr%></td>
