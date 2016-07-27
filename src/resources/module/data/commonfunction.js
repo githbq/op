@@ -13,8 +13,10 @@ define( function(require, exports, module){
         for (var i = 0; i < optionsList.length; i++) {
             
             var tempAry = optionsList[i].split('<->');
-
-                
+			//处理现实两次审批数组项不同问题
+			if(tempAry.length==7){
+				tempAry.splice(5,0,'');
+			}
             if( personStr.indexOf(tempAry[1]) > -1 ){
                 tempAry[1] = opinionObj[tempAry[1]];
             }
