@@ -256,12 +256,18 @@ define( function(require, exports, module){
             this.$bcOTBegin.val( '' );
             this.$bcOTEnd.val( '' );
             this.$pstatus.val( '' );
+            this.$type.val( '' );
+            this.$tag.val( '' );
+            this.$renewal.val( '' );
         },
         search: function() {
             var me = this;
             var data = {
                 runStatus: me.$pstatus.val(),
                 industry: me.$industry.val(),
+                enterpriseType: me.$type.val(),
+                enterpriseLabel: me.$tag.val(),
+                renewalNotice: me.$renewal.val(),
                 modules: me.$pModule.val(),
                 promotionCode: me.$code.val(),
                 isPayed: me.$fstatus.val(),
@@ -337,6 +343,9 @@ define( function(require, exports, module){
             var me = this;
             var data = {
                 industry: me.$industry.val(),
+                enterpriseType: me.$type.val(),
+                enterpriseLabel: me.$tag.val(),
+                renewalNotice: me.$renewal.val(),
                 runStatus: me.$pstatus.val(),
                 modules: me.$pModule.val(),
                 promotionCode: me.$code.val(),

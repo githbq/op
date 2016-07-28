@@ -1622,10 +1622,10 @@ define(function(require, exports, module) {
 
         saveTag: function(){
             util.api({
-                url: '',
+                url: '/enterprise/setEnterpriseLabel',
                 data: {
                     enterpriseId: this.model.attrs.enterpriseId,
-                    enterpriseTag: me.$tagSetting.val()
+                    enterpriseLabel: me.$tagSetting.val()
                 },
                 success: function(data){
                     if(data.success){
