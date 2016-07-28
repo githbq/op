@@ -186,7 +186,7 @@ define(function (reuqire, exports, module) {
         return {
             require: 'ngModel',
             link: function (scope, elm, attrs, ctrl) {
-                elm.off('keyup').on('keyup', function () {
+                elm.off('keyup').on('keyup', function ( e ) {
                     if (e.which >= 37 && e.which <= 40) {//左上右下不管
                         return;
                     }
@@ -224,7 +224,7 @@ define(function (reuqire, exports, module) {
         return {
             require: 'ngModel',
             link: function (scope, elm, attrs, ctrl) {
-                elm.off('keyup').on('keyup', function () {
+                elm.off('keyup').on('keyup', function (e) {
                     if (e.which >= 37 && e.which <= 40) {//左上右下不管
                         return;
                     }
