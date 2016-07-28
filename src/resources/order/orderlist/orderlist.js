@@ -724,7 +724,8 @@ define( function( require, exports, module ) {
 
                 var id = item.order.id;
                 var enterpriseId = item.order.enterpriseId;
-                var orderType = item.order.orderType;
+				//针对老订单新增类型字段
+                var orderType = item.oldOrderType;
                 var opinion = item.order.rejectReason || '';
                 var isTp = item.order.isTp || '';
                 var ea = item.order.enterpriseAccount;

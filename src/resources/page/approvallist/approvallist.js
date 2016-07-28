@@ -212,7 +212,7 @@ define( function(require, exports, module){
                         'id': detail.orderId,
                         'enterpriseId': detail.enterpriseId,
                         'editFlag': false,
-                        'orderType': detail.orderType,
+                        'orderType': detail.oldOrderType,
                         'opinion': detail.lastAssigneeOpinion,
                         'isTp': detail.isTp,
                         'state': $scope.state,

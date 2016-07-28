@@ -405,7 +405,7 @@ define('common/app', function(require, exports, module){
 						var deptStr = '';
 						if( deptArt.length>1 ){
 							deptStr = deptArt.reverse().join('/');
-						}else if(deptArt.length==0){
+						}else if(deptArt.length==1){
 							deptStr = deptArt[0]
 						}
 						$('#accountDept').attr('title',deptStr);
