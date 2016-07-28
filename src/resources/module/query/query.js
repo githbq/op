@@ -20,6 +20,9 @@ define( function(require, exports, module){
             '#qcSource': 'source',
             '#qcFStatus': 'fstatus',
             '#qcAct': 'activity',
+            '#qcType': 'type',
+            '#qcTag': 'tag',
+            '#qcRenewal': 'renewal',
             '#qcSb': 'sb',
             '#qcCode': 'code',
             '#qcATBegin': 'atBegin',
@@ -253,12 +256,18 @@ define( function(require, exports, module){
             this.$bcOTBegin.val( '' );
             this.$bcOTEnd.val( '' );
             this.$pstatus.val( '' );
+            this.$type.val( '' );
+            this.$tag.val( '' );
+            this.$renewal.val( '' );
         },
         search: function() {
             var me = this;
             var data = {
                 runStatus: me.$pstatus.val(),
                 industry: me.$industry.val(),
+                enterpriseType: me.$type.val(),
+                enterpriseLabel: me.$tag.val(),
+                renewalNotice: me.$renewal.val(),
                 modules: me.$pModule.val(),
                 promotionCode: me.$code.val(),
                 isPayed: me.$fstatus.val(),
@@ -334,12 +343,18 @@ define( function(require, exports, module){
             var me = this;
             var data = {
                 industry: me.$industry.val(),
+                enterpriseType: me.$type.val(),
+                enterpriseLabel: me.$tag.val(),
+                renewalNotice: me.$renewal.val(),
                 runStatus: me.$pstatus.val(),
                 modules: me.$pModule.val(),
                 promotionCode: me.$code.val(),
                 isPayed: me.$fstatus.val(),
                 source: me.$source.val(),
                 activity: me.$activity.val(),
+                type: me.$type.val(),
+                tag: me.$tag.val(),
+                renewal: me.$renewal.val(),
                 smsUnUsedAmount: '',
                 StorageUnUsedSpace: me.$sb.val(),
                 fromAccountTotalAmount: me.$acBegin.val(),

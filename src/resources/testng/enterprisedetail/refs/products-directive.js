@@ -296,7 +296,7 @@ define(function (require, exports, module) {
 
                     //分支判断为状态赋值
                     function switchSetStateValue(newState, product) {
-                        if (checkUN(newState.value.valueData.value)) {
+                        if (checkUN(newState.value.valueData.value) || newState.readonly) {
                             switch (newState.value.type) {
                                 case 'ajax':
                                 {

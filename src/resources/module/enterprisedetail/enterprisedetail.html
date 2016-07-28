@@ -379,15 +379,47 @@
 			</div>
 		</section>
 		-->
-		<p class="tr">
+		<p class="tr  off24  off" data-permissions="M008009042" style="display:none;">
 			<!--<button id="btnResetAdminPassword" class="f2 off">重置管理员密码</button>-->
-			<label class=" off" data-permissions="M008009042"><span>启用停用备注：</span></label><textarea id="switchRemark" rows="3" cols="20"></textarea>
+			<label ><span>启用停用备注：</span></label><textarea id="switchRemark" rows="3" cols="20"></textarea>
 		</p>
 		<p class="tr">
 			<!--<button id="btnResetAdminPassword" class="f2 off">重置管理员密码</button>-->
 			<button id="btnStopService" class="f2 off" data-permissions="M008009042">停用</button>
 			<button id="btnStartService" class="f4 off" data-permissions="M008009042">启用</button>
 		</p>
+		<section>
+			<p>
+				<span>企业类型</span>
+				<select ce-model="enterpriseLabel" style="width:150px; margin-left:20px;" disabled>
+	                <option value="1">资源客户</option>
+	                <option value="2">续办公版</option>
+	                <option value="3">楼宇客户</option>
+				</select>
+			</p>
+			<p>
+				<span>续费提醒</span>
+				<select ce-model="renewalNotice" style="width:150px; margin-left:20px;" disabled>
+	                <option value="1">部分产品过期</option>
+	                <option value="2">全部产品过期</option>
+	                <option value="3">产品即将过期</option>
+	                <option value="4">部分产品过期/即将过期</option>
+				</select>
+			</p>
+			<p>
+				<span>企业标签设置</span>
+				<select ce-model="enterpriseLabel" id="tagSetting" style="width:150px; margin-left:20px;">
+					<option value="" selected disabled style="display: none;">请选择</option>
+	                <option value="1">资源客户</option>
+	                <option value="2">续办公版</option>
+	                <option value="3">楼宇客户</option>
+				</select>
+			</p>
+			
+			<p class="tr">
+				<button class="btn-blue" id="btnSaveTag">保存</button>
+			</p>
+		</section>
 	</div>
 </div>
 

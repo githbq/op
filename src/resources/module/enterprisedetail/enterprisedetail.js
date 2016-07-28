@@ -84,6 +84,7 @@ define(function(require, exports, module) {
             '#shenheresult': 'shenheresult',
             '#huifangresult': 'huifangresult',
 
+            '#tagSetting': 'tagSetting',
             '.upload': 'saveEve'
         },
         events: {
@@ -111,6 +112,7 @@ define(function(require, exports, module) {
             'click #btnCardBuy': 'btnCardBuy',
             'click #btnCardSend': 'btnCardSend',
             'click #btnSBAgentSearch': 'agentSearchEve',        //回访列表
+            'click #btnSaveTag': 'saveTag',        //保存企业标签
 
             'click .upload': 'saveFn',                      //*资料审核提交
             'click .verificationaction-on': 'veriOnEve',    //*资料审核成功
@@ -698,6 +700,7 @@ define(function(require, exports, module) {
                 case 2: // 已开通
                     me.$('.ed').removeAttr('disabled');
                     me.$('.f2').css('display', '');
+					me.$('.off24').css('display', '');
                     break;
                 case 3: // 已作废
                     me.$('.ed').attr('disabled', 'disabled');
@@ -706,6 +709,7 @@ define(function(require, exports, module) {
                 case 4: // 已停用
                     me.$('.ed').attr('disabled', 'disabled');
                     me.$('.f4').css('display', '');
+					me.$('.off24').css('display', '');
                     break;
                 default:
                     me.$('.ed').removeAttr('disabled');
@@ -1614,6 +1618,21 @@ define(function(require, exports, module) {
         },
         generateConfirmMsg: function() {
             return '企业: ' + this.model.attrs.enterpriseName + '\r\n产品: ' + this.model.attrs.productName + '\r\n代理商: ' + this.model.attrs.agentName + '( ' + this.model.attrs.agentId + ' )';
+        },
+
+        saveTag: function(){
+            util.api({
+                url: '/enterprise/setEnterpriseLabel',
+                data: {
+                    enterpriseId: this.model.attrs.enterpriseId,
+                    enterpriseLabel: me.$tagSetting.val()
+                },
+                success: function(data){
+                    if(data.success){
+                        util.showTip('企业标签设置成功');
+                    }
+                }
+            });
         }
     });
 
