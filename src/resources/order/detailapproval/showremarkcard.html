@@ -1,0 +1,11 @@
+<div ng-controller="dialogController">
+	<div class="show-img-list">
+		<ul ng-repeat=" item in imgList track by $index">
+			<li>
+				<a ng-click="showBig(true,$index)" href="" ><img class="img-small" ng-src="{{'/op/api/file/previewimage?filePath='+item.src}}" alt=""/></a>
+				<div image-preview data-deg=0  ng-if="item.show"  data-src="'/op/api/file/previewimage?filePath='+item.src"  data-show="item.show"></div>
+			</li>
+		</ul>
+	</div>
+</div>
+

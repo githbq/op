@@ -21,6 +21,7 @@
 
         <div class="person-loginout">
             <a href="#page/changepwd">修改密码</a>
+			<a href="javascript:void(0)" class="modify-phone" >修改手机号</a>
             <a href="/logout?from=/op">退出</a>
         </div>
     </div>

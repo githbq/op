@@ -8,6 +8,7 @@ define('common/app', function(require, exports, module){
 	
 	var Remind = require('common/widget/remind/remind');
 	var DownFile = require('module/downfile/downfile');
+	var ModifyPhone = require('module/modifyphone/modifyphone');
 	var Policy = require('module/policy/policy');
 
 	
@@ -663,6 +664,9 @@ define('common/app', function(require, exports, module){
 			$('.down-file').on('click',function(e){
 				me.trigger('downFile');
 			});
+			$('.modify-phone').on('click',function(e){
+				me.trigger('modifyphone');
+			});
 			$('.header-policy a').on('click', function(){
 				me.trigger('showPolicy');
 			})
@@ -695,6 +699,11 @@ define('common/app', function(require, exports, module){
 			spa.on('downFile',function(){
 				downFile = new DownFile();
 				downFile.show( );
+			});
+			
+			spa.on('modifyphone',function(){
+				modifyPhone = new ModifyPhone();
+				modifyPhone.show( );
 			});
 
 			spa.on('showPolicy',function(){

@@ -12,7 +12,10 @@ define( function(require, exports, module){
 	var Page = require('../../testng/enterprisedetail/enterprisedetailmodule');
 
 	var uploader = require('common/widget/upload').uploader;
+	var DialogImg = require('./dialog');
+	var template = require('./template.html');
 
+	var ShowRemarkCard = require('../widget/showremarkcard/showremarkcard');     //审批备注图片
 	var getRejectReason = require('module/data/commonfunction').getRejectReason;
 
     ///////////////////////
@@ -36,7 +39,8 @@ define( function(require, exports, module){
 			'#hetongfb': 'hetongfb',        //合同副本input
 			'#hetongimg': 'hetongimg',      //合同img展示
 			'#hetongfbimg': 'hetongfbimg',  //合同副本img展示
-			'.savehetong': 'savehetong'     //保存合同按钮
+			'.savehetong': 'savehetong',     //保存合同按钮
+			'#hetonglyl':'hetonglyl'        //审核合同照片
 		},
 		events:{
 			'click .approval-title span': 'toggleEve',
@@ -44,8 +48,10 @@ define( function(require, exports, module){
 			'click .action-refuse': 'refuseEve',
 			'click .imgclose': 'imgCloseEve',
 			'click .imgfbclose': 'imgFbCloseEve',
+			'click .imgcheckclose':'imgCheckCloseEve',
 			'click .action-save': 'saveEve',            //重新编辑保存
-			'click .savehetong': 'saveHetongEve'        //补充合同
+			'click .savehetong': 'saveHetongEve',        //补充合同
+			'click .img-info':'imgInfoEve'              //查看审批备注照片
 		},
 		init: function(){
 			DetailApproval.__super__.init.apply( this,arguments );
@@ -61,6 +67,7 @@ define( function(require, exports, module){
 
 			me.contracts = [];  	//合同数组
 			me.contractcopys = [];  //合同副本数组
+			me.checkContracts = [];  	//审核合同数组
 
 
 			if( me.attrs.isTop ){
@@ -129,7 +136,46 @@ define( function(require, exports, module){
 					})
 				}
 			});
+			
+			me.$hetonglyl.on('change',function(){
+				console.log('hetongchange');
+				if( me.checkContracts.length >= 10 ){
+					util.showToast('最多上传10张合同图片');
+					me.$hetonglyl.val('');
+					return false;
+				}
 
+				var fileExtension = me.$hetonglyl[0].files[0].name.split('.').pop().toLowerCase();
+				if( fileExtension == 'jpg' || fileExtension == 'gif' || fileExtension == 'png' || fileExtension == 'jpeg' ){
+					me.$('.action-agree').attr('disabled','disabled');
+					me.$('.action-refuse').attr('disabled','disabled');
+					uploader.send({
+						'url': '/op/api/file/uploadsinglefileandcheck',
+						'files': me.$hetonglyl[0].files,
+						'options': {
+							'limittype': 'IMAGE'
+						},
+						'success': function( response ){
+							me.checkContracts.push( {'path':response.value.model.path,'fileName':response.value.model.FileName} );
+							me.imghtlistlyl.reload( me.checkContracts );
+							me.$('.action-agree').removeAttr('disabled');
+							me.$('.action-refuse').removeAttr('disabled');
+							me.$hetonglyl.val('');
+						},
+						'error': function(){
+							me.$('.action-agree').removeAttr('disabled');
+							me.$('.action-refuse').removeAttr('disabled');
+						}
+					})
+				}else{
+					
+					util.showToast('图片格式不正确');
+					me.$hetonglyl.val('');
+					return false;
+				}
+			});
+
+			
 			me.$('#contractstate').on('change',function(e){
 
 				var value = $(e.currentTarget).val();
@@ -153,6 +199,13 @@ define( function(require, exports, module){
 			var index = $(e.currentTarget).parent('span').index();
 			me.contractcopys.splice(index,1);
 			me.imghtfblist.reload(me.contractcopys);
+		},
+		//去除审核合同照片
+		imgCheckCloseEve:function(e){
+			var me = this;
+			var index = $(e.currentTarget).parent('span').index();
+			me.checkContracts.splice(index,1);
+			me.imghtlistlyl.reload(me.checkContracts);
 		},
 		//状态变换
 		setState: function(){
@@ -335,7 +388,7 @@ define( function(require, exports, module){
 					},
 					'success': function( data ){
 						if( data.success ){
-
+							me.$('#showhetong').val(data.value.model.sealName);
 							if( data.value.model.contractPic ){
 								me.imghtlistview.reload( data.value.model.contractPic.split(',') );
 								me.$('.approval-contractshow').show();
@@ -392,6 +445,12 @@ define( function(require, exports, module){
 			}
 			
 			//var bool = me.verify();
+			
+			var checkContracts = [];
+			
+			me.checkContracts.forEach(function(item){
+				checkContracts.push( item.path );
+			});
 
 			if( bool ){
 				util.api({
@@ -401,6 +460,7 @@ define( function(require, exports, module){
 	                    'approved': true,                  				//审批结果(通过/拒绝)
 	                    'opinion': me.model.get('comment'),  			//审批意见
 	                    'contractState': me.model.get('contractState'), //是否合格
+						'approvalOpinionPic':checkContracts.join(','),  //图片列表
 	                    'rejectReason': me.model.get('rejectReason')   	//不合格原因
 	                },
 					'beforeSend':function(){
@@ -442,6 +502,11 @@ define( function(require, exports, module){
 			}
 
 			//var bool = me.verify();
+			var checkContracts = [];
+			
+			me.checkContracts.forEach(function(item){
+				checkContracts.push( item.path );
+			});
 
 			if( bool ){
 				util.api({
@@ -451,6 +516,7 @@ define( function(require, exports, module){
 	                    'approved': false,                  		    //审批结果(通过/拒绝)
 	                    'opinion': me.model.get('comment'),  			//审批意见
 	                    'contractState': me.model.get('contractState'), //是否合格
+						'approvalOpinionPic':checkContracts.join(','),  //图片列表
 	                    'rejectReason': me.model.get('rejectReason')   	//不合格原因
 	                },
 					'beforeSend':function(){
@@ -543,6 +609,11 @@ define( function(require, exports, module){
 		//保存合同
 		saveHetongEve: function(){
 			var me = this;
+			
+			if( !me.$('#httongzhang').val() ){
+				util.showToast('请填写合同章');
+				return false;
+			}
 
 			if( me.contracts.length <= 0 ){
 				util.showToast('请选择合同照片');
@@ -575,6 +646,7 @@ define( function(require, exports, module){
 					'contractCopy': contractCopy.join(','),
 					'contractFileName': contractFileName.join(','),
 					'contractCopyFileName': contractCopyFileName.join(','),
+					'sealName':me.$('#httongzhang').val(),
 					'contractId': data.payInfo.contractId
 				}),
 				'success': function( data ){
@@ -586,6 +658,73 @@ define( function(require, exports, module){
 				}
 			})
 			console.log( data );
+		},
+		//查看审批备注图片
+		imgInfoEve:function( e ){
+			var me = this;
+            var imgList = $(e.currentTarget).attr('data-imglist');
+			imgList = imgList.split(',')||[];
+			var objImgList = [];
+			for(var i = 0; i<imgList.length;i++){
+				objImgList.push( {'show':false,'src':imgList[i]} ) ;
+			}
+               
+           // var showRemarkCard = new ShowRemarkCard();
+			//showRemarkCard.show();
+			var dialog = DialogImg.getInstance(null,
+				{
+					defaultAttr: {
+						title: '查看审批备注图片',
+						width: 800
+					},
+					content: require('./showremarkcard.html')
+				}
+			);
+
+			dialog.bootstrap([], function (app) {
+				app.controller('dialogController', ['$scope', function ($scope) {
+					$scope.imgList = objImgList;
+					$scope.objImg = {'show':false};
+					$scope.showBig = function(showFlag ,index){
+						$scope.imgList[index].show = true;
+					}
+
+				}]);
+				app.directive('imagePreview',function(){
+					return{
+						replace: true,
+						scope:{'src':'=','show':'=','deg':'='},
+						template: $(template).filter('.image-preview')[0].outerHTML,
+						link: function (scope, iElem, iAttrs) {
+							//setRotate(iElem.find('img.preview')[0], iElem.find('.btn-rotate'));
+							scope.close = function () {
+								scope.deg = 0;
+								scope.show = false;
+							};
+							scope.hrefClick = function ($event) {
+								$event.stopPropagation();
+							};
+							scope.rotation = function(){
+								elem = iElem.find('img.preview')[0];
+								//iElem.find('.btn-rotate')
+								if ((scope.deg + 90) > 360) {
+									scope.deg = 90;
+								} else {
+									scope.deg += 90;
+								}
+								var element = elem;
+								var styles = ['webkitTransform', 'MozTransform', 'msTransform', 'OTransform', 'transform'];
+								for (var i = 0; i < styles.length; i++) {
+									element.style[styles[i]] = "rotate(" + scope.deg + "deg)"
+								}
+								return false;
+							}
+						}
+					}
+				})
+
+			});
+			dialog.show();
 		},
 		//重新发送
 		hide: function(){

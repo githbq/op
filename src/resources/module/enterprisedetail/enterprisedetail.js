@@ -661,6 +661,10 @@ define(function(require, exports, module) {
                          * 进行状态显隐控制
                          */
                         me.setVisibility();
+						
+						//启用停用备注赋值
+						me.$('#switchRemark').val(model.switchRemark)
+						//me.$('#switchRemark').val('hhhhhhhhh')
 
                         callback && callback();
                     }
@@ -696,6 +700,7 @@ define(function(require, exports, module) {
                 case 2: // 已开通
                     me.$('.ed').removeAttr('disabled');
                     me.$('.f2').css('display', '');
+					me.$('.off24').css('display', '');
                     break;
                 case 3: // 已作废
                     me.$('.ed').attr('disabled', 'disabled');
@@ -704,6 +709,7 @@ define(function(require, exports, module) {
                 case 4: // 已停用
                     me.$('.ed').attr('disabled', 'disabled');
                     me.$('.f4').css('display', '');
+					me.$('.off24').css('display', '');
                     break;
                 default:
                     me.$('.ed').removeAttr('disabled');
@@ -1567,6 +1573,7 @@ define(function(require, exports, module) {
         },
         stopService: function() {
             var me = this;
+			
             if (!window.confirm('是否确认停用企业?\r\n' + this.generateConfirmMsg())) {
                 return;
             }
@@ -1575,6 +1582,7 @@ define(function(require, exports, module) {
                 data: {
                     enterpriseId: this.model.attrs.enterpriseId,
                     oldModifyTime: me.model.attrs.updateTime,
+					switchRemark:me.$('#switchRemark').val(),
                     isEnabled: false
                 },
                 success: function(data) {
@@ -1596,6 +1604,7 @@ define(function(require, exports, module) {
                 data: {
                     enterpriseId: this.model.attrs.enterpriseId,
                     oldModifyTime: me.model.attrs.updateTime,
+					switchRemark:me.$('#switchRemark').val(),
                     isEnabled: true
                 },
                 success: function(data) {
