@@ -85,7 +85,8 @@ define(function(require, exports, module) {
             '#huifangresult': 'huifangresult',
 
             '#tagSetting': 'tagSetting',
-            '.upload': 'saveEve'
+            '.upload': 'saveEve',
+            '.notice': 'notice'
         },
         events: {
             'click .accordian h4': 'showAccordian',      //模块的展示隐藏
@@ -421,6 +422,7 @@ define(function(require, exports, module) {
                     });
                 }
             })
+
         },
 
         /**
@@ -584,8 +586,12 @@ define(function(require, exports, module) {
                             me.$('.openTime').show().find('.content').text( new Date( me.model.get('appStartTime') )._format('yyyy年MM月dd日') );
                         }
 
-
-
+                        //控制续费显隐
+                        if( me.model.get('runStatus') == 2 ){
+                            me.$notice.show();
+                        }else{
+                            me.$notice.hide();
+                        }
                         //初始化 使用情况的缓存
                         me.operations.initialInfo = {
                             'accountTotalAmount': model.accountTotalAmount,         //逍客终端总量
