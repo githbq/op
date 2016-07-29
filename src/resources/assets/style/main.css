@@ -7110,6 +7110,40 @@ em {
 .m-ent-lst [data-state] {
   display: none;
 }
+.m-transfer {
+  height: 300px;
+}
+.m-transfer .input-box {
+  position: relative;
+}
+.m-transfer .input-box input {
+  width: 170px;
+  position: absolute;
+  top: 0px;
+  left: 180px;
+}
+.m-transfer .input-box #down {
+  max-height: 120px;
+  width: 183px;
+  border: 1px solid #ccc;
+  border-top: none;
+  position: absolute;
+  top: 28px;
+  left: 180px;
+  display: none;
+  overflow-y: scroll;
+}
+.m-transfer .input-box #down li {
+  line-height: 24px;
+  height: 24px;
+  background: #FFF;
+  margin: 0;
+  padding: 2px;
+  cursor: default;
+}
+.m-transfer .input-box #down li:hover {
+  background: #ccc;
+}
 .m-transfer p {
   padding: 8px 0;
   height: 30px;

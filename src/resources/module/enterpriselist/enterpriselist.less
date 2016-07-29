@@ -13,6 +13,39 @@
     }
 }
 .m-transfer{
+    height:300px;
+    .input-box{
+        position:relative;
+        input{
+            width:170px;
+            position:absolute;
+            top:0px;
+            left:180px;
+        }
+        #down{
+            max-height:120px;
+            width:183px;
+            border:1px solid #ccc;
+            border-top:none;
+            position:absolute;
+            top:28px;
+            left:180px;
+            display:none;
+            overflow-y: scroll;
+            li{
+                line-height:24px;
+                height:24px;
+                background:#FFF;
+                margin:0;
+                padding:2px;
+                cursor:default;
+            }
+            li:hover{
+                background:#ccc;
+            }
+        }
+        
+    }
 	p{
 		padding:8px 0;
 		height:30px;
@@ -31,6 +64,7 @@
     }
 }
 .m-sandbox{
+
 	p{	
 		padding:8px 0;
 		height:30px;
@@ -48,4 +82,5 @@
 		display:none;
 	}
 }
+
 

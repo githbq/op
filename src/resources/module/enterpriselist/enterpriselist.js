@@ -26,7 +26,11 @@ define(function(require, exports, module) {
             'click .action-submit': 'submitEve',
             'click .action-cancel': 'hide',
             'click input:radio[name=company]': 'changeType', 
-            'click #dept': 'selectDeptEve'
+            'click #dept': 'selectDeptEve',
+            'input #sales': 'input',
+            'click li': 'select',
+            'click .m-dialog': 'blur',
+            'focus #sales': 'input'
         },
         elements:{
             '#departmentText': 'departmentText',
@@ -50,13 +54,13 @@ define(function(require, exports, module) {
             }
             me.$departmentText.val('');
             me.$dept.val('');
-            me.$sales.html('<option value="">--------</option>').prop('disabled',true);
+            me.$sales.val('').attr({'data-id': '', 'disabled': false});
         },
 
         //提交
         submitEve: function(){
             var me = this;
-            var sales = me.$sales.val(),
+            var sales = me.$sales.attr('data-id'),
                 type = $("input[type=radio]:checked").val(),
                 dept = me.$dept.val();
             if(!type){
@@ -97,6 +101,45 @@ define(function(require, exports, module) {
 
         },
 
+        blur: function() {
+            $("#down").html('').hide();
+        },
+        
+        input: function() {
+            var me = this;
+            clearTimeout(me.timer);
+            me.timer = setTimeout(function() {
+                var data = {
+                    name: me.$sales.val()
+                }
+                me.$dept.val()? data.deptId = me.$dept.val():data.type = $("input[type=radio]:checked").val();
+                util.api({
+                    url: '~/op/api/s/enterprise/queryAccountByDeptId',
+                    data: data,
+                    success: function(res) {
+                        if(res.success){
+                            if(res.value.model.length > 0){
+                                var options = '';
+                                var con = res.value.model;
+                                $(con).each(function(index, item){
+                                    options += '<li value="'+item.id+'">'+item.name+'</li>';
+                                });
+                            }else{
+                                var options = '无结果';
+                            }
+                            $('#down').html(options).show();
+                        }
+                    }
+                });
+            },250);
+        },
+        select: function(e) {
+            var me = this,
+                name = $(e.currentTarget).html();
+            me.$sales.val($(e.currentTarget).html());
+            me.$sales.attr('data-id',$(e.currentTarget).val());
+        },
+
         //隐藏
         hide: function(){
             TransEnt.__super__.hide.apply( this, arguments );
@@ -105,7 +148,7 @@ define(function(require, exports, module) {
             $("input[type=radio]").prop('checked', false);
             me.$departmentText.val('');
             me.$dept.val('');
-            me.$sales.html('<option value="">--------</option>').prop('disabled',true);
+            me.$sales.val('').attr('data-id', '');
         },
         //选择部门
         selectDeptEve:function(){
@@ -116,7 +159,7 @@ define(function(require, exports, module) {
                 util.showToast('请选择公司类型');
                 return false;
             }
-            me.deptTree= new CustomTree({ 
+            me.deptTree = new CustomTree({ 
                 'title': '转移企业-选择部门',
                 searchOptions:{show:true,title:'部门名称'},
                 ztreeOptions:{
@@ -138,27 +181,7 @@ define(function(require, exports, module) {
                 me.postObj = null;
                 me.deptObj ? me.$departmentText.val(me.deptObj.name ):me.$departmentText.val('');
                 me.$dept.val(me.deptObjId[0]);
-                util.api({
-                    url: '~/op/api/s/enterprise/queryAccountByDeptId',
-                    data: {
-                        deptId: me.deptObjId[0]
-                    },
-                    success: function(res) {
-                        if(res.success){
-                            if(res.model.length > 0){
-                                var options = '<option value="" disabled selected style="display: none;">请选择</option>';
-                                var con = res.model;
-                                $(con).each(function(index, item){
-                                    options += '<option value="'+item.id+'">'+item.name+'</option>';
-                                });
-                                me.$sales.prop('disabled',false);
-                                me.$sales.html(options);
-                            }else{
-                                me.$sales.html('<option value="">--------</option>');
-                            }
-                        }
-                    }
-                });
+                me.$sales.val('').attr('data-id', '');
             });
             me.deptTree.show( [ me.$dept.val() ], {});
         }
