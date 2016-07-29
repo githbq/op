@@ -1624,6 +1624,7 @@ define(function(require, exports, module) {
             var me = this;
             var label = me.$tagSetting.val();
             if(!label){
+                alert('请选择标签')；
                 return;
             }
             util.api({
