@@ -1621,14 +1621,15 @@ define(function(require, exports, module) {
         },
 
         saveTag: function(){
-            var label = $('#tagSetting').val()
+            var me = this;
+            var label = me.$tagSetting.val();
             if(!label){
                 return;
             }
             util.api({
                 url: '/enterprise/setEnterpriseLabel',
                 data: {
-                    enterpriseId: this.model.attrs.enterpriseId,
+                    enterpriseId: me.model.attrs.enterpriseId,
                     enterpriseLabel: label
                 },
                 success: function(data){
