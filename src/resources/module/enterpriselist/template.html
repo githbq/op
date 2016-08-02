@@ -64,13 +64,16 @@
         <span class="title" style="width:175px;">选择所属部门/代理商:</span>
         <input type="text" id="departmentText" readonly>
         <button type="button" class="btn-blue" id="dept">选择部门</button>
+        &nbsp;<a href="javascript:;" id="rmv">移除</a>
     </p>
 
     <p>
-        <span class="title" style="width:175px;">销售人员:</span>
-        <select id="sales">
-            <option value="">--------</option>
-        </select>
+        <div class="input-box">  
+            <span class="title" style="width:175px;">销售人员:</span>
+            <input type="text" placeholder="请输入后选择销售人员" id="sales" data-id="">
+            <ul id="down">
+            </ul>
+        </div>
     </p>
 
     <p class="buttons">
