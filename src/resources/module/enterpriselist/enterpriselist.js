@@ -28,7 +28,7 @@ define(function(require, exports, module) {
             'click input:radio[name=company]': 'changeType', 
             'click #dept': 'selectDeptEve',
             'click #rmv': 'removeDept',
-            'input #sales': 'input',
+            //'input #sales': 'input',
             'click li': 'select',
             'click .m-dialog': 'blur',
             'focus #sales': 'input'
@@ -41,8 +41,12 @@ define(function(require, exports, module) {
         content: template.filter('#transfer').html(),
         show: function(aId){
             TransEnt.__super__.show.apply( this, arguments );
+            var me = this;
             this.aId = aId;
             this.$sales.prop('disabled',true);
+            $('#sales').on('input', function(){
+                me.input.call(me);
+            });
         },
         init: function(){
             TransEnt.__super__.init.apply( this, arguments );
@@ -111,6 +115,7 @@ define(function(require, exports, module) {
         
         input: function() {
             var me = this;
+            $('#down').show();
             clearTimeout(me.timer);
             me.timer = setTimeout(function() {
                 var data = {
@@ -131,7 +136,7 @@ define(function(require, exports, module) {
                             }else{
                                 var options = '无结果';
                             }
-                            $('#down').html(options).show();
+                            $('#down').html(options);
                         }
                     }
                 });
@@ -168,6 +173,7 @@ define(function(require, exports, module) {
             $("input[type=radio]").prop('checked', false);
             me.removeDept();
             me.type = 0;
+            $('#sales').off('input');
         },
         //选择部门
         selectDeptEve: function(){
