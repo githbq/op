@@ -27,6 +27,7 @@ define(function(require, exports, module) {
             'click .action-cancel': 'hide',
             'click input:radio[name=company]': 'changeType', 
             'click #dept': 'selectDeptEve',
+            'click #rmv': 'removeDept',
             'input #sales': 'input',
             'click li': 'select',
             'click .m-dialog': 'blur',
@@ -101,7 +102,10 @@ define(function(require, exports, module) {
 
         },
 
-        blur: function() {
+        blur: function(e) {
+            if($(e.target).attr('id') == 'sales'){
+                return;
+            }
             $("#down").html('').hide();
         },
         
@@ -112,7 +116,7 @@ define(function(require, exports, module) {
                 var data = {
                     name: me.$sales.val()
                 }
-                me.$dept.val()? data.deptId = me.$dept.val():data.type = $("input[type=radio]:checked").val();
+                me.$dept.val()? data.deptId = me.$dept.val():data.companyType = $("input[type=radio]:checked").val();
                 util.api({
                     url: '~/op/api/s/enterprise/queryAccountByDeptId',
                     data: data,
@@ -135,9 +139,25 @@ define(function(require, exports, module) {
         },
         select: function(e) {
             var me = this,
-                name = $(e.currentTarget).html();
-            me.$sales.val($(e.currentTarget).html());
-            me.$sales.attr('data-id',$(e.currentTarget).val());
+                name = $(e.currentTarget).html(),
+                id = $(e.currentTarget).val();
+            me.$sales.val(name);
+            me.$sales.attr('data-id', id);
+            if(me.$dept.val()){
+                return;
+            }
+            util.api({
+                url:'~/op/api/s/enterprise/queryDepartmentByAccountId',
+                data:{
+                    accountId: id
+                },
+                success: function(res) {
+                    if(res.success){
+                        me.$departmentText.val(res.value.model.name);
+                        me.$dept.val(res.value.model.id); 
+                    }
+                }
+            });
         },
 
         //隐藏
@@ -146,12 +166,11 @@ define(function(require, exports, module) {
             var me = this;
             me.aId = '';
             $("input[type=radio]").prop('checked', false);
-            me.$departmentText.val('');
-            me.$dept.val('');
-            me.$sales.val('').attr('data-id', '');
+            me.removeDept();
+            me.type = 0;
         },
         //选择部门
-        selectDeptEve:function(){
+        selectDeptEve: function(){
             var me = this;
             var type = $("input[type=radio]:checked").val()
             me.type = type;
@@ -184,6 +203,11 @@ define(function(require, exports, module) {
                 me.$sales.val('').attr('data-id', '');
             });
             me.deptTree.show( [ me.$dept.val() ], {});
+        },
+        removeDept: function(){
+            this.$departmentText.val('');
+            this.$dept.val('');
+            this.$sales.val('').attr('data-id', '');
         }
     });
 
