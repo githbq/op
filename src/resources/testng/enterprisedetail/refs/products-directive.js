@@ -321,7 +321,7 @@ define(function (require, exports, module) {
                                     var findData = _.findWhere(product.logic.data, {name: newState.hiddenLogic.dataRef});
                                     if (findData) {
                                         _.each(newState.hiddenLogic.case, function (item, i) {
-                                            if (item.key == findData.value.ValueData.value) {
+                                            if (item.key == findData.value) {
                                                 newState.hidden = item.value;
                                                 newState.value.valueData.hidden = item.value;
                                             }
