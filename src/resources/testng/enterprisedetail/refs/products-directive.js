@@ -42,7 +42,14 @@ define(function (require, exports, module) {
 
     angular.module('formApp').directive('products', function () {
             return {
-                scope: {dataResult: '=', fromData: '=', allReadonly: '=productReadonly', show: '=', initData: '=', productJson: '='},
+                scope: {
+                    dataResult: '=',
+                    fromData: '=',
+                    allReadonly: '=productReadonly',
+                    show: '=',
+                    initData: '=',
+                    productJson: '='
+                },
                 template: require('./products-template.html'),
                 controller: ['$scope', '$timeout', 'productService', function ($scope, $timeout, productService) {
                     //标记是否由用户操作界面
@@ -133,7 +140,12 @@ define(function (require, exports, module) {
                         $scope.productCheckboxs = _.map($scope.productJson.products, function (item, i) {
                             var findProduct = _.findWhere($scope.fromData, {productId: item.productId});
                             item.show = !!findProduct;
-                            return {id: item.productId, text: item.text, checked: !!findProduct, canCancel: findProduct ? findProduct.canCancel : undefined};
+                            return {
+                                id: item.productId,
+                                text: item.text,
+                                checked: !!findProduct,
+                                canCancel: findProduct ? findProduct.canCancel : undefined
+                            };
                         });
                         //初始化数据对复选框进行操作
 
@@ -231,7 +243,12 @@ define(function (require, exports, module) {
                         }
                         //处理返回结果
                         var findIndex = _.findIndex($scope.dataResult, {productId: product.productId});
-                        var returnProductData = {productId: product.productId, data: product.logic.data, state: product.logic.currState || 0, show: product.show};
+                        var returnProductData = {
+                            productId: product.productId,
+                            data: product.logic.data,
+                            state: product.logic.currState || 0,
+                            show: product.show
+                        };
                         if (findIndex >= 0) {
                             $scope.dataResult[findIndex] = returnProductData;
                         } else {
@@ -281,6 +298,7 @@ define(function (require, exports, module) {
                                 newState.value.valueData.readonly = newState.readonly;
                             }
                             switchSetStateValue(newState, product);//数据赋值逻辑
+                            switchSetHiddenValue(newState, product);//数据赋值逻辑
                         }
                         var tempItems = [];
                         var hiddenTempItems = [];
@@ -292,6 +310,28 @@ define(function (require, exports, module) {
                             }
                         });
                         return {visibleStates: tempItems, hiddenStates: hiddenTempItems, allStates: baseState};
+                    }
+
+                    //分支判断显隐控制
+                    function switchSetHiddenValue(newState, product) {
+                        if (newState.hiddenLogic && newState.hiddenLogic.type == 'switch') {
+                            switch (newState.hiddenLogic.dataType) {
+                                case 'data':
+                                {
+                                    var findData = _.findWhere(product.logic.data, {name: newState.hiddenLogic.dataRef});
+                                    if (findData) {
+                                        _.each(newState.hiddenLogic.case, function (item, i) {
+                                            if (item.key == findData.value.ValueData.value) {
+                                                newState.hidden = item.value;
+                                                newState.value.valueData.hidden = item.value;
+                                            }
+                                        });
+                                    }
+                                }
+                                    ;
+                                    break;
+                            }
+                        }
                     }
 
                     //分支判断为状态赋值
