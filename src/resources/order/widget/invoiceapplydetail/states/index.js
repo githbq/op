@@ -35,9 +35,10 @@ define(function (require, exports, module) {
                     tempAry[1] = tempAry[1] + '-' + tempAry[0];
                     tempAry = tempAry.slice(1);
                 }else{
-                    if(personStr.indexOf(tempAry[0]) > -1) {
-                        tempAry[0] = opinionObj[tempAry[0]];
-                    }
+                    if(personStr.indexOf(tempAry[1]) > -1) {
+	                	tempAry[1] = opinionObj[tempAry[1]]+ '-' + tempAry[0];;
+	            	}
+					tempAry = tempAry.slice(1);
                 }
 
 
