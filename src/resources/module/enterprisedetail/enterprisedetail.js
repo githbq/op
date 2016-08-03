@@ -648,6 +648,11 @@ define(function(require, exports, module) {
                         }
 
                         me.$('#presentOfficeEdition').val(model.presentOfficeEdition);
+						if(model.crmVersion == 2){
+							 me.$('#crmVersion').attr('disabled','disabled');
+						}else{
+							me.$('#crmVersion').removeAttr('disabled');
+						}
                         //me.$hasSales.val(model.isSaleTeam ? 'true' : 'false');
                         //me.$isMettingSale.val(model.isWillPin ? 'true' : 'false');
                         //me.$isFirstView.val(model.isFirstmeetingSign ? 'true' : 'false');
