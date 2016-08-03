@@ -1462,6 +1462,7 @@ define(function(require, exports, module) {
                 'webSanCodeAuth': me.model.get('webSanCodeAuth'), //WEB扫码授权
                 'crmVisibleRange': me.model.get('crmVisibleRange'), //CRM上级可见数据范围
                 'setPersonalGoal': me.model.get('setPersonalGoal'),
+				'crmVersion': me.model.get('crmVersion'),  //CRM版本设置
                 'discountAutoCalculated': me.model.get('discountAutoCalculated'),
                 'editCustomerName': me.model.get('editCustomerName'),
                 'isPhoneDeviceAuth': me.model.get('isPhoneDeviceAuth')
