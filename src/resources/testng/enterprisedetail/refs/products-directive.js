@@ -438,7 +438,7 @@ define(function (require, exports, module) {
                                 _.each(actions, function (item, i) {
                                     var findData = _.findWhere(product.states, {name: item.name});
                                     if (findData && angular.isDefined(item.hidden)) {
-                                        findData.valueData && (findData.valueData.hidden = item.hidden);
+                                        findData.value.valueData && (findData.value.valueData.hidden = item.hidden);
                                         findData.hidden = item.hidden;
                                     }
                                 });
