@@ -182,7 +182,9 @@ define(function (require, exports, module) {
             me.$search.attr('disabled', 'disabled');
             me.$search.addClass('disabled');
             var originData = data;
-			 window.open('/op/api/a/query/act/generate3?' + $.param(originData));
+			var url = location.protocol + '//' + location.host + IBSS.API_PATH + '/query/act/generate3?' + $.param(originData);
+            window.open(url);
+			 //window.open('/query/act/generate3?' + $.param(originData));
 			 me.$search.removeClass('disabled');
              me.$search.removeAttr('disabled');
             /*util.api({
