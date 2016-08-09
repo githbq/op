@@ -66,7 +66,7 @@ define( function( require, exports, module ) {
                 });
             }
             bool = bool||false;
-            me.$info.slice(0,2).prop('disabled',bool);
+            me.$info.slice(0,1).prop('disabled',bool);
         },
         hide: function(){
             CreateReceipt.__super__.hide.apply( this,arguments );
@@ -111,6 +111,7 @@ define( function( require, exports, module ) {
             me.deptTree= new CustomTree({ 
                 'title': '新建到款信息-选择部门',
                 searchOptions:{show:true,title:'部门名称'},
+				require:false,
                 ztreeOptions:{
                     expandAll:true,
                     check:{chkStyle: "radio",radioType: "all"},
@@ -120,7 +121,7 @@ define( function( require, exports, module ) {
             });
             me.deptTree.on('enter', function (  ) {
                 me.deptObj = me.deptTree.getValue() ? me.deptTree.getValue()[0]: null;
-                me.deptObjId = [me.deptObj.id];
+                me.deptObjId = me.deptObj&&me.deptObj.id ? [me.deptObj.id]:'';
                 me.postObjId = [];
                 me.postObj = null;
                 me.deptObj ? me.$departmentText.val(me.deptObj.name ):me.$departmentText.val('');
@@ -144,6 +145,7 @@ define( function( require, exports, module ) {
                 }
                 data[$(item).attr('data-model')] = $(item).val();
             });
+			data.departmentId  = $('#c-department').val()
             data.receivedPayDate = new Date(data.receivedPayDate).getTime();
             if(me.id){
                 append = 'update';

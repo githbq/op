@@ -139,7 +139,7 @@ define(function (require, exports, module) {
             show: function (selecteds, options, nodialog) {
                 var me = this;
                 me.attrs = me.attrs || {};
-                var defaults = {searchOptions: {}, ztreeOptions: {}, ajaxData: {}};
+                var defaults = {searchOptions: {}, ztreeOptions: {}, ajaxData: {},require:true};
                 me.newOptions = $.extend(defaults, me.attrs, options);
                 me.selecteds = selecteds ? selecteds : [];
 
@@ -264,7 +264,10 @@ define(function (require, exports, module) {
                 if( result && result.length > 0){
                     me.trigger('enter', me);
                     me.hide();
-                }else{
+                }else if(!me.newOptions.require){
+					  me.trigger('enter', me);
+                    me.hide();
+				}else{
                     util.showToast('请选择部门');
                 }
             },
