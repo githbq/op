@@ -164,10 +164,16 @@ define(function (require, exports, module) {
             };
             if (me.$ast.val()) {
                 data.ast = new Date(me.$ast.val()).getTime();
-            }
+            }else{
+				util.showToast('请填写活跃开始时间');
+                return false;
+			}
             if (me.$aet.val()) {
                 data.aet = new Date(me.$aet.val()).getTime();
-            }
+            }else{
+				util.showToast('请填写活跃结束时间');
+                return false;
+			}
             if (me.$cst.val()) {
                 data.cst = new Date(me.$cst.val()).getTime();
             }
