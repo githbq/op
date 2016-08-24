@@ -76,10 +76,10 @@ define(function(require, exports, module) {
                 util.showToast('请选择部门');
                 return;
             }
-            if((type == 1)&&(!sales)){
+            /*if((type == 1)&&(!sales)){
                 util.showToast('请选择销售人员');
                 return;
-            }
+            }*/
             //选择与提交type值不同
             if( type ==2 ){
                 type = 1;
