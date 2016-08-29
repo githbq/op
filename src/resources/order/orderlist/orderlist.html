@@ -96,8 +96,8 @@
                     <td title="<%=item.order.id%>"><%=item.order.id%></td>
                     <td><%=item.order.contractNo%></td>
                     <td><%=item.order.enterpriseName%>
-                        <% if(item.order.contractEnterpriseName){%>
-                        <i class="question-icon" title="<%=item.order.contractEnterpriseName%>"></i>
+                        <% if(item.contractEnterpriseName){%>
+                        <i class="question-icon" title="签约企业名称:<%=item.contractEnterpriseName%>"></i>
                         <%}%>
                     </td>
                     <td><%=item.order.enterpriseAccount%></td>

@@ -73,7 +73,9 @@
                             <td></td>
                             <td>{{tr['orderId']}}</td>
                             <td>{{tr['contractNo']}}</td>
-                            <td title="{{tr['enterpriseName']}}">{{tr['enterpriseName']}}</td>
+                            <td title="{{tr['enterpriseName']}}">{{tr['enterpriseName']}}
+                                <i ng-if="tr.contractEnterpriseName" class="question-icon" title="签约企业名称:{{tr.contractEnterpriseName}}"></i>
+                            </td>
                             <td>{{tr['enterpriseAccount']}}</td>
                             <td>{{tr['orderTypeStr']}}</td>
                             <td>{{tr['applicantName']}}</td>

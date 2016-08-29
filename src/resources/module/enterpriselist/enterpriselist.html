@@ -78,8 +78,8 @@
                     <td></td>
                     <td data-permissions="M008009060 M009006100"><input type="checkbox" class="selectitem" value="<%=item.csmEnterprise.enterpriseID%>"></td>
                     <td><%=item.csmEnterprise.enterpriseName%>
-                        <% if(item.csmEnterprise.contractEnterpriseName){%>
-                        <i class="question-icon" title="<%=item.csmEnterprise.contractEnterpriseName%>"></i>
+                        <% if(item.contractEnterpriseName){%>
+                        <i class="question-icon" title="签约企业名称:<%=item.contractEnterpriseName%>"></i>
                         <%}%>
                     </td>
                     <td><%=item.csmEnterprise.enterpriseAccount%></td>
