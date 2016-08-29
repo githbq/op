@@ -288,6 +288,7 @@ define(function (require, exports, module) {
                     $scope.productReadonly = !data.canEditOrder;
                     $scope.payInfoReadonly = !data.canEditPaidInfo;
                 }
+                data.contractEnterpriseName
                 debugger
                 $scope.rejectFrom = data.rejectFrom;
                 $scope.isCaiWu = data.rejectFrom == 2;
@@ -295,6 +296,7 @@ define(function (require, exports, module) {
                     data.odrDraftEnterprise.area = entInfo.area || data.odrDraftEnterprise.area;
                 }
                 $scope.entInfo = data.odrDraftEnterprise || {};
+                $scope.entInfo.contractEnterpriseName = data.contractEnterpriseName;
                 if (!data.odrDraftEnterprise) {//如何后端没有返回
                     $scope.hideEnterprise = true;
                     $('.approval-title [data-index=1]').hide();
