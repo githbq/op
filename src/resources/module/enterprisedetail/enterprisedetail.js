@@ -13,6 +13,9 @@ define(function(require, exports, module) {
 
     var buyMap = new Object({ '1': '赠送', '2': '购买充值' });
     var carMap = new Object({ '0': '未开通服务', '1': '限量购买', '2': '不限量使用' });
+	var orderMap = new Object({ '1': '新购', '2': '增购', '3': '续费','4':'增购续费','5':'关联自助册','6':'开源','17':'收尾款订单','18':'线上支付订单' });
+	var payStatusMap = {1:'全款',2:'分期',3:'未付'}
+	var statusTimeMap = {1:'有效',2:'过期',0:'——'}
 
     //
     // 企业详情
@@ -35,6 +38,9 @@ define(function(require, exports, module) {
             '#tGroupType': 'agroup',      //*使用对象类型
             '#remark': 'remark',          //*
             '#tbProduct': 'tbProduct',    //*
+			'#tbProductHistory tbody': 'tbProductList',    //*
+			'#orderList tbody': 'tbOrderList',    //订单信息
+			'#tryOut tbody': 'tbTryOut',    //试用信息
             '#tbOperation tbody': 'tbOperation', //*
             '#sdXKDC': 'sdXKDC',                //*逍客终端总量
             '#sdXKDUC': 'sdXKDUC',              //*逍客终端 已用量/未用量
@@ -124,6 +130,7 @@ define(function(require, exports, module) {
             'click .savemonitoring': 'saveMonitoringEve',   //保存监控信息
 
             'click .employee-detail': 'employeeDetailEve',
+			'click .detail-order':'detailOrderEve',
             ///'click #crmInfoChange':'crmInfoChangeEve'
 
             'click .prooff': 'prooffEve',
@@ -141,6 +148,9 @@ define(function(require, exports, module) {
         tplAgent: _.template(tpl.filter('#trAgent').html()),
         tplOperation: _.template(tpl.filter('#trOperation').html()),
         tplLog: _.template(tpl.filter('#trLog').html()),
+		tbProductTem:_.template(tpl.filter('#trProductList').html()),
+		tPOrderList:_.template(tpl.filter('#trOrderList').html()),   //订单信息列表
+		tPTryOut:_.template(tpl.filter('#trTryOut').html()),   //试用信息
         tpCardList: _.template(tpl.filter('#trCardList').html()),
         tplCallBackList: _.template(tpl.filter('#callBackList').html()),
         tplMonitorList: _.template(tpl.filter('#monitoringList').html()), //监控列表
@@ -157,6 +167,21 @@ define(function(require, exports, module) {
             me.operations = {
                 isInitializes: false,
                 initialInfo: {},
+                pagination: null
+            };
+			 //产品历史信息
+            me.product = {
+                isInitializes: false,
+                pagination: null
+            };
+			//订单信息
+            me.orderList = {
+                isInitializes: false,
+                pagination: null
+            };
+			//试用列表
+            me.tryOut = {
+                isInitializes: false,
                 pagination: null
             };
             //日志信息
@@ -804,6 +829,18 @@ define(function(require, exports, module) {
                     console.log('product');
                     this.showProductInfo();      //产品信息
                     break;
+				case 'productHistory':
+                    console.log('productHistory');
+                    this.showProductHistoryInfo();      //产品历史信息
+                    break;
+				case 'orderList':
+					console.log('orderList');
+                    this.showOrderList();      //订单信息
+                    break;
+				case 'tryOut':
+					console.log('tryOut');
+                    this.showTryOut();      //试用信息
+                    break;
                 case 'operations':                //使用情况
                     console.log('operations');
                     this.showOperations();
@@ -910,6 +947,7 @@ define(function(require, exports, module) {
         showProductInfo: function() {
             var me = this;
             console.log('product');
+			 
             util.api({
                 'url': '/odr/queryProductVOList',
                 'data': {
@@ -987,6 +1025,163 @@ define(function(require, exports, module) {
                     }
                 }
             })
+        },
+		 //显示产品信息
+        showProductHistoryInfo: function() {
+            var me = this;
+            console.log('product');
+			 if (me.product.pagination) {
+
+                me.product.pagination.setPage(0, true);
+            } else {
+                me.product.pagination = new Pagination({
+                    wrapper: me.$view.find('#tbLog .pager'),
+                    pageSize: 10,
+                    pageNumber: 0
+                });
+                me.product.pagination.render();
+                me.product.pagination.onChange = function() {
+                    me.loadProdectList();
+                };
+                me.loadProdectList();
+            }
+        },
+		loadProdectList: function() {
+
+            console.log('productlist');
+            var me = this,
+                data = {
+                   ea: me.model.get('enterpriseAccount')
+                };
+       
+            util.api({
+                url: '/odr/queryProductHistoryVOList',
+                data: data,
+                success: function(data) {
+
+                    console.warn(data);
+                    if (data.success) {
+                       me.product.pagination.setTotalSize(data.model.itemCount);
+                        if (data.model.length > 0) {
+                            data.model.forEach(function(item) {
+                                
+                                item.statusStr = statusTimeMap[item.status];
+                            });
+                            me.$tbProductList.html(me.tbProductTem({ content: data.model }));
+                        } else {
+                            me.$tbProductList.html('<tr><td colspan="5"><p class="info">暂无数据</p></td></tr>');
+                        }
+                    }
+                }
+            });
+        },
+		//订单信息
+        showOrderList: function() {
+            var me = this;
+            console.log('product');
+			 if (me.orderList.pagination) {
+
+                me.orderList.pagination.setPage(0, true);
+            } else {
+                me.orderList.pagination = new Pagination({
+                    wrapper: me.$view.find('#tbLog .pager'),
+                    pageSize: 10,
+                    pageNumber: 0
+                });
+                me.orderList.pagination.render();
+                me.orderList.pagination.onChange = function() {
+                    me.loadOrderList();
+                };
+                me.loadOrderList();
+            }
+        },
+		loadOrderList: function() {
+
+            console.log('productlist');
+            var me = this,
+                data = {
+                    pageIndex: me.orderList.pagination.attr['pageNumber'] + 1,
+                    pageSize: me.orderList.pagination.attr['pageSize'],
+                    enterpriseId: me.model.attrs.enterpriseId
+                };
+       
+            util.api({
+                url: '~/op/api/enterprise/getEnterpriseOrder',
+                data: data,
+                success: function(data) {
+
+                    console.warn(data);
+                    if (data.success) {
+                       //me.orderList.pagination.setTotalSize(data.model.itemCount);
+                        if (data.model.length > 0) {
+                            data.model.forEach(function(item) {
+                                item.typeStr = orderMap[item.orderType];
+								item.payStatusStr = payStatusMap[item.payStatus];
+								 item.createTimeStr = new Date(item.createTime)._format('yyyy-MM-dd hh:mm');
+                            });
+                            me.$tbOrderList.html(me.tPOrderList({ content: data.model }));
+                        } else {
+                            me.$tbOrderList.html('<tr><td colspan="8"><p class="info">暂无数据</p></td></tr>');
+                        }
+                    }
+                }
+            });
+        },
+		detailOrderEve:function(e){
+			var me = this;
+			var orderId = $(e.currentTarget).attr('data-id');
+			window.location='#order/orderlist/'+orderId;
+			me.hide();
+		},
+		showTryOut: function() {
+            var me = this;
+            console.log('product');
+			 if (me.tryOut.pagination) {
+
+                me.tryOut.pagination.setPage(0, true);
+            } else {
+                me.tryOut.pagination = new Pagination({
+                    wrapper: me.$view.find('#tbLog .pager'),
+                    pageSize: 10,
+                    pageNumber: 0
+                });
+                me.tryOut.pagination.render();
+                me.tryOut.pagination.onChange = function() {
+                    me.loadTryOut();
+                };
+                me.loadTryOut();
+            }
+        },
+		loadTryOut: function() {
+
+            console.log('productlist');
+            var me = this,
+                data = {
+                    pageIndex: me.tryOut.pagination.attr['pageNumber'] + 1,
+                    pageSize: me.tryOut.pagination.attr['pageSize'],
+                    ea: me.model.get('enterpriseAccount')
+                };
+       
+            util.api({
+                url: '~/op/api/enterprise/getEnterpriseTrial',
+                data: data,
+                success: function(data) {
+
+                    console.warn(data);
+                    if (data.success) {
+                       //me.orderList.pagination.setTotalSize(data.model.itemCount);
+                        if (data.model.length > 0) {
+                            data.model.forEach(function(item) {
+                                item.typeStr = orderMap[item.orderType];
+								 item.trialStartTimeStr = new Date(item.trialStartTime)._format('yyyy-MM-dd hh:mm');
+                            });
+                            me.$tbTryOut.html(me.tPTryOut({ content: data.model }));
+                        } else {
+                            me.$tbTryOut.html('<tr><td colspan="2"><p class="info">暂无数据</p></td></tr>');
+                        }
+                    }
+                }
+            });
         },
 
         //新开启或关闭产品

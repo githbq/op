@@ -156,8 +156,12 @@ define( function( require, exports, module ) {
                 me.getList();
             };
             //me.getEnums();
-			me.searchEve();
-
+			if( me.attrs.orderId){
+				me.jumpEve(me.attrs.orderId);
+			}else{
+				me.searchEve();
+			}
+			
             resetSelect( me.$view , "ordermap");
             resetSelect( me.$view , "paystatus");
             resetSelect( me.$view , "apptype");
@@ -195,6 +199,12 @@ define( function( require, exports, module ) {
             this.pagination.setPage( 0,false );
             this.getList();
         },
+		jumpEve:function(orderId){
+			var me = this;
+			me.model.set('orderId',orderId);
+			this.pagination.setPage( 0,false );
+            this.getList();
+		},
         //撤回订单事件
         revocationEve: function(e){
             var me = this;
@@ -580,10 +590,22 @@ define( function( require, exports, module ) {
         }
     })
 
-    exports.init = function() {
+    exports.init = function(param) {
         var $el = exports.$el;
+		
+		param = param || [];
 
-        var orderList = new OrderList( {'view': $el.find('.m-orderlist')} );
+        
+		
+		/*orderList.on('ceshi',function(orderId){
+			orderList.jumpEve(orderId);
+		})*/
+		if(param.length>0){
+			var orderList = new OrderList( {'view': $el.find('.m-orderlist'),'orderId':param[0]} );
+			//orderList.trigger('ceshi',param[0]);
+		}else{
+			var orderList = new OrderList( {'view': $el.find('.m-orderlist')} );
+		}
 		
         var detailPayment = null;
 		var customHelper = null;

@@ -22,7 +22,46 @@
 	</p>
 <% } ) %>
 </script>
+<!--产品信息列表--start-->
+<script type="text/template" id="trProductList">
+	<% _.each( content, function( item, index ) { %>
+	<tr>
+		<td><%=item.productName%></td>
+		<td><%=item.statusStr%></td>
+		<td><%=item.useCount%></td>
+		<td><%=item.startTimeStr%></td>
+		<td><%=item.endTimeStr%></td>
+	</tr>
+	<% } ) %>
+</script>
+<!--产品信息列表--end-->
+<!--订单信息列表--start-->
+<script type="text/template" id="trOrderList">
+	<% _.each( content, function( item, index ) { %>
+	<tr>
+		<td><%=item.id%></td>
+		<td><%=item.contractNo%></td>
+		<td><%=item.typeStr%></td>
+		<td><%=item.accountName%></td>
+		<td><%=item.agentName%></td>
+		<td><%=item.payStatusStr%></td>
+		<td><%=item.createTimeStr%></td>
+		<td> <em data-id="<%=item.id%>" class="detail-order" style="color:#2896f0;cursor:pointer;" >查看</em></td>
+	</tr>
+	<% } ) %>
+</script>
+<!--订单信息列表--end-->
 
+<!--试用信息--start-->
+<script type="text/template" id="trTryOut">
+	<% _.each( content, function( item, index ) { %>
+	<tr>
+		<td><%=item.productName%></td>
+		<td><%=item.trialStartTimeStr%></td>
+	</tr>
+	<% } ) %>
+</script>
+<!--试用信息--end-->
 <script type="text/template" id="trAgent">
 	<% _.each( content, function( item, index ) { %>
 	<tr>
