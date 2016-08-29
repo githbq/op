@@ -7101,6 +7101,16 @@ em {
   text-align: right;
   display: none;
 }
+.m-ent-lst .question-icon {
+  background-image: url('../../assets/images/question48.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  display: inline-block;
+  position: relative;
+  top: 4px;
+  padding: 8px;
+}
 .m-ent-lst .list-pager {
   min-height: 60px;
 }
@@ -8616,6 +8626,16 @@ em {
 .m-orderlist td .disable {
   color: #bdbdbd;
   cursor: auto;
+}
+.m-orderlist .question-icon {
+  background-image: url('../../assets/images/question48.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  display: inline-block;
+  position: relative;
+  top: 4px;
+  padding: 8px;
 }
 .p-coupon {
   background: #f8f8f8;

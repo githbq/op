@@ -1,37 +1,37 @@
 <div class="p-entprisefiling-lst p-list" js="true">
     <div class="m-orderlist u-tablelist">
-    	<div class="list-header">
+        <div class="list-header">
             <div class="header-opts">
                 <button class="btn-blue exportOrder">导出订单</button>
             </div>
             <h3>订单列表</h3>
-    	</div>
-    	<div class="list-bar">
+        </div>
+        <div class="list-bar">
             <div class="list-bar-btns" style="width:200px;">
                 <button class="search">查询</button>
             </div>
-    		<div class="list-bar-input">
-    			<label for="">
-    				<span>订单号</span>
-    				<input type="text" ce-model="orderId" onchange="this.value=this.value.replace(/\D/g,'')" maxlength=8>
-    			</label>
-				<label for="">
-    				<span>合同号</span>
-    				<input type="text" ce-model="contractNo">
-    			</label>
-				<label for="">
-    				<span>企业名称</span>
-    				<input type="text" ce-model="en">
-    			</label>
-				<label for="">
-    				<span>企业账号</span>
-    				<input type="text" ce-model="ea"   onchange="this.value=this.value.toLowerCase( )">
-    			</label>
-				<label for="">
+            <div class="list-bar-input">
+                <label for="">
+                    <span>订单号</span>
+                    <input type="text" ce-model="orderId" onchange="this.value=this.value.replace(/\D/g,'')" maxlength=8>
+                </label>
+                <label for="">
+                    <span>合同号</span>
+                    <input type="text" ce-model="contractNo">
+                </label>
+                <label for="">
+                    <span>企业名称</span>
+                    <input type="text" ce-model="en">
+                </label>
+                <label for="">
+                    <span>企业账号</span>
+                    <input type="text" ce-model="ea" onchange="this.value=this.value.toLowerCase( )">
+                </label>
+                <label for="">
                     <span>订单类型</span>
                     <select name="ordermap" ce-model="orderType"></select>
                 </label>
-				<label for="">
+                <label for="">
                     <span>提单人</span>
                     <input type="text" ce-model="account">
                 </label>
@@ -61,70 +61,75 @@
                     <span>应用类型</span>
                     <select name="apptype" ce-model="hasProduct"></select>
                 </label>
-    			<p style="color:#ff5511; text-align:right;">到款之日起三个月可以开发票，超过三个月不允许开发票    到款之日起90天之内仍不能提交合规合同的,复审流程结束,不可再提交</p>
-    		</div>
-			
-    	</div>
-    	<div class="list-content" style="overflow:auto;">
-    		<table>
-    			<thead>
-    				<tr>
-    					<th></th>
-    					<th style="width:3%">订单号</th>
-						<th style="width:5%;">合同号</th>
-    					<th style="width:5%;">企业名称</th>
-                        <th style="width:5%;">账号</th>
-                        <th style="width:8%;">打款名称 (单位/个人)</th>
-                        <th style="width:7%;">总部本次到款金额</th>
-                        <th style="width:8%;">代理商本次到款金额</th>
-						<th style="width:4%;">订单类型</th>
-    					<th style="width:4%;">提单人</th>
-    					<th style="width:7%;">所属部门/代理商</th>
-    					<th style="width:5%">当前审批节点</th>
-						<th style="width:5%;">到款认领状态</th>
-						<th style="width:5%">订单状态</th>
-						<th style="width:4%">付费状态</th>
-						<th style="width:5%;">提单日期</th>
-						<th style="width:20%;">操作</th>
-    					<th></th>
-    				</tr>
-    			</thead>
-    			<tbody ce-collection="list">
-    				<tr>
-                        <td></td>
-                        <td title="<%=item.order.id%>"><%=item.order.id%></td>
-                        <td><%=item.order.contractNo%></td>
-                        <td><%=item.order.enterpriseName%></td>
-                        <td><%=item.order.enterpriseAccount%></td>
-                        <td><%=item.order.payerName%></td>
-                        <td><%=item.order.currPayAmount%></td>
-                        <td><%=item.order.agentCurrPayAmount%></td>
-                        <td><%=item.orderTypeStr%></td>
-                        <td><%=item.account ? item.account.name:''%></td>
-                        <td title="<%=item.deptLevelArr%>" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"><%=item.deptLevelArr ? item.deptLevelArr:''%></td>
-                        <td><%=item.approvalNodeStr%></td>
-                        <td><%=item.claimReceivedPayStatusStr%></td>
-                        <td><%=item.orderStatusStr%></td>
-                        <td><%=item.payStatusStr%></td>
-                        <td><%=item.createTimeStr%></td>
-                        <td>
-                            <a data-id="<%=item.order.id%>" class="<%if(item.canWithdraw){%>detail-revocation<%}else{%>disable<%}%>">撤回</a>
-                            <a data-id="<%=item.order.id%>" class="<%if(item.canCollectFinalPay){%>detail-finalpay<%}else{%>disable<%}%>">收尾款</a>
-                            <a data-id="<%=item.order.id%>" class="<%if(item.canDelete){%>detail-delete<%}else{%>disable<%}%>">删除</a>
-                            <a data-id="<%=item.order.id%>" data-entid="<%=item.order.enterpriseId%>" data-from="<%=item.rejectFrom%>" data-status="<%=item.approveStatus%>" data-dstatus="<%=item.claimReceivedPayStatus%>" data-type="<%=item.order.orderType%>" class="detail-info">查看</a>
-                            <a data-id="<%=item.order.id%>" data-entid="<%=item.order.enterpriseId%>" data-status="<%=item.approveStatus%>" data-dstatus="<%=item.claimReceivedPayStatus%>" data-type="<%=item.order.orderType%>" class="<%if(item.canSupContract){%>detail-supplement<%}else{%>disable<%}%>">补充合同</a>
-                            <a data-id="<%=item.order.id%>" data-daokuan="<%=item.claimOrShowReceivedPay%>" class="<%=item.claimClass%>">到款认领</a>
-                            <a data-id="<%=item.order.id%>" class="<%if(item.canInvoice){%>detail-invoice<%}else{%>disable<%}%>">发票</a>
-                            <a data-id="<%=item.order.id%>" class="<%if(item.canRefund){%>detail-tuikuan<%}else{%>disable<%}%>">退款</a>
-                            <a data-entid="<%=item.order.enterpriseId%>" class="<%if(item.canEditPartner){%>detail-union<%}else{%>disable<%}%>">联合跟进人</a>
-                        </td>
-                        <td></td>            
-                    </tr>
-    			</tbody>
-    		</table>
-    	</div>
+
+                <p style="color:#ff5511; text-align:right;">到款之日起三个月可以开发票，超过三个月不允许开发票 到款之日起90天之内仍不能提交合规合同的,复审流程结束,不可再提交</p>
+            </div>
+
+        </div>
+        <div class="list-content" style="overflow:auto;">
+            <table>
+                <thead>
+                <tr>
+                    <th></th>
+                    <th style="width:3%">订单号</th>
+                    <th style="width:5%;">合同号</th>
+                    <th style="width:5%;">企业名称</th>
+                    <th style="width:5%;">账号</th>
+                    <th style="width:8%;">打款名称 (单位/个人)</th>
+                    <th style="width:7%;">总部本次到款金额</th>
+                    <th style="width:8%;">代理商本次到款金额</th>
+                    <th style="width:4%;">订单类型</th>
+                    <th style="width:4%;">提单人</th>
+                    <th style="width:7%;">所属部门/代理商</th>
+                    <th style="width:5%">当前审批节点</th>
+                    <th style="width:5%;">到款认领状态</th>
+                    <th style="width:5%">订单状态</th>
+                    <th style="width:4%">付费状态</th>
+                    <th style="width:5%;">提单日期</th>
+                    <th style="width:20%;">操作</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody ce-collection="list">
+                <tr>
+                    <td></td>
+                    <td title="<%=item.order.id%>"><%=item.order.id%></td>
+                    <td><%=item.order.contractNo%></td>
+                    <td><%=item.order.enterpriseName%>
+                        <% if(item.order.contractEnterpriseName){%>
+                        <i class="question-icon" title="<%=item.order.contractEnterpriseName%>"></i>
+                        <%}%>
+                    </td>
+                    <td><%=item.order.enterpriseAccount%></td>
+                    <td><%=item.order.payerName%></td>
+                    <td><%=item.order.currPayAmount%></td>
+                    <td><%=item.order.agentCurrPayAmount%></td>
+                    <td><%=item.orderTypeStr%></td>
+                    <td><%=item.account ? item.account.name:''%></td>
+                    <td title="<%=item.deptLevelArr%>" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"><%=item.deptLevelArr ? item.deptLevelArr:''%></td>
+                    <td><%=item.approvalNodeStr%></td>
+                    <td><%=item.claimReceivedPayStatusStr%></td>
+                    <td><%=item.orderStatusStr%></td>
+                    <td><%=item.payStatusStr%></td>
+                    <td><%=item.createTimeStr%></td>
+                    <td>
+                        <a data-id="<%=item.order.id%>" class="<%if(item.canWithdraw){%>detail-revocation<%}else{%>disable<%}%>">撤回</a>
+                        <a data-id="<%=item.order.id%>" class="<%if(item.canCollectFinalPay){%>detail-finalpay<%}else{%>disable<%}%>">收尾款</a>
+                        <a data-id="<%=item.order.id%>" class="<%if(item.canDelete){%>detail-delete<%}else{%>disable<%}%>">删除</a>
+                        <a data-id="<%=item.order.id%>" data-entid="<%=item.order.enterpriseId%>" data-from="<%=item.rejectFrom%>" data-status="<%=item.approveStatus%>" data-dstatus="<%=item.claimReceivedPayStatus%>" data-type="<%=item.order.orderType%>" class="detail-info">查看</a>
+                        <a data-id="<%=item.order.id%>" data-entid="<%=item.order.enterpriseId%>" data-status="<%=item.approveStatus%>" data-dstatus="<%=item.claimReceivedPayStatus%>" data-type="<%=item.order.orderType%>" class="<%if(item.canSupContract){%>detail-supplement<%}else{%>disable<%}%>">补充合同</a>
+                        <a data-id="<%=item.order.id%>" data-daokuan="<%=item.claimOrShowReceivedPay%>" class="<%=item.claimClass%>">到款认领</a>
+                        <a data-id="<%=item.order.id%>" class="<%if(item.canInvoice){%>detail-invoice<%}else{%>disable<%}%>">发票</a>
+                        <a data-id="<%=item.order.id%>" class="<%if(item.canRefund){%>detail-tuikuan<%}else{%>disable<%}%>">退款</a>
+                        <a data-entid="<%=item.order.enterpriseId%>" class="<%if(item.canEditPartner){%>detail-union<%}else{%>disable<%}%>">联合跟进人</a>
+                    </td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
         <div class="list-pager">
-            
+
         </div>
     </div>
 </div>
