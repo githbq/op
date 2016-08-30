@@ -1338,7 +1338,7 @@ define(function(require, exports, module) {
 
                 if( me.model.get('trainHelperUsedCapacity') ){
 
-                    me.$('#trainHelperUsedCapacityStr').val( parseFloat( me.model.get('trainHelperUsedCapacity') ) + '/' + ( parseFloat( me.model.get('trainHelperTotalCapacity') ) - parseFloat( me.model.get('trainHelperUsedCapacity') ) ) )
+                    me.$('#trainHelperUsedCapacityStr').val( parseFloat( me.model.get('trainHelperUsedCapacity') ) + '/' + ( parseFloat( me.model.get('trainHelperTotalCapacity') ) - parseFloat( me.model.get('trainHelperUsedCapacity') ) ).toFixed(2) )
                 }
             }
 
