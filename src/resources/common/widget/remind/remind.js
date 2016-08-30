@@ -79,14 +79,12 @@ define(function(require, exports, module){
 							me.list.reload( data.value.model, function( item ){
 								if(REMIND_MAP[item.type]){
 									item.content = REMIND_MAP[item.type]['text'];
+									me.show();
 								}else{
 									var titleInfo = REMIND_MAP[item.type] ? REMIND_MAP[item.type]['text']:'未找到类型为：'+item.type+ ' 的信息提示';
 									console.log(titleInfo)
 								}
-								
-								
 							});
-							me.show();
 						}else{
 							me.hide();
 						}
