@@ -1120,6 +1120,7 @@ define(function(require, exports, module) {
 								 item.createTimeStr = new Date(item.createTime)._format('yyyy-MM-dd hh:mm');
                             });
                             me.$tbOrderList.html(me.tPOrderList({ content: data.model }));
+							IBSS.tplEvent.setPermissions( me.$tbOrderList );
                         } else {
                             me.$tbOrderList.html('<tr><td colspan="8"><p class="info">暂无数据</p></td></tr>');
                         }

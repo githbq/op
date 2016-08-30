@@ -157,8 +157,8 @@ define( function( require, exports, module ) {
             };
             //me.getEnums();
 			if( me.attrs.orderId){
-				me.$putStartTime.val(  );
-				me.$putEndTime.val( );
+				me.$putStartTime.val('');
+				me.$putEndTime.val('');
 				me.jumpEve(me.attrs.orderId);
 			}else{
 				me.searchEve();
