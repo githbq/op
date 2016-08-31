@@ -11,16 +11,11 @@ define(function (require, exports, module) {
     var tpl = $(require('./template.html'));
     var uploader = require('common/widget/upload').uploader;
 
-<<<<<<< HEAD
     var buyMap = new Object({ '1': '赠送', '2': '购买充值' });
     var carMap = new Object({ '0': '未开通服务', '1': '限量购买', '2': '不限量使用' });
 	var orderMap = new Object({ '1': '新购', '2': '增购', '3': '续费','4':'增购续费','5':'关联自助册','6':'开源','17':'收尾款订单','18':'线上支付订单' });
 	var payStatusMap = {1:'全款',2:'分期',3:'未付'}
 	var statusTimeMap = {1:'有效',2:'过期',0:'——'}
-=======
-    var buyMap = new Object({'1': '赠送', '2': '购买充值'});
-    var carMap = new Object({'0': '未开通服务', '1': '限量购买', '2': '不限量使用'});
->>>>>>> f8d60135eade1412ad4d3f060e6895cbf821804a
 
     //
     // 企业详情
@@ -1343,12 +1338,7 @@ define(function (require, exports, module) {
                 me.$('#trainHelperTotalCapacity').val(parseFloat(me.model.get('trainHelperTotalCapacity')));
 
                 if (me.model.get('trainHelperUsedCapacity')) {
-
-<<<<<<< HEAD
                     me.$('#trainHelperUsedCapacityStr').val( parseFloat( me.model.get('trainHelperUsedCapacity') ) + '/' + ( parseFloat( me.model.get('trainHelperTotalCapacity') ) - parseFloat( me.model.get('trainHelperUsedCapacity') ) ).toFixed(2) )
-=======
-                    me.$('#trainHelperUsedCapacityStr').val(parseFloat(me.model.get('trainHelperUsedCapacity')) + '/' + ( parseFloat(me.model.get('trainHelperTotalCapacity')) - parseFloat(me.model.get('trainHelperUsedCapacity')) ))
->>>>>>> f8d60135eade1412ad4d3f060e6895cbf821804a
                 }
             }
 
