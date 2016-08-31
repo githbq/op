@@ -77,7 +77,11 @@
                 <tbody ce-collection="list">
                     <td></td>
                     <td data-permissions="M008009060 M009006100"><input type="checkbox" class="selectitem" value="<%=item.csmEnterprise.enterpriseID%>"></td>
-                    <td><%=item.csmEnterprise.enterpriseName%></td>
+                    <td><%=item.csmEnterprise.enterpriseName%>
+                        <% if(item.contractEnterpriseName){%>
+                        <i class="question-icon" title="签约企业名称:<%=item.contractEnterpriseName%>"></i>
+                        <%}%>
+                    </td>
                     <td><%=item.csmEnterprise.enterpriseAccount%></td>
 					<td title="<%=item.deptLevelArr%>" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"><%=item.deptLevelArr ? item.deptLevelArr:''%> </td>
 					<td><%=item.creator ? item.creator.name:'--'%></td>

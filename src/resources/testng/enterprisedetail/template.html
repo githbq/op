@@ -35,6 +35,12 @@
                     <input ng-class="{readonly:true}" ng-readonly="true" type="text" ng-model="entInfo.area" name="area" ng-maxlength="100"/>
                 </div>
             </div>
+            <div class="form-row" ng-if="entInfo.contractEnterpriseName">
+                <div class="form-field">
+                    <label><span>签约企业名称</span></label>
+                    <input ng-class="{readonly:true}" ng-readonly="true" type="text" ng-model="entInfo.contractEnterpriseName" name="contractEnterpriseName"/>
+                </div>
+            </div>
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>企业账号</span></label>
