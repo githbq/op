@@ -495,7 +495,7 @@ define( function( require, exports, module ) {
         exportEve: function(e){
             var me = this;
 
-            var putStartTime = '',
+            var putStartTime = '';
                 putEndTime = '';
 
             if( me.$putStartTime.val() ){
@@ -513,7 +513,7 @@ define( function( require, exports, module ) {
 		exportAgentEve:function(){
 			 var me = this;
 
-            var putStartTime = '',
+            var putStartTime = '';
                 putEndTime = '';
 
             if( me.$putStartTime.val() ){
