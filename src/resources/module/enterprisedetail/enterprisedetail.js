@@ -2,7 +2,7 @@
  *
  * 企业详情
  */
-define(function(require, exports, module) {
+define(function (require, exports, module) {
 
     var Slider = require('common/widget/slider/slider');
 
@@ -65,7 +65,6 @@ define(function(require, exports, module) {
             '#verification': 'verification',    //资料审核按钮
 
 
-
             '#yingyezhizhao': 'yingyezhizhao',                  //*营业执照图片input
             '#yingyezhizhaonone': 'yingyezhizhaonone',          //*营业执照无图提示
             '#yingyezhizhaoinfo': 'yingyezhizhaoinfo',          //*营业执照显示信息a标签
@@ -86,7 +85,7 @@ define(function(require, exports, module) {
             '#companyGateRemark': 'getcompanyGateRemark',       //*只读门头照片备注
             '.companyGateKeyword': 'setcompanyGatekeyword',     //*设置门头照片关键字
             '.companyGateRemark': 'setcompanyGateRemark',       //*设置门头照片备注
-            
+
             '#shenheresult': 'shenheresult',
             '#huifangresult': 'huifangresult',
 
@@ -136,14 +135,14 @@ define(function(require, exports, module) {
             'click .prooff': 'prooffEve',
             'click .proon': 'proonEve',
 
-            'click #openproduct': function() {
+            'click #openproduct': function () {
                 this.toggleProduct(1)
             }, //开启产品
-            'click #closeproduct': function() {
+            'click #closeproduct': function () {
                 this.toggleProduct(2)
             } //关闭产品                                                        
         },
-        
+
         tplProduct: _.template(tpl.filter('#trProduct').html()),
         tplAgent: _.template(tpl.filter('#trAgent').html()),
         tplOperation: _.template(tpl.filter('#trOperation').html()),
@@ -155,7 +154,7 @@ define(function(require, exports, module) {
         tplCallBackList: _.template(tpl.filter('#callBackList').html()),
         tplMonitorList: _.template(tpl.filter('#monitoringList').html()), //监控列表
 
-        init: function(attrs) {
+        init: function (attrs) {
             EntDetail.__super__.init.apply(this, arguments);
 
             var me = this;
@@ -204,13 +203,13 @@ define(function(require, exports, module) {
         //
         // 初始化日期选择
         //=================================
-        initializeDatepickers: function() {
+        initializeDatepickers: function () {
             var me = this;
 
             //企业日志开始时间
             me.$sbLogST.datetimepicker({
                 format: 'Y/m/d',
-                onShow: function() {
+                onShow: function () {
                     var maxDate = me.$sbLogET.val() ? me.$sbLogET.val() : false;
                     this.setOptions({
                         maxDate: maxDate
@@ -218,11 +217,11 @@ define(function(require, exports, module) {
                 },
                 timepicker: false
             });
-            
+
             //企业日志结束时间
             me.$sbLogET.datetimepicker({
                 format: 'Y/m/d',
-                onShow: function() {
+                onShow: function () {
                     var minDate = me.$sbLogST.val() ? me.$sbLogST.val() : false;
                     this.setOptions({
                         minDate: minDate
@@ -234,7 +233,7 @@ define(function(require, exports, module) {
             //活跃度开始时间
             me.$actStartTime.datetimepicker({
                 format: 'Y/m/d',
-                onShow: function() {
+                onShow: function () {
                     var maxDate = me.$actEndTime.val() ? me.$actEndTime.val() : false;
                     this.setOptions({
                         maxDate: maxDate
@@ -246,7 +245,7 @@ define(function(require, exports, module) {
             //活跃度结束时间
             me.$actEndTime.datetimepicker({
                 format: 'Y/m/d',
-                onShow: function() {
+                onShow: function () {
                     var minDate = me.$actStartTime.val() ? me.$actStartTime.val() : false;
                     this.setOptions({
                         minDate: minDate
@@ -256,27 +255,27 @@ define(function(require, exports, module) {
             });
 
             /*
-            me.$cardStartTime.datetimepicker({
-                format: 'Y/m/d',
-                onShow: function() {
-                    var maxDate = me.$cardEndTime.val() ? me.$cardEndTime.val() : false;
-                    this.setOptions({
-                        maxDate: maxDate
-                    });
-                },
-                timepicker: false
-            });
-            me.$cardEndTime.datetimepicker({
-                format: 'Y/m/d',
-                onShow: function() {
-                    var minDate = me.$cardStartTime.val() ? me.$cardStartTime.val() : false;
-                    this.setOptions({
-                        minDate: minDate
-                    });
-                },
-                timepicker: false
-            });
-            */
+             me.$cardStartTime.datetimepicker({
+             format: 'Y/m/d',
+             onShow: function() {
+             var maxDate = me.$cardEndTime.val() ? me.$cardEndTime.val() : false;
+             this.setOptions({
+             maxDate: maxDate
+             });
+             },
+             timepicker: false
+             });
+             me.$cardEndTime.datetimepicker({
+             format: 'Y/m/d',
+             onShow: function() {
+             var minDate = me.$cardStartTime.val() ? me.$cardStartTime.val() : false;
+             this.setOptions({
+             minDate: minDate
+             });
+             },
+             timepicker: false
+             });
+             */
 
             me.$('#trainstarttime').datetimepicker({
                 format: 'Y/m/d',
@@ -300,7 +299,7 @@ define(function(require, exports, module) {
         },
 
         //每次显示时清空一下缓存信息
-        clearinfo: function() {
+        clearinfo: function () {
             var me = this;
 
             //
@@ -315,7 +314,7 @@ define(function(require, exports, module) {
         //显示
         //@param id       企业id
         //@param status   
-        show: function(id, status) {
+        show: function (id, status) {
             var me = this;
             me.enterpriseAccount = '';
 
@@ -323,7 +322,7 @@ define(function(require, exports, module) {
 
             //获取枚举值 获取完毕后 获取企业信息
             //me.getEnums(id);
-            me.initMselect(function(){
+            me.initMselect(function () {
                 me.getEnums(id);
             });
             EntDetail.__super__.show.apply(this, arguments);
@@ -332,7 +331,7 @@ define(function(require, exports, module) {
         //
         // 获取省市区信息和行业信息
         //==============================
-        initMselect: function( cb ){
+        initMselect: function (cb) {
             var me = this;
 
             var state = {
@@ -341,57 +340,57 @@ define(function(require, exports, module) {
             };
 
             //检测是否ok
-            function checkOk(){
-                if( state.a && state.b ){
+            function checkOk() {
+                if (state.a && state.b) {
                     cb && cb();
                 }
             }
 
             //初始化地区
-            function getlist( type, parentValue , el , text , callback ){
+            function getlist(type, parentValue, el, text, callback) {
 
-                var url,name;
-                if( type == 'area' ){
-                    url='~/op/api/district/getListByParent';
-                    name='parentValue';
-                }else{
-                    url='~/op/api/enums/getlistByParent';
-                    name='INDUSTRY_NEW';
+                var url, name;
+                if (type == 'area') {
+                    url = '~/op/api/district/getListByParent';
+                    name = 'parentValue';
+                } else {
+                    url = '~/op/api/enums/getlistByParent';
+                    name = 'INDUSTRY_NEW';
                 }
                 //发送请求
                 util.api({
-                    'url':url,
-                    'data':{
+                    'url': url,
+                    'data': {
                         'name': name,
                         'parentValue': parentValue
                     },
-                    'success': function( data ){
-                        if( data.success ){
-                            if( type == 'industry' ){
-                                data.value.model.forEach(function(item){
+                    'success': function (data) {
+                        if (data.success) {
+                            if (type == 'industry') {
+                                data.value.model.forEach(function (item) {
                                     item.name = item.text;
                                 })
-                                console.log( data.value.model );
+                                console.log(data.value.model);
                             }
-                            data.value.model.unshift({'name':text,'value':''})
-                            util.resetSelect( el , data.value.model );
+                            data.value.model.unshift({'name': text, 'value': ''})
+                            util.resetSelect(el, data.value.model);
                             callback && callback();
                         }
                     }
                 })
             }
 
-            getlist( 'area', 0 ,me.$('#sprovince'),'请选择省', function(){
+            getlist('area', 0, me.$('#sprovince'), '请选择省', function () {
                 state.a = true;
                 checkOk();
             });
 
-            me.$('#sprovince').on('change',function(){
+            me.$('#sprovince').on('change', function () {
                 var val = me.$('#sprovince').val();
-                if( val ){
-                    getlist( 'area',val,me.$('#scity'),'请选择市',function(){
+                if (val) {
+                    getlist('area', val, me.$('#scity'), '请选择市', function () {
                         //
-                        if( me.attrs.mstate.a2 == false){
+                        if (me.attrs.mstate.a2 == false) {
                             me.$('#scity').val(me.model.get('city'));
                             me.$('#scity').trigger('change');
                             me.attrs.mstate.a2 = true;
@@ -400,12 +399,12 @@ define(function(require, exports, module) {
                 }
             })
 
-            me.$('#scity').on('change',function(){
+            me.$('#scity').on('change', function () {
                 var val = me.$('#scity').val();
-                if( val ){
-                    getlist('area',val,me.$('#sarea'),'请选择地区',function(){
+                if (val) {
+                    getlist('area', val, me.$('#sarea'), '请选择地区', function () {
                         //
-                        if( me.attrs.mstate.a3 == false){
+                        if (me.attrs.mstate.a3 == false) {
                             me.$('#sarea').val(me.model.get('county'));
                             me.attrs.mstate.a3 = true;
                         }
@@ -413,19 +412,19 @@ define(function(require, exports, module) {
                 }
             })
 
-            getlist('industry',0,me.$('#sinsone'),'请选择一级行业', function(){
+            getlist('industry', 0, me.$('#sinsone'), '请选择一级行业', function () {
                 state.b = true;
                 checkOk();
             });
 
-            me.$('#sinsone').on('change',function(){
+            me.$('#sinsone').on('change', function () {
                 var val = me.$('#sinsone').val();
-                if( val ){
-                    getlist('industry',val,me.$('#sinstwo'),'请选择二级行业',function(){
+                if (val) {
+                    getlist('industry', val, me.$('#sinstwo'), '请选择二级行业', function () {
                         //
                         console.log('二级行业变化');
-                        console.log( me.model.get('industrySecond') );
-                        if( me.attrs.mstate.b2 == false){
+                        console.log(me.model.get('industrySecond'));
+                        if (me.attrs.mstate.b2 == false) {
                             me.$('#sinstwo').val(me.model.get('industrySecond'));
                             me.$('#sinstwo').trigger('change');
                             me.attrs.mstate.b2 = true;
@@ -433,14 +432,14 @@ define(function(require, exports, module) {
                     });
                 }
             })
-            me.$('#sinstwo').on('change',function(){
+            me.$('#sinstwo').on('change', function () {
                 var val = me.$('#sinstwo').val();
-                if( val ){
-                    getlist('industry',val,me.$('#sinsthree'),'请选择三级行业',function(){
+                if (val) {
+                    getlist('industry', val, me.$('#sinsthree'), '请选择三级行业', function () {
                         //
                         console.log('三级行业变化');
-                        console.log( me.model.get('industryThird') );
-                        if( me.attrs.mstate.b3 == false){
+                        console.log(me.model.get('industryThird'));
+                        if (me.attrs.mstate.b3 == false) {
                             me.$('#sinsthree').val(me.model.get('industryThird'));
                             me.attrs.mstate.b3 = true;
                         }
@@ -454,7 +453,7 @@ define(function(require, exports, module) {
          *
          * 隐藏slider
          */
-        hide: function() {
+        hide: function () {
             var me = this;
             me.model.clear();
             me.$('.accordian').addClass('collapse');
@@ -472,7 +471,7 @@ define(function(require, exports, module) {
         //  获取完枚举值后
         //  获取企业信息
         //===========================
-        getEnums: function(id) {
+        getEnums: function (id) {
             var me = this;
 
             var state = {
@@ -486,59 +485,59 @@ define(function(require, exports, module) {
             };
 
             function checkIsOk() {
-                if (state.a && state.b && state.c && state.d && state.e && state.f && state.g ) {
-                    me.getEnterprise( id );
+                if (state.a && state.b && state.c && state.d && state.e && state.f && state.g) {
+                    me.getEnterprise(id);
                 }
             };
 
             //
-            me.generateSelect('ENT_LST_SOURCE', me.$asource, function() {
+            me.generateSelect('ENT_LST_SOURCE', me.$asource, function () {
                 state.a = true;
                 checkIsOk()
             }); //来源信息
 
             //缺少使用对象类型
-            me.generateSelect('CAMPANY_SCALE', me.$acompany, function() {
+            me.generateSelect('CAMPANY_SCALE', me.$acompany, function () {
                 state.b = true;
                 checkIsOk()
             }); //公司规模
-            
-            me.generateSelect('SALE_TEAM_SCALE', me.$asales, function() {
+
+            me.generateSelect('SALE_TEAM_SCALE', me.$asales, function () {
                 state.c = true;
                 checkIsOk()
             }); //销售团队规模
 
-            me.generateSelect('RETURN_VISIT_CHECK', me.$('#returnvisitCheck'), function() {
+            me.generateSelect('RETURN_VISIT_CHECK', me.$('#returnvisitCheck'), function () {
                 state.d = true;
                 checkIsOk()
             }); //电话回访状态
 
-            me.generateSelect('ENTERPRISE_CHEAT_TYPE', me.$('#cheatType'), function() {
+            me.generateSelect('ENTERPRISE_CHEAT_TYPE', me.$('#cheatType'), function () {
                 state.e = true;
                 checkIsOk()
             }); //作弊情况
 
-            me.generateSelect('GROUP_TYPE', me.$agroup, function() {
+            me.generateSelect('GROUP_TYPE', me.$agroup, function () {
                 state.f = true;
                 checkIsOk()
             }); //团队类型
 
-            me.generateSelect('ENTERPRISE_LOG_TYPE', me.$sbLogType, function() {
+            me.generateSelect('ENTERPRISE_LOG_TYPE', me.$sbLogType, function () {
                 state.g = true;
                 checkIsOk()
             }); //日志类型
         },
 
         //重置select枚举值
-        generateSelect: function(name, $select, callback) {
+        generateSelect: function (name, $select, callback) {
             var me = this;
             //var list = [{'name':'请选择','value':''}];
-            var list = [{ 'name': '请选择', 'value': '' }];
+            var list = [{'name': '请选择', 'value': ''}];
 
-            util.getEnums(name, function(data) {
+            util.getEnums(name, function (data) {
                 var items = data.model,
                     options = '<option value="">请选择</option>';
-                items.forEach(function(item, index) {
+                items.forEach(function (item, index) {
                     options += '<option value="' + item.value + '" title="' + item.text + '">' + item.text + '</option>';
                 })
                 $select.html(options);
@@ -548,22 +547,22 @@ define(function(require, exports, module) {
 
         //获取企业详情
         //================
-        getEnterprise: function(id, callback) {
+        getEnterprise: function (id, callback) {
             var me = this;
 
             //获取企业详情 兼容
             //
             /*
-            util.api({
-                'url': '/odrDraft/getDraftEnterpriseById',
-                'data':{
-                    'id': id
-                },
-                'success':function( data ){
+             util.api({
+             'url': '/odrDraft/getDraftEnterpriseById',
+             'data':{
+             'id': id
+             },
+             'success':function( data ){
 
-                }
-            })
-            */
+             }
+             })
+             */
             console.log('getenterprise!!!!!');
 
             //获取企业详情
@@ -572,49 +571,52 @@ define(function(require, exports, module) {
                 'data': {
                     'enterpriseId': id
                 },
-                'success': function( data ) {
+                'success': function (data) {
 
                     if (data.success) {
                         me.attrs.runStatus = data.value.model.runStatus;
                         var model = data.value.model;
                         ///me.product.isInitialized = false;
-                        
+
                         //转换一些数据
-                        model.isSaleTeam = model.isSaleTeam ? '1':'0';
-                        model.isReferral = model.isReferral ? '1':'0';
+                        model.isSaleTeam = model.isSaleTeam ? '1' : '0';
+                        model.isReferral = model.isReferral ? '1' : '0';
 
                         //装载数据 主要给企业基本信息赋值
                         //缓存数据
                         var updateTime = model.updateTime;
-                        model = $.extend( model, model.odrDraftEnterprise );
+                        model = $.extend(model, model.odrDraftEnterprise);
                         //重新加载
                         model.updateTime = updateTime;
-
+                        if (model.contractEnterpriseName) {
+                            me.$('.contractEnterpriseName-wrapper').show();
+                        } else {
+                            me.$('.contractEnterpriseName-wrapper').hide();
+                        }
                         me.model.load(model);
-                        
+
                         //
                         //兼容二三级地址和二三级行业
                         //===========================================================
-                        me.attrs.mstate = {'a2':false,'a3':false,'b2':false,'b3':false }
+                        me.attrs.mstate = {'a2': false, 'a3': false, 'b2': false, 'b3': false}
                         me.$('#sprovince').val(me.model.get('province'));
                         me.$('#sinsone').val(me.model.get('industryFirst'));
                         me.$('#sprovince').trigger('change');
                         me.$('#sinsone').trigger('change');
                         //============================================================
-                        
 
 
                         //
                         //开通时间显示
                         //===================================================
-                        if( me.model.get('appStartTime') ){
-                            me.$('.openTime').show().find('.content').text( new Date( me.model.get('appStartTime') )._format('yyyy年MM月dd日') );
+                        if (me.model.get('appStartTime')) {
+                            me.$('.openTime').show().find('.content').text(new Date(me.model.get('appStartTime'))._format('yyyy年MM月dd日'));
                         }
 
                         //控制续费显隐
-                        if( me.model.get('runStatus') == 2 ){
+                        if (me.model.get('runStatus') == 2) {
                             me.$notice.show();
-                        }else{
+                        } else {
                             me.$notice.hide();
                         }
                         //初始化 使用情况的缓存
@@ -632,11 +634,11 @@ define(function(require, exports, module) {
                         //给使用情况赋值
                         me.$sdXKDUC.val(model.accountUsedAmount + '/' + model.accountAvailableAmount || '');
                         var tempmarketingAccountAmount = model.marketingAccountAmount
-                        
+
                         //if (model.marketingAccountAmount && parseInt(model.marketingAccountAmount) > parseInt(model.accountTotalAmount)) {
                         //    me.$sdXKDC.val(model.marketingAccountAmount);
                         //} else {
-                            me.$sdXKDC.val(model.accountTotalAmount);
+                        me.$sdXKDC.val(model.accountTotalAmount);
                         //}
 
                         me.$yingxiaoSum.val(model.marketingAccountAmount);
@@ -653,7 +655,7 @@ define(function(require, exports, module) {
                         //me.$aregister.val(model.registerMotive);
                         me.$acompany.val(model.companyScale);
                         me.$asales.val(model.saleTeamScale);
-                        
+
                         switch (model.activity) {
                             case 1:
                                 model.activityStr = "无登录";
@@ -673,11 +675,11 @@ define(function(require, exports, module) {
                         }
 
                         me.$('#presentOfficeEdition').val(model.presentOfficeEdition);
-						if(model.crmVersion == 2){
-							 me.$('#crmVersion').attr('disabled','disabled');
-						}else{
-							me.$('#crmVersion').removeAttr('disabled');
-						}
+                        if (model.crmVersion == 2) {
+                            me.$('#crmVersion').attr('disabled', 'disabled');
+                        } else {
+                            me.$('#crmVersion').removeAttr('disabled');
+                        }
                         //me.$hasSales.val(model.isSaleTeam ? 'true' : 'false');
                         //me.$isMettingSale.val(model.isWillPin ? 'true' : 'false');
                         //me.$isFirstView.val(model.isFirstmeetingSign ? 'true' : 'false');
@@ -689,7 +691,7 @@ define(function(require, exports, module) {
                         me.$remark.val(model.remark);
                         //me.$sAgentId.val(model.agentId);
                         //me.$sAgentName.val(model.agentName);
- 
+
                         //给活跃度赋值
                         me.$sActivity.val(model.activityStr);
 
@@ -697,11 +699,10 @@ define(function(require, exports, module) {
                          * 进行状态显隐控制
                          */
                         me.setVisibility();
-						
-						//启用停用备注赋值
-						me.$('#switchRemark').val(model.switchRemark)
-						//me.$('#switchRemark').val('hhhhhhhhh')
 
+                        //启用停用备注赋值
+                        me.$('#switchRemark').val(model.switchRemark)
+                        //me.$('#switchRemark').val('hhhhhhhhh')
                         callback && callback();
                     }
                 }
@@ -723,7 +724,7 @@ define(function(require, exports, module) {
          *  根据状态信息相应类名显示
          *  f1待开通  f2已开通 f3已作废 f4已停用
          */
-        setVisibility: function() {
+        setVisibility: function () {
             var me = this;
             var status = this.model.attrs.runStatus;
             me.$('.f1,.f2,.f3,.f4').css('display', 'none');
@@ -736,7 +737,7 @@ define(function(require, exports, module) {
                 case 2: // 已开通
                     me.$('.ed').removeAttr('disabled');
                     me.$('.f2').css('display', '');
-					me.$('.off24').css('display', '');
+                    me.$('.off24').css('display', '');
                     break;
                 case 3: // 已作废
                     me.$('.ed').attr('disabled', 'disabled');
@@ -745,7 +746,7 @@ define(function(require, exports, module) {
                 case 4: // 已停用
                     me.$('.ed').attr('disabled', 'disabled');
                     me.$('.f4').css('display', '');
-					me.$('.off24').css('display', '');
+                    me.$('.off24').css('display', '');
                     break;
                 default:
                     me.$('.ed').removeAttr('disabled');
@@ -757,7 +758,7 @@ define(function(require, exports, module) {
 
         //设置 dom 元素的显隐状态
         //
-        setState: function($el) {
+        setState: function ($el) {
             var me = this;
 
             //console.log(me.attrs.isAgent);
@@ -786,7 +787,7 @@ define(function(require, exports, module) {
             }
         },
 
-        showNumber: function() {
+        showNumber: function () {
             var me = this;
             var eId = me.model.attrs.enterpriseId
 
@@ -796,7 +797,7 @@ define(function(require, exports, module) {
                 url: url,
                 type: 'POST',
                 dataType: "json",
-                success: function(resp) {
+                success: function (resp) {
                     if (resp.success) {
                         $('#peopleNumber').html(resp.model);
                     }
@@ -807,7 +808,7 @@ define(function(require, exports, module) {
         //
         //显示隐藏子菜单 同时执行模块开启函数
         //==================================
-        showAccordian: function(e) {
+        showAccordian: function (e) {
             var target = e.currentTarget,
                 $parent = $(target).parent();
             $content = $(target).next('.content');
@@ -867,7 +868,7 @@ define(function(require, exports, module) {
         //
         // 保存企业信息
         //=========================
-        saveBasicEve: function(e) {
+        saveBasicEve: function (e) {
 
             // disable buttons
             var me = this;
@@ -875,15 +876,15 @@ define(function(require, exports, module) {
             $target.attr('disabled', 'disabled');
             $target.addClass('disable');
 
-            function generateData( array ){
-                    
+            function generateData(array) {
+
                 var data = {};
-                array.forEach(function(item){
+                array.forEach(function (item) {
                     data[item] = me.model.get(item);
                 })
                 return data;
             }
-            
+
             var postData = generateData([
                 'address',
                 'area',
@@ -909,8 +910,8 @@ define(function(require, exports, module) {
                 'keyContactPhone',
                 //'province',
                 'saleTeamScale'
-                ]);
-            
+            ]);
+
             postData.enterpriseFilingId = me.model.get('enterpriseFilingId');
             //省市区信息
             postData.province = me.$('#sprovince').val();
@@ -925,18 +926,18 @@ define(function(require, exports, module) {
             postData.id = me.model.get('id');
             //修改企业信息
             util.api({
-                'url':'/enterprise/uptEnterprise',
+                'url': '/enterprise/uptEnterprise',
                 'contentType': 'application/json',
-                'data': JSON.stringify( postData ),
-                'success': function( data ){
-                    if( data.success ){
+                'data': JSON.stringify(postData),
+                'success': function (data) {
+                    if (data.success) {
 
                         console.warn('企业修改提交');
                         console.warn(data);
                         util.showTip('企业修改成功');
                     }
                 },
-                'complete': function(){
+                'complete': function () {
                     $target.removeAttr('disabled');
                     $target.removeClass('disable');
                 }
@@ -944,7 +945,7 @@ define(function(require, exports, module) {
         },
 
         //显示产品信息
-        showProductInfo: function() {
+        showProductInfo: function () {
             var me = this;
             console.log('product');
 			 
@@ -953,16 +954,16 @@ define(function(require, exports, module) {
                 'data': {
                     'ea': me.model.get('enterpriseAccount')
                 },
-                'beforeSend': function() {
+                'beforeSend': function () {
                     me.$tbProduct.find('.container').html('<p class="info">加载中...</p>');
                 },
-                'success': function(data) {
+                'success': function (data) {
                     console.warn(data);
                     if (data.success) {
                         if (data.value.model.length > 0) {
 
                             var strDom = "";
-                            _.map(data.value.model, function(obj) {
+                            _.map(data.value.model, function (obj) {
                                 var startTime = "——",
                                     endTime = "——";
 
@@ -993,13 +994,13 @@ define(function(require, exports, module) {
                                         break;
                                     //
                                     case "CRM":
-                                        strDom += " <p> <span class='title'><b>" + obj['appName'] + ":</b>&nbsp;总量" + obj['quota'] + "&nbsp;已用"+ obj['usedQuota'] + "</span>" +
-                                            " <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span><i>" + enablestatus + "</i>&nbsp;<button class='prooff off u-btn-blue' name='product' typeid='"+obj["quotaType"]+"' value='"+obj["appId"]+"'>开启</button><button class='proon off' name='product' typeid='"+obj["quotaType"]+"' value='" + obj["appId"] + "'>关闭</button> </p>";
+                                        strDom += " <p> <span class='title'><b>" + obj['appName'] + ":</b>&nbsp;总量" + obj['quota'] + "&nbsp;已用" + obj['usedQuota'] + "</span>" +
+                                        " <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span><i>" + enablestatus + "</i>&nbsp;<button class='prooff off u-btn-blue' name='product' typeid='" + obj["quotaType"] + "' value='" + obj["appId"] + "'>开启</button><button class='proon off' name='product' typeid='" + obj["quotaType"] + "' value='" + obj["appId"] + "'>关闭</button> </p>";
                                         break;
                                     //培训人数
                                     case "Service_Fee":
                                         strDom += " <p> <span class='title'><b>" + obj['appName'] + ":</b>" + obj['quota'] + "</span>" +
-                                            "</p>";
+                                        "</p>";
                                         break;
                                     case "HR_Helper":
                                         strDom += " <p> <span class='title'><b>" + obj['appName'] + ":</b></span> <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span> </p>";
@@ -1008,12 +1009,12 @@ define(function(require, exports, module) {
                                         strDom += " <p> <span class='title'><b>" + obj['appName'] + ":</b></span> <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span> </p>";
                                         break;
                                     case "Custom_Helper":
-                                        strDom += " <p> <span class='title'><b>" + obj['appName'] + ":</b>&nbsp;总量" + obj['quota'] + "&nbsp;已用"+ obj['usedQuota'] + "</span>"+"<span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span> </p>";
+                                        strDom += " <p> <span class='title'><b>" + obj['appName'] + ":</b>&nbsp;总量" + obj['quota'] + "&nbsp;已用" + obj['usedQuota'] + "</span>" + "<span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span> </p>";
                                         break;
                                     case "StorageSpace":
                                         break;
                                     default:
-                                        strDom += " <p> <span class='title'><b>" + obj['appName'] + ":</b>&nbsp;总量" + obj['quota'] + "&nbsp;已用"+ obj['usedQuota'] + "</span>" +"<span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span><i>" + enablestatus + "</i>&nbsp;<button class='prooff off u-btn-blue' name='product' typeid='"+obj["quotaType"]+"' value='"+obj["appId"]+"'>开启</button><button class='proon off' name='product' typeid='"+obj["quotaType"]+"' value='" + obj["appId"] + "'>关闭</button> </p>";
+                                        strDom += " <p> <span class='title'><b>" + obj['appName'] + ":</b>&nbsp;总量" + obj['quota'] + "&nbsp;已用" + obj['usedQuota'] + "</span>" + "<span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span><i>" + enablestatus + "</i>&nbsp;<button class='prooff off u-btn-blue' name='product' typeid='" + obj["quotaType"] + "' value='" + obj["appId"] + "'>开启</button><button class='proon off' name='product' typeid='" + obj["quotaType"] + "' value='" + obj["appId"] + "'>关闭</button> </p>";
                                 }
                             });
 
@@ -1186,25 +1187,25 @@ define(function(require, exports, module) {
         },
 
         //新开启或关闭产品
-        proonEve: function(e){
+        proonEve: function (e) {
             var $target = $(e.currentTarget);
             var me = this;
 
-            var arrTypeOne = [],arrTypeTwo=[];
-            if( $target.attr('typeid') == 1 ){
-                arrTypeOne.push( $target.val() );
-            }else if( $target.attr('typeid') == 2 ){
-                arrTypeTwo.push( $target.val() );
+            var arrTypeOne = [], arrTypeTwo = [];
+            if ($target.attr('typeid') == 1) {
+                arrTypeOne.push($target.val());
+            } else if ($target.attr('typeid') == 2) {
+                arrTypeTwo.push($target.val());
             }
 
             var objOne = {}, objTwo = {}, arrList = [];
-            if(arrTypeOne.length>0){
+            if (arrTypeOne.length > 0) {
                 //var tempOne ={};
                 objOne.quotaType = 1;
                 objOne.appIds = arrTypeOne.join(',');
                 arrList.push(objOne);
             }
-            if(arrTypeTwo.length>0){
+            if (arrTypeTwo.length > 0) {
                 //var tempOne ={};
                 objTwo.quotaType = 2;
                 objTwo.appIds = arrTypeTwo.join(',');
@@ -1216,7 +1217,7 @@ define(function(require, exports, module) {
                 'url': "/app/setappsenablestatus",
                 'data': {
                     'fsEa': me.model.get('enterpriseAccount'),
-                    'json': JSON.stringify( arrList ),
+                    'json': JSON.stringify(arrList),
                     'isEnable': 2
                 },
                 'success': function (data) {
@@ -1228,25 +1229,25 @@ define(function(require, exports, module) {
             })
         },
 
-        prooffEve: function(e){
+        prooffEve: function (e) {
             var $target = $(e.currentTarget);
             var me = this;
 
-            var arrTypeOne = [],arrTypeTwo=[];
-            if( $target.attr('typeid') == 1 ){
-                arrTypeOne.push( $target.val() );
-            }else if( $target.attr('typeid') == 2 ){
-                arrTypeTwo.push( $target.val() );
+            var arrTypeOne = [], arrTypeTwo = [];
+            if ($target.attr('typeid') == 1) {
+                arrTypeOne.push($target.val());
+            } else if ($target.attr('typeid') == 2) {
+                arrTypeTwo.push($target.val());
             }
 
             var objOne = {}, objTwo = {}, arrList = [];
-            if(arrTypeOne.length>0){
+            if (arrTypeOne.length > 0) {
                 //var tempOne ={};
                 objOne.quotaType = 1;
                 objOne.appIds = arrTypeOne.join(',');
                 arrList.push(objOne);
             }
-            if(arrTypeTwo.length>0){
+            if (arrTypeTwo.length > 0) {
                 //var tempOne ={};
                 objTwo.quotaType = 2;
                 objTwo.appIds = arrTypeTwo.join(',');
@@ -1258,7 +1259,7 @@ define(function(require, exports, module) {
                 'url': "/app/setappsenablestatus",
                 'data': {
                     'fsEa': me.model.get('enterpriseAccount'),
-                    'json': JSON.stringify( arrList ),
+                    'json': JSON.stringify(arrList),
                     'isEnable': 1
                 },
                 'success': function (data) {
@@ -1269,9 +1270,9 @@ define(function(require, exports, module) {
                 }
             })
         },
-                
+
         //使用情况显示使用情况 ??培训助手流量总量 和已用量/未用量 如何赋值
-        showOperations: function() {
+        showOperations: function () {
             var me = this;
 
 
@@ -1322,22 +1323,21 @@ define(function(require, exports, module) {
              *
              * 清空数据
              */
-            ///me.$('#tbOperation input').val('');
+                ///me.$('#tbOperation input').val('');
 
-            me.model.load( me.operations.initialInfo );
+            me.model.load(me.operations.initialInfo);
             me.$('#expandStorageSpace').val('');
 
             //给培训助手流量总量 和 培训助手流量赋值
             /*
-            if (me.operations.trainHelperTotalCapacity !== undefined) {
-                me.model.set('trainHelperUsedCapacityStr', me.operations.trainHelperTotalCapacity + '/' + (me.operations.trainHelperTotalCapacity - me.operations.trainHelperTotalCapacity))
-            }
-            */
-            if( me.model.get('trainHelperTotalCapacity') ){
-                me.$('#trainHelperTotalCapacity').val( parseFloat( me.model.get('trainHelperTotalCapacity') ) );
+             if (me.operations.trainHelperTotalCapacity !== undefined) {
+             me.model.set('trainHelperUsedCapacityStr', me.operations.trainHelperTotalCapacity + '/' + (me.operations.trainHelperTotalCapacity - me.operations.trainHelperTotalCapacity))
+             }
+             */
+            if (me.model.get('trainHelperTotalCapacity')) {
+                me.$('#trainHelperTotalCapacity').val(parseFloat(me.model.get('trainHelperTotalCapacity')));
 
-                if( me.model.get('trainHelperUsedCapacity') ){
-
+                if (me.model.get('trainHelperUsedCapacity')) {
                     me.$('#trainHelperUsedCapacityStr').val( parseFloat( me.model.get('trainHelperUsedCapacity') ) + '/' + ( parseFloat( me.model.get('trainHelperTotalCapacity') ) - parseFloat( me.model.get('trainHelperUsedCapacity') ) ).toFixed(2) )
                 }
             }
@@ -1357,7 +1357,7 @@ define(function(require, exports, module) {
                     pageNumber: 0
                 });
                 me.operations.pagination.render();
-                me.operations.pagination.onChange = function() {
+                me.operations.pagination.onChange = function () {
                     me.loadOperations();
                 };
                 me.loadOperations();
@@ -1365,7 +1365,7 @@ define(function(require, exports, module) {
         },
 
         //加载使用情况列表
-        loadOperations: function() {
+        loadOperations: function () {
             var me = this;
             var data = {
                 pageIndex: me.operations.pagination.attr['pageNumber'],
@@ -1376,11 +1376,11 @@ define(function(require, exports, module) {
             util.api({
                 url: '/enterprise/querypageenterpriseaccountincrement',
                 data: data,
-                success: function(data) {
+                success: function (data) {
 
                     if (data.success) {
                         me.operations.pagination.setTotalSize(data.model.page.itemCount);
-                        data.model.page && $(data.model.page.content).each(function(i, item) {
+                        data.model.page && $(data.model.page.content).each(function (i, item) {
                             item.ncreaseTime = new Date(item.ncreased)._format('yyyy-MM-dd hh:mm');
                         });
                         me.attrs.freeIncreaseContractRequired = data.model.freeIncreaseContractRequired;
@@ -1392,7 +1392,7 @@ define(function(require, exports, module) {
                             me.$('.check-hide').hide();
                         }
                         if (data.model.page && data.model.page.content && data.model.page.content.length > 0) {
-                            me.$tbOperation.html(me.tplOperation({ content: data.model.page.content }));
+                            me.$tbOperation.html(me.tplOperation({content: data.model.page.content}));
                         } else {
                             me.$tbOperation.html('<tr><td colspan="4"><p class="info">暂无数据</p></td></tr>');
                         }
@@ -1406,7 +1406,7 @@ define(function(require, exports, module) {
         //修改使用情况信息
         //
         //===========================================
-        changeStatistics: function() {
+        changeStatistics: function () {
             var me = this;
             var temAccout = 0;
 
@@ -1441,31 +1441,33 @@ define(function(require, exports, module) {
             util.api({
                 'url': '/enterprise/changeconfig',
                 'data': data,
-                'success': function(data) {
+                'success': function (data) {
                     if (data.success) {
                         util.showTip('修改成功!');
-                        me.getEnterprise( me.model.attrs.enterpriseId );
+                        me.getEnterprise(me.model.attrs.enterpriseId);
                         me.trigger('refresh');
                     }
                 },
-                'complete': function(data) {
+                'complete': function (data) {
                     me.getEnterprise(me.model.attrs.enterpriseId);
                     me.$('#expandStorageSpace').val('');
                 }
             });
         },
-        
+
 
         //活跃度下载
-        actDownloadEve: function(e) {
+        actDownloadEve: function (e) {
             var me = this;
+
             function GetDateStr(AddDayCount) {
                 var dd = new Date();
-                dd.setDate(dd.getDate()+AddDayCount);//获取AddDayCount天后的日期
+                dd.setDate(dd.getDate() + AddDayCount);//获取AddDayCount天后的日期
                 return dd.getTime();
             }
+
             var startTime = GetDateStr(-91);
-            var   endTime = GetDateStr(-1);
+            var endTime = GetDateStr(-1);
 
             if (me.$actStartTime.val()) {
                 startTime = new Date(me.$actStartTime.val()).getTime();
@@ -1473,7 +1475,7 @@ define(function(require, exports, module) {
             if (me.$actEndTime.val()) {
                 endTime = new Date(me.$actEndTime.val()).getTime();
             }
-            var url = IBSS.API_PATH + '/query/act/detail/generate?' + $.param({ 'enterpriseId': me.model.attrs.enterpriseId, 'timeStart': startTime, 'timeEnd': endTime })
+            var url = IBSS.API_PATH + '/query/act/detail/generate?' + $.param({'enterpriseId': me.model.attrs.enterpriseId, 'timeStart': startTime, 'timeEnd': endTime})
             window.open(url);
         },
 
@@ -1481,7 +1483,7 @@ define(function(require, exports, module) {
         //显示功能限制 并拉取相应的数据
         //
         //=============================
-        showFunctions: function() {
+        showFunctions: function () {
             var me = this;
 
             //设置默认设置
@@ -1503,7 +1505,7 @@ define(function(require, exports, module) {
             } else {
                 me.$sUFS.val('100');
             }
-            
+
             if (this.model.attrs.runStatus == 2) {
                 $('#tbFunctions').css('display', 'block');
             } else {
@@ -1512,8 +1514,8 @@ define(function(require, exports, module) {
 
             util.api({
                 url: '/enterprise/queryenterpriseitemconfig',
-                data: { enterpriseId: this.model.attrs.enterpriseId },
-                success: function(data) {
+                data: {enterpriseId: this.model.attrs.enterpriseId},
+                success: function (data) {
                     if (data.success) {
                         var model = data.value.model;
                         console.warn(model);
@@ -1525,7 +1527,7 @@ define(function(require, exports, module) {
                         //me.$sdECUC.val(model['Used.ExportAmountFeedWork']); //导出指令已用次数
                         //me.$sdEMWC.val(model['Config.ExportAmountLeaveApplication']); //导出月度考勤次数
                         //me.$sdEMWUC.val(model['Used.ExportAmountLeaveApplication']); //导出月度考勤已用
-                       // me.$sdEAC.val(model['Config.ExportAmountFeedApprove']); //导出审批汇总次数
+                        // me.$sdEAC.val(model['Config.ExportAmountFeedApprove']); //导出审批汇总次数
                         //me.$sdEAUC.val(model['Used.ExportAmountFeedApprove']); //导出审批汇总已用
                         me.$sdUFS.val(model['Config.UploadFileSizeLimit']); //上传文件大小限制
                         console.warn(model['Config.isAllowDangerOperate']);
@@ -1537,13 +1539,13 @@ define(function(require, exports, module) {
         },
 
         //打开活跃度标签
-        showActiveNess: function() {
+        showActiveNess: function () {
             var me = this;
 
             me.$actStartTime.val('').removeAttr('disabled');
             me.$actEndTime.val('').removeAttr('disabled');
         },
-        dataFormat: function(dataList) {
+        dataFormat: function (dataList) {
             for (var i = 0; i < dataList.length; i++) {
                 var item = dataList[i];
                 item.expireTime = new Date(item.expireTime)._format('yyyy-MM-dd');
@@ -1554,7 +1556,7 @@ define(function(require, exports, module) {
         },
 
         //显示日志信息
-        showLog: function() {
+        showLog: function () {
             var me = this;
 
             me.$sbLogType.val('');
@@ -1571,13 +1573,13 @@ define(function(require, exports, module) {
                     pageNumber: 0
                 });
                 me.log.pagination.render();
-                me.log.pagination.onChange = function() {
+                me.log.pagination.onChange = function () {
                     me.loadLog();
                 };
                 me.loadLog();
             }
         },
-        loadLog: function() {
+        loadLog: function () {
 
             console.log('log log log');
             var me = this,
@@ -1597,17 +1599,17 @@ define(function(require, exports, module) {
             util.api({
                 url: '/enterprise/querypageenterpriselog',
                 data: data,
-                success: function(data) {
+                success: function (data) {
 
                     console.warn(data);
                     if (data.success) {
                         me.log.pagination.setTotalSize(data.model.itemCount);
                         if (data.model.content.length > 0) {
-                            data.model.content.forEach(function(item) {
+                            data.model.content.forEach(function (item) {
                                 item.createTimeStr = new Date(item.createtime)._format('yyyy-MM-dd hh:mm');
                                 item.typeStr = util.findEnumsText('ENTERPRISE_LOG_TYPE', item.type);
                             });
-                            me.$tbLog.html(me.tplLog({ content: data.model.content }));
+                            me.$tbLog.html(me.tplLog({content: data.model.content}));
                         } else {
                             me.$tbLog.html('<tr><td colspan="5"><p class="info">暂无数据</p></td></tr>');
                         }
@@ -1615,12 +1617,12 @@ define(function(require, exports, module) {
                 }
             });
         },
-        searchLog: function() {
+        searchLog: function () {
             this.loadLog();
         },
 
         //??
-        changeTrial: function() {
+        changeTrial: function () {
             var data = {
                 enterpriseId: this.model.attrs.enterpriseId,
                 endDay: new Date(this.$sTrialTime.val()).getTime(),
@@ -1629,7 +1631,7 @@ define(function(require, exports, module) {
             util.api({
                 url: '/enterprise/changetrialconfig',
                 data: data,
-                success: function(data) {
+                success: function (data) {
                     if (data.success) {
                         util.showTip('修改成功');
                     }
@@ -1637,13 +1639,13 @@ define(function(require, exports, module) {
             });
         },
         //??
-        clearStatisticsForm: function() {
+        clearStatisticsForm: function () {
             this.$cardStartTime.val('');
             this.$cardEndTime.val('');
 
         },
         //??
-        clearFunctions: function() {
+        clearFunctions: function () {
             var me = this;
             me.$sELC.val('');
             me.$sEFC.val('');
@@ -1654,16 +1656,16 @@ define(function(require, exports, module) {
             me.$sActionDanger.val('0');
         },
         //??
-        changeFunctions: function() {
+        changeFunctions: function () {
             var me = this;
-            var  data = {
+            var data = {
                 enterpriseId: this.model.attrs.enterpriseId,
                 newUploadFileSizeLimit: me.$sUFS.val(),
                 newIsAllowDangerOperate: me.$sActionDanger.val(),
                 'webSanCodeAuth': me.model.get('webSanCodeAuth'), //WEB扫码授权
                 'crmVisibleRange': me.model.get('crmVisibleRange'), //CRM上级可见数据范围
                 'setPersonalGoal': me.model.get('setPersonalGoal'),
-				'crmVersion': me.model.get('crmVersion'),  //CRM版本设置
+                'crmVersion': me.model.get('crmVersion'),  //CRM版本设置
                 'discountAutoCalculated': me.model.get('discountAutoCalculated'),
                 'editCustomerName': me.model.get('editCustomerName'),
                 'isPhoneDeviceAuth': me.model.get('isPhoneDeviceAuth')
@@ -1673,7 +1675,7 @@ define(function(require, exports, module) {
             util.api({
                 url: '/enterprise/changefunctionNew',
                 data: data,
-                success: function(data) {
+                success: function (data) {
                     if (data.success) {
                         util.showTip('更新成功');
                         //me.$sdELC.val(me.$sELC.val());
@@ -1691,15 +1693,15 @@ define(function(require, exports, module) {
             });
         },
         //??
-        searchCardList: function() {
+        searchCardList: function () {
             this.loadCardList();
         },
         //??
-        stopMarketing: function() {
+        stopMarketing: function () {
             util.api({
                 url: '/enterprise/disablemarketingstimulation',
-                data: { enterpriseId: this.model.attrs.enterpriseId },
-                success: function(data) {
+                data: {enterpriseId: this.model.attrs.enterpriseId},
+                success: function (data) {
                     if (data.success) {
                         util.showTip('更新成功');
                         this.$sdMarketingStatus.val('停止');
@@ -1707,7 +1709,7 @@ define(function(require, exports, module) {
                 }
             });
         },
-        btnCardBuy: function() {
+        btnCardBuy: function () {
             var me = this,
                 data = {
                     year: me.$cardBuyYear.val(),
@@ -1718,7 +1720,7 @@ define(function(require, exports, module) {
             util.api({
                 url: '/enterprise/buybusinesscard',
                 data: data,
-                success: function(data) {
+                success: function (data) {
                     if (data.success) {
                         util.showTip('购买成功');
                         me.getEnterprise(me.model.attrs.enterpriseId);
@@ -1727,7 +1729,7 @@ define(function(require, exports, module) {
                 }
             });
         },
-        btnCardSend: function() {
+        btnCardSend: function () {
             var me = this,
                 data = {
                     cardCount: me.$cardBuyNum.val(),
@@ -1743,7 +1745,7 @@ define(function(require, exports, module) {
             util.api({
                 url: '/enterprise/giftbusinesscard',
                 data: data,
-                success: function(data) {
+                success: function (data) {
                     if (data.success) {
                         util.showTip('赠送成功');
                         me.getEnterprise(me.model.attrs.enterpriseId);
@@ -1751,12 +1753,12 @@ define(function(require, exports, module) {
                 }
             });
         },
-        changeCustomStatus: function() {
+        changeCustomStatus: function () {
             var me = this;
             util.api({
                 url: '/enterprise/enableloginpagepersonalization',
-                data: { enterpriseId: this.model.attrs.id, isLoginPagePersonalization: !this.model.attrs.isLoginPagePersonalization },
-                success: function(data) {
+                data: {enterpriseId: this.model.attrs.id, isLoginPagePersonalization: !this.model.attrs.isLoginPagePersonalization},
+                success: function (data) {
                     if (data.success) {
                         util.showTip('更新成功');
                         me.model.attrs.isLoginPagePersonalization = !me.model.attrs.isLoginPagePersonalization;
@@ -1765,23 +1767,23 @@ define(function(require, exports, module) {
                 }
             });
         },
-        resetAdminPassword: function() {
+        resetAdminPassword: function () {
             if (!window.confirm('是否确认重置企业管理员密码?\r\n' + this.generateConfirmMsg())) {
                 return;
             }
             util.api({
                 url: '/',
-                data: { enterpriseId: this.model.attrs.enterpriseId },
-                success: function(data) {
+                data: {enterpriseId: this.model.attrs.enterpriseId},
+                success: function (data) {
                     if (data.success) {
                         util.showTip('密码重置成功');
                     }
                 }
             });
         },
-        stopService: function() {
+        stopService: function () {
             var me = this;
-			
+
             if (!window.confirm('是否确认停用企业?\r\n' + this.generateConfirmMsg())) {
                 return;
             }
@@ -1790,10 +1792,10 @@ define(function(require, exports, module) {
                 data: {
                     enterpriseId: this.model.attrs.enterpriseId,
                     oldModifyTime: me.model.attrs.updateTime,
-					switchRemark:me.$('#switchRemark').val(),
+                    switchRemark: me.$('#switchRemark').val(),
                     isEnabled: false
                 },
-                success: function(data) {
+                success: function (data) {
                     if (data.success) {
                         util.showTip('企业已停用.');
                         me.trigger('updatesuccess');
@@ -1802,7 +1804,7 @@ define(function(require, exports, module) {
                 }
             });
         },
-        startService: function() {
+        startService: function () {
             var me = this;
             if (!window.confirm('是否确认启用企业?\r\n' + this.generateConfirmMsg())) {
                 return;
@@ -1812,10 +1814,10 @@ define(function(require, exports, module) {
                 data: {
                     enterpriseId: this.model.attrs.enterpriseId,
                     oldModifyTime: me.model.attrs.updateTime,
-					switchRemark:me.$('#switchRemark').val(),
+                    switchRemark: me.$('#switchRemark').val(),
                     isEnabled: true
                 },
-                success: function(data) {
+                success: function (data) {
                     if (data.success) {
                         util.showTip('企业已启用');
                         me.trigger('updatesuccess');
@@ -1824,14 +1826,14 @@ define(function(require, exports, module) {
                 }
             });
         },
-        generateConfirmMsg: function() {
+        generateConfirmMsg: function () {
             return '企业: ' + this.model.attrs.enterpriseName + '\r\n产品: ' + this.model.attrs.productName + '\r\n代理商: ' + this.model.attrs.agentName + '( ' + this.model.attrs.agentId + ' )';
         },
 
-        saveTag: function(){
+        saveTag: function () {
             var me = this;
             var label = me.$tagSetting.val();
-            if(!label){
+            if (!label) {
                 util.showToast('请选择标签');
                 return;
             }
@@ -1841,8 +1843,8 @@ define(function(require, exports, module) {
                     enterpriseId: me.model.attrs.enterpriseId,
                     enterpriseLabel: label
                 },
-                success: function(data){
-                    if(data.success){
+                success: function (data) {
+                    if (data.success) {
                         util.showTip('企业标签设置成功');
                     }
                 }

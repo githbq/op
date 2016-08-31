@@ -545,7 +545,6 @@ define( function( require, exports, module ) {
 
                         if( data.value.model.content && data.value.model.content.length > 0 ){
                             me.list.reload( data.value.model.content, function( item ){
-                                
                                 //订单类型
                                 //?????
                                 if( item.order.orderType == 17 ){
