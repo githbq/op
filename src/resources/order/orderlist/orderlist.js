@@ -185,7 +185,8 @@ define( function( require, exports, module ) {
 			//'click .receive-money':'receiveMoneyEve',
 			//'click .order-detailPay':'orderDetailPayEve',
 			//'click .order-del':'orderDelEve',
-			'click .exportOrder':'exportEve'
+			'click .exportOrder':'exportEve',
+			'click .exportAgent':'exportAgentEve'
 			//'click .order-custom':'orderCustomEve',
 			//'click .order-backmoney':'orderBackmoneyEve', 
 			//'click .order-onlinepay':'orderOnlinePay',         //查看线上支付情况
@@ -509,6 +510,24 @@ define( function( require, exports, module ) {
 
             window.open( IBSS.API_PATH + '/odr/exportOrder?' + $.param( queryData ) );
         },
+		exportAgentEve:function(){
+			 var me = this;
+
+            var putStartTime = '',
+                putEndTime = '';
+
+            if( me.$putStartTime.val() ){
+                putStartTime = new Date( me.$putStartTime.val() ).getTime();
+            }
+            if( me.$putEndTime.val() ){
+                putEndTime = new Date( me.$putEndTime.val() ).getTime();
+            }
+            var queryData = me.model.all();
+            queryData.putStartTime = putStartTime;
+            queryData.putEndTime = putEndTime;
+
+            window.open( IBSS.API_PATH + '/odr/exportSaleOrder?' + $.param( queryData ) );
+		},
 
         //获取订单列表
         getList: function(){
