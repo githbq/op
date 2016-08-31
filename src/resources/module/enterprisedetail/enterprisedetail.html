@@ -1,6 +1,6 @@
 <div class="m-enterprisedetail">
 
-	
+
 	<!--基本信息-->
 	<div class="section">
 
@@ -16,8 +16,14 @@
 					<input disabled="disabled" ce-model="area" class="g-ipt ipt-l proxy-area" type="text">
 				</label>
 			</p>
+			<p class="contractEnterpriseName-wrapper">
+				<label>
+					<span class="title">签约企业名称</span>
+					<input disabled="disabled" ce-model="contractEnterpriseName" class="g-ipt ipt-l" type="text">
+				</label>
+			</p>
 			<p>
-				<span class="title">企业账号</span> 
+				<span class="title">企业账号</span>
 				<input type="text" disabled="disabled" ce-model="enterpriseAccount">&nbsp;&nbsp;( 企业账号应为字母开头6-20位由字母数字的组合 )
 			</p>
 			<!--企业地址-->
@@ -25,10 +31,10 @@
 				<span class="title">企业地址</span>
 				<select id="sprovince">
 					<option value="">请选择省</option>
-				</select> -- 
+				</select> --
 				<select id="scity">
 					<option value="">请选择市</option>
-				</select> -- 
+				</select> --
 				<select id="sarea">
 					<option value="">请选择区</option>
 				</select>
@@ -48,7 +54,7 @@
 				</select> --
 				<select id="sinsthree">
 					<option value="">请选择三级行业</option>
-				</select> 
+				</select>
 			</p>
 			<p>
 				<label>
@@ -118,7 +124,7 @@
 				</label>
 			</p>
 		</section>
-		
+
 		<section>
 			<h4>纷享平台管理员</h4>
 			<p>
@@ -153,7 +159,7 @@
 				<p class="openTime"><span>开通时间:</span><span class="content"></span></p>
 				<!--显示产品列表-->
 				<div class="container">
-					
+
 				</div>
 			</div>
 		</section>
@@ -163,13 +169,13 @@
 			<div class="content" id="tbProductHistory">
 				<table>
 					<thead>
-					<tr>
-						<th style="width:80px;">产品</th>
-						<th style="width:110px;">状态</th>
-						<th style="width:120px;">用户人数（人）</th>
-						<th style="width:120px;">开始时间</th>
-						<th style="width:120px;">结束时间</th>
-					</tr>
+						<tr>
+							<th style="width:80px;">产品</th>
+							<th style="width:110px;">状态</th>
+							<th style="width:120px;">用户人数（人）</th>
+							<th style="width:120px;">开始时间</th>
+							<th style="width:120px;">结束时间</th>
+						</tr>
 					</thead>
 					<tbody></tbody>
 				</table>
@@ -182,39 +188,39 @@
 			<div class="content" id="orderList">
 				<table>
 					<thead>
-					<tr>
-						<th style="width:80px;">订单号</th>
-						<th >合同号</th>
-						<th style="width:100px;">订单类型</th>
-						<th style="width:100px;">提单人</th>
-						<th style="width:120px;">所属部门/代理商</th>
-						<th style="width:120px;">付费状态</th>
-						<th style="width:120px;">提单日期</th>
-						<th style="width:120px;" data-permissions="M009005,M008007">操作</th>
-					</tr>
+						<tr>
+							<th style="width:80px;">订单号</th>
+							<th>合同号</th>
+							<th style="width:100px;">订单类型</th>
+							<th style="width:100px;">提单人</th>
+							<th style="width:120px;">所属部门/代理商</th>
+							<th style="width:120px;">付费状态</th>
+							<th style="width:120px;">提单日期</th>
+							<th style="width:120px;" data-permissions="M009005,M008007">操作</th>
+						</tr>
 					</thead>
 					<tbody></tbody>
 				</table>
 				<div class="pager"></div>
 			</div>
 		</section>
-			<!--试用信息-->
+		<!--试用信息-->
 		<section class="accordian collapse f1 f2 f3 f4" data-target="tryOut">
 			<h4><span class="arraw"></span>试用信息   </h4>
 			<div class="content" id="tryOut">
 				<table>
 					<thead>
-					<tr>
-						<th style="width:80px;">试用应用</th>
-						<th style="width:110px;">试用日期</th>
-					</tr>
+						<tr>
+							<th style="width:80px;">试用应用</th>
+							<th style="width:110px;">试用日期</th>
+						</tr>
 					</thead>
 					<tbody></tbody>
 				</table>
 				<div class="pager"></div>
 			</div>
 		</section>
-		
+
 		<!--使用情况-->
 		<section class="accordian collapse f1 f2 f3 f4" id="operationssection" data-target="operations">
 			<h4><span class="arraw"></span>使用情况</h4>
@@ -277,8 +283,8 @@
 						<input type="text" class="g-ipt ipt-m" ce-model="groupNumLimit" oninput="this.value=this.value.replace(/[^\d]/g,'')">
 					</label>
 				</p>
-				
-				
+
+
 				<div id="tbOperation" class="tb">
 					<p class="tr off">
 						<button class="btn-blue" id="sBtnChangeStatistics">保存</button>
@@ -302,7 +308,7 @@
 				</div>
 			</div>
 		</section>
-		
+
 		<!--活跃度-->
 		<section class="accordian collapse f1 f2 f3 f4 off" data-target="activeness">
 			<h4><span class="arraw"></span>活跃度</h4>
@@ -421,13 +427,13 @@
 					</div>
 					<table>
 						<thead>
-						<tr>
-							<th style="width:80px;">序号</th>
-							<th style="width:110px;">操作时间</th>
-							<th style="width:120px;">操作人</th>
-							<th style="width:120px;">类别</th>
-							<th>内容</th>
-						</tr>
+							<tr>
+								<th style="width:80px;">序号</th>
+								<th style="width:110px;">操作时间</th>
+								<th style="width:120px;">操作人</th>
+								<th style="width:120px;">类别</th>
+								<th>内容</th>
+							</tr>
 						</thead>
 						<tbody></tbody>
 					</table>
@@ -435,7 +441,7 @@
 				</div>
 			</div>
 		</section>
-		
+
 		<!--数据统计-->
 		<!--
 		<section class="accordian collapse f1 f2 f3 f4 off" data-target="peopleNumber">
@@ -449,7 +455,7 @@
 		-->
 		<p class="tr  off24  off" data-permissions="M008009042" style="display:none;">
 			<!--<button id="btnResetAdminPassword" class="f2 off">重置管理员密码</button>-->
-			<label ><span>启用停用备注：</span></label><textarea id="switchRemark" rows="3" cols="20"></textarea>
+			<label><span>启用停用备注：</span></label><textarea id="switchRemark" rows="3" cols="20"></textarea>
 		</p>
 		<p class="tr">
 			<!--<button id="btnResetAdminPassword" class="f2 off">重置管理员密码</button>-->
@@ -493,5 +499,3 @@
 	</div>
 
 </div>
-
-
