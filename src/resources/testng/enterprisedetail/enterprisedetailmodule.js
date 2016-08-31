@@ -287,9 +287,7 @@ define(function (require, exports, module) {
                     $scope.enterpriseReadonly = !data.canEditEnterprise;
                     $scope.productReadonly = !data.canEditOrder;
                     $scope.payInfoReadonly = !data.canEditPaidInfo;
-                }
-                data.contractEnterpriseName
-                debugger
+                } 
                 $scope.rejectFrom = data.rejectFrom;
                 $scope.isCaiWu = data.rejectFrom == 2;
                 if (data.odrDraftEnterprise) {
