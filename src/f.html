@@ -6,9 +6,9 @@
     <title>运营平台-财务人员</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <link rel="shortcut icon" href="//www.fxiaoke.com/favicon.ico" type="image/x-icon" />
-    <!-- build:css resources/assets/style/main.css -->
+
     <link rel="stylesheet" type="text/css" href="resources/assets/style/main.css"/>
-    <!-- endbuild -->
+
 </head>
 <body>
 
