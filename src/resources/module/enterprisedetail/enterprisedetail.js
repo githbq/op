@@ -1412,8 +1412,8 @@ define(function (require, exports, module) {
 
             console.log('changeStatistics');
 
-            if (parseInt(me.model.get('groupNumLimit')) > 1000) {
-                util.showToast('群人数上限最多为1000');
+            if (parseInt(me.model.get('groupNumLimit')) > 500) {
+                util.showToast('群人数上限最多为500');
                 return false;
             }
 
