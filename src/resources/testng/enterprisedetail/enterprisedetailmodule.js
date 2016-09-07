@@ -12,7 +12,6 @@ define(function (require, exports, module) {
     var Page = MClass(M.Center).include({
         view: require('./template.html'),
         init: function (data) {
-            debugger
             var me = this;
             mainData = data;
 
