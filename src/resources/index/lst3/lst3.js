@@ -19,7 +19,7 @@ define(function(require, exports, module) {
                         $tips.text('');
                         $button.removeClass('disabled');
                         $button.removeAttr('disabled');
-                        window.open(url, '_blank');
+                        window.open(url, 'hideiframe');
                         console.log(2);
                     } else {
                         setTimeout(function() {
@@ -62,6 +62,7 @@ define(function(require, exports, module) {
             var me = this;
             me.initializeDatepicker();
             me.initializeSelect();
+            me.getList();
             me.pagination = new Pagination({
                 'wrapper': me.$view.find('.list-pager'),
                 'pageSize': 20,
@@ -193,7 +194,7 @@ define(function(require, exports, module) {
                 data: data,
                 success: function(data) {
                     if (data.success) {
-                        if (data.value.model > 2000) {
+                        if (data.value.model >= 0) {
 
                             util.api({
                                 data: originData,
@@ -208,10 +209,10 @@ define(function(require, exports, module) {
                                     }
                                 }
                             })
-                        } else if (data.value.model <= 2000) {
+                        } else if (data.value.model < 0) {
                             me.$search.removeClass('disabled');
                             me.$search.removeAttr('disabled');
-                            window.open('/op/api/s/query/act/generatebig3?' + $.param(originData), '_blank');
+                            window.open('/op/api/s/query/act/generatebig3?' + $.param(originData), 'hideiframe');
                         }
                     }
                 }
@@ -297,7 +298,7 @@ define(function(require, exports, module) {
             me.$('.u-tablelist tbody tr').remove();
             $.extend(data, me.model.all());
             util.api({
-                'url': '/query/act/sparktask',
+                'url': '/query/act/sparktaskbig',
                 'data': {},
                 beforeSend: function() {
                     me.$('.u-tablelist tbody tr').html('<tr><td colspan="9"><p class="info">加载中...</p></td></tr>');
