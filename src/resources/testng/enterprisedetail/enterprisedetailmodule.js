@@ -7,13 +7,11 @@ define(function (require, exports, module) {
     require('./refs/products-directive');
     require('./refs/product-services');//对应的远程服务
     var mainCtrlScope = null;//主$scope
-    var mainData = null;//被调用时接收的参数
-    var mainReturnData = null;//对外提供的参数
+    var mainData = null;//被调用时接收的参数 
     var validate = true;//参数的调用与否受validate控制
     var Page = MClass(M.Center).include({
         view: require('./template.html'),
         init: function (data) {
-            debugger
             var me = this;
             mainData = data;
 
@@ -58,11 +56,14 @@ define(function (require, exports, module) {
         }, getReturnData: function () {
             if (mainCtrlScope.mainForm.$valid || (mainCtrlScope.globalInfo.isAdd
                 && (!mainCtrlScope.mainForm.stepForm3 || (mainCtrlScope.mainForm.stepForm3
-                && mainCtrlScope.mainForm.stepForm3.$valid))
+                    && mainCtrlScope.mainForm.stepForm3.$valid))
                 && (!mainCtrlScope.mainForm.stepForm2 || (mainCtrlScope.mainForm.stepForm2
-                && mainCtrlScope.mainForm.stepForm2.$valid))
-                )) {
-                return mainReturnData;
+                    && mainCtrlScope.mainForm.stepForm2.$valid))
+            )) {
+                if (mainCtrlScope.globalInfo.isAdd || mainCtrlScope.hideEnterprise) {
+                    mainCtrlScope.entInfo = null;
+                }
+                return mainCtrlScope;
             } else {
                 return false;
             }
@@ -110,50 +111,50 @@ define(function (require, exports, module) {
             $scope.payInfo.currPayAmount = $scope.payInfo.currPayAmount || 0;
             switch (value.toString()) {
                 case '1':
-                {
-                    $scope.payInfo.agentCurrPayAmount = 0;
-                    $scope.payInfo.currPayAmount = 0;
-                    //全额
-                    _.each($scope.payInfo.currPayList, function (item, i) {
-                        if (item.toAgent) {
-                            $scope.payInfo.agentCurrPayAmount = math2.numAdd($scope.payInfo.agentCurrPayAmount, item.purchaseAmount);
-                        } else {
-                            $scope.payInfo.currPayAmount = math2.numAdd($scope.payInfo.currPayAmount, item.purchaseAmount);
-                        }
-                        item.currPayAmount = 0;
-                    });
-                }
+                    {
+                        $scope.payInfo.agentCurrPayAmount = 0;
+                        $scope.payInfo.currPayAmount = 0;
+                        //全额
+                        _.each($scope.payInfo.currPayList, function (item, i) {
+                            if (item.toAgent) {
+                                $scope.payInfo.agentCurrPayAmount = math2.numAdd($scope.payInfo.agentCurrPayAmount, item.purchaseAmount);
+                            } else {
+                                $scope.payInfo.currPayAmount = math2.numAdd($scope.payInfo.currPayAmount, item.purchaseAmount);
+                            }
+                            item.currPayAmount = 0;
+                        });
+                    }
                     ;
                     break;
                 case '3':
-                {
-                    //未付
-                    $scope.payInfo.agentCurrPayAmount = 0;
-                    $scope.payInfo.currPayAmount = 0;
-                    _.each($scope.payInfo.currPayList, function (item, i) {
-                        if (item.toAgent) {
-                            $scope.payInfo.agentCurrPayAmount = math2.numAdd($scope.payInfo.agentCurrPayAmount, item.purchaseAmount);
-                        }
-                        item.currPayAmount = 0;
-                    });
+                    {
+                        //未付
+                        $scope.payInfo.agentCurrPayAmount = 0;
+                        $scope.payInfo.currPayAmount = 0;
+                        _.each($scope.payInfo.currPayList, function (item, i) {
+                            if (item.toAgent) {
+                                $scope.payInfo.agentCurrPayAmount = math2.numAdd($scope.payInfo.agentCurrPayAmount, item.purchaseAmount);
+                            }
+                            item.currPayAmount = 0;
+                        });
 
-                }
+                    }
                     ;
                     break;
                 case '2':
-                {
-                    $scope.payInfo.agentCurrPayAmount = 0;
-                    $scope.payInfo.currPayAmount = 0;
-                    //分期
-                    _.each($scope.payInfo.currPayList, function (item, i) {
-                        if (item.toAgent) {
-                            item.currPayAmount = 0;
-                            $scope.payInfo.agentCurrPayAmount = math2.numAdd($scope.payInfo.agentCurrPayAmount, parseFloat(item.purchaseAmount));
-                        } else {
-                            $scope.payInfo.currPayAmount = math2.numAdd($scope.payInfo.currPayAmount, parseFloat(item.currPayAmount));
-                        }
-                    });
-                }
+                    {
+                        $scope.payInfo.agentCurrPayAmount = 0;
+                        $scope.payInfo.currPayAmount = 0;
+                        //分期
+                        _.each($scope.payInfo.currPayList, function (item, i) {
+                            if (item.toAgent) {
+                                item.currPayAmount = 0;
+                                $scope.payInfo.agentCurrPayAmount = math2.numAdd($scope.payInfo.agentCurrPayAmount, parseFloat(item.purchaseAmount));
+                            } else {
+                                $scope.payInfo.currPayAmount = math2.numAdd($scope.payInfo.currPayAmount, parseFloat(item.currPayAmount));
+                            }
+                        });
+                    }
                     ;
                     break;
             }
@@ -199,7 +200,7 @@ define(function (require, exports, module) {
         };
     }]);
     myApp.controller('mainController', ['$scope', '$timeout', 'select2Query', 'getEnumService', 'cascadeSelectService', 'productService', function ($scope, $timeout, select2Query, getEnumService, cascadeSelectService, productService) {
-        $scope.productInfos = {data: []};
+        $scope.productInfos = { data: [] };
         //获取企业历史详情
         $scope.getEnterpriseHistory = function (timeout) {
             $timeout = timeout || $timeout;
@@ -209,8 +210,8 @@ define(function (require, exports, module) {
                         $scope.productInfos.data = data;
                         $scope.globalInfo.enterpriseName = $scope.globalInfo.enterpriseName || valueData.enterpriseName;
                         $scope.globalInfo.enterpriseAccount = $scope.globalInfo.enterpriseAccount || valueData.enterpriseAccount;
-                        var train_Helper = _.findWhere($scope.productInfos.data, {code: 'Train_Helper'});
-                        var train_Hepler_Capacity = _.findWhere($scope.productInfos.data, {code: 'Train_Hepler_Capacity'});
+                        var train_Helper = _.findWhere($scope.productInfos.data, { code: 'Train_Helper' });
+                        var train_Hepler_Capacity = _.findWhere($scope.productInfos.data, { code: 'Train_Hepler_Capacity' });
                         if (train_Helper && train_Hepler_Capacity) {
                             train_Helper.timeLongData = train_Hepler_Capacity;
                             train_Hepler_Capacity.hidden = true;
@@ -245,9 +246,9 @@ define(function (require, exports, module) {
         //产品信息模块
         var productInfo = $scope.productInfo = {};
         //付款信息
-        $scope.payInfo = {payStatus: 1};
+        $scope.payInfo = { payStatus: 1 };
         //全局行为状态
-        var action = $scope.action = {doing: false};
+        var action = $scope.action = { doing: false };
         $scope.goToStepTest = function (step) {
             $scope.step = step;
         };
@@ -261,7 +262,7 @@ define(function (require, exports, module) {
                             $scope.payInfo.currPayList = $scope.payInfo.currPayList || [];
                             var tempCurrPayArray = angular.fromJson(data);
                             _.each(tempCurrPayArray, function (item, index) {
-                                var findItem = _.findWhere($scope.payInfo.currPayList, {productId: item.productId, isMain: item.isMain});
+                                var findItem = _.findWhere($scope.payInfo.currPayList, { productId: item.productId, isMain: item.isMain });
                                 if (findItem && findItem.purchaseAmount == item.purchaseAmount) {
                                     _.extend(item, findItem);
                                 }
@@ -278,8 +279,7 @@ define(function (require, exports, module) {
         $scope.enterpriseReadonly = $scope.globalInfo.readonly;//企业详情信息 只读
         $scope.payInfoReadonly = $scope.globalInfo.readonly;//企业详情信息 只读
         $scope.productReadonly = $scope.globalInfo.readonly;//产品信息 只读
-        $scope.editMode = false;
-        mainReturnData = $scope;
+        $scope.editMode = false; 
         $scope.orderFromData = [];//产品模块的数据来源用于编辑时
         productService.getOrderDetailByOrderId($scope.globalInfo.orderId, function (data) {
             $timeout(function () {
@@ -287,7 +287,7 @@ define(function (require, exports, module) {
                     $scope.enterpriseReadonly = !data.canEditEnterprise;
                     $scope.productReadonly = !data.canEditOrder;
                     $scope.payInfoReadonly = !data.canEditPaidInfo;
-                } 
+                }
                 $scope.rejectFrom = data.rejectFrom;
                 $scope.isCaiWu = data.rejectFrom == 2;
                 if (data.odrDraftEnterprise) {
@@ -406,16 +406,16 @@ define(function (require, exports, module) {
         //end 多功能下拉选框　行业
         function setSelect(needWatch) {
             cascadeSelectService.cascadeSelect($scope, [
-                {ngModelName: 'entInfo.province', config: $scope.provinceConfig},
-                {ngModelName: 'entInfo.city', config: $scope.cityConfig},
-                {ngModelName: 'entInfo.county', config: $scope.countyConfig}
-            ], cascadeSelectService.createPullFunc({url: '~/op/api/district/getListByParent', data: {name: 'parentValue'}}, function (data, item) {
-                data.push({id: item.value.toString(), text: item.name});
+                { ngModelName: 'entInfo.province', config: $scope.provinceConfig },
+                { ngModelName: 'entInfo.city', config: $scope.cityConfig },
+                { ngModelName: 'entInfo.county', config: $scope.countyConfig }
+            ], cascadeSelectService.createPullFunc({ url: '~/op/api/district/getListByParent', data: { name: 'parentValue' } }, function (data, item) {
+                data.push({ id: item.value.toString(), text: item.name });
             }), needWatch);
             cascadeSelectService.cascadeSelect($scope, [
-                {ngModelName: 'entInfo.industryFirst', config: $scope.industryFirstConfig},
-                {ngModelName: 'entInfo.industrySecond', config: $scope.industrySecondConfig},
-                {ngModelName: 'entInfo.industryThird', config: $scope.industryThirdConfig}
+                { ngModelName: 'entInfo.industryFirst', config: $scope.industryFirstConfig },
+                { ngModelName: 'entInfo.industrySecond', config: $scope.industrySecondConfig },
+                { ngModelName: 'entInfo.industryThird', config: $scope.industryThirdConfig }
             ], needWatch);
         }
 
@@ -453,7 +453,7 @@ define(function (require, exports, module) {
         });
         //是否有销售团队
         $scope.isSaleTeamConfig = {
-            data: [{id: '1', text: '是'}, {id: '0', text: '否'}],
+            data: [{ id: '1', text: '是' }, { id: '0', text: '否' }],
             multiple: false,
             placeholder: '请选择',
             defaultValue: '100',
@@ -478,7 +478,7 @@ define(function (require, exports, module) {
         });
         //是否转介绍
         $scope.isReferralConfig = {
-            data: [{id: '1', text: '是'}, {id: '0', text: '否'}],
+            data: [{ id: '1', text: '是' }, { id: '0', text: '否' }],
             multiple: false,
             placeholder: '请选择',
             defaultValue: '',
@@ -487,7 +487,7 @@ define(function (require, exports, module) {
         };
         //是否标杆
         $scope.isReferenceConfig = {
-            data: [{id: '1', text: '是'}, {id: '0', text: '否'}],
+            data: [{ id: '1', text: '是' }, { id: '0', text: '否' }],
             multiple: false,
             placeholder: '请选择',
             defaultValue: '100',
@@ -519,39 +519,39 @@ define(function (require, exports, module) {
             }
             switch ($scope.step) {
                 case 1:
-                {//企业详情界面
-                    submitStepEntInfo(function (result) {
+                    {//企业详情界面
+                        submitStepEntInfo(function (result) {
 
-                        if (result.success) {
-                            $scope.$apply(function () {
-                                var data = result.value.model;
-                                $scope.entInfo.draftEnterpriseId = data.id;
-                                $scope.productInfo.draftEnterpriseId = data.id;
-                                $scope.payInfo.draftEnterpriseId = data.id;
-                                $scope.step++;
-                            });
-                        }
-                    });
-                    return;
-                }
+                            if (result.success) {
+                                $scope.$apply(function () {
+                                    var data = result.value.model;
+                                    $scope.entInfo.draftEnterpriseId = data.id;
+                                    $scope.productInfo.draftEnterpriseId = data.id;
+                                    $scope.payInfo.draftEnterpriseId = data.id;
+                                    $scope.step++;
+                                });
+                            }
+                        });
+                        return;
+                    }
                     ;
                     break;
                 case 2:
-                {//产品信息
-                    submitStepProductInfo(function (result) {
+                    {//产品信息
+                        submitStepProductInfo(function (result) {
 
-                        if (result.success) {
-                            $scope.$apply(function () {
-                                var data = result.value.model;
-                                $scope.productInfo.draftOrderId = data.draftOrderId;
-                                $scope.payInfo.draftOrderId = data.draftOrderId;
-                                $scope.payInfo.currPayList = data.currPayList;
-                                $scope.step++;
-                            });
-                        }
-                    });
-                    return;
-                }
+                            if (result.success) {
+                                $scope.$apply(function () {
+                                    var data = result.value.model;
+                                    $scope.productInfo.draftOrderId = data.draftOrderId;
+                                    $scope.payInfo.draftOrderId = data.draftOrderId;
+                                    $scope.payInfo.currPayList = data.currPayList;
+                                    $scope.step++;
+                                });
+                            }
+                        });
+                        return;
+                    }
                     ;
                     break;
             }
@@ -566,19 +566,19 @@ define(function (require, exports, module) {
             })
         }
 
-//企业草稿提交  需要enterpriseAccount
+        //企业草稿提交  需要enterpriseAccount
         function submitStepEntInfo(callback) {
             action.doing = true;
             productService.submitStepEntInfo({
-                    odrDraftEnterprise: angular.toJson(angular.extend({enterpriseAccount: $scope.globalInfo.enterpriseAccount, enterpriseFilingId: $scope.globalInfo.enterpriseFilingId, id: entInfo.draftEnterpriseId}, $scope.entInfo))
-                }
+                odrDraftEnterprise: angular.toJson(angular.extend({ enterpriseAccount: $scope.globalInfo.enterpriseAccount, enterpriseFilingId: $scope.globalInfo.enterpriseFilingId, id: entInfo.draftEnterpriseId }, $scope.entInfo))
+            }
             ).success(function (result) {
-                    callback(result);
-                }).always(function () {
-                    $scope.$apply(function () {
-                        action.doing = false;
-                    });
+                callback(result);
+            }).always(function () {
+                $scope.$apply(function () {
+                    action.doing = false;
                 });
+            });
         }
 
         $scope.getProductInfo = function (needToJson) {
@@ -619,17 +619,17 @@ define(function (require, exports, module) {
             });
         }
 
-//付款信息
+        //付款信息
         function submitStepPayInfo(callback) {
             action.doing = true;
-            productService.submitStepPayInfo({submitType: $scope.globalInfo.submitType, odrDraftPaidInfo: angular.toJson($scope.payInfo)}, callback).always(function () {
+            productService.submitStepPayInfo({ submitType: $scope.globalInfo.submitType, odrDraftPaidInfo: angular.toJson($scope.payInfo) }, callback).always(function () {
                 $scope.$apply(function () {
                     action.doing = false;
                 });
             });
         }
 
-//保存提交按钮
+        //保存提交按钮
         $scope.save = function (form) {
             form.$commitViewValue();
             if (form.$invalid) {
@@ -644,13 +644,13 @@ define(function (require, exports, module) {
                 }
             });
         };
-//取消按钮
+        //取消按钮
         $scope.close = function () {
             IBSS.tplEvent.trigger('order1.2Close');
         };
     }
     ])
-    ;
+        ;
 
 })
-;
+    ;
