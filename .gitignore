@@ -7,4 +7,4 @@ workspace.xml
 .idea/
 npm-debug.log
 /src/**/*.html.js
-/src/resources/order/newmarketying/newmarketying.html.js
+/src/common/scripts
