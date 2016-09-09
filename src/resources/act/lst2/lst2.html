@@ -3,13 +3,18 @@
         <iframe style="width:1px;height:1px;visibility:hidden;position:absolute" name="hideiframe" id="hideiframe" src="" frameborder="0"></iframe>
         <div class="list-main">
             <div class="list-header">
-                <h3>活跃度查询</h3>
+                <h3>活跃度查询
+                    <div class="header-opts">
+                    <button id="btnQyrhyExel" class="btn-exel" data-permissions="M009008002,M008017002,M011011002,M009020001">日活详情导出</button>
+                    <span id="downloaddayactive" style="margin-right:75px;display:none;"><a href="" target="_blank">下载日活详情</a></span>
+                </div>
+                </h3>
             </div>
             <div class="list-bar">
                 <div class="list-bar-btns">
                     <button id="btnClear">清空</button>
                     <button id="btnReset">重置</button>
-                    <button id="btnSearch" class="btn-blue btn-search" data-permission="M009020001,M010012001,M011016001">查询</button>
+                    <button id="btnSearch" class="btn-blue btn-search" data-permissions="M010012001,M011016001">查询</button>
                 </div>
                 <div class="list-bar-input">
                     <label><span>行业</span>
@@ -42,7 +47,7 @@
                             <span>活跃时间</span>
                             <input id="alAST" type="text" class="g-ipt ipt-l"/>
                         </label>
-                        <label>
+                    <label>
                             <span>-</span>
                             <input id="alAET" type="text" class="g-ipt ipt-l"/>
                         </label>
@@ -52,7 +57,7 @@
                             <span>开通时间</span>
                             <input id="alCST" type="text" class="g-ipt ipt-l"/>
                         </label>
-                        <label>
+                    <label>
                             <span>-</span>
                             <input id="alCET" type="text" class="g-ipt ipt-l"/>
                         </label>
@@ -79,14 +84,14 @@
                 <div class="list-content">
                     <table>
                         <thead>
-                        <tr>
-                            <th></th>
-                            <th data-name="id">ID</th>
-                            <th data-name="taskName">任务名称</th>
-                            <th data-name="status">任务状态</th>
-                            <th data-name="createTime">任务创建时间</th>
-                            <th></th>
-                        </tr>
+                            <tr>
+                                <th></th>
+                                <th data-name="id">ID</th>
+                                <th data-name="taskName">任务名称</th>
+                                <th data-name="status">任务状态</th>
+                                <th data-name="createTime">任务创建时间</th>
+                                <th></th>
+                            </tr>
                         </thead>
                         <tbody>
                         </tbody>

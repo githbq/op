@@ -3,20 +3,20 @@ define(function (require, exports, module) {
     var Pagination = require('common/widget/pagination/pagination');
     var tpl = $(require('./template.html'));
 
-    function doDownFile(url,$button,$tips,callback) {
+    function doDownFile(url, $button, $tips, callback) {
         $button.addClass('disabled');
-        $button.attr('disabled','disabled');
+        $button.attr('disabled', 'disabled');
         $tips.text('正在生成文件...请耐心等待');
         function downFile() {
             callback && callback();
-            $.ajax({type:'POST',url: url})
+            $.ajax({ type: 'POST', url: url })
                 .success(function (result) {
-                    if(result.success){
-                    $tips.text('');
-                    $button.removeClass('disabled');
-                    $button.removeAttr('disabled');
-                    window.open(url, 'hideiframe');
-                    }else{
+                    if (result.success) {
+                        $tips.text('');
+                        $button.removeClass('disabled');
+                        $button.removeAttr('disabled');
+                        window.open(url, 'hideiframe');
+                    } else {
                         setTimeout(function () {
                             downFile();
                         }, 10000);
@@ -43,14 +43,16 @@ define(function (require, exports, module) {
             '#alList': 'list',
             '#btnSearch': 'search',
             '.result': 'result',
-            '.tips':'tips'
+            '.tips': 'tips',
+            '#downloaddayactive': 'downloaddayactive'
         },
         events: {
             'click #btnSearch': 'search',
             'click #btnClear': 'clear',
             'click #btnReset': 'reset',
             'click #btnGenerate': 'generate',
-            'click #btnDownload': 'download'
+            'click #btnDownload': 'download',
+            'click #btnQyrhyExel': 'downExel'
         },
         init: function () {
             ActLst.__super__.init.apply(this, arguments);
@@ -164,16 +166,16 @@ define(function (require, exports, module) {
             };
             if (me.$ast.val()) {
                 data.ast = new Date(me.$ast.val()).getTime();
-            }else{
-				util.showToast('请填写活跃开始时间');
+            } else {
+                util.showToast('请填写活跃开始时间');
                 return false;
-			}
+            }
             if (me.$aet.val()) {
                 data.aet = new Date(me.$aet.val()).getTime();
-            }else{
-				util.showToast('请填写活跃结束时间');
+            } else {
+                util.showToast('请填写活跃结束时间');
                 return false;
-			}
+            }
             if (me.$cst.val()) {
                 data.cst = new Date(me.$cst.val()).getTime();
             }
@@ -188,11 +190,11 @@ define(function (require, exports, module) {
             me.$search.attr('disabled', 'disabled');
             me.$search.addClass('disabled');
             var originData = data;
-			var url = location.protocol + '//' + location.host + IBSS.API_PATH + '/query/act/generate3?' + $.param(originData);
+            var url = location.protocol + '//' + location.host + IBSS.API_PATH + '/query/act/generate3?' + $.param(originData);
             window.open(url);
-			 //window.open('/query/act/generate3?' + $.param(originData));
-			 me.$search.removeClass('disabled');
-             me.$search.removeAttr('disabled');
+            //window.open('/query/act/generate3?' + $.param(originData));
+            me.$search.removeClass('disabled');
+            me.$search.removeAttr('disabled');
             /*util.api({
                 url: '/query/act/count2',
                 data: data,
@@ -251,8 +253,8 @@ define(function (require, exports, module) {
                 $download = me.$result.find('#btnDownload'),
                 $console = me.$result.find('#console');
             $generate.addClass('disabled');
-            if($generate.is('[disabled]')){
-                return ;
+            if ($generate.is('[disabled]')) {
+                return;
             }
             $generate.attr('disabled', 'disabled');
             $download.addClass('invisiable');
@@ -264,7 +266,7 @@ define(function (require, exports, module) {
                         var model = data.value.model;
                         model.dst = new Date(model.startTime)._format('yyyy-MM-dd hh:mm:ss');
                         model.dct = new Date(model.completeTime)._format('yyyy-MM-dd hh:mm:ss');
-                        $console.append(me.tplGenerate({value: model}));
+                        $console.append(me.tplGenerate({ value: model }));
                         $download.attr('data-path', $.parseJSON(model.gPath).path);
                         $download.removeClass('invisiable');
                     }
@@ -324,16 +326,164 @@ define(function (require, exports, module) {
             var htmlStr = '';
 
             if (collection.length > 0) {
-                htmlStr = me.trTpl({'content': collection});
+                htmlStr = me.trTpl({ 'content': collection });
             } else {
-                htmlStr = '<tr><td colspan="'+me.$('.list-content th').length+'"><p class="info">暂无数据</p></td></tr>';
+                htmlStr = '<tr><td colspan="' + me.$('.list-content th').length + '"><p class="info">暂无数据</p></td></tr>';
             }
             me.$('.list-content tbody').html(htmlStr);
+        },
+        //日活详情导出----------------------------------------------
+        downExel: function () {
+            var me = this;
+            var data = {
+                industry: me.$industry.val(),
+                pm: me.$pModule.val(),
+                code: me.$code.val(),
+                fStatus: me.$fstatus.val(),
+                source: me.$source.val()
+            };
+            if (me.$ast.val()) {
+                data.ast = new Date(me.$ast.val()).getTime();
+            } else {
+                util.showToast('请填写活跃开始时间');
+                return false;
+            }
+            if (me.$aet.val()) {
+                data.aet = new Date(me.$aet.val()).getTime();
+            } else {
+                util.showToast('请填写活跃结束时间');
+                return false;
+            }
+            if (me.$cst.val()) {
+                data.cst = new Date(me.$cst.val()).getTime();
+            }
+            if (me.$cet.val()) {
+                data.cet = new Date(me.$cet.val()).getTime();
+            }
+            if (me.$list.val()) {
+                data.listType = me.$listType.val();
+                data.list = me.$list.val();
+            }
+            me.$result.html('');
+            me.$search.attr('disabled', 'disabled');
+            me.$search.addClass('disabled');
+            var originData = data; 
+            var filepath = '';
+            util.api({
+                'url': '/query/act/generate3',
+                'data': originData,
+                'beforeSend': function () {
+                    me.$('#btnQyrhyExel').attr('disabled', 'disabled').text('导出中......');
+                    me.$downloaddayactive.hide()
+                },
+                'success': function (data) {
+                    console.warn(data);
+                    if (data.success) {
+                        filepath = data.value.model;
+                        me.$('#btnQyrhyExel').text('生成中 稍等几分钟...').attr('disabled', 'disabled');
+                        checkExport();
+                    } else {
+                        reset();
+                    }
+                },
+                'error': function () {
+                    reset();
+                }
+            })
+
+            /**
+             * 返回初始状态
+             */
+            function reset() {
+                me.$('#btnQyrhyExel').removeAttr('disabled').text('日活详情导出');
+                me.$downloaddayactive.hide();
+            }
+
+            /**
+             *
+             * 轮询获取列表是否生成成功
+             */
+            function checkExport() {
+                $.ajax({
+                    'url': '/op/api/file/downloadeaactimport',
+                    'type': 'get',
+                    'data': {
+                        'filePath': filepath
+                    },
+                    'complete': function (xhr, status) {
+
+                        if (xhr.status == 200) {
+
+                            console.log('status:200');
+                            setTimeout(function () {
+                                reset();
+                                me.$downloaddayactive.show().find('a').attr('href', '/op/api/file/downloadeaactimport?filePath=' + filepath);
+                            }, 5000);
+                        } else if (xhr.status == 404) {
+
+                            console.log('status:404');
+                            setTimeout(function () { checkExport() }, 5000);
+                        } else {
+
+                            console.log('status:undefined');
+                            reset();
+                            util.showToast('生成失败');
+                        }
+                    }
+                })
+            }
+        },
+
+        //日活详情导出事件
+        exportExel: function () {
+            var me = this;
+            var objdata = {};
+
+            if (me.$cst.val()) {
+                objdata['appTimeStart'] = new Date(me.$cst.val()).getTime();
+            } else {
+                objdata['appTimeStart'] = '';
+
+            }
+            if (me.$cet.val()) {
+                objdata['appTimeEnd'] = new Date(me.$cet.val()).getTime();
+            } else {
+                objdata['appTimeEnd'] = '';
+
+            }
+            if (me.$ast.val()) {
+                objdata['actStartTime'] = new Date(me.$ast.val()).getTime();
+            } else {
+                //objdata['actStartTime'] = '';
+                util.showToast('请完善活跃时间');
+                return false;
+            }
+            if (me.$aet.val()) {
+                objdata['actEndTime'] = new Date(me.$aet.val()).getTime();
+            } else {
+
+                util.showToast('请完善活跃时间');
+                return false;
+            }
+            objdata['name'] = me.$alName.val() || '';
+            objdata['enterAccount'] = me.$enterpriseAccount.val() || '';
+            objdata['enterpriseType'] = me.$('#enterpriseType').val();
+
+            me.$('#btnQyrhyExel').attr('disabled', 'disabled');
+            me.$('#btnQyrhyExel').addClass('disable');
+            me.$('#btnQyrhyExel').text('导出中...');
+
+            var hrefStr = '/op/api/query/eaactimport/generate?' + $.param(objdata);
+            location.href = hrefStr;
+
+            me.$('#btnQyrhyExel').removeClass('disable');
+            me.$('#btnQyrhyExel').removeAttr('disabled');
+            me.$('#btnQyrhyExel').text('日活详情导出');
         }
     });
 
     exports.init = function () {
         var $el = exports.$el;
-        var actLst = new ActLst({'view': $el.find('.m-act-lst')});
+        var actLst = new ActLst({ 'view': $el.find('.m-act-lst') });
     }
 });
