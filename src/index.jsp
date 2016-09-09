@@ -71,6 +71,9 @@
                     <li data-permissions="M008012">
                         <a href="#index/lst2">实时2</a>
                     </li>
+                   <li data-permissions="M008034">
+                        <a href="#index/lst3">实时3</a>
+                    </li>
                     <li data-permissions="M008013">
                         <a href="#index/rpt2">月度报告2</a>
                     </li>
