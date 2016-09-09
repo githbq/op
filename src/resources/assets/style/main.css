@@ -7193,6 +7193,9 @@ em {
   /* 审核意见 */
   /*产品信息*/
 }
+.m-enterprisedetail .dtl.section {
+  display: none;
+}
 .m-enterprisedetail .openTime {
   display: none;
 }
