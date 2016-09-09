@@ -1,0 +1,32 @@
+<script type="text/template" class="trTpl">
+    <% _.each(content,function(item){%>
+        <tr>
+            <td></td>
+            <td>
+                <%=item.receivedPayNum%>
+            </td>
+            <td>
+                <%=item.receivedPayAmount%>
+            </td>
+            <td>
+                <%=item.receivedPayDate%>
+            </td>
+            <td>
+                <%=item.payerName%>
+            </td>
+            <td>
+                <%=item.property_name%>
+            </td>
+            <td>
+                <%=item.bankName%>
+            </td>
+            <td>
+                <%=item.departmentName%>
+            </td>
+            <td>
+                <%=item.claimStatus_name%>
+            </td>
+            <td></td>
+        </tr>
+        <%}) %>
+</script>
