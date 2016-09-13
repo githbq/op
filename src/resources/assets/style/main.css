@@ -8945,14 +8945,23 @@ em {
   color: black;
 }
 .enterprise-panel .panel-button {
-  over-flow: hidden;
+  overflow: hidden;
   text-align: center;
   padding: 5px;
 }
 .enterprise-panel .form.payinfo .form-row label:first-child:not(.fenqi-label) {
   width: 220px;
 }
+.enterprise-panel .form.product-form {
+  padding-top: 20px;
+}
 .enterprise-panel .form .product-info-group {
+  width: 90%;
+  margin: 0 auto;
+  padding: 10px;
+  background-color: #f2f2f2;
+}
+.enterprise-panel .form .product-starttime-panel {
   width: 90%;
   margin: 0 auto;
   padding: 10px;

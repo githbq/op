@@ -28,32 +28,34 @@
             <div class="form-row">
                 <div class="form-field">
                     <label><span>企业名称</span></label>
-                    <input ng-class="{readonly:true}" ng-readonly="true" type="text" ng-model="entInfo.enterpriseName" name="enterpriseName" ng-maxlength="100"/>
+                    <input ng-class="{readonly:true}" ng-readonly="true" type="text" ng-model="entInfo.enterpriseName" name="enterpriseName" ng-maxlength="100" />
                 </div>
                 <div class="form-field">
                     <label><span>代理区域</span></label>
-                    <input ng-class="{readonly:true}" ng-readonly="true" type="text" ng-model="entInfo.area" name="area" ng-maxlength="100"/>
+                    <input ng-class="{readonly:true}" ng-readonly="true" type="text" ng-model="entInfo.area" name="area" ng-maxlength="100" />
                 </div>
             </div>
             <div class="form-row" ng-if="entInfo.contractEnterpriseName">
                 <div class="form-field">
                     <label><span>签约企业名称</span></label>
-                    <input ng-class="{readonly:true}" ng-readonly="true" type="text" ng-model="entInfo.contractEnterpriseName" name="contractEnterpriseName"/>
+                    <input ng-class="{readonly:true}" ng-readonly="true" type="text" ng-model="entInfo.contractEnterpriseName" name="contractEnterpriseName" />
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>企业账号</span></label>
-                    <input maxlength="20" required ng-readonly="enterpriseReadonly||globalInfo.submitType==3||globalInfo.orderId" account ng-model-options="{debounce:1000}" ng-class="{readonly:enterpriseReadonly||globalInfo.submitType==3||globalInfo.orderId}" type="text" ng-model="entInfo.enterpriseAccount" name="enterpriseAccount" ng-maxlength="100"/>
+                    <input maxlength="20" required ng-readonly="enterpriseReadonly||globalInfo.submitType==3||globalInfo.orderId" account ng-model-options="{debounce:1000}" ng-class="{readonly:enterpriseReadonly||globalInfo.submitType==3||globalInfo.orderId}" type="text"
+                        ng-model="entInfo.enterpriseAccount" name="enterpriseAccount" ng-maxlength="100" />
                     <span class="tip">企业账号应为字母开头6-20位由字母数字的组合</span>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>企业地址</span></label>
-                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 name="province" ng-model="entInfo.province" select2-model="entInfo.provinceDataValue" config="provinceConfig" class="form-control multiple-select" type="text"/>
-                    一一<input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 name="city" ng-model="entInfo.city" select2-model="entInfo.cityDataValue" config="cityConfig" class="form-control multiple-select" type="text"/>
-                    一一<input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 name="county" ng-model="entInfo.county" select2-model="entInfo.countyDataValue" config="countyConfig" class="form-control multiple-select" type="text"/>
+                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 name="province" ng-model="entInfo.province" select2-model="entInfo.provinceDataValue" config="provinceConfig" class="form-control multiple-select" type="text"
+                    /> 一一
+                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 name="city" ng-model="entInfo.city" select2-model="entInfo.cityDataValue" config="cityConfig" class="form-control multiple-select" type="text" />                    一一
+                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 name="county" ng-model="entInfo.county" select2-model="entInfo.countyDataValue" config="countyConfig" class="form-control multiple-select" type="text" />
                 </div>
             </div>
 
@@ -66,42 +68,48 @@
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>行业</span></label>
-                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 name="industryFirst" ng-model="entInfo.industryFirst" select2-model="entInfo.industryFirstDataValue" config="industryFirstConfig" class="form-control multiple-select" type="text"/>
-                    一一<input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 name="industrySecond" ng-model="entInfo.industrySecond" select2-model="entInfo.industrySecondDataValue" config="industrySecondConfig" class="form-control multiple-select" type="text"/>
-                    一一<input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 name="industryThird" ng-model="entInfo.industryThird" select2-model="entInfo.industryThirdDataValue" config="industryThirdConfig" class="form-control multiple-select" type="text"/>
+                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 name="industryFirst" ng-model="entInfo.industryFirst" select2-model="entInfo.industryFirstDataValue" config="industryFirstConfig" class="form-control multiple-select"
+                        type="text" /> 一一
+                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 name="industrySecond" ng-model="entInfo.industrySecond" select2-model="entInfo.industrySecondDataValue" config="industrySecondConfig" class="form-control multiple-select"
+                        type="text" /> 一一
+                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 name="industryThird" ng-model="entInfo.industryThird" select2-model="entInfo.industryThirdDataValue" config="industryThirdConfig" class="form-control multiple-select"
+                        type="text" />
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>公司规模</span></label>
-                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required
-                           select2 ng-model="entInfo.companyScale" name="companyScale"
-                           select2-model="entInfo.companyScaleDataValue" config="companyScaleConfig"
-                           class="form-control multiple-select" type="text"/>
+                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 ng-model="entInfo.companyScale" name="companyScale" select2-model="entInfo.companyScaleDataValue" config="companyScaleConfig" class="form-control multiple-select"
+                        type="text" />
                 </div>
                 <div class="form-field">
                     <label class="required"><span>使用对象类型</span></label>
-                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 ng-model="entInfo.groupType" name="groupType" select2-model="entInfo.groupTypeDataValue" config="groupTypeConfig" class="form-control multiple-select" type="text"/>
+                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 ng-model="entInfo.groupType" name="groupType" select2-model="entInfo.groupTypeDataValue" config="groupTypeConfig" class="form-control multiple-select" type="text"
+                    />
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>是否有销售团队</span></label>
-                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 ng-model="entInfo.isSaleTeam" name="isSaleTeam" select2-model="entInfo.isSaleTeamDataValue" config="isSaleTeamConfig" class="form-control multiple-select" type="text"/>
+                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 ng-model="entInfo.isSaleTeam" name="isSaleTeam" select2-model="entInfo.isSaleTeamDataValue" config="isSaleTeamConfig" class="form-control multiple-select"
+                        type="text" />
                 </div>
                 <div class="form-field">
                     <label class="required"><span>销售团队规模</span></label>
-                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 ng-model="entInfo.saleTeamScale" name="saleTeamScale" select2-model="entInfo.saleTeamScaleDataValue" config="saleTeamScaleConfig" class="form-control multiple-select" type="text"/>
+                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 ng-model="entInfo.saleTeamScale" name="saleTeamScale" select2-model="entInfo.saleTeamScaleDataValue" config="saleTeamScaleConfig" class="form-control multiple-select"
+                        type="text" />
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>是否转介绍</span></label>
-                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 ng-model="entInfo.isReferral" name="isReferral" select2-model="entInfo.isReferralDataValue" config="isReferralConfig" class="form-control multiple-select" type="text"/>
+                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 ng-model="entInfo.isReferral" name="isReferral" select2-model="entInfo.isReferralDataValue" config="isReferralConfig" class="form-control multiple-select"
+                        type="text" />
                 </div>
                 <div class="form-field">
                     <label class="required"><span>是否标杆</span></label>
-                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 ng-model="entInfo.isReference" name="isReference" select2-model="entInfo.isReferenceDataValue" config="isReferenceConfig" class="form-control multiple-select" type="text"/>
+                    <input ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required select2 ng-model="entInfo.isReference" name="isReference" select2-model="entInfo.isReferenceDataValue" config="isReferenceConfig" class="form-control multiple-select"
+                        type="text" />
                 </div>
             </div>
             <div class="form-row">
@@ -110,18 +118,18 @@
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>企业负责人姓名</span></label>
-                    <input maxlength="50" ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required ng-maxlength="100" type="text" name="keyContactName" ng-model="entInfo.keyContactName"/>
+                    <input maxlength="50" ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required ng-maxlength="100" type="text" name="keyContactName" ng-model="entInfo.keyContactName" />
                 </div>
                 <div class="form-field">
                     <label class="required"><span>企业负责人电话</span></label>
                     <!--ng-pattern="/[a-zA-Z]/"   正则表达式验证-->
-                    <input telephone ng-model-options="{updateOn:'blur'}" ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required type="text" ng-model="entInfo.keyContactPhone" name="keyContactPhone"/>
+                    <input telephone ng-model-options="{updateOn:'blur'}" ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required type="text" ng-model="entInfo.keyContactPhone" name="keyContactPhone" />
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>企业负责人邮箱</span></label>
-                    <input maxlength="100" ng-model-options="{updateOn:'blur'}" ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" ng-model="entInfo.keyContactEmail" required type="text" email name="keyContactEmail"/>
+                    <input maxlength="100" ng-model-options="{updateOn:'blur'}" ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" ng-model="entInfo.keyContactEmail" required type="text" email name="keyContactEmail" />
                 </div>
             </div>
             <div class="form-row">
@@ -130,21 +138,21 @@
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>平台管理员</span></label>
-                    <input maxlength="50" ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required ng-maxlength="100" type="text" ng-model="entInfo.contactName" name="contactName"/>
+                    <input maxlength="50" ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required ng-maxlength="100" type="text" ng-model="entInfo.contactName" name="contactName" />
                 </div>
                 <div class="form-field">
                     <label class="required"><span>平台管理员手机</span></label>
-                    <input required　phone ng-model-options="{updateOn:'blur'}" ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" ng-model="entInfo.contactPhone" type="text" name="contactPhone"/>
+                    <input required　phone ng-model-options="{updateOn:'blur'}" ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" ng-model="entInfo.contactPhone" type="text" name="contactPhone" />
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>平台管理员邮箱</span></label>
-                    <input maxlength="100" ng-model-options="{debounce:1000}" ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required type="text" email ng-model="entInfo.contactEmail" ng-maxlength="100" name="contactEmail"/>
+                    <input maxlength="100" ng-model-options="{debounce:1000}" ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" required type="text" email ng-model="entInfo.contactEmail" ng-maxlength="100" name="contactEmail" />
                 </div>
                 <div class="form-field">
                     <label><span>平台管理员QQ</span></label>
-                    <input maxlength="15" ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" type="text" ng-maxlength="100" ng-model="entInfo.contactIm" name="contactIm"/>
+                    <input maxlength="15" ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" type="text" ng-maxlength="100" ng-model="entInfo.contactIm" name="contactIm" />
                 </div>
             </div>
         </div>
@@ -154,8 +162,16 @@
             <!--<h1>第二步&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;产品信息</h1>-->
             <h1>产品信息</h1>
         </div>
-        <div class="form" ng-init="dataResultData={dataResult:[]}" ng-class="{step_validate_error:step_2_validate_error}">
-            <div ng-if="globalInfo.enterpriseName&&globalInfo.enterpriseAccount" ng-init="productInfos=productInfos||[]">
+        <div class="form  product-form" ng-init="dataResultData={dataResult:[]}" ng-class="{step_validate_error:step_2_validate_error}">
+            <div class="product-starttime-panel" ng-form name="timeForm">
+                <div class="form-row">
+                    <div class="form-field">
+                        <label class="required"><span>办公版开通日期</span></label>
+                        <div class="inline-block" ng-disabled="productReadonly" required2="true" ng-readonly="productReadonly" getform="this['timeForm']" name="AppStartTime" datetimeconfig="productInfo.AppStartTime_dataConfig" ng-model="productInfo.AppStartTime"></div>
+                    </div>
+                </div>
+            </div>
+            <div ng-if2="globalInfo.enterpriseName&&globalInfo.enterpriseAccount" ng-init="productInfos=productInfos||[]">
                 <div class="form-row">
                     <h2>企业已购产品信息</h2>
                 </div>
@@ -277,41 +293,26 @@
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>合同号</span></label>
-                    <input ng-model-options="{updateOn:'blur'}" maxlength="50" ng-class="{readonly:payInfoReadonly||isCaiWu}" required ng-readonly="payInfoReadonly||isCaiWu" type="text" ng-change="getDataByContractNo()" ng-model="payInfo.contractNo" name="contractNo"/>
+                    <input ng-model-options="{updateOn:'blur'}" maxlength="50" ng-class="{readonly:payInfoReadonly||isCaiWu}" required ng-readonly="payInfoReadonly||isCaiWu" type="text" ng-change="getDataByContractNo()" ng-model="payInfo.contractNo" name="contractNo" />
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>合同总金额</span></label>
-                    <input number ng-class="{readonly:true}" ng-readonly="true" required type="text" ng-model="payInfo.contractPrice" name="contractPrice"/>
+                    <input number ng-class="{readonly:true}" ng-readonly="true" required type="text" ng-model="payInfo.contractPrice" name="contractPrice" />
                 </div>
             </div>
             <div class="form-row">
-                <div ng-required="true"
-                     name="contract"
-                     ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly"
-                     ng-model="payInfo.contract"
-                     input-file
-                     multiple="true"
-                     status="payInfo.contract_status"
-                     label="合同照片"
-                     response=""></div>
+                <div ng-required="true" name="contract" ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly" ng-model="payInfo.contract" input-file multiple="true" status="payInfo.contract_status" label="合同照片" response=""></div>
             </div>
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>合同章名称</span></label>
-                    <input maxlength="50" ng-class="{readonly:payInfoReadonly}" required ng-readonly="payInfoReadonly" type="text" ng-model="payInfo.sealName" name="sealName"/>
+                    <input maxlength="50" ng-class="{readonly:payInfoReadonly}" required ng-readonly="payInfoReadonly" type="text" ng-model="payInfo.sealName" name="sealName" />
                 </div>
             </div>
             <div class="form-row">
-                <div ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly"
-                     ng-model="payInfo.contractCopy"
-                     input-file
-                     multiple="true"
-                     status="payInfo.contractCopy_status"
-                     ng-required="false"
-                     label="合同副本照片"
-                     response=""></div>
+                <div ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly" ng-model="payInfo.contractCopy" input-file multiple="true" status="payInfo.contractCopy_status" ng-required="false" label="合同副本照片" response=""></div>
             </div>
             <div class="form-row">
                 <div class="form-field" ng-init="payStatusData=[{label:'全额',value:1,checked:true},{label:'未付',value:3,checked:false},{label:'分期',value:2,checked:false}]">
@@ -341,13 +342,13 @@
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>代理商本次到款款额(元)</span></label>
-                    <input number ng-class="{readonly:true}" ng-readonly="true" type="text" ng-model="payInfo.agentCurrPayAmount" name="agentCurrPayAmount"/>
+                    <input number ng-class="{readonly:true}" ng-readonly="true" type="text" ng-model="payInfo.agentCurrPayAmount" name="agentCurrPayAmount" />
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>总部本次到款金额(元)</span></label>
-                    <input number ng-class="{readonly:true}" class="multiple-select-long" ng-readonly="true" type="text" ng-model="payInfo.currPayAmount" name="currPayAmount"/>
+                    <input number ng-class="{readonly:true}" class="multiple-select-long" ng-readonly="true" type="text" ng-model="payInfo.currPayAmount" name="currPayAmount" />
                 </div>
             </div>
             <div class="form-row">
@@ -361,43 +362,30 @@
                 <div class="form-field">
                     <label class="required v-top"><span>总部到款账户</span></label>
                     <span class="inline-block"> <span ng-if="payInfoReadonly||globalInfo.isRefuse">{{payInfo.receiptsAccount}}<br/></span>
-                    <input ng-if="!(payInfoReadonly)" ng-class="{readonly:payInfoReadonly}"
-                           ng-readonly="payInfoReadonly"
-                           required select2
-                           name="receiptsAccount" ng-model="payInfo.receiptsAccount"
-                           placeholder="请输入银行账号"
-                           select2-model="payInfo.receiptsAccountDataValue"
-                           config="receiptsAccountConfig"
-                           ajax-config="bankAjaxConfig"
-                           class="form-control multiple-select-long" type="text"/>
-                        </span>
+                    <input ng-if="!(payInfoReadonly)" ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly" required select2 name="receiptsAccount" ng-model="payInfo.receiptsAccount" placeholder="请输入银行账号" select2-model="payInfo.receiptsAccountDataValue" config="receiptsAccountConfig"
+                        ajax-config="bankAjaxConfig" class="form-control multiple-select-long" type="text" />
+                    </span>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-field">
                     <label class="required"><span>打款名称（单位/个人）</span></label>
-                    <input maxlength="50" ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly" required type="text" ng-model="payInfo.payerName" name="payerName"/>
+                    <input maxlength="50" ng-class="{readonly:payInfoReadonly}" ng-readonly="payInfoReadonly" required type="text" ng-model="payInfo.payerName" name="payerName" />
                 </div>
             </div>
             <div class="form-row">
-                <div ng-class="{readonly:payInfoReadonly||isCaiWu}" ng-readonly="payInfoReadonly||isCaiWu"
-                     ng-model="payInfo.companyGatePicture"
-                     input-file
-                     multiple="true"
-                     status="payInfo.companyGatePicture_status"
-                     label="门头照片"
-                     response=""></div>
+                <div ng-class="{readonly:payInfoReadonly||isCaiWu}" ng-readonly="payInfoReadonly||isCaiWu" ng-model="payInfo.companyGatePicture" input-file multiple="true" status="payInfo.companyGatePicture_status" label="门头照片" response=""></div>
             </div>
             <div class="form-row">
                 <div class="form-field">
                     <label><span>门头照片关键词</span></label>
-                    <input maxlength="100" class="input-l" ng-class="{readonly:payInfoReadonly||isCaiWu}" ng-readonly="payInfoReadonly||isCaiWu" type="text" ng-model="payInfo.companyGateKeyword" name="companyGateKeyword"/>
+                    <input maxlength="100" class="input-l" ng-class="{readonly:payInfoReadonly||isCaiWu}" ng-readonly="payInfoReadonly||isCaiWu" type="text" ng-model="payInfo.companyGateKeyword" name="companyGateKeyword" />
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-field">
                     <label><span>门头照片备注</span></label>
-                    <input maxlength="100" class="input-l" ng-class="{readonly:payInfoReadonly||isCaiWu}" ng-readonly="payInfoReadonly||isCaiWu" type="text" ng-model="payInfo.companyGateRemark" name="companyGateRemark"/>
+                    <input maxlength="100" class="input-l" ng-class="{readonly:payInfoReadonly||isCaiWu}" ng-readonly="payInfoReadonly||isCaiWu" type="text" ng-model="payInfo.companyGateRemark" name="companyGateRemark" />
                 </div>
             </div>
             <div class="form-row">
@@ -412,13 +400,10 @@
         </div>
     </div>
     <div class="panel-button" ng-if="hideFootBtns!==true">
-        <button ng-if="step>1 && !(globalInfo.isAdd&&step==2)" ng-disabled="action.doing===true" ng-click="prevStep()">上一步</button>
-        &nbsp;&nbsp;&nbsp;&nbsp;
+        <button ng-if="step>1 && !(globalInfo.isAdd&&step==2)" ng-disabled="action.doing===true" ng-click="prevStep()">上一步</button> &nbsp;&nbsp;&nbsp;&nbsp;
         <!--<button ng-disabled="mainForm.basicForm.$invalid" ng-if="step<3" ng-click="nextStep()">下一步</button>-->
-        <button ng-if="step<3" ng-disabled="action.doing===true" ng-click="nextStep(this.mainForm['stepForm'+step])">下一步</button>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <button ng-if="step==3" class="save" ng-disabled="action.doing===true" ng-click="save(this.mainForm['stepForm'+3])" ng-class="{saving:action.doing}">提交</button>
-        &nbsp;&nbsp;&nbsp;&nbsp;
+        <button ng-if="step<3" ng-disabled="action.doing===true" ng-click="nextStep(this.mainForm['stepForm'+step])">下一步</button> &nbsp;&nbsp;&nbsp;&nbsp;
+        <button ng-if="step==3" class="save" ng-disabled="action.doing===true" ng-click="save(this.mainForm['stepForm'+3])" ng-class="{saving:action.doing}">提交</button> &nbsp;&nbsp;&nbsp;&nbsp;
         <button ng-click="close()" class="close-order">取消</button>
     </div>
 </div>

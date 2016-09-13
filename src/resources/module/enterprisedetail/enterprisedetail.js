@@ -563,7 +563,7 @@ define(function (require, exports, module) {
              }
              })
              */
-            console.log('getenterprise!!!!!'); 
+            console.log('getenterprise!!!!!');
             //获取企业详情
             util.api({
                 'url': '/enterprise/getenterprise',
@@ -1484,7 +1484,11 @@ define(function (require, exports, module) {
         //=============================
         showFunctions: function () {
             var me = this;
-
+            me.model.set('AppStartTime', new Date().getTime());
+            me.$('#AppStartTime').datetimepicker({
+                format: 'Y/m/d',
+                timepicker: false
+            })
             //设置默认设置
             //me.$sELC.val(100);
             //me.$sEFC.val(100);
