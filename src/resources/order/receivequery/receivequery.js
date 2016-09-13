@@ -65,7 +65,7 @@ define(function (require, exports, module) {
                         me.collection.reload(data.value.model.content, function (item) {
                             item.receivedPayDate_name = new Date(item.receivedPayDate)._format('yyyy/MM/dd');
                             item.property_name = item.property == 1 ? "到款" : item.property == 2 ? "退款" : "";
-                            item.claimStatus_name = item.claimStatus == 1 ? "未认领" : item.claimStatus == 2 ? "认领中(假状态)" : item.claimStatus == 3 ? "已认领" : ""
+                            item.claimStatus_name = item.claimStatus == 1 ? "未认领" : item.claimStatus == 2 ? "认领中" : item.claimStatus == 3 ? "已认领" : ""
                         });
                     }
                 }, complete: function () {
