@@ -39,7 +39,7 @@ define(function (require, exports, module) {
         search: function () {
             var me = this;
             if (!me.model.get('name')) {
-                util.showToast('请输入打款单位!');
+                util.showToast('请输入打款名称!');
                 return;
             }
             this.pagination.setPage(0, false);
