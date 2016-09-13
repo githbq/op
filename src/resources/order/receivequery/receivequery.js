@@ -37,6 +37,11 @@ define(function (require, exports, module) {
             ModelList.__super__.hide.apply(this, arguments);
         },
         search: function () {
+            var me = this;
+            if (!me.model.get('name')) {
+                util.showToast('请输入打款单位!');
+                return;
+            }
             this.pagination.setPage(0, false);
             this.getList();
         },
@@ -58,6 +63,7 @@ define(function (require, exports, module) {
                     if (data.success) {
                         me.pagination.setTotalSize(data.value.model.itemCount);
                         me.collection.reload(data.value.model.content, function (item) {
+                            item.receivedPayDate_name = new Date(item.receivedPayDate)._format('yyyy/MM/dd');
                             item.property_name = item.property == 1 ? "到款" : item.property == 2 ? "退款" : "";
                             item.claimStatus_name = item.claimStatus == 1 ? "未认领" : item.claimStatus == 2 ? "认领中(假状态)" : item.claimStatus == 3 ? "已认领" : ""
                         });
