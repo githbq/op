@@ -51,7 +51,7 @@ define(function (require, exports, module) {
                 'url': '/odr/receivedpay/queryList',
                 'data': data,
                 beforeSend: function () {
-                    me.$tbody.html('<tr><td colspan="10"><p class="info">加载中...</p></td></tr>');
+                    me.$tbody.html('<tr class="loading"><td colspan="10"><p class="info">加载中...</p></td></tr>');
                 },
                 'success': function (data) {
                     console.warn(data);
@@ -62,6 +62,8 @@ define(function (require, exports, module) {
                             item.claimStatus_name = item.claimStatus == 1 ? "未认领" : item.claimStatus == 2 ? "认领中(假状态)" : item.claimStatus == 3 ? "已认领" : ""
                         });
                     }
+                }, complete: function () {
+                    me.$tbody.find('tr.loading').remove();
                 }
             })
         },
