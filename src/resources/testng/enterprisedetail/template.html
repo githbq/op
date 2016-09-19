@@ -164,7 +164,7 @@
         </div>
         <div class="form  product-form" ng-init="dataResultData={dataResult:[]}" ng-class="{step_validate_error:step_2_validate_error}">
             <div class="product-starttime-panel" ng-form name="timeForm">
-                <div class="form-row" ng-init="productInfo.launchTime=''">
+                <div class="form-row" ng-init="productInfo.launchTime=launchTime||''">
                     <div class="form-field">
                         <label class="required"><span>办公版开通日期</span></label>
                         <div class="inline-block" ng-disabled="productReadonly" required2="true" ng-readonly="productReadonly" getform="this['timeForm']" name="launchTime" datetimeconfig="{dateFmt:'yyyy/MM/dd HH:mm:ss'}" ng-model="productInfo.launchTime"></div>
@@ -278,7 +278,7 @@
             <div class="form-row">
                 <h2>产品目录</h2>
             </div>
-            <products x-data-result="productInfo.dataResult" from-data="orderFromData" product-json="productJson" init-data="productInfo.initData" product-readonly="productReadonly" show="step==2"></products>
+            <products x-data-result="productInfo.dataResult" from-data="orderFromData" launch-time="productInfo.launchTime" product-json="productJson" init-data="productInfo.initData" product-readonly="productReadonly" show="step==2"></products>
         </div>
     </div>
     <div ng-show="step==3" ng-class="{step_validate_error:step_3_validate_error}" ng-controller="form3Controller" ng-form name="stepForm3" class="step form payinfo">
