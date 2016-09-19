@@ -165,7 +165,7 @@
 		</section>
 		<!--产品历史信息-->
 		<section class="accordian collapse f1 f2 f3 f4" data-target="productHistory">
-			<h4><span class="arraw"></span>产品历史信息   </h4>
+			<h4><span class="arraw"></span>产品历史信息 </h4>
 			<div class="content" id="tbProductHistory">
 				<table>
 					<thead>
@@ -184,7 +184,7 @@
 		</section>
 		<!--订单信息-->
 		<section class="accordian collapse f1 f2 f3 f4" data-target="orderList">
-			<h4><span class="arraw"></span>订单信息   </h4>
+			<h4><span class="arraw"></span>订单信息 </h4>
 			<div class="content" id="orderList">
 				<table>
 					<thead>
@@ -206,7 +206,7 @@
 		</section>
 		<!--试用信息-->
 		<section class="accordian collapse f1 f2 f3 f4" data-target="tryOut">
-			<h4><span class="arraw"></span>试用信息   </h4>
+			<h4><span class="arraw"></span>试用信息 </h4>
 			<div class="content" id="tryOut">
 				<table>
 					<thead>
@@ -398,7 +398,7 @@
 						</label>
 					</p>
 					<p>
-						<label class="hw"><span>办公版开通时间设置</span><input ce-model="AppStartTime" id="AppStartTime" class="g-ipt ipt-m" type="text"></label> 
+						<label class="hw"><span>办公版开通时间设置</span><input ce-model="AppStartTime" id="AppStartTime" class="g-ipt ipt-m" type="text"></label>
 					</p>
 					<!--<p>
 						<label class="hw">
@@ -415,38 +415,50 @@
 			</div>
 		</section>
 
-		<!--日志信息-->
-		<section class="accordian collapse f1 f2 f3 f4 off" data-target="log">
-			<h4><span class="arraw"></span>日志信息</h4>
+		<!--开通时间-->
+		<section class="accordian collapse f1 f2 f3 f4 off" data-target="launchTime">
+			<h4><span class="arraw"></span>开通时间</h4>
 			<div class="content">
-				<div id="tbLog" class="tb">
-					<div class="tb-bar">
-						<p>
-							<label><span>类别</span><select id="sbLogType"></select></label>
-							<label><span>操作时间</span><input id="sbLogST" type="text" class="g-ipt ipt-s" /></label>
-							<label><span>到</span><input id="sbLogET" type="text" class="g-ipt ipt-s" /></label>
-							<button id="sBtnLogSearch">查询</button>
-						</p>
-					</div>
-					<table>
-						<thead>
-							<tr>
-								<th style="width:80px;">序号</th>
-								<th style="width:110px;">操作时间</th>
-								<th style="width:120px;">操作人</th>
-								<th style="width:120px;">类别</th>
-								<th>内容</th>
-							</tr>
-						</thead>
-						<tbody></tbody>
-					</table>
-					<div class="pager"></div>
-				</div>
+				<p>
+					<label class="hw"><span>开通时间：</span><input id="launchTime" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"  class="g-ipt" type="text"></label>
+				</p>
+				<p class="tr"><button id="saveLanuchTime" class="btn-blue">保存</button></p>
 			</div>
-		</section>
+	</div>
+	</section>
+	<!--end开通时间-->
+	<!--日志信息-->
+	<section class="accordian collapse f1 f2 f3 f4 off" data-target="log">
+		<h4><span class="arraw"></span>日志信息</h4>
+		<div class="content">
+			<div id="tbLog" class="tb">
+				<div class="tb-bar">
+					<p>
+						<label><span>类别</span><select id="sbLogType"></select></label>
+						<label><span>操作时间</span><input id="sbLogST" type="text" class="g-ipt ipt-s" /></label>
+						<label><span>到</span><input id="sbLogET" type="text" class="g-ipt ipt-s" /></label>
+						<button id="sBtnLogSearch">查询</button>
+					</p>
+				</div>
+				<table>
+					<thead>
+						<tr>
+							<th style="width:80px;">序号</th>
+							<th style="width:110px;">操作时间</th>
+							<th style="width:120px;">操作人</th>
+							<th style="width:120px;">类别</th>
+							<th>内容</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+				<div class="pager"></div>
+			</div>
+		</div>
+	</section>
 
-		<!--数据统计-->
-		<!--
+	<!--数据统计-->
+	<!--
 		<section class="accordian collapse f1 f2 f3 f4 off" data-target="peopleNumber">
 			<h4><span class="arraw"></span>数据统计</h4>
 			<div class="content">
@@ -456,49 +468,49 @@
 			</div>
 		</section>
 		-->
-		<p class="tr  off24  off" data-permissions="M008009042" style="display:none;">
-			<!--<button id="btnResetAdminPassword" class="f2 off">重置管理员密码</button>-->
-			<label><span>启用停用备注：</span></label><textarea id="switchRemark" rows="3" cols="20"></textarea>
-		</p>
-		<p class="tr">
-			<!--<button id="btnResetAdminPassword" class="f2 off">重置管理员密码</button>-->
-			<button id="btnStopService" class="f2 off" data-permissions="M008009042">停用</button>
-			<button id="btnStartService" class="f4 off" data-permissions="M008009042">启用</button>
-		</p>
-		<section>
-			<p class="notice">
-				<span>企业类型</span>
-				<select ce-model="enterpriseType" style="width:150px; margin-left:50px;" disabled>
+	<p class="tr  off24  off" data-permissions="M008009042" style="display:none;">
+		<!--<button id="btnResetAdminPassword" class="f2 off">重置管理员密码</button>-->
+		<label><span>启用停用备注：</span></label><textarea id="switchRemark" rows="3" cols="20"></textarea>
+	</p>
+	<p class="tr">
+		<!--<button id="btnResetAdminPassword" class="f2 off">重置管理员密码</button>-->
+		<button id="btnStopService" class="f2 off" data-permissions="M008009042">停用</button>
+		<button id="btnStartService" class="f4 off" data-permissions="M008009042">启用</button>
+	</p>
+	<section>
+		<p class="notice">
+			<span>企业类型</span>
+			<select ce-model="enterpriseType" style="width:150px; margin-left:50px;" disabled>
 					<option value=""></option>
 	                <option value="1">开源</option>
 	                <option value="2">付费</option>
 	                <option value="3">免费</option>
 	                <option value="4">未续费</option>
 				</select>
-			</p>
-			<p class="notice">
-				<span>续费提醒</span>
-				<select ce-model="renewalNotice" style="width:150px; margin-left:50px;" disabled>
+		</p>
+		<p class="notice">
+			<span>续费提醒</span>
+			<select ce-model="renewalNotice" style="width:150px; margin-left:50px;" disabled>
 	                <option value=""></option>
 	                <option value="1">部分产品过期</option>
 	                <option value="2">产品即将过期</option>
 	                <option value="3">全部产品过期</option>
 	                <option value="4">部分产品过期/即将过期</option>
 				</select>
-			</p>
-			<p>
-				<span>企业标签设置</span>
-				<select ce-model="enterpriseLabel" id="tagSetting" style="width:150px; margin-left:20px;">
+		</p>
+		<p>
+			<span>企业标签设置</span>
+			<select ce-model="enterpriseLabel" id="tagSetting" style="width:150px; margin-left:20px;">
 					<option value="" selected style="display: none;">无</option>
 	                <option value="1">资源客户</option>
 	                <option value="2">续办公版</option>
 	                <option value="3">楼宇客户</option>
 				</select>
-			</p>
-			<p class="tr" data-permission="M008009057">
-				<button class="btn-blue" id="btnSaveTag">保存</button>
-			</p>
-		</section>
-	</div>
+		</p>
+		<p class="tr" data-permission="M008009057">
+			<button class="btn-blue" id="btnSaveTag">保存</button>
+		</p>
+	</section>
+</div>
 
 </div>

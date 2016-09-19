@@ -849,6 +849,10 @@ define(function (require, exports, module) {
                     console.log('functions');
                     this.showFunctions();
                     break;
+                case 'launchTime':                 //开通时间
+                    console.log('launchTime');
+                    this.showLaunchTime();
+                    break;
                 case 'activeness':                //活跃度
                     this.showActiveNess();
                     break;
@@ -1540,7 +1544,13 @@ define(function (require, exports, module) {
                 }
             });
         },
-
+        //
+        //显示开通时间
+        //
+        //=============================
+        showLaunchTime: function () {
+            var me = this; 
+        },
         //打开活跃度标签
         showActiveNess: function () {
             var me = this;
