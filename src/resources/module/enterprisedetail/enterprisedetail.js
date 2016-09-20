@@ -52,9 +52,7 @@ define(function (require, exports, module) {
             '#sdUFS': 'sdUFS',     //*??
             '#sdActionDanger': 'sdActionDanger', //*??
             '#sUFS': 'sUFS',    //*??
-            '#sActionDanger': 'sActionDanger',  //*??
-
-            '#sbLogType': 'sbLogType',          //*??
+            '#sActionDanger': 'sActionDanger',  //*?? 
             '#sbLogST': 'sbLogST',              //* 日志信息操作时间
             '#sbLogET': 'sbLogET',              //* 日志信息操作时间到
             '#tbLog tbody': 'tbLog',            //* 日志信息
@@ -198,6 +196,7 @@ define(function (require, exports, module) {
 
             me.initializeDatepickers();
             me.setState();
+            me.init_launchTime();
         },
 
         //
@@ -1549,7 +1548,38 @@ define(function (require, exports, module) {
         //
         //=============================
         showLaunchTime: function () {
-            var me = this; 
+            var me = this;
+            me.$('#saveLanuchTime').off('click').on('click', function () { 
+                alert(123)
+            })
+            util.api({
+                url: '/enterprise/changeappstarttime', data: { enterpriseid: me.model.attrs.enterpriseId, launchTime: new Date(me.$('#launchTime').val()).getTime() }, success: function (data) {
+                    if (data.success) {
+                        if (data.value.modle.isLaunch) { //已开通则不再显示
+                            me.$('[data-target="launchTime"]').hide();
+                        } else {
+                            var launchTimeStr = new Date(tempObj.enterpriseCreateStamp)._format('yyyy/MM/dd')
+                            me.$('#launchTime').val(launchTimeStr);
+                        }
+                    }
+                }
+            });
+        },
+        init_launchTime: function () {
+            var me = this;
+            util.api({
+                url: '/enterprise/queryappstarttime', data: { enterpriseid: me.model.attrs.enterpriseId }, success: function (data) {
+                    if (data.success) {
+                        if (data.value.modle.isLaunch) { //已开通则不再显示
+                            me.$('[data-target="launchTime"]').hide();
+                        } else {
+                            var launchTimeStr = new Date(tempObj.enterpriseCreateStamp)._format('yyyy/MM/dd')
+                            me.$('#launchTime').val(launchTimeStr);
+                        }
+
+                    }
+                }
+            });
         },
         //打开活跃度标签
         showActiveNess: function () {

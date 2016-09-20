@@ -155,6 +155,15 @@
                     <input maxlength="15" ng-class="{readonly:enterpriseReadonly}" ng-readonly="enterpriseReadonly" type="text" ng-maxlength="100" ng-model="entInfo.contactIm" name="contactIm" />
                 </div>
             </div>
+            <div class="form-row">
+                <h2>办公版开通设置</h2>
+            </div>
+            <div class="form-row">
+                <div class="form-field">
+                    <label class="required"><span>办公版开通日期</span></label>
+                    <div class="inline-block" ng-disabled="productReadonly" min-date="{{TOMORRAY}}" getform="this['stepForm1']" required2="true" ng-readonly="productReadonly" name="launchTime" datetimeconfig="{dateFmt:'yyyy/MM/dd'}" ng-model="entInfo.launchTime"></div>
+                </div>
+            </div>
         </div>
     </div>
     <div ng-show="step==2" ng-controller="form2Controller" class="step form" ng-form name="stepForm2">
@@ -163,15 +172,7 @@
             <h1>产品信息</h1>
         </div>
         <div class="form  product-form" ng-init="dataResultData={dataResult:[]}" ng-class="{step_validate_error:step_2_validate_error}">
-            <div class="product-starttime-panel" ng-form name="timeForm">
-                <div class="form-row" ng-init="productInfo.launchTime=launchTime||''">
-                    <div class="form-field">
-                        <label class="required"><span>办公版开通日期</span></label>
-                        <div class="inline-block" ng-disabled="productReadonly" required2="true" ng-readonly="productReadonly" getform="this['timeForm']" name="launchTime" datetimeconfig="{dateFmt:'yyyy/MM/dd HH:mm:ss'}" ng-model="productInfo.launchTime"></div>
-                    </div>
-                </div>
-            </div>
-            <div ng-if2="globalInfo.enterpriseName&&globalInfo.enterpriseAccount" ng-init="productInfos=productInfos||[]">
+            <div ng-if="globalInfo.enterpriseName&&globalInfo.enterpriseAccount" ng-init="productInfos=productInfos||[]">
                 <div class="form-row">
                     <h2>企业已购产品信息</h2>
                 </div>
@@ -278,7 +279,7 @@
             <div class="form-row">
                 <h2>产品目录</h2>
             </div>
-            <products x-data-result="productInfo.dataResult" from-data="orderFromData" launch-time="productInfo.launchTime" product-json="productJson" init-data="productInfo.initData" product-readonly="productReadonly" show="step==2"></products>
+            <products x-data-result="productInfo.dataResult" from-data="orderFromData" launch-time="entInfo.launchTime" product-json="productJson" init-data="productInfo.initData" product-readonly="productReadonly" show="step==2"></products>
         </div>
     </div>
     <div ng-show="step==3" ng-class="{step_validate_error:step_3_validate_error}" ng-controller="form3Controller" ng-form name="stepForm3" class="step form payinfo">
