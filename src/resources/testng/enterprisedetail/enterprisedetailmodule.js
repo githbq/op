@@ -72,7 +72,9 @@ define(function (require, exports, module) {
 
     module.exports = Page;
     myApp.controller('form1Controller', ['$scope', '$timeout', function ($scope, $timeout) {
-
+        var today = new Date();
+        //today.setDate(today.getDate() + 1);//获取AddDayCount天后的日期 
+        $scope.TOMORRAY = today.getTime();//明天
     }]);
     myApp.controller('form2Controller', ['$scope', 'productService', '$timeout', function ($scope, productService, $timeout) {
 
@@ -279,7 +281,7 @@ define(function (require, exports, module) {
         $scope.enterpriseReadonly = $scope.globalInfo.readonly;//企业详情信息 只读
         $scope.payInfoReadonly = $scope.globalInfo.readonly;//企业详情信息 只读
         $scope.productReadonly = $scope.globalInfo.readonly;//产品信息 只读
-        $scope.editMode = false; 
+        $scope.editMode = false;
         $scope.orderFromData = [];//产品模块的数据来源用于编辑时
         productService.getOrderDetailByOrderId($scope.globalInfo.orderId, function (data) {
             $timeout(function () {
@@ -569,6 +571,7 @@ define(function (require, exports, module) {
         //企业草稿提交  需要enterpriseAccount
         function submitStepEntInfo(callback) {
             action.doing = true;
+            debugger
             productService.submitStepEntInfo({
                 odrDraftEnterprise: angular.toJson(angular.extend({ enterpriseAccount: $scope.globalInfo.enterpriseAccount, enterpriseFilingId: $scope.globalInfo.enterpriseFilingId, id: entInfo.draftEnterpriseId }, $scope.entInfo))
             }

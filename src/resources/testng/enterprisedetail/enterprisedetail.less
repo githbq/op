@@ -45,9 +45,7 @@
   .form .ng-pristine.ng-dirty.ng-invalid:not(.form) {
     border: 1px solid deepskyblue;
   }
-  .ng-invalid {
-
-  }
+  .ng-invalid {}
   .form .form-field .ng-invalid.ng-dirty:not(.form) {
     border: 1px solid red;
   }
@@ -104,7 +102,6 @@
     text-indent: 12px;
   }
   .top-bar {
-
     width: 80%;
     border: 2px solid #cccccc;
     background-color: #f2f2f2;
@@ -116,7 +113,7 @@
     color: black;
   }
   .panel-button {
-    over-flow: hidden;
+    overflow: hidden;
     text-align: center;
     padding: 5px;
   }
@@ -124,6 +121,9 @@
     width: 220px;
   }
   .form {
+    &.product-form {
+      padding-top: 20px;
+    }
     .product-info-group {
       width: 90%;
       //border: 1px solid #cccccc;
@@ -131,14 +131,19 @@
       padding: 10px;
       background-color: #f2f2f2;
     }
+    .product-starttime-panel {
+      width: 90%;
+      //border: 1px solid #cccccc;
+      margin: 0 auto;
+      padding: 10px;
+      background-color: #f2f2f2;
+    }
     .form-row {
-
       margin-top: 15px;
       overflow: hidden;
       .form-field {
         float: left;
       }
-
       .inputs-container {
         overflow: hidden;
         float: left;
@@ -170,7 +175,6 @@
           color: red;
         }
       }
-
     }
   }
 }
@@ -212,7 +216,6 @@
   marign-bottom: 15px;
   border-bottom: 1px solid dimgray;
   padding-bottom: 10px;
-
 }
 
 .field-group.last {
@@ -434,42 +437,31 @@
 }
 
 .upload-file {
-
   .upload-preview-img {
     border: 1px solid gray;
     background-color: #f2f2f2;
     width: 100px;
     height: 100px;
   }
-
   .upload-preview-a img:hover {
     box-shadow: 0px 0px 12px 5px #b0b2ab;
   }
-
   .upload-directive .uploading {
     color: orange;
   }
-
   .upload-directive .uploaded {
     color: green;
-
   }
-
-  .upload-directive {
-  }
-
+  .upload-directive {}
   .upload-directive .uploaderror {
     color: red;
   }
-
   .upload-directive.disabled .type-tip {
     display: none;
   }
-
   .upload-directive.disabled .file-field {
     display: none;
   }
-
   .delete-img {
     position: absolute;
     top: 0px;
@@ -483,17 +475,14 @@
     cursor: pointer;
     color: white;
   }
-
   .image-item {
     position: relative;
     display: inline-block;
     margin-left: 3px;
     margin-bottom: 3px;
   }
-
   .upload-wrapper {
     display: inline-block;
-
   }
   .image-wrapper {
     word-wrap: break-word;

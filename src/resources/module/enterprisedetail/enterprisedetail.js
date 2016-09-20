@@ -13,9 +13,9 @@ define(function (require, exports, module) {
 
     var buyMap = new Object({ '1': '赠送', '2': '购买充值' });
     var carMap = new Object({ '0': '未开通服务', '1': '限量购买', '2': '不限量使用' });
-	var orderMap = new Object({ '1': '新购', '2': '增购', '3': '续费','4':'增购续费','5':'关联自助册','6':'开源','17':'收尾款订单','18':'线上支付订单' });
-	var payStatusMap = {1:'全款',2:'分期',3:'未付'}
-	var statusTimeMap = {1:'有效',2:'过期',0:'——'}
+    var orderMap = new Object({ '1': '新购', '2': '增购', '3': '续费', '4': '增购续费', '5': '关联自助册', '6': '开源', '17': '收尾款订单', '18': '线上支付订单' });
+    var payStatusMap = { 1: '全款', 2: '分期', 3: '未付' }
+    var statusTimeMap = { 1: '有效', 2: '过期', 0: '——' }
 
     //
     // 企业详情
@@ -38,9 +38,9 @@ define(function (require, exports, module) {
             '#tGroupType': 'agroup',      //*使用对象类型
             '#remark': 'remark',          //*
             '#tbProduct': 'tbProduct',    //*
-			'#tbProductHistory tbody': 'tbProductList',    //*
-			'#orderList tbody': 'tbOrderList',    //订单信息
-			'#tryOut tbody': 'tbTryOut',    //试用信息
+            '#tbProductHistory tbody': 'tbProductList',    //*
+            '#orderList tbody': 'tbOrderList',    //订单信息
+            '#tryOut tbody': 'tbTryOut',    //试用信息
             '#tbOperation tbody': 'tbOperation', //*
             '#sdXKDC': 'sdXKDC',                //*逍客终端总量
             '#sdXKDUC': 'sdXKDUC',              //*逍客终端 已用量/未用量
@@ -52,9 +52,7 @@ define(function (require, exports, module) {
             '#sdUFS': 'sdUFS',     //*??
             '#sdActionDanger': 'sdActionDanger', //*??
             '#sUFS': 'sUFS',    //*??
-            '#sActionDanger': 'sActionDanger',  //*??
-
-            '#sbLogType': 'sbLogType',          //*??
+            '#sActionDanger': 'sActionDanger',  //*?? 
             '#sbLogST': 'sbLogST',              //* 日志信息操作时间
             '#sbLogET': 'sbLogET',              //* 日志信息操作时间到
             '#tbLog tbody': 'tbLog',            //* 日志信息
@@ -129,7 +127,7 @@ define(function (require, exports, module) {
             'click .savemonitoring': 'saveMonitoringEve',   //保存监控信息
 
             'click .employee-detail': 'employeeDetailEve',
-			'click .detail-order':'detailOrderEve',
+            'click .detail-order': 'detailOrderEve',
             ///'click #crmInfoChange':'crmInfoChangeEve'
 
             'click .prooff': 'prooffEve',
@@ -147,9 +145,9 @@ define(function (require, exports, module) {
         tplAgent: _.template(tpl.filter('#trAgent').html()),
         tplOperation: _.template(tpl.filter('#trOperation').html()),
         tplLog: _.template(tpl.filter('#trLog').html()),
-		tbProductTem:_.template(tpl.filter('#trProductList').html()),
-		tPOrderList:_.template(tpl.filter('#trOrderList').html()),   //订单信息列表
-		tPTryOut:_.template(tpl.filter('#trTryOut').html()),   //试用信息
+        tbProductTem: _.template(tpl.filter('#trProductList').html()),
+        tPOrderList: _.template(tpl.filter('#trOrderList').html()),   //订单信息列表
+        tPTryOut: _.template(tpl.filter('#trTryOut').html()),   //试用信息
         tpCardList: _.template(tpl.filter('#trCardList').html()),
         tplCallBackList: _.template(tpl.filter('#callBackList').html()),
         tplMonitorList: _.template(tpl.filter('#monitoringList').html()), //监控列表
@@ -168,17 +166,17 @@ define(function (require, exports, module) {
                 initialInfo: {},
                 pagination: null
             };
-			 //产品历史信息
+            //产品历史信息
             me.product = {
                 isInitializes: false,
                 pagination: null
             };
-			//订单信息
+            //订单信息
             me.orderList = {
                 isInitializes: false,
                 pagination: null
             };
-			//试用列表
+            //试用列表
             me.tryOut = {
                 isInitializes: false,
                 pagination: null
@@ -326,6 +324,10 @@ define(function (require, exports, module) {
                 me.getEnums(id);
             });
             EntDetail.__super__.show.apply(this, arguments);
+            me.ENTERPRISE_ID = id;
+            if (!me.attrs.isAgent) {//支持管理员  开通时间初始化
+                me.init_launchTime(id);
+            }
         },
 
         //
@@ -372,7 +374,7 @@ define(function (require, exports, module) {
                                 })
                                 console.log(data.value.model);
                             }
-                            data.value.model.unshift({'name': text, 'value': ''})
+                            data.value.model.unshift({ 'name': text, 'value': '' })
                             util.resetSelect(el, data.value.model);
                             callback && callback();
                         }
@@ -532,7 +534,7 @@ define(function (require, exports, module) {
         generateSelect: function (name, $select, callback) {
             var me = this;
             //var list = [{'name':'请选择','value':''}];
-            var list = [{'name': '请选择', 'value': ''}];
+            var list = [{ 'name': '请选择', 'value': '' }];
 
             util.getEnums(name, function (data) {
                 var items = data.model,
@@ -564,7 +566,6 @@ define(function (require, exports, module) {
              })
              */
             console.log('getenterprise!!!!!');
-
             //获取企业详情
             util.api({
                 'url': '/enterprise/getenterprise',
@@ -572,7 +573,7 @@ define(function (require, exports, module) {
                     'enterpriseId': id
                 },
                 'success': function (data) {
-
+                    $('.dtl.section').show();
                     if (data.success) {
                         me.attrs.runStatus = data.value.model.runStatus;
                         var model = data.value.model;
@@ -598,7 +599,7 @@ define(function (require, exports, module) {
                         //
                         //兼容二三级地址和二三级行业
                         //===========================================================
-                        me.attrs.mstate = {'a2': false, 'a3': false, 'b2': false, 'b3': false}
+                        me.attrs.mstate = { 'a2': false, 'a3': false, 'b2': false, 'b3': false }
                         me.$('#sprovince').val(me.model.get('province'));
                         me.$('#sinsone').val(me.model.get('industryFirst'));
                         me.$('#sprovince').trigger('change');
@@ -830,16 +831,16 @@ define(function (require, exports, module) {
                     console.log('product');
                     this.showProductInfo();      //产品信息
                     break;
-				case 'productHistory':
+                case 'productHistory':
                     console.log('productHistory');
                     this.showProductHistoryInfo();      //产品历史信息
                     break;
-				case 'orderList':
-					console.log('orderList');
+                case 'orderList':
+                    console.log('orderList');
                     this.showOrderList();      //订单信息
                     break;
-				case 'tryOut':
-					console.log('tryOut');
+                case 'tryOut':
+                    console.log('tryOut');
                     this.showTryOut();      //试用信息
                     break;
                 case 'operations':                //使用情况
@@ -849,6 +850,10 @@ define(function (require, exports, module) {
                 case 'functions':                 //功能限制
                     console.log('functions');
                     this.showFunctions();
+                    break;
+                case 'launchTime':                 //开通时间
+                    console.log('launchTime');
+                    this.showLaunchTime();
                     break;
                 case 'activeness':                //活跃度
                     this.showActiveNess();
@@ -948,7 +953,7 @@ define(function (require, exports, module) {
         showProductInfo: function () {
             var me = this;
             console.log('product');
-			 
+
             util.api({
                 'url': '/odr/queryProductVOList',
                 'data': {
@@ -995,12 +1000,12 @@ define(function (require, exports, module) {
                                     //
                                     case "CRM":
                                         strDom += " <p> <span class='title'><b>" + obj['appName'] + ":</b>&nbsp;总量" + obj['quota'] + "&nbsp;已用" + obj['usedQuota'] + "</span>" +
-                                        " <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span><i>" + enablestatus + "</i>&nbsp;<button class='prooff off u-btn-blue' name='product' typeid='" + obj["quotaType"] + "' value='" + obj["appId"] + "'>开启</button><button class='proon off' name='product' typeid='" + obj["quotaType"] + "' value='" + obj["appId"] + "'>关闭</button> </p>";
+                                            " <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span><i>" + enablestatus + "</i>&nbsp;<button class='prooff off u-btn-blue' name='product' typeid='" + obj["quotaType"] + "' value='" + obj["appId"] + "'>开启</button><button class='proon off' name='product' typeid='" + obj["quotaType"] + "' value='" + obj["appId"] + "'>关闭</button> </p>";
                                         break;
                                     //培训人数
                                     case "Service_Fee":
                                         strDom += " <p> <span class='title'><b>" + obj['appName'] + ":</b>" + obj['quota'] + "</span>" +
-                                        "</p>";
+                                            "</p>";
                                         break;
                                     case "HR_Helper":
                                         strDom += " <p> <span class='title'><b>" + obj['appName'] + ":</b></span> <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span> </p>";
@@ -1027,11 +1032,11 @@ define(function (require, exports, module) {
                 }
             })
         },
-		 //显示产品信息
-        showProductHistoryInfo: function() {
+        //显示产品信息
+        showProductHistoryInfo: function () {
             var me = this;
             console.log('product');
-			 if (me.product.pagination) {
+            if (me.product.pagination) {
 
                 me.product.pagination.setPage(0, true);
             } else {
@@ -1041,31 +1046,31 @@ define(function (require, exports, module) {
                     pageNumber: 0
                 });
                 me.product.pagination.render();
-                me.product.pagination.onChange = function() {
+                me.product.pagination.onChange = function () {
                     me.loadProdectList();
                 };
                 me.loadProdectList();
             }
         },
-		loadProdectList: function() {
+        loadProdectList: function () {
 
             console.log('productlist');
             var me = this,
                 data = {
-                   ea: me.model.get('enterpriseAccount')
+                    ea: me.model.get('enterpriseAccount')
                 };
-       
+
             util.api({
                 url: '/odr/queryProductHistoryVOList',
                 data: data,
-                success: function(data) {
+                success: function (data) {
 
                     console.warn(data);
                     if (data.success) {
-                       me.product.pagination.setTotalSize(data.model.itemCount);
+                        me.product.pagination.setTotalSize(data.model.itemCount);
                         if (data.model.length > 0) {
-                            data.model.forEach(function(item) {
-                                
+                            data.model.forEach(function (item) {
+
                                 item.statusStr = statusTimeMap[item.status];
                             });
                             me.$tbProductList.html(me.tbProductTem({ content: data.model }));
@@ -1076,11 +1081,11 @@ define(function (require, exports, module) {
                 }
             });
         },
-		//订单信息
-        showOrderList: function() {
+        //订单信息
+        showOrderList: function () {
             var me = this;
             console.log('product');
-			 if (me.orderList.pagination) {
+            if (me.orderList.pagination) {
 
                 me.orderList.pagination.setPage(0, true);
             } else {
@@ -1090,13 +1095,13 @@ define(function (require, exports, module) {
                     pageNumber: 0
                 });
                 me.orderList.pagination.render();
-                me.orderList.pagination.onChange = function() {
+                me.orderList.pagination.onChange = function () {
                     me.loadOrderList();
                 };
                 me.loadOrderList();
             }
         },
-		loadOrderList: function() {
+        loadOrderList: function () {
 
             console.log('productlist');
             var me = this,
@@ -1105,23 +1110,23 @@ define(function (require, exports, module) {
                     pageSize: me.orderList.pagination.attr['pageSize'],
                     enterpriseId: me.model.attrs.enterpriseId
                 };
-       
+
             util.api({
                 url: '~/op/api/enterprise/getEnterpriseOrder',
                 data: data,
-                success: function(data) {
+                success: function (data) {
 
                     console.warn(data);
                     if (data.success) {
-                       //me.orderList.pagination.setTotalSize(data.model.itemCount);
+                        //me.orderList.pagination.setTotalSize(data.model.itemCount);
                         if (data.model.length > 0) {
-                            data.model.forEach(function(item) {
+                            data.model.forEach(function (item) {
                                 item.typeStr = orderMap[item.orderType];
-								item.payStatusStr = payStatusMap[item.payStatus];
-								 item.createTimeStr = new Date(item.createTime)._format('yyyy-MM-dd hh:mm');
+                                item.payStatusStr = payStatusMap[item.payStatus];
+                                item.createTimeStr = new Date(item.createTime)._format('yyyy-MM-dd hh:mm');
                             });
                             me.$tbOrderList.html(me.tPOrderList({ content: data.model }));
-							IBSS.tplEvent.setPermissions( me.$tbOrderList );
+                            IBSS.tplEvent.setPermissions(me.$tbOrderList);
                         } else {
                             me.$tbOrderList.html('<tr><td colspan="8"><p class="info">暂无数据</p></td></tr>');
                         }
@@ -1129,16 +1134,16 @@ define(function (require, exports, module) {
                 }
             });
         },
-		detailOrderEve:function(e){
-			var me = this;
-			var orderId = $(e.currentTarget).attr('data-id');
-			window.location='#order/orderlist/'+orderId;
-			me.hide();
-		},
-		showTryOut: function() {
+        detailOrderEve: function (e) {
+            var me = this;
+            var orderId = $(e.currentTarget).attr('data-id');
+            window.location = '#order/orderlist/' + orderId;
+            me.hide();
+        },
+        showTryOut: function () {
             var me = this;
             console.log('product');
-			 if (me.tryOut.pagination) {
+            if (me.tryOut.pagination) {
 
                 me.tryOut.pagination.setPage(0, true);
             } else {
@@ -1148,13 +1153,13 @@ define(function (require, exports, module) {
                     pageNumber: 0
                 });
                 me.tryOut.pagination.render();
-                me.tryOut.pagination.onChange = function() {
+                me.tryOut.pagination.onChange = function () {
                     me.loadTryOut();
                 };
                 me.loadTryOut();
             }
         },
-		loadTryOut: function() {
+        loadTryOut: function () {
 
             console.log('productlist');
             var me = this,
@@ -1163,19 +1168,19 @@ define(function (require, exports, module) {
                     pageSize: me.tryOut.pagination.attr['pageSize'],
                     ea: me.model.get('enterpriseAccount')
                 };
-       
+
             util.api({
                 url: '~/op/api/enterprise/getEnterpriseTrial',
                 data: data,
-                success: function(data) {
+                success: function (data) {
 
                     console.warn(data);
                     if (data.success) {
-                       //me.orderList.pagination.setTotalSize(data.model.itemCount);
+                        //me.orderList.pagination.setTotalSize(data.model.itemCount);
                         if (data.model.length > 0) {
-                            data.model.forEach(function(item) {
+                            data.model.forEach(function (item) {
                                 item.typeStr = orderMap[item.orderType];
-								 item.trialStartTimeStr = new Date(item.trialStartTime)._format('yyyy-MM-dd hh:mm');
+                                item.trialStartTimeStr = new Date(item.trialStartTime)._format('yyyy-MM-dd hh:mm');
                             });
                             me.$tbTryOut.html(me.tPTryOut({ content: data.model }));
                         } else {
@@ -1323,7 +1328,7 @@ define(function (require, exports, module) {
              *
              * 清空数据
              */
-                ///me.$('#tbOperation input').val('');
+            ///me.$('#tbOperation input').val('');
 
             me.model.load(me.operations.initialInfo);
             me.$('#expandStorageSpace').val('');
@@ -1338,7 +1343,7 @@ define(function (require, exports, module) {
                 me.$('#trainHelperTotalCapacity').val(parseFloat(me.model.get('trainHelperTotalCapacity')));
 
                 if (me.model.get('trainHelperUsedCapacity')) {
-                    me.$('#trainHelperUsedCapacityStr').val( parseFloat( me.model.get('trainHelperUsedCapacity') ) + '/' + ( parseFloat( me.model.get('trainHelperTotalCapacity') ) - parseFloat( me.model.get('trainHelperUsedCapacity') ) ).toFixed(2) )
+                    me.$('#trainHelperUsedCapacityStr').val(parseFloat(me.model.get('trainHelperUsedCapacity')) + '/' + (parseFloat(me.model.get('trainHelperTotalCapacity')) - parseFloat(me.model.get('trainHelperUsedCapacity'))).toFixed(2))
                 }
             }
 
@@ -1392,7 +1397,7 @@ define(function (require, exports, module) {
                             me.$('.check-hide').hide();
                         }
                         if (data.model.page && data.model.page.content && data.model.page.content.length > 0) {
-                            me.$tbOperation.html(me.tplOperation({content: data.model.page.content}));
+                            me.$tbOperation.html(me.tplOperation({ content: data.model.page.content }));
                         } else {
                             me.$tbOperation.html('<tr><td colspan="4"><p class="info">暂无数据</p></td></tr>');
                         }
@@ -1475,7 +1480,7 @@ define(function (require, exports, module) {
             if (me.$actEndTime.val()) {
                 endTime = new Date(me.$actEndTime.val()).getTime();
             }
-            var url = IBSS.API_PATH + '/query/act/detail/generate?' + $.param({'enterpriseId': me.model.attrs.enterpriseId, 'timeStart': startTime, 'timeEnd': endTime})
+            var url = IBSS.API_PATH + '/query/act/detail/generate?' + $.param({ 'enterpriseId': me.model.attrs.enterpriseId, 'timeStart': startTime, 'timeEnd': endTime })
             window.open(url);
         },
 
@@ -1485,7 +1490,11 @@ define(function (require, exports, module) {
         //=============================
         showFunctions: function () {
             var me = this;
-
+            me.model.set('AppStartTime', new Date().getTime());
+            me.$('#AppStartTime').datetimepicker({
+                format: 'Y/m/d',
+                timepicker: false
+            })
             //设置默认设置
             //me.$sELC.val(100);
             //me.$sEFC.val(100);
@@ -1514,7 +1523,7 @@ define(function (require, exports, module) {
 
             util.api({
                 url: '/enterprise/queryenterpriseitemconfig',
-                data: {enterpriseId: this.model.attrs.enterpriseId},
+                data: { enterpriseId: this.model.attrs.enterpriseId },
                 success: function (data) {
                     if (data.success) {
                         var model = data.value.model;
@@ -1537,7 +1546,49 @@ define(function (require, exports, module) {
                 }
             });
         },
+        //
+        //显示开通时间
+        //
+        //=============================
+        showLaunchTime: function () {
+            var me = this
+            me.$('#saveLaunchTime').off('click').on('click', function () {
+                if (!me.$('#launchTime').val()) {
+                    util.showToast('请选择时间');
+                    return;
+                }
+                util.api({
+                    url: '/enterprise/changeappstarttime', data: { enterpriseId: me.ENTERPRISE_ID, launchTime: new Date(me.$('#launchTime').val()).getTime() }, success: function (data) {
+                        if (data.success) {
+                            util.showTip('保存成功');
+                        }
+                    }
+                });
+            })
 
+        },
+        init_launchTime: function (enterpriseId) {
+            var me = this;
+            var today = new Date();
+            //today.setDate(today.getDate() + 1);//获取AddDayCount天后的日期 
+            var TOMORRAY = today.getTime();//明天
+            me.$('#launchTime').off('focus').on('focus', function () {//触发控件
+                WdatePicker({ dateFmt: 'yyyy/MM/dd', minDate: new Date(TOMORRAY)._format('yyyy/MM/dd') });
+            });
+            util.api({
+                url: '/enterprise/queryappstarttime', data: { enterpriseId: enterpriseId }, success: function (data) {
+                    if (data.success) { 
+                        if (data.value.model.isLaunch) { //已开通则不再显示
+                            me.$('[data-target="launchTime"]').addClass('display-none');
+                        } else if (data.value.model.launchTime) {
+                            var launchTimeStr = new Date(data.value.model.launchTime)._format('yyyy/MM/dd')
+                            me.$('#launchTime').val(launchTimeStr);
+                        }
+
+                    }
+                }
+            });
+        },
         //打开活跃度标签
         showActiveNess: function () {
             var me = this;
@@ -1609,7 +1660,7 @@ define(function (require, exports, module) {
                                 item.createTimeStr = new Date(item.createtime)._format('yyyy-MM-dd hh:mm');
                                 item.typeStr = util.findEnumsText('ENTERPRISE_LOG_TYPE', item.type);
                             });
-                            me.$tbLog.html(me.tplLog({content: data.model.content}));
+                            me.$tbLog.html(me.tplLog({ content: data.model.content }));
                         } else {
                             me.$tbLog.html('<tr><td colspan="5"><p class="info">暂无数据</p></td></tr>');
                         }
@@ -1700,7 +1751,7 @@ define(function (require, exports, module) {
         stopMarketing: function () {
             util.api({
                 url: '/enterprise/disablemarketingstimulation',
-                data: {enterpriseId: this.model.attrs.enterpriseId},
+                data: { enterpriseId: this.model.attrs.enterpriseId },
                 success: function (data) {
                     if (data.success) {
                         util.showTip('更新成功');
@@ -1757,7 +1808,7 @@ define(function (require, exports, module) {
             var me = this;
             util.api({
                 url: '/enterprise/enableloginpagepersonalization',
-                data: {enterpriseId: this.model.attrs.id, isLoginPagePersonalization: !this.model.attrs.isLoginPagePersonalization},
+                data: { enterpriseId: this.model.attrs.id, isLoginPagePersonalization: !this.model.attrs.isLoginPagePersonalization },
                 success: function (data) {
                     if (data.success) {
                         util.showTip('更新成功');
@@ -1773,7 +1824,7 @@ define(function (require, exports, module) {
             }
             util.api({
                 url: '/',
-                data: {enterpriseId: this.model.attrs.enterpriseId},
+                data: { enterpriseId: this.model.attrs.enterpriseId },
                 success: function (data) {
                     if (data.success) {
                         util.showTip('密码重置成功');
