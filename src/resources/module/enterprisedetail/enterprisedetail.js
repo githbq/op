@@ -1551,7 +1551,7 @@ define(function (require, exports, module) {
         //
         //=============================
         showLaunchTime: function () {
-            var me = this;
+            var me = this
             me.$('#saveLaunchTime').off('click').on('click', function () {
                 if (!me.$('#launchTime').val()) {
                     util.showToast('请选择时间');
