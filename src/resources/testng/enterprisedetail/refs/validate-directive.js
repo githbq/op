@@ -162,7 +162,7 @@ define(function (reuqire, exports, module) {
         };
     });
 
-    var ACCOUNT_REGEXP = /^[a-z][a-z0-9]{5,19}$/i;
+    var ACCOUNT_REGEXP = /^[a-z][a-z0-9]{5,19}$/;
     // var HASNUMBER_REGEXP = /\d{1,}/g;//是否包含一个数字验证
     app.directive('account', function () {
         return {

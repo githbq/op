@@ -71,6 +71,10 @@ define(function (require, exports, module) {
                         wrapperReset();
                     }
                 });
+                //可见性属性监听
+                $scope.$watch('launchTime', function (newVal) {
+                    init();
+                });
                 //dom事件绑定
                 setTimeout(function () {
                     var $container = $('.enterprise-panel');
@@ -112,7 +116,7 @@ define(function (require, exports, module) {
                     if (!$scope.productJson) {
                         return;
                     }
-                    $scope.productJson.launchTime = $scope.launchTime;//开始时间
+                    $scope.productJson.global.launchTime = $scope.launchTime;//开始时间
                     //后端推过来的结果 与提交的结果完全一致的数据结构
                     //$scope.fromData = [{data: [], state: 0, productId: 1}, {data: [], productId: 11}, {data: [], productId: 111}, {data: [], productId: 1111}, {data: [], productId: 11111}];
                     //JSON格式转换
@@ -596,7 +600,6 @@ define(function (require, exports, module) {
                                     var findData = _.findWhere(product.logic.data, { name: refName });
                                     value = findData.value;
                                 } catch (e) {
-                                    debugger
                                     throw new error("数据上未配置这个关联名称:" + refName);
                                 }
                             }

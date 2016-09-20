@@ -73,7 +73,7 @@ define(function (require, exports, module) {
     module.exports = Page;
     myApp.controller('form1Controller', ['$scope', '$timeout', function ($scope, $timeout) {
         var today = new Date();
-        today.setDate(today.getDate() + 1);//获取AddDayCount天后的日期 
+        //today.setDate(today.getDate() + 1);//获取AddDayCount天后的日期 
         $scope.TOMORRAY = today.getTime();//明天
     }]);
     myApp.controller('form2Controller', ['$scope', 'productService', '$timeout', function ($scope, productService, $timeout) {

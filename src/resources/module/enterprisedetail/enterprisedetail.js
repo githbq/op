@@ -196,7 +196,6 @@ define(function (require, exports, module) {
 
             me.initializeDatepickers();
             me.setState();
-            me.init_launchTime();
         },
 
         //
@@ -325,6 +324,10 @@ define(function (require, exports, module) {
                 me.getEnums(id);
             });
             EntDetail.__super__.show.apply(this, arguments);
+            me.ENTERPRISE_ID = id;
+            if (!me.attrs.isAgent) {//支持管理员  开通时间初始化
+                me.init_launchTime(id);
+            }
         },
 
         //
@@ -1549,31 +1552,37 @@ define(function (require, exports, module) {
         //=============================
         showLaunchTime: function () {
             var me = this;
-            me.$('#saveLanuchTime').off('click').on('click', function () { 
-                alert(123)
-            })
-            util.api({
-                url: '/enterprise/changeappstarttime', data: { enterpriseid: me.model.attrs.enterpriseId, launchTime: new Date(me.$('#launchTime').val()).getTime() }, success: function (data) {
-                    if (data.success) {
-                        if (data.value.modle.isLaunch) { //已开通则不再显示
-                            me.$('[data-target="launchTime"]').hide();
-                        } else {
-                            var launchTimeStr = new Date(tempObj.enterpriseCreateStamp)._format('yyyy/MM/dd')
-                            me.$('#launchTime').val(launchTimeStr);
+            me.$('#saveLaunchTime').off('click').on('click', function () {
+                if (!me.$('#launchTime').val()) {
+                    util.showToast('请选择时间');
+                    return;
+                }
+                util.api({
+                    url: '/enterprise/changeappstarttime', data: { enterpriseId: me.ENTERPRISE_ID, launchTime: new Date(me.$('#launchTime').val()).getTime() }, success: function (data) {
+                        if (data.success) {
+                            util.showToast('保存成功');
                         }
                     }
-                }
-            });
+                });
+            })
+
         },
-        init_launchTime: function () {
+        init_launchTime: function (enterpriseId) {
             var me = this;
+            var today = new Date();
+            //today.setDate(today.getDate() + 1);//获取AddDayCount天后的日期 
+            var TOMORRAY = today.getTime();//明天
+            me.$('#launchTime').off('focus').on('focus', function () {//触发控件
+                WdatePicker({ dateFmt: 'yyyy/MM/dd', minDate: new Date(TOMORRAY)._format('yyyy/MM/dd') });
+            });
             util.api({
-                url: '/enterprise/queryappstarttime', data: { enterpriseid: me.model.attrs.enterpriseId }, success: function (data) {
+                url: '/enterprise/queryappstarttime', data: { enterpriseId: enterpriseId }, success: function (data) {
                     if (data.success) {
-                        if (data.value.modle.isLaunch) { //已开通则不再显示
+                        debugger
+                        if (data.value.model.isLaunch) { //已开通则不再显示
                             me.$('[data-target="launchTime"]').hide();
-                        } else {
-                            var launchTimeStr = new Date(tempObj.enterpriseCreateStamp)._format('yyyy/MM/dd')
+                        } else if (data.value.model.launchTime) {
+                            var launchTimeStr = new Date(data.value.model.launchTime)._format('yyyy/MM/dd')
                             me.$('#launchTime').val(launchTimeStr);
                         }
 
