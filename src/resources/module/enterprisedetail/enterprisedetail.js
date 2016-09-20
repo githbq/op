@@ -1577,9 +1577,9 @@ define(function (require, exports, module) {
             });
             util.api({
                 url: '/enterprise/queryappstarttime', data: { enterpriseId: enterpriseId }, success: function (data) {
-                    if (data.success) {
+                    if (data.success) { 
                         if (data.value.model.isLaunch) { //已开通则不再显示
-                            me.$('[data-target="launchTime"]').hide();
+                            me.$('[data-target="launchTime"]').addClass('display-none');
                         } else if (data.value.model.launchTime) {
                             var launchTimeStr = new Date(data.value.model.launchTime)._format('yyyy/MM/dd')
                             me.$('#launchTime').val(launchTimeStr);
