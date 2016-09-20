@@ -1560,7 +1560,7 @@ define(function (require, exports, module) {
                 util.api({
                     url: '/enterprise/changeappstarttime', data: { enterpriseId: me.ENTERPRISE_ID, launchTime: new Date(me.$('#launchTime').val()).getTime() }, success: function (data) {
                         if (data.success) {
-                            util.showToast('保存成功');
+                            util.showTip('保存成功');
                         }
                     }
                 });
@@ -1578,7 +1578,6 @@ define(function (require, exports, module) {
             util.api({
                 url: '/enterprise/queryappstarttime', data: { enterpriseId: enterpriseId }, success: function (data) {
                     if (data.success) {
-                        debugger
                         if (data.value.model.isLaunch) { //已开通则不再显示
                             me.$('[data-target="launchTime"]').hide();
                         } else if (data.value.model.launchTime) {
