@@ -11,10 +11,12 @@ define(function (require, exports, module) {
                 scope.datetimeconfig = scope.datetimeconfig || {};
                 var currentForm = scope.getForm && scope.getForm();
                 ctrl.$parsers.unshift(function (viewValue) {
-                    if (scope.ngModel) {
-                        ctrl.$setValidity('required2', true);
-                    } else {
-                        ctrl.$setValidity('required2', false);
+                    if (scope.required2) {
+                        if (scope.ngModel) {
+                            ctrl.$setValidity('required2', true);
+                        } else {
+                            ctrl.$setValidity('required2', false);
+                        }
                     }
                 });
                 function valueChange(control) {
@@ -22,11 +24,13 @@ define(function (require, exports, module) {
                     var field = currentForm[scope.name];
                     if (currentForm && field) {
                         field.$setDirty();
-                        if (value && value.length > 0) {//处理require错误验证问题
-                            field.$setValidity('required2', true);
-                            field.$valid = true;
-                        } else if (scope.required2) {
-                            field.$setValidity('required2', false);
+                        if (scope.required2) {
+                            if (value && value.length > 0) {//处理require错误验证问题
+                                field.$setValidity('required2', true);
+                                field.$valid = true;
+                            } else if (scope.required2) {
+                                field.$setValidity('required2', false);
+                            }
                         }
                     }
                     //取值逻辑
@@ -77,10 +81,12 @@ define(function (require, exports, module) {
                         $('input', iElem).attr('readonly', 'readonly');
                     }
                     var field = currentForm[scope.name];
-                    if (scope.ngModel) {//处理require错误验证问题
-                        field.$setValidity('required2', true);
-                    } else if (scope.required2) {
-                        field.$setValidity('required2', false);
+                    if (scope.required2) {
+                        if (scope.ngModel) {//处理require错误验证问题
+                            field.$setValidity('required2', true);
+                        } else if (scope.required2) {
+                            field.$setValidity('required2', false);
+                        }
                     }
                 });
 
@@ -90,7 +96,7 @@ define(function (require, exports, module) {
                     }
                     if (!str) {
                         scope.ngModel = null;
-                    } else { 
+                    } else {
                         if (scope.datetimeconfig.dateFmt.indexOf('HH') >= 0) {
                             scope.ngModel = new Date(str).getTime();
                         }
