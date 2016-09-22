@@ -25,20 +25,8 @@ define(function (require, exports, module) {
                     }
                 });
                 function valueChange(control) {
-                    var value = control.el.value;
-                    if (currentForm && currentForm[scope.name]) {
-                        var field = currentForm[scope.name];
-                        field.$setDirty();
-                        if (value || !scope.required2) {//处理require错误验证问题
-                            ctrl.$setValidity('required2', true);
-                        } else if (!value && scope.required2) {
-                            field.$setValidity('required2', false);
-                        }
-                    }
                     //取值逻辑
-                    scope.$apply(function () {
-                        transferDate(value);
-                    });
+                    scope.$apply();
                     scope.ngChange && scope.ngChange();
                 }
 
@@ -48,6 +36,8 @@ define(function (require, exports, module) {
                     onpicked: function (control) {
                         valueChange(control);
                     }, oncleared: function (control) {
+                        scope.ngModel = null;
+                        ctrl.$setDirty();
                         valueChange(control);
                     }
                 };
@@ -91,7 +81,7 @@ define(function (require, exports, module) {
 
                 function transferDate(str) {
                     if (str === undefined && scope.ngModel) {
-                        str = new Date(scope.ngModel)._format(scope.datetimeconfig.dateFmt || 'yyyy/MM/dd')
+                        str = new Date(scope.ngModel)._format(scope.datetimeconfig.dateFmt || 'yyyy/MM/dd');
                     }
                     if (!str) {
                         scope.ngModel = null;
