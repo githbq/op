@@ -11,26 +11,28 @@ define(function (require, exports, module) {
                 scope.datetimeconfig = scope.datetimeconfig || {};
                 var currentForm = scope.getForm && scope.getForm();
                 ctrl.$parsers.unshift(function (viewValue) {
-                    if (scope.required2) {
-                        if (scope.ngModel) {
-                            ctrl.$setValidity('required2', true);
-                        } else {
-                            ctrl.$setValidity('required2', false);
-                        }
+                    if (scope.ngModel || !scope.required2) {
+                        ctrl.$setValidity('required2', true);
+                    } else if (!scope.ngModel && scope.required2) {
+                        ctrl.$setValidity('required2', false);
+                    }
+                });
+                scope.$watch('required2', function (newVal) {
+                    if (scope.ngModel || !scope.required2) {
+                        ctrl.$setValidity('required2', true);
+                    } else if (!scope.ngModel && scope.required2) {
+                        ctrl.$setValidity('required2', false);
                     }
                 });
                 function valueChange(control) {
                     var value = control.el.value;
-                    var field = currentForm[scope.name];
-                    if (currentForm && field) {
+                    if (currentForm && currentForm[scope.name]) {
+                        var field = currentForm[scope.name];
                         field.$setDirty();
-                        if (scope.required2) {
-                            if (value && value.length > 0) {//处理require错误验证问题
-                                field.$setValidity('required2', true);
-                                field.$valid = true;
-                            } else if (scope.required2) {
-                                field.$setValidity('required2', false);
-                            }
+                        if (value || !scope.required2) {//处理require错误验证问题
+                            ctrl.$setValidity('required2', true);
+                        } else if (!value && scope.required2) {
+                            field.$setValidity('required2', false);
                         }
                     }
                     //取值逻辑
@@ -80,13 +82,10 @@ define(function (require, exports, module) {
                     } else {
                         $('input', iElem).attr('readonly', 'readonly');
                     }
-                    var field = currentForm[scope.name];
-                    if (scope.required2) {
-                        if (scope.ngModel) {//处理require错误验证问题
-                            field.$setValidity('required2', true);
-                        } else if (scope.required2) {
-                            field.$setValidity('required2', false);
-                        }
+                    if (scope.ngModel || !scope.required2) {//处理require错误验证问题
+                        ctrl.$setValidity('required2', true);
+                    } else if (!scope.ngModel && scope.required2) {
+                        ctrl.$setValidity('required2', false);
                     }
                 });
 
