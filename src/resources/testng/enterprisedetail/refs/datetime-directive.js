@@ -27,7 +27,7 @@ define(function (require, exports, module) {
                 function valueChange(control) {
                     //取值逻辑
                     scope.$apply(function () {
-                        transferDate(value);
+                        transferDate(control.el.value);
                     });
                     scope.ngChange && scope.ngChange();
                 }
