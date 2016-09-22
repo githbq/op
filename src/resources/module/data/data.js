@@ -24,7 +24,7 @@ define( function(require, exports, module){
     //订单列表———应用类型
     data['apptype'] = {
         '1': 'CRM',
-        '2': '逍客终端',
+        '2': '销客终端',
         '3': '培训费',
         '4': 'PK助手',
         '5': '会议助手',

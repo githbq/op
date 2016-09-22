@@ -218,11 +218,11 @@ define(function (require, exports, module) {
                             ]);
                             var checkeds = me.__refs.tableInfo.o_getFieldValue('check').split(',');
 
-                            if (me.__refs.terminalInfo.o_getFieldValue('useCRM') && me.__refs.terminalInfo.o_getFieldData('useCRMWrapper').visible !== false) {//使用了逍客终端 要加入服务费
+                            if (me.__refs.terminalInfo.o_getFieldValue('useCRM') && me.__refs.terminalInfo.o_getFieldData('useCRMWrapper').visible !== false) {//使用了销客终端 要加入服务费
                                 checkeds.push('1');//CRM费用 
                             }
 
-                            if (me.__refs.terminalInfo.o_getFieldValue('useFX') && me.o_getFieldValue('orderAssigned')=='1') {//使用了逍客终端 要加入服务费
+                            if (me.__refs.terminalInfo.o_getFieldValue('useFX') && me.o_getFieldValue('orderAssigned')=='1') {//使用了销客终端 要加入服务费
                                 checkeds.push('3');//服务费
                             }
                             if (me.__refs.terminalInfo.o_getFieldValue('useTrainning')) {//使用服务费

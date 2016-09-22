@@ -64,7 +64,7 @@ define(function (require, exports, module) {
             value: '0'
         }));
         $(['useFX', 'useTrainning']).each(function (index, item) {
-            //使用逍客终端复选框
+            //使用销客终端复选框
             dataItems.push(new DataItem({
                 name: item,
                 value: item == 'useTrainning' ? false : true,
@@ -258,7 +258,7 @@ define(function (require, exports, module) {
                         if (n != '3') {
                             if (n == '1') {//CRM的数量变化还要计算一下原价
                                 //if ($dom.val() && parseFloat($dom.val()) > parseFloat(me.o_getFieldValue('purchaseCount_2'))) {
-                                //    util.showToast('CRM终端总量需小于等于逍客终端总量');
+                                //    util.showToast('CRM终端总量需小于等于销客终端总量');
                                 //    $dom.val(me.o_getFieldValue('purchaseCount_2'));
                                 //}
                                 changeForGetPrice.call(me, e);

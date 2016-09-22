@@ -18,7 +18,7 @@ define( function( require, exports, module ) {
 					];
 	var productIdDic = {
 		'1': 'CRM',
-		'2': '逍客终端',
+		'2': '销客终端',
 		'3': '服务',
 		'4': 'PK_Helper',
 		'5': 'Meeting_Helper',

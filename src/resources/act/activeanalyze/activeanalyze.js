@@ -83,7 +83,7 @@ define( function( require, exports, module ) {
                 data.account = me.$account.val(); 
             }
 
-            //逍客人员姓名
+            //销客人员姓名
             if ( me.$sellName.val() ){
                 data.name = me.$sellName.val();
             }

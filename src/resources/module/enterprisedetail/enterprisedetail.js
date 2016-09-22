@@ -42,8 +42,8 @@ define(function (require, exports, module) {
             '#orderList tbody': 'tbOrderList',    //订单信息
             '#tryOut tbody': 'tbTryOut',    //试用信息
             '#tbOperation tbody': 'tbOperation', //*
-            '#sdXKDC': 'sdXKDC',                //*逍客终端总量
-            '#sdXKDUC': 'sdXKDUC',              //*逍客终端 已用量/未用量
+            '#sdXKDC': 'sdXKDC',                //*销客终端总量
+            '#sdXKDUC': 'sdXKDUC',              //*销客终端 已用量/未用量
             '#yingxiaoSum': 'yingxiaoSum',      //*CRM总量
             '#yingxiaoUsed': 'yingxiaoUsed',    //*CRM已用量/未用量
             '#sdSC': 'sdSC',                    //*空间总量
@@ -622,7 +622,7 @@ define(function (require, exports, module) {
                         }
                         //初始化 使用情况的缓存
                         me.operations.initialInfo = {
-                            'accountTotalAmount': model.accountTotalAmount,         //逍客终端总量
+                            'accountTotalAmount': model.accountTotalAmount,         //销客终端总量
                             'groupNumLimit': model.groupNumLimit,                   //
                             'videoNumLimit': model.videoNumLimit,                   //
                             'crmVisibleRange': model.crmVisibleRange,               //
@@ -1423,7 +1423,7 @@ define(function (require, exports, module) {
             }
 
             if (me.$('#yingxiaoSum').val() && parseInt(me.$('#yingxiaoSum').val()) > parseInt(me.$sdXKDC.val())) {
-                util.showToast('逍客终端总量不能小于CRM总量');
+                util.showToast('销客终端总量不能小于CRM总量');
                 return false;
                 //temAccout = me.$('#yingxiaoSum').val();
             } else {
@@ -1431,7 +1431,7 @@ define(function (require, exports, module) {
             }
 
             var data = {
-                'accountAmount': temAccout, //逍客终端总量
+                'accountAmount': temAccout, //销客终端总量
                 'expandStorageSpace': me.$('#expandStorageSpace').val(), //存储扩容
                 'groupNumLimit': me.model.get('groupNumLimit'), //群人数上限
                 'videoNumLimit': me.model.get('videoNumLimit'), //视频参与人数上限
