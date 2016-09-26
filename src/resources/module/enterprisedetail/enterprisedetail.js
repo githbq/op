@@ -1573,11 +1573,13 @@ define(function (require, exports, module) {
             //today.setDate(today.getDate() + 1);//获取AddDayCount天后的日期 
             var TOMORRAY = today.getTime();//明天
             me.$('#launchTime').off('focus').on('focus', function () {//触发控件
-                WdatePicker({ dateFmt: 'yyyy/MM/dd', minDate: new Date(TOMORRAY)._format('yyyy/MM/dd') });
+                //取消最小时间限制
+                // WdatePicker({ dateFmt: 'yyyy/MM/dd', minDate: new Date(TOMORRAY)._format('yyyy/MM/dd') });
+                WdatePicker({ dateFmt: 'yyyy/MM/dd' });
             });
             util.api({
                 url: '/enterprise/queryappstarttime', data: { enterpriseId: enterpriseId }, success: function (data) {
-                    if (data.success) { 
+                    if (data.success) {
                         if (data.value.model.isLaunch) { //已开通则不再显示
                             me.$('[data-target="launchTime"]').addClass('display-none');
                         } else if (data.value.model.launchTime) {
