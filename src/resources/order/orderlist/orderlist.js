@@ -149,8 +149,6 @@ define( function( require, exports, module ) {
 			me.$payStartTime.datetimepicker({'timepicker': false,'format':'Y/m/d'});
             me.$payEndTime.datetimepicker({'timepicker': false,'format':'Y/m/d'});
 			
-			me.$payStartTime.val( util.getDateStr(-30) );
-            me.$payEndTime.val( util.getDateStr(1) );
 
             me.pagination = new Pagination({
                 'wrapper': me.$view.find('.list-pager'),
