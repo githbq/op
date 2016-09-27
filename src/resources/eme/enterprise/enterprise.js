@@ -13,7 +13,7 @@ define(function (require, exports, module) {
 
         defaultAttr: {
             'title': '企业详情',
-            'width': 610
+            'width': 720
         },
 
         content: tpl.filter('#accountDetail').html(),
@@ -24,6 +24,15 @@ define(function (require, exports, module) {
         elements: {
             '#elEA': 'elEA',
             '#elEN': 'elEN',
+			'#sdXKDC': 'sdXKDC',                //*销客终端总量
+            '#sdXKDUC': 'sdXKDUC',              //*销客终端 已用量/未用量
+            '#yingxiaoSum': 'yingxiaoSum',      //*CRM总量
+            '#yingxiaoUsed': 'yingxiaoUsed',    //*CRM已用量/未用量
+            '#sdSC': 'sdSC',                    //*空间总量
+            '#sdSUC': 'sdSUC',                  //*空间已用量/未用量
+            '#sActivity': 'sActivity',          //*??
+            '#sdUFS': 'sdUFS',     //*??
+            '#sdActionDanger': 'sdActionDanger', //*??
             '#yingxiaoSum': 'yingxiaoSum',
             '#yingxiaoUsed': 'yingxiaoUsed',
             '#sdSC': 'sdSC',
@@ -67,7 +76,7 @@ define(function (require, exports, module) {
             util.api({
                 'url': '/odr/queryProductVOList',
                 'data': {
-                    'ea': me.model.get('enterpriseaccount')
+                    'ea': me.attrs.ea
                 },
                 'beforeSend': function () {
                     me.$('#tbOperation').find('.container').html('<p class="info">加载中...</p>');
@@ -226,7 +235,7 @@ define(function (require, exports, module) {
             util.api({
                 'url': '/enterprise/getenterprise',
                 'data': {
-                    'enterpriseId': me.model.get('account')
+                    'enterpriseId': me.attrs.enterpriseId
                 },
                 'success': function (data) {
                     console.warn('enterpriseinfo');
@@ -322,50 +331,33 @@ define(function (require, exports, module) {
             };
         },
 
-        show: function (id, account, runstatus, contactphone, contactname, paystatus, enterpriseaccount) {
+        show: function (enterpriseId,ea) {
             AccountDetail.__super__.show.apply(this, arguments);
             var me = this;
+			me.attrs.enterpriseId = enterpriseId||'';
+			me.attrs.ea = ea||'';
 
-            me.model.set('account', account);
-            me.model.set('runstatus', runstatus);
-            me.model.set('contactphone', contactphone);
-            me.model.set('contactname', contactname);
-            me.model.set('paystatus', paystatus);
-            me.model.set('enterpriseaccount', enterpriseaccount);
             util.api({
-                'url': '/employee/edition',
+                'url': '/enterprise/getenterprise',
                 'data': {
-                    'eid': account,
-                    'uid': id
+                    'enterpriseId': me.attrs.enterpriseId
                 },
                 'success': function (data) {
                     console.warn(data);
                     if (data.success) {
-
-                        var state = 0;
-
-                        if (data.value.model['M3'] == '0') {
-                            me.model.set('version', '办公版')
-
-                            if (data.value.model['M4'] > new Date().getTime()) {
-                                state = 1;
-                            }
-
-                        } else if (data.value.model['M3'] == '1') {
-                            me.model.set('version', '营销版')
+						me.attrs.objData = data.value.model;
+                        me.model.set('enterpriseName', data.value.model.enterpriseName);
+                        me.model.set('enterpriseType', data.value.model.enterpriseType);
+						me.model.set('enterpriseAccount', data.value.model.enterpriseAccount);
+						me.model.set('contactName', data.value.model.odrDraftEnterprise.contactName);
+						me.model.set('contactPhone', data.value.model.odrDraftEnterprise.contactPhone);
+						me.model.set('contactEmail', data.value.model.odrDraftEnterprise.contactEmail);
+						me.model.set('contactIm', data.value.model.odrDraftEnterprise.contactIm);
+						
+						if (data.value.model.appStartTime) {
+                            me.$('.openTime').show().find('.content').text(new Date(data.value.model.appStartTime)._format('yyyy年MM月dd日'));
                         }
-
-                        if (state == 1) {
-
-                            me.$('.trytimep').show();
-                        } else if (state == 0) {
-
-                            me.$('.trytimep').hide();
-                        }
-
-                        me.model.set('istry', state);
-                        me.model.set('endtime', new Date(data.value.model['M4'])._format('yyyy-MM-dd hh:mm'))
-                        me.trylist.reload(data.value.model['M5']);
+                      
                     }
                 }
             });
@@ -421,15 +413,10 @@ define(function (require, exports, module) {
         accountDetailEve: function (e) {
             var me = this;
 
-            var id = $(e.currentTarget).attr('data-id'),
-                enterpriseaccount = $(e.currentTarget).attr('data-enterpriseaccount'),
-                account = $(e.currentTarget).attr('data-account'),
-                runstatus = $(e.currentTarget).attr('data-runstatus'),
-                contactphone = $(e.currentTarget).attr('data-contactphone'),
-                contactname = $(e.currentTarget).attr('data-contactname'),
-                paystatus = $(e.currentTarget).attr('data-paystatus');
+            var enterpriseId = $(e.currentTarget).attr('data-enterpriseId');
+			var ea = $(e.currentTarget).attr('data-ea');
 
-            me.trigger('accountdetail', id, account, runstatus, contactphone, contactname, paystatus, enterpriseaccount);
+            me.trigger('accountdetail', enterpriseId, ea);
         },
         search: function () {
             this.pagination.attr['pageNumber'] = 0;
@@ -442,11 +429,10 @@ define(function (require, exports, module) {
                 return false;
             }*/
             util.api({
-                url: '/employee/getpage',
+                url: '~/op/api/enterprise/querycustomerenterprise ',
                 data: {
-					ea: me.$ea.val(),
-                    ename: me.$en.val(),
-                    name: '',
+					en: me.$en.val(),
+                    ea: me.$ea.val(),
                     mobile: me.$mobile.val(),
                     pageIndex: me.pagination.attr['pageNumber'] + 1,
                     pageSize: me.pagination.attr['pageSize']
@@ -487,8 +473,8 @@ define(function (require, exports, module) {
 
         var accountDetail = new AccountDetail();
 
-        employeeDataTable.on('accountdetail', function (id, account, runstatus, contactphone, contactname, paystatus, enterpriseaccount) {
-            accountDetail.show(id, account, runstatus, contactphone, contactname, paystatus, enterpriseaccount);
+        employeeDataTable.on('accountdetail', function (enterpriseId,ea) {
+            accountDetail.show(enterpriseId,ea);
         });
     }
 });

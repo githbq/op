@@ -2,15 +2,15 @@
     <% _.each(content,function( value ,index ){ %>
     <tr>
         <td></td>
-        <td><%=value.enterpriseaccount%></td>
-        <td><%=value.enterprisename%></td>
-		<td><%=value.payStatus ? '是' : '否'%></td>
-        <td><%=value.employeename%></td>
-        <td><%=value.mobile%></td>
-        <td><%=value.email%></td>
-        <td><%=value.post%></td>
+        <td><%=value.ea%></td>
+        <td><%=value.en%></td>
+		<td><%=value.deptNameArr%></td>
+        <td><%=value.creatorName%></td>
+        <td><%=value.isSelfRegister ? '是' : '否' %></td>
+        <td><%=value.runStatusName%></td>
+        <td><%=value.isOverLimitWarn ? '是' : '否' %></td>
         <td>
-           <em class="accountdetail" data-runStatus="<%=value.runStatus%>" data-paystatus="<%=value.payStatus%>" data-contactPhone="<%=value.contactPhone%>" data-contactName="<%=value.contactName%>" data-id="<%=value.employeeid%>" data-account="<%=value.enterpriseId%>" data-enterpriseaccount="<%=value.enterpriseaccount%>" data-permissions="M008027002">查看</em>
+           <em class="accountdetail" data-enterpriseId="<%=value.enterpriseId%>" data-ea="<%=value.ea%>" >查看</em>
 		</td>
         <td></td>
     </tr>
@@ -20,27 +20,26 @@
 
 <script type="text/template" id="accountDetail">
     <div class="m-accountdetail m-enterprisedetail">
-		<p><label><span>管理员姓名</span><input type="text" disabled="disabled" ce-model="contactname"></label></p>
-		<p><label><span>管理员电话</span><input type="text" disabled="disabled" ce-model="contactphone"></label></p>
-        <p><label><span>开通状态</span>
-        	<select disabled="disabled" ce-model="runstatus">
-        		<option value="1">待开通</option><option value="2">已开通</option>
-        		<option value="3">已作废</option><option value="4">已停用</option>
-        	</select>
-        </label></p>
-		<p><label><span>付费状态</span>
-        	<select disabled="disabled" ce-model="paystatus">
-        		<option value=true>已付费</option>
-				<option value=false>未付费</option>
-        	</select>
-        </label></p>
-       
-		<h3 style="font-size:16px;font-weight:bold;">账号详情</h3>
-        <p><label><span>版本</span><input type="text" disabled="disabled" ce-model="version"></label></p>
-        <p><label><span>是否试用</span><select disabled="disabled" ce-model="istry"><option value="1">是</option><option value="0">否</option></select></label></p>
-        <p class="trytimep"><label><span>试用截止时间</span><input type="text" disabled="disabled" ce-model="endtime"></label></p>
-        <p class="tryboxp"><label><span>试用包</span><span ce-collection="trylist" class="trybox"><b><%=item%>天</b></span></p>
-
+		<p>
+			<label><span>企业名称</span><input type="text" disabled="disabled" ce-model="enterpriseName"></label>
+			<label><span>企业类型</span>
+				<select ce-model="enterpriseType" disabled="disabled">
+					<option value="1">开源</option><option value="2">付费</option>
+					<option value="3">免费</option><option value="4">未续费(过期)</option>
+				</select>
+			</label>
+		</p>
+		<p>
+			<label><span>企业账号</span><input type="text" disabled="disabled" ce-model="enterpriseAccount"></label>
+		</p>
+		<p>
+			<label><span>平台管理员</span><input type="text" disabled="disabled" ce-model="contactName"></label>
+			<label><span>平台管理员手机</span><input type="text" disabled="disabled" ce-model="contactPhone"></label>
+		</p>
+		<p>
+			<label><span>平台管理员邮箱</span><input type="text" disabled="disabled" ce-model="contactEmail"></label>
+			<label><span>平台管理员QQ</span><input type="text" disabled="disabled" ce-model="contactIm"></label>
+		</p>
         
         <div class="dtl">
 
@@ -48,7 +47,7 @@
                 <h4><span class="arraw"></span>产品信息</h4>
 
                 <div class="content" id="tbProduct">
-                    
+                    <p class="openTime" ><span>开通时间:</span><span class="content"></span></p>
                     <div class="container">
                         
                     </div>
@@ -87,10 +86,10 @@
                             <span>空间已用量(GB)</span>
                             <input id="sdSUC" disabled="disabled" class="g-ipt ipt-m" type="text">
                         </label>
-                        <label class="hw">
+                       <!-- <label class="hw">
                             <span>存储扩容(GB)</span>
                             <input type="text" class="g-ipt ipt-m" disabled="disabled" oninput="this.value=this.value.replace(/[^\d]/g,'')" id="expandStorageSpace">
-                        </label>
+                        </label>-->
                         <label class="hw">
                             <span>群人数上限(人)</span>
                             <input type="text" class="g-ipt ipt-m" disabled="disabled" ce-model="groupNumLimit" oninput="this.value=this.value.replace(/[^\d]/g,'')">
@@ -100,7 +99,7 @@
                             <input type="text" class="g-ipt ipt-m"  disabled="disabled" ce-model="videoNumLimit" oninput="this.value=this.value.replace(/[^\d]/g,'')">
                             <span style="width:130px">(最多可添加20人)</span>
                         </label>
-                        <label class="hw crmvisible">
+                       <!-- <label class="hw crmvisible">
                             <span>CRM上级可见数据范围</span>
                             <select name="" class="g-ipt ipt-m" disabled="disabled" ce-model="crmVisibleRange">
                                 <option value="">请选择</option>
@@ -116,10 +115,10 @@
                                 <option value="1">未授权</option>
                                 <!--<option value="2">部分授权</option>
                             </select>
-                        </label>
+                        </label>-->
                     </p>
 
-                    <div id="tbOperation" class="tb">
+                    <!--<div id="tbOperation" class="tb">
                         <p class="tr off">
                             <button class="btn-blue" id="sBtnChangeStatistics" >保存</button>
                         </p>
@@ -137,7 +136,7 @@
                             </tbody>
                         </table>
                         <div class="pager"></div>
-                    </div>
+                    </div>-->
 
                 </div>
             </section>
