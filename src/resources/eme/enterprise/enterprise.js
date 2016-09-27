@@ -424,16 +424,16 @@ define(function (require, exports, module) {
         },
         load: function () {
             var me = this;
-            /*if (!me.$mobile.val()) {
+            if (!me.$en.val() ||!me.$ea.val() ) {
                 util.showToast('请输入查询条件！');
                 return false;
-            }*/
+            }
             util.api({
                 url: '~/op/api/enterprise/querycustomerenterprise ',
                 data: {
 					en: me.$en.val(),
                     ea: me.$ea.val(),
-                    mobile: me.$mobile.val(),
+                    //mobile: me.$mobile.val(),
                     pageIndex: me.pagination.attr['pageNumber'] + 1,
                     pageSize: me.pagination.attr['pageSize']
                 },

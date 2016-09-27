@@ -10,7 +10,7 @@
         <td><%=value.runStatusName%></td>
         <td><%=value.isOverLimitWarn ? '是' : '否' %></td>
         <td>
-           <em class="accountdetail" data-enterpriseId="<%=value.enterpriseId%>" data-ea="<%=value.ea%>" >查看</em>
+           <em class="accountdetail" data-enterpriseId="<%=value.enterpriseId%>" data-ea="<%=value.ea%>"   data-permissions="M00803402">查看</em>
 		</td>
         <td></td>
     </tr>
@@ -43,7 +43,7 @@
         
         <div class="dtl">
 
-            <section class="accordian collapse f1 f2 f3 f4" data-target="product">
+            <section class="accordian collapse f1 f2 f3 f4" data-target="product" data-permissions="M00803403">
                 <h4><span class="arraw"></span>产品信息</h4>
 
                 <div class="content" id="tbProduct">
@@ -54,7 +54,7 @@
                 </div>
             </section>
 
-            <section class="accordian collapse f1 f2 f3 f4" id="operationssection" data-target="operations">
+            <section class="accordian collapse f1 f2 f3 f4" id="operationssection" data-target="operations"  data-permissions="M00803404">
                 <h4><span class="arraw"></span>使用情况</h4>
                 <div class="content">
                     <p>
