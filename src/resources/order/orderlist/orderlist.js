@@ -145,6 +145,10 @@ define( function( require, exports, module ) {
 			
 			me.$putStartTime.val( util.getDateStr(-30) );
             me.$putEndTime.val( util.getDateStr(1) );
+			
+			me.$payStartTime.datetimepicker({'timepicker': false,'format':'Y/m/d'});
+            me.$payEndTime.datetimepicker({'timepicker': false,'format':'Y/m/d'});
+			
 
             me.pagination = new Pagination({
                 'wrapper': me.$view.find('.list-pager'),
@@ -159,6 +163,8 @@ define( function( require, exports, module ) {
 			if( me.attrs.orderId){
 				me.$putStartTime.val('');
 				me.$putEndTime.val('');
+				me.$payStartTime.val('');
+				me.$payEndTime.val('');
 				me.jumpEve(me.attrs.orderId);
 			}else{
 				me.searchEve();
@@ -195,7 +201,9 @@ define( function( require, exports, module ) {
         elements:{
             'tbody': 'tbody',
             '.putStartTime': 'putStartTime',
-            '.putEndTime': 'putEndTime'
+            '.putEndTime': 'putEndTime',
+			'.payStartTime': 'payStartTime',
+			'.payEndTime': 'payEndTime'
         },
 
         searchEve: function(e){
@@ -507,14 +515,26 @@ define( function( require, exports, module ) {
             var queryData = me.model.all();
             queryData.putStartTime = putStartTime;
             queryData.putEndTime = putEndTime;
+			
+			var bool = confirm('订单导出将忽略到款日期参数，请确认?');
+			if( bool ){
+				window.open( IBSS.API_PATH + '/odr/exportOrder?' + $.param( queryData ) );
+			}
 
-            window.open( IBSS.API_PATH + '/odr/exportOrder?' + $.param( queryData ) );
         },
 		exportAgentEve:function(){
 			 var me = this;
 
             var putStartTime = '';
                 putEndTime = '';
+			var payEndTime = '', payStartTime = '';
+			
+			if( me.$payStartTime.val() ){
+                payStartTime = new Date( me.$payStartTime.val() ).getTime();
+            }
+            if( me.$payEndTime.val() ){
+                payEndTime = new Date( me.$payEndTime.val() ).getTime();
+            }
 
             if( me.$putStartTime.val() ){
                 putStartTime = new Date( me.$putStartTime.val() ).getTime();
@@ -525,6 +545,8 @@ define( function( require, exports, module ) {
             var queryData = me.model.all();
             queryData.putStartTime = putStartTime;
             queryData.putEndTime = putEndTime;
+			queryData.payStartTime = payStartTime;
+            queryData.payEndTime = payEndTime;
 
             window.open( IBSS.API_PATH + '/odr/exportSaleOrder?' + $.param( queryData ) );
 		},
@@ -538,6 +560,7 @@ define( function( require, exports, module ) {
 
             var putStartTime = '',        //提单日期开始
                 putEndTime = '';          //提单日期结束
+			var payEndTime = '', payStartTime = '';
 
             if( me.$putStartTime.val() ){
                 putStartTime = new Date( me.$putStartTime.val() ).getTime();
@@ -545,9 +568,18 @@ define( function( require, exports, module ) {
             if( me.$putEndTime.val() ){
                 putEndTime = new Date( me.$putEndTime.val() ).getTime();
             }
+			
+			if( me.$payStartTime.val() ){
+                payStartTime = new Date( me.$payStartTime.val() ).getTime();
+            }
+            if( me.$payEndTime.val() ){
+                payEndTime = new Date( me.$payEndTime.val() ).getTime();
+            }
 
             queryData.putStartTime = putStartTime;
             queryData.putEndTime = putEndTime;
+			queryData.payStartTime = payStartTime;
+            queryData.payEndTime = payEndTime;
             queryData.pageIndex = me.pagination.attr['pageNumber'] + 1;
             queryData.pageSize = me.pagination.attr['pageSize'];
 
