@@ -265,6 +265,14 @@ define(function (require, exports, module) {
                             'discountAutoCalculated': model.discountAutoCalculated,
                             'webSanCodeAuth': model.webSanCodeAuth
                         };
+						
+						if (me.model.get('trainHelperTotalCapacity')) {
+							me.$('#trainHelperTotalCapacity').val(parseFloat(me.model.get('trainHelperTotalCapacity')));
+
+							if (me.model.get('trainHelperUsedCapacity')) {
+								me.$('#trainHelperUsedCapacityStr').val(parseFloat(me.model.get('trainHelperUsedCapacity')) + '/' + (parseFloat(me.model.get('trainHelperTotalCapacity')) - parseFloat(me.model.get('trainHelperUsedCapacity'))).toFixed(2))
+							}
+						}
 
 
                         //调用回调
