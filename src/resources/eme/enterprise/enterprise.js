@@ -424,7 +424,7 @@ define(function (require, exports, module) {
         },
         load: function () {
             var me = this;
-            if (!me.$en.val() ||!me.$ea.val() ) {
+            if (!me.$en.val() && !me.$ea.val() ) {
                 util.showToast('请输入查询条件！');
                 return false;
             }
