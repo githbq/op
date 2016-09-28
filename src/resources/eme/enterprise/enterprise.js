@@ -270,7 +270,7 @@ define(function (require, exports, module) {
 							me.$('#trainHelperTotalCapacity').val(parseFloat(me.model.get('trainHelperTotalCapacity')).toFixed(2));
 
 							if (me.model.get('trainHelperUsedCapacity')) {
-								me.$('#trainHelperUsedCapacityStr').val(parseFloat(me.model.get('trainHelperUsedCapacity').toFixed(2)) + '/' + (parseFloat(me.model.get('trainHelperTotalCapacity')).toFixed(2) - parseFloat(me.model.get('trainHelperUsedCapacity')).toFixed(2)).toFixed(2))
+								me.$('#trainHelperUsedCapacityStr').val(parseFloat(me.model.get('trainHelperUsedCapacity')).toFixed(2) + '/' + (parseFloat(me.model.get('trainHelperTotalCapacity')).toFixed(2) - parseFloat(me.model.get('trainHelperUsedCapacity')).toFixed(2)).toFixed(2))
 							}
 						}
 
