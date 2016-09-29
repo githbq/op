@@ -432,7 +432,7 @@ define(function (require, exports, module) {
         },
         load: function () {
             var me = this;
-            if (!me.$en.val() && !me.$ea.val() ) {
+            if (!me.$en.val() && !me.$ea.val() && !me.$name.val() && !me.$mobile.val() ) {
                 util.showToast('请输入查询条件！');
                 return false;
             }
@@ -441,7 +441,8 @@ define(function (require, exports, module) {
                 data: {
 					en: me.$en.val(),
                     ea: me.$ea.val(),
-                    //mobile: me.$mobile.val(),
+                    accountName: me.$name.val(),
+                    mobile: me.$mobile.val(),
                     pageIndex: me.pagination.attr['pageNumber'] + 1,
                     pageSize: me.pagination.attr['pageSize']
                 },
