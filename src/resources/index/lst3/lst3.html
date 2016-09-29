@@ -12,29 +12,57 @@
                     <button id="btnSearch" class="btn-blue btn-search" data-permissions="M008012001">查询</button>
                 </div>
                 <div class="list-bar-input">
-                    <label><span>行业</span>
-                        <select id="alIndustry">
+                    <label><span>一级行业</span>
+                        <select id="clOneIndustry">
                             <option value="">全部</option>
                         </select>
                     </label>
-                    <label><span>产品模块</span>
+                    <label><span>二级行业</span>
+                        <select id="clTwoIndustry">
+                            <option value="">全部</option>
+                        </select>
+                    </label>
+                    <label><span>三级行业</span>
+                        <select id="clThreeIndustry">
+                            <option value="">全部</option>
+                        </select>
+                    </label>
+                    <!-- <label><span>产品模块</span>
                         <select id="alPModule">
                             <option value="">全部</option>
                         </select>
-                    </label>
-                    <label><span>优惠码</span>
+                    </label> -->
+                    <!--   <label><span>优惠码</span>
                         <input id="alCode" type="text" class="g-ipt ipt-m" onchange="this.value=this.value.replace(/\D/g,'')" maxlength=8/>
-                    </label>
-                    <label><span>付费状态</span>
+                    </label> -->
+                    <!--   <label><span>付费状态</span>
                         <select id="alFStatus">
                             <option value="">全部</option>
                             <option value="true">是</option>
                             <option value="false">否</option>
                         </select>
-                    </label>
-                    <label><span>来源</span>
+                    </label> -->
+                    <!--  <label><span>来源</span>
                         <select id="alSource">
                             <option value="">全部</option>
+                        </select>
+                    </label> -->
+                    <label>
+                        <span>企业类型</span>
+                        <select id="">
+                            <option value="">全部</option>
+                            <option value="">付费</option>
+                            <option value="">开源</option>
+                            <option value="">免费</option>
+                            <option value="">未续费</option>
+                        </select>
+                    </label>
+                    <label>
+                        <span>是否自注册</span>
+                        <select id="">
+                            <option value="">全部</option>
+                            <option value="">是</option>
+                            <option value="">否</option>
                         </select>
                     </label>
                     <label class="sp">
@@ -57,16 +85,19 @@
                             <input id="alCET" type="text" class="g-ipt ipt-l" />
                         </label>
                     </label>
-                    <br/>
-                    <label><span>企业帐号或Id</span>
-                        <select id="alListType">
-                            <option value="1">帐号</option>
-                            <option value="2">Id</option>
-                        </select>
+                    <br>
+                    <label>
+                        <span>代理商部门</span>
+                        <input type="text" name="">
                     </label>
-                    <br/>
-                    <textarea class="act-lst-tr" id="alList"></textarea>
-                    <br/>
+                    <label>
+                        <span>企业帐号</span>
+                        <input type="text" name="account">
+                    </label>
+                    <label>
+                        <span>企业ID</span>
+                        <input type="text" name="account">
+                    </label>
                     <p class="tips"></p>
                 </div>
             </div>

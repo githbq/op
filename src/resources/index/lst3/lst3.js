@@ -36,6 +36,9 @@ define(function(require, exports, module) {
         tplGenerate: _.template(tpl.filter('#actGenerateResult').html()),
         elements: {
             '#alIndustry': 'industry',
+            '#clOneIndustry': 'clOneIndustry',
+            '#clTwoIndustry': 'clTwoIndustry',
+            '#clThreeIndustry': 'clThreeIndustry',
             '#alPModule': 'pModule',
             '#alSource': 'source',
             '#alFStatus': 'fstatus',
@@ -122,7 +125,10 @@ define(function(require, exports, module) {
         },
         initializeSelect: function() {
             //this.generateSelect( 'INDUSTRY', this.$industry );
-            util.getIndustry(this.$industry);
+            // util.getIndustry(this.$industry);
+            this.generateSelect('class', this.$clOneIndustry);
+            this.generateSelect('class', this.$clTwoIndustry);
+            this.generateSelect('class', this.$clThreeIndustry);
             this.generateSelect('PRODUCT_MODULE', this.$pModule);
             this.generateSelect('ENT_LST_SOURCE', this.$source);
         },
