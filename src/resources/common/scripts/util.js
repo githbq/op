@@ -1,17 +1,18 @@
 /**
-*   公用工具类函数
-*   需要指定常量
-*
-*
-*   IBSS.API_PATH           // 后端数据请求路径             
-*   IBSS.COMMON_PATH        // commom模块前端路径
-*/
-; (function ($, _) {
+ *   公用工具类函数
+ *   需要指定常量
+ *
+ *
+ *   IBSS.API_PATH           // 后端数据请求路径             
+ *   IBSS.COMMON_PATH        // commom模块前端路径
+ */
+;
+(function($, _) {
 
     var win = this,
         doc = win.document,
         IBSS = win.IBSS,
-        TIME_OUT = 300000;   //请求超时时间
+        TIME_OUT = 300000; //请求超时时间
 
 
     var $body = $('body');
@@ -24,7 +25,7 @@
     // (new Date())._format("yyyy-MM-dd hh:mm:ss.S") ==> 2006-07-02 08:09:04.423 
     // (new Date())._format("yyyy-M-d h:m:s.S")      ==> 2006-7-2 8:9:4.18 
     //
-    Date.prototype._format = function (fmt) { //author: meizz 
+    Date.prototype._format = function(fmt) { //author: meizz 
         var o = {
             "M+": this.getMonth() + 1, //月份 
             "d+": this.getDate(), //日 
@@ -42,14 +43,14 @@
     };
 
     /********
-    *  兼容array forEach
-    *  array.forEach(function(value,index,array){
-    *
-    *  })
-    *
-    */
+     *  兼容array forEach
+     *  array.forEach(function(value,index,array){
+     *
+     *  })
+     *
+     */
     if (typeof Array.prototype.forEach != "function") {
-        Array.prototype.forEach = function (fn, context) {
+        Array.prototype.forEach = function(fn, context) {
             for (var k = 0, length = this.length; k < length; k++) {
                 if (typeof fn === "function" && Object.prototype.hasOwnProperty.call(this, k)) {
                     fn.call(context, this[k], k, this);
@@ -58,11 +59,11 @@
         };
     }
 
-	/**
-	 *@desc 全局事件
-	 *for checkbox
-	 */
-    $(doc).on('click', '.g-ck', function (e) {
+    /**
+     *@desc 全局事件
+     *for checkbox
+     */
+    $(doc).on('click', '.g-ck', function(e) {
         e.stopPropagation();
         $(this).toggleClass('g-ck-active');
     });
@@ -71,7 +72,7 @@
     //     预览图片    //
     /////////////////////
     var $preview = $('.g-preview');
-    $preview.find('.preview-close').on('click', function () {
+    $preview.find('.preview-close').on('click', function() {
         $preview.find('.preview-img img').attr('src', '');
         $preview.hide();
     });
@@ -88,14 +89,14 @@
          * @desc confirm
          * @param {Object}
          * {
-			 el: '',
-			 title: '',
-			 msg: '',
-			 btnText: '',
-			 fn: ''
-		   }
+             el: '',
+             title: '',
+             msg: '',
+             btnText: '',
+             fn: ''
+           }
          */
-        showConfirm: function (opt) {
+        showConfirm: function(opt) {
             var $el = $('.g-confirm');
             opt = _.extend({
                 el: null,
@@ -118,7 +119,9 @@
             } else {
                 var left = ($(win).width() - $el.width()) / 2;
                 var top = ($(win).height() - $el.height()) / 2 + $(doc).scrollTop() - 35;
-                if (top < 0) { _top = 0; }
+                if (top < 0) {
+                    _top = 0;
+                }
                 $el.css({
                     left: left,
                     top: top
@@ -126,15 +129,15 @@
                 $('.arrow', $el).hide();
             }
             $el.show();
-            $('.btn', $el).one('click', function () {
+            $('.btn', $el).one('click', function() {
                 opt.btnfn && opt.btnfn();
                 $el.hide();
             });
-            $('.close', $el).one('click', function () {
+            $('.close', $el).one('click', function() {
                 opt.closefn && opt.closefn();
                 $el.hide();
             });
-            $(doc).one('click', function (e) {
+            $(doc).one('click', function(e) {
                 if ($(e.target).closest('.g-confirm').length == 0) {
                     opt.closefn && opt.closefn();
                     $el.hide();
@@ -146,7 +149,7 @@
          * @desc 显示toast 
          *
          */
-        showToast: function (msg) {
+        showToast: function(msg) {
             var $toast = $('.g-toast'),
                 timer = $toast[0].timer;
 
@@ -158,7 +161,7 @@
             if (timer) {
                 win.clearTimeout(timer);
             }
-            $toast[0].timer = win.setTimeout(function () {
+            $toast[0].timer = win.setTimeout(function() {
                 $toast.fadeOut();
             }, 4000);
         },
@@ -168,29 +171,31 @@
          *
          */
         tipTemplate: $('#g-tip').html(),
-        showTip: function (msg) {
+        showTip: function(msg) {
             var me = this;
 
             var $tip = $(me.tipTemplate);
             var $content = $tip.find('p').text(msg);
 
             $body.append($tip);
-            setTimeout(function () {
-                $tip.fadeOut('fast', function () {
+            setTimeout(function() {
+                $tip.fadeOut('fast', function() {
                     $tip.remove();
                 })
             }, 4000)
         },
 
         //预览图片
-        preview: function (src) {
+        preview: function(src) {
             $preview.show();
-            $preview.find('.preview-img').css({ 'lineHeight': $preview.height() + 'px' });
+            $preview.find('.preview-img').css({
+                'lineHeight': $preview.height() + 'px'
+            });
             $preview.find('.preview-img img').attr('src', src);
         },
 
         // 获取当前页面的hash
-        getHash: function () {
+        getHash: function() {
             var href = location.href,
                 hash = location.hash;
 
@@ -202,19 +207,19 @@
 
         /**
          * @desc 点亮导航
-		 * 点亮当前元素下 所有连接为当前hash的元素
+         * 点亮当前元素下 所有连接为当前hash的元素
          * @param {jquery}
          */
-        lightNav: function ($el) {
+        lightNav: function($el) {
             var $el = $el || $('nav'),
                 hash = location.hash;
 
             //清除导航内 所有<li>元素的激活状态
-            $el.find('li').each(function () {
+            $el.find('li').each(function() {
                 $(this).removeClass('active');
             });
 
-            $el.find('li a').each(function () {
+            $el.find('li a').each(function() {
                 var $this = $(this),
                     href = $this.attr('href'),
                     aHash = href.slice(href.indexOf('#'));
@@ -237,7 +242,7 @@
          *
          */
 
-        ajax: function (opt) {
+        ajax: function(opt) {
             var me = this;
 
             opt = $.extend({
@@ -255,10 +260,10 @@
                 data: data,
                 dataType: opt.dataType,
                 timeout: TIME_OUT,
-                success: function (data, status, xhr) {
+                success: function(data, status, xhr) {
                     opt.success && opt.success(data, status, xhr);
                 },
-                error: function () {
+                error: function() {
                     me.showToast('网络请求错误！');
                     opt.error && opt.error();
                 }
@@ -266,13 +271,13 @@
         },
 
         /**
-        *
-        * @desc数据请求接口
-        * @param {Object} opt
-        * @param bool     mask true时显示遮罩 false时不显示
-        */
+         *
+         * @desc数据请求接口
+         * @param {Object} opt
+         * @param bool     mask true时显示遮罩 false时不显示
+         */
 
-        api: function (opt, mask) {
+        api: function(opt, mask) {
             var that = this,
                 beforeSend = opt.beforeSend,
                 success = opt.success,
@@ -314,7 +319,7 @@
                 opt.url = IBSS.API_PATH + opt.url;
             }
 
-            opt.beforeSend = function () {
+            opt.beforeSend = function() {
                 if (mask == true) {
                     util.showGlobalLoading();
                 }
@@ -322,7 +327,7 @@
                 return beforeSend && beforeSend.apply(this, arguments);
             };
 
-            opt.success = function (data, status, xhr) {
+            opt.success = function(data, status, xhr) {
                 if (data.login == false) {
                     location.href = "/login?from=" + location.pathname;
                     return;
@@ -338,12 +343,12 @@
                 }
                 return success && success.apply(this, arguments);
             };
-            opt.error = function (info) {
+            opt.error = function(info) {
                 if (info && info.statusText == "abort") return;
                 that.showToast('网络错误' + '(' + info.status + ')' + '!');
                 return error && error.apply(this);
             };
-            opt.complete = function () {
+            opt.complete = function() {
                 if (mask == true) {
                     util.hideGlobalLoading();
                 }
@@ -355,49 +360,48 @@
 
         $gloading: $('.g-loading'),
 
-		/**
-		 *@ 显示全局遮罩
-		 */
-        showGlobalLoading: function () {
+        /**
+         *@ 显示全局遮罩
+         */
+        showGlobalLoading: function() {
             this.$gloading.show();
         },
 
-		/**
-		 *@ 隐藏全局遮罩
-		 */
-        hideGlobalLoading: function () {
+        /**
+         *@ 隐藏全局遮罩
+         */
+        hideGlobalLoading: function() {
             this.$gloading.hide();
         },
 
-		/**
-		 * @desc 获取复选框的值
-		 * @param {Jquery}
-		 * @return {Array}
-		 */
-        getCkVal: function (el) {
+        /**
+         * @desc 获取复选框的值
+         * @param {Jquery}
+         * @return {Array}
+         */
+        getCkVal: function(el) {
             if ($(el).hasClass('g-ck-b')) {
                 var result = [];
-                $('.g-ck-active', $(el)).each(function () {
+                $('.g-ck-active', $(el)).each(function() {
                     result.push($(this).attr('data-val'));
                 });
                 return result;
-            }
-            else {
+            } else {
                 return null;
             }
         },
 
-		/**
-		 * @desc 设置复选框的值
-		 * @param {Jquery}
-		 * @param {Array} 需要重的值
-		 * @return {Array}
-		 */
-        setCkVal: function (el, vals) {
+        /**
+         * @desc 设置复选框的值
+         * @param {Jquery}
+         * @param {Array} 需要重的值
+         * @return {Array}
+         */
+        setCkVal: function(el, vals) {
             if (!$(el).hasClass('g-ck-b') || !_.isArray(vals)) {
                 return;
             }
-            $('.g-ck', $(el)).each(function () {
+            $('.g-ck', $(el)).each(function() {
                 var val = $(this).attr('data-val');
                 if (_.contains(vals, val)) {
                     $(this).addClass('g-ck-active');
@@ -405,7 +409,7 @@
             });
         },
 
-        cutBadStr: function (text) {
+        cutBadStr: function(text) {
             if (!text) return '';
             return text.replace(/</g, '<').replace(/>/g, '>').replace(/"/g, '"').replace(/'/g, "'");
         },
@@ -416,7 +420,7 @@
          * @param {String} String 时间格式 YYYY-MM-dd HH:mm:ss
          *
          */
-        formatDate: function (ticks, f) {
+        formatDate: function(ticks, f) {
             var date = new Date(ticks);
             var F = f.replace(/\W/g, ',').split(','),
                 format = ['YYYY', 'MM', 'dd', 'HH', 'mm', 'ss', 'ww'];
@@ -456,12 +460,12 @@
          * @return {Number} 补零位数
          *
          */
-        addZero: function (num, n) {
+        addZero: function(num, n) {
             if (!n) n = 2;
             return Array(Math.abs(('' + num).length - (n + 1))).join(0) + num;
         },
 
-        _convertStringToUnicodeCodePoints: function (str) {
+        _convertStringToUnicodeCodePoints: function(str) {
             var surrogate1st = 0,
                 unicodeCodes = [],
                 i = 0,
@@ -485,7 +489,7 @@
             return unicodeCodes;
         },
         //编码转换
-        _escapeToUtf32: function (str) {
+        _escapeToUtf32: function(str) {
             var escaped = [],
                 unicodeCodes = util._convertStringToUnicodeCodePoints(str),
                 i = 0,
@@ -506,12 +510,13 @@
          * @param  {[type]} byteSize [description]
          * @return {[type]}          [description]
          */
-        getFileSize: function (byteSize) {
-            var v = 0, unit = "BYTE";
-            if (byteSize > 1073741824) {   //1G=1073741824 BYTE
+        getFileSize: function(byteSize) {
+            var v = 0,
+                unit = "BYTE";
+            if (byteSize > 1073741824) { //1G=1073741824 BYTE
                 v = (byteSize / 1073741824).toFixed(0);
                 unit = "GB";
-            } else if (byteSize > 1048576) {   //1M=1048576 BYTE
+            } else if (byteSize > 1048576) { //1M=1048576 BYTE
                 v = (byteSize / 1048576).toFixed(0);
                 unit = "MB";
             } else if (byteSize > 1024) {
@@ -524,10 +529,10 @@
             return v + unit;
         },
 
-        replaceLink: function (content) {
+        replaceLink: function(content) {
             content = content || '';
             var HTTP_REG = new RegExp("((http[s]?|ftp)://|www\\.)[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?", "gi");
-            return content.replace(HTTP_REG, function (c) {
+            return content.replace(HTTP_REG, function(c) {
                 return '<a target="_blank" href="' + c + '">' + c + '</a>';
             });
         },
@@ -536,7 +541,7 @@
         //
         //根据当前时间输出易读的时间
         ////////////////
-        translateTime: function (time) {
+        translateTime: function(time) {
             if (!time) {
                 throw ('time 不能为空');
                 return;
@@ -583,7 +588,7 @@
         //
         // 应用内跳转MAP
         /////////////
-        getInAppName: function (key) {
+        getInAppName: function(key) {
 
             var MAP = {
                 'tyzh': '体验帐号',
@@ -605,7 +610,7 @@
         //
         //根据权限控制相关元素显示隐藏
         //////////////
-        filterFunc: function () {
+        filterFunc: function() {
 
         },
 
@@ -613,7 +618,7 @@
          * 将textarea里的内容转换
          * 换行符替换为,并过滤空行
          */
-        transArea: function (str) {
+        transArea: function(str) {
             var nstr = str.replace(/\n/g, ',').replace(/\s/g, '').replace(/[,]+/g, ',');
             return nstr;
         },
@@ -621,7 +626,7 @@
         /**
          * html 转义
          */
-        html_encode: function (str) {
+        html_encode: function(str) {
             var s = "";
             if (str.length == 0) return "";
             s = str.replace(/&/g, "&gt;");
@@ -637,7 +642,7 @@
         /**
          * html 反转义
          */
-        html_decode: function (str) {
+        html_decode: function(str) {
             var s = "";
             if (str.length == 0) return "";
             s = str.replace(/&lt;/g, "<");
@@ -654,7 +659,7 @@
          * 获取枚举值
          * 如果已经获取到 直接取缓存
          */
-        getEnums: function (name, callback) {
+        getEnums: function(name, callback) {
             IBSS.enums = IBSS.enums || {};
 
             if (IBSS.enums[name]) {
@@ -665,12 +670,14 @@
             var me = this,
                 opt = {
                     url: '~/op/api/enums/getlist',
-                    data: { name: name },
+                    data: {
+                        name: name
+                    },
                     type: 'POST',
                     cache: false,
                     timeout: TIME_OUT,
                     dataType: 'json',
-                    success: function (data) {
+                    success: function(data) {
                         if (data.success) {
                             IBSS.enums[name] = data;
                             callback && callback(data);
@@ -685,39 +692,67 @@
          * 获取行业 遍历为树状信息
          * 并赋值给select
          */
-        getIndustry: function ($select, callback) {
+        getIndustry: function(array, callback) {
             var me = this;
-
-
             //存储最终数据
             var INMAP = {};
             //存储缓存数据
             var items = {};
             //生成dom结构
-            var str = "<option value=''>全部</option>";
+            var str1 = "<option value=''>全部</option>";
 
-            util.getEnums('INDUSTRY', function (data) {
+            var str2 = "<option value=''>全部</option>";
+
+            var str3 = "<option value=''>全部</option>";
+
+            util.getEnums('INDUSTRY', function(data) {
 
                 //第一次遍历缓存所有数据
-                data.value.model.forEach(function (item, index) {
+                data.value.model.forEach(function(item, index) {
                     item.children = {};
                     items[item.value] = item;
                 });
 
                 //第二次遍历生成缓存map
-                data.value.model.forEach(function (item, index) {
+                data.value.model.forEach(function(item, index) {
                     getNode(item.value);
                 });
 
-                console.log(items);
-                console.log(INMAP);
+                var copyData = JSON.parse(JSON.stringify(INMAP)); //深拷贝一个对象;
 
-                generateDom(INMAP, 0);
-                $select.html(str);
+                for (var key in copyData) {
+
+                    item1 = copyData[key]; //分別获得三个级别的下拉框的选项;
+
+                    str1 += ('<option value="' + item1.value + '" title="' + item1.text + '">' + item1.text + '</option>');
+
+                    if (!util.isOwnEmpty(item1.children)) {
+
+                        for (var key in item1.children) {
+
+                            item2 = item1.children[key];
+                            str2 += ('<option value="' + item2.value + '" title="' + item2.text + '">' + item2.text + '</option>');
+
+                            if (!util.isOwnEmpty(item2.children)) {
+
+                                for (var key in item2.children) {
+                                    item3 = item2.children[key];
+                                    str3 += ('<option value="' + item3.value + '" title="' + item3.text + '">' + item3.text + '</option>');
+
+                                }
+                            }
+                        }
+                    }
+                }
+
+                array[0].html(str1);
+
+                array[1].html(str2);
+
+                array[2].html(str3);
 
                 callback && callback(data);
             })
-
 
             // 从无生成一个node 
             // 并返回node的详细信息
@@ -726,7 +761,6 @@
 
                 //如果有父节点 则挂载在父节点上
                 if (items[value].parentValue && items[value].parentValue != '0') {
-
                     var parent = items[items[value].parentValue];
                     parent.children[value] = items[value];
                     return items[value];
@@ -740,6 +774,7 @@
             }
 
             function generateDom(node, zindex) {
+
                 var item;
                 var mstr = "|-";
                 for (var i = 1; i <= zindex; i++) {
@@ -756,12 +791,20 @@
             }
         },
 
+        isOwnEmpty: function(obj) {
+            for (var name in obj) {
+                if (obj.hasOwnProperty(name)) {
+                    return false;
+                }
+            }
+            return true;
+        },
         /**
          *
          * 根据value
          * 获取相应enmus
          */
-        findEnumsText: function (name, value) {
+        findEnumsText: function(name, value) {
 
             var text = '';
             if (IBSS.enums[name]) {
@@ -782,7 +825,7 @@
          * @param array [{'name':'XXX','value':'XXX'},{'name':'XXX','value':'XXX'},{'name':'XXX','value':'XXX'}] 或
          *              ['XXX','XXX','XXX']
          ***********************/
-        resetSelect: function ($select, array, selectvalue) {
+        resetSelect: function($select, array, selectvalue) {
             var optionStr = '';
 
             if (array.length <= 0) return;
@@ -813,15 +856,21 @@
          * @param $select  {jQuery}    select dom 元素
          * @param callback {function}  获取成功后的回调函数
          */
-        getEnumsSelect: function (name, $select, callback) {
+        getEnumsSelect: function(name, $select, callback) {
 
-            var statusList = [{ 'name': '全部', 'value': '' }];
+            var statusList = [{
+                'name': '全部',
+                'value': ''
+            }];
 
-            util.getEnums(name, function (data) {
+            util.getEnums(name, function(data) {
                 if (data.success) {
 
-                    data.value.model.forEach(function (item, index) {
-                        statusList.push({ 'name': item.text, 'value': item.value });
+                    data.value.model.forEach(function(item, index) {
+                        statusList.push({
+                            'name': item.text,
+                            'value': item.value
+                        });
                     });
 
 
@@ -833,26 +882,26 @@
         },
 
         /*
-        *  计算日期
-        *  @param AddDayCount {number}
-        *  根据输入的 number 计算返回的日期  
-        *  如 -1 返回昨天的日期
-        */
-        getDateStr: function (AddDayCount) {
+         *  计算日期
+         *  @param AddDayCount {number}
+         *  根据输入的 number 计算返回的日期  
+         *  如 -1 返回昨天的日期
+         */
+        getDateStr: function(AddDayCount) {
 
             var dd = new Date();
-            dd.setDate(dd.getDate() + AddDayCount);//获取AddDayCount天后的日期
+            dd.setDate(dd.getDate() + AddDayCount); //获取AddDayCount天后的日期
             var y = dd.getFullYear();
-            var m = dd.getMonth() + 1;//获取当前月份的日期
+            var m = dd.getMonth() + 1; //获取当前月份的日期
             var d = dd.getDate();
             return y + "/" + m + "/" + d;
         },
 
         /*
-        *  判断一个对象属性是否为空
-        *  @param obj {object}
-        */
-        isEmptyObject: function (obj) {
+         *  判断一个对象属性是否为空
+         *  @param obj {object}
+         */
+        isEmptyObject: function(obj) {
             var isEmpty = true;
             for (var key in obj) {
                 isEmpty = false;
@@ -863,18 +912,21 @@
 
 
         /*
-        * input 错误提示
-        * @param $input {jQuery}
-        */
-        warnInput: function ($input) {
-            $input.css({ 'border': '1px #c81623 solid', 'box-shadow': '0 0 3px #c81623' });
+         * input 错误提示
+         * @param $input {jQuery}
+         */
+        warnInput: function($input) {
+            $input.css({
+                'border': '1px #c81623 solid',
+                'box-shadow': '0 0 3px #c81623'
+            });
         },
 
         /*
-        * input 取消错误提示
-        * @param $input {jQuery}
-        */
-        unWarnInput: function ($input) {
+         * input 取消错误提示
+         * @param $input {jQuery}
+         */
+        unWarnInput: function($input) {
             $input.removeAttr('style');
         },
 
@@ -891,4 +943,4 @@
 
     win.util = util;
 
-} (jQuery, _));
+}(jQuery, _));

@@ -35,20 +35,18 @@ define(function(require, exports, module) {
         tplSearch: _.template(tpl.filter('#actCountResult').html()),
         tplGenerate: _.template(tpl.filter('#actGenerateResult').html()),
         elements: {
-            '#alIndustry': 'industry',
             '#clOneIndustry': 'clOneIndustry',
             '#clTwoIndustry': 'clTwoIndustry',
             '#clThreeIndustry': 'clThreeIndustry',
-            '#alPModule': 'pModule',
-            '#alSource': 'source',
-            '#alFStatus': 'fstatus',
-            '#alCode': 'code',
+            '#entType': 'entType',
+            '#isRegister': 'isRegister',
+            '#agent': 'agent',
+            '#entCount': 'entCount',
+            '#entID': 'entID',
             '#alAST': 'ast',
             '#alAET': 'aet',
             '#alCST': 'cst',
             '#alCET': 'cet',
-            '#alListType': 'listType',
-            '#alList': 'list',
             '#btnSearch': 'search',
             '.result': 'result',
             '.tips': 'tips'
@@ -124,13 +122,7 @@ define(function(require, exports, module) {
             me.$aet.val(me.getDateString(-1));
         },
         initializeSelect: function() {
-            //this.generateSelect( 'INDUSTRY', this.$industry );
-            // util.getIndustry(this.$industry);
-            this.generateSelect('class', this.$clOneIndustry);
-            this.generateSelect('class', this.$clTwoIndustry);
-            this.generateSelect('class', this.$clThreeIndustry);
-            this.generateSelect('PRODUCT_MODULE', this.$pModule);
-            this.generateSelect('ENT_LST_SOURCE', this.$source);
+            util.getIndustry([this.$clOneIndustry, this.$clTwoIndustry, this.$clThreeIndustry]);
         },
         generateSelect: function(name, $select, callback) {
             util.getEnums(name, function(data) {
@@ -144,36 +136,42 @@ define(function(require, exports, module) {
             });
         },
         clear: function() {
-            this.$code.val('');
+            this.$agent.val('');
             this.$ast.val('');
             this.$aet.val('');
             this.$cst.val('');
             this.$cet.val('');
-            this.$list.val('');
+            this.$entType.val('');
+            this.$entID.val('');
+            this.$entCount.val('');
             this.$result.html('');
         },
         reset: function() {
-            this.$industry.val('');
-            this.$pModule.val('');
-            this.$source.val('');
-            this.$code.val('');
+            this.$clOneIndustry.val('');
+            this.$clTwoIndustry.val('');
+            this.$clThreeIndustry.val('');
+            this.$entType.val('');
+            this.$isRegister.val('');
             this.$ast.val(this.getDateString(-8));
             this.$aet.val(this.getDateString(-1));
             this.$cst.val('');
             this.$cet.val('');
-            this.$listtype.val('1');
-            this.$fstatus.val('');
-            this.$list.val('');
+            this.$agent.val('');
+            this.$entCount.val('');
+            this.$entID.val('');
             this.$result.html('');
         },
         search: function() {
             var me = this;
             var data = {
-                industry: me.$industry.val(),
-                pm: me.$pModule.val(),
-                code: me.$code.val(),
-                fStatus: me.$fstatus.val(),
-                source: me.$source.val()
+                industryOne: me.$clOneIndustry.val(),
+                industryTwo: me.$clTwoIndustry.val(),
+                industryThree: me.$clThreeIndustry.val(),
+                entType: me.$entType.val(),
+                isRegister: me.$isRegister.val(),
+                agent: me.$agent.val(),
+                entCount: me.$entCount.val(),
+                entID: me.$entID.val(),
             };
             if (me.$ast.val()) {
                 data.ast = new Date(me.$ast.val()).getTime();
@@ -187,10 +185,7 @@ define(function(require, exports, module) {
             if (me.$cet.val()) {
                 data.cet = new Date(me.$cet.val()).getTime();
             }
-            if (me.$list.val()) {
-                data.listType = me.$listType.val();
-                data.list = me.$list.val();
-            }
+
             me.$result.html('');
             me.$search.attr('disabled', 'disabled');
             me.$search.addClass('disabled');
@@ -227,12 +222,16 @@ define(function(require, exports, module) {
         generate: function() {
             var me = this;
             var data = {
-                industry: me.$industry.val(),
-                pm: me.$pModule.val(),
-                code: me.$code.val(),
-                fStatus: me.$fstatus.val(),
-                source: me.$source.val()
+                industryOne: me.$clOneIndustry.val(),
+                industryTwo: me.$clTwoIndustry.val(),
+                industryThree: me.$clThreeIndustry.val(),
+                entType: me.$entType.val(),
+                isRegister: me.$isRegister.val(),
+                agent: me.$agent.val(),
+                entCount: me.$entCount.val(),
+                entID: me.$entID.val(),
             };
+
             if (me.$ast.val()) {
                 data.ast = new Date(me.$ast.val()).getTime();
             }
@@ -245,10 +244,7 @@ define(function(require, exports, module) {
             if (me.$cet.val()) {
                 data.cet = new Date(me.$cet.val()).getTime();
             }
-            if (me.$list.val()) {
-                data.listType = me.$listType.val();
-                data.list = me.$list.val();
-            }
+
             var $generate = me.$result.find('#btnGenerate'),
                 $download = me.$result.find('#btnDownload'),
                 $console = me.$result.find('#console');
