@@ -8,43 +8,43 @@
             <div class="list-bar">
                 <div class="list-bar-btns">
                     <button id="btnClear">清空</button>
+                    <br>
                     <button id="btnReset">重置</button>
+                    <br>
                     <button id="btnSearch" class="btn-blue btn-search" data-permissions="M008012001">查询</button>
                 </div>
-                <div class="list-bar-input">
-                    <label><span>一级行业</span>
+                <div class="list-bar-input checkForm">
+                    <label><span>行业</span>
                         <select id="clOneIndustry">
                         </select>
                     </label>
-                    <label><span>二级行业</span>
+                    <label>
                         <select id="clTwoIndustry">
                         </select>
                     </label>
-                    <label><span>三级行业</span>
+                    <label>
                         <select id="clThreeIndustry">
                         </select>
                     </label>
-                    <!-- <label><span>产品模块</span>
-                        <select id="alPModule">
-                            <option value="">全部</option>
-                        </select>
-                    </label> -->
-                    <!--   <label><span>优惠码</span>
-                        <input id="alCode" type="text" class="g-ipt ipt-m" onchange="this.value=this.value.replace(/\D/g,'')" maxlength=8/>
-                    </label> -->
-                    <!--   <label><span>付费状态</span>
-                        <select id="alFStatus">
-                            <option value="">全部</option>
-                            <option value="true">是</option>
-                            <option value="false">否</option>
-                        </select>
-                    </label> -->
-                    <!--  <label><span>来源</span>
-                        <select id="alSource">
-                            <option value="">全部</option>
-                        </select>
-                    </label> -->
+                    <label class="sp">
+                        <label>
+                            <span>活跃日期</span>
+                            <input id="alAST" type="text" class="g-ipt ipt-l" placeholder="起始日期" />
+                        </label>
                     <label>
+                            <span>-</span>
+                            <input id="alAET" type="text" class="g-ipt ipt-l" placeholder="结束日期"/>
+                        </label>
+                    </label>
+                    <label>
+                        <span>企业帐号</span>
+                        <input type="text" name="account" id="entCount">
+                    </label>
+                    <label>
+                        <span>企业ID</span>
+                        <input type="text" name="account" id="entID">
+                    </label>
+                    <label class="transRight" style="margin-right:113px">
                         <span>企业类型</span>
                         <select id="entType">
                             <option value="">全部</option>
@@ -54,7 +54,7 @@
                             <option value="">未续费</option>
                         </select>
                     </label>
-                    <label>
+                    <label class="transRight">
                         <span>是否自注册</span>
                         <select id="isRegister">
                             <option value="">全部</option>
@@ -62,38 +62,20 @@
                             <option value="">否</option>
                         </select>
                     </label>
+
                     <label class="sp">
                         <label>
-                            <span>活跃时间</span>
-                            <input id="alAST" type="text" class="g-ipt ipt-l" />
+                            <span>开通日期</span>
+                            <input id="alCST" type="text" class="g-ipt ipt-l" placeholder="起始日期"/>
                         </label>
                     <label>
                             <span>-</span>
-                            <input id="alAET" type="text" class="g-ipt ipt-l" />
+                            <input id="alCET" type="text" class="g-ipt ipt-l" placeholder="结束日期"/>
                         </label>
                     </label>
-                    <label class="sp">
-                        <label>
-                            <span>开通时间</span>
-                            <input id="alCST" type="text" class="g-ipt ipt-l" />
-                        </label>
-                    <label>
-                            <span>-</span>
-                            <input id="alCET" type="text" class="g-ipt ipt-l" />
-                        </label>
-                    </label>
-                    <br>
-                    <label>
-                        <span>代理商部门</span>
+                    <label style="">
+                        <span>代理商/部门</span>
                         <input type="text" name="" id="agent">
-                    </label>
-                    <label>
-                        <span>企业帐号</span>
-                        <input type="text" name="account" id="entCount">
-                    </label>
-                    <label>
-                        <span>企业ID</span>
-                        <input type="text" name="account" id="entID">
                     </label>
                     <p class="tips"></p>
                 </div>

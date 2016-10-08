@@ -699,11 +699,11 @@
             //存储缓存数据
             var items = {};
             //生成dom结构
-            var str1 = "<option value=''>全部</option>";
+            var str1 = "<option value=''>一级行业(全部)</option>";
 
-            var str2 = "<option value=''>全部</option>";
+            var str2 = "<option value=''>二级行业(全部)</option>";
 
-            var str3 = "<option value=''>全部</option>";
+            var str3 = "<option value=''>三级行业(全部)</option>";
 
             util.getEnums('INDUSTRY', function(data) {
 
