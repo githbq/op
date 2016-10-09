@@ -3,7 +3,7 @@ define(function(require, exports, module) {
     var Pagination = require('common/widget/pagination/pagination');
     var tpl = $(require('./template.html'));
 
-    function doDownFile(url, $button, $tips, callback) {
+    function doDownFile(url, data, $button, $tips, callback) {
         $button.addClass('disabled');
         $button.attr('disabled', 'disabled');
         $tips.text('正在生成文件...请耐心等待');
@@ -12,14 +12,15 @@ define(function(require, exports, module) {
             callback && callback();
             $.ajax({
                     type: 'POST',
+                    data: { id: data.value.model },
                     url: url
                 })
                 .success(function(result) {
-                    if (result.success) {
+                    if (result.value.model) {
                         $tips.text('');
                         $button.removeClass('disabled');
                         $button.removeAttr('disabled');
-                        window.open(url, 'hideiframe');
+                        window.open('hda/bigactivity/mission/download?id=' + data.value.model, 'hideiframe');
                         console.log(2);
                     } else {
                         setTimeout(function() {
@@ -167,23 +168,18 @@ define(function(require, exports, module) {
                 industryOne: me.$clOneIndustry.val(),
                 industryTwo: me.$clTwoIndustry.val(),
                 industryThree: me.$clThreeIndustry.val(),
-                entType: me.$entType.val(),
+                enterpriseType: me.$entType.val(),
                 isRegister: me.$isRegister.val(),
-                agent: me.$agent.val(),
-                entCount: me.$entCount.val(),
-                entID: me.$entID.val(),
+                department: me.$agent.val(),
+                enterpriseAccounts: me.$entCount.val(),
+                enterpriseIds: me.$entID.val(),
             };
-            if (me.$ast.val()) {
-                data.ast = new Date(me.$ast.val()).getTime();
-            }
-            if (me.$aet.val()) {
-                data.aet = new Date(me.$aet.val()).getTime();
-            }
+
             if (me.$cst.val()) {
-                data.cst = new Date(me.$cst.val()).getTime();
+                data.appStart = new Date(me.$cst.val()).getTime(); //开通起始日期
             }
             if (me.$cet.val()) {
-                data.cet = new Date(me.$cet.val()).getTime();
+                data.appEnd = new Date(me.$cet.val()).getTime(); //开通结束日期
             }
 
             me.$result.html('');
@@ -191,18 +187,24 @@ define(function(require, exports, module) {
             me.$search.addClass('disabled');
             var originData = data;
             util.api({
-                url: '/query/act/count2',
+                url: '/api/activity/big/eidskey', //第一次去请求model值
                 data: data,
                 success: function(data) {
                     if (data.success) {
                         if (data.value.model >= 0) {
-
                             util.api({
-                                data: originData,
-                                url: '/query/act/generatebig2',
+                                data: {
+                                    "accountId": '',
+                                    "auth": 1,
+                                    "start": me.$ast.val(),
+                                    "remark": '',
+                                    "end": me.$aet.val(),
+                                    "uuid": data.value.model
+                                },
+                                url: '/hda/bigactivity/mission/run', // 第二次同样是请求model值
                                 success: function(data) {
                                     if (data.success) {
-                                        doDownFile('/op/api/s/query/act/downloadhdfsbig?path=' + data.model.gPath, me.$search, me.$tips, function() {
+                                        doDownFile('/hda/bigactivity/mission/state', data, me.$search, me.$tips, function() {
                                             me.$search.removeClass('disabled');
                                             me.$search.removeAttr('disabled');
                                             me.getList();
