@@ -164,10 +164,9 @@ define(function(require, exports, module) {
         },
         search: function() {
             var me = this;
+
             var data = {
-                industryOne: me.$clOneIndustry.val(),
-                industryTwo: me.$clTwoIndustry.val(),
-                industryThree: me.$clThreeIndustry.val(),
+                industry: '',
                 enterpriseType: me.$entType.val(),
                 isRegister: me.$isRegister.val(),
                 department: me.$agent.val(),
@@ -175,12 +174,35 @@ define(function(require, exports, module) {
                 enterpriseIds: me.$entID.val(),
             };
 
+            if (me.$clThreeIndustry.val() != "") {
+
+                data.industry = me.$clThreeIndustry.val();
+            } else {
+
+                if (me.$clTwoIndustry.val() != "") {
+
+                    data.industry = me.$clTwoIndustry.val();
+
+                } else {
+
+                    if (me.$clOneIndustry.val() != "") { //优先选择级别最高的行业;
+
+                        data.industry = me.$clOneIndustry.val();
+
+                    } else {
+
+                        data.industry = "";
+                    }
+                }
+            }
+
             if (me.$cst.val()) {
                 data.appStart = new Date(me.$cst.val()).getTime(); //开通起始日期
             }
             if (me.$cet.val()) {
                 data.appEnd = new Date(me.$cet.val()).getTime(); //开通结束日期
             }
+
 
             me.$result.html('');
             me.$search.attr('disabled', 'disabled');
@@ -194,7 +216,7 @@ define(function(require, exports, module) {
                         if (data.value.model >= 0) {
                             util.api({
                                 data: {
-                                    "accountId": '',
+                                    "accountId": IBSS.accountId,
                                     "auth": 1,
                                     "start": me.$ast.val(),
                                     "remark": '',
