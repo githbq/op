@@ -6496,17 +6496,17 @@ em {
 .p-indexact-lst .m-act-lst .list-bar .checkForm #agent {
   width: 290px;
 }
-.p-indexact-lst .m-act-lst .list-bar .list-bar-btns {
+.p-indexact-lst .m-act-lst .list-bar .buttonTeam {
   width: 100px;
 }
-.p-indexact-lst .m-act-lst .list-bar .list-bar-btns button {
+.p-indexact-lst .m-act-lst .list-bar .buttonTeam button {
   margin-right: 10px;
   margin-bottom: 10px;
 }
-.p-indexact-lst .m-act-lst .list-bar .list-bar-btns button:last-child {
+.p-indexact-lst .m-act-lst .list-bar .buttonTeam button:last-child {
   margin-right: 14px;
 }
-.p-indexact-lst .m-act-lst .list-bar .list-bar-btns button.disabled {
+.p-indexact-lst .m-act-lst .list-bar .buttonTeam button.disabled {
   opacity: 0.3;
 }
 .p-indexact-lst .m-act-lst .list-bar .list-bar-entry {
