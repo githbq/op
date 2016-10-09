@@ -1,33 +1,39 @@
 define(function(require, exports, module) {
     var IBSS = window.IBSS;
+    IBSS.model = "";
+
     var Pagination = require('common/widget/pagination/pagination');
     var tpl = $(require('./template.html'));
 
-    function doDownFile(url, data, $button, $tips, callback) {
+    function doDownFile(url, idData, $button, $tips, callback) {
         $button.addClass('disabled');
         $button.attr('disabled', 'disabled');
         $tips.text('正在生成文件...请耐心等待');
 
         function downFile() {
             callback && callback();
-            $.ajax({
-                    type: 'POST',
-                    data: { id: data.value.model },
-                    url: url
-                })
-                .success(function(result) {
+            util.api({
+                type: 'POST',
+                data: { id: idData.value.model },
+                url: url,
+                dataType: "json",
+                success: function(result) {
+                    console.log(result.value.model);
                     if (result.value.model) {
                         $tips.text('');
                         $button.removeClass('disabled');
                         $button.removeAttr('disabled');
-                        window.open('hda/bigactivity/mission/download?id=' + data.value.model, 'hideiframe');
+                        IBSS.model = idData.value.model;
+                        util.initIframe();
+                        $('#submit').click();
                         console.log(2);
                     } else {
                         setTimeout(function() {
                             downFile();
                         }, 10000);
                     }
-                });
+                }
+            });
         }
         downFile();
     }
@@ -209,24 +215,24 @@ define(function(require, exports, module) {
             me.$search.addClass('disabled');
             var originData = data;
             util.api({
-                url: '/api/activity/big/eidskey', //第一次去请求model值
+                url: '~/op/api/activity/big/eidskey', //第一次去请求model值
                 data: data,
                 success: function(data) {
                     if (data.success) {
-                        if (data.value.model >= 0) {
+                        if (data.value.model) {
                             util.api({
                                 data: {
                                     "accountId": IBSS.accountId,
-                                    "auth": 1,
-                                    "start": me.$ast.val(),
+                                    "auth": 0,
+                                    "start": new Date(me.$ast.val()).getTime(),
                                     "remark": '',
-                                    "end": me.$aet.val(),
+                                    "end": new Date(me.$aet.val()).getTime(),
                                     "uuid": data.value.model
                                 },
-                                url: '/hda/bigactivity/mission/run', // 第二次同样是请求model值
+                                url: '~/hda/bigactivity/mission/run', // 第二次同样是请求model值
                                 success: function(data) {
                                     if (data.success) {
-                                        doDownFile('/hda/bigactivity/mission/state', data, me.$search, me.$tips, function() {
+                                        doDownFile('~/hda/bigactivity/mission/state', data, me.$search, me.$tips, function() {
                                             me.$search.removeClass('disabled');
                                             me.$search.removeAttr('disabled');
                                             me.getList();

@@ -357,6 +357,14 @@
             }
             return $.ajax(opt);
         },
+        initIframe: function() {
+            if ($('.formClass').length > 0) return;
+            $('body').append(
+                "<form  class='formClass' action=" + "hda/bigactivity/mission/download?id=" + IBSS.model + "   " + "method='POST' enctype='multipart/form-data'  id='formdown' style='display:none;'>" +
+                "<button type='submit' id='submit'></button>" +
+                "</form>"
+            );
+        },
 
         $gloading: $('.g-loading'),
 
