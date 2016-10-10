@@ -1685,7 +1685,7 @@ define(function (require, exports, module) {
                 return false;
             }
 			util.api({
-                url: '~op/api/enterprise/addenterpriseoperationlog ',
+                url: '~/op/api/enterprise/addenterpriseoperationlog ',
                 data: {
 					enterpriseId:me.model.attrs.enterpriseId,
 					content:me.$('#logRemark').val()
