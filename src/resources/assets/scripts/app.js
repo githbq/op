@@ -409,7 +409,7 @@ define('common/app', function(require, exports, module) {
                         }
                         $('#accountDept').attr('title', deptStr);
                         IBSS.role = data.value.model;
-                        IBSS.accountId = data.value.model.employeeId;
+                        IBSS.accountId = data.value.model.id;
                         IBSS.FUNCTIONS = data.value.model.moduleCodes;
                         IBSS.MODULES = data.value.model.moduleCodes;
 
