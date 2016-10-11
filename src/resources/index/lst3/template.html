@@ -35,6 +35,10 @@
             <td>
                 <%=item.endTime%>
             </td>
+            <td>
+                <!--<button type="button" class="btn-blue btn-search downSingle" value="<%=item.taskId%>" style="width:66px;height: 29px" onclick="window.open('hda/bigactivity/mission/download?id='+'<%=item.taskId%>')">下载</button>-->
+                <button type="button" class="btn-blue btn-search downSingle" value="<%=item.taskId%>" style="width:66px;height: 29px">下载</button>
+            </td>
             <td></td>
         </tr>
         <%}) %>

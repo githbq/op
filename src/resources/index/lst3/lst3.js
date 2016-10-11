@@ -1,32 +1,41 @@
 define(function(require, exports, module) {
+
     var IBSS = window.IBSS;
+    IBSS.model = "";
     var Pagination = require('common/widget/pagination/pagination');
     var tpl = $(require('./template.html'));
 
-    function doDownFile(url, $button, $tips, callback) {
+    function doDownFile(url, idData, $button, $tips, callback) {
         $button.addClass('disabled');
         $button.attr('disabled', 'disabled');
         $tips.text('正在生成文件...请耐心等待');
 
         function downFile() {
             callback && callback();
-            $.ajax({
-                    type: 'POST',
-                    url: url
-                })
-                .success(function(result) {
-                    if (result.success) {
+            util.api({
+                type: 'POST',
+                data: {
+                    id: idData.value.model
+                },
+                url: url,
+                dataType: "json",
+                success: function(result) {
+                    console.log(result.value.model);
+                    if (result.value.model) {
                         $tips.text('');
                         $button.removeClass('disabled');
                         $button.removeAttr('disabled');
-                        window.open(url, 'hideiframe');
+                        IBSS.model = idData.value.model;
+                        util.initIframe();
+                        $('#submit').click();
                         console.log(2);
                     } else {
                         setTimeout(function() {
                             downFile();
                         }, 10000);
                     }
-                });
+                }
+            });
         }
         downFile();
     }
@@ -35,17 +44,18 @@ define(function(require, exports, module) {
         tplSearch: _.template(tpl.filter('#actCountResult').html()),
         tplGenerate: _.template(tpl.filter('#actGenerateResult').html()),
         elements: {
-            '#alIndustry': 'industry',
-            '#alPModule': 'pModule',
-            '#alSource': 'source',
-            '#alFStatus': 'fstatus',
-            '#alCode': 'code',
+            '#clOneIndustry': 'clOneIndustry',
+            '#clTwoIndustry': 'clTwoIndustry',
+            '#clThreeIndustry': 'clThreeIndustry',
+            '#entType': 'entType',
+            '#isRegister': 'isRegister',
+            '#agent': 'agent',
+            '#entCount': 'entCount',
+            '#entID': 'entID',
             '#alAST': 'ast',
             '#alAET': 'aet',
             '#alCST': 'cst',
             '#alCET': 'cet',
-            '#alListType': 'listType',
-            '#alList': 'list',
             '#btnSearch': 'search',
             '.result': 'result',
             '.tips': 'tips'
@@ -55,7 +65,8 @@ define(function(require, exports, module) {
             'click #btnClear': 'clear',
             'click #btnReset': 'reset',
             'click #btnGenerate': 'generate',
-            'click #btnDownload': 'download'
+            'click #btnDownload': 'download',
+            'click .downSingle': 'downSingle'
         },
         init: function() {
             ActLst.__super__.init.apply(this, arguments);
@@ -72,7 +83,6 @@ define(function(require, exports, module) {
             me.pagination.onChange = function() {
                 me.getList();
             };
-
             me.collection = new M.Collection;
         },
         initializeDatepicker: function() {
@@ -121,10 +131,7 @@ define(function(require, exports, module) {
             me.$aet.val(me.getDateString(-1));
         },
         initializeSelect: function() {
-            //this.generateSelect( 'INDUSTRY', this.$industry );
-            util.getIndustry(this.$industry);
-            this.generateSelect('PRODUCT_MODULE', this.$pModule);
-            this.generateSelect('ENT_LST_SOURCE', this.$source);
+            util.getClassIndustry([this.$clOneIndustry, this.$clTwoIndustry, this.$clThreeIndustry]);
         },
         generateSelect: function(name, $select, callback) {
             util.getEnums(name, function(data) {
@@ -138,70 +145,83 @@ define(function(require, exports, module) {
             });
         },
         clear: function() {
-            this.$code.val('');
+            this.$agent.val('');
             this.$ast.val('');
             this.$aet.val('');
             this.$cst.val('');
             this.$cet.val('');
-            this.$list.val('');
+            this.$entType.val('');
+            this.$entID.val('');
+            this.$entCount.val('');
             this.$result.html('');
         },
         reset: function() {
-            this.$industry.val('');
-            this.$pModule.val('');
-            this.$source.val('');
-            this.$code.val('');
+            this.$clOneIndustry.val('');
+            this.$clTwoIndustry.val('');
+            this.$clThreeIndustry.val('');
+            this.$entType.val('');
+            this.$isRegister.val('');
             this.$ast.val(this.getDateString(-8));
             this.$aet.val(this.getDateString(-1));
             this.$cst.val('');
             this.$cet.val('');
-            this.$listtype.val('1');
-            this.$fstatus.val('');
-            this.$list.val('');
+            this.$agent.val('');
+            this.$entCount.val('');
+            this.$entID.val('');
             this.$result.html('');
         },
         search: function() {
             var me = this;
             var data = {
-                industry: me.$industry.val(),
-                pm: me.$pModule.val(),
-                code: me.$code.val(),
-                fStatus: me.$fstatus.val(),
-                source: me.$source.val()
+                industry: '',
+                enterpriseType: me.$entType.val(),
+                isRegister: me.$isRegister.val(),
+                department: me.$agent.val(),
+                enterpriseAccounts: me.$entCount.val(),
+                enterpriseIds: me.$entID.val(),
             };
-            if (me.$ast.val()) {
-                data.ast = new Date(me.$ast.val()).getTime();
-            }
-            if (me.$aet.val()) {
-                data.aet = new Date(me.$aet.val()).getTime();
+            if (me.$clThreeIndustry.val() != "") {
+                data.industry = me.$clThreeIndustry.val();
+            } else {
+                if (me.$clTwoIndustry.val() != "") {
+                    data.industry = me.$clTwoIndustry.val();
+                } else {
+                    if (me.$clOneIndustry.val() != "") { //优先选择级别最高的行业;
+                        data.industry = me.$clOneIndustry.val();
+                    } else {
+                        data.industry = "";
+                    }
+                }
             }
             if (me.$cst.val()) {
-                data.cst = new Date(me.$cst.val()).getTime();
+                data.appStart = new Date(me.$cst.val()).getTime(); //开通起始日期
             }
             if (me.$cet.val()) {
-                data.cet = new Date(me.$cet.val()).getTime();
-            }
-            if (me.$list.val()) {
-                data.listType = me.$listType.val();
-                data.list = me.$list.val();
+                data.appEnd = new Date(me.$cet.val()).getTime(); //开通结束日期
             }
             me.$result.html('');
             me.$search.attr('disabled', 'disabled');
             me.$search.addClass('disabled');
             var originData = data;
             util.api({
-                url: '/query/act/count2',
+                url: '~/op/api/activity/big/eidskey', //第一次去请求model值
                 data: data,
                 success: function(data) {
                     if (data.success) {
-                        if (data.value.model >= 0) {
-
+                        if (data.value.model) {
                             util.api({
-                                data: originData,
-                                url: '/query/act/generatebig2',
+                                data: {
+                                    "accountId": IBSS.accountId,
+                                    "auth": 0,
+                                    "start": new Date(me.$ast.val()).getTime(),
+                                    "remark": '',
+                                    "end": new Date(me.$aet.val()).getTime(),
+                                    "uuid": data.value.model
+                                },
+                                url: '~/hda/bigactivity/mission/run', // 第二次同样是请求model值
                                 success: function(data) {
                                     if (data.success) {
-                                        doDownFile('/op/api/s/query/act/downloadhdfsbig?path=' + data.model.gPath, me.$search, me.$tips, function() {
+                                        doDownFile('~/hda/bigactivity/mission/state', data, me.$search, me.$tips, function() {
                                             me.$search.removeClass('disabled');
                                             me.$search.removeAttr('disabled');
                                             me.getList();
@@ -221,11 +241,14 @@ define(function(require, exports, module) {
         generate: function() {
             var me = this;
             var data = {
-                industry: me.$industry.val(),
-                pm: me.$pModule.val(),
-                code: me.$code.val(),
-                fStatus: me.$fstatus.val(),
-                source: me.$source.val()
+                industryOne: me.$clOneIndustry.val(),
+                industryTwo: me.$clTwoIndustry.val(),
+                industryThree: me.$clThreeIndustry.val(),
+                entType: me.$entType.val(),
+                isRegister: me.$isRegister.val(),
+                agent: me.$agent.val(),
+                entCount: me.$entCount.val(),
+                entID: me.$entID.val(),
             };
             if (me.$ast.val()) {
                 data.ast = new Date(me.$ast.val()).getTime();
@@ -238,10 +261,6 @@ define(function(require, exports, module) {
             }
             if (me.$cet.val()) {
                 data.cet = new Date(me.$cet.val()).getTime();
-            }
-            if (me.$list.val()) {
-                data.listType = me.$listType.val();
-                data.list = me.$list.val();
             }
             var $generate = me.$result.find('#btnGenerate'),
                 $download = me.$result.find('#btnDownload'),
@@ -272,7 +291,11 @@ define(function(require, exports, module) {
                     $generate.removeAttr('disabled');
                 }
             });
-
+        },
+        downSingle: function(event) {
+            IBSS.model = event.currentTarget.value;
+            util.initIframe();
+            $('#submit').click();
         },
         download: function(e) {
             var target = e.currentTarget,
@@ -298,7 +321,7 @@ define(function(require, exports, module) {
             me.$('.u-tablelist tbody tr').remove();
             $.extend(data, me.model.all());
             util.api({
-                'url': '/query/act/sparktaskbig',
+                'url': '~/op/api/activity/big/history',
                 'data': {},
                 beforeSend: function() {
                     me.$('.u-tablelist tbody tr').html('<tr><td colspan="9"><p class="info">加载中...</p></td></tr>');
@@ -307,9 +330,7 @@ define(function(require, exports, module) {
                     console.warn(data);
                     if (data.success) {
                         me.pagination.setTotalSize(data.value.model.itemCount);
-                        me.collection.reload(data.value.model.content, function(item) {
-
-                        });
+                        me.collection.reload(data.value.model.content, function(item) {});
                         me.renderList();
                     }
                 }
@@ -320,7 +341,6 @@ define(function(require, exports, module) {
             var me = this;
             var collection = me.collection.all();
             var htmlStr = '';
-
             if (collection.length > 0) {
                 htmlStr = me.trTpl({
                     'content': collection
@@ -332,10 +352,12 @@ define(function(require, exports, module) {
         }
     });
 
+
     exports.init = function() {
         var $el = exports.$el;
         var actLst = new ActLst({
             'view': $el.find('.m-act-lst')
         });
     }
+
 });
