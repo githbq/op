@@ -10,7 +10,6 @@ define(function (require, exports, module) {
 		'2': '分期',
 		'3': '未付'
 	}
-
 	function getRejectReason(rejectReason) {
 		var opinionObj = { 'support': '小助手开通', 'support2': '小助手确认', 'finance': '数据中心', 'sup': '小助手' };
 		var personStr = "support,support2,finance,sup";
@@ -28,9 +27,12 @@ define(function (require, exports, module) {
 				tempAry = tempAry.slice(1);
 			} else {
 				if (personStr.indexOf(tempAry[1]) > -1) {
-					tempAry[1] = opinionObj[tempAry[1]] + '-' + tempAry[0];;
+					tempAry[1] = opinionObj[tempAry[1]] + '-' + tempAry[0];
+					tempAry = tempAry.slice(1);
+				} else {
+					tempAry[0] = (opinionObj[tempAry[0]] + '-' + tempAry[0]);
+					tempAry.push('');
 				}
-				tempAry = tempAry.slice(1);
 			}
 
 
