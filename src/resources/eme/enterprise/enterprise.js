@@ -358,7 +358,11 @@ define(function (require, exports, module) {
                         me.model.set('enterpriseType', data.value.model.enterpriseType);
 						me.model.set('enterpriseAccount', data.value.model.enterpriseAccount);
 						me.model.set('contactName', data.value.model.odrDraftEnterprise.contactName);
-						me.model.set('contactPhone', data.value.model.odrDraftEnterprise.contactPhone);
+						debugger
+						var tempPhone = data.value.model.odrDraftEnterprise.contactPhone.split('');
+						tempPhone.splice(3,4,'****');
+						//tempPhone = tempPhone+('****');
+						me.model.set('contactPhone', tempPhone.join(""));
 						me.model.set('contactEmail', data.value.model.odrDraftEnterprise.contactEmail);
 						me.model.set('contactIm', data.value.model.odrDraftEnterprise.contactIm);
 						
