@@ -101,8 +101,11 @@ define(function(require, exports, module) {
                 format: 'Y/m/d',
                 onShow: function() {
                     var minDate = me.$ast.val() ? me.$ast.val() : false;
+                    var maxDate = me.getDateString(-1);
+
                     this.setOptions({
-                        minDate: minDate
+                        minDate: minDate,
+                        maxDate: maxDate
                     });
                 },
                 timepicker: false
@@ -121,8 +124,11 @@ define(function(require, exports, module) {
                 format: 'Y/m/d',
                 onShow: function() {
                     var minDate = me.$cst.val() ? me.$cst.val() : false;
+                    var maxDate = me.getDateString(-1);
                     this.setOptions({
-                        minDate: minDate
+                        minDate: minDate,
+                        maxDate: maxDate
+
                     });
                 },
                 timepicker: false
@@ -145,14 +151,18 @@ define(function(require, exports, module) {
             });
         },
         clear: function() {
-            this.$agent.val('');
-            this.$ast.val('');
-            this.$aet.val('');
+            this.$clOneIndustry.val('');
+            this.$clTwoIndustry.val('');
+            this.$clThreeIndustry.val('');
+            this.$entType.val('');
+            this.$isRegister.val('');
+            this.$ast.val(this.getDateString(-30));
+            this.$aet.val(this.getDateString(-1));
             this.$cst.val('');
             this.$cet.val('');
-            this.$entType.val('');
-            this.$entID.val('');
+            this.$agent.val('');
             this.$entCount.val('');
+            this.$entID.val('');
             this.$result.html('');
         },
         reset: function() {
@@ -161,7 +171,7 @@ define(function(require, exports, module) {
             this.$clThreeIndustry.val('');
             this.$entType.val('');
             this.$isRegister.val('');
-            this.$ast.val(this.getDateString(-8));
+            this.$ast.val(this.getDateString(-30));
             this.$aet.val(this.getDateString(-1));
             this.$cst.val('');
             this.$cet.val('');
@@ -305,7 +315,7 @@ define(function(require, exports, module) {
         },
         getDateString: function(offset, base) {
             var date = this.getDate(offset, base);
-            return util.formatDate(date, 'YYYY-MM-dd');
+            return util.formatDate(date, 'YYYY/MM/dd');
         },
         getDate: function(offset, base) {
             if (!base) {
