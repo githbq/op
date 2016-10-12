@@ -20,7 +20,6 @@ define(function(require, exports, module) {
                 url: url,
                 dataType: "json",
                 success: function(result) {
-                    console.log(result.value.model);
                     if (result.value.model) {
                         $tips.text('');
                         $button.removeClass('disabled');
@@ -28,7 +27,6 @@ define(function(require, exports, module) {
                         IBSS.model = idData.value.model;
                         util.initIframe();
                         $('#submit').click();
-                        console.log(2);
                     } else {
                         setTimeout(function() {
                             downFile();
@@ -139,7 +137,7 @@ define(function(require, exports, module) {
         initializeSelect: function() {
             util.getClassIndustry([this.$clOneIndustry, this.$clTwoIndustry, this.$clThreeIndustry]);
         },
-        generateSelect: function(name, $select, callback) {
+        generateSelect: function(name, $select, callback) { //这个函数没有调用
             util.getEnums(name, function(data) {
                 var items = data.model,
                     options = '';
@@ -307,7 +305,7 @@ define(function(require, exports, module) {
             util.initIframe();
             $('#submit').click();
         },
-        download: function(e) {
+        download: function(e) { //没有调用
             var target = e.currentTarget,
                 path = $(target).attr('data-path');
             var url = location.protocol + '//' + location.host + IBSS.API_PATH + '/query/act/download?path=' + path;
@@ -337,7 +335,6 @@ define(function(require, exports, module) {
                     me.$('.u-tablelist tbody tr').html('<tr><td colspan="9"><p class="info">加载中...</p></td></tr>');
                 },
                 'success': function(data) {
-                    console.warn(data);
                     if (data.success) {
                         me.pagination.setTotalSize(data.value.model.itemCount);
                         me.collection.reload(data.value.model.content, function(item) {});
