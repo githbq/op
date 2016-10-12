@@ -25,7 +25,7 @@ define(function (require, exports, module) {
     }
 
     app.directive('imagePreview', ['fileService', '$timeout', function (fileService, $timeout) {
-        debugger
+        // debugger
         return {
             replace: true,
             template: $(template).filter('.image-preview')[0].outerHTML,
@@ -68,7 +68,7 @@ define(function (require, exports, module) {
                     showPreview.value = true;
                 };
                 scope.deleteImage = function ($index) {
-                    debugger
+                    // debugger
                     scope.imgArr.splice($index, 1);
                     scope.ngModel = scope.imgArr.join(',');
                 };

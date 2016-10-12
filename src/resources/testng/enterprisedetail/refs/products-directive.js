@@ -1,13 +1,13 @@
 //产品指令
-define(function (require, exports, module) {
+define(function(require, exports, module) {
     //var productJson = require('./productsjson.js');
 
     var waterfallcomput = require('./waterfallcomput');
     var colWrapperStr = '<div class="product-col-wraper"></div>';
     //瀑布布局重置
     function wrapperReset(delay) {
-        setTimeout(function () {
-            $('.product-agent').each(function (i, n) {
+        setTimeout(function() {
+            $('.product-agent').each(function(i, n) {
                 var $dom = $(n);
                 if ($dom.parents('.product-col-wraper').length > 0) {
                     $dom.unwrap();
@@ -40,7 +40,7 @@ define(function (require, exports, module) {
         $('.product-label').removeClass('active2').filter('[data-productid=' + productId + ']').addClass('active2');
     }
 
-    angular.module('formApp').directive('products', function () {
+    angular.module('formApp').directive('products', function() {
         return {
             scope: {
                 dataResult: '=',
@@ -49,21 +49,22 @@ define(function (require, exports, module) {
                 show: '=',
                 initData: '=',
                 productJson: '=',
-                launchTime: '='//开始时间
+                editSave:'=',
+                launchTime: '=' //开始时间
             },
             template: require('./products-template.html'),
-            controller: ['$scope', '$timeout', 'productService', function ($scope, $timeout, productService) {
+            controller: ['$scope', '$timeout', 'productService', function($scope, $timeout, productService) {
                 //标记是否由用户操作界面
                 $scope.isUserControl = false;
                 //全模块只读监听
-                $scope.$watch('allReadonly', function () {
-                    $timeout(function () {
+                $scope.$watch('allReadonly', function() {
+                    $timeout(function() {
                         //啥也不干
                     }, 10);
                 });
-                $scope.showed = false;//标记是否已经显示过
+                $scope.showed = false; //标记是否已经显示过
                 //可见性属性监听
-                $scope.$watch('show', function () {
+                $scope.$watch('show', function() {
                     if ($scope.show && !$scope.showed) {
                         init();
                         $scope.showed = true;
@@ -72,11 +73,11 @@ define(function (require, exports, module) {
                     }
                 });
                 //可见性属性监听
-                $scope.$watch('launchTime', function (newVal) {
+                $scope.$watch('launchTime', function(newVal) {
                     init();
                 });
                 //dom事件绑定
-                setTimeout(function () {
+                setTimeout(function() {
                     var $container = $('.enterprise-panel');
                     //用户体验优化
                     //窗口改变大小事件
@@ -88,17 +89,17 @@ define(function (require, exports, module) {
                         .on('click', '.product-agent', clickAgentEvent);
                 }, 10);
                 //初始化数据监听
-                $scope.$watch('initData', function (newVal, oldVal) {
+                $scope.$watch('initData', function(newVal, oldVal) {
                     if (newVal) {
                         init();
                     }
                 });
                 //产品结构数据监听
-                $scope.$watch('productJson', function (newVal, oldVal) {
+                $scope.$watch('productJson', function(newVal, oldVal) {
                     init();
                 });
                 //用户上次保存的数据监听
-                $scope.$watch('fromData', function (newVal, oldVal) {
+                $scope.$watch('fromData', function(newVal, oldVal) {
                     console.log(' fromData init');
 
                     console.warn(newVal);
@@ -112,16 +113,16 @@ define(function (require, exports, module) {
                     $scope.initData = $scope.initData || [];
                     $scope.products = $scope.products || [];
                     $scope.fromData = $scope.fromData || [];
-                    $scope.dataResult = $scope.dataResult || [];//对外暴露的结果数据
+                    $scope.dataResult = $scope.dataResult || []; //对外暴露的结果数据
                     if (!$scope.productJson) {
                         return;
                     }
-                    $scope.productJson.global.launchTime = $scope.launchTime;//开始时间
+                    $scope.productJson.global.launchTime = $scope.launchTime; //开始时间
                     //后端推过来的结果 与提交的结果完全一致的数据结构
                     //$scope.fromData = [{data: [], state: 0, productId: 1}, {data: [], productId: 11}, {data: [], productId: 111}, {data: [], productId: 1111}, {data: [], productId: 11111}];
                     //JSON格式转换
                     //logic位置重排序
-                    _.each($scope.productJson.logics, function (item, i) {
+                    _.each($scope.productJson.logics, function(item, i) {
                         item.index = _.findIndex($scope.productJson.products, { productId: item.attr.productId });
                         if ($scope.productJson.defaultStatus) {
                             var findDefault = _.findWhere($scope.productJson.defaultStatus, { productId: item.attr.productId });
@@ -130,7 +131,7 @@ define(function (require, exports, module) {
                             }
                         }
                     });
-                    $scope.productJson.logics = $scope.productJson.logics.sort(function (a, b) {
+                    $scope.productJson.logics = $scope.productJson.logics.sort(function(a, b) {
                         return a.index - b.index;
                     });
 
@@ -143,7 +144,7 @@ define(function (require, exports, module) {
                     }
 
                     //产品复选框
-                    $scope.productCheckboxs = _.map($scope.productJson.products, function (item, i) {
+                    $scope.productCheckboxs = _.map($scope.productJson.products, function(item, i) {
                         var findProduct = _.findWhere($scope.fromData, { productId: item.productId });
                         item.show = !!findProduct;
                         return {
@@ -156,7 +157,7 @@ define(function (require, exports, module) {
                     //初始化数据对复选框进行操作
 
                     //对复选框进行操作
-                    _.each($scope.productCheckboxs, function (item, i) {
+                    _.each($scope.productCheckboxs, function(item, i) {
                         //初始数据填充
                         var findDataItem = _.findWhere($scope.initData, { productId: item.id });
                         if (findDataItem) {
@@ -193,9 +194,9 @@ define(function (require, exports, module) {
                 }
 
                 //检测组是否显示
-                $scope.checkGroupShow = function (items) {
+                $scope.checkGroupShow = function(items) {
                     var hasVisible = false;
-                    _.each(items, function (n, i) {
+                    _.each(items, function(n, i) {
                         if (n.hidden !== true) {
                             hasVisible = true;
                             return;
@@ -209,7 +210,7 @@ define(function (require, exports, module) {
                     var find = _.findWhere($scope.fromData, { productId: product.productId });
                     var findInitData = _.findWhere($scope.initData || [], { productId: product.productId });
                     //不再直接替换成结果data而是用采用结果data去赋值给原始data 最终取值使用原始data
-                    _.each(product.logic.data, function (item, i) {
+                    _.each(product.logic.data, function(item, i) {
                         var rData = null;
                         //先赋初始化数据
                         if (findInitData && findInitData.data) {
@@ -236,11 +237,11 @@ define(function (require, exports, module) {
                     if (find && !checkUN(find.state)) { //结果数据会可能修改状态
                         product.logic.currState = find.state;
                     }
-                    if (!checkUN(state)) {//传参过来的状态
+                    if (!checkUN(state)) { //传参过来的状态
                         product.logic.currState = state;
                     }
-                    var stateData = getStateCombine(product.logic, product);//所有的状态
-                    product.states = stateData.allStates;// stateData.visibleStates;//可见的状态
+                    var stateData = getStateCombine(product.logic, product); //所有的状态
+                    product.states = stateData.allStates; // stateData.visibleStates;//可见的状态
                     var findIndex = _.findIndex($scope.products, { productId: product.productId });
                     if (findIndex >= 0) {
                         $scope.products[findIndex] = product;
@@ -264,7 +265,7 @@ define(function (require, exports, module) {
 
                 //如果用户快速点击复选框在DOM没渲染成功的时候就执行了第二次重组会发生意想不到的事情，所以要避免用户点击导致数组变动过快
                 //复选框选中事件
-                $scope.checkProduct = function (checked, checkbox) {
+                $scope.checkProduct = function(checked, checkbox) {
                     $scope.checkboxDisabled = true;
                     var findProduct = _.findWhere($scope.products, { productId: checkbox.id });
                     findProduct.show = checked;
@@ -272,7 +273,7 @@ define(function (require, exports, module) {
                     var dataResultItem = _.findWhere($scope.dataResult, { productId: checkbox.id });
                     dataResultItem && (dataResultItem.show = findProduct.show);
                     wrapperReset();
-                    $timeout(function () {
+                    $timeout(function() {
                         $scope.checkboxDisabled = false;
                     }, 500);
                 };
@@ -297,18 +298,18 @@ define(function (require, exports, module) {
                                 findData.value = newState.value.value;
                             }
                             newState.value.valueData = findData;
-                            if ($scope.isUserControl && newState.value.valueData.readonly === true && !newState.readonly) {//在用户操作的值清空逻辑
+                            if ($scope.isUserControl && newState.value.valueData.readonly === true && !newState.readonly) { //在用户操作的值清空逻辑
                                 newState.value.valueData.value = '';
                             }
-                            newState.value.valueData.hidden = newState.hidden;//由于数据是固定的而结构经常在变动 部分状态保存在data上
+                            newState.value.valueData.hidden = newState.hidden; //由于数据是固定的而结构经常在变动 部分状态保存在data上
                             newState.value.valueData.readonly = newState.readonly;
                         }
-                        switchSetStateValue(newState, product);//数据赋值逻辑
-                        switchSetHiddenValue(newState, product);//数据赋值逻辑
+                        switchSetStateValue(newState, product); //数据赋值逻辑
+                        switchSetHiddenValue(newState, product); //数据赋值逻辑
                     }
                     var tempItems = [];
                     var hiddenTempItems = [];
-                    _.each(baseState, function (item, i) {
+                    _.each(baseState, function(item, i) {
                         if (!item.hidden) {
                             tempItems.push(item);
                         } else {
@@ -326,15 +327,14 @@ define(function (require, exports, module) {
                                 {
                                     var findData = _.findWhere(product.logic.data, { name: newState.hiddenLogic.dataRef });
                                     if (findData) {
-                                        _.each(newState.hiddenLogic.case, function (item, i) {
+                                        _.each(newState.hiddenLogic.case, function(item, i) {
                                             if (item.key == findData.value) {
                                                 newState.hidden = item.value;
                                                 newState.value.valueData.hidden = item.value;
                                             }
                                         });
                                     }
-                                }
-                                ;
+                                };
                                 break;
                         }
                     }
@@ -349,12 +349,12 @@ define(function (require, exports, module) {
                                     ajaxSetValue(newState.value, product);
                                 }
                                 break;
-                            case 'normal'://普通赋值由由结构中向数据赋值
+                            case 'normal': //普通赋值由由结构中向数据赋值
                                 {
                                     newState.value.valueData.value = newState.value.value;
                                 }
                                 break;
-                            case 'copy'://指定data里的一个值赋给这个值
+                            case 'copy': //指定data里的一个值赋给这个值
                                 {
                                     newState.value.valueData.value = getValueForSwitchValueType(newState.value.valueType, newState.value.valueRef, product)
                                 }
@@ -371,16 +371,15 @@ define(function (require, exports, module) {
                 //end JSON格式转换
 
 
-                $scope.deleteArray = function (items, index) {
+                $scope.deleteArray = function(items, index) {
                     if (items && items.length > 0) {
                         items.splice(index, 1);
                     }
                 };
-                $scope.clickMe = function () {
-                };
+                $scope.clickMe = function() {};
 
                 //控制值改变时事件  fieldStruct 元素的模型
-                $scope.fieldChange = function (fieldStruct, product, form) {
+                $scope.fieldChange = function(fieldStruct, product, form) {
                     $scope.isUserControl = true;
                     //执行事件
                     fieldStruct.onchange = fieldStruct.onchange || [];
@@ -394,37 +393,35 @@ define(function (require, exports, module) {
                         }
                     }
                     //根据权重重新排序
-                    fieldStruct.onchange = fieldStruct.onchange.sort(function (a, b) {
+                    fieldStruct.onchange = fieldStruct.onchange.sort(function(a, b) {
                         return b.priority - a.priority;
                     });
                     for (var i = 0; i < fieldStruct.onchange.length; i++) {
                         var changeItem = fieldStruct.onchange[i];
                         done(changeItem);
                     }
-                    setTimeout(function () {
+                    setTimeout(function() {
                         $scope.$apply();
                     }, 10);
+
                     function done(changeItem) {
                         switch (changeItem.type) {
                             case 'evaluation':
                                 {
                                     //直接赋值操作
                                     evaluationForValueType(changeItem, fieldStruct, product);
-                                }
-                                ;
+                                };
                                 break;
                             case 'ajax':
                                 {
                                     //远程赋值操作
                                     ajaxSetValue(changeItem, product);
-                                }
-                                ;
+                                };
                             case 'attribute':
                                 {
                                     //远程赋值操作
                                     attributeSetValue(changeItem, fieldStruct, product);
-                                }
-                                ;
+                                };
                         }
                     }
                 };
@@ -432,7 +429,7 @@ define(function (require, exports, module) {
                 function attributeSetValue(changeItem, fieldStruct, product) {
                     //根据值不同给其他数据的属性赋值
                     if (changeItem.switch) {
-                        _.each(changeItem.switch, function (item, i) {
+                        _.each(changeItem.switch, function(item, i) {
                             if (fieldStruct.value.valueData.value == item.value) {
                                 eachActions(item.actions);
                             }
@@ -441,7 +438,7 @@ define(function (require, exports, module) {
                     //遍历行为
                     function eachActions(actions) {
                         if (actions) {
-                            _.each(actions, function (item, i) {
+                            _.each(actions, function(item, i) {
                                 var findData = _.findWhere(product.states, { name: item.name });
                                 if (findData && angular.isDefined(item.hidden)) {
                                     findData.value.valueData && (findData.value.valueData.hidden = item.hidden);
@@ -460,8 +457,8 @@ define(function (require, exports, module) {
                     util.api({
                         url: '~' + changeItem.url,
                         data: getQueryData(changeItem.query, product),
-                        success: function (result) {
-                            if (result.success && result.value.model) {//如果查询无效 result.value.model为false或者null
+                        success: function(result) {
+                            if (result.success && result.value.model) { //如果查询无效 result.value.model为false或者null
                                 setResponse(result.value.model, changeItem, product);
                             }
                         }
@@ -469,17 +466,15 @@ define(function (require, exports, module) {
                 };
                 //根据ajax返回的值向数据中赋值
                 function setResponse(data, changeItem, product) {
-                    $timeout(function () {
-                        if (changeItem.backName && changeItem.valueData) {//单一数据来源赋值
+                    $timeout(function() {
+                        if (changeItem.backName && changeItem.valueData) { //单一数据来源赋值
                             changeItem.valueData.value = data[changeItem.backName];
-                        }
-                        else if (changeItem.response.writeBackType == 'merge') {//合并到data上
-                            _.each(data, function (value, key) {
+                        } else if (changeItem.response.writeBackType == 'merge') { //合并到data上
+                            _.each(data, function(value, key) {
                                 var findData = _.findWhere(product.logic.data, { name: key });
                                 findData && (findData.value = value);
                             });
-                        }
-                        else if (changeItem.response.writeBackType == 'mapping' && changeItem.response.mapper) {//映射合并
+                        } else if (changeItem.response.writeBackType == 'mapping' && changeItem.response.mapper) { //映射合并
                             for (var i = 0; i < changeItem.response.mapper.length; i++) {
                                 var mapperItem = changeItem.response.mapper[i];
                                 setMappingValue(data, mapperItem, product);
@@ -496,21 +491,18 @@ define(function (require, exports, module) {
                                 if (findData) {
                                     findData.value = responseData[mapperItem.name];
                                 }
-                            }
-                            ;
+                            };
                             break;
                         case 'attr':
                             {
                                 product.logic.attr[mapperItem.valueRef] = responseData[mapperItem.name];
 
-                            }
-                            ;
+                            };
                             break;
                         case 'global':
                             {
                                 $scope.productJson.global[mapperItem.valueRef] = responseData[mapperItem.name];
-                            }
-                            ;
+                            };
                             break;
                     }
                 }
@@ -523,35 +515,31 @@ define(function (require, exports, module) {
                                 //从data中赋值
                                 var find = _.findWhere(product.logic.data, { name: changeItem.target });
                                 setValueForSource(changeItem, find, { data: true }, fieldStruct);
-                            }
-                            ;
+                            };
                             break;
 
                         case 'attr':
                             {
                                 setValueForSource(changeItem, product.logic.attr, { attr: true }, fieldStruct);
-                            }
-                            ;
+                            };
                             break;
                         case 'global':
                             {
                                 //从global中赋值
                                 setValueForSource(changeItem, $scope.productJson.global, { global: true }, fieldStruct);
-                            }
-                            ;
+                            };
                             break;
                         case 'state':
-                            {   //改变状态
+                            { //改变状态
                                 setStateForSource(changeItem, fieldStruct, product);
-                            }
-                            ;
+                            };
                             break;
                     }
                 }
 
                 //设置状态
                 function setStateForSource(changeItem, fieldStruct, product) {
-                    _.each(fieldStruct.items, function (n) {//目前只有拥有 items属性的元素才会有可能改变状态
+                    _.each(fieldStruct.items, function(n) { //目前只有拥有 items属性的元素才会有可能改变状态
                         var findState = n[changeItem.source];
                         if (findState !== undefined && n.value == fieldStruct.value.valueData.value) {
                             changeState(product, findState);
@@ -580,7 +568,7 @@ define(function (require, exports, module) {
                     var data = {};
                     for (var i = 0; i < querys.length; i++) {
                         var queryItem = querys[i];
-                        if (!checkUN(queryItem.value)) {//支持直接在验证项上添加固定值
+                        if (!checkUN(queryItem.value)) { //支持直接在验证项上添加固定值
                             data[queryItem.name] = queryItem.value;
                         } else {
                             var findValue = getValueForSwitchValueType(queryItem.valueType, queryItem.valueRef, product);
@@ -602,27 +590,24 @@ define(function (require, exports, module) {
                                 } catch (e) {
                                     throw new error("数据上未配置这个关联名称:" + refName);
                                 }
-                            }
-                            ;
+                            };
                             break;
                         case 'attr':
                             {
                                 value = product.logic.attr[refName];
-                            }
-                            ;
+                            };
                             break;
                         case 'global':
                             {
                                 value = $scope.productJson.global[refName];
-                            }
-                            ;
+                            };
                             break;
                     }
                     return value;
                 }
 
                 //获取对应的验证值  如果验证项上有value属性且不为空  则优先使用
-                $scope.getValidateValue = function (validateName, fieldStruct, product) {
+                $scope.getValidateValue = function(validateName, fieldStruct, product) {
                     if (fieldStruct.validate && fieldStruct.validate[validateName]) {
                         var result = null;
                         var validateItem = fieldStruct.validate[validateName];
@@ -635,17 +620,48 @@ define(function (require, exports, module) {
                     }
                 };
                 //弹窗选择 添加销售
-                $scope.selectSalesmenDialog = function (array) {
+                $scope.selectSalesmenDialog = function(array) {
                     productService.selectSalesmenDialog(array, $timeout);
                 };
                 //弹窗选择 添加跟进人
-                $scope.selectPartnersDialog = function (array) {
+                $scope.selectPartnersDialog = function(array) {
                     productService.selectPartnersDialog(array, $timeout);
                 };
+
+                /*
+                 ** 订单修改
+                 */
+                $scope.productEditObj = {
+                    showEditSave: 0,
+                    editArray: ['sales', 'isDouble','doubleSales', 'isSelfDev','partners']
+                }
+                $scope.productEdit = function() {
+                    $scope.productEditObj.showEditSave = 1;
+                    $scope.allReadonly = false;
+                    $scope.products.forEach(function(products) {
+                        $scope.fromData.forEach(function(fromData) {
+                            if (products.productId == fromData.productId) {
+                                console.dir(products.states)
+                                products.states.forEach(function(i) {
+                                    if($scope.productEditObj.editArray.indexOf(i.name) !== -1){
+                                        i.readonly = false;
+                                    }else{
+                                        i.readonly = true;
+                                    }
+                                });
+                            }
+                        });
+                    })
+                }
+                $scope.productEditSave = function() {
+                    // $scope.editSave()
+                
+                    console.dir(JSON.stringify($scope.fromData));
+                    // console.dir($scope.editForm);
+                    // console.dir($scope.editForm.mainForm['stepForm2']);
+                    // $scope.editForm.nextStep($scope.editForm.mainForm['stepForm2']);
+                }
             }]
         }
-    }
-    )
-        ;
-})
-    ;
+    });
+});
