@@ -60,7 +60,6 @@ define(function(require, exports, module) {
         },
         events: {
             'click #btnSearch': 'search',
-            'click #btnClear': 'clear',
             'click #btnReset': 'reset',
             'click #btnGenerate': 'generate',
             'click #btnDownload': 'download',
@@ -130,7 +129,7 @@ define(function(require, exports, module) {
                 },
                 timepicker: false
             });
-            me.$ast.val(me.getDateString(-30));
+            me.$ast.val(me.getDateString(-7));
             me.$aet.val(me.getDateString(-1));
         },
         initializeSelect: function() {
@@ -147,28 +146,13 @@ define(function(require, exports, module) {
                 callback && callback(items);
             });
         },
-        clear: function() {
-            this.$clOneIndustry.val('');
-            this.$clTwoIndustry.val('');
-            this.$clThreeIndustry.val('');
-            this.$entType.val('');
-            this.$isRegister.val('');
-            this.$ast.val(this.getDateString(-30));
-            this.$aet.val(this.getDateString(-1));
-            this.$cst.val('');
-            this.$cet.val('');
-            this.$agent.val('');
-            this.$entCount.val('');
-            this.$entID.val('');
-            this.$result.html('');
-        },
         reset: function() {
             this.$clOneIndustry.val('');
             this.$clTwoIndustry.val('');
             this.$clThreeIndustry.val('');
             this.$entType.val('');
             this.$isRegister.val('');
-            this.$ast.val(this.getDateString(-30));
+            this.$ast.val(this.getDateString(-7));
             this.$aet.val(this.getDateString(-1));
             this.$cst.val('');
             this.$cet.val('');
