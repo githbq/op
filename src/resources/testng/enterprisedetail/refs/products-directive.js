@@ -49,7 +49,7 @@ define(function(require, exports, module) {
                 show: '=',
                 initData: '=',
                 productJson: '=',
-                editSave:'=',
+                editSave: '=',
                 launchTime: '=' //开始时间
             },
             template: require('./products-template.html'),
@@ -633,7 +633,7 @@ define(function(require, exports, module) {
                  */
                 $scope.productEditObj = {
                     showEditSave: 0,
-                    editArray: ['sales', 'isDouble','doubleSales', 'isSelfDev','partners']
+                    editArray: ['sales', 'isDouble', 'doubleSales', 'isSelfDev', 'partners']
                 }
                 $scope.productEdit = function() {
                     $scope.productEditObj.showEditSave = 1;
@@ -643,9 +643,9 @@ define(function(require, exports, module) {
                             if (products.productId == fromData.productId) {
                                 console.dir(products.states)
                                 products.states.forEach(function(i) {
-                                    if($scope.productEditObj.editArray.indexOf(i.name) !== -1){
+                                    if ($scope.productEditObj.editArray.indexOf(i.name) !== -1) {
                                         i.readonly = false;
-                                    }else{
+                                    } else {
                                         i.readonly = true;
                                     }
                                 });
@@ -655,8 +655,16 @@ define(function(require, exports, module) {
                 }
                 $scope.productEditSave = function() {
                     // $scope.editSave()
-                
                     console.dir(JSON.stringify($scope.fromData));
+                    util.api({
+                        url: '~/op/api/a/enterprise/transferEnterprises',
+                        data:JSON.stringify($scope.fromData),
+                        success: function(data) {
+                            if (data.success) {
+                                util.showTip('企业转移成功');
+                            }
+                        }
+                    });
                     // console.dir($scope.editForm);
                     // console.dir($scope.editForm.mainForm['stepForm2']);
                     // $scope.editForm.nextStep($scope.editForm.mainForm['stepForm2']);
