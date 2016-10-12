@@ -111,7 +111,7 @@ define(function(require, exports, module) {
             me.$cst.datetimepicker({
                 format: 'Y/m/d',
                 onShow: function() {
-                    var maxDate = me.$cet.val() ? me.$cet.val() : false;
+                    var maxDate = me.$cet.val() ? me.$cet.val() : me.getDateString(-1);
                     this.setOptions({
                         maxDate: maxDate
                     });
@@ -126,7 +126,6 @@ define(function(require, exports, module) {
                     this.setOptions({
                         minDate: minDate,
                         maxDate: maxDate
-
                     });
                 },
                 timepicker: false
