@@ -127,6 +127,7 @@ define(function (require, exports, module) {
             'click .savemonitoring': 'saveMonitoringEve',   //保存监控信息
 
             'click .employee-detail': 'employeeDetailEve',
+			'click #btnSaveLog':'btnSaveLogEve',
             'click .detail-order': 'detailOrderEve',
             ///'click #crmInfoChange':'crmInfoChangeEve'
 
@@ -1632,7 +1633,7 @@ define(function (require, exports, module) {
                 me.loadLog();
             }
         },
-        loadLog: function () {
+        loadLog: function ( pageFirst ) {
 
             console.log('log log log');
             var me = this,
@@ -1642,6 +1643,9 @@ define(function (require, exports, module) {
                     enterpriseId: me.model.attrs.enterpriseId,
                     type: me.$sbLogType.val()
                 };
+			if( pageFirst ){
+				data.pageIndex = 1;
+			}
             if (me.$sbLogST.val()) {
                 data.timeBegin = new Date(me.$sbLogST.val()).getTime();
             }
@@ -1673,6 +1677,28 @@ define(function (require, exports, module) {
         searchLog: function () {
             this.loadLog();
         },
+		//保存操作日志
+		btnSaveLogEve:function(){
+			var me = this;
+			if (!me.$('#logRemark').val()) {
+                util.showToast('请完善操作日志');
+                return false;
+            }
+			util.api({
+                url: '~/op/api/enterprise/addenterpriseoperationlog ',
+                data: {
+					enterpriseId:me.model.attrs.enterpriseId,
+					content:me.$('#logRemark').val()
+				},
+                success: function (data) {
+					if( data.success ){
+						util.showTip('添加操作日志成功！');
+						me.loadLog( 1 )
+					}
+
+                }
+            });
+		},
 
         //??
         changeTrial: function () {

@@ -450,7 +450,17 @@
 					</table>
 					<div class="pager"></div>
 				</div>
+				<p class="tr  f1 f2 f3 f4 off"  style="display:none;">
+					
+					<!--<button id="btnResetAdminPassword" class="f2 off">重置管理员密码</button>-->
+					<label><span>操作日志:</span></label><textarea id="logRemark" rows="3" cols="20" style="width:400px;"  onchange="this.value=this.value.replace(/(^\s*)|(\s*$)/g,'')"></textarea>
+				</p>
+				<p class="tr">
+					<!--<button id="btnResetAdminPassword" class="f2 off">重置管理员密码</button>-->
+					<button class="btn-blue" id="btnSaveLog">保存</button>
+				</p>
 			</div>
+			
 		</section>
 
 		<!--数据统计-->
