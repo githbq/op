@@ -363,7 +363,7 @@
             }
 
             $('body').append(
-                "<form  class='formClass' action=" + "hda/bigactivity/mission/download?id=" + IBSS.model + "   " + "method='POST' enctype='multipart/form-data'  id='formdown' style='display:none;'>" +
+                "<form  class='formClass' action=" + "/hda/bigactivity/mission/download?id=" + IBSS.model + "   " + "method='POST' enctype='multipart/form-data'  id='formdown' style='display:none;'>" +
                 "<button type='submit' id='submit'></button>" +
                 "</form>"
             );
