@@ -592,9 +592,9 @@ define(function(require, exports, module) {
 
             var queryData = me.model.all();
 
-            //TODO 上线删掉 S
-            queryData.approveStatus = 4;
-           //TODO 上线删掉 E
+        //     //TODO 上线删掉 S
+        //     queryData.approveStatus = 4;
+        //    //TODO 上线删掉 E
 
             var putStartTime = '', //提单日期开始
                 putEndTime = ''; //提单日期结束
