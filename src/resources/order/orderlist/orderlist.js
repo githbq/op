@@ -592,7 +592,10 @@ define(function(require, exports, module) {
 
             var queryData = me.model.all();
 
+            //TODO 上线删掉 S
             queryData.approveStatus = 4;
+           //TODO 上线删掉 E
+
             var putStartTime = '', //提单日期开始
                 putEndTime = ''; //提单日期结束
             var payEndTime = '',
@@ -666,7 +669,9 @@ define(function(require, exports, module) {
                                 item.orderTypeStr = orderTypeAry[item.order.orderType];
                                 */
                             });
-                            me.$tbody.find('tr').eq(3).find('td').eq(16).find('a').eq(3).trigger('click');
+                            //TODO 上线删 自动点击进入订单页面，开发用 S
+                            // me.$tbody.find('tr').eq(4).find('td').eq(16).find('a').eq(3).trigger('click');
+                             //TODO 上线删 自动点击进入订单页面，开发用 E
                         } else {
                             me.$tbody.html("<tr> <td colspan='17'><p class='info'>暂无数据</p></td> </tr>");
                         }

@@ -50,6 +50,7 @@ define(function(require, exports, module) {
                 initData: '=',
                 productJson: '=',
                 editSave: '=',
+                globalInfo: '=',
                 launchTime: '=' //开始时间
             },
             template: require('./products-template.html'),
@@ -654,14 +655,23 @@ define(function(require, exports, module) {
                     })
                 }
                 $scope.productEditSave = function() {
-                    // $scope.editSave()
-                    console.dir(JSON.stringify($scope.fromData));
+                    var arr = [];
+                    $scope.fromData.forEach(function(fromData) {
+                        $scope.dataResult.forEach(function(dataResult, idx) {
+                            if (fromData.productId == dataResult.productId) {
+                                arr.push(dataResult)
+                            } 
+                        })
+                    });
                     util.api({
-                        url: '~/op/api/a/enterprise/transferEnterprises',
-                        data:JSON.stringify($scope.fromData),
+                        url: '~/op/api/a/odrDraft/draftorderinfocompile',
+                        data: {
+                            orderId: $scope.globalInfo.orderId,
+                            content: JSON.stringify(arr)
+                        },
                         success: function(data) {
                             if (data.success) {
-                                util.showTip('企业转移成功');
+                                util.showTip(data.value.model);
                             }
                         }
                     });
