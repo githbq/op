@@ -642,7 +642,6 @@ define(function(require, exports, module) {
                     $scope.products.forEach(function(products) {
                         $scope.fromData.forEach(function(fromData) {
                             if (products.productId == fromData.productId) {
-                                console.dir(products.states)
                                 products.states.forEach(function(i) {
                                     if ($scope.productEditObj.editArray.indexOf(i.name) !== -1) {
                                         i.readonly = false;
@@ -675,9 +674,6 @@ define(function(require, exports, module) {
                             }
                         }
                     });
-                    // console.dir($scope.editForm);
-                    // console.dir($scope.editForm.mainForm['stepForm2']);
-                    // $scope.editForm.nextStep($scope.editForm.mainForm['stepForm2']);
                 }
             }]
         }
