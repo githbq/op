@@ -634,12 +634,12 @@ define(function(require, exports, module) {
                  */
                 $scope.productEditObj = {
                     showEditSave: 0,
-                    editArray: ['sales', 'isDouble', 'doubleSales', 'isSelfDev', 'partners', 'sales_2', 'isDouble_2', 'doubleSales_2', 'isSelfDev_2', 'partners_2', ]
+                    editArray: ['sales', 'isDouble', 'doubleSales', 'isSelfDev', 'partners', 'sales_2', 'isDouble_2', 'doubleSales_2', 'isSelfDev_2', 'partners_2']
                 };
                 $scope.productEditCode = function() {
                     var code = 'M008007002001';
                     var arr = IBSS.role.moduleCodes;
-                    return arr.indexOf(code) !== -1 ? true : false;
+                    return arr.indexOf(code) == -1 ? true : false;
                 };
                 $scope.productEdit = function() {
                     $scope.productEditObj.showEditSave = 1;
@@ -668,15 +668,17 @@ define(function(require, exports, module) {
                             if (fromData.productId == dataResult.productId) {
                                 dataResult.data.forEach(function(item) {
                                     if ((item.name == 'isSelfDev' || item.name == 'isSelfDev_2') && item.value == 1) {
+                                        var partnersStr = item.name == 'isSelfDev' ?'partners' : 'partners_2';
                                         dataResult.data.forEach(function(i) {
-                                            if (i.name == 'partners') {
+                                            if (i.name == partnersStr) {
                                                 i.valueItems = [];
                                             }
                                         })
                                     }
                                     if ((item.name == 'isDouble' || item.name == 'isDouble_2') && item.value == 0) {
+                                        var isDoubleStr = item.name == 'isDouble' ?'doubleSales' : 'doubleSales_2';
                                         dataResult.data.forEach(function(i) {
-                                            if (i.name == 'doubleSales') {
+                                            if (i.name == isDoubleStr) {
                                                 i.valueItems = [];
                                             }
                                         })
