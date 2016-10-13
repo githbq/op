@@ -650,9 +650,9 @@ define(function(require, exports, module) {
                             if (products.productId == fromData.productId) {
                                 products.states.forEach(function(i) {
                                     if ($scope.productEditObj.editArray.indexOf(i.name) !== -1) {
-                                        i.readonly = false;
+                                        i.readonly = false
                                     } else {
-                                        i.readonly = true;
+                                        i.readonly = true
                                     }
                                 });
                             }
