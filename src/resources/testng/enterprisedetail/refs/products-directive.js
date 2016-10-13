@@ -636,7 +636,7 @@ define(function(require, exports, module) {
                     showEditSave: 0,
                     editArray: ['sales', 'isDouble', 'doubleSales', 'isSelfDev', 'partners']
                 };
-                $scope.productEditCode = function(){
+                $scope.productEditCode = function() {
                     var code = 'M008007002001';
                     var arr = IBSS.role.moduleCodes;
                     return arr.indexOf(code) !== -1 ? true : false;
@@ -644,6 +644,7 @@ define(function(require, exports, module) {
                 $scope.productEdit = function() {
                     $scope.productEditObj.showEditSave = 1;
                     $scope.allReadonly = false;
+                    $scope.checkboxDisabled = true;
                     $scope.products.forEach(function(products) {
                         $scope.fromData.forEach(function(fromData) {
                             if (products.productId == fromData.productId) {
@@ -664,7 +665,7 @@ define(function(require, exports, module) {
                         $scope.dataResult.forEach(function(dataResult, idx) {
                             if (fromData.productId == dataResult.productId) {
                                 arr.push(dataResult)
-                            } 
+                            }
                         })
                     });
                     util.api({
@@ -676,6 +677,14 @@ define(function(require, exports, module) {
                         success: function(data) {
                             if (data.success) {
                                 util.showTip(data.value.model);
+                                $timeout(function() {
+                                    $scope.allReadonly = true;
+                                    $scope.products.forEach(function(products) {
+                                        products.states.forEach(function(i) {
+                                            i.readonly = true;
+                                        });
+                                    })
+                                }, 50);
                             }
                         }
                     });
