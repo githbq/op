@@ -634,12 +634,12 @@ define(function(require, exports, module) {
                  */
                 $scope.productEditObj = {
                     showEditSave: 0,
-                    editArray: ['sales', 'isDouble', 'doubleSales', 'isSelfDev', 'partners']
+                    editArray: ['sales', 'isDouble', 'doubleSales', 'isSelfDev', 'partners', 'sales_2', 'isDouble_2', 'doubleSales_2', 'isSelfDev_2', 'partners_2', ]
                 };
                 $scope.productEditCode = function() {
                     var code = 'M008007002001';
                     var arr = IBSS.role.moduleCodes;
-                    return arr.indexOf(code) !== -1 ? true : false;
+                    return arr.indexOf(code) == -1 ? true : false;
                 };
                 $scope.productEdit = function() {
                     $scope.productEditObj.showEditSave = 1;
@@ -661,23 +661,43 @@ define(function(require, exports, module) {
                 }
                 $scope.productEditSave = function() {
                     var arr = [];
+                    console.dir($scope.dataResult)
+                        // $scope.dataResult
                     $scope.fromData.forEach(function(fromData) {
                         $scope.dataResult.forEach(function(dataResult, idx) {
                             if (fromData.productId == dataResult.productId) {
+                                dataResult.data.forEach(function(item) {
+                                    if ((item.name == 'isSelfDev' || item.name == 'isSelfDev_2') && item.value == 1) {
+                                        dataResult.data.forEach(function(i) {
+                                            if (i.name == 'partners') {
+                                                i.valueItems = [];
+                                            }
+                                        })
+                                    }
+                                    if ((item.name == 'isDouble' || item.name == 'isDouble_2') && item.value == 0) {
+                                        dataResult.data.forEach(function(i) {
+                                            if (i.name == 'doubleSales') {
+                                                i.valueItems = [];
+                                            }
+                                        })
+                                    }
+                                });
                                 arr.push(dataResult)
                             }
                         })
                     });
+
                     util.api({
                         url: '~/op/api/a/odrDraft/draftorderinfocompile',
                         data: {
                             orderId: $scope.globalInfo.orderId,
-                            content: JSON.stringify(arr)
+                            content: angular.toJson(arr)
                         },
                         success: function(data) {
                             if (data.success) {
                                 util.showTip(data.value.model);
                                 $timeout(function() {
+                                    $scope.productEditObj.showEditSave = 0;
                                     $scope.allReadonly = true;
                                     $scope.products.forEach(function(products) {
                                         products.states.forEach(function(i) {
