@@ -635,7 +635,13 @@ define(function(require, exports, module) {
                 $scope.productEditObj = {
                     showEditSave: 0,
                     editArray: ['sales', 'isDouble', 'doubleSales', 'isSelfDev', 'partners']
-                }
+                };
+                $scope.productEditCode = function(){
+                    var code = 'M008007002001';
+                    var arr = IBSS.role.moduleCodes;
+                    console.log(IBSS.role.moduleCodes)
+                    return arr.indexOf(code) !== -1 ? true : false;
+                };
                 $scope.productEdit = function() {
                     $scope.productEditObj.showEditSave = 1;
                     $scope.allReadonly = false;

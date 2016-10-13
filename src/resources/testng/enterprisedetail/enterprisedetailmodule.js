@@ -494,7 +494,7 @@ define(function(require, exports, module) {
             minimumResultsForSearch: Infinity //不显示搜索框
         };
         $scope.saving = false;
-        $scope.step = 2; //步骤
+        $scope.step = 1; //步骤
         $scope.prevStep = function() {
             $scope.step--;
         };
