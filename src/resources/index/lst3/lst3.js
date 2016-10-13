@@ -20,7 +20,6 @@ define(function(require, exports, module) {
                 url: url,
                 dataType: "json",
                 success: function(result) {
-                    console.log(result.value.model);
                     if (result.value.model) {
                         $tips.text('');
                         $button.removeClass('disabled');
@@ -28,7 +27,6 @@ define(function(require, exports, module) {
                         IBSS.model = idData.value.model;
                         util.initIframe();
                         $('#submit').click();
-                        console.log(2);
                     } else {
                         setTimeout(function() {
                             downFile();
@@ -62,7 +60,6 @@ define(function(require, exports, module) {
         },
         events: {
             'click #btnSearch': 'search',
-            'click #btnClear': 'clear',
             'click #btnReset': 'reset',
             'click #btnGenerate': 'generate',
             'click #btnDownload': 'download',
@@ -101,8 +98,11 @@ define(function(require, exports, module) {
                 format: 'Y/m/d',
                 onShow: function() {
                     var minDate = me.$ast.val() ? me.$ast.val() : false;
+                    var maxDate = me.getDateString(-1);
+
                     this.setOptions({
-                        minDate: minDate
+                        minDate: minDate,
+                        maxDate: maxDate
                     });
                 },
                 timepicker: false
@@ -110,7 +110,7 @@ define(function(require, exports, module) {
             me.$cst.datetimepicker({
                 format: 'Y/m/d',
                 onShow: function() {
-                    var maxDate = me.$cet.val() ? me.$cet.val() : false;
+                    var maxDate = me.$cet.val() ? me.$cet.val() : me.getDateString(-1);
                     this.setOptions({
                         maxDate: maxDate
                     });
@@ -121,19 +121,21 @@ define(function(require, exports, module) {
                 format: 'Y/m/d',
                 onShow: function() {
                     var minDate = me.$cst.val() ? me.$cst.val() : false;
+                    var maxDate = me.getDateString(-1);
                     this.setOptions({
-                        minDate: minDate
+                        minDate: minDate,
+                        maxDate: maxDate
                     });
                 },
                 timepicker: false
             });
-            me.$ast.val(me.getDateString(-30));
+            me.$ast.val(me.getDateString(-7));
             me.$aet.val(me.getDateString(-1));
         },
         initializeSelect: function() {
             util.getClassIndustry([this.$clOneIndustry, this.$clTwoIndustry, this.$clThreeIndustry]);
         },
-        generateSelect: function(name, $select, callback) {
+        generateSelect: function(name, $select, callback) { //这个函数没有调用
             util.getEnums(name, function(data) {
                 var items = data.model,
                     options = '';
@@ -144,24 +146,13 @@ define(function(require, exports, module) {
                 callback && callback(items);
             });
         },
-        clear: function() {
-            this.$agent.val('');
-            this.$ast.val('');
-            this.$aet.val('');
-            this.$cst.val('');
-            this.$cet.val('');
-            this.$entType.val('');
-            this.$entID.val('');
-            this.$entCount.val('');
-            this.$result.html('');
-        },
         reset: function() {
             this.$clOneIndustry.val('');
             this.$clTwoIndustry.val('');
             this.$clThreeIndustry.val('');
             this.$entType.val('');
             this.$isRegister.val('');
-            this.$ast.val(this.getDateString(-8));
+            this.$ast.val(this.getDateString(-7));
             this.$aet.val(this.getDateString(-1));
             this.$cst.val('');
             this.$cet.val('');
@@ -297,7 +288,7 @@ define(function(require, exports, module) {
             util.initIframe();
             $('#submit').click();
         },
-        download: function(e) {
+        download: function(e) { //没有调用
             var target = e.currentTarget,
                 path = $(target).attr('data-path');
             var url = location.protocol + '//' + location.host + IBSS.API_PATH + '/query/act/download?path=' + path;
@@ -305,7 +296,7 @@ define(function(require, exports, module) {
         },
         getDateString: function(offset, base) {
             var date = this.getDate(offset, base);
-            return util.formatDate(date, 'YYYY-MM-dd');
+            return util.formatDate(date, 'YYYY/MM/dd');
         },
         getDate: function(offset, base) {
             if (!base) {
@@ -327,7 +318,6 @@ define(function(require, exports, module) {
                     me.$('.u-tablelist tbody tr').html('<tr><td colspan="9"><p class="info">加载中...</p></td></tr>');
                 },
                 'success': function(data) {
-                    console.warn(data);
                     if (data.success) {
                         me.pagination.setTotalSize(data.value.model.itemCount);
                         me.collection.reload(data.value.model.content, function(item) {});

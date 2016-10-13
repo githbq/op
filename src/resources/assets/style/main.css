@@ -6494,7 +6494,11 @@ em {
   margin-right: 30px;
 }
 .p-indexact-lst .m-act-lst .list-bar .checkForm #agent {
-  width: 290px;
+  width: 296px;
+}
+.p-indexact-lst .m-act-lst .list-bar .checkForm textarea {
+  width: 118px;
+  height: 32px;
 }
 .p-indexact-lst .m-act-lst .list-bar .buttonTeam {
   width: 100px;
