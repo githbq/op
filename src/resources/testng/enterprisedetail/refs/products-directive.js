@@ -639,7 +639,7 @@ define(function(require, exports, module) {
                 $scope.productEditCode = function() {
                     var code = 'M008007002001';
                     var arr = IBSS.role.moduleCodes;
-                    return arr.indexOf(code) == -1 ? true : false;
+                    return arr.indexOf(code) !== -1 ? true : false;
                 };
                 $scope.productEdit = function() {
                     $scope.productEditObj.showEditSave = 1;
