@@ -1,48 +1,48 @@
 <div class="p-list p-indexact-lst" js="true" cache="false">
-	<div class="m-list m-act-lst u-tablelist">
-		<iframe style="width:1px;height:1px;visibility:hidden;position:absolute" name="hideiframe" id="hideiframe" src="" frameborder="0"></iframe>
-		<div class="list-main">
-			<div class="list-header">
-				<h3>活跃度查询<span style="float:right;color:#F5BD00 ">说明: "企业账号"、"企业ID",均可批量输入,每个账号后回车换行即可</span></h3>
-			</div>
-			<div class="list-bar">
-				<div class="list-bar-btns buttonTeam">
-					<button id="btnReset">重置</button>
-					<br>
-					<button id="btnSearch" class="btn-blue btn-search" data-permissions="M008012001">查询</button>
-				</div>
-				<div class="list-bar-input checkForm">
-					<label><span>行业</span>
+    <div class="m-list m-act-lst u-tablelist">
+        <iframe style="width:1px;height:1px;visibility:hidden;position:absolute" name="hideiframe" id="hideiframe" src="" frameborder="0"></iframe>
+        <div class="list-main">
+            <div class="list-header">
+                <h3>活跃度查询<span style="float:right;color:#F5BD00 ">说明: "企业账号"、"企业ID",均可批量输入,每个账号后回车换行即可</span></h3>
+            </div>
+            <div class="list-bar">
+                <div class="list-bar-btns buttonTeam">
+                    <button id="btnReset">重置</button>
+                    <br>
+                    <button id="btnSearch" class="btn-blue btn-search" data-permissions="M008012001">查询</button>
+                </div>
+                <div class="list-bar-input checkForm">
+                    <label><span>行业</span>
                         <select id="clOneIndustry">
                         </select>
                     </label>
-					<label>
+                    <label>
                         <select id="clTwoIndustry">
                         </select>
                     </label>
-					<label>
+                    <label>
                         <select id="clThreeIndustry">
                         </select>
                     </label>
-					<label class="sp">
+                    <label class="sp">
                         <label>
                             <span>活跃日期</span>
                             <input id="alAST" type="text" class="g-ipt ipt-l" placeholder="起始日期" />
                         </label>
-					<label>
+                        <label>
                             <span>-</span>
-                            <input id="alAET" type="text" class="g-ipt ipt-l" placeholder="结束日期"/>
+                            <input id="alAET" type="text" class="g-ipt ipt-l" placeholder="结束日期" />
                         </label>
-					</label>
-					<label>
+                    </label>
+                    <label>
                         <span>企业帐号</span>
                         <textarea name="account" id="entCount"></textarea>
                     </label>
-					<label>
+                    <label>
                         <span>企业ID</span>
-                         <textarea name="account" id="entID"></textarea>
+                        <textarea name="account" id="entID"></textarea>
                     </label>
-					<label class="transRight" style="margin-right:113px">
+                    <label class="transRight" style="margin-right:113px">
                         <span>企业类型</span>
                         <select id="entType">
                             <option value="">全部</option>
@@ -50,10 +50,10 @@
                             <option value="2">付费</option>
                             <option value="3">免费</option>
                             <option value="4">未续费</option>
-                             <option value="-1">未知</option>
+                            <option value="-1">未知</option>
                         </select>
                     </label>
-					<label class="transRight">
+                    <label class="transRight">
                         <span>是否自注册</span>
                         <select id="isRegister">
                             <option value="">全部</option>
@@ -61,51 +61,51 @@
                             <option value="0">否</option>
                         </select>
                     </label>
-
-					<label class="sp">
+                    <label class="sp">
                         <label>
                             <span>开通日期</span>
-                            <input id="alCST" type="text" class="g-ipt ipt-l" placeholder="起始日期"/>
+                            <input id="alCST" type="text" class="g-ipt ipt-l" placeholder="起始日期" />
                         </label>
-					<label>
+                        <label>
                             <span>-</span>
-                            <input id="alCET" type="text" class="g-ipt ipt-l" placeholder="结束日期"/>
+                            <input id="alCET" type="text" class="g-ipt ipt-l" placeholder="结束日期" />
                         </label>
-					</label>
-					<label style="">
+                    </label>
+                    <label style="">
                         <span>代理商/部门</span>
                         <input type="text" name="" id="agent">
                     </label>
-					<p class="tips"></p>
-				</div>
-			</div>
-			<div class="result"></div>
-			<div class="m-list m-act-rpt u-tablelist">
-				<div class="list-main">
-					<div class="list-header">
-						<h3>企业列表</h3>
-					</div>
-				</div>
-				<div class="list-content">
-					<table>
-						<thead>
-							<tr>
-								<th></th>
-								<th data-name="id">ID</th>
-								<th data-name="taskName">任务名称</th>
-								<th data-name="status">任务状态</th>
-								<th data-name="createTime">任务创建时间</th>
-								<th data-name="endTime">任务结束时间</th>
-								<th></th>
-							</tr>
-						</thead>
-						<tbody>
-						</tbody>
-					</table>
-				</div>
-			</div>
-			<div class="list-pager">
-			</div>
-		</div>
-	</div>
+                    <p class="warning">注意:表中所显示的企业属性，均为当前查询时的最新状态，与所选取的开通日期、活跃日期无关</p>
+                    <p class="tips"></p>
+                </div>
+            </div>
+            <div class="result"></div>
+            <div class="m-list m-act-rpt u-tablelist">
+                <div class="list-main">
+                    <div class="list-header">
+                        <h3>企业列表</h3>
+                    </div>
+                </div>
+                <div class="list-content">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th data-name="id">ID</th>
+                                <th data-name="taskName">任务名称</th>
+                                <th data-name="status">任务状态</th>
+                                <th data-name="createTime">任务创建时间</th>
+                                <th data-name="endTime">任务结束时间</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="list-pager">
+            </div>
+        </div>
+    </div>
 </div>
