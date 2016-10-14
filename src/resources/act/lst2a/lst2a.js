@@ -220,11 +220,16 @@ define(function(require, exports, module) {
                                     }
                                 }
                             })
-                        } else if (data.value.model < 0) {
+                        } else {
                             me.$search.removeClass('disabled');
                             me.$search.removeAttr('disabled');
-                            window.open('/op/api/s/query/act/generatebig3?' + $.param(originData), 'hideiframe');
+                            me.getList();
                         }
+
+                    } else {
+                        me.$search.removeClass('disabled');
+                        me.$search.removeAttr('disabled');
+                        me.getList();
                     }
                 }
             });
