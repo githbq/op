@@ -1,65 +1,66 @@
-define(function (require, exports, module) {
+define(function(require, exports, module) {
     var math2 = require('common/widget/math/math');
     require('common/widget/select2/select2');
     require('./refs/directives');
     require('./refs/filters');
     var myApp = angular.module('formApp', ['angular.filter', 'ngMessages', 'common.directives', 'common.filters']);
     require('./refs/products-directive');
-    require('./refs/product-services');//对应的远程服务
-    var mainCtrlScope = null;//主$scope
-    var mainData = null;//被调用时接收的参数 
-    var validate = true;//参数的调用与否受validate控制
+    require('./refs/product-services'); //对应的远程服务
+    var mainCtrlScope = null; //主$scope
+    var mainData = null; //被调用时接收的参数 
+    var validate = true; //参数的调用与否受validate控制
     var Page = MClass(M.Center).include({
         view: require('./template.html'),
-        init: function (data) {
+        init: function(data) {
             var me = this;
             mainData = data;
-
+            console.log(111,data)
             Page.__super__.init.apply(me, arguments);
 
             angular.bootstrap(me.$view, ['formApp']);
             me.mainCtrlScope = null;
         },
         //渲染
-        render: function () {
+        render: function() {
             this.attrs['wrapper'].empty().append(this.$view);
         },
-        hideTopBar: function () {
+        hideTopBar: function() {
             var me = this;
             if (mainCtrlScope) {
-                mainCtrlScope.$apply(function () {
+                mainCtrlScope.$apply(function() {
                     mainCtrlScope.hideTopBar = true;
                 });
             }
         },
-        hideFootBtns: function () {
+        hideFootBtns: function() {
             var me = this;
             if (mainCtrlScope) {
-                mainCtrlScope.$apply(function () {
+                mainCtrlScope.$apply(function() {
                     mainCtrlScope.hideFootBtns = true;
                 });
             }
         },
-        nextStep: function () {
-            mainCtrlScope.$apply(function () {
+        nextStep: function() {
+            mainCtrlScope.$apply(function() {
                 mainCtrlScope.nextStep()
             });
         },
-        prevStep: function () {
-            mainCtrlScope.$apply(function () {
+        prevStep: function() {
+            mainCtrlScope.$apply(function() {
                 mainCtrlScope.prevStep();
             });
         },
-        goToStep: function (step) {//跳到指定的某一步
-            debugger
+        goToStep: function(step) { //跳到指定的某一步
+            // debugger
             return mainCtrlScope.goToStep(step);
-        }, getReturnData: function () {
-            if (mainCtrlScope.mainForm.$valid || (mainCtrlScope.globalInfo.isAdd
-                && (!mainCtrlScope.mainForm.stepForm3 || (mainCtrlScope.mainForm.stepForm3
-                    && mainCtrlScope.mainForm.stepForm3.$valid))
-                && (!mainCtrlScope.mainForm.stepForm2 || (mainCtrlScope.mainForm.stepForm2
-                    && mainCtrlScope.mainForm.stepForm2.$valid))
-            )) {
+        },
+        getReturnData: function() {
+            if (mainCtrlScope.mainForm.$valid || (mainCtrlScope.globalInfo.isAdd &&
+                    (!mainCtrlScope.mainForm.stepForm3 || (mainCtrlScope.mainForm.stepForm3 &&
+                        mainCtrlScope.mainForm.stepForm3.$valid)) &&
+                    (!mainCtrlScope.mainForm.stepForm2 || (mainCtrlScope.mainForm.stepForm2 &&
+                        mainCtrlScope.mainForm.stepForm2.$valid))
+                )) {
                 if (mainCtrlScope.globalInfo.isAdd || mainCtrlScope.hideEnterprise) {
                     mainCtrlScope.entInfo = null;
                 }
@@ -71,28 +72,28 @@ define(function (require, exports, module) {
     });
 
     module.exports = Page;
-    myApp.controller('form1Controller', ['$scope', '$timeout', function ($scope, $timeout) {
+    myApp.controller('form1Controller', ['$scope', '$timeout', function($scope, $timeout) {
         var today = new Date();
         //today.setDate(today.getDate() + 1);//获取AddDayCount天后的日期 
         // $scope.TOMORRAY = today.getTime();//明天
     }]);
-    myApp.controller('form2Controller', ['$scope', 'productService', '$timeout', function ($scope, productService, $timeout) {
+    myApp.controller('form2Controller', ['$scope', 'productService', '$timeout', function($scope, productService, $timeout) {
 
         $scope.getEnterpriseHistory($timeout);
-        productService.getDiyOrderFormLogic($scope.globalInfo.enterpriseId || '', $scope.globalInfo.orderId, function (data) {
-            $timeout(function () {
+        productService.getDiyOrderFormLogic($scope.globalInfo.enterpriseId || '', $scope.globalInfo.orderId, function(data) {
+            $timeout(function() {
                 $scope.productJson = angular.fromJson(data);
             }, 10);
         });
     }]);
-    myApp.controller('form3Controller', ['$scope', 'productService', 'select2Query', function ($scope, productService, select2Query) {
+    myApp.controller('form3Controller', ['$scope', 'productService', 'select2Query', function($scope, productService, select2Query) {
         $scope.bankAjaxConfig = select2Query.getBankAjaxConfig();
         //付款信息
         $scope.payInfo.currPayList = $scope.payInfo.currPayList || [];
-        $scope.$watch('payInfo.currPayList', function (newVal, oldVal) {
+        $scope.$watch('payInfo.currPayList', function(newVal, oldVal) {
             console.log('payInfo.currPayList')
             var contractPrice = 0;
-            _.each($scope.payInfo.currPayList, function (item) {
+            _.each($scope.payInfo.currPayList, function(item) {
                 if (item.purchaseAmount) {
                     contractPrice = math2.numAdd(contractPrice, item.purchaseAmount);
                 }
@@ -101,12 +102,12 @@ define(function (require, exports, module) {
             $scope.payStatusChange($scope.payInfo.payStatus);
         });
 
-        $scope.testResult3 = function (form) {
+        $scope.testResult3 = function(form) {
 
         };
         //付款状态改变事件
-        $scope.payStatusChange = function (value) {
-            _.each($scope.payInfo.currPayList, function (item, i) {
+        $scope.payStatusChange = function(value) {
+            _.each($scope.payInfo.currPayList, function(item, i) {
                 item.currPayAmount = item.currPayAmount || 0;
             });
             $scope.payInfo.agentCurrPayAmount = $scope.payInfo.agentCurrPayAmount || 0;
@@ -117,7 +118,7 @@ define(function (require, exports, module) {
                         $scope.payInfo.agentCurrPayAmount = 0;
                         $scope.payInfo.currPayAmount = 0;
                         //全额
-                        _.each($scope.payInfo.currPayList, function (item, i) {
+                        _.each($scope.payInfo.currPayList, function(item, i) {
                             if (item.toAgent) {
                                 $scope.payInfo.agentCurrPayAmount = math2.numAdd($scope.payInfo.agentCurrPayAmount, item.purchaseAmount);
                             } else {
@@ -125,30 +126,28 @@ define(function (require, exports, module) {
                             }
                             item.currPayAmount = 0;
                         });
-                    }
-                    ;
+                    };
                     break;
                 case '3':
                     {
                         //未付
                         $scope.payInfo.agentCurrPayAmount = 0;
                         $scope.payInfo.currPayAmount = 0;
-                        _.each($scope.payInfo.currPayList, function (item, i) {
+                        _.each($scope.payInfo.currPayList, function(item, i) {
                             if (item.toAgent) {
                                 $scope.payInfo.agentCurrPayAmount = math2.numAdd($scope.payInfo.agentCurrPayAmount, item.purchaseAmount);
                             }
                             item.currPayAmount = 0;
                         });
 
-                    }
-                    ;
+                    };
                     break;
                 case '2':
                     {
                         $scope.payInfo.agentCurrPayAmount = 0;
                         $scope.payInfo.currPayAmount = 0;
                         //分期
-                        _.each($scope.payInfo.currPayList, function (item, i) {
+                        _.each($scope.payInfo.currPayList, function(item, i) {
                             if (item.toAgent) {
                                 item.currPayAmount = 0;
                                 $scope.payInfo.agentCurrPayAmount = math2.numAdd($scope.payInfo.agentCurrPayAmount, parseFloat(item.purchaseAmount));
@@ -156,17 +155,16 @@ define(function (require, exports, module) {
                                 $scope.payInfo.currPayAmount = math2.numAdd($scope.payInfo.currPayAmount, parseFloat(item.currPayAmount));
                             }
                         });
-                    }
-                    ;
+                    };
                     break;
             }
         };
         $scope.payStatusChange($scope.payInfo.payStatus);
         //分期金额值改变事件
-        $scope.currPayAmountChange = function (currPayList) {
+        $scope.currPayAmountChange = function(currPayList) {
             var agentPrice = 0;
             var companyPrice = 0;
-            _.each(currPayList, function (item, i) {
+            _.each(currPayList, function(item, i) {
                 if (item.toAgent) {
                     agentPrice = math2.numAdd(agentPrice, parseFloat(item.purchaseAmount));
                 } else {
@@ -176,15 +174,15 @@ define(function (require, exports, module) {
             $scope.payInfo.agentCurrPayAmount = agentPrice;
             $scope.payInfo.currPayAmount = companyPrice;
         };
-        $scope.getDataByContractNo = function () {
+        $scope.getDataByContractNo = function() {
             var contractNo = $scope.payInfo.contractNo;
             if (!contractNo) {
                 return;
             }
-            productService.getDataByContractNo(contractNo, function (result) {
-                if (!result) {//合同号不可用
+            productService.getDataByContractNo(contractNo, function(result) {
+                if (!result) { //合同号不可用
                     util.showToast('合同号不可用,请重新输入');
-                    $scope.$apply(function () {
+                    $scope.$apply(function() {
                         $scope.payInfo.contractNo = '';
                     });
                 }
@@ -201,43 +199,43 @@ define(function (require, exports, module) {
             maximumInputLength: 50
         };
     }]);
-    myApp.controller('mainController', ['$scope', '$timeout', 'select2Query', 'getEnumService', 'cascadeSelectService', 'productService', function ($scope, $timeout, select2Query, getEnumService, cascadeSelectService, productService) {
+    myApp.controller('mainController', ['$scope', '$timeout', 'select2Query', 'getEnumService', 'cascadeSelectService', 'productService', function($scope, $timeout, select2Query, getEnumService, cascadeSelectService, productService) {
         $scope.productInfos = { data: [] };
         //获取企业历史详情
-        $scope.getEnterpriseHistory = function (timeout) {
-            $timeout = timeout || $timeout;
-            if ($scope.globalInfo.submitType == 2 || mainData.isOpen) {//只有增购与续费才显示 现在开源也显示了
-                productService.getOrderList($scope.globalInfo.enterpriseAccount || $scope.orderInfo.enterpriseAccount, function (data, valueData) {
-                    $timeout(function () {
-                        $scope.productInfos.data = data;
-                        $scope.globalInfo.enterpriseName = $scope.globalInfo.enterpriseName || valueData.enterpriseName;
-                        $scope.globalInfo.enterpriseAccount = $scope.globalInfo.enterpriseAccount || valueData.enterpriseAccount;
-                        var train_Helper = _.findWhere($scope.productInfos.data, { code: 'Train_Helper' });
-                        var train_Hepler_Capacity = _.findWhere($scope.productInfos.data, { code: 'Train_Hepler_Capacity' });
-                        if (train_Helper && train_Hepler_Capacity) {
-                            train_Helper.timeLongData = train_Hepler_Capacity;
-                            train_Hepler_Capacity.hidden = true;
-                        }
-                    }, 10);
-                });
+        $scope.getEnterpriseHistory = function(timeout) {
+                $timeout = timeout || $timeout;
+                if ($scope.globalInfo.submitType == 2 || mainData.isOpen) { //只有增购与续费才显示 现在开源也显示了
+                    productService.getOrderList($scope.globalInfo.enterpriseAccount || $scope.orderInfo.enterpriseAccount, function(data, valueData) {
+                        $timeout(function() {
+                            $scope.productInfos.data = data;
+                            $scope.globalInfo.enterpriseName = $scope.globalInfo.enterpriseName || valueData.enterpriseName;
+                            $scope.globalInfo.enterpriseAccount = $scope.globalInfo.enterpriseAccount || valueData.enterpriseAccount;
+                            var train_Helper = _.findWhere($scope.productInfos.data, { code: 'Train_Helper' });
+                            var train_Hepler_Capacity = _.findWhere($scope.productInfos.data, { code: 'Train_Hepler_Capacity' });
+                            if (train_Helper && train_Hepler_Capacity) {
+                                train_Helper.timeLongData = train_Hepler_Capacity;
+                                train_Hepler_Capacity.hidden = true;
+                            }
+                        }, 10);
+                    });
+                }
             }
-        }
-        //全局性信息
+            //全局性信息
         $scope.globalInfo = mainData || {};
         $scope.orderInfo = $scope.orderInfo || {};
         $scope.globalInfo = angular.extend($scope.globalInfo, $scope.globalInfo.data);
 
         $scope.globalInfo.submitType = mainData.isNew ? 1 : mainData.isAdd ? 2 : mainData.isRef ? 3 : 1;
         if (!mainData.isNew && !mainData.isAdd && !mainData.isRef) {
-            mainData.isOpen = true;//开源状态
+            mainData.isOpen = true; //开源状态
         }
-        getInitData();//获取初始化数据 每次必调
+        getInitData(); //获取初始化数据 每次必调
         //企业详情信息
         var entInfo = $scope.entInfo = {};
-        entInfo.area = '';//代理区域现在统一从接口中取
+        entInfo.area = ''; //代理区域现在统一从接口中取
         if (!$scope.globalInfo.orderId) {
-            productService.getAgentArea(function (str) {
-                $timeout(function () {
+            productService.getAgentArea(function(str) {
+                $timeout(function() {
                     entInfo.area = str;
                 }, 10);
             });
@@ -251,19 +249,19 @@ define(function (require, exports, module) {
         $scope.payInfo = { payStatus: 1 };
         //全局行为状态
         var action = $scope.action = { doing: false };
-        $scope.goToStepTest = function (step) {
+        $scope.goToStepTest = function(step) {
             $scope.step = step;
         };
-        $scope.goToStep = function (step) {
+        $scope.goToStep = function(step) {
             if (step && mainCtrlScope.showValid($scope.step) && step > 0 && step <= 3) {
                 $scope.step = step;
                 if (step == 3 && $scope.globalInfo.orderId && !$scope.globalInfo.readonly) {
-                    productService.getCurrPayList($scope.getProductInfo(true), function (data) {
-                        $timeout(function () {
-                            debugger
+                    productService.getCurrPayList($scope.getProductInfo(true), function(data) {
+                        $timeout(function() {
+                            // debugger
                             $scope.payInfo.currPayList = $scope.payInfo.currPayList || [];
                             var tempCurrPayArray = angular.fromJson(data);
-                            _.each(tempCurrPayArray, function (item, index) {
+                            _.each(tempCurrPayArray, function(item, index) {
                                 var findItem = _.findWhere($scope.payInfo.currPayList, { productId: item.productId, isMain: item.isMain });
                                 if (findItem && findItem.purchaseAmount == item.purchaseAmount) {
                                     _.extend(item, findItem);
@@ -278,14 +276,14 @@ define(function (require, exports, module) {
                 return false;
             }
         };
-        $scope.enterpriseReadonly = $scope.globalInfo.readonly;//企业详情信息 只读
-        $scope.payInfoReadonly = $scope.globalInfo.readonly;//企业详情信息 只读
-        $scope.productReadonly = $scope.globalInfo.readonly;//产品信息 只读
+        $scope.enterpriseReadonly = $scope.globalInfo.readonly; //企业详情信息 只读
+        $scope.payInfoReadonly = $scope.globalInfo.readonly; //企业详情信息 只读
+        $scope.productReadonly = $scope.globalInfo.readonly; //产品信息 只读
         $scope.editMode = false;
-        $scope.orderFromData = [];//产品模块的数据来源用于编辑时
-        productService.getOrderDetailByOrderId($scope.globalInfo.orderId, function (data) {
-            $timeout(function () {
-                if (!$scope.globalInfo.readonly) {//传过来的只读为false才同远程数据对接
+        $scope.orderFromData = []; //产品模块的数据来源用于编辑时
+        productService.getOrderDetailByOrderId($scope.globalInfo.orderId, function(data) {
+            $timeout(function() {
+                if (!$scope.globalInfo.readonly) { //传过来的只读为false才同远程数据对接
                     $scope.enterpriseReadonly = !data.canEditEnterprise;
                     $scope.productReadonly = !data.canEditOrder;
                     $scope.payInfoReadonly = !data.canEditPaidInfo;
@@ -297,7 +295,7 @@ define(function (require, exports, module) {
                 }
                 $scope.entInfo = data.odrDraftEnterprise || {};
                 $scope.entInfo.contractEnterpriseName = data.contractEnterpriseName;
-                if (!data.odrDraftEnterprise) {//如何后端没有返回
+                if (!data.odrDraftEnterprise) { //如何后端没有返回
                     $scope.hideEnterprise = true;
                     $('.approval-title [data-index=1]').hide();
                     $('.approval-title [data-index]').removeClass('active').filter('[data-index=2]').addClass('active')
@@ -305,9 +303,9 @@ define(function (require, exports, module) {
                 }
                 $scope.productInfo = data.odrDraftOrder || {};
                 $scope.orderInfo = data.odrOrder || {};
-                $scope.getEnterpriseHistory();//获取企业产品历史信息
+                $scope.getEnterpriseHistory(); //获取企业产品历史信息
                 $scope.globalInfo.enterpriseId = $scope.productInfo && $scope.productInfo.enterpriseId;
-                $scope.orderFromData = angular.fromJson(data.odrDraftOrder.content);//订单来源数据
+                $scope.orderFromData = angular.fromJson(data.odrDraftOrder.content); //订单来源数据
                 $scope.payInfo = data.odrDraftPaidInfo;
                 if (data.odrDraftPaidInfo.currPayList) {
                     $scope.payInfo.currPayList = angular.fromJson(data.odrDraftPaidInfo.currPayList);
@@ -323,10 +321,9 @@ define(function (require, exports, module) {
         //    //
         //}, 5000);
         mainCtrlScope = $scope;
-
-
-        $scope.testBasicForm = function () {
-        };
+        $scope.mainCtrlScope = mainCtrlScope;
+        
+        $scope.testBasicForm = function() {};
 
         //多功能下拉选框
         //$scope.entInfo.province = '110000';
@@ -342,8 +339,8 @@ define(function (require, exports, module) {
             data: [],
             multiple: false,
             placeholder: '请选择'
-            //, minimumResultsForSearch: Infinity//不显示搜索框
-            ,
+                //, minimumResultsForSearch: Infinity//不显示搜索框
+                ,
             search: false,
             maximumInputLength: 50
         };
@@ -411,7 +408,7 @@ define(function (require, exports, module) {
                 { ngModelName: 'entInfo.province', config: $scope.provinceConfig },
                 { ngModelName: 'entInfo.city', config: $scope.cityConfig },
                 { ngModelName: 'entInfo.county', config: $scope.countyConfig }
-            ], cascadeSelectService.createPullFunc({ url: '~/op/api/district/getListByParent', data: { name: 'parentValue' } }, function (data, item) {
+            ], cascadeSelectService.createPullFunc({ url: '~/op/api/district/getListByParent', data: { name: 'parentValue' } }, function(data, item) {
                 data.push({ id: item.value.toString(), text: item.name });
             }), needWatch);
             cascadeSelectService.cascadeSelect($scope, [
@@ -429,10 +426,10 @@ define(function (require, exports, module) {
             placeholder: '请选择',
             defaultValue: '100',
             search: false,
-            minimumResultsForSearch: Infinity//不显示搜索框
+            minimumResultsForSearch: Infinity //不显示搜索框
         };
-        getEnumService.load('CAMPANY_SCALE', function (list) {
-            $timeout(function () {
+        getEnumService.load('CAMPANY_SCALE', function(list) {
+            $timeout(function() {
                 $scope.companyScaleConfig.data = list;
                 $scope.companyScaleConfig.placeholder = '请选择';
             }, 10);
@@ -444,11 +441,11 @@ define(function (require, exports, module) {
             placeholder: '请选择',
             defaultValue: '100',
             search: false,
-            minimumResultsForSearch: Infinity//不显示搜索框
+            minimumResultsForSearch: Infinity //不显示搜索框
         };
         //使用对象类型
-        getEnumService.load('GROUP_TYPE', function (list) {
-            $timeout(function () {
+        getEnumService.load('GROUP_TYPE', function(list) {
+            $timeout(function() {
                 $scope.groupTypeConfig.data = list;
                 $scope.groupTypeConfig.placeholder = '请选择';
             }, 10);
@@ -460,7 +457,7 @@ define(function (require, exports, module) {
             placeholder: '请选择',
             defaultValue: '100',
             search: false,
-            minimumResultsForSearch: Infinity//不显示搜索框
+            minimumResultsForSearch: Infinity //不显示搜索框
         };
         //销售团队规模
         $scope.saleTeamScaleConfig = {
@@ -470,10 +467,10 @@ define(function (require, exports, module) {
             placeholder: '请选择',
             defaultValue: '100',
             search: false,
-            minimumResultsForSearch: Infinity//不显示搜索框
+            minimumResultsForSearch: Infinity //不显示搜索框
         };
-        getEnumService.load('SALE_TEAM_SCALE', true, function (list) {
-            $timeout(function () {
+        getEnumService.load('SALE_TEAM_SCALE', true, function(list) {
+            $timeout(function() {
                 $scope.saleTeamScaleConfig.data = list;
                 $scope.saleTeamScaleConfig.placeholder = '请选择';
             }, 10);
@@ -485,7 +482,7 @@ define(function (require, exports, module) {
             placeholder: '请选择',
             defaultValue: '',
             search: false,
-            minimumResultsForSearch: Infinity//不显示搜索框
+            minimumResultsForSearch: Infinity //不显示搜索框
         };
         //是否标杆
         $scope.isReferenceConfig = {
@@ -494,25 +491,25 @@ define(function (require, exports, module) {
             placeholder: '请选择',
             defaultValue: '100',
             search: false,
-            minimumResultsForSearch: Infinity//不显示搜索框
+            minimumResultsForSearch: Infinity //不显示搜索框
         };
         $scope.saving = false;
-        $scope.step = 1;//步骤
-        $scope.prevStep = function () {
+        $scope.step = 1; //步骤
+        $scope.prevStep = function() {
             $scope.step--;
         };
         //显示错误
-        $scope.showValid = function (step) {
-            if ($scope.globalInfo.isAdd && step == 1) {//增购续费下 不走验证直接通过
+        $scope.showValid = function(step) {
+            if ($scope.globalInfo.isAdd && step == 1) { //增购续费下 不走验证直接通过
                 return true;
             }
-            $timeout(function () {
+            $timeout(function() {
                 $scope['step_' + step + '_validate_error'] = true;
             }, 10);
             return $scope.mainForm['stepForm' + step].$valid;
         }
-        $scope.nextStep = function (form) {
-            if ($scope.step == 1 || $scope.step == 2 || $scope.step == 3) {//企业详情界面
+        $scope.nextStep = function(form) {
+            if ($scope.step == 1 || $scope.step == 2 || $scope.step == 3) { //企业详情界面
                 form.$commitViewValue();
                 if (form.$invalid) {
                     $scope['step_' + $scope.step + '_validate_error'] = true;
@@ -521,11 +518,11 @@ define(function (require, exports, module) {
             }
             switch ($scope.step) {
                 case 1:
-                    {//企业详情界面
-                        submitStepEntInfo(function (result) {
+                    { //企业详情界面
+                        submitStepEntInfo(function(result) {
 
                             if (result.success) {
-                                $scope.$apply(function () {
+                                $scope.$apply(function() {
                                     var data = result.value.model;
                                     $scope.entInfo.draftEnterpriseId = data.id;
                                     $scope.productInfo.draftEnterpriseId = data.id;
@@ -535,15 +532,13 @@ define(function (require, exports, module) {
                             }
                         });
                         return;
-                    }
-                    ;
-                    break;
+                    };
                 case 2:
-                    {//产品信息
-                        submitStepProductInfo(function (result) {
+                    { //产品信息
+                        submitStepProductInfo(function(result) {
 
                             if (result.success) {
-                                $scope.$apply(function () {
+                                $scope.$apply(function() {
                                     var data = result.value.model;
                                     $scope.productInfo.draftOrderId = data.draftOrderId;
                                     $scope.payInfo.draftOrderId = data.draftOrderId;
@@ -553,16 +548,14 @@ define(function (require, exports, module) {
                             }
                         });
                         return;
-                    }
-                    ;
-                    break;
+                    };
             }
             //$scope.step++;
         };
         //获取
         function getInitData() {
-            productService.getInitData($scope.globalInfo.enterpriseId, $scope.globalInfo.submitType, function (data) {
-                $timeout(function () {
+            productService.getInitData($scope.globalInfo.enterpriseId, $scope.globalInfo.submitType, function(data) {
+                $timeout(function() {
                     $scope.productInfo.initData = data || [];
                 }, 10);
             })
@@ -571,26 +564,25 @@ define(function (require, exports, module) {
         //企业草稿提交  需要enterpriseAccount
         function submitStepEntInfo(callback) {
             action.doing = true;
-            debugger
+            // debugger
             productService.submitStepEntInfo({
                 odrDraftEnterprise: angular.toJson(angular.extend({ enterpriseAccount: $scope.globalInfo.enterpriseAccount, enterpriseFilingId: $scope.globalInfo.enterpriseFilingId, id: entInfo.draftEnterpriseId }, $scope.entInfo))
-            }
-            ).success(function (result) {
+            }).success(function(result) {
                 callback(result);
-            }).always(function () {
-                $scope.$apply(function () {
+            }).always(function() {
+                $scope.$apply(function() {
                     action.doing = false;
                 });
             });
         }
 
-        $scope.getProductInfo = function (needToJson) {
+        $scope.getProductInfo = function(needToJson) {
             var dataResultCopy = angular.copy($scope.productInfo.dataResult);
             var newDataResult = [];
-            _.each(dataResultCopy, function (item) {
+            _.each(dataResultCopy, function(item) {
                 item.show && (newDataResult.push(item));
                 var tempData = [];
-                _.each(item.data, function (dataItem) {
+                _.each(item.data, function(dataItem) {
                     dataItem.hidden !== true && (tempData.push(dataItem));
                     delete dataItem.hidden;
                 });
@@ -615,8 +607,8 @@ define(function (require, exports, module) {
         //订单草稿  需要 enterpriseId
         function submitStepProductInfo(callback) {
             action.doing = true;
-            productService.submitStepProductInfo($scope.getProductInfo(true), callback).always(function () {
-                $scope.$apply(function () {
+            productService.submitStepProductInfo($scope.getProductInfo(true), callback).always(function() {
+                $scope.$apply(function() {
                     action.doing = false;
                 });
             });
@@ -625,22 +617,22 @@ define(function (require, exports, module) {
         //付款信息
         function submitStepPayInfo(callback) {
             action.doing = true;
-            productService.submitStepPayInfo({ submitType: $scope.globalInfo.submitType, odrDraftPaidInfo: angular.toJson($scope.payInfo) }, callback).always(function () {
-                $scope.$apply(function () {
+            productService.submitStepPayInfo({ submitType: $scope.globalInfo.submitType, odrDraftPaidInfo: angular.toJson($scope.payInfo) }, callback).always(function() {
+                $scope.$apply(function() {
                     action.doing = false;
                 });
             });
         }
 
         //保存提交按钮
-        $scope.save = function (form) {
+        $scope.save = function(form) {
             form.$commitViewValue();
             if (form.$invalid) {
                 $scope['step_' + $scope.step + '_validate_error'] = true;
                 return;
             }
             //付款信息
-            submitStepPayInfo(function (result) {
+            submitStepPayInfo(function(result) {
                 if (result.success) {
                     util.showTip('操作成功');
                     IBSS.tplEvent.trigger('order1.2Success');
@@ -648,12 +640,9 @@ define(function (require, exports, module) {
             });
         };
         //取消按钮
-        $scope.close = function () {
+        $scope.close = function() {
             IBSS.tplEvent.trigger('order1.2Close');
         };
-    }
-    ])
-        ;
+    }]);
 
-})
-    ;
+});

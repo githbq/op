@@ -8,24 +8,24 @@ define(function(require, exports, module) {
     var Dialog = require('common/widget/dialog/dialog');
 
     var viewStr = require('./enterpriselist.html');
-    var template = $( require('./template.html') );
+    var template = $(require('./template.html'));
 
     var EntStatusMap = IBSS.EntStatusMap;
     var enumdata = require('module/data/data').data;
     var resetSelect = require('module/data/data').resetSelect;
-    var CustomTree=require('module/customtree/customtree').getDialog();
+    var CustomTree = require('module/customtree/customtree').getDialog();
 
     //转移企业
     //=============================
-    var TransEnt = MClass( Dialog ).include({
-        defaultAttr:{
+    var TransEnt = MClass(Dialog).include({
+        defaultAttr: {
             'title': '转移企业',
             'width': 575
         },
-        events:{
+        events: {
             'click .action-submit': 'submitEve',
             'click .action-cancel': 'hide',
-            'click input:radio[name=company]': 'changeType', 
+            'click input:radio[name=company]': 'changeType',
             'click #dept': 'selectDeptEve',
             'click #rmv': 'removeDept',
             //'input #sales': 'input',
@@ -33,46 +33,46 @@ define(function(require, exports, module) {
             'click .m-dialog': 'blur',
             'focus #sales': 'input'
         },
-        elements:{
+        elements: {
             '#departmentText': 'departmentText',
             '#dept': 'dept',
             '#sales': 'sales'
         },
         content: template.filter('#transfer').html(),
-        show: function(aId){
-            TransEnt.__super__.show.apply( this, arguments );
+        show: function(aId) {
+            TransEnt.__super__.show.apply(this, arguments);
             var me = this;
             this.aId = aId;
-            this.$sales.prop('disabled',true);
-            $('#sales').on('input', function(){
+            this.$sales.prop('disabled', true);
+            $('#sales').on('input', function() {
                 me.input.call(me);
             });
         },
-        init: function(){
-            TransEnt.__super__.init.apply( this, arguments );
+        init: function() {
+            TransEnt.__super__.init.apply(this, arguments);
         },
 
-        changeType: function(e){
+        changeType: function(e) {
             var me = this;
-            if($(e.currentTarget).val() == me.type){
+            if ($(e.currentTarget).val() == me.type) {
                 return;
             }
             me.$departmentText.val('');
             me.$dept.val('');
-            me.$sales.val('').attr({'data-id': '', 'disabled': false});
+            me.$sales.val('').attr({ 'data-id': '', 'disabled': false });
         },
 
         //提交
-        submitEve: function(){
+        submitEve: function() {
             var me = this;
             var sales = me.$sales.attr('data-id'),
                 type = $("input[type=radio]:checked").val(),
                 dept = me.$dept.val();
-            if(!type){
+            if (!type) {
                 util.showToast('请选择代理商类型');
                 return;
             }
-            if(!dept){
+            if (!dept) {
                 util.showToast('请选择部门');
                 return;
             }
@@ -81,22 +81,22 @@ define(function(require, exports, module) {
                 return;
             }*/
             //选择与提交type值不同
-            if( type ==2 ){
+            if (type == 2) {
                 type = 1;
-            }else if(type ==1){
+            } else if (type == 1) {
                 type = 2;
             }
-         
+
             util.api({
                 url: '~/op/api/a/enterprise/transferEnterprises',
                 data: {
                     accountId: sales,
                     agentType: type,
                     vendorId: dept,
-                    enterpriseIds: me.aId.join(',') 
+                    enterpriseIds: me.aId.join(',')
                 },
                 success: function(data) {
-                    if(data.success){
+                    if (data.success) {
                         util.showTip('企业转移成功');
                         me.hide();
                         me.trigger('success');
@@ -107,12 +107,12 @@ define(function(require, exports, module) {
         },
 
         blur: function(e) {
-            if($(e.target).attr('id') == 'sales'){
+            if ($(e.target).attr('id') == 'sales') {
                 return;
             }
             $("#down").html('').hide();
         },
-        
+
         input: function() {
             var me = this;
             $('#down').show();
@@ -121,26 +121,26 @@ define(function(require, exports, module) {
                 var data = {
                     name: me.$sales.val()
                 }
-                me.$dept.val()? data.deptId = me.$dept.val():data.companyType = $("input[type=radio]:checked").val();
+                me.$dept.val() ? data.deptId = me.$dept.val() : data.companyType = $("input[type=radio]:checked").val();
                 util.api({
                     url: '~/op/api/s/enterprise/queryAccountByDeptId',
                     data: data,
                     success: function(res) {
-                        if(res.success){
-                            if(res.value.model.length > 0){
+                        if (res.success) {
+                            if (res.value.model.length > 0) {
                                 var options = '';
                                 var con = res.value.model;
-                                $(con).each(function(index, item){
-                                    options += '<li value="'+item.id+'">'+item.name+'</li>';
+                                $(con).each(function(index, item) {
+                                    options += '<li value="' + item.id + '">' + item.name + '</li>';
                                 });
-                            }else{
+                            } else {
                                 var options = '无结果';
                             }
                             $('#down').html(options);
                         }
                     }
                 });
-            },250);
+            }, 250);
         },
         select: function(e) {
             var me = this,
@@ -148,26 +148,26 @@ define(function(require, exports, module) {
                 id = $(e.currentTarget).val();
             me.$sales.val(name);
             me.$sales.attr('data-id', id);
-            if(me.$dept.val()){
+            if (me.$dept.val()) {
                 return;
             }
             util.api({
-                url:'~/op/api/s/enterprise/queryDepartmentByAccountId',
-                data:{
+                url: '~/op/api/s/enterprise/queryDepartmentByAccountId',
+                data: {
                     accountId: id
                 },
                 success: function(res) {
-                    if(res.success){
+                    if (res.success) {
                         me.$departmentText.val(res.value.model.name);
-                        me.$dept.val(res.value.model.id); 
+                        me.$dept.val(res.value.model.id);
                     }
                 }
             });
         },
 
         //隐藏
-        hide: function(){
-            TransEnt.__super__.hide.apply( this, arguments );
+        hide: function() {
+            TransEnt.__super__.hide.apply(this, arguments);
             var me = this;
             me.aId = '';
             $("input[type=radio]").prop('checked', false);
@@ -176,41 +176,41 @@ define(function(require, exports, module) {
             $('#sales').off('input');
         },
         //选择部门
-        selectDeptEve: function(){
+        selectDeptEve: function() {
             var me = this;
             var type = $("input[type=radio]:checked").val()
             me.type = type;
-            if(!type){
+            if (!type) {
                 util.showToast('请选择公司类型');
                 return false;
             }
-            me.deptTree = new CustomTree({ 
+            me.deptTree = new CustomTree({
                 'title': '转移企业-选择部门',
-                searchOptions:{show:true,title:'部门名称'},
-                ztreeOptions:{
-                    expandAll:false,
-                    check:{chkStyle: "radio",radioType: "all"},
-                    checkStyle:"radio"
+                searchOptions: { show: true, title: '部门名称' },
+                ztreeOptions: {
+                    expandAll: false,
+                    check: { chkStyle: "radio", radioType: "all" },
+                    checkStyle: "radio"
                 },
-                ajaxData:{
-                    url:'~/op/api/s/enterprise/getSalesDepartment',
+                ajaxData: {
+                    url: '~/op/api/s/enterprise/getSalesDepartment',
                     data: {
                         companyType: type
                     }
                 }
             });
-            me.deptTree.on('enter', function (  ) {
-                me.deptObj = me.deptTree.getValue() ? me.deptTree.getValue()[0]: null;
+            me.deptTree.on('enter', function() {
+                me.deptObj = me.deptTree.getValue() ? me.deptTree.getValue()[0] : null;
                 me.deptObjId = [me.deptObj.id];
                 me.postObjId = [];
                 me.postObj = null;
-                me.deptObj ? me.$departmentText.val(me.deptObj.name ):me.$departmentText.val('');
+                me.deptObj ? me.$departmentText.val(me.deptObj.name) : me.$departmentText.val('');
                 me.$dept.val(me.deptObjId[0]);
                 me.$sales.val('').attr('data-id', '');
             });
-            me.deptTree.show( [ me.$dept.val() ], {});
+            me.deptTree.show([me.$dept.val()], {});
         },
-        removeDept: function(){
+        removeDept: function() {
             this.$departmentText.val('');
             this.$dept.val('');
             this.$sales.val('').attr('data-id', '');
@@ -219,25 +219,25 @@ define(function(require, exports, module) {
 
     //沙盒设置
     //==================================
-    var SandBox = MClass( Dialog ).include({
-        defaultAttr:{
-            'title':'沙盒设置',
-            'width':530
+    var SandBox = MClass(Dialog).include({
+        defaultAttr: {
+            'title': '沙盒设置',
+            'width': 530
         },
         content: template.filter('#sandbox').html(),
-        init: function(){
-            SandBox.__super__.init.apply( this, arguments );
+        init: function() {
+            SandBox.__super__.init.apply(this, arguments);
             var me = this;
 
-            me.model.on('change:state',function( key , value ){
+            me.model.on('change:state', function(key, value) {
 
-                console.log( 'changestate' );
-                console.log( value );
-                
-                value = ( value == null )? '':value;
+                console.log('changestate');
+                console.log(value);
 
-                switch( value ){
-                    
+                value = (value == null) ? '' : value;
+
+                switch (value) {
+
                     case '':
                         me.$('.state-open').hide();
                         me.$('.state-close').hide();
@@ -253,10 +253,10 @@ define(function(require, exports, module) {
                 }
             });
         },
-        hide: function(){
+        hide: function() {
             var me = this;
             me.model.clear();
-            SandBox.__super__.hide.apply( this, arguments );
+            SandBox.__super__.hide.apply(this, arguments);
         }
     });
 
@@ -270,26 +270,28 @@ define(function(require, exports, module) {
         view: viewStr,
 
         elements: {
-            'tbody': 'tbody'            //
+            'tbody': 'tbody', //
+            '#fromAppStartTime': 'fromAppStartTime',
+            '#endAppStartTime': 'endAppStartTime',
         },
 
         events: {
             'click .export-file': function() {
                 this.getList(true);
             },
-            'click #btnSearch': 'search',         // 查询
-            'click .info-detail': 'detailEve',    // 查看详情
-            'click .info-trace': 'traceEve',      // 跟踪记录
-            'click .info-clue': 'clueEve',        // 线索
-            'click .info-renew': 'renewEve',      // 增购/续费
+            'click #btnSearch': 'search', // 查询
+            'click .info-detail': 'detailEve', // 查看详情
+            'click .info-trace': 'traceEve', // 跟踪记录
+            'click .info-clue': 'clueEve', // 线索
+            'click .info-renew': 'renewEve', // 增购/续费
             'click .info-custom': function(e) {
                 console.log('do do do');
                 this.trigger('orderCustom', { 'enterpriseId': $(e.currentTarget).attr('data-enterpriseId') })
             }, //联合跟进人
 
-            'click .selectall': 'selectAllEve',     //全选
-            'click .btn-transfer': 'transferEve',   //转移
-            'click .btn-sandbox': 'sandboxEve'      //沙盒
+            'click .selectall': 'selectAllEve', //全选
+            'click .btn-transfer': 'transferEve', //转移
+            'click .btn-sandbox': 'sandboxEve' //沙盒
         },
 
         init: function() {
@@ -308,10 +310,14 @@ define(function(require, exports, module) {
 
             me.transEnt = new TransEnt();
             me.sandBox = new SandBox();
-            me.transEnt.on('success', function(){
+            me.transEnt.on('success', function() {
                 me.getList();
             });
-            resetSelect( me.$view, 'entstatus');
+            resetSelect(me.$view, 'entstatus');
+
+            me.$fromAppStartTime.datetimepicker({ timepicker: false, format: 'Y-m-d' });
+            me.$endAppStartTime.datetimepicker({ timepicker: false, format: 'Y-m-d' });
+
 
             me.setState();
             //初始化
@@ -319,21 +325,21 @@ define(function(require, exports, module) {
             me.getList();
         },
         //打开转移企业弹窗
-        transferEve: function(){
+        transferEve: function() {
             var array = this.getSelect();
-            if(array.length <= 0){
+            if (array.length <= 0) {
                 util.showToast('请选择企业！');
                 return;
             }
-            this.transEnt.show( array );
+            this.transEnt.show(array);
         },
         //打开沙盒设置弹窗
-        sandboxEve: function(){
+        sandboxEve: function() {
             this.sandBox.show();
         },
-        
+
         //设置状态
-        setState: function(){
+        setState: function() {
             var me = this;
             me.$('[data-state]').hide();
             me.$('[data-state="' + me.attrs.state + '"]').show();
@@ -411,12 +417,13 @@ define(function(require, exports, module) {
 
         //默认置为第一页 搜索
         search: function() {
+
             this.pagination.setPage(0, false);
             this.getList();
         },
 
         //获取数据
-        getList: function( exportFile ) {
+        getList: function(exportFile) {
             var me = this;
 
             /*
@@ -428,7 +435,12 @@ define(function(require, exports, module) {
             var data = me.model.all();
             data.pageIndex = me.pagination.attr['pageNumber'] + 1;
             data.pageSize = me.pagination.attr['pageSize'];
-
+            if (me.$fromAppStartTime.val()) {
+                data.fromAppStartTime = new Date(me.$fromAppStartTime.val()).getTime();
+            }
+            if (me.$endAppStartTime.val()) {
+                data.endAppStartTime = new Date(me.$endAppStartTime.val()).getTime();
+            }
             if (exportFile === true) {
                 window.open(IBSS.API_PATH + '/enterprise/exportTrialData?' + $.param(data));
                 return;
@@ -443,11 +455,11 @@ define(function(require, exports, module) {
                     if (data.success) {
                         me.pagination.setTotalSize(data.value.model.itemCount);
                         if (data.value.model.content.length > 0) {
-                            me.list.reload(data.value.model.content, function( item ) {
+                            me.list.reload(data.value.model.content, function(item) {
                                 item.entTypeStr = enumdata['enttype'][item.enterpriseType];
                                 item.entStatusStr = enumdata['entstatus'][item.csmEnterprise.runStatus];
 
-                                if( item.isOverLimitWarn ){
+                                if (item.isOverLimitWarn) {
                                     item.isOverLimitWarnStr = '是';
                                 } else {
                                     item.isOverLimitWarnStr = '否';
@@ -473,7 +485,7 @@ define(function(require, exports, module) {
                 status = $(e.currentTarget).attr('data-status'),
                 entname = $(e.currentTarget).attr('data-entname');
 
-            this.trigger('detail', id, status, entname );
+            this.trigger('detail', id, status, entname);
         },
 
         //企业跟踪记录
@@ -483,9 +495,9 @@ define(function(require, exports, module) {
         },
 
         //线索
-        clueEve: function(e){
+        clueEve: function(e) {
             var id = $(e.currentTarget).attr('data-clue');
-            this.trigger('clue',id);
+            this.trigger('clue', id);
         },
 
         //增购 续费
@@ -495,7 +507,7 @@ define(function(require, exports, module) {
             var account = $(e.currentTarget).attr('data-account');
             var entName = $(e.currentTarget).attr('data-entname');
 
-            me.trigger('renew',id,account,entName);
+            me.trigger('renew', id, account, entName);
         },
 
         //联合跟进人

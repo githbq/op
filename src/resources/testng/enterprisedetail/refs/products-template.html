@@ -13,6 +13,10 @@
             </label>
         </div>
     </div>
+    <div class="products-detail-edit" ng-if="productEditCode()">
+        <button class="btn-blue" ng-click="productEdit()">修改</button>
+        <button class="btn-blue" ng-show="productEditObj.showEditSave" ng-click="productEditSave()">保存</button>
+    </div>  
     <!--{{dataResult}}-->
     <div class="products-border">
         <div class="product-agent" data-index="{{product.index}}" data-productid="{{product.productId}}" ng-repeat="product in products">
@@ -37,6 +41,7 @@
                                                    ng-change="this.fieldChange(this.field,this.product,this[currentFormName])"
                                                    ng-model-options="{updateOn:'default blur',debounce:500}"
                                                    ng-model="field.value.valueData.value"/>
+                                                   
                                         </div>
                                         <!--可输入整型-->
                                         <div ng-switch-when="int">

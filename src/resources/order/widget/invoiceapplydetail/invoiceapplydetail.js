@@ -8,7 +8,6 @@ define(function (require, exports, module) {
         '3': require('./states/type3'),
         '4': require('./states/type4')
     };
-
     function controlDataItems(items, name, func) {
         var find = null;
         $(items).each(function (i, n) {
@@ -18,7 +17,7 @@ define(function (require, exports, module) {
             }
         });
         if (!find) {
-            find = new DataItem({name: name});
+            find = new DataItem({ name: name });
             items.push(find);
         }
         func(find);
@@ -41,14 +40,14 @@ define(function (require, exports, module) {
             resultData.processInstanceId = data.data.processInstanceId;
             var dataItems = require('./dataitems/items').getItems();
 
-            if( type == 2 && resultData.notRefundStatus == false ){
+            if (type == 2 && resultData.notRefundStatus == false) {
                 type = 4;
             }
-            
+
             var controller = getDataControllerByType(type);//根据类型获取控制器
             var transferedDataItems = controller.transferDataItem(dataItems, controlDataItems, resultData);//用控制器转换输入的数据项
-            var invoice = new Invoice({templateData: {}, wrapperView: data.$view, dataItems: transferedDataItems.dataItems, apiPool: {}});
-            invoice.o_setValue({name: 'invoiceType-' + resultData.invoice.invoiceType, visible: true});
+            var invoice = new Invoice({ templateData: {}, wrapperView: data.$view, dataItems: transferedDataItems.dataItems, apiPool: {} });
+            invoice.o_setValue({ name: 'invoiceType-' + resultData.invoice.invoiceType, visible: true });
             invoice.render();
             var returnData = {
                 instance: invoice,
