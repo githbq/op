@@ -3,73 +3,79 @@
         <iframe style="width:1px;height:1px;visibility:hidden;position:absolute" name="hideiframe" id="hideiframe" src="" frameborder="0"></iframe>
         <div class="list-main">
             <div class="list-header">
-                <h3>活跃度查询
-                    <div class="header-opts">
-                    <button id="btnQyrhyExel" class="btn-exel" data-permissions="M009008002,M008017002,M011011002,M009020001">日活详情导出</button>
-                    <span id="downloaddayactive" style="margin-right:75px;display:none;"><a href="" target="_blank">下载日活详情</a></span>
-                </div>
-                </h3>
+                <h3>活跃度查询<span style="float:right;color:#F5BD00 ">说明: "企业账号"、"企业ID",均可批量输入,每个账号后回车换行即可</span></h3>
             </div>
             <div class="list-bar">
-                <div class="list-bar-btns">
-                    <button id="btnClear">清空</button>
+                <div class="list-bar-btns buttonTeam">
                     <button id="btnReset">重置</button>
+                    <br>
+                    <button id="btnSearch" class="btn-blue btn-search" data-permissions="M008012001">查询</button>
                 </div>
-                <div class="list-bar-input">
+                <div class="list-bar-input checkForm">
                     <label><span>行业</span>
-                        <select id="alIndustry">
-                            <option value="">全部</option>
+                        <select id="clOneIndustry">
                         </select>
                     </label>
-                    <label><span>产品模块</span>
-                        <select id="alPModule">
-                            <option value="">全部</option>
+                    <label>
+                        <select id="clTwoIndustry">
                         </select>
                     </label>
-                    <label><span>优惠码</span>
-                        <input id="alCode" type="text" class="g-ipt ipt-m" onchange="this.value=this.value.replace(/\D/g,'')" maxlength=8/>
-                    </label>
-                    <label><span>付费状态</span>
-                        <select id="alFStatus">
-                            <option value="">全部</option>
-                            <option value="true">是</option>
-                            <option value="false">否</option>
-                        </select>
-                    </label>
-                    <label><span>来源</span>
-                        <select id="alSource">
-                            <option value="">全部</option>
+                    <label>
+                        <select id="clThreeIndustry">
                         </select>
                     </label>
                     <label class="sp">
                         <label>
-                            <span>活跃时间</span>
-                            <input id="alAST" type="text" class="g-ipt ipt-l"/>
+                            <span>活跃日期</span>
+                            <input id="alAST" type="text" class="g-ipt ipt-l" readonly placeholder="起始日期" />
                         </label>
-                    <label>
+                        <label>
                             <span>-</span>
-                            <input id="alAET" type="text" class="g-ipt ipt-l"/>
+                            <input id="alAET" type="text" class="g-ipt ipt-l" readonly placeholder="结束日期" readonly/>
                         </label>
+                    </label>
+                    <label>
+                        <span>企业帐号</span>
+                        <textarea name="account" id="entCount"></textarea>
+                    </label>
+                    <label>
+                        <span>企业ID</span>
+                        <textarea name="account" id="entID"></textarea>
+                    </label>
+                    <label class="transRight" style="margin-right:113px">
+                        <span>企业类型</span>
+                        <select id="entType">
+                            <option value="">全部</option>
+                            <option value="1">开源</option>
+                            <option value="2">付费</option>
+                            <option value="3">免费</option>
+                            <option value="4">未续费</option>
+                            <option value="-1">未知</option>
+                        </select>
+                    </label>
+                    <label class="transRight">
+                        <span>是否自注册</span>
+                        <select id="isRegister">
+                            <option value="">全部</option>
+                            <option value="1">是</option>
+                            <option value="0">否</option>
+                        </select>
                     </label>
                     <label class="sp">
                         <label>
-                            <span>开通时间</span>
-                            <input id="alCST" type="text" class="g-ipt ipt-l"/>
+                            <span>开通日期</span>
+                            <input id="alCST" type="text" class="g-ipt ipt-l" readonly placeholder="起始日期" />
                         </label>
-                    <label>
+                        <label>
                             <span>-</span>
-                            <input id="alCET" type="text" class="g-ipt ipt-l"/>
+                            <input id="alCET" type="text" class="g-ipt ipt-l" readonly placeholder="结束日期" />
                         </label>
                     </label>
-                    <br/>
-                    <label><span>企业帐号或Id</span>
-                        <select id="alListType">
-                            <option value="1">帐号</option>
-                            <option value="2">Id</option>
-                        </select>
-                    </label><br/>
-                    <textarea class="act-lst-tr" id="alList"></textarea><br/>
-
+                    <label style="">
+                        <span>代理商/部门</span>
+                        <input type="text" name="" id="agent">
+                    </label>
+                    <p class="warning">注意:表中所显示的企业属性，均为当前查询时的最新状态，与所选取的开通日期、活跃日期无关</p>
                     <p class="tips"></p>
                 </div>
             </div>
@@ -89,6 +95,7 @@
                                 <th data-name="taskName">任务名称</th>
                                 <th data-name="status">任务状态</th>
                                 <th data-name="createTime">任务创建时间</th>
+                                <th data-name="endTime">任务结束时间</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -98,7 +105,6 @@
                 </div>
             </div>
             <div class="list-pager">
-
             </div>
         </div>
     </div>

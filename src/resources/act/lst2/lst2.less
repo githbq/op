@@ -2,12 +2,31 @@
     .m-act-lst {
         .list-bar {
             border-bottom: none;
-            .list-bar-btns {
-                width: 300px;
+            .checkForm {
+                select {
+                    width: 162px;
+                }
+                label {
+                    margin-right: 30px;
+                }
+                #agent {
+                    width: 296px;
+                }
+                textarea {
+                    width: 118px;
+                    height: 32px;
+                }
+                .warning {
+                    color: red;
+                }
+            }
+            .buttonTeam {
+                width: 100px;
                 button {
                     margin-right: 10px;
+                    margin-bottom: 10px;
                     &:last-child {
-                        margin-right: 0;
+                        margin-right: 14px;
                     }
                     &.disabled {
                         opacity: 0.3;
@@ -28,9 +47,9 @@
             }
         }
         .list-content {
-            background:#f8f8f8;
+            background: #f8f8f8;
             h3 {
-                padding-left:20px;
+                padding-left: 20px;
                 border-bottom: 1px solid #d9d9d9;
                 color: #888888;
                 font-size: 15px;
@@ -46,7 +65,9 @@
                     text-align: right;
                     button {
                         margin-left: 10px;
-                        &.invisiable { display: none; }
+                        &.invisiable {
+                            display: none;
+                        }
                         &.disabled {
                             opacity: 0.3;
                         }
@@ -58,7 +79,7 @@
             }
         }
     }
-    .tips{
+    .tips {
         margin-bottom: 20px;
         color: #ffa500;
     }
