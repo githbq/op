@@ -14,7 +14,6 @@ define(function(require, exports, module) {
         init: function(data) {
             var me = this;
             mainData = data;
-            console.log(111,data)
             Page.__super__.init.apply(me, arguments);
 
             angular.bootstrap(me.$view, ['formApp']);

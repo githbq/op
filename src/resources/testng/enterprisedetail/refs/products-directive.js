@@ -152,11 +152,11 @@ define(function(require, exports, module) {
                             id: item.productId,
                             text: item.text,
                             checked: !!findProduct,
-                            canCancel: findProduct ? findProduct.canCancel : undefined
+                            canCancel: findProduct ? findProduct.canCancel : undefined,
+                            disables: item.disables
                         };
                     });
                     //初始化数据对复选框进行操作
-
                     //对复选框进行操作
                     _.each($scope.productCheckboxs, function(item, i) {
                         //初始数据填充
@@ -267,12 +267,27 @@ define(function(require, exports, module) {
                 //如果用户快速点击复选框在DOM没渲染成功的时候就执行了第二次重组会发生意想不到的事情，所以要避免用户点击导致数组变动过快
                 //复选框选中事件
                 $scope.checkProduct = function(checked, checkbox) {
+                    function resetUI(checkbox,show) {
+                        var findProduct = _.findWhere($scope.products, { productId: checkbox.id });
+                        findProduct.show = show;
+                        //同步改变对应的结果值上的属性
+                        var dataResultItem = _.findWhere($scope.dataResult, { productId: checkbox.id });
+                        dataResultItem && (dataResultItem.show = findProduct.show);
+                    }
+                    console.log(checked, checkbox)
                     $scope.checkboxDisabled = true;
-                    var findProduct = _.findWhere($scope.products, { productId: checkbox.id });
-                    findProduct.show = checked;
-                    //同步改变对应的结果值上的属性
-                    var dataResultItem = _.findWhere($scope.dataResult, { productId: checkbox.id });
-                    dataResultItem && (dataResultItem.show = findProduct.show);
+                    if (checkbox.disables && checkbox.disables.length > 0 && checked) {
+                        checkbox.disables.forEach(function(item) {
+                            $scope.productCheckboxs.forEach(function(checkboxItem) {
+                                if (checkboxItem.id == item && checkboxItem.checked) {
+                                    checkboxItem.disable = true;
+                                    checkboxItem.checked = false;
+                                    resetUI(checkboxItem,false);
+                                }
+                            });
+                        });
+                    } 
+                    resetUI(checkbox,checked);
                     wrapperReset();
                     $timeout(function() {
                         $scope.checkboxDisabled = false;
@@ -408,8 +423,7 @@ define(function(require, exports, module) {
                     function done(changeItem) {
                         switch (changeItem.type) {
                             case 'evaluation':
-                                {
-                                    //直接赋值操作
+                                { //直接赋值操作
                                     evaluationForValueType(changeItem, fieldStruct, product);
                                 };
                                 break;
@@ -468,6 +482,7 @@ define(function(require, exports, module) {
                 //根据ajax返回的值向数据中赋值
                 function setResponse(data, changeItem, product) {
                     $timeout(function() {
+
                         if (changeItem.backName && changeItem.valueData) { //单一数据来源赋值
                             changeItem.valueData.value = data[changeItem.backName];
                         } else if (changeItem.response.writeBackType == 'merge') { //合并到data上
@@ -504,6 +519,22 @@ define(function(require, exports, module) {
                             {
                                 $scope.productJson.global[mapperItem.valueRef] = responseData[mapperItem.name];
                             };
+                            break;
+                        case 'otherData':
+                            {
+                                $scope.products.forEach(function(item) {
+                                    if (item.productId == mapperItem.productId && item.show) {
+                                        item.logic.data.forEach(function(logic) {
+                                            if (logic.name == mapperItem.valueRef && !logic.hidden) {
+                                                var findData = _.findWhere(item.logic.data, { name: mapperItem.valueRef });
+                                                if (findData) {
+                                                    findData.value = responseData[mapperItem.name];
+                                                }
+                                            }
+                                        })
+                                    }
+                                });
+                            }
                             break;
                     }
                 }
@@ -572,7 +603,7 @@ define(function(require, exports, module) {
                         if (!checkUN(queryItem.value)) { //支持直接在验证项上添加固定值
                             data[queryItem.name] = queryItem.value;
                         } else {
-                            var findValue = getValueForSwitchValueType(queryItem.valueType, queryItem.valueRef, product);
+                            var findValue = getValueForSwitchValueType(queryItem, product);
                             data[queryItem.name] = findValue;
                         }
                     }
@@ -580,28 +611,47 @@ define(function(require, exports, module) {
                 }
 
                 //根据不同的拿值类型拿值
-                function getValueForSwitchValueType(valueType, refName, product) {
+                // function getValueForSwitchValueType(valueType, refName,productId, product) {
+                function getValueForSwitchValueType(queryItem, product) {
                     var value = null;
-                    switch (valueType) {
+                    switch (queryItem.valueType) {
+                        case 'normal':
+                            {
+                                value = queryItem.value;
+                            }
+                            break;
                         case 'data':
                             {
                                 try {
-                                    var findData = _.findWhere(product.logic.data, { name: refName });
+                                    var findData = _.findWhere(product.logic.data, { name: queryItem.valueRef });
                                     value = findData.value;
                                 } catch (e) {
-                                    throw new error("数据上未配置这个关联名称:" + refName);
+                                    throw new Error("数据上未配置这个关联名称:" + queryItem.valueRef);
                                 }
                             };
                             break;
                         case 'attr':
                             {
-                                value = product.logic.attr[refName];
+                                value = product.logic.attr[queryItem.valueRef];
                             };
                             break;
                         case 'global':
                             {
-                                value = $scope.productJson.global[refName];
+                                value = $scope.productJson.global[queryItem.valueRef];
                             };
+                            break;
+                        case 'otherData':
+                            {
+                                $scope.products.forEach(function(item) {
+                                    if (item.productId == queryItem.productId && item.show) {
+                                        item.logic.data.forEach(function(logic) {
+                                            if (logic.name == queryItem.valueRef && !logic.hidden) {
+                                                value = logic.value
+                                            }
+                                        })
+                                    }
+                                });
+                            }
                             break;
                     }
                     return value;
@@ -668,7 +718,7 @@ define(function(require, exports, module) {
                             if (fromData.productId == dataResult.productId) {
                                 dataResult.data.forEach(function(item) {
                                     if ((item.name == 'isSelfDev' || item.name == 'isSelfDev_2') && item.value == 1) {
-                                        var partnersStr = item.name == 'isSelfDev' ?'partners' : 'partners_2';
+                                        var partnersStr = item.name == 'isSelfDev' ? 'partners' : 'partners_2';
                                         dataResult.data.forEach(function(i) {
                                             if (i.name == partnersStr) {
                                                 i.valueItems = [];
@@ -676,7 +726,7 @@ define(function(require, exports, module) {
                                         })
                                     }
                                     if ((item.name == 'isDouble' || item.name == 'isDouble_2') && item.value == 0) {
-                                        var isDoubleStr = item.name == 'isDouble' ?'doubleSales' : 'doubleSales_2';
+                                        var isDoubleStr = item.name == 'isDouble' ? 'doubleSales' : 'doubleSales_2';
                                         dataResult.data.forEach(function(i) {
                                             if (i.name == isDoubleStr) {
                                                 i.valueItems = [];
