@@ -203,7 +203,7 @@ define(function(require, exports, module) {
                             util.api({
                                 data: {
                                     "accountId": IBSS.accountId,
-                                    "auth": 0,
+                                    "auth": 1,
                                     "start": new Date(me.$ast.val()).getTime(),
                                     "remark": '',
                                     "end": new Date(me.$aet.val()).getTime(),
