@@ -267,7 +267,7 @@ define(function(require, exports, module) {
                 //如果用户快速点击复选框在DOM没渲染成功的时候就执行了第二次重组会发生意想不到的事情，所以要避免用户点击导致数组变动过快
                 //复选框选中事件
                 $scope.checkProduct = function(checked, checkbox) {
-                    function resetUI(checkbox,show) {
+                    function resetUI(checkbox, show) {
                         var findProduct = _.findWhere($scope.products, { productId: checkbox.id });
                         findProduct.show = show;
                         //同步改变对应的结果值上的属性
@@ -282,12 +282,12 @@ define(function(require, exports, module) {
                                 if (checkboxItem.id == item && checkboxItem.checked) {
                                     checkboxItem.disable = true;
                                     checkboxItem.checked = false;
-                                    resetUI(checkboxItem,false);
+                                    resetUI(checkboxItem, false);
                                 }
                             });
                         });
-                    } 
-                    resetUI(checkbox,checked);
+                    }
+                    resetUI(checkbox, checked);
                     wrapperReset();
                     $timeout(function() {
                         $scope.checkboxDisabled = false;
@@ -372,7 +372,7 @@ define(function(require, exports, module) {
                                 break;
                             case 'copy': //指定data里的一个值赋给这个值
                                 {
-                                    newState.value.valueData.value = getValueForSwitchValueType(newState.value.valueType, newState.value.valueRef, product)
+                                    newState.value.valueData.value = getValueForSwitchValueType(newState.value.valueType, newState.value.valueRef, product,newState.value.value)
                                 }
                                 break;
                         }
@@ -603,7 +603,8 @@ define(function(require, exports, module) {
                         if (!checkUN(queryItem.value)) { //支持直接在验证项上添加固定值
                             data[queryItem.name] = queryItem.value;
                         } else {
-                            var findValue = getValueForSwitchValueType(queryItem, product);
+                            console.dir(queryItem)
+                            var findValue = getValueForSwitchValueType(queryItem.valueType, queryItem.valueRef, product, queryItem.productId,queryItem.value);
                             data[queryItem.name] = findValue;
                         }
                     }
@@ -611,41 +612,42 @@ define(function(require, exports, module) {
                 }
 
                 //根据不同的拿值类型拿值
-                // function getValueForSwitchValueType(valueType, refName,productId, product) {
-                function getValueForSwitchValueType(queryItem, product) {
+                function getValueForSwitchValueType(valueType, refName, product, productId, normalValue) {
+                    // function getValueForSwitchValueType(queryItem, product) {
                     var value = null;
-                    switch (queryItem.valueType) {
+                    switch (valueType) {
                         case 'normal':
                             {
-                                value = queryItem.value;
+                                // value = queryItem.value;
+                                value = normalValue;
                             }
                             break;
                         case 'data':
                             {
                                 try {
-                                    var findData = _.findWhere(product.logic.data, { name: queryItem.valueRef });
+                                    var findData = _.findWhere(product.logic.data, { name: refName });
                                     value = findData.value;
                                 } catch (e) {
-                                    throw new Error("数据上未配置这个关联名称:" + queryItem.valueRef);
+                                    throw new Error("数据上未配置这个关联名称:" + refName);
                                 }
                             };
                             break;
                         case 'attr':
                             {
-                                value = product.logic.attr[queryItem.valueRef];
+                                value = product.logic.attr[refName];
                             };
                             break;
                         case 'global':
                             {
-                                value = $scope.productJson.global[queryItem.valueRef];
+                                value = $scope.productJson.global[refName];
                             };
                             break;
                         case 'otherData':
                             {
                                 $scope.products.forEach(function(item) {
-                                    if (item.productId == queryItem.productId && item.show) {
+                                    if (item.productId == productId && item.show) {
                                         item.logic.data.forEach(function(logic) {
-                                            if (logic.name == queryItem.valueRef && !logic.hidden) {
+                                            if (logic.name == refName && !logic.hidden) {
                                                 value = logic.value
                                             }
                                         })
@@ -665,7 +667,7 @@ define(function(require, exports, module) {
                         if (!checkUN(validateItem.value)) {
                             result = validateItem.value;
                         } else {
-                            result = getValueForSwitchValueType(validateItem.valueType, validateItem.valueRef, product);
+                            result = getValueForSwitchValueType(validateItem.valueType, validateItem.valueRef, product, validateItem.value);
                         }
                         return result;
                     }
