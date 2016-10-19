@@ -9,6 +9,7 @@ define(function(require, exports, module) {
 
     var viewStr = require('./enterpriselist.html');
     var template = $(require('./template.html'));
+	var resetSelect = require('module/data/data').resetSelect;          //枚举常量
 
     var EntStatusMap = IBSS.EntStatusMap;
     var enumdata = require('module/data/data').data;
@@ -50,6 +51,7 @@ define(function(require, exports, module) {
         },
         init: function() {
             TransEnt.__super__.init.apply(this, arguments);
+			
         },
 
         changeType: function(e) {
@@ -314,6 +316,7 @@ define(function(require, exports, module) {
                 me.getList();
             });
             resetSelect(me.$view, 'entstatus');
+			resetSelect(me.$view, "apptype");
 
             me.$fromAppStartTime.datetimepicker({ timepicker: false, format: 'Y-m-d' });
             me.$endAppStartTime.datetimepicker({ timepicker: false, format: 'Y-m-d' });
