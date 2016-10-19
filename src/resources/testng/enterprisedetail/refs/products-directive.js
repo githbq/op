@@ -498,7 +498,7 @@ define(function(require, exports, module) {
                         }
                     }, 10);
                 }
-
+                // 后端返回数据，根据返回数据的key，找数据name = key
                 function setMappingValue(responseData, mapperItem, product) {
                     switch (mapperItem.valueType) {
                         case 'data':
@@ -603,7 +603,6 @@ define(function(require, exports, module) {
                         if (!checkUN(queryItem.value)) { //支持直接在验证项上添加固定值
                             data[queryItem.name] = queryItem.value;
                         } else {
-                            console.dir(queryItem)
                             var findValue = getValueForSwitchValueType(queryItem.valueType, queryItem.valueRef, product, queryItem.productId,queryItem.value);
                             data[queryItem.name] = findValue;
                         }
@@ -611,7 +610,7 @@ define(function(require, exports, module) {
                     return data;
                 }
 
-                //根据不同的拿值类型拿值
+                //根据不同的拿值类型拿值 
                 function getValueForSwitchValueType(valueType, refName, product, productId, normalValue) {
                     // function getValueForSwitchValueType(queryItem, product) {
                     var value = null;
@@ -626,7 +625,9 @@ define(function(require, exports, module) {
                             {
                                 try {
                                     var findData = _.findWhere(product.logic.data, { name: refName });
-                                    value = findData.value;
+                                    if(!findData.hidden){
+                                        value = findData.value;
+                                    }
                                 } catch (e) {
                                     throw new Error("数据上未配置这个关联名称:" + refName);
                                 }
@@ -648,6 +649,7 @@ define(function(require, exports, module) {
                                     if (item.productId == productId && item.show) {
                                         item.logic.data.forEach(function(logic) {
                                             if (logic.name == refName && !logic.hidden) {
+                                                console.log(logic.name,logic.hidden)
                                                 value = logic.value
                                             }
                                         })
