@@ -184,7 +184,7 @@ define(function (require, exports, module) {
                         var me = this;
                         if (me.select2Model) {
                             parent$timeout(function () {
-                                debugger
+                                // debugger
                                 if (!_.findWhere(array, {accountId: me.select2Model.data.accountId})) {
                                     array.push(me.select2Model.data);
                                 }
