@@ -174,7 +174,7 @@ define(function (require, exports, module) {
             resetSelect(me.$view, "paystatus");
             resetSelect(me.$view, "apptype");
             resetSelect(me.$view, "orderstatus");
-            setTimeout(function () { me.searchEve(); }, 1000);
+            // setTimeout(function () { me.searchEve(); }, 1000);
         },
         events: {
             'click .search': 'searchEve',                        //搜索
