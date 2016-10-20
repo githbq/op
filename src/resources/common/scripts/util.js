@@ -731,29 +731,13 @@
 
                 var copyData = JSON.parse(JSON.stringify(INMAP)); //深拷贝一个对象;
 
+                console.log(copyData);
+
                 for (var key in copyData) {
 
                     item1 = copyData[key]; //分別获得三个级别的下拉框的选项;
 
                     str1 += ('<option value="' + item1.value + '" title="' + item1.text + '">' + item1.text + '</option>');
-
-                    if (!util.isOwnEmpty(item1.children)) {
-
-                        for (var key in item1.children) {
-
-                            item2 = item1.children[key];
-                            str2 += ('<option value="' + item2.value + '" title="' + item2.text + '">' + item2.text + '</option>');
-
-                            if (!util.isOwnEmpty(item2.children)) {
-
-                                for (var key in item2.children) {
-                                    item3 = item2.children[key];
-                                    str3 += ('<option value="' + item3.value + '" title="' + item3.text + '">' + item3.text + '</option>');
-
-                                }
-                            }
-                        }
-                    }
                 }
 
                 array[0].html(str1);
@@ -762,6 +746,62 @@
 
                 array[2].html(str3);
 
+
+                array[0].change(function() { //绑定change事件，添加联动效果;
+
+                    var str = "<option value=''>二级行业(全部)</option>";
+
+                    if ($(this).val() != "") {
+
+                        array[1].html("");
+
+                        if (!util.isOwnEmpty(copyData[$(this).val()].children)) {
+
+                            for (var key in copyData[$(this).val()].children) {
+
+                                item2 = copyData[$(this).val()].children[key];
+
+                                str += ('<option value="' + item2.value + '" title="' + item2.text + '">' + item2.text + '</option>');
+
+                            }
+                        }
+
+                        array[1].html(str);
+                    }
+                });
+
+                array[1].change(function() { //绑定change事件，添加联动效果;
+
+                    var str = "<option value=''>三级行业(全部)</option>";
+
+                    if ($(this).val() != "") {
+
+                        array[2].html("");
+
+                        if (!util.isOwnEmpty(copyData[array[0].val()].children)) {
+
+                            for (var key in copyData[array[0].val()].children) {
+                                if (key == $(this).val()) {
+
+                                    object = copyData[array[0].val()].children[key];
+
+                                    if (!util.isOwnEmpty(object.children)) {
+
+                                        for (var key in object.children) {
+
+                                            item3 = object.children[key];
+
+                                            str += ('<option value="' + item3.value + '" title="' + item3.text + '">' + item3.text + '</option>');
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+
+                        array[2].html(str);
+                    }
+                });
                 callback && callback(data);
             })
 
@@ -801,8 +841,6 @@
                 }
             }
         },
-
-
         /**
          *
          * 获取行业 遍历为树状信息
