@@ -40,7 +40,8 @@ define( function(require, exports, module){
         '16': '培训助手课时',
         '17': '项目管理',
         '18': '空间',
-        '19': '助手套餐'
+        '19': '助手套餐',
+		'20':'CRM快消版'
     }
     //订单列表————订单状态
     data['orderstatus'] = {
