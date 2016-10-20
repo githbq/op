@@ -148,8 +148,8 @@ define(function(require, exports, module) {
         },
         reset: function() {
             this.$clOneIndustry.val('');
-            this.$clTwoIndustry.val('');
-            this.$clThreeIndustry.val('');
+            this.$clTwoIndustry.html("<option value=''>二级行业(全部)</option>");
+            this.$clThreeIndustry.html("<option value=''>三级行业(全部)</option>");
             this.$entType.val('');
             this.$isRegister.val('');
             this.$ast.val(this.getDateString(-7));
