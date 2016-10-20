@@ -314,6 +314,7 @@ define(function(require, exports, module) {
                 me.getList();
             });
             resetSelect(me.$view, 'entstatus');
+			resetSelect(me.$view, "apptype");
 
             me.$fromAppStartTime.datetimepicker({ timepicker: false, format: 'Y-m-d' });
             me.$endAppStartTime.datetimepicker({ timepicker: false, format: 'Y-m-d' });
