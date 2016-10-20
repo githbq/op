@@ -6500,6 +6500,9 @@ em {
   width: 118px;
   height: 32px;
 }
+.p-indexact-lst .m-act-lst .list-bar .checkForm .warning {
+  color: red;
+}
 .p-indexact-lst .m-act-lst .list-bar .buttonTeam {
   width: 100px;
 }
