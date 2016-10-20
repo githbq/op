@@ -754,6 +754,7 @@
                     if ($(this).val() != "") {
 
                         array[1].html("");
+                        array[2].html("<option value=''>三级行业(全部)</option>");
 
                         if (!util.isOwnEmpty(copyData[$(this).val()].children)) {
 
