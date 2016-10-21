@@ -754,6 +754,7 @@
                     if ($(this).val() != "") {
 
                         array[1].html("");
+                        array[2].html("<option value=''>三级行业(全部)</option>");
 
                         if (!util.isOwnEmpty(copyData[$(this).val()].children)) {
 
@@ -767,6 +768,11 @@
                         }
 
                         array[1].html(str);
+
+                    } else {
+
+                        array[1].html("<option value=''>二级行业(全部)</option>");
+                        array[2].html("<option value=''>三级行业(全部)</option>");
                     }
                 });
 
@@ -781,6 +787,7 @@
                         if (!util.isOwnEmpty(copyData[array[0].val()].children)) {
 
                             for (var key in copyData[array[0].val()].children) {
+
                                 if (key == $(this).val()) {
 
                                     object = copyData[array[0].val()].children[key];
@@ -798,8 +805,10 @@
                                 }
                             }
                         }
-
                         array[2].html(str);
+                    } else {
+
+                        array[2].html("<option value=''>三级行业(全部)</option>");
                     }
                 });
                 callback && callback(data);
