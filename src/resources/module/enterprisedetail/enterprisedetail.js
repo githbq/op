@@ -1009,7 +1009,7 @@ define(function(require, exports, module) {
                             _.map(data.value.model, function(obj) {
                                 var startTime = "——",
                                     endTime = "——";
-
+                                
                                 if (obj['startDate']) {
                                     startTime = new Date(obj['startDate'])._format('yyyy/MM/dd');
                                 }
@@ -1111,7 +1111,7 @@ define(function(require, exports, module) {
                         me.product.pagination.setTotalSize(data.model.itemCount);
                         if (data.model.length > 0) {
                             data.model.forEach(function(item) {
-
+                                item.useCount = item.useCount < 0 ? '——' : item.useCount;
                                 item.statusStr = statusTimeMap[item.status];
                             });
                             me.$tbProductList.html(me.tbProductTem({
