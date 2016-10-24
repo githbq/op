@@ -274,7 +274,6 @@ define(function(require, exports, module) {
                         var dataResultItem = _.findWhere($scope.dataResult, { productId: checkbox.id });
                         dataResultItem && (dataResultItem.show = findProduct.show);
                     }
-                    console.log(checked, checkbox)
                     $scope.checkboxDisabled = true;
                     if (checkbox.disables && checkbox.disables.length > 0 && checked) {
                         checkbox.disables.forEach(function(item) {
@@ -607,6 +606,11 @@ define(function(require, exports, module) {
                             data[queryItem.name] = findValue;
                         }
                     }
+                    for(var j in data){
+                        if(_.isNaN(data[j])){
+                            data[j] = null;
+                        }
+                    }
                     return data;
                 }
 
@@ -649,7 +653,6 @@ define(function(require, exports, module) {
                                     if (item.productId == productId && item.show) {
                                         item.logic.data.forEach(function(logic) {
                                             if (logic.name == refName && !logic.hidden) {
-                                                console.log(logic.name,logic.hidden)
                                                 value = logic.value
                                             }
                                         })
