@@ -187,6 +187,7 @@
                             <span>{{globalInfo.enterpriseAccount}}</span>
                         </div>
                     </div>
+                    <!--CRM的当前可用数量 currentAvailableQuota-->
                     <div ng-if="item.code!='FX_Terminal'&&item.code!='FXBC'&&item.code!='StorageSpace'" class="form-row" ng-repeat="item in productInfos.data track by $index" ng-switch="item.code">
                         <div class="form-field" ng-switch-when="CRM">
                             <!--分割线-->
@@ -194,6 +195,9 @@
                             </label>
                             <span class="inline-m">{{item.quota}}</span>
                             <!--分割线-->
+                            <label ng-if="item.currentAvailableQuota">当前可用数量：
+                                <span class="inline-m">{{item.currentAvailableQuota}}</span>
+                            </label>
                             <label ng-if="item.startDate">开始时间：
                                 <span class="inline-m">{{item.startDate | date:"yyyy/MM/dd" }}</span>
                             </label>
@@ -208,6 +212,7 @@
                                 <!--&nbsp;&nbsp;<input type='checkbox' name='system' checked='checked' disabled='disabled'/>捆绑报数系统-->
                                 &nbsp;&nbsp;<input type='checkbox' name='mingpian' checked='checked' disabled='disabled'/>捆绑名片
                             </label>
+                            
                         </div>
                         <div class="form-field" ng-switch-when="Service_Fee">
                             <!--分割线-->
