@@ -614,6 +614,7 @@ define( function( require, exports, module ) {
                         } else {
                             me.$tbody.html( '<tr><td colspan="9"><p class="info">暂无数据</p></td></tr>' );
                         }
+						IBSS.tplEvent.setPermissions( me.$tbody ); 
                     }
                 },
                 error: function() {
