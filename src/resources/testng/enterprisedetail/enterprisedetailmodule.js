@@ -7,7 +7,7 @@ define(function(require, exports, module) {
     require('./refs/products-directive');
     require('./refs/product-services'); //对应的远程服务
     var mainCtrlScope = null; //主$scope
-    var mainData = null; //被调用时接收的参数 
+    var mainData = null; //被调用时接收的参数
     var validate = true; //参数的调用与否受validate控制
     var Page = MClass(M.Center).include({
         view: require('./template.html'),
@@ -73,7 +73,7 @@ define(function(require, exports, module) {
     module.exports = Page;
     myApp.controller('form1Controller', ['$scope', '$timeout', function($scope, $timeout) {
         var today = new Date();
-        //today.setDate(today.getDate() + 1);//获取AddDayCount天后的日期 
+        //today.setDate(today.getDate() + 1);//获取AddDayCount天后的日期
         // $scope.TOMORRAY = today.getTime();//明天
     }]);
     myApp.controller('form2Controller', ['$scope', 'productService', '$timeout', function($scope, productService, $timeout) {
@@ -217,6 +217,7 @@ define(function(require, exports, module) {
                             }
                         }, 10);
                     });
+
                 }
             }
             //全局性信息
@@ -321,7 +322,7 @@ define(function(require, exports, module) {
         //}, 5000);
         mainCtrlScope = $scope;
         $scope.mainCtrlScope = mainCtrlScope;
-        
+
         $scope.testBasicForm = function() {};
 
         //多功能下拉选框

@@ -92,7 +92,7 @@ define(function (require, exports, module) {
                 return;
             }
             return util.api({
-                'url': '/odr/queryProductVOList',
+                'url': '/odr/queryProductHistoryVOList',
                 'data': {'ea': enterpriseAccount},
                 'success': function (result) {
                     if (result.success) {

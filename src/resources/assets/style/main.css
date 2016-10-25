@@ -7393,6 +7393,10 @@ em {
   padding-top: 10px;
   padding-bottom: 10px;
 }
+.m-enterprisedetail button.u-btn-danger {
+  background: #c12e2a;
+  color: #fff;
+}
 .m-enterprisedetail #tbProduct p {
   line-height: 26px;
 }
@@ -7403,8 +7407,13 @@ em {
 .m-enterprisedetail #tbProduct p span.title {
   width: 180px;
 }
+.m-enterprisedetail #tbProduct p i {
+  display: inline-block;
+  padding-right: 20px;
+}
 .m-enterprisedetail #tbProduct p button {
-  margin: 0 5px;
+  margin: 0 10px;
+  font-weight: bold;
 }
 .m-enterprisedetail #tbProduct p.info {
   text-align: center;
@@ -9048,10 +9057,52 @@ em {
   padding-top: 20px;
 }
 .enterprise-panel .form .product-info-group {
-  width: 90%;
-  margin: 0 auto;
-  padding: 10px;
-  background-color: #f2f2f2;
+  width: 97%;
+  box-sizing: border-box;
+  margin: 20px auto;
+  padding: 10px 20px 20px;
+  background-color: #f7f8f9;
+  color: #333;
+}
+.enterprise-panel .form .product-info-group-title {
+  font-size: 15px;
+  line-height: 30px;
+  text-indent: 1em;
+}
+.enterprise-panel .form .product-info-group-title span {
+  padding-right: 30px;
+}
+.enterprise-panel .form .product-info-group-table {
+  width: 66%;
+  margin-top: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.enterprise-panel .form .product-info-group-table table {
+  width: 100%;
+  cellspacing: 0;
+  cellpadding: 5px;
+  border: none;
+}
+.enterprise-panel .form .product-info-group-table table th {
+  height: 38px;
+  font-weight: bold;
+  background: #f2f3f5;
+  border: 1px solid #ddd;
+}
+.enterprise-panel .form .product-info-group-table table td {
+  border: 1px solid #ddd;
+}
+.enterprise-panel .form .product-info-group-table table th,
+.enterprise-panel .form .product-info-group-table table td {
+  font-size: 14px;
+  color: #333;
+  text-align: center;
+  line-height: 38px;
+}
+.enterprise-panel .form .product-info-group-table table tr:hover {
+  background: #f2f2f2;
 }
 .enterprise-panel .form .product-starttime-panel {
   width: 90%;
