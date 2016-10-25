@@ -648,9 +648,9 @@ define(function(require, exports, module) {
                         //
                         //开通时间显示
                         //===================================================
-                        // if (me.model.get('appStartTime')) {
-                        //     me.$('.openTime').show().find('.content').text(new Date(me.model.get('appStartTime'))._format('yyyy年MM月dd日'));
-                        // }
+                        if (me.model.get('appStartTime')) {
+                            me.$('.openTime').show().find('.content').text(new Date(me.model.get('appStartTime'))._format('yyyy年MM月dd日'));
+                        }
 
                         //控制续费显隐
                         if (me.model.get('runStatus') == 2) {
@@ -1103,7 +1103,7 @@ define(function(require, exports, module) {
                         me.product.pagination.setTotalSize(data.model.itemCount);
                         if (data.model.length > 0) {
                             data.model.forEach(function(item) {
-                                item.useCount = item.useCount < 0 ? '——' : item.useCount;
+                                item.useCount = item.useCount < 0 ? '--' : item.useCount;
                                 item.statusStr = statusTimeMap[item.status];
                             });
                             me.$tbProductList.html(me.tbProductTem({

@@ -178,7 +178,7 @@
                             </tr>
                             <tr ng-repeat="item in productInfos.data track by $index">
                                 <td>{{item.productName ? item.productName : '--'}}</td>
-                                <td>{{item.useCount ? item.useCount : '--'}}</td>
+                                <td>{{item.useCount < 0 ? '--' : item.useCount;}}</td>
                                 <td>{{item.startTimeStr ? item.startTimeStr : '--'}}</td>
                                 <td>{{item.endTimeStr ? item.endTimeStr : '--'}}</td>
                             </tr>
