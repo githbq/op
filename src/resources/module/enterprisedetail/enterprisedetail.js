@@ -1631,7 +1631,7 @@ define(function(require, exports, module) {
                         //me.$sdEMWUC.val(model['Used.ExportAmountLeaveApplication']); //导出月度考勤已用
                         // me.$sdEAC.val(model['Config.ExportAmountFeedApprove']); //导出审批汇总次数
                         //me.$sdEAUC.val(model['Used.ExportAmountFeedApprove']); //导出审批汇总已用
-                        me.$sdUFS.val(model['Config.UploadFileSizeLimit']); //上传文件大小限制
+                        model['Config.UploadFileSizeLimit'] ? me.$sdUFS.val(model['Config.UploadFileSizeLimit']) : me.$sdUFS.val(100); //上传文件大小限制
                         console.warn(model['Config.isAllowDangerOperate']);
                         var temp = model['Config.IsAllowDangerOperate'] == '1' ? '是' : '否'
                         me.$sdActionDanger.val(temp);
