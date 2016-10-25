@@ -1,51 +1,57 @@
 <div class="m-qry-cmp u-tablelist m-list">
-    <div class="list-main">
-        <div class="list-header">
-            <h3>综合查询</h3>
-        </div>
-        <div class="list-bar">
-            <div class="list-bar-btns">
-                <button id="btnClear">清空</button>
-                <button id="btnReset">重置</button>
-                <button id="btnSearch" class="btn-blue" data-permissions="M009019001,M008002001,M010013001,M011018001">查询</button>
-            </div>
-            <div class="list-bar-input" style="padding-right:188px">
-                <label><span>行业</span>
-                    <select id="qcIndustry">
+	<div class="list-main">
+		<div class="list-header">
+			<h3>综合查询</h3>
+		</div>
+		<div class="list-bar">
+			<div class="list-bar-btns">
+				<button id="btnClear">清空</button>
+				<button id="btnReset">重置</button>
+				<button id="btnSearch" class="btn-blue" data-permissions="M009019001,M008002001,M010013001,M011018001">查询</button>
+			</div>
+			<div class="list-bar-input" style="padding-right:188px">
+				<label><span>行业</span>
+                    <select class="industry" id="qcIndustry1"> 
+                        <option value="">全部</option>
+                    </select>
+                    <select class="industry" id="qcIndustry2"> 
+                        <option value="">全部</option>
+                    </select>
+                    <select class="industry"  id="qcIndustry3"> 
                         <option value="">全部</option>
                     </select>
                 </label>
-                <label><span>产品模块</span>
+				<label><span>产品模块</span>
                     <select id="qcPModule">
                         <option value="">全部</option>
                     </select>
                 </label>
-                <label><span>优惠码</span>
+				<label><span>优惠码</span>
                     <input id="qcCode" type="text" class="g-ipt ipt-m" onchange="this.value=this.value.replace(/\D/g,'')" maxlength=8 />
                 </label>
-                <label><span>付费状态</span>
+				<label><span>付费状态</span>
                     <select id="qcFStatus">
                         <option value="">全部</option>
                         <option value="1">是</option>
                         <option value="0">否</option>
                     </select>
                 </label>
-                <label><span>产品状态</span>
+				<label><span>产品状态</span>
                     <select id="pStatus">
                         <option value="">全部</option>
                     </select>
                 </label>
-                <label><span>来源</span>
+				<label><span>来源</span>
                     <select id="qcSource">
                         <option value="">全部</option>
                     </select>
                 </label>
-                <label><span>活跃度</span>
+				<label><span>活跃度</span>
                     <select id="qcAct">
                         <option value="">全部</option>
                     </select>
                 </label>
-                <label><span>企业类型</span>
+				<label><span>企业类型</span>
                     <select id="qcType">
                         <option value="">全部</option>
                         <option value="1">开源</option>
@@ -54,7 +60,7 @@
                         <option value="4">未续费</option>
                     </select>
                 </label>
-                <label><span>企业标签</span>
+				<label><span>企业标签</span>
                     <select id="qcTag">
                         <option value="">全部</option>
                         <option value="1">资源客户</option>
@@ -62,7 +68,7 @@
                         <option value="3">楼宇客户</option>
                     </select>
                 </label>
-                <label><span>续费提醒</span>
+				<label><span>续费提醒</span>
                     <select id="qcRenewal">
                         <option value="">全部</option>
                         <option value="1">部分产品过期</option>
@@ -71,7 +77,7 @@
                         <option value="4">部分产品过期/即将过期</option>
                     </select>
                 </label><br />
-				 <label>
+				<label>
                     <input id="excessFlag" type="checkbox" class="" style="width:20px;" />
 					<span>超额使用</span>
 					<select id="excessType">
@@ -80,140 +86,140 @@
 						<option value="3">营销版超额</option>
                     </select>
                 </label>
-                <label><span>剩余空间低于</span>
+				<label><span>剩余空间低于</span>
                     <input id="qcSb" placeholder="G" type="text" class="g-ipt ipt-s" onchange="this.value=this.value.replace(/\D/g,'')" />
                 </label>
-                <div class="m-ih m-ih-space">
-                    <div class="ih-cnt"><b class="ih-select"></b><span class="ih-clear" data-value="0">清除</span></div>
-                    <div class="ih-sl">
-                        <section data-value="2">2G</section>
-                        <section data-value="1">1G</section>
-                    </div>
-                </div>
-                <label class="sp">
+				<div class="m-ih m-ih-space">
+					<div class="ih-cnt"><b class="ih-select"></b><span class="ih-clear" data-value="0">清除</span></div>
+					<div class="ih-sl">
+						<section data-value="2">2G</section>
+						<section data-value="1">1G</section>
+					</div>
+				</div>
+				<label class="sp">
                     <label><span>开通时间</span>
                         <input id="qcATBegin" type="text" class="g-ipt ipt-m" />
                     </label>
-                    <label><span>-</span>
+				<label><span>-</span>
                         <input id="qcATEnd" type="text" class="g-ipt ipt-m" />
                     </label>
-                </label>
-                <div class="m-select select-kt">
-                    <div class="select-content">
-                        <span class="content-bar"></span>
-                        <span class="content-text" data-id="0">
+				</label>
+				<div class="m-select select-kt">
+					<div class="select-content">
+						<span class="content-bar"></span>
+						<span class="content-text" data-id="0">
                             清空
                         </span>
-                    </div>
-                    <div class="select-list">
-                        <section data-id="1">今天</section>
-                        <section data-id="2">昨天</section>
-                        <section data-id="3">前天</section>
-                        <!-- TODO -->
-                        <!--<section data-id="4">近一周内</section>-->
-                    </div>
-                </div>
-                <label class="sp">
+					</div>
+					<div class="select-list">
+						<section data-id="1">今天</section>
+						<section data-id="2">昨天</section>
+						<section data-id="3">前天</section>
+						<!-- TODO -->
+						<!--<section data-id="4">近一周内</section>-->
+					</div>
+				</div>
+				<label class="sp">
                     <label><span>销客到期时间</span>
                         <input id="qcOTBegin" type="text" class="g-ipt ipt-m" />
                     </label>
-                    <label><span>-</span>
+				<label><span>-</span>
                         <input id="qcOTEnd" type="text" class="g-ipt ipt-m" />
                     </label>
-                </label>
-                <div class="m-select select-dq">
-                    <div class="select-content">
-                        <span class="content-bar"></span>
-                        <span class="content-text" data-id="0">
+				</label>
+				<div class="m-select select-dq">
+					<div class="select-content">
+						<span class="content-bar"></span>
+						<span class="content-text" data-id="0">
                             清空
                         </span>
-                    </div>
-                    <div class="select-list">
-                        <section data-id="1">一周内</section>
-                        <section data-id="2">15天内</section>
-                        <section data-id="3">30天内</section>
-                        <section data-id="4">60天内</section>
-                    </div>
-                </div>
-                <br>
-                <label class="sp">
+					</div>
+					<div class="select-list">
+						<section data-id="1">一周内</section>
+						<section data-id="2">15天内</section>
+						<section data-id="3">30天内</section>
+						<section data-id="4">60天内</section>
+					</div>
+				</div>
+				<br>
+				<label class="sp">
                     <label><span>销客账户总量</span>
                         <input id="qcACBegin" type="text" class="g-ipt ipt-m" />
                     </label>
-                    <label><span>-</span>
+				<label><span>-</span>
                         <input id="qcACEnd" type="text" class="g-ipt ipt-m" />
                     </label>
-                </label>
-                <div class="m-select select-zl">
-                    <div class="select-content">
-                        <span class="content-bar"></span>
-                        <span class="content-text" data-id="0">
+				</label>
+				<div class="m-select select-zl">
+					<div class="select-content">
+						<span class="content-bar"></span>
+						<span class="content-text" data-id="0">
                             清空
                         </span>
-                    </div>
-                    <div class="select-list">
-                        <section data-id="1">20个</section>
-                        <section data-id="2">100个</section>
-                        <section data-id="3">200个</section>
-                        <section data-id="4">500个</section>
-                    </div>
-                </div>
-                <label class="sp">
+					</div>
+					<div class="select-list">
+						<section data-id="1">20个</section>
+						<section data-id="2">100个</section>
+						<section data-id="3">200个</section>
+						<section data-id="4">500个</section>
+					</div>
+				</div>
+				<label class="sp">
                     <label><span>百川到期时间</span>
                         <input id="qcBCOTBegin" type="text" class="g-ipt ipt-m" />
                     </label>
-                    <label><span>-</span>
+				<label><span>-</span>
                         <input id="qcBCOTEnd" type="text" class="g-ipt ipt-m" />
                     </label>
-                </label>
-                <div class="m-select select-bcdq">
-                    <div class="select-content">
-                        <span class="content-bar"></span>
-                        <span class="content-text" data-id="0">
+				</label>
+				<div class="m-select select-bcdq">
+					<div class="select-content">
+						<span class="content-bar"></span>
+						<span class="content-text" data-id="0">
                             清空
                         </span>
-                    </div>
-                    <div class="select-list">
-                        <section data-id="1">一周内</section>
-                        <section data-id="2">15天内</section>
-                        <section data-id="3">30天内</section>
-                        <section data-id="4">60天内</section>
-                    </div>
-                </div>
-                <br />
-                <label class="sp">
+					</div>
+					<div class="select-list">
+						<section data-id="1">一周内</section>
+						<section data-id="2">15天内</section>
+						<section data-id="3">30天内</section>
+						<section data-id="4">60天内</section>
+					</div>
+				</div>
+				<br />
+				<label class="sp">
                     <label><span>百川账户总量</span>
                         <input id="qcBCACBegin" type="text" class="g-ipt ipt-m" />
                     </label>
-                    <label><span>-</span>
+				<label><span>-</span>
                         <input id="qcBCACEnd" type="text" class="g-ipt ipt-m" />
                     </label>
-                </label>
-                <div class="m-select select-bczl">
-                    <div class="select-content">
-                        <span class="content-bar"></span>
-                        <span class="content-text" data-id="0">
+				</label>
+				<div class="m-select select-bczl">
+					<div class="select-content">
+						<span class="content-bar"></span>
+						<span class="content-text" data-id="0">
                             清空
                         </span>
-                    </div>
-                    <div class="select-list">
-                        <section data-id="1">20个</section>
-                        <section data-id="2">100个</section>
-                        <section data-id="3">200个</section>
-                        <section data-id="4">500个</section>
-                    </div>
-                </div>
-                <br>
-                <label><span>企业帐号或Id</span>
+					</div>
+					<div class="select-list">
+						<section data-id="1">20个</section>
+						<section data-id="2">100个</section>
+						<section data-id="3">200个</section>
+						<section data-id="4">500个</section>
+					</div>
+				</div>
+				<br>
+				<label><span>企业帐号或Id</span>
                     <select id="qcListType">
                         <option value="1">帐号</option>
                         <option value="2">ID</option>
                     </select>
                 </label><br />
-                <textarea class="act-lst-tr" id="qcList"></textarea><br />
-                <p class="tips">提示：如果录入企业帐号或ID列表（任何空白字符包括换行符分隔）到上边的编辑框中，此处录入企业尽量不要过多，否则无法下载，如果遇到此种情况，可以分批下载。</p>
-            </div>
-        </div>
-        <div class="list-content"></div>
-    </div>
+				<textarea class="act-lst-tr" id="qcList"></textarea><br />
+				<p class="tips">提示：如果录入企业帐号或ID列表（任何空白字符包括换行符分隔）到上边的编辑框中，此处录入企业尽量不要过多，否则无法下载，如果遇到此种情况，可以分批下载。</p>
+			</div>
+		</div>
+		<div class="list-content"></div>
+	</div>
 </div>
