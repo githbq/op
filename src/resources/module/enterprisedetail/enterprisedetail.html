@@ -1,295 +1,286 @@
 <div class="m-enterprisedetail">
-
-
-	<!--基本信息-->
-	<div class="section">
-
-		<section>
-			<h4>基本信息</h4>
-			<p>
-				<label>
-					<span class="title">企业名称</span>
-					<input disabled="disabled" ce-model="enterpriseName" class="g-ipt ipt-l ed" type="text">
-				</label>
-				<label>
-					<span class="title">代理区域</span>
-					<input disabled="disabled" ce-model="area" class="g-ipt ipt-l proxy-area" type="text">
-				</label>
-			</p>
-			<p class="contractEnterpriseName-wrapper">
-				<label>
-					<span class="title">签约企业名称</span>
-					<input disabled="disabled" ce-model="contractEnterpriseName" class="g-ipt ipt-l" type="text">
-				</label>
-			</p>
-			<p>
-				<span class="title">企业账号</span>
-				<input type="text" disabled="disabled" ce-model="enterpriseAccount">&nbsp;&nbsp;( 企业账号应为字母开头6-20位由字母数字的组合 )
-			</p>
-			<!--企业地址-->
-			<p>
-				<span class="title">企业地址</span>
-				<select id="sprovince">
-					<option value="">请选择省</option>
-				</select> --
-				<select id="scity">
-					<option value="">请选择市</option>
-				</select> --
-				<select id="sarea">
-					<option value="">请选择区</option>
-				</select>
-			</p>
-			<p>
-				<span class="title">&nbsp;&nbsp;</span>
-				<textarea placeholder="请填写详细地址,不少于五个字" maxlength="100" ce-model="address"></textarea>
-			</p>
-			<!--行业-->
-			<p>
-				<span class="title">行业</span>
-				<select id="sinsone">
-					<option value="">请选择一级行业</option>
-				</select> --
-				<select id="sinstwo">
-					<option value="">请选择二级行业</option>
-				</select> --
-				<select id="sinsthree">
-					<option value="">请选择三级行业</option>
-				</select>
-			</p>
-			<p>
-				<label>
-					<span class="title">使用对象类型</span> 
-					<select id="tGroupType" ce-model="groupType">
-						<option value=""></option>
-					</select>
-				</label>
-				<label>
-					<span class="title">公司规模</span> 
-					<select id="tCompanySize" ce-model="companyScale">
-						<option value=""></option>
-						<option value=""></option>
-					</select>
-				</label>
-			</p>
-			<p>
-				<label>
-					<span class="title">销售团队规模</span> 
-					<select id="tSalesSize" ce-model="saleTeamScale">
-						<option value=""></option>
-						<option value=""></option>
-					</select>
-				</label>
-				<label>
-					<span class="title">是否销售团队</span>
-					<select ce-model="isSaleTeam">
-						<option value="1">是</option>
-						<option value="0">否</option>
-					</select>
-				</label>
-			</p>
-			<p>
-				<label>
-					<span class="title">是否标杆</span>
-					<select ce-model="isReference">
-						<option value="0" checked>否</option>
-						<option value="1">是</option>
-					</select>
-				</label>
-				<label>
-					<span class="title">是否转介绍</span> 
-					<select ce-model="isReferral">
-						<option value="1">是</option>
-						<option value="0">否</option>
-					</select>
-				</label>
-			</p>
-		</section>
-
-		<section>
-			<h4>企业负责人</h4>
-			<p>
-				<label>
-					<span class="title">企业负责人姓名</span>
-					<input type="text" class="g-ipt ipt-l ed" ce-model="keyContactName">
-				</label>
-				<label>
-					<span class="title">企业负责人电话</span>
-					<input type="text" class="g-ipt ipt-l ed" onblur="this.value=this.value.replace(/\D/,'');this.value=this.value.slice(0,11)" ce-model="keyContactPhone">
-				</label>
-			</p>
-			<p>
-				<label>
-					<span class="title">企业负责人邮箱</span>
-					<input type="text" ce-model="keyContactEmail">
-				</label>
-			</p>
-		</section>
-
-		<section>
-			<h4>纷享平台管理员</h4>
-			<p>
-				<label>
-					<span class="title">平台管理员</span>
-					<input type="text" class="g-ipt ipt-l ed" ce-model="contactName">
-				</label>
-				<label>
-					<span class="title">平台管理员手机</span>
-					<input type="text" class="g-ipt ipt-l ed" onblur="this.value=this.value.replace(/\D/g,'');this.value=this.value.slice(0,11)" ce-model="contactPhone">
-				</label>
-			</p>
-			<p>
-				<label>
-					<span class="title">平台管理员邮箱</span>
-					<input type="text" class="g-ipt ipt-l ed" ce-model="contactEmail">
-				</label>
-				<label>
-					<span class="title">平台管理员QQ</span>
-					<input type="text" class="g-ipt ipt-l ed" onblur="this.value=this.value.replace(/\D/g,'')" ce-model="contactIm">
-				</label>
-			</p>
-		</section>
-		<p class="tr f1 f2" style="text-align:right"><button id="btnSaveBasic" class="btn-blue off">保存</button></p>
-	</div>
-	<div class="dtl section">
-
-		<!--产品信息-->
-		<section class="accordian collapse f1 f2 f3 f4" data-target="product">
-			<h4><span class="arraw"></span>产品信息</h4>
-			<div class="content" id="tbProduct">
-				<p class="openTime"><span>开通时间:</span><span class="content"></span></p>
-				<!--显示产品列表-->
-				<div class="container">
-
-				</div>
-			</div>
-		</section>
-		<!--产品历史信息-->
-		<section class="accordian collapse f1 f2 f3 f4" data-target="productHistory">
-			<h4><span class="arraw"></span>产品历史信息 </h4>
-			<div class="content" id="tbProductHistory">
-				<table>
-					<thead>
-						<tr>
-							<th style="width:80px;">产品</th>
-							<th style="width:110px;">状态</th>
-							<th style="width:120px;">用户人数（人）</th>
-							<th style="width:120px;">开始时间</th>
-							<th style="width:120px;">结束时间</th>
-						</tr>
-					</thead>
-					<tbody></tbody>
-				</table>
-				<div class="pager"></div>
-			</div>
-		</section>
-		<!--订单信息-->
-		<section class="accordian collapse f1 f2 f3 f4" data-target="orderList">
-			<h4><span class="arraw"></span>订单信息 </h4>
-			<div class="content" id="orderList">
-				<table>
-					<thead>
-						<tr>
-							<th style="width:80px;">订单号</th>
-							<th>合同号</th>
-							<th style="width:100px;">订单类型</th>
-							<th style="width:100px;">提单人</th>
-							<th style="width:120px;">所属部门/代理商</th>
-							<th style="width:120px;">付费状态</th>
-							<th style="width:120px;">提单日期</th>
-							<th style="width:120px;" data-permissions="M009005,M008007">操作</th>
-						</tr>
-					</thead>
-					<tbody></tbody>
-				</table>
-				<div class="pager"></div>
-			</div>
-		</section>
-		<!--试用信息-->
-		<section class="accordian collapse f1 f2 f3 f4" data-target="tryOut">
-			<h4><span class="arraw"></span>试用信息 </h4>
-			<div class="content" id="tryOut">
-				<table>
-					<thead>
-						<tr>
-							<th style="width:80px;">试用应用</th>
-							<th style="width:110px;">试用日期</th>
-						</tr>
-					</thead>
-					<tbody></tbody>
-				</table>
-				<div class="pager"></div>
-			</div>
-		</section>
-
-		<!--使用情况-->
-		<section class="accordian collapse f1 f2 f3 f4" id="operationssection" data-target="operations">
-			<h4><span class="arraw"></span>使用情况</h4>
-			<div class="content">
-				<p>
-					<label class="hw">
-						<span class="title">销客终端总量</span>
-						<input id="sdXKDC" class="g-ipt ipt-m" type="text" oninput="this.value=this.value.replace(/[^\d]/g,'')">
-					</label>
-					<label class="hw">
-						<span class="title">销客终端<br>已用量/未用量</span>
-						<input id="sdXKDUC" disabled="disabled" class="g-ipt ipt-m" type="text">
-					</label>
-				</p>
-				<p>
-					<label class="hw">
-						<span>CRM总量</span>
-						<input id="yingxiaoSum" disabled="disabled" class="g-ipt ipt-m" type="text">
-					</label>
-					<label class="hw">
-						<span>CRM<br>已用量/未用量</span>
-						<input id="yingxiaoUsed" disabled="disabled" class="g-ipt ipt-m" type="text">
-					</label>
-				</p>
-				<p>
-					<label class="hw">
-						<span>空间总量(GB)</span>
-						<input id="sdSC" disabled="disabled" class="g-ipt ipt-m" type="text">
-					</label>
-					<label class="hw">
-						<span>空间已用量(GB)</span>
-						<input id="sdSUC" disabled="disabled" class="g-ipt ipt-m" type="text">
-					</label>
-				</p>
-				<p>
-					<label class="hw">
-						<span>存储扩容(GB)</span>
-						<input type="text" class="g-ipt ipt-m" oninput="this.value=this.value.replace(/[^\d]/g,'')" id="expandStorageSpace">
-					</label>
-				</p>
-
-				<p>
-					<label class="hw">
-						<span>培训助手流量总量(小时)</span>
-						<input id="trainHelperTotalCapacity"  class="g-ipt ipt-m" type="text" disabled="disabled">
-					</label>
-					<label class="hw">
-						<span>培训助手流量<br>已用量/未用量</span>
-						<input id="trainHelperUsedCapacityStr" disabled="disabled" class="g-ipt ipt-m" type="text">
-					</label>
-				</p>
-				<p>
-					<label class="hw">
-						<span>视频参与人数上限(人)</span>
-						<input type="text" class="g-ipt ipt-m" ce-model="videoNumLimit" oninput="this.value=this.value.replace(/[^\d]/g,'')">
-						<span>(最多可添加20人)</span>
-					</label>
-					<label class="hw">
-						<span>群人数上限(人)</span>
-						<input type="text" class="g-ipt ipt-m" ce-model="groupNumLimit" oninput="this.value=this.value.replace(/[^\d]/g,'')">
-					</label>
-				</p>
-
-
-				<div id="tbOperation" class="tb">
-					<p class="tr off">
-						<button class="btn-blue" id="sBtnChangeStatistics">保存</button>
-					</p>
-					<!--
+    <!--基本信息-->
+    <div class="section">
+        <section>
+            <h4>基本信息</h4>
+            <p>
+                <label>
+                    <span class="title">企业名称</span>
+                    <input disabled="disabled" ce-model="enterpriseName" class="g-ipt ipt-l ed" type="text">
+                </label>
+                <label>
+                    <span class="title">代理区域</span>
+                    <input disabled="disabled" ce-model="area" class="g-ipt ipt-l proxy-area" type="text">
+                </label>
+            </p>
+            <p class="contractEnterpriseName-wrapper">
+                <label>
+                    <span class="title">签约企业名称</span>
+                    <input disabled="disabled" ce-model="contractEnterpriseName" class="g-ipt ipt-l" type="text">
+                </label>
+            </p>
+            <p>
+                <span class="title">企业账号</span>
+                <input type="text" disabled="disabled" ce-model="enterpriseAccount">&nbsp;&nbsp;( 企业账号应为字母开头6-20位由字母数字的组合 )
+            </p>
+            <!--企业地址-->
+            <p>
+                <span class="title">企业地址</span>
+                <select id="sprovince">
+                    <option value="">请选择省</option>
+                </select> --
+                <select id="scity">
+                    <option value="">请选择市</option>
+                </select> --
+                <select id="sarea">
+                    <option value="">请选择区</option>
+                </select>
+            </p>
+            <p>
+                <span class="title">&nbsp;&nbsp;</span>
+                <textarea placeholder="请填写详细地址,不少于五个字" maxlength="100" ce-model="address"></textarea>
+            </p>
+            <!--行业-->
+            <p>
+                <span class="title">行业</span>
+                <select id="sinsone">
+                    <option value="">请选择一级行业</option>
+                </select> --
+                <select id="sinstwo">
+                    <option value="">请选择二级行业</option>
+                </select> --
+                <select id="sinsthree">
+                    <option value="">请选择三级行业</option>
+                </select>
+            </p>
+            <p>
+                <label>
+                    <span class="title">使用对象类型</span>
+                    <select id="tGroupType" ce-model="groupType">
+                        <option value=""></option>
+                    </select>
+                </label>
+                <label>
+                    <span class="title">公司规模</span>
+                    <select id="tCompanySize" ce-model="companyScale">
+                        <option value=""></option>
+                        <option value=""></option>
+                    </select>
+                </label>
+            </p>
+            <p>
+                <label>
+                    <span class="title">销售团队规模</span>
+                    <select id="tSalesSize" ce-model="saleTeamScale">
+                        <option value=""></option>
+                        <option value=""></option>
+                    </select>
+                </label>
+                <label>
+                    <span class="title">是否销售团队</span>
+                    <select ce-model="isSaleTeam">
+                        <option value="1">是</option>
+                        <option value="0">否</option>
+                    </select>
+                </label>
+            </p>
+            <p>
+                <label>
+                    <span class="title">是否标杆</span>
+                    <select ce-model="isReference">
+                        <option value="0" checked>否</option>
+                        <option value="1">是</option>
+                    </select>
+                </label>
+                <label>
+                    <span class="title">是否转介绍</span>
+                    <select ce-model="isReferral">
+                        <option value="1">是</option>
+                        <option value="0">否</option>
+                    </select>
+                </label>
+            </p>
+        </section>
+        <section>
+            <h4>企业负责人</h4>
+            <p>
+                <label>
+                    <span class="title">企业负责人姓名</span>
+                    <input type="text" class="g-ipt ipt-l ed" ce-model="keyContactName">
+                </label>
+                <label>
+                    <span class="title">企业负责人电话</span>
+                    <input type="text" class="g-ipt ipt-l ed" onblur="this.value=this.value.replace(/\D/,'');this.value=this.value.slice(0,11)" ce-model="keyContactPhone">
+                </label>
+            </p>
+            <p>
+                <label>
+                    <span class="title">企业负责人邮箱</span>
+                    <input type="text" ce-model="keyContactEmail">
+                </label>
+            </p>
+        </section>
+        <section>
+            <h4>纷享平台管理员</h4>
+            <p>
+                <label>
+                    <span class="title">平台管理员</span>
+                    <input type="text" class="g-ipt ipt-l ed" ce-model="contactName">
+                </label>
+                <label>
+                    <span class="title">平台管理员手机</span>
+                    <input type="text" class="g-ipt ipt-l ed" onblur="this.value=this.value.replace(/\D/g,'');this.value=this.value.slice(0,11)" ce-model="contactPhone">
+                </label>
+            </p>
+            <p>
+                <label>
+                    <span class="title">平台管理员邮箱</span>
+                    <input type="text" class="g-ipt ipt-l ed" ce-model="contactEmail">
+                </label>
+                <label>
+                    <span class="title">平台管理员QQ</span>
+                    <input type="text" class="g-ipt ipt-l ed" onblur="this.value=this.value.replace(/\D/g,'')" ce-model="contactIm">
+                </label>
+            </p>
+        </section>
+        <p class="tr f1 f2" style="text-align:right">
+            <button id="btnSaveBasic" class="btn-blue off">保存</button>
+        </p>
+    </div>
+    <div class="dtl section">
+        <!--产品信息-->
+        <section class="accordian collapse f1 f2 f3 f4" data-target="product">
+            <h4><span class="arraw"></span>产品启用/停用设置</h4>
+            <div class="content" id="tbProduct">
+                <p class="openTime"><span>开通时间:</span><span class="content"></span></p>
+                <!--显示产品列表-->
+                <div class="container">
+                </div>
+            </div>
+        </section>
+        <!--产品历史信息-->
+        <section class="accordian collapse f1 f2 f3 f4" data-target="productHistory">
+            <h4><span class="arraw"></span>产品信息 </h4>
+            <div class="content" id="tbProductHistory">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width:80px;">产品</th>
+                            <th style="width:110px;">状态</th>
+                            <th style="width:120px;">用户人数（人）</th>
+                            <th style="width:120px;">开始时间</th>
+                            <th style="width:120px;">结束时间</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+                <div class="pager"></div>
+            </div>
+        </section>
+        <!--订单信息-->
+        <section class="accordian collapse f1 f2 f3 f4" data-target="orderList">
+            <h4><span class="arraw"></span>订单信息 </h4>
+            <div class="content" id="orderList">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width:80px;">订单号</th>
+                            <th>合同号</th>
+                            <th style="width:100px;">订单类型</th>
+                            <th style="width:100px;">提单人</th>
+                            <th style="width:120px;">所属部门/代理商</th>
+                            <th style="width:120px;">付费状态</th>
+                            <th style="width:120px;">提单日期</th>
+                            <th style="width:120px;" data-permissions="M009005,M008007">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+                <div class="pager"></div>
+            </div>
+        </section>
+        <!--试用信息-->
+        <section class="accordian collapse f1 f2 f3 f4" data-target="tryOut">
+            <h4><span class="arraw"></span>试用信息 </h4>
+            <div class="content" id="tryOut">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width:80px;">试用应用</th>
+                            <th style="width:110px;">试用日期</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+                <div class="pager"></div>
+            </div>
+        </section>
+        <!--使用情况-->
+        <section class="accordian collapse f1 f2 f3 f4" id="operationssection" data-target="operations">
+            <h4><span class="arraw"></span>使用情况</h4>
+            <div class="content">
+                <p>
+                    <label class="hw">
+                        <span class="title">销客终端总量</span>
+                        <input id="sdXKDC" class="g-ipt ipt-m" type="text" oninput="this.value=this.value.replace(/[^\d]/g,'')">
+                    </label>
+                    <label class="hw">
+                        <span class="title">销客终端<br>已用量/未用量</span>
+                        <input id="sdXKDUC" disabled="disabled" class="g-ipt ipt-m" type="text">
+                    </label>
+                </p>
+                <p>
+                    <label class="hw">
+                        <span>CRM总量</span>
+                        <input id="yingxiaoSum" disabled="disabled" class="g-ipt ipt-m" type="text">
+                    </label>
+                    <label class="hw">
+                        <span>CRM<br>已用量/未用量</span>
+                        <input id="yingxiaoUsed" disabled="disabled" class="g-ipt ipt-m" type="text">
+                    </label>
+                </p>
+                <p>
+                    <label class="hw">
+                        <span>空间总量(GB)</span>
+                        <input id="sdSC" disabled="disabled" class="g-ipt ipt-m" type="text">
+                    </label>
+                    <label class="hw">
+                        <span>空间已用量(GB)</span>
+                        <input id="sdSUC" disabled="disabled" class="g-ipt ipt-m" type="text">
+                    </label>
+                </p>
+                <p>
+                    <label class="hw">
+                        <span>存储扩容(GB)</span>
+                        <input type="text" class="g-ipt ipt-m" oninput="this.value=this.value.replace(/[^\d]/g,'')" id="expandStorageSpace">
+                    </label>
+                </p>
+                <p>
+                    <label class="hw">
+                        <span>培训助手流量总量(小时)</span>
+                        <input id="trainHelperTotalCapacity" class="g-ipt ipt-m" type="text" disabled="disabled">
+                    </label>
+                    <label class="hw">
+                        <span>培训助手流量<br>已用量/未用量</span>
+                        <input id="trainHelperUsedCapacityStr" disabled="disabled" class="g-ipt ipt-m" type="text">
+                    </label>
+                </p>
+                <p>
+                    <label class="hw">
+                        <span>视频参与人数上限(人)</span>
+                        <input type="text" class="g-ipt ipt-m" ce-model="videoNumLimit" oninput="this.value=this.value.replace(/[^\d]/g,'')">
+                        <span>(最多可添加20人)</span>
+                    </label>
+                    <label class="hw">
+                        <span>群人数上限(人)</span>
+                        <input type="text" class="g-ipt ipt-m" ce-model="groupNumLimit" oninput="this.value=this.value.replace(/[^\d]/g,'')">
+                    </label>
+                </p>
+                <div id="tbOperation" class="tb">
+                    <p class="tr off">
+                        <button class="btn-blue" id="sBtnChangeStatistics">保存</button>
+                    </p>
+                    <!--
 					<table>
 						<thead>
 							<tr>
@@ -300,223 +291,245 @@
 							</tr>
 						</thead>
 						<tbody>
-							
+
 						</tbody>
 					</table>
 					<div class="pager"></div>
 					-->
-				</div>
-			</div>
-		</section>
-
-		<!--活跃度-->
-		<section class="accordian collapse f1 f2 f3 f4" data-target="activeness">
-			<h4><span class="arraw"></span>活跃度</h4>
-			<div class="content">
-				<br/>
-				<br/>
-				<div class="f2">
-					<label>
-						<span>时间&nbsp;从</span>
-						<input type="text" id="actStartTime">&nbsp;&nbsp;到&nbsp;&nbsp;<input type="text" id="actEndTime">
-					</label>
-					<p class="tr">
-						<button id="actDownload" class="u-btn-blue">下载活跃度表</button>
-					</p>
-				</div>
-			</div>
-		</section>
-
-		<!--功能限制-->
-		<section class="accordian collapse f1 f2 f3 f4 off" data-target="functions">
-			<h4><span class="arraw"></span>功能限制</h4>
-			<div class="content">
-				<p>
-					<label class="hw"><span>上传文件大小限制(M)</span><input id="sdUFS" disabled="disabled" class="g-ipt ipt-m" type="text"></label>
-					<label class="hw"><span>是否允许危险操作</span><input id="sdActionDanger" disabled="disabled" class="g-ipt ipt-m" type="text"></label>
-				</p>
-				<div id="tbFunctions off" class="tb">
-				</div>
-				<div>
-					<p>
-						<label class="hw"><span>设置上传文件大小限制(M)</span><select id="sUFS"><option value="50">50</option><option value="100">100</option></select></label>
-						<label class="hw"><span>是否允许危险操作</span><select id="sActionDanger"><option value="0">否</option><option value="1">是</option></select></label>
-					</p>
-					<p>
-						<label class="hw crmvisible">
-							<span>CRM允许个人设置自己的目标</span>
-							<select name="" class="g-ipt ipt-m" ce-model="setPersonalGoal">
-								<option value="">请选择</option>
-								<option value="1">可以</option>
-								<option value="0">不可以</option>
-							</select>
-						</label>
-						<label class="hw crmvisible">
-							<span>成交折扣计算方式</span>
-							<select name="" class="g-ipt ipt-m" ce-model="discountAutoCalculated">
-								<option value="">请选择</option>
-								<option value="1">自动计算</option>
-								<option value="0">手动计算</option>
-							</select>
-						</label>
-					</p>
-					<p>
-						<label class="hw crmvisible">
-							<span>负责人可以修改客户名称</span>
-							<select name="" class="g-ipt ipt-m" ce-model="editCustomerName">
-								<option value="">请选择</option>
-								<option value="1">可以</option>
-								<option value="0">不可以</option>
-							</select>
-						</label>
-						<label class="hw crmvisible">
-							<span>CRM上级可见数据范围</span>
-							<select name="" class="g-ipt ipt-m" ce-model="crmVisibleRange">
-								<option value="">请选择</option>
-								<option value="1">所有下级数据</option>
-								<option value="2">直属下级数据</option>
-							</select>
-						</label>
-					</p>
-					<p>
-						<label class="hw">
-							<span>手机设备授权</span>
-							<select name="" class="g-ipt ipt-m" ce-model="isPhoneDeviceAuth">
-								<option value="">请选择</option>
-								<option value="1">授权</option>
-								<option value="0">不授权</option>
-							</select>
-						</label>
-						<label class="hw">
-							<span>WEB扫码授权</span>
-							<select name="" class="g-ipt ipt-m" ce-model="webSanCodeAuth">
-								<option value="">请选择</option>
-								<option value="0">全部授权</option>
-								<option value="1">未授权</option>
-								<!--<option value="2">部分授权</option>-->
-							</select>
-						</label>
-					</p>
-					<p>
-						<label class="hw">
-							<span>CRM版本设置</span>
-							<select name="" class="g-ipt ipt-m" id="crmVersion" ce-model="crmVersion">
-								<option value="">请选择</option>
-								<option value="1">通用版</option>
-								<option value="2">快销版</option>
-							</select>
-						</label>
-					</p>
-					<p class="tr"><button id="sBtnChangeFunctions" class="btn-blue">保存</button></p>
-				</div>
-			</div>
-		</section>
-
-		<!--开通时间-->
-		<section class="accordian collapse f1 f2 f3 f4 off" data-target="launchTime">
-			<h4><span class="arraw"></span>企业开通时间</h4>
-			<div class="content">
-				<p>
-					<label class="hw"><span>开通时间：</span><input id="launchTime" class="g-ipt" type="text"></label>
-				</p>
-				<p class="tr"><button id="saveLaunchTime" class="btn-blue">保存</button></p>
-			</div>
-		</section>
-		<!--end开通时间-->
-		<!--日志信息-->
-		<section class="accordian collapse f1 f2 f3 f4 off" data-target="log">
-			<h4><span class="arraw"></span>日志信息</h4>
-			<div class="content">
-				<div id="tbLog" class="tb">
-					<div class="tb-bar">
-						<p>
-							<label><span>类别</span><select id="sbLogType"></select></label>
-							<label><span>操作时间</span><input id="sbLogST" type="text" class="g-ipt ipt-s" /></label>
-							<label><span>到</span><input id="sbLogET" type="text" class="g-ipt ipt-s" /></label>
-							<button id="sBtnLogSearch">查询</button>
-						</p>
-					</div>
-					<table>
-						<thead>
-							<tr>
-								<th style="width:80px;">序号</th>
-								<th style="width:110px;">操作时间</th>
-								<th style="width:120px;">操作人</th>
-								<th style="width:120px;">类别</th>
-								<th>内容</th>
-							</tr>
-						</thead>
-						<tbody></tbody>
-					</table>
-					<div class="pager"></div>
-				</div>
-				<p class="tr  f1 f2 f3 f4 off"  style="display:none;">
-					
-					<!--<button id="btnResetAdminPassword" class="f2 off">重置管理员密码</button>-->
-					<label><span>操作日志:</span></label><textarea id="logRemark" rows="3" cols="20" style="width:400px;"  onchange="this.value=this.value.replace(/(^\s*)|(\s*$)/g,'')"></textarea>
-				</p>
-				<p class="tr">
-					<!--<button id="btnResetAdminPassword" class="f2 off">重置管理员密码</button>-->
-					<button class="btn-blue" id="btnSaveLog">保存</button>
-				</p>
-			</div>
-			
-		</section>
-
-		<!--数据统计-->
-		<!--
+                </div>
+            </div>
+        </section>
+        <!--活跃度-->
+        <section class="accordian collapse f1 f2 f3 f4" data-target="activeness">
+            <h4><span class="arraw"></span>活跃度</h4>
+            <div class="content">
+                <br/>
+                <br/>
+                <div class="f2">
+                    <label>
+                        <span>时间&nbsp;从</span>
+                        <input type="text" id="actStartTime">&nbsp;&nbsp;到&nbsp;&nbsp;
+                        <input type="text" id="actEndTime">
+                    </label>
+                    <p class="tr">
+                        <button id="actDownload" class="u-btn-blue">下载活跃度表</button>
+                    </p>
+                </div>
+            </div>
+        </section>
+        <!--功能限制-->
+        <section class="accordian collapse f1 f2 f3 f4 off" data-target="functions">
+            <h4><span class="arraw"></span>功能限制</h4>
+            <div class="content">
+                <p>
+                    <label class="hw"><span>上传文件大小限制(M)</span>
+                        <input id="sdUFS" disabled="disabled" class="g-ipt ipt-m" type="text">
+                    </label>
+                    <label class="hw"><span>是否允许危险操作</span>
+                        <input id="sdActionDanger" disabled="disabled" class="g-ipt ipt-m" type="text">
+                    </label>
+                </p>
+                <div id="tbFunctions off" class="tb">
+                </div>
+                <div>
+                    <p>
+                        <label class="hw"><span>设置上传文件大小限制(M)</span>
+                            <select id="sUFS">
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                        </label>
+                        <label class="hw"><span>是否允许危险操作</span>
+                            <select id="sActionDanger">
+                                <option value="0">否</option>
+                                <option value="1">是</option>
+                            </select>
+                        </label>
+                    </p>
+                    <p>
+                        <label class="hw crmvisible">
+                            <span>CRM允许个人设置自己的目标</span>
+                            <select name="" class="g-ipt ipt-m" ce-model="setPersonalGoal">
+                                <option value="">请选择</option>
+                                <option value="1">可以</option>
+                                <option value="0">不可以</option>
+                            </select>
+                        </label>
+                        <label class="hw crmvisible">
+                            <span>成交折扣计算方式</span>
+                            <select name="" class="g-ipt ipt-m" ce-model="discountAutoCalculated">
+                                <option value="">请选择</option>
+                                <option value="1">自动计算</option>
+                                <option value="0">手动计算</option>
+                            </select>
+                        </label>
+                    </p>
+                    <p>
+                        <label class="hw crmvisible">
+                            <span>负责人可以修改客户名称</span>
+                            <select name="" class="g-ipt ipt-m" ce-model="editCustomerName">
+                                <option value="">请选择</option>
+                                <option value="1">可以</option>
+                                <option value="0">不可以</option>
+                            </select>
+                        </label>
+                        <label class="hw crmvisible">
+                            <span>CRM上级可见数据范围</span>
+                            <select name="" class="g-ipt ipt-m" ce-model="crmVisibleRange">
+                                <option value="">请选择</option>
+                                <option value="1">所有下级数据</option>
+                                <option value="2">直属下级数据</option>
+                            </select>
+                        </label>
+                    </p>
+                    <p>
+                        <label class="hw">
+                            <span>手机设备授权</span>
+                            <select name="" class="g-ipt ipt-m" ce-model="isPhoneDeviceAuth">
+                                <option value="">请选择</option>
+                                <option value="1">授权</option>
+                                <option value="0">不授权</option>
+                            </select>
+                        </label>
+                        <label class="hw">
+                            <span>WEB扫码授权</span>
+                            <select name="" class="g-ipt ipt-m" ce-model="webSanCodeAuth">
+                                <option value="">请选择</option>
+                                <option value="0">全部授权</option>
+                                <option value="1">未授权</option>
+                                <!--<option value="2">部分授权</option>-->
+                            </select>
+                        </label>
+                    </p>
+                    <p>
+                        <label class="hw">
+                            <span>CRM版本设置</span>
+                            <select name="" class="g-ipt ipt-m" id="crmVersion" ce-model="crmVersion">
+                                <option value="">请选择</option>
+                                <option value="1">通用版</option>
+                                <option value="2">快销版</option>
+                            </select>
+                        </label>
+                    </p>
+                    <p class="tr">
+                        <button id="sBtnChangeFunctions" class="btn-blue">保存</button>
+                    </p>
+                </div>
+            </div>
+        </section>
+        <!--开通时间-->
+        <section class="accordian collapse f1 f2 f3 f4 off" data-target="launchTime">
+            <h4><span class="arraw"></span>企业开通时间</h4>
+            <div class="content">
+                <p>
+                    <label class="hw"><span>开通时间：</span>
+                        <input id="launchTime" class="g-ipt" type="text">
+                    </label>
+                </p>
+                <p class="tr">
+                    <button id="saveLaunchTime" class="btn-blue">保存</button>
+                </p>
+            </div>
+        </section>
+        <!--end开通时间-->
+        <!--日志信息-->
+        <section class="accordian collapse f1 f2 f3 f4 off" data-target="log">
+            <h4><span class="arraw"></span>日志信息</h4>
+            <div class="content">
+                <div id="tbLog" class="tb">
+                    <div class="tb-bar">
+                        <p>
+                            <label><span>类别</span>
+                                <select id="sbLogType"></select>
+                            </label>
+                            <label><span>操作时间</span>
+                                <input id="sbLogST" type="text" class="g-ipt ipt-s" />
+                            </label>
+                            <label><span>到</span>
+                                <input id="sbLogET" type="text" class="g-ipt ipt-s" />
+                            </label>
+                            <button id="sBtnLogSearch">查询</button>
+                        </p>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width:80px;">序号</th>
+                                <th style="width:110px;">操作时间</th>
+                                <th style="width:120px;">操作人</th>
+                                <th style="width:120px;">类别</th>
+                                <th>内容</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                    <div class="pager"></div>
+                </div>
+                <p class="tr  f1 f2 f3 f4 off" style="display:none;">
+                    <!--<button id="btnResetAdminPassword" class="f2 off">重置管理员密码</button>-->
+                    <label><span>操作日志:</span></label>
+                    <textarea id="logRemark" rows="3" cols="20" style="width:400px;" onchange="this.value=this.value.replace(/(^\s*)|(\s*$)/g,'')"></textarea>
+                </p>
+                <p class="tr">
+                    <!--<button id="btnResetAdminPassword" class="f2 off">重置管理员密码</button>-->
+                    <button class="btn-blue" id="btnSaveLog">保存</button>
+                </p>
+            </div>
+        </section>
+        <!--数据统计-->
+        <!--
 		<section class="accordian collapse f1 f2 f3 f4 off" data-target="peopleNumber">
 			<h4><span class="arraw"></span>数据统计</h4>
 			<div class="content">
 
 			<span>前一天的登陆人数</span><span id="peopleNumber" style="margin-left:50px"></span>
-				
+
 			</div>
 		</section>
 		-->
-		<p class="tr  off24  off" data-permissions="M008009042" style="display:none;">
-			<!--<button id="btnResetAdminPassword" class="f2 off">重置管理员密码</button>-->
-			<label><span>启用停用备注：</span></label><textarea id="switchRemark" rows="3" cols="20"></textarea>
-		</p>
-		<p class="tr">
-			<!--<button id="btnResetAdminPassword" class="f2 off">重置管理员密码</button>-->
-			<button id="btnStopService" class="f2 off" data-permissions="M008009042">停用</button>
-			<button id="btnStartService" class="f4 off" data-permissions="M008009042">启用</button>
-		</p>
-		<section>
-			<p class="notice">
-				<span>企业类型</span>
-				<select ce-model="enterpriseType" style="width:150px; margin-left:50px;" disabled>
-					<option value=""></option>
-	                <option value="1">开源</option>
-	                <option value="2">付费</option>
-	                <option value="3">免费</option>
-	                <option value="4">未续费</option>
-				</select>
-			</p>
-			<p class="notice">
-				<span>续费提醒</span>
-				<select ce-model="renewalNotice" style="width:150px; margin-left:50px;" disabled>
-	                <option value=""></option>
-	                <option value="1">部分产品过期</option>
-	                <option value="2">产品即将过期</option>
-	                <option value="3">全部产品过期</option>
-	                <option value="4">部分产品过期/即将过期</option>
-				</select>
-			</p>
-			<p>
-				<span>企业标签设置</span>
-				<select ce-model="enterpriseLabel" id="tagSetting" style="width:150px; margin-left:20px;">
-					<option value="" selected style="display: none;">无</option>
-	                <option value="1">资源客户</option>
-	                <option value="2">续办公版</option>
-	                <option value="3">楼宇客户</option>
-				</select>
-			</p>
-			<p class="tr" data-permission="M008009057">
-				<button class="btn-blue" id="btnSaveTag">保存</button>
-			</p>
-		</section>
-	</div>
-
+        <p class="tr  off24  off" data-permissions="M008009042" style="display:none;">
+            <!--<button id="btnResetAdminPassword" class="f2 off">重置管理员密码</button>-->
+            <label><span>启用停用备注：</span></label>
+            <textarea id="switchRemark" rows="3" cols="20"></textarea>
+        </p>
+        <p class="tr">
+            <!--<button id="btnResetAdminPassword" class="f2 off">重置管理员密码</button>-->
+            <button id="btnStopService" class="f2 off" data-permissions="M008009042">停用</button>
+            <button id="btnStartService" class="f4 off" data-permissions="M008009042">启用</button>
+        </p>
+        <section>
+            <p class="notice">
+                <span>企业类型</span>
+                <select ce-model="enterpriseType" style="width:150px; margin-left:50px;" disabled>
+                    <option value=""></option>
+                    <option value="1">开源</option>
+                    <option value="2">付费</option>
+                    <option value="3">免费</option>
+                    <option value="4">未续费</option>
+                </select>
+            </p>
+            <p class="notice">
+                <span>续费提醒</span>
+                <select ce-model="renewalNotice" style="width:150px; margin-left:50px;" disabled>
+                    <option value=""></option>
+                    <option value="1">部分产品过期</option>
+                    <option value="2">产品即将过期</option>
+                    <option value="3">全部产品过期</option>
+                    <option value="4">部分产品过期/即将过期</option>
+                </select>
+            </p>
+            <p>
+                <span>企业标签设置</span>
+                <select ce-model="enterpriseLabel" id="tagSetting" style="width:150px; margin-left:20px;">
+                    <option value="" selected style="display: none;">无</option>
+                    <option value="1">资源客户</option>
+                    <option value="2">续办公版</option>
+                    <option value="3">楼宇客户</option>
+                </select>
+            </p>
+            <p class="tr" data-permission="M008009057">
+                <button class="btn-blue" id="btnSaveTag">保存</button>
+            </p>
+        </section>
+    </div>
 </div>
