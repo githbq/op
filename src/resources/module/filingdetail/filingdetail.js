@@ -89,11 +89,11 @@ define(function (require, exports, module) {
                     data: {enterpriseFilingName: value},
                     success: function (data) {
                         if (data.success) {
-                            if (data.value.hint) {
-                                me.toggleDuplicateMessage(0);
-                            } else {
-                                me.toggleDuplicateMessage(1);
-                            }
+                            if (data.value.hint=='false') {
+								util.showToast('该企业已经上报，请检查后重新填写！');
+								me.model.set('enterpriseName','')
+								return false;
+                            } 
                         }
                     }
                 });
