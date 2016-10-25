@@ -366,7 +366,7 @@ define(function (require, exports, module) {
                 toAccountTotalAmount: me.$acEnd.val(),
                 fromPartnerAccountTotalAmount: me.$bcACBegin.val(),
                 toPartnerAccountTotalAmount: me.$bcACEnd.val(),
-                assistantEndTimeProductIds: assistantEndTimeProductIds,
+                assistantEndTimeProductIds: assistantEndTimeProductIds.join(','),
                 vendorName: me.$vendorName.val(),
                 isSelfRegister: me.$isSelfRegister.is(':checked') ? 1 : 0
             };
