@@ -26,6 +26,8 @@ define(function (require, exports, module) {
             '#qcCode': 'code',
             '#qcATBegin': 'atBegin',
             '#qcATEnd': 'atEnd',
+            '#crmEndTimeStart': 'crmEndTimeStart',
+            '#crmEndTimeEnd': 'crmEndTimeEnd',
             '#qcOTBegin': 'otBegin',
             '#qcOTEnd': 'otEnd',
             '#qcACBegin': 'acBegin',
@@ -38,7 +40,12 @@ define(function (require, exports, module) {
             '#qcList': 'list',
             '#pStatus': 'pstatus',
             '#btnSearch': 'search',
-            '.list-content': 'result'
+            '.list-content': 'result',
+            '#assistantEndTimeStart': 'assistantEndTimeStart',
+            '#assistantEndTimeEnd': 'assistantEndTimeEnd',
+            '#vendorName': 'vendorName',
+            'input[name=assistantEndTimeProductIds]': 'assistantEndTimeProductIds',
+            '#isSelfRegister': 'isSelfRegister'
         },
         view: viewStr,
         events: {
@@ -81,6 +88,11 @@ define(function (require, exports, module) {
             me.$bcOTBegin.datetimepicker({ timepicker: false, format: 'Y-m-d' });
             me.$bcOTEnd.datetimepicker({ timepicker: false, format: 'Y-m-d' });
 
+            me.$crmEndTimeStart.datetimepicker({ timepicker: false, format: 'Y-m-d' });
+            me.$crmEndTimeEnd.datetimepicker({ timepicker: false, format: 'Y-m-d' });
+            me.$assistantEndTimeStart.datetimepicker({ timepicker: false, format: 'Y-m-d' });
+            me.$assistantEndTimeEnd.datetimepicker({ timepicker: false, format: 'Y-m-d' });
+
             var ih2 = new InputHandler({ view: me.$view.find('.m-ih-space'), target: me.$view.find('#qcSb') });
 
             var ih3 = new Select({ 'view': me.$view.find('.select-kt') });
@@ -88,7 +100,8 @@ define(function (require, exports, module) {
             var ih5 = new Select({ 'view': me.$view.find('.select-zl') });
             var ih6 = new Select({ 'view': me.$view.find('.select-bcdq') });
             var ih7 = new Select({ 'view': me.$view.find('.select-bczl') });
-
+            var ih8 = new Select({ view: me.$view.find('.select-crm') });
+            var ih9 = new Select({ view: me.$view.find('.select-helpers') });
             ih3.on('select', function (value) {
                 var beginTime = '',
                     endTime = '';
@@ -215,7 +228,55 @@ define(function (require, exports, module) {
 
                 me.$bcACBegin.val(beginCount);
                 me.$bcACEnd.val(endCount);
-            })
+            });
+            ih8.on('select', function (value) {
+                var beginTime = '',
+                    endTime = '';
+                switch (value) {
+                    case '1':
+                        beginTime = util.getDateStr(0);
+                        endTime = util.getDateStr(7);
+                        break;
+                    case '2':
+                        beginTime = util.getDateStr(0);
+                        endTime = util.getDateStr(15);
+                        break;
+                    case '3':
+                        beginTime = util.getDateStr(0);
+                        endTime = util.getDateStr(30);
+                        break;
+                    case '4':
+                        beginTime = util.getDateStr(0);
+                        endTime = util.getDateStr(60);
+                        break;
+                }
+                me.$crmEndTimeStart.val(beginTime);
+                me.$crmEndTimeEnd.val(endTime);
+            });
+            ih9.on('select', function (value) {
+                var beginTime = '',
+                    endTime = '';
+                switch (value) {
+                    case '1':
+                        beginTime = util.getDateStr(0);
+                        endTime = util.getDateStr(7);
+                        break;
+                    case '2':
+                        beginTime = util.getDateStr(0);
+                        endTime = util.getDateStr(15);
+                        break;
+                    case '3':
+                        beginTime = util.getDateStr(0);
+                        endTime = util.getDateStr(30);
+                        break;
+                    case '4':
+                        beginTime = util.getDateStr(0);
+                        endTime = util.getDateStr(60);
+                        break;
+                }
+                me.$assistantEndTimeStart.val(beginTime);
+                me.$assistantEndTimeEnd.val(endTime);
+            });
 
             me.collection = new M.Collection;
             me.initializeSelect();
@@ -268,12 +329,29 @@ define(function (require, exports, module) {
             this.$type.val('');
             this.$tag.val('');
             this.$renewal.val('');
+            this.$crmEndTimeStart.val('');
+            this.$crmEndTimeEnd.val('');
+            this.$assistantEndTimeStart.val('');
+            this.$assistantEndTimeEnd.val('');
+            this.$list.val('');
+            this.$vendorName.val('');
+            this.$assistantEndTimeProductIds.attr('checked', false);
+            this.$isSelfRegister.attr('checked', false);
         },
         search: function () {
             var me = this;
+            var assistantEndTimeProductIds = [];
+            me.$view.find('input[name=assistantEndTimeProductIds]:checked').each(function (i, n) {
+                assistantEndTimeProductIds.push(parseInt($(n).val()));
+            });
+            var industry = '';
+            if (me.$view.find('.industry option:selected[value!=""]:last').length > 0) {
+                industry = me.$view.find('.industry option:selected[value!=""]:last').val();
+            }
             var data = {
+                vendorName: me.$vendorName.val(),
                 runStatus: me.$pstatus.val(),
-                industry: me.$industry.val(),
+                industry: industry,
                 enterpriseType: me.$type.val(),
                 enterpriseLabel: me.$tag.val(),
                 renewalNotice: me.$renewal.val(),
@@ -287,7 +365,10 @@ define(function (require, exports, module) {
                 fromAccountTotalAmount: me.$acBegin.val(),
                 toAccountTotalAmount: me.$acEnd.val(),
                 fromPartnerAccountTotalAmount: me.$bcACBegin.val(),
-                toPartnerAccountTotalAmount: me.$bcACEnd.val()
+                toPartnerAccountTotalAmount: me.$bcACEnd.val(),
+                assistantEndTimeProductIds: assistantEndTimeProductIds,
+                vendorName: me.$vendorName.val(),
+                isSelfRegister: me.$isSelfRegister.is(':checked') ? 1 : 0
             };
             if (me.$atBegin.val()) {
                 data.fromAppStartTime = new Date(me.$atBegin.val()).getTime();
@@ -307,6 +388,21 @@ define(function (require, exports, module) {
             if (me.$bcOTEnd.val()) {
                 data.toPartnerEndTime = new Date(me.$bcOTEnd.val()).getTime();
             }
+
+            if (me.$crmEndTimeStart.val()) {
+                data.crmEndTimeStart = new Date(me.$crmEndTimeStart.val()).getTime();
+            }
+            if (me.$crmEndTimeEnd.val()) {
+                data.crmEndTimeEnd = new Date(me.$crmEndTimeEnd.val()).getTime();
+            }
+
+            if (me.$assistantEndTimeStart.val()) {
+                data.assistantEndTimeStart = new Date(me.$assistantEndTimeStart.val()).getTime();
+            }
+            if (me.$assistantEndTimeEnd.val()) {
+                data.assistantEndTimeEnd = new Date(me.$assistantEndTimeEnd.val()).getTime();
+            }
+
             if (me.$list.val()) {
                 data.idOrName = me.$listType.val();
                 data.idsOrNames = me.$list.val();

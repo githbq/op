@@ -7553,6 +7553,12 @@ em {
 .m-reqdetail .list-pager > div {
   float: right;
 }
+.m-qry-cmp input.middle {
+  width: 200px!important;
+}
+.m-qry-cmp .hide {
+  display: none!important;
+}
 .m-qry-cmp .list-bar {
   border-bottom: none;
 }
@@ -7568,13 +7574,20 @@ em {
 .m-qry-cmp .list-bar .list-bar-btns button.disable {
   opacity: 0.3;
 }
+.m-qry-cmp .list-bar .checkbox-list-wrapper input[type=checkbox] {
+  width: 30px;
+}
+.m-qry-cmp .list-bar .checkbox-list-wrapper label {
+  display: inline;
+  margin-right: 0px;
+}
+.m-qry-cmp .list-bar .act-lst-tr {
+  width: 500px;
+  height: 100px;
+  margin-bottom: 20px;
+}
 .m-qry-cmp .list-bar .list-bar-entry {
   margin-right: 300px;
-}
-.m-qry-cmp .list-bar .list-bar-entry .act-lst-tr {
-  width: 500px;
-  height: 200px;
-  margin-bottom: 20px;
 }
 .m-qry-cmp .list-bar .list-bar-entry .tips {
   margin-bottom: 20px;

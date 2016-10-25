@@ -1,4 +1,10 @@
 .m-qry-cmp {
+    input.middle {
+        width: 200px!important;
+    }
+    .hide {
+        display: none!important;
+    }
     .list-bar {
         border-bottom: none;
         .list-bar-btns {
@@ -13,13 +19,22 @@
                 }
             }
         }
+        .checkbox-list-wrapper {
+            input[type=checkbox] {
+                width: 30px;
+            }
+            label {
+                display: inline;
+                margin-right: 0px;
+            }
+        }
+        .act-lst-tr {
+            width: 500px;
+            height: 100px;
+            margin-bottom: 20px;
+        }
         .list-bar-entry {
             margin-right: 300px;
-            .act-lst-tr {
-                width: 500px;
-                height: 200px;
-                margin-bottom: 20px;
-            }
             .tips {
                 margin-bottom: 20px;
                 color: @ltc3;
@@ -27,9 +42,9 @@
         }
     }
     .list-content {
-        background:#f8f8f8;
+        background: #f8f8f8;
         h3 {
-            padding-left:20px;
+            padding-left: 20px;
             border-bottom: 1px solid #d9d9d9;
             color: #888888;
             font-size: 15px;
@@ -45,7 +60,9 @@
                 text-align: right;
                 button {
                     margin-left: 10px;
-                    &.invisiable { display: none; }
+                    &.invisiable {
+                        display: none;
+                    }
                     &.disable {
                         opacity: 0.3;
                     }
@@ -56,7 +73,7 @@
             }
         }
     }
-    .tips{
+    .tips {
         margin-bottom: 20px;
         color: #ffa500;
     }
