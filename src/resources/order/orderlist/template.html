@@ -1,7 +1,7 @@
 <script type="text/template" id="claim">
 <div class="m-claim">
 	<section>
-		<table>
+		<table style="table-layout: fixed;">
 			<thead>
 				<tr>
 					<th></th>
@@ -18,11 +18,11 @@
 				<tr>
 					<td></td>
 					<td> <input type="radio" name="daokuan" value="<%=item.id%>"> </td>
-					<td><%=item.receivedPayNum%></td>
-					<td><%=new Date(item.receivedPayDate)._format('yyyy/MM/dd')%></td>
-					<td><%=item.payerName%></td>
-					<td><%=item.receivedPayAmount%></td>
-					<td><%=item.propertyStr%></td>
+					<td title="<%=item.receivedPayNum%>" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"><%=item.receivedPayNum%></td>
+					<td ><%=new Date(item.receivedPayDate)._format('yyyy/MM/dd')%></td>
+					<td title="<%=item.payerName%>" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"><%=item.payerName%></td>
+					<td title="<%=item.receivedPayAmount%>" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"><%=item.receivedPayAmount%></td>
+					<td title="<%=item.propertyStr%>" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"><%=item.propertyStr%></td>
 					<td></td>
 				</tr>
 			</tbody>
