@@ -5,17 +5,18 @@
 			<thead>
 				<tr>
 					<th></th>
-					<th></th>
-					<th>到款编号</th>
-					<th>到款日期</th>
-					<th>公司/个人打款名称</th>
-					<th>到款金额(元)</th>
-					<th>性质</th>
+					<th style="width:30px;"></th>
+					<th style="width:100px;">到款编号</th>
+					<th style="width:100px;">到款日期</th>
+					<th style="width:150px;">公司/个人打款名称</th>
+					<th style="width:100px;">到款金额(元)</th>
+					<th style="width:100px;">性质</th>
 					<th></th>
 				</tr>
 			</thead>
 			<tbody ce-collection="list">
 				<tr>
+				
 					<td></td>
 					<td> <input type="radio" name="daokuan" value="<%=item.id%>"> </td>
 					<td title="<%=item.receivedPayNum%>" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"><%=item.receivedPayNum%></td>

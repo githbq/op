@@ -91,7 +91,7 @@ define(function (require, exports, module) {
                         if (data.success) {
                             if (data.value.hint=='false') {
 								util.showToast('该企业已经上报，请检查后重新填写！');
-								//me.model.set('enterpriseName','')
+								me.model.set('enterpriseName','')
 								return false;
                             } 
                         }
