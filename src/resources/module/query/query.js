@@ -336,7 +336,7 @@ define(function (require, exports, module) {
             this.$list.val('');
             this.$vendorName.val('');
             this.$assistantEndTimeProductIds.attr('checked', false);
-            this.$isSelfRegister.attr('checked', false);
+            this.$isSelfRegister.val('');
         },
         search: function () {
             var me = this;
@@ -368,7 +368,7 @@ define(function (require, exports, module) {
                 toPartnerAccountTotalAmount: me.$bcACEnd.val(),
                 assistantEndTimeProductIds: assistantEndTimeProductIds.join(','),
                 vendorName: me.$vendorName.val(),
-                isSelfRegister: me.$isSelfRegister.is(':checked') ? 1 : 0
+                isSelfRegister: me.$isSelfRegister.val()
             };
             if (me.$atBegin.val()) {
                 data.fromAppStartTime = new Date(me.$atBegin.val()).getTime();
