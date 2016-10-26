@@ -76,7 +76,7 @@ define(function(require, exports, module) {
             '#sdUFS': 'sdUFS', //*??
             '#sdActionDanger': 'sdActionDanger', //*??
             '#sUFS': 'sUFS', //*??
-            '#sActionDanger': 'sActionDanger', //*?? 
+            '#sActionDanger': 'sActionDanger', //*??
             '#sbLogST': 'sbLogST', //* 日志信息操作时间
             '#sbLogET': 'sbLogET', //* 日志信息操作时间到
             '#tbLog tbody': 'tbLog', //* 日志信息
@@ -103,7 +103,7 @@ define(function(require, exports, module) {
             '#mentouinfo': 'mentouinfo', //*门头信息显示a标签
             '#mentounone': 'mentounone', //*门头无图提示
 
-            '#companyGateKeyword': 'getcompanyGatekeyword', //*只读门头照片关键字 
+            '#companyGateKeyword': 'getcompanyGatekeyword', //*只读门头照片关键字
             '#companyGateRemark': 'getcompanyGateRemark', //*只读门头照片备注
             '.companyGateKeyword': 'setcompanyGatekeyword', //*设置门头照片关键字
             '.companyGateRemark': 'setcompanyGateRemark', //*设置门头照片备注
@@ -163,7 +163,7 @@ define(function(require, exports, module) {
             }, //开启产品
             'click #closeproduct': function() {
                     this.toggleProduct(2)
-                } //关闭产品                                                        
+                } //关闭产品
         },
 
         tplProduct: _.template(tpl.filter('#trProduct').html()),
@@ -182,7 +182,7 @@ define(function(require, exports, module) {
 
             var me = this;
 
-            //主要记录pagination是否已经初始化 
+            //主要记录pagination是否已经初始化
             //如果已经初始化 就不再初始化
 
             //使用情况
@@ -338,7 +338,7 @@ define(function(require, exports, module) {
 
         //显示
         //@param id       企业id
-        //@param status   
+        //@param status
         show: function(id, status) {
             var me = this;
             me.enterpriseAccount = '';
@@ -752,7 +752,7 @@ define(function(require, exports, module) {
          *
          * 整个显隐控制共分为三层
          * 第一层 权限层  由 data-permissions 属性确定  初始化时 不符合的移除元素
-         * 第二层 由初始化的参数确定 支持 代理商 打开企业详情时根据isAgent参数 确定某些元素的显隐 
+         * 第二层 由初始化的参数确定 支持 代理商 打开企业详情时根据isAgent参数 确定某些元素的显隐
          * 第三层 由企业开通状态决定 根据企业开通的不同状态 对不同元素进行显隐控制
          */
 
@@ -1007,21 +1007,15 @@ define(function(require, exports, module) {
 
                             var strDom = "";
                             _.map(data.value.model, function(obj) {
-                                var startTime = "——",
-                                    endTime = "——";
-
-                                if (obj['startDate']) {
-                                    startTime = new Date(obj['startDate'])._format('yyyy/MM/dd');
-                                }
-                                if (obj['endDate']) {
-                                    endTime = new Date(obj['endDate'])._format('yyyy/MM/dd');
-                                }
 
                                 var enablestatus = "";
+                                var btnStr = '';
                                 if (obj["isEnable"] == 1) {
-                                    enablestatus = "已开启";
+                                    enablestatus = "已启用";
+                                    btnStr = "<button class='u-btn-blue prooff off' name='product' typeid='" + obj["quotaType"] + "' value='" + obj["appId"] + "'>已启用</button><button class='proon off' name='product' typeid='" + obj["quotaType"] + "' value='" + obj["appId"] + "'>停&#12288;用</button>";
                                 } else if (obj["isEnable"] == 2) {
-                                    enablestatus = "已关闭";
+                                    enablestatus = "已停用";
+                                    btnStr = "<button class='prooff off' name='product' typeid='" + obj["quotaType"] + "' value='" + obj["appId"] + "'>启&#12288;用</button><button class='u-btn-danger proon off' name='product' typeid='" + obj["quotaType"] + "' value='" + obj["appId"] + "'>已停用</button>";
                                 }
 
                                 switch (obj["code"]) {
@@ -1030,36 +1024,38 @@ define(function(require, exports, module) {
                                     case "Train_Hepler_Capacity":
                                         break;
                                         //报数系统
-                                        //case "Number_System":
-                                        //  break;
+                                    case "Number_System":
+                                        break;
                                         //纷享百川
                                     case "FXBC":
                                         break;
                                         //
                                     case "CRM":
-                                        strDom += " <p> <span class='title'><b>" + obj['appName'] + ":</b>&nbsp;总量" + obj['quota'] + "&nbsp;已用" + obj['usedQuota'] + "</span>" +
-                                            " <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span><i>" + enablestatus + "</i>&nbsp;<button class='prooff off u-btn-blue' name='product' typeid='" + obj["quotaType"] + "' value='" + obj["appId"] + "'>开启</button><button class='proon off' name='product' typeid='" + obj["quotaType"] + "' value='" + obj["appId"] + "'>关闭</button> </p>";
+                                        strDom += "<p><span class='title'>" + obj['appName'] + "</span>" + btnStr + "</p>";
                                         break;
                                         //培训人数
                                     case "Service_Fee":
-                                        strDom += " <p> <span class='title'><b>" + obj['appName'] + ":</b>" + obj['quota'] + "</span>" +
-                                            "</p>";
+                                        strDom += "<p><span class='title'>" + obj['appName'] + "</span></p>";
                                         break;
                                     case "HR_Helper":
-                                        strDom += " <p> <span class='title'><b>" + obj['appName'] + ":</b></span> <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span> </p>";
+                                        strDom += "<p><span class='title'>" + obj['appName'] + "</span></p>";
                                         break;
                                     case "Business_Card":
-                                        strDom += " <p> <span class='title'><b>" + obj['appName'] + ":</b></span> <span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span> </p>";
+                                        strDom += "<p><span class='title'>" + obj['appName'] + "</span></p>";
                                         break;
                                     case "Custom_Helper":
-                                        strDom += " <p> <span class='title'><b>" + obj['appName'] + ":</b>&nbsp;总量" + obj['quota'] + "&nbsp;已用" + obj['usedQuota'] + "</span>" + "<span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span> </p>";
+                                        strDom += "<p><span class='title'>" + obj['appName'] + "</span></p>";
                                         break;
                                     case "StorageSpace":
                                         break;
+                                    case "Service_Fee_New":
+                                        strDom += "<p><span class='title'>" + obj['appName'] + "</span></p>";
+                                        break;
                                     default:
-                                        strDom += " <p> <span class='title'><b>" + obj['appName'] + ":</b>&nbsp;总量" + obj['quota'] + "&nbsp;已用" + obj['usedQuota'] + "</span>" + "<span>开始时间：" + startTime + "</span> <span>结束时间：" + endTime + "</span><i>" + enablestatus + "</i>&nbsp;<button class='prooff off u-btn-blue' name='product' typeid='" + obj["quotaType"] + "' value='" + obj["appId"] + "'>开启</button><button class='proon off' name='product' typeid='" + obj["quotaType"] + "' value='" + obj["appId"] + "'>关闭</button> </p>";
+                                        strDom += "<p><span class='title'>" + obj['appName'] + "</span>" + btnStr + "</p>";
                                 }
                             });
+
 
                             me.$tbProduct.find('.container').html(strDom);
                             me.setState(me.$tbProduct);
@@ -1102,13 +1098,12 @@ define(function(require, exports, module) {
                 url: '/odr/queryProductHistoryVOList',
                 data: data,
                 success: function(data) {
-
                     console.warn(data);
                     if (data.success) {
                         me.product.pagination.setTotalSize(data.model.itemCount);
                         if (data.model.length > 0) {
                             data.model.forEach(function(item) {
-
+                                item.useCount = item.useCount < 0 ? '--' : item.useCount;
                                 item.statusStr = statusTimeMap[item.status];
                             });
                             me.$tbProductList.html(me.tbProductTem({
@@ -1631,7 +1626,7 @@ define(function(require, exports, module) {
                         //me.$sdEMWUC.val(model['Used.ExportAmountLeaveApplication']); //导出月度考勤已用
                         // me.$sdEAC.val(model['Config.ExportAmountFeedApprove']); //导出审批汇总次数
                         //me.$sdEAUC.val(model['Used.ExportAmountFeedApprove']); //导出审批汇总已用
-                        me.$sdUFS.val(model['Config.UploadFileSizeLimit']); //上传文件大小限制
+                        model['Config.UploadFileSizeLimit'] ? me.$sdUFS.val(model['Config.UploadFileSizeLimit']) : me.$sdUFS.val(100); //上传文件大小限制
                         console.warn(model['Config.isAllowDangerOperate']);
                         var temp = model['Config.IsAllowDangerOperate'] == '1' ? '是' : '否'
                         me.$sdActionDanger.val(temp);
@@ -1668,7 +1663,7 @@ define(function(require, exports, module) {
         init_launchTime: function(enterpriseId) {
             var me = this;
             var today = new Date();
-            //today.setDate(today.getDate() + 1);//获取AddDayCount天后的日期 
+            //today.setDate(today.getDate() + 1);//获取AddDayCount天后的日期
             var TOMORRAY = today.getTime(); //明天
             me.$('#launchTime').off('focus').on('focus', function() { //触发控件
                 //取消最小时间限制
