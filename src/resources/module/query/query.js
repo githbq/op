@@ -417,6 +417,7 @@ define(function (require, exports, module) {
             me.$result.html('');
             me.$search.attr('disabled', 'disabled');
             me.$search.addClass('disable');
+            me.searchData = data;
             util.api({
                 url: '/query/cmp/count',
                 data: data,
@@ -447,55 +448,7 @@ define(function (require, exports, module) {
         },
         generate: function () {
             var me = this;
-            var data = {
-                industry: me.$industry.val(),
-                enterpriseType: me.$type.val(),
-                enterpriseLabel: me.$tag.val(),
-                renewalNotice: me.$renewal.val(),
-                runStatus: me.$pstatus.val(),
-                modules: me.$pModule.val(),
-                promotionCode: me.$code.val(),
-                isPayed: me.$fstatus.val(),
-                source: me.$source.val(),
-                activity: me.$activity.val(),
-                type: me.$type.val(),
-                tag: me.$tag.val(),
-                renewal: me.$renewal.val(),
-                smsUnUsedAmount: '',
-                StorageUnUsedSpace: me.$sb.val(),
-                fromAccountTotalAmount: me.$acBegin.val(),
-                toAccountTotalAmount: me.$acEnd.val(),
-                fromPartnerAccountTotalAmount: me.$bcACBegin.val(),
-                toPartnerAccountTotalAmount: me.$bcACEnd.val()
-            };
-            if (me.$atBegin.val()) {
-                data.fromAppStartTime = new Date(me.$atBegin.val()).getTime();
-            }
-            if (me.$atEnd.val()) {
-                data.toAppStartTime = new Date(me.$atEnd.val()).getTime();
-            }
-            if (me.$otBegin.val()) {
-                data.fromEndTime = new Date(me.$otBegin.val()).getTime();
-            }
-            if (me.$otEnd.val()) {
-                data.toEndTime = new Date(me.$otEnd.val()).getTime();
-            }
-            if (me.$bcOTBegin.val()) {
-                data.fromPartnerEndTime = new Date(me.$bcOTBegin.val()).getTime();
-            }
-            if (me.$bcOTEnd.val()) {
-                data.toPartnerEndTime = new Date(me.$bcOTEnd.val()).getTime();
-            }
-            if (me.$list.val()) {
-                data.idOrName = me.$listType.val();
-                data.idsOrNames = me.$list.val();
-            }
-            if ($('#excessFlag').is(':checked')) {
-                data['excessFlag'] = true;
-            } else {
-                data['excessFlag'] = false;
-            }
-            data['excessType'] = me.$('#excessType').val();
+            var data = me.searchData;
             var $generate = me.$result.find('#btnGenerate'),
                 $download = me.$result.find('#btnDownload'),
                 $console = me.$result.find('#console');
