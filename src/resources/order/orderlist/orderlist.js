@@ -34,7 +34,7 @@ define(function (require, exports, module) {
 
         defaultAttr: {
             'title': '到款认领',
-            'width': 500
+            'width': 600
         },
 
         events: {
