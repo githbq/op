@@ -25,9 +25,9 @@
             <% } %>
         </td>
         <td>
-            <a class="<%=value.canDelete ? 'delete' : 'unavailable'%>"  data-id="<%=value.id%>">删除</a>&nbsp;
-            <a class="edit" data-id="<%=value.id%>" data-bool="<%=value.claimStatus == 3?1:0%>">编辑</a>&nbsp;
-            <a class="<%=value.canSelectOrder ? 'selectOrder' : 'unavailable'%>" data-id="<%=value.id%>">选择订单</a>&nbsp;
+            <a class="<%=value.canDelete ? 'delete' : 'unavailable'%>"  data-id="<%=value.id%>" data-permissions="M010005005">删除</a>&nbsp;
+            <a class="edit" data-id="<%=value.id%>" data-bool="<%=value.claimStatus == 3?1:0%>" data-permissions="M010005006">编辑</a>&nbsp;
+            <a class="<%=value.canSelectOrder ? 'selectOrder' : 'unavailable'%>" data-id="<%=value.id%>" data-permissions="M010005007">选择订单</a>&nbsp;
         </td>
         <td></td>
     </tr>
@@ -39,7 +39,7 @@
     <div class="m-createreceive">
         <p><label>
             <span>到款编号<b style="color: red; ">*</b></span>
-            <input type="text" maxlength="20" class="info" data-model="receivedPayNum">
+            <input type="text" maxlength="45" class="info" data-model="receivedPayNum">
         </label></p>
         <p><label>
             <span>到款日期<b style="color: red; ">*</b></span>
