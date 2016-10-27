@@ -101,7 +101,7 @@ define(function (require, exports, module) {
             var ih6 = new Select({ 'view': me.$view.find('.select-bcdq') });
             var ih7 = new Select({ 'view': me.$view.find('.select-bczl') });
             var ih8 = new Select({ view: me.$view.find('.select-crm') });
-            var ih9 = new Select({ view: me.$view.find('.select-helpers') });
+            var ih9 = new Select({ view: me.$view.find('.select-assistantEndTimeProductIds') });
             ih3.on('select', function (value) {
                 var beginTime = '',
                     endTime = '';
@@ -337,6 +337,7 @@ define(function (require, exports, module) {
             this.$vendorName.val('');
             this.$assistantEndTimeProductIds.attr('checked', false);
             this.$isSelfRegister.val('');
+            this.$('.industry:first').val('').change();
         },
         search: function () {
             var me = this;
