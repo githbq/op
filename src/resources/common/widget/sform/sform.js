@@ -46,7 +46,7 @@ define(function (require, exports, module) {
                     var name = $dom.attr(me.i_attrName);
                     me.i_init_FieldConvert($dom);//控件格式转换
                     if (name && !nameDic[name]) {//排除只有属性无值的情况
-                        var findItem = _.findWhere(data.dataItems, {name: $dom.attr(me.i_attrName)});
+                        var findItem = _.findWhen(data.dataItems, {name: $dom.attr(me.i_attrName)});
                         if (!findItem) {
                             data.dataItems.push(new DataItem({name: name, __auto: true}));
                         }
@@ -94,7 +94,7 @@ define(function (require, exports, module) {
                     }
                 });
             },
-            i_convertFieldWhereDatetime: function (next, $ele) {
+            i_convertFieldWhenDatetime: function (next, $ele) {
                 if ($ele.is('input[datecontrol]:not([readonly])')) {
                     var me = this;
                     var option = {dateFmt: 'yyyy/MM/dd'};
@@ -117,7 +117,7 @@ define(function (require, exports, module) {
                 }
                 return next && next($ele);
             },
-            i_convertFieldWhereNumber: function (next, $ele) {
+            i_convertFieldWhenNumber: function (next, $ele) {
                 if ($ele.is('[data-type=number]')) {
                     $ele.on('change', function (e) {
                         var $dom = $(e.target);
@@ -134,7 +134,7 @@ define(function (require, exports, module) {
                 }
                 return next($ele);
             },
-            i_convertFieldWhereInt: function (next, $ele) {
+            i_convertFieldWhenInt: function (next, $ele) {
 
                 if ($ele.is('[data-type=int]')) {
                     $ele.on('change', function (e) {
@@ -187,7 +187,7 @@ define(function (require, exports, module) {
                 me.o_setValues(data.dataItems, me.i_silent, true);
             },
             i_init_FieldConvert: function ($ele) {//控件转换  比如日期 类型 数字类型
-                this.i_getFunctionPipe('i_convertFieldWhere', 'Default')[0]($ele);
+                this.i_getFunctionPipe('i_convertFieldWhen', 'Default')[0]($ele);
             },
             i_toHighOrderFunction: function (func, context, args) {
                 //转换为高阶函数
@@ -344,7 +344,7 @@ define(function (require, exports, module) {
                 }
                 var value = "";
                 if ($ele) {
-                    value = me.i_getFunctionPipe('i_getValueWhere', 'Default')[0]($ele);
+                    value = me.i_getFunctionPipe('i_getValueWhen', 'Default')[0]($ele);
                 }
                 return value;
             },
@@ -375,7 +375,7 @@ define(function (require, exports, module) {
                 }
                 return me['__highFunctions_' + actionPrefix] = highFunctions.reverse();//数组反转入口放在第一个
             },
-            i_getValueWhereRadioOrCheckBox: function (next, $ele) {
+            i_getValueWhenRadioOrCheckBox: function (next, $ele) {
                 var me = this;
                 var value = null;
                 if ($ele.is('input[type=radio]') || $ele.is('input[type=checkbox]')) {
@@ -389,7 +389,7 @@ define(function (require, exports, module) {
                 return next($ele);
             }
             ,
-            i_getValueWhereInputFile: function (next, $ele) {
+            i_getValueWhenInputFile: function (next, $ele) {
                 var me = this;
                 var value = null;
                 if ($ele.is('input[type=file]')) {
@@ -411,7 +411,7 @@ define(function (require, exports, module) {
                 return next($ele);
             }
             ,
-            i_getValueWhereDateControl: function (next, $ele) {
+            i_getValueWhenDateControl: function (next, $ele) {
                 var me = this;
                 var value = null;
                 if ($ele.is('[datecontrol]')) {
@@ -435,7 +435,7 @@ define(function (require, exports, module) {
                 return next($ele);
             }
             ,
-            i_getValueWhereTextField: function (next, $ele) {
+            i_getValueWhenTextField: function (next, $ele) {
                 var me = this;
                 var value = null;
                 if ($ele.is(me.i_textFieldSelector)) {
@@ -445,7 +445,7 @@ define(function (require, exports, module) {
                 return next($ele);
             }
             ,
-            i_getValueWhereDefault: function ($ele) {
+            i_getValueWhenDefault: function ($ele) {
                 return $ele.val();
             },
             o_setValues: function (value, silent, first) {
@@ -510,7 +510,7 @@ define(function (require, exports, module) {
                     if (!data) {
                         console.warn('未找到数据,值=>' + value);
                     }
-                    value = me.i_getFunctionPipe('i_setValueWhere', 'Default')[0]($ele, value);
+                    value = me.i_getFunctionPipe('i_setValueWhen', 'Default')[0]($ele, value);
                     //!silent && $ele.change();
                     data.value = value;
                     if (silent !== true) {
@@ -519,7 +519,7 @@ define(function (require, exports, module) {
                     }
                 }
             },
-            i_setValueWhereInputRadio: function (next, $ele, value) {
+            i_setValueWhenInputRadio: function (next, $ele, value) {
                 var me = this;
                 //考虑复选框情况
                 if ($ele.is('input[type=radio]') || $ele.is('input[type=checkbox]')) {
@@ -540,7 +540,7 @@ define(function (require, exports, module) {
                 }
                 return next($ele, value);
             },
-            i_setValueWhereDateControl: function (next, $ele, value) {
+            i_setValueWhenDateControl: function (next, $ele, value) {
                 var me = this;
                 if ($ele.is('[datecontrol]')) {
                     if (typeof(value) == 'number') {
@@ -569,12 +569,12 @@ define(function (require, exports, module) {
                     if (data.minDate) {
                         $ele.attr('mindate', new Date(data.minDate)._format(format));
                     }
-                    me.i_convertFieldWhereDatetime(null, $ele);
+                    me.i_convertFieldWhenDatetime(null, $ele);
                     return value;
                 }
                 return next($ele, value);
             },
-            i_setValueWhereTextField: function (next, $ele, value) {
+            i_setValueWhenTextField: function (next, $ele, value) {
                 var me = this;
                 if ($ele.is(me.i_textFieldSelector)) {
                     $ele.text(value);
@@ -582,7 +582,7 @@ define(function (require, exports, module) {
                 }
                 return next($ele, value);
             },
-            i_setValueWhereDefault: function ($ele, value) {
+            i_setValueWhenDefault: function ($ele, value) {
                 if ($ele.is('select,input,textarea')) {
                     $ele.val(value);
                 } else {
